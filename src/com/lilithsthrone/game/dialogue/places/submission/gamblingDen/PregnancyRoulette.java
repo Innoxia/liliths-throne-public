@@ -29,7 +29,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -94,7 +93,7 @@ public class PregnancyRoulette {
 		mother.deleteAllEquippedClothing(true);
 		mother.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		mother.setPlayerKnowsName(true);
-		mother.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), mother, false);
+		mother.useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), mother, false);
 		try {
 			Main.game.addNPC(mother, false);
 		} catch (Exception e) {
@@ -470,7 +469,7 @@ public class PregnancyRoulette {
 				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Epona.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
 					}
 				};
 				
@@ -675,7 +674,7 @@ public class PregnancyRoulette {
 					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Epona.class).useItem(Main.game.getItemGen().generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
 						}
 					};
 				} else {
@@ -887,7 +886,7 @@ public class PregnancyRoulette {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "PREGNANCY_ROULETTE_BREEDER_FINISHED")
-					+mother.useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), mother, false);
+					+mother.useItem(Main.game.getItemGen().generateItem(ItemType.PREGNANCY_TEST), mother, false);
 		}
 
 		@Override

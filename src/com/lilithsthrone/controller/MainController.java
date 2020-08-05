@@ -59,6 +59,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
@@ -493,7 +494,7 @@ public class MainController implements Initializable {
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 //							for(AbstractClothingType ct : ClothingType.getAllClothing()) {
 //								if(ct.isPatternAvailable()) {
-//									Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ct));
+//									Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGeneration().generateClothing(ct));
 //								}
 //							}
 //							for(int i=0; i<20; i++) {
@@ -1165,7 +1166,7 @@ public class MainController implements Initializable {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 					Vector2i clickLocation = new Vector2i(j, i);
 					
-					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getPlace().getPlaceType().getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
+					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
 							&& (c.isTravelledTo() || Main.game.isDebugMode()) // The player needs to have travelled here before (or have debug active)
 							&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled()) // You can't fast travel out of a special dialogue
 							&& Pathing.getMapTravelType().isAvailable(c, Main.game.getPlayer()) // Make sure the travel type is actually available
@@ -1178,7 +1179,7 @@ public class MainController implements Initializable {
 											Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
 										}
 										Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, clickLocation, false);
-										DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+										DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
 										Main.game.getTextStartStringBuilder().append(
 												"<p style='text-align:center'>"
 													+ "[style.italicsArcane(Recalling what your destination looked like the last time you were there, you cast the teleportation spell, and in an instant, you appear there!)]"
@@ -1202,7 +1203,7 @@ public class MainController implements Initializable {
 												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 											} else {
 												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
-												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
 												Main.game.getTextStartStringBuilder().append(
 														"<p style='text-align:center'>"
 															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
@@ -1752,7 +1753,6 @@ public class MainController implements Initializable {
 				if (((EventTarget) documentAttributes.getElementById(idModifier+a.getName())) != null) {
 					if(a == Attribute.EXPERIENCE) {
 						((EventTarget) documentAttributes.getElementById(idModifier+a.getName())).addEventListener("click", e -> {
-							
 							if(character.isPlayer()) {
 								// block when in character creation
 								if(Main.game.isInNewWorld()) {
@@ -1787,10 +1787,8 @@ public class MainController implements Initializable {
 				}
 			}
 			
-			
 			if(((EventTarget) documentAttributes.getElementById(idModifier+"ATTRIBUTES"))!=null){
 				((EventTarget) documentAttributes.getElementById(idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-					
 					if(character.isPlayer()) {
 						// block when in character creation
 						if(Main.game.isInNewWorld()) {
@@ -1841,6 +1839,34 @@ public class MainController implements Initializable {
 				addEventListener(documentAttributes, idModifier+"ATTRIBUTES", "mouseenter", el, false);
 			}
 			
+			// Elemental:
+			id = idModifier+"ELEMENTAL_"+Attribute.EXPERIENCE.getName();
+			if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+					if(Main.game.isInNeutralDialogue()) {
+						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
+					}
+				}, false);
+				addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+				addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(Attribute.EXPERIENCE, character.getElemental());
+				addEventListener(documentAttributes, id, "mouseenter", el, false);
+			}
+			
+			id = idModifier+"ELEMENTAL_ATTRIBUTES";
+			if(((EventTarget) documentAttributes.getElementById(id))!=null){
+				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+					if(Main.game.isInNeutralDialogue()) {
+						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
+					}
+				}, false);
+				addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+				addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(character.getElemental());
+				addEventListener(documentAttributes, id, "mouseenter", el, false);
+			}
+			
+			
 			// For status effect slots:
 			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				id = "SE_"+idModifier + se;
@@ -1885,7 +1911,18 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			
+			if(character.isElementalSummoned() && !character.isElementalActive()) {
+				for (AbstractStatusEffect se : character.getElemental().getStatusEffects()) {
+					id = "SE_ELEMENTAL_"+idModifier + se;
+					if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+						addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+						
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character.getElemental());
+						addEventListener(documentAttributes, id, "mouseenter", el, false);
+					}
+				}
+			}
 			
 			for (AbstractPerk trait : character.getTraits()) {
 				id = "TRAIT_" + idModifier + Perk.getIdFromPerk(trait);
@@ -2167,6 +2204,23 @@ public class MainController implements Initializable {
 				addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mouseenter", el, false);
 			}
 			
+			// Elemental:
+			id = "NPC_"+idModifier+"ELEMENTAL_"+Attribute.EXPERIENCE.getName();
+			if (((EventTarget) documentRight.getElementById(id)) != null) {
+				addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+				addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(Attribute.EXPERIENCE, character.getElemental());
+				addEventListener(documentRight, id, "mouseenter", el, false);
+			}
+			
+			id = "NPC_"+idModifier+"ELEMENTAL_ATTRIBUTES";
+			if(((EventTarget) documentRight.getElementById(id))!=null){
+				addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+				addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(character.getElemental());
+				addEventListener(documentRight, id, "mouseenter", el, false);
+			}
+			
 			if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 				// For status effect slots:
 				for (AbstractStatusEffect se : character.getStatusEffects()) {
@@ -2208,6 +2262,18 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
+				if(character.isElementalSummoned() && !character.isElementalActive()) {
+					for (AbstractStatusEffect se : character.getElemental().getStatusEffects()) {
+						id = "SE_ELEMENTAL_NPC_"+idModifier + se;
+						if (((EventTarget) documentRight.getElementById(id)) != null) {
+							addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+							addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+							
+							TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character.getElemental());
+							addEventListener(documentRight, id, "mouseenter", el, false);
+						}
+					}
+				}
 				
 				// For perk slots:
 				for (AbstractPerk p : character.getMajorPerks()) {
@@ -2240,12 +2306,12 @@ public class MainController implements Initializable {
 					}
 				}
 				for (Spell s : character.getAllSpells()) {
-					if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
-						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
-						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
+					if (((EventTarget) documentRight.getElementById("SPELL_"+idModifier + s)) != null) {
+						addEventListener(documentRight, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
 	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character);
-						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
+						addEventListener(documentRight, "SPELL_"+idModifier + s, "mouseenter", el, false);
 					}
 				}
 			}
@@ -2585,9 +2651,9 @@ public class MainController implements Initializable {
 				&& location.getX() + xOffset < Main.game.getActiveWorld().WORLD_WIDTH
 				&& location.getX() + xOffset >= 0) {
 			
-			AbstractPlaceType placeTypeTarget = Main.game.getActiveWorld().getCell(location.getX() + xOffset, location.getY() + yOffset).getPlace().getPlaceType();
+			Cell placeTypeTarget = Main.game.getActiveWorld().getCell(location.getX() + xOffset, location.getY() + yOffset);
 			
-			if(!placeTypeTarget.equals(PlaceType.GENERIC_IMPASSABLE)) {
+			if(!placeTypeTarget.getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
 				if(Main.game.isInGlobalMap() && placeTypeTarget.getDialogue(false)==null) {
 					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 					
@@ -2597,7 +2663,7 @@ public class MainController implements Initializable {
 					}
 					Main.game.getPlayer().setLocation(new Vector2i(location.getX() + xOffset, location.getY() + yOffset));
 					
-					DialogueNode dn = Main.game.getPlayer().getLocationPlace().getDialogue(true);
+					DialogueNode dn = Main.game.getPlayerCell().getDialogue(true);
 					
 					Main.game.setContent(new Response("", "", dn) {
 						@Override

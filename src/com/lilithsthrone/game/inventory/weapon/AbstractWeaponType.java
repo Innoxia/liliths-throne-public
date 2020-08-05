@@ -29,7 +29,6 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
-import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
@@ -41,7 +40,6 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -109,7 +107,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private List<ColourReplacement> colourReplacements;
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
-	private Map<Integer, Integer> copyGenerationColours;
+	public Map<Integer, Integer> copyGenerationColours;
 
 	private List<ItemTag> itemTags;
 
@@ -451,87 +449,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return result;
 	}
 
-	public static AbstractWeapon generateWeapon(String id) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id));
-	}
-
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt) {
-		return AbstractWeaponType.generateWeapon(wt, wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size())));
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
-		return generateWeapon(wt, dt, null);
-	}
-	
-	public static AbstractWeapon generateWeapon(String id, DamageType dt) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, null);
-	}
-	
-	public static AbstractWeapon generateWeapon(String id, DamageType dt, List<Colour> colours) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, colours);
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, List<Colour> colours) {
-		if(colours==null) {
-			colours = new ArrayList<>();
-			
-		} else {
-			colours = new ArrayList<>(colours);
-		}
-		
-		int index = 0;
-		ColourReplacement cr = wt.getColourReplacement(false, index);
-		while(cr!=null) {
-			if(colours.size()<=index || !cr.getAllColours().contains(colours.get(0))) {
-				colours.add(cr.getRandomOfDefaultColours());
-			}
-			index++;
-			cr = wt.getColourReplacement(false, index);
-		}
-		
-		for(Entry<Integer, Integer> entry : wt.copyGenerationColours.entrySet()) {
-			Colour replacement = colours.get(entry.getValue());
-			colours.remove((int)entry.getKey());
-			colours.add(entry.getKey(), replacement);
-		}
-		
-		return new AbstractWeapon(wt, dt, colours) {
-			@Override
-			public String onEquip(GameCharacter character) {
-				if (character.isPlayer()) {
-					if (Main.getProperties().addWeaponDiscovered(wt)) {
-						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(wt.getName(), wt.getRarity().getColour()), true);
-					}
-				}
-				return wt.equipText(character);
-			}
-
-			@Override
-			public String onUnequip(GameCharacter character) {
-				return wt.unequipText(character);
-			}
-		};
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeapon weapon) {
-		return new AbstractWeapon(weapon) {
-			@Override
-			public String onEquip(GameCharacter character) {
-				if (character.isPlayer()) {
-					if (Main.getProperties().addWeaponDiscovered(weapon.getWeaponType())) {
-						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(weapon.getWeaponType().getName(), weapon.getWeaponType().getRarity().getColour()), true);
-					}
-				}
-				return weapon.getWeaponType().equipText(character);
-			}
-
-			@Override
-			public String onUnequip(GameCharacter character) {
-				return weapon.getWeaponType().unequipText(character);
-			}
-		};
-	}
-	
 	private void setUpColours(
 			boolean primaryRecolouringAllowed,
 			List<Colour> availablePrimaryColours,

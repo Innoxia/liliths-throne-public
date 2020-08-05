@@ -1247,7 +1247,12 @@
 		[npc.speech(Stop! Get away from-)] [npc.she] starts to complain, but you cut the struggling Enforcer's complaint short by pressing your [pc.lips+] against [npc.her] mouth and forcing [npc.herHim] into a deep, passionate kiss. 
 	</p>
 	<p>
-		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back, and with a big grin on your face, you tell [npc2.name] to sit still and watch as you rape [npc2.her] partner...
+		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc2.name] to sit still and watch as you rape [npc2.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to rape [npc.herHim]...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1260,7 +1265,12 @@
 		[npc.speech(Yes! Do what you want with-)] [npc.she] starts to [npc.moan], but you cut the horny Enforcer's sentence short by pressing your [pc.lips+] against [npc.her] mouth and pulling [npc.herHim] into a deep, passionate kiss. 
 	</p>
 	<p>
-		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back, and with a big grin on your face, you tell [npc2.name] to sit still and watch as you fuck [npc2.her] partner...
+		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc2.name] to sit still and watch as you fuck [npc2.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to fuck [npc.herHim]...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1273,7 +1283,12 @@
 		[npc2.speech(Stop! Get away from-)] [npc2.she] starts to complain, but you cut the struggling Enforcer's complaint short by pressing your [pc.lips+] against [npc2.her] mouth and forcing [npc2.herHim] into a deep, passionate kiss. 
 	</p>
 	<p>
-		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back, and with a big grin on your face, you tell [npc.name] to sit still and watch as you rape [npc.her] partner...
+		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc.name] to sit still and watch as you rape [npc.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to rape [npc2.herHim]...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1286,7 +1301,12 @@
 		[npc2.speech(Yes! Do what you want with-)] [npc2.she] starts to [npc2.moan], but you cut the horny Enforcer's sentence short by pressing your [pc.lips+] against [npc2.her] mouth and pulling [npc2.herHim] into a deep, passionate kiss. 
 	</p>
 	<p>
-		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back, and with a big grin on your face, you tell [npc.name] to sit still and watch as you fuck [npc.her] partner...
+		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc.name] to sit still and watch as you fuck [npc.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to fuck [npc2.herHim]...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

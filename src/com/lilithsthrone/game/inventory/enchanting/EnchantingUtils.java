@@ -40,7 +40,7 @@ public class EnchantingUtils {
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		AbstractItem craftedItem = null;
 		
-		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
+		craftedItem = Main.game.getItemGen().generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
@@ -59,7 +59,7 @@ public class EnchantingUtils {
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		
-		craftedClothing = AbstractClothingType.generateClothing(
+		craftedClothing = Main.game.getItemGen().generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
 				((AbstractClothing)ingredient).getColours(),
 				effectsToBeAdded);
@@ -103,7 +103,7 @@ public class EnchantingUtils {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
 		
-		craftedWeapon = AbstractWeaponType.generateWeapon(
+		craftedWeapon = Main.game.getItemGen().generateWeapon(
 				(AbstractWeaponType) ingredient.getEnchantmentItemType(effects),
 				((AbstractWeapon) ingredient).getDamageType(),
 				((AbstractWeapon)ingredient).getColours());

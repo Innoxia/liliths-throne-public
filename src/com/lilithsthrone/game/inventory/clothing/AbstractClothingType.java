@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -48,8 +49,6 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -93,11 +92,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Penetration variables:
 	private int penetrationSelfLength;
 	private int penetrationSelfGirth;
-	private List<PenetrationModifier> penetrationSelfModifiers;
+	private Set<PenetrationModifier> penetrationSelfModifiers;
 	
 	private int penetrationOtherLength;
 	private int penetrationOtherGirth;
-	private List<PenetrationModifier> penetrationOtherModifiers;
+	private Set<PenetrationModifier> penetrationOtherModifiers;
 	
 	// Orifice variables:
 	private int orificeSelfDepth;
@@ -105,14 +104,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private int orificeSelfElasticity;
 	private int orificeSelfPlasticity;
 	private int orificeSelfWetness;
-	private List<OrificeModifier> orificeSelfModifiers;
+	private Set<OrificeModifier> orificeSelfModifiers;
 	
 	private int orificeOtherDepth;
 	private float orificeOtherCapacity;
 	private int orificeOtherElasticity;
 	private int orificeOtherPlasticity;
 	private int orificeOtherWetness;
-	private List<OrificeModifier> orificeOtherModifiers;
+	private Set<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
 	@SuppressWarnings("unused")
@@ -135,7 +134,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Rarity rarity;
 	private List<ColourReplacement> colourReplacements;
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
-	private Map<Integer, Integer> copyGenerationColours;
+	public Map<Integer, Integer> copyGenerationColours;
 
 	// Patterns:
 	private float patternChance;
@@ -846,7 +845,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 				// Self orifice values:
@@ -878,7 +877,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 			} catch (XMLMissingTagException ex) {
@@ -908,7 +907,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 				// Other orifice values:
@@ -940,7 +939,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 			} catch (XMLMissingTagException ex) {
@@ -1146,158 +1145,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 
-	public static AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
-		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
-	}
-	
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
-		List<Colour> colours = Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour);
-		
-		int index = 0;
-		ColourReplacement cr = clothingType.getColourReplacement(index);
-		while(cr!=null) {
-			if(colours.size()<=index || !cr.getAllColours().contains(colours.get(0))) {
-				colours.add(cr.getRandomOfDefaultColours());
-			}
-			index++;
-			cr = clothingType.getColourReplacement(index);
-		}
-		
-		for(Entry<Integer, Integer> entry : clothingType.copyGenerationColours.entrySet()) {
-			Colour replacement = colours.get(entry.getValue());
-			colours.remove((int)entry.getKey());
-			colours.add(entry.getKey(), replacement);
-		}
-		
-		return new AbstractClothing(clothingType, colours, allowRandomEnchantment) {};
-	}
-
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
-		return AbstractClothingType.generateClothing(clothingType, colourShade, null, null, allowRandomEnchantment);
-	}
-
-	public static AbstractClothing generateClothing(String clothingTypeId, Colour colourShade, boolean allowRandomEnchantment) {
-		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
-	}
-
-	/** Allows random enchantment. Uses random colour.*/
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType) {
-		return AbstractClothingType.generateClothing(clothingType, null, true);
-	}
-
-	/** Uses random colour.*/
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, boolean allowRandomEnchantment) {
-		return AbstractClothingType.generateClothing(clothingType, null, allowRandomEnchantment);
-	}
-
-	/** Uses random colour.*/
-	public static AbstractClothing generateClothing(String clothingTypeId, boolean allowRandomEnchantment) {
-		AbstractClothingType type = ClothingType.getClothingTypeFromId(clothingTypeId);
-		return AbstractClothingType.generateClothing(type, null, allowRandomEnchantment);
-	}
-
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, List<Colour> colours, List<ItemEffect> effects) {
-		if(colours==null) {
-			colours = new ArrayList<>();
-			
-		} else {
-			colours = new ArrayList<>(colours);
-		}
-		
-		int index = 0;
-		ColourReplacement cr = clothingType.getColourReplacement(index);
-		while(cr!=null) {
-			if(colours.size()<=index || !cr.getAllColours().contains(colours.get(0))) {
-				colours.add(cr.getRandomOfDefaultColours());
-			}
-			index++;
-			cr = clothingType.getColourReplacement(index);
-		}
-		
-		for(Entry<Integer, Integer> entry : clothingType.copyGenerationColours.entrySet()) {
-			Colour replacement = colours.get(entry.getValue());
-			colours.remove((int)entry.getKey());
-			colours.add(entry.getKey(), replacement);
-		}
-		
-		return new AbstractClothing(clothingType, colours, effects) {};
-	}
-	
-	/**
-	 * Generates clothing with the provided enchantments.
-	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, List<ItemEffect> effects) {
-		return generateClothing(clothingType, Util.newArrayListOfValues(primaryColour, secondaryColour, tertiaryColour), effects);
-	}
-	
-	/**
-	 * Generates clothing with the provided enchantments.
-	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, List<ItemEffect> effects) {
-		return generateClothing(clothingType, colour, null, null, effects);
-	}
-	
-	public static AbstractClothing generateClothing(String clothingTypeId, Colour colour, List<ItemEffect> effects) {
-		return generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colour, null, null, effects);
-	}
-	
-	/**
-	 * Uses random colour.
-	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, List<ItemEffect> effects) {
-		List<Colour> colours = new ArrayList<>();
-		for(ColourReplacement cr : clothingType.getColourReplacements()) {
-			colours.add(cr.getRandomOfDefaultColours());
-		}
-		return AbstractClothingType.generateClothing(clothingType, colours, effects);
-	}
-	
-	/**
-	 * Generates clothing with a random enchantment.
-	 */
-	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType, Colour colour) {
-		List<ItemEffect> effects = new ArrayList<>();
-
-		TFModifier rndMod = TFModifier.getClothingAttributeList().get(Util.random.nextInt(TFModifier.getClothingAttributeList().size()));
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedPositivePotency(), 0));
-		
-		return generateClothing(clothingType, colour, effects);
-	}
-	
-	/**
-	 * Uses random colour.
-	 */
-	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType) {
-		return AbstractClothingType.generateClothingWithEnchantment(clothingType, null);
-	}
-
-	public static AbstractClothing generateClothingWithNegativeEnchantment(AbstractClothingType clothingType, Colour colour) {
-		List<ItemEffect> effects = new ArrayList<>();
-
-		TFModifier rndMod = TFModifier.getClothingAttributeList().get(Util.random.nextInt(TFModifier.getClothingAttributeList().size()));
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedNegativePotency(), 0));
-		
-		return generateClothing(clothingType, colour, effects);
-	}
-	
-	public static AbstractClothing generateClothingWithNegativeEnchantment(AbstractClothingType clothingType) {
-		return AbstractClothingType.generateClothingWithNegativeEnchantment(clothingType, null);
-	}
-	
-	public static AbstractClothing generateRareClothing(AbstractClothingType type) {
-		List<ItemEffect> effects = new ArrayList<>();
-		
-		List<TFModifier> attributeMods = new ArrayList<>(TFModifier.getClothingAttributeList());
-		
-		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
-		attributeMods.remove(rndMod);
-		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
-		
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));
-		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.MAJOR_BOOST, 0));
-		
-		return AbstractClothingType.generateClothing(type, effects);
-	}
 	
 	public String getId() {
 		return ClothingType.getIdFromClothingType(this);
@@ -1378,7 +1225,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		if(clothingOwner==null || clothingEquipper==null) {
+		if(clothingOwner==null || clothingEquipper==null || !Main.game.isStarted()) {
 			return "";
 		}
 		
@@ -2668,9 +2515,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationSelfGirth;
 	}
 
-	public List<PenetrationModifier> getPenetrationSelfModifiers() {
+	public Set<PenetrationModifier> getPenetrationSelfModifiers() {
 		if(penetrationSelfModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return penetrationSelfModifiers;
 	}
@@ -2683,9 +2530,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationOtherGirth;
 	}
 
-	public List<PenetrationModifier> getPenetrationOtherModifiers() {
+	public Set<PenetrationModifier> getPenetrationOtherModifiers() {
 		if(penetrationOtherModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return penetrationOtherModifiers;
 	}
@@ -2710,9 +2557,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeSelfWetness;
 	}
 
-	public List<OrificeModifier> getOrificeSelfModifiers() {
+	public Set<OrificeModifier> getOrificeSelfModifiers() {
 		if(orificeSelfModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return orificeSelfModifiers;
 	}
@@ -2737,9 +2584,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeOtherWetness;
 	}
 
-	public List<OrificeModifier> getOrificeOtherModifiers() {
+	public Set<OrificeModifier> getOrificeOtherModifiers() {
 		if(orificeOtherModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return orificeOtherModifiers;
 	}

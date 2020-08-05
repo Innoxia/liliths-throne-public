@@ -73,7 +73,12 @@ public enum Race {
 			Attribute.DAMAGE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false) {
+		@Override
+		public boolean isBestialPartsAvailable() {
+			return false;
+		}
+	},
 
 	// DEMON:
 	DEMON("demon",

@@ -4,15 +4,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -21,16 +31,18 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.5.5
- * @version 0.3.8.9
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum CaptiveTransformation {
@@ -43,9 +55,10 @@ public enum CaptiveTransformation {
 			map.put("First o' all, yer gonna start lovin' the idea o' bein' transformed; yer gonna be beggin' me fer the rest o' yer transformations!",
 					target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING, true));
 			
-			map.put("Next, yer gonna be gettin' real turned on by the fact that yer a submissive milker 'ose private parts are on display fer anyone 'o enters this room!",
+			map.put("Next, yer gonna be gettin' real turned on by the fact that yer a worthless submissive milker 'ose private parts are on display fer anyone 'o enters this room",
 					target.removeFetish(Fetish.FETISH_DOMINANT, true)
 					+ target.addFetish(Fetish.FETISH_SUBMISSIVE, true)
+					+ target.addFetish(Fetish.FETISH_MASOCHIST, true)
 					+ target.addFetish(Fetish.FETISH_EXHIBITIONIST, true));
 			
 			map.put(target.hasPenisIgnoreDildo()
@@ -54,8 +67,9 @@ public enum CaptiveTransformation {
 					target.addFetish(Fetish.FETISH_PENIS_GIVING, true)
 					+ target.addFetish(Fetish.FETISH_CUM_STUD, true));
 
-			map.put("'Course, the most important part 'bout bein' me milker is fallin' in love with me fat cock! You's gonna be beggin' ta be stuffed full o' me stinkin' cum after this!",
-					target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true)
+			map.put("'Course, the most important part 'bout bein' me milker is fallin' in love with me massive, fat cock! You's gonna be beggin' ta be stuffed full o' me stinkin' cum after this!",
+					target.addFetish(Fetish.FETISH_SIZE_QUEEN, true)
+					+ target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true)
 					+ target.addFetish(Fetish.FETISH_CUM_ADDICT, true));
 			
 			if(Main.game.isAnalContentEnabled()) {
@@ -81,8 +95,14 @@ public enum CaptiveTransformation {
 			boolean sissy = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy);
 			
 			if(target.hasBreasts()) {
-				map.put("Yer ain't gonna be needin' them tits o' yours anymore!",
-						target.setBreastSize(0));
+				map.put("Ya ain't gonna be needin' them big ol' tits o' yours anymore!",
+						(sissy
+							?target.setBreastSize(CupSize.TRAINING_A.getMeasurement())
+							:target.setBreastSize(0))
+						+ (sissy
+							?""
+							:target.setNippleSize(NippleSize.ONE_SMALL.getValue())
+								+ target.setAreolaeSize(AreolaeSize.ONE_SMALL.getValue())));
 			}
 			
 			if(target.hasBreastsCrotch()) {
@@ -101,13 +121,24 @@ public enum CaptiveTransformation {
 						target.incrementNippleSize(3)
 						+ target.incrementAreolaeSize(1));
 
-				map.put("Lets give yer a nice fat ass an' a pair o' big swayin' hips!",
-						target.incrementAssSize(2)
-						+target.incrementHipSize(2));
+				map.put("Lets give yer a nice round ass an' a pair o' girly hips!",
+						target.setHipSize(HipSize.THREE_GIRLY)
+						+ target.setAssSize(AssSize.FOUR_LARGE));
+				
+				if(target.getLipSizeValue()<LipSize.TWO_FULL.getValue()) {
+					map.put("Now fer yer lips ta plump up a bit!",
+							target.setLipSize(LipSize.TWO_FULL));
+				}
 				
 			} else {
 				map.put("It's only fittin' fer a cum milker like you ta be nice an' manly!",
-						target.setFemininity(5));
+						target.setFemininity(5)
+						+ target.setHipSize(HipSize.TWO_NARROW)
+						+ target.setAssSize(AssSize.TWO_SMALL)
+						+ (!target.isFaceBaldnessNatural()
+							?target.setHairLength(HairLength.TWO_SHORT)
+							:"")
+						+ target.setLipSize(LipSize.ONE_AVERAGE));
 			}
 
 			Main.game.getDialogueFlags().setMurkTfStage(target, 2);
@@ -184,15 +215,20 @@ public enum CaptiveTransformation {
 			
 			if(Main.game.isAnalContentEnabled()) {
 				if(!target.hasAssOrificeModifier(OrificeModifier.PUFFY)) {
-					map.put("Let's give yer an' invintin', puffy asshole, so anyone who's payin' the milkers a visit can't resist fuckin' it!",
+					map.put("Let's give yer an' invitin', puffy asshole, so anyone who's payin' the milkers a visit can't resist fuckin' it!",
 							target.addAssOrificeModifier(OrificeModifier.PUFFY));
 				}
 				if(target.getAssWetness().getValue()<Wetness.FIVE_SLOPPY.getValue()) {
-					map.put("We're gonna want yer asshole all nice an' wet, so them big fat cocks slip right on in!",
+					map.put("We're gonna want yer asshole all nice an' wet, so me big fat cock can slip right on in!",
 							target.setAssWetness(Wetness.FIVE_SLOPPY));
 				}
-				map.put("It ain't gonna be fun fer me if I can't hilt me fat cock deep in yer ass!",
-						target.incrementAssDepth(3));
+				
+				OrificeDepth depth = Main.game.getPlayer().getBody().getAss().getAnus().getOrificeAnus().getMinimumDepthForSizeUncomfortable(Main.game.getPlayer(), Main.game.getNpc(Murk.class).getPenisRawSizeValue());
+				int increment = depth.getValue() - Main.game.getPlayer().getAssDepth().getValue();
+				if(increment>0) {
+					map.put("It ain't gonna be fun fer me if I can't hilt me fat cock deep in yer ass!",
+							target.incrementAssDepth(increment));
+				}
 				
 				if(Main.game.isGapeContentEnabled()) {
 					map.put("I's love havin' me milkers start off with<i>real</i> tight 'oles, an' then takin' me time ta' mould 'em to the shape o' me big fat cock! I's gonna enjoy turnin' ya tight little ass inta a ruined fuck-hole!",
@@ -255,9 +291,10 @@ public enum CaptiveTransformation {
 			map.put("First o' all, yer gonna start lovin' the idea o' bein' transformed; yer gonna be beggin' me fer the rest o' yer transformations!",
 					target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING, true));
 			
-			map.put("Next, yer gonna be gettin' real turned on by the fact that yer a submissive milker 'ose private parts are on display fer anyone 'o enters this room!",
+			map.put("Next, yer gonna be gettin' real turned on by the fact that yer a worthless submissive milker 'ose private parts are on display fer anyone 'o enters this room!",
 					target.removeFetish(Fetish.FETISH_DOMINANT, true)
 					+ target.addFetish(Fetish.FETISH_SUBMISSIVE, true)
+					+ target.addFetish(Fetish.FETISH_MASOCHIST, true)
 					+ target.addFetish(Fetish.FETISH_EXHIBITIONIST, true));
 			
 			if(Main.game.isLactationContentEnabled()) {
@@ -266,8 +303,9 @@ public enum CaptiveTransformation {
 						+ target.addFetish(Fetish.FETISH_LACTATION_SELF, true));
 			}
 			
-			map.put("'Course, the most important part 'bout bein' me milker is fallin' in love with me fat cock! You's gonna be beggin' ta be stuffed full o' me stinkin' cum after this!",
-					target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true)
+			map.put("'Course, the most important part 'bout bein' me milker is fallin' in love with me massive, fat cock! You's gonna be beggin' ta be stuffed full o' me stinkin' cum after this!",
+					target.addFetish(Fetish.FETISH_SIZE_QUEEN, true)
+					+ target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true)
 					+ target.addFetish(Fetish.FETISH_CUM_ADDICT, true));
 			
 			map.put(target.hasVagina()
@@ -320,10 +358,15 @@ public enum CaptiveTransformation {
 					target.incrementAssSize(2)
 					+ target.incrementHipSize(2));
 			
+			if(target.getLipSizeValue()<LipSize.THREE_PLUMP.getValue()) {
+				map.put("Now yer gonna get sum plump, cock-suckin' lips!",
+						target.setLipSize(LipSize.THREE_PLUMP));
+			}
+			
 			if((target.isTaur() && Main.getProperties().udders>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().udders==2)
-					&& Main.game.isLactationContentEnabled()
+//					&& Main.game.isLactationContentEnabled()
 					&& RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()!=BreastType.NONE) {
-				map.put("Let's give yer some fuckin' udders with nice big teats; gotta get that milk production up as 'igh as we can!",
+				map.put("Let's give yer some fuckin' udders with nice big teats! We's gotta get yer milk production up as 'igh as we can!",
 						target.setBreastCrotchType(RacialBody.valueOfRace(target.getRace()).getBreastCrotchType())
 						+ target.incrementNippleCrotchSize(2));
 			}
@@ -375,35 +418,52 @@ public enum CaptiveTransformation {
 			}
 			
 			if(!target.hasVagina()) {
-				map.put("Givin' ya a cunt an' then fuckin' yer pregnant is sure ta help with yer milk production!",
+				map.put("You's gonna 'ave a real nice pretty cunt!",
 						target.setVaginaType(RacialBody.valueOfRace(target.getRace()).getVaginaType()));
 			}
-			map.put("You's need ta 'ave a permanently-droolin' fuck-hole so's that me fat cock can slip right on in! Oh, an' it needs ta be real deep, so's I can hilt me massive cock in it!",
-					target.setVaginaWetness(Wetness.SEVEN_DROOLING)
-					+ target.incrementVaginaDepth(3));
 			
-			if(Main.game.isGapeContentEnabled()) {
-				map.put("I's love havin' me milkers start off with<i>real</i> tight 'oles, an' then takin' me time ta' mould 'em to the shape o' me big fat cock! I's gonna enjoy turnin' ya tight little cunt inta a ruined fuck-hole!",
-						target.setVaginaCapacity(1, true)
-						+ target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue())
-						+ target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-			}
+			map.put("Let's make sure that you's got a real cute an' pretty pussy! Yer sweet little cunt's gonna be the envy o' every girl by the time these changes is over!",
+					target.removeVaginaOrificeModifier(OrificeModifier.PUFFY)
+					+ target.setVaginaLabiaSize(LabiaSize.ZERO_TINY)
+					+ target.setVaginaWetness(Wetness.THREE_WET)
+					+ (Main.game.isPubicHairEnabled()
+						?target.setPubicHair(BodyHair.ZERO_NONE)
+						:"")
+					+target.setVaginaClitorisSize(0)
+					+(target.hasGirlcumModifier(FluidModifier.MUSKY)
+						?target.removeGirlcumModifier(FluidModifier.MUSKY)
+						:""));
 			
-			map.put("I's likin' me milkers ta 'ave big fat dirty cunts; we's wouldn't want yer thinkin' that you's got a pretty little pussy now, would we?",
-					target.addVaginaOrificeModifier(OrificeModifier.PUFFY)
-					+ target.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE));
+			map.put(Main.game.isGapeContentEnabled()
+						?"I's love havin' me milkers start off with <i>real</i> tight 'oles, an' then takin' me time ta' mould 'em to the shape o' me big fat cock! I's gonna enjoy turnin' ya tight little cunt inta a ruined fuck-hole!"
+						:"I's love havin' me milkers start off with <i>real</i> tight 'oles, so's yer feel real good fer me big fat cock! I's gonna enjoy fuckin' ya tight little cunt!",
+					target.setVaginaCapacity(1, true)
+					+ target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue())
+					+ target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
 			
 			if(Main.game.isAnalContentEnabled()) {
-				if(!target.hasAssOrificeModifier(OrificeModifier.PUFFY)) {
-					map.put("Let's give yer an' invintin', puffy asshole, so anyone who's payin' the milkers a visit can't resist fuckin' it!",
-							target.addAssOrificeModifier(OrificeModifier.PUFFY));
+				Covering covering = target.getCovering(BodyCoveringType.ANUS);
+				String anusDarkening = "";
+				if(covering.getPrimaryColour()!=PresetColour.SKIN_DARK && !covering.getPrimaryColour().getLighterLinkedColours().contains(PresetColour.SKIN_DARK)) {
+					anusDarkening = target.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
+				}
+				if(!target.hasAssOrificeModifier(OrificeModifier.PUFFY) || !anusDarkening.isEmpty()) {
+					map.put("Let's give yer a "+(!anusDarkening.isEmpty()?"dark,":"nice,")+" puffy asshole, so anyone who's payin' the milkers a visit can't resist fuckin' it!",
+							target.addAssOrificeModifier(OrificeModifier.PUFFY)
+							+ anusDarkening);
 				}
 				if(target.getAssWetness().getValue()<Wetness.FIVE_SLOPPY.getValue()) {
-					map.put("We're gonna want yer asshole all nice an' wet, so them big fat cocks slip right on in!",
+					map.put("We're gonna want yer asshole all nice an' wet, so me big fat cock can slip right on in!",
 							target.setAssWetness(Wetness.FIVE_SLOPPY));
 				}
-				map.put("It ain't gonna be fun fer me if I can't hilt me fat cock deep in yer ass!",
-						target.incrementAssDepth(3));
+
+				OrificeDepth depth = Main.game.getPlayer().getBody().getAss().getAnus().getOrificeAnus().getMinimumDepthForSizeUncomfortable(Main.game.getPlayer(), Main.game.getNpc(Murk.class).getPenisRawSizeValue());
+				int increment = depth.getValue() - Main.game.getPlayer().getAssDepth().getValue();
+				
+				if(increment>0) {
+					map.put("It ain't gonna be fun fer me if I can't hilt me fat cock deep in yer ass!",
+							target.incrementAssDepth(increment));
+				}
 				
 				if(Main.game.isGapeContentEnabled()) {
 					map.put("Yer asshole's gonna be just like yer cunt; nice an' tight so's I can take me time stretchin' it out inta a gapin', ruined 'ole!",
@@ -428,24 +488,32 @@ public enum CaptiveTransformation {
 			boolean futa = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuta);
 
 			map.put(Main.game.isLactationContentEnabled()
-						?"Now yer tits are gonna grow even bigger, so the milkin' cups can easily suck right onto 'em!"
-						:"Now yer tits are gonna grow even bigger!",
+						?"First, yer tits are gonna grow inta big, fat 'uns, so the milkin' cups can easily suck right onto 'em!"
+						:"First, yer tits are gonna grow inta big, fat 'uns!",
 					target.incrementBreastSize(6));
 			
-			map.put(Main.game.isLactationContentEnabled()
-						?"You's nipples are gonna swell up 'til they's big, fat, an' puffy; I loves watchin' milk srayin' out o' dirty fat teats!"
-						:"You's nipples are gonna swell up 'til they's big, fat, an' puffy!",
+			Covering covering = target.getCovering(BodyCoveringType.NIPPLES);
+			String nippleDarkening = "";
+			if(covering.getPrimaryColour()!=PresetColour.SKIN_DARK && !covering.getPrimaryColour().getLighterLinkedColours().contains(PresetColour.SKIN_DARK)) {
+				nippleDarkening = target.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_DARK), false);
+			}
+			
+			map.put((Main.game.isLactationContentEnabled()
+						?"You's nipples are gonna swell up 'til they's all fat an' puffy; I loves watchin' milk sprayin' out o' big 'uns!"
+						:"You's nipples are gonna swell up 'til they's all fat an' puffy!")
+					+(!nippleDarkening.isEmpty()
+						?" We's wouldn't want ya thinkin' that you's got pretty tits, so yer fat teats need ta be nice an' dark!"
+						:""),
 					target.incrementNippleSize(3)
 					+ target.incrementAreolaeSize(1)
-					+ target.addNippleOrificeModifier(OrificeModifier.PUFFY));
+					+ target.addNippleOrificeModifier(OrificeModifier.PUFFY)
+					+ nippleDarkening);
 			
-			if(Main.game.isLactationContentEnabled()) {
-				map.put("Now fer the main event; gettin' yer tits ta store loads o' milk!",
-						target.incrementBreastMilkStorage(2500));
+//			if(Main.game.isLactationContentEnabled()) {
+				map.put("Now fer the main event; gettin' yer tits ta store an' keep on' makin' loads o' milk!",
+						target.incrementBreastMilkStorage(2500)
+						+target.incrementBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
 				
-				map.put("If yer fat titties ain't regeneratin' milk fast enough, then all that storage they've got'd be pointless!",
-						target.incrementBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
-			
 				if(target.hasBreastsCrotch()) {
 						map.put("We'll make yer udders nice an' big! Ooh, I can't wait ta see how much milk they're gonna be producin'!",
 								target.incrementBreastCrotchSize(10));
@@ -465,7 +533,7 @@ public enum CaptiveTransformation {
 							target.incrementBreastCrotchLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
 					
 				}
-			}
+//			}
 			
 			map.put("You's gonna be havin' a vibratin' dildo shoved up yer cunt so I's can milk yer girlcum! You's better be squirtin' out loads o' juices whenever ya orgasm!",
 					target.setVaginaSquirter(true));
@@ -506,6 +574,47 @@ public enum CaptiveTransformation {
 					+ (target.hasBreastsCrotch()
 						?target.removeMilkCrotchModifier(FluidModifier.ADDICTIVE)
 						:""));
+			
+			Main.game.getDialogueFlags().setMurkTfStage(target, 4);
+			return map;
+		}
+	},
+	
+	FEMININE_PUSSY_FINAL(true) {
+		@Override
+		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
+			Map<String, String> map = new LinkedHashMap<>();
+
+			OrificeDepth depth = Main.game.getPlayer().getBody().getVagina().getOrificeVagina().getMinimumDepthForSizeUncomfortable(Main.game.getPlayer(), Main.game.getNpc(Murk.class).getPenisRawSizeValue());
+			int increment = depth.getValue() - Main.game.getPlayer().getVaginaDepth().getValue();
+			
+			map.put("Look at yer cute little twat puffin' up inta a big, fat cunt with ugly, danglin' flaps! Heh-heh-heh!",
+					target.addVaginaOrificeModifier(OrificeModifier.PUFFY)
+					+ target.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE));
+			
+			map.put("Next, yer ugly twat needs ta be permanently-droolin', an' if it's gonna be me cock's mate, then it needs ta stink like it as well!"
+					+ (increment>0
+						?" Oh, an' it needs ta be real deep, so's I can hilt me massive cock in it!"
+						:""),
+					target.setVaginaWetness(Wetness.SEVEN_DROOLING)
+					+ target.addGirlcumModifier(FluidModifier.MUSKY)
+					+ (increment>0
+						?target.incrementVaginaDepth(increment)
+						:""));
+			
+			Covering covering = target.getCovering(BodyCoveringType.VAGINA);
+			String vaginaDarkening = "";
+			if(covering.getPrimaryColour()!=PresetColour.SKIN_DARK && !covering.getPrimaryColour().getLighterLinkedColours().contains(PresetColour.SKIN_DARK)) {
+				vaginaDarkening = target.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
+			}
+			
+			if(!vaginaDarkening.isEmpty() || Main.game.isPubicHairEnabled()) {
+				map.put("Now fer da finishin' touches; look at wot yer pretty little pussy's turned inta! Heh-heh-heh!",
+						vaginaDarkening
+						+ (Main.game.isPubicHairEnabled()
+							?target.setPubicHair(BodyHair.FOUR_NATURAL)
+							:""));
+			}
 			
 			Main.game.getDialogueFlags().setMurkTfStage(target, 4);
 			return map;

@@ -927,10 +927,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		double rnd = Math.random();
 		
 		if(rnd<=0.05) {
-			return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED));
+			return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(ItemType.FETISH_UNREFINED));
 			
 		} else if(rnd<=0.1) {
-			return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL));
+			return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(ItemType.ADDICTION_REMOVAL));
 			
 		} else {
 			AbstractItemType raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
@@ -1097,13 +1097,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			
 			if(rnd<0.6 && raceTFIngredient!=null) {
-				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceTFIngredient));
+				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(raceTFIngredient));
 			
 			} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getSubspecies())) {
-				return Util.newArrayListOfValues(AbstractItemType.generateItem(book));
+				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(book));
 				
 			} else {
-				return Util.newArrayListOfValues(AbstractItemType.generateItem(raceIngredient));
+				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(raceIngredient));
 				
 			}
 		}
@@ -2789,7 +2789,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Override this method to set a special virginity loss scene for the player.
 	 */
 	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
-		return "";
+		return null;
+	}
+	
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return null;
 	}
 	
 	public void endSex() {
@@ -2832,7 +2836,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 								&& this.hasItemType(ItemType.PROMISCUITY_PILL)
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
-							return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+							return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 										UtilText.parse(this, charactersPenetratingThisNpc.get(0),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
 												+ (this.isMute()
@@ -2845,7 +2849,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
-							return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+							return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 									UtilText.parse(this, charactersPenetratingThisNpc.get(0),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
 											+ (this.isMute()
@@ -2861,7 +2865,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 								&& this.hasItemType(ItemType.PROMISCUITY_PILL)
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
-							return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+							return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 										UtilText.parse(this, charactersThisNpcIsPenetrating.get(0),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
 												+ (this.isMute()
@@ -2874,7 +2878,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
-							return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+							return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 									UtilText.parse(this, charactersThisNpcIsPenetrating.get(0),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
 											+ (this.isMute()
@@ -2896,7 +2900,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
 								if(partner.isPlayer()) {
 									if(Main.sex.isForcingItemUse(this, partner)) {
-										return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+										return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
 												+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
 													+ (this.isMute()
@@ -2904,7 +2908,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 															:" [npc.name] forces you to swallow it down and growls, [npc.speech(I don't want you knocking me up!)]"));
 										
 									} else {
-										return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+										return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
 													+ (this.isMute()
 															?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
@@ -2912,7 +2916,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									}
 									
 								} else {
-									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
 								}
 							}
 						}
@@ -2924,7 +2928,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							if(partner.isPlayer()) {
 								if(Main.sex.isForcingItemUse(this, partner)) {
-									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
 											+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
 												+ (this.isMute()
@@ -2932,7 +2936,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 														:" [npc.name] forces you to swallow it down and growls, [npc.speech(I want you to get me knocked up!)]"));
 									
 								} else {
-									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
 												+ (this.isMute()
 														?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
@@ -2940,7 +2944,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								}
 								
 							} else {
-								return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), ""); // Description is appended in the SexAction
+								return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), ""); // Description is appended in the SexAction
 							}
 						}
 					}
@@ -2955,7 +2959,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
 							if(partner.isPlayer()) {
 								if(Main.sex.isForcingItemUse(this, partner)) {
-									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 											"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
 											+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
 												+ (this.isMute()
@@ -2963,7 +2967,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 														:" [npc.name] forces you to swallow it down and growls, [npc.speech(I don't want to knock you up!)]"));
 									
 								} else {
-									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL),
 											"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
 												+ (this.isMute()
 														?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
@@ -2971,7 +2975,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								}
 								
 							} else {
-								return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
+								return new Value<>(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
 							}
 						}
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()
@@ -2982,7 +2986,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							if(partner.isPlayer()) {
 								if(Main.sex.isForcingItemUse(this, partner)) {
-									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
 											+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
 												+ (this.isMute()
@@ -2990,7 +2994,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 														:" [npc.name] forces you to swallow it down and growls, [npc.speech(I'm going to get you knocked up!)]"));
 									
 								} else {
-									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
+									return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
 												+ (this.isMute()
 														?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
@@ -2998,7 +3002,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								}
 								
 							} else {
-								return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), ""); // Description is appended in the SexAction
+								return new Value<>(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), ""); // Description is appended in the SexAction
 							}
 						}
 					}
@@ -3172,15 +3176,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			if(target.isElemental()) {
 				if(item.getItemType().isTransformative()) {
-					return new Value<>(false,
+					return new Value<>(true,
 							UtilText.parse(user, target,
-							"<p>"
-								+ "As [npc.name] [npc.verb(move)] to get [npc2.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc2.she] calmly states,"
-									+ " [npc2.speech(Being an elemental, I am unable to "+item.getItemType().getUseName()+" that.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.Name] [npc.verb(put)] the "+item.getName()+" back in [npc.her] inventory."
-							+ "</p>"));
+									"<p>"
+										+ "[npc2.speech(As I'm able to freely transform myself at any time, having me "+item.getItemType().getUseName()+" that seems like a waste,)]"
+												+ " [npc2.name] sighs, but nevertheless does as [npc2.sheIs] told and "+item.getItemType().getUseName()+"s the "+item.getName()+"."
+									+ "</p>")
+							+ itemOwner.useItem(item, target, false));
+					
 				} else {
 					return new Value<>(true, itemOwner.useItem(item, target, false));
 				}

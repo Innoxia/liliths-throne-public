@@ -17,7 +17,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexControl;
@@ -42,7 +41,7 @@ public class RalphsSnacks {
 	
 	private static void resetDiscountCheck() {
 		// if 3 days have passed, reset discount:
-		if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
+		if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID)) >= (60*24*3)){
 			Main.game.getDialogueFlags().ralphDiscount=0;
 		}
 	}
@@ -104,7 +103,7 @@ public class RalphsSnacks {
 							+ " The words 'Ralph's Snacks' are painted in gold cursive letters above the entrance, and as you push the door open and step inside, a little bell rings to announce your arrival."
 						+ "</p>"
 						+ "<p>"
-						+ (Main.game.getDialogueFlags().ralphDiscountStartTime>0
+						+ (Main.game.getDialogueFlags().getSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID)>0
 								?"As you enter the shop, Ralph winks at you and calls out from behind the very-familiar counter,"
 									+" [ralph.speech(Ah, well if it isn't my favourite regular! If you need any help, you know how to ask!)]"
 								:"[ralph.speech(Hello again! If you need any help, just ask!)] the familiar horse-boy shouts to you from behind the counter.")
@@ -189,7 +188,7 @@ public class RalphsSnacks {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().ralphDiscountStartTime>0){
+			if(Main.game.getDialogueFlags().getSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID)>0){
 				return "<p>"
 						+"Glancing over to the other side of the shop, you see Ralph giving you a cheerful wave from behind the counter."
 						+ " Images of his massive equine cock flash across your mind, and you let out a tiny moan as you remember it sliding deep down your throat..."
@@ -317,7 +316,7 @@ public class RalphsSnacks {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().ralphDiscountStartTime>0){
+			if(Main.game.getDialogueFlags().getSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID)>0){
 				return "<p>"
 						+ "[pc.speech(No thanks,)] you force yourself to say, stepping to one side and moving away from the horny shopkeeper."
 					+ "</p>"
@@ -398,15 +397,14 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-getLipstickPrice()));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LIPSTICK));
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
 					}
 				};
 
 			} else if (index == 2) {
-				// Limit to once a day (22 hours to give some leeway)
-				if(Main.game.getSecondsPassed()-Main.game.getDialogueFlags().ralphSexTimer<60*60*22) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ralphDailyBred)) {
 					return new Response("Accept breeding", "Ralph is too busy running his shop to keep on trying to get you knocked up. Perhaps you should come back and try to get bred again tomorrow.", null);
 					
 				} else if(!Main.game.getPlayer().hasVagina()) {
@@ -464,10 +462,10 @@ public class RalphsSnacks {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getNpc(Ralph.class), false);
-						Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getNpc(Ralph.class), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
-						Main.game.getDialogueFlags().ralphSexTimer = Main.game.getSecondsPassed();
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ralphDailyBred, true);
 					}
 				};
 
@@ -506,7 +504,7 @@ public class RalphsSnacks {
 
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false), true);
+			UtilText.addSpecialParsingString(Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false), true);
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING");
 		}
 		
@@ -521,7 +519,7 @@ public class RalphsSnacks {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING_SUCCESS"));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LIPSTICK));
 						}
 					};

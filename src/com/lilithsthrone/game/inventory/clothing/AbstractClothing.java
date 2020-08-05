@@ -232,6 +232,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		sb.append(this.isSealed()?"s":"n");
 		sb.append(this.isDirty()?"d":"n");
 		sb.append(this.isEnchantmentKnown()?"e":"n");
+		sb.append(this.isBadEnchantment()?"b":"n");
+		sb.append(this.getSlotEquippedTo());
 		
 		for(ItemEffect ie : this.getEffects()) {
 			sb.append(ie.getId());
@@ -348,7 +350,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		AbstractClothing clothing = null;
 		
 		try {
-			clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
+			clothing = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
@@ -661,6 +663,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		descriptionSB.append(
 				"<p>"
 					+ getTypeDescription()
+					+ "<br/>"
+					+ (enchantmentKnown
+							?(getClothingType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue())
+							:(getClothingType().isPlural()?"They have":"It has")+" an <b>unknown value</b>!")
 				+ "</p>");
 		
 		// Physical resistance
@@ -684,21 +690,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					}
 				}
 				for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
-					descriptionSB.append("<br/>"+ 
-							(entry.getValue()<0
-									?"[style.boldBad("+entry.getValue()+")] "
-									:"[style.boldGood(+"+entry.getValue()+")] ")
-							+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+					descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				}
 				descriptionSB.append("</p>");
 			}
-					
-			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They have" : "It has") + " a value of " + UtilText.formatAsMoney(getValue()) + ".");
-		} else {
-			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They have" : "It has") + " an <b>unknown value</b>!");
 		}
-		
-		descriptionSB.append("</p>");
 
 		if(getClothingType().getClothingSet() != null) {
 			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
@@ -964,7 +960,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 
 			for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-				sb.append("<br/><b>("+(att.getValue()>=0?"+":"")+att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+				sb.append("<br/>"+att.getKey().getFormattedValue(att.getValue()));
 			}
 			
 			sb.append("</p>");
@@ -1718,8 +1714,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public boolean isDirty() {
 		return dirty;
 	}
-
+	
+	/**
+	 * If this clothing returns true for <i>isMilkingEquipment()</i>, then it will not be dirtied by this method.
+	 */
 	public void setDirty(GameCharacter owner, boolean dirty) {
+		if(dirty && this.isMilkingEquipment()) {
+			return;
+		}
 		if(owner!=null) {
 			if(owner.getClothingCurrentlyEquipped().contains(this)) {
 //				System.out.println("1");
@@ -1974,6 +1976,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 		}
 		return null;
+	}
+	
+	public boolean isMilkingEquipment() {
+		if(this.getSlotEquippedTo()==null) {
+			return this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)).contains(ItemTag.MILKING_EQUIPMENT);
+		}
+		return this.getClothingType().getItemTags(this.getSlotEquippedTo()).contains(ItemTag.MILKING_EQUIPMENT);
 	}
 	
 	@Override

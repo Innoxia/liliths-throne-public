@@ -19,7 +19,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -81,7 +80,7 @@ public class SlaveImport extends NPC {
 				this.getClothingInSlot(InventorySlot.NECK).setSealed(false);
 				this.unequipClothingIntoInventory(this.getClothingInSlot(InventorySlot.NECK), true, this);
 			}
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, this);
 			this.getClothingInSlot(InventorySlot.NECK).setSealed(true);
 			
 			
