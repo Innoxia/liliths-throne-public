@@ -39,6 +39,7 @@ public enum SVGImages {
 			diskLoad, diskLoadConfirm, diskLoadDisabled, diskLoadQuick,
 			diskDelete, diskDeleteConfirm,
 			
+			essence, essenceUncoloured,
 			itemsOnFloorIcon,
 			
 			cornerGlowNight, cornerGlowTwilight,
@@ -181,6 +182,13 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/questInventory.svg");
 			questInventoryIconDisabled = Util.inputStreamToString(is);
 			questInventoryIconDisabled = setColour(questInventoryIconDisabled, PresetColour.BASE_PITCH_BLACK);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/essenceArcane.svg");
+			essence = Util.inputStreamToString(is);
+			essence = setColour(essence, PresetColour.GENERIC_ARCANE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/essenceArcane.svg");
+			essenceUncoloured = Util.inputStreamToString(is);
+			essenceUncoloured = setColour(essenceUncoloured, PresetColour.BASE_GREY);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
@@ -878,6 +886,14 @@ public enum SVGImages {
 
 	public String getQuestInventoryIconDisabled() {
 		return questInventoryIconDisabled;
+	}
+
+	public String getEssence() {
+		return essence;
+	}
+
+	public String getEssenceUncoloured() {
+		return essenceUncoloured;
 	}
 
 	public String getJournalIcon() {

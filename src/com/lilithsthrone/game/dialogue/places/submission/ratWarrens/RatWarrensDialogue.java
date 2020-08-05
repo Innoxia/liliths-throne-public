@@ -50,7 +50,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.GenericSexFlag;
@@ -111,7 +110,7 @@ public class RatWarrensDialogue {
 				CharacterUtils.setGenericName(rat, "lieutenant", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
-				rat.incrementEssenceCount(TFEssence.ARCANE, 8, false);
+				rat.incrementEssenceCount(8, false);
 				
 				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
 				Main.game.addNPC(rat, false);
@@ -120,7 +119,7 @@ public class RatWarrensDialogue {
 				CharacterUtils.setGenericName(rat, "sidekick", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL)));
-				rat.incrementEssenceCount(TFEssence.ARCANE, 3, false);
+				rat.incrementEssenceCount(3, false);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -332,9 +331,9 @@ public class RatWarrensDialogue {
 	private static String applyCaptivity(GameCharacter character, GameCharacter equipper, Colour collarColour) {
 		Main.game.addSavedInventory(character);
 		
-		int essences = character.getEssenceCount(TFEssence.ARCANE);
+		int essences = character.getEssenceCount();
 		character.setInventory(new CharacterInventory(0));
-		character.setEssenceCount(TFEssence.ARCANE, essences);
+		character.setEssenceCount(essences);
 
 		Main.game.getPlayer().setCaptive(true);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);

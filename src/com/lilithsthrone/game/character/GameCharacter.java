@@ -222,7 +222,6 @@ import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -2135,7 +2134,7 @@ public abstract class GameCharacter implements XMLSaving {
 					
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
-							character.incrementEssenceCount(TFEssence.ARCANE, 5, false);
+							character.incrementEssenceCount(5, false);
 							CharacterUtils.appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
 						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
@@ -2154,7 +2153,7 @@ public abstract class GameCharacter implements XMLSaving {
 					
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
-							character.incrementEssenceCount(TFEssence.ARCANE, 5, false);
+							character.incrementEssenceCount(5, false);
 							CharacterUtils.appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
 						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
@@ -18628,19 +18627,15 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Essences:
 	
-	public Map<TFEssence, Integer> getEssenceMap() {
-		return inventory.getEssenceMap();
+	public int getEssenceCount() {
+		return inventory.getEssenceCount();
 	}
 	
-	public int getEssenceCount(TFEssence essence) {
-		return getEssenceMap().get(essence);
+	public void setEssenceCount(int amount) {
+		inventory.setEssenceCount(amount);
 	}
 	
-	public void setEssenceCount(TFEssence essence, int amount) {
-		getEssenceMap().put(essence, amount);
-	}
-	
-	public String incrementEssenceCount(TFEssence essence, int increment, boolean withGainModifiers) {
+	public String incrementEssenceCount(int increment, boolean withGainModifiers) {
 		if(increment==0) {
 			return "";
 		}
@@ -18653,23 +18648,19 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(getEssenceCount(essence)+increment < 0) {
-			getEssenceMap().put(essence, 0);
-		} else {
-			getEssenceMap().put(essence, getEssenceCount(essence)+increment);
-		}
+		inventory.incrementEssenceCount(increment);
 		
 		if(increment>0) {
 			if(Main.game.isStarted() && this.isPlayer()) {
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
-								"[style.colourMinorGood(Gained)]", increment+" <span style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment>1?"s":"")+"</span>"),
+								"[style.colourMinorGood(Gained)]", increment+" <span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>arcane essence"+(increment>1?"s":"")+"</span>"),
 						false);
 			}
 			return UtilText.parse(this,
 					"<div style='text-align:center; padding:0; margin:0;'>"
-						+ "[npc.Name] [style.colourGood(gained)] "+UtilText.formatAsEssences(increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment>1?"s":"")+"</b>!"
+						+ "[npc.Name] [style.colourGood(gained)] "+UtilText.formatAsEssences(increment, "b", false)+" <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>arcane essence"+(increment>1?"s":"")+"</b>!"
 						+ additional
 					+"</div>");
 			
@@ -18678,32 +18669,21 @@ public abstract class GameCharacter implements XMLSaving {
 				Main.game.addEvent(
 						new EventLogEntry(
 								Main.game.getMinutesPassed(),
-								"[style.colourMinorBad(Spent)]", Math.abs(increment)+" <span style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment<-1?"s":"")+"</span>"),
+								"[style.colourMinorBad(Spent)]", Math.abs(increment)+" <span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>arcane essence"+(increment<-1?"s":"")+"</span>"),
 						false);
 			}
 			return UtilText.parse(this,
 					"<div style='text-align:center; padding:0; margin:0;'>"
-						+ "[npc.Name] [style.colourBad(lost)] "+UtilText.formatAsEssences(-increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment<-1?"s":"")+"</b>!"
+						+ "[npc.Name] [style.colourBad(lost)] "+UtilText.formatAsEssences(-increment, "b", false)+" <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>arcane essence"+(increment<-1?"s":"")+"</b>!"
 					+ "</div>");
 		}
 	}
 	
 	public boolean hasEssences() {
-		for(Integer i : getEssenceMap().values()) {
-			if(i>0) {
-				return true;
-			}
-		}
-		return false;
+		return getEssenceCount()>0;
 	}
+	
 	public boolean hasNonArcaneEssences() {
-		for(Entry<TFEssence, Integer> entry : getEssenceMap().entrySet()) {
-			if(entry.getKey()!=TFEssence.ARCANE) {
-				if(entry.getValue()>0) {
-					return true;
-				}
-			}
-		}
 		return false;
 	}
 	

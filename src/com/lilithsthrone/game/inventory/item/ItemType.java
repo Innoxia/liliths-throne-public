@@ -29,7 +29,6 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectTimer;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
@@ -319,7 +318,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
@@ -367,8 +365,7 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.ATTRIBUTE_TF_ITEM,
@@ -414,8 +411,7 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -462,8 +458,7 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -511,8 +506,7 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -561,7 +555,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FELINE_FANCY)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
@@ -609,7 +602,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
@@ -657,8 +649,7 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_VANILLA_WATER)), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_VANILLA_WATER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -708,7 +699,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH)),
 			Util.newArrayListOfValues(
 					ItemTag.ALCOHOLIC,
@@ -758,7 +748,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -807,7 +796,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
@@ -855,7 +843,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_EGG_NOG)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
@@ -904,7 +891,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME)),
 			Util.newArrayListOfValues(
 					ItemTag.ATTRIBUTE_TF_ITEM,
@@ -950,7 +936,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
@@ -998,7 +983,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1045,7 +1029,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_MINCE_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
@@ -1093,7 +1076,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_ANGELS_TEARS)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1137,7 +1119,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1185,7 +1166,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_IMPISH_BREW)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -1231,7 +1211,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MYSTERY_KINK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1284,7 +1263,6 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null,
 			null) {
 
 		@Override
@@ -1330,7 +1308,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1380,7 +1357,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
 			null,
 			null) {
 
@@ -1447,7 +1423,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MUSHROOMS)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN)) {
@@ -1497,7 +1472,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_DEMON_POTION_EFFECT)),
 			Util.newArrayListOfValues()) {
 
@@ -1545,7 +1519,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_YOUKO_POTION_EFFECT)),
 			Util.newArrayListOfValues()) {
 
@@ -1591,7 +1564,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BREAD_ROLL)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1634,7 +1606,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1683,7 +1654,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1734,7 +1704,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1783,7 +1752,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN,
@@ -1830,7 +1798,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -1879,7 +1846,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
@@ -1926,7 +1892,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1973,7 +1938,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -2020,7 +1984,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -2066,7 +2029,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
 			Util.newArrayListOfValues(
 					ItemTag.REINDEER_GIFT,
@@ -2115,7 +2077,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
 			Util.newArrayListOfValues(
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
@@ -2163,7 +2124,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -2212,7 +2172,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
@@ -2265,7 +2224,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BIOJUICE)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
@@ -2469,7 +2427,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2499,7 +2456,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2530,7 +2486,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2560,7 +2515,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2590,7 +2544,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2620,7 +2573,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2651,7 +2603,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2681,7 +2632,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2711,7 +2661,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2741,7 +2690,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2771,7 +2719,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2801,7 +2748,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2831,7 +2777,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2861,7 +2806,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2891,7 +2835,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2921,7 +2864,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2951,7 +2893,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -2981,7 +2922,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 		@Override
@@ -3014,7 +2954,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
@@ -3060,7 +2999,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
@@ -3105,7 +3043,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DOMINANT_PERFUME)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
@@ -3158,7 +3095,7 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -3206,7 +3143,7 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			null, null) {
+			null) {
 
 		
 		@Override
@@ -3256,7 +3193,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DYE_BRUSH)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3306,7 +3242,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.REFORGE_HAMMER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3355,7 +3290,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
@@ -3408,8 +3342,8 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)),
+			null) {
 
 		
 		@Override
@@ -3480,7 +3414,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.VIXENS_VIRILITY)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3515,7 +3448,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PROMISCUITY_PILL)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3548,7 +3480,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MOO_MILKER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3611,7 +3542,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FILLED_MOO_MILKER_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
@@ -3644,7 +3574,6 @@ public class ItemType {
 			PresetColour.GENERIC_ARCANE,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3679,7 +3608,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MOTHERS_MILK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3714,7 +3642,6 @@ public class ItemType {
 			PresetColour.CLOTHING_BRONZE,
 			PresetColour.CLOTHING_BLUE_GREY,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.REJUVENATION_POTION)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3746,7 +3673,6 @@ public class ItemType {
 			PresetColour.CLOTHING_GOLD,
 			null,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CIGARETTE_PACK)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3780,7 +3706,6 @@ public class ItemType {
 			PresetColour.CLOTHING_BRASS,
 			PresetColour.CLOTHING_WHITE,
 			Rarity.COMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CIGARETTE)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -3819,7 +3744,6 @@ public class ItemType {
 			PresetColour.CLOTHING_BLACK,
 			PresetColour.CLOTHING_BLACK,
 			Rarity.EPIC,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MAKEUP_SET)),
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_RALPH,
@@ -3868,8 +3792,8 @@ public class ItemType {
 			null,
 			null,
 			Rarity.RARE,
-			null,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PRESENT)), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PRESENT)),
+			null) {
 
 		
 		@Override
@@ -3911,7 +3835,6 @@ public class ItemType {
 			PresetColour.BASE_ORANGE,
 			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
-			null,
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
@@ -3958,7 +3881,6 @@ public class ItemType {
 			PresetColour.BASE_BROWN_DARK,
 			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
-			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
@@ -4000,7 +3922,6 @@ public class ItemType {
 			PresetColour.BASE_PURPLE_LIGHT,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_PERFUME)),
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
@@ -4043,7 +3964,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.UNCOMMON,
-			TFEssence.ARCANE,
 			null,
 			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
@@ -4091,8 +4011,8 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)),
+			null) {
 
 		
 
@@ -4133,7 +4053,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
 			null,
 			null) {
 
@@ -4182,8 +4101,8 @@ public class ItemType {
 			null,
 			null,
 			Rarity.LEGENDARY,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FEMININE_BURGER)), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FEMININE_BURGER)),
+			null) {
 
 		@Override
 		public String getUseName() {
@@ -4217,7 +4136,7 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -4253,7 +4172,7 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -4283,7 +4202,7 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -4313,7 +4232,7 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -4345,7 +4264,7 @@ public class ItemType {
 			PresetColour.CLOTHING_ROSE_GOLD,
 			Rarity.QUEST,
 			null,
-			null, null) {
+			null) {
 
 
 		@Override
@@ -4376,8 +4295,8 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.OFFSPRING_MAP)), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.OFFSPRING_MAP)),
+			null) {
 		@Override
 		public String getUseName() {
 			return "consult";
@@ -4429,7 +4348,6 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null,
 			null) {
 		@Override
 		public String getUseName() {
@@ -4456,7 +4374,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -4486,7 +4403,6 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null,
 			null) {
 		@Override
 		public String getUseName() {
@@ -4514,7 +4430,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -4544,7 +4459,6 @@ public class ItemType {
 			PresetColour.CLOTHING_PURPLE_DARK,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -4578,7 +4492,6 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null,
 			null) {
 		@Override
 		public String getUseName() {
@@ -4610,7 +4523,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -4671,7 +4583,6 @@ public class ItemType {
 			null,
 			Rarity.QUEST,
 			null,
-			null,
 			null) {
 		@Override
 		public String getUseName() {
@@ -4700,7 +4611,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -4731,7 +4641,6 @@ public class ItemType {
 			null,
 			null,
 			Rarity.QUEST,
-			null,
 			null,
 			null) {
 		@Override
@@ -5327,7 +5236,6 @@ public class ItemType {
 					null,
 					null,
 					Rarity.LEGENDARY,
-					null,
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_BOOK)) {
 		
@@ -5425,7 +5333,6 @@ public class ItemType {
 					null,
 					null,
 					Rarity.EPIC,
-					null,
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_SCROLL)) {
 				
@@ -5512,7 +5419,6 @@ public class ItemType {
 							PresetColour.CLOTHING_GOLD,
 							mainSubspecies.getColour(null),
 							Rarity.LEGENDARY,
-							null,
 							Util.newArrayListOfValues(new ItemEffect(ItemEffectType.getBookEffectFromSubspecies(mainSubspecies))),
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
 

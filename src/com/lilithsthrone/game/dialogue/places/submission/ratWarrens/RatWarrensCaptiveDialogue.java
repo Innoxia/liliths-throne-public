@@ -38,7 +38,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
@@ -437,9 +436,9 @@ public class RatWarrensCaptiveDialogue {
 	}
 	
 	public static void restoreInventories() {
-		int essences = Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE);
+		int essences = Main.game.getPlayer().getEssenceCount();
 		Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
-		Main.game.getPlayer().setEssenceCount(TFEssence.ARCANE, essences);
+		Main.game.getPlayer().setEssenceCount(essences);
 	}
 	
 	public static boolean isTransformationFinished() {

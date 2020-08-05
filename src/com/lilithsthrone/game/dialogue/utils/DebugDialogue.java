@@ -35,7 +35,6 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -185,9 +184,7 @@ public class DebugDialogue {
 					return new Response("+1000 essences", "Add 1000 arcane essences.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							for(TFEssence essence : TFEssence.values()) {
-								Main.game.getPlayer().incrementEssenceCount(essence, 1000, false);
-							}
+							Main.game.getPlayer().incrementEssenceCount(1000, false);
 						}
 					};
 					

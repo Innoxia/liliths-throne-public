@@ -53,7 +53,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.main.Main;
@@ -1111,7 +1110,7 @@ public class TooltipInformationEventListener implements EventListener {
 								+"<div class='subTitle-half' style='padding:2px; margin:2px 2% 2px 1%; width:47%;'>"
 							:"<div class='subTitle' style='margin:2px 1%; width:98%'>")
 						+ "[style.colourArcane(Essences)]"+(Main.game.isEnchantmentCapacityEnabled()?"<br/>":": ")
-						+ owner.getEssenceCount(TFEssence.ARCANE)
+						+ owner.getEssenceCount()
 					+ "</div>");
 			
 			attributeTableLeft = true;
