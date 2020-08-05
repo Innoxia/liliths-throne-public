@@ -55,7 +55,7 @@ public class ColourReplacement {
 		}
 
 		Set<Colour> colourSet = new HashSet<>();
-		this.allColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
+		this.allColours = new ArrayList<>(ColourListPresets.DEBUG_ALL);
 		if(defaultColours!=null) {
 			colourSet.addAll(defaultColours);
 		}
