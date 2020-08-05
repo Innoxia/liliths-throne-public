@@ -14,7 +14,6 @@ import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
@@ -101,7 +100,7 @@ public class HarpyNestsDialogue {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasHarpyNestAccess);
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
 							}
 						});
 				
@@ -140,7 +139,7 @@ public class HarpyNestsDialogue {
 						new Response("Candi's lollipops", "Ask a nearby Enforcer about collecting the box of lollipops which Candi has requested.", ENTRANCE_ENFORCER_POST_CANDIS_LOLLIPOPS) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_CONTRABAND), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_CONTRABAND), false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LOLLIPOPS));
 					}
 				});
@@ -289,7 +288,7 @@ public class HarpyNestsDialogue {
 								}
 								@Override
 								public void effects() {
-									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};

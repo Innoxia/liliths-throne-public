@@ -576,7 +576,8 @@ public class GenericActions {
 
 		@Override
 		public String getActionDescription() {
-			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Get [npc2.name] to use [npc2.her] demonic self-transformative powers to grow [npc2.herself] a demonic cock.";
 			} else {
 				return "Get [npc2.name] to use [npc2.her] slimy body's self-transformative powers to grow [npc2.herself] a slimy cock.";
@@ -593,7 +594,8 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {//TODO resisting variations
-			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick demonic cock, so that we can have even more fun!)]"
 						+ "<br/><br/>"
 						+(Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.PENIS)
@@ -621,7 +623,8 @@ public class GenericActions {
 			Main.sex.getCharactersGrewCock().add(Main.sex.getCharacterTargetedForSexAction(this));
 			
 			StringBuilder sb = new StringBuilder();
-			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
 			} else {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));

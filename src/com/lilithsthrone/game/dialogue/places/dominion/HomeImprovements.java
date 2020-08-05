@@ -24,7 +24,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
@@ -266,7 +265,7 @@ public class HomeImprovements {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
 							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN_PREMIUM.getValue(null)));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.PAINT_CAN_PREMIUM), false, true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN_PREMIUM), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}
 					};
@@ -317,7 +316,7 @@ public class HomeImprovements {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
 							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), true);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN.getValue(null)));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.PAINT_CAN), false, true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}
 					};

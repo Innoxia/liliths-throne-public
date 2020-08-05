@@ -821,6 +821,38 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- LAB_LILAYA_HUG -->
+	
+	<htmlContent tag="LAB_LILAYA_HUG"><![CDATA[
+	<p>
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_2_D_MEETING_A_LILIN))
+			Although she's no longer the same person you knew before Lilith's spell altered this reality, you know that Lilaya is sure to love the same sort of big hug which you used to give her when she was your aunt Lily.
+		#ELSE
+			Although she's not the same person as the Lily from your world, you know that Lilaya is sure to love the same sort of big hug which you used to give your aunt.
+		#ENDIF
+		#IF(pc.isShy())
+			 Although you're shy around most people, you feel at ease when in the presence of [lilaya.race], and so you don't feel any trepidation in throwing your [pc.arms] around her and pulling her into your loving embrace.
+		#ELSE
+			 Stepping up to the [lilaya.race], you throw your [pc.arms] around her and pull her into your loving embrace.
+		#ENDIF
+	</p>
+	<p>
+		Furiously blushing at this sudden display of affection, your [lilaya.relation(pc)] stutters, [lilaya.speech(W-What are you doing?! I-I have important work to be getting on with! I-I don't have time for this!)]
+	</p>
+	<p>
+		Despite her words, the embarrassed [lilaya.race] makes no move to push you off of her, and in fact actually seems to lean into your hug. What's more, you're able to see that her [lilaya.tail+] is excitedly wrapping itself around the leg of the table behind her, and as you continue to hold your [lilaya.relation(pc)] in your embrace, her [lilaya.wings+] suddenly flap out and curl around to return your hug. With her cheeks still flushing a deep shade of scarlet, she mutters, [lilaya.speech(I-I suppose I can spare a minute or two...)]
+	</p>
+	<p>
+		After sharing a hug with your [lilaya.relation(pc)] for another couple of minutes, she eventually breaks it off and declares, [lilaya.speech(T-That was nice, thank you, [pc.name]. Now, I really have a lot of important work to get done today, s-so please don't try this again!)]
+	</p>
+	<p>
+		Although she made it very clear from her body language that she actually likes being hugged, you're sure that Lilaya would get angry if you were to try and hug her again today. As your [lilaya.relation(pc)] waits to hear if there's anything else you want from her, you think to yourself that you could always do this to her again tomorrow without risk of annoying her... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- LILAYA_EXPLAINS_ESSENCES -->
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES"><![CDATA[

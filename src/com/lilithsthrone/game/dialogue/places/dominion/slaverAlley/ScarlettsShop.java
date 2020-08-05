@@ -56,11 +56,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -119,7 +117,7 @@ public class ScarlettsShop {
 			NPC npc = new GenericSexualPartner(Gender.M_P_MALE, WorldType.EMPTY, Main.game.getWorlds().get(WorldType.EMPTY).getCell(PlaceType.GENERIC_HOLDING_CELL).getLocation(), false, (s)->s!=Subspecies.CENTAUR);
 			
 			npc.unequipAllClothing(npc, true, true);
-			npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
+			npc.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
 			
 			npc.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			npc.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
@@ -574,10 +572,10 @@ public class ScarlettsShop {
 							Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 							Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
 							Main.game.getNpc(Scarlett.class).resetInventory(true);
-							AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
+							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					
@@ -1592,7 +1590,7 @@ public class ScarlettsShop {
 			}
 			Main.game.getNpc(Natalya.class).returnToHome();
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2218,7 +2216,7 @@ public class ScarlettsShop {
 	public static final DialogueNode ROMANCE_ADVERTISING_POSTERS_END = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ROLLED_UP_POSTERS), false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.ROLLED_UP_POSTERS), false));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(100));
 		}

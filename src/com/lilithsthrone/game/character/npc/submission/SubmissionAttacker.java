@@ -100,8 +100,10 @@ public class SubmissionAttacker extends NPC {
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 			}
-			
-			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
+
+			if(Math.random()<Main.getProperties().taurSpawnRate/100f
+					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
 				CharacterUtils.applyTaurConversion(this);
 			}
 			

@@ -47,10 +47,8 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.sexActions.submission.SAClaireDangerSex;
 import com.lilithsthrone.main.Main;
@@ -234,24 +232,24 @@ public class Claire extends NPC {
 		this.setPiercedEar(true);
 		
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_taser_taser")));
-//			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_enbaton_enbaton")));
-//			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_taser_taser")));
+//			this.equipMainWeaponFromNowhere(Main.game.getItemGeneration().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_enbaton_enbaton")));
+//			this.equipOffhandWeaponFromNowhere(Main.game.getItemGeneration().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_enfslacks", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_utilbelt", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_enfslacks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_utilbelt", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_fssldshirt", PresetColour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_uniques_stpvest_claire", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_fssldshirt", PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_uniques_stpvest_claire", PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfberet", PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", PresetColour.CLOTHING_PINK, false), true, this);
 
 	}
 

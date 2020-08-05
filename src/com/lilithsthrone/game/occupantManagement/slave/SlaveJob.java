@@ -7,11 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -27,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.87
- * @version 0.3.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum SlaveJob {
@@ -53,6 +58,7 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.INTERACTION_SEX,
 					SlaveJobFlag.INTERACTION_BONDING),
@@ -60,6 +66,10 @@ public enum SlaveJob {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
 			return true;
+		}
+		@Override
+		public void sendToWorkLocation(int hour, GameCharacter slave) {
+			slave.returnToHome();
 		}
 	},
 	
@@ -73,6 +83,7 @@ public enum SlaveJob {
 			0, 0.5f,
 			80,
 			0f, 0.1f,
+			null,
 			null,
 			null,
 			null,
@@ -116,6 +127,7 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
@@ -135,6 +147,7 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
@@ -144,13 +157,14 @@ public enum SlaveJob {
 	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME,
 			0.05f,
 			1,
-			1f,
+			1.5f,
 			"lab assistant",
 			"lab assistant",
 			"Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
 			100,
 			0, 0.2f,
+			null,
 			null,
 			null,
 			null,
@@ -187,6 +201,7 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE,
 					SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE),
+			null,
 			null,
 			null,
 			Util.newArrayListOfValues(
@@ -231,6 +246,10 @@ public enum SlaveJob {
 					SlaveJobSetting.SEX_VAGINAL,
 					SlaveJobSetting.SEX_ANAL,
 					SlaveJobSetting.SEX_NIPPLES),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SEX_ORAL,
+					SlaveJobSetting.SEX_VAGINAL,
+					SlaveJobSetting.SEX_ANAL),
 			null,
 			null,
 			Util.newArrayListOfValues(
@@ -261,6 +280,10 @@ public enum SlaveJob {
 					SlaveJobSetting.SEX_VAGINAL,
 					SlaveJobSetting.SEX_ANAL,
 					SlaveJobSetting.SEX_NIPPLES),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SEX_ORAL,
+					SlaveJobSetting.SEX_VAGINAL,
+					SlaveJobSetting.SEX_ANAL),
 			null,
 			null,
 			Util.newArrayListOfValues(
@@ -313,14 +336,20 @@ public enum SlaveJob {
 			0,
 			0, 0,
 			Util.newArrayListOfValues(
-					SlaveJobSetting.MILKING_MILK_DISABLE,
-					SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE,
-					SlaveJobSetting.MILKING_CUM_DISABLE,
-					SlaveJobSetting.MILKING_GIRLCUM_DISABLE,
+					SlaveJobSetting.MILKING_MILK,
+					SlaveJobSetting.MILKING_MILK_CROTCH,
+					SlaveJobSetting.MILKING_CUM,
+					SlaveJobSetting.MILKING_GIRLCUM,
 					SlaveJobSetting.MILKING_MILK_AUTO_SELL,
 					SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL,
 					SlaveJobSetting.MILKING_CUM_AUTO_SELL,
-					SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL),
+					SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL,
+					SlaveJobSetting.MILKING_TEAR_HYMEN),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.MILKING_MILK,
+					SlaveJobSetting.MILKING_MILK_CROTCH,
+					SlaveJobSetting.MILKING_CUM,
+					SlaveJobSetting.MILKING_GIRLCUM),
 			Util.newHashMapOfValues(
 					new Value<>("Room Preference", Util.newArrayListOfValues(
 							SlaveJobSetting.MILKING_INDUSTRIAL,
@@ -334,12 +363,10 @@ public enum SlaveJob {
 					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
-
 		@Override
 		public int getSlaveLimit() {
 			return Main.game.getOccupancyUtil().getMilkingRooms().size()*8;
 		}
-		
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
 			float aff = this.affectionGain;
@@ -349,24 +376,20 @@ public enum SlaveJob {
 			Cell c = this.getWorkDestinationCell(hour, slave);
 			return aff + (c==null?0:c.getPlace().getHourlyAffectionChange());
 		}
-		
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.MILKING) < getSlaveLimit();
+			return Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
 		}
-
+		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
 				return "Not enough space in milking rooms!";
 				
 			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 				return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
-				
 			}
-			
 			return super.getAvailabilityText(hour, character);
 		}
-		
 		@Override
 		public AbstractWorldType getWorldLocation(GameCharacter character) {
 			Cell c = MilkingRoom.getMilkingCell(character, false);
@@ -375,7 +398,6 @@ public enum SlaveJob {
 			}
 			return c.getType();
 		}
-		
 		@Override
 		public AbstractPlaceType getPlaceLocation(GameCharacter character) {
 			Cell c = MilkingRoom.getMilkingCell(character, false);
@@ -384,12 +406,10 @@ public enum SlaveJob {
 			}
 			return c.getPlace().getPlaceType();
 		}
-
 		@Override
 		public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
 			return MilkingRoom.getMilkingCell(slave, false);
 		}
-		
 		@Override
 		public void sendToWorkLocation(int hour, GameCharacter slave) {
 			Cell c = MilkingRoom.getMilkingCell(slave, true);
@@ -400,6 +420,137 @@ public enum SlaveJob {
 				
 			} else {
 				slave.returnToHome();
+			}
+		}
+		@Override
+		public void applyJobStartEffects(GameCharacter slave) {
+			Cell c = MilkingRoom.getMilkingCell(slave, true);
+			if(c!=null) {
+				List<AbstractClothing> clothingRemoved = new ArrayList<>();
+				boolean equipBreastPumps = false;
+				boolean equipUdderPumps = false;
+				boolean equipPenisPump = false;
+				boolean equipVaginaPump = false;
+				
+				if(MilkingRoom.getActualMilkPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)) {
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES, null).keySet());
+					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.NIPPLE);
+					if(clothing!=null) {
+						if(!clothing.isMilkingEquipment()) {
+							clothingRemoved.add(clothing);
+							slave.unequipClothingIntoVoid(clothing, true, slave);
+							equipBreastPumps = true;
+						}
+					} else {
+						equipBreastPumps = true;
+					}
+				}
+				if(MilkingRoom.getActualCrotchMilkPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)) {
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.NIPPLES_CROTCH, null).keySet());
+					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.STOMACH);
+					if(clothing!=null) {
+						if(!clothing.isMilkingEquipment()) {
+							clothingRemoved.add(clothing);
+							slave.unequipClothingIntoVoid(clothing, true, slave);
+							equipUdderPumps = true;
+						}
+					} else {
+						equipUdderPumps = true;
+					}
+				}
+				if(MilkingRoom.getActualCumPerHour(slave)>0 && slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)) {
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.PENIS, null).keySet());
+					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.PENIS);
+					if(clothing!=null) {
+						if(!clothing.isMilkingEquipment()) {
+							clothingRemoved.add(clothing);
+							slave.unequipClothingIntoVoid(clothing, true, slave);
+							equipPenisPump = true;
+						}
+					} else {
+						equipPenisPump = true;
+					}
+				}
+				if(MilkingRoom.getActualGirlcumPerHour(slave)>0
+						&& slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)
+						&& (!slave.hasHymen() || slave.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_TEAR_HYMEN))) {
+					clothingRemoved.addAll(slave.displaceClothingForAccess(CoverableArea.VAGINA, null).keySet());
+					AbstractClothing clothing = slave.getClothingInSlot(InventorySlot.VAGINA);
+					if(clothing!=null) {
+						if(!clothing.isMilkingEquipment()) {
+							clothingRemoved.add(clothing);
+							slave.unequipClothingIntoVoid(clothing, true, slave);
+							equipVaginaPump = true;
+						}
+					} else {
+						equipVaginaPump = true;
+					}
+				}
+				
+				if(equipBreastPumps) {
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, slave);
+				}
+				if(equipUdderPumps) {
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.STOMACH, true, slave);
+				}
+				if(equipPenisPump) {
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_penis_pump"), false), true, slave);
+				}
+				if(equipVaginaPump) {
+					slave.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"), false), true, slave);
+				}
+				
+				MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+
+				clothingRemoved.removeIf(cl->cl.isMilkingEquipment());
+				
+				for(AbstractClothing clothing : clothingRemoved) {
+					if(clothing.isMilkingEquipment()) {
+						throw new IllegalAccessError();
+					}
+					room.addClothingRemovedForMilking(slave, clothing);
+				}
+			}
+		}
+		@Override
+		public void applyJobEndEffects(GameCharacter slave) {
+			Cell c = MilkingRoom.getMilkingCell(slave, true);
+//			System.out.println("1: "+slave.getName());
+			if(c!=null) {
+//				System.out.println("2: "+slave.getName());
+				MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+				
+				AbstractClothing pump = slave.getClothingInSlot(InventorySlot.NIPPLE);
+				if(pump!=null && pump.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"))) {
+					slave.forceUnequipClothingIntoVoid(slave, pump);
+				}
+				pump = slave.getClothingInSlot(InventorySlot.STOMACH);
+				if(pump!=null && pump.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"))) {
+					slave.forceUnequipClothingIntoVoid(slave, pump);
+				}
+				pump = slave.getClothingInSlot(InventorySlot.PENIS);
+				if(pump!=null && pump.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_milking_penis_pump"))) {
+					slave.forceUnequipClothingIntoVoid(slave, pump);
+				}
+				pump = slave.getClothingInSlot(InventorySlot.VAGINA);
+				if(pump!=null && pump.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"))) {
+					slave.forceUnequipClothingIntoVoid(slave, pump);
+				}
+				
+				List<AbstractClothing> clothingRemoved = room.getClothingRemovedForMilking().get(slave.getId());
+				if(clothingRemoved!=null) {
+					for(AbstractClothing clothing : clothingRemoved) {
+						if(slave.getClothingCurrentlyEquipped().contains(clothing)) {
+							for(DisplacementType dt : new ArrayList<>(clothing.getDisplacedList())) {
+								slave.isAbleToBeReplaced(slave.getClothingInSlot(clothing.getSlotEquippedTo()), dt, true, true, slave);
+							}
+							
+						} else {
+							slave.equipClothingFromNowhere(clothing, true, slave);
+						}
+					}
+					room.clearClothingRemovedForMilking(slave);
+				}
 			}
 		}
 	},
@@ -414,7 +565,9 @@ public enum SlaveJob {
 			0, 0,
 			100,
 			0, 1f,
-			null, null,
+			null,
+			null,
+			null,
 			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
@@ -509,6 +662,9 @@ public enum SlaveJob {
 					SlaveJobSetting.BEDROOM_CLEAN,
 					SlaveJobSetting.BEDROOM_WAKE_UP,
 					SlaveJobSetting.BEDROOM_HELP_WASH),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.BEDROOM_GREETING,
+					SlaveJobSetting.BEDROOM_CLEAN),
 			Util.newHashMapOfValues(
 					new Value<>("Sleeping Arrangements",
 						Util.newArrayListOfValues(
@@ -523,6 +679,130 @@ public enum SlaveJob {
 					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_PLAYER),
+	
+	SPA(PresetColour.BASE_AQUA,
+			0.05f,
+			8,
+			1.5f,
+			"Spa pools",
+			"Spa pools",
+			"Assign this slave to your private spa, ready to give you a massage or tend to any of your needs.",
+			0.5f, -0.1f,
+			0,
+			0, 0,
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SPA_BATHING,
+					SlaveJobSetting.SPA_STRIP_TO_BATHE,
+					SlaveJobSetting.SPA_MASSAGE
+//					SlaveJobSetting.SPA_SAUNA,
+//					SlaveJobSetting.SPA_POOL
+					),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SPA_BATHING,
+					SlaveJobSetting.SPA_STRIP_TO_BATHE,
+					SlaveJobSetting.SPA_MASSAGE),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(),
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
+			PlaceType.LILAYA_HOME_SPA) {
+		@Override
+		public int getSlaveLimit() {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return 0;
+			}
+			return super.getSlaveLimit();
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return "The spa upgrade must be constructed before this job is available!";
+			}
+			return super.getAvailabilityText(hour, character);
+		}
+		@Override
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
+			return WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
+		}
+	},
+
+	SPA_RECEPTIONIST(PresetColour.BASE_BLUE_STEEL,
+			0.05f,
+			2,
+			2f,
+			"Spa desk",
+			"Spa desk",
+			"Assign this slave to work on the reception desk of your private spa.",
+			0, 0.05f,
+			0,
+			0, 0,
+			Util.newArrayListOfValues(
+					SlaveJobSetting.SPA_SHOWERING),
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
+			PlaceType.LILAYA_HOME_SPA) {
+		@Override
+		public int getSlaveLimit() {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return 0;
+			}
+			return super.getSlaveLimit();
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)==null) {
+				return "The spa upgrade must be constructed before this job is available!";
+			}
+			return super.getAvailabilityText(hour, character);
+		}
+		@Override
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
+			return WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
+		}
+		@Override
+		public AbstractPlaceType getPlaceLocation(GameCharacter character) {
+			return Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_SPA).get(0).getPlace().getPlaceType();
+		}
+		@Override
+		public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
+			return Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_SPA).get(0);
+		}
+		@Override
+		public void sendToWorkLocation(int hour, GameCharacter slave) {
+			Cell c = getWorkDestinationCell(hour, slave);
+			if(c!=null) {
+				if(c.getType()!=slave.getWorldLocation() || c.getLocation()!=slave.getLocation()) {
+					slave.setLocation(c.getType(), c.getLocation(), false);
+				}
+				
+			} else {
+				slave.returnToHome();
+			}
+		}
+	},
 	;
 	
 	public static final float BASE_STAMINA = 24f;
@@ -540,6 +820,7 @@ public enum SlaveJob {
 	private float obedienceIncomeModifier;
 	private float affectionIncomeModifier;
 	private List<SlaveJobSetting> mutualSettings;
+	private List<SlaveJobSetting> defaultMutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
 	private List<SlaveJobFlag> flags;
@@ -560,6 +841,7 @@ public enum SlaveJob {
 			float affectionIncomeModifier,
 			float obedienceIncomeModifier,
 			List<SlaveJobSetting> mutualSettings,
+			List<SlaveJobSetting> defaultMutualSettings,
 			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
 			List<SlaveJobFlag> flags,
@@ -582,6 +864,12 @@ public enum SlaveJob {
 			this.mutualSettings = new ArrayList<>();
 		} else {
 			this.mutualSettings = mutualSettings;
+		}
+
+		if(defaultMutualSettings == null) {
+			this.defaultMutualSettings = new ArrayList<>();
+		} else {
+			this.defaultMutualSettings = defaultMutualSettings;
 		}
 		
 		if(mutuallyExclusiveSettings == null) {
@@ -662,19 +950,19 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_DISABLE)) {
+			if(character.getBreastRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && !character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
+			if(character.hasBreastsCrotch() && character.getBreastCrotchRawStoredMilkValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)) {
 				int milked = MilkingRoom.getActualCrotchMilkPerHour(character);
 				value += (milked * character.getMilkCrotch().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM_DISABLE)) {
+			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
-			if(character.hasVagina() && !character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+			if(character.hasVagina() && character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
 				value += (milked * character.getGirlcum().getValuePerMl());
 			}
@@ -713,6 +1001,10 @@ public enum SlaveJob {
 		return mutualSettings;
 	}
 
+	public List<SlaveJobSetting> getDefaultMutualSettings() {
+		return defaultMutualSettings;
+	}
+	
 	public Map<String, List<SlaveJobSetting>> getMutuallyExclusiveSettings() {
 		return mutuallyExclusiveSettings;
 	}
@@ -773,6 +1065,18 @@ public enum SlaveJob {
 	public EventLogEntry getHourlyEvent(long hour, NPC slave, List<NPC> otherNPCsPresent) {
 //		return new EventLogEntry(Main.game.getDayNumber()-1*24l+hour, "[style.colourDisabled(Nothing)]", "");
 		return null;
+	}
+	
+	/**
+	 * Called immediately before the slave is moved to their new job.
+	 */
+	public void applyJobStartEffects(GameCharacter slave) {
+	}
+
+	/**
+	 * Called immediately after the slave is moved to their new job.
+	 */
+	public void applyJobEndEffects(GameCharacter slave) {
 	}
 	
 }

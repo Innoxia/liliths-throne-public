@@ -46,10 +46,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -432,7 +430,7 @@ public class DominionExpress {
 	}
 	
 	private static AbstractClothing generateCollar() {
-		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_filly_choker"), false);
+		return Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_filly_choker"), false);
 	}
 	
 	private static boolean isPlayerBodyCorrect() {
@@ -658,7 +656,7 @@ public class DominionExpress {
 								}
 								@Override
 								public void effects() {
-									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -1452,7 +1450,7 @@ public class DominionExpress {
 				if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_NATALYA)==Quest.ROMANCE_NATALYA_1_INTERVIEW_START) {
 					Main.game.getPlayer().removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 					Main.getProperties().addItemDiscovered(ItemType.NATALYA_BUSINESS_CARD);
-					Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
+					Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
 				}
 			}
 		}

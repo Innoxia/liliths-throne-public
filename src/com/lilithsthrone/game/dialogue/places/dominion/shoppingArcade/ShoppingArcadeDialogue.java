@@ -10,7 +10,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
@@ -275,7 +274,7 @@ public class ShoppingArcadeDialogue {
 							
 							((Scarlett)Main.game.getNpc(Scarlett.class)).completeBodyReset();
 							Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), true);
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar")), true, Main.game.getNpc(Scarlett.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar")), true, Main.game.getNpc(Scarlett.class));
 						}
 					};
 				}

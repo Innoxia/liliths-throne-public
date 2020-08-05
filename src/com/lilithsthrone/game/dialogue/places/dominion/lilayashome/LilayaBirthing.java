@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -267,7 +266,7 @@ public class LilayaBirthing {
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)
 					&& Main.game.getPlayer().getNippleShape()==NippleShape.NORMAL
-					&& Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+					&& Main.game.isLactationContentEnabled()) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
 			} else {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");

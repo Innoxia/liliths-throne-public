@@ -952,7 +952,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && parentOwned
-				?entry.getCategory().getColour()
+				?(character.isElemental()?entry.getEntry().getColour():entry.getCategory().getColour())
 				:isPerkAvailable(character, entry)
 					?PresetColour.BASE_GREY
 					:PresetColour.TEXT_GREY_DARK;
@@ -971,7 +971,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && childOwned
-				?entry.getCategory().getColour()
+				?(character.isElemental()?entry.getEntry().getColour():entry.getCategory().getColour())
 				:childAvailable
 					?PresetColour.BASE_GREY
 					:PresetColour.TEXT_GREY_DARK;
@@ -990,7 +990,7 @@ public enum PerkManager {
 		}
 		
 		return isPerkOwned(character, entry) && siblingOwned
-				?entry.getCategory().getColour()
+				?(character.isElemental()?entry.getEntry().getColour():entry.getCategory().getColour())
 				:siblingAvailable
 					?PresetColour.BASE_GREY
 					:PresetColour.TEXT_GREY_DARK;

@@ -1,5 +1,7 @@
 package com.lilithsthrone.utils.colours;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -9,17 +11,22 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Colour {
 
+	private boolean metallic;
+	
 	private Color colour;
 	private Color lightColour;
-	private boolean metallic;
+	
 	private String name;
 	private List<String> formattingNames;
 
+	private Colour colourLinkLighter = null;
+	private Colour colourLinkDarker = null;
+	
 	public Colour(Color colour) {
 		this.metallic = false;
 		this.colour = colour;
@@ -120,6 +127,75 @@ public class Colour {
 	public String toString() {
 		System.err.println("Warning! Colour.toString() was called instead of getId()");
 		return getId();
+	}
+	
+	/**
+	 * Sets this Colour's linked darker shade to the supplied colourLinkDarker, then sets the colourLinkDarker's lighter shade to this Colour, so that the two are linked.
+	 * @return this Colour (so that it can be used as a Colour init method).
+	 */
+	public Colour setLinkedColourDarker(Colour colourLinkDarker) {
+		this.colourLinkDarker = colourLinkDarker;
+		colourLinkDarker.colourLinkLighter = this;
+		return this;
+	}
+	
+	/**
+	 * @return The darker shade of this colour. <b>Is likely to return null!</b>
+	 */
+	public Colour getLinkedColourDarker() {
+		return colourLinkDarker;
+	}
+	
+	/**
+	 * @return A List of Colours which are linked to this one as darker colours. The list is ordered with the darkest shade at index 0. The list might be empty.
+	 */
+	public List<Colour> getDarkerLinkedColours() {
+		List<Colour> darkerList = new ArrayList<>();
+		Colour darker = this.getLinkedColourDarker();
+		if(darker==null) {
+			return darkerList;
+		}
+		darkerList.add(darker);
+		while(darker.getLinkedColourDarker()!=null) {
+			darker = darker.getLinkedColourDarker();
+			darkerList.add(darker);
+		}
+		Collections.reverse(darkerList);
+		return darkerList;
+	}
+	
+	/**
+	 * Sets this Colour's linked lighter shade to the supplied colourLinkLighter, then sets the colourLinkLighter's darker shade to this Colour, so that the two are linked.
+	 * @return this Colour (so that it can be used as a Colour init method).
+	 */
+	public Colour setLinkedColourLighter(Colour colourLinkLighter) {
+		this.colourLinkLighter = colourLinkLighter;
+		colourLinkLighter.colourLinkDarker = this;
+		return this;
+	}
+
+	/**
+	 * @return The lighter shade of this colour. <b>Is likely to return null!</b>
+	 */
+	public Colour getLinkedColourLighter() {
+		return colourLinkLighter;
+	}
+
+	/**
+	 * @return A List of Colours which are linked to this one as darker colours. The list is ordered with the darkest shade at index 0. The list might be empty.
+	 */
+	public List<Colour> getLighterLinkedColours() {
+		List<Colour> lighterList = new ArrayList<>();
+		Colour lighter = this.getLinkedColourLighter();
+		if(lighter==null) {
+			return lighterList;
+		}
+		lighterList.add(lighter);
+		while(lighter.getLinkedColourLighter()!=null) {
+			lighter = lighter.getLinkedColourLighter();
+			lighterList.add(lighter);
+		}
+		return lighterList;
 	}
 	
 	/**

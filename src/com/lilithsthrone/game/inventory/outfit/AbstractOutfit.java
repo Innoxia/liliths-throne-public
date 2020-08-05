@@ -30,6 +30,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
@@ -552,7 +553,7 @@ public abstract class AbstractOutfit {
 						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
 								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
 							if(!character.isSlotIncompatible(ct.getEquipSlots().get(0))) {
-								AbstractClothing clothing = AbstractClothingType.generateClothing(ct, ot.getColoursForClothingGeneration(), null);
+								AbstractClothing clothing = Main.game.getItemGen().generateClothing(ct, ot.getColoursForClothingGeneration(), null);
 								
 								character.equipClothingOverride(
 										clothing,
@@ -806,9 +807,9 @@ public abstract class AbstractOutfit {
 			
 			AbstractWeapon weapon;
 			if(dt!=null) {
-				weapon = AbstractWeaponType.generateWeapon(wt, dt, coloursForGeneration);
+				weapon = Main.game.getItemGen().generateWeapon(wt, dt, coloursForGeneration);
 			} else {
-				weapon = AbstractWeaponType.generateWeapon(wt, Util.randomItemFrom(wt.getAvailableDamageTypes()), coloursForGeneration);
+				weapon = Main.game.getItemGen().generateWeapon(wt, Util.randomItemFrom(wt.getAvailableDamageTypes()), coloursForGeneration);
 			}
 			
 			return weapon;

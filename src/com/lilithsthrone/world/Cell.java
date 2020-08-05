@@ -12,6 +12,7 @@ import org.w3c.dom.Node;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -20,8 +21,8 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -170,12 +171,20 @@ public class Cell implements XMLSaving {
 			place.getPlaceType().applyInventoryInit(this.getInventory());
 		}
 	}
+	
+	public DialogueNode getDialogue(boolean withRandomEncounter) {
+		return getPlace().getDialogue(this, withRandomEncounter, false);
+	}
+	
+	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		return getPlace().getDialogue(this, withRandomEncounter, forceEncounter);
+	}
 
-	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean addPlaceUpgrade(AbstractPlaceUpgrade upgrade) {
 		return getPlace().addPlaceUpgrade(this, upgrade);
 	}
 	
-	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean removePlaceUpgrade(AbstractPlaceUpgrade upgrade) {
 		return getPlace().removePlaceUpgrade(this, upgrade);
 	}
 	

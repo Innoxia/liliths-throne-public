@@ -34,7 +34,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
@@ -456,7 +455,7 @@ public class SuccubisSecrets {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-500));
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_PERFUMES), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_PERFUMES), false));
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_PERFUME));
 				}
 			};
