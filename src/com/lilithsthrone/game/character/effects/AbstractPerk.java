@@ -207,8 +207,7 @@ public abstract class AbstractPerk {
 		
 		if (this.getAttributeModifiers(character) != null) {
 			for (Entry<Attribute, Integer> e : this.getAttributeModifiers(character).entrySet()) {
-				modifiersList.add("<b>"+ (e.getValue() > 0 ? "+" : "")+ e.getValue()+ "</b>"
-						+ " <b style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</b>");
+				modifiersList.add(e.getKey().getFormattedValue(e.getValue()));
 			}
 		}
 		

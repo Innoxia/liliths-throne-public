@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -84,7 +85,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.4
- * @version 0.3.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public abstract class AbstractItemEffectType {
@@ -92,7 +93,9 @@ public abstract class AbstractItemEffectType {
 	private List<String> effectsDescriptions;
 	private Colour colour;
 	
-	public AbstractItemEffectType(List<String> effectsDescriptions, Colour colour) {
+	public AbstractItemEffectType(
+			List<String> effectsDescriptions,
+			Colour colour) {
 		this.effectsDescriptions = effectsDescriptions;
 		this.colour = colour;
 	}
@@ -156,7 +159,10 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-		return effectsDescriptions;
+		if(effectsDescriptions==null) {
+			return new ArrayList<>();
+		}
+		return new ArrayList<>(effectsDescriptions);
 	}
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
@@ -259,6 +265,9 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_TONGUE_RIBBED,
 						TFModifier.TF_MOD_TONGUE_TENTACLED,
 						TFModifier.TF_MOD_TONGUE_BIFURCATED,
+						TFModifier.TF_MOD_TONGUE_WIDE,
+						TFModifier.TF_MOD_TONGUE_FLAT,
+						TFModifier.TF_MOD_TONGUE_STRONG,
 						
 						Main.game.isFacialHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
@@ -689,6 +698,15 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_TONGUE_BIFURCATED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "bifurcated tongue", "tongue bifurcation"));
+						break;
+					case TF_MOD_TONGUE_WIDE:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "wide tongue", "tongue widening"));
+						break;
+					case TF_MOD_TONGUE_FLAT:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "flat tongue", "tongue flattening"));
+						break;
+					case TF_MOD_TONGUE_STRONG:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "strong tongue", "tongue strengthening"));
 						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "beard length", BodyHair.getBodyHairFromValue(limit).getName()));
@@ -1411,6 +1429,39 @@ public abstract class AbstractItemEffectType {
 								}
 							}
 							break;
+						case TF_MOD_TONGUE_WIDE:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.WIDE)) {
+									sb.append(target.addTongueModifier(TongueModifier.WIDE));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.WIDE)) {
+									sb.append(target.removeTongueModifier(TongueModifier.WIDE));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_FLAT:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.FLAT)) {
+									sb.append(target.addTongueModifier(TongueModifier.FLAT));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.FLAT)) {
+									sb.append(target.removeTongueModifier(TongueModifier.FLAT));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_STRONG:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.STRONG)) {
+									sb.append(target.addTongueModifier(TongueModifier.STRONG));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.STRONG)) {
+									sb.append(target.removeTongueModifier(TongueModifier.STRONG));
+								}
+							}
+							break;
 						case TF_MOD_BODY_HAIR:
 							if(isWithinLimits(bodyHairIncrement, target.getFacialHair().getValue(), limit)) {
 								sb.append(target.incrementFacialHair(bodyHairIncrement));
@@ -1786,7 +1837,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsDrain(60, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldBad(-15)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(-15, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1795,7 +1846,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsDrain(40, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldBad(-10)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(-10, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1804,7 +1855,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsDrain(20, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldBad(-5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(-5, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1813,7 +1864,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsRestore(20, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldGood(+5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(5, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1822,7 +1873,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsRestore(40, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldGood(+10)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(10, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1831,7 +1882,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsRestore(60, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldGood(+15)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+								descriptions.add(primaryModifier.getAssociatedAttribute().getFormattedValue(15, "b")+" to 'potion effects'");
 							}
 						}
 						break;
@@ -1901,80 +1952,80 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	protected static String genericAttributeEffect(ResourceRestoration restorationType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-		switch(secondaryModifier) {
-			default:
-				switch(potency) {
-					case MAJOR_DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.6f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15);
-							}
-						}
-						break;
-					case DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.4f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10);
-							}
-						}
-						break;
-					case MINOR_DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.2f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5);
-							}
-						}
-						break;
-					case MINOR_BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.2f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5);
-							}
-						}
-						break;
-					case BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.4f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10);
-							}
-						}
-						break;
-					case MAJOR_BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.6f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15);
-							}
-						}
-						break;
-				}
-				break;
-		}
+		StringBuilder sb = new StringBuilder();
 		
-		return "";
+		sb.append("<p>");
+			switch(potency) {
+				case MAJOR_DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.6f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15));
+						}
+					}
+					break;
+				case DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.4f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10));
+						}
+					}
+					break;
+				case MINOR_DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.2f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5));
+						}
+					}
+					break;
+				case MINOR_BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.2f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5));
+						}
+					}
+					break;
+				case BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.4f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10));
+						}
+					}
+					break;
+				case MAJOR_BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.6f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15));
+						}
+					}
+					break;
+			}
+		sb.append("</p>");
+		
+		return sb.toString();
 	}
 	
 	// Caching:
@@ -2153,6 +2204,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_BIFURCATED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_WIDE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_FLAT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_STRONG, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				if(Main.game.isFacialHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
@@ -2211,9 +2265,10 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_PENIS:
 				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2268,11 +2323,11 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_VAGINA:
 				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
-				
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2341,12 +2396,12 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_STICKY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_VISCOUS, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
-				
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BEER, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_GIRLCUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MILK, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BEER, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_HONEY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MINT, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_PINEAPPLE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
@@ -2354,6 +2409,16 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_STRAWBERRY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CHERRY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_VANILLA, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_COFFEE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_TEA, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MAPLE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CINNAMON, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_LEMON, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_ORANGE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_GRAPE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MELON, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_COCONUT, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				break;
 				
 			default:
@@ -3510,6 +3575,27 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds bifurcation to tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.BIFURCATED); } };
 						}
+					case TF_MOD_TONGUE_WIDE:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts tongue widening.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.WIDE); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Widens tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.WIDE); } };
+						}
+					case TF_MOD_TONGUE_FLAT:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts tongue flattening.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.FLAT); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Flattens tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.FLAT); } };
+						}
+					case TF_MOD_TONGUE_STRONG:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes extra strength from tongue.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.STRONG); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes tongue extra strong.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.STRONG); } };
+						}
 						
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
@@ -4014,7 +4100,7 @@ public abstract class AbstractItemEffectType {
 				}
 				
 			case TF_SKIN:
-				return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" skin transformation.") { @Override public String applyEffect() { return target.setSkinType(RacialBody.valueOfRace(race).getSkinType()); } };
+				return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" skin transformation.") { @Override public String applyEffect() { return target.setTorsoType(RacialBody.valueOfRace(race).getSkinType()); } };
 				
 			case TF_TAIL:
 				switch(secondaryModifier) {
@@ -4475,7 +4561,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in wing size. (+" + smallChangeMajorBoost + " wing size)") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
 						}
 					default:
-						WingType wingType = RacialBody.valueOfRace(race).getRandomWingType(false);
+						AbstractWingType wingType = RacialBody.valueOfRace(race).getRandomWingType(false);
 						return new RacialEffectUtil(wingType==WingType.NONE?"Removes wings.":Util.capitaliseSentence(race.getName(false))+" wings transformation.") {
 							@Override public String applyEffect() { return target.setWingType(wingType); } };
 				}
@@ -4506,6 +4592,26 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes cum taste like strawberries.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.STRAWBERRY); } };
 					case TF_MOD_FLAVOUR_VANILLA:
 						return new RacialEffectUtil("Makes cum taste like vanilla.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.VANILLA); } };
+					case TF_MOD_FLAVOUR_COFFEE:
+						return new RacialEffectUtil("Makes cum taste like coffee.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.COFFEE); } };
+					case TF_MOD_FLAVOUR_TEA:
+						return new RacialEffectUtil("Makes cum taste like tea.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.TEA); } };
+					case TF_MOD_FLAVOUR_MAPLE:
+						return new RacialEffectUtil("Makes cum taste like maple.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.MAPLE); } };
+					case TF_MOD_FLAVOUR_CINNAMON:
+						return new RacialEffectUtil("Makes cum taste like cinnamon.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.CINNAMON); } };
+					case TF_MOD_FLAVOUR_LEMON:
+						return new RacialEffectUtil("Makes cum taste like lemon.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.LEMON); } };
+					case TF_MOD_FLAVOUR_ORANGE:
+						return new RacialEffectUtil("Makes cum taste like orange.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.ORANGE); } };
+					case TF_MOD_FLAVOUR_GRAPE:
+						return new RacialEffectUtil("Makes cum taste like grape.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.GRAPE); } };
+					case TF_MOD_FLAVOUR_MELON:
+						return new RacialEffectUtil("Makes cum taste like melon.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.MELON); } };
+					case TF_MOD_FLAVOUR_COCONUT:
+						return new RacialEffectUtil("Makes cum taste like coconut.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.COCONUT); } };
+					case TF_MOD_FLAVOUR_BLUEBERRY:
+						return new RacialEffectUtil("Makes cum taste like blueberries.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.BLUEBERRY); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -4606,6 +4712,26 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes milk taste like strawberries.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.STRAWBERRY); } };
 					case TF_MOD_FLAVOUR_VANILLA:
 						return new RacialEffectUtil("Makes milk taste like vanilla.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.VANILLA); } };
+					case TF_MOD_FLAVOUR_COFFEE:
+						return new RacialEffectUtil("Makes milk taste like coffee.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.COFFEE); } };
+					case TF_MOD_FLAVOUR_TEA:
+						return new RacialEffectUtil("Makes milk taste like tea.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.TEA); } };
+					case TF_MOD_FLAVOUR_MAPLE:
+						return new RacialEffectUtil("Makes milk taste like maple.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.MAPLE); } };
+					case TF_MOD_FLAVOUR_CINNAMON:
+						return new RacialEffectUtil("Makes milk taste like cinnamon.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.CINNAMON); } };
+					case TF_MOD_FLAVOUR_LEMON:
+						return new RacialEffectUtil("Makes milk taste like lemon.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.LEMON); } };
+					case TF_MOD_FLAVOUR_ORANGE:
+						return new RacialEffectUtil("Makes milk taste like orange.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.ORANGE); } };
+					case TF_MOD_FLAVOUR_GRAPE:
+						return new RacialEffectUtil("Makes milk taste like grape.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.GRAPE); } };
+					case TF_MOD_FLAVOUR_MELON:
+						return new RacialEffectUtil("Makes milk taste like melon.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.MELON); } };
+					case TF_MOD_FLAVOUR_COCONUT:
+						return new RacialEffectUtil("Makes milk taste like coconut.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.COCONUT); } };
+					case TF_MOD_FLAVOUR_BLUEBERRY:
+						return new RacialEffectUtil("Makes milk taste like blueberries.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.BLUEBERRY); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -4706,6 +4832,26 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes udder-milk taste like strawberries.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.STRAWBERRY); } };
 					case TF_MOD_FLAVOUR_VANILLA:
 						return new RacialEffectUtil("Makes udder-milk taste like vanilla.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.VANILLA); } };
+					case TF_MOD_FLAVOUR_COFFEE:
+						return new RacialEffectUtil("Makes udder-milk taste like coffee.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.COFFEE); } };
+					case TF_MOD_FLAVOUR_TEA:
+						return new RacialEffectUtil("Makes udder-milk taste like tea.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.TEA); } };
+					case TF_MOD_FLAVOUR_MAPLE:
+						return new RacialEffectUtil("Makes udder-milk taste like maple.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.MAPLE); } };
+					case TF_MOD_FLAVOUR_CINNAMON:
+						return new RacialEffectUtil("Makes udder-milk taste like cinnamon.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.CINNAMON); } };
+					case TF_MOD_FLAVOUR_LEMON:
+						return new RacialEffectUtil("Makes udder-milk taste like lemon.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.LEMON); } };
+					case TF_MOD_FLAVOUR_ORANGE:
+						return new RacialEffectUtil("Makes udder-milk taste like orange.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.ORANGE); } };
+					case TF_MOD_FLAVOUR_GRAPE:
+						return new RacialEffectUtil("Makes udder-milk taste like grape.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.GRAPE); } };
+					case TF_MOD_FLAVOUR_MELON:
+						return new RacialEffectUtil("Makes udder-milk taste like melon.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.MELON); } };
+					case TF_MOD_FLAVOUR_COCONUT:
+						return new RacialEffectUtil("Makes udder-milk taste like coconut.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.COCONUT); } };
+					case TF_MOD_FLAVOUR_BLUEBERRY:
+						return new RacialEffectUtil("Makes udder-milk taste like blueberries.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.BLUEBERRY); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -4806,6 +4952,26 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes girlcum taste like strawberries.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.STRAWBERRY); } };
 					case TF_MOD_FLAVOUR_VANILLA:
 						return new RacialEffectUtil("Makes girlcum taste like vanilla.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.VANILLA); } };
+					case TF_MOD_FLAVOUR_COFFEE:
+						return new RacialEffectUtil("Makes girlcum taste like coffee.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.COFFEE); } };
+					case TF_MOD_FLAVOUR_TEA:
+						return new RacialEffectUtil("Makes girlcum taste like tea.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.TEA); } };
+					case TF_MOD_FLAVOUR_MAPLE:
+						return new RacialEffectUtil("Makes girlcum taste like maple.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.MAPLE); } };
+					case TF_MOD_FLAVOUR_CINNAMON:
+						return new RacialEffectUtil("Makes girlcum taste like cinnamon.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.CINNAMON); } };
+					case TF_MOD_FLAVOUR_LEMON:
+						return new RacialEffectUtil("Makes girlcum taste like lemons.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.LEMON); } };
+					case TF_MOD_FLAVOUR_ORANGE:
+						return new RacialEffectUtil("Makes girlcum taste like orange.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.ORANGE); } };
+					case TF_MOD_FLAVOUR_GRAPE:
+						return new RacialEffectUtil("Makes girlcum taste like grape.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.GRAPE); } };
+					case TF_MOD_FLAVOUR_MELON:
+						return new RacialEffectUtil("Makes girlcum taste like melon.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.MELON); } };
+					case TF_MOD_FLAVOUR_COCONUT:
+						return new RacialEffectUtil("Makes girlcum taste like coconut.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.COCONUT); } };
+					case TF_MOD_FLAVOUR_BLUEBERRY:
+						return new RacialEffectUtil("Makes girlcum taste like blueberries.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.BLUEBERRY); } };
 	
 					case TF_MOD_FLUID_ADDICTIVE:
 						if(potency == TFPotency.MINOR_DRAIN) {

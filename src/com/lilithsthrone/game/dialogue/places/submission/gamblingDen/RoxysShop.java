@@ -21,7 +21,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -64,6 +63,8 @@ public class RoxysShop {
 				sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_START"));
 				if(isAddictedToRoxy()) {
 					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_ADDICTED"));
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyAddicted)) {
+					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_BEATEN_ADDICTION"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_NOT_ADDICTED"));
 				}
@@ -71,7 +72,6 @@ public class RoxysShop {
 				return sb.toString();
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyIntroduced)) {
-				
 				if(isAddictedToRoxy()) {
 					return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_REPEAT_ADDICT");
 					
@@ -216,17 +216,17 @@ public class RoxysShop {
 						
 						int dTotal = d1 + d2;
 						if(dTotal<=3) {
-							item = AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER);
+							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER);
 						} else if(dTotal<=5) {
-							item = AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH);
+							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH);
 						} else if(dTotal<=7) {
-							item = AbstractItemType.generateItem(ItemType.MOTHERS_MILK);
+							item = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
 						} else if(dTotal<=9) {
-							item = AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM);
+							item = Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM);
 						} else if(dTotal<=11) {
-							item = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH);
+							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH);
 						} else {
-							item = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN);
+							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HUMAN);
 						}
 						
 						UtilText.addSpecialParsingString(Util.intToString(d1), true);

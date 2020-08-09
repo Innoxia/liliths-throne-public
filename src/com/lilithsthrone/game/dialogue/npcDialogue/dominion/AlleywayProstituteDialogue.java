@@ -17,7 +17,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -34,7 +33,9 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class AlleywayProstituteDialogue {
-
+	
+	private static final int FINE_AMOUNT = 10_000;
+	
 	private static boolean inApartment = false;
 	private static boolean hadSex = false;
 	
@@ -387,13 +388,13 @@ public class AlleywayProstituteDialogue {
 					};
 					
 				} else if (index == 10) {
-					if(Main.game.getPlayer().getMoney()<20000) {
-						return new Response("Remove ("+UtilText.formatAsMoney(20000, "span")+")",
-								UtilText.parse(getProstitute(), "You don't have 20000 flames, so you can't afford to pay [npc.name] to leave this area."),
+					if(Main.game.getPlayer().getMoney()<FINE_AMOUNT) {
+						return new Response("Remove ("+UtilText.formatAsMoney(FINE_AMOUNT, "span")+")",
+								UtilText.parse(getProstitute(), "You don't have "+Util.intToString(FINE_AMOUNT)+" flames, so you can't afford to pay [npc.name] to leave this area."),
 								null);
 					} else {
 						return new Response(
-								"Remove ("+UtilText.formatAsMoney(20000, "span")+")",
+								"Remove ("+UtilText.formatAsMoney(FINE_AMOUNT, "span")+")",
 								UtilText.parse(getProstitute(), "Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.her] to stop having to work in these dangerous alleyways."
 										+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 								PROSTITUTE_REMOVAL_PAID) {
@@ -413,11 +414,15 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
+			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), true);
 			if(inApartment) {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "ALLEY_PROSTITUTE_QUESTION_APARTMENT", getProstitute()));
 			} else {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "ALLEY_PROSTITUTE_QUESTION", getProstitute()));
 			}
+			// Reset special parsing so that ALLEY_PROSTITUTE.getResponse() parsing is correct:
+			UtilText.addSpecialParsingString(Util.intToString(prostitutePrice(false)), true);
+			UtilText.addSpecialParsingString(Util.intToString(prostitutePrice(true)), false);
 			return sb.toString();
 		}
 		@Override
@@ -450,6 +455,7 @@ public class AlleywayProstituteDialogue {
 	public static final DialogueNode PROSTITUTE_REMOVAL_THREATENED = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
+			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), true);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_THREATENED_APARTMENT", getProstitute()));
 			} else {
@@ -476,19 +482,20 @@ public class AlleywayProstituteDialogue {
 			double rnd = Math.random();
 			AbstractWeapon weapon;
 			if(rnd<0.60f) {
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
 			} else if(rnd<0.30f){
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
 			} else {
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
 			}
 			UtilText.addSpecialParsingString(weapon.getName(true, true), true);
+			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), false);
 			if(inApartment) {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID_APARTMENT", getProstitute()));
 			} else {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "PROSTITUTE_REMOVAL_PAID", getProstitute()));
 			}
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-20000));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-FINE_AMOUNT));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, false));
 			Main.game.banishNPC(getProstitute());
 		}

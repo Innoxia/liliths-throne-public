@@ -513,7 +513,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.nipple].");
+									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.nipple(true)].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.cock+] thrust in and out of [npc2.her] [npc2.nipple+].");
@@ -992,7 +992,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.clit+] deep into [npc2.her] [npc2.nipple].");
+									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.clit+] deep into [npc2.her] [npc2.nipple(true)].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.clit+] thrust in and out of [npc2.her] [npc2.nipple+].");
@@ -2087,7 +2087,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.tail+] deep into [npc2.her] [npc2.nipple].");
+									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.tail+] deep into [npc2.her] [npc2.nipple(true)].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tail+] thrust in and out of [npc2.her] [npc2.nipple+].");
@@ -2442,7 +2442,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 								case DOM_ROUGH:
-									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.tentacle+] deep into [npc2.her] [npc2.nipple].");
+									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink [npc.namePos] [npc.tentacle+] deep into [npc2.her] [npc2.nipple(true)].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while [npc.her] [npc.tentacle+] thrust in and out of [npc2.her] [npc2.nipple+].");
@@ -2729,7 +2729,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 //								case SUB_EAGER:
 //								case SUB_NORMAL:
 //								case DOM_ROUGH:
-//									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink the toy deep into [npc2.her] [npc2.nipple].");
+//									sb.append(" [npc2.Name] [npc2.sexPaceVerb] pushed out [npc2.her] chest on every thrust, [npc2.moaning+] as [npc2.she] helped to sink the toy deep into [npc2.her] [npc2.nipple(true)].");
 //									break;
 //								case SUB_RESISTING:
 //									sb.append(" [npc2.Name] tried to pull away, but [npc.name] [npc.was] able to keep [npc2.herHim] in place even while the toy thrust in and out of [npc2.her] [npc2.nipple+].");

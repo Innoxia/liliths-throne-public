@@ -28,7 +28,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
@@ -877,7 +876,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)==null || !Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType().getId().equals("innoxia_neck_ambers_bitch_collar")) {
-								AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_neck_ambers_bitch_collar", false);
+								AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_neck_ambers_bitch_collar", false);
 								
 								if(Main.game.getPlayer().isAbleToEquip(collar, true, Main.game.getNpc(Amber.class))) {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_WALKIES_ATTACHES_COLLAR"));
@@ -1204,7 +1203,6 @@ public class ZaranixHomeGroundFloorRepeat {
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_FURIOUS_NO_APOLOGY"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -25));
 					}
 				};
@@ -1779,9 +1777,9 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Gender petGender = Gender.getGenderFromUserPreferences(false, false);
-						
 						pet = new GenericSexualPartner(
 								petGender.getGenderName().isHasPenis()?petGender:(petGender.isFeminine()?Gender.F_P_V_B_FUTANARI:Gender.M_P_MALE), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+						pet.setName(Util.randomItemFrom(Name.petNames));
 						pet.setPlayerKnowsName(true);
 						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER, false);
@@ -1819,9 +1817,9 @@ public class ZaranixHomeGroundFloorRepeat {
 								pet.addFetish(Fetish.FETISH_ANAL_GIVING);
 							}
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-							pet.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
+							pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
-								pet.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
+								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
 							}
 							owner.setAffection(pet, (float) (10 + Math.random()*90));
 							owner.setPlayerKnowsName(true);

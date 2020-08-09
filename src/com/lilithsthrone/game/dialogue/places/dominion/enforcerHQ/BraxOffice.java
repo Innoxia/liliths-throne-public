@@ -21,10 +21,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -58,42 +56,39 @@ public class BraxOffice {
 	
 	private static void givePlayerEnforcerUniform(StringBuilder sb) {
 		if(Main.game.getPlayer().isFeminine()) {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_bwhat", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_GOLD, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_bwhat", PresetColour.CLOTHING_BLACK, false), false));
 			
 		} else {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_lsldshirt", PresetColour.CLOTHING_BLUE, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, PresetColour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_lsldshirt", PresetColour.CLOTHING_BLUE, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, PresetColour.CLOTHING_GOLD, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), false));
 		}
 
 		TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
 		AbstractItem potion = EnchantingUtils.craftItem(
-			AbstractItemType.generateItem(tfPotion.getItemType()),
+			Main.game.getItemGen().generateItem(tfPotion.getItemType()),
 			tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 		potion.setName("Brax's Surprise");
 		sb.append(Main.game.getPlayer().addItem(potion, false));
 	}
 	
 	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX");
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -130,20 +125,20 @@ public class BraxOffice {
 	};
 	
 	public static final DialogueNode INTERIOR_BRAX_REPEAT = new DialogueNode("[brax.namePos] Office", "-", true) {
-
+		@Override
+		public boolean isTravelDisabled() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_REPEAT");
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if (index == 1 && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", Main.game.getNpc(Brax.class));
-					
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 
@@ -497,7 +492,7 @@ public class BraxOffice {
 						
 						TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
 						AbstractItem potion = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(tfPotion.getItemType()),
+							Main.game.getItemGen().generateItem(tfPotion.getItemType()),
 							tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						potion.setName("Brax's Surprise");
 						

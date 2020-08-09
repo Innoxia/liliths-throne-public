@@ -38,10 +38,14 @@
               <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
 		</effects>
 		
-		<primaryColours/> 
-		<primaryColoursDye/>
-		<secondaryColours/> 
-		<secondaryColoursDye/>
+		<primaryColours>
+			<colour>CLOTHING_BROWN_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>

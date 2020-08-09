@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Butler]]></name>
+	
+	<statusEffect>SET_BUTLER</statusEffect>
+	
+	<numberRequiredForCompleteSet>5</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_OVER</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>LEG</slot>
+		<slot>FOOT</slot>
+		<slot>HAND</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

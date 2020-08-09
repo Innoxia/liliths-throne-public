@@ -39,7 +39,7 @@
 		<rarity>COMMON</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -129,59 +129,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off the glasses.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You take the glasses off [npc.name]'s [npc.face].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You yank the glasses off [npc.name]'s [npc.face].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes off [npc.her] glasses.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] takes the glasses off your [pc.face].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] yanks the glasses off your [pc.face].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] takes off [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] yanks the glasses [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the ballistic glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the ballistic glasses onto [npc2.namePos] [npc.face].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the ballistic glasses onto [npc2.namePos] [npc2.face].]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You put on the glasses.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You push the the glasses onto [npc.name] [npc.face].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force the glasses onto [npc.name]'s [npc.face].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] puts on the glasses.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pushes the glasses onto your [pc.face].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces the glasses onto your [pc.face].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pushes the glasses onto [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces the glasses onto [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.her] ballistic glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] ballistic glasses off [npc2.her] [npc2.face].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] ballistic glasses from [npc2.her] [npc2.face].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

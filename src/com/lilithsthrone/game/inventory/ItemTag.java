@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.7.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum ItemTag {
@@ -23,7 +23,7 @@ public enum ItemTag {
 	SOLD_BY_KATE(false), // Jewellery
 	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
 	SOLD_BY_VICKY(false), // Weapons
-
+	
 	SPELL_BOOK(false),
 	SPELL_SCROLL(false),
 	ESSENCE(false),
@@ -35,6 +35,7 @@ public enum ItemTag {
 	DOMINION_ALLEYWAY_SPAWN(false),
 	SUBMISSION_TUNNEL_SPAWN(false),
 	BAT_CAVERNS_SPAWN(false),
+	ALCOHOLIC(false), // For easy detection of alcoholic items in some scenes
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 
@@ -51,7 +52,7 @@ public enum ItemTag {
 	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
-	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
 					"[style.colourGood(Provides equipper with key)]"),
 			false),
@@ -237,6 +238,10 @@ public enum ItemTag {
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
 	
+	MILKING_EQUIPMENT(
+			Util.newArrayListOfValues(
+					"[style.colourMilk(Milking equipment (drains creampies))]"),
+			true),
 	
 	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
 	DILDO_SELF(

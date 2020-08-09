@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ELEMENTAL_START -->
+	
+	<htmlContent tag="ELEMENTAL_START"><![CDATA[
+	<p>
+		#IF(el.getPassiveForm()==null)
+			Wanting to take a moment in which to speak to your elemental, you turn towards [el.name], only to see that [el.sheIs] already expectantly hovering up near to your face. The pale [el.skinColour] glow of [el.her] ethereal, wisp-like form noticeably brightens as [el.she] projects [el.her] thoughts directly into your mind,
+		#ELSE
+			Wanting to take a moment in which to speak to your elemental, you turn towards [el.name], only to see that [el.sheIs] already expectantly looking up at you. The pale [el.skinColour] glow which surrounds [el.her] feral [el.passiveRace]'s body noticeably brightens as [el.she] projects [el.her] thoughts directly into your mind,
+		#ENDIF
+		#IF(el.isSummonerServant())
+			 [el.thought(You dare to ask something of me, servant? Bow down before me, and I shall consider your request.)]
+		#ELSEIF(el.isServant())
+			 [el.thought(May I serve you, [pc.name]? Your every wish is my command...)]
+		#ELSE
+			 [el.thought(You wish to speak with me, [pc.name]?)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(el.isSummonerServant())
+			Having sworn to be subservient to the school of [el.school(true)], you feel obliged to do as [el.name] commands, and dutifully bow down before [el.herHim]. Satisfied with your display of submission, your elemental once again projects [el.her] voice into your mind and dominantly orders, [el.thought(Tell me what it is you want then, servant!)]
+		#ELSE
+			Clearly wanting to show [el.her] affection towards you, [el.name] rubs up against your [pc.leg(true)] as [el.she] waits to hear what it is you want...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_START_SEX_DOMINANT"><![CDATA[
+	<p>
+		Whether due to [el.name] planting the idea in your subconscious, or perhaps just from the sight of [el.her] active form, you suddenly find yourself feeling desperately turned-on. [pc.Stepping] forwards to dominantly take hold of your elemental, you pull [el.herHim] into
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, false) && el.isAbleToAccessCoverableArea(CA_MOUTH, false))
+			 a passionate kiss, and as you push your [pc.tongue+] into [el.her] mouth, [el.she] projects [el.her] voice into your mind, [el.thought(~Ooh!~ Yes! That's it... ~Mmm!~ Let's give in to our desires...)]
+		#ELSE	
+			 your embrace, and as you press yourself against [el.herHim], [el.she] excitedly [el.moans], [el.speech(~Ooh!~ Yes! That's it... ~Mmm!~ Let's give in to our desires...)]
+		#ENDIF
+	</p>
+	<p>
+		More than happy to do as your elemental suggests, you prepare to give [el.her] a good fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_START_SEX_SUBMISSIVE"><![CDATA[
+	<p>
+		Whether due to [el.name] planting the idea in your subconscious, or perhaps just from the sight of [el.her] active form, you suddenly find yourself feeling desperately turned-on. Knowing exactly what it is that you want, [el.name] [el.steps] forwards and firmly takes hold of your waist, before pulling you into
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, false) && el.isAbleToAccessCoverableArea(CA_MOUTH, false))
+			 a passionate kiss. As [el.she] forcefully pushes [el.her] [el.tongue+] into your mouth, [el.she] projects [el.her] voice into your mind,
+			#IF(el.isSummonerServant())
+				 [el.thought(~Mmm!~ Good servant... ~Aah!~ I'll show you what it means to pledge your subservience to me!)]
+			#ELSE
+				 [el.thought(~Mmm!~ Yes! That's it... ~Aah!~ Let's give in to our desires...)]
+			#ENDIF
+		#ELSE
+			#IF(el.isSummonerServant())
+				 [el.her] embrace. As [el.she] presses [el.herself] against you, [el.she] dominantly [el.moans], [el.speech(~Mmm!~ Good servant... ~Aah!~ I'll show you what it means to pledge your subservience to me!)]
+			#ELSE
+				 [el.her] embrace. As [el.she] presses [el.herself] against you, [el.she] excitedly [el.moans], [el.speech(~Mmm!~ Yes! That's it... ~Aah!~ Let's give in to our desires...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		More than happy to do as your elemental suggests, you prepare to submit to [el.herHim] and receive a good fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_TAKE_FORM_PASSIVE"><![CDATA[
+	<p>
+		Having had enough of [el.namePos] active form, you
+		#IF(el.isSummonerServant())
+			 kindly ask [el.herHim] if [el.she] could return to [el.her] passive form. For a moment, it looks as though [el.sheIs] going to refuse to do as you say, but after flashing you an amused smirk, [el.she] relents, [el.speech(Fine. Staying in this form for too long gives me a headache anyway...)]
+		#ELSE
+			 tell [el.herHim] to return to [el.her] passive form. Obediently nodding [el.her] head as you give [el.herHim] your command, [el.she] says, [el.speech(Of course, [pc.name]. Give me just a moment...)]
+		#ENDIF
+	</p>
+	<p>
+		Letting out a deep breath, [el.name] is suddenly enveloped by a flash of [el.skinColour] arcane energy, and as it quickly fades down into a dull glow, you're able to see that your elemental has once again taken the form of [el.a_passiveForm].
+		#IF(el.getPassiveForm()==null)
+			 Hovering around you, [el.her] ethereal, wisp-like form brightens as [el.she] projects [el.her] voice into your head and asks,
+		#ELSE
+			 Looking up at you, the faint glow emitted by [el.her] feral [el.passiveRace]'s body brightens as [el.she] projects [el.her] voice into your head and asks,
+		#ENDIF
+		#IF(el.isSummonerServant())
+			 [el.thought(Are you quite satisfied now, servant?)]
+		#ELSE
+			 [el.thought(Is there anything else you need, [pc.name]?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_TAKE_FORM_ACTIVE"><![CDATA[
+	<p>
+		Wanting [el.name] to switch out of [el.her] passive form and take on [el.her] real appearance, you
+		#IF(el.isSummonerServant())
+			 kindly ask [el.herHim] if [el.she] could change into [el.her] active form. Seemingly eager to show you [el.her] true form, [el.she] projects [el.her] voice into your head and states, [el.thought(Very well, servant, I shall allow you to see my true form!)]
+		#ELSE
+			 tell [el.herHim] to change into [el.her] active form. Quickly projecting [el.her] voice into your head, [el.she] obediently states, [el.thought(Of course, [pc.name]. Give me just a moment...)]
+		#ENDIF
+	</p>
+	<p>
+		Suddenly, [el.name] is concealed from your view by a blinding flash of [el.skinColour] arcane energy. Thankfully, this bright light quickly fades away, allowing you to see that your elemental has changed out of [el.her] passive form of [el.a_passiveForm].
+		#IF(el.isFeminine())
+			 Flashing you a cheeky grin and seductively teasing [el.her] [el.fingers+] over [el.her] sexy body,
+		#ELSE
+			 Flashing you a charming smile and confidently [el.stepping] forwards,
+		#ENDIF
+		#IF([#SPECIAL_PARSE_0])
+			#IF(el.isSummonerServant())
+				 [el.she] ponders out loud, [el.speech(I find myself getting quite aroused when in this form... Perhaps I should fuck you?)]
+			#ELSE
+				 [el.she] teases, [el.speech(I find myself getting quite aroused when in this form... Perhaps you'd like to fuck me?)]
+			#ENDIF
+		#ELSE
+			#IF(el.isSummonerServant())
+				 [el.she] asks, [el.speech(So what did you want to ask of me now, servant?)]
+			#ELSE
+				 [el.she] asks, [el.speech(So what would you like to do with me while in this form, [pc.name]?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELEMENTAL_AFTER_SEX -->
+	
+	<htmlContent tag="ELEMENTAL_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(game.isSillyModeEnabled())
+			[pc.speech(So <i>that's</i> how it feels to go fuck myself,)]
+			#IF(sex.isDom(pc))
+				 you pant as you [pc.step] back from [el.name].
+			#ELSE
+				 you pant as [el.name] [el.steps] back from you and brings an end to the sex.
+			#ENDIF
+		#ELSE
+			#IF(sex.isDom(pc))
+				Having had your fun, you tell [el.name] that you've finished with [el.herHim] and [pc.step] back, leaving [el.herHim] to [el.moan], [el.speech(~Ooh!~ That felt good... We should do this again some time...)]
+			#ELSE
+				Having had [el.her] fun, [el.name] [el.steps] back and [el.moans], [el.speech(~Mmm!~ That felt good... We should do this again some time!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Quickly getting your things back in order, you take a moment to catch your breath and turn to face [el.name] once again. Seeing that [el.sheHas] already fully recovered from your shared intimate experience, you wonder what to say to [el.herHim] next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELEMENTAL_INSPECT -->
+	
+	<htmlContent tag="ELEMENTAL_INSPECT"><![CDATA[
+	#IF(el.isSummonerServant())
+		<p>
+			Wanting to take a closer look at [el.namePos] body, you kindly ask [el.herHim] if [el.she] could pose for you. 
+		</p>
+		<p>
+			[el.speech(You, a mere servant, dare to ask me such a thing?!)] [el.she] scowls, before letting out a deep huff and saying, [el.speech(Bow down to me again and I'll consider it.)]
+		</p>
+		<p>
+			Doing as you're told, you bow down before your elemental, which is thankfully enough to get what you want, as [el.she] strikes a revealing pose before you and huffs, [el.speech(Go on then, servant! Get a good look at the one you've sworn your subservience to!)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to take a closer look at [el.namePos] body, you tell [el.herHim] to assume a revealing pose for you. 
+		</p>
+		<p>
+			[el.speech(Of course, if that's what you want,)] your elemental obediently replies, before presenting [el.herself] to you and holding still so that you can inspect [el.herHim]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELEMENTAL_TALK -->
+	
+	<htmlContent tag="ELEMENTAL_TALK"><![CDATA[
+	<p>
+		Wanting to know more about what exactly [el.name] is, you ask [el.herHim] what [el.she] knows about [el.her] existence.
+	</p>
+	<p>
+		#IF(el.isSummonerServant())
+			#IF(el.isActive())
+				[el.speech(How presumptuous of a mere servant to ask such a thing!)]
+			#ELSE
+				[el.thought(How presumptuous of a mere servant to ask such a thing!)]
+			#ENDIF
+			 [el.she] huffs, before nevertheless beginning to answer your question by stating,
+		#ELSE
+			#IF(el.isActive())
+				[el.speech(You want to know what I am?)] 
+			#ELSE
+				[el.thought(You want to know what I am?)] 
+			#ENDIF
+			 [el.she] asks, before beginning to answer your question by stating,
+		#ENDIF
+		#IF(el.isActive())
+			 [el.speech(I'm a construct of your subconscious, and have been brought to life by the power of your arcane aura. While it may appear that I am able to think and act in an independent manner, I am merely a physical manifestation of your mind, and so in reality, I am just another part of you.)]
+		#ELSE
+			 [el.thought(I'm a construct of your subconscious, and have been brought to life by the power of your arcane aura. While it may appear that I am able to think and act in an independent manner, I am merely a physical manifestation of your mind, and so in reality, I am just another part of you.)]
+		#ENDIF
+	</p>
+	<p>
+		Prompted by further questioning, [el.name] goes on to reveal that while the potential exists in everyone, only those with exceptionally powerful arcane auras are capable of actually summoning an elemental. [el.She] goes on to say that only an aura of equivalent strength to that of a lilin is able to permanently sustain an elemental in an active state, and as powerful as your aura is, [el.she] is only able to stay in [el.her] active form for short periods of time. Finishing off this topic of conversation, [el.name] sighs,
+		#IF(el.isActive())
+			 [el.speech(<i>You</i> might not feel the strain of having me stay in my active form, but <i>I</i> certainly do. I'll only ever use it when I need to help you defend yourself, or when you've got a specific purpose for me to be in my active form...)]
+		#ELSE
+			 [el.thought(<b>You</b> might not feel the strain of having me stay in my active form, but <b>I</b> certainly do. I'll only ever use it when I need to help you defend yourself, or when you've got a specific purpose for me to be in my active form...)]
+		#ENDIF
+	</p>
+	<p>
+		With the topic of [el.namePos] nature being exhausted, you try to talk to [el.herHim] about some of the recent events in your life, but after a short while, [el.she] admits,
+		#IF(el.isActive())
+			 [el.speech(I already know everything that you're saying... I'm formed from your subconscious, remember? That means I know absolutely everything about you, and conversely, you know everything about me...)]
+		#ELSE
+			 [el.thought(I already know everything that you're saying... I'm formed from your subconscious, remember? That means I know absolutely everything about you, and conversely, you know everything about me...)]
+		#ENDIF
+	</p>
+	<p>
+		With this fact now out in the open, the two of you quickly realise that there's not much point in making small talk. With your conversation now at an end, [el.name] asks,
+		#IF(el.isSummonerServant())
+			#IF(el.isActive())
+				 [el.speech(So, servant, is there anything else you wished to request of me?)]
+			#ELSE
+				 [el.thought(So, servant, is there anything else you wished to request of me?)]
+			#ENDIF
+		#ELSE
+			#IF(el.isActive())
+				 [el.speech(So, [pc.name], is there anything else you wanted me to do?)]
+			#ELSE
+				 [el.thought(So, [pc.name], is there anything else you wanted me to do?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELEMENTAL_PETTING -->
+	
+	<htmlContent tag="ELEMENTAL_PETTING"><![CDATA[
+	#IF(el.getPassiveForm()==null)
+		<p>
+			Deciding that your elemental deserves a good petting, you [pc.step] towards [el.her] wisp-like form and hold your [pc.hand] up towards [el.herHim]. Knowing exactly what it is that you intend to do, [el.name] focuses on solidifying the core of [el.her] ethereal body, allowing you to reach up and touch [el.herHim].
+		</p>
+		<p>
+			[el.thought(That feels... good...)] [el.namePos] voice echoes into your mind as you start stroking [el.herHim]. Thanks to the fact that [el.sheIsFull] directly linked to your subconscious, you find yourself sharing in the pleasurable feeling of being petted, which encourages you to keep on doing it. The [el.skinColour] light of [el.namePos] wisp-like form shimmers as [el.she] projects a deeply-satisfied sigh into your mind, [el.thought(Yes... Keep going...)]
+		</p>
+	#ELSE
+		<p>
+			Deciding that your cute little elemental deserves a good petting, you bend down and hold your [pc.hand] out towards [el.herHim]. Knowing exactly what it is that you intend to do, [el.name], who's in the form of a small [el.passiveForm], happily moves towards you and lets you pet [npc.herHim].
+		</p>
+		<p>
+			[el.thought(That feels... good...)] [el.namePos] voice echoes into your mind as you start stroking [el.herHim]. Thanks to the fact that [el.sheIsFull] directly linked to your subconscious, you find yourself sharing in the pleasurable feeling of being petted, which encourages you to keep on doing it. The faint [el.skinColour] light which surrounds [el.namePos] body shimmers as [el.she] projects a deeply-satisfied sigh into your mind, [el.thought(Yes... Keep going...)]
+		</p>
+	#ENDIF
+	<p>
+		Doing as [el.she] suggests, you keep on petting your elemental for some time, and soon find yourself letting out happy sighs of your own as you bond with [el.name]. Eventually, however, you feel as though you've spent enough time doing this, and after forcing yourself to stop stroking and petting your elemental, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELEMENTAL_PASSIVE_FORM -->
+	
+	<htmlContent tag="ELEMENTAL_PASSIVE_FORM"><![CDATA[
+	<p>
+		Wanting to know more about the passive form which [el.name] is current in, you ask [el.herHim] what [el.she] can tell you about it.
+	</p>
+	<p>
+		#IF(el.isSummonerServant())
+			[el.thought(If you must know, <i>servant</i>, I have to assume a smaller, passive form for the vast majority of the time, or else I'll quickly run out of energy and return to your aura,)]
+		#ELSE
+			[el.thought(Well, I have to assume a smaller, passive form for the vast majority of the time, or else I'll quickly run out of energy and return to your aura,)]
+		#ENDIF
+		 [el.name] says, before continuing, [el.thought(Only the elementals of lilin can indefinitely maintain their active forms, and while your aura is definitely an exceptionally strong one, I still need to stay in my passive form until I'm required for combat or sex...)]
+	</p>
+	<p>
+		Asking your elemental if it would be possible for [el.herHim] to transform [el.her] passive form into a different shape, you're given the answer, [el.thought(Of course. Apart from taking the form of a wisp, I can transform myself into the shape of any animal you'd like. I can't maintain a form larger than a small cat, however, so taking on the form of a large animal may make me look silly... Did you want me to change my form now?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_PASSIVE_FORM_BACK"><![CDATA[
+	<p>
+		After you've told [el.name] that you don't want [el.herHim] to change [el.her] passive form, [el.she] asks, [el.thought(So, is there anything else you needed?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_PASSIVE_FORM_CHANGE"><![CDATA[
+	<p>
+		Wanting [el.name] to take on a different passive form, you ask [npc.herHim] to transform into [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		#IF(el.isSummonerServant())
+			[el.thought(Very well, I suppose that I see no reason to decline your request,)] [el.name] says, and then in a sudden flash of [el.skinColour] arcane energy, [el.she] takes on the form of [#SPECIAL_PARSE_0], just as you asked.
+		#ELSE
+			[el.thought(Very well, please give me just a moment,)] [el.name] obediently says, and then in a sudden flash of [el.skinColour] arcane energy, [el.she] takes on the form of [#SPECIAL_PARSE_0], just as you asked.
+		#ENDIF
+	</p>
+	<p>
+		#IF(el.getPassiveForm()==null)
+			Now in the form of an ethereal, floating wisp, your elemental hovers in front of you and asks, [el.thought(Is there anything else you needed?)]
+		#ELSE
+			Now in the form of a small, cute [el.passiveForm], your elemental asks, [el.thought(So, is there anything else you needed?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

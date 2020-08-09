@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -521,22 +523,26 @@ public class PixsPlayground {
 			if (index == 1) {
 				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 					return new Response("Pix's reward",
-							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'..."
+									+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
+									+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 							GYM_PIX_ASSAULT) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().cleanAllDirtySlots(true);
-							Main.game.getNpc(Pix.class).cleanAllDirtySlots(true);
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
 						}
 					};
 				} else {
 					return new Response("Pix's reward",
-							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'..."
+									+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
+									+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
 							GYM_PIX_ASSAULT_CONSENSUAL) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().cleanAllDirtySlots(true);
-							Main.game.getNpc(Pix.class).cleanAllDirtySlots(true);
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
 						}
 					};
 				}

@@ -24,7 +24,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
@@ -47,6 +46,7 @@ public class ResponseSex extends Response {
 	private List<GameCharacter> submissiveSpectators;
 	private DialogueNode postSexDialogue;
 	private String sexStartDescription;
+	private ResponseTag[] tags;
 	
 	public ResponseSex(String title,
 			String tooltipText,
@@ -130,6 +130,8 @@ public class ResponseSex extends Response {
 				postSexDialogue,
 				sexStartDescription);
 
+		this.tags = tags;
+		
 		// If size difference with just two participants, return relevant standing position: 
 		if(submissives.size()==1 && dominants.size()==1) {
 			boolean sexManagerSet = false;
@@ -361,6 +363,34 @@ public class ResponseSex extends Response {
 	}
 	
 	@Override
+	public String getTooltipText() {
+		if(sexManager.getStartingSexPaceModifier(Main.game.getPlayer())!=null) {
+			StringBuilder sb = new StringBuilder(tooltipText);
+			SexPace pace = sexManager.getStartingSexPaceModifier(Main.game.getPlayer());
+			sb.append("<br/><i>Starts sex in the '<span style='color:"+pace.getColour().toWebHexString()+";'>"+pace.getName()+"</span>' pace.</i>");
+			return sb.toString();
+			
+		} else if(tags!=null) {
+			StringBuilder sb = new StringBuilder(tooltipText);
+			SexPace pace = null;
+			if(Arrays.asList(tags).contains(ResponseTag.START_PACE_PLAYER_DOM_GENTLE)) {
+				pace = SexPace.DOM_GENTLE;
+			} else if(Arrays.asList(tags).contains(ResponseTag.START_PACE_PLAYER_DOM_ROUGH)) {
+				pace = SexPace.DOM_ROUGH;
+			} else if(Arrays.asList(tags).contains(ResponseTag.START_PACE_PLAYER_SUB_EAGER)) {
+				pace = SexPace.SUB_EAGER;
+			} else if(Arrays.asList(tags).contains(ResponseTag.START_PACE_PLAYER_SUB_RESISTING)) {
+				pace = SexPace.SUB_RESISTING;
+			}
+			if(pace!=null) {
+				sb.append("<br/><i>Starts sex in the '<span style='color:"+pace.getColour().toWebHexString()+";'>"+pace.getName()+"</span>' pace.</i>");
+			}
+			return sb.toString();
+		}
+		return tooltipText;
+	}
+	
+	@Override
 	public boolean isSexHighlight() {
 		return true;
 	}
@@ -411,25 +441,40 @@ public class ResponseSex extends Response {
 		} else {
 			subSlots.add(SexSlotStanding.PERFORMING_ORAL_FOUR);
 		}
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 
 		List<SexSlot> domSlots = new ArrayList<>();
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_TWO);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_THREE);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_FOUR);
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
+		
+		List<GameCharacter> finalSubmissiveSpectators = new ArrayList<>();
+		if(submissiveSpectators!=null) {
+			finalSubmissiveSpectators.addAll(submissiveSpectators);
+		}
 		for(int i=0; i<submissives.size(); i++) {
-			subMap.put(submissives.get(i), subSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalSubmissiveSpectators.add(submissives.get(i));
+			} else {
+				subMap.put(submissives.get(i), subSlots.get(i));
+			}
 		}
-		
+
+		List<GameCharacter> finalDominantSpectators = new ArrayList<>();
+		if(dominantSpectators!=null) {
+			finalDominantSpectators.addAll(dominantSpectators);
+		}
 		for(int i=0; i<sortedDominants.size(); i++) {
-			domMap.put(sortedDominants.get(i), domSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalDominantSpectators.add(sortedDominants.get(i));
+			} else {
+				domMap.put(sortedDominants.get(i), domSlots.get(i));
+			}
 		}
 		
+		this.submissiveSpectators = finalSubmissiveSpectators;
+		this.dominantSpectators = finalDominantSpectators;
 		this.sexManager = new SexManagerDefault(SexPosition.STANDING, domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -480,8 +525,6 @@ public class ResponseSex extends Response {
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_TWO);
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_THREE);
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_FOUR);
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
 		if(submissives.size()==1) {
 			domSlots.add(SexSlotLyingDown.MISSIONARY);
@@ -507,17 +550,34 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotLyingDown.MISSIONARY_THREE);
 			domSlots.add(SexSlotLyingDown.MISSIONARY_FOUR);
 		}
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 
+		
+		List<GameCharacter> finalSubmissiveSpectators = new ArrayList<>();
+		if(submissiveSpectators!=null) {
+			finalSubmissiveSpectators.addAll(submissiveSpectators);
+		}
 		for(int i=0; i<submissives.size(); i++) {
-			subMap.put(submissives.get(i), subSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalSubmissiveSpectators.add(submissives.get(i));
+			} else {
+				subMap.put(submissives.get(i), subSlots.get(i));
+			}
 		}
-		
+
+		List<GameCharacter> finalDominantSpectators = new ArrayList<>();
+		if(dominantSpectators!=null) {
+			finalDominantSpectators.addAll(dominantSpectators);
+		}
 		for(int i=0; i<sortedDominants.size(); i++) {
-			domMap.put(sortedDominants.get(i), domSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalDominantSpectators.add(sortedDominants.get(i));
+			} else {
+				domMap.put(sortedDominants.get(i), domSlots.get(i));
+			}
 		}
 		
+		this.submissiveSpectators = finalSubmissiveSpectators;
+		this.dominantSpectators = finalDominantSpectators;
 		this.sexManager = new SMLyingDown(domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
@@ -567,8 +627,6 @@ public class ResponseSex extends Response {
 		subSlots.add(SexSlotAllFours.ALL_FOURS_TWO);
 		subSlots.add(SexSlotAllFours.ALL_FOURS_THREE);
 		subSlots.add(SexSlotAllFours.ALL_FOURS_FOUR);
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
-		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
 		if(submissives.size()==1) {
 			domSlots.add(SexSlotAllFours.BEHIND);
@@ -594,17 +652,34 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotAllFours.BEHIND_THREE);
 			domSlots.add(SexSlotAllFours.BEHIND_FOUR);
 		}
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
-		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 
+		
+		List<GameCharacter> finalSubmissiveSpectators = new ArrayList<>();
+		if(submissiveSpectators!=null) {
+			finalSubmissiveSpectators.addAll(submissiveSpectators);
+		}
 		for(int i=0; i<submissives.size(); i++) {
-			subMap.put(submissives.get(i), subSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalSubmissiveSpectators.add(submissives.get(i));
+			} else {
+				subMap.put(submissives.get(i), subSlots.get(i));
+			}
 		}
-		
+
+		List<GameCharacter> finalDominantSpectators = new ArrayList<>();
+		if(dominantSpectators!=null) {
+			finalDominantSpectators.addAll(dominantSpectators);
+		}
 		for(int i=0; i<sortedDominants.size(); i++) {
-			domMap.put(sortedDominants.get(i), domSlots.get(i));
+			if(i>=subSlots.size()) {
+				finalDominantSpectators.add(sortedDominants.get(i));
+			} else {
+				domMap.put(sortedDominants.get(i), domSlots.get(i));
+			}
 		}
 		
+		this.submissiveSpectators = finalSubmissiveSpectators;
+		this.dominantSpectators = finalDominantSpectators;
 		this.sexManager = new SMAllFours(domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {

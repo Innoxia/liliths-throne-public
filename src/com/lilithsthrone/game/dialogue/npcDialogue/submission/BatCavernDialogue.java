@@ -26,7 +26,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.FetishPotion;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
@@ -383,7 +382,7 @@ public class BatCavernDialogue {
 								if(getMugger().isVisiblyPregnant()){
 									getMugger().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 								}
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.MUSHROOM), 1, true);
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 1, true);
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernSlime", "ATTACK_PAID_OFF_WITH_MUSHROOM") //TODO
 										+"<p>"
 											+ Main.game.getPlayer().removedItemFromInventoryText(ItemType.MUSHROOM)

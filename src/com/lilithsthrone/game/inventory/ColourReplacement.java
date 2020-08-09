@@ -37,7 +37,7 @@ public class ColourReplacement {
 	public ColourReplacement(boolean recolouringAllowed, List<String> colourReplacements, List<Colour> defaultColours, List<Colour> extraColours) {
 		this.recolouringAllowed = recolouringAllowed;
 		
-		this.colourReplacements = colourReplacements;
+		this.colourReplacements = new ArrayList<>(colourReplacements);
 		
 		// This is all so that colours are displayed in the correct gradient order when retrieved:
 		
@@ -48,13 +48,13 @@ public class ColourReplacement {
 			this.defaultColours.addAll(defaultColours);
 		}
 
-		Set<Colour> colourSet = new HashSet<>();
 		
 		this.extraColours = new ArrayList<>();
 		if (extraColours != null) {
 			this.extraColours.addAll(extraColours);
 		}
-		
+
+		Set<Colour> colourSet = new HashSet<>();
 		this.allColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		if(defaultColours!=null) {
 			colourSet.addAll(defaultColours);

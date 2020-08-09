@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
@@ -54,7 +53,7 @@ public class Pazu extends NPC {
 				 */
 				25, Month.JUNE, 1, //TODO
 				1, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -82,7 +81,7 @@ public class Pazu extends NPC {
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_shorts", PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_shorts", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -11,23 +12,32 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -36,7 +46,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -50,7 +60,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.5.5
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class RatWarrensCaptive extends NPC {
@@ -90,16 +100,15 @@ public class RatWarrensCaptive extends NPC {
 	
 //			CharacterUtils.applyMakeup(this, true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-
-
-			// Set starting attributes based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
-			this.setStartingCombatMoves();
-			loadImages();
-
-			initHealthAndManaToMax();
 			
+			initPerkTreeAndBackgroundPerks();
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+			
+			this.setStartingCombatMoves();
+			
+			initHealthAndManaToMax();
 		}
 		
 //		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -110,11 +119,15 @@ public class RatWarrensCaptive extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
-			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.9")) {
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9")) {
+			setStartingBody(true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -125,12 +138,24 @@ public class RatWarrensCaptive extends NPC {
 			
 			this.setHistory(Occupation.NPC_CAPTIVE);
 			
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_LACTATION_SELF);
+			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_LACTATION_SELF);
 
-			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.THREE_LIKE);
+			this.addFetish(Fetish.FETISH_SIZE_QUEEN);
+			this.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			
+			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 		}
 
 		this.setFaceVirgin(false);
@@ -138,24 +163,55 @@ public class RatWarrensCaptive extends NPC {
 		this.setVaginaVirgin(false);
 		
 		// Milking:
-		this.setBreastSize(CupSize.DD.getMeasurement()+Util.random.nextInt(6));
+		this.setBreastSize(CupSize.FF.getMeasurement()+Util.random.nextInt(10));
+		this.setNippleSize(NippleSize.FOUR_MASSIVE);
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
+		this.setNippleCapacity(0, true);
+		
 		this.setMilkFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
 		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
 		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
+
+		if(this.getCovering(BodyCoveringType.NIPPLES).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+			this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_DARK), false);
+		}
 		
-		// From anal sex:
+		// Anus:
 		if(Main.game.isAnalContentEnabled()) {
-			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
-			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
-			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+			this.addAssOrificeModifier(OrificeModifier.PUFFY);
+			this.setAssWetness(Wetness.FIVE_SLOPPY);
+			this.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			this.setAssCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SIX_GIRTHY), true);
+			this.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
+			this.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
+			if(Main.game.isAssHairEnabled()) {
+				this.setPubicHair(BodyHair.FOUR_NATURAL);
+			}
+			if(this.getCovering(BodyCoveringType.ANUS).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+				this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
+			}
 		}
 
-		// From vaginal sex:
+		// Vagina:
+		this.addVaginaOrificeModifier(OrificeModifier.PUFFY);
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
-		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.setGirlcumFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
+		this.addGirlcumModifier(FluidModifier.MUSKY);
+		this.setVaginaSquirter(true);
+		
+		this.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+		this.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
+		this.setVaginaCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SIX_GIRTHY), true);
+		
+		if(Main.game.isPubicHairEnabled()) {
+			this.setPubicHair(BodyHair.FOUR_NATURAL);
+		}
+		if(this.getCovering(BodyCoveringType.VAGINA).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+			this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
+		}
 	}
 
 	@Override
@@ -177,29 +233,30 @@ public class RatWarrensCaptive extends NPC {
 		this.clearNonEquippedInventory(false);
 		this.clearTattoosAndScars();
 		
-		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
+		AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
 		this.equipClothingFromNowhere(collar, true, this);
+		
+		applyMilkingEquipment(true, Util.newArrayListOfValues(InventorySlot.NIPPLE, InventorySlot.VAGINA));
 	}
 	
-	public void applyDildos(boolean equip) {
+	
+	public void applyMilkingEquipment(boolean equip, List<InventorySlot> slots) {
 		if(equip) {
-			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
-			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
-			this.equipClothingFromNowhere(dildo, InventorySlot.VAGINA, true, this);
-			
-			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
-			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
-			this.equipClothingFromNowhere(dildo, InventorySlot.ANUS, true, this);
+			if(slots.contains(InventorySlot.NIPPLE)) {
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, this);
+			}
+			if(slots.contains(InventorySlot.VAGINA)) {
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"), false), true, this);
+			}
 			
 		} else {
-			if(this.getClothingInSlot(InventorySlot.VAGINA)!=null) {
-				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.VAGINA), true, Main.game.getNpc(Murk.class));
-			}
-			if(this.getClothingInSlot(InventorySlot.ANUS)!=null) {
-				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.ANUS), true, Main.game.getNpc(Murk.class));
+			for(AbstractClothing c : new ArrayList<>(this.getClothingCurrentlyEquipped())) {
+				if(c.isMilkingEquipment() && slots.contains(c.getSlotEquippedTo())) {
+					this.unequipClothingIntoVoid(c, true, this);
+				}
 			}
 		}
 	}

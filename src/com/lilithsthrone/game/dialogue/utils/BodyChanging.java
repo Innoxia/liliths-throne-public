@@ -18,7 +18,7 @@ import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Mouth;
 import com.lilithsthrone.game.character.body.Nipples;
 import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -31,7 +31,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
@@ -323,13 +322,14 @@ public class BodyChanging {
 	
 	private static boolean isDemonTFMenu() {
 		return !debugMenu
+				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 				&& (BodyChanging.getTarget().getRace()==Race.DEMON
-					|| BodyChanging.getTarget().getSubspecies()==Subspecies.DEMON
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.DEMON
 					|| BodyChanging.getTarget().isElemental());
 	}
 	
 	private static boolean isHalfDemon() {
-		return BodyChanging.getTarget().getSubspecies()==Subspecies.HALF_DEMON;
+		return BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON;
 	}
 	
 	private static Map<BodyCoveringType, List<String>> getMainCoveringsMap() {
@@ -381,7 +381,7 @@ public class BodyChanging {
 						&& !(bp instanceof Antenna)
 						&& !(bp instanceof Horn)) {
 					String name = bp.getName(getTarget());
-					if(bp instanceof Skin) {
+					if(bp instanceof Torso) {
 						name = "torso";
 					}
 					
@@ -527,6 +527,10 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 							+ CharacterModificationUtils.getHeightChoiceDiv()
 						+"</div>"
+						
+						+ (BodyChanging.getTarget().isElemental()
+								?CharacterModificationUtils.getSelfTransformBodyMaterialChoiceDiv(BodyChanging.getTarget())
+								:"")
 						
 						+ "<div class='cosmetics-container' style='background:transparent;'>"
 							+ CharacterModificationUtils.getBodySizeChoiceDiv()
@@ -937,11 +941,6 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
-						+"</div>"
-						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(allRaces)
-							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))

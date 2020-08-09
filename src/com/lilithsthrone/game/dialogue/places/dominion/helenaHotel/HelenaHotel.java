@@ -22,7 +22,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.LubricationType;
@@ -505,7 +504,7 @@ public class HelenaHotel {
 				
 			} else if(index==3
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaDateVirginityTalk)) {// Romantic setup for taking virginity or repeat of scene:
-				if(Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET))<3) {
+				if(Main.game.getPlayer().getItemCount(Main.game.getItemGen().generateItem(ItemType.GIFT_ROSE_BOUQUET))<3) {
 					return new Response("Romantic setup", "You require at least [style.boldMinorBad(three "+ItemType.GIFT_ROSE_BOUQUET.getNamePlural(false)+")] in your inventory to do this!", null);
 				}
 				if((!Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
@@ -544,7 +543,7 @@ public class HelenaHotel {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_THANKS"));
-							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
+							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
 						}
 					};
@@ -572,7 +571,7 @@ public class HelenaHotel {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_PAID"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-1000));
-							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
+							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
 						}
 					};
@@ -636,7 +635,7 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_RESTAURANT_ROMANTIC_SETUP_AFTER_ORAL = new DialogueNode("Finished", "Now that she's orgasmed, Scarlett has had enough.", true) {
 		@Override
 		public void applyPreParsingEffects() { //TODO test
-			Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
+			Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
 			Main.game.getPlayer().removeDirtySlot(InventorySlot.MOUTH, true);
 			Main.game.getPlayer().removeDirtySlot(InventorySlot.EYES, true);
@@ -1243,7 +1242,7 @@ public class HelenaHotel {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HELENA_HOTEL);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateFirstDateComplete, true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			Main.game.getNpc(Helena.class).equipClothing();
 		}
@@ -2311,7 +2310,7 @@ public class HelenaHotel {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_AFTER_SEX_LEAVE_NEST"));
 							
-							Main.game.getNpc(Helena.class).cleanAllClothing(true);
+							Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 							Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 							Main.game.getNpc(Helena.class).equipClothing();
 							
@@ -2347,9 +2346,9 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllClothing(false, false);
 			Main.game.getPlayer().cleanAllDirtySlots(true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			((Helena)Main.game.getNpc(Helena.class)).applyDressForMorning();
 		}
@@ -2455,9 +2454,9 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING = new DialogueNode("Finished", "Helena seems to have had enough and pulls away...", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllClothing(false, false);
 			Main.game.getPlayer().cleanAllDirtySlots(true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override

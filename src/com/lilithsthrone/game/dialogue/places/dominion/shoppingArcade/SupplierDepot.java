@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
@@ -242,10 +241,10 @@ public class SupplierDepot {
 							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
 						}
 					};
 				}
@@ -283,7 +282,7 @@ public class SupplierDepot {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+			if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_REACTION");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE");
@@ -293,7 +292,7 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Convince", "It'd be better to try and play on the fact that Wolfgang has mistaken you for an Enforcer...", null);
 				} else {
 					return new Response("Convince", "Try and convince Wolfgang and Karl to let the other suppliers return.", SUPPLIER_DEPOT_OFFICE_CONVINCE) {
@@ -305,7 +304,7 @@ public class SupplierDepot {
 				}
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Enforcer Bluff", "Use this opportunity to convince Wolfgang and Karl to let the other suppliers return.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {
@@ -349,7 +348,7 @@ public class SupplierDepot {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED");
 			}
 			
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+			if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_REPEAT_ENFORCER_REACTION");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_REPEAT");
@@ -424,7 +423,7 @@ public class SupplierDepot {
 				return new Response("Convince", "You are already trying to convince them!", null);
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Enforcer Bluff", "Convince the suppliers that you're an Enforcer, and that they should do as you say.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {

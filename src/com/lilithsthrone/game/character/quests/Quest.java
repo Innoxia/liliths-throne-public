@@ -82,12 +82,14 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ." + " It looks like you'll have to inquire further there and find out a way to save Arthur.";
+			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ."
+					+ " It looks like you'll have to inquire further there and find out a way to save Arthur.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You were forced into a fight with the Enforcer's Chief, Brax." + " Thankfully, you were able to beat him, but you then found out that Arthur has been sold into slavery!";
+			return "You were forced to confront the Enforcer Inspector, Brax."
+					+ " Thankfully, you were able to deal with him, but you then found out that Arthur has been sold into slavery!";
 		}
 	},
 
@@ -443,7 +445,7 @@ public enum Quest {
 		}
 	},
 	
-	// Getting a Slaver License:
+	// Getting a slaver license:
 	
 	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
 		@Override
@@ -453,7 +455,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After asking how to obtain a Slaver License at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
+			return "After asking how to obtain a slaver license at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
 		}
 
 		@Override
@@ -1126,16 +1128,16 @@ public enum Quest {
 	VENGAR_THREE_COOPERATION_END(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Turning a new leaf";
+			return "Vengar's End";
 		}
 		@Override
 		public String getDescription() {
-			return "Now that Vengar has sworn to obey the law, and greased the pockets of the Enforcers who were responsible for hunting him down, you've agreed to report his change of ways to the Submission Enforcers."
-					+ " You should go and speak to Claire about this.";
+			return "As you and Axel were leaving the Rat Warrens, Shadow and Silence appeared at the head of a SWORD raid."
+					+ " To prove that you and Axel are not part of Vengar's gang, you're going to have to accompany one of the Enforcers and have a talk with Claire...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You reported all that happened with Vengar to Claire, who said that due to both his bribes and turning over several of his lieutenants, Vengar is no longer wanted.";
+			return "The SWORD Enforcers successfully raided the Rat Warrens, and thanks to Claire vouching for you, both you and Axel were proven not only to be innocent, but victims of Vengar's gang.";
 		}
 	},
 

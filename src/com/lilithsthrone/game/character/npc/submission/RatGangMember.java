@@ -36,7 +36,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -103,10 +103,6 @@ public class RatGangMember extends NPC {
 				}
 			}
 			
-//			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
-//				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
-//			}
-	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			this.setGenericName("gang-member");
@@ -132,6 +128,7 @@ public class RatGangMember extends NPC {
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 			this.removePersonalityTrait(PersonalityTrait.LISP);
 			this.removePersonalityTrait(PersonalityTrait.STUTTER);
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
 		}
 		
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -222,7 +219,7 @@ public class RatGangMember extends NPC {
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(victory) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape)) {
-				return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_VICTORY);
+				return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_VICTORY);
 			}
 			return new Response("", "", RatWarrensDialogue.GUARD_COMBAT_VICTORY) {
 				@Override
@@ -259,7 +256,7 @@ public class RatGangMember extends NPC {
 			
 		} else {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape)) {
-				return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_DEFEAT) {
+				return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_DEFEAT) {
 					@Override
 					public void effects() {
 						RatWarrensDialogue.applyCombatDefeatFlagsReset();

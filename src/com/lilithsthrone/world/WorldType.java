@@ -120,7 +120,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
 	};
 	
-	public static AbstractWorldType EMPTY = new AbstractWorldType("City",
+	public static AbstractWorldType EMPTY = new AbstractWorldType("Empty (Holding world)",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
@@ -197,7 +197,8 @@ public class WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
-					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP))){
+					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP),
+					new Value<>(new Color(0x00ff80), PlaceType.LILAYA_HOME_STAIR_UP_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -222,7 +223,8 @@ public class WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN),
+					new Value<>(new Color(0xff8000), PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;

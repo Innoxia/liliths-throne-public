@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.weapon;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,9 +29,9 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
-import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -41,7 +40,6 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -51,13 +49,13 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3.7.9
+ * @version 0.3.8.7
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 	private int baseValue;
-	private boolean isMod;
+	private boolean mod;
 	
 	private boolean melee;
 	private boolean twoHanded;
@@ -71,13 +69,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private String attackTooltipDescription;
 	private String description;
 
-	private SetBonus clothingSet;
+	private AbstractSetBonus clothingSet;
 	private Rarity rarity;
 	private float physicalResistance;
 	
 	private String equipText;
 	private String unequipText;
 	private List<String> hitDescriptions;
+	private List<String> hitCriticalDescriptions;
 	private List<String> missDescriptions;
 	
 	private String pathName;
@@ -108,12 +107,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private List<ColourReplacement> colourReplacements;
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
-	private Map<Integer, Integer> copyGenerationColours;
+	public Map<Integer, Integer> copyGenerationColours;
 
 	private List<ItemTag> itemTags;
 
 	@SuppressWarnings("deprecation")
-	public AbstractWeaponType(File weaponXMLFile, String author) {
+	public AbstractWeaponType(File weaponXMLFile, String author, boolean mod) {
 		this.itemTags = new ArrayList<>();
 
 		if (weaponXMLFile.exists()) {
@@ -135,7 +134,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				
 				this.itemTags = Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class);
 				
-				this.isMod = true;
+				this.mod = mod;
 				
 				this.baseValue = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
 				this.melee = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("melee").getTextContent());
@@ -239,11 +238,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
 					.filter(filterEmptyElements)
-					.map(Element::getTextContent).map(SetBonus::valueOf)
+					.map(Element::getTextContent).map(SetBonus::getSetBonusFromId)
 					.orElse(null);
 
 				this.effects = coreAttributes
-					.getMandatoryFirstOf("effects") 
+					.getMandatoryFirstOf("effects")
 					.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 					.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
@@ -265,8 +264,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 							.getAllOf("hitText").stream()
 							.map(o -> o.getTextContent())
 							.collect(Collectors.toList());
+					this.hitCriticalDescriptions = weaponElement
+							.getMandatoryFirstOf("hitDescriptions")
+							.getAllOf("criticalHitText").stream()
+							.map(o -> o.getTextContent())
+							.collect(Collectors.toList());
+					
 				} else {
 					this.hitDescriptions = new ArrayList<>();
+					this.hitCriticalDescriptions = new ArrayList<>();
 				}
 				
 				if(weaponElement.getOptionalFirstOf("missDescriptions").isPresent()) {
@@ -443,84 +449,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return result;
 	}
 
-	public static AbstractWeapon generateWeapon(String id) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id));
-	}
-
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt) {
-		return AbstractWeaponType.generateWeapon(wt, wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size())));
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
-		return generateWeapon(wt, dt, null);
-	}
-	
-	public static AbstractWeapon generateWeapon(String id, DamageType dt) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, null);
-	}
-	
-	public static AbstractWeapon generateWeapon(String id, DamageType dt, List<Colour> colours) {
-		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, colours);
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, List<Colour> colours) {
-		if(colours==null) {
-			colours = new ArrayList<>();
-		}
-		
-		int index = 0;
-		ColourReplacement cr = wt.getColourReplacement(false, index);
-		while(cr!=null) {
-			if(colours.size()<=index || !cr.getAllColours().contains(colours.get(0))) {
-				colours.add(cr.getRandomOfDefaultColours());
-			}
-			index++;
-			cr = wt.getColourReplacement(false, index);
-		}
-		
-		for(Entry<Integer, Integer> entry : wt.copyGenerationColours.entrySet()) {
-			Colour replacement = colours.get(entry.getValue());
-			colours.remove((int)entry.getKey());
-			colours.add(entry.getKey(), replacement);
-		}
-		
-		return new AbstractWeapon(wt, dt, colours) {
-			@Override
-			public String onEquip(GameCharacter character) {
-				if (character.isPlayer()) {
-					if (Main.getProperties().addWeaponDiscovered(wt)) {
-						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(wt.getName(), wt.getRarity().getColour()), true);
-					}
-				}
-				return wt.equipText(character);
-			}
-
-			@Override
-			public String onUnequip(GameCharacter character) {
-				return wt.unequipText(character);
-			}
-		};
-	}
-	
-	public static AbstractWeapon generateWeapon(AbstractWeapon weapon) {
-		return new AbstractWeapon(weapon) {
-			@Override
-			public String onEquip(GameCharacter character) {
-				if (character.isPlayer()) {
-					if (Main.getProperties().addWeaponDiscovered(weapon.getWeaponType())) {
-						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(weapon.getWeaponType().getName(), weapon.getWeaponType().getRarity().getColour()), true);
-					}
-				}
-				return weapon.getWeaponType().equipText(character);
-			}
-
-			@Override
-			public String onUnequip(GameCharacter character) {
-				return weapon.getWeaponType().unequipText(character);
-			}
-		};
-	}
-	
 	private void setUpColours(
 			boolean primaryRecolouringAllowed,
 			List<Colour> availablePrimaryColours,
@@ -560,6 +488,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 	}
 	
+	public boolean isMod() {
+		return mod;
+	}
+
 	public String getId() {
 		return WeaponType.weaponToIdMap.get(this);
 	}
@@ -572,16 +504,20 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return UtilText.parse(character, unequipText);
 	}
 	
-	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit, boolean critical) {
 		if(isHit) {
-			return UtilText.parse(character, target, getHitText(character, target));
+			return UtilText.parse(character, target, getHitText(character, target, critical));
 		} else {
 			return UtilText.parse(character, target, getMissText(character, target));
 		}
 	}
 
-	public String getHitText(GameCharacter character, GameCharacter target) {
-		return UtilText.parse(character, target, Util.randomItemFrom(hitDescriptions));
+	public String getHitText(GameCharacter character, GameCharacter target, boolean critical) {
+		if(critical && !hitCriticalDescriptions.isEmpty()) {
+			return UtilText.parse(character, target, Util.randomItemFrom(hitCriticalDescriptions));
+		} else {
+			return UtilText.parse(character, target, Util.randomItemFrom(hitDescriptions));
+		}
 	}
 
 	public String getMissText(GameCharacter character, GameCharacter target) {
@@ -731,7 +667,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return physicalResistance;
 	}
 
-	public SetBonus getClothingSet() {
+	public AbstractSetBonus getClothingSet() {
 		return clothingSet;
 	}
 
@@ -866,9 +802,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		try {
-			InputStream is;
+//			InputStream is;
 			String s;
-			if(isMod) {
+//			if(mod) {
 				List<String> lines = Files.readAllLines(Paths.get(pathName));
 				StringBuilder sb = new StringBuilder();
 				for(String line : lines) {
@@ -876,11 +812,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				}
 				s = sb.toString();
 				
-			} else {
-				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
-				s = Util.inputStreamToString(is);
-				is.close();
-			}
+//			} else {
+//				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
+//				s = Util.inputStreamToString(is);
+//				is.close();
+//			}
 			
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
@@ -936,9 +872,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		
 		try {
-			InputStream is;
+//			InputStream is;
 			String s;
-			if(isMod) {
+//			if(mod) {
 				List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
 				StringBuilder sb = new StringBuilder();
 				for(String line : lines) {
@@ -946,11 +882,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				}
 				s = sb.toString();
 				
-			} else {
-				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathNameEquipped + ".svg");
-				s = Util.inputStreamToString(is);
-				is.close();
-			}
+//			} else {
+//				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathNameEquipped + ".svg");
+//				s = Util.inputStreamToString(is);
+//				is.close();
+//			}
 			
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);

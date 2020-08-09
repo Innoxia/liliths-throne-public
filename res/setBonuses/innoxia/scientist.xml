@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Brilliant Scientist]]></name>
+	
+	<statusEffect>SET_SCIENTIST</statusEffect>
+	
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_OVER</slot>
+		<slot>EYES</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

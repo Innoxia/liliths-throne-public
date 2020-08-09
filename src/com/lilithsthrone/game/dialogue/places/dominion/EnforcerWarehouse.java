@@ -349,7 +349,7 @@ public class EnforcerWarehouse {
 							Cell c = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()+1, Main.game.getPlayer().getLocation().getY());
 							c.getPlace().setPlaceType(PlaceType.ENFORCER_WAREHOUSE_CORRIDOR);
 							c.getPlace().setName(PlaceType.ENFORCER_WAREHOUSE_CORRIDOR.getName());
-							Main.game.getPlayerCell().getInventory().addItem(AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.TELEPORT)));
+							Main.game.getPlayerCell().getInventory().addItem(Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.TELEPORT)));
 						}
 					};
 				}
@@ -376,7 +376,7 @@ public class EnforcerWarehouse {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "ENCLOSURE_SHELVING_DRAG_TELEPORT_LEARNED_START"));
 						Main.game.getTextStartStringBuilder().append(
 								"<span style='border:0; padding:0; text-align:center;'><i>"
-									+Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.TELEPORT)), Main.game.getPlayer(), true)
+									+Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.TELEPORT)), Main.game.getPlayer(), true)
 								+"</i></span>");
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "ENCLOSURE_SHELVING_DRAG_TELEPORT_LEARNED_END"));
 						// Removed as it was just annoying later on when the telepathy spell is meant to be available:
@@ -594,7 +594,7 @@ public class EnforcerWarehouse {
 								List<AbstractClothingType> clothingToGenerate = new ArrayList<>(ClothingType.getAllClothing());
 								clothingToGenerate.removeIf((clothing) -> !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN));
 								
-								AbstractClothing clothing = AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false);
+								AbstractClothing clothing = Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false);
 								for(int i=0; i<Util.random.nextInt(4); i++) {
 									TFModifier rndMod = TFModifier.getClothingAttributeList().get(Util.random.nextInt(TFModifier.getClothingAttributeList().size()));
 									clothing.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedPositivePotency(), 0));
@@ -606,13 +606,13 @@ public class EnforcerWarehouse {
 								List<AbstractWeaponType> weaponToGenerate = new ArrayList<>(WeaponType.getAllWeapons());
 								weaponToGenerate.removeIf((weapon) -> (weapon.getRarity()!=Rarity.RARE && weapon.getRarity()!=Rarity.EPIC) || !weapon.getItemTags().contains(ItemTag.SOLD_BY_VICKY));
 								
-								AbstractWeapon weapon = AbstractWeaponType.generateWeapon(Util.randomItemFrom(weaponToGenerate));
+								AbstractWeapon weapon = Main.game.getItemGen().generateWeapon(Util.randomItemFrom(weaponToGenerate));
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, 1, false, true));
 								
 							} else {
 								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.COR_INGREDIENT_LILITHS_GIFT, ItemType.FETISH_UNREFINED);
-								AbstractItem item = AbstractItemType.generateItem(Util.randomItemFrom(itemTypes));
+								AbstractItem item = Main.game.getItemGen().generateItem(Util.randomItemFrom(itemTypes));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3+Util.random.nextInt(6), false, true));
 							}
 
@@ -732,8 +732,8 @@ public class EnforcerWarehouse {
 				return new Response("Help", "Ask Claire if she's ok.", CRATES_LUST_WEAPON_OBTAINED) {
 					@Override
 					public void effects() {
-						AbstractItem item = AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon("innoxia_lightningGlobe_lightning_globe", DamageType.LUST), 1, false, true));
+						AbstractItem item = Main.game.getItemGen().generateItem(ItemType.BOTTLED_ESSENCE_DEMON);
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_lightningGlobe_lightning_globe", DamageType.LUST), 1, false, true));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3, false, true));
 					}
 				};
@@ -818,7 +818,7 @@ public class EnforcerWarehouse {
 							Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK_SEARCHED);
 							Main.game.getPlayerCell().getPlace().setName(PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK_SEARCHED.getName());
 							
-							AbstractItem item = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.TELEPATHIC_COMMUNICATION));
+							AbstractItem item = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.TELEPATHIC_COMMUNICATION));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 1, false, true));
 						}
 					};
@@ -1316,7 +1316,7 @@ public class EnforcerWarehouse {
 						STOCKS_RANDOMS) {
 					@Override
 					public void effects() {
-						randomSexPartners = SlaverAlleyDialogue.generateRandomStocksPartners(true);
+						randomSexPartners = SlaverAlleyDialogue.generateRandomStocksPartners(Main.game.getPlayer(), true);
 					}
 				};
 			}

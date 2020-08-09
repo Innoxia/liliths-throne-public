@@ -23,7 +23,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's riot neck protectors]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A collar made from shock-abosrbing foam and flame-retardant fabric. It is designed to protect the throat and neck from blows as well as keep flammable liquids from leaking down the wearer's front.]]></description> 
+		<description><![CDATA[A collar made from shock-absorbing foam and flame-retardant fabric. It is designed to protect the throat and neck from blows as well as keep flammable liquids from leaking down the wearer's front.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>3</physicalResistance> 
@@ -38,7 +38,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet>dsg_enforcer_riot</clothingSet>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -121,59 +121,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your neck protector.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s neck protector.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You pull off [npc.name]'s neck protector.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] neck protector off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your neck protector off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] pulls your neck protector off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s neck protector off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s neck protector off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(strap)] the neck protector around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(strap)] the neck protector around [npc2.namePos] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] hastily [npc.verb(strap)] the neck protector around [npc2.namePos] neck.]]>
+		</otherRough>
+  </replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You strap the neck protector around your neck.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You strap the neck protector around [npc.name]'s neck.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You strap the neck protector around [npc.name]'s neck.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] straps the neck protector around [npc.her] neck.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] straps the neck protector around your neck.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] straps the neck protector around your neck.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] straps the neck protector around [npc2.Name]'s neck.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] straps the neck protector around [npc2.Name]'s neck.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc.her] neck protector off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] neck protector off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] neck protector off [npc2.her] neck.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

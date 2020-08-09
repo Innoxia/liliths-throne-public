@@ -1,0 +1,25 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="innoGradSauna" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#innoGradSauna)" fill-rule="evenodd"/>
+ <g stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m19.288 33.671s-0.03954 1.0919-0.07578 2.7626l6.4844-0.05236-0.02279-2.7378z" fill="#fff" stroke-dashoffset="5.4" stroke-width=".90046"/>
+  <g transform="matrix(1.2393 0 0 1.3231 -7.7206 -6.9155)" fill="none" stroke-width="2.5545">
+   <path d="m24.663 26.034c-4.2079-7.2179 5.0781-4.6607 1.4264-12.22"/>
+   <path d="m31.887 26.288c-4.2079-7.2179 5.0781-4.6607 1.4264-12.22"/>
+   <path d="m39.223 26.288c-4.2079-7.2179 5.0781-4.6607 1.4264-12.22"/>
+  </g>
+  <path d="m17.897 38.543 26.985 0.0045" fill="none" stroke-dashoffset="5.4" stroke-width="1.9143"/>
+ </g>
+ <g fill="#fff" stroke="#fff" stroke-dashoffset="5.4" stroke-linecap="round" stroke-linejoin="round" stroke-width=".90046">
+  <path d="m43.737 36.447c-0.07409-1.4622-0.13516-2.6587-0.13516-2.6587l-6.7136-0.03216 0.1118 2.7655z"/>
+  <path d="m28.093 53.391c1.6954-0.01722 5.1847 0.01458 6.846-0.0065l-0.01555-12.849-7.0213-0.01028z"/>
+  <path d="m19.156 40.631c-0.02668 5.6905 0.8715 12.839 1.9915 12.847 0.93149 0.0068 2.5745-0.03551 4.5254-0.0492l-0.02504-12.843z"/>
+  <path d="m34.629 36.329-0.0568-2.5349-6.4763-0.02699 0.0065 2.5546z"/>
+  <path d="m36.941 53.496c2.5926-0.03811 4.5725 0.01315 5.1828-0.01317 1.1866-0.05119 1.9675-7.3278 1.7945-12.9l-6.9927 0.04364z"/>
+ </g>
+</svg>

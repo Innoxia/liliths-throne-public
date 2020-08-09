@@ -40,7 +40,7 @@ public class EnchantingUtils {
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		AbstractItem craftedItem = null;
 		
-		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
+		craftedItem = Main.game.getItemGen().generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
@@ -59,7 +59,7 @@ public class EnchantingUtils {
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		
-		craftedClothing = AbstractClothingType.generateClothing(
+		craftedClothing = Main.game.getItemGen().generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
 				((AbstractClothing)ingredient).getColours(),
 				effectsToBeAdded);
@@ -81,9 +81,20 @@ public class EnchantingUtils {
 	
 	public static Tattoo craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
-		((Tattoo)ingredient).setEffects(effectsToBeAdded);
-		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
-		return (Tattoo) ingredient;
+		
+		Tattoo newTattoo = new Tattoo(((Tattoo)ingredient).getType(),
+				((Tattoo)ingredient).getPrimaryColour(),
+				((Tattoo)ingredient).getSecondaryColour(),
+				((Tattoo)ingredient).getTertiaryColour(),
+				((Tattoo)ingredient).isGlowing(),
+				((Tattoo)ingredient).getWriting(),
+				((Tattoo)ingredient).getCounter());
+		
+		newTattoo.setEffects(effectsToBeAdded);
+		
+		newTattoo.setName(EnchantmentDialogue.getOutputName());
+		
+		return newTattoo;
 	}
 	
 	public static AbstractWeapon craftWeapon(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -92,7 +103,7 @@ public class EnchantingUtils {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
 		
-		craftedWeapon = AbstractWeaponType.generateWeapon(
+		craftedWeapon = Main.game.getItemGen().generateWeapon(
 				(AbstractWeaponType) ingredient.getEnchantmentItemType(effects),
 				((AbstractWeapon) ingredient).getDamageType(),
 				((AbstractWeapon)ingredient).getColours());

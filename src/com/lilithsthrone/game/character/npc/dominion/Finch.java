@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -46,10 +47,13 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -94,6 +98,9 @@ public class Finch extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.equipClothing();
 		}
 	}
 
@@ -206,11 +213,11 @@ public class Finch extends NPC {
 
 		this.setMoney(10);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("rfpnj_slavery_administration_shirt", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 	
@@ -225,46 +232,34 @@ public class Finch extends NPC {
 		
 		// Always at least 4 slave collars:
 		for(int i = 0; i<4; i++) {
-			this.addClothing(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), false);
+			this.addClothing(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), false);
+		}
+
+		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				this.addWeapon(Main.game.getItemGen().generateWeapon(wt), false);
+			}
+		}
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				this.addItem(Main.game.getItemGen().generateItem(item), false);
+			}
 		}
 		
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
-				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
+				clothingToSell.add(Main.game.getItemGen().generateClothing(clothing, false));
 			}
 		}
-		
-		addEnchantedClothing(clothingToSell);
-		
+
 		for(AbstractClothing c : clothingToSell) {
+			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
+		}
+		
+		for(AbstractClothing c : CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
 			this.addClothing(c, false);
-		}
-	}
-	
-
-	/**
-	 * Adds four uncommon clothing items to the list, and two rare items.
-	 */
-	private void addEnchantedClothing(List<AbstractClothing> clothingList) {
-		List<AbstractClothing> generatedClothing = new ArrayList<>();
-
-		for(AbstractClothing clothing : clothingList) {
-			if(clothing.getRarity()==Rarity.COMMON) {
-				for(int i = 0; i<Util.random.nextInt(2); i++) {
-					if(Math.random()<0.66f) {
-						generatedClothing.add(AbstractClothingType.generateRareClothing(clothing.getClothingType()));
-					} else {
-						generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(clothing.getClothingType()));
-					}
-				}
-			}
-		}
-
-		for(AbstractClothing c : generatedClothing) {
-			c.setEnchantmentKnown(this, true);
-			clothingList.add(c);
 		}
 	}
 	

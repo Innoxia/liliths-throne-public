@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
@@ -27,6 +28,7 @@ import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -34,6 +36,8 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -43,13 +47,12 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -233,7 +236,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
 				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -241,7 +244,7 @@ public enum Encounter {
 			
 			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -269,14 +272,23 @@ public enum Encounter {
 	DOMINION_ALLEY(null) {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-			return Util.newHashMapOfValues(
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f),
+			Map<EncounterType, Float> map = Util.newHashMapOfValues(
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
+			
+			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
+				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
+				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
+			} else {
+				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
+			}
+			
+			return map;
 		}
 		
 		@Override
@@ -320,13 +332,13 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_ITEM) {
 				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
-					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
 					
 				} else {
 					if(Math.random()<0.5f) {
-						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
 					}
 				}
 				
@@ -335,7 +347,7 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
 				if(Math.random()<0.01f) {
-					randomItem = AbstractClothingType.generateClothing(ClothingType.MEGA_MILK);
+					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 					
 				} else {
@@ -346,7 +358,7 @@ public enum Encounter {
 							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -354,10 +366,14 @@ public enum Encounter {
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
 				List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
 				weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
-				randomItem = AbstractWeaponType.generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
+				randomItem = Main.game.getItemGen().generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				spawnEnforcers();
+				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
@@ -404,6 +420,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
@@ -447,13 +464,13 @@ public enum Encounter {
 				
 			}else if(node == EncounterType.DOMINION_FIND_ITEM) {
 				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
-					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
 					
 				} else {
 					if(Math.random()<0.5f) {
-						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
 					}
 				}
 				
@@ -462,7 +479,7 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
 				if(Math.random()<0.01f) {
-					randomItem = AbstractClothingType.generateClothing(ClothingType.MEGA_MILK);
+					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 					
 				} else {
@@ -473,7 +490,7 @@ public enum Encounter {
 							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -481,10 +498,14 @@ public enum Encounter {
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
 				List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
 				weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
-				randomItem = AbstractWeaponType.generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
+				randomItem = Main.game.getItemGen().generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				spawnEnforcers();
+				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
@@ -560,10 +581,10 @@ public enum Encounter {
 			
 			if(node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -620,10 +641,10 @@ public enum Encounter {
 			
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -858,7 +879,7 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
 				
-				randomItem = AbstractItemType.generateItem(ItemType.getSubmissionTunnelItems().get(Util.random.nextInt(ItemType.getSubmissionTunnelItems().size())));
+				randomItem = Main.game.getItemGen().generateItem(ItemType.getSubmissionTunnelItems().get(Util.random.nextInt(ItemType.getSubmissionTunnelItems().size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
 				return SubmissionEncounterDialogue.FIND_ITEM;
@@ -917,9 +938,9 @@ public enum Encounter {
 			} else if (node == EncounterType.BAT_CAVERN_FIND_ITEM) {
 				
 				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT && Math.random()<0.8f) {
-					randomItem = AbstractItemType.generateItem(ItemType.MUSHROOM);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.MUSHROOM);
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
 				}
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -1040,6 +1061,44 @@ public enum Encounter {
 	
 	;
 	
+	private static void spawnEnforcers() {
+		List<List<String>> savedEnforcerIds = Main.game.getSavedEnforcers(WorldType.DOMINION);
+		
+		// Keep 4 sets of Enforcers saved
+		float chanceOfNewEnforcers = 1f - (0.25f * savedEnforcerIds.size());
+		if(Math.random()<chanceOfNewEnforcers) {
+			try {
+				List<String> enforcerIds = new ArrayList<>();
+				EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				Main.game.addNPC(npc, false);
+				npc.setLevel(9+Util.random.nextInt(4)); // 9-12
+				((EnforcerPatrol)npc).setWeapons("dsg_eep_pbweap_pbpistol");
+				enforcerIds.add(npc.getId());
+				
+				EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				Main.game.addNPC(npc2, false);
+				npc2.setLevel(4+Util.random.nextInt(5)); // 4-8
+				((EnforcerPatrol)npc2).setWeapons("dsg_eep_taser_taser");
+				enforcerIds.add(npc2.getId());
+				
+				Main.game.addSavedEnforcers(WorldType.DOMINION, enforcerIds);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			List<String> enforcerIds = Util.randomItemFrom(savedEnforcerIds);
+			for(String id : enforcerIds) {
+				try {
+					Main.game.getNPCById(id).setLocation(Main.game.getPlayer(), false);
+				} catch (Exception e) {
+					System.err.println("Error in Encounter.spawnEnforcers()");
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
 		Main.game.getOffspringSpawned().add(offspring);
@@ -1124,17 +1183,6 @@ public enum Encounter {
 	}
 
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
-		float r = (float) (Math.random() * 100);
-		float total = 0;
-		
-		if(forceEncounter) {
-			r = 0;
-			for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
-				r += e.getValue();
-			}
-			r *= Math.random();
-		}
-
 		float opportunisticMultiplier = 1;
 		if(Main.game.isOpportunisticAttackersEnabled()) {
 			// lust: linear boost; 25% max
@@ -1142,51 +1190,59 @@ public enum Encounter {
 			// health: linear boost; 25% (theoretical) max
 			opportunisticMultiplier += 0.25f - Main.game.getPlayer().getHealthPercentage() * 0.25f;
 			// smelly body: 25% boost
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM)
-					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM_MASOCHIST))
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM) || Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM_MASOCHIST)) {
 				opportunisticMultiplier += 0.25f;
+			}
 			// smelly clothes: 25% boost
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM)
-					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM_MASOCHIST))
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM) || Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM_MASOCHIST)) {
 				opportunisticMultiplier += 0.25f;
+			}
 			// exposure: 50% or 75% boost
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.EXPOSED,
-					StatusEffect.EXPOSED_BREASTS,
-					StatusEffect.FETISH_EXHIBITIONIST,
-					StatusEffect.FETISH_EXHIBITIONIST_BREASTS
-			), Main.game.getPlayer().getStatusEffects()))
-				opportunisticMultiplier += 0.5f;
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.EXPOSED_PLUS_BREASTS,
-					StatusEffect.FETISH_EXHIBITIONIST_PLUS_BREASTS
-			), Main.game.getPlayer().getStatusEffects()))
+			if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.EXPOSED_PLUS_BREASTS,
+						StatusEffect.FETISH_EXHIBITIONIST_PLUS_BREASTS),
+					Main.game.getPlayer().getStatusEffects())) {
 				opportunisticMultiplier += 0.75f;
-			// drunk: 50% boost
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.DRUNK_3,
-					StatusEffect.DRUNK_4,
-					StatusEffect.DRUNK_5
-			), Main.game.getPlayer().getStatusEffects()))
+				
+			} else if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.EXPOSED,
+						StatusEffect.EXPOSED_BREASTS,
+						StatusEffect.FETISH_EXHIBITIONIST,
+						StatusEffect.FETISH_EXHIBITIONIST_BREASTS),
+					Main.game.getPlayer().getStatusEffects())) {
 				opportunisticMultiplier += 0.5f;
-		}
-
-		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
-			EncounterType encounter = e.getKey();
-			float encounterChance = e.getValue();
-			// opportunistic attackers: compare with amplified chance
-			if(encounter.isOpportunistic()) {
-				encounterChance *= opportunisticMultiplier;
 			}
-			if (r <= total + encounterChance) {
-				return initialiseEncounter(encounter);
-			}
-			// add unmodified chance
-			total += e.getValue();
-			if (r <= total) {
-				return initialiseEncounter(e.getKey());
+			// drunk: 50% boost
+			if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.DRUNK_3,
+						StatusEffect.DRUNK_4,
+						StatusEffect.DRUNK_5),
+					Main.game.getPlayer().getStatusEffects())) {
+				opportunisticMultiplier += 0.5f;
 			}
 		}
+		
+		float total = 0;
+		float opportunisticIncrease = 0;
+		Map<EncounterType, Float> finalMap = new HashMap<>();
+		for(Entry<EncounterType, Float> e : getDialogues().entrySet()) { // Iterate through the base encounter map, apply opportunisticMultiplier if applicable, and create a new 'finalMap' of these weighted chances.
+			float weighting = e.getValue();
+			if(e.getKey().isOpportunistic()) {
+				weighting *= opportunisticMultiplier;
+				opportunisticIncrease+=opportunisticMultiplier;
+			}
+			total+=weighting;
+			finalMap.put(e.getKey(), weighting);
+		}
+		
+		if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
+			EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+			return initialiseEncounter(encounter);
+		}
+		
 
 		return null;
 	}

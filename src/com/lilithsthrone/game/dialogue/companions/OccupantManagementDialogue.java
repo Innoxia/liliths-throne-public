@@ -17,7 +17,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
@@ -25,6 +25,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -71,7 +72,7 @@ public class OccupantManagementDialogue {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		return SLAVE_LIST_MANAGEMENT;
 	}
-
+	
 	/**
 	 * @param dialogueToExitTo The DialogueNode which should be displayed when exiting out of the occupant management windows. Pass in null to return to default dialogue.
 	 * @param slaveTrader The character you are trading with.
@@ -584,8 +585,8 @@ public class OccupantManagementDialogue {
 											+ "<h6 style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Modifications</h6>"
 											+ getRoomUpgradeHeader());
 			
-			List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
-			for(PlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades(place.getPlaceUpgrades())) {
+			List<AbstractPlaceUpgrade> coreUpgrades = new ArrayList<>();
+			for(AbstractPlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades(place.getPlaceUpgrades())) {
 				if(upgrade.getAvailability(cellToInspect).getKey() || (!upgrade.getAvailability(cellToInspect).getValue().isEmpty())) { // Do not display upgrades that have no explanation as to why they're banned.
 					if(upgrade.isCoreRoomUpgrade()) {
 						coreUpgrades.add(upgrade);
@@ -618,7 +619,7 @@ public class OccupantManagementDialogue {
 //			}
 			
 			i = 0;
-			for (PlaceUpgrade upgrade : coreUpgrades) {
+			for (AbstractPlaceUpgrade upgrade : coreUpgrades) {
 				UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
 				i++;
 			}
@@ -778,7 +779,7 @@ public class OccupantManagementDialogue {
 				+ "</div>";
 	}
 	
-	private static String getUpgradeEntry(Cell cell, PlaceUpgrade upgrade) {
+	private static String getUpgradeEntry(Cell cell, AbstractPlaceUpgrade upgrade) {
 		miscDialogueSB.setLength(0);
 		GenericPlace place = cell.getPlace();
 		float affectionChange = upgrade.getHourlyAffectionGain();
@@ -790,7 +791,7 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px;"+(owned?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:5%; float:left; margin:0; padding:0;'>"
-							+ "<div class='title-button no-select' id='ROOM_MOD_INFO_"+upgrade+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "<div class='title-button no-select' id='ROOM_MOD_INFO_"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 						+ "</div>"
 						+ "<div style='width:25%; float:left; margin:0; padding:0;'>"
 							+ (owned
@@ -843,10 +844,12 @@ public class OccupantManagementDialogue {
 						+ "<div style='float:left; width:10%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>");
 		
 		if(owned) {
-			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost() || upgrade.isCoreRoomUpgrade()) {
-				miscDialogueSB.append("<div id='"+upgrade+"_SELL_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
+			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost() || !upgrade.getRemovalAvailability(cell).getKey()) {
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_SELL_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+upgrade+"_SELL' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_SELL' class='square-button solo'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
 			
 		} else {
@@ -855,7 +858,7 @@ public class OccupantManagementDialogue {
 			}
 			if(canBuy) {
 				if(!upgrade.getPrerequisites().isEmpty()) {
-					for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
+					for(AbstractPlaceUpgrade prereq : upgrade.getPrerequisites()) {
 						if(!place.getPlaceUpgrades().contains(prereq)) {
 							canBuy = false;
 							break;
@@ -865,9 +868,11 @@ public class OccupantManagementDialogue {
 			}
 			
 			if(canBuy) {
-				miscDialogueSB.append("<div id='"+upgrade+"_BUY' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_BUY' class='square-button solo'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+upgrade+"_BUY_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_BUY_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			}
 		}
 		
@@ -899,7 +904,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static StringBuilder purchaseAvailability = new StringBuilder();
-	public static String getPurchaseAvailabilityTooltipText(Cell cell, PlaceUpgrade upgrade) {
+	public static String getPurchaseAvailabilityTooltipText(Cell cell, AbstractPlaceUpgrade upgrade) {
 		GenericPlace place = cell.getPlace();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
 		
@@ -921,7 +926,7 @@ public class OccupantManagementDialogue {
 			
 			if(!upgrade.getPrerequisites().isEmpty()) {
 				purchaseAvailability.append("You need to purchase the following first:");
-				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
+				for(AbstractPlaceUpgrade prereq : upgrade.getPrerequisites()) {
 					if(place.getPlaceUpgrades().contains(prereq)) {
 						purchaseAvailability.append("<br/><span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					} else {

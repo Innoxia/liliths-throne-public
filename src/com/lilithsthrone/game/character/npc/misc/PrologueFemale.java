@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -72,7 +71,7 @@ public class PrologueFemale extends NPC {
 				RaceStage.HUMAN,
 				new CharacterInventory(10),
 				WorldType.EMPTY,
-				PlaceType.GENERIC_EMPTY_TILE,
+				PlaceType.GENERIC_HOLDING_CELL,
 				false);
 		
 	}
@@ -184,17 +183,17 @@ public class PrologueFemale extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_GREY_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_elbow_length_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_stiletto_heels", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_GREY_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_elbow_length_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 
 	}
 	

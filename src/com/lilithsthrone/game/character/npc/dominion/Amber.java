@@ -67,9 +67,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -144,6 +142,9 @@ public class Amber extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9")) {
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, PresetColour.EYE_AMBER, true, PresetColour.EYE_AMBER, true));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, PresetColour.COVERING_AMBER, true, PresetColour.COVERING_AMBER, true), true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
 		}
 	}
 
@@ -251,6 +252,7 @@ public class Amber extends NPC {
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -271,20 +273,20 @@ public class Amber extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
-		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
+		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
+		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
 		
 		// Tattoos
 		// Scars
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_RED_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_RED_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_SLEEVES, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_HEELS, PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 
@@ -332,7 +334,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public void endSex() {
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
 	}
 	
 	@Override
@@ -344,7 +346,7 @@ public class Amber extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		return "<p>"
 					+ UtilText.parse(target,
 							UtilText.returnStringAtRandom(
@@ -417,7 +419,7 @@ public class Amber extends NPC {
 				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_ENTRANCE.getDialogue(false)) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getPlayer().getLocationPlace().getDialogue(false);
+						return Main.game.getPlayerCell().getDialogue(false);
 					}
 				};
 				
@@ -517,10 +519,10 @@ public class Amber extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue exploring Zaranix's house.", Main.game.getPlayer().getLocationPlace().getDialogue(false)) {
+				return new Response("Continue", "Continue exploring Zaranix's house.", Main.game.getPlayerCell().getDialogue(false)) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getPlayer().getLocationPlace().getDialogue(false);
+						return Main.game.getPlayerCell().getDialogue(false);
 					}
 				};
 				
@@ -583,7 +585,7 @@ public class Amber extends NPC {
 						+ " [amber.speech(That's all bitches like you are good for! Now get the fuck out of this house!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Reaching down to grab "+(Main.game.getPlayer().getHairRawLengthValue()>4?"a fistful of your [pc.hair]":"you by the back of the neck")+", Amber mercilessly drags you to the front door."
+						+ "Reaching down to grab "+(Main.game.getPlayer().getHairRawLengthValue()>4?"a fistful of your [pc.hair(true)]":"you by the back of the neck")+", Amber mercilessly drags you to the front door."
 						+ " Yanking it open, she spits one last hateful remark your way, before literally kicking you out into the street and slamming the door behind you."
 					+ "</p>";
 		}

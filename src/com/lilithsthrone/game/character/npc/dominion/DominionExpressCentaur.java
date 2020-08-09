@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -16,12 +17,12 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -87,6 +88,8 @@ public class DominionExpressCentaur extends NPC {
 			
 			CharacterUtils.setHistoryAndPersonality(this, false);
 			
+			this.setHistory(Occupation.NPC_SLAVE);
+			
 			// ADDING FETISHES:
 
 			this.clearFetishes();
@@ -142,7 +145,7 @@ public class DominionExpressCentaur extends NPC {
 					collarColour = PresetColour.CLOTHING_SILVER;
 				}
 			}
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), collarColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), collarColour, false), true, this);
 			
 //			CharacterUtils.applyMakeup(this, true);
 			
@@ -158,6 +161,9 @@ public class DominionExpressCentaur extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.2")) {
+			this.setHistory(Occupation.NPC_SLAVE);
+		}
 	}
 
 	@Override
@@ -176,9 +182,9 @@ public class DominionExpressCentaur extends NPC {
 		
 		if(this.isFeminine()) {
 			if(Math.random()<0.5f) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, false), true, this);
 			} else {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, false), true, this);
 			}
 		}
 	}
@@ -210,6 +216,8 @@ public class DominionExpressCentaur extends NPC {
 			} else {
 				this.returnToHome();
 			}
+		} else {
+			this.returnToHome();
 		}
 	}
 	

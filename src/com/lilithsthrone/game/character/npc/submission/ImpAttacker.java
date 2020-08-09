@@ -44,7 +44,6 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -54,6 +53,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -318,7 +318,7 @@ public class ImpAttacker extends NPC {
 				TransformativePotion effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(
-						AbstractItemType.generateItem(effects.getItemType()),
+						Main.game.getItemGen().generateItem(effects.getItemType()),
 						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
@@ -327,7 +327,7 @@ public class ImpAttacker extends NPC {
 					TransformativePotion effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects2.getItemType()),
+							Main.game.getItemGen().generateItem(effects2.getItemType()),
 							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -90,8 +91,12 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 		} else {
 			this.mouthBodyDescription = mouthBodyDescription;
 		}
-		
-		this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+
+		if(defaultRacialOrificeModifiers==null) {
+			this.defaultRacialOrificeModifiers = new ArrayList<>();
+		} else {
+			this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+		}
 	}
 	
 	public AbstractTongueType getTongueType() {

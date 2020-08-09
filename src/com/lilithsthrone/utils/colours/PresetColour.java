@@ -16,6 +16,23 @@ import com.lilithsthrone.utils.Util;
 public class PresetColour {
 	
 	// This class and BaseColour are beyond saving x_x
+	public static Colour BASE_FREEDOM = new Colour(false, BaseColour.RED,
+			"<span style='color:#EA5D76;'>f</span>"
+			+ "<span style='color:#FFFFFF;'>r</span>"
+			+ "<span style='color:#0090BF;'>e</span>"
+			+ "<span style='color:#EA5D76;'>e</span>"
+			+ "<span style='color:#FFFFFF;'>d</span>"
+			+ "<span style='color:#0090BF;'>o</span>"
+			+ "<span style='color:#EA5D76;'>m</span>", 
+			Util.newArrayListOfValues("freedom", "america", "usa")) {
+		@Override
+		public List<String> getRainbowColours() {
+			return Util.newArrayListOfValues(
+					"#EA5D76",
+					"#FFFFFF",
+					"#0090BF");
+		}
+	};
 	
 	public static Colour BASE_WHITE = new Colour(false, BaseColour.WHITE, "white", Util.newArrayListOfValues("white")) {};
 
@@ -51,6 +68,7 @@ public class PresetColour {
 	public static Colour BASE_GINGER = new Colour(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("ginger")) {};
 	
 	public static Colour BASE_GOLD = new Colour(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("gold")) {};
+	public static Colour BASE_YELLOW_PALE = new Colour(false, BaseColour.YELLOW_PALE, "pale yellow", Util.newArrayListOfValues("paleYellow", "yellowPale")) {};
 	public static Colour BASE_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow", Util.newArrayListOfValues("yellow")) {};
 	public static Colour BASE_YELLOW_LIGHT = new Colour(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("lightYellow", "yellowLight")) {};
 	
@@ -87,6 +105,7 @@ public class PresetColour {
 	public static Colour MAP_BACKGROUND_DARK = new Colour(false, Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey") {};
 	public static Colour MAP_BACKGROUND_DANGEROUS = new Colour(false, Util.newColour(0x303030), Util.newColour(0xaaaaaa), "dark grey") {};
 	public static Colour MAP_BACKGROUND_BLUE = new Colour(false,  Util.newColour(0xbbbbdd), Util.newColour(0xbbbbdd), "light blue") {};
+	public static Colour MAP_BACKGROUND_GREEN = new Colour(false,  Util.newColour(0xbbddbb), Util.newColour(0xbbddbb), "light green") {};
 
 	public static Colour GENERIC_NPC_REMOVAL = new Colour(false, BaseColour.RED_LIGHT, "red") {};
 	public static Colour GENERIC_SEX = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex", "sexSub", "subSex", "sub", "submissive")) {};
@@ -99,6 +118,7 @@ public class PresetColour {
 	public static Colour GENERIC_MINOR_BAD = new Colour(false, BaseColour.RED_LIGHT, "red", Util.newArrayListOfValues("minorBad", "badMinor")) {};
 	public static Colour GENERIC_MINOR_GOOD = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("minorGood", "goodMinor")) {};
 	public static Colour GENERIC_BAD = new Colour(false, BaseColour.RED, "red", Util.newArrayListOfValues("bad")) {};
+	public static Colour GENERIC_NEUTRAL = new Colour(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("neutral")) {};
 	public static Colour GENERIC_GOOD = new Colour(false, BaseColour.GREEN, "green", Util.newArrayListOfValues("good")) {};
 	public static Colour GENERIC_EXCELLENT = new Colour(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("excellent")) {};
 	public static Colour GENERIC_ATTRIBUTE = new Colour(false, BaseColour.MAGENTA, "magenta") {};
@@ -156,6 +176,8 @@ public class PresetColour {
 	public static Colour RACE_RABBIT_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("rabbitMorph", "rabbit")) {};
 	public static Colour RACE_BAT_MORPH = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("batMorph", "bat")) {};
 	public static Colour RACE_ALLIGATOR_MORPH = new Colour(false, BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues("alligatorMorph", "alligator", "gatorMorph", "gator")) {};
+
+	public static Colour GENERIC_BAD_END = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("badEnd")) {};
 	
 	public static Colour QUEST_MAIN = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("questMain", "mainQuest")) {};
 	public static Colour QUEST_SIDE = new Colour(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("questSide", "sideQuest")) {};
@@ -165,12 +187,15 @@ public class PresetColour {
 
 	public static Colour ATTRIBUTE_HEALTH = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("health", "hp", "energy")) {};
 	public static Colour ATTRIBUTE_MANA = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("willpower", "wp", "mana", "aura")) {};
-//	ATTRIBUTE_STAMINA(BaseColour.LILAC, "lilac", Util.newArrayListOfValues("stamina", "sp", "energy")) {};
 
-	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
+	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false,
+			BaseColour.MAGENTA,
+			"magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
 	public static Colour ATTRIBUTE_ARCANE = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("intelligence", "int")) {};
-//	ATTRIBUTE_FITNESS(BaseColour.LILAC, "light purple", Util.newArrayListOfValues("fitness", "fit")) {};
-	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
+	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false,
+//			BaseColour.PINK_DEEP,
+			Util.newColour(0xff1a8c), Util.newColour(0xff1a8c),
+			"pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
 
 	public static Colour ATTRIBUTE_AROUSAL = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")) {};
 	public static Colour ATTRIBUTE_LUST = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")) {};
@@ -228,6 +253,8 @@ public class PresetColour {
 
 
 	public static Colour COMPANION = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("companion", "companions")) {};
+
+	public static Colour STAMINA = new Colour(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("stamina")) {};
 	
 	public static Colour AFFECTION = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("affection")) {};
 	public static Colour OBEDIENCE = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("obedience")) {};
@@ -264,7 +291,7 @@ public class PresetColour {
 
 	public static Colour AGE_TEENS = new Colour(false, Util.newColour(0xE1F0C1), Util.newColour(0x73A112), "green", Util.newArrayListOfValues("ageTeens")) {};
 	public static Colour AGE_TWENTIES = new Colour(false, Util.newColour(0xCCE698), Util.newColour(0x638A0F), "green", Util.newArrayListOfValues("ageTwenties")) {};
-	public static Colour AGE_THIRTIES = new Colour(false, Util.newColour(0xB8DC6F), Util.newColour(0x52730D), "green", Util.newArrayListOfValues("ageThirties")) {};
+	public static Colour AGE_THIRTIES = new Colour(false, Util.newColour(0xB8DC6F), Util.newColour(0x52730D), "green", Util.newArrayListOfValues("age", "ageThirties")) {}; // This is the 'default' age colour
 	public static Colour AGE_FORTIES = new Colour(false, Util.newColour(0xA4D246), Util.newColour(0x41590D), "green", Util.newArrayListOfValues("ageForties")) {};
 	public static Colour AGE_FIFTIES = new Colour(false, Util.newColour(0x8AB92D), Util.newColour(0x334408), "green", Util.newArrayListOfValues("ageFifties")) {};
 	public static Colour AGE_SIXTIES = new Colour(false, Util.newColour(0x6B9023), Util.newColour(0x232E05), "green", Util.newArrayListOfValues("ageSixties")) {};
@@ -319,6 +346,10 @@ public class PresetColour {
 	public static Colour FEMININE_PLUS_NPC = new Colour(false, BaseColour.PINK, "pink") {};
 
 	// Combat colours:
+	public static Colour DAMAGE_TYPE_UNARMED = new Colour(false, Util.newColour(0xedd6ba), Util.newColour(0xDC8D2E), "tan", Util.newArrayListOfValues("unarmed")) {};
+	public static Colour DAMAGE_TYPE_MELEE = new Colour(false, Util.newColour(0xea98a1), Util.newColour(0xDD1D40), "light red", Util.newArrayListOfValues("melee")) {};
+	public static Colour DAMAGE_TYPE_RANGED = new Colour(false, Util.newColour(0xd2f2ff), Util.newColour(0x00A7D1), "light blue", Util.newArrayListOfValues("ranged")) {};
+	
 	public static Colour DAMAGE_TYPE_PHYSICAL = new Colour(false, Util.newColour(0xA79E90), Util.newColour(0x5C4D42), "grey-brown", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")) {};
 	public static Colour DAMAGE_TYPE_MANA = new Colour(false, BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues("dmgMana", "resMana")) {};
 	public static Colour DAMAGE_TYPE_LUST = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("dmgLust", "resLust")) {};
@@ -358,21 +389,21 @@ public class PresetColour {
 	public static Colour CURRENCY_SILVER = new Colour(true, BaseColour.SILVER, "silver", Util.newArrayListOfValues("currencySilver")) {};
 	public static Colour CURRENCY_COPPER = new Colour(true, BaseColour.COPPER, "copper", Util.newArrayListOfValues("currencyCopper")) {};
 
-	public static Colour MILK = new Colour(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("milk", "lactation")) {};
-	public static Colour CUM = new Colour(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("cum", "cummed")) {};
-	public static Colour GIRLCUM = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("girlcum", "gcum")) {};
+	public static Colour MILK = new Colour(false, BaseColour.YELLOW_PALE, "pale yellow", Util.newArrayListOfValues("milk", "lactation")) {};
+	public static Colour CUM = new Colour(false, BaseColour.BLUE_PALE, "pale blue", Util.newArrayListOfValues("cum", "cummed")) {};
+	public static Colour GIRLCUM = new Colour(false, BaseColour.PINK_PALE, "pale pink", Util.newArrayListOfValues("girlcum", "gcum")) {};
 
 	public static Colour VAGINA = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("vagina", "pussy", "cunt")) {};
 	public static Colour ANUS = new Colour(false, BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues("asshole", "anus", "ass")) {};
 	public static Colour PENIS = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("penis", "cock")) {};
 	public static Colour NIPPLES = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("nipples", "nipple")) {};
-	public static Colour NIPPLES_CROTCH = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("nipplesCrotch", "crotchNipples")) {};
+	public static Colour NIPPLES_CROTCH = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("nipplesCrotch", "crotchNipples", "nippleCrotch", "crotchNipple")) {};
 	public static Colour URETHRA_PENIS = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink", Util.newArrayListOfValues("penisUrethra", "urethraPenis", "urethra")) {};
 	public static Colour UREHTRA_VAGINA = new Colour(false, BaseColour.LILAC, "lilac", Util.newArrayListOfValues("vaginaUrethra", "urethraVagina")) {};
 	public static Colour MOUTH = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac", Util.newArrayListOfValues("mouth", "throat")) {};
 
 	public static Colour DIRTY = new Colour(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("dirty")) {};
-	public static Colour SEALED = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("sealed")) {};
+	public static Colour SEALED = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("seal", "sealed")) {};
 	public static Colour DISPLACED = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("displaced")) {};
 
 	// Text colours:
@@ -447,84 +478,49 @@ public class PresetColour {
 	// Body parts:
 
 	// Skin (Human and Demon):
+	// Standard:
 	public static Colour SKIN_PALE = new Colour(false, Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale") {};
-	public static Colour SKIN_LIGHT = new Colour(false, Util.newColour(0xEFDBD7), Util.newColour(0x534946), "light") {};
-	public static Colour SKIN_PORCELAIN = new Colour(false, Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain") {};
-	public static Colour SKIN_ROSY = new Colour(false, Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy") {};
-	public static Colour SKIN_OLIVE = new Colour(false, BaseColour.TAN, "olive") {};
-	public static Colour SKIN_TANNED = new Colour(false, Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "tanned") {};
-	public static Colour SKIN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark") {};
-	public static Colour SKIN_CHOCOLATE = new Colour(false, Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate") {};
-	public static Colour SKIN_EBONY = new Colour(false, BaseColour.BLACK, "ebony") {};
-	
-	public static Colour SKIN_RED = new Colour(false, BaseColour.CRIMSON, "scarlet") {};
-	public static Colour SKIN_RED_DARK = new Colour(false, BaseColour.RED_DARK, "dark red") {};
-	public static Colour SKIN_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
-	public static Colour SKIN_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
-	public static Colour SKIN_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
-	public static Colour SKIN_PINK = new Colour(false, BaseColour.PINK, "pink") {};
-	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
-	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
-	public static Colour SKIN_GREEN_LIGHT = new Colour(false, BaseColour.GREEN_LIGHT, "light green") {};
-	public static Colour SKIN_GREEN = new Colour(false, BaseColour.GREEN, "green") {};
-	public static Colour SKIN_GREEN_DARK = new Colour(false, BaseColour.GREEN_DARK, "dark green") {};
-	public static Colour SKIN_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
-	public static Colour SKIN_BLUE = new Colour(false, BaseColour.BLUE, "blue") {};
-	public static Colour SKIN_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {};
-	public static Colour SKIN_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
-	public static Colour SKIN_LILAC_LIGHT = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac") {};
-	public static Colour SKIN_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {};
-	public static Colour SKIN_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {};
-	public static Colour SKIN_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {};
-	public static Colour SKIN_PURPLE_DARK = new Colour(false, BaseColour.PURPLE_DARK, "dark purple") {};
+	public static Colour SKIN_LIGHT = new Colour(false, Util.newColour(0xEFDBD7), Util.newColour(0x534946), "light") {}.setLinkedColourLighter(SKIN_PALE);
+	public static Colour SKIN_PORCELAIN = new Colour(false, Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain") {}.setLinkedColourLighter(SKIN_LIGHT);
+	public static Colour SKIN_ROSY = new Colour(false, Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy") {}.setLinkedColourLighter(SKIN_PORCELAIN);
+	public static Colour SKIN_OLIVE = new Colour(false, BaseColour.TAN, "olive") {}.setLinkedColourLighter(SKIN_ROSY);
+	public static Colour SKIN_TANNED = new Colour(false, Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "tanned") {}.setLinkedColourLighter(SKIN_OLIVE);
+	public static Colour SKIN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark") {}.setLinkedColourLighter(SKIN_TANNED);
+	public static Colour SKIN_CHOCOLATE = new Colour(false, Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate") {}.setLinkedColourLighter(SKIN_DARK);
+	public static Colour SKIN_EBONY = new Colour(false, BaseColour.BLACK, "ebony") {}.setLinkedColourLighter(SKIN_CHOCOLATE);
+	// Monochrome:
 	public static Colour SKIN_IVORY = new Colour(false, BaseColour.WHITE, "ivory") {};
-	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {};
-	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") {
-		public boolean isJetBlack() { return true; }
-	};
-
-	// Horns:
-//	public static AbstractColour HORN_WHITE = new AbstractColour(false, BaseColour.WHITE, "ivory") {};
-//	public static AbstractColour HORN_GREY = new AbstractColour(false, BaseColour.GREY, "grey") {};
-//	public static AbstractColour HORN_DARK_GREY = new AbstractColour(false, BaseColour.GREY_DARK, "dark-grey") {};
-//	public static AbstractColour HORN_BLACK = new AbstractColour(false, BaseColour.BLACK, "black") {};
-//	public static AbstractColour HORN_JET_BLACK = new AbstractColour(false, BaseColour.BLACK, "pitch black") {
-//		public boolean isJetBlack() { return true; }
-//	},
-//	
-//	public static AbstractColour HORN_RED = new AbstractColour(false, BaseColour.RED, "red") {};
-//	public static AbstractColour HORN_SCARLET = new AbstractColour(false, BaseColour.CRIMSON, "scarlet") {};
-//	public static AbstractColour HORN_BROWN = new AbstractColour(false, BaseColour.BROWN, "brown") {};
-//	public static AbstractColour HORN_DARK_BROWN = new AbstractColour(false, BaseColour.BROWN_DARK, "dark brown") {};
-//	public static AbstractColour HORN_AMBER = new AbstractColour(false, BaseColour.AMBER, "amber") {};
-//	public static AbstractColour HORN_PINK = new AbstractColour(false, BaseColour.PINK_LIGHT, "light pink") {};
-//	public static AbstractColour HORN_GREEN = new AbstractColour(false, BaseColour.GREEN, "green") {};
-//	public static AbstractColour HORN_BLUE = new AbstractColour(false, BaseColour.BLUE_LIGHT, "light blue") {};
-//	public static AbstractColour HORN_LILAC = new AbstractColour(false, BaseColour.LILAC, "lilac") {};
-//	public static AbstractColour HORN_PURPLE = new AbstractColour(false, BaseColour.PURPLE, "purple") {};
-
+	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(SKIN_IVORY);
+	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(SKIN_GREY);
+	// Pink:
+	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
+	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {}.setLinkedColourLighter(SKIN_PINK_PALE);
+	public static Colour SKIN_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(SKIN_PINK_LIGHT);
+	// Red:
+	public static Colour SKIN_RED = new Colour(false, BaseColour.CRIMSON, "scarlet") {};
+	public static Colour SKIN_RED_DARK = new Colour(false, BaseColour.RED_DARK, "dark red") {}.setLinkedColourLighter(SKIN_RED);
+	// Brown:
+	public static Colour SKIN_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
+	// Orange:
+	// Yellow:
+	public static Colour SKIN_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
+	public static Colour SKIN_AMBER = new Colour(false, BaseColour.AMBER, "amber") {}.setLinkedColourLighter(SKIN_YELLOW);
+	// Green:
+	public static Colour SKIN_GREEN_LIGHT = new Colour(false, BaseColour.GREEN_LIGHT, "light green") {};
+	public static Colour SKIN_GREEN = new Colour(false, BaseColour.GREEN, "green") {}.setLinkedColourLighter(SKIN_GREEN_LIGHT);
+	public static Colour SKIN_GREEN_DARK = new Colour(false, BaseColour.GREEN_DARK, "dark green") {}.setLinkedColourLighter(SKIN_GREEN);
+	// Blue:
+	public static Colour SKIN_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
+	public static Colour SKIN_BLUE = new Colour(false, BaseColour.BLUE, "blue") {}.setLinkedColourLighter(SKIN_BLUE_LIGHT);
+	public static Colour SKIN_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {}.setLinkedColourLighter(SKIN_BLUE);
+	// Purple:
+	public static Colour SKIN_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
+	public static Colour SKIN_LILAC_LIGHT = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac") {}.setLinkedColourLighter(SKIN_PERIWINKLE);
+	public static Colour SKIN_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {}.setLinkedColourLighter(SKIN_LILAC_LIGHT);
+	public static Colour SKIN_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {}.setLinkedColourLighter(SKIN_LILAC);
+	public static Colour SKIN_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {}.setLinkedColourLighter(SKIN_INDIGO);
+	public static Colour SKIN_PURPLE_DARK = new Colour(false, BaseColour.PURPLE_DARK, "dark purple") {}.setLinkedColourLighter(SKIN_PURPLE);
 	
-//	// Antlers:
-//	public static AbstractColour ANTLER_WHITE = new AbstractColour(false, BaseColour.WHITE, "ivory") {};
-//	public static AbstractColour ANTLER_TAN = new AbstractColour(false, BaseColour.TAN, "tan") {};
-//	public static AbstractColour ANTLER_BROWN = new AbstractColour(false, BaseColour.BROWN, "brown") {};
-//	public static AbstractColour ANTLER_DARK_BROWN = new AbstractColour(false, BaseColour.BROWN_DARK, "dark brown") {};
-//	public static AbstractColour ANTLER_GREY = new AbstractColour(false, BaseColour.GREY, "grey") {};
-//	public static AbstractColour ANTLER_DARK_GREY = new AbstractColour(false, BaseColour.GREY_DARK, "dark-grey") {};
-//	public static AbstractColour ANTLER_BLACK = new AbstractColour(false, BaseColour.BLACK, "black") {};
-//	public static AbstractColour ANTLER_JET_BLACK = new AbstractColour(false, BaseColour.BLACK, "pitch black") {
-//		public boolean isJetBlack() { return true; }
-//	},
-//	
-//	public static AbstractColour ANTLER_RED = new AbstractColour(false, BaseColour.RED, "red") {};
-//	public static AbstractColour ANTLER_SCARLET = new AbstractColour(false, BaseColour.CRIMSON, "scarlet") {};
-//	public static AbstractColour ANTLER_AMBER = new AbstractColour(false, BaseColour.AMBER, "amber") {};
-//	public static AbstractColour ANTLER_PINK = new AbstractColour(false, BaseColour.PINK_LIGHT, "light pink") {};
-//	public static AbstractColour ANTLER_GREEN = new AbstractColour(false, BaseColour.GREEN, "green") {};
-//	public static AbstractColour ANTLER_BLUE = new AbstractColour(false, BaseColour.BLUE_LIGHT, "light blue") {};
-//	public static AbstractColour ANTLER_LILAC = new AbstractColour(false, BaseColour.LILAC, "lilac") {};
-//	public static AbstractColour ANTLER_PURPLE = new AbstractColour(false, BaseColour.PURPLE, "purple") {};
-
 	// Orifices:
 	public static Colour ORIFICE_INTERIOR = new Colour(false, BaseColour.ROSE, "fleshy-pink") {};
 
@@ -532,14 +528,8 @@ public class PresetColour {
 	public static Colour TONGUE = new Colour(false, BaseColour.ROSE, "pink") {};
 
 	// Generic colours:
-	public static Colour COVERING_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
-	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {};
-	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {};
-	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {};
-	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") {
-		public boolean isJetBlack() { return true; }
-	};
 	
+	// Metallic:
 	public static Colour COVERING_BRONZE = new Colour(true, BaseColour.BRONZE, "metallic bronze") {};
 	public static Colour COVERING_SILVER = new Colour(true, BaseColour.GREY, "metallic silver") {};
 	public static Colour COVERING_GOLD = new Colour(true, BaseColour.GOLD, "metallic gold") {};
@@ -549,38 +539,52 @@ public class PresetColour {
 	public static Colour COVERING_BRASS = new Colour(true, BaseColour.BRASS, "metallic brass") {};
 	public static Colour COVERING_STEEL = new Colour(true, Util.newColour(0x969696), Util.newColour(0x969696), "metallic steel") {};
 	public static Colour COVERING_BLACK_STEEL = new Colour(true, Util.newColour(0x555555), Util.newColour(0x111111), "metallic black steel") {};
-	
-	public static Colour COVERING_TAN = new Colour(false, BaseColour.TAN, "tan") {};
-	public static Colour COVERING_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
-	public static Colour COVERING_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown") {};
-	public static Colour COVERING_DIRTY_BLONDE = new Colour(false, BaseColour.TAN, "dirty-blonde") {};
-	public static Colour COVERING_BLONDE = new Colour(false, BaseColour.YELLOW_LIGHT, "blonde") {};
-	public static Colour COVERING_BLEACH_BLONDE = new Colour(false, BaseColour.YELLOW_PALE, "bleach-blonde") {};
-	public static Colour COVERING_SANDY = new Colour(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy") {};
-	public static Colour COVERING_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
-	public static Colour COVERING_GINGER = new Colour(false, BaseColour.GINGER, "ginger") {};
-	public static Colour COVERING_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {};
-	public static Colour COVERING_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
-	public static Colour COVERING_SCARLET = new Colour(false, BaseColour.CRIMSON, "scarlet") {};
-	public static Colour COVERING_RED_LIGHT = new Colour(false, BaseColour.RED_LIGHT, "light red") {};
-	public static Colour COVERING_RED = new Colour(false, BaseColour.RED, "red") {};
-	public static Colour COVERING_RED_DARK = new Colour(false, BaseColour.RED_DARK, "dark red") {};
-	public static Colour COVERING_AUBURN = new Colour(false, BaseColour.AUBURN, "auburn") {};
-	public static Colour COVERING_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
-	public static Colour COVERING_BLUE = new Colour(false, BaseColour.BLUE, "blue") {};
-	public static Colour COVERING_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {};
-	public static Colour COVERING_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
-	public static Colour COVERING_LILAC_LIGHT = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac") {};
-	public static Colour COVERING_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {};
-	public static Colour COVERING_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {};
-	public static Colour COVERING_PURPLE_LIGHT = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple") {};
-	public static Colour COVERING_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {};
-	public static Colour COVERING_PURPLE_DARK = new Colour(false, BaseColour.PURPLE_DARK, "dark purple") {};
+	// Monochrome:
+	public static Colour COVERING_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
+	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(COVERING_WHITE);
+	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {}.setLinkedColourLighter(COVERING_GREY);
+	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(COVERING_DARK_GREY);
+	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(COVERING_BLACK);
+	// Pink:
 	public static Colour COVERING_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
-	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {};
-	public static Colour COVERING_PINK_DARK = new Colour(false, BaseColour.PINK_DEEP, "dark pink") {};
+	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(COVERING_PINK_LIGHT);
+	public static Colour COVERING_PINK_DARK = new Colour(false, BaseColour.PINK_DEEP, "dark pink") {}.setLinkedColourLighter(COVERING_PINK);
+	// Red:
+	public static Colour COVERING_RED_LIGHT = new Colour(false, BaseColour.RED_LIGHT, "light red") {};
+	public static Colour COVERING_RED = new Colour(false, BaseColour.RED, "red") {}.setLinkedColourLighter(COVERING_RED_LIGHT);
+	public static Colour COVERING_RED_DARK = new Colour(false, BaseColour.RED_DARK, "dark red") {}.setLinkedColourLighter(COVERING_RED);
+	public static Colour COVERING_SCARLET = new Colour(false, BaseColour.CRIMSON, "scarlet") {}.setLinkedColourLighter(COVERING_RED_DARK);
+	// Brown:
+	public static Colour COVERING_TAN = new Colour(false, BaseColour.TAN, "tan") {};
+	public static Colour COVERING_BROWN = new Colour(false, BaseColour.BROWN, "brown") {}.setLinkedColourLighter(COVERING_TAN);
+	public static Colour COVERING_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown") {}.setLinkedColourLighter(COVERING_BROWN);
+	// Orange:
+	public static Colour COVERING_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
+	public static Colour COVERING_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {}.setLinkedColourLighter(COVERING_AMBER);
+	public static Colour COVERING_GINGER = new Colour(false, BaseColour.GINGER, "ginger") {}.setLinkedColourLighter(COVERING_ORANGE);
+	public static Colour COVERING_AUBURN = new Colour(false, BaseColour.AUBURN, "auburn") {}.setLinkedColourLighter(COVERING_GINGER);
+	// Yellow:
+	public static Colour COVERING_DIRTY_BLONDE = new Colour(false, BaseColour.TAN, "dirty-blonde") {};
+	public static Colour COVERING_SANDY = new Colour(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy") {}.setLinkedColourLighter(COVERING_DIRTY_BLONDE);
+	public static Colour COVERING_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {}.setLinkedColourLighter(COVERING_SANDY);
+	public static Colour COVERING_BLONDE = new Colour(false, BaseColour.YELLOW_LIGHT, "blonde") {}.setLinkedColourLighter(COVERING_YELLOW);
+	public static Colour COVERING_BLEACH_BLONDE = new Colour(false, BaseColour.YELLOW_PALE, "bleach-blonde") {}.setLinkedColourLighter(COVERING_BLONDE);
+	// Green:
 	public static Colour COVERING_GREEN = new Colour(false, BaseColour.GREEN, "green") {};
-	public static Colour COVERING_GREEN_DARK = new Colour(false, BaseColour.GREEN_DARK, "dark green") {};
+	public static Colour COVERING_GREEN_DARK = new Colour(false, BaseColour.GREEN_DARK, "dark green") {}.setLinkedColourLighter(COVERING_GREEN);
+	// Blue:
+	public static Colour COVERING_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
+	public static Colour COVERING_BLUE = new Colour(false, BaseColour.BLUE, "blue") {}.setLinkedColourLighter(COVERING_BLUE_LIGHT);
+	public static Colour COVERING_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {}.setLinkedColourLighter(COVERING_BLUE);
+	// Purple:
+	public static Colour COVERING_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
+	public static Colour COVERING_LILAC_LIGHT = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac") {}.setLinkedColourLighter(COVERING_PERIWINKLE);
+	public static Colour COVERING_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {}.setLinkedColourLighter(COVERING_LILAC_LIGHT);
+	public static Colour COVERING_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {}.setLinkedColourLighter(COVERING_LILAC);
+	public static Colour COVERING_PURPLE_LIGHT = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple") {}.setLinkedColourLighter(COVERING_INDIGO);
+	public static Colour COVERING_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {}.setLinkedColourLighter(COVERING_PURPLE_LIGHT);
+	public static Colour COVERING_PURPLE_DARK = new Colour(false, BaseColour.PURPLE_DARK, "dark purple") {}.setLinkedColourLighter(COVERING_PURPLE);
+	
 	
 	// Specials:
 	public static Colour COVERING_CLEAR = new Colour(false, BaseColour.WHITE, "clear") {}; // For nail-polish
@@ -591,7 +595,8 @@ public class PresetColour {
 			+ "<span style='color:#6EE64C;'>n</span>"
 			+ "<span style='color:#4CB2E6;'>b</span>"
 			+ "<span style='color:#AD4CE6;'>o</span>"
-			+ "<span style='color:#E64CA8;'>w</span>") {
+			+ "<span style='color:#E64CA8;'>w</span>", 
+			Util.newArrayListOfValues("rainbow")) {
 		@Override
 		public List<String> getRainbowColours() {
 			return Util.newArrayListOfValues(
@@ -618,7 +623,8 @@ public class PresetColour {
 			+ "<span style='color:#7bd8b0;'>n</span>"
 			+ "<span style='color:#83a5ef;'>b</span>"
 			+ "<span style='color:#ecb6f9;'>o</span>"
-			+ "<span style='color:#4bb1d0;'>w</span>") {
+			+ "<span style='color:#4bb1d0;'>w</span>", 
+			Util.newArrayListOfValues("pastelRainbow")) {
 		@Override
 		public List<String> getRainbowColours() {
 			return Util.newArrayListOfValues(
@@ -631,41 +637,53 @@ public class PresetColour {
 	public static Colour COVERING_NONE = new Colour(false, BaseColour.GREY, "none") {};
 
 	// Eye colours:
-	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
-	
-	public static Colour EYE_BROWN = new Colour(false, BaseColour.BROWN, "brown") {};
-	public static Colour EYE_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {};
-	public static Colour EYE_BLUE = new Colour(false, BaseColour.BLUE, "blue") {};
-	public static Colour EYE_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
-//	public static AbstractColour EYE_BLUE_ELECTRIC = new AbstractColour(false, Util.newColour(0x7DF9FF), Util.newColour(0x7DF9FF), "electric blue") {};
-	public static Colour EYE_HAZEL = new Colour(false, BaseColour.TAN, "hazel") {};
-	public static Colour EYE_AQUA = new Colour(false, BaseColour.AQUA, "aqua") {};
-	public static Colour EYE_GREEN = new Colour(false, BaseColour.GREEN_DARK, "green") {};
-	public static Colour EYE_GREY_GREEN = new Colour(false, Util.newColour(0xA9BA9D), Util.newColour(0xA9BA9D), "grey-green") {};
-	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {};
 
-	public static Colour EYE_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
-	public static Colour EYE_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {};
-	public static Colour EYE_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {};
-	public static Colour EYE_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {};
-	public static Colour EYE_VIOLET = new Colour(false, BaseColour.PURPLE_DARK, "violet") {};
-	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
-	public static Colour EYE_CRIMSON = new Colour(false, BaseColour.CRIMSON, "crimson") {};
+	// Special:
 	public static Colour EYE_GOLD = new Colour(false, BaseColour.GOLD, "golden") {};
 	public static Colour EYE_SILVER = new Colour(false, BaseColour.SILVER, "silver") {};
-	
-	public static Colour EYE_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
-	public static Colour EYE_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
+	// Monochrome:
+	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
+	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(EYE_WHITE);
+	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(EYE_GREY);
+	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(EYE_BLACK);
+	// Pink:
+	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
+	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(EYE_PINK_SALMON);
+	// Red:
 	public static Colour EYE_RED = new Colour(false, BaseColour.RED, "red") {};
-	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {};
-	public static Colour EYE_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {};
-	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {};
-	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") {
-		public boolean isJetBlack() { return true; }
-	};
-	
+	public static Colour EYE_CRIMSON = new Colour(false, BaseColour.CRIMSON, "crimson") {}.setLinkedColourLighter(EYE_RED);
+	// Brown:
+	public static Colour EYE_HAZEL = new Colour(false, BaseColour.TAN, "hazel") {};
+	public static Colour EYE_BROWN = new Colour(false, BaseColour.BROWN, "brown") {}.setLinkedColourLighter(EYE_HAZEL);
+	// Orange:
+	public static Colour EYE_AMBER = new Colour(false, BaseColour.AMBER, "amber") {};
+	public static Colour EYE_ORANGE = new Colour(false, BaseColour.ORANGE, "orange") {}.setLinkedColourLighter(EYE_AMBER);
+	// Yellow:
+	public static Colour EYE_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
+	// Green:
+	public static Colour EYE_GREY_GREEN = new Colour(false, Util.newColour(0xA9BA9D), Util.newColour(0xA9BA9D), "grey-green") {};
+	public static Colour EYE_GREEN = new Colour(false, BaseColour.GREEN_DARK, "green") {}.setLinkedColourLighter(EYE_GREY_GREEN);
+	// Blue:
+	public static Colour EYE_BLUE_LIGHT = new Colour(false, BaseColour.BLUE_LIGHT, "light blue") {};
+	public static Colour EYE_BLUE = new Colour(false, BaseColour.BLUE, "blue") {}.setLinkedColourLighter(EYE_BLUE_LIGHT);
+	public static Colour EYE_AQUA = new Colour(false, BaseColour.AQUA, "aqua") {}.setLinkedColourLighter(EYE_BLUE);
+	public static Colour EYE_BLUE_DARK = new Colour(false, BaseColour.BLUE_DARK, "dark blue") {}.setLinkedColourLighter(EYE_AQUA);
+	// Purple:
+	public static Colour EYE_PERIWINKLE = new Colour(false, BaseColour.PERIWINKLE, "periwinkle") {};
+	public static Colour EYE_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {}.setLinkedColourLighter(EYE_PERIWINKLE);
+	public static Colour EYE_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {}.setLinkedColourLighter(EYE_LILAC);
+	public static Colour EYE_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {}.setLinkedColourLighter(EYE_INDIGO);
+	public static Colour EYE_VIOLET = new Colour(false, BaseColour.PURPLE_DARK, "violet") {}.setLinkedColourLighter(EYE_PURPLE);
 
-	public static final Colour[] ACTION_POINT_COLOURS = new Colour[] {PresetColour.GENERIC_EXCELLENT, PresetColour.GENERIC_GOOD, PresetColour.GENERIC_MINOR_GOOD, PresetColour.GENERIC_MINOR_BAD, PresetColour.GENERIC_BAD, PresetColour.GENERIC_TERRIBLE};
+
+	
+	public static final Colour[] ACTION_POINT_COLOURS = new Colour[] {
+			PresetColour.GENERIC_EXCELLENT,
+			PresetColour.GENERIC_GOOD,
+			PresetColour.GENERIC_MINOR_GOOD,
+			PresetColour.GENERIC_MINOR_BAD,
+			PresetColour.GENERIC_BAD,
+			PresetColour.GENERIC_TERRIBLE};
 	
 	// Skin/fur/body part groups:
 	
@@ -760,6 +778,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
@@ -805,6 +824,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
@@ -878,6 +898,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER -->
+	
+	<htmlContent tag="START_SHOWER_SEX_AS_DOM"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==1)
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against [npc.name] and tell [npc.herHim] that now's the perfect time for you to fuck [npc.herHim].
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc))
+				Clearly feeling just as horny as you are, the [npc.race] lets out [npc.a_moan+] and leans in to plant a submissive kiss on your [pc.lips+]. With the shower's warm water cascading over your naked bodies, the two of you embrace one another and prepare to indulge in your lust...
+			#ELSE
+				Although [npc.sheIs] not attracted to you, the [npc.race] doesn't really have a choice in the matter, and lets out an anguished sigh as you lean in to plant a kiss on [npc.her] [npc.lips+]. With the shower's warm water cascading over your naked bodies, you embrace your slave and prepare to indulge in your lust...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against your slaves and tell them that now's the perfect time for you to fuck them.
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && ([#SPECIAL_PARSE_0]==2 || npc3.isAttractedTo(pc)) && ([#SPECIAL_PARSE_0]<4 || npc4.isAttractedTo(pc)))
+				Clearly feeling just as horny as you are, your slaves let out a chorus of excited moans, before all leaning in to plant a series of submissive kisses on your [pc.lips+] and [pc.breasts+]. With the shower's warm water cascading over your naked bodies, you all slide up against one another and prepare to indulge in your lust...
+			#ELSEIF(!npc.isAttractedTo(pc) && !npc2.isAttractedTo(pc) && ([#SPECIAL_PARSE_0]==2 || !npc3.isAttractedTo(pc)) && ([#SPECIAL_PARSE_0]<4 || !npc4.isAttractedTo(pc)))
+				Although none of your slaves are attracted to you, they don't really have a choice in the matter, and they let out a series of anguished sighs as you lean in to plant a kiss on each of their lips. With the shower's warm water cascading over your naked bodies, you embrace your reluctant slaves and prepare to indulge in your lust...
+			#ELSE
+				Although you can sense some hesitation, your slaves don't really have a choice in the matter, and you remind them of their place by leaning in to plant a dominant kiss on each of their lips. With the shower's warm water cascading over your naked bodies, you embrace your slaves and prepare to indulge in your lust...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="START_SHOWER_SEX_AS_SUB"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==1)
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against [npc.name] and tell [npc.herHim] that now's the perfect time for [npc.herHim] to do whatever [npc.she] wants with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, the [npc.race] lets out [npc.a_moan+] and leans in to plant a dominant kiss on your [pc.lips+]. With the shower's warm water cascading over your naked bodies, the two of you embrace one another and prepare to indulge in your lust...
+		</p>
+	#ELSEIF([#SPECIAL_PARSE_0]==2)
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against [npc.name] and [npc2.name] and tell them that now's the perfect time for them to do whatever they want with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, your slaves let out a pair of excited moans, before leaning in to plant a series of dominant kisses on your [pc.lips+] and [pc.breasts+]. With the shower's warm water cascading over your naked bodies, your two slaves slide up against you and prepare to take full advantage of your submission...
+		</p>
+	#ELSE
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against your slaves and tell them that now's the perfect time for them to do whatever they want with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, your slaves let out a chorus of excited moans, before leaning in to plant a series of dominant kisses on your [pc.lips+] and [pc.breasts+]. With the shower's warm water cascading over your naked bodies, your slaves slide up against you and prepare to take full advantage of your submission...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SHOWER_SEX -->
+	
+	<htmlContent tag="AFTER_SHOWER_SEX"><![CDATA[
+	<p>
+		#IF(sex.getAllParticipants(false).size()==2)
+			Having had your fun, you tell [npc.name] to quickly wash you off, and after [npc.sheHas] done so, you turn off the tap and get your slave to dry you off.
+		#ELSE
+			Having had your fun, you tell your slaves to quickly wash you off, and after they've done so, you turn off the tap and get your slaves to dry you off.
+		#ENDIF
+	</p>
+	<p>
+		Satisfied with the fun that you were able to have while taking your shower, you get dressed and prepare to head back into your room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUNT_HOME_PLAYERS_ROOM_BATH -->
+	
+	<htmlContent tag="START_BATH_SEX_AS_DOM"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==1)
+		<p>
+			Not wanting to finish your bath just yet, you slide your wet body up against [npc.name] and tell [npc.herHim] that now's the perfect time for you to fuck [npc.herHim].
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc))
+				Clearly feeling just as horny as you are, the [npc.race] lets out [npc.a_moan+] and leans in to plant a submissive kiss on your [pc.lips+]. With the bath's warm water enveloping your naked bodies, the two of you embrace one another and prepare to indulge in your lust...
+			#ELSE
+				Although [npc.sheIs] not attracted to you, the [npc.race] doesn't really have a choice in the matter, and lets out an anguished sigh as you lean in to plant a kiss on [npc.her] [npc.lips+]. With the bath's warm water enveloping your naked bodies, you embrace your slave and prepare to indulge in your lust...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Not wanting to finish your bath just yet, you slide your wet body up against your slaves and tell them that now's the perfect time for you to fuck them.
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && ([#SPECIAL_PARSE_0]==2 || npc3.isAttractedTo(pc)) && ([#SPECIAL_PARSE_0]<4 || npc4.isAttractedTo(pc)))
+				Clearly feeling just as horny as you are, your slaves let out a chorus of excited moans, before all leaning in to plant a series of submissive kisses on your [pc.lips+] and [pc.breasts+]. With the bath's warm water enveloping your naked bodies, you all slide up against one another and prepare to indulge in your lust...
+			#ELSEIF(!npc.isAttractedTo(pc) && !npc2.isAttractedTo(pc) && ([#SPECIAL_PARSE_0]==2 || !npc3.isAttractedTo(pc)) && ([#SPECIAL_PARSE_0]<4 || !npc4.isAttractedTo(pc)))
+				Although none of your slaves are attracted to you, they don't really have a choice in the matter, and they let out a series of anguished sighs as you lean in to plant a kiss on each of their lips. With the bath's warm water enveloping your naked bodies, you embrace your reluctant slaves and prepare to indulge in your lust...
+			#ELSE
+				Although you can sense some hesitation, your slaves don't really have a choice in the matter, and you remind them of their place by leaning in to plant a dominant kiss on each of their lips. With the bath's warm water enveloping your naked bodies, you embrace your slaves and prepare to indulge in your lust...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="START_BATH_SEX_AS_SUB"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==1)
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against [npc.name] and tell [npc.herHim] that now's the perfect time for [npc.herHim] to do whatever [npc.she] wants with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, the [npc.race] lets out [npc.a_moan+] and leans in to plant a dominant kiss on your [pc.lips+]. With the bath's warm water enveloping your naked bodies, the two of you embrace one another and prepare to indulge in your lust...
+		</p>
+	#ELSEIF([#SPECIAL_PARSE_0]==2)
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against [npc.name] and [npc2.name] and tell them that now's the perfect time for them to do whatever they want with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, your slaves let out a pair of excited moans, before leaning in to plant a series of dominant kisses on your [pc.lips+] and [pc.breasts+]. With the bath's warm water enveloping your naked bodies, your two slaves slide up against you and prepare to take full advantage of your submission...
+		</p>
+	#ELSE
+		<p>
+			Not wanting to finish your shower just yet, you slide your wet body up against your slaves and tell them that now's the perfect time for them to do whatever they want with you.
+		</p>
+		<p>
+			Clearly feeling just as horny as you are, your slaves let out a chorus of excited moans, before leaning in to plant a series of dominant kisses on your [pc.lips+] and [pc.breasts+]. With the bath's warm water enveloping your naked bodies, your slaves slide up against you and prepare to take full advantage of your submission...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_BATH_SEX -->
+	
+	<htmlContent tag="AFTER_BATH_SEX"><![CDATA[
+	<p>
+		#IF(sex.getAllParticipants(false).size()==2)
+			Having had your fun, you tell [npc.name] to quickly wash you off, and after [npc.sheHas] done so, you pull the plug and get your slave to dry you off.
+		#ELSE
+			Having had your fun, you tell your slaves to quickly wash you off, and after they've done so, you pull the plug and get your slaves to dry you off.
+		#ENDIF
+	</p>
+	<p>
+		Satisfied with the fun that you were able to have while taking your bath, you get dressed and prepare to head back into your room...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

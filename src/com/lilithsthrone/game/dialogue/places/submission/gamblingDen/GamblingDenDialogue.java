@@ -73,13 +73,11 @@ public class GamblingDenDialogue {
 	private static final int REWARD_AMOUNT = 50_000;
 	
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance", "", false) {
-		
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelIntroduced)
 					|| Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)==Quest.VENGAR_THREE_END;
 		}
-		
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_VENGAR)==Quest.VENGAR_THREE_END) {
@@ -823,18 +821,21 @@ public class GamblingDenDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
 						return new Response("Offer help",
 								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+"<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
-								AXEL_VENGAR) {
-							@Override
-							public Colour getHighlightColour() {
-								return PresetColour.QUEST_SIDE;
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
-								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
-							}
-						};
+								+ "<br/>[style.italicsBad(This quest is temporarily disabled while work is being done on it. It will be completely finished soon!)]",
+								null);
+//						return new Response("Offer help",
+//								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.",
+//								AXEL_VENGAR) {
+//							@Override
+//							public Colour getHighlightColour() {
+//								return PresetColour.QUEST_SIDE;
+//							}
+//							@Override
+//							public void effects() {
+//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
+//								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
+//							}
+//						};
 						
 					} else {
 						return new Response("Vengar", "Ask [axel.name] about Vengar.", AXEL_VENGAR) {
@@ -1191,7 +1192,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN = new DialogueNode("", "", true) {
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN = new DialogueNode("", "", true) { //TODO raid
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);

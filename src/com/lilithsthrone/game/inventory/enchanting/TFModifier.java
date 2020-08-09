@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -293,7 +294,7 @@ public enum TFModifier {
 	
 	//CLOTHING_ANTI_SELF_TRANSFORMATION
 	CLOTHING_SERVITUDE("servitude",
-			"Makes the wearer unable to self-transform or unjinx clothing.",
+			"Makes the wearer unable to self-transform or unseal clothing.",
 			"servitude",
 			"modifier_circle_servitude",
 			PresetColour.BASE_PINK_LIGHT,
@@ -933,6 +934,7 @@ public enum TFModifier {
 			PresetColour.BASE_YELLOW,
 			Rarity.COMMON),
 	
+	
 	// tongue modifiers:
 	
 	TF_MOD_TONGUE_RIBBED("ribbing",
@@ -955,6 +957,28 @@ public enum TFModifier {
 			"modifier_circle_tongue_bifurcated",
 			PresetColour.BASE_CRIMSON,
 			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_WIDE("wide",
+			"Applies an effect related to making a tongue wide.",
+			"wide",
+			"modifier_circle_tongue_wide",
+			PresetColour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_FLAT("flat",
+			"Applies an effect related to making a tongue flat.",
+			"flat",
+			"modifier_circle_tongue_flat",
+			PresetColour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_STRONG("strong",
+			"Applies an effect related to making a tongue strong.",
+			"strong",
+			"modifier_circle_orifice_muscled",
+			PresetColour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
 	
 	// penis & clit modifiers:
 	
@@ -1036,15 +1060,24 @@ public enum TFModifier {
 			PresetColour.BASE_AQUA,
 			Rarity.COMMON),
 	
-	// vagina:
 	
-
+	// Vagina:
+	
 	TF_MOD_VAGINA_SQUIRTER("squirter",
 			"Applies an effect related to making someone a squirter.",
 			"squirting",
 			"modifier_circle_squirter",
 			PresetColour.BASE_AQUA,
 			Rarity.COMMON),
+
+	
+	TF_MOD_HYMEN("hymen",
+			"Applies an effect related to growing or removing a hymen.",
+			"hymen",
+			"modifier_circle_tf_vagina",
+			PresetColour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
 	
 	// fluid modifiers:
 	
@@ -1156,91 +1189,52 @@ public enum TFModifier {
 		}
 	},
 	
-	// fluid flavours: TODO background
 	
-	TF_MOD_FLAVOUR_CUM("cum-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"cum-flavour",
-			"modifier_circle_flavour_cum",
-			PresetColour.BASE_YELLOW_LIGHT,
-			Rarity.COMMON),
+	// Fluid flavours:
 	
-	TF_MOD_FLAVOUR_MILK("milk-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"milk-flavour",
-			"modifier_circle_flavour_cum",
-			PresetColour.BASE_WHITE,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_CUM(FluidFlavour.CUM, "flavours/cum"),
 	
-	TF_MOD_FLAVOUR_GIRLCUM("girlcum-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"milk-flavour",
-			"modifier_circle_flavour_cum",
-			PresetColour.BASE_PINK_LIGHT,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_MILK(FluidFlavour.MILK, "flavours/cum"),
 	
-	TF_MOD_FLAVOUR_BUBBLEGUM("bubblegum-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"bubblegum-flavour",
-			"modifier_circle_flavour_bubblegum",
-			PresetColour.BASE_PINK,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_GIRLCUM(FluidFlavour.GIRL_CUM, "flavours/cum"),
 	
-	TF_MOD_FLAVOUR_BEER("beer-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"beer-flavour",
-			"modifier_circle_flavour_beer",
-			PresetColour.BASE_ORANGE,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_BUBBLEGUM(FluidFlavour.BUBBLEGUM, "flavours/bubblegum"),
 	
-	TF_MOD_FLAVOUR_VANILLA("vanilla-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"vanilla-flavour",
-			"modifier_circle_flavour_vanilla",
-			PresetColour.BASE_YELLOW_LIGHT,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_BEER(FluidFlavour.BEER, "flavours/beer"),
 	
-	TF_MOD_FLAVOUR_STRAWBERRY("strawberry-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"strawberry-flavour",
-			"modifier_circle_flavour_strawberry",
-			PresetColour.BASE_RED,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_VANILLA(FluidFlavour.VANILLA, "flavours/vanilla"),
 	
-	TF_MOD_FLAVOUR_CHOCOLATE("chocolate-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"chocolate-flavour",
-			"modifier_circle_flavour_chocolate",
-			PresetColour.BASE_BROWN_DARK,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_STRAWBERRY(FluidFlavour.STRAWBERRY, "flavours/strawberry"),
 	
-	TF_MOD_FLAVOUR_PINEAPPLE("pineapple-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"pineapple-flavour",
-			"modifier_circle_flavour_pineapple",
-			PresetColour.BASE_YELLOW_LIGHT,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_CHOCOLATE(FluidFlavour.CHOCOLATE, "flavours/chocolate"),
 	
-	TF_MOD_FLAVOUR_HONEY("honey-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"honey-flavour",
-			"modifier_circle_flavour_honey",
-			PresetColour.BASE_YELLOW,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_PINEAPPLE(FluidFlavour.PINEAPPLE, "flavours/pineapple"),
 	
-	TF_MOD_FLAVOUR_MINT("mint-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"mint-flavour",
-			"modifier_circle_flavour_mint",
-			PresetColour.BASE_GREEN_LIME,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_HONEY(FluidFlavour.HONEY, "flavours/honey"),
+	
+	TF_MOD_FLAVOUR_MINT(FluidFlavour.MINT, "flavours/mint"),
 
-	TF_MOD_FLAVOUR_CHERRY("cherry-flavour",
-			"Applies an effect related to changing a fluid's flavour.",
-			"cherry-flavour",
-			"modifier_circle_flavour_cherry",
-			PresetColour.BASE_CRIMSON,
-			Rarity.COMMON),
+	TF_MOD_FLAVOUR_CHERRY(FluidFlavour.CHERRY, "flavours/cherry"),
+
+	TF_MOD_FLAVOUR_COFFEE(FluidFlavour.COFFEE, "flavours/coffee"),
+
+	TF_MOD_FLAVOUR_TEA(FluidFlavour.TEA, "flavours/tea"),
+
+	TF_MOD_FLAVOUR_MAPLE(FluidFlavour.MAPLE, "flavours/maple"),
+
+	TF_MOD_FLAVOUR_CINNAMON(FluidFlavour.CINNAMON, "flavours/cinnamon"),
+
+	TF_MOD_FLAVOUR_LEMON(FluidFlavour.LEMON, "flavours/lemon"),
+
+	TF_MOD_FLAVOUR_ORANGE(FluidFlavour.ORANGE, "flavours/orange"),
+	
+	TF_MOD_FLAVOUR_GRAPE(FluidFlavour.GRAPE, "flavours/grape"),
+	
+	TF_MOD_FLAVOUR_MELON(FluidFlavour.MELON, "flavours/melon"),
+	
+	TF_MOD_FLAVOUR_COCONUT(FluidFlavour.COCONUT, "flavours/coconut"),
+	
+	TF_MOD_FLAVOUR_BLUEBERRY(FluidFlavour.BLUEBERRY, "flavours/blueberry"),
 	
 	
 	// Fetishes:
@@ -1572,6 +1566,20 @@ public enum TFModifier {
 		this.fetish = f;
 		this.SVGString = f.getSVGString(null);
 	}
+
+	private TFModifier(FluidFlavour flavour, String pathName) {
+		this(flavour, pathName, flavour.getColour());
+	}
+	
+	private TFModifier(FluidFlavour flavour, String pathName, Colour colour) {
+		this.name = flavour.getName()+"-flavour";
+		this.description = "Applies an effect related to changing a fluid's flavour.";
+		this.descriptor = name;
+		this.rarity = Rarity.COMMON;
+		this.colour = colour;
+		this.path = pathName;
+		this.SVGString = null;
+	}
 	
 	public int getValue() {
 		switch(getRarity()) {
@@ -1627,13 +1635,13 @@ public enum TFModifier {
 				
 				if(path.contains("flavour")) {
 					String SVGStringBackground = "";
-					is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+					is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/flavours/background.svg");
 					if(is==null) {
-						System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+						System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'flavours/background')!");
 					}
-					SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", this.getColour(), Util.inputStreamToString(is))+"</div>";
+					SVGStringBackground = "<div style='width:80%;height:80%;position:absolute;left:10%;bottom:10%;'>"+SvgUtil.colourReplacement(this.toString()+"_B", this.getColour(), Util.inputStreamToString(is))+"</div>";
 					
-					s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), this.getColour(), s)+"</div>";
+					s = SVGStringBackground + "<div style='width:50%;height:50%;position:absolute;left:25%;bottom:25%;'>" + SvgUtil.colourReplacement(this.toString(), this.getColour(), s)+"</div>";
 					
 				} else {
 					s = SvgUtil.colourReplacement(this.toString(), this.getColour(), s);

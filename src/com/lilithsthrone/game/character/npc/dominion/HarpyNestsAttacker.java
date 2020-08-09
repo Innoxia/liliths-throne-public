@@ -27,7 +27,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogu
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -78,8 +78,8 @@ public class HarpyNestsAttacker extends NPC {
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
-			
-			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+
+			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, this.getGender(), Subspecies.getFleshSubspecies(this), true), true);
 			}
 			

@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
@@ -27,7 +28,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
@@ -42,18 +42,18 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Lab {
 	
-	private static boolean isLilayaAngryAtPlayerDemonTF() {
-		return Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON
-				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
+	public static boolean isLilayaAngryAtPlayerDemonTF() {
+		return Main.game.getPlayer().getTrueRace()==Race.DEMON
+				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN)
+				&& Main.game.getNpc(Lilaya.class).getSubspeciesOverride()!=Subspecies.DEMON;
 	}
 	
 	public static final DialogueNode LAB = new DialogueNode("Lilaya's Laboratory", "", false) {
-
 		@Override
 		public String getContent() {
 			if(Main.game.isExtendedWorkTime()) {
@@ -135,6 +135,19 @@ public class Lab {
 	private static List<Response> getLabEntryGeneratedResponses() {
 		List<Response> generatedResponses = new ArrayList<>();
 		
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaHug)) {
+			generatedResponses.add(new Response("Hug",
+					"You've already given Lilaya an unexpected hug today, and although she liked it, she seemed serious about not doing again..."
+							+ "<br/><i>You should wait until tomorrow before giving her another hug!</i>",
+					null));
+		} else if(isLilayaAngryAtPlayerDemonTF()) {
+			generatedResponses.add(new Response("Hug",
+					"Due to her resentment towards you for being a full demon, Lilaya absolutely does not want a hug!",
+					null));
+		} else {
+			generatedResponses.add(new Response("Hug", "[pc.Step] up to Lilaya and give her a big hug.", LAB_LILAYA_HUG));
+		}
+		
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 				generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
@@ -163,10 +176,10 @@ public class Lab {
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 				if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-					generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+					generatedResponses.add(new Response("Essences & Enchantments", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
 					
 				} else {
-					generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
+					generatedResponses.add(new Response("Essences & Enchantments", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
 						@Override
 						public void effects() {
 							setEntryFlags();
@@ -231,7 +244,7 @@ public class Lab {
 		}
 		
 		if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
-			if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+			if(isLilayaAngryAtPlayerDemonTF()) {
 				generatedResponses.add(new Response("Give Present", "Although you have a present in your inventory, Lilaya is not interested in receiving it, due to her resentment towards you for being a full demon, while she is not.", null));
 				
 			} else {
@@ -239,7 +252,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						setEntryFlags();
-						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.PRESENT));
 						
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
@@ -256,7 +269,7 @@ public class Lab {
 		}
 		
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
-			if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+			if(isLilayaAngryAtPlayerDemonTF()) {
 				generatedResponses.add(new Response("Geisha Lilaya", "Lilaya is not interested in showing off her kimono, nor having sex with you, until she's a full demon as well.", null));
 				
 			} else {
@@ -333,9 +346,9 @@ public class Lab {
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
-			generatedResponses.add(new Response("Jinxed problem",
-					"Tell Lilaya that you have some jinxed clothing sealed onto you, and that due to an enchantment on some of your clothing, you cannot remove it."
-							+ "<br/>[style.italicsMinorGood(Lilaya will remove all jinxes on all your clothing!)]",
+			generatedResponses.add(new Response("Sealed problem",
+					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
+							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all your clothing!)]",
 						LAB_JINX_REMOVAL){
 				@Override
 				public void effects() {
@@ -405,7 +418,7 @@ public class Lab {
 	
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_NAUGHTY_ROSE"));
 						
-						if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+						if(isLilayaAngryAtPlayerDemonTF()) {
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)) {
 								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"));
 							} else {
@@ -501,7 +514,7 @@ public class Lab {
 					};
 					
 				} else if (index == 1) {
-					if(isLilayaAngryAtPlayerDemonTF() && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
+					if(isLilayaAngryAtPlayerDemonTF()) {
 						return new Response("Full demon",
 								"Tell Lilaya that you'll help her convince her mother to turn her into a full demon.<br/>[style.italicsDemon(This will end with Lilaya being permanently transformed into a full demon!)]",
 								LAB_DEMON_TF_AGREE) {
@@ -876,12 +889,26 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LAB_JINX_REMOVAL = new DialogueNode("", "", true) {
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_JINX_REMOVAL");
 		}
-
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(0, index);
+		}
+	};
+	
+	public static final DialogueNode LAB_LILAYA_HUG = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 5));
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaHug, true);
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_LILAYA_HUG");
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return LAB_ENTRY.getResponse(0, index);
@@ -932,7 +959,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Enchantments & Jinxes", "Let Lilaya show you how to use your stored essences in order to enchant items or remove jinxes.", LILAYA_EXPLAINS_ESSENCES_3);
+				return new Response("Listen", "Listen as Lilaya shows you how to use your stored essences in order to enchant items.", LILAYA_EXPLAINS_ESSENCES_3);
 
 			} else {
 				return null;
@@ -976,13 +1003,13 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			
 			if(index == 1) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=1) {
 						return new Response("Extract (1)", "Extract one of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
-								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
+								Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
+								int count = Main.game.getPlayer().getItemCount(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
@@ -1004,15 +1031,15 @@ public class Lab {
 				
 				
 			} else if(index == 2) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=5) {
 						return new Response("Extract (5)", "Extract five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
 								for(int i =0; i<5; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
+									Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
-								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
+								int count = Main.game.getPlayer().getItemCount(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
@@ -1035,15 +1062,15 @@ public class Lab {
 				}
 				
 			} else if(index == 3) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=25) {
 						return new Response("Extract (25)", "Extract twenty-five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
 								for(int i =0; i<25; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
+									Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
-								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
+								int count = Main.game.getPlayer().getItemCount(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
@@ -1066,15 +1093,15 @@ public class Lab {
 				}
 				
 			} else if(index == 4) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=1) {
 						return new Response("Extract (all)", "Extract all of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
 								for(int i =0; i<Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE); i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
+									Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
-								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
+								int count = Main.game.getPlayer().getItemCount(Main.game.getItemGen().generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."

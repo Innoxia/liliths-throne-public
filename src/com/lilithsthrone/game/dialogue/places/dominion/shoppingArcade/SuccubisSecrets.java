@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -32,7 +34,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
@@ -178,7 +179,12 @@ public class SuccubisSecrets {
 						true, true,
 						new SMSitting(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
+						},
 						null,
 						null,
 						Kate.AFTER_SEX,
@@ -187,6 +193,7 @@ public class SuccubisSecrets {
 			return null;
 		}
 	};
+	
 	public static final DialogueNode SHOP_BEAUTY_SALON_WATCH = new DialogueNode("Succubi's Secrets", "-", true, true) {
 
 		@Override
@@ -204,7 +211,12 @@ public class SuccubisSecrets {
 						true, true,
 						new SMSitting(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
+						},
 						null,
 						null,
 						Kate.AFTER_SEX,
@@ -348,7 +360,7 @@ public class SuccubisSecrets {
 									&& !(bp instanceof Eye)) {
 								
 								String name = bp.getName(Main.game.getPlayer());
-								if(bp instanceof Skin) {
+								if(bp instanceof Torso) {
 									name = "torso";
 								} else if(bp instanceof Vagina) {
 									name = "vagina";
@@ -411,7 +423,12 @@ public class SuccubisSecrets {
 					true, true,
 					new SMSitting(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+						@Override
+						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+							return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+						}
+					},
 					null,
 					null,
 					Kate.AFTER_SEX_REPEATED,
@@ -438,7 +455,7 @@ public class SuccubisSecrets {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-500));
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_PERFUMES), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_PERFUMES), false));
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_PERFUME));
 				}
 			};

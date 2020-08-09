@@ -34,7 +34,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelSlimeDialogu
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -96,12 +96,14 @@ public class SubmissionAttacker extends NPC {
 			} else {
 				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			}
-			
-			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
+
+			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 			}
-			
-			if(Main.getProperties().taurFurryLevel>0 && Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+
+			if(Math.random()<Main.getProperties().taurSpawnRate/100f
+					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
 				CharacterUtils.applyTaurConversion(this);
 			}
 			

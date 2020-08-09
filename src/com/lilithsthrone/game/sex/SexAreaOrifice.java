@@ -506,7 +506,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 					case FOOT:
 						break;
 					case PENIS:
-						boolean paizuri = target.isBreastFuckablePaizuri();
+						boolean paizuri = performer.isBreastFuckablePaizuri();
 						if(pastTense) {
 							switch(performerPace) {
 								case DOM_GENTLE:
@@ -902,7 +902,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 					case FOOT:
 						break;
 					case PENIS:
-						boolean paizuri = target.isBreastFuckablePaizuri();
+						boolean paizuri = performer.isBreastFuckablePaizuri();
 						if(pastTense) {
 							switch(performerPace) {
 								case DOM_GENTLE:
@@ -2085,7 +2085,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	}
 	
 	public float getCumAbsorptionPerSecond() {
-		return cumAbsorptionPerSecond/60f;
+		return cumAbsorptionPerSecond;
 	}
 	
 	/**

@@ -46,10 +46,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -144,7 +142,7 @@ public class DominionExpress {
 						UtilText.addSpecialParsingString(Util.intToString(this.getCost()), false);
 						StringBuilder sb = new StringBuilder(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_TAUR"));
 						sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_GENERIC_END"));
-						if(Main.game.getPlayer().getRace()==Race.DEMON) {
+						if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 							if(Main.game.getPlayer().getLegType()!=LegType.DEMON_HORSE_HOOFED) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.DEMON_HORSE_HOOFED));
 							}
@@ -432,7 +430,7 @@ public class DominionExpress {
 	}
 	
 	private static AbstractClothing generateCollar() {
-		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_filly_choker"), false);
+		return Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_filly_choker"), false);
 	}
 	
 	private static boolean isPlayerBodyCorrect() {
@@ -497,7 +495,7 @@ public class DominionExpress {
 		return npc;
 	}
 	
-	private static void applySadistSlave(GameCharacter slave) {
+	public static void applySadistSlave(GameCharacter slave) {
 		slave.addFetish(Fetish.FETISH_SADIST);
 		
 		slave.setName(new NameTriplet("Thunder"));
@@ -550,15 +548,11 @@ public class DominionExpress {
 	
 	private static void banishSlave(GameCharacter slave, boolean delete) {
 		if(delete) {
-			for(GameCharacter npc : getSlaves()) {
-				Main.game.banishNPC((NPC) npc);
-			}
+			Main.game.banishNPC((NPC) slave);
 			
 		} else {
-			for(GameCharacter npc : getSlaves()) {
-				npc.setHomeLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES);
-				npc.returnToHome();
-			}
+			slave.setHomeLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES);
+			slave.returnToHome();
 		}
 		activeSlave = null;
 	}
@@ -662,7 +656,7 @@ public class DominionExpress {
 								}
 								@Override
 								public void effects() {
-									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -1179,7 +1173,7 @@ public class DominionExpress {
 		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(6)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(6*60)*60;
 		}
 		@Override
 		public String getContent() {
@@ -1381,7 +1375,7 @@ public class DominionExpress {
 		public void applyPreParsingEffects() {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 			Main.game.getPlayer().calculateStatusEffects(0);
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false, true));
 			Main.game.getPlayer().cleanAllDirtySlots(true);
 		}
 		@Override
@@ -1434,12 +1428,6 @@ public class DominionExpress {
 						}
 						return super.getHighlightColour();
 					}
-					@Override
-					public void effects() {
-						if(!Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.ROMANCE_NATALYA));
-						}
-					}
 				};
 			}
 			return null;
@@ -1456,10 +1444,13 @@ public class DominionExpress {
 		@Override
 		public void applyPreParsingEffects() {
 			if(!isOfficeEntryDenied()) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)) {
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.ROMANCE_NATALYA));
+				}
 				if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_NATALYA)==Quest.ROMANCE_NATALYA_1_INTERVIEW_START) {
 					Main.game.getPlayer().removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 					Main.getProperties().addItemDiscovered(ItemType.NATALYA_BUSINESS_CARD);
-					Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
+					Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
 				}
 			}
 		}
@@ -2959,7 +2950,12 @@ public class DominionExpress {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,
@@ -2997,7 +2993,12 @@ public class DominionExpress {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,
@@ -3029,13 +3030,18 @@ public class DominionExpress {
 						"Dominate Mistress Natalya by thrusting your [pc.cock+] into her [natalya.asshole+].",
 						true,
 						false,
-						new SMDominionExpress(SexPosition.STANDING,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.PERFORMING_ORAL_BEHIND)),
+						new SMDominionExpress(SexPosition.ALL_FOURS,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotAllFours.ALL_FOURS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,

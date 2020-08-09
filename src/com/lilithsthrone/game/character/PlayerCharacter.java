@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -58,6 +58,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -546,7 +547,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(!Main.isVersionOlderThan(version, "0.3.7.7")) {
+		if(playerSpecificElement!=null && !Main.isVersionOlderThan(version, "0.3.7.7")) {
 			nodes = playerSpecificElement.getElementsByTagName("itemsDiscovered");
 			element = (Element) nodes.item(0);
 			nodes = element.getElementsByTagName("type");
@@ -636,8 +637,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(character.getPenisType().getRace()==Race.DEMON) {
 				character.setPenisType(PenisType.HUMAN);
 			}
-			if(character.getSkinType().getRace()==Race.DEMON) {
-				character.setSkinType(SkinType.HUMAN);
+			if(character.getTorsoType().getRace()==Race.DEMON) {
+				character.setTorsoType(TorsoType.HUMAN);
 			}
 			if(character.getTailType().getRace()==Race.DEMON) {
 				character.setTailType(TailType.NONE);
@@ -667,17 +668,23 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
 			
 //			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-//				character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
+//				character.addItem(Main.game.getItemGeneration().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
 //			}
 //			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
-		if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
-				&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)) {
-			character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+		if(Main.isVersionOlderThan(version, "0.3.8.1")) {
+			if(character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
+				character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
+				
+			} else if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
+					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)
+					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
+				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+			}
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
-			character.addItem(AbstractItemType.generateItem(ItemType.SLAVER_LICENSE), false);
+			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
 		}
 		
 		return character;
@@ -741,6 +748,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		if(Main.game.isStarted() && worldLocation!=this.getWorldLocation()) {
 			Main.game.addEvent(new EventLogEntry("[style.colourMinorGood(Entered)]", Util.capitaliseSentence(worldLocation.getName())), false);
+		}
+
+		if(Main.game.isStarted() && Main.game.getActiveWorld().getCell(this.getLocation()).getPlace().isItemsDisappear()) {
+			Main.game.getActiveWorld().getCell(this.getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY, Rarity.QUEST));
 		}
 		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
@@ -1240,15 +1251,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		return false;
 	}
-	
-	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
-		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
-		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
-		}
-	}
 
 	@Override
 	public String getSpellDescription() {
@@ -1355,7 +1357,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			
 			sb.append(UtilText.parseFromXMLFile("characters/dominion/scarlett", "ROUGH_ANAL_ORGASM"));
 			
-			return new SexActionOrgasmOverride(false, sb.toString()) {
+			return new SexActionOrgasmOverride(false) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
 				@Override
 				public void applyEffects() {
 				}
@@ -1388,14 +1394,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
 			}
 			
-			return new SexActionOrgasmOverride(false, sb.toString()) {
+			return new SexActionOrgasmOverride(false) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
 				@Override
 				public void applyEffects() {
 				}
 				@Override
 				public boolean isEndsSex() {
-					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
-							&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
+					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
 							&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
 				}
 			};
@@ -1414,7 +1423,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.MOUTH, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.PENIS)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GIVING_LYSSIETH_BLOWJOB_END"));
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1424,7 +1437,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.MOUTH)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_BLOWJOB_FROM_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1434,7 +1451,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1446,7 +1467,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.VAGINA, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.PENIS)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_PUSSY_FUCKED_BY_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1466,7 +1491,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_ASS_FUCKED_BY_LYSSIETH_END"));
 						}
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1482,7 +1511,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_FUCKING_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(false, sb.toString()) {
+						return new SexActionOrgasmOverride(false) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1504,7 +1537,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_FUCKING_LYSSIETH_END"));
 						}
 						
-						return new SexActionOrgasmOverride(true, sb.toString()) {
+						return new SexActionOrgasmOverride(true) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1514,7 +1551,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.VAGINA, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.PENIS)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_PUSSY_FUCKED_BY_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(true, sb.toString()) {
+						return new SexActionOrgasmOverride(true) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1524,7 +1565,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.ANUS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaPenetration.PENIS)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_ASS_FUCKED_BY_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(true, sb.toString()) {
+						return new SexActionOrgasmOverride(true) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1534,7 +1579,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.MOUTH)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_BLOWJOB_FROM_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(true, sb.toString()) {
+						return new SexActionOrgasmOverride(true) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1544,7 +1593,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH_END"));
 						
-						return new SexActionOrgasmOverride(true, sb.toString()) {
+						return new SexActionOrgasmOverride(true) {
+							@Override
+							public String getDescription() {
+								return sb.toString();
+							}
 							@Override
 							public void applyEffects() {
 							}
@@ -1716,7 +1769,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					+ "</p>");
 			
 		} else {
-			if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS).isEmpty()) {
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS)!=null) {
 				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS);
 				
 			} else {
@@ -1878,8 +1931,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			sb.append("</p>");
 			
 		} else {
-			if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA).isEmpty()) {
-				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA);
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA)!=null) {
+				sb.append(((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA));
 				
 			} else {
 				sb.append("<p>");
@@ -1987,14 +2040,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			sb.append(losingPureVirginity(characterPenetrating, penetration));
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerPureVirginityLoss(characterPenetrating, penetration)!=null) {
+				sb.append(((NPC)characterPenetrating).getSpecialPlayerPureVirginityLoss(characterPenetrating, penetration));
+				
+			} else {
+				sb.append(losingPureVirginity(characterPenetrating, penetration));
+			}
 		}
 		
 		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			sb.append("<p style='text-align:center;'>"
-										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-								+ "</p>");
+						+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
+						+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+					+ "</p>");
 		}
 		
 		return UtilText.parse(characterPenetrating, sb.toString());
@@ -2002,7 +2060,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	protected String getPenileVirginityLossDescription(GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(characterPenetrated instanceof NPC && !((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice).isEmpty()) {
+		if((characterPenetrated instanceof NPC) && ((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice)!=null) {
 			return ((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice);
 		}
 		
@@ -2020,7 +2078,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getNippleVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE);
 		}
 		
@@ -2038,7 +2096,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getNippleCrotchVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH);
 		}
 		
@@ -2056,7 +2114,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS);
 		}
 		
@@ -2074,7 +2132,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getVaginalUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA);
 		}
 		
@@ -2092,7 +2150,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getMouthVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH);
 		}
 		

@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -41,6 +42,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -56,17 +58,19 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.sexActions.submission.SAMurkSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -124,6 +128,13 @@ public class Murk extends NPC {
 				this.setVaginaType(VaginaType.RAT_MORPH);
 			}
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9")) {
+			this.addCumModifier(FluidModifier.MUSKY);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREY_GREEN), false);
+			this.setPenisSize(38);
+			this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		}
 	}
 
 	@Override
@@ -176,11 +187,11 @@ public class Murk extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_YELLOW), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREY_GREEN), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_PALE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
@@ -217,11 +228,12 @@ public class Murk extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
-		this.setPenisSize(32);
+		this.setPenisSize(38);
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(350);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.MUSKY);
 		
 		// Vagina:
 		// No vagina
@@ -239,16 +251,16 @@ public class Murk extends NPC {
 			this.setScar(InventorySlot.LEG, new Scar(ScarType.CLAW_MARKS, true));
 		}
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bat_metal", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_GUNMETAL, PresetColour.CLOTHING_BLACK)));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bat_metal", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_GUNMETAL, PresetColour.CLOTHING_BLACK)));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.setPiercedNose(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 	}
 	
 	@Override
@@ -392,14 +404,52 @@ public class Murk extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(victory) {
-			return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_VICTORY);
+			return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_VICTORY);
 			
 		} else {
-			return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_DEFEAT);
+			return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_DEFEAT);
 		}
 	}
 	
+	// Sex:
+
+	@Override
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
+		if(type.getPerformingSexArea()==SexAreaPenetration.TAIL) {
+			return -10000;
+		}
+		return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
+	}
+	
+	@Override
+	public int getOrgasmsBeforeSatisfied() {
+		if(Main.game.getPlayer().isCaptive() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
+			return RatWarrensCaptiveDialogue.murkOrgasmsRequired;
+		}
+		return super.getOrgasmsBeforeSatisfied();
+	}
+	
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_NORMAL;
+	}
+	
+	@Override
+	public List<Class<?>> getUniqueSexClasses() {
+		return Util.newArrayListOfValues(SAMurkSpecials.class);
+	}
+
+	@Override
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
+		if(Main.game.getPlayer().isCaptive() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
+			return true; // Always deny requests before transformations are finished.
+		}
+		return super.getSexBehaviourDeniesRequests(requestingCharacter, sexTypeRequest);
+	}
+	
 	// Dirty talk:
+
+	@Override
 	public String getDirtyTalkPenisPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
@@ -470,5 +520,46 @@ public class Murk extends NPC {
 			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 		}
 		return super.getDirtyTalkPenisPenetrating(target, isPlayerDom);
+	}
+	
+
+	@Override
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(receivingCharacter.isPlayer() && receivingCharacter.isCaptive()) {
+			if(penetrated==SexAreaOrifice.VAGINA) {
+				return "";
+			} else if(penetrated==SexAreaOrifice.ANUS) {
+				return "";
+			}
+		}
+		
+		return super.getSpecialPlayerVirginityLoss(penetratingCharacter, penetrating, receivingCharacter, penetrated);
+	}
+
+	@Override
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+				+ "</p>"
+				+ "<p>"
+					+ "As Murk's fat cock continues thrusting in and out of your ugly cunt, the sudden realisation of what's just happened hits you like a sledgehammer."
+				+ "</p>"
+				+ "<p style='text-align:center;'>"
+					+ "[pc.thought(I've lost my virginity?!"
+						+ "<br/>Like... <b>this</b>?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You don't know what's worse; losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
+					+ " As your massive, dangling labia lewdly spread to accommodate the rat-boy's fat, throbbing dick, you start to think of yourself as nothing more than just another one of his milker sluts..."
+				+ "</p>"
+				+ "<p style='text-align:center;'>"
+					+ "[pc.thought(As I've given my virginity to Murk, that makes me his slut...<br/>"
+						+ "Yes...<br/>"
+						+ "I'll be his good milker slut...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Completely surrendering to Murk, you let out a horny moan and start desperately bucking your hips back against him, resigning yourself to the fact that now you're nothing more than a"
+					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+				+ "</p>";
 	}
 }

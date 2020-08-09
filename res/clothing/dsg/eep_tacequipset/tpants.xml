@@ -18,10 +18,10 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		
 		<!-- The name of this clothing. -->
-		<name><![CDATA[Enforcer's tactical pants]]></name>
+		<name><![CDATA[Enforcer's tactical trousers]]></name>
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
-		<namePlural pluralByDefault="false"><![CDATA[Enforcer's tactical pants]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[Enforcer's tactical trousers]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A pair of boot-cut cargo trousers made from breathable cotton rip-stop and reinforced knees and seat. The drawstrings around the ankles allow the legs to be easily bloused into a pair of boots.]]></description> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -54,7 +54,11 @@
 		<enchantmentLimit/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/>
+		<effects>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>	
+		</effects> 
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
 		<blockedPartsList> 
@@ -126,7 +130,18 @@
 		</blockedPartsList>
 		
 		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-		<incompatibleSlots/> 
+		<incompatibleSlots/>
+		
+		<!--This section details how to define patterns. If your svg file does not have a 'patternLayer' defined, you can safely delete this whole section:-->
+		
+		<!-- "defaultPatterns" lists the patterns that this clothing can spawn with. -->
+		<!-- "patternChance" is the chance that this clothing will spawn with a pattern. Values are from 0 to 1, and should end with an "f".
+		i.e. 0.5f is a 50% chance, 0.75f is 75%, 0.1275 is 12.75%, etc.-->
+		<!-- "colourNameDerivedFromPattern" sets whether the pattern's primary colour should be used for the clothing's name, instead of the "colour" value.
+		i.e. If true, then a green+black tiger-striped item of clothing would be called "green", even if the base colour was something else. -->
+		<defaultPatterns patternChance="1.0f" colourNameDerivedFromPattern="false"> 
+			<pattern>urban_splinter_camo</pattern><!-- Pattern values can be found as svg file names in the folder "res/patterns" -->
+		</defaultPatterns>
 		
 		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours, secondaryColours, and tertiaryColours can all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
 		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:
@@ -167,66 +182,91 @@
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into the tactical trousers and [npc.verb(pull)] them up to [npc.her] waist before buttoning up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the tactical trousers up around [npc2.namePos] legs up to [npc2.her] waist before buttoning up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] 
+					#IF game.isSillyModeEnabled()
+					#THEN practically [npc.verb(give)] [npc2.namePos] a wedgie as [npc2.her]
+					#ENDIF
+					[npc.verb(yank)] the tactical trousers up around [npc2.namePos] legs up to [npc2.her] waist before roughly buttoning up the front.]]>
+		</otherRough>
+	</replacementText>
+	
 	<!-- 'displacementText' is used for removal and displacement. -->
 	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[You pull down your tactical pants and kick them off your [pc.feet].​]]></playerSelf>
-		<playerNPC><![CDATA[You pull [npc.name]'s tactical pants down and slide them off [npc.her] feet.​]]></playerNPC>
-		<playerNPCRough><![CDATA[You yank [npc.name]'s tactical pants down and pull them off [npc.her] [npc.feet].]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] pulls down [npc.her] tactical pants and kicks them off [npc.her] [npc.feet].​]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls your tactical pants down and slides them off your [pc.feet]]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] yanks your tactical pants down and pull them off your [pc.feet].]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls [npc2.name]'s tactical pants down and slides them off [npc2.her] [npc.feet].]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] yanks [npc2.name]'s tactical pants down and pulls them off [npc2.her] [npc.feet].]]></NPCOtherNPCRough>
-	</displacementText>
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[You step into the tactical pants before pulling them up to your waist.]]></playerSelf>
-		<playerNPC><![CDATA[You pull the tactical pants up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.​]]></playerNPC>
-		<playerNPCRough><![CDATA[You force [npc.name]'s [npc.legs] into the tactical pants before yanking them up to her waist.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.name] steps into the tactical pants before pulling them up to [npc.her] waist.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls the tactical pants up your [pc.legs] and buttons them up around your waist.​]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forces your [pc.legs] into the tactical pants before yanking them up to your waist.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls the tactical pants up [npc2.name]'s [npc.legs] and buttons them up around [npc2.her] waist.​]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forces [npc2.Name]'s [npc2.legs] into the tactical pants before yanking them up to [npc2.her] waist.]]></NPCOtherNPCRough>
-	</replacementText>
-	<displacementText type="UNZIPS">
-		<playerSelf><![CDATA[You unzip your tactical pants.]]></playerSelf>
-		<playerNPC><![CDATA[You unzip [npc.name]'s tactical pants.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully unzip [npc.name]'s tactical pants.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] unzips [npc.her] tactical pants.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] unzips your tactical pants.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully unzips your tactical pants.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] unzips [npc2.name]'s tactical pants.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully unzips [npc2.name]'s tactical pants.]]></NPCOtherNPCRough>
-	</displacementText>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] tactical trousers and [npc.verb(pull)] them down before kicking them from [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.name] tactical trousers and [npc.verb(pull)] them down before sliding them from [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcibly [npc.verb(unbutton)] [npc2.name] tactical trousers and [npc.verb(yank)] them off.]]>
+		</otherRough>
+	</displacementText>	
+	
+	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="UNZIPS">
-		<playerSelf><![CDATA[You zip up your tactical pants.]]></playerSelf>
-		<playerNPC><![CDATA[You zip up [npc.name]'s tactical pants.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully zip up [npc.name]'s tactical pants.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] zips up [npc.her] tactical pants.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] zips up your tactical pants.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully zips up your tactical pants.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] zips up [npc2.name]'s tactical pants.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully zips up [npc2.name]'s tactical pants.]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up the fly of [npc.her] tactical trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(zip)] up the front of [npc2.namePos] tactical trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(zip)] up the front of [npc2.namePos] tactical trousers
+					#IF game.isSillyModeEnabled() && npc2.hasPenis()
+					#THEN without much regard for what might be in the way, resulting in a close call!
+					#ELSE .
+					#ENDIF
+					]]>
+		</otherRough>
 	</replacementText>
-	<displacementText type="PULLS_DOWN">
-		<playerSelf><![CDATA[You pull down your tactical pants.]]></playerSelf>
-		<playerNPC><![CDATA[You pull down [npc.Name]'s tactical pants.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully pull down [npc.Name]'s tactical pants.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] pulls down [npc.her] tactical pants.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls down your tactical pants.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully pulls down your tactical pants.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls down [npc2.name]'s tactical pants.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully pulls down [npc2.name]'s tactical pants.]]></NPCOtherNPCRough>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="UNZIPS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] up the fly of [npc.her] tactical trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unzip)] up the fly of [npc2.namePos] tactical trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcibly [npc.verb(unzip)] the fly of [npc2.namePos] tactical trousers.]]>
+		</otherRough>
 	</displacementText>
+	
+	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="PULLS_UP">
-		<playerSelf><![CDATA[You pull up your tactical pants.]]></playerSelf>
-		<playerNPC><![CDATA[You pull up [npc.Name]'s tactical pants.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully pull up [npc.Name]'s tactical pants.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] pulls up [npc.her] tactical pants.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls up your tactical pants.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully pulls up your tactical pants.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls up [npc2.name]'s tactical pants.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully pulls up [npc2.name]'s tactical pants.]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] tactical trousers up to [npc.her] waist and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] tactical trousers up to [npc2.her] waist and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcibly [npc.verb(pull)] [npc2.namePos] tactical trousers up to [npc2.her] waist and roughly [npc.verb(button)] up the front.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] tactical trousers and [npc.verb(pull)] them down.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.name] tactical trousers and [npc.verb(pull)] them down.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcibly [npc.verb(unbutton)] [npc2.name] tactical trousers and [npc.verb(yank)] down around [npc2.her] legs.]]>
+		</otherRough>
+	</displacementText>	
 	
 </clothing>

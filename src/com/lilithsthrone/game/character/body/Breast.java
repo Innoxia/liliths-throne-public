@@ -33,6 +33,7 @@ public class Breast implements BodyPartInterface {
 	protected int rows;
 	protected int milkStorage;
 	protected float milkStored;
+	/** Measured in mL/day */
 	protected int milkRegeneration;
 	protected int nippleCountPerBreast;
 	
@@ -161,9 +162,9 @@ public class Breast implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the breasts of [npc.a_breastRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
-		UtilText.transformationContentSB.append(
+		sb.append(
 				"<p>"
 					+ "The front of [npc.namePos] torso suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 					+" [npc.Her] nipples and areolae tingle and harden, causing [npc.herHim] to pant and let out a lewd [npc.moan] as the intense transformation runs its course."
@@ -173,18 +174,18 @@ public class Breast implements BodyPartInterface {
 					+ "<br/>");
 		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		nipples.setType(owner, type.getNippleType());
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
 
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
+		sb.append(type.getTransformationDescription(owner)+"</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation(false)
 				+ "</p>";
@@ -360,7 +361,7 @@ public class Breast implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 							+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] regeneration has [style.boldGrow(increased)].<br/>"
-						+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 			
 		} else {
@@ -368,7 +369,7 @@ public class Breast implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange sucking sensation deep within [npc.her] [npc.breasts],"
 							+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.sheIs] feeling [npc.her] [npc.milk] regeneration [style.boldShrink(decreasing)].<br/>"
-						+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 		}
 	}
@@ -457,7 +458,7 @@ public class Breast implements BodyPartInterface {
 						+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.breasts]."
 						+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples],"
 							+ " and [npc.she] [npc.verb(continue)] [npc.moaning] as some of them [style.boldShrink(shrink)] into the flesh of [npc.her] [npc.breasts].<br/>"
-						+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+						+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple(true)]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 					+ "</p>");
 			
 		} else if (nippleCountPerBreast > getNippleCountPerBreast()) {
@@ -466,7 +467,7 @@ public class Breast implements BodyPartInterface {
 						+ "[npc.Name] [npc.verb(feel)] a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.breasts]."
 						+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples],"
 							+ " and [npc.she] [npc.verb(continue)] [npc.moaning] as [npc.she] feels new ones [style.boldGrow(growing)] out of the flesh of [npc.her] [npc.breasts].<br/>"
-						+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+						+ "[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple(true)]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 					+ "</p>");
 			
 		}

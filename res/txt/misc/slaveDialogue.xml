@@ -598,12 +598,6 @@
 		<p>
 			[npc.speech([pc.She] just can't resist us,)] [npc.name] states, following [npc2.namePos] lead as [npc.she] moves up beside you, before planting a wet kiss on your [pc.lips+].
 		</p>
-		<p>
-			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
-		</p>
-		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
-		</p>
 	#ENDIF
 	<p>
 		[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
@@ -688,9 +682,9 @@
 		</p>
 		<p>
 			#IF(pc.isFeminine())
-				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
+				[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
 			#ELSE
-				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
+				[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
 			#ENDIF
 		</p>
 		<p>

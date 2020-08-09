@@ -18,7 +18,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexPace;
@@ -474,7 +473,7 @@ public class GenericOffspringDialogue {
 						return new Response("Give Present", UtilText.parse(offspring(), "Give [npc.name] the present that you're carrying."), OFFSPRING_PRESENT) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.PRESENT));
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 15));
 								

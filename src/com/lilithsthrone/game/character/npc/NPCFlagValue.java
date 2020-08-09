@@ -13,10 +13,12 @@ public enum NPCFlagValue {
 	genericNPCBetrayedByPlayer,
 	
 	knowsPlayerGender,
+	knowsPlayerDemon,
 	introducedToPlayer,
 	pendingClothingDressing,
 	prostituteQuestioned,
-//	pendingTransformationToGenderIdentity,
+	playerEscapedLastCombat,
+	thinksPlayerEnforcer,
 	
 	flagSlaveBackground,
 	flagSlaveSmallTalk,

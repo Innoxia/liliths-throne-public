@@ -12,18 +12,18 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public enum Occupation {
 	
 	// Unique:
 	
-	ELEMENTAL_EARTH(Perk.ELEMENTAL_BOUND_EARTH, "earth elemental", "[npc.NameIsFull] currently bound to the arcane school of Earth.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_FIRE(Perk.ELEMENTAL_BOUND_FIRE, "fire elemental", "[npc.NameIsFull] currently bound to the arcane school of Fire.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_WATER(Perk.ELEMENTAL_BOUND_WATER, "water elemental", "[npc.NameIsFull] currently bound to the arcane school of Water.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
-	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
+	ELEMENTAL(Perk.ELEMENTAL_CORE_OCCUPATION, "elemental", "[npc.NameIsFull] a construct of pure arcane energy and is a physical manifestation of [npc.her] summoner's aura.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_FIRE(Perk.ELEMENTAL_BOUND_FIRE, "fire elemental", "[npc.NameIsFull] currently bound to the arcane school of Fire.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_WATER(Perk.ELEMENTAL_BOUND_WATER, "water elemental", "[npc.NameIsFull] currently bound to the arcane school of Water.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
+//	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
@@ -282,6 +282,16 @@ public enum Occupation {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
+		}
+	},
+	
+	TOURIST(Perk.JOB_TOURIST,
+			"American tourist",
+			"For your vacation this year, you've decided to visit England.",
+			OccupationTag.PLAYER_ONLY) {
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return Main.game.isSillyModeEnabled();
 		}
 	};
 	

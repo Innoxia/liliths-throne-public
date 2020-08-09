@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -43,6 +44,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -73,7 +75,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.9
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -246,23 +248,26 @@ public class PhoneDialogue {
 					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
 				}
 				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-					return new Response("Loiter", "This is not a suitable place in which to loiter about for four hours!", null);
+					return new Response("Loiter", "This is not a suitable place in which to be loitering about!", null);
 				}
-				return new ResponseEffectsOnly("Loiter", "Loiter in this area for the next four hours.") {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60*4;
+				return new Response("Loiter", "THink about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
+				
+			} else if (index == 14){
+				if(!Main.game.getPlayer().isElementalSummoned()) {
+					if(Main.game.getPlayer().hasDiscoveredElemental()) {
+						return new Response("[el.Name]",
+								"You have not summoned [el.name], so you cannot talk to [el.herHim]!"
+										+ "<br/>[style.italicsMinorGood(You can summon your elemental from your 'Spells' screen!)]",
+								null);
 					}
-					@Override
-					public void effects() {
-						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-								+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
-					}
-				};
+					return new Response("Elemental",
+							"You have not summoned your elemental, so you cannot talk to them..."
+									+ "<br/>[style.italicsMinorGood(You can summon your elemental by learning an elemental-summoning spell and casting it from your 'Spells' screen!)]",
+							null);
+				}
+				return new Response("[el.Name]",
+						"Spend some time talking with [el.name].",
+						ElementalDialogue.ELEMENTAL_START);
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -667,132 +672,124 @@ public class PhoneDialogue {
 		}
 	};
 
+	private static String getAttributeDisplayValue(Attribute att) {
+		String valueForDisplay = Units.number(Main.game.getPlayer().getAttributeValue(att));
+		
+		if(att.isInfiniteAtUpperLimit() && Main.game.getPlayer().getAttributeValue(att)>=att.getUpperLimit()) {
+			valueForDisplay = UtilText.getInfinitySymbol(true);
+		}
+		
+		return valueForDisplay;
+	}
+	
 	public static final DialogueNode CHARACTER_STATS = new DialogueNode("Character Stats", "", true) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			StatusEffect physiqueSE = PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
-			StatusEffect arcaneSE = IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
-			StatusEffect corruptionSE = CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect();
+			AbstractStatusEffect physiqueSE = PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
+			AbstractStatusEffect arcaneSE = IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
+			AbstractStatusEffect corruptionSE = CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect();
 					
 			UtilText.nodeContentSB.append(
+				"<div class='container-full-width'>"
+					+ statAttributeHeader()
 					
-				"<details>"
-				+ "<summary>[style.boldExcellent(Stats Mechanics)]</summary>"
-					+ "<p style='text-align:center;padding:margin:0;'>"
-						+ "All derived stats start to have diminishing returns past the half-way point!<br/>"
-						+ "<b>For example:</b><br/>"
-						+ "<b>25</b> <b style='color:"+PresetColour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(25, 100))+"% damage</i><br/>"
-						+ "<b>50</b> <b style='color:"+PresetColour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(50, 100))+"% damage</i><br/>"
-						+ "<i>Past this point, there are diminishing returns.</i><br/>"
-						+ "<b>60</b> <b style='color:"+PresetColour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(60, 100))+"% damage</i><br/>"
-						+ "<b>80</b> <b style='color:"+PresetColour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(80, 100))+"% damage</i><br/>"
-						+ "<b>100</b> <b style='color:"+PresetColour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Units.number(Util.getModifiedDropoffValue(100, 100))+"% damage</i><br/>"
-					+ "</p>"
-				+ "</details>"
-					
-				+ "<div class='container-full-width'>"
-					+ "<h4 style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Core Attributes</h4>"
+					+ "<p style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'><b>Core Attributes</b></p>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_PHYSIQUE,
 							"'<b style='color:"+physiqueSE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(physiqueSE.getName(Main.game.getPlayer()))+"</b>' effect gained")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_ARCANE,
 							"'<b style='color:"+arcaneSE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(arcaneSE.getName(Main.game.getPlayer()))+"</b>' effect gained")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_CORRUPTION,
 							"'<b style='color:"+corruptionSE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(corruptionSE.getName(Main.game.getPlayer()))+"</b>' effect gained")
-
-					// This is displayed in inventory screen, so no point showing it here
-//					+ (Main.game.isEnchantmentCapacityEnabled()
-//						?"<div class='container-full-width' style='text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
-//								+ "<b style='color:"+PresetColour.GENERIC_ENCHANTMENT.toWebHexString()+";'>"+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+":</b>"
-//								+ " <i>"
-//									+(int)Main.game.getPlayer().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
-//								+"</i>"
-//							+ "</div>"
-//						:"")
-					
-				+"</div>"
-				+"<div class='container-full-width'>"
-
-					+ "<h4 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.HEALTH_MAXIMUM,
+							"When reduced to 0, you lose combat")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MANA_MAXIMUM,
+							"Used as a resource for casting spells")
+//				+"</div>"
+//				
+//				+"<div class='container-full-width'>"
+					+ "<p style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'><b>Misc. Attributes</b></p>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.FERTILITY,
-							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit()))+"</b> Fertility Factor")
+							"Increases pregnancy chance")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
-							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit()))+"</b> Virility Factor")
+							"Increases impregnation chance")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
-						+ "<b style='color:"+PresetColour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
+						+ "<b style='color:"+PresetColour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b>"
+								+ "<br/>"
+								+ "<i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
 					+ "</div>"
-
-				+"</div>"
-				+"<div class='container-full-width'>"
-				
-					+ "<h4 style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
+//				+"</div>"
+//					
+//				+"<div class='container-full-width'>"
+					+ "<p style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'><b>Combat Attributes</b></p>"
+					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
-							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b> Critical Hit Damage",
+							"Deals <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE))+"%</b> normal damage",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.ENERGY_SHIELDING,
-							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.ENERGY_SHIELDING), Attribute.ENERGY_SHIELDING.getUpperLimit()))+"</b> Health Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.ENERGY_SHIELDING)+"</b> Health Block/Turn",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
-							"<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b> Spell cost")
+							"Reduces spell cost by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER))+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b> Spell Damage",
+							"Increases spell damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit())))+"%</b> Unarmed Damage",
+							"Increases unarmed damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED))+"%</b>",
 							true)
 					
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit())))+"%</b> Melee Damage",
+							"Increases melee weapon damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit())))+"%</b> Ranged Damage",
+							"Increases ranged weapon damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON))+"%</b>",
 							true)
 					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit())))+"%</b> Physical Damage",
+							"Increases physical damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL,
-							"<b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL))+"</b> Physical Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.RESISTANCE_PHYSICAL)+"</b> Physical Block/Turn",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_FIRE,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit())))+"%</b> Fire Damage",
+							"Increases fire damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE,
-							"<b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE))+"</b> Fire Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.RESISTANCE_FIRE)+"</b> Fire Block/Turn",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ICE,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit())))+"%</b> Ice Damage",
+							"Increases ice damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_ICE,
-							"<b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE))+"</b> Ice Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.RESISTANCE_ICE)+"</b> Ice Block/Turn",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_POISON,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit())))+"%</b> Poison Damage",
+							"Increases poison damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_POISON,
-							"<b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON))+"</b> Poison Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.RESISTANCE_POISON)+"</b> Poison Block/Turn",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LUST,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit())))+"%</b> Lust Damage",
+							"Increases lust damage by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
-							"<b>"+Units.number(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST))+"</b> Lust Block/Turn",
+							"<b>"+getAttributeDisplayValue(Attribute.RESISTANCE_LUST)+"</b> Lust Block/Turn",
 							true)
 
-				+"</div>"
-				+"<div class='container-full-width'>"
-					+ "<h6 style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
+//				+"</div>"
+//				+"<div class='container-full-width'>"
+					+ "<p style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'><b>Racial Damage Attributes</b></p>");
 			
 			List<Attribute> encounteredAttributes = new ArrayList<>();
 			for(Subspecies subspecies : Subspecies.values()) {
@@ -800,7 +797,7 @@ public class PhoneDialogue {
 				if(!encounteredAttributes.contains(damageModifier)) {
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), damageModifier,
-									"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(damageModifier), damageModifier.getUpperLimit())))+"%</b> "+Util.capitaliseSentence(damageModifier.getName()),
+									"Increases damage vs "+subspecies.getNamePlural(null)+" by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(damageModifier))+"%</b>",
 									true));
 					encounteredAttributes.add(damageModifier);
 				}
@@ -1073,9 +1070,6 @@ public class PhoneDialogue {
 				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Cum Storage",
 						PresetColour.TEXT, (Units.fluid(character.getPenisRawCumStorageValue())),
 						PresetColour.GENERIC_SEX, (Util.capitaliseSentence(character.getPenisCumStorage().getDescriptor())))
-				+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Cum Production Pregnancy Modifier",
-						PresetColour.TEXT, (String.valueOf(character.getPenisCumStorage().getPregnancyModifier())),
-						PresetColour.GENERIC_SEX, "N/A")
 				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(PresetColour.TRANSFORMATION_GENERIC, "Cum Regeneration",
 						PresetColour.TEXT, Units.fluid(character.getCumRegenerationPerSecond()*60)+"/minute",
 						PresetColour.GENERIC_SEX, Util.capitaliseSentence(character.getPenisCumProductionRegeneration().getName()))
@@ -1826,51 +1820,91 @@ public class PhoneDialogue {
 					+ "</div>"
 				+ "</div>";
 	}
+
+	private static String statAttributeHeader() {
+		return "<div class='container-full-width' style='text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'><b>"
+				
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:26%;'>"
+						+ "Attribute"
+					+ "</div>"
+
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:16%;'>"
+						+ "Core | Bonus"
+					+ "</div>"
+						
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:20%;'>"
+						+ "Value/Max."
+					+ "</div>"
+						
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:36%;'>"
+						+ "Description"
+					+ "</div>"
+					
+				+ "</b></div>";
+	}
 	
 	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect) {
 		return getAttributeBox(owner, att, effect, false);
 	}
 	
 	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
+		float value = owner.getAttributeValue(att);
+
+		String valueForDisplay;
+		if(((int)value)==value) {
+			valueForDisplay = String.valueOf(((int)value));
+		} else {
+			valueForDisplay = String.valueOf(value);
+		}
+		if(att.isInfiniteAtUpperLimit() && value>=att.getUpperLimit()) {
+			valueForDisplay = UtilText.getInfinitySymbol(true);
+		}
+		if(att.isPercentage()){
+			valueForDisplay = (value>=0?"+":"")+valueForDisplay+"%";
+		}
+		
 		return "<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
 				
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:30%;'>"
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
 
-					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:8%;'>"
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:6%;text-align:right;'>"
 						+(owner.getBaseAttributeValue(att) > 0 
-								? "<b style='color:" + PresetColour.GENERIC_GOOD.getShades()[1] + ";"
+								? "<b style='color:" + PresetColour.GENERIC_MINOR_GOOD.getShades()[1] + ";"
 								: (owner.getBaseAttributeValue(att) < 0
-									? "<b style='color:" + PresetColour.GENERIC_BAD.getShades()[1] + ";"
+									? "<b style='color:" + PresetColour.GENERIC_MINOR_BAD.getShades()[1] + ";"
 									: "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-							+Units.number(owner.getBaseAttributeValue(att), 1, 1)
+							+Units.number(owner.getBaseAttributeValue(att), 0, 1)
 						+"</b>"
 					+ "</div>"
 
-					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:8%;'>"
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:6%;text-align:left;'>"
+						+" | "	
 						+ (owner.getBonusAttributeValue(att) > 0 
-								? "<b style='color:" + PresetColour.GENERIC_GOOD.getShades()[1] + ";"
+								? "<b style='color:" + PresetColour.GENERIC_MINOR_GOOD.getShades()[1] + ";"
 								: (owner.getBonusAttributeValue(att) < 0
-									? "<b style='color:" + PresetColour.GENERIC_BAD.getShades()[1] + ";"
+									? "<b style='color:" + PresetColour.GENERIC_MINOR_BAD.getShades()[1] + ";"
 									: "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";"))+"'>"
-							+Units.number(owner.getBonusAttributeValue(att), 1, 1)
+							+Units.number(owner.getBonusAttributeValue(att), 0, 1)
 						+"</b>"
 					+ "</div>"
 						
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:8%;text-align:right;'>"
-						+ "<b style='color:"
-							+(owner.getAttributeValue(att)>=att.getUpperLimit() || (att==Attribute.MAJOR_CORRUPTION&&owner.getAttributeValue(att)==0)?PresetColour.GENERIC_EXCELLENT:att.getColour()).toWebHexString()+";'>"
-							+Units.number(owner.getAttributeValue(att), 1, 1)
+						+ "<b style='color:"+att.getColour().toWebHexString()+";'>"
+							+ valueForDisplay
 						+"</b>"
 					+ "</div>"
 
 					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:8%;text-align:left;'>"
-						+ "[style.boldDisabled(/"+att.getUpperLimit()+")]"
+						+ "/"
+						+ (value>=att.getUpperLimit() || (att==Attribute.MAJOR_CORRUPTION && value==0)
+								?"[style.boldGood("+att.getUpperLimit()+")]"
+								:"[style.boldDisabled("+att.getUpperLimit()+")]")
 					+ "</div>"
 						
-					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:38%;'>"
-						+ "<i>"+effect.replaceAll("<br/>", " ")+"</i>"
+					+ "<div class='container-full-width' style='background:transparent;margin:0;padding:0;width:40%;'>"
+						+ "[style.italicsDisabled("+effect.replaceAll("<br/>", " ")+")]"
 					+ "</div>"
 					
 				+ "</div>";
@@ -1960,7 +1994,7 @@ public class PhoneDialogue {
 				try {
 					GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return new Response(Util.capitaliseSentence(npc.getName(true)),
-							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							UtilText.parse(npc, "Take a detailed look at what [npc.name] looks like."),
 							CONTACTS_CHARACTER){
 						@Override
 						public void effects() {
@@ -2987,6 +3021,99 @@ public class PhoneDialogue {
 			} else {
 				return null;
 			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode LOITER_SELECTION = new DialogueNode("", "", true) {
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "You think about how long you'd like to spend loitering in the area..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Decide against loitering in this area.", MENU);
+			}
+			if(index == 1) {
+				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
+					@Override
+					public void effects() {
+//						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next fifteen minutes loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.endTurn(60*15);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
+			} else if(index == 2) {
+				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
+					@Override
+					public void effects() {
+//						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next hour loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.endTurn(60*60);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
+			} else if(index == 3) {
+				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
+					@Override
+					public void effects() {
+//						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.endTurn(60*60*4);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
+			} else if(index == 4) {
+				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
+					@Override
+					public void effects() {
+//						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next eight hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.endTurn(60*60*8);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
+			} else if(index == 5) {
+				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
+					@Override
+					public void effects() {
+//						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next twelve hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.endTurn(60*60*12);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+			}
+			return null;
 		}
 
 		@Override

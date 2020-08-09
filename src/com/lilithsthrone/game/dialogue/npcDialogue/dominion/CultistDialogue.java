@@ -15,8 +15,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
@@ -105,7 +103,7 @@ public class CultistDialogue {
 						UtilText.parseFromXMLFile("encounters/dominion/cultist", "ENCOUNTER_CHAPEL_ORAL_SEX", getCultist())) {
 					@Override
 					public void effects() {
-						// Remove jinxes so that player can get access to mouth:
+						// Remove seals so that player can get access to mouth:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.MOUTH, true);
 							while (clothing != null) {
@@ -138,7 +136,7 @@ public class CultistDialogue {
 						public void effects() {
 							((Cultist)getCultist()).setRequestedAnal(false);
 							
-							// Remove jinxes so that player can get access to vagina:
+							// Remove seals so that player can get access to vagina:
 							if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 								AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								while (clothing != null) {
@@ -174,7 +172,7 @@ public class CultistDialogue {
 					public void effects() {
 						((Cultist)getCultist()).setRequestedAnal(true);
 						
-						// Remove jinxes so that player can get access to vagina:
+						// Remove seals so that player can get access to vagina:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.ANUS, true);
 							while (clothing != null) {
@@ -192,7 +190,11 @@ public class CultistDialogue {
 	};
 	
 	public static final DialogueNode ENCOUNTER_CHAPEL_REPEAT = new DialogueNode("The Witch's Chapel", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			// Pull up dress:
+			getCultist().displaceClothingForAccess(CoverableArea.PENIS, null);
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/cultist", "ENCOUNTER_CHAPEL_REPEAT", getCultist());
@@ -270,12 +272,12 @@ public class CultistDialogue {
 							 colour = PresetColour.CLOTHING_WHITE;
 						}
 						
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", colour, PresetColour.CLOTHING_GOLD, colour, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", colour, PresetColour.CLOTHING_GOLD, colour, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat", colour, PresetColour.CLOTHING_GOLD, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", colour, PresetColour.CLOTHING_GOLD, colour, false));
+						Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 			
@@ -366,7 +368,7 @@ public class CultistDialogue {
 					public void effects() {
 						((Cultist)getCultist()).setRequestedAnal(false);
 						
-						// Remove jinxes so that player can get access to vagina:
+						// Remove seals so that player can get access to vagina:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 							while (clothing != null) {
@@ -375,7 +377,7 @@ public class CultistDialogue {
 								clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 							}
 						}
-						// Remove jinxes so that player can get access to anus:
+						// Remove seals so that player can get access to anus:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.ANUS, true);
 							while (clothing != null) {
@@ -514,12 +516,12 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 			}
@@ -540,12 +542,12 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
+						Main.game.getPlayerCell().getInventory().addWeapon(Main.game.getItemGen().generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 				

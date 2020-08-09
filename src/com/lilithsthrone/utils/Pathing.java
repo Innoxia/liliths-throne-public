@@ -144,7 +144,7 @@ public class Pathing {
 							// Deny diagonals unless in main world map
 							Cell c = grid[n.getX() + i][n.getY() + j];
 
-							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getPlace().getPlaceType().getDialogue(false)!=null? c.getPlace().getPlaceType().getDialogue(false).getSecondsPassed() : 10000));
+							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getDialogue(false)!=null? c.getDialogue(false).getSecondsPassed() : 10000));
 							
 							int g = ((i == 0 || j == 0) ? 10 : c.getType().equals(WorldType.WORLD_MAP)?12:1_000_000)
 									+ time
@@ -195,7 +195,7 @@ public class Pathing {
 		int totalTimePassed = 0;
 		for(Cell c : getPathingCells()) {
 			Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
-			DialogueNode dialogue = c.getPlace().getDialogue(true);
+			DialogueNode dialogue = c.getDialogue(true);
 			
 			if(dialogue!=null) {
 				totalTimePassed += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());
@@ -235,7 +235,7 @@ public class Pathing {
 
 		Main.game.endTurn(totalTimePassed);
 		
-		return new Response("", "", destination.getPlace().getDialogue(false));
+		return new Response("", "", destination.getDialogue(false));
 	}
 	
 	public static void initPathingVariables() {
@@ -271,7 +271,7 @@ public class Pathing {
 	private static int calculateTravelTime(List<Cell> cellRoute, boolean withModifiedTravelTime) {
 		int seconds = 0;
 		for(Cell c : cellRoute) {
-			DialogueNode dialogue = c.getPlace().getDialogue(false);
+			DialogueNode dialogue = c.getDialogue(false);
 			if(dialogue!=null) {
 				if(withModifiedTravelTime) {
 					seconds += Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), dialogue.getSecondsPassed());

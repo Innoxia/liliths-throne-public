@@ -56,11 +56,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -119,7 +117,7 @@ public class ScarlettsShop {
 			NPC npc = new GenericSexualPartner(Gender.M_P_MALE, WorldType.EMPTY, Main.game.getWorlds().get(WorldType.EMPTY).getCell(PlaceType.GENERIC_HOLDING_CELL).getLocation(), false, (s)->s!=Subspecies.CENTAUR);
 			
 			npc.unequipAllClothing(npc, true, true);
-			npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
+			npc.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_GOLD, false), true, npc);
 			
 			npc.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			npc.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
@@ -338,7 +336,7 @@ public class ScarlettsShop {
 		int value = 25_000;
 		for(Entry<Race, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
 			if(entry.getKey()!=Race.HUMAN) {
-				value += 1_000 * entry.getValue();
+				value += Math.min(5_000, 1_000*entry.getValue());
 			}
 		}
 		
@@ -574,10 +572,10 @@ public class ScarlettsShop {
 							Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 							Main.game.getNpc(Scarlett.class).setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
 							Main.game.getNpc(Scarlett.class).resetInventory(true);
-							AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
+							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					
@@ -918,7 +916,7 @@ public class ScarlettsShop {
 				
 			} else if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						UtilText.addSpecialParsingString(Util.intToString(getScarlettPrice()), true);
 						return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_SHOP_CORE_4_SCARLETT_OWNED_PRESENT"); // Helena demands you sell Scarlett to her
 						
@@ -1190,7 +1188,7 @@ public class ScarlettsShop {
 
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						if(index==1) {
 							return new Response("Leave", "Do as Helena says and leave her shop.", SlaverAlleyDialogue.ALLEYWAY) {
 								@Override
@@ -1592,7 +1590,7 @@ public class ScarlettsShop {
 			}
 			Main.game.getNpc(Natalya.class).returnToHome();
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1915,13 +1913,13 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-				if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+				if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 					if(index==1) {
 						return new Response("Agree", "Agree to go and fetch Scarlett and bring [scarlett.herHim] back here.", ROMANCE_SCARLETT_OWNED_FETCH);
 					}
 				} else {
 					if(index==1) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Sell Scarlett ("+UtilText.formatAsMoney(getScarlettPrice(), "span", PresetColour.GENERIC_GOOD)+")",
 									"Sell Scarlett back to Helena for "+UtilText.formatAsMoney(getScarlettPrice())+".",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -1959,7 +1957,7 @@ public class ScarlettsShop {
 						}
 						
 					} else if(index==2) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Give Scarlett",
 									"Give Scarlett back to Helena and do not accept the "+UtilText.formatAsMoney(getScarlettPrice())+" she's offering you.",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -2008,7 +2006,11 @@ public class ScarlettsShop {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setAffection(Main.game.getPlayer(), -100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_FAILED));
-							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
+							if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+								Main.game.getNpc(Scarlett.class).returnToHome();
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'><i>You order [scarlett.name] to return to [scarlett.her] room...</i></p>");
+							}
 						}
 					};
 				}
@@ -2214,7 +2216,7 @@ public class ScarlettsShop {
 	public static final DialogueNode ROMANCE_ADVERTISING_POSTERS_END = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ROLLED_UP_POSTERS), false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.ROLLED_UP_POSTERS), false));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING));
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(100));
 		}
@@ -2445,7 +2447,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
 											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2468,7 +2472,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN,
 											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2489,7 +2495,10 @@ public class ScarlettsShop {
 									"Do as Scarlett asks and finger her.",
 									true,
 									false,
-									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER), new HashMap<>()),
+									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2519,7 +2528,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.ALL_FOURS,
 											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.PENIS, CoverableArea.VAGINA)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.PENIS, CoverableArea.VAGINA)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2554,7 +2565,9 @@ public class ScarlettsShop {
 									false,
 									getScarlettSleepoverSexManager(SexPosition.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.ALL_FOURS,
 											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2575,7 +2588,10 @@ public class ScarlettsShop {
 									"Do as Scarlett asks and give her a handjob.",
 									true,
 									false,
-									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER), new HashMap<>()),
+									getScarlettSleepoverSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)))),
 									null,
 									null,
 									ROMANCE_7_AFTER_SEX,
@@ -2667,7 +2683,9 @@ public class ScarlettsShop {
 								false,
 								getScarlettSleepoverSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+										Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 								null,
 								null,
 								ROMANCE_7_MORNING_AFTER_SEX,
@@ -2690,7 +2708,9 @@ public class ScarlettsShop {
 								false,
 								getScarlettSleepoverSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
 								null,
 								null,
 								ROMANCE_7_MORNING_AFTER_SEX,
@@ -3364,6 +3384,11 @@ public class ScarlettsShop {
 				return new Response("Back", "Go back and make some changes...", HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY);
 				
 			} else if(index==1) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(false)) {
+					return new Response("Order ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(false), "span")+")",
+							"You cannot afford to order the slave, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Order ("+UtilText.formatAsMoney(getSlaveValue(false), "span")+")",
 						"Tell Helena that you'd like to order the slave for "+Util.intToString(getSlaveValue(false))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3378,6 +3403,11 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==2) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(true)) {
+					return new Response("Slime special ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(true), "span")+")",
+							"You cannot afford to order the slime special, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Slime special ("+UtilText.formatAsMoney(getSlaveValue(true), "span")+")",
 						"Tell Helena that you'd like to order the slave, with the 'slime special' treatment, for "+Util.intToString(getSlaveValue(true))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3778,7 +3808,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override
@@ -4604,9 +4634,9 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
-			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
+			Main.game.getNpc(Scarlett.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots(true);
 		}
 		@Override
@@ -4663,6 +4693,11 @@ public class ScarlettsShop {
 							"You've already given Scarlett oral today...",
 							null);
 				}
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
+							"Scarlett isn't attracted to you, so she'd be unwilling to let you give her "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
+							null);
+				}
 				return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
 						"Kneel down beneath the shop's counter and give Scarlett "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
 						HELENAS_SHOP_SCARLETT_COUNTER_ORAL) {
@@ -4678,7 +4713,15 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==5) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Cafe"
+								:"Lunch break",
+							"Scarlett is only willing to spend her lunch break with people she's attracted to, and as you're not feminine enough for her liking, she's unwilling to spend it with you...",
+							null);
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
 					return new Response("Cafe", "You've already been out to the cafe with Scarlett today...", null);
 					
 				} else if(Main.game.getHourOfDay()<11) {
@@ -4700,7 +4743,9 @@ public class ScarlettsShop {
 								?"Scarlett has already taken her lunch break, and so she can't go out to a cafe with you. Try again another day between [units.time(11)] and [units.time(15)]."
 								:"Scarlett has already taken her lunch break, and so can't spend it with you. Try again another day between [units.time(11)] and [units.time(15)].",
 							null);
+					
 				}
+				
 				return new Response(
 						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
 							?"Cafe"

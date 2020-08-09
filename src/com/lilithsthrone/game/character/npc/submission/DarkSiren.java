@@ -66,10 +66,8 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelD
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -165,6 +163,9 @@ public class DarkSiren extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setTailGirth(PenetrationGirth.FOUR_THICK);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
 		}
 	}
 
@@ -317,6 +318,7 @@ public class DarkSiren extends NPC {
 		
 		// Penis:
 		// n/a
+		this.setTesticleCount(2); // For if she grows one
 		
 		// Vagina:
 		this.setVaginaVirgin(true);
@@ -336,24 +338,24 @@ public class DarkSiren extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_thighhigh_socks_striped", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_hand_striped_gloves"), PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_thighhigh_socks_striped", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_hand_striped_gloves"), PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_BLACK, null, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_amulet", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_cloak", false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_amulet", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_cloak", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.POISON));
 		}
 	}
 	
@@ -361,16 +363,16 @@ public class DarkSiren extends NPC {
 		this.setObedience(ObedienceLevel.NEGATIVE_ONE_DISOBEDIENT.getMedianValue());
 		this.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, true);
 		this.unequipAllClothingIntoVoid(true, true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_panties", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_feminine_blazer", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_darkSiren_siren_seal", false), true, this);
 	}
 	
 	@Override
@@ -399,7 +401,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getSkinType().getRace()==Race.HUMAN) {
+		if(this.getTorsoType().getRace()==Race.HUMAN) {
 			if(this.isVisiblyPregnant()) {
 				return "MeraxisPregnant";
 			}
@@ -433,7 +435,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		if(character.isPlayer() && character.getRace()==Race.DEMON) {
+		if(character.isPlayer() && character.getSubspeciesOverrideRace()==Race.DEMON) {
 			return Util.newHashSetOfValues(Relationship.HalfSibling);
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);

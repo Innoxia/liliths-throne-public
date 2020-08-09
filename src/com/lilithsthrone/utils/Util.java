@@ -139,6 +139,15 @@ public class Util {
 //		System.out.println(c);
 		return "#"+c;
 	}
+
+	public static Color newColour(String colourString) {
+		int hex = Integer.valueOf(colourString.substring(1), 16);
+		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
+//		return Color.color(
+//				Integer.valueOf(colourString.substring(1, 3), 16) / 255,
+//				Integer.valueOf(colourString.substring(3, 5), 16) / 255,
+//				Integer.valueOf(colourString.substring(5, 7), 16) / 255);
+	}
 	
 	public static Color newColour(double r, double g, double b) {
 		return Color.color(r / 255, g / 255, b / 255);
@@ -975,8 +984,8 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Are", "Is");
 		slovenlySpeechReplacementMap.put("are", "is");
 
-		slovenlySpeechReplacementMap.put("You're", "Yer");
-		slovenlySpeechReplacementMap.put("you're", "yer");
+		slovenlySpeechReplacementMap.put("You're", "You's");
+		slovenlySpeechReplacementMap.put("you're", "you's");
 		
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
@@ -995,6 +1004,8 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("To", "Ta");
 		slovenlySpeechReplacementMap.put("to", "ta");
+		slovenlySpeechReplacementMap.put("Into", "Inta");
+		slovenlySpeechReplacementMap.put("into", "inta");
 
 		slovenlySpeechReplacementMap.put("The", "Da");
 		slovenlySpeechReplacementMap.put("the", "da");
@@ -1028,6 +1039,8 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("This one", "This 'un");
 		slovenlySpeechReplacementMap.put("this one", "this 'un");
+		slovenlySpeechReplacementMap.put("That one", "That 'un");
+		slovenlySpeechReplacementMap.put("that one", "that 'un");
 		
 		slovenlySpeechReplacementMap.put("Before", "'Afore");
 		slovenlySpeechReplacementMap.put("before", "'afore");
@@ -1043,6 +1056,8 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
 		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Haven't", "'Aven't");
+		slovenlySpeechReplacementMap.put("haven't", "'aven't");
 		slovenlySpeechReplacementMap.put("Have", "'Ave");
 		slovenlySpeechReplacementMap.put("have", "'ave");
 
@@ -1073,12 +1088,13 @@ public class Util {
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
 			<br/>Are -> Is
-			<br/>You're -> Yer
+			<br/>You're -> You's
 			<br/>Your -> Yer
 			<br/>You -> Ya
 			<br/>Yourself - Yerself
 			<br/>You'd -> You's
 			<br/>To -> Ta
+			<br/>Into -> inta
 			<br/>The -> Da
 			<br/>Them -> Dem
 			<br/>And -> An'
@@ -1089,6 +1105,7 @@ public class Util {
 			<br/>Isn't -> ain't
 			<br/>Aren't -> ain't
 			<br/>This one -> This 'un
+			<br/>That one -> That 'un
 			<br/>Before -> 'afore
 			<br/>Give me -> Gimme
 			<br/>Going to -> gonna
@@ -1096,6 +1113,7 @@ public class Util {
 			<br/>We're -> We's
 			<br/>So that -> so's
 			<br/>Have not -> 'aven't
+			<br/>Haven't -> 'aven't
 			<br/>Have -> 'ave
 			<br/>My -> Me
 			<br/>That -> Dat
@@ -1153,7 +1171,7 @@ public class Util {
 			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
 				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
 					modifiedSentence.append(">i/<ht>i<");
-				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+				} else if((sentence.charAt(i)=='S' && (i-1>=0 && sentence.charAt(i-1)!='L')) || sentence.charAt(i)=='Z') {
 					modifiedSentence.append(">i/<hT>i<");
 				} else {
 					modifiedSentence.append(sentence.charAt(i));
@@ -1291,6 +1309,8 @@ public class Util {
 				distance = newDistance;
 			}
 		}
+		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead.");
+//		throw new IllegalArgumentException();
 		return closestString;
 	}
 	

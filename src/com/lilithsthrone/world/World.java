@@ -13,8 +13,8 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -136,10 +136,10 @@ public class World implements XMLSaving {
 	}
 
 	/**
-	 * @param place The PlaceUpgrade to find all Cells of.
+	 * @param place The AbstractPlaceUpgrade to find all Cells of.
 	 * @return A List of Cells which have the specified upgrade.
 	 */
-	public List<Cell> getCells(PlaceUpgrade placeUpgrade) {
+	public List<Cell> getCells(AbstractPlaceUpgrade placeUpgrade) {
 		List<Cell> cellsFound = new ArrayList<>();
 		
 		for(int i=0; i<grid.length; i++) {

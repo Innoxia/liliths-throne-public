@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- ENFORCER_ALLEYWAY_START -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_START_REPEAT"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var playerEnforcer = npc.hasFlag(NPC_FLAG_thinksPlayerEnforcer);
+		var playerDemon = npc.hasFlag(NPC_FLAG_knowsPlayerDemon);
+		var playerEscaped = npc.hasFlag(NPC_FLAG_playerEscapedLastCombat);
+		var foughtPlayer = npc.hasFoughtPlayer();
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		#IF(canal)
+			#IF(!game.isDayTime())
+				As you [pc.walk] down the side of the dark canal, you suddenly see the light of an arcane-powered flashlight shining out from around a bend in the waterway up ahead.
+			#ELSE
+				As you [pc.walk] down the side of the canal, you suddenly hear a pair of voices drawing louder from around a bend in the waterway up ahead.
+			#ENDIF
+		#ELSE
+			#IF(!game.isDayTime())
+				As you [pc.walk] down the dark alleyway, you suddenly see the light of an arcane-powered flashlight shining out from around the next corner.
+			#ELSE
+				As you [pc.walk] down the narrow alleyway, you suddenly hear a pair of voices drawing louder from around the next corner.
+			#ENDIF
+		#ENDIF
+		#IF(playerEscaped)
+			 Preparing yourself for the worst, you get ready to defend yourself, and sure enough, as you recognise the two Enforcers who step around the corner as [npc.name] and [npc2.name], you realise that you're about to be attacked.
+		#ELSE
+			 Preparing yourself for the worst, you get ready to defend yourself, but as you recognise the two Enforcers who step around the corner as [npc.name] and [npc2.name], you realise that this encounter might not involve any hostilities.
+		#ENDIF
+	</p>
+	#IF(playerEscaped)
+		<p>
+			[npc.speech(Hey! It's you again!)] [npc.name] exclaims, [npc.speech(You won't escape from us this time!)]
+		</p>
+		<p>
+			[npc2.speech(You'll pay for attacking us before!)] [npc2.name] shouts as [npc2.she] draws [npc2.her] baton and rushes forwards to assist [npc2.her] superior in attempting to take you down.
+		</p>
+		<p>
+			It looks as though you're going to have to either defend yourself against these Enforcers, or choose to run away again...
+		</p>
+	#ELSEIF(foughtPlayer)
+		<p>
+			[npc.speech(Oh, it's you again,)] [npc.name] states as [npc.she] catches sight of you. Placing one hand on the baton at [npc.her] side, [npc.she] states, [npc.speech(You don't know how lucky you are to have had Lilaya come and rescue you; the typical punishment for resisting arrest and assaulting officers is slavery...)]
+		</p>
+		<p>
+			[npc2.speech(You'd better not try any of your bullshit again,)] [npc2.name] snarls, [npc2.speech(unless you're wanting us to give you another beating!)]
+		</p>
+		<p>
+			[npc.speech(We're not interested in dealing with someone related to an Elder Lilin, so unless you've got some criminal activity to report, then stay out of our way,)] [npc.name] says.
+		</p>
+		<p>
+			Knowing that you're under the protection of Lilaya, these two Enforcers clearly aren't interested in harassing you. You could simply continue on your way, or if you wanted to, you could always attempt to fight them again...
+		</p>
+	#ELSE
+		#IF(playerEnforcer)
+			<p>
+				[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+			</p>
+			#IF(pc.hasAnyEnforcerStatusEffect())
+				<p>
+					Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and [npc.name] asks, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+				</p>
+			#ELSE
+				<p>
+					Having seen you before in an Enforcer uniform, the two officers seem to still be treating you as though you're one of them, and [npc.name] asks, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(playerDemon)
+				<p>
+					[npc.speech(Oh, good [style.evening], [pc.miss],)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+				</p>
+				<p>
+					Due to the fact that you're a demon, the two officers show you a great deal of respect, and they each stand to attention as [npc.name] explains, [npc.speech(We've had some more reports of criminal activity in this area, so if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+				</p>
+			#ELSEIF(pc.getRace()==RACE_HUMAN || !game.isDayTime())
+				<p>
+					[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+				</p>
+				#IF(kindEncounter)
+					<p>
+						While [npc.she] clearly doesn't trust you to be on the right side of the law, [npc.name] tries to treat you in a kind manner as [npc.she] explains, [npc.speech(We're continuing to receive reports of criminal activity in this area,
+						#IF(pc.getRace()==RACE_HUMAN)
+							 and as you're a human,
+						#ELSE
+							 and as you're skulking around in the dark,
+						#ENDIF
+						 we can't simply let you continue on your way without at least being searched. I'm going to have to ask that you turn around and face the wall so that we can give you a pat-down.)]
+					</p>
+				#ELSE
+					<p>
+						Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] explains, [npc.speech(We're continuing to receive reports of criminal activity in this area,
+						#IF(pc.getRace()==RACE_HUMAN)
+							 and as you're a human,
+						#ELSE
+							 and as you're skulking around in the dark,
+						#ENDIF
+						 I'm thinking that there's a good chance that you're the one causing the trouble! Turn around and face the wall so that we can give you a pat-down.)]
+					</p>
+				#ENDIF
+				<p>
+					It seems as though these Enforcers aren't going to let you go until they've given you a quick search. You could do as they say and face the wall, or try and resist their demands...
+				</p>
+			#ELSE
+				<p>
+					[npc.speech(Oh, it's you again,)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+				</p>
+				<p>
+					#IF(kindEncounter)
+						With a gentle smile on [npc.her] face, [npc.name] explains, [npc.speech(Sorry about this inconvenience, [pc.miss], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+					#ELSE
+						Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] explains, [npc.speech(Sorry about this inconvenience, [pc.miss], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+					#ENDIF
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_START"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var playerEnforcer = pc.hasAnyEnforcerStatusEffect();
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		#IF(canal)
+			#IF(!game.isDayTime())
+				As you [pc.walk] down the side of the dark canal, you suddenly see the light of an arcane-powered flashlight shining out from around a bend in the waterway up ahead.
+			#ELSE
+				As you [pc.walk] down the side of the canal, you suddenly hear a pair of voices drawing louder from around a bend in the waterway up ahead.
+			#ENDIF
+		#ELSE
+			#IF(!game.isDayTime())
+				As you [pc.walk] down the dark alleyway, you suddenly see the light of an arcane-powered flashlight shining out from around the next corner.
+			#ELSE
+				As you [pc.walk] down the narrow alleyway, you suddenly hear a pair of voices drawing louder from around the next corner.
+			#ENDIF
+		#ENDIF
+		 Preparing yourself for the worst, you get ready to defend yourself, but as you see that the two figures who step around the corner are wearing Enforcer uniforms, you realise that this encounter might not involve any hostilities. The one in the lead appears to be [npc.a_fullRace(true)], while the Enforcer who's following in [npc.her] footsteps looks to be [npc2.a_fullRace(true)].
+	</p>
+	<p>
+		[npc.speech(Stop right there!)] the [npc.race] calls out as [npc.she] catches sight of you.
+		#IF(pc.isBrave() || pc.isConfident())
+			 Not one to be easily intimidated, you ignore what the Enforcer says and continue [pc.walking] forwards until you're face-to-face with the pair of uniformed officers.
+		#ELSEIF(pc.isCowardly())
+			 Scared at the prospect of what might happen if you disobey the Enforcer's order, you do as you're told and remain still as the pair of uniformed officers stride forwards to stand in front of you.
+		#ELSE
+			 Not wanting to cause any trouble, you do as the Enforcer says and remain still as the pair of uniformed officers stride forwards to stand in front of you.
+		#ENDIF
+	</p>
+	#IF(playerEnforcer)
+		<p>
+			Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and the [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that there were any other Enforcers assigned to patrol this area...)]
+		</p>
+		<p>
+			[npc2.speech(Those useless desk jockeys have probably gone and fucked up everyone's shifts again,)] [npc2.name] declares, [npc2.speech(I swear this happens at least once a week!)]
+		</p>
+		<p>
+			[npc.speech(Yeah, well, there's nothing we can do about it,)] [npc.name] sighs, before asking you, [npc.speech(Hey, if you've seen sign of any criminals nearby, then it'd be appreciated if you'd let us handle them; we're running behind on our quota this week...)]
+		</p>
+	#ELSE
+		#IF(pc.getRace()==RACE_DEMON)
+			<p>
+				With a guilty look on [npc.her] face, [npc.name] introduces [npc.herself] by apologising, [npc.speech(I'm so sorry, [pc.miss], I didn't see that you were a demon when I called out for you to stop. I'm [npc.name], and this here's [npc2.name].)]
+			</p>
+			<p>
+				Clearly showing you a great deal more respect than [npc2.she] would to a non-demon, [npc2.name] steps in to explain, [npc2.speech(We've had reports of criminal activity in this area, and so we were expecting to run into trouble. If you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+			</p>
+		#ELSEIF(pc.getRace()==RACE_HUMAN || !game.isDayTime())
+			#IF(kindEncounter)
+				<p>
+					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.miss]. I'm [npc.name], and this here's [npc2.name].)]
+				</p>
+				<p>
+					While [npc.she] clearly doesn't trust you to be on the right side of the law, [npc.name] tries to treat you in a kind manner as [npc.she] explains, [npc.speech(I'm sorry about this, but we've had reports of criminal activity in this area,
+					#IF(pc.getRace()==RACE_HUMAN)
+						 and as you're a human,
+					#ELSE
+						 and as you're skulking around in the dark,
+					#ENDIF
+					 we can't simply let you continue on your way without at least being searched. I'm going to have to ask that you turn around and face the wall so that we give you a pat-down.)]
+				</p>
+			#ELSE
+				<p>
+					Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] states, [npc.speech(I'm [npc.name], and this here's [npc2.name].)]
+				</p>
+				<p>
+					Clearly not trusting you to be on the right side of the law, [npc2.name] aggressively steps forwards and explains, [npc2.speech(We've had reports of criminal activity in this area,
+					#IF(pc.getRace()==RACE_HUMAN)
+						 and as you're a human,
+					#ELSE
+						 and as you're skulking around in the dark,
+					#ENDIF
+					 I'm thinking that there's a good chance that you're the one causing the trouble! Turn around and face the wall so that we can give you a pat-down.)]
+				</p>
+			#ENDIF
+			<p>
+				It seems as though these Enforcers aren't going to let you go until they've given you a quick search. You could do as they say and face the wall, or try and resist their demands...
+			</p>
+		#ELSE
+			<p>
+				#IF(kindEncounter)
+					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.miss]. I'm [npc.name], and this here's [npc2.name].)]
+				#ELSE
+					Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] states, [npc.speech(I'm [npc.name], and this here's [npc2.name].)]
+				#ENDIF
+			</p>
+			<p>
+				Stepping forwards, [npc2.name] explains, [npc2.speech(Sorry about this inconvenience, [pc.miss], but we've had reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_START_CONTINUE_HAD_SEX"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Having already had sex with them, there's nothing left for you to do except tell these two Enforcers that you don't have any criminal activity to report.
+	</p>
+	<p>
+		Straightening [npc.her] uniform, [npc.name] flashes you a dirty smirk and teases, [npc.speech(You've certainly made my shift a most enjoyable one, so I hope that I end up running into you again...)]
+	</p>
+	<p>
+		Mimicking [npc2.her] superior, [npc2.name] smugly smirks at you, before setting off down the
+		#IF(canal)
+			 canal's path
+		#ELSE
+			 alleyway
+		#ENDIF
+		 with [npc.name] by [npc2.her] side. Watching the two of them disappear around a corner, you let out a deep sigh and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_START_CONTINUE"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Not wanting to spend any more time dealing with these Enforcers, you tell [npc.name] that you don't have any criminal activity to report.
+	</p>
+	<p>
+		Straightening [npc.her] uniform, the [npc.race] bids you farewell, before setting off down the
+		#IF(canal)
+			 canal's path
+		#ELSE
+			 alleyway
+		#ENDIF
+		 with [npc2.name] by [npc.her] side. Watching the two of them disappear around a corner, you let out a deep sigh and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_START_DEMONIC_SEDUCTION"><![CDATA[
+	#VAR
+		var foughtPlayer = npc.hasFoughtPlayer();
+	#ENDVAR
+	
+	<p>
+		Wanting to have a little fun, you [pc.step] up close to [npc.name] and offer [npc.herHim] a flirty comment on how good [npc.she] looks in [npc.her] uniform.
+	</p>
+	<p>
+		#IF(foughtPlayer)
+			Interpreting your move as one of aggression, [npc.name] quickly [npc.steps] back and commands, [npc.speech(Stop right there, [pc.Miss]! We don't want to have to fight you again!)]
+		#ELSE
+			Clearly unsure of how to react to your sudden advances, [npc.name] clears [npc.her] throat and hesitantly states, [npc.speech([pc.Miss], please, we're on duty...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasSpell(SPELL_ARCANE_AROUSAL))
+			Deciding to put your knowledge of the arcane to good use, you quickly cast arcane arousal on [npc.name], before [pc.stepping] forwards and once again brushing up against [npc.herHim]. Your spell causes the [npc.race] Enforcer to witness a series of extremely graphic visions of the two of you having sex, which, combined with the sensation of having you grind up against [npc.herHim], is enough to push [npc.herHim] over the edge.
+		#ELSEIF(pc.hasSpellUpgrade(SPELL_UPGRADE_TELEPATHIC_COMMUNICATION_3))
+			Deciding to put your knowledge of the arcane to good use, you quickly cast telepathic communication on yourself, before [pc.stepping] forwards and once again brushing up against [npc.name]. As you do so, you project a series of lewd suggestions into the [npc.race] Enforcer's mind, which, combined with the sensation of having you grind up against [npc.herHim], is enough to push [npc.herHim] over the edge.
+		#ELSE
+			Not one to take no for an answer, you move forwards and once again brush up against [npc.name], before
+			#IF(pc.isFeminine())
+				 pouting at [npc.herHim] and coyly asking why [npc.she] doesn't like you.
+			#ELSE
+				 placing one [pc.hand] around [npc.her] waist and confidently asking why [npc.she] doesn't like you.
+			#ENDIF
+			 Your pointed question, combined with your hot body pressing up [npc.hers], turns out to be enough to push [npc.name] over the edge.
+		#ENDIF
+		 Leaning forwards, the now-horny [npc.race] presses [npc.her] [npc.lips+] against yours, before desperately starting to make out with you. Much to your delight, you feel the [npc.race]'s hands start to grope your body as you pull [npc.herHim] in close and passionately kiss [npc.herHim], and after a few moments of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back and allow [npc.herHim] to take a deep breath.
+	</p>
+	#IF(npc2.isAttractedTo(pc))
+		<p>
+			[npc2.speech(What about me?)] [npc2.name] whines from off to one side. Turning to give the [npc2.race] a seductive smile, you beckon [npc2.herHim] forwards before leaning over to pull [npc2.herHim] into a deep, lustful kiss.
+		</p>
+		<p>
+			[npc.speech(It looks like [pc.sheIs] happy for the two of us to share [pc.herHim],)] [npc.name] comments,
+			#IF(pc.hasBreasts())
+				  while reaching up to give your [pc.breasts+] a good grope.
+			#ELSE
+				  while reaching around to give your [pc.ass+] a good grope.
+			#ENDIF
+		</p>
+		<p>
+			Having got exactly what it is that you wanted, you break off from your kiss with [npc2.name], before lustfully grinding up against both [npc2.herHim] and [npc2.her] superior. You can't help but grin as the two Enforcers let out a synchronised moan, and you seductively bite your lip as you wonder how you're going to fuck them...
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(Don't stop now,)] [npc.name] pants, before turning to [npc.her] subordinate and commanding, [npc.speech([npc2.Name], keep watch for any suspicious activity while I deal with this demon!)]
+		</p>
+		<p>
+			Having got exactly what it is that you wanted, you grab hold of [npc.name] and lustfully grind up against [npc.herHim]. You can't help but grin as your partner lets out a desperate [npc.moan], and you seductively bite your lip as you wonder how you're going to fuck [npc.herHim]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_SEARCHED -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED"><![CDATA[
+	#IF(pc.getRace()==RACE_HUMAN || (pc.getRace()!=RACE_DEMON && !game.isDayTime()))
+		<p>
+			#IF(pc.isBrave() || pc.isConfident())
+				Although you're not at all intimidated by these two Enforcers, you don't want to waste any time arguing or fighting against them, and so you decide that the best course of action is to just do as they say. Letting out an annoyed sigh, you turn around and face the wall, before telling [npc.name] to hurry up and get this over with.
+			#ELSEIF(pc.isCowardly())
+				Absolutely terrified by what these two Enforcers might do if you choose to disobey their commands, you very quickly decide that the best course of action is to do exactly as they say. Letting out a worried sigh, you turn around and face the wall, before telling [npc.name] that you'll do whatever [npc.she] says.
+			#ELSE
+				You really don't want to do anything that would give these Enforcers a reason to arrest you, and so decide that the best course of action is to just do as they say. Letting out a sigh, you turn around and face the wall, before telling [npc.name] that [npc.she] can get started on searching you.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Not happy with the special treatment that you're getting, you turn around and face the wall, before looking back over your shoulder and demanding that [npc.name] subject you to the same sort of pat-down search as [npc.she]'d give to anyone else.
+		</p>
+		<p>
+			[npc2.speech(I think [pc.sheIs] getting off to this!)] [npc2.name] laughs.
+		</p>
+		<p>
+			[npc.speech(Yeah, well, let's see if [pc.she] changes [pc.her] tune if I find anything illegal on [pc.herHim],)] [npc.name]
+			#IF(npc.isFeminine())
+				 huffs.
+			#ELSE
+				 grunts.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_SUBORDINATE"><![CDATA[
+	#IF(pc.getRace()==RACE_HUMAN || (pc.getRace()!=RACE_DEMON && !game.isDayTime()))
+		<p>
+			#IF(pc.isBrave() || pc.isConfident())
+				Although you're not at all intimidated by these two Enforcers, you don't want to waste any time arguing or fighting against them, and so you decide that the best course of action is to just do as they say. Letting out an annoyed sigh, you turn around and face the wall, before asking [npc2.name] to be the one to give you the search.
+			#ELSEIF(pc.isCowardly())
+				Absolutely terrified by what these two Enforcers might do if you choose to disobey their commands, you very quickly decide that the best course of action is to do exactly as they say. Letting out a worried sigh, you turn around and face the wall, before nervously asking if it would be ok if [npc2.name] could be the one to give you the search.
+			#ELSE
+				You really don't want to do anything that would give these Enforcers a reason to arrest you, and so decide that the best course of action is to just do as they say. Letting out a sigh, you turn around and face the wall, before asking if it would be ok if [npc2.name] could be the one to give you the search.
+			#ENDIF
+		</p>
+		<p>
+			[npc.speech(Sure, why not?)] [npc.name] huffs, before stepping back and commanding [npc.her] subordinate, [npc.speech(Go on, [npc2.name], give [pc.herHim] a pat-down.)]
+		</p>
+	#ELSE
+		<p>
+			Not happy with the special treatment that you're getting, you turn around and face the wall, before looking back over your shoulder and demanding that [npc2.name] subject you to the same sort of pat-down search as [npc2.she]'d give to anyone else.
+		</p>
+		<p>
+			[npc.speech(I think [pc.sheIs] getting off to this!)] [npc.name] laughs.
+		</p>
+		<p>
+			[npc.speech(Yeah, well, let's see if [pc.she] changes [pc.her] tune if I find anything illegal on [pc.herHim],)] [npc.name]
+			#IF(npc.isFeminine())
+				 huffs.
+			#ELSE
+				 grunts.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND"><![CDATA[
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down.
+		#IF(pc.hasBreasts())
+			 Running [npc.her] [npc.hands] up and over your [pc.breasts+], [npc.she] lets out an amused grunt as [npc.she] gives them a firm squeeze.
+		#ELSE
+			 Running [npc.her] [npc.hands] down over your ass, [npc.she] lets out an amused grunt as [npc.she] gives your cheeks a firm squeeze.
+		#ENDIF
+		 Before you're able to react to react to this sexual harassment, the [npc.race] asks, [npc.speech(You're hiding something, aren't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_PENIS_VAGINA"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds [npc.her] groin into your animalistic rump. You let out a gasp as you feel the distinctive bulge of the [npc.race]'s [npc.cockSize] cock rubbing against your feral pussy, and to confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty pussy a thorough <i>cavity search</i>!)]
+		#ELSE
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds [npc.her] groin into your [pc.assSize] ass. You let out a gasp as you feel the distinctive bulge of the [npc.race]'s [npc.cockSize] cock rubbing against your butt, and to confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty pussy a thorough <i>cavity search</i>!)]
+		#ENDIF
+	</p>
+	<p>
+		Realising that submitting to [npc.namePos] demands will undoubtedly lead into [npc.herHim] fucking your pussy, you wonder if you should refuse to strip for [npc.herHim]. Then again, if you were feeling particularly horny, you could take things a step further and ask [npc2.name] to join in by putting your mouth to good use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_PENIS_ANUS"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds [npc.her] groin into your animalistic rump. You let out a gasp as you feel the distinctive bulge of the [npc.race]'s [npc.cockSize] cock rubbing against your feral asshole, and to confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty ass a thorough <i>cavity search</i>!)]
+		#ELSE
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds [npc.her] groin into your [pc.assSize] ass. You let out a gasp as you feel the distinctive bulge of the [npc.race]'s [npc.cockSize] cock rubbing against your asshole, and to confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty ass a thorough <i>cavity search</i>!)]
+		#ENDIF
+	</p>
+	<p>
+		Realising that submitting to [npc.namePos] demands will undoubtedly lead into [npc.herHim] fucking your butt, you wonder if you should refuse to strip for [npc.herHim]. Then again, if you were feeling particularly horny, you could take things a step further and ask [npc2.name] to join in by putting your mouth to good use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_FINGER_VAGINA"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds up against your animalistic rump. You let out a gasp as you feel the [npc.race]'s fingers tease down towards your groin, before starting to firmly rub up and down over your feral pussy. To confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty pussy a thorough <i>cavity search</i>!)]
+		#ELSE
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds up against your back. You let out a gasp as you feel the [npc.race]'s fingers tease down towards your groin, before starting to firmly rub up and down over your pussy. To confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty pussy a thorough <i>cavity search</i>!)]
+		#ENDIF
+	</p>
+	<p>
+		Realising that submitting to [npc.namePos] demands will undoubtedly lead into [npc.herHim] fingering your pussy, you wonder if you should refuse to strip for [npc.herHim]. Then again, if you were feeling particularly horny, you could take things a step further and ask [npc2.name] to join in by putting your mouth to good use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_FINGER_ANUS"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds up against your animalistic rump. You let out a gasp as you feel the [npc.race]'s fingers tease down over your [pc.ass+], before starting to firmly rub up and down over your feral asshole. To confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty ass a thorough <i>cavity search</i>!)]
+		#ELSE
+			Not giving you any time in which to answer [npc.her] question, [npc.name] suddenly steps forwards and grinds up against your back. You let out a gasp as you feel the [npc.race]'s fingers tease down over your [pc.ass+], before starting to firmly rub up and down over your asshole. To confirm your suspicions of what this horny Enforcer wants from you, [npc.name] dominantly [npc.moansVerb], [npc.speech(Strip naked and put your hands up against the wall! I'm going to give your slutty ass a thorough <i>cavity search</i>!)]
+		#ENDIF
+	</p>
+	<p>
+		Realising that submitting to [npc.namePos] demands will undoubtedly lead into [npc.herHim] fingering your ass, you wonder if you should refuse to strip for [npc.herHim]. Then again, if you were feeling particularly horny, you could take things a step further and ask [npc2.name] to join in by putting your mouth to good use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_NONE"><![CDATA[
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to quickly pat you down.
+	</p>
+	<p>
+		Finding no evidence of any wrongdoing, [npc.name] soon [npc.steps] back and says, [npc.speech(Ok, it's clear that you're not carrying anything illegal, so you can turn around again.)]
+	</p>
+	<p>
+		Doing as you're told, you turn around to face the two Enforcers once again. Placing [npc2.her] [npc2.hands] on [npc2.her] [npc2.hips], [npc2.name] states, [npc2.speech(If you don't have any criminals to report to us, we'll be on our way.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- getEnforcerSexResponse() -->
+	
+	<!-- Fucking pussy: -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_PENIS_PUSSY"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name] and place your [pc.hands] up against the wall, before
+		#IF(pc.hasLegs())
+			 spreading your [pc.legs] and
+		#ENDIF
+		 pushing your [pc.ass+] back out towards [npc.herHim]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race]
+		#IF(npc.isWantingToEquipCondom(pc))
+			 rolling a dark purple condom down the length of [npc.her] [npc.cockSize], throbbing cock.
+		#ELSE
+			 stroking [npc.her] [npc.cockSize], throbbing cock fully to attention.
+		#ENDIF
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(Like what you see?)] [npc.she] teases, before stepping forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.labia+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before stepping forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.labia+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly grabs your [pc.hips+] and [npc.steps] forwards, pushing [npc.her] [npc.cock+] fully into your [pc.pussy+] in the process. The sudden penetration causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] starts thrusting [npc.her] [npc.cock+] in and out of your [pc.pussy+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_PENIS_PUSSY_THREESOME"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying, [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's fucking your pussy!)]
+	</p>
+	<p>
+		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you and pull out [npc.her]
+		#IF(npc.isWantingToEquipCondom(pc))
+			 [npc.cockSize] cock, before quickly rolling a dark purple condom down its throbbing length.
+		#ELSE
+			 [npc.cockSize], throbbing cock.
+		#ENDIF
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(Like what you see?)] [npc.she] teases, before shuffling forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.labia+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before shuffling forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.labia+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly grabs your [pc.hips+] and shuffles forwards, pushing [npc.her] [npc.cock+] fully into your [pc.pussy+] in the process. The sudden penetration causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] starts thrusting [npc.her] [npc.cock+] in and out of your [pc.pussy+].
+	</p>
+	<p>
+		#IF(npc2.hasPenis())
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues pounding your [pc.pussy+]...
+		#ELSE
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues pounding your [pc.pussy+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Fucking ass: -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_PENIS_ASSHOLE"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name] and place your [pc.hands] up against the wall, before
+		#IF(pc.hasLegs())
+			 spreading your [pc.legs] and
+		#ENDIF
+		 pushing your [pc.ass+] back out towards [npc.herHim]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race]
+		#IF(npc.isWantingToEquipCondom(pc))
+			 rolling a dark purple condom down the length of [npc.her] [npc.cockSize], throbbing cock.
+		#ELSE
+			 stroking [npc.her] [npc.cockSize], throbbing cock fully to attention.
+		#ENDIF
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(Like what you see?)] [npc.she] teases, before stepping forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.asshole+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before stepping forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.asshole+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly grabs your [pc.hips+] and [npc.steps] forwards, pushing [npc.her] [npc.cock+] fully into your [pc.ass+] in the process. The sudden penetration causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] starts thrusting [npc.her] [npc.cock+] in and out of your [pc.asshole+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_PENIS_ASSHOLE_THREESOME"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying, [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's fucking your ass!)]
+	</p>
+	<p>
+		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you and pull out [npc.her]
+		#IF(npc.isWantingToEquipCondom(pc))
+			 [npc.cockSize] cock, before quickly rolling a dark purple condom down its throbbing length.
+		#ELSE
+			 [npc.cockSize], throbbing cock.
+		#ENDIF
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(Like what you see?)] [npc.she] teases, before shuffling forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.asshole+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before shuffling forwards and rubbing the [npc.cockHead+] of [npc.her] [npc.cockGirth] cock up and down over your [pc.asshole+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly grabs your [pc.hips+] and shuffles forwards, pushing [npc.her] [npc.cock+] fully into your [pc.ass+] in the process. The sudden penetration causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] starts thrusting [npc.her] [npc.cock+] in and out of your [pc.asshole+].
+	</p>
+	<p>
+		#IF(npc2.hasPenis())
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues pounding your [pc.ass+]...
+		#ELSE
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues pounding your [pc.ass+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Fingering pussy: -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PUSSY"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name] and place your [pc.hands] up against the wall, before
+		#IF(pc.hasLegs())
+			 spreading your [pc.legs] and
+		#ENDIF
+		 pushing your [pc.ass+] back out towards [npc.herHim]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] [npc.step] forwards and press [npc.herself] up close against you. 
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.labia+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.labia+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.pussy+] and starts rapidly fingering you. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] alternates between rubbing your sensitive [pc.clit] and pushing [npc.her] [npc.fingers] deep into your [pc.pussy+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PUSSY_THREESOME"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying, [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your pussy!)]
+	</p>
+	<p>
+		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you before grabbing a handful of your [pc.ass+]. 
+	</p>
+	<p>
+		#IF(kindEncounter)
+			[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.labia+].
+		#ELSE
+			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.labia+].
+		#ENDIF
+	</p>
+	<p>
+		You open your mouth to reply, but just as you do so, the impatient [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.pussy+] and starts rapidly fingering you. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] alternates between rubbing your sensitive [pc.clit] and pushing [npc.her] [npc.fingers] deep into your [pc.pussy+].
+	</p>
+	<p>
+		#IF(npc2.hasPenis())
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues stimulating your [pc.pussy+]...
+		#ELSE
+			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues stimulating your [pc.pussy+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Fingering ass & giving handjob: -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PENIS"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var analFingering = game.isAnalContentEnabled() && npc.getFetishDesire(FETISH_ANAL_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_ANUS, true);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name] and place your [pc.hands] up against the wall, before
+		#IF(pc.hasLegs())
+			 spreading your [pc.legs] and
+		#ENDIF
+		 pushing your [pc.ass+] back out towards [npc.herHim]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] [npc.step] forwards and press [npc.herself] up close against you. 
+	</p>
+	<p>
+		#IF(analFingering)
+			#IF(kindEncounter)
+				[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ENDIF
+		#ELSE
+			#IF(kindEncounter)
+				[npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all,)] [npc.she] teases, [npc.speech(It would be a shame to stop now, though...)]
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before teasing, [npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all. It would be a shame to stop now, though...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		You can't help but feel extremely turned on by the situation you find yourself in, and before you know it, you're letting out [pc.a_moan+] and looking down at your fully-erect, [pc.cock+]. Obviously noticing what it is that's caught your attention, [npc.name] reaches around and takes hold of your [pc.cock+], before starting to slowly jerk you off.
+	</p>
+	<p>
+		#IF(analFingering)
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+]...
+		#ELSE
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly delivers a sharp slap to your [pc.ass+]. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses all of [npc.her] attention on giving you a handjob...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PENIS_THREESOME"><![CDATA[
+	#VAR
+		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var analFingering = game.isAnalContentEnabled() && npc.getFetishDesire(FETISH_ANAL_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_ANUS, true);
+	#ENDVAR
+	
+	<p>
+		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying,
+		#IF(analFingering)
+			 [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your ass!)]
+		#ELSE
+			 [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your cock!)]
+		#ENDIF
+	</p>
+	<p>
+		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you and eagerly grab a handful of your [pc.ass+]. 
+	</p>
+	<p>
+		#IF(analFingering)
+			#IF(kindEncounter)
+				[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ENDIF
+		#ELSE
+			#IF(kindEncounter)
+				[npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all,)] [npc.she] teases, [npc.speech(It would be a shame to stop now, though...)]
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before teasing, [npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all. It would be a shame to stop now, though...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(analFingering)
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+].
+		#ELSE
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly delivers a sharp slap to your [pc.ass+]. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses all of [npc.her] attention on giving you a handjob.
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc2.hasPenis())
+			Seeing that [npc2.her] partner has already got started, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues stimulating both your [pc.cock+] and [pc.asshole+]...
+		#ELSE
+			Seeing that [npc2.her] partner has already got started, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues
+		#ENDIF
+		#IF(analFingering)
+			 stimulating both your [pc.cock+] and [pc.asshole+]...
+		#ELSE
+			 playing with your [pc.cock+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_SEARCHED_STRIP_REFUSED -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_REFUSED"><![CDATA[
+	<p>
+		You really don't want to take this any further, and so you turn around and tell the Enforcers that you don't consent to a 'cavity search'. While clearly willing to take advantage of you, they don't seem interested in forcing you into doing anything, and so after stepping back, [npc.name] says, [npc.speech(Fine, we're not going to do this if you don't want it...)]
+	</p>
+	<p>
+		[npc2.speech(I guess there's nothing more for us to do here,)] [npc2.name] states, [npc2.speech(If you haven't got any criminal activity to report, then we'll be on our way.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_AFTER_CAVITY_SEARCH_SEX -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_AFTER_CAVITY_SEARCH_SEX"><![CDATA[
+	<p>
+		#IF(sex.getAllParticipants(false).size()==3)
+			Having had their fun, the two Enforcers stand up and get their uniforms back in order, leaving you panting and [pc.moaning] on the floor in front of them.
+		#ELSE
+			Having had [npc.her] fun, [npc.name] stands up and get [npc.her] uniform back in order, leaving you panting and [pc.moaning] on the floor in front of [npc.herHim].
+		#ENDIF
+	</p>
+	<p>
+		After a couple of minutes, you feel as though you've recovered enough to stand up, and so after pushing yourself to your [pc.feet], you start to get your clothing back in order. With big smirks on their faces, the two Enforcers wait until you're ready to go, before [npc.name] asks, [npc.speech(So, now that you've proven to us that you're not up to no good, is there anything we can do to assist you? Perhaps you've got a criminal to report to us?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_DEMON_REVEAL -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_DEMON_REVEAL"><![CDATA[
+	#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		<p>
+			Deciding that it's time to reveal your dark secret, you place your [pc.hands] on your [pc.hips] and let out a suitably-intimidating laugh, before pointing at the two Enforcers and declaring, [pc.speech(Mwhahaha! You have no idea of who you're dealing with! Tremble before my might, you foolish mortals!)] 
+		</p>
+		<p>
+			[npc.speech(What are you going on about?)] [npc.name] asks in annoyance.
+		</p>
+		<p>
+			[pc.speech(Silence!)] you shout, before smirking at the clueless Enforcers and proudly revealing, [pc.speech(You are speaking with none other than Lyssieth's own child! Grovel before me, you pitiful fools, and beg for my forgiveness!)]
+		</p>
+		<p>
+			#IF(pc.hasAnySpellInSchool(SPELL_SCHOOL_FIRE))
+				With a dramatic sweep of your [pc.hand], you use your knowledge of the school of fire to summon a series of mighty, blinding explosions in front of the two Constables.
+			#ELSEIF(pc.hasAnySpellInSchool(SPELL_SCHOOL_ARCANE))
+				With a dramatic sweep of your [pc.hand], you use your knowledge of the school of arcane to summon a series of swirling, purple flashes in front of the two Constables.
+			#ELSE
+				With a dramatic sweep of your [pc.hand], you assume your most impressive pose and flash a wicked smirk at the two Constables.
+			#ENDIF
+			 Immediately following this, you harness your ability to self-transform, and with another maniacal laugh, you assume your true form of
+			#IF(pc.isFeminine())
+				 a stunningly-beautiful succubus.
+			#ELSE
+				 an intimidating incubus.
+			#ENDIF
+		</p>
+		<p>
+			Just as you expected, the two Enforcers look upon your demonic form with a mixture of fear and awe cast upon their faces. Struggling to find the right words, [npc.name] stammers, [npc.speech(W-What?! Y-You're a <i>demon</i>?! But demons can't transform like that! How did y-)]
+		</p>
+		<p>
+			[pc.speech(Silence, fool!)] you declare, before letting out a soft laugh and proudly boasting, [pc.speech(I am [pc.name], [pc.daughter] of Lyssieth and the mightiest demon to ever have existed! I can take on whatever form pleases me! Now beg for my forgiveness!)]
+		</p>
+		<p>
+			Suitably impressed and intimidated, the two Enforcers start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next...
+		</p>
+	#ELSE
+		<p>
+			Deciding that this whole business would be more easily resolved if you were to reveal your true form, you smirk at the Enforcers and ask them if they'd be treating you any differently if you were a demon.
+		</p>
+		<p>
+			[npc.speech(What do you mean by that?)] [npc.name] suspiciously asks, [npc.speech(You aren't a demon, so the answer to your question is irrelevant.)]
+		</p>
+		<p>
+			With a smirk still on your face, you harness your ability to self-transform and assume your true form of
+			#IF(pc.isFeminine())
+				 a stunningly-beautiful succubus.
+			#ELSE
+				 an intimidating incubus.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(Wait, what?!)] [npc2.name] exclaims, [npc2.speech(Demons can't transform like that!)]
+		</p>
+		<p>
+			Informing the Enforcers that your abilities come from being a direct [pc.daughter] of Lyssieth herself, you again ask them if they're planning on treating you any differently now that you've revealed your demonic form. Just as expected, the two officers seem suitably impressed and intimidated, and they quickly start apologising for wasting your time. Smugly smirking at them in triumphant glee, you quickly self-transform back into your previous form, before wondering what to do next... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_BRIBE -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_BRIBE"><![CDATA[
+	<p>
+		Not at all happy with the idea of being searched by these Enforcers, you decide that the best course of action would be to offer them a bribe in order to leave you alone. With this idea in mind, you
+		#IF(pc.isConfident())
+			 confidently
+		#ENDIF
+		 ask [npc.name] if there's some sort of 'official' fine that you could pay as an alternative to being searched.
+	</p>
+	<p>
+		Picking up on what it is you mean by that, the [npc.race] grins and answers, [npc.speech(Sure there is, but it's going to cost you [#SPECIAL_PARSE_0] flames.)]
+	</p>
+	<p>
+		Seeing no problem in paying that amount of money, you produce the [#SPECIAL_PARSE_0] flames and hand them over to [npc.name]. Splitting the money in half, [npc.she] quickly gives [npc2.name] [npc2.her] share, who then proceeds to turn [npc2.her] attention towards you and state, [npc2.speech(If you've got no criminal activity to report, then we'll be on our way...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_SOVERIEGN_CITIZEN -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SOVERIEGN_CITIZEN"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	#IF(pc.getOccupation()==OCCUPATION_TOURIST)
+		<p>
+			[pc.speech(Now you listen here,)] you say, pointing your [pc.finger] first at [npc.name], and then at [npc2.name], [pc.speech(I doubt that you terrorists know the meaning of freedom, but let me tell you that I'm an American, and I'm not going to stand for a pair of jumped-up, tyrannical fascists telling me what to do! If you so much as <i>think</i> about trying to issue me another command, I'll be reporting you to the embassy! Nobody harasses an American citizen and gets away with it!)]
+		</p>
+		<p>
+			Exchanging puzzled glances with one another, the two Enforcers draw their batons and advance towards you. Clearly not understanding that you're a citizen of the most powerful nation on Earth, [npc.name] growls, [npc.speech(I don't know what the hell you're talking about, but you're in Dominion's jurisdiction here, so you're going to do exactly what we say. Do you understand?!)]
+		</p>
+		<p>
+			[pc.speech(I understand that you're making the worst mistake of your lives!)] you retort, [pc.speech(This will be an international scandal! You damn commie sons of bitches aren't going to get away with this!)]
+		</p>
+		<p>
+			[npc2.speech(This is your last warning,)] [npc2.name] growls, [npc2.speech(Submit to a search or receive a beating. It's your choice.)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Excuse me, but actually, according to the Articles of Confederation, I am considered to be a Sovereign Citizen, and so cannot be subjected to your laws. You have absolutely no authority over me, and it is illegal for you to issue me any orders at all,)] you explain to these idiotic Enforcers.
+		</p>
+		<p>
+			Exchanging puzzled glances with one another, the two Enforcers draw their batons and advance towards you. Clearly not understanding that you're a Sovereign Citizen, [npc.name] growls, [npc.speech(I don't know what the hell you're talking about, but you're in Dominion's jurisdiction here, so you're going to do exactly what we say. Just the fact that you're walking
+			#IF(canal)
+				 down the side of this canal
+			#ELSE
+				 around these alleyways
+			#ENDIF
+			 is suspicious behaviour, so-)]
+		</p>
+		<p>
+			[pc.speech(Excuse me!)] you interrupt, [pc.speech(I was not <i>walking</i>, I was <i>travelling</i>! I am travelling
+			#IF(canal)
+				 beside the canal
+			#ELSE
+				 through the alleyways
+			#ENDIF
+			 as a Sovereign Citizen, and you cannot stop me!)]
+		</p>
+		<p>
+			[npc2.speech(This is your last warning,)] [npc2.name] growls, [npc2.speech(Submit to a search or receive a beating. It's your choice.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_REPORT -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT"><![CDATA[
+	<p>
+		Deciding to use this opportunity to get rid of [npc3.name], you tell the Enforcers that [npc3.sheIs] most definitely a criminal and is most likely lurking somewhere nearby.
+	</p>
+	<p>
+		[npc.speech(Right, so where exactly did you last see this '[npc3.name]'?)] [npc.name] asks.
+	</p>
+	<p>
+		After you've told [npc.herHim] where exactly you last encountered the [npc3.race], [npc.name] states, [npc.speech(Most of the criminals hiding in these parts are repeat offenders, and this '[npc3.name]' is most likely one of them. It's going to be enslavement for them, and then they'll be auctioned off in Slaver Alley. It's a huge amount of paperwork for us to deal with, so if you've got a slaver license, you could help us out by tagging along and enslaving the criminal yourself. That way we'll just have to file a basic report instead of dealing with all the enslavement crap.)]
+	</p>
+	<p>
+		#IF(pc.isHasSlaverLicense())
+			As you are in possession of a slaver license, you wonder whether you should do as the Enforcers suggest and join them in tracking down [npc3.name]. If you were to do so, you'll be able to obtain the [npc3.race] as your slave, but if you choose to part ways with the Enforcers, you can be sure that you'll never see [npc3.name] again...
+		#ELSE
+			As you aren't in possession of a slaver license, you're unable to join them in tracking down [npc3.name]. With no other option but to part ways with the Enforcers, you can be sure that you'll never see [npc3.name] again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_CONTINUE"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		#IF(pc.isHasSlaverLicense())
+			Deciding that you don't want [npc3.name] as a slave, you tell the Enforcers that you've got other things to do right now.
+		#ELSE
+			Without a Slaver licence, you're unable to claim [npc3.name] as your slave, and so you tell the Enforcers that you're unable to help them.
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(I guess that means more paperwork for us,)] [npc.name] grumbles.
+	</p>
+	<p>
+		[npc2.speech(Let's go and get this done,)] [npc2.name] says, [npc2.speech(At least it's going to contribute to our weekly arrest quota.)]
+	</p>
+	<p>
+		You watch as the two Enforcers head off down the
+		#IF(canal)
+			 canal-side path
+		#ELSE
+			 alleyway
+		#ENDIF
+		 in the direction of [npc3.namePos] last known whereabouts. Confident that they'll find and catch the [npc3.race], you turn away and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_HELP"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Deciding that it would be a good idea to claim [npc3.name] as your slave, you tell the Enforcers that you'll tag along and take ownership of the [npc3.race].
+	</p>
+	<p>
+		[npc.speech(Great, that'll mean less paperwork for us,)] [npc.name] sighs, before setting off in the direction of [npc3.namePos] last known whereabouts.
+	</p>
+	<p>
+		[npc2.speech(Hang back a little and don't get in our way,)] [npc2.name] commands as [npc2.she] sets off after [npc2.her] superior.
+	</p>
+	<p>
+		Doing as you're told, you stay a short way behind the two Enforcers as they search the
+		#IF(canal)
+			 nearby canal-side paths
+		#ELSE
+			 nearby alleyways
+		#ENDIF
+		 for any sign of the criminal [npc3.race] that you've reported to them. Sure enough, after about fifteen minutes of searching, [npc.name] spots a shady figure loitering about in a dark recess, and calls out, [npc.speech(Stop right there!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_HELP_CHILD"><![CDATA[
+	#IF(npc3.isMute())
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of your [npc3.daughter], [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] flashes you a pleading expression, clearly conveying the desire for you to come and help [npc3.herHim].
+		</p>
+		<p>
+			As you remain still, however, [npc3.name] realises that you no intention of coming to [npc3.her] aid, and in a moment of desperate panic, [npc3.she] tries to fight back against the two Enforcers. [npc3.Her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns your [npc3.daughter] and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(Pretty bold of [npc3.herHim] to try and fight back,)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech([npc3.Her] days of breaking the law are over,)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards your [npc3.daughter], who flashes you a teary-eyed glare of complete and utter betrayal.
+		</p>
+	#ELSE
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of your [npc3.daughter], [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] calls out, [npc3.speech([pc.Mom]! Help!)]
+		</p>
+		<p>
+			As you remain still, however, [npc3.name] realises that you no intention of coming to [npc3.her] aid, and in a moment of desperate panic, [npc3.she] tries to fight back against the two Enforcers. [npc3.Her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns your [npc3.daughter] and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(This one's your [npc3.daughter], huh?)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech(I suppose this is one way to discipline your kids,)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards your [npc3.daughter], who shouts, [npc3.speech(You [pc.bitch]! I can't believe you betrayed me like this! Fuck you!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_HELP_FRIEND"><![CDATA[
+	#IF(npc3.isMute())
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] flashes you a pleading expression, clearly conveying the desire for you to come and help [npc3.herHim].
+		</p>
+		<p>
+			As you remain still, however, [npc3.name] realises that you no intention of coming to [npc3.her] aid, and in a moment of desperate panic, [npc3.she] tries to fight back against the two Enforcers. [npc3.Her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns your one-time friend and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(Pretty bold of [npc3.herHim] to try and fight back,)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech([npc3.Her] days of breaking the law are over,)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards the [npc3.race], who flashes you a teary-eyed glare of complete and utter betrayal.
+		</p>
+	#ELSE
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] calls out, [npc3.speech([pc.Name]! Help me!)]
+		</p>
+		<p>
+			As you remain still, however, [npc3.name] realises that you no intention of coming to [npc3.her] aid, and in a moment of desperate panic, [npc3.she] tries to fight back against the two Enforcers. [npc3.Her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns your one-time friend and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(This one thought you were here to help, huh?)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech(I've got no sympathy for criminal scum like [npc3.herHim],)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards the [npc3.race], who shouts, [npc3.speech(You [pc.bitch]! I can't believe you betrayed me like this! Fuck you!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_HELP_CRIMINAL"><![CDATA[
+	#IF(npc3.isMute())
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] flashes you an angry expression, clearly understanding that you're the reason why these Enforcers are here for [npc3.herHim].
+		</p>
+		<p>
+			With a furious scowl on [npc3.her] face, [npc3.name] desperately tries to fight back against the two Enforcers, but [npc3.her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns the criminal and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(Pretty bold of [npc3.herHim] to try and fight back,)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech([npc3.Her] days of breaking the law are over,)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards the [npc3.race], who flashes you an angry glare and continues to struggle against [npc.namePos] grip.
+		</p>
+	#ELSE
+		<p>
+			Looking past the two Enforcers, you see the familiar figure of [npc3.name]. From the shocked expression on [npc3.her] face, [npc3.she] looks as though [npc3.sheIs] trying to decide whether to run or not, but as [npc3.she] catches sight of you, [npc3.she] calls out, [npc3.speech(These Enforcers are here because of you?! You'll pay for this!)]
+		</p>
+		<p>
+			With a furious scowl on [npc3.her] face, [npc3.name] desperately tries to fight back against the two Enforcers, but [npc3.her] efforts quickly prove to be in vain, as a discharge of [npc2.namePos] arcane taser stuns the criminal and enables [npc.name] to wrestle [npc3.herHim] to the floor.
+		</p>
+		<p>
+			[npc.speech(This one seriously thought [npc3.she] could beat us, huh?)] [npc.name] remarks as [npc.she] holds [npc3.name] down.
+		</p>
+		<p>
+			[npc2.speech(I've got no sympathy for criminal scum like [npc3.herHim],)] [npc2.name] chuckles as [npc2.she] hands you a steel enslavement collar. [npc2.speech(Clasp this around [npc3.her] neck and the enchantment will take care of the rest.)]
+		</p>
+		<p>
+			Taking the collar from [npc2.name], you advance towards the [npc3.race], who shouts, [npc3.speech(You [pc.bitch]! I'll never be your slave! Fuck you!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENFORCER_ALLEYWAY_REPORT_HELP_REWARD -->
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_REPORT_HELP_REWARD"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		As you lift the collar up to [npc3.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting the [npc3.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc3.her] neck.
+	</p>
+	<p>
+		As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, which reads:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsArcane(Slave Registered.
+			<br/>Identification: [npc3.nameFull(true)]
+			<br/>Race: [npc3.Race])]
+	</p>
+	<p>
+		Grinning at your new slave, you don't have time to say anything to [npc3.herHim], as with a bright purple flash, [npc3.she] suddenly disappears from sight. The last thing you see as [npc3.sheIs] whisked away is a face of absolute disbelief, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
+	</p>
+	<p>
+		From Finch's instructions, you know that <b>[npc3.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc3.she]'ll be waiting for you to pick [npc3.herHim] up.
+	</p>
+	<p>
+		[npc2.speech(Well, that was easier than I expected,)] [npc2.name] states.
+	</p>
+	<p>
+		[npc.speech(We don't even have to fill out all the enslavement paperwork, thanks to [pc.name] here,)] [npc.name] adds, before standing up and declaring, [npc.speech(We'd better get back to HQ to report this.)]
+	</p>
+	<p>
+		Thanking you again for your help, the two Enforcers set off down the
+		#IF(canal)
+			 canal-side path
+		#ELSE
+			 alleyway
+		#ENDIF
+		 and soon disappear from sight. Brushing yourself off, you decide to follow their lead and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Collapsing down onto the ground, [npc.name] pants, [npc.speech(You... You won't get away with this...)]
+	</p>
+	<p>
+		Smirking down at the defeated Enforcers, you [pc.step] forwards and tell them that they never stood a chance against you. After hearing your victorious boast, [npc2.name] groans to [npc2.her] partner, [npc2.speech(We'll be sent off for remedial training because of this...)]
+	</p>
+	<p>
+		Realising from what [npc2.name] has just said that this will likely be the last time you see either of these Enforcers, you wonder whether you should take advantage of their defeated state.
+		#IF((npc.isAttractedTo(pc) && npc2.isAttractedTo(pc)) || !game.isNonConEnabled())
+			 After all, from the lustful glances which the two of them keep throwing your way, you can tell that they're being heavily affected by your arcane aura, and wouldn't object to having sex with you right here
+			#IF(canal)
+				 beside the canal...
+			#ELSE
+				 in the alleyway...
+			#ENDIF
+		#ELSEIF(npc.isAttractedTo(pc))
+			 After all, from the lustful glances which [npc.name] keeps throwing your way, you can tell that [npc.sheIs] being heavily affected by your arcane aura, and wouldn't object to having sex with you right here
+			#IF(canal)
+				 beside the canal...
+			#ELSE
+				 in the alleyway...
+			#ENDIF
+		#ELSEIF(npc2.isAttractedTo(pc))
+			 After all, from the lustful glances which [npc2.name] keeps throwing your way, you can tell that [npc2.sheIs] being heavily affected by your arcane aura, and wouldn't object to having sex with you right here
+			#IF(canal)
+				 beside the canal...
+			#ELSE
+				 in the alleyway...
+			#ENDIF
+		#ELSE
+			 After all, while neither of them seem interested in having sex with you, they're really not in a position to stop you from taking advantage of them...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_CONTINUE"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Deciding not to take advantage of their defeat, you turn your back on the two Enforcers and continue on your way down the 
+		#IF(canal)
+			 canal-side path.
+		#ELSE
+			 alleyway.
+		#ENDIF
+		 Knowing that you'll never have to see those particular two Enforcers ever again, you wonder where to head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_LEADER"><![CDATA[
+	<p>
+		Although [npc.she] clearly doesn't want to have sex with you, [npc.name] really isn't in any position to stop you from taking what you want. [pc.Stepping] up in front of the defeated [npc.race], you reach down and grab [npc.her] [npc.arm], before pulling [npc.herHim] to [npc.her] [npc.feet] and pressing yourself in against [npc.her] hot body.
+	</p>
+	<p>
+		[npc.speech(Stop! Get away from-)] [npc.she] starts to complain, but you cut the struggling Enforcer's complaint short by pressing your [pc.lips+] against [npc.her] mouth and forcing [npc.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc2.name] to sit still and watch as you rape [npc2.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to rape [npc.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_LEADER"><![CDATA[
+	<p>
+		From the hungry look in [npc.her] [npc.eyes+], [npc.name] is clearly desperate to have sex with you, and with the feeling being mutual, you decide to give [npc.herHim] what [npc.she] wants. [pc.Stepping] up in front of the defeated [npc.race], you reach down and grab [npc.her] [npc.arm], before pulling [npc.herHim] to [npc.her] [npc.feet] and pressing yourself in against [npc.her] hot body.
+	</p>
+	<p>
+		[npc.speech(Yes! Do what you want with-)] [npc.she] starts to [npc.moan], but you cut the horny Enforcer's sentence short by pressing your [pc.lips+] against [npc.her] mouth and pulling [npc.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc2.name] to sit still and watch as you fuck [npc2.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to fuck [npc.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_SUBORDINATE"><![CDATA[
+	<p>
+		Although [npc2.she] clearly doesn't want to have sex with you, [npc2.name] really isn't in any position to stop you from taking what you want. [pc.Stepping] up in front of the defeated [npc2.race], you reach down and grab [npc2.her] [npc2.arm], before pulling [npc2.herHim] to [npc2.her] [npc2.feet] and pressing yourself in against [npc2.her] hot body.
+	</p>
+	<p>
+		[npc2.speech(Stop! Get away from-)] [npc2.she] starts to complain, but you cut the struggling Enforcer's complaint short by pressing your [pc.lips+] against [npc2.her] mouth and forcing [npc2.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc.name] to sit still and watch as you rape [npc.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to rape [npc2.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_SUBORDINATE"><![CDATA[
+	<p>
+		From the hungry look in [npc2.her] [npc2.eyes+], [npc2.name] is clearly desperate to have sex with you, and with the feeling being mutual, you decide to give [npc2.herHim] what [npc2.she] wants. [pc.Stepping] up in front of the defeated [npc2.race], you reach down and grab [npc2.her] [npc2.arm], before pulling [npc2.herHim] to [npc2.her] [npc2.feet] and pressing yourself in against [npc2.her] hot body.
+	</p>
+	<p>
+		[npc2.speech(Yes! Do what you want with-)] [npc2.she] starts to [npc2.moan], but you cut the horny Enforcer's sentence short by pressing your [pc.lips+] against [npc2.her] mouth and pulling [npc2.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc2.her] mouth, you pull back,
+		#IF(game.isInvoluntaryNTREnabled())
+			 and with a big grin on your face, you tell [npc.name] to sit still and watch as you fuck [npc.her] partner...
+		#ELSE
+			 and with a big grin on your face, you prepare to fuck [npc2.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_THREESOME"><![CDATA[
+	<p>
+		Although it's clear that neither of the Enforcers want to have sex with you, they really aren't in any position to stop you from taking what you want. [pc.Stepping] up in front of the defeated officers, you reach down and grab each of them by the [npc.arm], before pulling them to their [npc.feet] and pressing yourself in against their hot bodies.
+	</p>
+	<p>
+		[npc.speech(Stop! Get away from-)] [npc.name] starts to complain, but you cut the struggling Enforcer's complaint short by pressing your [pc.lips+] against [npc.her] mouth and forcing [npc.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc.namePos] mouth, you switch over and pull [npc2.name] into an equally-amorous kiss. Only once you're satisfied with having had a decent taste of each of the Enforcers' lips do you pull back, before telling the two officers that it's pointless to try and resist what you're going to do to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_THREESOME"><![CDATA[
+	<p>
+		From the hungry look in each of their eyes, the two Enforcers are clearly desperate to have sex with you, and with the feeling being mutual, you decide to give them what they want. [pc.Stepping] up in front of the defeated officers, you reach down and grab each of them by the [npc.arm], before pulling them to their [npc.feet] and pressing yourself in against their hot bodies.
+	</p>
+	<p>
+		[npc.speech(Yes! Do what you want with-)] [npc.name] starts to [npc.moan], but you cut the horny Enforcer's sentence short by pressing your [pc.lips+] against [npc.her] mouth and pulling [npc.herHim] into a deep, passionate kiss. 
+	</p>
+	<p>
+		After a moment of thrusting your [pc.tongue+] into [npc.her] mouth, you switch over and pull [npc2.name] into an equally-amorous kiss. Only once you're satisfied with having had a decent taste of each of the Enforcers' lips do you pull back, before telling the two officers that they're going to enjoy what you've got planned for them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		Suddenly feeling extremely submissive and guilty for what you've just done, you nervously [pc.step] forwards and offer the two Enforcers a sincere apology for having beaten them.
+	</p>
+	<p>
+		[npc.speech(Is this some kind of trick?)] [npc.name] distrustfully asks, before narrowing [npc.her] eyes and flashing you a suspicious glare.
+	</p>
+	<p>
+		Assuring the [npc.race] that you're sincere in your regret for having fought back and beaten both [npc.herHim] and [npc2.name], you take things one step further by meekly offering to do anything to show them that you're really sorry.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc))
+			The arousing effect of your arcane aura seems to be having a profound effect on these defeated Enforcers, as after exchanging devious grins with one another, they rise to their feet and quickly advance upon you, before starting to grope and caress your body. Letting out a horny [pc.moan], you surrender yourself to these two Enforcers as they seek to use you to satisfy their lust...
+		#ELSEIF(npc.isAttractedTo(pc))
+			The arousing effect of your arcane aura seems to be having a profound effect on [npc.name], as after rising to [npc.her] [npc.feet] and leaving [npc.her] partner behind, [npc.she] advances upon you and starts to grope and caress your body. Letting out a horny [pc.moan], you surrender yourself to the [npc.race] as [npc.she] seeks to use you to satisfy [npc.her] lust...
+		#ELSE
+			The arousing effect of your arcane aura seems to be having a profound effect on [npc2.name], as after rising to [npc2.her] [npc2.feet] and leaving [npc2.her] partner behind, [npc2.she] advances upon you and starts to grope and caress your body. Letting out a horny [pc.moan], you surrender yourself to the [npc2.race] as [npc2.she] seeks to use you to satisfy [npc2.her] lust...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Unable to continue fighting any longer, you feel your [pc.legs] give out from under you, and with a defeated sigh, you collapse down onto the ground.
+	</p>
+	<p>
+		[npc.speech(That'll teach you to try and fight back against us Enforcers!)] [npc.name] boasts as [npc.she] holsters [npc.her] baton and pistol.
+	</p>
+	<p>
+		[npc2.speech(You never stood a chance,)] [npc2.name] sneers as [npc2.she] [npc2.steps] forwards to loom over you.
+	</p>
+	#IF(npc.isAttractedTo(pc))
+		#IF(npc2.isAttractedTo(pc))
+			#IF(npc.isWillingToRape())
+				<p>
+					[npc.speech(Before we take this one in, how about we have some fun with [pc.herHim]?)] [npc.name] suggests.
+				</p>
+				<p>
+					Clearly liking the sound of this, [npc2.name] grabs hold of you by the [pc.arm] and pulls you to your [pc.feet], before starting to lustfully grope your exhausted body. As [npc.name] moves forwards to join in with [npc.her] partner's sexual harassment, you realise that you're going to be unable to stop these Enforcers from doing whatever they want with you...
+				</p>
+			#ELSE
+				<p>
+					[npc.speech(Before we take this one in, how about we have some fun with [pc.herHim]?)] [npc.name] suggests.
+				</p>
+				<p>
+					Clearly liking the sound of this, [npc2.name] grabs hold of you by the [pc.arm] and pulls you to your [pc.feet], before asking, [npc2.speech(You'd like that, wouldn't you, slut? You want to get fucked by us?)]
+				</p>
+				<p>
+					Realising that these Enforcers are giving you the option to say no, you wonder whether you should refuse to have sex with them, or instead agree to give them what they want...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(npc.isWillingToRape())
+				<p>
+					[npc.speech(Before we take this one in, I'm going to have some fun with [pc.herHim]!)] [npc.name] declares.
+				</p>
+				<p>
+					Clearly not interested in joining in, [npc2.name] [npc2.steps] back and watches as [npc2.her] partner grabs hold of you by the [pc.arm] and pulls you to your [pc.feet]. Finding yourself pressed up close against [npc.name], you're unable to summon the strength to react as [npc.she] starts to lustfully grope your exhausted body. As the [npc.race]
+					#IF(pc.hasBreasts())
+						 gives your [pc.breasts+] a firm squeeze,
+					#ELSE
+						 gives your [pc.ass+] a firm squeeze,
+					#ENDIF
+					 you realise that you're going to be unable to stop [npc.herHim] from doing whatever [npc.she] wants with you...
+				</p>
+			#ELSE
+				<p>
+					[npc.speech(Before we take this one in, I'd like to have some fun with [pc.herHim]!)] [npc.name] declares.
+				</p>
+				<p>
+					Clearly not interested in joining in, [npc2.name] [npc2.steps] back and watches as [npc2.her] partner grabs hold of you by the [pc.arm] and pulls you to your [pc.feet], before asking, [npc.speech(You'd like that, wouldn't you, slut? You want me to fuck you?)]
+				</p>
+				<p>
+					Realising that [npc.name] is giving you the option to say no, you wonder whether you should refuse to have sex with [npc.herHim], or instead agree to give [npc.herHim] what [npc.she] wants...
+				</p>
+			#ENDIF
+		#ENDIF
+	#ELSEIF(npc2.isAttractedTo(pc))
+		#IF(npc2.isWillingToRape())
+			<p>
+				[npc2.speech(Before we take this one in, I'm going to have some fun with [pc.herHim]!)] [npc2.name] declares.
+			</p>
+			<p>
+				Clearly not interested in joining in, [npc.name] [npc.steps] back and watches as [npc.her] subordinate grabs hold of you by the [pc.arm] and pulls you to your [pc.feet]. Finding yourself pressed up close against [npc2.name], you're unable to summon the strength to react as [npc2.she] starts to lustfully grope your exhausted body. As the [npc2.race]
+				#IF(pc.hasBreasts())
+					 gives your [pc.breasts+] a firm squeeze,
+				#ELSE
+					 gives your [pc.ass+] a firm squeeze,
+				#ENDIF
+				 you realise that you're going to be unable to stop [npc2.herHim] from doing whatever [npc2.she] wants with you...
+			</p>
+		#ELSE
+			<p>
+				[npc2.speech(Before we take this one in, I'd like to have some fun with [pc.herHim]!)] [npc2.name] declares.
+			</p>
+			<p>
+				Clearly not interested in joining in, [npc.name] [npc.steps] back and watches as [npc.her] subordinate grabs hold of you by the [pc.arm] and pulls you to your [pc.feet], before asking, [npc2.speech(You'd like that, wouldn't you, slut? You want me to fuck you?)]
+			</p>
+			<p>
+				Realising that [npc2.name] is giving you the option to say no, you wonder whether you should refuse to have sex with [npc2.herHim], or instead agree to give [npc2.herHim] what [npc2.she] wants...
+			</p>
+		#ENDIF
+	#ELSEIF(npc.getFoughtPlayerCount()>1)
+		<p>
+			Clearly not interested in taking advantage of you while in this defeated state, the two Enforcers start discussing amongst themselves what to do with you.
+		</p>
+		<p>
+			[npc.speech(I can't be bothered to waste my time taking this one in,)] [npc.name] states, [npc.speech(And besides, if we keep on making Lilaya come and bail [pc.herHim] out, we're going to end up being the ones getting punished for it...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given [pc.herHim] a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSEIF(npc.hasFlag(NPC_FLAG_knowsPlayerDemon))
+		<p>
+			Clearly not interested in taking advantage of you while in this defeated state, the two Enforcers start discussing amongst themselves what to do with you.
+		</p>
+		<p>
+			[npc.speech(I'm not going to be the one responsible for taking a demon in,)] [npc.name] states, [npc.speech(This was before you joined us, [npc2.surname], but one time some troublesome demon was taken in and she turned out to be the daughter of one of the Elder Lilin. The guys who arrested her got demoted and had to go and personally apologise to her mother. I never saw them again...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given this one a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the 
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSE
+		<p>
+			Clearly not interested in taking advantage of you while in this defeated state, the two Enforcers move forwards to arrest you. With [npc.name] holding you down, [npc2.name] clasps a pair of handcuffs around your wrists, and after [npc2.sheIs] done, you suddenly find yourself being pulled to your [pc.feet].
+		</p>
+		<p>
+			[npc.speech(Come on, move it! We've got a nice cosy cell for you back at the station!)] [npc.name] snaps, pulling you along as [npc.she] leads you down the 
+			#IF(canal)
+				 canal-side path.
+			#ELSE
+				 alleyway.
+			#ENDIF
+		</p>
+		<p>
+			Unable to mount any resistance, the only thing you can do is try to keep up as the two Enforcers lead towards Dominion's Enforcer HQ...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Responses: -->
+	
+	<htmlContent tag="START_DEFEATED_SEX"><![CDATA[
+	#IF(npc2.isAttractedTo(pc))
+		<p>
+			#IF(npc.isWillingToRape())
+				As the two Enforcers are clearly not at all interested in giving you a chance to say no, you decide that the best thing to do would be to just go along with this. Parting your [pc.lips] and letting [npc.name] kiss you, you grind up against [npc2.name] in order to show them that you're willing to have sex with them.
+			#ELSE
+				Liking the sound of having sex with these two Enforcers, you tell them that you're willing to submit to whatever they want to do with you. Having obtained your consent, [npc.name] presses [npc.herself] up against you, before leaning in and pulling you into a passionate kiss. Not wanting [npc2.name] to feel left out, you move over a little so that you can lustfully grind up against [npc2.herHim].
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(This slut's enjoying this!)] [npc2.name] declares, before giving your
+			#IF(pc.hasBreasts())
+				 [pc.breasts+] a good grope.
+			#ELSE
+				 [pc.ass+] a good grope.
+			#ENDIF
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks at you and joins [npc.her] partner in feeling you up. Submitting to their dominant behaviour, you prepare to get fucked by these two Enforcers...
+		</p>
+	#ELSE
+		<p>
+			#IF(npc.isWillingToRape())
+				As [npc.name] is clearly not at all interested in giving you a chance to say no, you decide that the best thing to do would be to just go along with this. Parting your [pc.lips] and letting the [npc.race] kiss you, you grind up against [npc.herHim] in order to show [npc.herHim] that you're willing to have sex with [npc.herHim].
+			#ELSE
+				Liking the sound of having sex with [npc.name], you tell [npc.herHim] that you're willing to submit to whatever [npc.she] wants to do with you. Having obtained your consent, the [npc.race] presses [npc.herself] up against you, before leaning in and pulling you into a passionate kiss.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(I'll keep watch,)] [npc2.name] mutters as [npc2.she] [npc2.steps] back.
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks at you as [npc.she]
+			#IF(pc.hasBreasts())
+				 reaches up to give your [pc.breasts+] a good grope.
+			#ELSE
+				 reaches around to give your [pc.ass+] a good grope.
+			#ENDIF
+			 Submitting to [npc.her] dominant behaviour, you prepare to get fucked by this horny [npc.race]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DEFEATED_SEX_EAGER"><![CDATA[
+	#IF(npc2.isAttractedTo(pc))
+		<p>
+			More than happy to be having sex with these two Enforcers, you let out an excited [pc.moan] before telling them that you'll willingly submit to whatever they want to do with you. Letting out a triumphant [npc.moan], [npc.name] presses [npc.herself] up against you, before leaning in and pulling you into a passionate kiss. Not wanting [npc2.name] to feel left out, you move over a little so that you can lustfully grind up against [npc2.herHim].
+		</p>
+		<p>
+			[npc2.speech(What a slut!)] [npc2.name] declares, before giving your
+			#IF(pc.hasBreasts())
+				 [pc.breasts+] a good grope.
+			#ELSE
+				 [pc.ass+] a good grope.
+			#ENDIF
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks at you and joins [npc.her] partner in feeling you up. Eagerly submitting to their dominant behaviour, you look forwards to being fucked by these two Enforcers...
+		</p>
+	#ELSE
+		<p>
+			More than happy to be having sex with [npc.name], you let out an excited [pc.moan] before telling [npc.herHim] that you'll willingly submit to whatever [npc.she] wants to do with you. Letting out a triumphant [npc.moan], [npc.name] presses [npc.herself] up against you, before leaning in and pulling you into a passionate kiss.
+		</p>
+		<p>
+			[npc2.speech(I'll keep watch,)] [npc2.name] mutters as [npc2.she] [npc2.steps] back.
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks at you as [npc.she]
+			#IF(pc.hasBreasts())
+				 reaches up to give your [pc.breasts+] a good grope.
+			#ELSE
+				 reaches around to give your [pc.ass+] a good grope.
+			#ENDIF
+			 Eagerly submitting to [npc.her] dominant behaviour, you prepare to get fucked by this horny [npc.race]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DEFEATED_SEX_RESIST"><![CDATA[
+	#IF(npc2.isAttractedTo(pc))
+		<p>
+			Not at all happy with what's happening, you summon what little strength you have left in a pathetic attempt to struggle free from [npc.namePos] grip. Letting out a threatening growl, the [npc.race] roughly presses [npc.herself] up against your body, before pulling you into a forceful kiss.
+		</p>
+		<p>
+			[npc2.speech(This slut thinks [pc.she] can get out of this!)] [npc2.name] laughs, before giving your
+			#IF(pc.hasBreasts())
+				 [pc.breasts+] an unwanted grope.
+			#ELSE
+				 [pc.ass+] an unwanted grope.
+			#ENDIF
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks as you let out a desperate cry and shout for them to release you. Ignoring your plea, the [npc.race] joins [npc.her] partner in feeling you up even as you continue to struggle against [npc.herHim]...
+		</p>
+	#ELSE
+		<p>
+			Not at all happy with what's happening, you summon what little strength you have left in a pathetic attempt to struggle free from [npc.namePos] grip. Letting out a threatening growl, the [npc.race] roughly presses [npc.herself] up against your body, before pulling you into a forceful kiss.
+		</p>
+		<p>
+			[npc2.speech(I'll keep watch,)] [npc2.name] mutters as [npc2.she] [npc2.steps] back.
+		</p>
+		<p>
+			Breaking off from the kiss, [npc.name] smirks at you as [npc.she]
+			#IF(pc.hasBreasts())
+				 reaches up to give your [pc.breasts+] an unwanted grope.
+			#ELSE
+				 reaches around to give your [pc.ass+] an unwanted grope.
+			#ENDIF
+			 Ignoring your desperate cries and demands to be released, the [npc.race] continues feeling you up as you struggle against [npc.herHim]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT_SEX_REFUSED -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_REFUSED"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		#IF(npc2.isAttractedTo(pc))
+			Not at all happy with the idea of having sex with these two Enforcers, you tell them in no uncertain terms that they're to leave you alone.
+		#ELSE
+			Not at all happy with the idea of having sex with [npc.name], you tell [npc.herHim] in no uncertain terms that [npc.sheIs] to leave you alone.
+		#ENDIF
+		 [npc2.Stepping] forwards to block off any chance of your escape, [npc2.name] snaps, [npc.speech(Fine, but we've still got to deal with the issue of your assault on a pair of Enforcers!)]
+	</p>
+	#IF(npc.getFoughtPlayerCount()>1)
+		<p>
+			[npc.speech(I can't be bothered to waste my time taking this one in,)] [npc.name] states, [npc.speech(And besides, if we keep on making Lilaya come and bail [pc.herHim] out, we're going to end up being the ones getting punished for it...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given [pc.herHim] a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSEIF(npc.hasFlag(NPC_FLAG_knowsPlayerDemon))
+		<p>
+			[npc.speech(I'm not going to be the one responsible for taking a demon in,)] [npc.name] states, [npc.speech(This was before you joined us, [npc2.surname], but one time some troublesome demon was taken in and she turned out to be the daughter of one of the Elder Lilin. The guys who arrested her got demoted and had to go and personally apologise to her mother. I never saw them again...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given this one a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSE
+		<p>
+			Quickly moving forwards, the two Enforcers don't give you any chance to react as they quickly restrain and arrest you. With [npc.name] holding you in place, you're powerless to resist as [npc2.name] clasps a pair of handcuffs around your wrists.
+		</p>
+		<p>
+			[npc.speech(Come on, move it! We've got a nice cosy cell for you back at the station!)] [npc.name] snaps, pulling you along as [npc.she] leads you down the
+			#IF(canal)
+				 canal-side path.
+			#ELSE
+				 alleyway.
+			#ENDIF
+		</p>
+		<p>
+			Unable to mount any resistance, the only thing you can do is try to keep up as the two Enforcers lead you towards Dominion's Enforcer HQ...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_DEMONIC_SEDUCTION -->
+	
+	<htmlContent tag="AFTER_SEX_DEMONIC_SEDUCTION"><![CDATA[
+	<p>
+		#IF(sex.getAllParticipants(false).size()==3)
+			Having had your fun, you [pc.step] back from the two Enforcers and flash them a triumphant smirk. Seductively biting your [pc.lip], you ask them if they're satisfied with your performance.
+		#ELSE
+			Having had your fun, you [pc.step] back from [npc.name] and flash [npc.herHim] a triumphant smirk. Seductively biting your [pc.lip], you ask [npc.herHim] if [npc.sheIs] satisfied with your performance.
+		#ENDIF
+	</p>
+	<p>
+		Panting for breath, [npc.name] lets a big smile settle on [npc.her] face as [npc.she] replies, [npc.speech(That was... Amazing...)]
+	</p>
+	<p>
+		#IF(sex.getAllParticipants(false).size()==3)
+			After you've given the two of them some time in which to recover, the Enforcers get their uniforms back in order, before [npc.name] asks,
+		#ELSE
+			After you've given the [npc.race] some time in which to recover, [npc.she] gets [npc.her] uniform back in order and asks,
+		#ENDIF
+		 [npc.speech(So, did you have any criminal activity to report to us? If not, we'll be on our way...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
+	#IF(sex.getAllParticipants(false).size()==3)
+		<p>
+			Having had your fun, you [pc.step] back from the two Enforcers and flash them a triumphant smirk. Letting out an exhausted [npc.moan], [npc.name] whines, [npc.speech(Fuck... How did we end up like this?)]
+		</p>
+		<p>
+			[npc2.speech(I don't know...)] [npc2.name] pants as [npc2.she] tries to recover [npc2.her] breath.
+		</p>
+	#ELSE
+		<p>
+			Having had your fun, you [pc.step] back from [npc.name] and flash [npc.herHim] a triumphant smirk. Letting out an exhausted [npc.moan], [npc.name] whines, [npc.speech(Fuck... How did I end up like this?)]
+		</p>
+	#ENDIF
+	<p>
+		Having got exactly what it is that you wanted, you get your things in order, before [pc.stepping] back over to where the Enforcers are collapsed on the floor and wondering whether you should help yourself to some of their gear...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_DEFEAT -->
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		#IF(sex.getAllParticipants(false).size()==3)
+			Having had their fun, the two Enforcers step back and leave you panting and [pc.moaning] on the floor. While you catch your breath, [npc.name] and [npc2.name] get their uniforms back in order, before stepping forwards and looming over your collapsed body.
+		#ELSE
+			Having had [npc.her] fun, [npc.name] steps back and leaves you panting and [pc.moaning] on the floor. While you catch your breath, the [npc.race] gets [npc.her] uniform back in order, before joining [npc2.name] in stepping forwards and looming over your collapsed body.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_SEX_CONTINUE"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Moving around to block off any chance of your escape, [npc2.name] states, [npc.speech(We've still got to deal with the issue of your assault on a pair of Enforcers!)]
+	</p>
+	#IF(npc.getFoughtPlayerCount()>1)
+		<p>
+			[npc.speech(I can't be bothered to waste my time taking this one in,)] [npc.name] states, [npc.speech(And besides, if we keep on making Lilaya come and bail [pc.herHim] out, we're going to end up being the ones getting punished for it...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given [pc.herHim] a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSEIF(npc.hasFlag(NPC_FLAG_knowsPlayerDemon))
+		<p>
+			[npc.speech(I'm not going to be the one responsible for taking a demon in,)] [npc.name] states, [npc.speech(This was before you joined us, [npc2.surname], but one time some troublesome demon was taken in and she turned out to be the daughter of one of the Elder Lilin. The guys who arrested her got demoted and had to go and personally apologise to her mother. I never saw them again...)]
+		</p>
+		<p>
+			[npc2.speech(Well, we've already given this one a punishment by beating [pc.herHim],)] [npc2.name] remarks, [npc2.speech(Let's just leave [pc.herHim] here...)]
+		</p>
+		<p>
+			Coming to an agreement, the two Enforcers step over your collapsed form and set off down the
+			#IF(canal)
+				 canal-side path
+			#ELSE
+				 alleyway
+			#ENDIF
+			, but not before giving you a stern warning to never attack Enforcers again...
+		</p>
+	#ELSE
+		<p>
+			Quickly moving forwards, the two Enforcers don't give you any chance to react as they quickly restrain and arrest you. With [npc.name] holding you in place, you're powerless to resist as [npc2.name] clasps a pair of handcuffs around your wrists.
+		</p>
+		<p>
+			[npc.speech(Come on, move it! We've got a nice cosy cell for you back at the station!)] [npc.name] snaps, pulling you along as [npc.she] leads you down the
+			#IF(canal)
+				 canal-side path.
+			#ELSE
+				 alleyway.
+			#ENDIF
+		</p>
+		<p>
+			Unable to mount any resistance, the only thing you can do is try to keep up as the two Enforcers lead you towards Dominion's Enforcer HQ...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_DEFEAT_CELLS -->
+	
+	<htmlContent tag="AFTER_DEFEAT_CELLS"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Still dazed from your defeat at the hands of these Enforcers, you're only vaguely aware of your surroundings as you're led
+		#IF(canal)
+			 away from the canal
+		#ELSE
+			 out of the alleyways
+		#ENDIF
+		 and down Dominion's streets. Before you know it, you've arrived at Dominion's Enforcer HQ, and after being led inside and down a series of corridors, you're unceremoniously hurled into an empty cell.
+	</p>
+	<p>
+		As the barred door is locked behind you, [npc.name] calls out, [npc.speech(I hope you enjoy your new life as someone's slave! It's a fitting end for anyone who dares to attack us Enforcers! [npc2.Name], you can fill [pc.her] paperwork out; I'm off to get a coffee.)]
+	</p>
+	<p>
+		Having been left by [npc2.her] superior to handle the paperwork involved in arresting you, [npc2.name] lets out a weary sigh and trudges off to fetch the required forms. Just a minute later, and [npc2.she] returns to the door of your cell to start asking you a series of personal questions.
+	</p>
+	<p>
+		Seeing no hope of escape at the moment, you play along and start off by answering the [npc2.race]'s request for your name and address. Upon hearing where it is that you claim to live, however, the Enforcer lowers [npc2.her] clipboard and snaps, [npc2.speech(You'd better not be bullshitting me! If I find out that you're lying about this, there's going to be hell to pay!)]
+	</p>
+	<p>
+		Clearly unsure about how to proceed after learning that Lilaya's mansion is your fixed address, [npc2.name] runs off to seek the advice of [npc2.her] superior, leaving you with little else to do but wait in your cell...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_DEFEAT_CELLS_WAITING -->
+	
+	<htmlContent tag="AFTER_DEFEAT_CELLS_WAITING"><![CDATA[
+	<p>
+		Although you expected one of the two Enforcers who arrested you to quickly return, you end up being left alone in your cell for almost an hour. Eventually, however, you hear the sound of footsteps running down the corridor, before a dog-boy Enforcer that you haven't seen before stops outside the door to your cell and breathlessly pants, [style.speechMasculine(Sorry about having left you here for so long; I'll be releasing you right away!)]
+	</p>
+	<p>
+		With that, the Enforcer produces a set of keys and unlocks the door to your cell, before stepping inside and quickly removing your handcuffs. Once again apologising for how long you've been left in captivity, he asks you to accompany him so that he can lead you out of the Enforcer HQ.
+	</p>
+	<p>
+		Thankful for this sudden change in fortune, you do as the dog-boy says and allow him to accompany you down the HQ's corridors and out of the front entrance. Curious to know what's caused this sudden change in treatment, you ask the dog-boy why you've been released.
+	</p>
+	<p>
+		Misinterpreting your question as an accusation of neglect, the dog-boy stammers, [style.speechMasculine(I-I'm so sorry! I only had confirmation that Lilaya had vouched for your release just five minutes ago! I hurried to set you free as soon as I could!)]
+	</p>
+	<p>
+		With the mystery of your sudden release solved, you allow the dog-boy to hurry off back into the Enforcer HQ, before turning around and preapring to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

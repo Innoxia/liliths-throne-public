@@ -43,7 +43,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -63,6 +63,13 @@ public interface SexActionInterface {
 	}
 
 	public default boolean isSadisticAction() {
+		return false;
+	}
+	
+	/**
+	 * @return true if you want this sex action to always be shown in the available list of actions, even if it is unavailable (in which case it will be greyed-out).
+	 */
+	public default boolean isDisplayedAsUnavailable() {
 		return false;
 	}
 	
@@ -460,13 +467,7 @@ public interface SexActionInterface {
 			return false;
 		}
 		
-		boolean analAllowed = true;
-		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
-			analAllowed = Main.game.isAnalContentEnabled()
-					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Main.sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Main.sex.getCharacterPerformingAction())),
-						Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
-		} catch(Exception ex) {
-		}
+		boolean analAllowed = Main.game.isAnalContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ANUS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS));
 		
 		boolean footAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
@@ -1046,6 +1047,9 @@ public interface SexActionInterface {
 			}
 			
 		} else {
+			if(this.isDisplayedAsUnavailable()) {
+				return convertToNullResponse();
+			}
 			return null;
 		}
 	}
@@ -1178,7 +1182,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPenetrationHighlight() {
-					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
+					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING;
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
@@ -1204,6 +1208,9 @@ public interface SexActionInterface {
 						} else {
 							return PresetColour.GENERIC_SEX;
 						}
+					}
+					if(getActionType()==SexActionType.STOP_ONGOING) {
+						return PresetColour.BASE_RED;
 					}
 					return super.getHighlightColour();
 				}
@@ -1470,6 +1477,20 @@ public interface SexActionInterface {
 			public SexActionType getSexActionType() {
 				return getActionType();
 			}
+
+//			@Override
+//			public boolean hasRequirements() {
+//				return true;
+//			}
+			@Override
+			public boolean isAvailable(){
+				return false;
+			}
+//			@Override
+//			public boolean isAbleToBypass(){
+//				return false;
+//			}
+			
 			@Override
 			public boolean isSexActionSwitch() {
 				if(getActionType()==SexActionType.START_ONGOING) {
@@ -1624,7 +1645,7 @@ public interface SexActionInterface {
 				case BREAST:
 					break;
 				case NIPPLE_CROTCH:
-					if(!performingCharacter.hasBreastsCrotch() || (this.getActionType()==SexActionType.START_ONGOING && !performingCharacter.isBreastCrotchFuckableNipplePenetration())) {
+					if(!performingCharacter.hasBreastsCrotch() || (interactingWithArea!=SexAreaPenetration.TONGUE && this.getActionType()==SexActionType.START_ONGOING && !performingCharacter.isBreastCrotchFuckableNipplePenetration())) {
 						return false;
 					}
 					break;

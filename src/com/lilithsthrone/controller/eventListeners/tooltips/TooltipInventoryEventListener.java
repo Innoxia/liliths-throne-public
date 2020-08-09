@@ -189,25 +189,24 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericItem != null) {
-			itemTooltip(AbstractItemType.generateItem(genericItem));
+			itemTooltip(Main.game.getItemGen().generateItem(genericItem));
 			
 		} else if (genericClothing != null) {
 			if(colour!=null) {
-				clothingTooltip(AbstractClothingType.generateClothing(genericClothing, colour, false));
+				clothingTooltip(Main.game.getItemGen().generateClothing(genericClothing, colour, false));
 			} else {
-				clothingTooltip(AbstractClothingType.generateClothing(genericClothing, false));
+				clothingTooltip(Main.game.getItemGen().generateClothing(genericClothing, false));
 			}
 
 		} else if (genericWeapon != null) {
-			weaponTooltip(AbstractWeaponType.generateWeapon(genericWeapon, dt));
+			weaponTooltip(Main.game.getItemGen().generateWeapon(genericWeapon, dt));
 
 		} else if (invSlot != null) {
 			if (invSlot == InventorySlot.WEAPON_MAIN_1) {
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getMainWeapon(0) == null) {
-						Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-						Main.mainController.setTooltipContent("<div class='title'>Primary Weapon</div>");
-
+						setUnarmedWeaponSlotTooltip("Primary Weapon");
+						
 					} else {
 						weaponTooltip(equippedToCharacter.getMainWeapon(0));
 					}
@@ -224,8 +223,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									"You do not have a second pair of arms with which to hold another primary weapon!",
 									"[npc.Name] [npc.does] not have a second pair of arms with which to hold another primary weapon!"));
 						} else {
-							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-							Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (2nd)</div>");
+							setUnarmedWeaponSlotTooltip("Primary Weapon (2nd)");
 						}
 						
 					} else {
@@ -244,8 +242,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									"You do not have a third pair of arms with which to hold another primary weapon!",
 									"[npc.Name] [npc.does] not have a third pair of arms with which to hold another primary weapon!"));
 						} else {
-							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-							Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (3rd)</div>");
+							setUnarmedWeaponSlotTooltip("Primary Weapon (3rd)");
 						}
 						
 					} else {
@@ -270,13 +267,13 @@ public class TooltipInventoryEventListener implements EventListener {
 										:"As [npc.namePos] "+primary.getName()+" requires two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand"));
 							
 						} else {
-							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
+							setUnarmedWeaponSlotTooltip("Secondary Weapon");
 						}
 
 					} else {
 						weaponTooltip(equippedToCharacter.getOffhandWeapon(0));
 					}
+					
 				} else {
 					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
@@ -300,9 +297,9 @@ public class TooltipInventoryEventListener implements EventListener {
 									"You do not have a second pair of arms with which to hold another secondary weapon!",
 									"[npc.Name] [npc.does] not have a second pair of arms with which to hold another secondary weapon!"));
 						} else {
-							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (2nd)</div>");
+							setUnarmedWeaponSlotTooltip("Secondary Weapon (2nd)");
 						}
+						
 					} else {
 						weaponTooltip(equippedToCharacter.getOffhandWeapon(1));
 					}
@@ -329,8 +326,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									"You do not have a third pair of arms with which to hold another secondary weapon!",
 									"[npc.Name] [npc.does] not have a third pair of arms with which to hold another secondary weapon!"));
 						} else {
-							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (3rd)</div>");
+							setUnarmedWeaponSlotTooltip("Secondary Weapon (3rd)");
 						}
 					} else {
 						weaponTooltip(equippedToCharacter.getOffhandWeapon(2));
@@ -882,7 +878,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		String author = absWep.getWeaponType().getAuthorDescription();
 		if(!author.isEmpty()) {
-			yIncrease+=5;
+			yIncrease+=4;
 		}
 		
 		// Title:
@@ -904,10 +900,10 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
 			tooltipSB.append("<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "
 						+(absWep.getWeaponType().isUsingUnarmedCalculation()
-								?"Unarmed"
+								?"[style.colourUnarmed(Unarmed)]"
 								:(absWep.getWeaponType().isMelee()
-									?"Melee"
-									:"Ranged"))+"</br>"
+									?"[style.colourMelee(Melee)]"
+									:"[style.colourRanged(Ranged)]"))+"</br>"
 						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 						);
 		
@@ -924,6 +920,10 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 			
 			if(equippedToCharacter != null) {
+				if(absWep.getWeaponType().isUsingUnarmedCalculation()) {
+					listIncrease++;
+					tooltipSB.append("Includes [style.boldUnarmed("+equippedToCharacter.getUnarmedDamage()+" unarmed damage)]<br/>");
+				}
 				tooltipSB.append("<b>"+ Attack.getMinimumDamage(equippedToCharacter, null, Attack.MAIN, absWep) + " - " + Attack.getMaximumDamage(equippedToCharacter, null, Attack.MAIN, absWep)+ "</b>"
 						+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 				
@@ -968,15 +968,11 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 
 			for(Entry<Attribute, Integer> entry : absWep.getAttributeModifiers().entrySet()) {
-				tooltipSB.append("<br/>"+ 
-						(entry.getValue()<0
-								?"[style.boldBad("+entry.getValue()+")] "
-								:"[style.boldGood(+"+entry.getValue()+")] ")
-						+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+				tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 			}
 		
 			for(Spell s : absWep.getSpells()) {
-				tooltipSB.append("<br/><b style='color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
+				tooltipSB.append("<br/>[style.boldSpell(Spell)]<b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
 			}
 		
 			for(CombatMove cm : absWep.getCombatMoves()) {
@@ -1163,11 +1159,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					}
 				}
 				for(Entry<Attribute, Integer> entry : absClothing.getAttributeModifiers().entrySet()) {
-					tooltipSB.append("<br/>"+ 
-							(entry.getValue()<0
-									?"[style.boldBad("+entry.getValue()+")] "
-									:"[style.boldGood(+"+entry.getValue()+")] ")
-							+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+					tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				}
 			}
 			
@@ -1383,11 +1375,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 			}
 			for(Entry<Attribute, Integer> entry : tattoo.getAttributeModifiers().entrySet()) {
-				tooltipSB.append((i>0?"<br/>":"")
-						+ (entry.getValue()<0
-								?"[style.boldBad("+entry.getValue()+")] "
-								:"[style.boldGood(+"+entry.getValue()+")] ")
-						+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+				tooltipSB.append((i>0?"<br/>":"")+"<b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				i++;
 			}
 			
@@ -1495,11 +1483,24 @@ public class TooltipInventoryEventListener implements EventListener {
 	    throw new IllegalArgumentException("That's not a buyback item");
 	}
 	
-	private static String getTooltipText(GameCharacter character, String playerText, String NPCText) {
+	private String getTooltipText(GameCharacter character, String playerText, String NPCText) {
 		if(character.isPlayer()) {
 			return playerText;
 		} else {
 			return UtilText.parse(character, NPCText);
 		}
+	}
+	
+	private void setUnarmedWeaponSlotTooltip(String title) {
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 132);
+		int baseDamage = equippedToCharacter.getBaseUnarmedDamage();
+		int modifiedDamage = equippedToCharacter.getUnarmedDamage();
+		Main.mainController.setTooltipContent(
+				"<div class='title'>"+title+" (Unarmed)</div>"
+				+ "<div class='description' style='height:64px; text-align:center;'>"
+						+ UtilText.parse(equippedToCharacter,
+							"[npc.Name] [npc.has] a base unarmed damage value of "+baseDamage+", which is modified from attributes to deal:"
+							+ "<br/>[style.boldUnarmed("+modifiedDamage+" Unarmed damage)]")
+				+ "</div>");
 	}
 }

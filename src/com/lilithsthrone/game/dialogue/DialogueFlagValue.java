@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.7.5
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -31,7 +31,8 @@ public enum DialogueFlagValue {
 	daddySendingReward,
 	
 	coveringChangeListenersRequired, // Set to false on every Response preparsing, and only set to true in getKatesDivCoveringsNew(). Used for setting up listeners in MainControllerInitMethod.
-	
+
+	badEnd, // When the game is in a state of a bad end (meaning that the player is in an inescapable gameplay loop)
 	
 	// Gym:
 	gymIntroduced,
@@ -75,6 +76,7 @@ public enum DialogueFlagValue {
 	
 	// Shopping arcade:
 	ralphAskedAboutHundredKisses,
+	ralphDailyBred(true),
 	
 	nyanTalkedTo(true),
 	nyanComplimented(true),
@@ -105,6 +107,7 @@ public enum DialogueFlagValue {
 	essenceExtractionKnown,
 	roseToldOnYou,
 	lilayaReactedToPlayerAsDemon,
+	lilayaHug(true),
 	
 	readBook1,
 	readBook2,
@@ -152,6 +155,7 @@ public enum DialogueFlagValue {
 	slaverAlleyCompanionInStocks,
 	slaverAlleyAcceptedDeal,
 	slaverAlleyCompanionAcceptedDeal,
+	slaverAlleyTwoPartners,
 	slaverAlleySlavesFreed, // Reset every day at midnight (as part of stocks reset method)
 	
 	// Helena (romance quest):
@@ -313,6 +317,7 @@ public enum DialogueFlagValue {
 	ratWarrensEntranceGuardsFight,
 	ratWarrensSeenMilkers,
 	ratWarrensMilkersBackground,
+	ratWarrensSilenceIntroduced,
 	
 	ratWarrensClearedLeft,
 	ratWarrensClearedCentre,
@@ -324,6 +329,7 @@ public enum DialogueFlagValue {
 	vengarPersuaded,
 	vengarSeduced,
 	ratWarrensRaid,
+	ratWarrensUsedResonanceStone,
 
 	vengarCaptiveRoomCleaned(true),
 	vengarCaptiveVengarSatisfied(true),
@@ -332,22 +338,20 @@ public enum DialogueFlagValue {
 	vengarCaptiveCompanionGivenBirth(true),
 	vengarCaptiveGangBanged(true),
 
+	ratWarrensCaptiveInitialNightDescription,
 	ratWarrensCaptiveAttemptingEscape,
 	ratWarrensCaptiveEscaped,
-	ratWarrensCaptiveTransformationsStarted,
+//	ratWarrensCaptiveTransformationsStarted,
 	
 	ratWarrensCaptiveFeminine,
 	ratWarrensCaptiveFuta,
 	ratWarrensCaptiveMasculine,
 	ratWarrensCaptiveSissy,
-
-	ratWarrensCaptiveFuckedByMurk,
-	ratWarrensCaptiveCompanionFuckedByMurk,
 	
-	ratWarrensCaptiveMilkingStarted,
-	ratWarrensCaptiveMilkingStartedCompanion,
-
-	ratWarrensCaptiveCalledOut, // Reset to false when sleep
+	murkMaster,
+	
+	ratWarrensCaptiveCalledOut,
+	ratWarrensCaptiveWashed,
 	
 	ratWarrensCaptiveCompanionGivenBirth(true),
 	ratWarrensCaptiveOwnerSex(true),

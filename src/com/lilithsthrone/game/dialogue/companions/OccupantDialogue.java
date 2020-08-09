@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -259,7 +260,7 @@ public class OccupantDialogue {
 						return new Response("Slaves", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] interactions with your slaves today."), null);
 					}
 					
-				} else if (index == 5) {
+				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 					if(!Main.game.getPlayer().hasCompanion(occupant())) {
 						if(!occupant().isCompanionAvailable(Main.game.getPlayer())) {
 							return new Response("Add to party",
@@ -1380,17 +1381,19 @@ public class OccupantDialogue {
 					};
 
 				} else if (index == 4) {
-					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
+					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
 								+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
-								+ " until " + (Main.game.isDayTime() ? "evening ("+Units.time(sunriseSunset[1])+")." : "morning ("+Units.time(sunriseSunset[0])+").")
+								+ (Main.game.isDayTime()
+										? " until five minutes past sunset ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."
+										: " until five minutes past sunrise ("+Units.time(sunriseSunset[0].plusMinutes(5))+").")
 								+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 								OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
 						public void effects() {
-							sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
+							sleepTimeInMinutes = timeUntilChange;
 							
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
@@ -1400,7 +1403,7 @@ public class OccupantDialogue {
 						}
 					};
 
-				} else if (index == 5) {
+				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 					if(!Main.game.getPlayer().hasCompanion(occupant())) {
 						
 						if(!occupant().isCompanionAvailable(Main.game.getPlayer())) {
@@ -1587,10 +1590,10 @@ public class OccupantDialogue {
 	
 	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
-		@Override
-		public int getSecondsPassed() {
-			return sleepTimeInMinutes*60;
-		}
+//		@Override
+//		public int getSecondsPassed() {
+//			return sleepTimeInMinutes*60;
+//		}
 		
 		@Override
 		public String getLabel(){

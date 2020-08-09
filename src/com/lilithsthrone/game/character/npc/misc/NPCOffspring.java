@@ -28,7 +28,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDia
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -49,12 +49,12 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(boolean isImported) {
 		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		this(mother, father, father.getSubspecies(), father.getHalfDemonSubspecies());
+		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
@@ -62,12 +62,12 @@ public class NPCOffspring extends NPC {
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
-		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
+		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
-		} else if(father!=null && (father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN)) {
+		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
 				
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
@@ -84,7 +84,7 @@ public class NPCOffspring extends NPC {
 		if(father!=null) {
 			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
 		}
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody, true);
@@ -199,7 +199,7 @@ public class NPCOffspring extends NPC {
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+
-						(this.getMother().isPlayer()
+						(this.getMother()!=null && this.getMother().isPlayer()
 								? getMatingDescription(getMother(), getFather(), "mothered")
 								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
@@ -208,7 +208,7 @@ public class NPCOffspring extends NPC {
 						+(daysToBirth==0
 							?"later that same day"
 							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
-						+(this.getMother().isPlayer()
+						+(this.getMother()!=null && this.getMother().isPlayer()
 							?" you gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
 						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));

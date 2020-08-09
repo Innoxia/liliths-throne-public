@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA[A small tag sewn into the waist reads "MFD by DSG Apparel LLC.", based on design by "Blue999".]]></authorTag>
+		<value>200</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[lacy plunge bra]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[lacy plunge bras]]></namePlural>
+		<description><![CDATA[A low-cut bra that reveals a lot of the wearer's cleavage. This particular design is made from a soft, thin fabric, and has a lot of lace trimmings.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>lacy_plunge_bra.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LINGERIE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc.her] chest before fastening the straps at [npc.her] back.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc2.namePos] chest before fastening the straps at [npc2.her] back.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the bra over [npc2.namePos] chest before roughly fastening the straps at [npc2.her] back.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] bra and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] bra and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] bra and [npc.verb(take)] it off.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

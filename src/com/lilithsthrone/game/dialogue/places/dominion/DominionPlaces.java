@@ -28,10 +28,10 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -46,6 +46,10 @@ import com.lilithsthrone.world.places.PlaceType;
 public class DominionPlaces {
 
 	public static final int TRAVEL_TIME_STREET = 2*60;
+	
+	public static boolean isCloseToEnforcerHQ() {
+		return Vector2i.getDistance(Main.game.getPlayerCell().getLocation(), Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_ENFORCER_HQ).getLocation())<4f;
+	}
 	
 	private static String getExtraStreetFeatures() {
 		StringBuilder mommySB = new StringBuilder();
@@ -85,7 +89,7 @@ public class DominionPlaces {
 				cultistSB.append(
 						"<p>"
 							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
-							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and, if you were so inclined, you could easily find it again...")
+							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and if you were so inclined, you could easily find it again...")
 						+ "</p>");
 				break;
 			}
@@ -116,7 +120,7 @@ public class DominionPlaces {
 					mommySB.append(" As there's an ongoing arcane storm, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
 				} else if(!Main.game.isExtendedWorkTime()) {
 					mommySB.append(" As they're not out at work at this time, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
-				} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 					mommySB.append(" As you aren't able to access your mouth, however, there's [style.colourMinorBad(zero chance)] that any of them will approach you...");
 				} else {
 					mommySB.append(" Although Dominion is a huge city, there are a significant number of centaur slaves who work at Dominion Express, meaning that there's at least a [style.colourMinorGood(small chance)] that you'll run into one...");
@@ -199,6 +203,72 @@ public class DominionPlaces {
 		
 		return mommyResponses;
 	}
+
+	private static String getRandomStreetEvent() {
+		int extraText = Util.random.nextInt(100) + 1;
+		if (extraText <= 3) {
+			return ("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
+					+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
+		} else if (extraText <= 6) {
+			return ("<p><i>To one side, you see a pair of dog-boy Enforcers questioning a shady-looking cat-boy."
+					+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
+					+ " The Enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
+		} else if (extraText <= 9) {
+			return ("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
+					+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
+					+ " Underneath, the words 'Applications opening soon!' are displayed in bold red lettering.</i></p>");
+		} else if (extraText == 10) {
+			return ("<p><i>A greater cat-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.INT_INGREDIENT_FELINE_FANCY.getName(false)+ "'.</i></p>");
+		} else if (extraText == 11) {
+			return ("<p><i>A greater wolf-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_WOLF_WHISKEY.getName(false)+ "'.</i></p>");
+		} else if (extraText == 12) {
+			return ("<p><i>A greater dog-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.FIT_INGREDIENT_CANINE_CRUSH.getName(false)+ "'.</i></p>");
+		} else if (extraText == 13) {
+			return ("<p><i>A greater horse-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_EQUINE_CIDER.getName(false)+ "'.</i></p>");
+		} else if (extraText == 14) {
+			return ("<p><i>A cheering crowd has gathered to one side of the street, and as you glance across, a momentary gap in the crowd allows you to catch a glimpse of what's happening."
+					+ " A greater dog-girl is on all fours, and is being double penetrated by a greater horse-boy's pair of massive horse-cocks."
+					+ " The girl's juices are leaking down her legs and her tongue lolls from her mouth as the gigantic members thrust in and out of her stretched holes.</i></p>");
+		}
+		return "";
+	}
+	
+	private static String getEnforcersPresent() {
+		StringBuilder sb = new StringBuilder();
+
+		if(isCloseToEnforcerHQ()) {
+			sb.append("<p style='text-align:center;'><i>");
+				sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
+			sb.append("</i></p>");
+		}
+		
+		if(!Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+			sb.append("<p style='text-align:center;'><i>");
+			sb.append("There is a small chance of running into one of these [style.colourBlueDark(Enforcer patrols)]:");
+			
+			for(List<String> enforcerIds : Main.game.getSavedEnforcers(WorldType.DOMINION)) {
+				sb.append("<br/>");
+				List<String> names = new ArrayList<>();
+				for(String id : enforcerIds) {
+					try {
+						GameCharacter enforcer = Main.game.getNPCById(id);
+						names.add(UtilText.parse(enforcer, "<span style='color:"+enforcer.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				sb.append(Util.stringsToStringList(names, false));
+			}
+			
+			sb.append("</i></p>");
+		}
+		
+		return sb.toString();
+	}
 	
 	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
@@ -242,38 +312,6 @@ public class DominionPlaces {
 		}
 	};
 	
-	private static String getRandomStreetEvent() {
-		int extraText = Util.random.nextInt(100) + 1;
-		if (extraText <= 3) {
-			return ("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
-					+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
-		} else if (extraText <= 6) {
-			return ("<p><i>To one side, you see a pair of dog-boy Enforcers questioning a shady-looking cat-boy."
-					+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
-					+ " The Enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
-		} else if (extraText <= 9) {
-			return ("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
-					+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
-					+ " Underneath, the words 'Applications opening soon!' are displayed in bold red lettering.</i></p>");
-		} else if (extraText == 10) {
-			return ("<p><i>A greater cat-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.INT_INGREDIENT_FELINE_FANCY.getName(false)+ "'.</i></p>");
-		} else if (extraText == 11) {
-			return ("<p><i>A greater wolf-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_WOLF_WHISKEY.getName(false)+ "'.</i></p>");
-		} else if (extraText == 12) {
-			return ("<p><i>A greater dog-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.FIT_INGREDIENT_CANINE_CRUSH.getName(false)+ "'.</i></p>");
-		} else if (extraText == 13) {
-			return ("<p><i>A greater horse-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_EQUINE_CIDER.getName(false)+ "'.</i></p>");
-		} else if (extraText == 14) {
-			return ("<p><i>A cheering crowd has gathered to one side of the street, and as you glance across, a momentary gap in the crowd allows you to catch a glimpse of what's happening."
-					+ " A greater dog-girl is on all fours, and is being double penetrated by a greater horse-boy's pair of massive horse-cocks."
-					+ " The girl's juices are leaking down her legs and her tongue lolls from her mouth as the gigantic members thrust in and out of her stretched holes.</i></p>");
-		}
-		return "";
-	}
 
 
 	public static final DialogueNode BACK_ALLEYS_SAFE = new DialogueNode("", "", false) {
@@ -307,6 +345,7 @@ public class DominionPlaces {
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -323,7 +362,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -365,7 +404,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -391,6 +430,7 @@ public class DominionPlaces {
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -407,7 +447,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -531,7 +571,7 @@ public class DominionPlaces {
 											+UtilText.returnStringAtRandom(
 													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
 														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-															+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
+															+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
 													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
 														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
 															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
@@ -615,7 +655,7 @@ public class DominionPlaces {
 				return new Response("Rose Garden", "There's a beautiful rose garden just off to your right. Walk over to it and take a closer look.", PARK_ROSE_GARDEN) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", false), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", false), false));
 					}
 				};
 			} else {
@@ -652,7 +692,7 @@ public class DominionPlaces {
 				+ "</p>"
 				+ "<p>"
 					+ "You look around, but don't see anyone nearby who could be this 'William' character."
-					+ " Focusing your attention back to his rose garden, you decide to do as William's sign says, and, stepping forwards, you pluck a single red rose from the nearest bush."
+					+ " Focusing your attention back to his rose garden, you decide to do as his sign says, and after [pc.stepping] forwards, you pluck a single rose from the nearest bush."
 				+ "</p>";
 		}
 
@@ -745,6 +785,7 @@ public class DominionPlaces {
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -761,7 +802,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};
@@ -787,6 +828,7 @@ public class DominionPlaces {
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
+			UtilText.nodeContentSB.append(getEnforcersPresent());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -803,7 +845,7 @@ public class DominionPlaces {
 						}
 						@Override
 						public void effects() {
-							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 							Main.game.setContent(new Response("", "", dn));
 						}
 					};

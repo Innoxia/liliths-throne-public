@@ -270,7 +270,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		try {
 			String id = parentElement.getAttribute("id");
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
@@ -367,33 +367,53 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public abstract String onEquip(GameCharacter character);
 
 	public abstract String onUnequip(GameCharacter character);
-	
+
+	@Override
 	public String getDescription() {
+		return getDescription(null);
+	}
+	
+	public String getDescription(GameCharacter character) {
 		StringBuilder descriptionSB = new StringBuilder();
 		
+		if(character==null || !character.hasWeaponEquipped(this)) {
+			character = Main.game.getPlayer();
+		}
+		
 		int essenceCost = this.getWeaponType().getArcaneCost();
-		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(damageType.getName()) +"</b> <b>damage</b>";
-		descriptionSB.append("<p>");
-			descriptionSB.append("<b>"+Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)+"</b> "
-							+ damageName);
+		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		descriptionSB.append("<p><b>");
+			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
+								+" | "
+								+(this.getWeaponType().isUsingUnarmedCalculation()
+									?"[style.colourUnarmed(Unarmed)]"
+									:(this.getWeaponType().isMelee()
+										?"[style.colourMelee(Melee)]"
+										:"[style.colourRanged(Ranged)]"))
+								+"<br/>");
+			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"<br/>");
+			if(essenceCost>0) {
+				descriptionSB.append("Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
+			}
+			if(this.getWeaponType().isUsingUnarmedCalculation()) {
+				descriptionSB.append("Includes [style.boldUnarmed("+character.getUnarmedDamage()+" unarmed damage)]<br/>");
+			}
+			descriptionSB.append(Attack.getMinimumDamage(character, null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(character, null, Attack.MAIN, this)+" "+ damageName+"<br/>");
 			int targetNumber=2;
 			for(Value<Integer, Integer> aoe : this.getWeaponType().getAoeDamage()) {
 				int aoeChance = aoe.getKey();
 				String position = Util.intToPosition(targetNumber);
-				descriptionSB.append("<br/>[style.boldAqua(AoE)]: "
+				descriptionSB.append("[style.boldAqua(AoE)]: "
 						+ "<b style='color:"+(aoeChance<=25?PresetColour.GENERIC_BAD:(aoeChance<=50?PresetColour.GENERIC_MINOR_BAD:(aoeChance<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()+";'>"+aoeChance+"%</b>"
 						+ " chance to deal "
-						+ "<b>"+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this, aoe.getValue())+ "</b> "
-						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!");
+						+ "<b>"+ Attack.getMinimumDamage(character, null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(character, null, Attack.MAIN, this, aoe.getValue())+ "</b> "
+						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
 				targetNumber++;
 			}
-			descriptionSB.append("</br><b>"+(this.getWeaponType().isMelee()?"Melee":"Ranged")+" | "+(this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"</b>");
-			if(essenceCost>0) {
-				descriptionSB.append("<br/><b>Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"</b>");
-			}
-		descriptionSB.append("</p>");
+		descriptionSB.append("</b></p>");
 		descriptionSB.append("<p>");
 			descriptionSB.append(weaponType.getDescription());
+			descriptionSB.append("<br/>"+(getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
 		descriptionSB.append("</p>");
 		
 
@@ -407,25 +427,24 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							+ "</p>");
 		}
 
-		if (!attributeModifiers.isEmpty()) {
-			descriptionSB.append("<p>It provides ");
-			int i = 0;
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
-				if (i != 0) {
-					if (i + 1 == attributeModifiers.size())
-						descriptionSB.append(" and ");
-					else
-						descriptionSB.append(", ");
+		if(!this.getEffects().isEmpty()) {
+			descriptionSB.append("<p>Effects:");
+			for (ItemEffect e : this.getEffects()) {
+				if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE
+						&& e.getPrimaryModifier()!=TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+					for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+						descriptionSB.append("<br/>"+ s);
+					}
 				}
-
-				descriptionSB.append(" <b>" + e.getValue() + "</b> <b style='color: " + e.getKey().getColour().toWebHexString() + ";'> " + e.getKey().getName() + "</b>");
-				i++;
 			}
-			descriptionSB.append(".</p>");
+			for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+				descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
+			}
+			descriptionSB.append("</p>");
 		}
 
 		if (!spells.isEmpty()) {
-			descriptionSB.append("<p>Its arcane power grants you the ability to cast ");
+			descriptionSB.append("<p>"+(getWeaponType().isPlural()?"Their":"Its")+" arcane power grants you the ability to cast ");
 			int i = 0;
 			for (Spell s : spells) {
 				if (i != 0) {
@@ -443,17 +462,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 
 		if(!combatMoves.isEmpty()) {
-			descriptionSB.append("<p>When equipped, it unlocks the move"+(combatMoves.size()==1?"":"s")+": ");
+			descriptionSB.append("<p>When equipped, "+(getWeaponType().isPlural()?"they unlock":"it unlocks")+" the move"+(combatMoves.size()==1?"":"s")+": ");
 			List<String> combatMoveNames = new ArrayList<>();
 			descriptionSB.append("[style.italicsCombat(");
 			for(CombatMove cm : combatMoves) {
-				combatMoveNames.add(cm.getName(0, Main.game.getPlayer()));
+				combatMoveNames.add(cm.getName(0, character));
 			}
 			descriptionSB.append(Util.stringsToStringList(combatMoveNames, true));
 			descriptionSB.append(")]</p>");
 		}
-		
-		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
 
 		if (getWeaponType().getClothingSet() != null) {
 			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
@@ -593,7 +610,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	public void setEffects(List<ItemEffect> effects) {
-		this.effects = effects;
+		this.effects = new ArrayList<>(effects);
 	}
 
 	public void addEffect(ItemEffect effect) {

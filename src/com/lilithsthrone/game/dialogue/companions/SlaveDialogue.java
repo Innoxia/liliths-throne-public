@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.companions;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
@@ -10,9 +11,14 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -21,16 +27,17 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -481,7 +488,6 @@ public class SlaveDialogue {
 			} else if(index == 2) {
 				return UtilText.parse("[style.colourCompanion(Manage)]");
 			}
-			
 			return null;
 		}
 		
@@ -526,7 +532,35 @@ public class SlaveDialogue {
 						return new Response("Small talk", UtilText.parse(getSlave(), "You've already spent time talking with [npc.name] today."), null);
 					}
 					
-				} else if (index == 5) {
+				} else if (index == 3
+						&& getSlave().equals(Main.game.getNpc(Scarlett.class))
+						&& !Main.getProperties().hasValue(PropertyValue.companionContent)
+						&& Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
+					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
+						return new Response("Helena",
+								UtilText.parse(getSlave(), "Helena's shop is currently closed, so you're unable to take [npc.name] to her at the moment..."),
+								null);
+					}
+					return new Response("Helena",
+							UtilText.parse(getSlave(), "Accompany [npc.name] to Helena's store in Slaver Alley."),
+							ScarlettsShop.ROMANCE_SHOP_CORE) {//TODO
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.QUEST_RELATIONSHIP;
+						}
+						@Override
+						public void effects() {
+//							Main.game.getPlayer().addCompanion(getSlave());
+							applyReactionReset();
+							Main.game.getDialogueFlags().setManagementCompanion(null);
+							// Move them both here to make sure they haven't gone due to time ticking over into night time when player arrives:
+							Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+							Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+						}
+					};
+					
+				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 					if(!Main.game.getPlayer().hasCompanion(getSlave())) {
 						if(!getSlave().isCompanionAvailable(Main.game.getPlayer())) {
 							return new Response("Add to party",
@@ -650,7 +684,7 @@ public class SlaveDialogue {
 							@Override
 							public void effects() {
 								applyReactionReset();
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.PRESENT));
 								
 								Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
 								Main.game.getTextEndStringBuilder().append(getSlave().incrementObedience(-2));
@@ -1602,6 +1636,12 @@ public class SlaveDialogue {
 					break;
 				case BEDROOM:
 					UtilText.nodeContentSB.append("Wanting to make sure that [npc.nameIsFull] happy, you ask [npc.herHim] how [npc.she] feels about being assigned to wait upon you in your bedroom.");
+					break;
+				case SPA:
+					UtilText.nodeContentSB.append("Wanting to make sure that [npc.nameIsFull] happy, you ask [npc.herHim] how [npc.she] feels about being assigned to work in the spa.");
+					break;
+				case SPA_RECEPTIONIST:
+					UtilText.nodeContentSB.append("Wanting to make sure that [npc.nameIsFull] happy, you ask [npc.herHim] how [npc.she] feels about being assigned to work in the spa.");
 					break;
 			}
 			

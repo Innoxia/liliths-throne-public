@@ -6,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.Game;
@@ -17,6 +19,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -36,13 +39,21 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.managers.universal.SMBath;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.managers.universal.SMShower;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
@@ -60,6 +71,8 @@ public class RoomPlayer {
 
     private static GameCharacter makeupTarget;
     
+    private static List<GameCharacter> slavesWashing;
+    
     public static GameCharacter getMakeupTarget() {
         if(makeupTarget==null) {
             return Main.game.getPlayer();
@@ -67,10 +80,15 @@ public class RoomPlayer {
         return makeupTarget;
     }
     
+    /**
+     * @param sleepTimeInMinutes Calls an endTurn(sleepTimeInMinutes*60) so that NPCs have their status effects updated before the next scene is parsed.
+     */
 	public static void applySleep(int sleepTimeInMinutes) {
 		List<GameCharacter> charactersPresent = new ArrayList<>(LilayaHomeGeneric.getSlavesAndOccupantsPresent());
 		charactersPresent.addAll(Main.game.getPlayer().getCompanions());
 		charactersPresent.add(Main.game.getPlayer());
+		
+		Main.game.endTurn(sleepTimeInMinutes*60);
 		
 		for(GameCharacter character : charactersPresent) {
 			character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -83,7 +101,7 @@ public class RoomPlayer {
 			
 			boolean neet = character.hasTrait(Perk.JOB_UNEMPLOYED, true);
 			boolean emperorBed = Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
-			StatusEffect restedEffect = StatusEffect.WELL_RESTED;
+			AbstractStatusEffect restedEffect = StatusEffect.WELL_RESTED;
 			if(neet) {
 				if(emperorBed) {
 					restedEffect = StatusEffect.WELL_RESTED_BOOSTED_EXTRA;
@@ -93,28 +111,8 @@ public class RoomPlayer {
 			} else if(emperorBed) {
 				restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
 			}
-			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + (240*60) + (sleepTimeInMinutes*60));
+			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + (240*60));
 		}
-	}
-	
-	public static String applyWash(GameCharacter character, boolean washAllOrifices, boolean cleanAllClothing, StatusEffect effect, int additionalMinutes) {
-		StringBuilder sb = new StringBuilder();
-		
-		character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
-		
-		sb.append(character.washAllOrifices(washAllOrifices));
-		character.calculateStatusEffects(0);
-		character.cleanAllDirtySlots(true);
-		sb.append(character.cleanAllClothing(cleanAllClothing));
-
-		character.removeStatusEffect(StatusEffect.BATH);
-		character.removeStatusEffect(StatusEffect.BATH_BOOSTED);
-		if(effect!=null) {
-			character.addStatusEffect(effect, (240+additionalMinutes)*60);
-		}
-		
-		return sb.toString();
 	}
 	
 	private static Response getResponseRoom(int responseTab, int index) {
@@ -159,17 +157,19 @@ public class RoomPlayer {
 				};
 	
 			} else if (index == 4) {
-				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
+				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 				return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 						"Rest for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
 							+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
-							+ " until " + (Main.game.isDayTime() ? "evening ("+Units.time(sunriseSunset[1])+")." : "morning ("+Units.time(sunriseSunset[0])+").")
+							+ (Main.game.isDayTime()
+									? " until five minutes past sunset ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."
+									: " until five minutes past sunrise ("+Units.time(sunriseSunset[0].plusMinutes(5))+").")
 							+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP){
 					@Override
 					public void effects() {
-						sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
+						sleepTimeInMinutes = timeUntilChange;
 						applySleep(sleepTimeInMinutes);
 					}
 				};
@@ -219,6 +219,10 @@ public class RoomPlayer {
 							?SlaveDialogue.SLAVE_START
 							:OccupantDialogue.OCCUPANT_START) {
 					@Override
+					public Colour getHighlightColour() {
+						return character.getFemininity().getColour();
+					}
+					@Override
 					public void effects() {
 						if(character.isSlave()) {
 							SlaveDialogue.initDialogue(character, false);
@@ -234,17 +238,19 @@ public class RoomPlayer {
 				return new Response("Quick shower",
 						"Use your room's ensuite to take a bath or shower."
 								+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
-								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]"
-								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
+								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
+//								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
 						AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER){
 					@Override
 					public void effects() {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
-						List<NPC> slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
-						for(NPC npc : slavesWashing) {
-							applyWash(npc, true, true, null, 0);
+						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
+						for(GameCharacter npc : slavesWashing) {
+							npc.applyWash(true, true, null, 240+30);
 						}
-						Main.game.getTextEndStringBuilder().append(applyWash(Main.game.getPlayer(), false, false, null, 0));
+
+						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(false, false, null, 240+30));
 					}
 					@Override
 					public int getSecondsPassed() {
@@ -256,17 +262,19 @@ public class RoomPlayer {
 				return new Response("Thorough shower",
 						"Use your room's en-suite to take a shower, and spend some time thoroughly cleaning yourself."
 								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
-								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]"
-								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
+								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
+//								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
 						AUNT_HOME_PLAYERS_ROOM_THOROUGH_SHOWER){
 					@Override
 					public void effects() {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
-						List<NPC> slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
-						for(NPC npc : slavesWashing) {
-							applyWash(npc, true, true, null, 0);
+						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
+						for(GameCharacter npc : slavesWashing) {
+							npc.applyWash(true, true, null, 240+30);
 						}
-						Main.game.getTextEndStringBuilder().append(applyWash(Main.game.getPlayer(), true, true, null, 0));
+						
+						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, null, 240+30));
 					}
 					@Override
 					public int getSecondsPassed() {
@@ -278,18 +286,19 @@ public class RoomPlayer {
 				return new Response("Bath time",
 						"Use your room's en-suite to take a bath, and spend some time thoroughly cleaning yourself."
 								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
-								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]"
-								+ "<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]",
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]",
+//								+ "<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]",
 						AUNT_HOME_PLAYERS_ROOM_BATH){
 					@Override
 					public void effects() {
 						List<GameCharacter> charactersPresent = new ArrayList<>(LilayaHomeGeneric.getSlavesAndOccupantsPresent());
-						List<GameCharacter> slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
-						slavesWashing.addAll(Main.game.getPlayer().getCompanions());
+						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							applyWash(npc, true, true, StatusEffect.BATH, 30);
+							npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30);
 						}
-						Main.game.getTextEndStringBuilder().append(applyWash(Main.game.getPlayer(), true, true, StatusEffect.BATH, 30));
+						
+						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30));
 					}
 					@Override
 					public int getSecondsPassed() {
@@ -338,6 +347,607 @@ public class RoomPlayer {
 		}
 		return null;
 	}
+	
+	private static String getShowerSlavesDescription(List<GameCharacter> slavesWashing) {
+		StringBuilder sb = new StringBuilder();
+		
+		boolean soloSlave = slavesWashing.size()==1;
+		List<String> names = new ArrayList<>();
+		for(GameCharacter npc : slavesWashing) {
+			names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
+		}
+		
+		sb.append("<p>");
+			if(soloSlave) {
+				sb.append(UtilText.parse(slavesWashing,
+						"Having been instructed to assist you in washing yourself, your slave, "+Util.stringsToStringList(names, false)+", similarly leaves [npc.her] clothes by the door before following you into the bathroom."));
+					sb.append(UtilText.parse(slavesWashing,
+							" Thankfully, your luxurious shower is spacious enough that [npc.name] can quite comfortably fit in alongside you."));
+				
+			} else {
+				sb.append("Having been instructed to assist you in washing yourself, your slaves, "+Util.stringsToStringList(names, false)+", similarly leave their clothes by the door before following you into the bathroom.");
+					sb.append(UtilText.parse(slavesWashing,
+							" Thankfully, your luxurious shower is spacious enough that your slaves can quite comfortably fit in alongside you."));
+			}
+		sb.append("</p>");
+		
+		// Slave reactions while helping wash:
+		
+		List<GameCharacter> washingNice = slavesWashing.stream().filter(npc -> npc.getObedienceBasic()==ObedienceLevelBasic.OBEDIENT || npc.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE).collect(Collectors.toList());
+		boolean firstWashing = true;
+		for(GameCharacter npc : washingNice) {
+			sb.append("<p>");
+			List<String> start = new ArrayList<>();
+			List<String> speech = new ArrayList<>();
+			
+			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
+				if(firstWashing) {
+					if(Main.game.getPlayer().hasHair()) {
+						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your [pc.hair(true)] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+					} else {
+						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+					}
+				} else {
+					start.add("Picking up a bar of soap, [npc.name] assists [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" in cleaning your body. As [npc.she] sets about [npc.her] task, [npc.she] says,");
+					start.add("Stepping forwards, with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body, saying as [npc.she] does so,");
+					start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] starts cleaning your body, saying,");
+				}
+				speech.add("[npc.speech(I hope this is to your satisfaction, [pc.name].)]");
+				speech.add("[npc.speech(Please let me know if you need me to do anything differently, [pc.name].)]");
+				speech.add("[npc.speech(I'll be sure to do a good job in cleaning you, [pc.name].)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE)) {
+				if(firstWashing) {
+					if(npc.hasBreasts()) {
+						start.add("Turning on the taps, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
+								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.her] [npc.breasts+] against your back, [npc.she] seductively [npc.moans],");
+					} else {
+						start.add("Turning on the taps, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
+								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.herself] against your back, [npc.she] seductively [npc.moans],");
+					}
+				} else {
+					if(npc.hasBreasts()) {
+						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
+					} else {
+						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
+					}
+				}
+				speech.add("[npc.speech(You don't mind if I get this close, do you?)]");
+				speech.add("[npc.speech(You like the feeling of me being this close, don't you?)]");
+				speech.add("[npc.speech(That's right, relax and let me take care of you...)]");
+				speech.add("[npc.speech(Perhaps once you're clean, you'd like to do something dirty with me...)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SLUTTY)) {
+				if(firstWashing) {
+					if(npc.hasBreasts()) {
+						start.add("Turning on the taps, [npc.name] moves up close behind you, before immediately pressing [npc.her] [npc.breasts+] against your back."
+								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
+					} else {
+						start.add("Turning on the taps, [npc.name] moves up close behind you, before immediately pressing [npc.her] body in against your back."
+								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
+					}
+				} else {
+					if(npc.hasBreasts()) {
+						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
+					} else {
+						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
+					}
+				}
+				speech.add("[npc.speech(Oh yeah, you like me feeling you up like this, don't you?)]");
+				speech.add("[npc.speech(All this close contact is really turning me on; you wanna fuck after this?)]");
+				speech.add("[npc.speech(This is making me so horny... You're up for having a good fuck after this, aren't you?)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)
+					|| npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+				if(npc.isShy()) {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
+						} else {
+							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] nervously shuffles forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice a little, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] nervously sets about cleaning your body. Squeaking above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] blushes as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]?)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this...)]");
+						speech.add("[npc.speech(Getting to help you like this makes me so happy...)]");
+					} else {
+						speech.add("[npc.speech(I'm not doing this wrong, am I, [pc.name]?)]");
+						speech.add("[npc.speech(Just let me know if I'm doing this wrong...)]");
+						speech.add("[npc.speech(I hope this is how you wanted me to wash you...)]");
+					}
+					
+				} else if(npc.isKind()) {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						} else {
+							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] happily steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] happily sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
+					} else {
+						speech.add("[npc.speech(Let me know if you need me to do anything differently, ok, [pc.name]?)]");
+						speech.add("[npc.speech(Please tell me if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
+					}
+					
+				} else {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						} else {
+							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
+					} else {
+						speech.add("[npc.speech(Let me know if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Just tell me if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
+					}
+				}
+			}
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
+			sb.append(" ");
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
+			sb.append("</p>");
+			firstWashing = false;
+		}
+		
+		List<GameCharacter> washingRude = new ArrayList<>(slavesWashing);
+		washingRude.removeAll(washingNice);
+		for(GameCharacter npc : washingRude) {
+			sb.append("<p>");
+			List<String> start = new ArrayList<>();
+			List<String> speech = new ArrayList<>();
+			
+				if(npc.isShy()) {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
+								+ " Trying to use the sound of the running water to mask [npc.her] comments, [npc.she] mutters,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] casts [npc.her] gaze to the floor as [npc.she] half-heartedly starts to help you wash yourself. Letting out a weary sigh, [npc.she] mutters,");
+						start.add("Looking down at the floor, [npc.name] steps forwards and reluctantly starts to help you wash yourself. With an exasperated sigh, [npc.she] mutters under [npc.her] breath,");
+						start.add("Clearly not happy about it, [npc.name] nevertheless steps forwards and half-heartedly starts to help you wash yourself. Muttering under [npc.her] breath, [npc.she] sighs,");
+					}
+					speech.add("[npc.speech(I hate this...)]");
+					speech.add("[npc.speech(How did I ever end up having to do things like this...)]");
+					speech.add("[npc.speech(This sucks...)]");
+					
+				} else if(npc.isSelfish()) {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
+								+ " With a clear tone of animosity in [npc.her] voice, [npc.she] complains,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] complains,");
+						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
+						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] angrily says,");
+					}
+					speech.add("[npc.speech(I really hate doing this, you know? Just get some other slave to help you next time!)]");
+					speech.add("[npc.speech(Why do you insist on getting me to do this?! Isn't it clear that I hate helping you out like this?!)]");
+					speech.add("[npc.speech(This really fucking sucks. How about you get some other slave to wash you next time?)]");
+					
+				} else {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself. In a clear sign of displeasure, [npc.she] sighs,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] sighs,");
+						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
+						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] sighs,");
+					}
+					speech.add("[npc.speech(Is there nobody else you can ask to do this?)]");
+					speech.add("[npc.speech(I really wish you didn't make me do this...)]");
+					speech.add("[npc.speech(This sucks...)]");
+					speech.add("[npc.speech(I really hate having to do this, you know?)]");
+				}
+
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
+			sb.append(" ");
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
+			sb.append("</p>");
+			firstWashing = false;
+		}
+		
+		return sb.toString();
+	}
+	
+	private static String getBathSlavesDescription(List<GameCharacter> slavesWashing) {
+		StringBuilder sb = new StringBuilder();
+		
+		boolean soloSlave = slavesWashing.size()==1;
+		List<String> names = new ArrayList<>();
+		for(GameCharacter npc : slavesWashing) {
+			names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
+		}
+		
+		sb.append("<p>");
+			if(soloSlave) {
+				sb.append(UtilText.parse(slavesWashing,
+						"Having been instructed to assist you in washing yourself, your slave, "+Util.stringsToStringList(names, false)+", similarly leaves [npc.her] clothes by the door before following you into the bathroom."));
+					sb.append(UtilText.parse(slavesWashing,
+							" Thankfully, your luxurious bathroom is spacious enough that the room doesn't feel overcrowded with [npc.name] in here as well."));
+				
+			} else {
+				sb.append("Having been instructed to assist you in washing yourself, your slaves, "+Util.stringsToStringList(names, false)+", similarly leave their clothes by the door before following you into the bathroom.");
+					sb.append(UtilText.parse(slavesWashing,
+							" Thankfully, your luxurious bathroom is spacious enough that the room doesn't feel overcrowded with your slaves in here as well."));
+			}
+		sb.append("</p>");
+		
+		// Slave reactions while helping wash:
+		
+		List<GameCharacter> washingNice = slavesWashing.stream().filter(npc -> npc.getObedienceBasic()==ObedienceLevelBasic.OBEDIENT || npc.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE).collect(Collectors.toList());
+		boolean firstWashing = true;
+		for(GameCharacter npc : washingNice) {
+			sb.append("<p>");
+			List<String> start = new ArrayList<>();
+			List<String> speech = new ArrayList<>();
+			
+			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
+				if(firstWashing) {
+					if(Main.game.getPlayer().hasHair()) {
+						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your [pc.hair(true)] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+					} else {
+						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+					}
+				} else {
+					start.add("Picking up a bar of soap, [npc.name] assists [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" in cleaning your body. As [npc.she] sets about [npc.her] task, [npc.she] says,");
+					start.add("Stepping forwards, with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body, saying as [npc.she] does so,");
+					start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] starts cleaning your body, saying,");
+				}
+				speech.add("[npc.speech(I hope this is to your satisfaction, [pc.name].)]");
+				speech.add("[npc.speech(Please let me know if you need me to do anything differently, [pc.name].)]");
+				speech.add("[npc.speech(I'll be sure to do a good job in cleaning you, [pc.name].)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE)) {
+				if(firstWashing) {
+					if(npc.hasBreasts()) {
+						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
+								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.her] [npc.breasts+] against your back, [npc.she] seductively [npc.moans],");
+					} else {
+						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
+								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.herself] against your back, [npc.she] seductively [npc.moans],");
+					}
+				} else {
+					if(npc.hasBreasts()) {
+						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
+					} else {
+						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
+					}
+				}
+				speech.add("[npc.speech(You don't mind if I get this close, do you?)]");
+				speech.add("[npc.speech(You like the feeling of me being this close, don't you?)]");
+				speech.add("[npc.speech(That's right, relax and let me take care of you...)]");
+				speech.add("[npc.speech(Perhaps once you're clean, you'd like to do something dirty with me...)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SLUTTY)) {
+				if(firstWashing) {
+					if(npc.hasBreasts()) {
+						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before immediately pressing [npc.her] [npc.breasts+] against your back."
+								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
+					} else {
+						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before immediately pressing [npc.her] body in against your back."
+								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
+					}
+				} else {
+					if(npc.hasBreasts()) {
+						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
+					} else {
+						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
+						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
+						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
+					}
+				}
+				speech.add("[npc.speech(Oh yeah, you like me feeling you up like this, don't you?)]");
+				speech.add("[npc.speech(All this close contact is really turning me on; you wanna fuck after this?)]");
+				speech.add("[npc.speech(This is making me so horny... You're up for having a good fuck after this, aren't you?)]");
+				
+			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)
+					|| npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+				if(npc.isShy()) {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
+						} else {
+							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] nervously shuffles forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice a little, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] nervously sets about cleaning your body. Squeaking above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] blushes as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]?)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this...)]");
+						speech.add("[npc.speech(Getting to help you like this makes me so happy...)]");
+					} else {
+						speech.add("[npc.speech(I'm not doing this wrong, am I, [pc.name]?)]");
+						speech.add("[npc.speech(Just let me know if I'm doing this wrong...)]");
+						speech.add("[npc.speech(I hope this is how you wanted me to wash you...)]");
+					}
+					
+				} else if(npc.isKind()) {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						} else {
+							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] happily steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] happily sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
+					} else {
+						speech.add("[npc.speech(Let me know if you need me to do anything differently, ok, [pc.name]?)]");
+						speech.add("[npc.speech(Please tell me if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
+					}
+					
+				} else {
+					if(firstWashing) {
+						if(Main.game.getPlayer().hasHair()) {
+							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your [pc.hair(true)] and body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						} else {
+							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your body."
+									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
+						}
+					} else {
+						start.add("Clutching a bar of soap, [npc.name] steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
+						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
+						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
+					}
+					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
+						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
+						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
+					} else {
+						speech.add("[npc.speech(Let me know if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Just tell me if you need me to do anything differently.)]");
+						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
+					}
+				}
+			}
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
+			sb.append(" ");
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
+			sb.append("</p>");
+			firstWashing = false;
+		}
+		
+		List<GameCharacter> washingRude = new ArrayList<>(slavesWashing);
+		washingRude.removeAll(washingNice);
+		for(GameCharacter npc : washingRude) {
+			sb.append("<p>");
+			List<String> start = new ArrayList<>();
+			List<String> speech = new ArrayList<>();
+			
+				if(npc.isShy()) {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
+								+ " Trying to use the sound of the running water to mask [npc.her] comments, [npc.she] mutters,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] casts [npc.her] gaze to the floor as [npc.she] half-heartedly starts to help you wash yourself. Letting out a weary sigh, [npc.she] mutters,");
+						start.add("Looking down at the floor, [npc.name] steps forwards and reluctantly starts to help you wash yourself. With an exasperated sigh, [npc.she] mutters under [npc.her] breath,");
+						start.add("Clearly not happy about it, [npc.name] nevertheless steps forwards and half-heartedly starts to help you wash yourself. Muttering under [npc.her] breath, [npc.she] sighs,");
+					}
+					speech.add("[npc.speech(I hate this...)]");
+					speech.add("[npc.speech(How did I ever end up having to do things like this...)]");
+					speech.add("[npc.speech(This sucks...)]");
+					
+				} else if(npc.isSelfish()) {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
+								+ " With a clear tone of animosity in [npc.her] voice, [npc.she] complains,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] complains,");
+						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
+						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] angrily says,");
+					}
+					speech.add("[npc.speech(I really hate doing this, you know? Just get some other slave to help you next time!)]");
+					speech.add("[npc.speech(Why do you insist on getting me to do this?! Isn't it clear that I hate helping you out like this?!)]");
+					speech.add("[npc.speech(This really fucking sucks. How about you get some other slave to wash you next time?)]");
+					
+				} else {
+					if(firstWashing) {
+						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself. In a clear sign of displeasure, [npc.she] sighs,");
+					} else {
+						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] sighs,");
+						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
+						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] sighs,");
+					}
+					speech.add("[npc.speech(Is there nobody else you can ask to do this?)]");
+					speech.add("[npc.speech(I really wish you didn't make me do this...)]");
+					speech.add("[npc.speech(This sucks...)]");
+					speech.add("[npc.speech(I really hate having to do this, you know?)]");
+				}
+
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
+			sb.append(" ");
+			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
+			sb.append("</p>");
+			firstWashing = false;
+		}
+		
+		return sb.toString();
+	}
+	
+	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
+	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
+	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
+	 * Animals are:<br/>
+	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
+	 */
+	private static String getCalendarImageDescription(Month month) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<p>"
+				+ "Flicking through the calendar until you're looking at the page for "+month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", you see that this month's image is now of ");
+		
+		if(Util.random.nextInt()<15) {
+			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+				sb.append(UtilText.returnStringAtRandom(
+						"a handsome merman, who's busily flexing his muscles while perched on a wave-swept rock.",
+						"muscular reindeer-boy, who's grinning as he presents his huge cock to you."));
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock.",
+						"a curvy reindeer-girl, who's bending over a wooden table and presenting her wet pussy to you."));
+			}
+			
+		} else {
+			switch(month) {
+				case JANUARY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a toned "+Subspecies.RAT_MORPH.getSingularMaleName(null)+", who's grinning mischievously at you while stroking his fat, erect cock.");
+					} else {
+						sb.append("a horny "+Subspecies.RAT_MORPH.getSingularFemaleName(null)+", who's bent over a table in order to present her dripping pussy to you.");
+					}
+					break;
+				case FEBRUARY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a topless "+Subspecies.COW_MORPH.getSingularMaleName(null)+"."
+								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
+					} else {
+						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
+								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
+					}
+					break;
+				case MARCH:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularMaleName(null)+"."
+								+ " Striking a dominant pose, he's flashing you a toothy grin, clearly excited by the fact that his huge feline cock is fully on display.");
+					} else {
+						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularFemaleName(null)+"."
+								+ " Striking a dominant pose, she's flashing you a toothy grin, clearly excited by the fact that her large breasts and tight pussy are fully on display.");
+					}
+					break;
+				case APRIL:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a handsome "+Subspecies.RABBIT_MORPH.getSingularMaleName(null)+", who's holding his massive cock in one hand while giving you a suggestive wink.");
+					} else {
+						sb.append("three blushing "+Subspecies.RABBIT_MORPH.getPluralFemaleName(null)+", who are down on all fours, side-by-side, presenting their pussies to you.");
+					}
+					break;
+				case MAY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a powerful dragon, who's sitting on a golden throne perched on the top of a huge pile of treasure."
+								+ " His huge, scaly cock is fully on display, and with a grin on his face, he's giving you an expectant look, as though he's waiting for you to climb up and get a taste of it.");
+					} else {
+						sb.append("a powerful dragoness, who's sitting on a golden throne perched on the top of a huge pile of treasure."
+								+ " Her wet, scaly pussy is fully on display, and with a grin on her face, she's giving you an expectant look, as though she's waiting for you to climb up and get a taste of it.");
+					}
+					break;
+				case JUNE:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an exotic-looking male lamia."
+								+ " He's quite clearly turned on and eager to have sex with someone, for his twin-cocks have pushed out from his cloaca; their heads already glistening in the sun from the slimy precum they're starting to exude.");
+					} else {
+						sb.append("an exotic-looking female lamia."
+								+ " She's quite clearly turned on and eager to have sex with someone, for she's reaching down to spread her cloaca and present her dripping-wet pussy to you.");
+					}
+					break;
+				case JULY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
+					} else {
+						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
+					}
+					break;
+				case AUGUST:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a sheep-boy and goat-boy, standing side-by-side and presenting their erect cocks as they wink playfully at you.");
+					} else {
+						sb.append("a wooly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
+					}
+					break;
+				case SEPTEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an unusually-masculine harpy."
+								+ " Although the size of his cock is nothing to write home about, he's extremely handsome, and you feel your heart beating faster as you see him winking at you.");
+					} else {
+						sb.append("a beautiful female harpy."
+								+ " Although she's willingly presenting her wet pussy to you, the look on her face is one of condescending superiority,"
+									+ " and you get the impression that she'd make some kind of outrageous demand in exchange for allowing you to have sex with her.");
+					}
+					break;
+				case OCTOBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a fit, handsome "+Subspecies.DEMON.getSingularMaleName(null)+", who's suggestively winking at you as he runs his fingers over his huge, erect cock.");
+					} else {
+						sb.append("a fit, beautiful "+Subspecies.DEMON.getSingularFemaleName(null)+", wearing nothing but a witch's hat, who's suggestively winking at you as she runs her fingers over her wet pussy and huge breasts.");
+					}
+					break;
+				case NOVEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
+					} else {
+						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
+					}
+					break;
+				case DECEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a muscular boar-boy, who's grinning at you in anticipation as he strokes his huge cock and pair of massive, cum-filled balls.");
+					} else {
+						sb.append("a pretty, blushing pig-girl, who's leaning back against a wall and reaching down to spread her puffy pink pussy to you.");
+					}
+					break;
+			}
+		}
+		
+		sb.append(" After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+				+ "</p>");
+		
+		return sb.toString();
+	}
 
 	public static final DialogueNode ROOM = new DialogueNode("Your Room", "", false) {
 		@Override
@@ -372,7 +982,7 @@ public class RoomPlayer {
 						+ "Like everything else that normally would have run on electricity in your world, the lighting, radiators, and plumbing all appear to be powered by the arcane."
 					+ "</p>");
 			
-			sb.append(LilayaHomeGeneric.getRoomModificationsDescription());
+			sb.append(LilayaHomeGeneric.getRoomModificationsDescription(false));
 
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 			if(!charactersPresent.isEmpty()) {
@@ -406,7 +1016,7 @@ public class RoomPlayer {
 						
 						if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
 							speechGreetings.add("[npc.speech(Welcome back, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome home, [pc.name],)]");
 							
 							if(npc.isFeminine()) {
@@ -455,7 +1065,7 @@ public class RoomPlayer {
 							
 						} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)) {
 							speechGreetings.add("[npc.speech(Hello, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome back, [pc.name],)]");
 							
 							if(npc.isShy()) {
@@ -469,7 +1079,7 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] happily greets you in a loving tone,");
 								
 								endSpeechGreetings.add("[npc.speech(Is there anything I can do for you?)]");
-								endSpeechGreetings.add("[npc.speech(How are you this [game.morning]?)]");
+								endSpeechGreetings.add("[npc.speech(How are you this [style.morning]?)]");
 								endSpeechGreetings.add("[npc.speech(Please let me know if there's anything I can do for you!)]");
 								
 							} else {
@@ -483,7 +1093,7 @@ public class RoomPlayer {
 							
 						} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
 							speechGreetings.add("[npc.speech(Hello, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome home, [pc.name],)]");
 							
 							if(npc.isShy()) {
@@ -635,10 +1245,10 @@ public class RoomPlayer {
 			return !slavesWantingToSexPlayer(Main.game.getHourOfDay()).isEmpty();
 		}
 		
-		@Override
-		public int getSecondsPassed() {
-			return sleepTimeInMinutes*60;
-		}
+//		@Override
+//		public int getSecondsPassed() {
+//			return sleepTimeInMinutes*60;
+//		}
 
 		@Override
 		public String getContent() {
@@ -838,7 +1448,7 @@ public class RoomPlayer {
 					}
 				}
 				
-				int hour = (Main.game.getHourOfDay()+(sleepTimeInMinutes/60))%24;
+				int hour = Main.game.getHourOfDay();
 				String morningString = "evening";
 				if(hour<4) {
 					morningString = "evening";
@@ -1109,244 +1719,14 @@ public class RoomPlayer {
 		}
 	};
 	
-	private static String getShowerSlavesDescription(List<GameCharacter> slavesWashing) {
-		StringBuilder sb = new StringBuilder();
-		
-		boolean soloSlave = slavesWashing.size()==1;
-		List<String> names = new ArrayList<>();
-		for(GameCharacter npc : slavesWashing) {
-			names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
-		}
-		
-		sb.append("<p>");
-			if(soloSlave) {
-				sb.append(UtilText.parse(slavesWashing,
-						"Having been instructed to assist you in washing yourself, your slave, "+Util.stringsToStringList(names, false)+", similarly leaves [npc.her] clothes by the door before following you into the bathroom."));
-					sb.append(UtilText.parse(slavesWashing,
-							" Thankfully, your luxurious shower is spacious enough that [npc.name] has no trouble at all fitting in alongside you."));
-				
-			} else {
-				sb.append("Having been instructed to assist you in washing yourself, your slaves, "+Util.stringsToStringList(names, false)+", similarly leave their clothes by the door before following you into the bathroom.");
-					sb.append(UtilText.parse(slavesWashing,
-							" Thankfully, your luxurious shower is spacious enough that your slaves have no trouble fitting in alongside you."));
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER = new DialogueNode("Your Room", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			// Make sure that the washing slaves don't disappear during this scene:
+			for(GameCharacter slave : slavesWashing) {
+				slave.setLocation(Main.game.getPlayer(), false);
 			}
-		sb.append("</p>");
-		
-		// Slave reactions while helping wash:
-		
-		List<GameCharacter> washingNice = slavesWashing.stream().filter(npc -> npc.getObedienceBasic()==ObedienceLevelBasic.OBEDIENT || npc.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE).collect(Collectors.toList());
-		boolean firstWashing = true;
-		for(GameCharacter npc : washingNice) {
-			sb.append("<p>");
-			List<String> start = new ArrayList<>();
-			List<String> speech = new ArrayList<>();
-			
-			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
-				if(firstWashing) {
-					if(Main.game.getPlayer().hasHair()) {
-						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your [pc.hair] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
-					} else {
-						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
-					}
-				} else {
-					start.add("Picking up a bar of soap, [npc.name] assists [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" in cleaning your body. As [npc.she] sets about [npc.her] task, [npc.she] says,");
-					start.add("Stepping forwards, with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body, saying as [npc.she] does so,");
-					start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] starts cleaning your body, saying,");
-				}
-				speech.add("[npc.speech(I hope this is to your satisfaction, [pc.name].)]");
-				speech.add("[npc.speech(Please let me know if you need me to do anything differently, [pc.name].)]");
-				speech.add("[npc.speech(I'll be sure to do a good job in cleaning you, [pc.name].)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE)) {
-				if(firstWashing) {
-					if(npc.hasBreasts()) {
-						start.add("Turning on the taps, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
-								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.her] [npc.breasts+] against your back, [npc.she] seductively [npc.moans],");
-					} else {
-						start.add("Turning on the taps, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
-								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.herself] against your back, [npc.she] seductively [npc.moans],");
-					}
-				} else {
-					if(npc.hasBreasts()) {
-						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
-					} else {
-						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
-					}
-				}
-				speech.add("[npc.speech(You don't mind if I get this close, do you?)]");
-				speech.add("[npc.speech(You like the feeling of me being this close, don't you?)]");
-				speech.add("[npc.speech(That's right, relax and let me take care of you...)]");
-				speech.add("[npc.speech(Perhaps once you're clean, you'd like to do something dirty with me...)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SLUTTY)) {
-				if(firstWashing) {
-					if(npc.hasBreasts()) {
-						start.add("Turning on the taps, [npc.name] moves up close behind you, before immediately pressing [npc.her] [npc.breasts+] against your back."
-								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
-					} else {
-						start.add("Turning on the taps, [npc.name] moves up close behind you, before immediately pressing [npc.her] body in against your back."
-								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
-					}
-				} else {
-					if(npc.hasBreasts()) {
-						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
-					} else {
-						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
-					}
-				}
-				speech.add("[npc.speech(Oh yeah, you like me feeling you up like this, don't you?)]");
-				speech.add("[npc.speech(All this close contact is really turning me on; you wanna fuck after this?)]");
-				speech.add("[npc.speech(This is making me so horny... You're up for having a good fuck after this, aren't you?)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)
-					|| npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-				if(npc.isShy()) {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
-						} else {
-							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] nervously shuffles forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice a little, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] nervously sets about cleaning your body. Squeaking above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] blushes as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]?)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this...)]");
-						speech.add("[npc.speech(Getting to help you like this makes me so happy...)]");
-					} else {
-						speech.add("[npc.speech(I'm not doing this wrong, am I, [pc.name]?)]");
-						speech.add("[npc.speech(Just let me know if I'm doing this wrong...)]");
-						speech.add("[npc.speech(I hope this is how you wanted me to wash you...)]");
-					}
-					
-				} else if(npc.isKind()) {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						} else {
-							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] happily steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] happily sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
-					} else {
-						speech.add("[npc.speech(Let me know if you need me to do anything differently, ok, [pc.name]?)]");
-						speech.add("[npc.speech(Please tell me if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
-					}
-					
-				} else {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						} else {
-							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
-					} else {
-						speech.add("[npc.speech(Let me know if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Just tell me if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
-					}
-				}
-			}
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
-			sb.append(" ");
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
-			sb.append("</p>");
-			firstWashing = false;
 		}
-		
-		List<GameCharacter> washingRude = new ArrayList<>(slavesWashing);
-		washingRude.removeAll(washingNice);
-		for(GameCharacter npc : washingRude) {
-			sb.append("<p>");
-			List<String> start = new ArrayList<>();
-			List<String> speech = new ArrayList<>();
-			
-				if(npc.isShy()) {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
-								+ " Trying to use the sound of the running water to mask [npc.her] comments, [npc.she] mutters,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] casts [npc.her] gaze to the floor as [npc.she] half-heartedly starts to help you wash yourself. Letting out a weary sigh, [npc.she] mutters,");
-						start.add("Looking down at the floor, [npc.name] steps forwards and reluctantly starts to help you wash yourself. With an exasperated sigh, [npc.she] mutters under [npc.her] breath,");
-						start.add("Clearly not happy about it, [npc.name] nevertheless steps forwards and half-heartedly starts to help you wash yourself. Muttering under [npc.her] breath, [npc.she] sighs,");
-					}
-					speech.add("[npc.speech(I hate this...)]");
-					speech.add("[npc.speech(How did I ever end up having to do things like this...)]");
-					speech.add("[npc.speech(This sucks...)]");
-					
-				} else if(npc.isSelfish()) {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
-								+ " With a clear tone of animosity in [npc.her] voice, [npc.she] complains,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] complains,");
-						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
-						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] angrily says,");
-					}
-					speech.add("[npc.speech(I really hate doing this, you know? Just get some other slave to help you next time!)]");
-					speech.add("[npc.speech(Why do you insist on getting me to do this?! Isn't it clear that I hate helping you out like this?!)]");
-					speech.add("[npc.speech(This really fucking sucks. How about you get some other slave to wash you next time?)]");
-					
-				} else {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself. In a clear sign of displeasure, [npc.she] sighs,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] sighs,");
-						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
-						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] sighs,");
-					}
-					speech.add("[npc.speech(Is there nobody else you can ask to do this?)]");
-					speech.add("[npc.speech(I really wish you didn't make me do this...)]");
-					speech.add("[npc.speech(This sucks...)]");
-					speech.add("[npc.speech(I really hate having to do this, you know?)]");
-				}
-
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
-			sb.append(" ");
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
-			sb.append("</p>");
-			firstWashing = false;
-		}
-		
-		return sb.toString();
-	}
-	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER = new DialogueNode("Your Room", "", false) {
-		
 		@Override
 		public String getContent() {
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
@@ -1360,45 +1740,117 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append("</p>");
 			
 			if(!slavesWashing.isEmpty()) {
-				boolean soloSlave = slavesWashing.size()==1;
 				UtilText.nodeContentSB.append(getShowerSlavesDescription(slavesWashing));
-				
-				UtilText.nodeContentSB.append("<p>");
-				if(soloSlave) {
-					UtilText.nodeContentSB.append(UtilText.parse(slavesWashing,
-							"Not wanting to spend too much time in the shower, you soon tell [npc.name] to turn off the tap and help you to dry off."
-									+ " After doing this, the two of you get dressed and step back into your room..."));
-				} else {
-					UtilText.nodeContentSB.append("Not wanting to spend too much time in the shower, you soon tell your slaves to turn off the tap and help you to dry off."
-									+ " After doing this, you all get dressed and step back into your room...");
-				}
-				UtilText.nodeContentSB.append("</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Turning on the tap, you let out a relaxed sigh as you feel the warm water flowing down over your naked body."
-							+ " Wanting to get this over with as quickly as possible, you focus simply on cleaning yourself, and once you're done, turn off the tap and dry yourself off."
-							+ " Getting dressed, you then step back into your room..."
+							+ " Not wanting to spend too much time in the shower, you focus on quickly cleaning yourself..."
 						+ "</p>");
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return ROOM.getResponseTabTitle(index);
-		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return ROOM.getResponse(responseTab, index);
+			SexSlot[] showerSlots = new SexSlot[] {
+					SexSlotStanding.STANDING_SUBMISSIVE,
+					SexSlotStanding.STANDING_SUBMISSIVE_BEHIND,
+					SexSlotStanding.STANDING_SUBMISSIVE_TWO,
+					SexSlotStanding.STANDING_SUBMISSIVE_BEHIND_TWO};
+			
+			if(index==1) {
+				return new Response("Finish", "Finish having a shower and return to your room.", ROOM) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append("<p>");
+							if(!slavesWashing.isEmpty()) {
+									if(slavesWashing.size()==1) {
+										Main.game.getTextStartStringBuilder().append(UtilText.parse(slavesWashing,
+												"Not wanting to spend too much time in the shower, you soon tell [npc.name] to turn off the tap and help you to dry off."
+													+ " After doing this, the two of you get dressed and step back into your room..."));
+									} else {
+										Main.game.getTextStartStringBuilder().append(
+												"Not wanting to spend too much time in the shower, you soon tell your slaves to turn off the tap and help you to dry off."
+													+ " After doing this, you all get dressed and step back into your room...");
+									}
+								
+							} else {
+								Main.game.getTextStartStringBuilder().append(
+										"After a while, you feel as though you've spent enough time in the shower, and after turning off the tap and drying yourself with a fluffy towel, you get dressed and step back into your room...");
+							}
+						Main.game.getTextStartStringBuilder().append("</p>");
+					}
+				};
+				
+			} else if(index==2) { // If you change this, be aware that it is called in AUNT_HOME_PLAYERS_ROOM_THOROUGH_SHOWER
+				if(slavesWashing.isEmpty()) {
+					return new Response("Sex", "You do not have any slaves assigned to your bedroom with the washing permission, so there's nobody for you to have sex with...", null);
+				}
+				
+				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
+				for(int i=0 ; i<slavesWashing.size(); i++) {
+					slaveSlots.put(slavesWashing.get(i), showerSlots[i]);
+				}
+				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				return new ResponseSex("Sex",
+						slavesWashing.size()==1
+							?UtilText.parse(slavesWashing, "Have dominant sex with [npc.name] in the shower.")
+							:"Have dominant sex with your slaves in the shower.",
+						true, false,
+						new SMShower(SexPosition.STANDING,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+								slaveSlots),
+						null,
+						null,
+						AFTER_SHOWER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "START_SHOWER_SEX_AS_DOM", slavesWashing));
+				
+			} else if(index==3) {  // If you change this, be aware that it is called in AUNT_HOME_PLAYERS_ROOM_THOROUGH_SHOWER
+				if(slavesWashing.isEmpty()) {
+					return new Response("Submissive sex", "You do not have any slaves assigned to your bedroom with the washing permission, so there's nobody for you to have submissive sex with...", null);
+				}
+				if(!slavesWashing.stream().anyMatch(s->s.isAttractedTo(Main.game.getPlayer()))) {
+					return new Response("Submissive sex",
+							slavesWashing.size()==1
+								?UtilText.parse(slavesWashing, "As [npc.name] isn't attracted to you, [npc.she] is unwilling to be the dominant partner in sex...")
+								:"Have dominant sex with your slaves in the shower.",
+							null);
+				}
+				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
+				List<GameCharacter> attractedSlaves = slavesWashing.stream().filter(s->s.isAttractedTo(Main.game.getPlayer())).collect(Collectors.toList());
+				for(int i=0 ; i<attractedSlaves.size(); i++) {
+					slaveSlots.put(attractedSlaves.get(i), showerSlots[i]);
+				}
+				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				return new ResponseSex("Submissive sex",
+						attractedSlaves.size()==1
+								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the shower.")
+										:"Let your slaves dominantly fuck you in the shower.",
+						true, true,
+						new SMShower(SexPosition.STANDING,
+								slaveSlots,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT))),
+						null,
+						null,
+						AFTER_SHOWER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "START_SHOWER_SEX_AS_SUB", attractedSlaves));
+			}
+			
+			return null;
+		
 		}
 	};
 	
-	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_THOROUGH_SHOWER = new DialogueNode("Your Room", "", false) {
-		
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_THOROUGH_SHOWER = new DialogueNode("Your Room", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			// Make sure that the washing slaves don't disappear during this scene:
+			for(GameCharacter slave : slavesWashing) {
+				slave.setLocation(Main.game.getPlayer(), false);
+			}
+		}
 		@Override
 		public String getContent() {
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
@@ -1412,285 +1864,90 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append("</p>");
 			
 			if(!slavesWashing.isEmpty()) {
-				boolean soloSlave = slavesWashing.size()==1;
 				UtilText.nodeContentSB.append(getShowerSlavesDescription(slavesWashing));
-				
-				UtilText.nodeContentSB.append("<p>");
-				if(soloSlave) {
-					UtilText.nodeContentSB.append(UtilText.parse(slavesWashing,
-							"After making sure that every last inch of your body is sparkling clean, you tell [npc.name] to turn off the tap and help you to dry off."
-									+ " After doing this, the two of you get dressed and step back into your room..."));
-				} else {
-					UtilText.nodeContentSB.append(
-							"After making sure that every last inch of your body is sparkling clean, you tell your slaves to turn off the tap and help you to dry off."
-									+ " After doing this, you all get dressed and step back into your room...");
-				}
-				UtilText.nodeContentSB.append("</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Turning on the tap, you let out a contented sigh as you feel the warm water flowing down over your naked body."
 							+ " Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself."
-							+ " Eventually, however, you feel as though you've spent enough time in the shower, and, after turning off the tap and drying yourself off, you get dressed and step back into your room..."
 						+ "</p>");
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return ROOM.getResponseTabTitle(index);
-		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return ROOM.getResponse(responseTab, index);
+			if(index==1) {
+				return new Response("Finish", "Finish having a shower and return to your room.", ROOM) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append("<p>");
+							if(!slavesWashing.isEmpty()) {
+									if(slavesWashing.size()==1) {
+										Main.game.getTextStartStringBuilder().append(UtilText.parse(slavesWashing,
+												"After making sure that every last inch of your body is sparkling clean, you tell [npc.name] to turn off the tap and help you to dry off."
+													+ " After doing this, the two of you get dressed and step back into your room..."));
+									} else {
+										Main.game.getTextStartStringBuilder().append(
+												"After making sure that every last inch of your body is sparkling clean, you tell your slaves to turn off the tap and help you to dry off."
+													+ " After doing this, you all get dressed and step back into your room...");
+									}
+								
+							} else {
+								Main.game.getTextStartStringBuilder().append(
+										"After a while, you feel as though you've spent enough time in the shower, and after turning off the tap and drying yourself with a fluffy towel, you get dressed and step back into your room...");
+							}
+						Main.game.getTextStartStringBuilder().append("</p>");
+					}
+				};
+				
+			} if(index==2) {
+				return AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER.getResponse(responseTab, index);
+				
+			} else if(index==3) {
+				return AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER.getResponse(responseTab, index);
+			}
+			
+			return null;
 		}
 	};
-	private static String getBathSlavesDescription(List<GameCharacter> slavesWashing) {
-		StringBuilder sb = new StringBuilder();
-		
-		boolean soloSlave = slavesWashing.size()==1;
-		List<String> names = new ArrayList<>();
-		for(GameCharacter npc : slavesWashing) {
-			names.add("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName()+"</span>");
-		}
-		
-		sb.append("<p>");
-			if(soloSlave) {
-				sb.append(UtilText.parse(slavesWashing,
-						"Having been instructed to assist you in washing yourself, your slave, "+Util.stringsToStringList(names, false)+", similarly leaves [npc.her] clothes by the door before following you into the bathroom."));
-					sb.append(UtilText.parse(slavesWashing,
-							" Thankfully, your luxurious bathroom is spacious enough that the room doesn't feel overcrowded with [npc.name] in here as well."));
-				
-			} else {
-				sb.append("Having been instructed to assist you in washing yourself, your slaves, "+Util.stringsToStringList(names, false)+", similarly leave their clothes by the door before following you into the bathroom.");
-					sb.append(UtilText.parse(slavesWashing,
-							" Thankfully, your luxurious bathroom is spacious enough that the room doesn't feel overcrowded with your slaves in here as well."));
+	
+	public static final DialogueNode AFTER_SHOWER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			for(GameCharacter npc : slavesWashing) {
+				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30);
 			}
-		sb.append("</p>");
-		
-		// Slave reactions while helping wash:
-		
-		List<GameCharacter> washingNice = slavesWashing.stream().filter(npc -> npc.getObedienceBasic()==ObedienceLevelBasic.OBEDIENT || npc.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE).collect(Collectors.toList());
-		boolean firstWashing = true;
-		for(GameCharacter npc : washingNice) {
-			sb.append("<p>");
-			List<String> start = new ArrayList<>();
-			List<String> speech = new ArrayList<>();
-			
-			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
-				if(firstWashing) {
-					if(Main.game.getPlayer().hasHair()) {
-						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your [pc.hair] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
-					} else {
-						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
-					}
-				} else {
-					start.add("Picking up a bar of soap, [npc.name] assists [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" in cleaning your body. As [npc.she] sets about [npc.her] task, [npc.she] says,");
-					start.add("Stepping forwards, with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body, saying as [npc.she] does so,");
-					start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] starts cleaning your body, saying,");
-				}
-				speech.add("[npc.speech(I hope this is to your satisfaction, [pc.name].)]");
-				speech.add("[npc.speech(Please let me know if you need me to do anything differently, [pc.name].)]");
-				speech.add("[npc.speech(I'll be sure to do a good job in cleaning you, [pc.name].)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE)) {
-				if(firstWashing) {
-					if(npc.hasBreasts()) {
-						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
-								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.her] [npc.breasts+] against your back, [npc.she] seductively [npc.moans],");
-					} else {
-						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before soaping your back down and starting to clean you."
-								+ " Suddenly, [npc.she] steps forwards, and, pressing [npc.herself] against your back, [npc.she] seductively [npc.moans],");
-					}
-				} else {
-					if(npc.hasBreasts()) {
-						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
-					} else {
-						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
-					}
-				}
-				speech.add("[npc.speech(You don't mind if I get this close, do you?)]");
-				speech.add("[npc.speech(You like the feeling of me being this close, don't you?)]");
-				speech.add("[npc.speech(That's right, relax and let me take care of you...)]");
-				speech.add("[npc.speech(Perhaps once you're clean, you'd like to do something dirty with me...)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SLUTTY)) {
-				if(firstWashing) {
-					if(npc.hasBreasts()) {
-						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before immediately pressing [npc.her] [npc.breasts+] against your back."
-								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
-					} else {
-						start.add("Turning on the taps and running you a bath, [npc.name] moves up close behind you, before immediately pressing [npc.her] body in against your back."
-								+ " Obviously seeing this as an opportunity to have some fun with you, [npc.she] reaches around to start groping your body, seductively [npc.moaning] into your [pc.ear] as [npc.she] does this,");
-					}
-				} else {
-					if(npc.hasBreasts()) {
-						start.add("Stepping forwards, [npc.name] presses [npc.her] [npc.breasts+] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.her] [npc.breasts+] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.her] [npc.breasts+] against you, [npc.moaning],");
-					} else {
-						start.add("Stepping forwards, [npc.name] presses [npc.herself] against your back, before seductively [npc.moaning],");
-						start.add("Rubbing a bar of soap over your back, [npc.name] suddenly steps forwards, pressing [npc.herself] against you as [npc.she] seductively [npc.moans],");
-						start.add("Deciding to start by cleaning your back, [npc.name] steps around behind you, before leaning forwards and pressing [npc.herself] against you, [npc.moaning],");
-					}
-				}
-				speech.add("[npc.speech(Oh yeah, you like me feeling you up like this, don't you?)]");
-				speech.add("[npc.speech(All this close contact is really turning me on; you wanna fuck after this?)]");
-				speech.add("[npc.speech(This is making me so horny... You're up for having a good fuck after this, aren't you?)]");
-				
-			} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)
-					|| npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-				if(npc.isShy()) {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
-						} else {
-							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] nervously shuffles forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice a little, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] nervously sets about cleaning your body. Squeaking above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] blushes as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]?)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this...)]");
-						speech.add("[npc.speech(Getting to help you like this makes me so happy...)]");
-					} else {
-						speech.add("[npc.speech(I'm not doing this wrong, am I, [pc.name]?)]");
-						speech.add("[npc.speech(Just let me know if I'm doing this wrong...)]");
-						speech.add("[npc.speech(I hope this is how you wanted me to wash you...)]");
-					}
-					
-				} else if(npc.isKind()) {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						} else {
-							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] happily steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] happily sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
-					} else {
-						speech.add("[npc.speech(Let me know if you need me to do anything differently, ok, [pc.name]?)]");
-						speech.add("[npc.speech(Please tell me if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
-					}
-					
-				} else {
-					if(firstWashing) {
-						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your [pc.hair] and body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						} else {
-							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your body."
-									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
-						}
-					} else {
-						start.add("Clutching a bar of soap, [npc.name] steps forwards, before helping [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+" to clean you. Raising [npc.her] voice, [npc.she] says,");
-						start.add("Stepping forwards with a bar of soap in [npc.hand], [npc.name] sets about cleaning your body. Raising [npc.her] voice above the noise of running water, [npc.she] says,");
-						start.add("Stepping up beside [npc.her] fellow "+(washingNice.size()>2?"slaves":"slave")+", [npc.name] smiles as [npc.she] starts to clean your body, saying,");
-					}
-					if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
-						speech.add("[npc.speech(I love being so close to you, [pc.name]. Please let me know if you want me to anything differently.)]");
-						speech.add("[npc.speech(I'm so happy to be able to help you like this; I'm so lucky to be owned by you.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name]; I want to show you how much you mean to me.)]");
-					} else {
-						speech.add("[npc.speech(Let me know if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Just tell me if you need me to do anything differently.)]");
-						speech.add("[npc.speech(Let me take care of you, [pc.name].)]");
-					}
-				}
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30);
+		}
+		@Override
+		public String getDescription() {
+			return "Having had their fun, your slaves remind you that you have other things you need to be getting on with...";
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "AFTER_SHOWER_SEX", slavesWashing);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've had your fun, it's time to return to your room.", ROOM);
 			}
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
-			sb.append(" ");
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
-			sb.append("</p>");
-			firstWashing = false;
+			return null;
 		}
-		
-		List<GameCharacter> washingRude = new ArrayList<>(slavesWashing);
-		washingRude.removeAll(washingNice);
-		for(GameCharacter npc : washingRude) {
-			sb.append("<p>");
-			List<String> start = new ArrayList<>();
-			List<String> speech = new ArrayList<>();
-			
-				if(npc.isShy()) {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
-								+ " Trying to use the sound of the running water to mask [npc.her] comments, [npc.she] mutters,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] casts [npc.her] gaze to the floor as [npc.she] half-heartedly starts to help you wash yourself. Letting out a weary sigh, [npc.she] mutters,");
-						start.add("Looking down at the floor, [npc.name] steps forwards and reluctantly starts to help you wash yourself. With an exasperated sigh, [npc.she] mutters under [npc.her] breath,");
-						start.add("Clearly not happy about it, [npc.name] nevertheless steps forwards and half-heartedly starts to help you wash yourself. Muttering under [npc.her] breath, [npc.she] sighs,");
-					}
-					speech.add("[npc.speech(I hate this...)]");
-					speech.add("[npc.speech(How did I ever end up having to do things like this...)]");
-					speech.add("[npc.speech(This sucks...)]");
-					
-				} else if(npc.isSelfish()) {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself."
-								+ " With a clear tone of animosity in [npc.her] voice, [npc.she] complains,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] complains,");
-						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
-						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] angrily says,");
-					}
-					speech.add("[npc.speech(I really hate doing this, you know? Just get some other slave to help you next time!)]");
-					speech.add("[npc.speech(Why do you insist on getting me to do this?! Isn't it clear that I hate helping you out like this?!)]");
-					speech.add("[npc.speech(This really fucking sucks. How about you get some other slave to wash you next time?)]");
-					
-				} else {
-					if(firstWashing) {
-						start.add("Reluctantly turning on the taps, [npc.name] steps forwards, before half-heartedly starting to help you wash yourself. In a clear sign of displeasure, [npc.she] sighs,");
-					} else {
-						start.add("Reluctantly stepping forwards, [npc.name] half-heartedly sets about helping you wash yourself. Letting out a weary sigh, [npc.she] sighs,");
-						start.add("Rolling [npc.her] [npc.eyes], [npc.name] steps forwards and reluctantly starts to help you wash yourself, complaining as [npc.she] does so,");
-						start.add("With an annoyed sigh, [npc.name] steps forwards and half-heartedly starts to help you wash yourself. Not even trying to hide [npc.her] annoyance, [npc.she] sighs,");
-					}
-					speech.add("[npc.speech(Is there nobody else you can ask to do this?)]");
-					speech.add("[npc.speech(I really wish you didn't make me do this...)]");
-					speech.add("[npc.speech(This sucks...)]");
-					speech.add("[npc.speech(I really hate having to do this, you know?)]");
-				}
-
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(start)));
-			sb.append(" ");
-			sb.append(UtilText.parse(npc,Util.randomItemFrom(speech)));
-			sb.append("</p>");
-			firstWashing = false;
-		}
-		
-		return sb.toString();
-	}
+	};
 	
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_BATH = new DialogueNode("Your Room", "", true) {
-		
 		@Override
-		public String getContent() { //TODO this needs to describe cleaning companions
-			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
-			List<GameCharacter> slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
+		public void applyPreParsingEffects() {
+			// Make sure that the washing slaves don't disappear during this scene:
+			for(GameCharacter slave : slavesWashing) {
+				slave.setLocation(Main.game.getPlayer(), false);
+			}
+		}
+		@Override
+		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>");
@@ -1700,45 +1957,130 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append("</p>");
 			
 			if(!slavesWashing.isEmpty()) {
-				boolean soloSlave = slavesWashing.size()==1;
 				UtilText.nodeContentSB.append(getBathSlavesDescription(slavesWashing));
-				
-				UtilText.nodeContentSB.append("<p>");
-				if(soloSlave) {
-					UtilText.nodeContentSB.append(UtilText.parse(slavesWashing,
-							"After making sure that every last inch of your body is sparkling clean, you pull the plug, [pc.step] out of the bath, and tell [npc.name] to help you to dry off."
-									+ " After doing this, the two of you get dressed and step back into your room..."));
-				} else {
-					UtilText.nodeContentSB.append(
-							"After making sure that every last inch of your body is sparkling clean, you pull the plug, you [pc.step] out of the bath, and tell your slaves to help you to dry off."
-									+ " After doing this, you all get dressed and step back into your room...");
-				}
-				UtilText.nodeContentSB.append("</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Turning on the taps and running yourself a bath, you slip down into the hot water and let out a contented sigh."
-							+ " Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself."
-							+ " Eventually, however, you feel as though you've spent enough time in the bath, and, after turning pulling the plug and drying yourself off, you get dressed and step back into your room..."
-						+ "</p>");
+							+ " Deciding that it wouldn't be so bad to take some time out in order to relax, you don't rush as you set about thoroughly cleaning yourself..."
+						+"</p>");
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<GameCharacter> slaves = new ArrayList<>(slavesInRoom(Main.game.getHourOfDay()));
-			slaves.removeIf(s -> !s.getSlaveJobSettings(SlaveJob.BEDROOM).contains(SlaveJobSetting.BEDROOM_HELP_WASH));
-			if(index==1) {
-				return new Response("Continue", "Return to your room.", ROOM);
-				
-			}
-//			else if(index==2) { //TODO sex with slaves assigned to help wash
-//				return new Response("Sex", "TODO", null); //TODO
-//			}
+			SexSlot[] bathSlots = new SexSlot[] {
+					SexSlotLyingDown.MISSIONARY,
+					SexSlotLyingDown.BESIDE,
+					SexSlotLyingDown.BESIDE_TWO,
+					SexSlotLyingDown.BESIDE_THREE};
 			
+			if(index==1) {
+				return new Response("Finish", "Finish having a bath and return to your room.", ROOM) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append("<p>");
+							if(!slavesWashing.isEmpty()) {
+									if(slavesWashing.size()==1) {
+										Main.game.getTextStartStringBuilder().append(UtilText.parse(slavesWashing,
+												"After making sure that every last inch of your body is sparkling clean, you pull the plug, [pc.step] out of the bath, and tell [npc.name] to help you to dry off."
+														+ " After doing this, the two of you get dressed and step back into your room..."));
+									} else {
+										Main.game.getTextStartStringBuilder().append(
+												"After making sure that every last inch of your body is sparkling clean, you pull the plug, you [pc.step] out of the bath, and tell your slaves to help you to dry off."
+														+ " After doing this, you all get dressed and step back into your room...");
+									}
+								
+							} else {
+								Main.game.getTextStartStringBuilder().append(
+										"After having a nice relaxing soak, you feel as though you've spent enough time in the bath."
+										+ " Pulling the plug and drying yourself off, you quickly get dressed and step back into your room...");
+							}
+						Main.game.getTextStartStringBuilder().append("</p>");
+					}
+				};
+				
+			} else if(index==2) {
+				if(slavesWashing.isEmpty()) {
+					return new Response("Sex", "You do not have any slaves assigned to your bedroom with the washing permission, so there's nobody for you to have sex with...", null);
+				}
+				
+				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
+				for(int i=0 ; i<slavesWashing.size(); i++) {
+					slaveSlots.put(slavesWashing.get(i), i==0?SexSlotLyingDown.LYING_DOWN:bathSlots[i]);
+				}
+				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				return new ResponseSex("Sex",
+						slavesWashing.size()==1
+							?UtilText.parse(slavesWashing, "Have dominant sex with [npc.name] in the bath.")
+							:"Have dominant sex with your slaves in the bath.",
+						true, false,
+						new SMBath(SexPosition.LYING_DOWN,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
+								slaveSlots),
+						null,
+						null,
+						AFTER_BATH_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "START_BATH_SEX_AS_DOM", slavesWashing));
+				
+			} else if(index==3) {
+				if(slavesWashing.isEmpty()) {
+					return new Response("Submissive sex", "You do not have any slaves assigned to your bedroom with the washing permission, so there's nobody for you to have submissive sex with...", null);
+				}
+				if(!slavesWashing.stream().anyMatch(s->s.isAttractedTo(Main.game.getPlayer()))) {
+					return new Response("Submissive sex",
+							slavesWashing.size()==1
+								?UtilText.parse(slavesWashing, "As [npc.name] isn't attracted to you, [npc.she] is unwilling to be the dominant partner in sex...")
+								:"Have dominant sex with your slaves in the bath.",
+							null);
+				}
+				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
+				List<GameCharacter> attractedSlaves = slavesWashing.stream().filter(s->s.isAttractedTo(Main.game.getPlayer())).collect(Collectors.toList());
+				for(int i=0 ; i<attractedSlaves.size(); i++) {
+					slaveSlots.put(attractedSlaves.get(i), bathSlots[i]);
+				}
+				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				return new ResponseSex("Submissive sex",
+						attractedSlaves.size()==1
+								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the bath.")
+										:"Let your slaves dominantly fuck you in the bath.",
+						true, true,
+						new SMBath(SexPosition.LYING_DOWN,
+								slaveSlots,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),
+						null,
+						null,
+						AFTER_BATH_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "START_BATH_SEX_AS_SUB", attractedSlaves));
+			}
+			
+			return null;
+		}
+	};
+
+	public static final DialogueNode AFTER_BATH_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			for(GameCharacter npc : slavesWashing) {
+				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30);
+			}
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30);
+		}
+		@Override
+		public String getDescription() {
+			return "Having had their fun, your slaves remind you that you have other things you need to be getting on with...";
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "AFTER_BATH_SEX", slavesWashing);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've had your fun, it's time to return to your room.", ROOM);
+			}
 			return null;
 		}
 	};
@@ -1768,59 +2110,60 @@ public class RoomPlayer {
 		}
 	};
 	
-
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
-
 		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
+		public void applyPreParsingEffects() {
+			StringBuilder sb = new StringBuilder();
 			
-			UtilText.nodeContentSB.append("<p>"
-						+ "You step over to one side of your room, where a calendar has been pinned to the wall."
-						+ " It's quite obviously enchanted, for as you flick through the pages, you discover that each month's picture changes based on your current train of thought.");
+			sb.append("<p>"
+					+ "You step over to one side of your room, where a calendar has been pinned to the wall."
+					+ " It's quite obviously enchanted, for as you flick through the pages, you discover that each month's picture changes based on your current train of thought.");
 						
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-				UtilText.nodeContentSB.append(" As you think about each month, a thematically-dressed man, incubus, or some kind of animal-boy appears on the page.");
+				sb.append(" As you think about each month, a thematically-dressed man, incubus, or some kind of animal-boy appears on the page.");
 			} else {
-				UtilText.nodeContentSB.append(" As you think about each month, a thematically-dressed woman, succubus, or some kind of animal-girl appears on the page.");
+				sb.append(" As you think about each month, a thematically-dressed woman, succubus, or some kind of animal-girl appears on the page.");
 			}
 			
 			if(Main.game.getPlayer().getCorruptionLevel()==CorruptionLevel.ZERO_PURE) {
-				UtilText.nodeContentSB.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, until you suddenly realise what you're doing and step back, shocked.");
+				sb.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, until you suddenly realise what you're doing and step back, shocked.");
 			} else {
-				UtilText.nodeContentSB.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, and you find yourself getting a little turned on...");
+				sb.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, and you find yourself getting a little turned on...");
 			}
-			UtilText.nodeContentSB.append("</p>");
+			sb.append("</p>");
 			
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-				UtilText.nodeContentSB.append("<p>"
+				sb.append("<p>"
 						+ "Suddenly remembering what it was that you wanted to look at, you scan through the calendar to find the current date,");
 			} else {
-				UtilText.nodeContentSB.append("<p>"
+				sb.append("<p>"
 						+ "You were so distracted by the changing pictures that you momentarily forgot what it was that you wanted to check."
 						+ " Shaking your head, you flip back through the calendar to find out what the current date is,");
 			}
 			
-			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
+			sb.append(" and see that it's the <b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
 						+ Units.date(Main.game.getDateNow(), Units.DateType.LONG)
 					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
 					+ ", you figure out that it's been <b style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
 			
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-				UtilText.nodeContentSB.append("<p>"
+				sb.append("<p>"
 						+ "[pc.thought(Wait... "+Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))+"?! I need to check in with Lilaya about that...)]"
 						+ "</p>");
 			}
 			
-			UtilText.nodeContentSB.append("<p>"
+			sb.append("<p>"
 					+ "You notice that on each page of the calendar, there's a few paragraphs detailing the events that occur during that month."
 					+ "</p>");
 			
-			// TODO probably not the best place to put it?
-			Main.game.getDialogueFlags().values.add(DialogueFlagValue.knowsDate);
+			Main.game.getTextStartStringBuilder().append(sb.toString());
 			
-			return UtilText.nodeContentSB.toString();
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.knowsDate);
+		}
+		@Override
+		public String getContent() {
+			return "";
 		}
 
 		@Override
@@ -1864,135 +2207,6 @@ public class RoomPlayer {
 			}
 		}
 	};
-	
-	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
-	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
-	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
-	 * Animals are:<br/>
-	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
-	 */
-	private static String getCalendarImageDescription(Month month) {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("<p>"
-				+ "Flicking through the calendar until you're looking at the page for "+month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", you see that this month's image is now of ");
-		
-		if(Util.random.nextInt()<15) {
-			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-				sb.append(UtilText.returnStringAtRandom(
-						"a handsome merman, who's busily flexing his muscles while perched on a wave-swept rock.",
-						"muscular reindeer-boy, who's grinning as he presents his huge cock to you."));
-			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						"a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock.",
-						"a curvy reindeer-girl, who's bending over a wooden table and presenting her wet pussy to you."));
-			}
-			
-		} else {
-			switch(month) {
-				case JANUARY:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a toned "+Subspecies.RAT_MORPH.getSingularMaleName(null)+", who's grinning mischievously at you while stroking his fat, erect cock.");
-					} else {
-						sb.append("a horny "+Subspecies.RAT_MORPH.getSingularFemaleName(null)+", who's bent over a table in order to present her dripping pussy to you.");
-					}
-					break;
-				case FEBRUARY:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a topless "+Subspecies.COW_MORPH.getSingularMaleName(null)+"."
-								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
-					} else {
-						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
-								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
-					}
-					break;
-				case MARCH:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularMaleName(null)+"."
-								+ " Striking a dominant pose, he's flashing you a toothy grin, clearly excited by the fact that his huge feline cock is fully on display.");
-					} else {
-						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularFemaleName(null)+"."
-								+ " Striking a dominant pose, she's flashing you a toothy grin, clearly excited by the fact that her large breasts and tight pussy are fully on display.");
-					}
-					break;
-				case APRIL:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a handsome "+Subspecies.RABBIT_MORPH.getSingularMaleName(null)+", who's holding his massive cock in one hand while giving you a suggestive wink.");
-					} else {
-						sb.append("three blushing "+Subspecies.RABBIT_MORPH.getPluralFemaleName(null)+", who are down on all fours, side-by-side, presenting their pussies to you.");
-					}
-					break;
-				case MAY:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a powerful dragon, who's sitting on a golden throne perched on the top of a huge pile of treasure."
-								+ " His huge, scaly cock is fully on display, and with a grin on his face, he's giving you an expectant look, as though he's waiting for you to climb up and get a taste of it.");
-					} else {
-						sb.append("a powerful dragoness, who's sitting on a golden throne perched on the top of a huge pile of treasure."
-								+ " Her wet, scaly pussy is fully on display, and with a grin on her face, she's giving you an expectant look, as though she's waiting for you to climb up and get a taste of it.");
-					}
-					break;
-				case JUNE:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("an exotic-looking male lamia."
-								+ " He's quite clearly turned on and eager to have sex with someone, for his twin-cocks have pushed out from his cloaca; their heads already glistening in the sun from the slimy precum they're starting to exude.");
-					} else {
-						sb.append("an exotic-looking female lamia."
-								+ " She's quite clearly turned on and eager to have sex with someone, for she's reaching down to spread her cloaca and present her dripping-wet pussy to you.");
-					}
-					break;
-				case JULY:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
-					} else {
-						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
-					}
-					break;
-				case AUGUST:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a sheep-boy and goat-boy, standing side-by-side and presenting their erect cocks as they wink playfully at you.");
-					} else {
-						sb.append("a wooly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
-					}
-					break;
-				case SEPTEMBER:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("an unusually-masculine harpy."
-								+ " Although the size of his cock is nothing to write home about, he's extremely handsome, and you feel your heart beating faster as you see him winking at you.");
-					} else {
-						sb.append("a beautiful female harpy."
-								+ " Although she's willingly presenting her wet pussy to you, the look on her face is one of condescending superiority,"
-									+ " and you get the impression that she'd make some kind of outrageous demand in exchange for allowing you to have sex with her.");
-					}
-					break;
-				case OCTOBER:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a fit, handsome "+Subspecies.DEMON.getSingularMaleName(null)+", who's suggestively winking at you as he runs his fingers over his huge, erect cock.");
-					} else {
-						sb.append("a fit, beautiful "+Subspecies.DEMON.getSingularFemaleName(null)+", wearing nothing but a witch's hat, who's suggestively winking at you as she runs her fingers over her wet pussy and huge breasts.");
-					}
-					break;
-				case NOVEMBER:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
-					} else {
-						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
-					}
-					break;
-				case DECEMBER:
-					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a muscular boar-boy, who's grinning at you in anticipation as he strokes his huge cock and pair of massive, cum-filled balls.");
-					} else {
-						sb.append("a pretty, blushing pig-girl, who's leaning back against a wall and reaching down to spread her puffy pink pussy to you.");
-					}
-					break;
-			}
-		}
-		
-		sb.append(" After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-				+ "</p>");
-		
-		return sb.toString();
-	}
 	
 	
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {

@@ -27,9 +27,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.LyssiethReveal;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -37,9 +35,9 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -134,7 +132,7 @@ public class SubmissionGenericPlaces {
 							}
 							@Override
 							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -180,14 +178,14 @@ public class SubmissionGenericPlaces {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_CLOSED");
 			}
 			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				if(index==1) {
 					return new Response("Knock",
 							"Knock on the door and wait to see if anyone answers.",
@@ -408,7 +406,7 @@ public class SubmissionGenericPlaces {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 				if (index == 1) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
-						return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+						return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
 					}
 					return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
 						@Override
@@ -420,7 +418,7 @@ public class SubmissionGenericPlaces {
 					
 				} else if (index == 2) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
-						return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+						return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
 					}
 					return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
 						@Override
@@ -441,13 +439,13 @@ public class SubmissionGenericPlaces {
 						public void effects() {
 							if(Main.game.getPlayer().hasItemType(ItemType.LYSSIETHS_RING)) {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_COMPLETED_QUEST_WITH_COMBAT"));
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.LYSSIETHS_RING));
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_COMPLETED_QUEST_WITH_TRICKERY"));
 							}
 							if(!Main.game.getPlayer().hasClothingType(ClothingType.FINGER_LYSSIETHS_RING, true)) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
 							}
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
 						}
@@ -469,7 +467,7 @@ public class SubmissionGenericPlaces {
 
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
-					return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+					return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
 				}
 				return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
 					@Override
@@ -481,7 +479,7 @@ public class SubmissionGenericPlaces {
 
 			} else if (index == 3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
-					return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+					return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
 				}
 				return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
 					@Override
@@ -497,7 +495,7 @@ public class SubmissionGenericPlaces {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE_SKIP"));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN));
 							}
 						};
@@ -507,7 +505,7 @@ public class SubmissionGenericPlaces {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "LILIN_PALACE_GATE_AUDIENCE"));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.LYSSIETHS_RING), false));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING), false));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL));
 							}
 						};
@@ -911,10 +909,10 @@ public class SubmissionGenericPlaces {
 
 							if(!Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_KEY_ENTRY"));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain")), false));
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain")), false));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_3));
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_CITADEL_KEY_ENTRY_REPEAT"));
 								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonImpsDefeated)) {
@@ -1208,7 +1206,7 @@ public class SubmissionGenericPlaces {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addOptionalQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false, true));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false, true));
 					}
 				};
 			}

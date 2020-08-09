@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -19,6 +20,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -36,6 +38,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -263,6 +266,13 @@ public class GenericActions {
 				// Foreplay:
 				SexType preference;
 				if(Main.sex.isInForeplay(dom)) {
+					if(dom instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						while(clothingValue!=null) {
+							dom.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
+							clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						}
+					}
 					preference = getForeplayPreference(dom, sub);
 					preventCreampie = preventCreampie(preference, dom, sub);
 					sb.append("<p style='margin:0; padding:0; text-align:center;'>");
@@ -279,6 +289,13 @@ public class GenericActions {
 						?(dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom))
 						:Math.max((sub.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(sub)), (dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom)));
 				for(int i=0; i<orgamsNeeded; i++) {
+					if(dom instanceof NPC) {
+						Value<AbstractClothing, String> clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						while(clothingValue!=null) {
+							dom.equipClothingFromInventory(clothingValue.getKey(), true, dom, dom);
+							clothingValue = ((NPC)dom).getSexClothingToSelfEquip(sub, true);
+						}
+					}
 					sb.append("<p style='margin:0; padding:0; text-align:center;'>");
 					sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
 					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
@@ -503,7 +520,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {//TODO resisting variations
-			if(Main.game.getPlayer().getRace()==Race.DEMON) {
+			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				return "Deciding to use your transformative powers to give yourself a thick demonic cock, you grin at [npc2.name] as you [npc.moanVerb],"
 						+ " [npc.speech(You're going to love this!)]";
 			} else {
@@ -517,7 +534,7 @@ public class GenericActions {
 			Main.sex.getCharactersGrewCock().add(Main.game.getPlayer());
 			
 			StringBuilder sb = new StringBuilder();
-			if(Main.game.getPlayer().getRace()==Race.DEMON) {
+			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
 			} else {
 				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
@@ -559,7 +576,8 @@ public class GenericActions {
 
 		@Override
 		public String getActionDescription() {
-			if(Main.sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Get [npc2.name] to use [npc2.her] demonic self-transformative powers to grow [npc2.herself] a demonic cock.";
 			} else {
 				return "Get [npc2.name] to use [npc2.her] slimy body's self-transformative powers to grow [npc2.herself] a slimy cock.";
@@ -576,7 +594,8 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {//TODO resisting variations
-			if(Main.sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				return "Grinning down at [npc2.name], you tease, [npc.speech(How about you use your transformative powers to grow a nice thick demonic cock, so that we can have even more fun!)]"
 						+ "<br/><br/>"
 						+(Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.PENIS)
@@ -604,7 +623,8 @@ public class GenericActions {
 			Main.sex.getCharactersGrewCock().add(Main.sex.getCharacterTargetedForSexAction(this));
 			
 			StringBuilder sb = new StringBuilder();
-			if(Main.sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getSubspeciesOverrideRace()==Race.DEMON
+					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
 			} else {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
@@ -666,7 +686,8 @@ public class GenericActions {
 		}
 		@Override
 		public String getDescription() {
-			return "<p>"
+			StringBuilder sb = new StringBuilder();
+			sb.append("<p>"
 					+ "Wanting to take advantage of the fact that [npc2.nameIsFull] under the strong effect of a psychoactive substance, [npc.name] [npc.verb(lean)] towards [npc2.herHim] and [npc.moansVerb],"
 						+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
 					+ "</p>"
@@ -677,14 +698,25 @@ public class GenericActions {
 					+ "<p>"
 						+ "Pushing a little further,"+(!Main.sex.getCharacterPerformingAction().isPlayer()?" and driven on by [npc.her] fetish for having non-consensual sex,":"")+" [npc.name] [npc.verb(continue)],"
 						+ " [npc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
-					+ "</p>"
-					+ "<p>"
-					+ (Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
-						?"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a disappointed sigh,"
-							+ " [npc2.speech(This isn't really all that fun...)]"
-						:"As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a distressed cry,"
-							+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
-					+ "</p>";
+					+ "</p>");
+			
+			sb.append("<p>");
+				if(Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))) {
+					sb.append("As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a disappointed sigh,"
+							+ " [npc2.speech(This isn't really all that fun...)]");
+					
+				} else {
+					if(LustLevel.getLustLevelFromValue(Main.sex.getCharacterTargetedForSexAction(this).getLust()-50).getSexPaceSubmissive()==SexPace.SUB_RESISTING) {
+						sb.append("As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a distressed cry,"
+								+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]");
+					} else {
+						sb.append("As the hypnotic suggestion sinks into [npc2.namePos] head, [npc2.she] [npc2.verb(let)] out a disappointed sigh,"
+								+ " [npc2.speech(This isn't really all that fun...)]");
+					}
+				}
+			sb.append("</p>");
+			
+			return sb.toString();
 		}
 		@Override
 		public void applyEffects() {
@@ -849,27 +881,28 @@ public class GenericActions {
 					break;
 			}
 			UtilText.nodeContentSB.append("<br/><br/>");
+			boolean nameKnown = Main.sex.getCharacterPerformingAction().isPlayerKnowsName();
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(
 						UtilText.returnStringAtRandom(
-								"[npc2.speech(No, [npc.name]...)] [npc2.name] [npc2.verb(reply)], trying to contain the excitement in [npc2.her] voice, [npc2.speech(I'll try to endure...)]",
-								"[npc2.speech(No, [npc.name],)] [npc2.name] [npc2.moansVerb], failing to subdue the intense arousal in [npc2.her] voice, [npc2.speech(I'll do my best to hold back...)]",
-								"[npc2.speech(No...)] [npc2.name] [npc2.verb(answer)], before trying to stifle a desperate [npc2.moan], [npc2.speechNoEffects(~Mmm!~ I'll try to hold back!)]"));
+								"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name],":"No...")+")] [npc2.name] [npc2.verb(reply)], trying to contain the excitement in [npc2.her] voice, [npc2.speechNoExtraEffects(I'll try to endure...)]",
+								"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name],":"No...")+")] [npc2.name] [npc2.moansVerb], failing to subdue the intense arousal in [npc2.her] voice, [npc2.speechNoExtraEffects(I'll do my best to hold back...)]",
+								"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name]...":"No...")+")] [npc2.name] [npc2.verb(answer)], before trying to stifle a desperate [npc2.moan], [npc2.speechNoExtraEffects(~Mmm!~ I'll try to hold back!)]"));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(
 							UtilText.returnStringAtRandom(
-									"[npc2.speech(No, [npc.name]...)] [npc2.name] [npc2.verb(reply)], [npc2.speech(I'll try to endure...)]",
-									"[npc2.speech(No, [npc.name],)] [npc2.name] [npc2.moansVerb], [npc2.speech(I'll do my best to hold back...)]",
-									"[npc2.speech(No...)] [npc2.name] [npc2.verb(answer)], [npc2.speechNoEffects(I'll try to hold back!)]"));
+									"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name]...":"No...")+")] [npc2.name] [npc2.verb(reply)], [npc2.speechNoExtraEffects(I'll try to endure...)]",
+									"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name]...":"No...")+")] [npc2.name] [npc2.moansVerb], [npc2.speechNoExtraEffects(I'll do my best to hold back...)]",
+									"[npc2.speechNoExtraEffects("+(nameKnown?"No, [npc.name]...":"No...")+")] [npc2.name] [npc2.verb(answer)], [npc2.speechNoExtraEffects(I'll try to hold back!)]"));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(
 							UtilText.returnStringAtRandom(
-									"[npc2.speech(Just get away from me!)] [npc2.name] frantically [npc2.sobsVerb], [npc2.speech(I hate this!)]",
-									"[npc2.speech(Let go of me!)] [npc2.name] desperately [npc2.sobsVerb], trying to pull [npc2.herself] out of [npc.namePos] grasp, [npc2.speech(Stop it! Get away from me!)]",
-									"[npc2.speech(Why won't you just let me go?!)] [npc2.name] [npc2.sobsVerb] as [npc2.she] weakly [npc2.verb(try)] to pull away from [npc2.name], [npc2.speechNoEffects(I don't want this!)]"));
+									"[npc2.speechNoExtraEffects(Just get away from me!)] [npc2.name] frantically [npc2.sobsVerb], [npc2.speechNoExtraEffects(I hate this!)]",
+									"[npc2.speechNoExtraEffects(Let go of me!)] [npc2.name] desperately [npc2.sobsVerb], trying to pull [npc2.herself] out of [npc.namePos] grasp, [npc2.speechNoExtraEffects(Stop it! Get away from me!)]",
+									"[npc2.speechNoExtraEffects(Why won't you just let me go?!)] [npc2.name] [npc2.sobsVerb] as [npc2.she] weakly [npc2.verb(try)] to pull away from [npc2.name], [npc2.speechNoExtraEffects(I don't want this!)]"));
 					break;
 				default:
 					break;
@@ -1812,7 +1845,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "With an annoyed sigh, [npc.name] disentangles [npc.herself] from [npc2.namePos] clutches,"
-					+ " [npc.speechNoEffects(Eugh... I'm not really feeling this right now, ok?)]";
+					+ " [npc.speechNoExtraEffects(Eugh... I'm not really feeling this right now, ok?)]";
 		}
 		
 		@Override

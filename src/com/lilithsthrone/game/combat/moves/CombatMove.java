@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
@@ -35,7 +36,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * A class containing logic for Combat Moves. Additionally contains all the registered combat moves in the game.
  * 
  * @since 0.3.4
- * @version 0.3.4
+ * @version 0.3.8.2
  * @author Irbynx, Innoxia
  */
 public class CombatMove {
@@ -56,7 +57,7 @@ public class CombatMove {
     private boolean canTargetSelf;
     private String SVGString;
 
-	private Map<StatusEffect, Integer> statusEffects;
+	private Map<AbstractStatusEffect, Integer> statusEffects;
 
     private Spell associatedSpell;
     
@@ -237,7 +238,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -264,7 +265,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -508,7 +509,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -535,7 +536,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -796,7 +797,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -823,7 +824,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -836,7 +837,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -863,7 +864,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -1290,7 +1291,7 @@ public class CombatMove {
                 }
 
                 @Override
-                public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
+                public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
                 	return getAssociatedSpell().getStatusEffects(caster, target, isCritical);
                 }
                 
@@ -1595,7 +1596,7 @@ public class CombatMove {
     		boolean canTargetAllies,
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
-    		Map<StatusEffect, Integer> statusEffects) {
+    		Map<AbstractStatusEffect, Integer> statusEffects) {
     	this(identifier, name, cooldown, APcost, type, damageType, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
     }
     
@@ -1619,7 +1620,7 @@ public class CombatMove {
     		boolean canTargetAllies,
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
-			Map<StatusEffect, Integer> statusEffects) {
+			Map<AbstractStatusEffect, Integer> statusEffects) {
         this.associatedSpell = null;
         
         this.identifier = identifier;
@@ -2020,7 +2021,7 @@ public class CombatMove {
         return SVGString;
     }
     
-    public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
+    public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 		return statusEffects;
 	}
 

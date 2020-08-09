@@ -593,8 +593,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==11) { // Teleport
-			
-				if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 					return new Response("Lilaya's lab", "Lyssieth is unwilling to face her daughter until you've broken the news to her that you're now a full demon. You'll have to make your own way back to the lab...", null);
 				}
 
@@ -961,7 +960,7 @@ public class LyssiethPalaceDialogue {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots(true);
-						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
+						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true, false);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
 				};

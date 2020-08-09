@@ -37,7 +37,9 @@ import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaApartme
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomArthur;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
@@ -72,8 +74,6 @@ import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDi
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -82,6 +82,7 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Bearing;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -248,11 +249,12 @@ public class PlaceType {
 			List<Population> pop = new ArrayList<>();
 			
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
+				pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
 			} else {
 				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
 			
 			return pop;
@@ -275,7 +277,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
 				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 				return pop;
 				
@@ -896,21 +898,25 @@ public class PlaceType {
 			"in his office") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(AbstractClothingType.generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false));
-			inventory.addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false));
-			inventory.addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false));
+			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false));
+			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false));
+			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false));
 		}
 		@Override
 		public boolean isItemsDisappear() {
 			return false;
 		}
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.braxEncountered)) {
 				return BraxOffice.INTERIOR_BRAX_REPEAT;
 			} else {
 				return BraxOffice.INTERIOR_BRAX;
 			}
+		}
+		@Override
+		public boolean isDangerous() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
 		}
 	}.initDangerous()
 	.initWeatherImmune();
@@ -960,7 +966,7 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
 			"Entrance",
-			"The only entrance to the warhouse is guarded by a small, Enforcer-manned booth.",
+			"The only entrance to the warehouse is guarded by a small, Enforcer-manned booth.",
 			"dominion/enforcerWarehouse/exit",
 			PresetColour.BASE_RED,
 			EnforcerWarehouse.ENTRANCE,
@@ -1542,16 +1548,45 @@ public class PlaceType {
 			null,
 			"in Lilaya's Home") {
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.ROOM_WINDOW;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			return getLilayaRoomSVGString(upgrades);
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+				return PlaceUpgrade.getGuestRoomUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesQuadruple();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
+				return PlaceUpgrade.getOfficeUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
+				return PlaceUpgrade.getSpaUpgrades();
+			}
+			
+			return PlaceUpgrade.getCoreRoomUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -1573,16 +1608,23 @@ public class PlaceType {
 			null,
 			"in Lilaya's Home") {
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			return getLilayaRoomSVGString(upgrades);
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR.getAvailablePlaceUpgrades(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -1604,16 +1646,23 @@ public class PlaceType {
 			null,
 			"in Lilaya's Home") {
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.ROOM_WINDOW;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			return getLilayaRoomSVGString(upgrades);
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR.getAvailablePlaceUpgrades(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -1635,16 +1684,23 @@ public class PlaceType {
 			null,
 			"in Lilaya's Home") {
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.ROOM_GARDEN;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			return getAvailableLilayaRoomPlaceUpgrades(upgrades);
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			return getLilayaRoomSVGString(upgrades);
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR.getAvailablePlaceUpgrades(upgrades);
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -1662,7 +1718,7 @@ public class PlaceType {
 			"As chosen by you, this room houses Lilaya's one-time lover and colleague, Arthur.",
 			"dominion/lilayasHome/roomArthur",
 			PresetColour.BASE_BLUE_STEEL,
-			LilayaHomeGeneric.ROOM_ARTHUR,
+			RoomArthur.ROOM_ARTHUR,
 			null,
 			"in Arthur's Room"
 			).initItemsPersistInTile()
@@ -1700,7 +1756,7 @@ public class PlaceType {
 			"in Lilaya's library") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
+			inventory.addItem(Main.game.getItemGen().generateItem(ItemType.getLoreBook(Subspecies.HALF_DEMON)));
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -1711,6 +1767,17 @@ public class PlaceType {
 			"dominion/lilayasHome/stairsUp",
 			PresetColour.BASE_GREEN_LIGHT,
 			LilayaHomeGeneric.STAIRCASE_UP,
+			null,
+			"in Lilaya's Home"
+			).initItemsPersistInTile()
+			.initWeatherImmune();
+	
+	public static final AbstractPlaceType LILAYA_HOME_STAIR_UP_SECONDARY = new AbstractPlaceType(
+			"Staircase",
+			"This staircase, while smaller than the main one near the mansion's entrance, performs the same purpose of connecting the ground and first floor of Lilaya's home.",
+			"dominion/lilayasHome/stairsUpSecondary",
+			PresetColour.BASE_GREEN_LIME,
+			LilayaHomeGeneric.STAIRCASE_UP_SECONDARY,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1737,20 +1804,21 @@ public class PlaceType {
 			"in Lilaya's lab") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(AbstractClothingType.generateClothing("innoxia_scientist_safety_goggles", false));
+			inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_scientist_safety_goggles", false));
 		}
 	}.initItemsPersistInTile()
-			.initWeatherImmune();
+	.initWeatherImmune();
 	
 	public static final AbstractPlaceType LILAYA_HOME_GARDEN = new AbstractPlaceType(
 			"Garden",
 			"This private garden is surrounded on all four side by the walls of Lilaya's house.",
-			"dominion/lilayasHome/garden",
+			null,
 			PresetColour.BASE_GREEN,
 			LilayaHomeGeneric.GARDEN,
 			null,
 			"in Lilaya's garden"
-			).initItemsPersistInTile();
+			).initItemsPersistInTile()
+			.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_GREEN);
 	
 	public static final AbstractPlaceType LILAYA_HOME_FOUNTAIN = new AbstractPlaceType(
 			"Fountain",
@@ -1760,9 +1828,58 @@ public class PlaceType {
 			LilayaHomeGeneric.FOUNTAIN,
 			null,
 			"in Lilaya's garden"
+			).initItemsPersistInTile()
+			.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_GREEN);
+
+	public static final AbstractPlaceType LILAYA_HOME_UNDER_CONSTRUCTION = new AbstractPlaceType(
+			"Building site",
+			"This section of Lilaya's mansion is currently being extended, and so resembles a building site...",
+			"dominion/lilayasHome/construction",
+			PresetColour.BASE_BROWN,
+			LilayaSpa.SPA_CONSTRUCTION,
+			null,
+			"in Lilaya's spa"
+			) {
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			if(Main.game.isWorkTime()) {
+				pop.add(new Population(true, PopulationType.CONSTRUCTION_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			}
+			return pop;
+		}
+	}.initItemsPersistInTile();
+	
+	public static final AbstractPlaceType LILAYA_HOME_SPA = new AbstractPlaceType(
+			"Spa pools",
+			"A series of pools, filled with warm water drawn from geothermal springs, is the centrepiece of the private spa.",
+			"dominion/lilayasHome/roomSpa",
+			PresetColour.BASE_TEAL,
+			LilayaSpa.SPA_CORE,
+			null,
+			"in Lilaya's spa"
 			).initItemsPersistInTile();
 	
-
+	public static final AbstractPlaceType LILAYA_HOME_SPA_POOL = new AbstractPlaceType(
+			"Swimming pool",
+			"A large indoor swimming pool has been installed in this area.",
+			"dominion/lilayasHome/roomSpaPool",
+			PresetColour.BASE_BLUE_LIGHT,
+			LilayaSpa.SPA_POOL,
+			null,
+			"in Lilaya's spa"
+			).initItemsPersistInTile();
+	
+	public static final AbstractPlaceType LILAYA_HOME_SPA_SAUNA = new AbstractPlaceType(
+			"Sauna",
+			"Both a large sauna and steam room have been constructed in this area.",
+			"dominion/lilayasHome/roomSpaSauna",
+			PresetColour.BASE_BROWN,
+			LilayaSpa.SPA_SAUNA,
+			null,
+			"in Lilaya's spa"
+			).initItemsPersistInTile();
+	
 	
 	
 	// Lilaya's home (first floor):
@@ -1799,7 +1916,7 @@ public class PlaceType {
 			"in your room"
 			) {
 				@Override
-				public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+				public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
 					return Util.newArrayListOfValues(
 							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
 				}
@@ -1820,7 +1937,17 @@ public class PlaceType {
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
 			.initWeatherImmune();
-	
+
+	public static final AbstractPlaceType LILAYA_HOME_STAIR_DOWN_SECONDARY = new AbstractPlaceType(
+			"Staircase",
+			"This staircase, while smaller than the main one near the mansion's entrance, performs the same purpose of connecting the ground and first floor of Lilaya's home.",
+			"dominion/lilayasHome/stairsDownSecondary",
+			PresetColour.BASE_RED_LIGHT,
+			LilayaHomeGeneric.STAIRCASE_DOWN_SECONDARY,
+			null,
+			"in Lilaya's Home"
+			).initItemsPersistInTile()
+			.initWeatherImmune();
 	
 
 	
@@ -1836,7 +1963,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
 				
@@ -1855,7 +1982,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.STAIRS;
 				
@@ -1874,7 +2001,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.ENTRANCE;
 				
@@ -1893,7 +2020,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.LOUNGE;
 				
@@ -1912,7 +2039,7 @@ public class PlaceType {
 			null,
 			"in a room in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.ROOM;
 				
@@ -1931,7 +2058,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's Home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
 			} else {
@@ -1961,7 +2088,7 @@ public class PlaceType {
 			null,
 			"in a room in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN_ROOM;
 				
@@ -1980,7 +2107,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's garden"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN;
 				
@@ -1999,7 +2126,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's garden"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeGroundFloorRepeat.GARDEN_ENTRY;
 				
@@ -2022,7 +2149,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
 				
@@ -2041,7 +2168,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.STAIRS;
 				
@@ -2060,7 +2187,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.ZARANIX_ROOM;
 				
@@ -2083,7 +2210,7 @@ public class PlaceType {
 			null,
 			"in a room in Zaranix's home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.ROOM;
 				
@@ -2102,7 +2229,7 @@ public class PlaceType {
 			null,
 			"in Zaranix's Home"){
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
 				
@@ -2338,7 +2465,7 @@ public class PlaceType {
 			}
 		}
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return getSVGOverride("dominion/shoppingArcade/supplierDepot", PresetColour.BASE_GREEN);
 			} else {
@@ -2412,7 +2539,7 @@ public class PlaceType {
 			}
 		}
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return getSVGOverride("dominion/shoppingArcade/exit", PresetColour.BASE_GREEN);
 			} else {
@@ -2453,7 +2580,7 @@ public class PlaceType {
 			}
 		}
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suppliersEncountered)) {
 				return SupplierDepot.SUPPLIER_DEPOT_OFFICE_REPEAT;
 				
@@ -2671,7 +2798,7 @@ public class PlaceType {
 			null,
 			"in Slaver Alley"){
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS);
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -2696,7 +2823,7 @@ public class PlaceType {
 			return PresetColour.BASE_CRIMSON;
 		}
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			return getSVGOverride("dominion/slaverAlley/scarlettsStall", getColour());
 		}
 		@Override
@@ -2715,7 +2842,7 @@ public class PlaceType {
 			return "Scarlett's Shop";
 		}
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
 				
@@ -3229,7 +3356,7 @@ public class PlaceType {
 			null,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 				return getSVGOverride("submission/impFortress1", PresetColour.BASE_GREEN_LIGHT);
 			}
@@ -3247,7 +3374,7 @@ public class PlaceType {
 			Encounter.SUBMISSION_TUNNELS,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
 				return getSVGOverride("submission/impTunnels1Icon", PresetColour.BASE_GREY);
 			}
@@ -3300,7 +3427,7 @@ public class PlaceType {
 			null,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 				return getSVGOverride("submission/impFortress2", PresetColour.BASE_GREEN_LIGHT);
 			}
@@ -3318,7 +3445,7 @@ public class PlaceType {
 			Encounter.SUBMISSION_TUNNELS,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
 				return getSVGOverride("submission/impTunnels2Icon", PresetColour.BASE_GREY);
 			}
@@ -3451,7 +3578,7 @@ public class PlaceType {
 			null,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 				return getSVGOverride("submission/impFortress3", PresetColour.BASE_GREEN_LIGHT);
 			}
@@ -3469,7 +3596,7 @@ public class PlaceType {
 			Encounter.SUBMISSION_TUNNELS,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
 				return getSVGOverride("submission/impTunnels3Icon", PresetColour.BASE_GREY);
 			}
@@ -3522,7 +3649,7 @@ public class PlaceType {
 			null,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 				return getSVGOverride("submission/impFortress4", PresetColour.BASE_GREEN_LIGHT);
 			}
@@ -3540,7 +3667,7 @@ public class PlaceType {
 			Encounter.SUBMISSION_TUNNELS,
 			"in Submission") {
 		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
 				return getSVGOverride("submission/impTunnels4Icon", PresetColour.BASE_GREY);
 			}
@@ -3854,10 +3981,10 @@ public class PlaceType {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
 			for(int i=0; i<15; i++) {
-				inventory.addItem(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+				inventory.addItem(Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
 			}
 			for(int i=0; i<5; i++) {
-				inventory.addItem(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+				inventory.addItem(Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_SLIME));
 			}
 		}
 	}.initItemsPersistInTile()
@@ -4067,11 +4194,11 @@ public class PlaceType {
 			null,
 			"in the Rat Warrens") {
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
 				return VengarCaptiveDialogue.CORRIDOR;
 			}
-			return super.getDialogue(withRandomEncounter, forceEncounter);
+			return super.getDialogue(c, withRandomEncounter, forceEncounter);
 		}
 		@Override
 		public boolean isDangerous() {
@@ -4192,13 +4319,13 @@ public class PlaceType {
 			null,
 			"in the Rat Warrens") {
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
-				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
+				dialogue = RatWarrensCaptiveDialogue.CAPTIVE_NIGHT;
 			} else {
 				dialogue = RatWarrensDialogue.MILKING_ROOM;
 			}
-			return super.getDialogue(withRandomEncounter, forceEncounter);
+			return super.getDialogue(c, withRandomEncounter, forceEncounter);
 		}
 		@Override
 		public boolean isDangerous() {
@@ -4236,13 +4363,13 @@ public class PlaceType {
 			return null;
 		}
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_HALL;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_HALL;
 			}
-			return super.getDialogue(withRandomEncounter, forceEncounter);
+			return super.getDialogue(c, withRandomEncounter, forceEncounter);
 		}
 		@Override
 		public List<Population> getPopulation() {
@@ -4273,13 +4400,13 @@ public class PlaceType {
 			return null;
 		}
 		@Override
-		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_BEDROOM;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_BEDROOM;
 			}
-			return super.getDialogue(withRandomEncounter, forceEncounter);
+			return super.getDialogue(c, withRandomEncounter, forceEncounter);
 		}
 		@Override
 		public boolean isDangerous() {
@@ -4619,6 +4746,35 @@ public class PlaceType {
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
 		id.replaceAll("ALEXA", "HELENA");
+		if(id.equals("ZARANIX_FF_BEDROOM")) {
+			id = "ZARANIX_FF_OFFICE";
+			
+		} else if(id.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE")
+				|| id.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING")) {
+			id = "LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR";
+			
+		} else if(id.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE")
+				|| id.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING")) {
+			id = "LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR";
+			
+		} else if(id.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE")
+				|| id.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING")) {
+			id = "LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR";
+			
+		} else if(id.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE")
+				|| id.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING")) {
+			id = "LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR";
+			
+		} else if(id.equals("DOMINION_EXIT_TO_JUNGLE")) {
+			id = "DOMINION_EXIT_EAST";
+		} else if(id.equals("DOMINION_EXIT_TO_DESERT")) {
+			id = "DOMINION_EXIT_SOUTH";
+		} else if(id.equals("DOMINION_EXIT_TO_FIELDS")) {
+			id = "DOMINION_EXIT_NORTH";
+		} else if(id.equals("DOMINION_EXIT_TO_SEA")) {
+			id = "DOMINION_EXIT_WEST";
+		}
+		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());
 		return idToPlaceMap.get(id);
 	}

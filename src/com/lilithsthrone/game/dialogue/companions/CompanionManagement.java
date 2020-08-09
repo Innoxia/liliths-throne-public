@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -36,11 +36,11 @@ import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
@@ -95,6 +95,13 @@ public class CompanionManagement {
 		CharactersPresentDialogue.resetContent(slave);
 //		coreNode = Main.game.getCurrentDialogueNode();
 		return CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS;
+	}
+	
+	public static DialogueNode getSlaveryManagementSlaveCosmeticsDialogue(NPC slave) {
+		Main.game.getDialogueFlags().setManagementCompanion(slave);
+		CharactersPresentDialogue.resetContent(slave);
+//		coreNode = Main.game.getCurrentDialogueNode();
+		return CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_MAKEUP;
 	}
 	
 	public static NPC characterSelected() {
@@ -511,7 +518,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Change [npc.namePos] name or tell [npc.herHim] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				return new Response("Send home", UtilText.parse(characterSelected(), "[npc.Name] isn't in your party, so you can't send [npc.herHim] home..."), null);
 				
 			} else if(index==11) {
@@ -557,7 +564,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		
 		} else { // Friendly occupant or null character not currently in the player's party:
@@ -659,7 +672,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Tell [npc.name] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				if(characterSelected() == null) {
 					return new Response("Send home", "You haven't selected anyone...", null);
 				}
@@ -714,7 +727,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		}
 		
@@ -825,11 +844,10 @@ public class CompanionManagement {
 				}
 				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
 			}
-			float fatigue = character.getSlaveJobTotalFatigue();
+			float stamina = character.getDailySlaveJobStamina();
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"
-//										+ "<b>Presets</b>"
-									+"<i>Current daily fatigue: "+(fatigue<=0?"[style.colourGood(":"[style.colourBad(")+fatigue+")]</i>"
+									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
@@ -903,7 +921,11 @@ public class CompanionManagement {
 										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
 										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
-								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?null:PresetColour.GENERIC_BAD))+"/hour"
+								+ " = "
+								+(income>0
+									?UtilText.formatAsMoney(income, "b")
+									:UtilText.formatAsMoney(income, "b", PresetColour.GENERIC_BAD))
+								+"/hour"
 							+"</div>"
 							);
 				
@@ -1098,7 +1120,7 @@ public class CompanionManagement {
 									&& !(bp instanceof Eye)) {
 								
 								String name = bp.getName(BodyChanging.getTarget());
-								if(bp instanceof Skin) {
+								if(bp instanceof Torso) {
 									name = "torso";
 								} else if(bp instanceof Vagina) {
 									name = "vagina";
@@ -1130,6 +1152,16 @@ public class CompanionManagement {
 					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
+			if(coreNode==OccupantManagementDialogue.SLAVE_LIST) {
+				return new Response("Back", "Return to the occupant list overview.", coreNode) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(defaultResponseTab);
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
+			}
 			return new Response("Back", "Return to the slave management screen.", coreNode) {
 				@Override
 				public void effects() {
@@ -1218,9 +1250,9 @@ public class CompanionManagement {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair] length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair(true)] length.")
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(

@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
@@ -48,12 +47,8 @@ public enum Attack {
 	 * @return Hit chance from 0 to 1, representing % chance to hit.
 	 */
 	public static float getHitChance(GameCharacter attacker, GameCharacter defender) {
-
 		// Calculate hit:
-		float chanceToHit = 1;//(100 - Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.MISS_CHANCE), 100))/100f;
-		
-//		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
-		
+		float chanceToHit = 1;
 		return chanceToHit > 1 ? 1 : (chanceToHit < 0 ? 0 : chanceToHit);
 	}
 	
@@ -66,13 +61,16 @@ public enum Attack {
 	 * @return
 	 */
 	public static float getBaseWeaponDamage(GameCharacter attacker, AbstractWeapon weapon) {
-		if (attacker == null) {
+		if(attacker == null) {
 			return 0;
 		}
-		if (weapon == null) {
+		if(weapon == null) {
 			return attacker.getUnarmedDamage();
 			
 		} else {
+			if(weapon.getWeaponType().isUsingUnarmedCalculation()) {
+				return weapon.getWeaponType().getDamage() + attacker.getUnarmedDamage();
+			}
 			return weapon.getWeaponType().getDamage();
 		}
 	}
@@ -303,7 +301,7 @@ public enum Attack {
 		// Round float value to nearest 1 decimal place:
 		minDamage = (Math.round(minDamage*10))/10f;
 		
-		minDamage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+		minDamage *= 1 + attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return minDamage;
 	}
@@ -313,7 +311,7 @@ public enum Attack {
 		// Round float value to nearest 1 decimal place:
 		maxDamage = (Math.round(maxDamage*10))/10f;
 
-		maxDamage *= 1 + Util.getModifiedDropoffValue(caster.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+		maxDamage *= 1 + caster.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f;
 		
 		return maxDamage;
 	}
@@ -371,31 +369,23 @@ public enum Attack {
 			}
 			
 			if(attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(damageType.getMultiplierAttribute())/100f);
 				
 				if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
 					if(weapon.getWeaponType().isMelee()) {
-						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), 100)/100f);
+						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON)/100f);
 					} else {
-						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), 100)/100f);
+						damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON)/100f);
 					}
 					
 				} else {
-					damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
+					damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
 				}
 				
 				if (damage < 1) {
 					damage = 1;
 				}
 			}
-
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
-//				
-//				if (damage < 1) {
-//					damage = 1;
-//				}
-//			}
 			
 		} else if(attackType == SPELL) {
 			if(damageDoubledFromElemental) {
@@ -405,17 +395,13 @@ public enum Attack {
 			}
 			
 			if (attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_SPELLS), 100)/100f);
-				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_SPELLS)/100f);
+				damage += attackersDamage * (attacker.getAttributeValue(damageType.getMultiplierAttribute())/100f);
 			}
-
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
-//			}
 			
 		} else {
 			if (attacker!=null) { // Attacker modifiers:
-				damage += attackersDamage * (1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f);
+				damage += attackersDamage * (1 + attacker.getAttributeValue(Attribute.DAMAGE_LUST)/100f);
 				
 				if(defender!=null) {
 					if((attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine())
@@ -433,7 +419,6 @@ public enum Attack {
 
 			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
-//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if(attacker!=null) {
 					if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
 							|| (attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
@@ -452,12 +437,7 @@ public enum Attack {
 		
 		if (attacker!=null && defender!=null) {
 			// Modifiers based on race damage:
-			damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f);
-			
-			// Modifiers based on level:
-//			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
-//			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
-//			damage = damage * (1 + (levelBoost/100));
+			damage += attackersDamage * (attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier())/100f);
 		}
 		
 		return damage;

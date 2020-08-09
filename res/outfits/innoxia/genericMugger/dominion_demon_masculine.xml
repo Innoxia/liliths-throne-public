@@ -28,7 +28,7 @@
 		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDagger>
 		<condDualWielding constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDualWielding>
 		
-		<condBiped constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condBiped>
+		<condPlantigrade constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condPlantigrade>
 		<condExhibitionist constant="true"><![CDATA[npc.hasFetish(FETISH_EXHIBITIONIST)]]></condExhibitionist>
 		
 		
@@ -115,7 +115,7 @@
 		
 		<!-- Legs: -->
 		<clothingType>
-			<conditional><![CDATA[!condExhibitionist && condBiped]]></conditional>
+			<conditional><![CDATA[!condExhibitionist]]></conditional>
 			<types>
 				<type>LEG_CARGO_TROUSERS</type>
 				<type>innoxia_leg_distressed_jeans</type>
@@ -128,7 +128,7 @@
 			<tertiaryColours/>
 		</clothingType>
 		<clothingType>
-			<conditional><![CDATA[condExhibitionist && condBiped]]></conditional>
+			<conditional><![CDATA[condExhibitionist]]></conditional>
 			<types>
 				<type>innoxia_leg_crotchless_chaps</type>
 			</types>
@@ -179,7 +179,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[!condExhibitionist && condBiped]]></conditional>
+			<conditional><![CDATA[!condExhibitionist]]></conditional>
 			<types>
 				<type>GROIN_JOCKSTRAP</type>
 				<type>GROIN_BRIEFS</type>
@@ -190,7 +190,7 @@
 			<tertiaryColours/>
 		</clothingType>
 		<clothingType>
-			<conditional><![CDATA[condExhibitionist && condBiped]]></conditional>
+			<conditional><![CDATA[condExhibitionist]]></conditional>
 			<types>
 				<type>GROIN_CROTCHLESS_BRIEFS</type>
 			</types>
@@ -201,7 +201,7 @@
 		
 		<!-- Non-taur socks: -->
 		<clothingType>
-			<conditional><![CDATA[condBiped]]></conditional>
+			<conditional><![CDATA[condPlantigrade]]></conditional>
 			<types>
 				<type>SOCK_SOCKS</type>
 			</types>
@@ -212,7 +212,7 @@
 		
 		<!-- Non-taur shoes: -->
 		<clothingType>
-			<conditional><![CDATA[condBiped]]></conditional>
+			<conditional><![CDATA[condPlantigrade]]></conditional>
 			<types>
 				<type>FOOT_WORK_BOOTS</type>
 				<type>FOOT_TRAINERS</type>

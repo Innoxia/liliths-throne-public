@@ -85,7 +85,7 @@ public class CharacterInventory implements XMLSaving {
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
 	// ClothingSets being worn:
-	private final Map<SetBonus, Integer> clothingSetCount;
+	private final Map<AbstractSetBonus, Integer> clothingSetCount;
 
 	private int maxInventorySpace;
 
@@ -115,7 +115,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new HashMap<>();
-		for(SetBonus clothingSet : SetBonus.values()) {
+		for(AbstractSetBonus clothingSet : SetBonus.getAllSetBonuses()) {
 			clothingSetCount.put(clothingSet, 0);
 		}
 		
@@ -370,7 +370,7 @@ public class CharacterInventory implements XMLSaving {
 				int count = Integer.parseInt(e.getAttribute("count"));
 				String id = e.getAttribute("id");
 				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
-					inventory.addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
+					inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
 					
 				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
@@ -424,14 +424,17 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean isEmpty() {
+		for(int i=0; i<Arm.MAXIMUM_ROWS; i++) {
+			if(mainWeapon[i]!=null || offhandWeapon[i]!=null) {
+				return false;
+			}
+		}
 		return money == 0
 				&& clothingSubInventory.isEmpty()
 				&& weaponSubInventory.isEmpty()
 				&& itemSubInventory.isEmpty()
 				&& essenceMap.get(TFEssence.ARCANE) == 0
 				&& dirtySlots.isEmpty()
-				&& mainWeapon == null
-				&& offhandWeapon == null
 				&& clothingCurrentlyEquipped.isEmpty();
 	}
 
@@ -967,7 +970,7 @@ public class CharacterInventory implements XMLSaving {
 		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
 	}
 
-	private boolean hasEquippedClothingType(AbstractClothingType type) {
+	public boolean hasEquippedClothingType(AbstractClothingType type) {
 		return getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getClothingType().equals(type));
 	}
 	
@@ -1144,7 +1147,7 @@ public class CharacterInventory implements XMLSaving {
 	 * @return The number of clothes being worn that belong to the specified
 	 *         ClothingSet.
 	 */
-	public int getClothingSetCount(SetBonus clothingSet) {
+	public int getClothingSetCount(AbstractSetBonus clothingSet) {
 		return clothingSetCount.get(clothingSet);
 	}
 
@@ -1193,16 +1196,9 @@ public class CharacterInventory implements XMLSaving {
 		}
 		tempSB.append("<br/><span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
 		
-//		if (isInventoryFull() && !hasClothing(c)) {
-//			Main.game.getWorlds().get(character.getWorldLocation()).getCell(character.getLocation()).getInventory().addClothing(c);
-//			tempSB.append("<br/>" + character.droppedItemText(c));
-//			
-//		} else {
-//			character.addClothing(c, false);
-//			tempSB.append("<br/>" + character.addedItemToInventoryText(c));
-//		}
-		tempSB.append(character.unequipClothingIntoInventory(c, true, character));
+		c.setSealed(false);
 		
+		tempSB.append(character.unequipClothingIntoInventory(c, true, character));
 		
 		clothingRemovalList.add(c);	
 	}
@@ -1507,7 +1503,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 				
 				// Check for clothing sets:
-				SetBonus clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
+				AbstractSetBonus clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
 				if (clothingSetOfNewClothing != null) {
 					clothingSetCount.merge(clothingSetOfNewClothing, 1, Integer::sum);
 				}

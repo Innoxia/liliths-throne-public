@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.submission.Epona;
 import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.Dice;
@@ -28,7 +29,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -93,7 +93,7 @@ public class PregnancyRoulette {
 		mother.deleteAllEquippedClothing(true);
 		mother.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		mother.setPlayerKnowsName(true);
-		mother.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), mother, false);
+		mother.useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), mother, false);
 		try {
 			Main.game.addNPC(mother, false);
 		} catch (Exception e) {
@@ -229,7 +229,7 @@ public class PregnancyRoulette {
 								selectedBreeder=null;
 								
 								for(int i=0; i<6; i++) {
-									GenericSexualPartner partner = new GenericSexualPartner(Gender.M_P_MALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+									GenericSexualPartner partner = new GenericSexualPartner(Gender.M_P_MALE, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, ((s) -> s.getRace()==Race.HARPY));
 									initBreeder(partner);
 									breeders.add(partner);
 								}
@@ -469,7 +469,7 @@ public class PregnancyRoulette {
 				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Epona.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
 					}
 				};
 				
@@ -537,35 +537,15 @@ public class PregnancyRoulette {
 				return new ResponseSex("Front "+breeder.getName(true), "Lie on your front, where "+breeder.getName(true)+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
-						new SMBreedingStall(true, false, false,
+						new SMBreedingStall(
 								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBreedingStall.BREEDING_STALL_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBreedingStall.BREEDING_STALL_FRONT))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return false;
-							}
-							@Override
-							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								return Main.sex.getNumberOfOrgasms(partner)>=1;
-							}
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
 								if(!character.isPlayer()) {
 									character.setArousal(75);
 									character.setLustNoText(80);
 								}
-							}
-							@Override
-							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
-							}
-							@Override
-							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-							}
-							@Override
-							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
 						null,
@@ -588,35 +568,15 @@ public class PregnancyRoulette {
 				return new ResponseSex("Back "+breeder.getName(true), "Lie on your back, where "+breeder.getName(true)+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
-						new SMBreedingStall(true, false, false,
+						new SMBreedingStall(
 								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBreedingStall.BREEDING_STALL_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBreedingStall.BREEDING_STALL_BACK))) {
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return false;
-							}
-							@Override
-							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								return Main.sex.getNumberOfOrgasms(partner)>=1;
-							}
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
 								if(!character.isPlayer()) {
 									character.setArousal(75);
 									character.setLustNoText(80);
 								}
-							}
-							@Override
-							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
-							}
-							@Override
-							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-							}
-							@Override
-							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
 						null,
@@ -655,35 +615,15 @@ public class PregnancyRoulette {
 					return new ResponseSex("Front "+breeder.getName(true), "Position yourself so that you're lying on your front, where "+breeder.getName(true)+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
-							new SMBreedingStall(true, false, false,
+							new SMBreedingStall(
 									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBreedingStall.BREEDING_STALL_FUCKING)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBreedingStall.BREEDING_STALL_FRONT))) {
-								@Override
-								public boolean isPositionChangingAllowed(GameCharacter character) {
-									return false;
-								}
-								@Override
-								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-									return Main.sex.getNumberOfOrgasms(partner)>=1;
-								}
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {
 									if(!character.isPlayer()) {
 										character.setArousal(75);
 										character.setLustNoText(80);
 									}
-								}
-								@Override
-								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
-								}
-								@Override
-								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-								}
-								@Override
-								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
 							null,
@@ -706,35 +646,15 @@ public class PregnancyRoulette {
 					return new ResponseSex("Back "+breeder.getName(true), "Position yourself so that you're lying on your back, where "+breeder.getName(true)+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
-							new SMBreedingStall(true, false, false,
+							new SMBreedingStall(
 									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBreedingStall.BREEDING_STALL_FUCKING)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBreedingStall.BREEDING_STALL_BACK))) {
-								@Override
-								public boolean isPositionChangingAllowed(GameCharacter character) {
-									return false;
-								}
-								@Override
-								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-									return Main.sex.getNumberOfOrgasms(partner)>=1;
-								}
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {
 									if(!character.isPlayer()) {
 										character.setArousal(75);
 										character.setLustNoText(80);
 									}
-								}
-								@Override
-								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
-								}
-								@Override
-								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-								}
-								@Override
-								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
 							null,
@@ -754,7 +674,7 @@ public class PregnancyRoulette {
 					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Epona.class).useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Epona.class).useItem(Main.game.getItemGen().generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
 						}
 					};
 				} else {
@@ -902,32 +822,13 @@ public class PregnancyRoulette {
 							:"As the breeder steps away from the volunteer, you step forwards to take your turn at fucking her creampied-pussy.",
 						null, null, null, null, null, null,
 						true, false,
-						new SMBreedingStall(true, false, false,
+						new SMBreedingStall(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBreedingStall.BREEDING_STALL_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(mother, SexSlotBreedingStall.BREEDING_STALL_BACK))) {
-							@Override
-							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-								map.put(Main.game.getPlayer(),
-										Util.newArrayListOfValues(CoverableArea.PENIS));
-								return map;
-							}
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return false;
-							}
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
 								character.setArousal(50);
 								character.setLustNoText(80);
-							}
-							@Override
-							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
-							}
-							@Override
-							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
 						null,
@@ -985,7 +886,7 @@ public class PregnancyRoulette {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "PREGNANCY_ROULETTE_BREEDER_FINISHED")
-					+mother.useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), mother, false);
+					+mother.useItem(Main.game.getItemGen().generateItem(ItemType.PREGNANCY_TEST), mother, false);
 		}
 
 		@Override

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -37,7 +38,7 @@ import com.lilithsthrone.utils.Util;
  * If sub, positional change is just a suggestion, which the NPC may refuse if they have other preferences.
  * 
  * @since 0.3.1
- * @version 0.3.4
+ * @version 0.3.8.1
  * @author Innoxia
  */
 public class GenericPositioning {
@@ -64,7 +65,7 @@ public class GenericPositioning {
 			return !Main.sex.getCharacterPerformingAction().equals(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getLegConfiguration()==Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
-					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& (Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS))
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -91,6 +92,16 @@ public class GenericPositioning {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
+		for(SexSlot slot : data.getPartnerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+				return false;
+			}
+		}
+		for(SexSlot slot : data.getPerformerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+				return false;
+			}
+		}
 		return Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
 				&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 				&& !(Main.sex.getPosition() == data.getPosition()
@@ -99,13 +110,13 @@ public class GenericPositioning {
 				&& data.getPosition().getMaximumSlots()>=Main.sex.getTotalParticipantCount(false)
 				&& Main.sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?(Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL && !Main.sex.isPositioningRequestBlocked(Main.sex.getCharacterPerformingAction(), data.getPosition()))
-						:(Main.sex.getCharacterPerformingAction().isPlayer()
-							?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-							:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())))
-				&& (!request && !Main.sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
-						:true);
+					?(Main.sex.getCharacterPerformingAction().isPlayer()
+							&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL
+							&& !Main.sex.isPositioningRequestBlocked(Main.sex.getCharacterPerformingAction(), data.getPosition()))
+					:(Main.sex.getCharacterPerformingAction().isPlayer()
+						?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL || Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)
+						:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())
+							&& ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))));
 	}
 
 	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
@@ -996,12 +1007,14 @@ public class GenericPositioning {
 		@Override
 		public String getActionDescription() {
 			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] in front of you, and so able to perform oral on your genitals.";
+				return "Move around in front of [npc2.name] so that you're able to perform oral on [npc2.her] genitals.";
 			} else {
 				if(Main.sex.getCharacterTargetedForSexAction(this).hasPenis()) {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body so that you're able to perform oral on [npc2.her] [npc2.cock]"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc2.crotchBoobs]":"")+".";
 				} else {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" so that you're able to perform oral on [npc2.her] [npc2.crotchBoobs]":"")+".";
 				}
 			}
 		}
@@ -2868,11 +2881,12 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if((Main.sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
-					Main.sex.getPositionRequest().getPosition(),
-					Main.sex.getPositionRequest().getPartnerSlots().get(0),
-					Main.sex.getPositionRequest().getPerformerSlots().get(0),
-					Main.game.getPlayer())) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+						Main.sex.getPositionRequest().getPosition(),
+						Main.sex.getPositionRequest().getPartnerSlots().get(0),
+						Main.sex.getPositionRequest().getPerformerSlots().get(0),
+						Main.game.getPlayer())) {
 				GenericPositioning.setNewSexManager(Main.sex.getPositionRequest(), true);
 			} else {
 				Main.sex.addPositioningRequestsBlocked(Main.game.getPlayer(), Main.sex.getPositionRequest().getPosition());

@@ -23,7 +23,11 @@ public enum SVGImages {
 	SVG_IMAGE_PROVIDER;
 
 	private String
-
+	
+			flagUs,
+			
+			fist,
+			
 			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
 			menuIcon,
@@ -48,7 +52,14 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceBackgroundDemon, raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground,
+			raceBackgroundHalf,
+			raceBackgroundSlime,
+			raceBackgroundDemon,
+			raceUnknown,
+			raceDobermann,
+			raceDobermannDesaturated,
+			raceWisp,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -114,10 +125,16 @@ public enum SVGImages {
 	private SVGImages() {
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/flag_us.svg");
+			flagUs = Util.inputStreamToString(is);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/fist.svg");
+			fist = Util.inputStreamToString(is);
+			fist = setColour(fist, PresetColour.BASE_BLACK);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
 			displacedIcon = Util.inputStreamToString(is);
 
-			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/concealed.svg");
 			concealedIcon = Util.inputStreamToString(is);
 			
@@ -311,6 +328,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermannDesaturated = Util.inputStreamToString(is);
 			raceDobermannDesaturated = setColour(raceDobermannDesaturated, PresetColour.BASE_GREY);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceWisp.svg");
+			raceWisp = Util.inputStreamToString(is);
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
@@ -790,6 +810,14 @@ public enum SVGImages {
 		String s = stringSVG;
 		s = SvgUtil.colourReplacement(null, colour1, colour2, colour3, s);
 		return s;
+	}
+	
+	public String getFlagUs() {
+		return flagUs;
+	}
+	
+	public String getFist() {
+		return fist;
 	}
 	
 	public String getDisplacedIcon() {
@@ -1431,6 +1459,10 @@ public enum SVGImages {
 		return raceDobermannDesaturated;
 	}
 
+	public String getRaceWisp() {
+		return raceWisp;
+	}
+	
 	public String getCounterZero() {
 		return counterZero;
 	}

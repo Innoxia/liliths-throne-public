@@ -170,8 +170,13 @@ public class HarpyNestHelena {
 		Main.game.getNpc(Scarlett.class).equipClothing();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.scarlettGoneHome, true);
 		if(Main.game.getNpc(Scarlett.class).hasVagina()) {
-			Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
-					true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
+			} else {
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			}
 		}
 	}
 	
@@ -298,8 +303,9 @@ public class HarpyNestHelena {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", HELENAS_NEST_MAIN_QUEST_NO_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -374,8 +380,9 @@ public class HarpyNestHelena {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -383,8 +390,9 @@ public class HarpyNestHelena {
 				return new Response("Struggle", "Start struggling and crying out in discomfort.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_STRUGGLE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -397,8 +405,9 @@ public class HarpyNestHelena {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 			}
@@ -949,6 +958,7 @@ public class HarpyNestHelena {
 						public void effects() {
 							// Move them both here to make sure they haven't gone due to time ticking over into night time when player arrives:
 							Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+							Main.game.getNpc(Scarlett.class).setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 							Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_TO_SHOP_FLY_AFTER"));
