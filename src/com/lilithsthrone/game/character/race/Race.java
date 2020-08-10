@@ -171,7 +171,7 @@ public class Race {
 								:"demonic-"+r.getName(bestial)
 							:"demon";
 				} else {
-					return getName(true);
+					return "demonic-horse";
 				}
 			}
 			return "demon";
@@ -187,7 +187,7 @@ public class Race {
 								:"demonic-"+r.getNamePlural(bestial)
 							:"demons";
 				} else {
-					return getNamePlural(true);
+					return "demonic-horses";
 				}
 			}
 			return "demon";

@@ -119,6 +119,8 @@ public class Main extends Application {
 			+"<li>Contributors:</li>"
 			+"<ul>Fixed issue where slime covering colour would be forgotten and randomised every time you loaded the game. (PR#1313 by AceXP)</ul>"
 			+"<ul>Fixed parsing issues in potion application description. (PR#1343 by Eliria)</ul>"
+			+"<ul>Added more colours to the test t-shirt item and added new ColourListPreset for testing purposes. (PR#1376 by DSG)</ul>"
+			+"<ul>Fixed minor parsing issues and typos in dialogues. (PR#1375 by AceXP)</ul>"
 			
 			+"<li>Engine:</li>"
 			+"<ul>Removed TFEssence Enum (so accessing essence-modifying methods is now possible via use of the parser).</ul>"
