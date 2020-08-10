@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -2477,9 +2478,9 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static List<Race> racesDiscovered = new ArrayList<>();
+	private static List<AbstractRace> racesDiscovered = new ArrayList<>();
 	private static List<Subspecies> subspeciesDiscovered = new ArrayList<>();
-	private static Race raceSelected;
+	private static AbstractRace raceSelected;
 	private static Subspecies subspeciesSelected;
 	private static StringBuilder subspeciesSB = new StringBuilder();
 	
@@ -2489,7 +2490,7 @@ public class PhoneDialogue {
 		
 		for (Subspecies subspecies : Subspecies.values()) {
 			if(Main.getProperties().isRaceDiscovered(subspecies)) {
-				Race race = subspecies.getRace();
+				AbstractRace race = subspecies.getRace();
 				if(!racesDiscovered.contains(race)) {
 					racesDiscovered.add(race);
 				}
@@ -2516,11 +2517,11 @@ public class PhoneDialogue {
 						+ "You have encountered the following races in your travels:<br/>"
 						+ "(Discovered races are [style.boldGood(highlighted)], while undiscovered races are [style.colourDisabled(greyed out)].)"
 					+ "</p>");
-			List<Race> sortedRaces = new ArrayList<>();
-			Collections.addAll(sortedRaces, Race.values());
+			List<AbstractRace> sortedRaces = new ArrayList<>();
+			sortedRaces.addAll(Race.getAllRaces());
 			sortedRaces.remove(Race.NONE);
 			sortedRaces.sort((r1, r2) -> r1.getName(false).compareTo(r2.getName(false)));
-			for(Race race : sortedRaces) {
+			for(AbstractRace race : sortedRaces) {
 				UtilText.nodeContentSB.append("<div style='box-sizing: border-box; text-align:center; width:50%; padding:8px; margin:0; float:left;'>");
 				if(racesDiscovered.contains(race)) {
 					UtilText.nodeContentSB.append("<b style='color:"+race.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(race.getName(false)) + "</b>");

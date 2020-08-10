@@ -1699,9 +1699,9 @@ public class LilayaSpa {
 	public static final DialogueNode BATHING_AFTER_SEX = new DialogueNode("Finished", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			for(GameCharacter character : bathingStripped) {
-				character.equipAllClothingFromHoldingInventory();
-			}
+//			for(GameCharacter character : bathingStripped) {
+//				character.equipAllClothingFromHoldingInventory();
+//			}
 			for(GameCharacter npc : slavesWashing) {
 				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
 			}

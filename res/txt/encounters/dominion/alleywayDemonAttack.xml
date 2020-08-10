@@ -490,7 +490,7 @@
 			[com.speech(Are you sure about this?)] [com.name] asks, stepping forwards in preparation to defend you from [npc.namePos] advances.
 		</p>
 		<p>
-			[pc.speech(Don't worry, [com.name],)] you reply, reaching out to take hold of [com.her] [com.arm], before firmly pushing [com.her] to one side. [pc.speech(I've got this. You just keep a lookout for anyone else.)]
+			[pc.speech(Don't worry, [com.name],)] you reply, reaching out to take hold of [com.her] [com.arm], before firmly pushing [com.herHim] to one side. [pc.speech(I've got this. You just keep a lookout for anyone else.)]
 		</p>
 	#ENDIF
 	<p>

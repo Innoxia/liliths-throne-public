@@ -3694,7 +3694,7 @@ public class StatusEffect {
 	};
 
 	public static AbstractStatusEffect PROMISCUITY_PILL = new AbstractStatusEffect(80,
-			"Slut pill's effects",
+			"Sterility pill's effects",
 			"promiscuityPill",
 			PresetColour.GENERIC_SEX,
 			true,

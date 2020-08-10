@@ -105,7 +105,7 @@ public class SlimeRoyalGuard extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			this.setSurname("Lunettemartu");
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.7")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
 			this.setStartingBody(false);
 		}
 		setStartingCombatMoves();

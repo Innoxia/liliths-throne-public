@@ -322,7 +322,7 @@ public class OrificeNipples implements OrificeInterface {
 							"<p>"
 								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
 									+ " growing down into the lining of [npc.her] "+nipplesString+"."
-								+ " [npc.sheIs] shocked to discover that [npc.she] has an incredible amount of control over them, allowing [npc.her] to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ " [npc.sheIs] shocked to discover that [npc.she] has an incredible amount of control over them, allowing [npc.herHim] to expertly grip and squeeze down on any penetrating object.<br/>"
 								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now lined with an intricate series of muscles!)]"
 							+ "</p>");
 				}

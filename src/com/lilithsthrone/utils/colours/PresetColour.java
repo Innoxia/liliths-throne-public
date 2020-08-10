@@ -189,14 +189,9 @@ public class PresetColour {
 	public static Colour ATTRIBUTE_HEALTH = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("health", "hp", "energy")) {};
 	public static Colour ATTRIBUTE_MANA = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("willpower", "wp", "mana", "aura")) {};
 
-	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false,
-			BaseColour.MAGENTA,
-			"magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
+	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
 	public static Colour ATTRIBUTE_ARCANE = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("intelligence", "int")) {};
-	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false,
-//			BaseColour.PINK_DEEP,
-			Util.newColour(0xff1a8c), Util.newColour(0xff1a8c),
-			"pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
+	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, Util.newColour(0xff1a8c), Util.newColour(0xff1a8c), "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
 
 	public static Colour ATTRIBUTE_AROUSAL = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")) {};
 	public static Colour ATTRIBUTE_LUST = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")) {};

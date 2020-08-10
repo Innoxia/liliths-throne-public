@@ -16,7 +16,6 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
-import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
@@ -819,23 +818,24 @@ public class GamblingDenDialogue {
 			} else if(index==3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelMentionedVengar) && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) { // Initial asking/quest start:
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
+//						return new Response("Offer help",
+//								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
+//								+ "<br/>[style.italicsBad(This quest is temporarily disabled while work is being done on it. It will be completely finished soon!)]",
+//								null);
 						return new Response("Offer help",
 								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-								+ "<br/>[style.italicsBad(This quest is temporarily disabled while work is being done on it. It will be completely finished soon!)]",
-								null);
-//						return new Response("Offer help",
-//								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.",
-//								AXEL_VENGAR) {
-//							@Override
-//							public Colour getHighlightColour() {
-//								return PresetColour.QUEST_SIDE;
-//							}
-//							@Override
-//							public void effects() {
-//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
-//								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
-//							}
-//						};
+										+ "<br/>[style.italicsBad(Please be aware that are some rough edges to this quest! It will be finished as soon as possible!)]",
+								AXEL_VENGAR) {
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.QUEST_SIDE;
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP")); //TODO remove rough warning
+								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
+							}
+						};
 						
 					} else {
 						return new Response("Vengar", "Ask [axel.name] about Vengar.", AXEL_VENGAR) {
@@ -1192,41 +1192,84 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN = new DialogueNode("", "", true) { //TODO raid
-		@Override
-		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-			Main.game.getNpc(Axel.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-		}
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN");
+			return ""; // Appended by lead-in dialogues
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Prepare",
-						"Prepare to make a decision as to how to react to this huge gang of rats.",
+				return new Response("Continue",
+						"Continue on your way through the tunnels...",
+						AXEL_VENGAR_VISIT_RETURN_NEXT);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_NEXT = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
+			Main.game.getNpc(Silence.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_NEXT");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Escorted",
+						"The Enforcer escorts you and [axel.name] to the nearest Enforcer post...",
 						AXEL_VENGAR_VISIT_RETURN_ENFORCERS);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS = new DialogueNode("", "", true) {
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).returnToHome();
+			Main.game.getNpc(Silence.class).returnToHome();
+			Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+			Main.game.getNpc(Axel.class).setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 3*60*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Gambling Den",
+						"Escort [axel.name] back to the Gambling Den...",
+						AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			RatWarrensDialogue.applyRatWarrensRaid();
 			Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
 			Main.game.getNpc(Axel.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
-//			Main.game.getNpc(Shadow.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-//			Main.game.getNpc(Silence.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-			//TODO Test:
-			Main.game.getNpc(Murk.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
-			RatWarrensDialogue.banishMilkers();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1234,7 +1277,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS");
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

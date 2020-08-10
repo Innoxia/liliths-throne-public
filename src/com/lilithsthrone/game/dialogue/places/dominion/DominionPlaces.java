@@ -142,7 +142,6 @@ public class DominionPlaces {
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
 		
 		for(NPC npc : characters) {
-			
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
@@ -157,6 +156,12 @@ public class DominionPlaces {
 			}
 			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+//				if(!Main.game.getCharactersPresent().contains(npc)) {
+//					occupantResponses.add(new Response(
+//							UtilText.parse(npc, "[npc.Name]"),
+//							UtilText.parse(npc, "[npc.Name] is out at work at the moment, and so you'll have to return at another time if you wanted to pay [npc.herHim] a visit..."),
+//							null));
+//				}
 				occupantResponses.add(new Response(
 						UtilText.parse(npc, "[npc.Name]"),
 						UtilText.parse(npc,
@@ -240,29 +245,39 @@ public class DominionPlaces {
 	private static String getEnforcersPresent() {
 		StringBuilder sb = new StringBuilder();
 
-		if(isCloseToEnforcerHQ()) {
-			sb.append("<p style='text-align:center;'><i>");
-				sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
-			sb.append("</i></p>");
-		}
-		
-		if(!Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
-			sb.append("<p style='text-align:center;'><i>");
-			sb.append("There is a small chance of running into one of these [style.colourBlueDark(Enforcer patrols)]:");
-			
-			for(List<String> enforcerIds : Main.game.getSavedEnforcers(WorldType.DOMINION)) {
-				sb.append("<br/>");
-				List<String> names = new ArrayList<>();
-				for(String id : enforcerIds) {
-					try {
-						GameCharacter enforcer = Main.game.getNPCById(id);
-						names.add(UtilText.parse(enforcer, "<span style='color:"+enforcer.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
-					} catch (Exception e) {
-						e.printStackTrace();
+		if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+			if(isCloseToEnforcerHQ()) {
+				sb.append("<p style='text-align:center;'><i>");
+					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
+					if(Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
+						sb.append("<br/>However, due to the ongoing arcane storm, there's no chance of encountering any patrols at the moment...");
 					}
-				}
-				sb.append(Util.stringsToStringList(names, false));
+				sb.append("</i></p>");
 			}
+			
+		} else {
+			sb.append("<p style='text-align:center;'><i>");
+			
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					sb.append("Due to the ongoing [style.italicsArcane(arcane storm)], there's [style.italicsGood(no chance)] of encountering any of these [style.colourBlueDark(Enforcer patrols)]:");
+				} else if(isCloseToEnforcerHQ()) {
+					sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering one of these [style.colourBlueDark(Enforcer patrols)]:");
+				} else {
+					sb.append("There is a [style.italicsMinorBad(small chance)] of running into one of these [style.colourBlueDark(Enforcer patrols)]:");
+				}
+				for(List<String> enforcerIds : Main.game.getSavedEnforcers(WorldType.DOMINION)) {
+					sb.append("<br/>");
+					List<String> names = new ArrayList<>();
+					for(String id : enforcerIds) {
+						try {
+							GameCharacter enforcer = Main.game.getNPCById(id);
+							names.add(UtilText.parse(enforcer, "<span style='color:"+enforcer.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					sb.append(Util.stringsToStringList(names, false));
+				}
 			
 			sb.append("</i></p>");
 		}

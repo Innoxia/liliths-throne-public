@@ -357,8 +357,12 @@
 				You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Every now and then, she has to tuck loose strands of bleach-blonde hair back behind her cat-like ears, interrupting her sighs with an annoyed tutting sound each time she does so.
 			</p>
 			<p>
-				In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it.
-				 It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
+				In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it. It seems as though Candi is completely oblivious to the world outside of her mirror,
+				#IF(pc.isQuestProgressLessThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+					 and as you don't have anything to ask of her, you think it best to leave her to it and [pc.step] away from the desk...
+				#ELSE
+					 so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
+				#ENDIF
 			</p>
 			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
 				<p>

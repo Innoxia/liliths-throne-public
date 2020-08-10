@@ -30,6 +30,7 @@ import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -839,7 +840,7 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 	
-	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like,", ", um,", ", uh,", ", ah," };
+	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like, bro,", ", like,", ", um,", ", uh,", ", ah," };
 	public static String addBro(String sentence, int frequency) {
 		sentence = insertIntoSentences(sentence, frequency, broWords);
 		utilitiesStringBuilder.setLength(0);
@@ -856,13 +857,15 @@ public class Util {
 					break;
 				case 1:
 					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.append(", y'know, dude?");
+					utilitiesStringBuilder.append(UtilText.returnStringAtRandom(", y'know, bro?", ", y'know, dude?"));
 					break;
 				default:
 					break;
 			}
 		}
-
+		
+		
+		
 		return utilitiesStringBuilder.toString();
 	}
 
