@@ -53,7 +53,6 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -64,7 +63,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.12
- * @version 0.2.12
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Elizabeth extends NPC {
@@ -82,7 +81,7 @@ public class Elizabeth extends NPC {
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			this.setEssenceCount(TFEssence.ARCANE, 100);
+			this.setEssenceCount(100);
 		}
 	}
 

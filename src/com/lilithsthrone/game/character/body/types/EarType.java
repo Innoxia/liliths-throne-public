@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -448,9 +449,9 @@ public class EarType {
 		return allEarTypes;
 	}
 	
-	private static Map<Race, List<AbstractEarType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractEarType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractEarType> getEarTypes(Race r) {
+	public static List<AbstractEarType> getEarTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

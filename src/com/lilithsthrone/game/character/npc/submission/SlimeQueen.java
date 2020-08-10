@@ -131,7 +131,7 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.7")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
 			this.setStartingBody(false);
 		}
 		

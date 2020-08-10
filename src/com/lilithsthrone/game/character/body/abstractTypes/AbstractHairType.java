@@ -8,20 +8,20 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.2
- * @version 0.3.8.2
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractHairType implements BodyPartTypeInterface {
 
 	private BodyCoveringType coveringType;
-	private Race race;
+	private AbstractRace race;
 
 	private boolean ableToBeGrabbedInSex; //TODO make sure this is accounted for
 	
@@ -48,7 +48,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	 * @param hairBodyDescription A sentence or two to describe this hair type, as seen in the character view screen. It should follow the same format as all of the other entries in the HairType class.
 	 */
 	public AbstractHairType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			boolean ableToBeGrabbedInSex,
 			String transformationName,
 			String name,
@@ -124,7 +124,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

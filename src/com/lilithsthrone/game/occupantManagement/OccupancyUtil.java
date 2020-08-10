@@ -253,7 +253,7 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
-						|| Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) { // Also move slaves who are in bedroom but have elsewhere to be
+						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
 					slavesAtJob.get(currentJob).add(slave.getId());
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {

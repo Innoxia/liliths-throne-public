@@ -50,7 +50,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.GenericSexFlag;
@@ -111,7 +110,7 @@ public class RatWarrensDialogue {
 				CharacterUtils.setGenericName(rat, "lieutenant", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
-				rat.incrementEssenceCount(TFEssence.ARCANE, 8, false);
+				rat.incrementEssenceCount(8, false);
 				
 				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
 				Main.game.addNPC(rat, false);
@@ -120,7 +119,7 @@ public class RatWarrensDialogue {
 				CharacterUtils.setGenericName(rat, "sidekick", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL)));
-				rat.incrementEssenceCount(TFEssence.ARCANE, 3, false);
+				rat.incrementEssenceCount(3, false);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -243,11 +242,34 @@ public class RatWarrensDialogue {
 		Main.game.banishNPC((NPC) getGuards(false).get(getGuards(false).size()-1));
 	}
 	
-	public static void banishMilkers() {
+	public static void applyRatWarrensRaid() {
+		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
+		Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+		
+		Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+		Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+		Main.game.getNpc(Shadow.class).removeItemByType(ItemType.RESONANCE_STONE);
+		
+		Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));
+		Main.game.getNpc(Vengar.class).unequipAllClothingIntoVoid(true, true);
+		Main.game.getNpc(Vengar.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
+		
+		Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Murk.class));
+		Main.game.getNpc(Murk.class).unequipAllClothingIntoVoid(true, true);
+		Main.game.getNpc(Murk.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
+		
+		Main.game.getNpc(Vengar.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
+		Main.game.getNpc(Murk.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
+		Main.game.getNpc(Vengar.class).setAffection(Main.game.getPlayer(), -100);
+		Main.game.getNpc(Murk.class).setAffection(Main.game.getPlayer(), -100);
+		
+		Main.game.getPlayer().removeItemByType(ItemType.RESONANCE_STONE);
+
 		for(GameCharacter milker : getMilkers()) {
 			Main.game.banishNPC((NPC) milker);
 		}
 	}
+	
 	
 	private static void spawnGuards(boolean withLeader, int totalRatsToSpawn) {
 		try {
@@ -332,9 +354,9 @@ public class RatWarrensDialogue {
 	private static String applyCaptivity(GameCharacter character, GameCharacter equipper, Colour collarColour) {
 		Main.game.addSavedInventory(character);
 		
-		int essences = character.getEssenceCount(TFEssence.ARCANE);
+		int essences = character.getEssenceCount();
 		character.setInventory(new CharacterInventory(0));
-		character.setEssenceCount(TFEssence.ARCANE, essences);
+		character.setEssenceCount(essences);
 
 		Main.game.getPlayer().setCaptive(true);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);
@@ -3491,30 +3513,7 @@ public class RatWarrensDialogue {
 	public static final DialogueNode SWORD_RAID_EXIT = new DialogueNode("", "", false) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensRaid, true);
-			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-			Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
-			
-			Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-			Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-			Main.game.getNpc(Shadow.class).removeItemByType(ItemType.RESONANCE_STONE);
-			
-			Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));
-			Main.game.getNpc(Vengar.class).unequipAllClothingIntoVoid(true, true);
-			Main.game.getNpc(Vengar.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
-			
-			Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Murk.class));
-			Main.game.getNpc(Murk.class).unequipAllClothingIntoVoid(true, true);
-			Main.game.getNpc(Murk.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
-			
-			Main.game.getNpc(Vengar.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
-			Main.game.getNpc(Murk.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
-			Main.game.getNpc(Vengar.class).setAffection(Main.game.getPlayer(), -100);
-			Main.game.getNpc(Murk.class).setAffection(Main.game.getPlayer(), -100);
-			
-			Main.game.getPlayer().removeItemByType(ItemType.RESONANCE_STONE);
-			
-			banishMilkers();
+			applyRatWarrensRaid();
 		}
 		@Override
 		public int getSecondsPassed() {

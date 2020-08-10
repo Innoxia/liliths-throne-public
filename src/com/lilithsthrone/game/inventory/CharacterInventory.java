@@ -27,7 +27,6 @@ import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingAccess;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractFilledBreastPump;
 import com.lilithsthrone.game.inventory.item.AbstractFilledCondom;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -55,7 +54,7 @@ import com.lilithsthrone.world.World;
  * Only the very bravest dare venture past line 901.
  * 
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class CharacterInventory implements XMLSaving {
@@ -64,11 +63,10 @@ public class CharacterInventory implements XMLSaving {
 	private final AbstractInventory<AbstractClothing, AbstractClothingType> clothingSubInventory;
 	private final AbstractInventory<AbstractItem, AbstractItemType> itemSubInventory;
 
-	private final Map<TFEssence, Integer> essenceMap;
-	
 	/**Maps character IDs to the slots which have free unlocks.*/
 	private final Map<String, List<InventorySlot>> unlockKeyMap;
-	
+
+	protected int essenceCount;
 	protected int money;
 	
 	private Set<InventorySlot> dirtySlots;
@@ -103,10 +101,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		dirtySlots = new HashSet<>();
 		
-		essenceMap = new HashMap<>();
-		for(TFEssence essence : TFEssence.values()) {
-			essenceMap.put(essence, 0);
-		}
+		essenceCount = 0;
 		
 		unlockKeyMap = new HashMap<>();
 		
@@ -131,7 +126,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		dirtySlots = new HashSet<>(inventoryToCopy.getDirtySlots());
 		
-		essenceMap = new HashMap<>(inventoryToCopy.essenceMap);
+		essenceCount = inventoryToCopy.essenceCount;
 
 		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
 		
@@ -160,7 +155,7 @@ public class CharacterInventory implements XMLSaving {
 		parentElement.appendChild(characterInventory);
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essenceCount", String.valueOf(this.getEssenceCount()));
 		
 		if(extraBlockedParts!=null) {
 			Element innerElement = doc.createElement("extraBlockedParts");
@@ -265,7 +260,12 @@ public class CharacterInventory implements XMLSaving {
 			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
 		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
-		inventory.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
+		
+		if(parentElement.getElementsByTagName("essences").item(0)!=null) { // Old version support.
+			inventory.setEssenceCount(Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
+		} else {
+			inventory.setEssenceCount(Integer.valueOf(((Element)parentElement.getElementsByTagName("essenceCount").item(0)).getAttribute("value")));
+		}
 		
 		try {
 			NodeList nodes = parentElement.getElementsByTagName("extraBlockedParts");
@@ -433,7 +433,7 @@ public class CharacterInventory implements XMLSaving {
 				&& clothingSubInventory.isEmpty()
 				&& weaponSubInventory.isEmpty()
 				&& itemSubInventory.isEmpty()
-				&& essenceMap.get(TFEssence.ARCANE) == 0
+				&& essenceCount == 0
 				&& dirtySlots.isEmpty()
 				&& clothingCurrentlyEquipped.isEmpty();
 	}
@@ -456,20 +456,22 @@ public class CharacterInventory implements XMLSaving {
 		setMoney(money + increment);
 	}
 	
-	public Map<TFEssence, Integer> getEssenceMap() {
-		return essenceMap;
+	public int getEssenceCount() {
+		return essenceCount;
 	}
-	
-	public int getEssenceCount(TFEssence essence) {
-		return essenceMap.get(essence);
+
+	/**
+	 * Does not allow essence count to fall below 0.
+	 */
+	public void setEssenceCount(int essenceCount) {
+		this.essenceCount = Math.max(0, essenceCount);
 	}
-	
-	public void setEssenceCount(TFEssence essence, int count) {
-		essenceMap.put(essence, count);
-	}
-	
-	public void incrementEssenceCount(TFEssence essence, int increment) {
-		essenceMap.merge(essence, increment, (currentCount, added) -> Math.max(0, currentCount + added));
+
+	/**
+	 * Does not allow essence count to fall below 0.
+	 */
+	public void incrementEssenceCount(int increment) {
+		this.essenceCount = Math.max(0, this.essenceCount + increment);
 	}
 
 	/**

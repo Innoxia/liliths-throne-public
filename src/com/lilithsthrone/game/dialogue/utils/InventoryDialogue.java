@@ -35,7 +35,6 @@ import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -3818,14 +3817,14 @@ public class InventoryDialogue {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
-										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+										if(Main.game.getPlayer().getEssenceCount() >= IDENTIFICATION_ESSENCE_PRICE) {
 											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
 													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
 															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
 													CLOTHING_INVENTORY) {
 												@Override
 												public void effects() {
-													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getPlayer().incrementEssenceCount(-IDENTIFICATION_ESSENCE_PRICE, false);
 													
 													String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
 													
@@ -4003,14 +4002,14 @@ public class InventoryDialogue {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
-										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+										if(Main.game.getPlayer().getEssenceCount() >= IDENTIFICATION_ESSENCE_PRICE) {
 											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
 													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
 															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
 													CLOTHING_INVENTORY) {
 												@Override
 												public void effects() {
-													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getPlayer().incrementEssenceCount(-IDENTIFICATION_ESSENCE_PRICE, false);
 
 													String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
 													
@@ -4357,14 +4356,14 @@ public class InventoryDialogue {
 										return new Response("Enchant", "This clothing cannot be enchanted!", null);
 										
 									} else if(!clothing.isEnchantmentKnown()) {
-										if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= IDENTIFICATION_ESSENCE_PRICE) {
+										if(Main.game.getPlayer().getEssenceCount() >= IDENTIFICATION_ESSENCE_PRICE) {
 											return new Response("Identify ([style.italicsArcane("+IDENTIFICATION_ESSENCE_PRICE+" Essences)])",
 													"To identify the "+clothing.getName()+", you can either spend "+IDENTIFICATION_ESSENCE_PRICE+" arcane essences to do it yourself,"
 															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.",
 													CLOTHING_INVENTORY) {
 												@Override
 												public void effects() {
-													Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -IDENTIFICATION_ESSENCE_PRICE, false);
+													Main.game.getPlayer().incrementEssenceCount(-IDENTIFICATION_ESSENCE_PRICE, false);
 
 													String enchantmentRemovedString = clothing.setEnchantmentKnown(owner, true);
 													
@@ -8214,7 +8213,7 @@ public class InventoryDialogue {
 			}
 		}
 		
-		if(ownsKey || Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=removalCost) {
+		if(ownsKey || Main.game.getPlayer().getEssenceCount()>=removalCost) {
 			return new Response("Unseal "+(ownsKey?"([style.italicsGood(Use key)])":"([style.italicsArcane("+removalCost+" Essences)])"),
 						ownsKey
 							?"As you own the key which unlocks this piece of clothing, you can remove it without having to spend any arcane essences!"
@@ -8232,7 +8231,7 @@ public class InventoryDialogue {
 							+ "</p>";
 						
 					} else {
-						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -removalCost, false);
+						Main.game.getPlayer().incrementEssenceCount(-removalCost, false);
 						s = UtilText.parse(owner,
 								"<p>"
 									+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the seal!"
@@ -8528,12 +8527,12 @@ public class InventoryDialogue {
 	
 	private static Response getCondomSabotageResponse(AbstractClothing clothing) {
 		if(clothing.getCondomEffect().getPotency().isNegative()) {
-			if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 1) {
+			if(Main.game.getPlayer().getEssenceCount() >= 1) {
 				return new Response("Repair ([style.italicsArcane(1 Essence)])",
 						"Spend 1 arcane essence to repair the condom.", CLOTHING_INVENTORY) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1, false);
+						Main.game.getPlayer().incrementEssenceCount(-1, false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p>"
 									+ "You channel the power of an arcane essence into the condom, and, after emitting a faint purple glow, it is repaired!"

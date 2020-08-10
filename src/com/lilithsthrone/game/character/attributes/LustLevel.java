@@ -243,7 +243,7 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] not really interested in having sex at all right now, and as a result, [npc.she] [npc.verb(want)] to take things slow and gentle.");
 							break;
 						case ONE_HORNY:
-							sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust, allowing [npc.her] to keep a cool head and concentrate on taking things slow and gentle.");
+							sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust, allowing [npc.herHim] to keep a cool head and concentrate on taking things slow and gentle.");
 							break;
 						case TWO_AMOROUS:
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but [npc.is] still able to concentrate on taking things slow and gentle.");

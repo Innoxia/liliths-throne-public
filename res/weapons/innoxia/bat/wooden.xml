@@ -7,7 +7,7 @@
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[wooden bat]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[wooden bat]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[wooden bats]]></namePlural>
 		<description><![CDATA[A smooth wooden club used to strike a ball as a form of sport. This particular bat has been enchanted for use as a weapon.]]></description> 
 		
 		<attackDescriptor>whack</attackDescriptor>

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -209,8 +210,8 @@ public class AnusType {
 		return allAnusTypes;
 	}
 	
-	private static Map<Race, List<AbstractAnusType>> typesMap = new HashMap<>();
-	public static List<AbstractAnusType> getAnusTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractAnusType>> typesMap = new HashMap<>();
+	public static List<AbstractAnusType> getAnusTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

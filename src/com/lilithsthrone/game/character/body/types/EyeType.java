@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -342,9 +343,9 @@ public class EyeType {
 		return allEyeTypes;
 	}
 	
-	private static Map<Race, List<AbstractEyeType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractEyeType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractEyeType> getEyeTypes(Race r) {
+	public static List<AbstractEyeType> getEyeTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

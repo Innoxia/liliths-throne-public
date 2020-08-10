@@ -30,7 +30,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
@@ -373,9 +372,11 @@ public enum Combat {
 			}
 			// Apply essence drops:
 			boolean essenceDropFound = false;
-			Map<TFEssence, Integer> essences = new HashMap<>();
+			int totalEssencesGained = 0;
 			for(NPC enemy : enemies) {
-				if(enemy.getLootEssenceDrops()!=null) {
+				int essencesGained = enemy.getLootEssenceDrops();
+				totalEssencesGained += essencesGained;
+				if(essencesGained>0) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.essencePostCombatDiscovered);
 						
@@ -432,19 +433,15 @@ public enum Combat {
 							}
 						}
 					}
-					
-					for(Entry<TFEssence, Integer> entry : enemy.getLootEssenceDrops().entrySet()) {
-						essences.putIfAbsent(entry.getKey(), 0);
-						essences.put(entry.getKey(), essences.get(entry.getKey())+entry.getValue());
-					}
 				}
 			}
 			
-			if(!essences.isEmpty()) {
-				for(Entry<TFEssence, Integer> entry : essences.entrySet()) {
-					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>"
-							+ "</br>");
-				}
+			if(totalEssencesGained>0) {
+				postCombatStringBuilder.append(
+						"<div class='container-full-width' style='text-align:center;'>"
+								+ Main.game.getPlayer().incrementEssenceCount(totalEssencesGained, true)
+						+ "</div>"
+						+ "</br>");
 			}
 			
 		} else { // Player lost combat:
@@ -1150,13 +1147,13 @@ public enum Combat {
 		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical && isHit) {
 			extraAttackEffects.add(
 							"Thanks to your [style.boldFetish(sadist fetish)], the arousal you feel from critically hitting someone manifests as an arcane essence!<br/>"
-							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false));
+							+Main.game.getPlayer().incrementEssenceCount(1, false));
 		}
 		
 		if(target.isPlayer() && target.hasFetish(Fetish.FETISH_MASOCHIST) && isCritical && isHit) {
 			extraAttackEffects.add(
 							"Thanks to your [style.boldFetish(masochist fetish)], the arousal you feel from getting critically hit manifests as an arcane essence!<br/>"
-							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false));
+							+Main.game.getPlayer().incrementEssenceCount(1, false));
 		}
 		
 		return extraAttackEffects;
