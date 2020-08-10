@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -195,8 +196,8 @@ public class WingType {
 		return allWingTypes;
 	}
 	
-	private static Map<Race, List<AbstractWingType>> typesMap = new HashMap<>();
-	public static List<AbstractWingType> getWingTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractWingType>> typesMap = new HashMap<>();
+	public static List<AbstractWingType> getWingTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

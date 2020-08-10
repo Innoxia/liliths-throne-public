@@ -10,14 +10,14 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.8.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractPenisType implements BodyPartTypeInterface {
@@ -27,7 +27,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	protected static final Map<String, Integer> BASE_NAMES_PLURAL = Util.newHashMapOfValues(new Value<>("cocks", 3), new Value<>("dicks", 2), new Value<>("shafts", 1));
 	
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	private AbstractTesticleType testicleType;
 	
 	private List<String> namesFeminine;
@@ -62,7 +62,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	 * @param defaultRacialPenetrationModifiers Which modifiers this penis naturally spawns with.
 	 */
 	public AbstractPenisType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractTesticleType testicleType,
 			List<String> namesFeminine,
 			List<String> namesPluralFeminine,
@@ -94,7 +94,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	}
 	
 	public AbstractPenisType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractTesticleType testicleType,
 			String transformationDescription,
 			String bodyDescription,
@@ -254,7 +254,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

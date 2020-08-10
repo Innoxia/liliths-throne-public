@@ -29,7 +29,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -54,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -70,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.9";
+	public static final String VERSION_NUMBER = "0.3.9.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
         
         public static final String MOD_VERSION = "DSG HLF MOD 1.0";
@@ -93,7 +92,19 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Sorry about how long it took to get this version finished. There will likely be bugs in it, and Axel's quest still isn't finished, so there will likely be a hotfix out soon."
+			+ "This is a hotfix for v0.3.9, in which there were a couple of major bugs and a whole list of minor ones."
+			+ " With this version, the game should be in a stable state once again, with the character overview, perk trees, and slave jobs all working correctly."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I've also re-enabled the ability to start Axel's quest (the dreaded Rat Warrens quest), as most of the content for it has now been finished."
+			+ " There are still some placeholders in it (including all of the post-quest Vengar and Murk content in the Gambling Den), and I haven't had time to thoroughly test it, but it *should* be entirely functional."
+			+ " I will get it 100% finished and polished for the next version, so if you'd like to wait until it's completely finished before trying it out, then you'll only have to wait for the next update."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "As part of the Rat Warrens content, I've included the game's first 'bad end'."
+			+ " I'm only planning on adding these into the game where I think that it would make no narrative sense for your character to get out of their situation."
 		+ "</p>"
 		
 		+ "<br/>"
@@ -104,8 +115,88 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<br/>"
+		
 		+ "<list>"
-		+ "<h6>v0.3.9</h6>"
+			+ "<h6>v0.3.9.1</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issue where slime covering colour would be forgotten and randomised every time you loaded the game. (PR#1313 by AceXP)</ul>"
+			+"<ul>Fixed parsing issues in potion application description. (PR#1343 by Eliria)</ul>"
+			+"<ul>Added more colours to the test t-shirt item and added new ColourListPreset for testing purposes. (PR#1376 by DSG)</ul>"
+			+"<ul>Fixed minor parsing issues and typos in dialogues. (PR#1375 by AceXP)</ul>"
+			
+			+"<li>Engine:</li>"
+			+"<ul>Removed TFEssence Enum (so accessing essence-modifying methods is now possible via use of the parser).</ul>"
+			+"<ul>Added ways to define 'on hit' and 'on critical hit' effects to weapons in their xml files, as well as a way to define extra effects to be displayed in their tooltip. You can see an example of how to use this in 'res/weapons/innoxia/dagger/dagger.xml'</ul>"
+			+"<ul>Moved all reindeer overseer dialogue out into a new external xml file.</ul>"
+			+"<ul>Refactored Race Enum into an abstract class.</ul>"
+			
+			+"<li>Rat Warrens:</li>"
+			+"<ul>Mostly completed Rat Warrens quest. There are just a few placeholders here and there and I haven't yet done thorough testing of it. Also, the post-quest Murk & Vengar content (in the Gambling Den) is still placeholders.</ul>"
+			+"<ul>Expanded Murk's captivity content and made it a little more linear. Also added a bad end state at the end of it.</ul>"
+			+"<ul>Losing to Vengar now leads into the same Murk content as losing to one of the generic gang fights.</ul>"
+			+"<ul>Resolving Axel's quest by cooperating with Vengar now leads into the end result as fighting him.</ul>"
+			+"<ul>Companions now always escape after losing to any fight which leads into Murk or Vengar captivity.</ul>"
+			+"<ul>Reduced size of hostile rat gangs from 6 to 4.</ul>"
+			+"<ul>Fixed issue where if non-consent content was disabled, the Rat Warrens would enter into a bugged state if you lost combat and were thrown out.</ul>"
+			+"<ul>Slightly altered and improved descriptions of Murk and his milking storage and milking rooms.</ul>"
+			+"<ul>Murk now only rents his milkers out between 14:00 and 22:00.</ul>"
+			+"<ul>Slightly altered Murk's and his milkers' bodies & fetishes.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Characters who have a negative desire towards the impregnation fetish now have a low priority to creampie the vagina of characters who are not visibly pregnant.</ul>"
+			+"<ul>Fixed issue where NPCs were not using items & condoms properly.</ul>"
+			+"<ul>NPCs with the 'Pure virgin' fetish will no longer beg to have their virginity taken during sex.</ul>"
+			+"<ul>NPCs will no longer get stuck trying to repeatedly remove sealed bras.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added a silly-mode 'BONK!' baseball bat, sold by Vicky (she'll only be selling it if silly mode is on when she restocks at midnight each day).</ul>"
+			+"<ul>Increased default girth for the 'short' cat-morph tail from 'narrow' to 'average'.</ul>"
+			+"<ul>Slightly improved the reindeer overseer dialogue, and fixed the issue where you could have sex with them even if they weren't attracted to you.</ul>"
+			+"<ul>Slightly improved the 'bro' speech modifier.</ul>"
+			+"<ul>Increased cum storage from 65 to 150 and 250 for Vicky and Ralph, respectively.</ul>"
+			+"<ul>Imps and alpha-imps in Submission's tunnels are now far more likely to have the 'slovenly' personality modifier.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Numerous parsing and typo fixes.</ul>"
+			+"<ul>Fixed major bug where accessing the slave job assignment menu would cause an error reading: 'Error: getContent() method is throwing an exception'</ul>"
+			+"<ul>Fixed major bug where selfie and perk screens would not open if you had learned an elemental spell but had not yet summoned your elemental.</ul>"
+			+"<ul>Vaginal urethra depth no longer resets to the default value every time you import import a character or load a saved game.</ul>"
+			+"<ul>NPCs who have a negative desire towards others' cocks or pussies no longer positively react to another characters' cock/pussy being revealed. </ul>"
+			+"<ul>Added the 'all fours' slot to the positioning menu in the 'stocks'/'milking stall' sex position.</ul>"
+			+"<ul>Fixed issue where newly-spawned muggers/prostitutes in Dominion could throw background errors and not have the correct subspecies assigned to them.</ul>"
+			+"<ul>Fixed bug where you could access the 'sex' and 'manage' actions of a friendly occupant in their apartment even when they weren't actually present in the tile.</ul>"
+			+"<ul>Fixed several instances where after exiting a friendly occupant's apartment, their stats & inventory would continue to be displayed in the right-hand rendering column, which would throw background errors when trying to interact with it.</ul>"
+			+"<ul>Fixed incorrect bread roll description.</ul>"
+			+"<ul>Fixed issue where having more than one tail would cause all body parts to be parsed as though they were plural.</ul>"
+			+"<ul>Foot-to-groin sex actions have been restored to the 'reverse face-sitting' position.</ul>"
+			+"<ul>Fixed incorrect overview description of the milking stall sex position for if someone was in the 'all fours' slot.</ul>"
+			+"<ul>Fixed issues with random NPCs somehow knowing your name during sex when performing forced-creampie actions and when giving you pills.</ul>"
+			+"<ul>Desryth (the Father's Day incubus) is now correctly tagged as being added to your contacts screen after encountering him.</ul>"
+			+"<ul>Fetish modification effects from the item 'Mystery Kink' will no longer include anal, lactation, incest, or foot fetishes if you have the associated content setting turned off.</ul>"
+			+"<ul>Fixed (more) issues with the 'bedroom' slave job, where they would wake you up when they hadn't even arrived in your bedroom yet, and have wakeup-sex with you even after having left.</ul>"
+			+"<ul>Fixed 'Elemental damage' perk referring specifically to arcane elementals instead of elementals in general.</ul>"
+			+"<ul>Fixed bug where the room list in the 'office' room upgrade's Occupancy ledger would not work.</ul>"
+			+"<ul>Fixed bug where slaves could stack up in your bedroom at the time when they were meant to arrive/leave.</ul>"
+			+"<ul>Reset the bodies of all the unique slime characters in the Slime Queen's tower to their default starting values (as they were being randomised due to the bug fixed by AceXP).</ul>"
+			+"<ul>Fixed issue with some vagina types having incorrect names.</ul>"
+			+"<ul>Removed elementals as an option from the debug menu's 'race resets', as it was causing numerous issues having the player transformed into an elemental.</ul>"
+			+"<ul>Fixed issue where the initial dialogue scene with your elemental would sometimes display a lot of conditional parsing errors.</ul>"
+			+"<ul>Fixed issue where companions would be unable to use fire spells out of combat by sacrificing health.</ul>"
+			+"<ul>Fixed game-breaking issues when getting your companion to summon an elemental.</ul>"
+			+"<ul>Fixed issue where exploring in Dominion's alleyways would sometimes pass time but not display any encounter.</ul>"
+			+"<ul>Fixed a couple of instances where Dominion storm attackers would not be removed from street tiles after interacting with them. (Any NPCs stuck on tiles in this manner will be cleaned up whne loading into this version.)</ul>"
+			+"<ul>Half-demon dog, wolf, and fox morphs should now correctly spawn with scarlet penises.</ul>"
+			+"<ul>Fixed issue where Loppy was spawning with her penile virginity.</ul>"
+			+"<ul>Fixed bug where having sex with more tahn 4 slaves in your bathroom's shower or bath would throw background errors and thus not work.</ul>"
+			+"<ul>Fixed bug where all of your clothing would be duplicated into your inventory after stripping to use the spa and then having sex with your salves in the pool.</ul>"
+			+"<ul>Fixed bug where, after sex, unique NPCs would drop clothing that had become dirty during sex on the floor.</ul>"
+			+"<ul>Offspring resulting from an imp mother or father will now correctly be imps.</ul>"
+		+"</list>"
+		
+		+ "<br/>"
+		
+		+ "<list>"
+			+ "<h6>v0.3.9</h6>"
 			+"<li>Contributors:</li>"
 			+"<ul>Added five new fluid flavourings: coffee; tea; cinnamon; lemon; maple. (by 'Charisma is my Dump Stat')</ul>"
 			+"<ul>Added five new fluid flavourings: grape; melon; coconut; blueberry; orange. (by 'DSG')</ul>"
@@ -1256,7 +1347,7 @@ public class Main extends Application {
 			properties.name = game.getPlayer().getName(false);
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
-			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);
+			properties.arcaneEssences = game.getPlayer().getEssenceCount();
 			if (game.getPlayer().isFeminine()) {
 				properties.race = game.getPlayer().getSubspecies().getSingularFemaleName(game.getPlayer());
 			} else {

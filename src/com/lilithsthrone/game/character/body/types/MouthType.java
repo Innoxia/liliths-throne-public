@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -104,9 +105,9 @@ public class MouthType {
 		return allMouthTypes;
 	}
 	
-	private static Map<Race, List<AbstractMouthType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractMouthType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractMouthType> getMouthTypes(Race r) {
+	public static List<AbstractMouthType> getMouthTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

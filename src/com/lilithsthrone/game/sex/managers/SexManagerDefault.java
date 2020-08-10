@@ -409,13 +409,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// --- Priority 5 | Using special items ---
 
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(!character.isPlayer()) {
-				Value<AbstractItem, String> sexItemValue = partner.getSexItemToUse(character);
-				if(sexItemValue!=null) {
-					Main.sex.setItemUseInformation(partner, character, sexItemValue.getKey());
-					return SexActionUtility.PARTNER_USE_ITEM;
-				}
-				
+//			if(!character.isPlayer()) {
+			Value<AbstractItem, String> sexItemValue = partner.getSexItemToUse(character);
+			if(sexItemValue!=null) {
+				Main.sex.setItemUseInformation(partner, character, sexItemValue.getKey());
+				return SexActionUtility.PARTNER_USE_ITEM;
+			}
+
+			if(!character.equals(partner)) {
 				Value<AbstractClothing, String> sexClothingValue = partner.getSexClothingToSelfEquip(character, false);
 				if(sexClothingValue!=null) {
 					Main.sex.setClothingSelfEquipInformation(partner, character, sexClothingValue.getKey());

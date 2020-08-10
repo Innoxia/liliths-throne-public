@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -240,8 +241,8 @@ public class AssType {
 		return allAssTypes;
 	}
 	
-	private static Map<Race, List<AbstractAssType>> typesMap = new HashMap<>();
-	public static List<AbstractAssType> getAssTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractAssType>> typesMap = new HashMap<>();
+	public static List<AbstractAssType> getAssTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

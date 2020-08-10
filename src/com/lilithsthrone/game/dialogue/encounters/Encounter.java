@@ -63,17 +63,22 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public enum Encounter {
 
-	LILAYAS_HOME_CORRIDOR(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f))) {
+	LILAYAS_HOME_CORRIDOR(null) {
+		@Override
+		public Map<EncounterType, Float> getDialogues() {
+			return Util.newHashMapOfValues(
+					Main.game.getCharactersPresent().isEmpty()
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
+						:null);
+		}
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
-				
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
 				
@@ -117,23 +122,16 @@ public enum Encounter {
 	
 	
 	DOMINION_STREET(null) {
-		
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-			if(getSlaveWantingToUseYouInDominion()!=null) {
-				return Util.newHashMapOfValues(
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
-						new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-						new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
-			} else {
-				return Util.newHashMapOfValues(
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
-						new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
-			}
+			return Util.newHashMapOfValues(
+					new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
+					new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
+					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty()
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
+						:null,
+					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
 		}
 		
 		@Override
@@ -211,7 +209,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					getSlaveWantingToUseYouInDominion()!=null
+					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -277,16 +275,20 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 			
 			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
-				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
+				}
 			} else {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
-				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
+				}
 			}
 			
 			return map;
@@ -372,7 +374,7 @@ public enum Encounter {
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
-			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS) {
 				spawnEnforcers();
 				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
@@ -421,8 +423,10 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f),
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
+						:null,
+					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -504,7 +508,7 @@ public enum Encounter {
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
-			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS) {
 				spawnEnforcers();
 				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				

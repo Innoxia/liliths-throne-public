@@ -538,7 +538,7 @@ public enum Fetish {
 	
 	FETISH_PENIS_RECEIVING(60,
 			"cock addict",
-			"others cocks",
+			"others' cocks",
 			"fetish_cock_addict",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,

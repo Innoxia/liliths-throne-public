@@ -1339,13 +1339,6 @@ public class Game implements XMLSaving {
 						EnforcerHQDialogue.obtainBraxAsSlave();
 					}
 				}
-
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.7")) {
-					if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);
-						RatWarrensDialogue.banishMilkers();
-					}
-				}
 				
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.6.6")) {
 					for(NPC npc : Main.game.getAllNPCs()) {
@@ -1429,6 +1422,22 @@ public class Game implements XMLSaving {
 						if(npc instanceof RatWarrensCaptive) { 
 							npc.setAffection(Main.game.getNpc(Murk.class), 100);
 						}
+					}
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.9.1")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof DominionAlleywayAttacker && ((DominionAlleywayAttacker) npc).isStormAttacker()) { 
+							Main.game.banishNPC(npc); // Catch for storm attackers who were stuck on a dominion street tile. (Again...)
+						}
+						if(npc.getSubspecies()==Subspecies.IMP || npc.getSubspecies()==Subspecies.IMP_ALPHA) { // Fix issue with imps having an override of 'DEMON'
+							npc.setSubspeciesOverride(npc.getSubspecies());
+						}
+					}
+					// Rat Warrens now always end up being raided:
+					if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
+							|| Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_COOPERATION_END)) {
+						RatWarrensDialogue.applyRatWarrensRaid();
 					}
 				}
 				

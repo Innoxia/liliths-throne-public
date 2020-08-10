@@ -51,7 +51,9 @@ public class OccupantDialogue {
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 			Main.game.saveDialogueNode();
 		}
-		CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
+		if(!isApartment || targetedOccupant.isAtHome()) {
+			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
+		}
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
 
@@ -72,6 +74,11 @@ public class OccupantDialogue {
 		confirmKickOut = false;
 		
 		OccupantDialogue.initFromCharactersPresent = initFromCharactersPresent;
+	}
+	
+	
+	private static void exitDialogue() {
+		Main.game.getDialogueFlags().setManagementCompanion(null);
 	}
 	
 	private static DialogueNode getAfterSexDialogue() {
@@ -1156,12 +1163,10 @@ public class OccupantDialogue {
 	};
 	
 	public static final DialogueNode OCCUPANT_KICK_OUT = new DialogueNode("Kicking out", "", false) {
-		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
@@ -1261,12 +1266,10 @@ public class OccupantDialogue {
 	private static int sleepTimeInMinutes = 240;
 	
 	public static final DialogueNode OCCUPANT_APARTMENT = new DialogueNode("Moving out", "", true) {
-
 		@Override
 		public String getLabel() {
 			return UtilText.parse(occupant(), "[npc.NamePos] Apartment");
 		}
-		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -1306,12 +1309,14 @@ public class OccupantDialogue {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index == 0) {
-				return "Talk";
-			} else if(index == 1) {
-				return UtilText.parse("[style.colourSex(Sex)]");
-			} else if(index == 2) {
-				return UtilText.parse("[style.colourCompanion(Manage)]");
+			if(occupant().isAtHome()) {
+				if(index == 0) {
+					return "Talk";
+				} else if(index == 1) {
+					return UtilText.parse("[style.colourSex(Sex)]");
+				} else if(index == 2) {
+					return UtilText.parse("[style.colourCompanion(Manage)]");
+				}
 			}
 			
 			return null;
@@ -1320,12 +1325,12 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
-				if (index == 1) {
-					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogue(false));
-					
-				} else {
-					return null;
+				if(index==1) {
+					return new Response("Leave",
+							UtilText.parse(occupant(), "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion."),
+							Main.game.getDefaultDialogue(false));
 				}
+				return null;
 			}
 			
 			if(responseTab == 0) {
@@ -1490,6 +1495,7 @@ public class OccupantDialogue {
 						@Override
 						public void effects() {
 							applyReactionReset();
+							exitDialogue();
 						}
 					};
 					
@@ -1504,6 +1510,7 @@ public class OccupantDialogue {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVING", occupant()));
 							applyReactionReset();
+							exitDialogue();
 						}
 					};
 					
@@ -1654,11 +1661,14 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogue(false));
-					
-				} else {
-					return null;
+					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogue(false)) {
+						@Override
+						public void effects() {
+							exitDialogue();
+						}
+					};
 				}
+				return null;
 			}
 			
 			return OCCUPANT_APARTMENT.getResponse(responseTab, index);
@@ -1666,12 +1676,14 @@ public class OccupantDialogue {
 	};
 	
 	public static final DialogueNode OCCUPANT_APARTMENT_REMOVE = new DialogueNode("", "", false) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			exitDialogue();
+		}
 		@Override
 		public String getContent() {
 			return "";
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
@@ -1705,6 +1717,7 @@ public class OccupantDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVE_AFTER_SEX", occupant()));
+						exitDialogue();
 					}
 				};
 				

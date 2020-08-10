@@ -100,6 +100,9 @@ public class Loppy extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.3")) {
 			this.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-22, Month.JANUARY, 7, 12, 0));
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setPenisVirgin(false);
+		}
 	}
 
 	@Override
@@ -200,6 +203,7 @@ public class Loppy extends NPC {
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMaximumValue());
 		this.fillCumToMaxStorage();
+		this.setPenisVirgin(false);
 
 		// Vagina:
 		this.setVaginaVirgin(false);

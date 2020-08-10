@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -614,8 +615,8 @@ public class FluidType {
 		return allFluidTypes;
 	}
 	
-	private static Map<Race, List<AbstractFluidType>> typesMap = new HashMap<>();
-	public static List<AbstractFluidType> getFluidTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractFluidType>> typesMap = new HashMap<>();
+	public static List<AbstractFluidType> getFluidTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}
