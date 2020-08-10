@@ -299,14 +299,73 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_PINK_HOT,
 			PresetColour.CLOTHING_PINK_DARK);
 	
-	public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
+        public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
 	
 	public static ArrayList<Colour> NOT_BLACK = new ArrayList<>(ALL);
 	
+        //Speshul debug color list with added damage and BaseColours
+        //Modders don't use this in your items rrrrreeeeee
+        public static ArrayList<Colour> DEBUG_ALL = Util.newArrayListOfValues(
+                PresetColour.BASE_WHITE,
+                PresetColour.BASE_GREY_LIGHT,
+                PresetColour.BASE_GREY,
+                PresetColour.BASE_GREY_DARK,
+                PresetColour.BASE_ROSE,
+                PresetColour.BASE_LILAC,
+                PresetColour.BASE_LILAC_LIGHT,
+                PresetColour.BASE_INDIGO,
+                PresetColour.BASE_PURPLE_DARK,
+                PresetColour.BASE_PURPLE,
+                PresetColour.BASE_PURPLE_LIGHT,
+                PresetColour.BASE_PINK_DEEP,
+                PresetColour.BASE_PINK_SALMON,
+                PresetColour.BASE_PINK,
+                PresetColour.BASE_PINK_LIGHT,
+                PresetColour.BASE_MAGENTA,
+                PresetColour.BASE_CRIMSON,
+                PresetColour.BASE_RED_DARK,
+                PresetColour.BASE_RED,
+                PresetColour.BASE_RED_LIGHT,
+                PresetColour.BASE_TAN,
+                PresetColour.BASE_BROWN,
+                PresetColour.BASE_BROWN_DARK,
+                PresetColour.BASE_COPPER,
+                PresetColour.BASE_ORANGE,
+                PresetColour.BASE_GINGER,
+                PresetColour.BASE_GOLD,
+                PresetColour.BASE_YELLOW,
+                PresetColour.BASE_YELLOW_LIGHT,
+                PresetColour.BASE_GREEN_LIME,
+                PresetColour.BASE_GREEN_LIGHT,
+                PresetColour.BASE_GREEN,
+                PresetColour.BASE_GREEN_DARK,
+                PresetColour.BASE_AQUA,
+                PresetColour.BASE_TEAL,
+                PresetColour.BASE_PERIWINKLE,
+                PresetColour.BASE_BLUE_DARK,
+                PresetColour.BASE_BLUE_LIGHT,
+                PresetColour.BASE_BLUE,
+                PresetColour.BASE_BLUE_STEEL,
+                PresetColour.BASE_BLACK,
+                PresetColour.BASE_PITCH_BLACK,
+                PresetColour.DAMAGE_TYPE_UNARMED,
+                PresetColour.DAMAGE_TYPE_MELEE,
+                PresetColour.DAMAGE_TYPE_RANGED,
+                PresetColour.DAMAGE_TYPE_PHYSICAL,
+                PresetColour.DAMAGE_TYPE_MANA,
+                PresetColour.DAMAGE_TYPE_LUST,
+                PresetColour.DAMAGE_TYPE_SPELL,
+                PresetColour.DAMAGE_TYPE_FIRE,
+                PresetColour.DAMAGE_TYPE_COLD,
+                PresetColour.DAMAGE_TYPE_POISON,
+                PresetColour.DAMAGE_TYPE_PURE
+                );
+        
 	static {
 		NOT_WHITE.remove(PresetColour.CLOTHING_WHITE);
 		NOT_BLACK.remove(PresetColour.CLOTHING_BLACK);
 		NOT_BLACK.remove(PresetColour.CLOTHING_BLACK_JET);
+                DEBUG_ALL.addAll(ALL_WITH_METALS);
 	}
 
 	private static Map<String, ArrayList<Colour>> idToColourListMap = new HashMap<>();
