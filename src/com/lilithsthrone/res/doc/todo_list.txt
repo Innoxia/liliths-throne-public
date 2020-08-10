@@ -21,6 +21,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed issue where slime covering colour would be forgotten and randomised every time you loaded the game. (PR#1313 by AceXP)
+		Fixed parsing issues in potion application description. (PR#1343 by Eliria)
 	
 	Engine:
 		Removed TFEssence Enum (so accessing essence-modifying methods is now possible via use of the parser).
