@@ -192,12 +192,12 @@ public class QuestTree {
                 //Rebel base
                 node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
                 rebelBaseTree.addChild(node1);
-                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
-                node1.addChild(node2);
-                node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-                node2.addChild(node1);
-                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);
-                node1.addChild(node2);
+                nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
+                node1.addChild(nodeBranchA);
+                nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);
+                node1.addChild(nodeBranchB);
+                node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+                nodeBranchA.addChild(node2);
 		
 		// Romance quests:
 
