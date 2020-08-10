@@ -207,7 +207,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 						if(!character.isPlayer()) {
-							if(murkSexInfo.getValue().getTargetedSexArea()==SexAreaOrifice.MOUTH) {
+							if(murkSexInfo.getValue().getTargetedSexArea()==SexAreaOrifice.MOUTH || murkSexInfo.getValue().getTargetedSexArea()==SexAreaPenetration.FINGER) {
 								return OrgasmBehaviour.PULL_OUT;
 							}
 							return OrgasmBehaviour.CREAMPIE;
@@ -1692,7 +1692,7 @@ public class RatWarrensCaptiveDialogue {
 	// --------- START OF DAY 3 --------- //
 	
 	
-	public static final DialogueNode CAPTIVE_DAY_3_WAKE = new DialogueNode("", "", true) { //TODO
+	public static final DialogueNode CAPTIVE_DAY_3_WAKE = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			applyWakingEffects();
@@ -2583,7 +2583,6 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode CAPTIVE_GIVE_BIRTH = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			//TODO set location
 			Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
 			Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
 		}
@@ -2672,8 +2671,11 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	//TODO escapes framework from here
 	public static final DialogueNode CAPTIVE_BROKEN_FREE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -2696,7 +2698,14 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				return new Response("Submit", "Do as Murk says and submit to him...", CAPTIVE_BROKEN_FREE_SUBMIT) {
+				return new Response("Submit",
+						"Do as Murk says and submit to him..."
+								+getObedienceResponseDescription(10),
+						CAPTIVE_BROKEN_FREE_SUBMIT) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
+					}
 					@Override
 					public boolean isSexHighlight() {
 						return true;
@@ -2727,6 +2736,10 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_BROKEN_FREE_AFTER_SEX = new DialogueNode("Finished", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
+		@Override
 		public String getDescription() {
 			return "Murk has finished with you for now...";
 		}
@@ -2741,6 +2754,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(!Main.game.isBadEndsEnabled() && Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())>=4) {
+					return new Response("Sleep", "Completely exhausted from sexually pleasuring Murk, you soon find yourself falling asleep...", CAPTIVE_NIGHT_SLEEP_RESCUED);
+				}
 				return new Response("Sleep",
 						"Completely exhausted from sexually pleasuring Murk, you soon find yourself falling asleep...",
 						getSleepNode());
@@ -2750,6 +2766,10 @@ public class RatWarrensCaptiveDialogue {
 	};
 
 	public static final DialogueNode CAPTIVE_CALL_OUT = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;
@@ -2788,6 +2808,8 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_CALL_OUT_SEDUCE", getCharacters(false)));
+						getMurk().returnToHome();
+						Main.game.getPlayer().setLocation(getMurk(), false);
 					}
 				};
 			}
@@ -2807,6 +2829,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(isPlayerObeyingOrders(false)) {
+					return new Response("Fight", "You're too obedient to even consider fighting Murk!", null);
+				}
 				return new ResponseCombat("Fight",
 						UtilText.parse(getMurk(), "Now that you're free of your collar, you can finally attack [npc.name]!"),
 						null,
@@ -2827,6 +2852,11 @@ public class RatWarrensCaptiveDialogue {
 	};
 	
 	public static final DialogueNode CAPTIVE_RELEASED_AFTER_SEX = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -2888,6 +2918,11 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_CALL_OUT_END_LOCKED_UP = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+			getMurk().returnToHome();
+		}
+		@Override
 		public int getSecondsPassed() {
 			return Main.game.getMinutesUntilTimeInMinutes(8*60)*60;
 		}
@@ -2898,6 +2933,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(!Main.game.isBadEndsEnabled() && Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())>=4) {
+					return new Response("Sleep", "Fall asleep...", CAPTIVE_NIGHT_SLEEP_RESCUED);
+				}
 				return new Response("Sleep", "Fall asleep...", getSleepNode());
 			}
 			return null;
@@ -2948,6 +2986,11 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_AFTER_DEFEAT_SEX = new DialogueNode("Finished", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+			getMurk().returnToHome();
+		}
+		@Override
 		public String getDescription() {
 			return UtilText.parse(getMurk(), "[npc.NameHasFull] finished with you for now...");
 		}
@@ -2962,6 +3005,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(!Main.game.isBadEndsEnabled() && Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())>=4) {
+					return new Response("Sleep", "Completely exhausted from your fight and the subsequent sex, you soon find yourself falling asleep...", CAPTIVE_NIGHT_SLEEP_RESCUED);
+				}
 				return new Response("Sleep",
 						"Completely exhausted from your fight and the subsequent sex, you soon find yourself falling asleep...",
 						getSleepNode());

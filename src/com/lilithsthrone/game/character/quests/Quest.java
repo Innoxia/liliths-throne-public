@@ -1132,12 +1132,11 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "As you and Axel were leaving the Rat Warrens, Shadow and Silence appeared at the head of a SWORD raid."
-					+ " To prove that you and Axel are not part of Vengar's gang, you're going to have to accompany one of the Enforcers and have a talk with Claire...";
+			return "Now that [axel.name] has shown [axel.her] submission to Vengar, all that's left to do is head back to the Gambling Den...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "The SWORD Enforcers successfully raided the Rat Warrens, and thanks to Claire vouching for you, both you and Axel were proven not only to be innocent, but victims of Vengar's gang.";
+			return "After [axel.name] had shown [axel.her] submission to Vengar, a group of SWORD Enforcers turned up to raid the Rat Warrens and arrest the rat-boy!";
 		}
 	},
 

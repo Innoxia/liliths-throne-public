@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.9";
+	public static final String VERSION_NUMBER = "0.3.9.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**

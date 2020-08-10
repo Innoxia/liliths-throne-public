@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -103,7 +104,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.7.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class ScarlettsShop {
@@ -333,7 +334,7 @@ public class ScarlettsShop {
 		}
 		
 		int value = 25_000;
-		for(Entry<Race, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
+		for(Entry<AbstractRace, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
 			if(entry.getKey()!=Race.HUMAN) {
 				value += Math.min(5_000, 1_000*entry.getValue());
 			}

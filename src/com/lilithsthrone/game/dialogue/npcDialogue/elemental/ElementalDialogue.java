@@ -371,7 +371,7 @@ public class ElementalDialogue {
 			
 			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
 				"<p>"
-					+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+					+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 					+ " As [npc.sheIs] your slave, you could also change [npc.her] name to whatever you'd like it to be..."
 				+ "</p>"));
 			

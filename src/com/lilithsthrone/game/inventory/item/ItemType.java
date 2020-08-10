@@ -1558,7 +1558,7 @@ public class ItemType {
 			"Bread Roll",
 			"Bread Roll",
 			"A perfectly average bread roll, wrapped in a small, brown paper bag."
-					+ " A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs up while surrounded by all manner of submissively-bowing animal-morphs.",
+					+ " A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs up while surrounded by all manner of delicious-looking baked goods.",
 			"raceHumanBreadRoll",
 			PresetColour.RACE_HUMAN,
 			null,
@@ -1848,7 +1848,7 @@ public class ItemType {
 			Rarity.RARE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
-					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.RACIAL_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
@@ -3304,7 +3304,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Untying the top of the used condom, you bring it up to your lips and swallow the slimy contents.",
-					"Untying the top of the used condom, you bring it up to [npc.namePos] [npc.lips], and force [npc.her] to swallow the slimy contents.",
+					"Untying the top of the used condom, you bring it up to [npc.namePos] [npc.lips], and force [npc.herHim] to swallow the slimy contents.",
 					"Untying the top of the used condom, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.",
 					"Untying the top of the used condom, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
 		}
@@ -3556,7 +3556,7 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You unscrew the top of the breast pump, and, bringing it up to your lips, you gulp down the contents.",
-					"You unscrew the top of the breast pump, and, bringing it up to [npc.namePos] [npc.lips], you force [npc.her] to gulp down the contents.",
+					"You unscrew the top of the breast pump, and, bringing it up to [npc.namePos] [npc.lips], you force [npc.herHim] to gulp down the contents.",
 					"Unscrewing the top of the breast pump, [npc.name] brings it up to [npc.her] [npc.lips], before swallowing down the contents.",
 					"Unscrewing the top of the breast pump, [npc.name] brings it up to your [pc.lips], before forcing you to gulp down the contents.");
 		}

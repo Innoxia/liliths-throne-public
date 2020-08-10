@@ -1055,6 +1055,30 @@ public class ItemEffectType {
 				}
 			}
 			
+			// Remove possible fetish modifications based on user content settings:
+			if(!Main.game.isAnalContentEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_ANAL_GIVING);
+				fetishesToAdd.remove(Fetish.FETISH_ANAL_RECEIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ANAL_GIVING);
+				fetishesToRemove.remove(Fetish.FETISH_ANAL_RECEIVING);
+			}
+			if(!Main.game.isLactationContentEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_LACTATION_OTHERS);
+				fetishesToAdd.remove(Fetish.FETISH_LACTATION_SELF);
+				fetishesToRemove.remove(Fetish.FETISH_LACTATION_OTHERS);
+				fetishesToRemove.remove(Fetish.FETISH_LACTATION_SELF);
+			}
+			if(!Main.game.isFootContentEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_FOOT_GIVING);
+				fetishesToAdd.remove(Fetish.FETISH_FOOT_RECEIVING);
+				fetishesToRemove.remove(Fetish.FETISH_FOOT_GIVING);
+				fetishesToRemove.remove(Fetish.FETISH_FOOT_RECEIVING);
+			}
+			if(!Main.game.isIncestEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_INCEST);
+				fetishesToRemove.remove(Fetish.FETISH_INCEST);
+			}
+
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
 				Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 				target.addFetish(f);

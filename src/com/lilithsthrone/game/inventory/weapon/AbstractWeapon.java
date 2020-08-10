@@ -598,8 +598,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
-		return this.getWeaponType().applyExtraEffects(user, target, isHit);
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit, boolean isCritical) {
+		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical);
 	}
 	
 

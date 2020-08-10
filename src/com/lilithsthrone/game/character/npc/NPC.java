@@ -2797,7 +2797,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isWantingToEquipCondom(GameCharacter partner) {
-		return this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+		boolean wantingToEquip = this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+//		System.out.println("isWantingToEquipCondom("+partner.getName()+"): "+wantingToEquip);
+		return wantingToEquip;
 	}
 
 	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
@@ -2813,6 +2815,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 				if(condom!=null && this.isAbleToEquip(condom, inQuickSex, this)) {
+//					System.out.println("Condom");
 					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
 				}
 			}
@@ -2851,11 +2854,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
 											+ (this.isMute()
 													?" Knowing that [npc.sheIs] now a lot more fertile, [npc.name] lets out [npc.a_moan+] as [npc.she] imagines [npc2.name] finishing inside of [npc.herHim] and getting [npc.herHim] knocked up..."
-													:" Knowing that [npc.sheIs] now a lot more fertile, [npc.name] lets out [npc.a_moan+] and pleads, [npc.speech(Finish inside of me, [npc2.name]! I want you to knock me up!)]")));
+													:" Knowing that [npc.sheIs] now a lot more fertile, [npc.name] lets out [npc.a_moan+] and pleads, [npc.speech(Finish inside of me! I want you to knock me up!)]")));
 						}
 					}
 				}
-				if(charactersThisNpcIsPenetrating.contains(partner) && this.hasPenisIgnoreDildo()) { // Pills for when this NPC is penetrating someone else:
+				if(!charactersThisNpcIsPenetrating.isEmpty() && this.hasPenisIgnoreDildo()) { // Pills for when this NPC is penetrating someone else:
 					if(this.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
 								&& !partner.isPregnant()

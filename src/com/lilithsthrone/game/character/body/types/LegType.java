@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -599,8 +600,8 @@ public class LegType {
 		return allLegTypes;
 	}
 	
-	private static Map<Race, List<AbstractLegType>> typesMap = new HashMap<>();
-	public static List<AbstractLegType> getLegTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractLegType>> typesMap = new HashMap<>();
+	public static List<AbstractLegType> getLegTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

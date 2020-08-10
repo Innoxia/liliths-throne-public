@@ -90,7 +90,7 @@ import com.lilithsthrone.world.Cell;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class Sex {
@@ -794,7 +794,7 @@ public class Sex {
 	private void endSex() {
 		Main.game.setInSex(false);
 		
-		// If this is a washing scene, make sure that particiapnts don't end sex while being dirty:
+		// If this is a washing scene, make sure that participants don't end sex while being dirty:
 		if(this.getInitialSexManager().isWashingScene()) {
 			for(GameCharacter participant : getAllParticipants(false)) {
 				participant.cleanAllDirtySlots(true);
@@ -805,20 +805,6 @@ public class Sex {
 		// Restore clothes:
 		for(Entry<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> entry : clothingPreSexMap.entrySet()) {
 			GameCharacter character = entry.getKey();
-			if(character.isUnique()
-					&& !character.isPlayer()
-					&& (!character.isSlave() || character.getOwner().isPlayer())) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
-				List<AbstractClothing> equippedClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
-				for(AbstractClothing c : equippedClothing) {
-					AbstractClothing clean = new AbstractClothing(c) {};
-					clean.setDirty(null, false);
-					clean.setSlotEquippedTo(null);
-					if(!entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(c) && !entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(clean)) {
-						character.forceUnequipClothingIntoVoid(character, c);
-						character.getCell().getInventory().addClothing(c);
-					}
-				}
-			}
 			
 			for (Entry<InventorySlot, Map<AbstractClothing, List<DisplacementType>>> entry2 : entry.getValue().entrySet()) {
 				for (AbstractClothing c : entry2.getValue().keySet()) {
@@ -3981,6 +3967,9 @@ public class Sex {
 			zLayerSortedList.sort(new ClothingZLayerComparator());
 			clothingRemoval = targetForManagement.getInventory().findNextClothingDisplacement(
 					targetForManagement, coverableArea, targetForManagement.getClothingInSlot(InventorySlot.CHEST), DisplacementType.REMOVE_OR_EQUIP, zLayerSortedList, true);
+			if(clothingRemoval.getKey().isSealed()) { // If the bra is sealed, just displace instead:
+				clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+			}
 			
 		} else {
 			clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);

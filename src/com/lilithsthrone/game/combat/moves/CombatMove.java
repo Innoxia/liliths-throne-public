@@ -297,7 +297,7 @@ public class CombatMove {
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getMainWeaponArray()[i];
 	        		if(weapon != null) {
-	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
 	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		} else {
@@ -598,7 +598,7 @@ public class CombatMove {
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
 	        		if(weapon != null) {
-	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
 	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		} else {
@@ -898,7 +898,7 @@ public class CombatMove {
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getMainWeaponArray()[i];
 	        		if(weapon != null) {
-	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
 	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		} else {
@@ -908,7 +908,7 @@ public class CombatMove {
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
 	        		if(weapon != null) {
-	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
 	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		} else {

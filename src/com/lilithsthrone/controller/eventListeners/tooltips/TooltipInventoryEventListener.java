@@ -862,6 +862,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		int yIncrease = 0;
 		int listIncrease = 2 + absWep.getAttributeModifiers().size();
 		listIncrease += absWep.getSpells().size();
+		listIncrease += absWep.getWeaponType().getExtraEffects().size();
 
 		String author = absWep.getWeaponType().getAuthorDescription();
 		if(!author.isEmpty()) {
@@ -893,7 +894,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									:"[style.colourRanged(Ranged)]"))+"</br>"
 						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 						);
-		
+			
 			float res = absWep.getWeaponType().getPhysicalResistance();
 			if(res>0) {
 				listIncrease++;
@@ -953,7 +954,11 @@ public class TooltipInventoryEventListener implements EventListener {
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 				}
 			}
-
+			
+			for(String s : absWep.getWeaponType().getExtraEffects()) {
+				tooltipSB.append("<br/><b>"+s+"</b>");
+			}
+			
 			for(Entry<Attribute, Integer> entry : absWep.getAttributeModifiers().entrySet()) {
 				tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 			}

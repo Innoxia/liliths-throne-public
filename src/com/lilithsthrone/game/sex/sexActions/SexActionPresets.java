@@ -204,7 +204,8 @@ public class SexActionPresets {
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToUpperTorso;
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToLowerHalf;
-	
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToGroin;
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToGroin = new HashMap<>();
 	
@@ -274,6 +275,8 @@ public class SexActionPresets {
 		
 		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
 		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
+
+		feetToGroin = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FOOT, groinAreas));
 		
 		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
 		

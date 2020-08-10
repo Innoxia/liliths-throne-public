@@ -13,6 +13,7 @@ import com.lilithsthrone.utils.Util;
 public enum ItemTag {
 
 	CHEAT_ITEM(false), // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
+	SILLY_MODE(false), // Silly mode items only appear in shopkeepers inventories when silly mode is on.
 	
 	REMOVE_FROM_DEBUG_SPAWNER(false),
 	NOT_FOR_SALE(false),

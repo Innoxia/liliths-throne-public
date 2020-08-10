@@ -82,7 +82,7 @@ public class Daddy extends NPC {
 				"First encountered as an unwelcome guest being turned away from Lilaya's home, the demon [npc.name] has the lofty goal of winning the love and affection of none other than the elder Lilin, Lyssieth.",
 				57, Month.JANUARY, 17,
 				25, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
 			this.setGenericName("unwelcome incubus");
@@ -330,6 +330,11 @@ public class Daddy extends NPC {
 	
 	@Override
 	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
+	public boolean isAddedToContacts() {
 		return true;
 	}
 	

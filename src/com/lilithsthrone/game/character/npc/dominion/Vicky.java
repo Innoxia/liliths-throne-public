@@ -323,6 +323,9 @@ public class Vicky extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setPenisCumStorage(150);
+		}
 	}
 
 	@Override
@@ -418,7 +421,7 @@ public class Vicky extends NPC {
 		this.setPenisVirgin(false);
 		this.setPenisSize(22);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
+		this.setPenisCumStorage(150);
 		this.fillCumToMaxStorage();
 		
 		// Vagina:
@@ -472,18 +475,22 @@ public class Vicky extends NPC {
 		List<AbstractCoreType> types = new ArrayList<>();
 		
 		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
+					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				types.add(wt);
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				types.add(item);
 			}
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				if(clothing!=null
+						&& clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)
+						&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 					types.add(clothing);
 				} 
 			} catch(Exception ex) {

@@ -758,7 +758,7 @@
 		Stepping back into the open space beside her desk, Lyssieth flashes you a devious grin, and as she blinks, her green irises suddenly change into glowing yellow, and you see that her pupils have transformed into vertical, snake-like slits. Taking a deep breath, the elder lilin grows right before your eyes, rising to stand at [units.size(196)] in height. Stretching her arms up towards the ceiling, a huge pair of demonic, scarlet-coloured wings suddenly unfold from behind her back. Immediately afterwards, a long, spaded tail grows down and curls upwards to start playfully stroking at her exposed pussy. As the elder lilin lets out an erotic sigh, a pair of long, grey horns grow out from her forehead to sweep back over her now-black, silken hair. Her ears then suddenly point out and, along with her arms and legs, darken and turn the same shade of scarlet as her wings and tail.
 	</p>
 	<p>
-		[lyssieth.speech(Mmm... Yes!)] Lyssieth cries out, and with one last sensual moan, the entirety of her body and face changes to be the same demonic shade of scarlet. As her demonic transformation comes to an end, and with her tail continuing to stroke up and down over her wet labia, a fat, 16-inch demonic cock grows out just above the elder lilin's pussy.
+		[lyssieth.speech(Mmm... Yes!)] Lyssieth cries out, and with one last sensual moan, the entirety of her body and face changes to be the same demonic shade of scarlet. As her demonic transformation comes to an end, and with her tail continuing to stroke up and down over her wet labia, a fat, [lyssieth.cockLengthValue] demonic cock grows out just above the elder lilin's pussy.
 	</p>
 	<p>
 		With Lyssieth's transformation now complete, you find yourself looking upon the imposing figure of a truly demonic succubus. As her glowing yellow eyes lock onto yours, she suddenly bounds forwards, before pressing her plump lips against yours and pulling you into a desperate, passionate kiss. As her tongue explores the inside of your mouth, you feel her hot body pressing tightly against yours, and as her massive breasts squish into your chest, a sickly-sweet, corruptive warmth starts to seep into your body.
@@ -786,8 +786,8 @@
 	</p>
 	<p>
 		#IF pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speech(Good [pc.girl],)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, 16-inch length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste of mommy, don't you?)]
-		#ELSE [lyssieth.speech(Oh yeah, just like that,)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, 16-inch length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste, don't you?)]
+		#THEN [lyssieth.speech(Good [pc.girl],)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, [lyssieth.cockLengthValue] length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste of mommy, don't you?)]
+		#ELSE [lyssieth.speech(Oh yeah, just like that,)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, [lyssieth.cockLengthValue] length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste, don't you?)]
 		#ENDIF
 	</p>
 	<p>
@@ -886,7 +886,7 @@
 		As you start to reply, Lyssieth suddenly reaches up and starts stroking her fingers around and around in a circular manner over your doll-like crotch. Her touch produces such an intense stimulation that the words which were forming in your mouth burst out as a desperate, passionate groan. Letting out soft laugh, Lyssieth continues stroking your sensitive groin, and as she starts gently pulling and squeezing at a particularly sensitive point on your crotch, you can't help but let out a series of [pc.moans+].
 	</p>
 	<p>
-		[lyssieth.speech(Mmm, you like that?)] Lyssieth teases, before suddenly wrapping her fingers around the protrusion that's appeared between your [pc.legs]. Letting out an alarmed groan as you feel this, you look down to see that the elder lilin is stroking your new demonic cock with one hand, while the other is reaching up to cup and massage your new pair of balls. Although at first your shaft is only a couple of [unit.sizes] long, as Lyssieth continues to stroke and tug at it, it grows larger and larger, until finally, at [pc.penisInches]-inches long, it's almost as big as hers is.
+		[lyssieth.speech(Mmm, you like that?)] Lyssieth teases, before suddenly wrapping her fingers around the protrusion that's appeared between your [pc.legs]. Letting out an alarmed groan as you feel this, you look down to see that the elder lilin is stroking your new demonic cock with one hand, while the other is reaching up to cup and massage your new pair of balls. Although at first your shaft is only a couple of [unit.sizes] long, as Lyssieth continues to stroke and tug at it, it grows larger and larger, until finally, at [pc.cockLengthValue] long, it's almost as big as hers is.
 	</p>
 	<p>
 		#IF pc.hasFetish(FETISH_INCEST)

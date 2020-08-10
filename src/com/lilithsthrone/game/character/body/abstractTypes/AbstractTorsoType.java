@@ -6,19 +6,19 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.8.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	
 	private List<String> descriptorsMasculine;
 	private List<String> descriptorsFeminine;
@@ -37,7 +37,7 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 	 * @param skinBodyDescription A sentence or two to describe this skin type, as seen in the character view screen. It should follow the same format as all of the other entries in the SkinType class.
 	 */
 	public AbstractTorsoType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			List<String> descriptorsFeminine,
 			List<String> descriptorsMasculine,
 			String skinTransformationDescription,
@@ -88,7 +88,7 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

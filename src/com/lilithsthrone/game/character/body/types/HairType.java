@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.8.2
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class HairType {
@@ -296,9 +297,9 @@ public class HairType {
 		return allHairTypes;
 	}
 	
-	private static Map<Race, List<AbstractHairType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractHairType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractHairType> getHairTypes(Race r) {
+	public static List<AbstractHairType> getHairTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

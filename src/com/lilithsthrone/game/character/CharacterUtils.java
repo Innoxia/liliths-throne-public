@@ -1357,7 +1357,9 @@ public class CharacterUtils {
 			}
 		}
 		
+		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);
+		
 		return body;
 	}
 	

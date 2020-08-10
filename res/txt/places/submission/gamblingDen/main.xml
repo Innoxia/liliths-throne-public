@@ -704,6 +704,9 @@
 	<p>
 		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar without their assistance...
 	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Please be aware that are some rough edges to this quest! It will be finished as soon as possible!)]
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -1007,17 +1010,26 @@
 	</htmlContent>
 	
 	
-	<!-- AXEL_VENGAR_VISIT_RETURN -->
+	<!-- AXEL_VENGAR_VISIT_RETURN_NEXT -->
 	
-	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN"><![CDATA[
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_NEXT"><![CDATA[
 	<p>
 		It only takes a couple more minutes for the two of you to reach the main entrance to the Rat Warrens. Opening the doors for you and [axel.name], the rats on guard duty make a couple of derogatory comments as they let you back out into the tunnels of Submission. Once out there, [axel.name] turns to you and says, [axel.speech(I suppose we should get back as quickly as possible. I sure hope that 'Shadow' person didn't mean anything when she said something unexpected might happen...)]
 	</p>
 	<p>
-		Agreeing with the [axel.race], you set off on your way back to the Gambling Den, but you aren't able to get very far at all before the familiar voice of Shadow suddenly echoes out from around the next corner...
+		Agreeing with the [axel.race], you set off on your way back to the Gambling Den, but you aren't able to get very far at all before the familiar voice of Shadow suddenly echoes out from around the next corner, [shadow.speech(Don't ya wave that fuckin' thing in me face! I's on yer side, remember?!)]
 	</p>
 	<p>
-		TODO Enforcers show up with Shadow/Silence.
+		Stopping in your tracks, you and [axel.name] watch as the black-furred rat-girl appears from around the next corner. Much to your surprise and alarm, you see that she's not only accompanied by Silence, but also by a large group of heavily armed and armoured Enforcers. Immediately catching sight of you, these Enforcers raise their weapons and shout, [style.speechMasculine(This is SWORD! Show us your hands! Get down on the ground! Do it! Do it now!)]
+	</p>
+	<p>
+		[shadow.speech(Does it fuckin' look like these two are part o' the gang?!)] Shadow interjects, before turning to a large German-shepherd-boy and snarling, [shadow.speech(Tell yer trigger-happy goons ta stand down; that [axel.race] is the one 'o's bein' extorted!)]
+	</p>
+	<p>
+		Barking out an order for the SWORD Enforcers to leave you alone, the muscular leader steps forwards and scowls at Shadow, [style.speechMasculineStrong(Catching Vengar red-handed is all we needed. You've upheld your end of the bargain, so you and your girlfriend here can join these two in getting out of our way. Constable Adams! Take these four back the way we came!)]
+	</p>
+	<p>
+		One of the SWORD Enforcers, who you assume must be Constable Adams, hurries forwards and prepares to do as he's told. Wanting to find out what's going on, and thinking it best not to get in the way of this group of heavily-armed Enforcers, you decide to comply and allow yourself to be escorted to the nearest Enforcer post...
 	</p>
 	]]>
 	</htmlContent>
@@ -1027,7 +1039,47 @@
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_ENFORCERS"><![CDATA[
 	<p>
-		TODO You and [axel.name] are taken to the nearest Enforcer post.
+		Along with [axel.name], Shadow, and Silence, you step to one side of the tunnel and allow the group of SWORD Enforcers to pass, before joining Constable Adams in travelling through the tunnels towards the nearest Enforcer post. As you set off on your way, you suddenly hear a series of loud explosions coming from the direction of the Rat Warrens, and Shadow snarkily remarks, [shadow.speech(Sounds like Vengar's about ta find out wot 'appens when ya try an' fuck me an' Silence over.)]
+	</p>
+	<p>
+		[axel.speech(So these Enforcers are here because of you?)] [axel.name] asks.
+	</p>
+	<p>
+		[shadow.speech('Course they is! Me an' Silence are gettin' a fat reward fer providin' all the juicy details on the sorts o' illegal shit Vengar an' 'is gang 'ave been gettin' up ta,)] Shadow snickers, [shadow.speech(This is wot 'e gets fer treatin' me an' Silence like trash!)]
+	</p>
+	<p>
+		Although you've now discovered the reason behind the unexpected SWORD raid, you decide that it would be best to continue letting Constable Adams escort you to the nearest Enforcer post. After all, if you were to leave now, you could end up being put on some kind of wanted list. Clearly thinking the same thing as you, [axel.name] asks, [axel.speech(We're not getting into any kind of trouble, are we?)]
+	</p>
+	<p>
+		[style.speechMasculine(No,)] the Enforcer sighs, [style.speechMasculine(We're only interested in the gang members. You'll be free to go after you've given a statement.)]
+	</p>
+	<p>
+		After travelling a little further down the tunnels, you soon arrive at the nearest Enforcer post, where you discover that 'giving a statement' involves filling out a seemingly never-ending amount of paperwork. Thankfully, Claire is there to lend you a hand, but even with her help, it takes almost three hours before you're declared free to leave. With Shadow and Silence having received their reward and departed a long time ago, you find yourself [pc.stepping] out into Submission with just [axel.name] for company. Turning towards you and flashing you a smile, the [axel.race] says, [axel.speech(Now that that's all done with, let's head back to my place. I still need to give you your reward for helping me out with all of this.)]
+	</p>
+	<p>
+		Deciding that it would be best to do as [axel.name] says, you prepare to set off and accompany [axel.herHim] back to the Gambling Den...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END"><![CDATA[
+	<p>
+		At the side of [axel.name], you make your way back through Submission and soon find yourself once again entering the Gambling Den. Your troubles aren't over quite yet, however, for as you [pc.step] inside the building, you see the German-shepherd-boy who was leading the SWORD raid waiting for you.
+	</p>
+	<p>
+		[style.speechMasculineStrong(You took your damn time,)] he growls as he steps over to stand in front of you and [axel.name]. Thrusting a handful of papers into the [axel.race]'s hands, he declares, [style.speechMasculineStrong(As compensation for the damage caused to your business by Vengar's gang, you're being given a slaver license, as well as ownership of Vengar and one of his gang members called 'Murk'. Some horse-girl calling herself 'Epona' took charge of Murk, while the rat-girl you've got running your shop's taken charge of Vengar.)]
+	</p>
+	<p>
+		[axel.speech(Wait, but I don't really want-)] [axel.name] starts to object, but [axel.sheIs] swiftly cut off by the SWORD Enforcer.
+	</p>
+	<p>
+		[style.speechMasculineStrong(I don't care what you want. This is what you've got. Oh, also, we've placed selling restrictions on your new slaves, as we might need evidence from them later,)] the German-shepherd-boy states, before striding over to the door and calling out after him, [style.speechMasculineStrong(This concludes our involvement with you.)]
+	</p>
+	<p>
+		As the door swings shut after the Enforcer, you turn and ask [axel.name] what [axel.sheIs] going to do with the two rat-boys, seeing as he doesn't have any real interest in owning slaves. Letting [axel.her] shoulders slump, the [axel.race] lets out a very heavy sigh, before saying, [axel.speech(Well, it sounds like I'm stuck with them, so I'll just let Roxy and Epona look after them... Anyway, let me get you your reward for all of your help!)]
 	</p>
 	]]>
 	</htmlContent>

@@ -126,6 +126,7 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
@@ -6815,7 +6816,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the length of the character's penis, in the metric or imperial units as defined in user settings.",
+				"Returns a descriptor of the length of the character's penis.",
 				BodyPartType.PENIS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
@@ -8323,8 +8324,8 @@ public class UtilText {
 		}
 		
 		// Bodies:
-		for(Race race : Race.values()) {
-			engine.put("RACE_"+race.toString(), race);
+		for(AbstractRace race : Race.getAllRaces()) {
+			engine.put("RACE_"+Race.getIdFromRace(race), race);
 		}
 		for(AbstractRacialBody racialBody : RacialBody.getAllRacialBodies()) {
 			engine.put("RACIAL_BODY_"+RacialBody.getIdFromRacialBody(racialBody), racialBody);

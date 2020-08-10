@@ -8,7 +8,13 @@
 		#IF(el.getPassiveForm()==null)
 			Wanting to take a moment in which to speak to your elemental, you turn towards [el.name], only to see that [el.sheIs] already expectantly hovering up near to your face. The pale [el.skinColour] glow of [el.her] ethereal, wisp-like form noticeably brightens as [el.she] projects [el.her] thoughts directly into your mind,
 		#ELSE
-			Wanting to take a moment in which to speak to your elemental, you turn towards [el.name], only to see that [el.sheIs] already expectantly looking up at you. The pale [el.skinColour] glow which surrounds [el.her] feral [el.passiveRace]'s body noticeably brightens as [el.she] projects [el.her] thoughts directly into your mind,
+			Wanting to take a moment in which to speak to your elemental, you turn towards [el.name], only to see that [el.sheIs] already expectantly
+			#IF(el.getPassiveForm().getRace().isFlyingRace())
+				 flying around in little circles near to your face.
+			#ELSE
+				 looking up at you.
+			#ENDIF
+			 The pale [el.skinColour] glow which surrounds [el.her] feral [el.passiveRace]'s body noticeably brightens as [el.she] projects [el.her] thoughts directly into your mind,
 		#ENDIF
 		#IF(el.isSummonerServant())
 			 [el.thought(You dare to ask something of me, servant? Bow down before me, and I shall consider your request.)]
@@ -22,7 +28,15 @@
 		#IF(el.isSummonerServant())
 			Having sworn to be subservient to the school of [el.school(true)], you feel obliged to do as [el.name] commands, and dutifully bow down before [el.herHim]. Satisfied with your display of submission, your elemental once again projects [el.her] voice into your mind and dominantly orders, [el.thought(Tell me what it is you want then, servant!)]
 		#ELSE
-			Clearly wanting to show [el.her] affection towards you, [el.name] rubs up against your [pc.leg(true)] as [el.she] waits to hear what it is you want...
+			Clearly wanting to show [el.her] affection towards you,
+			#IF(el.getPassiveForm()==null)
+				 [el.name] hovers up close to your face and rubs up against your cheek
+			#ELSEIF(el.getPassiveForm().getRace().isFlyingRace())
+				 [el.name] lands on your shoulder and rubs up against your cheek
+			#ELSE
+				 [el.name] rubs up against your [pc.leg(true)]
+			#ENDIF
+			 as [el.she] waits to hear what it is you want...
 		#ENDIF
 	</p>
 	]]>
@@ -81,7 +95,12 @@
 		#IF(el.getPassiveForm()==null)
 			 Hovering around you, [el.her] ethereal, wisp-like form brightens as [el.she] projects [el.her] voice into your head and asks,
 		#ELSE
-			 Looking up at you, the faint glow emitted by [el.her] feral [el.passiveRace]'s body brightens as [el.she] projects [el.her] voice into your head and asks,
+			#IF(el.getPassiveForm().getRace().isFlyingRace())
+				 Quickly taking off and flying around in little circles,
+			#ELSE
+				 Looking up at you,
+			#ENDIF
+			  the faint glow emitted by [el.her] feral [el.passiveRace]'s body brightens as [el.she] projects [el.her] voice into your head and asks,
 		#ENDIF
 		#IF(el.isSummonerServant())
 			 [el.thought(Are you quite satisfied now, servant?)]
@@ -253,7 +272,11 @@
 		</p>
 	#ELSE
 		<p>
-			Deciding that your cute little elemental deserves a good petting, you bend down and hold your [pc.hand] out towards [el.herHim]. Knowing exactly what it is that you intend to do, [el.name], who's in the form of a small [el.passiveForm], happily moves towards you and lets you pet [npc.herHim].
+			#IF(el.getPassiveForm().getRace().isFlyingRace())
+				Deciding that your cute little elemental deserves a good petting, you hold your [pc.hand] out towards [el.herHim]. Knowing exactly what it is that you intend to do, [el.name], who's in the form of a small [el.passiveForm], happily flies over to land on your outstretched [pc.hand] and let you pet [el.herHim].
+			#ELSE
+				Deciding that your cute little elemental deserves a good petting, you bend down and hold your [pc.hand] out towards [el.herHim]. Knowing exactly what it is that you intend to do, [el.name], who's in the form of a small [el.passiveForm], happily moves towards you and lets you pet [el.herHim].
+			#ENDIF
 		</p>
 		<p>
 			[el.thought(That feels... good...)] [el.namePos] voice echoes into your mind as you start stroking [el.herHim]. Thanks to the fact that [el.sheIsFull] directly linked to your subconscious, you find yourself sharing in the pleasurable feeling of being petted, which encourages you to keep on doing it. The faint [el.skinColour] light which surrounds [el.namePos] body shimmers as [el.she] projects a deeply-satisfied sigh into your mind, [el.thought(Yes... Keep going...)]
@@ -295,7 +318,7 @@
 	
 	<htmlContent tag="ELEMENTAL_PASSIVE_FORM_CHANGE"><![CDATA[
 	<p>
-		Wanting [el.name] to take on a different passive form, you ask [npc.herHim] to transform into [#SPECIAL_PARSE_0].
+		Wanting [el.name] to take on a different passive form, you ask [el.herHim] to transform into [#SPECIAL_PARSE_0].
 	</p>
 	<p>
 		#IF(el.isSummonerServant())

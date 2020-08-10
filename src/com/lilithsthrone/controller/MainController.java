@@ -1843,7 +1843,7 @@ public class MainController implements Initializable {
 			id = idModifier+"ELEMENTAL_"+Attribute.EXPERIENCE.getName();
 			if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-					if(Main.game.isInNeutralDialogue()) {
+					if(character.isPlayer() && Main.game.isInNeutralDialogue()) {
 						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
 					}
 				}, false);
@@ -1856,7 +1856,7 @@ public class MainController implements Initializable {
 			id = idModifier+"ELEMENTAL_ATTRIBUTES";
 			if(((EventTarget) documentAttributes.getElementById(id))!=null){
 				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-					if(Main.game.isInNeutralDialogue()) {
+					if(character.isPlayer() && Main.game.isInNeutralDialogue()) {
 						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
 					}
 				}, false);
