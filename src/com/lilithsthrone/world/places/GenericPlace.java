@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -178,6 +179,9 @@ public class GenericPlace implements XMLSaving {
 	}
 
 	public Colour getColour() {
+		if(this.getPlaceUpgrades().stream().anyMatch(up->up.isCoreRoomUpgrade())) {
+			return this.getPlaceUpgrades().stream().filter(up -> up.isCoreRoomUpgrade()).collect(Collectors.toList()).get(0).getColour();
+		}
 		return placeType.getColour();
 	}
 

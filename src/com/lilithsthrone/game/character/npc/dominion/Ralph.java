@@ -100,6 +100,9 @@ public class Ralph extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
 			this.setPenisSize(30);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setPenisCumStorage(250);
+		}
 	}
 
 	@Override
@@ -192,7 +195,7 @@ public class Ralph extends NPC {
 		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(65);
+		this.setPenisCumStorage(250);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -238,13 +241,15 @@ public class Ralph extends NPC {
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
 			}
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
 					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
 					Colour condomColourSec = PresetColour.CLOTHING_BLACK;

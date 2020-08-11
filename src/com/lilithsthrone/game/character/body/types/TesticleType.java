@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -114,8 +115,8 @@ public class TesticleType {
 		return allTesticleTypes;
 	}
 	
-	private static Map<Race, List<AbstractTesticleType>> typesMap = new HashMap<>();
-	public static List<AbstractTesticleType> getTesticleTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractTesticleType>> typesMap = new HashMap<>();
+	public static List<AbstractTesticleType> getTesticleTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

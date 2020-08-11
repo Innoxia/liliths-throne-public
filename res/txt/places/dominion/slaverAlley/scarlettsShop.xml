@@ -158,7 +158,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_GONE_HOME"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena has gone home early for the day. As such, you'll be unable to enter the shop and speak with her again until
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].
@@ -177,7 +177,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_CLOSED"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].
@@ -217,7 +217,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_CLOSED"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].

@@ -473,7 +473,7 @@ public class FingerNippleCrotch {
 									+ " making it quite clear that [npc2.she] has no choice but to squeeze the [npc.milk+] from [npc.her] [npc.crotchNipples].",
 
 							" [npc2.Name] desperately tries to pull away from [npc.namePos] [npc.crotchBoobs],"
-									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.her] to continue squeezing the [npc.milk+] from [npc.her] [npc.crotchNipples]."));
+									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.herHim] to continue squeezing the [npc.milk+] from [npc.her] [npc.crotchNipples]."));
 					break;
 			}
 			

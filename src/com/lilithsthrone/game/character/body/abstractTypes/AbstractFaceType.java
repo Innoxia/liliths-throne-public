@@ -8,20 +8,20 @@ import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	private AbstractMouthType mouthType;
 	
 	private List<String> names;
@@ -52,7 +52,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	 * @param tags A list of tags which help to define the features of this face type.
 	 */
 	public AbstractFaceType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractMouthType mouthType,
 			List<String> names,
 			List<String> namesPlural,
@@ -143,7 +143,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

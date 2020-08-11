@@ -7,19 +7,19 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractEyeType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 
 	private int defaultPairCount;
 	
@@ -51,7 +51,7 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 	 * @param eyeBodyDescription A sentence or two to describe this eye type, as seen in the character view screen. It should follow the same format as all of the other entries in the EyeType class.
 	 */
 	public AbstractEyeType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			int defaultPairCount,
 			EyeShape defaultIrisShape,
 			EyeShape defaultPupilShape,
@@ -137,7 +137,7 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

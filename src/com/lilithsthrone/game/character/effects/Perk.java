@@ -5475,11 +5475,12 @@ public class Perk {
 		for(Subspecies sub : Subspecies.values()) {
 			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
 				resistancesAdded.add(sub.getDamageMultiplier());
-				Subspecies subToUse = sub.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier()?Subspecies.getMainSubspeciesOfRace(sub.getRace()):sub;
+				boolean mainSubspecies = sub.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier();
+				Subspecies subToUse = mainSubspecies?Subspecies.getMainSubspeciesOfRace(sub.getRace()):sub;
 				
 				AbstractPerk racePerk = new AbstractPerk(20,
 						false,
-						Util.capitaliseSentence(subToUse.getName(null))+" knowledge",
+						Util.capitaliseSentence(mainSubspecies?sub.getRace().getName(false):subToUse.getName(null))+" knowledge",
 						PerkCategory.LUST,
 						null,
 						PresetColour.BASE_WHITE,
@@ -5488,7 +5489,7 @@ public class Perk {
 						null) {
 					@Override
 					public String getDescription(GameCharacter owner) {
-						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+subToUse.getNamePlural(null)+", and can therefore do increased damage when fighting them.");
+						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+(mainSubspecies?sub.getRace().getNamePlural(false):subToUse.getNamePlural(null))+", and can therefore do increased damage when fighting them.");
 					}
 					@Override
 					public String getSVGString(GameCharacter owner) {
