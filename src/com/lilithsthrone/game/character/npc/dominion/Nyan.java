@@ -348,7 +348,9 @@ public class Nyan extends NPC {
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+				if(clothing!=null
+						&& clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+						&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing, false);
 
 					for(int i=0; i<2+Util.random.nextInt(5); i++) {

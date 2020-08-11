@@ -8,12 +8,13 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class FaceType {
@@ -520,9 +521,9 @@ public class FaceType {
 		return allFaceTypes;
 	}
 	
-	private static Map<Race, List<AbstractFaceType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractFaceType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractFaceType> getFaceTypes(Race r) {
+	public static List<AbstractFaceType> getFaceTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

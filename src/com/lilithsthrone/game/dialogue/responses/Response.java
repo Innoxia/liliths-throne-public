@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -28,7 +28,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69
- * @version 0.3.4.5
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class Response {
@@ -43,7 +43,7 @@ public class Response {
 	protected CorruptionLevel corruptionBypass;
 	private List<AbstractPerk> perksRequired;
 	private Femininity femininityRequired;
-	private Race raceRequired;
+	private AbstractRace raceRequired;
 
 	private CombatMove combatMove;
 	
@@ -73,7 +73,7 @@ public class Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			Race raceRequired) {
+			AbstractRace raceRequired) {
 		
 		this(title, tooltipText, nextDialogue,
 				fetishesForUnlock, corruptionBypass,
@@ -88,7 +88,7 @@ public class Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			Race raceRequired,
+			AbstractRace raceRequired,
 			SexActionType sexActionType,
 			GameCharacter characterPenetrating,
 			Collection<SexAreaInterface> sexAreaAccessRequiredForPerformer,
@@ -821,7 +821,7 @@ public class Response {
 		return femininityRequired;
 	}
 
-	public Race getRaceRequired() {
+	public AbstractRace getRaceRequired() {
 		return raceRequired;
 	}
 

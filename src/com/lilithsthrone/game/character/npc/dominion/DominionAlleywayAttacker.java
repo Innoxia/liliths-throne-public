@@ -72,7 +72,7 @@ public class DominionAlleywayAttacker extends NPC {
 
 		if(!isImported) {
 			boolean canalSpecies = false;
-			AbstractPlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+			AbstractPlaceType pt = Main.game.getPlayerCell().getPlace().getPlaceType();
 			if(pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
 					|| pt.equals(PlaceType.DOMINION_CANAL)
 					|| pt.equals(PlaceType.DOMINION_CANAL_END)) {

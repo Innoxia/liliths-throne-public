@@ -54,7 +54,7 @@ public class PlaceUpgrade {
 	};
 	
 	public static final AbstractPlaceUpgrade LILAYA_EMPTY_ROOM = new AbstractPlaceUpgrade(true,
-			PresetColour.GENERIC_ARCANE,
+			PresetColour.BASE_GREY,
 			"Empty Room",
 			"Rose will return this room to its original state, which will render it unsuitable for housing any of your slaves.",
 			"This room is empty, and would need conversion work to be done if you'd like to house any of your slaves here.",

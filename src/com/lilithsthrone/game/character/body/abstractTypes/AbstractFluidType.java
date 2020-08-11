@@ -9,19 +9,19 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.2
- * @version 0.3.8.2
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractFluidType implements BodyPartTypeInterface {
 	
 	private FluidTypeBase baseFluidType;
 	private FluidFlavour flavour;
-	private Race race;
+	private AbstractRace race;
 	
 	private List<String> namesMasculine;
 	private List<String> namesFeminine;
@@ -50,7 +50,7 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 	public AbstractFluidType(
 			FluidTypeBase baseFluidType,
 			FluidFlavour flavour,
-			Race race,
+			AbstractRace race,
 			List<String> namesMasculine,
 			List<String> namesFeminine,
 			List<String> descriptorsMasculine,
@@ -137,7 +137,7 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 	

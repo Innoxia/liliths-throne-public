@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -57,7 +58,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -104,7 +104,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.7.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class ScarlettsShop {
@@ -334,7 +334,7 @@ public class ScarlettsShop {
 		}
 		
 		int value = 25_000;
-		for(Entry<Race, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
+		for(Entry<AbstractRace, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
 			if(entry.getKey()!=Race.HUMAN) {
 				value += Math.min(5_000, 1_000*entry.getValue());
 			}
@@ -1944,9 +1944,9 @@ public class ScarlettsShop {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_5_SCARLETT_TRAINER));
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
-									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount(TFEssence.ARCANE);
+									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
 									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
-									Main.game.getNpc(Scarlett.class).setEssenceCount(TFEssence.ARCANE, essences);
+									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
 							
@@ -1981,9 +1981,9 @@ public class ScarlettsShop {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_5_SCARLETT_TRAINER));
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
-									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount(TFEssence.ARCANE);
+									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
 									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
-									Main.game.getNpc(Scarlett.class).setEssenceCount(TFEssence.ARCANE, essences);
+									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
 							
@@ -5025,7 +5025,7 @@ public class ScarlettsShop {
 					};
 					
 				} else if(index==3) {
-					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)<10) {
+					if(Main.game.getPlayer().getEssenceCount()<10) {
 						return new Response("Boost (10 essences)", "You need at least ten arcane essences to boost the effects of the transformation potion!", null);
 					}
 					return new Response("Boost ([style.colourArcane(10 essences)])",
@@ -5052,7 +5052,7 @@ public class ScarlettsShop {
 
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_CORE"));
 							
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -10, false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(-10, false));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationDiscussed, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationApplied, true);
 						}

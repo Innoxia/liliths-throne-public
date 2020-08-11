@@ -9,6 +9,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.tags.TentacleTypeTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -140,9 +141,9 @@ public class TentacleType {
 		return allTentacleTypes;
 	}
 	
-	private static Map<Race, List<AbstractTentacleType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractTentacleType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractTentacleType> getTentacleTypes(Race r) {
+	public static List<AbstractTentacleType> getTentacleTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

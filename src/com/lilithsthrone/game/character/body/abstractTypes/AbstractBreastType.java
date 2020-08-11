@@ -7,19 +7,19 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3
- * @version 0.3.8.2
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	private AbstractNippleType nippleType;
 	private AbstractFluidType fluidType;
 	
@@ -53,7 +53,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	 * @param breastsCrotchBodyDescription A sentence or two to describe this crotch-boob type, as seen in the character view screen. It should follow the same format as all of the other entries in the BreastType class.
 	 */
 	public AbstractBreastType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractNippleType nippleType,
 			AbstractFluidType fluidType,
 			List<String> namesFlat,
@@ -88,7 +88,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	}
 	
 	public AbstractBreastType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractNippleType nippleType,
 			AbstractFluidType fluidType,
 			String breastsTransformationDescription,
@@ -198,7 +198,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

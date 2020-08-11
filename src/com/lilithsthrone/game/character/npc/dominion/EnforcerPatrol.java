@@ -36,7 +36,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.sex.sexActions.dominion.EnforcerPatrolSA;
@@ -166,7 +165,7 @@ public class EnforcerPatrol extends NPC {
 			
 			this.removePersonalityTrait(PersonalityTrait.MUTE);
 			
-			this.setEssenceCount(TFEssence.ARCANE, 100);
+			this.setEssenceCount(100);
 
 			this.setLocation(Main.game.getPlayer(), false); // Move to player location
 			

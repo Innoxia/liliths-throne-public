@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
@@ -23,7 +22,7 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements XMLSaving {
@@ -36,7 +35,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	protected List<Colour> colours;
 	
 	protected Map<Attribute, Integer> attributeModifiers;
-	protected TFEssence relatedEssence;
 	
 	protected Set<ItemTag> itemTags;
 
@@ -72,8 +70,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		this.attributeModifiers = new EnumMap<>(Attribute.class);
 		this.itemTags = new HashSet<>();
 		
-		relatedEssence = null;
-
 		if (attributeModifiers != null) {
 			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
 				this.attributeModifiers.put(e.getKey(), e.getValue());
@@ -86,12 +82,12 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
-		System.err.print("Eek! Tried to export an abstract item!");
+		System.err.print("Error: Tried to export an abstract item!");
 		return null;
 	}
 	
 	public static AbstractCoreItem loadFromXML(Element parentElement, Document doc) {
-		System.err.print("Eek! Tried to import an abstract item!");
+		System.err.print("Error: Tried to import an abstract item!");
 		return null;
 	}
 	
@@ -114,17 +110,10 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return null;
 	}
 	
-	public AbstractCoreItem enchant(TFEssence essence, TFModifier primaryModifier, TFModifier secondaryModifier) {
+	public AbstractCoreItem enchant(TFModifier primaryModifier, TFModifier secondaryModifier) {
 		return this;
 	}
-
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
-	}
-	public void setRelatedEssence(TFEssence relatedEssence) {
-		this.relatedEssence = relatedEssence;
-	}
-
+	
 	// Other:
 	
 	@Override
@@ -136,7 +125,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(this.getAttributeModifiers())
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
 				&& ((AbstractCoreItem)o).getEnchantmentItemType(null) == getEnchantmentItemType(null)
-				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()
 				&& ((AbstractCoreItem)o).getItemTags().equals(getItemTags())){
 					return true;
 			}
@@ -156,9 +144,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		}
 		if(getEnchantmentItemType(null)!=null) {
 			result = 31 * result + getEnchantmentItemType(null).hashCode();
-		}
-		if(getRelatedEssence()!=null) {
-			result = 31 * result + getRelatedEssence().hashCode();
 		}
 		if(getItemTags()!=null) {
 			result = 31 * result + getItemTags().hashCode();

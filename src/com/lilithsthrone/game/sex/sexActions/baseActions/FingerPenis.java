@@ -704,11 +704,11 @@ public class FingerPenis {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] to perform a handjob,"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.herHim] to perform a handjob,"
 									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] [npc2.verb(try)] to pull [npc2.herself] free.",
 
 							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
-									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] to perform a handjob."));
+									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.herHim] to perform a handjob."));
 					break;
 				default:
 					break;

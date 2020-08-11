@@ -67,7 +67,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -78,7 +77,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class DarkSiren extends NPC {
@@ -100,7 +99,7 @@ public class DarkSiren extends NPC {
 			
 			this.addTrait(Perk.CHUUNI);
 			
-			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			this.setEssenceCount(10000);
 		}
 	}
 
@@ -122,7 +121,7 @@ public class DarkSiren extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
 			this.setGenericName("dark siren");
 			
-			this.setEssenceCount(TFEssence.ARCANE, 10000);
+			this.setEssenceCount(10000);
 			
 			this.addSpells();
 		}
