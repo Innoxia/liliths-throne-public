@@ -10,21 +10,20 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceStructure;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.NoseType;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
-
+	private AbstractRace race;
 	private AbstractMouthType mouthType;
 	private FaceStructure faceStructure;
 	private NoseType noseType;
@@ -46,7 +45,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	 */
 	public AbstractFaceType(
 		BodyCoveringType skinType,
-		Race race,
+		AbstractRace race,
 		FaceStructure faceStructure,
 		AbstractMouthType mouthType,
 		NoseType noseType,
@@ -128,7 +127,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -53,7 +54,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.main.Main;
@@ -1111,7 +1111,7 @@ public class TooltipInformationEventListener implements EventListener {
 								+"<div class='subTitle-half' style='padding:2px; margin:2px 2% 2px 1%; width:47%;'>"
 							:"<div class='subTitle' style='margin:2px 1%; width:98%'>")
 						+ "[style.colourArcane(Essences)]"+(Main.game.isEnchantmentCapacityEnabled()?"<br/>":": ")
-						+ owner.getEssenceCount(TFEssence.ARCANE)
+						+ owner.getEssenceCount()
 					+ "</div>");
 			
 			attributeTableLeft = true;
@@ -1459,14 +1459,14 @@ public class TooltipInformationEventListener implements EventListener {
 		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 
-	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial) {
+	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, BodyCoveringType covering, boolean bestial) {
 		return getBodyPartDiv(character, name, race, covering, bestial, null);
 	}
-	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
+	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, BodyCoveringType covering, boolean bestial, String size) {
 		return getBodyPartDiv(character, name, race, owner.getCovering(covering), bestial, size);
 	}
 	
-	private String getBodyPartDiv(GameCharacter character, String name, Race race, Covering covering, boolean bestial, String size) {
+	private String getBodyPartDiv(GameCharacter character, String name, AbstractRace race, Covering covering, boolean bestial, String size) {
 		String raceName;
 		raceName = race.getName(character, bestial);
 

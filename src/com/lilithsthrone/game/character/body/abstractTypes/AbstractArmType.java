@@ -10,19 +10,19 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FingerType;
 import com.lilithsthrone.game.character.body.types.HandType;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractArmType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	
 	private ArmStructure armStructure;
 	private HandType handType;
@@ -41,7 +41,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	 * @param armBodyDescription A sentence or two to describe this arm type, as seen in the character view screen. It should follow the same format as all of the other entries in the ArmType class.
 	 */
 	public AbstractArmType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			ArmStructure armStructure,
 			HandType handType,
 			FingerType fingerType,
@@ -102,7 +102,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

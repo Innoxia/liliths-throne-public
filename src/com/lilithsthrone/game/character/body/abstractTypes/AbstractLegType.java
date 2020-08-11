@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -37,13 +38,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 
 	private FootStructure defaultFootStructure;
 	private AbstractFootType footType;
@@ -86,7 +87,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * @param allowedLegConfigurations A list of LegConfigurations that are allowed for this LegType.
 	 */
 	public AbstractLegType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			FootStructure defaultFootStructure,
 			AbstractFootType footType,
 			String determiner,
@@ -163,7 +164,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

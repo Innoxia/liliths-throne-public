@@ -328,7 +328,6 @@ public enum DialogueFlagValue {
 	vengarThreatened,
 	vengarPersuaded,
 	vengarSeduced,
-	ratWarrensRaid,
 	ratWarrensUsedResonanceStone,
 
 	vengarCaptiveRoomCleaned(true),

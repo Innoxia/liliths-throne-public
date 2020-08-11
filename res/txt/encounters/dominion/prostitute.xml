@@ -142,7 +142,7 @@
 								[npc.speech(Hey again, good lookin'! Check it out! I used one of those arcane pregnancy testers to check; you managed to knock me up!)])]
 					</p>
 					<p>
-						You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump. [npc.She] lets out another little laugh, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
+						You step up to [npc.name], allowing [npc.herHim] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump. [npc.She] lets out another little laugh, before playfully biting [npc.her] [npc.lip] and teasing, [npc.speech(So, you got a thing for fucking pregnant [npc.girls]? Considering the situation, I'll even give you a discount of fifty percent...)]
 					</p>
 				#ELSEIF(pc.hasCompanions() && npc.getPregnantLitter().isFatherId(com.getId()))
 					<p>

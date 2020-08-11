@@ -331,7 +331,7 @@ public class DominionSuccubusAttacker extends NPC {
 						+ " [npc.speechNoEffects(It looks like you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You can't help but let out [pc.a_moan+] as you feel [npc.namePos] [npc.cock+] throbbing deep within your cunt, which causes [npc.her] to let out another mocking laugh and ask,"
+						+ "You can't help but let out [pc.a_moan+] as you feel [npc.namePos] [npc.cock+] throbbing deep within your cunt, which causes [npc.herHim] to let out another mocking laugh and ask,"
 						+ " [npc.speechNoEffects(What's that? You want me to do it again?!)]"
 					+ "</p>"
 					+ "<p>"

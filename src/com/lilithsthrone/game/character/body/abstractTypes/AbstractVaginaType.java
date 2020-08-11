@@ -10,14 +10,14 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.8.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractVaginaType implements BodyPartTypeInterface {
@@ -42,7 +42,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	
 	private BodyCoveringType skinType;
 	private AbstractFluidType fluidType;
-	private Race race;
+	private AbstractRace race;
 	private boolean eggLayer;
 	
 	private List<String> names;
@@ -75,7 +75,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	 */
 	public AbstractVaginaType(BodyCoveringType skinType,
 			AbstractFluidType fluidType,
-			Race race,
+			AbstractRace race,
 			boolean eggLayer,
 			List<String> names,
 			List<String> namesPlural,
@@ -105,7 +105,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	
 	public AbstractVaginaType(BodyCoveringType skinType,
 			AbstractFluidType fluidType,
-			Race race,
+			AbstractRace race,
 			boolean eggLayer,
 			String transformationDescription,
 			String bodyDescription,
@@ -215,7 +215,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

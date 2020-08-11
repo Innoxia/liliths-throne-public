@@ -3718,11 +3718,11 @@ public enum Spell {
 		return sb.toString();
 	}
 
-	// Applies mana cost effects here. If overriden, don't forget to super call it unless it's a free spell.
+	// Applies mana cost effects here. If overridden, don't forget to super call it unless it's a free spell.
 	public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		if(getSpellSchool() == SpellSchool.FIRE && source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) {
 			if(!Main.game.isInCombat()) {
-				Combat.setupManaBurnStackForOutOfCombat(Main.game.getPlayer());
+				Combat.setupManaBurnStackForOutOfCombat(source);
 			}
 			Combat.getManaBurnStack().get(source).push(source.burnMana(getModifiedCost(source)));
 			

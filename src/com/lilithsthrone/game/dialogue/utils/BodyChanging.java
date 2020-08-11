@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -43,7 +44,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.90
- * @version 0.3.5.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class BodyChanging {
@@ -226,19 +227,19 @@ public class BodyChanging {
 		}
 	}
 
-	private static List<Race> allRaces = new ArrayList<>();
+	private static List<AbstractRace> allRaces = new ArrayList<>();
 	static {
-		for(Race r : Race.values()) {
+		for(AbstractRace r : Race.getAllRaces()) {
 			allRaces.add(r);
 		}
 	}
 	
-	private static List<Race> getFaceSkinDemonRaces() {
-		List<Race> faceSkinOptions = Util.newArrayListOfValues();
+	private static List<AbstractRace> getFaceSkinDemonRaces() {
+		List<AbstractRace> faceSkinOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
 		if(BodyChanging.getTarget().isElemental()) {
-			faceSkinOptions = Util.newArrayListOfValues(Race.values());
+			faceSkinOptions = new ArrayList<>(Race.getAllRaces());
 			
 		} else if(isHalfDemon()) {
 			faceSkinOptions.add(target.getHalfDemonSubspecies().getRace());
@@ -255,12 +256,12 @@ public class BodyChanging {
 		return faceSkinOptions;
 	}
 	
-	private static List<Race> getArmLegDemonRaces() {
-		List<Race> armLegOptions = Util.newArrayListOfValues();
+	private static List<AbstractRace> getArmLegDemonRaces() {
+		List<AbstractRace> armLegOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
 		if(BodyChanging.getTarget().isElemental()) {
-			armLegOptions = Util.newArrayListOfValues(Race.values());
+			armLegOptions = new ArrayList<>(Race.getAllRaces());
 			
 		} else if(isHalfDemon()) {
 			armLegOptions.add(target.getHalfDemonSubspecies().getRace());
@@ -280,12 +281,12 @@ public class BodyChanging {
 	 * @param isHalfSpeciesReplacement True if this is a part that should always be of the core race type (if not human). This is so that things like hellhounds will still have dog tails and ears.
 	 * @return List of races available to the target.
 	 */
-	private static List<Race> getMinorPartsDemonRaces(boolean isHalfSpeciesReplacement) {
-		List<Race> minorPartsOptions = Util.newArrayListOfValues();
+	private static List<AbstractRace> getMinorPartsDemonRaces(boolean isHalfSpeciesReplacement) {
+		List<AbstractRace> minorPartsOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
 		if(BodyChanging.getTarget().isElemental()) {
-			minorPartsOptions = Util.newArrayListOfValues(Race.values());
+			minorPartsOptions = new ArrayList<>(Race.getAllRaces());
 			
 		} else if(isHalfDemon()) {
 			if(isHalfSpeciesReplacement && target.getHalfDemonSubspecies().getRace()!=Race.HUMAN) {
@@ -400,10 +401,10 @@ public class BodyChanging {
 		return coveringsNamesMap;
 	}
 	
-	private static List<Race> getSlaveCustomisationRaceOptions() {
-		List<Race> list = new ArrayList<>();
+	private static List<AbstractRace> getSlaveCustomisationRaceOptions() {
+		List<AbstractRace> list = new ArrayList<>();
 		
-		for(Race race : Race.values()) {
+		for(AbstractRace race : Race.getAllRaces()) {
 			if(race != Race.ANGEL
 					&& race != Race.DEMON
 					&& race != Race.ELEMENTAL
@@ -416,7 +417,7 @@ public class BodyChanging {
 		return list;
 	}
 	
-	private static List<Race> getRacesForMinorPartSelfTransform() {
+	private static List<AbstractRace> getRacesForMinorPartSelfTransform() {
 		if(ScarlettsShop.isSlaveCustomisationMenu()) {
 			return getSlaveCustomisationRaceOptions();
 		}

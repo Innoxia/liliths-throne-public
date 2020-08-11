@@ -198,21 +198,25 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_FOUR);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_FOUR);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_FOUR);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_THREE);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_THREE);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_THREE);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_THREE);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_THREE);
 				case 2: 
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_TWO);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS_TWO);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_TWO);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_TWO);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS_TWO);
 				default:
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS);
+					slotsOne.add(SexSlotStocks.BENEATH_STOCKS);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL);
 					slotsFour.add(SexSlotStocks.LOCKED_IN_STOCKS);
@@ -224,21 +228,25 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_FOUR);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_FOUR);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_THREE);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_THREE);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_THREE);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_THREE);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE);
 				case 2: 
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_TWO);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL_TWO);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_TWO);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_TWO);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO);
 				default:
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL);
+					slotsOne.add(SexSlotMilkingStall.BENEATH_MILKING_STALL);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL);
 					slotsFour.add(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL);

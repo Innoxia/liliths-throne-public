@@ -1,16 +1,16 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
-import java.util.List;
-
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
@@ -33,7 +33,7 @@ public interface BodyPartTypeInterface {
 
 	/** @return The default name of this body part. */
 	public default String getName(GameCharacter gc){
-		if(isDefaultPlural() || (gc!=null && gc.getTailCount()!=1)) {
+		if(isDefaultPlural()) {
 			return getNamePlural(gc);
 		} else {
 			return getNameSingular(gc);
@@ -68,7 +68,7 @@ public interface BodyPartTypeInterface {
 	}
 
 	/** @return The race of this body part. */
-	public Race getRace();
+	public AbstractRace getRace();
 	
 	/** @return The TFModifier for this body part. */
 	public default TFModifier getTFModifier() {

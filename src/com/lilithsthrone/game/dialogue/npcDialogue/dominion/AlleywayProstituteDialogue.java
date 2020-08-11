@@ -395,7 +395,7 @@ public class AlleywayProstituteDialogue {
 					} else {
 						return new Response(
 								"Remove ("+UtilText.formatAsMoney(FINE_AMOUNT, "span")+")",
-								UtilText.parse(getProstitute(), "Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.her] to stop having to work in these dangerous alleyways."
+								UtilText.parse(getProstitute(), "Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.herHim] to stop having to work in these dangerous alleyways."
 										+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 								PROSTITUTE_REMOVAL_PAID) {
 							@Override

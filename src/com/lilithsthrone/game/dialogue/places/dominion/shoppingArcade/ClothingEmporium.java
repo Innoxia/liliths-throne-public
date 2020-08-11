@@ -312,8 +312,8 @@ public class ClothingEmporium {
 						return new Response("Report back", "Tell Nyan that you've dealt with the suppliers.", SHOP_REPORT_BACK) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().incrementMoney(5000);
 								Main.game.getNpc(Nyan.class).setSellModifier(1.25f);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 25));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
 							}

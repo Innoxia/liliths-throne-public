@@ -617,50 +617,10 @@ public class RacialBody {
 		}
 	};
 	
-	public static AbstractRacialBody valueOfRace(Race race) {
-		switch (race) {
-			case NONE:
-				break;
-			case ANGEL:
-				return RacialBody.ANGEL;
-			case CAT_MORPH:
-				return RacialBody.CAT_MORPH;
-			case COW_MORPH:
-				return RacialBody.COW_MORPH;
-			case DEMON:
-			case ELEMENTAL:
-				return RacialBody.DEMON;
-			case DOG_MORPH:
-				return RacialBody.DOG_MORPH;
-			case FOX_MORPH:
-				return RacialBody.FOX_MORPH;
-			case ALLIGATOR_MORPH:
-				return RacialBody.ALLIGATOR_MORPH;
-			case HARPY:
-				return RacialBody.HARPY;
-			case HORSE_MORPH:
-				return RacialBody.HORSE_MORPH;
-			case REINDEER_MORPH:
-				return RacialBody.REINDEER_MORPH;
-			case HUMAN:
-				return RacialBody.HUMAN;
-			case WOLF_MORPH:
-				return RacialBody.WOLF_MORPH;
-			case SQUIRREL_MORPH:
-				return RacialBody.SQUIRREL_MORPH;
-			case SLIME:
-				return RacialBody.HUMAN;
-			case BAT_MORPH:
-				return RacialBody.BAT_MORPH;
-			case RAT_MORPH:
-				return RacialBody.RAT_MORPH;
-			case RABBIT_MORPH:
-				return RacialBody.RABBIT_MORPH;
-		}
-		return RacialBody.HUMAN;
+	public static AbstractRacialBody valueOfRace(AbstractRace race) {
+		return race.getRacialBody();
 	}
 	
-
 	public static List<AbstractRacialBody> allRacialBodies;
 	
 	public static Map<AbstractRacialBody, String> RacialBodyToIdMap = new HashMap<>();
