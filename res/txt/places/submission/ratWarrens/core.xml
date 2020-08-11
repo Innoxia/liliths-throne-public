@@ -2674,7 +2674,7 @@
 			[vengar.speechNoEffects(Once ya shown that yer serious 'bout submittin' ta me, then yeah, I's gonna listen an' think about yer request,)] Vengar snarls, [vengar.speechNoEffects(Now 'urry up an' kneel down before me, an' then I's wantin' ta 'ear the two o' ya tellin me that ya submit!)]
 		</p>
 		<p>
-			Looking across to your [npc.companion], you tell [npc.her] to follow your lead, before kneeling down at the base of the dais. Doing as you've instructed, [npc.name] joins you in kneeling before the rat-boy, and then together you both tell him that you submit to him.
+			Looking across to your [npc.companion], you tell [npc.herHim] to follow your lead, before kneeling down at the base of the dais. Doing as you've instructed, [npc.name] joins you in kneeling before the rat-boy, and then together you both tell him that you submit to him.
 		</p>
 		<p>
 			[vengar.speechNoEffects(Hah! Did ya all 'ear that? These two is sayin' that they's submittin' ta me!)] Vengar exclaims, drawing a deafening response of jeers, taunts, and laughter from all the rats assembled in the hall. After a minute of forcing you to endure this humiliation on your knees, the rat-boy once again raises his hand, silencing the hall and enabling him to speak down to you, [vengar.speechNoEffects(Now show us that ya really mean it; crawl up these steps an' let me use the two o' ya as me footrests fer a while!)]
@@ -3487,38 +3487,39 @@
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			, identical to the resonance stone which Claire gave to you,
 		#ENDIF
-		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them in a refined accent almost completely unrecognisable from her previous, slovenly voice, [shadow.speechNoEffects(You took your time, didn't you, pet? A few moments more, and I might have been in serious trouble; these rats are no joke when they decide to gang up on someone.)]
+		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them, [shadow.speech(Ya took yer fuckin' time, didn't ya?! A few moments more, an' me an' Silence 'ere would'a been in serious trouble! These fuckin' rats ain't no joke when tehre's so many o' them!)]
 	</p>
 	<p>
-		At that moment, power is returned to the lights in the hall, and you see that leading the small group of SWORD Enforcers up to your hiding place is a muscular German-shepherd-boy. With the rest of the Enforcers setting about their task of arresting all of the rats in the hall, this imposing character marches right up to Shadow and snatches the small sphere out of her hands, before barking an order back to his group, [style.speechMasculineStrong(Clear those back rooms! I don't want a single fucking rat slipping out of our net!)]
+		At that moment, power is returned to the lights in the hall, and you see that there's a muscular German-shepherd-boy leading the small group of SWORD Enforcers up to your hiding place. With the rest of the Enforcers setting about their task of arresting all of the rats in the hall, this imposing character marches right up to Shadow and snatches the small sphere out of her hands, before barking an order back to his group, [style.speechMasculineStrong(Clear those back rooms! I don't want a single fucking rat slipping out of our net!)]
 	</p>
 	<p>
 		With his subordinates hurrying off to carry out his order, the German-shepherd-boy turns his attention fully on your group. Holstering the pistol he's been holding in his off-hand, he points at
 		#IF(pc.hasCompanions())
-			 you, Silence, and [npc.name], while snarling at Shadow, [style.speechMasculineStrong(I told you before, don't fucking call me that name! Who are these three then? They working under you, or are we taking them in as well?)] 
+			 you, Silence, and [com.name], while snarling at Shadow, [style.speechMasculineStrong(We started the raid the instant you activated that stone, so don't try and complain about our timing! I know that this other rat-girl's with you, but what about these other two?!)]
 		#ELSE
-			 you and Silence, while snarling at Shadow, [style.speechMasculineStrong(I told you before, don't fucking call me that name! Who are these two then? They working under you, or are we taking them in as well?)] 
+			 you and Silence, while snarling at Shadow, [style.speechMasculineStrong(We started the raid the instant you activated that stone, so don't try and complain about our timing! I know that this other rat-girl's with you, but what about this [pc.race] here?!)]
 		#ENDIF
+		
 	</p>
 	<p>
-		Still speaking in her refined accent, Shadow replies,
+		Flashing a grin at the Enforcer, Shadow replies,
 		#IF(pc.hasCompanions())
-			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other two, I really have no idea who they actually are, but I can tell you that they're the whole reason I had to call for you in the first place. It seems like they're out to right all the wrongs of this world, and were here to try and make Vengar put an end to his criminal activities.)]
+			 [shadow.speech(I don't fuckin' know o' they is, but they ain't with our gang. I's thinkin' that they's come ta try an' beat Vengar for some fuckin' reason.)]
 		#ELSE
-			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other one, I really have no idea who [pc.she] actually is, but I can tell you that [pc.sheIs] the whole reason I had to call for you in the first place. It seems like [pc.sheIs] out to right all the wrongs of this world, and was here to try and make Vengar put an end to his criminal activities.)]
+			 [shadow.speech(I don't fuckin' know o' [pc.she] is, but [pc.she] ain't with our gang. I's thinkin' that [pc.she]'s come ta try an' beat Vengar for some fuckin' reason.)]
 		#ENDIF
 	</p>
 	<p>
-		[style.speechMasculineStrong(Right, we're just here to get the gang members, so [pc.sheIs] not one we want then. I don't suppose you're going to help us clear up the rest of whole mess?)] the Enforcer asks Shadow.
+		[style.speechMasculineStrong(Right. Well, we're just here to get the gang members, so [pc.sheIs] not one we want. I suppose you're going to want to get out of here and claim your reward for helping us capture Vengar?)] the Enforcer asks Shadow.
 	</p>
 	<p>
-		[shadow.speechNoEffects(I'd love to lend you a hand, pet, but I think reporting back to my superiors takes priority, don't you?)] the black-furred rat-girl replies, before leaning down and pulling Silence up to her feet. Holding out her free hand to the Enforcer, she continues, [shadow.speechNoEffects(A pass, if you please? Now that you've rather rudely reclaimed your little signalling device, I've nothing to show to your thugs on the way out. Knowing them, they'd be likely to shoot me before I could even start to talk my way past them.)]
+		[shadow.speech(Too fuckin' right I do!)] the black-furred rat-girl replies, before leaning down and pulling Silence up to her feet. Holding out her free hand to the Enforcer, she continues, [shadow.speech(You's got some kind o' pass or somethin'? If I try ta waltz on out o' 'ere, then yer fuckin' goons are just gonna arrest me!)]
 	</p>
 	<p>
-		Letting out a growl as Shadow calls him 'pet' for a second time, the Enforcer nevertheless does as the rat-girl asks, and after reaching into one of his pockets to retrieve and hand over a slip of paper, he moves aside as she steps past him. Suddenly remembering your presence, Shadow turns and grins at you, before saying, [shadow.speechNoEffects(I suppose I must thank you for finally giving me an excuse to put an end to this gang. These assignments can get somewhat unbearable after the first few months... Anyway, if it wasn't clear already, you really shouldn't tell anyone about what you've seen of me here. Pet here will let you go after you've been questioned, I'm sure. Until next time, farewell!)]
+		Letting out a growl as Shadow demands this of him, the Enforcer nevertheless does as the rat-girl asks, and after reaching into one of his pockets to retrieve and hand over a slip of paper, he moves aside as the two rat-girls step past him. Suddenly remembering your presence, Shadow turns and grins at you, before saying, [shadow.speech(See ya around!)]
 	</p>
 	<p>
-		Holding Silence's hand, the black-furred rat-girl leaves you in the company of the Enforcer, who turns towards you and snarls, [style.speechMasculineStrong(If you even <i>think</i> of referring to me by that name, I'll have you enslaved along with everyone else here! Anyway, seeing as you're not one of these gang members, I'm not interested in detaining you, but the Frontline Patrol division will probably still want to question you. Just sit still until they arrive.)]
+		Holding Silence's hand, the black-furred rat-girl leaves you in the company of the Enforcer, who turns towards you and snarls, [style.speechMasculineStrong(Seeing as you're not one of these gang members, I'm not interested in detaining you, but the Frontline Patrol division will probably still want to question you. Just sit still until they arrive.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -3738,7 +3739,7 @@
 		Staggering back, Shadow releases her grip on her kerambits, and with a ringing, metallic clatter, they slip out of her hands and fall to the ground. With a deep sigh, the rat-girl mimics her weapons' sudden descent, and collapses down onto her knees, before keeling over onto the cold floor.
 	</p>
 	<p>
-		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow, the albino rat-girl lets out a pathetic mewling noise, which very quickly increases in volume and shifts into a guttural, anguished scream. Grabbing hold of the shard of demonstone hung around her neck, Silence's eyes suddenly appear to be wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
+		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow with a anguished grimace on her face, the albino rat-girl grabs hold of the shard of demonstone hung around her neck, before looking up and furiously scowling at you. Before you can react, Silence's eyes suddenly become wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
 	</p>
 	<p>
 		At first, the only sign of any spell being cast is an unnatural gust of wind which suddenly blows throughout the grand hall. Quickly increasing in strength, this arcane wind causes the fires burning in the hall's hearths to gutter and flicker, before they suddenly change colour into bright greens and purples. Reaching upwards with her free hand, Silence suddenly clenches her fist, and right there, before your eyes, the ethereal form of a demonic wind elemental takes shape. Speaking through this arcane creature, Silence projects a chilling, grief-stricken voice throughout the hall, [silence.speechNoEffects(You'll pay for what you've done!)]

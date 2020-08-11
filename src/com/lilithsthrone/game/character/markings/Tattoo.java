@@ -21,7 +21,6 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
@@ -32,7 +31,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Tattoo extends AbstractCoreItem implements XMLSaving {
@@ -482,10 +481,5 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	@Override
 	public AbstractTattooType getEnchantmentItemType(List<ItemEffect> effects) {
 		return this.getType();
-	}
-	
-	@Override
-	public TFEssence getRelatedEssence() {
-		return TFEssence.ARCANE;
 	}
 }

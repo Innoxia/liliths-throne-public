@@ -1234,9 +1234,9 @@ public class RoomPlayer {
 		return charactersPresent;
 	}
 	
-	private static int getHourPlusSleep() {
-		return (Main.game.getHourOfDay() + (sleepTimeInMinutes/60))%24;
-	}
+//	private static int getHourPlusSleep() {
+//		return (Main.game.getHourOfDay() + (sleepTimeInMinutes/60))%24;
+//	}
 	
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNode("Your Room", "", false) {
 
@@ -1245,16 +1245,11 @@ public class RoomPlayer {
 			return !slavesWantingToSexPlayer(Main.game.getHourOfDay()).isEmpty();
 		}
 		
-//		@Override
-//		public int getSecondsPassed() {
-//			return sleepTimeInMinutes*60;
-//		}
-
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			
-			List<GameCharacter> charactersPresent = slavesInRoom(getHourPlusSleep());
+			List<GameCharacter> charactersPresent = slavesInRoom(Main.game.getHourOfDay());
 			
 			if(!charactersPresent.isEmpty()) {
 				boolean soloSlave = charactersPresent.size()==1;
@@ -1458,7 +1453,7 @@ public class RoomPlayer {
 					morningString = "afternoon";
 				}
 
-				List<GameCharacter> hornySlaves = slavesWantingToSexPlayer(getHourPlusSleep());
+				List<GameCharacter> hornySlaves = slavesWantingToSexPlayer(Main.game.getHourOfDay());
 				
 				if(!slavesToWakePlayer.isEmpty()) {
 					GameCharacter slaveWaking = Util.randomItemFrom(slavesToWakePlayer);
@@ -1589,7 +1584,7 @@ public class RoomPlayer {
 					+ "</p>");
 			}
 			
-			if(!slavesWantingToSexPlayer(getHourPlusSleep()).isEmpty()) {
+			if(!slavesWantingToSexPlayer(Main.game.getHourOfDay()).isEmpty()) {
 				sb.append("<p style='text-align:center;'>"
 							+ "[style.italicsGood(You feel completely refreshed!)]"
 						+ "</p>");
@@ -1790,7 +1785,7 @@ public class RoomPlayer {
 				}
 				
 				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
-				for(int i=0 ; i<slavesWashing.size(); i++) {
+				for(int i=0 ; i<slavesWashing.size() && i<4; i++) {
 					slaveSlots.put(slavesWashing.get(i), showerSlots[i]);
 				}
 				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
@@ -2008,7 +2003,7 @@ public class RoomPlayer {
 				}
 				
 				Map<GameCharacter, SexSlot> slaveSlots = new HashMap<>();
-				for(int i=0 ; i<slavesWashing.size(); i++) {
+				for(int i=0 ; i<slavesWashing.size() && i<4; i++) {
 					slaveSlots.put(slavesWashing.get(i), i==0?SexSlotLyingDown.LYING_DOWN:bathSlots[i]);
 				}
 				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);

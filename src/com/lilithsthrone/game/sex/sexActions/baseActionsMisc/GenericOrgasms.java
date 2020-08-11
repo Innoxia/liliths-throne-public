@@ -2322,7 +2322,6 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-
 		private GameCharacter getCharacterToBeCreampied() {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
@@ -2341,7 +2340,6 @@ public class GenericOrgasms {
 		private SexAreaInterface getAreaToBeCreampied() {
 			return Main.sex.getOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, getCharacterToBeCreampied()).get(0);
 		}
-		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()) {
@@ -2401,10 +2399,8 @@ public class GenericOrgasms {
 				return false;
 			}
 			
-			
 			return true;
 		}
-		
 		@Override
 		public SexActionPriority getPriority() {
 			if(Main.sex.getSexManager().getCharacterOrgasmBehaviour(Main.sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
@@ -2412,6 +2408,11 @@ public class GenericOrgasms {
 			}
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				return SexActionPriority.UNIQUE_MAX;
+			}
+			if(getAreaToBeCreampied()==SexAreaOrifice.VAGINA
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()) {
+				return SexActionPriority.LOW;
 			}
 			if(Math.random()<0.66f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
@@ -2421,7 +2422,6 @@ public class GenericOrgasms {
 			}
 			return SexActionPriority.NORMAL;
 		}
-		
 		@Override
 		public String getActionTitle() {
 			if(Main.sex.getCreampieLockedBy()!=null) {
@@ -2495,7 +2495,6 @@ public class GenericOrgasms {
 			}
 			return "Creampie";
 		}
-
 		@Override
 		public String getActionDescription() {
 			if(Main.sex.getCreampieLockedBy()!=null) {
@@ -2800,6 +2799,11 @@ public class GenericOrgasms {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
+			if(getAreaToBeKnotted()==SexAreaOrifice.VAGINA
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()) {
+				return SexActionPriority.LOW;
+			}
 			if(Math.random()<0.66f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
@@ -3072,6 +3076,11 @@ public class GenericOrgasms {
 		public SexActionPriority getPriority() {
 			if(Main.sex.getSexManager().getCharacterOrgasmBehaviour(Main.sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
 				return SexActionPriority.UNIQUE_MAX;
+			}
+			if(Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+					&& (!Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant() || !getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).isVisiblyPregnant())) {
+				return SexActionPriority.LOW;
 			}
 			if(Math.random()<0.5f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
@@ -3373,6 +3382,11 @@ public class GenericOrgasms {
 			if(Main.sex.getSexManager().getCharacterOrgasmBehaviour(Main.sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
+			if(Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+					&& (!Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant() || !getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).isVisiblyPregnant())) {
+				return SexActionPriority.LOW;
+			}
 			if(Math.random()<0.5f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
@@ -3616,9 +3630,10 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative()) {
-				return SexActionPriority.LOW; // Prefer cumming on someone if they don't dislike cumming.
-			}
+			// Seemed a little random to have this behaviour...
+//			if(!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative()) {
+//				return SexActionPriority.LOW; // Prefer cumming on someone if they don't dislike cumming.
+//			}
 			return super.getPriority();
 		}
 		
@@ -4847,7 +4862,8 @@ public class GenericOrgasms {
 	}
 	
 	private static String getForcedCreampieSpeech(SexAction sexAction) {
-		boolean knowsName = (Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() && Main.sex.getCharacterPerformingAction().isPlayerKnowsName()) || Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName();
+		boolean knowsName = (!Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getCharacterPerformingAction().isPlayerKnowsName())
+							|| (!Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() && Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName());
 		
 		if(isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexAction))) {
 			if(isAreaFuckedByTarget(sexAction, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {

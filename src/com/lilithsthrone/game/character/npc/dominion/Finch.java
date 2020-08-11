@@ -236,12 +236,14 @@ public class Finch extends NPC {
 		}
 
 		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				this.addWeapon(Main.game.getItemGen().generateWeapon(wt), false);
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				this.addItem(Main.game.getItemGen().generateItem(item), false);
 			}
 		}
@@ -249,7 +251,8 @@ public class Finch extends NPC {
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)
+					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				clothingToSell.add(Main.game.getItemGen().generateClothing(clothing, false));
 			}
 		}

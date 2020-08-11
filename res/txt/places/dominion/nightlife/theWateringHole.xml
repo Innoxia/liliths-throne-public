@@ -684,7 +684,7 @@
 			</p>
 		#ELSE
 			<p>
-				Eager to have sex with [npc.name], you tell [npc.herHim] that it's time the two of you had some real fun. Taking [npc.her] excited [npc.moan] as an indication that [npc.sheIs] just as impatient to get started as you are, you waste no time in telling [npc.her] to stand up and turn around, so that [npc.sheIs] presenting [npc.her] animalistic groin to you.
+				Eager to have sex with [npc.name], you tell [npc.herHim] that it's time the two of you had some real fun. Taking [npc.her] excited [npc.moan] as an indication that [npc.sheIs] just as impatient to get started as you are, you waste no time in telling [npc.herHim] to stand up and turn around, so that [npc.sheIs] presenting [npc.her] animalistic groin to you.
 			</p>
 			<p>
 				Upon receiving your further instructions for [npc.herHim] to lower [npc.her] hind-quarters into your lap, [npc.name] does as you command, before looking back over [npc.her] shoulder and [npc.moaning],
@@ -2584,11 +2584,11 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS"><![CDATA[
 	<p>
 		#IF npc.isKind()
-		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 		#ELSE
 			#IF npc.isSelfish()
-			#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
-			#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+			#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
+			#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2785,8 +2785,8 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS"><![CDATA[
 	<p>
 		#IF npc.isSelfish()
-		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
-		#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, before reaching out to grab your [pc.hips] and pull you up against [npc.herHim]. Leaning forwards, [npc.she] moves to give you a kiss, and with just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
+		#ELSE Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 		#ENDIF
 	</p>
 	]]>
@@ -3133,7 +3133,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS"><![CDATA[
 	<p>
-		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
+		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.herHim] to back off...
 	</p>
 	]]>
 	</htmlContent>

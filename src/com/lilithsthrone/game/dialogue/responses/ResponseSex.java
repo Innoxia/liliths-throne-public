@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexPace;
@@ -34,7 +34,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69
- * @version 0.3.4
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class ResponseSex extends Response {
@@ -104,7 +104,7 @@ public class ResponseSex extends Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			Race raceRequired,
+			AbstractRace raceRequired,
 			boolean consensual,
 			boolean subHasEqualControl,
 			List<GameCharacter> dominants,
@@ -279,7 +279,7 @@ public class ResponseSex extends Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			Race raceRequired,
+			AbstractRace raceRequired,
 			boolean consensual,
 			boolean subHasEqualControl,
 			SMGeneric sexManager,
@@ -323,7 +323,7 @@ public class ResponseSex extends Response {
 			CorruptionLevel corruptionBypass,
 			List<AbstractPerk> perksRequired,
 			Femininity femininityRequired,
-			Race raceRequired,
+			AbstractRace raceRequired,
 			boolean consensual,
 			boolean subHasEqualControl,
 			SexManagerInterface sexManager,

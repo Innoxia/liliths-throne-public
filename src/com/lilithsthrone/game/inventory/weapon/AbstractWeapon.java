@@ -26,13 +26,12 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -599,8 +598,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
-		return this.getWeaponType().applyExtraEffects(user, target, isHit);
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit, boolean isCritical) {
+		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical);
 	}
 	
 
@@ -656,11 +655,6 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	@Override
 	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
 		return weaponType.getEnchantmentItemType(effects);
-	}
-	
-	@Override
-	public TFEssence getRelatedEssence() {
-		return weaponType.getRelatedEssence();
 	}
 
 }

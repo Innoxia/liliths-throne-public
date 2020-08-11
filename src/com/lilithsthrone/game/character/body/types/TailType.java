@@ -9,6 +9,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.tags.TailTypeTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -382,7 +383,7 @@ public class TailType {
 	public static final AbstractTailType CAT_MORPH_SHORT = new AbstractTailType(
 			BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			PenetrationGirth.TWO_NARROW,
+			PenetrationGirth.THREE_AVERAGE,
 			0.2f,
 			"short feline",
 			"",
@@ -1024,9 +1025,9 @@ public class TailType {
 		return allTailTypes;
 	}
 	
-	private static Map<Race, List<AbstractTailType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractTailType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractTailType> getTailTypes(Race r) {
+	public static List<AbstractTailType> getTailTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}
