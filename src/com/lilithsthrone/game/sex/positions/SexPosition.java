@@ -1762,6 +1762,7 @@ public class SexPosition {
 			List<String> standingNames = new ArrayList<>();
 			List<String> standingNamesTaur = new ArrayList<>();
 			List<String> humpingNames = new ArrayList<>();
+			List<String> beneathNames = new ArrayList<>();
 			List<String> performingOralNames = new ArrayList<>();
 			List<String> receivingOralNames = new ArrayList<>();
 
@@ -1770,6 +1771,7 @@ public class SexPosition {
 			GameCharacter mainStanding = null;
 			GameCharacter mainStandingTaur = null;
 			GameCharacter mainHumping = null;
+			GameCharacter mainBeneath = null;
 			GameCharacter mainPerformingOral = null;
 			GameCharacter mainReceivingOral = null;
 			
@@ -1836,6 +1838,19 @@ public class SexPosition {
 							humpingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 						} else {
 							humpingNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
+						}
+						
+					} else if(e.getValue()==SexSlotMilkingStall.BENEATH_MILKING_STALL
+							|| e.getValue()==SexSlotMilkingStall.BENEATH_MILKING_STALL_TWO
+							|| e.getValue()==SexSlotMilkingStall.BENEATH_MILKING_STALL_THREE
+							|| e.getValue()==SexSlotMilkingStall.BENEATH_MILKING_STALL_FOUR) {
+						if(mainBeneath==null) {
+							mainBeneath=e.getKey();
+						}
+						if(e.getKey().isPlayer()) {
+							beneathNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
+						} else {
+							beneathNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 						}
 						
 					} else if(e.getValue()==SexSlotMilkingStall.PERFORMING_ORAL
@@ -1948,6 +1963,21 @@ public class SexPosition {
 							+(stocksCount>1
 									?(playerStocks?"your legs":"their legs")+", ready to perform oral on "+(playerStocks?"you. ":"them. ")
 									:UtilText.parse(soloStocks, "[npc.namePos] [npc.legs], ready to perform oral on [npc.herHim]. ")));
+			}
+
+			
+			if(beneathNames.size()>=2) {
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(beneathNames, false))+" have dropped down beneath "
+							+(stocksCount>1
+									?(playerStocks?"you":"them")+", ready to get fucked. "
+									:UtilText.parse(soloStocks, "[npc.name], ready to get fucked by [npc.herHim]. ")));
+				
+				
+			} else if(beneathNames.size()==1) {
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(beneathNames, false))+UtilText.parse(mainBeneath," [npc.has] dropped down beneath ")
+							+(stocksCount>1
+									?(playerStocks?"you":"them")+", ready to get fucked. "
+									:UtilText.parse(soloStocks, "[npc.name], ready to get fucked by [npc.herHim]. ")));
 			}
 			
 			boolean additionalDoms = !standingNames.isEmpty() || !standingNamesTaur.isEmpty() || !performingOralNames.isEmpty();

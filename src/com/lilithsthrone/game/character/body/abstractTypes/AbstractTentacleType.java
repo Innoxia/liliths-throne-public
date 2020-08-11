@@ -9,20 +9,20 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.8.9
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	
 	private int defaultGirth;
 	private float lengthAsPercentageOfHeight;
@@ -69,7 +69,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	 */
 	public AbstractTentacleType(
 			BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			PenetrationGirth defaultGirth,
 			float lengthAsPercentageOfHeight,
 			String transformationName,
@@ -188,7 +188,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

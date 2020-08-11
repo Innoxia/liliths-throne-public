@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -35,7 +36,6 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -185,9 +185,7 @@ public class DebugDialogue {
 					return new Response("+1000 essences", "Add 1000 arcane essences.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							for(TFEssence essence : TFEssence.values()) {
-								Main.game.getPlayer().incrementEssenceCount(essence, 1000, false);
-							}
+							Main.game.getPlayer().incrementEssenceCount(1000, false);
 						}
 					};
 					
@@ -1012,8 +1010,12 @@ public class DebugDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index != 0 && index < Subspecies.values().length) {
-				Subspecies subspecies = Subspecies.values()[index - 1];
+			List<Subspecies> availableSubspecies = new ArrayList<>();
+			Collections.addAll(availableSubspecies, Subspecies.values());
+			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
+			
+			if (index != 0 && index < availableSubspecies.size()) {
+				Subspecies subspecies = availableSubspecies.get(index - 1);
 				String name = subspecies.getName(null);
 				
 				return new Response(

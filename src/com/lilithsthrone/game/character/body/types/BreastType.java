@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -238,8 +239,8 @@ public class BreastType {
 		return allBreastTypes;
 	}
 	
-	private static Map<Race, List<AbstractBreastType>> typesMap = new HashMap<>();
-	public static List<AbstractBreastType> getBreastTypes(Race r) {
+	private static Map<AbstractRace, List<AbstractBreastType>> typesMap = new HashMap<>();
+	public static List<AbstractBreastType> getBreastTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

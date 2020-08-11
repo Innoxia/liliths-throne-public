@@ -465,7 +465,7 @@ public class FingerNipple {
 									+ " making it quite clear that [npc2.she] has no choice but to squeeze the [npc.milk+] from [npc.her] [npc.nipples].",
 
 							" [npc2.Name] desperately [npc2.verb(try)] to pull away from [npc.namePos] [npc.breasts],"
-									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.her] to continue squeezing the [npc.milk+] from [npc.her] [npc.nipples]."));
+									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.herHim] to continue squeezing the [npc.milk+] from [npc.her] [npc.nipples]."));
 					break;
 			}
 			

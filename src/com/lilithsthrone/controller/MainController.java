@@ -79,7 +79,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -1713,13 +1712,14 @@ public class MainController implements Initializable {
 					+ "<i>Click to toggle the time display between a 24-hour and 12-hour clock.</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
-		
-		if (((EventTarget) documentAttributes.getElementById("ESSENCE_" + TFEssence.ARCANE.hashCode())) != null) {
-			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mousemove", moveTooltipListener, false);
-			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseleave", hideTooltipListener, false);
+
+		id = "ESSENCE_ICON";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			
-			TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(TFEssence.ARCANE);
-			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseenter", el2, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("[style.boldArcane(Arcane Essences)]", "");
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
 		Attribute[] attributes = {
@@ -1843,7 +1843,7 @@ public class MainController implements Initializable {
 			id = idModifier+"ELEMENTAL_"+Attribute.EXPERIENCE.getName();
 			if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-					if(Main.game.isInNeutralDialogue()) {
+					if(character.isPlayer() && Main.game.isInNeutralDialogue()) {
 						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
 					}
 				}, false);
@@ -1856,7 +1856,7 @@ public class MainController implements Initializable {
 			id = idModifier+"ELEMENTAL_ATTRIBUTES";
 			if(((EventTarget) documentAttributes.getElementById(id))!=null){
 				((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
-					if(Main.game.isInNeutralDialogue()) {
+					if(character.isPlayer() && Main.game.isInNeutralDialogue()) {
 						Main.game.setContent(new Response("", "", ElementalDialogue.ELEMENTAL_START));
 					}
 				}, false);

@@ -1114,7 +1114,8 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.assToMouth,
 								SexActionPresets.groinToMouth,
-								SexActionPresets.appendagesToAllAreas),
+								SexActionPresets.appendagesToAllAreas,
+								SexActionPresets.feetToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.BREASTS,

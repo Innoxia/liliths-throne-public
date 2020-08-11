@@ -1654,7 +1654,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 									+ "From [npc.her] rude reaction, it's quite clear that [npc.name] not only hates you, but also isn't too keen on living life as your slave."
-									+ " Before you can try asking [npc.her] to give you a proper answer, [npc.she] turns [npc.her] back on you and snarls,"
+									+ " Before you can try asking [npc.herHim] to give you a proper answer, [npc.she] turns [npc.her] back on you and snarls,"
 									+ " [npc.speech(Why don't you fuck off and go suck Lilaya's cock!)]");
 							break;
 						case NEUTRAL:
@@ -2811,7 +2811,7 @@ public class SlaveDialogue {
 			String secondSpeech = "[npc.speech(Stop it! F-Fuck off already!)]"
 						+ " [npc.she] shouts, [npc.her] words falling on deaf ears as you continue having your fun.";
 			
-			String finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
+			String finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
 						+ " [npc.She] continues to spit curses and tell you to leave [npc.herHim] alone, and you wonder if you should do as your slave asks, or do something else with [npc.herHim]...";
 			
 			switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
@@ -2830,7 +2830,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(P-Please! S-Stop it now!)]"
 										+ " [npc.she] cries, [npc.her] words falling on deaf ears as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] avoids your gaze as [npc.she] asks you to leave [npc.herHim] alone, and you wonder if you should do as your slave requests, or do something else with [npc.herHim]...";
 							break;
 						case OBEDIENT:
@@ -2844,7 +2844,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
 										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a step back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
 							break;
 					}
@@ -2862,7 +2862,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(How much longer is this going to do on for, [npc.pcName]?)]"
 										+ " [npc.she] asks, [npc.her] disobedient questioning receiving no answer as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a few steps back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] lets out a sigh of relief as [npc.she] asks you to leave [npc.herHim] alone now, and you wonder if you should do as your slave requests, or do something else with [npc.herHim]...";
 							break;
 						case NEUTRAL:
@@ -2876,7 +2876,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(Are you almost done, [npc.pcName]?)]"
 										+ " [npc.she] asks, [npc.her] disobedient questioning receiving no answer as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a few steps back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] lets out a little sigh of relief as [npc.she] avoids your gaze, and you wonder if you should do something else with [npc.herHim]...";
 							break;
 						case OBEDIENT:
@@ -2890,7 +2890,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
 										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a step back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
 							break;
 					}
@@ -2908,7 +2908,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech([npc.PcName], please! I-I just wanted a hug...)]"
 										+ " [npc.she] sighs, [npc.her] disobedient remark receiving no answer as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a few steps back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] lets out a sigh of relief as [npc.she] smiles up at you, and you wonder if you should do something else with [npc.herHim] now...";
 							break;
 						case NEUTRAL:
@@ -2922,7 +2922,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(Is this to your liking, [npc.pcName]?)]"
 										+ " [npc.she] asks, [npc.her] questioning receiving no answer as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a few steps back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] lets out a little sigh of relief as [npc.she] avoids your gaze, and you wonder if you should do something else with [npc.herHim]...";
 							break;
 						case OBEDIENT:
@@ -2936,7 +2936,7 @@ public class SlaveDialogue {
 							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
 										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
 							
-							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.herHim] to take a step back, you look [npc.herHim] up and down, grinning."
 										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
 							break;
 					}

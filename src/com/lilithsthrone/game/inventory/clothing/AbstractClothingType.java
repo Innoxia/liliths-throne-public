@@ -48,7 +48,6 @@ import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -2453,20 +2452,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public int getEnchantmentLimit() {
 		return 100;
-//		if(enchantmentLimit==-1) {
-//			int base = (getClothingSet()==null?5:10);
-//			return base + getIncompatibleSlots(null).size()*base;
-//		} else {
-//			return enchantmentLimit;
-//		}
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {
 		return ItemEffectType.CLOTHING;
-	}
-	
-	public TFEssence getRelatedEssence() {
-		return TFEssence.ARCANE;
 	}
 	
 	public AbstractClothingType getEnchantmentItemType(List<ItemEffect> effects) {

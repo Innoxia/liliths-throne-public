@@ -8,19 +8,19 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public abstract class AbstractMouthType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
-	private Race race;
+	private AbstractRace race;
 	private AbstractTongueType tongueType;
 	
 	private List<String> names;
@@ -33,7 +33,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	
 	List<OrificeModifier> defaultRacialOrificeModifiers;
 
-	public AbstractMouthType(Race race, AbstractTongueType tongueType) {
+	public AbstractMouthType(AbstractRace race, AbstractTongueType tongueType) {
 		this(BodyCoveringType.MOUTH,
 				race,
 				tongueType,
@@ -56,7 +56,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this mouth type.
 	 */
 	public AbstractMouthType(BodyCoveringType skinType,
-			Race race,
+			AbstractRace race,
 			AbstractTongueType tongueType,
 			List<String> names,
 			List<String> namesPlural,
@@ -144,7 +144,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

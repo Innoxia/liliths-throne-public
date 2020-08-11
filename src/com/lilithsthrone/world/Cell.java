@@ -130,7 +130,7 @@ public class Cell implements XMLSaving {
 	}
 	
 	public String getId() {
-		return type.toString()+"-X:"+location.getX()+"-Y:"+location.getY();
+		return WorldType.getIdFromWorldType(type)+"-X:"+location.getX()+"-Y:"+location.getY();
 	}
 
 	public AbstractWorldType getType() {

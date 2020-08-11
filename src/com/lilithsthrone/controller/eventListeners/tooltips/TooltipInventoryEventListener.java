@@ -38,7 +38,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -58,7 +57,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.3.7.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public class TooltipInventoryEventListener implements EventListener {
@@ -90,7 +89,6 @@ public class TooltipInventoryEventListener implements EventListener {
 	
 	private TFModifier enchantmentModifier;
 	private TFPotency potency;
-	private TFEssence essence;
 	
 	private static StringBuilder tooltipSB = new StringBuilder();
 
@@ -566,11 +564,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>Set potency to <b style='color:"+potency.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(potency.getName()) + "</b></div>"));
 			
-		} else if (essence != null) {
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'><b style='color:"+essence.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(essence.getName()) + "</b> essence</div>"));
-		
-		}  else {
+		} else {
 			return;
 		}
 
@@ -742,12 +736,6 @@ public class TooltipInventoryEventListener implements EventListener {
 		this.potency = potency;
 		return this;
 	}
-	
-	public TooltipInventoryEventListener setEssence(TFEssence essence) {
-		resetVariables();
-		this.essence = essence;
-		return this;
-	}
 
 	private void resetVariables() {
 		owner = null;
@@ -770,7 +758,6 @@ public class TooltipInventoryEventListener implements EventListener {
 		invSlot = null;
 		enchantmentModifier = null;
 		potency = null;
-		essence = null;
 	}
 	
 	private void itemTooltip(AbstractItem absItem) {
@@ -875,6 +862,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		int yIncrease = 0;
 		int listIncrease = 2 + absWep.getAttributeModifiers().size();
 		listIncrease += absWep.getSpells().size();
+		listIncrease += absWep.getWeaponType().getExtraEffects().size();
 
 		String author = absWep.getWeaponType().getAuthorDescription();
 		if(!author.isEmpty()) {
@@ -906,7 +894,7 @@ public class TooltipInventoryEventListener implements EventListener {
 									:"[style.colourRanged(Ranged)]"))+"</br>"
 						+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 						);
-		
+			
 			float res = absWep.getWeaponType().getPhysicalResistance();
 			if(res>0) {
 				listIncrease++;
@@ -966,7 +954,11 @@ public class TooltipInventoryEventListener implements EventListener {
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 				}
 			}
-
+			
+			for(String s : absWep.getWeaponType().getExtraEffects()) {
+				tooltipSB.append("<br/><b>"+s+"</b>");
+			}
+			
 			for(Entry<Attribute, Integer> entry : absWep.getAttributeModifiers().entrySet()) {
 				tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 			}
@@ -996,7 +988,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						+ UtilText.parse(absWep.getWeaponType().getDescription())
 					+ "</div>");
 
-		if(owner!=null && owner.getEssenceCount(TFEssence.ARCANE)<absWep.getWeaponType().getArcaneCost()) {
+		if(owner!=null && owner.getEssenceCount()<absWep.getWeaponType().getArcaneCost()) {
 			yIncrease+=2;
 			tooltipSB.append("<div class='container-full-width titular'>"
 								+ "[style.colourBad(Not enough essences to fire!)]"
