@@ -63,7 +63,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public enum Encounter {
@@ -128,7 +128,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
 					new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty()
+					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null,
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
@@ -190,7 +190,7 @@ public enum Encounter {
 				
 			}
 			
-			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
@@ -209,7 +209,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty()
+					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -256,7 +256,7 @@ public enum Encounter {
 				}
 			}
 			
-			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+			if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
@@ -275,9 +275,12 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					(getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null);
+						:null),
+					(getSlaveUsingOtherSlaveInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
+						:null));
 			
 			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
@@ -378,12 +381,19 @@ public enum Encounter {
 				spawnEnforcers();
 				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
-			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+			} else if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
 				}
 				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
+				
+			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
+				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
+				if(slaves.getKey()==null || slaves.getValue()==null) {
+					return null;
+				}
+				return SlaveDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
 			}
 			
 			return null;
@@ -426,7 +436,7 @@ public enum Encounter {
 					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
-					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
@@ -512,7 +522,7 @@ public enum Encounter {
 				spawnEnforcers();
 				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
-			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+			} else if(node == EncounterType.SLAVE_USES_YOU) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
@@ -1132,7 +1142,9 @@ public enum Encounter {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 						&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION 
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)
+						&& (!Main.game.getPlayer().getLocationPlace().getPlaceType().isPopulated() || slave.hasFetish(Fetish.FETISH_EXHIBITIONIST))
 						&& slave.isAttractedTo(Main.game.getPlayer())) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
 						slaves.add(slave);
@@ -1145,8 +1157,6 @@ public enum Encounter {
 				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveWantingToUseYouInDominion()");
 			}
 		}
-		slaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY && (!Main.game.getPlayer().getLocationPlace().getPlaceType().isPopulated() || slave.hasFetish(Fetish.FETISH_EXHIBITIONIST)));
-		hornySlaves.removeIf((slave) -> slave.getWorldLocation()==WorldType.SLAVER_ALLEY && (!Main.game.getPlayer().getLocationPlace().getPlaceType().isPopulated() || slave.hasFetish(Fetish.FETISH_EXHIBITIONIST)));
 		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(hornySlaves);
@@ -1160,6 +1170,65 @@ public enum Encounter {
 		return null;
 	}
 
+	/**
+	 * @return A Value, with the key being the dominant slave and the value being the submissive slave.
+	 */
+	private static Value<NPC, NPC> getSlaveUsingOtherSlaveInDominion() {
+		Map<NPC, List<NPC>> hornySlaves = new HashMap<>();
+		
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
+						&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION
+						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)) {
+					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+						hornySlaves.put(slave, new ArrayList<>());
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInDominion() 1");
+			}
+		}
+
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
+						&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION
+						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)) {
+					for(NPC horny : hornySlaves.keySet()) {
+						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
+							hornySlaves.get(horny).add(slave);
+						}
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInDominion() 2");
+			}
+		}
+
+		List<NPC> keys = new ArrayList<>(hornySlaves.keySet());
+		for(NPC key : keys) {
+			if(hornySlaves.get(key).isEmpty()) {
+				hornySlaves.remove(key);
+			}
+		}
+		
+//		System.out.println(hornySlaves.size());
+		
+		if(!hornySlaves.isEmpty()) {
+			Collections.shuffle(keys);
+			return new Value<>(keys.get(0), Util.randomItemFrom(hornySlaves.get(keys.get(0))));
+		}
+		
+		return null;
+	}
+	
 	private static AbstractCoreItem randomItem;
 
 	private static final double INCEST_ENCOUNTER_RATE = 0.2f;

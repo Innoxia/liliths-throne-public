@@ -2720,7 +2720,7 @@
 	
 	<htmlContent tag="CAPTIVE_BROKEN_FREE"><![CDATA[
 	<p>
-		While the noise of your chain being broken isn't enough to rouse the milkers from their slumber, it's somehow enough to attract the attention of your captor, who stumbles into the room and groggily asks, [murks.speech(Wot's dat noise? I were takin' a piss an' 'eard one o' you sluts fidgetin' about!)]
+		While the noise of your chain being broken isn't enough to rouse the milkers from their slumber, it's somehow enough to attract the attention of your captor, who stumbles into the room and groggily asks, [murk.speech(Wot's dat noise? I were takin' a piss an' 'eard one o' you sluts fidgetin' about!)]
 	</p>
 	<p>
 		Glancing across the room, Murk suddenly notices that not only are you awake, but that you've managed to break free from your chain. Despite the fact that you're unarmed and he's wielding a metal baseball bat, the chubby rat-boy seems visibly shaken by the fact that you've managed to escape from his restraints. With a slight tremble in his voice, he demands, [murk.speech(G-Get down an' beg fer me fergiveness, o-or else I'll give yer a real good beatin'!)]

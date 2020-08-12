@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.9.1";
+	public static final String VERSION_NUMBER = "0.3.9.2";
 	public static final String VERSION_DESCRIPTION = "Alpha";
         
         public static final String MOD_VERSION = "DSG HLF MOD 1.0";
