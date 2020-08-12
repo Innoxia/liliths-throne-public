@@ -59,7 +59,7 @@ public enum OutfitType {
 	private static Map<String, AbstractOutfit> idToOutfitMap = new HashMap<>();
 	
 	public static AbstractOutfit getOutfitTypeFromId(String id) {
-		id = Util.getClosestStringMatch(id, idToOutfitMap.keySet());
+		id = Util.getClosestStringMatchUnordered(id, idToOutfitMap.keySet());
 		return idToOutfitMap.get(id);
 	}
 	
