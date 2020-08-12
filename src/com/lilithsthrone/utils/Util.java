@@ -44,8 +44,8 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3.1
- * @author Innoxia
+ * @version 0.3.9.2
+ * @author Innoxia, CognitiveMist
  */
 public class Util {
 	

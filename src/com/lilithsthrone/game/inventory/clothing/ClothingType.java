@@ -6370,12 +6370,11 @@ public class ClothingType {
 		}
 		
 		Map<String, AbstractClothingType> choiceMap = idToClothingMap;
-		if (slotHint != null) {
+		if (slotHint!=null && !slotHint.isEmpty()) {
 			try {
 				InventorySlot slot = InventorySlot.valueOf(slotHint);
 				
-				// slotHint is present and valid, so filter the clothing map by items that can be
-				// equipped to that slot
+				// slotHint is present and valid, so filter the clothing map by items that can be equipped to that slot:
 				choiceMap = idToClothingMap.entrySet().parallelStream()
 						.filter(e -> e.getValue().getEquipSlots().contains(slot))
 						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.4
- * @version 0.3.2
+ * @version 0.3.9.2
  * @author Innoxia
  */
 @SuppressWarnings("unchecked")
