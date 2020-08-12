@@ -5542,7 +5542,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
  		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 15) {
+			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 10) {
 				value = 5;
 			} else {
 				value = 5 + 2*getLevel() + 5*getAttributeValue(Attribute.MAJOR_ARCANE);
