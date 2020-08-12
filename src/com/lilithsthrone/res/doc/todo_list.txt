@@ -23,6 +23,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Contributors:
 		Added an encounter in Dominion's alleyways where you stumble upon two of your slaves having sex with one another. To trigger, you need your slaves to have the appropriate outside freedom and sex permissions, and the one initiating sex needs to have not had sex for at least 4 hours and to be attracted to the other. (by PoyntFury)
 		Improved String-matching utility methods and dynamically generated ColorListPreset classes. (PR#1368 by CognitiveMist)
+		Fixed bug where sometimes multiple-partner sex would break upon orgasm. (by CognitiveMist)
 	
 	Other:
 	
@@ -34,7 +35,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	developers CognitiveMist orgasm bug
 	
 	make a request system to ask them to cum on you
 	Let us ask for the knot too, better yet add something like those who want to get you pregnant or with cum stud use the knot more often
