@@ -114,6 +114,13 @@ public class Properties {
 			"The game will autosave every time you transition to a new map.",
 			"The game will autosave when you transition to a new map, at a maximum rate of once per in-game day.",
 			"The game will autosave when you transition to a new map, at a maximum rate of once per in-game week."};
+
+	public int bypassSexActions = 2;
+	public static String[] bypassSexActionsLabels = new String[] {"None", "Limited", "Full"};
+	public static String[] getBypassSexActionsDescriptions = new String[] {
+			"There will be no options to bypass sex action corruption requirements, you are limited in your actions based on your corruption and fetishes.",
+			"Sex action corruption requirements may be bypassed if your corruption level is one level below the required corruption level of the action, but you will gain corruption if you do so.",
+			"All sex action corruption requirements may be bypassed, but you will gain corruption if you do so."};
 	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
@@ -300,6 +307,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
+			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
@@ -792,13 +800,19 @@ public class Properties {
 				} else {
 					udders = 1;
 				}
-				
+
 				if(element.getElementsByTagName("autoSaveFrequency").item(0)!=null) {
 					autoSaveFrequency = Integer.valueOf(((Element)element.getElementsByTagName("autoSaveFrequency").item(0)).getAttribute("value"));
 				} else {
 					autoSaveFrequency = 0;
 				}
-				
+
+				if(element.getElementsByTagName("bypassSexActions").item(0)!=null) {
+					bypassSexActions = Integer.valueOf(((Element)element.getElementsByTagName("bypassSexActions").item(0)).getAttribute("value"));
+				} else {
+					bypassSexActions = 2;
+				}
+
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
@@ -1150,6 +1164,7 @@ public class Properties {
 	
 	public void resetContentOptions() {
 		autoSaveFrequency = 0;
+		bypassSexActions = 2;
 		multiBreasts = 1;
 		udders = 1;
 		forcedTFPercentage = 40;

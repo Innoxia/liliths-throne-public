@@ -2338,7 +2338,7 @@ public class Game implements XMLSaving {
 		
 		if (response != null) {
 			String corruptionGains = "";
-			
+
 			if(!response.isAvailable()) {
 				if(!response.isAbleToBypass()) {
 					return;
@@ -3108,7 +3108,7 @@ public class Game implements XMLSaving {
 		if(response.disabledOnNullDialogue() && response.getNextDialogue()==null) {
 			responseDisabled = true;
 			
-		} else if (response.isAbleToBypass()) {
+		} else if (response.isActionCorrupting()) {
 			iconLeftBottom = "<div class='response-icon-leftBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass()+"</div>";
 		}
 		else if(response.hasRequirements()) {
@@ -4465,8 +4465,8 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.opportunisticAttackers);
 	}
 	
-	public boolean isBypassSexActions() {
-		return Main.getProperties().hasValue(PropertyValue.bypassSexActions);
+	public boolean isBypassSexActionsEnabled() {
+		return Main.getProperties().bypassSexActions!=0;
 	}
 	
 	public boolean isBraxMainQuestComplete() {
