@@ -399,10 +399,16 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_DARK_ALLEY(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f))) {
-
+	DOMINION_DARK_ALLEY(null) {
 		@Override
+		public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			// Prioritise re-encountering the NPC on this tile:
@@ -670,11 +676,17 @@ public enum Encounter {
 		}
 	},
 	
-	SUBMISSION_TUNNELS(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f),
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 10f))) {
-		
+	SUBMISSION_TUNNELS(null) {		
 		@Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+			
+                    map.put(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f);
+                    map.put(EncounterType.SUBMISSION_FIND_ITEM, 10f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			
 			if(node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
@@ -904,10 +916,15 @@ public enum Encounter {
 		}
 	},
 	
-	BAT_CAVERN(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
+	BAT_CAVERN(null) {           
+                @Override
+                public Map<EncounterType, Float> getDialogues() {
+			Map<EncounterType, Float> map = new HashMap<>();
+                        map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+			map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
+			map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
+                        return map;
+                }
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
