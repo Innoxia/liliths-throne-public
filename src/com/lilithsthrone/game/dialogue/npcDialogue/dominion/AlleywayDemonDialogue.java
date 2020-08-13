@@ -8,10 +8,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
@@ -82,20 +78,6 @@ public class AlleywayDemonDialogue {
 		if(isCompanionDialogue() && getMainCompanion().isVisiblyPregnant()) {
 			getMainCompanion().setCharacterReactedToPregnancy(getDemon(), true);
 		}
-	}
-
-	private static void growCock() {
-		getDemon().setPenisType(PenisType.DEMON_COMMON);
-		getDemon().setPenisVirgin(false);
-		getDemon().setPenisGirth(PenetrationGirth.FOUR_THICK);
-		getDemon().setPenisSize(25);
-		getDemon().setTesticleSize(TesticleSize.THREE_LARGE);
-		getDemon().setPenisCumStorage(500);
-		getDemon().clearPenisModifiers();
-		getDemon().addPenisModifier(PenetrationModifier.FLARED);
-		getDemon().addPenisModifier(PenetrationModifier.RIBBED);
-		getDemon().addPenisModifier(PenetrationModifier.PREHENSILE);
-		getDemon().fillCumToMaxStorage();
 	}
 	
 	private static String getStatus() {
@@ -871,10 +853,7 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
 									Util.newArrayListOfValues(getMainCompanion())),
-							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon())) {
-						@Override
-						public void effects() {	growCock();	}
-					};
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon()));
 				}
 
 			} else if (index == 6) {
