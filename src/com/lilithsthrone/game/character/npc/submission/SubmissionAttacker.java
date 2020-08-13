@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -117,6 +118,11 @@ public class SubmissionAttacker extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			CharacterUtils.setHistoryAndPersonality(this, true);
+			if((this.getSubspecies()==Subspecies.IMP || this.getSubspecies()==Subspecies.IMP_ALPHA)
+					&& !this.hasPersonalityTrait(PersonalityTrait.MUTE)
+					&& Math.random()<0.9f) {
+				this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+			}
 			
 			// ADDING FETISHES:
 			

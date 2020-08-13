@@ -291,17 +291,19 @@ public class Cultist extends NPC {
 					Main.game.getPlayer().useItem(item, target, false);
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " [npc.She] lets out an angry huff, but as [npc.sheIs] in no position to refuse, [npc.she] reluctantly does as you ask,"
-								+ " [npc.speech(This is an insult to Lilith herself...)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc2.name], you tell [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " [npc2.She] lets out an angry huff, but as [npc2.sheIs] in no position to refuse, [npc2.she] reluctantly does as you ask,"
+									+ " [npc2.speech(This is an insult to Lilith herself...)]")
 							+ "</p>");
 				} else {
 					itemOwner.removeItemByType(ItemType.PROMISCUITY_PILL);
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " With an angry huff, [npc.she] slaps the pill out of your hand,"
-								+ " [npc.speech(How dare you! Lilith demands that her followers' seed remain strong!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc2.name], you ask [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " With an angry huff, [npc2.she] slaps the pill out of your hand,"
+									+ " [npc2.speech(How dare you! Lilith demands that her followers' seed remain strong!)]")
 							+ "</p>");
 				}
 					
@@ -310,17 +312,19 @@ public class Cultist extends NPC {
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you tell [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc2.name], you tell [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+									+ " [npc2.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 					
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you ask [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc2.name], you ask [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+									+ " [npc2.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 				}
 			}

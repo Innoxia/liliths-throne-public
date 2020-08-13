@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class Name {
@@ -701,70 +702,26 @@ public class Name {
 			return youkoSurnames[Util.random.nextInt(youkoSurnames.length)];
 		}
 		if(gc.getBody()!=null) {
-			switch(gc.getRace()) {
-				case NONE:
-				case ANGEL:
-				case CAT_MORPH:
-				case COW_MORPH:
-				case DOG_MORPH:
-				case FOX_MORPH:
-				case ALLIGATOR_MORPH:
-				case HARPY:
-				case HUMAN:
-				case WOLF_MORPH:
-				case SQUIRREL_MORPH:
-				case SLIME:
-				case BAT_MORPH:
-				case RAT_MORPH:
-				case RABBIT_MORPH:
-					break;
-				
-				case DEMON:
-				case ELEMENTAL:
-					return getDemonSurname(gc);
-				case REINDEER_MORPH:
-					break;
-				case HORSE_MORPH:
-					break;
+			if(gc.getRace()==Race.DEMON || gc.getRace()==Race.ELEMENTAL) {
+				return getDemonSurname(gc);
 			}
 		}
 		return surnames[Util.random.nextInt(surnames.length)];
 	}
 	
-	public static NameTriplet getRandomTriplet(Race r) {
+	public static NameTriplet getRandomTriplet(AbstractRace r) {
 		NameTriplet name = Util.randomItemFrom(human);
 		// occasionally throw some "prostitute" names in there - about 10% of the time
 		if(Math.random()<0.1) {
 			name = Util.randomItemFrom(prostitute); 
 		}
 		
-		switch(r) {
-			case NONE:
-			case ANGEL:
-			case CAT_MORPH:
-			case COW_MORPH:
-			case DOG_MORPH:
-			case FOX_MORPH:
-			case ALLIGATOR_MORPH:
-			case HARPY:
-			case HUMAN:
-			case WOLF_MORPH:
-			case SQUIRREL_MORPH:
-			case SLIME:
-			case BAT_MORPH:
-			case RAT_MORPH:
-			case RABBIT_MORPH:
-			break;
-			
-			case DEMON:
-			case ELEMENTAL:
-				return getDemonName();
-			case REINDEER_MORPH:
-				name = Util.randomItemFrom(reindeer);
-				break;
-			case HORSE_MORPH:
-				name = Util.randomItemFrom(equine);
-				break;
+		if(r==Race.DEMON || r==Race.ELEMENTAL) {
+			name = getDemonName();
+		} else if(r==Race.REINDEER_MORPH) {
+			name = Util.randomItemFrom(reindeer);
+		} else if(r==Race.REINDEER_MORPH) {
+			name = Util.randomItemFrom(equine);
 		}
 		
 		return name;

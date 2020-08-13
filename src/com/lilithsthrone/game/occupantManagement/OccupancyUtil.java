@@ -253,7 +253,7 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
-						|| Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) { // Also move slaves who are in bedroom but have elsewhere to be
+						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
 					slavesAtJob.get(currentJob).add(slave.getId());
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
@@ -1446,6 +1446,108 @@ public class OccupancyUtil implements XMLSaving {
 		return "";
 	}
 	
+	public static SlaveryEventLogEntry applySlaveSexWithOtherSlave(int day, int hourOfDay, NPC slave, NPC npc) {
+		SlaveJob currentJob = slave.getSlaveJob(hourOfDay);
+		
+		List<String> descriptions = null;
+		boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED);
+		boolean canBeImpregnated = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE);
+		
+		slave.setLastTimeHadSex((day*24*60l) + hourOfDay*60l, true);
+		
+		slave.generateSexChoices(false, npc);
+		String sexDescription = UtilText.parse(slave, npc, "[npc.Name] had some naughty fun with [npc2.name], but they didn't end up having sex.");
+		if(slave.getMainSexPreference(npc)!=null) {
+			SexType sexType = slave.getMainSexPreference(npc);
+			if(sexType.getPerformingSexArea()==SexAreaPenetration.PENIS && sexType.getTargetedSexArea()==SexAreaOrifice.VAGINA && !canImpregnate) {
+				sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType, GenericSexFlag.PREVENT_CREAMPIE);
+				
+			} else if(sexType.getPerformingSexArea()==SexAreaOrifice.VAGINA && sexType.getTargetedSexArea()==SexAreaPenetration.PENIS && !canBeImpregnated) {
+				sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType, GenericSexFlag.PREVENT_CREAMPIE);
+				
+			} else {
+				sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType);
+			}
+		}
+		
+		switch(currentJob) {
+			case CLEANING:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
+								+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun.")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case IDLE:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.name] had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.name].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case KITCHEN:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
+										+ " and couldn't resist following [npc2.herHim] inside, before locking the door and having some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case LAB_ASSISTANT: case TEST_SUBJECT:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"When Lilaya left to take a break, [npc1.name] used the opportunity to have some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.name] on one of the lab's tables.")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case LIBRARY:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before having some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case OFFICE:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"Taking a small break from the paperwork assigned to [npc.herHim],"
+								+ " [npc.name] pushed [npc2.name] down over [npc.her] desk and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case BEDROOM:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] took advantage of being in your bedroom with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case SPA:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] took advantage of being in the spa with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case SPA_RECEPTIONIST:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"[npc1.Name] took advantage of being assigned to the spa's reception desk with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
+								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
+			case PUBLIC_STOCKS:
+			case MILKING:
+			case PROSTITUTE:
+				break;
+		}
+		if(descriptions!=null) {
+			if(npc.isAttractedTo(slave)) {
+				descriptions.add(slave.incrementAffection(npc, 10));
+				descriptions.add(npc.incrementAffection(slave, 10));
+				
+			} else if(npc.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+				descriptions.add(slave.incrementAffection(npc, 10));
+				descriptions.add(UtilText.parse(slave, npc, "Due to the fact that [npc2.name] enjoys being raped, [npc2.she] gained some affection towards [npc.name]!")
+						+ "<br/>"+npc.incrementAffection(slave, 25));
+				
+			} else {
+				descriptions.add(UtilText.parse(slave, npc, "[npc2.Name] despises [npc.name] for having raped [npc2.herHim]!")
+						+ "<br/>"+npc.incrementAffection(slave, -200));
+			}
+			return new SlaveryEventLogEntry(hourOfDay,
+					slave,
+					SlaveEvent.SLAVE_SEX,
+					null,
+					descriptions,
+					true);
+		}
+		return null;
+	}
+	
 	/**
 	 * 
 	 * @param hour Pass in hour of the day
@@ -1474,100 +1576,9 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 						
-						boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED);
-						boolean canBeImpregnated = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE);
-						
-						slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
-						
-						slave.generateSexChoices(false, npc);
-						String sexDescription = UtilText.parse(slave, npc, "[npc.Name] had some naughty fun with [npc2.name], but they didn't end up having sex.");
-						if(slave.getMainSexPreference(npc)!=null) {
-							SexType sexType = slave.getMainSexPreference(npc);
-							if(sexType.getPerformingSexArea()==SexAreaPenetration.PENIS && sexType.getTargetedSexArea()==SexAreaOrifice.VAGINA && !canImpregnate) {
-								sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType, GenericSexFlag.PREVENT_CREAMPIE);
-								
-							} else if(sexType.getPerformingSexArea()==SexAreaOrifice.VAGINA && sexType.getTargetedSexArea()==SexAreaPenetration.PENIS && !canBeImpregnated) {
-								sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType, GenericSexFlag.PREVENT_CREAMPIE);
-								
-							} else {
-								sexDescription = slave.calculateGenericSexEffects(true, true, npc, sexType);
-							}
-						}
-						
-						switch(currentJob) {
-							case CLEANING:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
-												+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun.")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case IDLE:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"[npc1.name] had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.name].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case KITCHEN:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
-														+ " and couldn't resist following [npc2.herHim] inside, before locking the door and having some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case LAB_ASSISTANT: case TEST_SUBJECT:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"When Lilaya left to take a break, [npc1.name] used the opportunity to have some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.name] on one of the lab's tables.")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case LIBRARY:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before having some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case OFFICE:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"Taking a small break from the paperwork assigned to [npc.herHim],"
-												+ " [npc.name] pushed [npc2.name] down over [npc.her] desk and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case BEDROOM:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"[npc1.Name] took advantage of being in your bedroom with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case SPA:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"[npc1.Name] took advantage of being in the spa with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case SPA_RECEPTIONIST:
-								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
-												"[npc1.Name] took advantage of being assigned to the spa's reception desk with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
-												+ "<br/>[style.italicsSex("+sexDescription+")]");
-								break;
-							case PUBLIC_STOCKS:
-							case MILKING:
-							case PROSTITUTE:
-								break;
-						}
-						if(descriptions!=null) {
-							if(npc.isAttractedTo(slave)) {
-								descriptions.add(slave.incrementAffection(npc, 10));
-								descriptions.add(npc.incrementAffection(slave, 10));
-								
-							} else if(npc.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-								descriptions.add(slave.incrementAffection(npc, 10));
-								descriptions.add(UtilText.parse(slave, npc, "Due to the fact that [npc2.name] enjoys being raped, [npc2.she] gained some affection towards [npc.name]!")
-										+ "<br/>"+npc.incrementAffection(slave, 25));
-								
-							} else {
-								descriptions.add(UtilText.parse(slave, npc, "[npc2.Name] despises [npc.name] for having raped [npc2.herHim]!")
-										+ "<br/>"+npc.incrementAffection(slave, -200));
-							}
-							return new SlaveryEventLogEntry(hour,
-									slave,
-									SlaveEvent.SLAVE_SEX,
-									null,
-									descriptions,
-									true);
+						SlaveryEventLogEntry sexEvent = applySlaveSexWithOtherSlave(day, hour, slave, npc);
+						if(sexEvent!=null) {
+							return sexEvent;
 						}
 					}
 				}

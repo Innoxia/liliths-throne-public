@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -273,9 +274,9 @@ public class TongueType {
 		return allTongueTypes;
 	}
 	
-	private static Map<Race, List<AbstractTongueType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractTongueType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractTongueType> getTongueTypes(Race r) {
+	public static List<AbstractTongueType> getTongueTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

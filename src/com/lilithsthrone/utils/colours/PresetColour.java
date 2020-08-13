@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
 
@@ -188,14 +189,9 @@ public class PresetColour {
 	public static Colour ATTRIBUTE_HEALTH = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("health", "hp", "energy")) {};
 	public static Colour ATTRIBUTE_MANA = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("willpower", "wp", "mana", "aura")) {};
 
-	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false,
-			BaseColour.MAGENTA,
-			"magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
+	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
 	public static Colour ATTRIBUTE_ARCANE = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("intelligence", "int")) {};
-	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false,
-//			BaseColour.PINK_DEEP,
-			Util.newColour(0xff1a8c), Util.newColour(0xff1a8c),
-			"pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
+	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, Util.newColour(0xff1a8c), Util.newColour(0xff1a8c), "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
 
 	public static Colour ATTRIBUTE_AROUSAL = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")) {};
 	public static Colour ATTRIBUTE_LUST = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")) {};
@@ -1174,7 +1170,7 @@ public class PresetColour {
 		modId = modId.replaceAll("HORN_", "COVERING_");
 		modId = modId.replaceAll("ANTLER_", "COVERING_");
 
-		modId = Util.getClosestStringMatch(modId, idToColourMap.keySet());
+		modId = Util.getClosestStringMatchUnordered(modId, 1, idToColourMap.keySet());
 		
 		return idToColourMap.get(modId);
 	}
@@ -1185,6 +1181,14 @@ public class PresetColour {
 	
 	public static List<Colour> getAllPresetColours() {
 		return allPresetColours;
+	}
+
+	public static List<Colour> getAllPresetColours(String prefix) {
+		return idToColourMap.entrySet()
+							.parallelStream()
+							.filter(e -> e.getKey().startsWith(prefix))
+							.map(Map.Entry::getValue)
+							.collect(Collectors.toList());
 	}
 	
 }

@@ -341,8 +341,8 @@ public abstract class AbstractRacialBody {
 	 */
 	public static AbstractRacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
 		
-		List<Race> availableRaces = new ArrayList<>();
-		for(Race r : Race.values()) {
+		List<AbstractRace> availableRaces = new ArrayList<>();
+		for(AbstractRace r : Race.getAllRaces()) {
 			if(r != Race.ANGEL) {
 				availableRaces.add(r);
 			}

@@ -1697,7 +1697,7 @@ public class CompanionManagement {
 
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 					"<p>"
-						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 						+ " As [npc.sheIs] your slave, you could also change [npc.her] name to whatever you'd like it to be..."
 					+ "</p>"));
 				
@@ -1743,7 +1743,7 @@ public class CompanionManagement {
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 						"<p>"
-							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 							+ " As [npc.sheIs] not your slave, you can't get [npc.herHim] to change [npc.her] name."
 						+ "</p>"));
 				

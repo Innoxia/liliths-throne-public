@@ -443,6 +443,7 @@ public class StormStreetAttackerDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/stormStreetAttack", "DEFEATED_REFUSE_THREESOME", getMugger()));
+							Main.game.banishNPC(getMugger());
 						}
 					};
 				}
@@ -500,6 +501,7 @@ public class StormStreetAttackerDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/stormStreetAttack", "DEFEATED_REFUSE_SEX", getMugger()));
+							Main.game.banishNPC(getMugger());
 						}
 					};
 				}
@@ -569,7 +571,7 @@ public class StormStreetAttackerDialogue {
 				return new Response("Continue",
 						"Continue on your way."
 								+ "<br/>[style.italicsBad(This will permanently remove [npc.name] from the game!)]",
-						AFTER_SEX_VICTORY) {
+						Main.game.getDefaultDialogue(false)) {
 					@Override
 					public Colour getHighlightColour() {
 						return PresetColour.GENERIC_NPC_REMOVAL;
@@ -577,10 +579,6 @@ public class StormStreetAttackerDialogue {
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getMugger());
-					}
-					@Override
-					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			}

@@ -62,7 +62,7 @@
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL_WITH_METALS"/>
+		<primaryColours values="DEBUG_ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>

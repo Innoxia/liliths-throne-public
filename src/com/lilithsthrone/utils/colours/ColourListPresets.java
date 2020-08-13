@@ -3,19 +3,29 @@ package com.lilithsthrone.utils.colours;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.4
- * @version 0.3.2
+ * @version 0.3.9.2
  * @author Innoxia
  */
 @SuppressWarnings("unchecked")
 public class ColourListPresets {
 
 	public static ArrayList<Colour> NONE = new ArrayList<>();
+
+	/*
+		NOTE:
+		All clothing colours are available in the JUST_ form. For example,
+		JUST_PINK will map to PresetColour.CLOTHING_PINK.
+
+		The handful of JUST_ entries defined below are here so that they may
+		be referenced in code, the remainder are created dynamically.
+	 */
 	
 	public static ArrayList<Colour> JUST_WHITE = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_WHITE);
@@ -23,30 +33,12 @@ public class ColourListPresets {
 	public static ArrayList<Colour> JUST_BLACK = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_BLACK);
 
-	public static ArrayList<Colour> JUST_DARK_RED = Util.newArrayListOfValues(
+	public static ArrayList<Colour> JUST_RED_DARK = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_RED_DARK);
 	
 	public static ArrayList<Colour> JUST_RED = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_RED);
-	
-	public static ArrayList<Colour> JUST_TAN = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_TAN);
-	
-	public static ArrayList<Colour> JUST_BROWN = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_BROWN);
 
-	public static ArrayList<Colour> JUST_DARK_BROWN = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_BROWN_DARK);
-	
-	public static ArrayList<Colour> JUST_ORANGE = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_ORANGE);
-	
-	public static ArrayList<Colour> JUST_YELLOW = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_YELLOW);
-	
-	public static ArrayList<Colour> JUST_PINK = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_PINK);
-	
 	public static ArrayList<Colour> JUST_GREY = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_GREY);
 	
@@ -59,12 +51,6 @@ public class ColourListPresets {
 	public static ArrayList<Colour> JUST_STEEL = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_STEEL);
 
-	public static ArrayList<Colour> JUST_SILVER = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_SILVER);
-
-	public static ArrayList<Colour> JUST_COPPER = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_COPPER);
-	
 	public static ArrayList<Colour> BLACK_OR_WHITE = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_BLACK,
 			PresetColour.CLOTHING_WHITE);
@@ -299,14 +285,73 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_PINK_HOT,
 			PresetColour.CLOTHING_PINK_DARK);
 	
-	public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
+        public static ArrayList<Colour> NOT_WHITE = new ArrayList<>(ALL);
 	
 	public static ArrayList<Colour> NOT_BLACK = new ArrayList<>(ALL);
 	
+        //Speshul debug color list with added damage and BaseColours
+        //Modders don't use this in your items rrrrreeeeee
+        public static ArrayList<Colour> DEBUG_ALL = Util.newArrayListOfValues(
+                PresetColour.BASE_WHITE,
+                PresetColour.BASE_GREY_LIGHT,
+                PresetColour.BASE_GREY,
+                PresetColour.BASE_GREY_DARK,
+                PresetColour.BASE_ROSE,
+                PresetColour.BASE_LILAC,
+                PresetColour.BASE_LILAC_LIGHT,
+                PresetColour.BASE_INDIGO,
+                PresetColour.BASE_PURPLE_DARK,
+                PresetColour.BASE_PURPLE,
+                PresetColour.BASE_PURPLE_LIGHT,
+                PresetColour.BASE_PINK_DEEP,
+                PresetColour.BASE_PINK_SALMON,
+                PresetColour.BASE_PINK,
+                PresetColour.BASE_PINK_LIGHT,
+                PresetColour.BASE_MAGENTA,
+                PresetColour.BASE_CRIMSON,
+                PresetColour.BASE_RED_DARK,
+                PresetColour.BASE_RED,
+                PresetColour.BASE_RED_LIGHT,
+                PresetColour.BASE_TAN,
+                PresetColour.BASE_BROWN,
+                PresetColour.BASE_BROWN_DARK,
+                PresetColour.BASE_COPPER,
+                PresetColour.BASE_ORANGE,
+                PresetColour.BASE_GINGER,
+                PresetColour.BASE_GOLD,
+                PresetColour.BASE_YELLOW,
+                PresetColour.BASE_YELLOW_LIGHT,
+                PresetColour.BASE_GREEN_LIME,
+                PresetColour.BASE_GREEN_LIGHT,
+                PresetColour.BASE_GREEN,
+                PresetColour.BASE_GREEN_DARK,
+                PresetColour.BASE_AQUA,
+                PresetColour.BASE_TEAL,
+                PresetColour.BASE_PERIWINKLE,
+                PresetColour.BASE_BLUE_DARK,
+                PresetColour.BASE_BLUE_LIGHT,
+                PresetColour.BASE_BLUE,
+                PresetColour.BASE_BLUE_STEEL,
+                PresetColour.BASE_BLACK,
+                PresetColour.BASE_PITCH_BLACK,
+                PresetColour.DAMAGE_TYPE_UNARMED,
+                PresetColour.DAMAGE_TYPE_MELEE,
+                PresetColour.DAMAGE_TYPE_RANGED,
+                PresetColour.DAMAGE_TYPE_PHYSICAL,
+                PresetColour.DAMAGE_TYPE_MANA,
+                PresetColour.DAMAGE_TYPE_LUST,
+                PresetColour.DAMAGE_TYPE_SPELL,
+                PresetColour.DAMAGE_TYPE_FIRE,
+                PresetColour.DAMAGE_TYPE_COLD,
+                PresetColour.DAMAGE_TYPE_POISON,
+                PresetColour.DAMAGE_TYPE_PURE
+                );
+        
 	static {
 		NOT_WHITE.remove(PresetColour.CLOTHING_WHITE);
 		NOT_BLACK.remove(PresetColour.CLOTHING_BLACK);
 		NOT_BLACK.remove(PresetColour.CLOTHING_BLACK_JET);
+                DEBUG_ALL.addAll(ALL_WITH_METALS);
 	}
 
 	private static Map<String, ArrayList<Colour>> idToColourListMap = new HashMap<>();
@@ -324,7 +369,7 @@ public class ColourListPresets {
 			id = "ALL_WITH_METALS";
 		}
 		
-		id = Util.getClosestStringMatch(id, idToColourListMap.keySet());
+		id = Util.getClosestStringMatchUnordered(id, idToColourListMap.keySet());
 		return idToColourListMap.get(id);
 	}
 	
@@ -344,7 +389,16 @@ public class ColourListPresets {
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				
+			}
+		}
+		
+		List<Colour> clothingColours = PresetColour.getAllPresetColours("CLOTHING_");
+		for(Colour c : clothingColours) {
+			String presetName = "JUST_" + PresetColour.getIdFromColour(c).substring("CLOTHING_".length());
+			
+			if (!idToColourListMap.containsKey(presetName)) {
+				ArrayList<Colour> preset = Util.newArrayListOfValues(c);
+				idToColourListMap.put(presetName, preset);
 			}
 		}
 	}
