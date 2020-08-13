@@ -919,11 +919,13 @@ public enum Encounter {
 	BAT_CAVERN(null) {           
                 @Override
                 public Map<EncounterType, Float> getDialogues() {
-			Map<EncounterType, Float> map = new HashMap<>();
-                        map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
-			map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
-			map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
-                        return map;
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+                    map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
+                    map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
+
+                    return map;
                 }
 
 		@Override
