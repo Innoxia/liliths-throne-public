@@ -2326,7 +2326,10 @@ public class GenericOrgasms {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(Main.sex.getCreampieLockedBy()!=null) {
-				characterPenetrated = Main.sex.getCreampieLockedBy().getKey();
+				GameCharacter lockingCharacter = Main.sex.getCreampieLockedBy().getKey();
+				if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).contains(lockingCharacter)) {
+					characterPenetrated = lockingCharacter;
+				}
 				
 			} else { // If not locked, can choose who to cum inside:
 				List<GameCharacter> charactersPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
@@ -2738,7 +2741,10 @@ public class GenericOrgasms {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(Main.sex.getCreampieLockedBy()!=null) {
-				characterPenetrated = Main.sex.getCreampieLockedBy().getKey();
+				GameCharacter lockingCharacter = Main.sex.getCreampieLockedBy().getKey();
+				if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).contains(lockingCharacter)) {
+					characterPenetrated = lockingCharacter;
+				}
 				
 			} else { // If not locked, can choose who to cum inside:
 				List<GameCharacter> charactersPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);

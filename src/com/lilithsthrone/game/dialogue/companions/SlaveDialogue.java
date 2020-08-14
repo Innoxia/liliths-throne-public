@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.companions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -28,8 +30,12 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -78,22 +84,31 @@ public class SlaveDialogue {
 	public static DialogueNode getSlaveUsesYou(NPC targetedSlave) {
 		slave = targetedSlave;
 		Main.game.setActiveNPC(targetedSlave);
-		targetedSlave.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		targetedSlave.setLocation(Main.game.getPlayer(), false);
 		return SLAVE_USES_YOU;
 	}
 
 	public static DialogueNode getSlaveUsesYouStreet(NPC targetedSlave) {
 		slave = targetedSlave;
 		Main.game.setActiveNPC(targetedSlave);
-		targetedSlave.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		targetedSlave.setLocation(Main.game.getPlayer(), false);
 		return SLAVE_USES_YOU_STREETS;
 	}
 	
 	public static DialogueNode getSlaveUsesYouAlleyway(NPC targetedSlave) {
 		slave = targetedSlave;
 		Main.game.setActiveNPC(targetedSlave);
-		targetedSlave.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		targetedSlave.setLocation(Main.game.getPlayer(), false);
 		return SLAVE_USES_YOU_ALLEYWAY;
+	}
+	
+	public static DialogueNode getSlaveUsingOtherSlaveAlleyway(Value<NPC, NPC> slaves) {
+		slave = slaves.getKey();
+		characterForSex = slaves.getValue();
+		Main.game.setActiveNPC(slave);
+		slave.setLocation(Main.game.getPlayer(), false);
+		characterForSex.setLocation(Main.game.getPlayer(), false);
+		return SLAVE_USES_OTHER_SLAVE_ALLEYWAY;
 	}
 	
 	private static DialogueNode getAfterSexDialogue() {
@@ -217,7 +232,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				if(!SlaveDialogue.getEnslavementTarget().isSlave() && SlaveDialogue.getEnslavementTarget().isAbleToBeEnslaved() && Main.game.getPlayer().isHasSlaverLicense()) {
 					return new Response("Continue",
 							"Carry on your way.",
@@ -494,7 +509,7 @@ public class SlaveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab == 0) {
-				if (index == 1) {
+				if(index == 1) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveBackground)) {
 						return new Response("Background", UtilText.parse(getSlave(), "Ask [npc.name] about [npc.her] past life."), SLAVE_PROGRESSION) {
 							@Override
@@ -508,7 +523,7 @@ public class SlaveDialogue {
 						return new Response("Background", UtilText.parse(getSlave(), "You've already talked with [npc.name] about [npc.her] past life today."), null);
 					}
 					
-				} else if (index == 2) {
+				} else if(index == 2) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSmallTalk)) {
 						return new Response("Small talk", UtilText.parse(getSlave(), "Chat about this and that with [npc.name]."), SLAVE_MINOR) {
 							@Override
@@ -532,7 +547,7 @@ public class SlaveDialogue {
 						return new Response("Small talk", UtilText.parse(getSlave(), "You've already spent time talking with [npc.name] today."), null);
 					}
 					
-				} else if (index == 3
+				} else if(index == 3
 						&& getSlave().equals(Main.game.getNpc(Scarlett.class))
 						&& !Main.getProperties().hasValue(PropertyValue.companionContent)
 						&& Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
@@ -560,7 +575,7 @@ public class SlaveDialogue {
 						}
 					};
 					
-				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
+				} else if(index == 5 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 					if(!Main.game.getPlayer().hasCompanion(getSlave())) {
 						if(!getSlave().isCompanionAvailable(Main.game.getPlayer())) {
 							return new Response("Add to party",
@@ -594,7 +609,7 @@ public class SlaveDialogue {
 						};
 					}
 					
-				} else if (index == 6) {
+				} else if(index == 6) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
 						return new Response("Work", UtilText.parse(getSlave(), "Ask [npc.name] about how [npc.her] work's going."), SLAVE_ENCOURAGE) {
 							@Override
@@ -621,7 +636,7 @@ public class SlaveDialogue {
 						return new Response("Work", UtilText.parse(getSlave(), "You've talked to [npc.name] about [npc.her] work today."), null);
 					}
 					
-				} else if (index == 7) {
+				} else if(index == 7) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveHug)) {
 						return new Response("Hug", UtilText.parse(getSlave(), "Hug [npc.name]."), SLAVE_HUG) {
 							@Override
@@ -650,7 +665,7 @@ public class SlaveDialogue {
 						return new Response("Hug", UtilText.parse(getSlave(), "You've already spent time hugging [npc.name] today."), null);
 					}
 					
-				} else if (index == 8) {
+				} else if(index == 8) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlavePettings)) {
 						return new Response("Pettings", UtilText.parse(getSlave(), "Give [npc.name] some loving pettings."), SLAVE_PETTINGS) {
 							@Override
@@ -678,7 +693,7 @@ public class SlaveDialogue {
 						return new Response("Pettings", UtilText.parse(getSlave(), "You've already spent time petting [npc.name] today."), null);
 					}
 					
-				} else if (index == 9) {
+				} else if(index == 9) {
 					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT)) {
 						return new Response("Give Present", UtilText.parse(getSlave(), "Give [npc.name] the present that you're carrying."), SLAVE_PRESENT) {
 							@Override
@@ -694,7 +709,7 @@ public class SlaveDialogue {
 						return null;
 					}
 					
-				} else if (index == 11) {
+				} else if(index == 11) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveInspect)) {
 						return new Response("Inspect", UtilText.parse(getSlave(), "Make [npc.name] strip and parade around [npc.her] room for your inspection."), SLAVE_INSPECT) {
 							@Override
@@ -725,7 +740,7 @@ public class SlaveDialogue {
 						return new Response("Inspect", UtilText.parse(getSlave(), "You've already inspected [npc.name] today."), null);
 					}
 					
-				} else if (index == 12) {
+				} else if(index == 12) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSpanking)) {
 						return new Response("Spanking", UtilText.parse(getSlave(), "Bend [npc.name] over your knee and give [npc.herHim] a rough spanking."), SLAVE_SPANKING) {
 							@Override
@@ -744,7 +759,7 @@ public class SlaveDialogue {
 						return new Response("Spanking", UtilText.parse(getSlave(), "You've already spanked [npc.name] today."), null);
 					}
 					
-				} else if (index == 13) {
+				} else if(index == 13) {
 					if(!getSlave().NPCFlagValues.contains(NPCFlagValue.flagSlaveMolest)) {
 						return new Response("Molest", UtilText.parse(getSlave(), "Make [npc.name] sit still as you grope and molest [npc.her] body."), SLAVE_MOLEST) {
 							@Override
@@ -766,7 +781,7 @@ public class SlaveDialogue {
 						return new Response("Molest", UtilText.parse(getSlave(), "You've already molested [npc.name] today."), null);
 					}
 					
-				} else if (index == 0) {
+				} else if(index == 0) {
 					return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), SLAVE_START) {
 						@Override
 						public DialogueNode getNextDialogue() {
@@ -835,7 +850,7 @@ public class SlaveDialogue {
 					}
 					
 				} else {
-					if (index == 1) { //TODO improve descriptions and affection hit from rape
+					if(index == 1) { //TODO improve descriptions and affection hit from rape
 						if((!characterForSex.isSlave() || !characterForSex.getOwner().isPlayer())
 								&& !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
@@ -885,7 +900,7 @@ public class SlaveDialogue {
 							};
 						}
 						
-					} else if (index == 2) {
+					} else if(index == 2) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);
 							
@@ -940,7 +955,7 @@ public class SlaveDialogue {
 						}
 						
 					
-					} else if (index == 3) {
+					} else if(index == 3) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
 							
@@ -996,7 +1011,7 @@ public class SlaveDialogue {
 							}
 						}
 					
-					} else if (index == 4) {
+					} else if(index == 4) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Side-by-side (as dom)", "You'd need a third person to be present in order to get a spitroast going...", null);
 							
@@ -1044,7 +1059,7 @@ public class SlaveDialogue {
 							};
 						}
 						
-					} else if (index == 6) {
+					} else if(index == 6) {
 						if(!characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new Response("Submissive sex",
 									UtilText.parse(characterForSex, 
@@ -1077,7 +1092,7 @@ public class SlaveDialogue {
 							};
 						}
 						
-					} else if (index == 7) {
+					} else if(index == 7) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Spitroasted (front)", "You'd a third person to be present in order to get spitroasted...", null);
 							
@@ -1139,7 +1154,7 @@ public class SlaveDialogue {
 						}
 							
 						
-					} else if (index == 8) {
+					} else if(index == 8) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
 							
@@ -1200,7 +1215,7 @@ public class SlaveDialogue {
 							};
 						}
 					
-					} else if (index == 9) {
+					} else if(index == 9) {
 						if(characterForSexSecondary==null || charactersPresent.size()<2) {
 							return new Response("Side-by-side (as sub)", UtilText.parse(characterForSex, "You'd need a third person to be present in order to get fucked alongside either them or [npc.name]..."), null);
 							
@@ -1324,7 +1339,7 @@ public class SlaveDialogue {
 									null);
 						}
 
-					} else if (index == 0) {
+					} else if(index == 0) {
 						return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 							@Override
 							public DialogueNode getNextDialogue() {
@@ -3084,7 +3099,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new Response("Continue", "Decide what to do next.", SLAVE_START) {
 					@Override
 					public void effects() {
@@ -3128,7 +3143,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3141,7 +3156,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 2) {
+			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3155,7 +3170,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 3 && Main.game.isNonConEnabled()) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3199,7 +3214,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
@@ -3249,7 +3264,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3264,7 +3279,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 2) {
+			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3279,7 +3294,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 3 && Main.game.isNonConEnabled()) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3326,7 +3341,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
@@ -3398,7 +3413,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3413,7 +3428,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 2) {
+			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3428,7 +3443,7 @@ public class SlaveDialogue {
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss..."
 						+ "</p>");
 				
-			} else if (index == 3 && Main.game.isNonConEnabled()) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
 						false, false,
@@ -3473,7 +3488,7 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
@@ -3490,4 +3505,146 @@ public class SlaveDialogue {
 			}
 		}
 	};
+	
+	private static final DialogueNode SLAVE_USES_OTHER_SLAVE_ALLEYWAY = new DialogueNode("", "", true) {
+		@Override
+		public String getAuthor() {
+			return "PoyntFury";
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY", slave, characterForSex);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Ignore", "You don't care to find out who's responsible for making those lewd noises.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						SlaveryEventLogEntry event = OccupancyUtil.applySlaveSexWithOtherSlave(Main.game.getDayNumber(), Main.game.getHourOfDay(), slave, characterForSex);
+						if(event!=null) {
+							Main.game.addSlaveryEvent(Main.game.getDayNumber(), event);
+						}
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_IGNORE", slave, characterForSex));
+						slave.returnToHome();
+						characterForSex.returnToHome();
+					}
+				};
+				
+			} else if(index == 2) {
+				return new Response("Check", "Continue forwards around the next corner and find out who's responsible for making those lewd noises.", SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK);
+			}
+			return null;
+		}
+	};
+	
+	private static SMGeneric getSlaveOnSlaveSexManager(List<GameCharacter> doms, List<GameCharacter> subs, List<GameCharacter> spectators) {
+		return new SMGeneric(
+				doms,
+				subs,
+				null,
+				spectators) {
+			@Override
+			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+				GameCharacter fuckingTarget = 
+						Main.sex.getOngoingCharactersUsingAreas(character, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA).isEmpty()
+							?null
+							:Main.sex.getOngoingCharactersUsingAreas(character, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA).iterator().next();
+				if(character.isSlave() && fuckingTarget!=null) {
+					if(!character.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) || (fuckingTarget.isSlave() && !fuckingTarget.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED))) {
+						return OrgasmBehaviour.PULL_OUT;
+					}
+				}
+				return super.getCharacterOrgasmBehaviour(character);
+			}
+			@Override
+			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+				return Util.newHashMapOfValues(
+						new Value<>(slave, Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.PENIS)),
+						new Value<>(characterForSex, Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.PENIS)));
+			}
+		};
+	}
+	
+	public static final DialogueNode SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK = new DialogueNode("", "", true, true) {
+		@Override
+		public String getAuthor() {
+			return "PoyntFury";
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK", slave, characterForSex);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new ResponseSex("Join (dom)",
+						UtilText.parse(slave, characterForSex, "Announce your presence and take charge of fucking [npc.name] and [npc2.name]."),
+						true, false,
+						getSlaveOnSlaveSexManager(Util.newArrayListOfValues(Main.game.getPlayer()), Util.newArrayListOfValues(slave, characterForSex), null),
+						SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX,
+						UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_DOM", slave, characterForSex));
+				
+			} else if(index == 2) {
+				if(!slave.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Join (sub)", UtilText.parse(slave, "As [npc.name] isn't attracted to you, you can't force [npc.herHim] to dominate you..."), null);
+				}
+				return new ResponseSex("Join (sub)",
+						UtilText.parse(slave, characterForSex, "Announce your presence and submit to [npc.name], allowing [npc.herHim] to dominate both you and [npc2.name]."),
+						true, false,
+						getSlaveOnSlaveSexManager(Util.newArrayListOfValues(slave), Util.newArrayListOfValues(Main.game.getPlayer(), characterForSex), null),
+						SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX,
+						UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_SUB", slave, characterForSex));
+					
+			} else if(index == 3) {
+				return new ResponseSex("Watch",
+						UtilText.parse(slave, characterForSex, "Stay hidden around the corner and watch as [npc.name] fucks [npc2.name]..."),
+						true, false,
+						getSlaveOnSlaveSexManager(Util.newArrayListOfValues(slave), Util.newArrayListOfValues(characterForSex), Util.newArrayListOfValues(Main.game.getPlayer())),
+						SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX,
+						UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_WATCHING", slave, characterForSex));
+				
+			} else if(index == 4) {
+				return new Response("Leave", "Leave your slaves to have their fun together and continue on your way...", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						SlaveryEventLogEntry event = OccupancyUtil.applySlaveSexWithOtherSlave(Main.game.getDayNumber(), Main.game.getHourOfDay(), slave, characterForSex);
+						if(event!=null) {
+							Main.game.addSlaveryEvent(Main.game.getDayNumber(), event);
+						}
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_CHECK_LEAVE", slave, characterForSex));
+						slave.returnToHome();
+						characterForSex.returnToHome();
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription(){
+			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her], [npc.name] [npc.steps] back...");
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/slaveDialogue", "SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX", slave, characterForSex);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						slave.returnToHome();
+						characterForSex.returnToHome();
+					}
+				};
+			}
+			return null;
+			
+		}
+	};
+	
 }
