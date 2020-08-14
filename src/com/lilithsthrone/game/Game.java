@@ -2338,16 +2338,15 @@ public class Game implements XMLSaving {
 		
 		if (response != null) {
 			String corruptionGains = "";
+			if(response.isActionCorrupting() && !response.isAvailableFromFetishes()) {
+				Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
+				corruptionGains = ("<p style='text-align:center;'>"
+						+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.MAJOR_CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
+						+ "</p>");
+			};
 
-			if(!response.isAvailable()) {
-				if(!response.isAbleToBypass()) {
-					return;
-				} else {
-					Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
-					corruptionGains = ("<p style='text-align:center;'>"
-							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.MAJOR_CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
-							+ "</p>");
-				}
+			if(!response.isAvailable() && !response.isAbleToBypass()) {
+				return;
 			}
 			
 			String chosenResponse = response.getTitle();
