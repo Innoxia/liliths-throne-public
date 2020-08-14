@@ -6,6 +6,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	- Add in modding framework for sex actions. 
 	
+	- Adding mod support for items.
+	
 	- Repeat alleyway
 		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
 			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
@@ -13,95 +15,59 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	- Pregnancy mechanics update
 	
-	- Adding mod support for items.
 	
 	
 	
 	Patch notes:
 	
 	Contributors:
-		Fixed issue where slime covering colour would be forgotten and randomised every time you loaded the game. (PR#1313 by AceXP)
-		Fixed parsing issues in potion application description. (PR#1343 by Eliria)
-		Added more colours to the test t-shirt item and added new ColourListPreset for testing purposes. (PR#1376 by DSG)
-		Fixed minor parsing issues and typos in dialogues. (PR#1375 by AceXP)
-	
-	Engine:
-		Removed TFEssence Enum (so accessing essence-modifying methods is now possible via use of the parser).
-		Added ways to define 'on hit' and 'on critical hit' effects to weapons in their xml files, as well as a way to define extra effects to be displayed in their tooltip. You can see an example of how to use this in 'res/weapons/innoxia/dagger/dagger.xml'
-		Moved all reindeer overseer dialogue out into a new external xml file.
-		Refactored Race Enum into an abstract class.
-	
-	Rat Warrens:
-		Mostly completed Rat Warrens quest. There are just a few placeholders here and there and I haven't yet done thorough testing of it. Also, the post-quest Murk & Vengar content (in the Gambling Den) is still placeholders.
-		Expanded Murk's captivity content and made it a little more linear. Also added a bad end state at the end of it.
-		Losing to Vengar now leads into the same Murk content as losing to one of the generic gang fights.
-		Resolving Axel's quest by cooperating with Vengar now leads into the end result as fighting him.
-		Companions now always escape after losing to any fight which leads into Murk or Vengar captivity.
-		Reduced size of hostile rat gangs from 6 to 4.
-		Fixed issue where if non-consent content was disabled, the Rat Warrens would enter into a bugged state if you lost combat and were thrown out.
-		Slightly altered and improved descriptions of Murk and his milking storage and milking rooms.
-		Murk now only rents his milkers out between 14:00 and 22:00.
-		Slightly altered Murk's and his milkers' bodies & fetishes.
-		
-	Sex:
-		Characters who have a negative desire towards the impregnation fetish now have a low priority to creampie the vagina of characters who are not visibly pregnant.
-		Fixed issue where NPCs were not using items & condoms properly.
-		NPCs with the 'Pure virgin' fetish will no longer beg to have their virginity taken during sex.
-		NPCs will no longer get stuck trying to repeatedly remove sealed bras.
+		Added an encounter in Dominion's alleyways where you stumble upon two of your slaves having sex with one another. To trigger, you need your slaves to have the appropriate outside freedom and sex permissions, and the one initiating sex needs to have not had sex for at least 4 hours and to be attracted to the other. (by PoyntFury)
+		Improved String-matching utility methods and dynamically generated ColorListPreset classes. (PR#1368 by CognitiveMist)
+		Fixed bug where sometimes multiple-partner sex would break upon orgasm. (by CognitiveMist)
 	
 	Other:
-		Added a silly-mode 'BONK!' baseball bat, sold by Vicky (she'll only be selling it if silly mode is on when she restocks at midnight each day).
-		Increased default girth for the 'short' cat-morph tail from 'narrow' to 'average'.
-		Slightly improved the reindeer overseer dialogue, and fixed the issue where you could have sex with them even if they weren't attracted to you.
-		Slightly improved the 'bro' speech modifier.
-		Increased cum storage from 65 to 150 and 250 for Vicky and Ralph, respectively.
-		Imps and alpha-imps in Submission's tunnels are now far more likely to have the 'slovenly' personality modifier.
 	
 	Bugs:
-		Numerous parsing and typo fixes.
-		Fixed major bug where accessing the slave job assignment menu would cause an error reading: 'Error: getContent() method is throwing an exception'
-		Fixed major bug where selfie and perk screens would not open if you had learned an elemental spell but had not yet summoned your elemental.
-		Vaginal urethra depth no longer resets to the default value every time you import import a character or load a saved game.
-		NPCs who have a negative desire towards others' cocks or pussies no longer positively react to another characters' cock/pussy being revealed. 
-		Added the 'all fours' slot to the positioning menu in the 'stocks'/'milking stall' sex position.
-		Fixed issue where newly-spawned muggers/prostitutes in Dominion could throw background errors and not have the correct subspecies assigned to them.
-		Fixed bug where you could access the 'sex' and 'manage' actions of a friendly occupant in their apartment even when they weren't actually present in the tile.
-		Fixed several instances where after exiting a friendly occupant's apartment, their stats & inventory would continue to be displayed in the right-hand rendering column, which would throw background errors when trying to interact with it.
-		Fixed incorrect bread roll description.
-		Fixed issue where having more than one tail would cause all body parts to be parsed as though they were plural.
-		Foot-to-groin sex actions have been restored to the 'reverse face-sitting' position.
-		Fixed incorrect overview description of the milking stall sex position for if someone was in the 'all fours' slot.
-		Fixed issues with random NPCs somehow knowing your name during sex when performing forced-creampie actions and when giving you pills.
-		Desryth (the Father's Day incubus) is now correctly tagged as being added to your contacts screen after encountering him.
-		Fetish modification effects from the item 'Mystery Kink' will no longer include anal, lactation, incest, or foot fetishes if you have the associated content setting turned off.
-		Fixed (more) issues with the 'bedroom' slave job, where they would wake you up when they hadn't even arrived in your bedroom yet, and have wakeup-sex with you even after having left.
-		Fixed 'Elemental damage' perk referring specifically to arcane elementals instead of elementals in general.
-		Fixed bug where the room list in the 'office' room upgrade's Occupancy ledger would not work.
-		Fixed bug where slaves could stack up in your bedroom at the time when they were meant to arrive/leave.
-		Reset the bodies of all the unique slime characters in the Slime Queen's tower to their default starting values (as they were being randomised due to the bug fixed by AceXP).
-		Fixed issue with some vagina types having incorrect names.
-		Removed elementals as an option from the debug menu's 'race resets', as it was causing numerous issues having the player transformed into an elemental.
-		Fixed issue where the initial dialogue scene with your elemental would sometimes display a lot of conditional parsing errors.
-		Fixed issue where companions would be unable to use fire spells out of combat by sacrificing health.
-		Fixed game-breaking issues when getting your companion to summon an elemental.
-		Fixed issue where exploring in Dominion's alleyways would sometimes pass time but not display any encounter.
-		Fixed a couple of instances where Dominion storm attackers would not be removed from street tiles after interacting with them. (Any NPCs stuck on tiles in this manner will be cleaned up whne loading into this version.)
-		Half-demon dog, wolf, and fox morphs should now correctly spawn with scarlet penises.
-		Fixed issue where Loppy was spawning with her penile virginity.
-		Fixed bug where having sex with more tahn 4 slaves in your bathroom's shower or bath would throw background errors and thus not work.
-		Fixed bug where all of your clothing would be duplicated into your inventory after stripping to use the spa and then having sex with your salves in the pool.
-		Fixed bug where, after sex, unique NPCs would drop clothing that had become dirty during sex on the floor.
-		Offspring resulting from an imp mother or father will now correctly be imps.
+		Parsing fixes in reindeer overseer content and elsewhere.
+		Fixed issue with slaves not being correctly identified as being able to ambush you in Dominion even if you gave them the right permissions.
+		Fixed issue where slaves would never jump you for sex in alleyways that already had a persistent character present in them.
 	
 	
 	
 	
-	String matching PR
+	
+	make a request system to ask them to cum on you
+	Let us ask for the knot too, better yet add something like those who want to get you pregnant or with cum stud use the knot more often
+	
+	Why is suckle not available when you are lying down with milky girl riding cowgirl?
+	
+	Hi Inno, I just checked, but it is still possible to take all items from a shopkeeper if you run out of items while enchanting them in the trading dialogue. Maybe take the easy way out and just disallow enchanting while trading?
+		Reopen PR
+	
+	All my Reindeers are subs. Please fix
+	
+	Sumbled across some dupe glitch: when unequipping panties directly while wearing a black pantyhose resulted in the panties being dupped into the inventory while still being worn.
+	 Also, still with the black pantyhose and panties equipped, if I choose another pair of panties from my inventory to equip directly, I end up with having a copy of the already worn ones replacing the ones in my inventory.
+		(Check Micki-bugger.xml on desktop)
+	
+	 Also, I think you forgot to add the increase in affection from the showering, bathing and Use You slave sex interactions, unless that's how you planned it to be.
+	
 	
 	Custom images bugging out with tourist perk active?
 	
 	Can't change Elemental's last name
-		
+	
+	Level drain drains loads of perks from NPCs???
+	
+	Entrance to rat warrens, results in game locking up:
+		So I beat up the guards, and I tried enslaving one of them just to see what would happen, since one of them says "You're not gonna enslave us are you?"
+	
+	 A breeding roulette ended before I was even able to cum meaning I never even got the chance to creampie the person.
+	
+	 Also the object of desire perk is workign really weirdly
+	 In the breeding roulette at least it's ending the scene forcfully but still giving me affection loss because I didn't  reach 2 orgasms
+	
+	
 	Writing:
 		[x] Lose to Vengar when non-con is off
 			[x] Check flow of dialogue
@@ -180,6 +146,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Slaves being milked should have their breasts exposed
 	
 	Add nice way to lose virginity for Helena (and other pure virgins?)
+	Public fucking of broken Helena
 		
 	remove steal/vaccum succ
 	add arcane webbing
@@ -231,7 +198,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	--- RELEASE ---
 	
 	
-	
+	Would it be possible to have an option, for the enforcer encounters, to do a "oh no, I've been bad, punish me", without necessarily fighting the police, and for them to bring the PC to the slave stocks for a fun day.
 	
 	color issues with outfits and the xml. Setting color primary to ALL in outfits has this error; 
 		Warning: getClosestStringMatch() did not find an exact match for 'ALL'; returning 'MILK' instead.
