@@ -707,7 +707,7 @@ public class AlleywayDemonDialogue {
 			return null;
 		}
 	};
-
+	
 	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 		@Override
 		public int getSecondsPassed() {
@@ -722,7 +722,7 @@ public class AlleywayDemonDialogue {
 			if(getDemon().isAttractedTo(Main.game.getPlayer())
 					&& !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getDemon());
-
+				
 			} else {
 				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_BETRAYED", getDemon());
@@ -742,11 +742,11 @@ public class AlleywayDemonDialogue {
 						}
 					}
 				};
-
+				
 			} else if (index == 2) {
 				if(!getDemon().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
-
+					
 				} else if(getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
@@ -772,11 +772,11 @@ public class AlleywayDemonDialogue {
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE", getDemon()));
 				}
-
+				
 			} else if (index == 3) {
 				if(!getDemon().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
-
+					
 				} else if(getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
@@ -789,7 +789,7 @@ public class AlleywayDemonDialogue {
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getDemon()));
-
+					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
 							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
@@ -804,11 +804,11 @@ public class AlleywayDemonDialogue {
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getDemon()));
 				}
-
+				
 			} else if (index == 4) {
 				if(!getDemon().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
-
+					
 				} else if(getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
@@ -821,7 +821,7 @@ public class AlleywayDemonDialogue {
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getDemon()));
-
+					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
 							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
@@ -836,7 +836,7 @@ public class AlleywayDemonDialogue {
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getDemon()));
 				}
-
+				
 			} else if (index == 5) {
 				if(!getDemon().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
@@ -855,7 +855,7 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon()));
 				}
-
+				
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 					@Override
@@ -863,14 +863,14 @@ public class AlleywayDemonDialogue {
 						Main.mainController.openInventory(getDemon(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
-
+				
 			} else if (index == 7) {
 				if(Main.game.getCurrentDialogueNode()==AFTER_COMBAT_VICTORY_TALK) {
 					return new Response("Talk", "You are already talking to [npc.name]...", null);
-
+					
 				} else if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
-
+					
 				} else {
 					return new Response("Talk", "Talk to [npc.name] and ask [npc.herHim] why [npc.she] attacked you.", AFTER_COMBAT_VICTORY_TALK){
 						@Override
@@ -880,7 +880,7 @@ public class AlleywayDemonDialogue {
 						}
 					};
 				}
-
+				
 			} else if (index == 8 && getDemon().isAbleToSelfTransform()) {
 				return new Response("Transform [npc.herHim]",
 						"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
@@ -891,13 +891,13 @@ public class AlleywayDemonDialogue {
 						BodyChanging.setTarget(getDemon());
 					}
 				};
-
+				
 			} else if (index == 9 && getDemon().isAbleToSelfTransform()) {
 				return new Response("Quick transformations",
 						"If all [npc.she] wants is sex, then you're more than happy to oblige. Besides, if [npc.sheIs] able to transform [npc.herself], you have a few ideas in mind..."
 								+ "(You'll return to these options once finished transforming [npc.herHim].)",
 						QuickTransformations.initQuickTransformations("misc/quickTransformations", getDemon(), AFTER_COMBAT_VICTORY));
-
+			
 			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
@@ -914,16 +914,16 @@ public class AlleywayDemonDialogue {
 						Main.game.banishNPC(getDemon());
 					}
 				};
-
+				
 			} else if (index == 11 && isCompanionDialogue()) {
 				GameCharacter companion = getMainCompanion();
-
+				
 				if(!Main.game.isNonConEnabled() && (!getDemon().isAttractedTo(Main.game.getPlayer()) || !getDemon().isAttractedTo(companion))) {
 					return new Response("Threesome", UtilText.parse(companion, getDemon(), "[npc2.Name] has no interest in having sex with you or [npc.name]!"), null);
-
+					
 				} else if(!companion.isAttractedTo(getDemon())) {
 					return new Response(UtilText.parse(companion, "Threesome"), UtilText.parse(companion, getDemon(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
-
+					
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Threesome"),
 							UtilText.parse(getDemon(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
@@ -936,16 +936,16 @@ public class AlleywayDemonDialogue {
 									ResponseTag.PREFER_DOGGY),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_THREESOME", getDemon(), companion));
 				}
-
+				
 			} else if (index == 12 && isCompanionDialogue()) {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !getDemon().isAttractedTo(companion)) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
-
+					
 				} else if(!companion.isAttractedTo(getDemon())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
-
+					
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 							UtilText.parse(companion, getDemon(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
@@ -957,21 +957,21 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getDemon(), companion));
 				}
-
+				
 			} else if (index == 13 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !companion.isAttractedTo(getDemon())) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"), UtilText.parse(companion, getDemon(), "[npc.Name] has no interest in having sex with [npc2.name]!"), null);
-
+					
 				} else if(!getDemon().isAttractedTo(companion)) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] has no interest in having sex with [npc.name]!"), null);
-
+					
 				} else if(!companion.isAttractedTo(getDemon()) && companion.isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"),
 							UtilText.parse(getDemon(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 							null);
-
+					
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 							UtilText.parse(getDemon(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
@@ -991,7 +991,7 @@ public class AlleywayDemonDialogue {
 					};
 				}
 			}
-
+			
 			return null;
 		}
 	};
