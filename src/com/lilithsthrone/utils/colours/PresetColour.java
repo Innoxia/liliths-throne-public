@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
 
@@ -1169,7 +1170,7 @@ public class PresetColour {
 		modId = modId.replaceAll("HORN_", "COVERING_");
 		modId = modId.replaceAll("ANTLER_", "COVERING_");
 
-		modId = Util.getClosestStringMatch(modId, idToColourMap.keySet());
+		modId = Util.getClosestStringMatchUnordered(modId, 1, idToColourMap.keySet());
 		
 		return idToColourMap.get(modId);
 	}
@@ -1180,6 +1181,14 @@ public class PresetColour {
 	
 	public static List<Colour> getAllPresetColours() {
 		return allPresetColours;
+	}
+
+	public static List<Colour> getAllPresetColours(String prefix) {
+		return idToColourMap.entrySet()
+							.parallelStream()
+							.filter(e -> e.getKey().startsWith(prefix))
+							.map(Map.Entry::getValue)
+							.collect(Collectors.toList());
 	}
 	
 }
