@@ -905,11 +905,29 @@ public enum Encounter {
 		}
 	},
 	
-	BAT_CAVERN(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f), 
-                        new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 8f))){
+	BAT_CAVERN(null) {           
+                @Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+                    map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
+                    map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
+                    
+                    if (!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE))
+                    {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT))
+                        {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 20f);
+                        }
+                        else
+                        {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
+                        }
+                    }                   
+
+                    return map;
+                }
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
@@ -961,9 +979,7 @@ public enum Encounter {
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
 				return BatCavernsEncounterDialogue.FIND_ITEM;
-                        } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED && 
-                                    !(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE) || Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)) && 
-                                    !(!Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) && Math.random()<0.5f)) {
+                        } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED) {
 
                                 return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
 				
