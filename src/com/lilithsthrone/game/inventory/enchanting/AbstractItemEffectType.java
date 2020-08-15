@@ -457,10 +457,10 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						return PenisLength.SEVEN_STALLION.getMaximumValue();
-					case TF_MOD_SIZE_SECONDARY:
-						return TesticleSize.SEVEN_ABSURD.getValue();
-					case TF_MOD_SIZE_TERTIARY:
-						return PenetrationGirth.FIVE_FAT.getValue();
+					case TF_MOD_SIZE_SECONDARY: // secondary is penis girth
+						return PenetrationGirth.SIX_GIRTHY.getValue();
+					case TF_MOD_SIZE_TERTIARY: //tertiary is testicle size
+						return TesticleSize.getMaxSize().getValue();
 					case TF_MOD_WETNESS:
 						return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
 					case TF_MOD_CUM_EXPULSION:

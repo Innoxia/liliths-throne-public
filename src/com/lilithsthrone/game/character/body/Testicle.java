@@ -24,7 +24,7 @@ public class Testicle implements BodyPartInterface {
 
 	
 	public static final int MIN_TESTICLE_COUNT = 2;
-	public static final int MAX_TESTICLE_COUNT = 8;
+	public static final int MAX_TESTICLE_COUNT = 16;
 
 	public static final int MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED = 5; //ml
 	
@@ -43,7 +43,7 @@ public class Testicle implements BodyPartInterface {
 
 	public Testicle(AbstractTesticleType type, int testicleSize, int cumStorage, int testicleCount) {
 		this.type = type;
-		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
+		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.getMaxSize().getValue()));
 		this.cumStorage = cumStorage;
 		cumStored = cumStorage;
 		cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT;
@@ -111,7 +111,7 @@ public class Testicle implements BodyPartInterface {
 		}
 		
 		int oldSize = this.testicleSize;
-		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
+		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.getMaxSize().getValue()));
 		int sizeChange = this.testicleSize - oldSize;
 
 		if(owner==null) {

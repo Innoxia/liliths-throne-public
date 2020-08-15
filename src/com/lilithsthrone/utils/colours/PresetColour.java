@@ -313,6 +313,10 @@ public class PresetColour {
 	public static Colour GENERIC_SIZE_SIX = new Colour(false, Util.newColour(0x57D161), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size6")) {};
 	public static Colour GENERIC_SIZE_SEVEN = new Colour(false, Util.newColour(0x47CD52), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size7")) {};
 	public static Colour GENERIC_SIZE_EIGHT = new Colour(false, Util.newColour(0x37C843), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size8")) {};
+	public static Colour GENERIC_SIZE_NINE = new Colour(false, Util.newColour(0x30C33C), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size9")) {};
+	public static Colour GENERIC_SIZE_TEN = new Colour(false, Util.newColour(0x2ABD36), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size10")) {};
+	public static Colour GENERIC_SIZE_ELEVEN = new Colour(false, Util.newColour(0x23B82F), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size11")) {};
+	public static Colour GENERIC_SIZE_TWELVE = new Colour(false, Util.newColour(0x1BB027), Util.newColour(0x8e011e), "green", Util.newArrayListOfValues("size12")) {};
 	
 	public static Colour GENERIC_WETNESS_ONE = new Colour(false, Util.newColour(0xddd2bf), Util.newColour(0xddd2bf), "brown", Util.newArrayListOfValues("wetness1")) {};
 	public static Colour GENERIC_WETNESS_TWO = new Colour(false, Util.newColour(0xe3f8ff), Util.newColour(0xcbf5ff), "blue", Util.newArrayListOfValues("wetness2")) {};
