@@ -2844,7 +2844,7 @@ public class StatusEffect {
 				long timeLeft = oneDayLater - now;
 				long hoursLeft = timeLeft / 60;
 				long minutesLeft = timeLeft % 60;
-				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(addiction.isBestial()))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 						+ (timeLeft > 0
 								?" [style.colourGood("+hoursLeft+":"+String.format("%02d", minutesLeft)+")]"
 								:" [style.boldArcane(Withdrawal!)]"));

@@ -12,6 +12,8 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.utils.XMLSaving;
 
+import static java.lang.Boolean.valueOf;
+
 /**
  * @since 0.2.0
  * @version 0.3.8.2
@@ -22,24 +24,27 @@ public class Addiction implements XMLSaving {
 	private AbstractFluidType fluid;
 	private long lastTimeSatisfied;
 	private Set<String> providerIDs;
-	
+	private boolean isBestial;
+
 	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = new HashSet<>();
 	}
 	
-	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, String providerID) {
+	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, String providerID, boolean isBestial) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = new HashSet<>();
 		this.providerIDs.add(providerID);
+		this.isBestial = isBestial;
 	}
 	
-	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, Set<String> providerIDs) {
+	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, Set<String> providerIDs, boolean isBestial) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = providerIDs;
+		this.isBestial = isBestial;
 	}
 
 	@Override
@@ -48,7 +53,8 @@ public class Addiction implements XMLSaving {
 			return (o instanceof Addiction)
 					&& ((Addiction)o).getFluid().equals(this.getFluid())
 					&& ((Addiction)o).getLastTimeSatisfied() == this.getLastTimeSatisfied()
-					&& ((Addiction)o).getProviderIDs().equals(this.getProviderIDs());
+					&& ((Addiction)o).getProviderIDs().equals(this.getProviderIDs())
+					&& ((Addiction)o).isBestial() == (this.isBestial());
 		} else {
 			return false;
 		}
@@ -70,7 +76,7 @@ public class Addiction implements XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "fluid", FluidType.getIdFromFluidType(this.getFluid()));
 		CharacterUtils.addAttribute(doc, element, "lastTimeSatisfied", String.valueOf(this.getLastTimeSatisfied()));
-		
+
 		Element innerElement = doc.createElement("providerIDs");
 		element.appendChild(innerElement);
 		for(String id : this.getProviderIDs()) {
@@ -78,7 +84,8 @@ public class Addiction implements XMLSaving {
 			innerElement.appendChild(idElement);
 			CharacterUtils.addAttribute(doc, idElement, "value", id);
 		}
-		
+		CharacterUtils.addAttribute(doc, element, "bestial", String.valueOf(this.isBestial()));
+
 		return element;
 	}
 
@@ -90,8 +97,8 @@ public class Addiction implements XMLSaving {
 		}
 		
 		return new Addiction(FluidType.getFluidTypeFromId(parentElement.getAttribute("fluid")),
-				Long.valueOf(parentElement.getAttribute("lastTimeSatisfied")),
-				IDs);
+				Long.parseLong(parentElement.getAttribute("lastTimeSatisfied")),
+				IDs, Boolean.parseBoolean(parentElement.getAttribute("bestial")));
 	}
 	
 	public AbstractFluidType getFluid() {
@@ -116,5 +123,13 @@ public class Addiction implements XMLSaving {
 	
 	public void addProviderID(String providerID) {
 		getProviderIDs().add(providerID);
+	}
+
+	public boolean isBestial() {
+		return isBestial;
+	}
+
+	public void setBestial(boolean bestial) {
+		isBestial = bestial;
 	}
 }

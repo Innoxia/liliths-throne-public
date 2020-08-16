@@ -65,7 +65,7 @@ public enum FluidModifier {
 		public String applyEffects(GameCharacter target, GameCharacter fluidProvider, float millilitres, FluidInterface fluid) {
 			boolean curedWithdrawal = target.getAddiction(fluid.getType())!=null && Main.game.getMinutesPassed()-target.getAddiction(fluid.getType()).getLastTimeSatisfied()>=24*60;
 			boolean appendAddiction = !Main.game.isInSex() || curedWithdrawal;
-			if(target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId()))) {
+			if(target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId(), fluid.isBestial(fluidProvider)))) {
 				return UtilText.parse(target,
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "Due to the addictive properties of "+(fluidProvider==null?"":(fluidProvider.equals(target)?"[npc.her]":UtilText.parse(fluidProvider, "[npc.namePos]")))+" "+fluid.getName(fluidProvider)
