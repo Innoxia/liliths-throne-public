@@ -24,6 +24,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved String-matching utility methods and dynamically generated ColorListPreset classes. (PR#1368 by CognitiveMist)
 		Fixed bug where sometimes multiple-partner sex would break upon orgasm. (by CognitiveMist)
 		Added 'broodmother pill', which doubles offspring conceived during its effect. (Usage dialogue written by PoyntFury)
+		Fixed a bug where having multiple arm pairs allowed an all-out strike with a 2-handed weapons. (PR#1384 by AceXP)
 	
 	Engine:
 		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/breeder.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
@@ -109,11 +110,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	the move 'all-out strike' is counting the off-hand as useable when weilding 2-handed swords
-		AceXP PR for this
 	
-	PRs
-	
+	arcane cloud localized storm does not give the opponent any lust damage like it's supposed to
 	
 	Would it be possible to change how Angel's Kiss works to be more like the Nightclub?
 	 Right now you can quicky run out of room to send prostitutes her way and have no way to remove them from the building. So I was wondering if it could be changed so going to a room opens a menu to select prostitutes you've sent her way?
