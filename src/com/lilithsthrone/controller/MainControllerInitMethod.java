@@ -6178,6 +6178,14 @@ public class MainControllerInitMethod {
 					setAutosavePreference(id, i);
 				}
 			}
+
+			// bypass sex action options:
+			for(int i=0; i<3; i++) {
+				id = "BYPASS_SEX_ACTIONS_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setBypassSexActionsPreference(id, i);
+				}
+			}
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
@@ -6218,7 +6226,6 @@ public class MainControllerInitMethod {
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
-					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions),
 					new Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia)
 					);
 			
@@ -7107,7 +7114,19 @@ public class MainControllerInitMethod {
 		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.autoSaveLabels[i], Properties.autoSaveDescriptions[i]);
 		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 	}
-	
+
+	static void setBypassSexActionsPreference(String id, int i) {
+		((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+			Main.getProperties().bypassSexActions=i;
+			Main.saveProperties();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+		}, false);
+
+		MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+		MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.bypassSexActionsLabels[i], Properties.getBypassSexActionsDescriptions[i]);
+		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+	}
 	
 	
 	private static void fluidHandler(MilkingRoom room, FluidStored fluid) {
