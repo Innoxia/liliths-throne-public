@@ -731,6 +731,11 @@ public class Sex {
 						character.isAbleToBeDisplaced(c, dt, true, true, character);
 					}
 				}
+				if(!sexManager.isCharacterStartNaked(character)) {
+					sexSB.append("<p style='text-align:center;'>"
+									+ "[style.italicsSex(You quickly strip off all of your clothes!)]"
+								+ "</p>");
+				}
 				
 			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer()) {
 				clothingToStrip.clear();
@@ -752,6 +757,9 @@ public class Sex {
 						}
 					}
 				}
+				sexSB.append("<p style='text-align:center;'>"
+								+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
+							+ "</p>");
 			}
 		}
 		
