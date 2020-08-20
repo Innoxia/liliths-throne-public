@@ -197,6 +197,32 @@ public class ClothingEmporium {
 						int requiredAffection = AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
 						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
 							return new Response(
+									"Head pat",
+									"You can tell that attempting to pat Nyan on the head would end in disaster."
+										+ " You should work on getting to know her a little better first."
+										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())+".)])",
+									null);
+							
+						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanHeadPatted)) {
+							return new Response("Head pat", "You've already patted Nyan on the head today. You can repeat this action tomorrow.", null);
+							
+						} else {
+							return new Response("Head pat", "Pat Nyan on the head and tell her she's a good girl.", ROMANCE_HEAD_PAT) {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5f));
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanHeadPatted, true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+									}
+								}
+							};
+						}
+						
+					} else if(index==5) {
+						int requiredAffection = AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue();
+						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
+							return new Response(
 									"Kiss",
 									"You can tell that attempting to kiss Nyan would end in disaster."
 										+ " You should work on getting to know her a little better first."
@@ -219,7 +245,7 @@ public class ClothingEmporium {
 							};
 						}
 						
-					} else if(index==5) {
+					} else if(index==6) {
 						int requiredAffection = AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
 						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
 							return new Response(
@@ -245,26 +271,7 @@ public class ClothingEmporium {
 							};
 						}
 						
-					} else if(index==6) {
-						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanGift)) {
-							return new Response("Gift", "You've already given Nyan a gift today. You can repeat this action tomorrow.", null);
-						} else {
-							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
-								@Override
-								public DialogueNode getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), ROMANCE_GIFT, 1);
-								}
-								@Override
-								public void effects() {
-//									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanGift, true);
-									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
-										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-									}
-								}
-							};
-						}
-						
-					} else if(index==10) {
+					} else if(index==7) {
 						int requiredAffection = AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
 						
 						if(Main.game.getNpc(Nyan.class).getAffection(Main.game.getPlayer())<requiredAffection) {
@@ -305,6 +312,25 @@ public class ClothingEmporium {
 								}
 							};
 						}
+					} else if(index==10) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanGift)) {
+							return new Response("Gift", "You've already given Nyan a gift today. You can repeat this action tomorrow.", null);
+						} else {
+							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
+								@Override
+								public DialogueNode getNextDialogue() {
+									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), ROMANCE_GIFT, 1);
+								}
+								@Override
+								public void effects() {
+//									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanGift, true);
+									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
+										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+									}
+								}
+							};
+						}
+						
 					}
 					
 				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
@@ -601,12 +627,10 @@ public class ClothingEmporium {
 	};
 	
 	public static final DialogueNode ROMANCE_TALK = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 60*60;
 		}
-		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -617,12 +641,10 @@ public class ClothingEmporium {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
@@ -630,7 +652,10 @@ public class ClothingEmporium {
 	};
 	
 	public static final DialogueNode ROMANCE_COMPLIMENT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
-
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -641,12 +666,10 @@ public class ClothingEmporium {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
@@ -654,7 +677,10 @@ public class ClothingEmporium {
 	};
 	
 	public static final DialogueNode ROMANCE_FLIRT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
-
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -665,12 +691,35 @@ public class ClothingEmporium {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode ROMANCE_HEAD_PAT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_HEAD_PAT_BASE"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_HEAD_PAT"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_HEAD_PAT_FINAL"));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
@@ -678,7 +727,10 @@ public class ClothingEmporium {
 	};
 	
 	public static final DialogueNode ROMANCE_KISS = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
-
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -689,12 +741,10 @@ public class ClothingEmporium {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
@@ -702,7 +752,10 @@ public class ClothingEmporium {
 	};
 	
 	public static final DialogueNode ROMANCE_MAKE_OUT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
-
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -713,19 +766,17 @@ public class ClothingEmporium {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNode END_SEX = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
+	public static final DialogueNode END_SEX = new DialogueNode("Finished", "Nyan has had enough for now...", true) {
 
 		@Override
 		public String getContent() {

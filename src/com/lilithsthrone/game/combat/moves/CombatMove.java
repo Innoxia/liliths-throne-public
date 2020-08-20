@@ -14,9 +14,9 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -299,9 +299,9 @@ public class CombatMove {
 	        		if(weapon != null) {
 	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		} else {
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		}
         		}
         		
@@ -365,7 +365,19 @@ public class CombatMove {
                 true,
                 false,
                 null) {
-        	
+
+        	@Override
+            public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	float weight = super.getWeight(source, enemies, allies);
+            	if(!source.hasTraitActivated(Perk.UNARMED_TRAINING)
+            			&& source.getEquippedMoves().contains(CombatMove.getMove("strike"))
+            			&& source.getMainWeapon(0)!=null
+            			&& source.getOffhandWeapon(0)==null) {
+            		weight *= 0.1f;
+            	}
+            	return weight;
+            }
+            
         	@Override
         	public int getAPcost(GameCharacter source) {
         		return source.getArmRows() + (!source.getEquippedMoves().contains(this)?1:0);
@@ -600,9 +612,9 @@ public class CombatMove {
 	        		if(weapon != null) {
 	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		} else {
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		}
         		}
         		
@@ -900,9 +912,9 @@ public class CombatMove {
 	        		if(weapon != null) {
 	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		} else {
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
 	        		}
         		}
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
@@ -910,9 +922,9 @@ public class CombatMove {
 	        		if(weapon != null) {
 	        			String s = weapon.applyExtraEffects(source, target, true, isCrit);
 	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		} else {
-	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        			extraEffects.addAll(Main.combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
 	        		}
         		}
         		
@@ -1097,7 +1109,7 @@ public class CombatMove {
         				isCrit?"[npc2.Name] [npc2.verb(feel)] incredibly turned-on!":""));
                 
         		if(source.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)) {
-        			Combat.addStatusEffectToApply(target, StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 3);
+        			Main.combat.addStatusEffectToApply(target, StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 3);
         			sb.append(Spell.getBasicStatusEffectApplication(target, false, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 2))));
         		}
         		
@@ -1463,7 +1475,7 @@ public class CombatMove {
         				isCrit?"":null,
         				isCrit?"Aura gain was doubled!":""));
         		
-        		List<String> extraEffects = Combat.applyExtraAttackEffects(source, target, Attack.SEDUCTION, null, true, isCrit);
+        		List<String> extraEffects = Main.combat.applyExtraAttackEffects(source, target, Attack.SEDUCTION, null, true, isCrit);
         		if(!extraEffects.isEmpty()) {
 	        		attackStringBuilder.append("<div class='container-full-width' style='text-align:center; padding:0; margin:0;'>");
 	        		for(String s : extraEffects) {
@@ -1519,7 +1531,7 @@ public class CombatMove {
             	}
             	turnCount++;
             }
-            return Combat.getItemsToBeUsed(source).get(index);
+            return Main.combat.getItemsToBeUsed(source).get(index);
     	}	
     	
     	@Override

@@ -325,7 +325,9 @@ public class SexActionUtility {
 			GameCharacter target = Main.sex.getItemUseInformation().getValue().getKey();
 			
 			if(target.equals(Main.sex.getCharacterPerformingAction())) { // If self-use, their use description forms part of the getSexItemBeingUsed() description.
-				return Main.sex.getCharacterPerformingAction().useItem(getSexItemBeingUsed().getKey(), target, false, true); // Append only effects
+				Value<AbstractItem, String> itemBeingUsed = getSexItemBeingUsed();
+				Main.sex.addItemUseDenial(Main.sex.getCharacterPerformingAction(), target, itemBeingUsed.getKey().getItemType()); // Don't use the same item more than once in a scene
+				return Main.sex.getCharacterPerformingAction().useItem(itemBeingUsed.getKey(), target, false, true); // Append only effects
 			}
 			
 			// If using on NPC, the target is responsible for accepting or not:

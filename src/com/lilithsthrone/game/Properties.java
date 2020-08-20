@@ -1199,17 +1199,17 @@ public class Properties {
 	
 	public void completeSharedEncyclopedia() {
 		for(Subspecies subspecies : Subspecies.values()) {
-			subspeciesDiscovered.add(subspecies);
-			subspeciesAdvancedKnowledge.add(subspecies);
+			this.addRaceDiscovered(subspecies);
+			this.addAdvancedRaceKnowledge(subspecies);
 		}
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
-			itemsDiscovered.add(itemType);
+			this.addItemDiscovered(itemType);
 		}
 		for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
-			clothingDiscovered.add(clothingType);
+			this.addClothingDiscovered(clothingType);
 		}
 		for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
-			weaponsDiscovered.add(weaponType);
+			this.addWeaponDiscovered(weaponType);
 		}
 	}
 	
@@ -1221,7 +1221,8 @@ public class Properties {
 	}
 	
 	public boolean addItemDiscovered(AbstractItemType itemType) {
-		if(itemType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
+		if(itemType.getItemTags().contains(ItemTag.CHEAT_ITEM)
+				|| itemType.getItemTags().contains(ItemTag.SILLY_MODE)) {
 			return false;
 		}
 		boolean returnDiscovered = false;
@@ -1255,7 +1256,8 @@ public class Properties {
 	}
 	
 	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
-		if(clothingType.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM)) {
+		if(clothingType.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM)
+				|| clothingType.getDefaultItemTags().contains(ItemTag.SILLY_MODE)) {
 			return false;
 		}
 		boolean returnDiscovered = false;
@@ -1289,7 +1291,8 @@ public class Properties {
 	}
 	
 	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
-		if(weaponType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
+		if(weaponType.getItemTags().contains(ItemTag.CHEAT_ITEM)
+				|| weaponType.getItemTags().contains(ItemTag.SILLY_MODE)) {
 			return false;
 		}
 		boolean returnDiscovered = false;

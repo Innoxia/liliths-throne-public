@@ -46,7 +46,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -3685,7 +3684,7 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "After consuming a '[#ITEM_VIXENS_VIRILITY.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted.");
+			return UtilText.parse(target, "After consuming a '[#ITEM_innoxia_pills_fertility.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted.");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -3703,7 +3702,7 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "After consuming a '[#ITEM_PROMISCUITY_PILL.getName(false)]', [npc.namePos] fertility and virility have been greatly reduced."
+			return UtilText.parse(target, "After consuming a '[#ITEM_innoxia_pills_sterility.getName(false)]', [npc.namePos] fertility and virility have been greatly reduced."
 							+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex [npc.she] had before taking the pill!");
 		}
 		@Override
@@ -6807,7 +6806,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInCombat()
 					&& target.equals(Main.game.getNpc(Silence.class))
-					&& !Combat.getEnemies(Main.game.getPlayer()).contains(Main.game.getNpc(Shadow.class));
+					&& !Main.combat.getEnemies(Main.game.getPlayer()).contains(Main.game.getNpc(Shadow.class));
 		}
 	};
 
@@ -6829,7 +6828,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInCombat()
 					&& target.equals(Main.game.getNpc(Shadow.class))
-					&& Combat.getEnemies(Main.game.getPlayer()).size()==1;
+					&& Main.combat.getEnemies(Main.game.getPlayer()).size()==1;
 		}
 	};
 	
@@ -7286,7 +7285,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -8036,7 +8035,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -8385,7 +8384,7 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			boolean first=true;
-			for(GameCharacter combatant : Combat.getEnemies(target)) {
+			for(GameCharacter combatant : Main.combat.getEnemies(target)) {
 				Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(target, combatant, 10);
 				sb.append(UtilText.parse(combatant,
 						target, (first?"":"<br/>")+"<br/>[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as [npc2.namePos] Stone Shell explodes!")
@@ -8769,7 +8768,7 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			StringBuilder sb = new StringBuilder();
 			
-			for(GameCharacter combatant : Combat.getAllies(target)) {
+			for(GameCharacter combatant : Main.combat.getAllies(target)) {
 				Value<String, Integer> damageValue = DamageType.LUST.damageTarget(null, combatant, 15);
 
 				sb.append(UtilText.parse(combatant, "<br/>[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> [style.boldLust(lust damage)]!")+damageValue.getKey());
@@ -8844,7 +8843,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -9010,7 +9009,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			GameCharacter randomEnemy = Combat.getEnemies(target).get(Util.random.nextInt(Combat.getEnemies(target).size()));
+			GameCharacter randomEnemy = Main.combat.getEnemies(target).get(Util.random.nextInt(Main.combat.getEnemies(target).size()));
 			
 			Value<String, Integer> damageValue = DamageType.LUST.damageTarget(null, randomEnemy, 15);
 

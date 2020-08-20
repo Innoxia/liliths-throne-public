@@ -26,7 +26,6 @@ import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -92,10 +91,10 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
 				return new Response("Your room", "You are already in your room, so there is no need to fast travel there...", null);
 			}
-			return new ResponseEffectsOnly("Your room", "Fast travel up to your room."){
+			return new Response("Your room", "Fast travel up to your room.", PlaceType.LILAYA_HOME_ROOM_PLAYER.getDialogue(false)){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+					Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 					Main.game.setResponseTab(0);
 				}
 			};
@@ -104,10 +103,10 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
 				return new Response("Lilaya's Lab", "You are already in Lilaya's lab, so there is no need to fast travel there...", null);
 			}
-			return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel to Lilaya's Lab."){
+			return new Response("Lilaya's Lab", "Fast travel to Lilaya's Lab.", PlaceType.LILAYA_HOME_LAB.getDialogue(false)){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
+					Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					Main.game.setResponseTab(0);
 				}
 			};
@@ -116,10 +115,10 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_KITCHEN) {
 				return new Response("Kitchen", "You are already in the kitchen, so there is no need to fast travel there...", null);
 			}
-			return new ResponseEffectsOnly("Kitchen", "Fast travel to the kitchen."){
+			return new Response("Kitchen", "Fast travel to the kitchen.", PlaceType.LILAYA_HOME_KITCHEN.getDialogue(false)){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_KITCHEN, true);
+					Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN, false);
 					Main.game.setResponseTab(0);
 				}
 			};
@@ -128,10 +127,10 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LIBRARY) {
 				return new Response("Library", "You are already in the library, so there is no need to fast travel there...", null);
 			}
-			return new ResponseEffectsOnly("Library", "Fast travel to the library."){
+			return new Response("Library", "Fast travel to the library.", PlaceType.LILAYA_HOME_LIBRARY.getDialogue(false)){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LIBRARY, true);
+					Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LIBRARY, false);
 					Main.game.setResponseTab(0);
 				}
 			};
@@ -140,10 +139,10 @@ public class LilayaHomeGeneric {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
 				return new Response("Entrance hall", "You are already in the entrance hall, so there is no need to fast travel there...", null);
 			}
-			return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
+			return new Response("Entrance hall", "Fast travel to the entrance hall.",PlaceType.LILAYA_HOME_ENTRANCE_HALL.getDialogue(false)){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+					Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 					Main.game.setResponseTab(0);
 				}
 			};
@@ -400,7 +399,7 @@ public class LilayaHomeGeneric {
 							
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "OUTSIDE_DADDY_PACKAGE"));
 							
-							Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 
 							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.TELEKENETIC_SHOWER)), false, true));
 							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.getSpellScrollType(SpellSchool.EARTH)), 5, false, true));
@@ -408,12 +407,12 @@ public class LilayaHomeGeneric {
 					};
 					
 				} else {
-					return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
+					return new Response("Enter", "Knock on the door and wait for Rose to let you in.", PlaceType.LILAYA_HOME_ENTRANCE_HALL.getDialogue(false)){
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "OUTSIDE_KNOCK_ON_DOOR"));
 							
-							Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						}
 					};
 				}
@@ -1018,10 +1017,10 @@ public class LilayaHomeGeneric {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
+				return new Response("Exit", "Leave Lilaya's house.", PlaceType.DOMINION_AUNTS_HOME.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 
@@ -1050,10 +1049,10 @@ public class LilayaHomeGeneric {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}
 			if (index == 1) {
-				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
+				return new Response("Upstairs", "Go upstairs to the first floor.", PlaceType.LILAYA_HOME_STAIR_DOWN.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_STAIR_DOWN, false);
 					}
 				};
 			}
@@ -1111,10 +1110,10 @@ public class LilayaHomeGeneric {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}
 			if (index == 1) {
-				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
+				return new Response("Downstairs", "Go back downstairs to the ground floor.",PlaceType.LILAYA_HOME_STAIR_UP.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_STAIR_UP, false);
 					}
 				};
 			}

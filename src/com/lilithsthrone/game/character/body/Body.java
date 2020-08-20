@@ -2091,7 +2091,7 @@ public class Body implements XMLSaving {
 			sb.append(" Around [npc.her] [npc.eyes], [npc.sheHas] got a layer of "+owner.getEyeLiner().getColourDescriptor(owner, true, false)+" eye liner.");
 		}
 		if(owner.getEyeShadow().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			sb.append(" [npc.sheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
+			sb.append(" [npc.SheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
 		}
 		
 		// Ear:
@@ -2222,37 +2222,24 @@ public class Body implements XMLSaving {
 		
 		
 		if (owner.isPlayer() || owner.isAreaKnownByCharacter(CoverableArea.MOUTH, Main.game.getPlayer())) {
-			if (face.getMouth().getOrificeMouth().isVirgin()) {
+			if(face.getMouth().getOrificeMouth().isVirgin()) { //TODO
 				sb.append(" [npc.SheHas] [style.colourExcellent(never given head before)], so [npc.is] unsure of how much [npc.she] could fit down [npc.her] throat.</span>");
 				
 			} else {
-//				switch(face.getMouth().getOrificeMouth().getCapacity()) {
-//					case ZERO_IMPENETRABLE:
-//						sb.append(" [style.colourSex([npc.SheIs] terrible at giving head)], and would struggle to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
-//						break;
-//					case ONE_EXTREMELY_TIGHT:
-//						sb.append(" [style.colourSex([npc.SheIs] really bad at giving head)], and would struggle to fit even tiny cocks into [npc.her] mouth without gagging.");
-//						break;
-//					case TWO_TIGHT:
-//						sb.append(" [style.colourSex([npc.SheIs] not great at giving head)], and putting anything larger than an average-sized human cock into [npc.her] mouth would cause [npc.herHim] to gag.");
-//						break;
-//					case THREE_SLIGHTLY_LOOSE:
-//						sb.append(" [style.colourSex([npc.SheIs] somewhat competent at giving head)], and can suppress [npc.her] gag reflex enough to comfortably suck large cocks.");
-//						break;
-//					case FOUR_LOOSE:
-//						sb.append(" [style.colourSex([npc.SheIs] pretty good at giving head)], and can comfortably suck huge cocks without gagging.");
-//						break;
-//					case FIVE_ROOMY:
-//						sb.append(" [style.colourSex([npc.SheIs] somewhat of an expert at giving head)], and can suck enormous cocks without too much difficulty.");
-//						break;
-//					case SIX_STRETCHED_OPEN:
-//						sb.append(" [style.colourSex([npc.SheIs] amazing at giving head)], and can comfortably suck all but the most absurdly-sized cocks with ease.");
-//						break;
-//					case SEVEN_GAPING:
-//						sb.append(" [style.colourSex([npc.SheIs])] [style.colourLegendary(legendary)] [style.colourSex(at giving head)]; it's almost as though [npc.her] throat was purposefully designed to fit phallic objects of any size or shape.");
-//						break;
-//				}
-
+				boolean virginityLossFound = false;
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+					if(pt.isTakesVirginity()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt))!=null) {
+							sb.append(" <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"+ owner.getVirginityLossDescription(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt)) + "</span>");
+							virginityLossFound = true;
+							break;
+						}
+					}
+				}
+				if(!virginityLossFound) {
+					sb.append(" <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Name] [npc.has] lost [npc.her] oral virginity.</span>");
+				}
+				
 				sb.append(" It is "+Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getDescriptor(true)+", and can comfortably accommodate objects of up to"
 						+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(face.getMouth().getOrificeMouth().getElasticity(), face.getMouth().getOrificeMouth().getRawCapacityValue(), true)) + ")] in diameter.");
 				

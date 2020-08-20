@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.item;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -1261,30 +1262,17 @@ public class ItemType {
 			PresetColour.FETISH,
 			null,
 			null,
-			Rarity.LEGENDARY,
+			Rarity.EPIC,
 			null,
 			null) {
-
 		@Override
 		public boolean isFetishGiving() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-		
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -1314,14 +1302,6 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -1359,17 +1339,6 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			null) {
-
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-		
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -1426,27 +1395,14 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MUSHROOMS)),
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN)) {
-
 		@Override
 		public boolean isTransformative() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-
 		@Override
 		public String getUseName() {
 			return "eat";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -1474,27 +1430,14 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_DEMON_POTION_EFFECT)),
 			Util.newArrayListOfValues()) {
-
 		@Override
 		public boolean isTransformative() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -1521,27 +1464,14 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_YOUKO_POTION_EFFECT)),
 			Util.newArrayListOfValues()) {
-
 		@Override
 		public boolean isTransformative() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -3096,28 +3026,14 @@ public class ItemType {
 			Rarity.RARE,
 			null,
 			null) {
-
-
 		@Override
 		public boolean isTransformative() {
 			return false;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-		
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -3144,28 +3060,14 @@ public class ItemType {
 			Rarity.EPIC,
 			null,
 			null) {
-
-		
 		@Override
 		public boolean isTransformative() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -3197,23 +3099,18 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
-
-
 		@Override
 		public String getUseName() {
 			return "use";
 		}
-		
 		@Override
 		public boolean isAbleToBeUsedInSex() {
 			return false;
 		}
-
 		@Override
-		public boolean isAbleToBeUsedInCombat() {
+		public boolean isAbleToBeUsedInCombatAllies() {
 			return false;
 		}
-		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "<p>"
@@ -3246,23 +3143,18 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
-
-
 		@Override
 		public String getUseName() {
 			return "use";
 		}
-		
 		@Override
 		public boolean isAbleToBeUsedInSex() {
 			return false;
 		}
-
 		@Override
-		public boolean isAbleToBeUsedInCombat() {
+		public boolean isAbleToBeUsedInCombatAllies() {
 			return false;
 		}
-		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "<p>"
@@ -3293,13 +3185,10 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK)),
 			Util.newArrayListOfValues(
 					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
-		
-
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -3308,23 +3197,15 @@ public class ItemType {
 					"Untying the top of the used condom, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.",
 					"Untying the top of the used condom, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
 		}
-
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return true;
-		}
-
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You can't think of a use for this. Maybe it's best to throw it away...<br/>"
 					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
 		}
-
 		@Override
-		public boolean isAbleToBeUsedInCombat() {
+		public boolean isAbleToBeUsedInCombatAllies() {
 			return false;
 		}
-
 		@Override
 		public boolean isAbleToBeUsedInSex() {
 			return false;
@@ -3402,72 +3283,72 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType(20,
-			"a",
-			false,
-			"breeder pill",
-			"breeder pills",
-			"A small, pink pill, individually packaged in a foil and plastic wrapper."
-				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Enhancer', it's colloquially known as a 'breeder pill', and temporarily boosts both fertility and virility when ingested.",
-			"pill",
-			PresetColour.CLOTHING_PINK,
-			null,
-			null,
-			Rarity.COMMON,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.VIXENS_VIRILITY)),
-			Util.newArrayListOfValues(
-					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM,
-					ItemTag.SOLD_BY_RALPH)) {
-		@Override
-		public String getUseName() {
-			return "swallow";
-		}
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Popping the little pink pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
-					"Popping the little pink pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
-					"[npc.Name] pops a breeder pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
-					"[npc.Name] pops a breeder pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
-		}
-	};
-	
-	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType(20,
-			"a",
-			false,
-			"sterility pill",
-			"sterility pills",
-			"A small, blue pill, individually packaged in a foil and plastic wrapper."
-				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor',"
-					+ " it's colloquially known as either a 'sterility pill' or 'slut pill', and temporarily reduces both fertility and virility when ingested.",
-			"pill",
-			PresetColour.CLOTHING_BLUE,
-			null,
-			null,
-			Rarity.COMMON,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PROMISCUITY_PILL)),
-			Util.newArrayListOfValues(
-					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.ATTRIBUTE_TF_ITEM,
-					ItemTag.SOLD_BY_RALPH)) {
-		@Override
-		public String getUseName() {
-			return "swallow";
-		}
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
-					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
-					"[npc.Name] pops a sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
-					"[npc.Name] pops a sterility pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
-		}
-	};
+//	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType(20,
+//			"a",
+//			false,
+//			"breeder pill",
+//			"breeder pills",
+//			"A small, pink pill, individually packaged in a foil and plastic wrapper."
+//				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Enhancer', it's colloquially known as a 'breeder pill', and temporarily boosts both fertility and virility when ingested.",
+//			"pill",
+//			PresetColour.CLOTHING_PINK,
+//			null,
+//			null,
+//			Rarity.COMMON,
+//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.VIXENS_VIRILITY)),
+//			Util.newArrayListOfValues(
+//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+//					ItemTag.BAT_CAVERNS_SPAWN,
+//					ItemTag.ATTRIBUTE_TF_ITEM,
+//					ItemTag.SOLD_BY_RALPH)) {
+//		@Override
+//		public String getUseName() {
+//			return "swallow";
+//		}
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			return getGenericUseDescription(user, target,
+//					"Popping the little pink pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
+//					"Popping the little pink pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
+//					"[npc.Name] pops a breeder pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
+//					"[npc.Name] pops a breeder pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
+//		}
+//	};
+//	
+//	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType(20,
+//			"a",
+//			false,
+//			"sterility pill",
+//			"sterility pills",
+//			"A small, blue pill, individually packaged in a foil and plastic wrapper."
+//				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor',"
+//					+ " it's colloquially known as either a 'sterility pill' or 'slut pill', and temporarily reduces both fertility and virility when ingested.",
+//			"pill",
+//			PresetColour.CLOTHING_BLUE,
+//			null,
+//			null,
+//			Rarity.COMMON,
+//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PROMISCUITY_PILL)),
+//			Util.newArrayListOfValues(
+//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+//					ItemTag.BAT_CAVERNS_SPAWN,
+//					ItemTag.ATTRIBUTE_TF_ITEM,
+//					ItemTag.SOLD_BY_RALPH)) {
+//		@Override
+//		public String getUseName() {
+//			return "swallow";
+//		}
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			return getGenericUseDescription(user, target,
+//					"Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
+//					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
+//					"[npc.Name] pops a sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
+//					"[npc.Name] pops a sterility pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
+//		}
+//	};
 	
 	public static AbstractItemType MOO_MILKER_EMPTY = new AbstractItemType(50,
 			"a",
@@ -3753,7 +3634,7 @@ public class ItemType {
 			return false;
 		}
 		@Override
-		public boolean isAbleToBeUsedInCombat() {
+		public boolean isAbleToBeUsedInCombatAllies() {
 			return false;
 		}
 		@Override
@@ -4055,28 +3936,14 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			null) {
-
-
 		@Override
 		public boolean isTransformative() {
 			return true;
 		}
-		
-		@Override
-		public boolean isAbleToBeUsedInSex() {
-			return true;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return true;
-		}
-		
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -4306,7 +4173,7 @@ public class ItemType {
 			return false;
 		}
 		@Override
-		public boolean isAbleToBeUsedInCombat() {
+		public boolean isAbleToBeUsedInCombatAllies() {
 			return false;
 		}
 		@Override
@@ -4973,6 +4840,7 @@ public class ItemType {
 	private static List<AbstractItemType> batCavernItems = new ArrayList<>();
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
+	private static List<AbstractItemType> moddedItems = new ArrayList<>();
 	private static Map<Subspecies, String> subspeciesBookId = new HashMap<>();
 	
 	/**
@@ -4996,6 +4864,12 @@ public class ItemType {
 		if(id.equalsIgnoreCase("RACE_ANGELS_TEARS")) {
 			return RACE_INGREDIENT_HUMAN;
 		}
+		if(id.equalsIgnoreCase("PROMISCUITY_PILL")) {
+			id = "innoxia_pills_sterility";
+			
+		} else if(id.equalsIgnoreCase("VIXENS_VIRILITY")) {
+			id = "innoxia_pills_fertility";
+		}
 		id = Util.getClosestStringMatch(id, idToItemMap.keySet());
 		return idToItemMap.get(id);
 	}
@@ -5017,6 +4891,77 @@ public class ItemType {
 	}
 	
 	static{
+		// Load in modded items:
+		moddedItems = new ArrayList<>();
+		File dir = new File("res/mods");
+		
+		if (dir.exists() && dir.isDirectory()) {
+			File[] modDirectoryListing = dir.listFiles();
+			if (modDirectoryListing != null) {
+				for (File modAuthorDirectory : modDirectoryListing) {
+					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/items");
+					
+					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
+					if (clothingDirectoriesListing != null) {
+						for (File clothingDirectory : clothingDirectoriesListing) {
+							if (clothingDirectory.isDirectory()){
+								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
+								if (innerDirectoryListing != null) {
+									for (File innerChild : innerDirectoryListing) {
+										try {
+											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+											AbstractItemType ct = new AbstractItemType(innerChild, modAuthorDirectory.getName(), true) {};
+											moddedItems.add(ct);
+											itemToIdMap.put(ct, id);
+											idToItemMap.put(id, ct);
+										} catch(Exception ex) {
+											System.err.println("Loading modded item failed at 'ItemType' Code 1. File path: "+innerChild.getAbsolutePath());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		allItems.addAll(moddedItems);
+		
+		
+		// Add in external res items:
+		
+		dir = new File("res/items");
+		
+		if (dir.exists() && dir.isDirectory()) {
+			File[] authorDirectoriesListing = dir.listFiles();
+			if (authorDirectoriesListing != null) {
+				for (File authorDirectory : authorDirectoriesListing) {
+					if (authorDirectory.isDirectory()){
+						for (File clothingDirectory : authorDirectory.listFiles()) {
+							if (clothingDirectory.isDirectory()){
+								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
+								if (innerDirectoryListing != null) {
+									for (File innerChild : innerDirectoryListing) {
+										try {
+											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+											AbstractItemType ct = new AbstractItemType(innerChild, authorDirectory.getName(), false) {};
+											allItems.add(ct);
+											itemToIdMap.put(ct, id);
+											idToItemMap.put(id, ct);
+										} catch(Exception ex) {
+											ex.printStackTrace();
+											System.err.println("Loading modded item failed at 'ItemType' Code 2. File path: "+innerChild.getAbsolutePath());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		Field[] fields = ItemType.class.getFields();
 		
 		for(Field f : fields){
@@ -5027,7 +4972,6 @@ public class ItemType {
 				try {
 					item = ((AbstractItemType) f.get(null));
 					
-					// I feel like this is stupid :thinking:
 					itemToIdMap.put(item, f.getName());
 					idToItemMap.put(f.getName(), item);
 					
@@ -5246,18 +5190,11 @@ public class ItemType {
 								+ s.getSVGString()
 							+ "</div>";
 				}
-				
-//				@Override
-//				public boolean isConsumedOnUse() {
-//					return false;
-//				}
-				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
 					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
 							&& !(target.isElemental());
 				}
-		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
 					if(target.isPlayer()) {
@@ -5272,12 +5209,10 @@ public class ItemType {
 						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be at least "+IntelligenceLevel.ONE_AVERAGE.getMinimumValue()+".)");
 					}
 				}
-				
 				@Override
 				public String getUseName() {
 					return "read";
 				}
-				
 				@Override
 				public String getUseDescription(GameCharacter user, GameCharacter target) {
 					return getGenericUseDescription(user, target,
@@ -5286,14 +5221,12 @@ public class ItemType {
 							"[npc.Name] produces a spell book, which [npc.she] then starts to read...",
 							"[npc.Name] produces a spell book, which [npc.she] then forces you to read...");
 				}
-				
 				@Override
 				public boolean isAbleToBeUsedInSex() {
 					return false;
 				}
-
 				@Override
-				public boolean isAbleToBeUsedInCombat() {
+				public boolean isAbleToBeUsedInCombatAllies() {
 					return false;
 				}
 			};
@@ -5335,22 +5268,22 @@ public class ItemType {
 					Rarity.EPIC,
 					Util.newArrayListOfValues(new ItemEffect(effectType)),
 					Util.newArrayListOfValues(ItemTag.SPELL_SCROLL)) {
-				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
-					return target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue();
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
+							&& !target.isElemental();
 				}
-		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
+					if(target.isElemental()) {
+						return "Elementals cannot make use of scrolls, and instead must improve their spells via their perks!";
+					}
 					return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to absorb the power of this scroll! (Requires arcane to be at least "+IntelligenceLevel.ONE_AVERAGE.getMinimumValue()+".)");
 				}
-				
 				@Override
 				public String getUseName() {
 					return "read";
 				}
-				
 				@Override
 				public String getUseDescription(GameCharacter user, GameCharacter target) {
 					return getGenericUseDescription(user, target,
@@ -5359,14 +5292,12 @@ public class ItemType {
 							"[npc.Name] produces a scroll, which [npc.she] then starts to read...",
 							"[npc.Name] produces a scroll, which [npc.she] then forces you to read...");
 				}
-				
 				@Override
 				public boolean isAbleToBeUsedInSex() {
 					return false;
 				}
-
 				@Override
-				public boolean isAbleToBeUsedInCombat() {
+				public boolean isAbleToBeUsedInCombatAllies() {
 					return false;
 				}
 			};

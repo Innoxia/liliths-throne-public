@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -1713,12 +1714,17 @@ public enum Fetish {
 			Util.newArrayListOfValues(
 					"<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Empowers</span> <span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>'pure virgin'</span>",
 					"<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Amplifies</span> <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>'broken virgin'</span>"),
-			Util.newArrayListOfValues(
+			null) {
+		@Override
+		public List<Fetish> getFetishesForAutomaticUnlock() {
+			return Util.newArrayListOfValues(
 					Fetish.FETISH_PURE_VIRGIN,
-					Fetish.FETISH_ANAL_RECEIVING,
+					Main.game.isAnalContentEnabled()
+						?Fetish.FETISH_ANAL_RECEIVING
+						:null,
 					Fetish.FETISH_ORAL_GIVING,
-					Fetish.FETISH_BREASTS_SELF)) {
-
+					Fetish.FETISH_BREASTS_SELF);
+		}
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if(owner==null) {
@@ -1732,12 +1738,10 @@ public enum Fetish {
 							+ " but [npc.she]'ll never actually allow anyone to penetrate [npc.her] feminine sex and take [npc.her] precious virginity.");
 			}
 		}
-
 		@Override
 		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
 			return getGenericFetishDesireDescription(target, desire, "avoiding vaginal sex");
 		}
-		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;

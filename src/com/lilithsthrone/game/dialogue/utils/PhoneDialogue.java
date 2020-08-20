@@ -266,6 +266,15 @@ public class PhoneDialogue {
 									+ "<br/>[style.italicsMinorGood(You can summon your elemental by learning an elemental-summoning spell and casting it from your 'Spells' screen!)]",
 							null);
 				}
+				if(!Main.game.isSavedDialogueNeutral()) {
+					return new Response("[el.Name]",
+							Main.game.isInSex()
+								?"You cannot talk to [el.name] during sex!"
+								:(Main.game.isInCombat()
+									?"You cannot talk to [el.name] during combat!"
+									:"You cannot talk to [el.name] in this scene!"),
+							null);
+				}
 				return new Response("[el.Name]",
 						"Spend some time talking with [el.name].",
 						ElementalDialogue.ELEMENTAL_START);
@@ -2024,19 +2033,21 @@ public class PhoneDialogue {
 	}
 
 	private static String getWeaponsDiscoveredIndication() {
-		return Main.getProperties().getWeaponsDiscoveredCount()+"/"+weaponsDiscoveredList.size();
+		int size = weaponsDiscoveredList.size();
+		return Math.min(size, Main.getProperties().getWeaponsDiscoveredCount())+"/"+size;
 	}
 	
 	private static String getClothingDiscoveredIndication() {
-		return Main.getProperties().getClothingDiscoveredCount()+"/"+clothingDiscoveredList.size();
+		int size = clothingDiscoveredList.size();
+		return Math.min(size, Main.getProperties().getClothingDiscoveredCount())+"/"+size;
 	}
 	
 	private static String getItemsDiscoveredIndication() {
-		return Main.getProperties().getItemsDiscoveredCount()+"/"+itemsDiscoveredList.size();
+		int size = itemsDiscoveredList.size();
+		return Math.min(size, Main.getProperties().getItemsDiscoveredCount())+"/"+size;
 	}
 	
 	public static final DialogueNode ENCYCLOPEDIA = new DialogueNode("Encyclopedia", "", true) {
-
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
@@ -2047,21 +2058,24 @@ public class PhoneDialogue {
 			
 			sb.append("<p style='text-align:center;'>");
 				sb.append("You have discovered:");
-				sb.append((Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.values().length
+				sb.append(Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.values().length
 								?"<br/>[style.colourGood(Subspecies: "+getSubspeciesDiscoveredIndication()+")]"
-								:"<br/>Subspecies: "+getSubspeciesDiscoveredIndication()));
-	
-				sb.append((Main.getProperties().getWeaponsDiscoveredCount()==weaponsDiscoveredList.size()
+								:"<br/>Subspecies: "+getSubspeciesDiscoveredIndication());
+
+				int size = weaponsDiscoveredList.size();
+				sb.append(Math.min(size, Main.getProperties().getWeaponsDiscoveredCount())==weaponsDiscoveredList.size()
 								?"<br/>[style.colourGood(Weapons: "+getWeaponsDiscoveredIndication()+")]"
-								:"<br/>Weapons: "+getWeaponsDiscoveredIndication()));
-	
-				sb.append((Main.getProperties().getClothingDiscoveredCount()==clothingDiscoveredList.size()
+								:"<br/>Weapons: "+getWeaponsDiscoveredIndication());
+				
+				size = clothingDiscoveredList.size();
+				sb.append(Math.min(size, Main.getProperties().getClothingDiscoveredCount())==clothingDiscoveredList.size()
 								?"<br/>[style.colourGood(Clothing: "+getClothingDiscoveredIndication()+")]"
-								:"<br/>Clothing: "+getClothingDiscoveredIndication()));
-	
-				sb.append((Main.getProperties().getItemsDiscoveredCount()==itemsDiscoveredList.size()
+								:"<br/>Clothing: "+getClothingDiscoveredIndication());
+				
+				size = itemsDiscoveredList.size();
+				sb.append(Math.min(size, Main.getProperties().getItemsDiscoveredCount())==itemsDiscoveredList.size()
 								?"<br/>[style.colourGood(Items: "+getItemsDiscoveredIndication()+")]"
-								:"<br/>Items: "+getItemsDiscoveredIndication()));
+								:"<br/>Items: "+getItemsDiscoveredIndication());
 			sb.append("</p>");
 			
 			return sb.toString();
@@ -2130,15 +2144,15 @@ public class PhoneDialogue {
 	
 	static {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
-		itemsDiscoveredList.removeIf((it) -> it.getItemTags().contains(ItemTag.CHEAT_ITEM));
+		itemsDiscoveredList.removeIf((it) -> it.getItemTags().contains(ItemTag.CHEAT_ITEM) || it.getItemTags().contains(ItemTag.SILLY_MODE));
 		Collections.sort(itemsDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		weaponsDiscoveredList.addAll(WeaponType.getAllWeapons());
-		weaponsDiscoveredList.removeIf((wt) -> wt.getItemTags().contains(ItemTag.CHEAT_ITEM));
+		weaponsDiscoveredList.removeIf((wt) -> wt.getItemTags().contains(ItemTag.CHEAT_ITEM) || wt.getItemTags().contains(ItemTag.SILLY_MODE));
 		Collections.sort(weaponsDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
-		clothingDiscoveredList.removeIf((ct) -> ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM));
+		clothingDiscoveredList.removeIf((ct) -> ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM) || ct.getDefaultItemTags().contains(ItemTag.SILLY_MODE));
 		Collections.sort(clothingDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		clothingSlotCategories = new LinkedHashMap<>();

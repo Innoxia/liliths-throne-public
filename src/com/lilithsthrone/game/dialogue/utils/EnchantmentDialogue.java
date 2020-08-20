@@ -544,7 +544,15 @@ public class EnchantmentDialogue {
 								}
 								
 							} else {
-								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU) {
+									@Override
+									public void effects() {
+										Main.game.setResponseTab(0);
+										EnchantmentDialogue.resetEnchantmentVariables();
+										InventoryDialogue.resetItems();
+										InventoryDialogue.setNPCInventoryInteraction(interactionInit);
+									}
+								});
 							}
 							
 						}

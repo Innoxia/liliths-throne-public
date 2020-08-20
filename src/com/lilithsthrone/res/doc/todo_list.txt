@@ -6,8 +6,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	- Add in modding framework for sex actions. 
 	
-	- Adding mod support for items.
-	
 	- Repeat alleyway
 		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
 			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
@@ -21,53 +19,111 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Added an encounter in Dominion's alleyways where you stumble upon two of your slaves having sex with one another. To trigger, you need your slaves to have the appropriate outside freedom and sex permissions, and the one initiating sex needs to have not had sex for at least 4 hours and to be attracted to the other. (by PoyntFury)
+		Added an encounter in Dominion's alleyways and Lilaya's home's corridors where you stumble upon two of your slaves having sex with one another.
+		 To trigger, you need your slaves to have the appropriate outside/house freedom and sex permissions, and the one initiating sex needs to have not had sex for at least 4 hours and to be attracted to the other. (by PoyntFury)
 		Improved String-matching utility methods and dynamically generated ColorListPreset classes. (PR#1368 by CognitiveMist)
 		Fixed bug where sometimes multiple-partner sex would break upon orgasm. (by CognitiveMist)
+		Added 'broodmother pill', which doubles offspring conceived during its effect. (Usage dialogue written by PoyntFury)
+	
+	Engine:
+		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/breeder.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
+		Converted Combat from an Enum to a class, which can now be accessed via the parser using the command 'combat'.
+	
+	Rat Warrens:
+		Fixed bug where Murk would always use the 'normal' dom pace instead of being rough.
+		Fixed several instances of Murk's sex scenes ending with an action named 'Milking room' with no tooltip description.
+		Fixed bug where Murk would fuck you without first taking out your pussy pump.
+		Fixed issue with missing dialogue node when having sex with Murk in the Gambling Den.
+	
+	Items:
+		Reduced rarity of crafted 'Fetish Endowment' potions from legendary to epic.
+	
+	Sex:
+		NPCs will no longer feel the urgent need to expose masculine characters' nipples during sex.
+		You can no longer deny your partner's orgasm in the 'glory hole' sex position.
+		Fixed bug where your sealed clothing wouldn't be displaced at the start of the Enforcer's 'strip search' sex scene.
+		Added positioning requests to the 'glory hole' sex position for when you're dominantly using it, so you can ask the person on the other side to push their pussy or ass up against the hole to be fucked.
+		Blocked 'Offer X' and 'Request X' actions in the 'glory hole' sex position (as they didn't really work due to the position's limitations).
+		NPCs will now only self-use an item type once in sex (so you no longer have to repeatedly use pills on an NPC who wants to use the opposite type of pill).
+		Added an 'Automatic stripping' content option (in the 'sex' property category), which makes it so that all characters start naked in each sex scene. This is disabled by default.
+		Sex scenes in which characters automatically start naked no longer remove their piercings.
+		Fixed issue with NPCs self-using breeder pills in illogical situations.
+	
+	Slavery:
+		Added 'Save Virginity' as a generic permission for slaves, which is enabled by default.
+		Slightly improved wording of slave sex interactions in the log.
+		Reduced the chance for slaves to have the 'bonding' event with one another.
+		Added filtering options for the 'Occupancy ledger' in the Office room. You can filter events by their type and by slaves involved.
 	
 	Other:
+		Enforcer encounters now have a cooldown of four hours before they can be randomly encountered again.
+		Characters in the 'lying down' sex slot can now kiss/suckle a character's breasts if they are in the 'cowgirl' sex slot.
+		The 'American tourist' occupation now only parses the main dialogue screen when converting spelling to American English (as it was causing some lag when trying to parse everything).
+		Elementals are now always treated as having all their body parts pierced (due to their transformative abilities).
+		Split up Elemental dialogue into 'Interactions' and 'Management' tabs, and added a management option 'Self-clean' to set whether or not your elemental automatically cleans dirty fluids from their body/clothes (enabled by default).
+		Elementals now spawn at maximum affection towards their summoner (this will be retroactively applied to your Elemental when loading into this version).
+		NPCs who do not have the martial artist perk and who have a main weapon equipped and no offhand weapon equipped will now be far less likely to use the 'offhand strike' attack.
+		The SWORD Enforcers in the Enforcer Warehouse (in Claire's teleportation quest) now prefer to attack in combat rather than teasing.
+		If you have anal content disabled, the 'buttslut' fetish is no longer a requirement for unlocking the 'lusty maiden' fetish.
+		You can no longer encounter the same person in the nightclub more than once per night.
+		Moved 'Post-sex clothing replacement' property category from 'gameplay' to 'sex'.
+		You can no longer give Bunny or Loppy items during sex.
+		Added pregnancy reactions for if you manage to impregnate Bunny and Loppy, and slightly improved the flow of dialogue when entering their rooms.
+		Added two new upgrades to the 'Soothing Waters' spell, which cause it to clean the target's body & clothing and wash out fluids from their orifices.
+		Added 'Head pat' action to Nyan's romance actions.
 	
 	Bugs:
-		Parsing fixes in reindeer overseer content and elsewhere.
+		Numerous parsing and typo fixes.
 		Fixed issue with slaves not being correctly identified as being able to ambush you in Dominion even if you gave them the right permissions.
 		Fixed issue where slaves would never jump you for sex in alleyways that already had a persistent character present in them.
+		Slaves being held in Slavery Administration will no longer generate slave-interaction events with other slaves.
+		Silly-mode items are no longer tracked by the Encyclopedia (so that players doing normal playthroughs will not be confused as to why some items are unobtainable).
+		Fixed minor issue with the display of clothing and weapon Encyclopedia counts passing their totals.
+		Fixed issue where characters with an unknown race would have their body overview tooltip show that they had crotch-boobs, even if they didn't have any.
+		Fixed bug where characters' images wouldn't display in their character overview screen if you had the 'American tourist' occupation.
+		Fixed issue where you couldn't change your Elemental's surname.
+		Fixed bug where attempting to enslave gang members in the Rat Warrens would cause the game to break.
+		Fixed issue with pregnancy roulette where sex would end after the character being bred had orgasmed, even if you hadn't orgasmed yet.
+		You no longer lose affection with characters in the pregnancy roulette game when sex is automatically ended after orgasming.
+		Newly-created characters are no longer considered to have lost their penile virginity if you give them 'handjobs received' experience.
+		A character's oral virginity loss description will now correctly be displayed in their body overview screen.
+		Fixed issue with Natalya's clothing not being displaced when starting sex with her.
+		Fixed issue where sex scenes with pure virgins could sometimes cause the game to lock up and become unresponsive.
+		Fixed bug where you could talk to your elemental via the phone action during combat, sex, or other non-neutral scenes.
+		Fixed issue where Elementals could use arcane scrolls even though they could not use the upgrade points gained from them.
+		Fixed bug where when Lyssieth self-transformed into her human form, her earrings would be unequipped and placed in her inventory.
+		Fixed issue with background error being thrown when first entering the Enforcer Warehouse (in Claire's teleportation quest).
+		Fixed bug where looking at your item Encyclopedia while trading with an NPC would not show any tooltips and throw numerous background errors.
+		Removed ability to contact previous partners in the nightclub if they are no longer attracted to you (if, for example, you've changed your femininity), as it was causing issues with sex immediately ending.
+		Fixed issue where maximum limits of testicle size and penis girth were swapped with one another when enchanting clothing with secondary and tertiary size effects.
+		Clothing which should be discarded on unequip is no longer placed into the unequipping character's inventory as a result of having body parts transformed (such as unequipping a condom when a character's penis is removed).
+		Fixed issue where milking slaves would sometimes not unequip their milking pumps after finishing their work hours in the milking room.
+		Fixed issue where opening the 'characters present' screen while managing a slave would result in background errors being thrown and the UI becoming unresponsive.
+		Fixed bug where if you ran out of items while enchanting during trading, you'd be able to take all of the shopkeeper's items for free.
+		Fixed issue where enslaving your offspring without first beating them in combat would display the interaction interface after enslaving them.
+		Fixed issue where slaves generating background sex interaction events would throw background errors if you were in a sex scene at the time they were generated.
+		Fixed bug where exiting Dominion locations (such as the City Hall or Enforcer HQ) during an arcane storm would spawn persistent characters on your tile without offering you any interactions with them.
+		Upgrading a room into the spa from the Office's 'Occupancy ledger' will no longer place the 'under construction' tile next to the office instead of next to the spa tile.
+		Fixed bug where your elemental was being affected by the 'Blinded by Freedom' status effect (from the silly mode's 'American Tourist' background perk).
 	
 	
 	
 	
+	the move 'all-out strike' is counting the off-hand as useable when weilding 2-handed swords
+		AceXP PR for this
 	
-	make a request system to ask them to cum on you
-	Let us ask for the knot too, better yet add something like those who want to get you pregnant or with cum stud use the knot more often
-	
-	Why is suckle not available when you are lying down with milky girl riding cowgirl?
-	
-	Hi Inno, I just checked, but it is still possible to take all items from a shopkeeper if you run out of items while enchanting them in the trading dialogue. Maybe take the easy way out and just disallow enchanting while trading?
-		Reopen PR
-	
-	All my Reindeers are subs. Please fix
-	
-	Sumbled across some dupe glitch: when unequipping panties directly while wearing a black pantyhose resulted in the panties being dupped into the inventory while still being worn.
-	 Also, still with the black pantyhose and panties equipped, if I choose another pair of panties from my inventory to equip directly, I end up with having a copy of the already worn ones replacing the ones in my inventory.
-		(Check Micki-bugger.xml on desktop)
-	
-	 Also, I think you forgot to add the increase in affection from the showering, bathing and Use You slave sex interactions, unless that's how you planned it to be.
+	PRs
 	
 	
-	Custom images bugging out with tourist perk active?
+	Would it be possible to change how Angel's Kiss works to be more like the Nightclub?
+	 Right now you can quicky run out of room to send prostitutes her way and have no way to remove them from the building. So I was wondering if it could be changed so going to a room opens a menu to select prostitutes you've sent her way?
+	 That'd also help if you wanted to expand the building or add more to the district in the future. Since she's in charge of the area and could send the prostitutes to other businesses or something
 	
-	Can't change Elemental's last name
+	Inno still hasn't given me alternate scenes for the foot stuff with Amber or Cunningham, nor the anal with Vicky and Natalya, nor made the rough/resist pace different from rape so the slime queen isn't such a turn off.
 	
-	Level drain drains loads of perks from NPCs???
+	Lyssieth content that doesn't involve her desk, Helena sex without her becoming a total slut
 	
-	Entrance to rat warrens, results in game locking up:
-		So I beat up the guards, and I tried enslaving one of them just to see what would happen, since one of them says "You're not gonna enslave us are you?"
-	
-	 A breeding roulette ended before I was even able to cum meaning I never even got the chance to creampie the person.
-	
-	 Also the object of desire perk is workign really weirdly
-	 In the breeding roulette at least it's ending the scene forcfully but still giving me affection loss because I didn't  reach 2 orgasms
-	
-	
+
 	Writing:
 		[x] Lose to Vengar when non-con is off
 			[x] Check flow of dialogue
@@ -223,6 +279,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	cigars (Kruger?)
 	
+	make a request system to ask them to cum on you
+	Let us ask for the knot too, better yet add something like those who want to get you pregnant or with cum stud use the knot more often
+		
 	When changing clit size in transformation menus it says "All non-zero values enable your clitoris to be used as a penetrative object in sex." But it doesn't actually do anything sadly
 	
 	you should add a perk at the end of both the virility and fertility branches that guarantees pregnancy/impregnation
@@ -438,8 +497,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	add tail pull sex action
 	
-	scroll, the "bug" allowing to let elementals read them was fixed yet
-	
 	"bring back missionary footjobs"?
 	
 	When you pull out of someone you cummed inside, could we get a blurb about your cum leaking out
@@ -560,8 +617,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Long sleeve T-shirt
 	micro bikini
 	clubbing dress
-	
-	can you not transform your elemental's haircut?
 	
 	Somehow slave sending to Kate is bugged? hard to reproduce error.
 	
@@ -840,8 +895,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	if you set the penis size preference higher than zero and start a new game as a man, your penis will reflect the size preference. For instance, I set the penis size preference to +6 inches, and my new character started with a foot long cock
 	
-	Bug with elemental targeting in combat?
-	
 	Improve combat outcome tracking (place, enemies, allies)
 	
 	I would like to see a buggy addition that allows you to add xp to and transform the current member of your party, if that's at all possible.
@@ -907,8 +960,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Half-Demon offspring seem to ignore any options set for offspring with a dick and while thats easily fixed to some degree if they do grow a dick it's  just a demonic one instead of matching their origins and even if you get really close you can't transform them manually unless you move them in.
 	
-	elementals keep their movesets between forms, but since they can't use some moves in different forms (such as water spells in fire form), they end up losing most of their moves from selection. I think making elementals remember their set moves for every form would work
-	
 	Choke is using detection of player's cock, not the NPC using the action?
 	
 	Player sometimes has no actions when dominant in imp group sex
@@ -923,8 +974,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		at com.lilithsthrone.game.character.GameCharacter.setupPerks(GameCharacter.java:5177)
 		at com.lilithsthrone.game.character.GameCharacter.resetPerksMap(GameCharacter.java:5171)
 		at com.lilithsthrone.game.character.GameCharacter.loadGameCharacterVariablesFromXML(GameCharacter.java:2679)
-	
-	elemental perk tree isn't starting with the core perks
 	
 	The first arcane perk is being used as a trait for Brax
 	
@@ -2105,8 +2154,6 @@ my character is a guy, so this is super confusing lol
 	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
 	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
 	
-	Set your elemental's fetishes (make them the counterparts of yours)
-	
 	a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
 	
 	Add attackers wanting multiple orgasms
@@ -2143,8 +2190,6 @@ my character is a guy, so this is super confusing lol
 		2)You can no longer interact with your companion instead you are stuck with the elemental talk scene….which is blank aka you can no longer send your back companion/slave home,and you are stuck with them till you save/reload then number 1 happens.
 		
 	when a slave summons a Elemental and battle it stuck with you and you can't have enemies spawn because of the Elemental
-	
-	Also making an elemental spawn on another elemental you've spawned earlier will break the tile you're on
 	
 	Add [game.random(one, two, three, four)]
 	
@@ -2206,8 +2251,6 @@ my character is a guy, so this is super confusing lol
 	
 	gag reflex as throat stretching
 	
-	elemental clothing
-	
 	
 	
 	
@@ -2226,8 +2269,6 @@ my character is a guy, so this is super confusing lol
 	adding a way to save presets for transformation
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
-	Exporting while you have an elemental summoned, or likely having any companion causes the character not being able to be imported into the auction house.
-	
 	
 	As a slime, Succubi's Secrets eye-coloring still has a couple of... issues.
 	- the colors presented are the same as you'd get if you weren't a slime (i.e. you could make your eyes non-transparent)
@@ -2291,9 +2332,6 @@ my character is a guy, so this is super confusing lol
 	
 	Disable autosave in prologue
 	
-	elemental should love you
-		Also I don't know if you intended for the Elementals to be 'druggable' or not, but the base attribute changes do not persist if player change the element. And Elemental with 0 corruption (possible by drugging the Elemental) will regain ~90 corruption on load,  so I have to keep it at 1 corruption.
-	
 	check: throat wetness resets if a save is loaded in 2.4.
 	
 	 slime offspring show up as human, instead of slimes.  The scenario is that my character gave birth to the offspring, with the father being the slime that has been transformed into an angel-slime-girl.  The codex shows the offspring as a female angel-slime-girl, but meeting her in the world had her show up as a woman.  The other offspring of my character are imps, mainly.  I'm not sure if it's an issue with a transformed slime alone, or just all slimes.
@@ -2304,8 +2342,6 @@ my character is a guy, so this is super confusing lol
 	
 	jockstrap
 	
-	Perhaps instead of ice shard as the first spell that Lilly gives to the MC it should be one of the elemental summoning spells. It would be a good way get new players introduced to party combat from the very begining. Besides if we also start the game with a demon stone then we already have a direct attack spell at our disposal so having ice shard is a bit redundant
-	 
 	 So I tried adding a major plasticity drain enchantment and the result was that absolutely none of my enchantments worked anymore, including the one I applied on the new clothing. I've tested this on multiple itmes and it produced the same result
 	 
 	pattern and secondary color options for penises
@@ -2359,8 +2395,6 @@ my character is a guy, so this is super confusing lol
 	link the race description to use the "pronoun young" value from the pronoun options menu
 		
 	spell passives unlocked when at least 4 spells known
-		
-	the elemental should include a list of whatever skills it starts with on the basic skill.  Right now all you can see in the menu is their upgraded skills
 	
 	0.2.4 defaults to a window height of over 768, 768 is still common on laptops and should thus be lower
 	
@@ -2376,24 +2410,14 @@ my character is a guy, so this is super confusing lol
 		
 	test buttplug mod
 	
-	if have an elemental summoned when exporting, cannot import new game
-	
-	elementals can summon elementals
-		POssibly causing: somehow summoned elementals are able to be outside of the party and remain on tiles
-		
 	When an enemies lust reaches 100 from an ally's seduction, combat does not end. Combat ends if you do your own seduction attack.
 		Edit: This seems to only happen if you use the "Wait" command, or some other command that does not do any sort of damage to the opponent. An attack that leaves an opponent with HP remaining will still cause combat to end normally if your ally causes their lust to hi 100
 		
 	All the eye coloring options at Succubi's Secrets apply to (and show the current color of) irises (at least as a slime).
-		
-	your can talk to your Elemental in the Library in the same way that you would talk to a slave, also milking room
-		also lets you send your elemental to Kate's, which is funny
-		
+	
 	Slime TF menu wing options gives: None, bat-like, bat-like, Angelic
 		
 	unjinxed one of my slave's collar and there's just a huge drop in obediance/day
-	
-	Refunding the element spell upgrades does not refund the correct amount of element points
 	
 	 it's still charging arcane esscence for fluid enchantments the price is listed as 0 on the add effect button but the total cost to enchant the item still goes up as if you were being charged the full price when you click it.
 	
@@ -2405,9 +2429,6 @@ my character is a guy, so this is super confusing lol
 	
 	spell books descriptions
 	
-	body descriptions for elementals
-	expanded summoning descriptions
-		
 	cannot teach people spells
 	1 - A library or book shelf to hold all the books.
 	2 - assign slaves to learn spells from the library or book shelf - 1 at the end of each day.
@@ -7723,15 +7744,6 @@ Also noticed the Stop partner self action option disappears.
 	 
 	
 	Far too many oral virgins
-	
-	To enable things like slime cat-girls:
-	: Body part "materials"
-		EG: "Flesh" is the default part "material"
-		But later you could add "Slime"
-		"Rock" for like golem arms
-		"Phantom" for telekenetic parts
-		"Energy" for elemental parts like a Fire elemental
-		"ghostly" for ghost parts
 	
 	Sex UI to show pen types
 		Also just have one 'fetishes' icon

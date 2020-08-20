@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
 
@@ -118,8 +117,8 @@ public class ResponseCombat extends Response {
 	}
 
 	public DialogueNode initCombat() {
-		Combat.COMBAT.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
-		return Combat.COMBAT.startCombat();
+		Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+		return Main.combat.startCombat();
 	}
 	
 	@Override

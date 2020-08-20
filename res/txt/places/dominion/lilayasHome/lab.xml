@@ -782,7 +782,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
+	<htmlContent tag="END_SEX_GEISHA_NO_ORGASM"><![CDATA[
 	<p>
 		Lilaya collapses face-first onto her bed, giving her demonic wings an impatient flutter as she sighs in annoyance, [lilaya.speech(As grateful as I am for this outfit, I <i>really</i> don't appreciate being treated like that! You didn't even get me to cum once!)]
 	</p>
@@ -857,7 +857,7 @@
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered))
-		#IF(SPECIAL_PARSE_0=="false")
+		#IF(!pc.isAnyEquippedClothingSealed())
 			<p>
 				[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)] you explain. [pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]
 			</p>
@@ -1098,7 +1098,7 @@
 	<p>
 		[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)] Lilaya picks up the little potion and places it off to one side. [lilaya.speech(And that's all there is to it!)]
 	</p>
-	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false")
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && pc.isAnyEquippedClothingSealed())
 		<p>
 			Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
 		</p>

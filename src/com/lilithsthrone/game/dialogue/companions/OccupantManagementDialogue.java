@@ -4,10 +4,12 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -18,9 +20,11 @@ import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEventType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
@@ -32,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.3.7
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public class OccupantManagementDialogue {
@@ -41,6 +45,8 @@ public class OccupantManagementDialogue {
 	private static StringBuilder miscDialogueSB = new StringBuilder();
 	private static int dayNumber = 1;
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+	private static List<SlaveEventType> eventTypeFilterExclusions = new ArrayList<>();
+	private static List<String> slaveIdFilterExclusions = new ArrayList<>();
 	
 	static {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
@@ -264,7 +270,19 @@ public class OccupantManagementDialogue {
 			
 			int count=0;
 			if(Main.game.getSlaveryEvents(dayNumber)!=null) {
+				List<SlaveryEventLogEntry> entries = new ArrayList<>(Main.game.getSlaveryEvents(dayNumber));
+				int filtered = 0;
 				for(SlaveryEventLogEntry entry : Main.game.getSlaveryEvents(dayNumber)) {
+					if(eventTypeFilterExclusions.contains(entry.getEvent().getType())
+							|| (slaveIdFilterExclusions.contains(entry.getSlaveID()) && slaveIdFilterExclusions.containsAll(entry.getInvolvedSlaveIDs()))) {
+						filtered++;
+						entries.remove(entry);
+					}
+				}
+				if(filtered>0) {
+					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>[style.italicsBad(Filtered events: "+filtered+")]</div>");
+				}
+				for(SlaveryEventLogEntry entry : entries) {
 					if(count%2==0) {
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:"+PresetColour.BACKGROUND.toWebHexString()+";'>");
 					} else {
@@ -297,10 +315,134 @@ public class OccupantManagementDialogue {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index==0) {
+				return "Room";
+			} else if(index==1) {
+				return "Filter (type)";
+			} else if(index==2) {
+				return "Filter (slave)";
+			}
+			return null;
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getSlaveryResponse(index);
+			if(responseTab==0) {
+				return getSlaveryResponse(index);
+				
+			} else if(responseTab==1) {
+				if(index==0) {
+					return getSlaveryResponse(index);
+				}
+				if(index==1) {
+					return new Response("Add all", "Add all types to the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_GOOD;
+						}
+						@Override
+						public void effects() {
+							eventTypeFilterExclusions.clear();
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Clear all", "Remove all types from the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_BAD;
+						}
+						@Override
+						public void effects() {
+							eventTypeFilterExclusions.clear();
+							Collections.addAll(eventTypeFilterExclusions, SlaveEventType.values());
+						}
+					};
+				}
+				if(index-3<SlaveEventType.values().length) {
+					SlaveEventType type = SlaveEventType.values()[index-3];
+					return new Response(type.getName(), "Click to filter events by this type:<br/><i>"+type.getDescription()+"</i>", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							if(eventTypeFilterExclusions.contains(type)) {
+								return PresetColour.TEXT_GREY;
+							} else {
+								return PresetColour.GENERIC_MINOR_GOOD;
+							}
+						}
+						@Override
+						public void effects() {
+							if(eventTypeFilterExclusions.contains(type)) {
+								eventTypeFilterExclusions.remove(type);
+							} else {
+								eventTypeFilterExclusions.add(type);
+							}
+						}
+					};
+				}
+				
+			} else if(responseTab==2) {
+				List<String> ownedSlaves = Main.game.getPlayer().getSlavesOwned();
+				if(index==0) {
+					return getSlaveryResponse(index);
+				}
+				if(index==1) {
+					return new Response("Add all", "Add all slaves to the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_GOOD;
+						}
+						@Override
+						public void effects() {
+							slaveIdFilterExclusions.clear();
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Clear all", "Remove all slaves from the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_BAD;
+						}
+						@Override
+						public void effects() {
+							slaveIdFilterExclusions.clear();
+							slaveIdFilterExclusions.addAll(ownedSlaves);
+						}
+					};
+				}
+				if(index-3<ownedSlaves.size()) {
+					String slaveId = ownedSlaves.get(index-3);
+					GameCharacter slave = null;
+					try {
+						slave = Main.game.getNPCById(slaveId);
+					} catch(Exception ex) {}
+					if(slave==null) {
+						return null;
+					}
+					GameCharacter slaveInner = slave;
+					return new Response(UtilText.parse(slave, "[npc.Name]"), "Click to filter this slave in or out of displayed events.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							if(slaveIdFilterExclusions.contains(slaveId)) {
+								return PresetColour.TEXT_GREY;
+							} else {
+								return slaveInner.getFemininity().getColour();
+							}
+						}
+						@Override
+						public void effects() {
+							if(slaveIdFilterExclusions.contains(slaveId)) {
+								slaveIdFilterExclusions.remove(slaveId);
+							} else {
+								slaveIdFilterExclusions.add(slaveId);
+							}
+						}
+					};
+				}
+			}
+			return null;
 		}
 	};
 	

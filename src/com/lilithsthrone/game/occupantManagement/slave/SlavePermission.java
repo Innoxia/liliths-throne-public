@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.87
- * @version 0.3.5
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public enum SlavePermission {
@@ -40,6 +40,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.SEX_INITIATE_SLAVES,
 					SlavePermissionSetting.SEX_INITIATE_PLAYER,
 					SlavePermissionSetting.SEX_RECEIVE_SLAVES,
+					SlavePermissionSetting.SEX_SAVE_VIRGINITY,
 					SlavePermissionSetting.SEX_IMPREGNATED,
 					SlavePermissionSetting.SEX_IMPREGNATE),
 			false),

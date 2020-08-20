@@ -81,6 +81,7 @@ public enum DialogueFlagValue {
 	nyanTalkedTo(true),
 	nyanComplimented(true),
 	nyanFlirtedWith(true),
+	nyanHeadPatted(true),
 	nyanKissed(true),
 	nyanMakeOut(true),
 	nyanSex(true),
@@ -346,7 +347,8 @@ public enum DialogueFlagValue {
 	ratWarrensCaptiveFuta,
 	ratWarrensCaptiveMasculine,
 	ratWarrensCaptiveSissy,
-	
+
+	murkCaptiveBlowjob,
 	murkMaster,
 	
 	ratWarrensCaptiveCalledOut,

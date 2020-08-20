@@ -34,9 +34,9 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.SlaveEncountersDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -71,13 +71,16 @@ public enum Encounter {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCharactersPresent().isEmpty()
+					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null);
+						:null),
+					(getSlaveUsingOtherSlaveInLilayaCorridor()!=null && Main.game.getCharactersPresent().isEmpty()
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
+						:null));
 		}
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+			if(node == EncounterType.SLAVE_USES_YOU) {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
 				
@@ -104,14 +107,21 @@ public enum Encounter {
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
-					return SlaveDialogue.getSlaveUsesYou(hornySlaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYou(hornySlaves.get(0));
 					
 				} else if(!slaves.isEmpty()) {
 					Collections.shuffle(slaves);
-					return SlaveDialogue.getSlaveUsesYou(slaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYou(slaves.get(0));
 				}
 				
 				return null;
+				
+			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
+				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInLilayaCorridor();
+				if(slaves.getKey()==null || slaves.getValue()==null) {
+					return null;
+				}
+				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveLilayaCorridor(slaves);
 				
 			} else {
 				return null;
@@ -194,7 +204,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouStreet(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
@@ -234,7 +244,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
 				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -242,7 +252,7 @@ public enum Encounter {
 			
 			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -260,7 +270,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouStreet(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
@@ -283,12 +293,14 @@ public enum Encounter {
 			
 			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
-				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())) {
 					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
 				}
 			} else {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
-				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())) {
 					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
 				}
 			}
@@ -385,14 +397,14 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
 				if(slaves.getKey()==null || slaves.getValue()==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
+				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
 			}
 			
 			return null;
@@ -433,6 +445,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
 					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+							&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
@@ -526,7 +539,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 			}
 			
 			return null;
@@ -1078,6 +1091,8 @@ public enum Encounter {
 	private static void spawnEnforcers() {
 		List<List<String>> savedEnforcerIds = Main.game.getSavedEnforcers(WorldType.DOMINION);
 		
+		Main.game.getDialogueFlags().setSavedLong("enforcer_encounter_minutes", Main.game.getMinutesPassed());
+		
 		// Keep 4 sets of Enforcers saved
 		float chanceOfNewEnforcers = 1f - (0.25f * savedEnforcerIds.size());
 		if(Math.random()<chanceOfNewEnforcers) {
@@ -1151,6 +1166,8 @@ public enum Encounter {
 			}
 		}
 		
+//		System.out.println(hornySlaves.size() +" | " + slaves.size());
+		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(hornySlaves);
 			return hornySlaves.get(0);
@@ -1221,6 +1238,64 @@ public enum Encounter {
 		
 		return null;
 	}
+
+	/**
+	 * @return A Value, with the key being the dominant slave and the value being the submissive slave.
+	 */
+	private static Value<NPC, NPC> getSlaveUsingOtherSlaveInLilayaCorridor() {
+		Map<NPC, List<NPC>> hornySlaves = new HashMap<>();
+		
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+						hornySlaves.put(slave, new ArrayList<>());
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInLilayaCorridor() 1");
+			}
+		}
+
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+					for(NPC horny : hornySlaves.keySet()) {
+						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
+							hornySlaves.get(horny).add(slave);
+						}
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInLilayaCorridor() 2");
+			}
+		}
+
+		List<NPC> keys = new ArrayList<>(hornySlaves.keySet());
+		for(NPC key : keys) {
+			if(hornySlaves.get(key).isEmpty()) {
+				hornySlaves.remove(key);
+			}
+		}
+		
+//		System.out.println(hornySlaves.size());
+		
+		if(!hornySlaves.isEmpty()) {
+			Collections.shuffle(keys);
+			return new Value<>(keys.get(0), Util.randomItemFrom(hornySlaves.get(keys.get(0))));
+		}
+		
+		return null;
+	}
+	
 	
 	private static AbstractCoreItem randomItem;
 

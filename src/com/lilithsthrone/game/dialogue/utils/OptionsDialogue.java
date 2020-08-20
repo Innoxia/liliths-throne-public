@@ -31,7 +31,6 @@ import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -735,7 +734,7 @@ public class OptionsDialogue {
 						Main.saveProperties();
 						
 						for(NPC npc : Main.game.getAllNPCs()) {
-							if(!Main.game.isInCombat() || !Combat.getAllCombatants(false).contains(npc)) {
+							if(!Main.game.isInCombat() || !Main.combat.getAllCombatants(false).contains(npc)) {
 								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
 								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							}
@@ -2001,7 +2000,15 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+					"AUTO_SEX_CLOTHING_STRIP",
+					PresetColour.BASE_PINK_LIGHT,
+					"Automatic stripping",
+					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"AUTO_SEX_CLOTHING_MANAGEMENT",
 							PresetColour.BASE_BLUE_STEEL,
 							"Post-sex clothing replacement",

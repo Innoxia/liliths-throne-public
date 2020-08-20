@@ -47,7 +47,6 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -329,7 +328,7 @@ public class Shadow extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	
 	@Override
@@ -364,10 +363,10 @@ public class Shadow extends NPC {
 
 	@Override
 	public Response interruptCombatSpecialCase() {
-		if(Combat.getAllCombatants(false).contains(this)
-				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
-				&& Combat.isCombatantDefeated(this)
-				&& !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		if(Main.combat.getAllCombatants(false).contains(this)
+				&& Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& Main.combat.isCombatantDefeated(this)
+				&& !Main.combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Silence",
 					"As she sees Shadow fall to the floor, Silence stumbles back, looking as though she's about to faint.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SHADOW_DEFEATED){
@@ -377,10 +376,10 @@ public class Shadow extends NPC {
 				}
 			};
 			
-		} else if(Combat.getAllCombatants(false).contains(this)
-				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
-				&& !Combat.isCombatantDefeated(this)
-				&& Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		} else if(Main.combat.getAllCombatants(false).contains(this)
+				&& Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& !Main.combat.isCombatantDefeated(this)
+				&& Main.combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Shadow",
 					"As she sees Silence fall to the floor, Shadow lets out a furious scream, looking as though she's about to completely lose her mind.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SILENCE_DEFEATED){
@@ -406,7 +405,7 @@ public class Shadow extends NPC {
 	@Override
 	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		if((move ==CombatMove.getMove("block") || move ==CombatMove.getMove("avert"))
-				&& !Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))) { // Shadow does not block when beserk
+				&& !Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))) { // Shadow does not block when beserk
 			return 0;
 		}
 		return super.getMoveWeight(move, enemies, allies);

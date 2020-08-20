@@ -56,9 +56,10 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_KNEELING)
-						|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)
-						|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED);
+		return character.isPlayer()
+				|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_KNEELING)
+				|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)
+				|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED);
 	}
 
 	@Override
