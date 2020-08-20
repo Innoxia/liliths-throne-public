@@ -26,7 +26,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'broodmother pill', which doubles offspring conceived during its effect. (Usage dialogue written by PoyntFury)
 		Fixed a bug where having multiple arm pairs allowed an all-out strike with a 2-handed weapons. (PR#1384 by AceXP)
 		Added average penis girth in the Encyclopedia information on races. (PR#1385 by AceXP)
-	
+		Prevented any succubus/incubus alleyway attackers from spawning with the 'Prude' trait, as it doesn't fit them. (PR#1386 by AceXP)
+		
 	Engine:
 		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/breeder.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
 		Converted Combat from an Enum to a class, which can now be accessed via the parser using the command 'combat'.
