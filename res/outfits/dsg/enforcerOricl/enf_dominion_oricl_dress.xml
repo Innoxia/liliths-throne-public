@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Outfits are a way to make randomly-generated NPCs' outfit generation less chaotic. -->
+<outfit>
+
+	<coreAttributes>
+		<!-- Names are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable (lowercase) name.-->
+		<name><![CDATA[ORICL dress uniform]]></name>
+		
+		<!-- Again, descriptions are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable description.-->
+		<description><![CDATA[Enforcer dress uniform with ORICL colors.]]></description>
+		
+		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
+		<femininity>ANDROGYNOUS</femininity>
+		
+		<worldTypes/>
+		
+		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/OutfitType.java -->
+		<outfitTypes>
+		  <type>JOB_SMART</type> <!-- At the time of creation (v0.3.0.6), only the MUGGER outfitType is used in the game. All outfit types will be added eventually. -->
+		</outfitTypes>
+		
+		<!-- WhatWhich leg configurations can equip this outfit. For a list of legConfigurations, see: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
+		<acceptableLegConfigurations>
+			<legConfiguration>BIPEDAL</legConfiguration>
+		</acceptableLegConfigurations>
+		
+		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
+		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java 
+		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/Game.java
+		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
+		The method "initScriptEngine()" in UtiLText.java shows you what you can get a handle on.-->
+		<conditional><![CDATA[npc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_ORICL)]]></conditional>
+		
+		<!-- How likely this outfit is to be randomly chosen out of all available ones. Default outfits have a weight of 100. As there could be several outfits added to the weighting method, the chance of this outfit being selected is not able to be precisely determined. -->
+		<weight>100</weight><!-- I left this one at 100, even though it's a special outfit, as the conditional check is hard to satisfy. -->
+	</coreAttributes>
+	
+	<generationAttributes>
+		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
+		<clothingConditional1 constant="false"><![CDATA[game.getSeason() == SEASON_SPRING || game.getSeason() == SEASON_AUTUMN]]></clothingConditional1>
+		<clothingConditional2 constant="false"><![CDATA[game.getSeason() == SEASON_SUMMER]]></clothingConditional2>
+		<clothingConditional3 constant="false"><![CDATA[game.getSeason() == SEASON_WINTER]]></clothingConditional3>
+		<clothingConditional4 constant="false"><![CDATA[game.getCurrentWeather()==WEATHER_SNOW]]></clothingConditional4>
+		
+		<clothingConditional5 constant="true"><![CDATA[npc.isFeminine()]]></clothingConditional5>
+		
+		<clothingConditional6 constant="true"><![CDATA[RND.nextInt(100)<=66]]></clothingConditional6>
+		
+		<clothingConditional7 constant="true"><![CDATA[npc.getHistory()==OCCUPATION_NPC_ENFORCER_PATROL_CONSTABLE]]></clothingConditional7>
+		<clothingConditional8 constant="true"><![CDATA[npc.getHistory()==OCCUPATION_NPC_ENFORCER_PATROL_SERGEANT]]></clothingConditional8>
+		<clothingConditional9 constant="true"><![CDATA[npc.getHistory()==OCCUPATION_NPC_ENFORCER_PATROL_INSPECTOR]]></clothingConditional9>
+		
+		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		<presetColourGroup1> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
+			<randomColour>CLOTHING_GOLD</randomColour>
+			<randomColour>CLOTHING_SILVER</randomColour>
+			<randomColour>CLOTHING_PLATINUM</randomColour>
+			<randomColour>CLOTHING_ROSE_GOLD</randomColour>
+		</presetColourGroup1>
+		
+		<presetColourGroup2>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_GREY_DARK</randomColour>
+			<randomColour>CLOTHING_GREY</randomColour>
+			<randomColour>CLOTHING_WHITE</randomColour>
+			<randomColour>CLOTHING_BLUE_GREY</randomColour>
+			<randomColour>CLOTHING_BLUE</randomColour>
+			<randomColour>CLOTHING_BLUE_DARK</randomColour>
+			<randomColour>CLOTHING_RED_DARK</randomColour>
+			<randomColour>CLOTHING_RED</randomColour>
+		</presetColourGroup2>
+		
+		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/mugger_masculine.xml for a weapon example. -->
+		<mainWeapons>
+			<weapon>
+				<conditional/>
+				<type>dsg_eep_pbweap_pbpistol</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+		</mainWeapons>
+		
+		<offhandWeapons/>
+		
+		<!-- For all of the "conditional" elements from this point onwards, you can use the tag "clothing" to access the clothing type being handled.-->
+		
+		<!-- All of the pre-set clothing that IS GUARANTEED to be attempted to be equipped. The only time these items won't be equipped is when multiple items of clothing are assigned to the same inventory slot (such as a pair of panties and a thong), in which case only the first item is used. -->
+		<guaranteedClothingEquips>
+		
+			<!--Beret always-->
+			<uniqueClothing>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet_sword" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--A tie always-->
+			<uniqueClothing>
+				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="NECK_TIE" isDirty="false"></clothing>
+			</uniqueClothing>
+		
+			<!--PC jacket -->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional1 && clothingConditional7]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdjacket_pc" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--SG jacket -->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional1 && clothingConditional8]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdjacket_sg" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--IP jacket -->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional1 && clothingConditional9]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdjacket_ip" isDirty="false"></clothing>
+			</uniqueClothing>
+
+			<!--Greatcoat when it's snowing-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional3 && clothingConditional4]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfgreatcoat" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Sweater, selected when it's WINTER but the weather is not SNOW-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional3 && (!clothingConditional4)]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_milsweater_crewen" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Feminine long sleeved shirt -->
+			<uniqueClothing>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_flsldshirt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Masculine long sleeved shirt-->
+			<uniqueClothing>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && (!clothingConditional5)]]></conditional>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_lsldshirt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Feminine short sleeved shirt -->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional2 && clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_fssldshirt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Masculine short sleeved shirt -->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional2 && (!clothingConditional5)]]></conditional>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_ssldshirt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Dress belt-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional1]]></conditional>
+				<clothing colour="CLOTHING_DESATURATED_BROWN" colourSecondary="CLOTHING_DESATURATED_BROWN" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdbelt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Stable belt-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional2]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfstbelt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Feminine pants or skirt, 66% chance of skirt during SPRING, SUMMER, and AUTUMN, pants always selected during WINTER-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional6 && (clothingConditional1 || clothingConditional2) && clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfskirt" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<uniqueClothing>
+				<conditional><![CDATA[((!clothingConditional6) || clothingConditional3) && clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdslacks" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Masculine pants-->
+			<uniqueClothing>
+				<conditional><![CDATA[!clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PURPLE_DARK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdslacks" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Hosery always goes with a skirt-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional6 && (clothingConditional1 || clothingConditional2) && clothingConditional5]]></conditional>
+				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_sock_pantyhose" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Socks always go with pants-->
+			<uniqueClothing>
+				<conditional><![CDATA[(!clothingConditional5) || (((!clothingConditional6) || clothingConditional3) && clothingConditional5)]]></conditional>
+				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_sock_socks" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Feminine pumps-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional5 && !(clothingConditional3 && clothingConditional4)]]></conditional>
+				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfpumps" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Masculine shoes-->
+			<uniqueClothing>
+				<conditional><![CDATA[(!clothingConditional5) && !(clothingConditional3 && clothingConditional4)]]></conditional>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_foot_mens_smart_shoes" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+			<!--Jackboots always goes with a greatcoat-->
+			<uniqueClothing>
+				<conditional><![CDATA[clothingConditional3 && clothingConditional4]]></conditional>
+				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfjackboots" isDirty="false"></clothing>
+			</uniqueClothing>
+			
+		</guaranteedClothingEquips>
+		
+		<clothingType> <!-- 25% chance of rings-->
+			<conditional><![CDATA[RND.nextInt(100)<=25]]></conditional>
+			<types>
+				<type>FINGER_RING</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType> <!-- 33% chance of earrings on feminine characters-->
+			<conditional><![CDATA[(RND.nextInt(100)<=33) && clothingConditional5]]></conditional>
+			<types>
+				<type>PIERCING_EAR_RING</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- 50% chance of watches-->
+		<clothingType> 
+			<conditional><![CDATA[(RND.nextInt(100)<=50) && clothingConditional5]]></conditional>
+			<types>
+				<type>WRIST_WOMENS_WATCH</type>
+			</types>
+			<primaryColours values="LEATHER"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[(RND.nextInt(100)<=50) && (!clothingConditional5)]]></conditional>
+			<types>
+				<type>WRIST_MENS_WATCH</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[npc.hasBreasts()]]></conditional>
+			<types>
+				<type>CHEST_PLUNGE_BRA</type>
+				<type>CHEST_LACY_PLUNGE_BRA</type>
+				<type>CHEST_FULLCUP_BRA</type>
+			</types>
+			<primaryColours values="LINGERIE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional5]]></conditional>
+			<types>
+				<type>GROIN_LACY_PANTIES</type>
+				<type>GROIN_PANTIES</type>
+				<type>GROIN_THONG</type>
+			</types>
+			<primaryColours values="LINGERIE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[!clothingConditional5]]></conditional>
+			<types>
+				<type>GROIN_BRIEFS</type>
+				<type>GROIN_BOXERS</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+	
+	<!-- As a final note, I will add support for allowing the automatic generation of piercings in the next update. -->
+
+</outfit>

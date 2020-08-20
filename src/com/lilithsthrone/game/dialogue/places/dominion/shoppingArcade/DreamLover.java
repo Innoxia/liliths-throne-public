@@ -1,24 +1,21 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.3.5.5
  * @author Kumiko, Innoxia
  */
 public class DreamLover {
 
-	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Dream Lover (Exterior)", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXTERIOR = new DialogueNode("Dream Lover (Exterior)", "-", false) {
 
 		@Override
 		public String getAuthor() {
@@ -29,28 +26,50 @@ public class DreamLover {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/dreamLover", "EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside 'Dream Lover'.", ENTRY);
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "Step inside 'Dream Lover'.", EXTERIOR_CLOSED);
 					}
-				};
-
-			} else {
-				return null;
+					return new Response("Enter", "Step inside 'Dream Lover'.", ENTRY);
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode EXTERIOR_CLOSED = new DialogueNode("Dream Lover (Exterior)", "-", false, true) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/dreamLover", "EXTERIOR_CLOSED");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==0) {
+				if (index == 1) {
+					return new Response("Enter", "'Dream Lover' is currently closed, so you'll have to back at another time if you wanted to do any shopping here.", null);
+				}
+			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRY = new DialogueNodeOld("Dream Lover", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRY = new DialogueNode("Dream Lover", "-", true) {
 
 		@Override
 		public String getAuthor() {
@@ -92,7 +111,7 @@ public class DreamLover {
 			} else {
 				
 				if (index == 1) {
-					return new ResponseTrade("Trade", "Wander around the shop and see what items there are for sale...", Main.game.getAshley());
+					return new ResponseTrade("Trade", "Wander around the shop and see what items there are for sale...", Main.game.getNpc(Ashley.class));
 					
 				} else if(index==2 && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.ashleyAttitude)) {
 					return new Response("Confront Ashley", "What's with this person's attitude? Walk up to the counter and confront them about it.", CONFRONT_ASHLEY) {
@@ -121,8 +140,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld EXPLORE_SHELVES = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode EXPLORE_SHELVES = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -161,8 +179,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld CONFRONT_ASHLEY = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CONFRONT_ASHLEY = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {
@@ -180,8 +197,7 @@ public class DreamLover {
 		}
 	};
 	
-	public static final DialogueNodeOld IGNORE_ASHLEY = new DialogueNodeOld("Dream Lover", "-", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode IGNORE_ASHLEY = new DialogueNode("Dream Lover", "-", true, true) {
 
 		@Override
 		public String getAuthor() {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		
+		<authorTag><![CDATA[On the underside of the stock, slightly raised lettering reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+	
+		<value>5700</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>true</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[cryoprism gun]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[cryoprism guns]]></namePlural> 
+		
+		<description><![CDATA[Having the longest reach in the Enforcer arsenal, the cryoprism gun uses a <span style='color:#85C6FF;'>freezing</span> <span style='color:#FFCC00;'>clear demonstone</span> as the active medium of an otherwise normal quad-pumped solid state laser. The result turns a mildly annoying laser beam into a powerful freeze ray with a perfectly flat trajectory.]]></description> 
+		
+		<attackDescriptor>shoot</attackDescriptor>
+		
+		<attackTooltipDescription>Shoot [npc2.name] with your cryoprism gun.</attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the cryoprism and [npc.verb(turn)] the selector switch to the fire position. There is a brief, unnerving hum as the arcane power source inside comes to life.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(turn)] the selector switch back to the safe position and [npc.verb(put)] the rifle away.]]></unequipText>
+		
+		<imageName>cryoprism_safe.svg</imageName> 
+		
+		<imageEquippedName>cryoprism.svg</imageEquippedName>
+		
+		<damage>50</damage> 
+		
+		<arcaneCost>5</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>ICE</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. A bright blue beam of light smashes into [npc2.her]
+		#IF !npc2.hasStatusEffect(SE_FREEZING_FOG)
+		#THEN [##npc2.addStatusEffect(SE_FREEZING_FOG, 4)]aura, creating a <span style='color:#85C6FF;'><b>freezing fog</b></span> around [npc2.herHim]!
+		#ELSEIF npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN)
+		#THEN [##npc2.addStatusEffect(SE_FROZEN, 2)]aura, turning the fog around [npc2.herHim] into a <span style='color:#85C6FF;'><b>thin layer of ice</b></span>!
+		#ELSE aura.
+		#ENDIF
+		A faint trail of snowflakes flutters delicately in the air as the light fades.
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The beam uselessly creates a large patch of ice some distance away.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

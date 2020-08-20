@@ -4,8 +4,8 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.85
@@ -14,7 +14,6 @@ import com.lilithsthrone.utils.Util;
  */
 public class EventLogEntryGainItem extends EventLogEntry {
 
-	private static final long serialVersionUID = 1L;
 	
 	public EventLogEntryGainItem(AbstractCoreItem item) {
 		super(Main.game.getMinutesPassed(),
@@ -24,6 +23,6 @@ public class EventLogEntryGainItem extends EventLogEntry {
 	
 	@Override
 	public String getFormattedEntry() {
-		return "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+name+"</span>: "+description;
+		return "<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>"+name+"</span>: "+description;
 	}
 }

@@ -3,14 +3,18 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -36,26 +40,28 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
@@ -70,22 +76,29 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class Vicky extends NPC {
+
+	private Map<AbstractWeapon, Integer> weaponsForSale;
+	private Map<AbstractItem, Integer> itemsForSale;
+	private Map<AbstractClothing, Integer> clothingForSale;
 	
 	private AbstractItemType[] availableIngredients = new AbstractItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,
@@ -97,8 +110,7 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
 			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN,
-			ItemType.RACE_INGREDIENT_DEMON};
+			ItemType.RACE_INGREDIENT_HUMAN};
 	
 	private static List<AbstractItemType> availableSpellBooks = new ArrayList<>();
 	
@@ -151,7 +163,9 @@ public class Vicky extends NPC {
 					
 				case WITCH_CHARM:
 				case WITCH_SEAL:
-				case DARK_SIREN_BANEFUL_FISSURE:
+				case DARK_SIREN_SIRENS_CALL:
+				case LIGHTNING_SPHERE_DISCHARGE:
+				case LIGHTNING_SPHERE_OVERCHARGE:
 					break;
 			}
 		}
@@ -162,17 +176,59 @@ public class Vicky extends NPC {
 	}
 	
 	public Vicky(boolean isImported) {
-		super(isImported, new NameTriplet("Vicky"),
+		super(isImported, new NameTriplet("Vicky"), "Haugen",
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
 				37, Month.MAY, 26,
 				10, Gender.F_P_V_B_FUTANARI,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
-		
+
+		weaponsForSale = new HashMap<>();
+		itemsForSale = new HashMap<>();
+		clothingForSale = new HashMap<>();
 		if(!isImported) {
-			dailyReset();
+			dailyUpdate();
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	}
 
+
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
+		
+		Element weaponsElement = doc.createElement("weaponsForSale");
+		properties.appendChild(weaponsElement);
+		for(Entry<AbstractWeapon, Integer> weapon : weaponsForSale.entrySet()) {
+			try {
+				Element e = weapon.getKey().saveAsXML(weaponsElement, doc);
+				e.setAttribute("count", String.valueOf(weapon.getValue()));
+			} catch(Exception ex) {
+			}
+		}
+
+		Element itemsElement = doc.createElement("itemsForSale");
+		properties.appendChild(itemsElement);
+		for(Entry<AbstractItem, Integer> item : itemsForSale.entrySet()) {
+			try {
+				Element e = item.getKey().saveAsXML(itemsElement, doc);
+				e.setAttribute("count", String.valueOf(item.getValue()));
+			} catch(Exception ex) {
+			}
+		}
+
+		Element clothingElement = doc.createElement("clothingForSale");
+		properties.appendChild(clothingElement);
+		for(Entry<AbstractClothing, Integer> clothing : clothingForSale.entrySet()) {
+			try {
+				Element e = clothing.getKey().saveAsXML(clothingElement, doc);
+				e.setAttribute("count", String.valueOf(clothing.getValue()));
+			} catch(Exception ex) {
+			}
+		}
+		
+		return properties;
+	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
@@ -184,6 +240,105 @@ public class Vicky extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			setStartingBody(false);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.3")) {
+			this.dailyUpdate();
+			
+		} else {
+			Element weaponsElement = (Element) parentElement.getElementsByTagName("weaponsForSale").item(0);
+			if(weaponsElement!=null) {
+				weaponsForSale.clear();
+				
+				NodeList nodeList = weaponsElement.getElementsByTagName("weapon");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
+					try {
+						AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
+						int count = 1;
+						try {
+							count = Integer.valueOf(e.getAttribute("count"));
+						} catch(Exception ex) {
+							weaponsForSale.putIfAbsent(weapon, 0);
+							count = weaponsForSale.get(weapon)+1;
+						}
+						weaponsForSale.put(weapon, count);
+					} catch(Exception ex) {
+					}
+				}
+			}
+			Element itemsElement = (Element) parentElement.getElementsByTagName("itemsForSale").item(0);
+			if(itemsElement!=null) {
+				itemsForSale.clear();
+				
+				NodeList nodeList = itemsElement.getElementsByTagName("item");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
+					try {
+						AbstractItem item = AbstractItem.loadFromXML(e, doc);
+						int count = 1;
+						try {
+							count = Integer.valueOf(e.getAttribute("count"));
+						} catch(Exception ex) {
+							itemsForSale.putIfAbsent(item, 0);
+							count = itemsForSale.get(item)+1;
+						}
+						itemsForSale.put(item, count);
+					} catch(Exception ex) {
+					}
+				}
+			}
+			Element clothingElement = (Element) parentElement.getElementsByTagName("clothingForSale").item(0);
+			if(clothingElement!=null) {
+				clothingForSale.clear();
+				
+				NodeList nodeList = clothingElement.getElementsByTagName("clothing");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
+					try {
+						AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+						int count = 1;
+						try {
+							count = Integer.valueOf(e.getAttribute("count"));
+						} catch(Exception ex) {
+							clothingForSale.putIfAbsent(clothing, 0);
+							count = clothingForSale.get(clothing)+1;
+							}
+						clothingForSale.put(clothing, count);
+					} catch(Exception ex) {
+					}
+				}
+			}
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD,
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.BRAVE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.8")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.1")) {
+			this.setPenisCumStorage(150);
+		}
+	}
+
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 5),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 	
 	@Override
@@ -192,16 +347,11 @@ public class Vicky extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 25);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
-	
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD,
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.BRAVE);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -222,25 +372,27 @@ public class Vicky extends NPC {
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
+		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, PresetColour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.LOOSE);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_BLACK, false), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_AMBER));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_AMBER));
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_AMBER));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLACK));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_BLACK));
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -267,9 +419,9 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(14);
+		this.setPenisSize(22);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
+		this.setPenisCumStorage(150);
 		this.fillCumToMaxStorage();
 		
 		// Vagina:
@@ -287,17 +439,17 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setMoney(10);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CORSET_DRESS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_SUSPENDER_BELT, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 
@@ -312,32 +464,34 @@ public class Vicky extends NPC {
 	}
 
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
-
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
+		itemsForSale.clear();
+		weaponsForSale.clear();
+		clothingForSale.clear();
+		
 		int requiredRoomForMiscItems = ItemType.getEssences().size()+SpellSchool.values().length+availableSpellBooks.size()+10;
 		
 		List<AbstractCoreType> types = new ArrayList<>();
 		
-		for(AbstractWeaponType wt : WeaponType.allweapons) {
-			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
+					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				types.add(wt);
-//				for(int i=0; i<1+Util.random.nextInt(3); i++){
-//					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
-//				}
 			}
 		}
 		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_VICKY)
+					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				types.add(item);
-//				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				if(clothing!=null
+						&& clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)
+						&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 					types.add(clothing);
-//					this.addClothing(AbstractClothingType.generateClothing(clothing, false), false);
 				} 
 			} catch(Exception ex) {
 				ex.printStackTrace();
@@ -347,15 +501,13 @@ public class Vicky extends NPC {
 		int count=0;
 		for(AbstractCoreType type : types) {
 			if(type instanceof AbstractWeaponType) {
-				for(int i=0; i<1+Util.random.nextInt(3); i++){
-					this.addWeapon(AbstractWeaponType.generateWeapon((AbstractWeaponType) type), false);
-				}
+				weaponsForSale.put(Main.game.getItemGen().generateWeapon((AbstractWeaponType) type), 2+Util.random.nextInt(5));
 				
 			} else if(type instanceof AbstractItemType) {
-				this.addItem(AbstractItemType.generateItem((AbstractItemType) type), false);
+				itemsForSale.put(Main.game.getItemGen().generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
 				
 			} else if(type instanceof AbstractClothingType) {
-				this.addClothing(AbstractClothingType.generateClothing((AbstractClothingType) type, false), false);
+				clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type), 2+Util.random.nextInt(5));
 			}
 			count++;
 			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {
@@ -363,35 +515,76 @@ public class Vicky extends NPC {
 			}
 		}
 		
-		
-		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
+		AbstractItem ingredient = Main.game.getItemGen().generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		for(int i=0; i<10;i++) {
-			if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
-				AbstractItem potion = EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0)));
-				this.addItem(potion, false);
-				potion.setName(EnchantingUtils.getPotionName(ingredient, potion.getEffects()));
+			try {
+				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
+					AbstractItem potion = EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0)));
+					itemsForSale.putIfAbsent(potion, 0);
+					itemsForSale.put(potion, 1+itemsForSale.get(potion));
+					potion.setName(EnchantingUtils.getPotionName(ingredient, potion.getEffects()));
+				}
+				
+				ingredient = Main.game.getItemGen().generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
+				primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
+			} catch(Exception ex) {
 			}
-			
-			ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
-			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
 		for(AbstractItemType itemType : availableSpellBooks) {
-			this.addItem(AbstractItemType.generateItem(itemType), false);
+			itemsForSale.put(Main.game.getItemGen().generateItem(itemType), 1);
 		}
 		
 		for(SpellSchool school : SpellSchool.values()) {
-			for(int i=0; i<10+Util.random.nextInt(20); i++) {
-				this.addItem(AbstractItemType.generateItem(ItemType.getSpellScrollType(school)), false);
-			}
+			AbstractItem item = Main.game.getItemGen().generateItem(ItemType.getSpellScrollType(school));
+			itemsForSale.put(item, 10+Util.random.nextInt(20));
 		}
 		
-		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+//		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(AbstractItemType itemType : ItemType.getEssences()) {
-				for(int i=0;i<20+Util.random.nextInt(11);i++) {
-					this.addItem(AbstractItemType.generateItem(itemType), false);
-				}
+				AbstractItem item = Main.game.getItemGen().generateItem(itemType);
+				itemsForSale.put(item, 500+Util.random.nextInt(251));
+			}
+//		}
+	}
+	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
+	@Override
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		int oldCount;
+		if(weaponsForSale.containsKey(item)) {
+			oldCount = weaponsForSale.get(item);
+			if(oldCount > count) {
+				weaponsForSale.put((AbstractWeapon) item, oldCount-count);
+			} else {
+				weaponsForSale.remove((AbstractWeapon) item);
+			}
+		}
+		if(clothingForSale.containsKey(item)) {
+			oldCount = clothingForSale.get(item);
+			if(oldCount > count) {
+				clothingForSale.put((AbstractClothing) item, oldCount-count);
+			} else {
+				clothingForSale.remove((AbstractClothing) item);
+			}
+		}
+		if(itemsForSale.containsKey(item)) {
+			oldCount = itemsForSale.get(item);
+			if(oldCount > count) {
+				itemsForSale.put((AbstractItem) item, oldCount-count);
+			} else {
+				itemsForSale.remove((AbstractItem) item);
 			}
 		}
 	}
@@ -401,7 +594,7 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
@@ -440,53 +633,66 @@ public class Vicky extends NPC {
 		return false;
 	}
 
+	public Map<AbstractWeapon, Integer> getWeaponsForSale() {
+		return weaponsForSale;
+	}
+
+	public Map<AbstractItem, Integer> getItemsForSale() {
+		return itemsForSale;
+	}
+
+	public Map<AbstractClothing, Integer> getClothingForSale() {
+		return clothingForSale;
+	}
+
 	@Override
 	public void endSex() {
 		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.ARTHURS_PACKAGE), false, true));
 		}
 	}
 	
 	// Sex:
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_ROUGH;
+	}
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 	
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
-		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
-		
-		return sexPositionPreferences;
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		return slot==SexSlotDesk.BETWEEN_LEGS;
 	}
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+		if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ASS);
 		}
 	}
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+		if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ASS);
 		}
 	}
 

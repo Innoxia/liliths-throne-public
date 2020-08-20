@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.places.submission;
 
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -17,12 +17,11 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class BatCaverns {
 
-	public static final DialogueNodeOld STAIRCASE = new DialogueNodeOld("Winding Staircase", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRCASE = new DialogueNode("Winding Staircase", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -33,10 +32,10 @@ public class BatCaverns {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Submission", "Head back up to Submission."){
+				return new Response("Submission", "Head back up to Submission.", PlaceType.SUBMISSION_BAT_CAVERNS.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_BAT_CAVERNS, true);
+						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_BAT_CAVERNS, false);
 					}
 				};
 
@@ -46,8 +45,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld CAVERN_DARK = new DialogueNodeOld("Dark Cavern", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CAVERN_DARK = new DialogueNode("Dark Cavern", "", false) {
 		
 		@Override
 		public String getAuthor() {
@@ -55,8 +53,8 @@ public class BatCaverns {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -72,7 +70,7 @@ public class BatCaverns {
 						"Explore the cavern's dark depths. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -83,8 +81,7 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld CAVERN_LIGHT = new DialogueNodeOld("Bioluminescent Cavern", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CAVERN_LIGHT = new DialogueNode("Bioluminescent Cavern", "", false) {
 		
 		@Override
 		public String getAuthor() {
@@ -92,8 +89,8 @@ public class BatCaverns {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -109,7 +106,7 @@ public class BatCaverns {
 						"Explore the bioluminescent forest. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -120,12 +117,11 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER = new DialogueNodeOld("Underground River", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER = new DialogueNode("Underground River", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -141,7 +137,7 @@ public class BatCaverns {
 						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -152,12 +148,11 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER_BRIDGE = new DialogueNodeOld("Mushroom Bridge", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER_BRIDGE = new DialogueNode("Mushroom Bridge", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -173,7 +168,7 @@ public class BatCaverns {
 						"Explore the bridge's surroundings. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -184,12 +179,11 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld RIVER_END = new DialogueNodeOld("Underground River", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode RIVER_END = new DialogueNode("Underground River", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -205,7 +199,7 @@ public class BatCaverns {
 						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -216,12 +210,11 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_LAKE = new DialogueNodeOld("Slime Lake", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_LAKE = new DialogueNode("Slime Lake", "", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -252,7 +245,7 @@ public class BatCaverns {
 						"Explore the sides of the lake. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -293,12 +286,11 @@ public class BatCaverns {
 		}
 	};
 	
-	public static final DialogueNodeOld SLIME_LAKE_ISLAND = new DialogueNodeOld("Slime Lake", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLIME_LAKE_ISLAND = new DialogueNode("Slime Lake", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -346,7 +338,7 @@ public class BatCaverns {
 								if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR)) {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR));
 								}
-								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 							}
 						};
 						

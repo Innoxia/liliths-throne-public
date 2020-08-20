@@ -1,40 +1,38 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.MouthType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.7
  * @author Innoxia
  */
-public class Mouth implements BodyPartInterface, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Mouth implements BodyPartInterface {
 	
-	protected MouthType type;
+	protected AbstractMouthType type;
 	protected OrificeMouth orificeMouth;
 	protected int lipSize;
 	protected boolean piercedLip;
 
-	public Mouth(MouthType type, int lipSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Mouth(AbstractMouthType type, int lipSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.lipSize = lipSize;
-		orificeMouth = new OrificeMouth(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeMouth = new OrificeMouth(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 	}
 
 	@Override
-	public MouthType getType() {
+	public AbstractMouthType getType() {
 		return type;
 	}
 
@@ -49,7 +47,14 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getName(GameCharacter owner) {
-		return getNamePlural(owner);
+		return getNameSingular(owner);
+	}
+	
+	@Override
+	public String getName(GameCharacter gc, boolean withDescriptor) {
+		String name = getName(gc);
+		return //UtilText.generateSingularDeterminer(name)+" "+
+				name;
 	}
 
 	@Override
@@ -69,9 +74,11 @@ public class Mouth implements BodyPartInterface, Serializable {
 		for(OrificeModifier om : orificeMouth.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
 		}
+		descriptorList.add(owner.getCovering(owner.getMouthCovering()).getPrimaryColour().getName());
+		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String getLipsNameSingular(GameCharacter gc) {
@@ -93,11 +100,11 @@ public class Mouth implements BodyPartInterface, Serializable {
 			descriptorList.add("soft");
 			descriptorList.add("delicate");
 		}
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
-	public void setType(MouthType type) {
+	public void setType(AbstractMouthType type) {
 		this.type = type;
 	}
 
@@ -111,6 +118,12 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	public String setLipSize(GameCharacter owner, int lipSize) {
 		int effectiveLipSize = Math.max(0, Math.min(lipSize, LipSize.getLargest()));
+		
+		if(owner==null) {
+			this.lipSize = effectiveLipSize;
+			return "";
+		}
+		
 		if(owner.getLipSizeValue() == effectiveLipSize) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";
@@ -187,6 +200,14 @@ public class Mouth implements BodyPartInterface, Serializable {
 						+piercingUnequip);
 			}
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Mouth.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

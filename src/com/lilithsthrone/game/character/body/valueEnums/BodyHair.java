@@ -1,7 +1,8 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -10,14 +11,14 @@ import com.lilithsthrone.utils.Util;
  */
 public enum BodyHair {
 
-	ZERO_NONE(0, "none", Colour.GENERIC_SIZE_ONE),
-	ONE_STUBBLE(1, "stubble", Colour.GENERIC_SIZE_TWO),
-	TWO_MANICURED(2, "manicured", Colour.GENERIC_SIZE_THREE),
-	THREE_TRIMMED(3, "trimmed", Colour.GENERIC_SIZE_FOUR),
-	FOUR_NATURAL(4, "natural", Colour.GENERIC_SIZE_FIVE),
-	FIVE_UNKEMPT(6, "unkempt", Colour.GENERIC_SIZE_SIX),
-	SIX_BUSHY(7, "bushy", Colour.GENERIC_SIZE_SEVEN),
-	SEVEN_WILD(8, "wild", Colour.GENERIC_SIZE_EIGHT);
+	ZERO_NONE(0, "none", PresetColour.GENERIC_SIZE_ONE),
+	ONE_STUBBLE(1, "stubble", PresetColour.GENERIC_SIZE_TWO),
+	TWO_MANICURED(2, "manicured", PresetColour.GENERIC_SIZE_THREE),
+	THREE_TRIMMED(3, "trimmed", PresetColour.GENERIC_SIZE_FOUR),
+	FOUR_NATURAL(4, "natural", PresetColour.GENERIC_SIZE_FIVE),
+	FIVE_UNKEMPT(5, "unkempt", PresetColour.GENERIC_SIZE_SIX),
+	SIX_BUSHY(6, "bushy", PresetColour.GENERIC_SIZE_SEVEN),
+	SEVEN_WILD(7, "wild", PresetColour.GENERIC_SIZE_EIGHT);
 	
 	private int value;
 	private String descriptor;

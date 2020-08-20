@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name appendColourName="false"><![CDATA[rainbow glove]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[rainbow gloves]]></namePlural> 
+		<description><![CDATA[A pair of brightly-coloured rainbow fingerless gloves, which reach up to the wearer's mid-forearm.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>HAND</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet>RAINBOW</clothingSet>
+		<imageName>gloves.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<customColours>
+			<customColour c0="#ee3b2f" c1="#ee3b3a" c2="#ee3b3b" c3="#ee3b3c" c4="#ee3b3d">
+				<defaultColours>
+					<colour>CLOTHING_RED</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#f38235" c1="#f38236" c2="#f38237" c3="#f38238" c4="#f38239">
+				<defaultColours>
+					<colour>CLOTHING_ORANGE_BRIGHT</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#efca38" c1="#efca39" c2="#efca3a" c3="#efca3b" c4="#efca3c">
+				<defaultColours>
+					<colour>CLOTHING_YELLOW</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#5fd35d" c1="#5fd35e" c2="#5fd35f" c3="#5fd360" c4="#5fd361">
+				<defaultColours>
+					<colour>CLOTHING_GREEN</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#5fd6f3" c1="#5fd6f4" c2="#5fd6f5" c3="#5fd6f6" c4="#5fd6f7">
+				<defaultColours>
+					<colour>CLOTHING_BLUE_LIGHT</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#6e29d4" c1="#6e29d5" c2="#6e29d6" c3="#6e29d7" c4="#6e29d8">
+				<defaultColours>
+					<colour>CLOTHING_PURPLE_LIGHT</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#afafe7" c1="#afafe8" c2="#afafe9" c3="#afafea" c4="#afafeb">
+				<defaultColours>
+					<colour>CLOTHING_PURPLE_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc.her] [npc.hands], before pulling them up to [npc.her] mid-forearm.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] mid-forearm.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] mid-forearm.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] forearms, before pulling them free from [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] forearms, before pulling them free from [npc2.her] [npc2.hands].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] forearms, before roughly pulling them free from [npc2.her] [npc2.hands].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

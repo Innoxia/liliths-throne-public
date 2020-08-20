@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Dirty talk -->
+	
+	<htmlContent tag="OFFICE_DIRTY_TALK_ORAL"><![CDATA[[npc.speech(Suck my cock, you filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ORAL"><![CDATA[[npc.speech(I love hearing you gagging on my cock!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ORAL"><![CDATA[[npc.speech(Take it deep, you dirty filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ORAL"><![CDATA[[npc.speech(You like the taste of my horse-cock?!)]]]></htmlContent>
+	
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANILINGUS"><![CDATA[[npc.speech(Eat my ass, you dirty filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANILINGUS"><![CDATA[[npc.speech(Use your tongue some more, filly!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANILINGUS"><![CDATA[[npc.speech(Keep on kissing my ass, you filthy filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANILINGUS"><![CDATA[[npc.speech(You like the taste of my horse-ass?!)]]]></htmlContent>
+	
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANAL"><![CDATA[[npc.speech(Fuck, I love rutting filly ass!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANAL"><![CDATA[[npc.speech(Your ass was made for my cock, you dirty filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANAL"><![CDATA[[npc.speech(Take it deep, you dirty filly slut!)]]]></htmlContent>
+	<htmlContent tag="OFFICE_DIRTY_TALK_ANAL"><![CDATA[[npc.speech(You like the feel of my horse-cock deep in your ass, you filthy filly slut?!)]]]></htmlContent>
+	
+	
+	<!-- INITIAL_ENCOUNTER -->
+	
+	<htmlContent tag="INITIAL_ENCOUNTER"><![CDATA[
+	<p>
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			As you [pc.walk] through the warehouse, you suddenly notice that there's [npc.a_race] quickly trotting directly towards you. Turning to face [npc.herHim], you find your gaze being drawn down to the [npc.cockSize], erect horse-cock between [npc.her] feral hindquarters. Stepping forwards and pinning you up against a nearby wall, this clearly-aroused [npc.race] pants, [npc.speech(Filly, you need to help me get some release! I'll give you [#SPECIAL_PARSE_0] filly points, please, just [#SPECIAL_PARSE_1]!)]
+		#ELSE
+			#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BOULEVARD)
+				As you [pc.walk] down the wide boulevard
+			#ELSE
+				As you [pc.walk] down the street
+			#ENDIF
+			, you suddenly notice that there's [npc.a_race] quickly trotting directly towards you. Turning to face [npc.herHim], you find your gaze being drawn down to the [npc.cockSize], erect horse-cock between [npc.her] feral hindquarters. Realising that this clearly-aroused [npc.race] must be one of Dominion Express's slaves, you listen as [npc.she] pants, [npc.speech(I saw your filly choker from the other side of the street! Please, you need to help me get some release! I'll give you [#SPECIAL_PARSE_0] filly points, please, just [#SPECIAL_PARSE_1]!)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping away from you, [npc.name] quickly turns around and flicks [npc.her] tail to one side, presenting you with [npc.her] puffy, feral horse-anus. Clearly not at all bothered by the fact that you're in such a public place, [npc.she] looks back over [npc.her] shoulder and demands, [npc.speech(Come on, filly! Kiss my ass so that we can get started!)]
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="INITIAL_ENCOUNTER_REFUSED"><![CDATA[
+	<p>
+		Not wanting to service this slave right now, you tell [npc.herHim] that [npc.sheIs] going to have to find another filly to give [npc.herHim] what [npc.she] wants. Letting out a frantic, desperate whine, the [npc.race] doesn't stick around to argue, and instead canters off
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 towards the stables in search for another filly.
+		#ELSE
+			#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BOULEVARD)
+				 down the wide boulevard in search for another filly.
+			#ELSE
+				 down the street in search for another filly.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		After taking a moment to watch [npc.herHim] leave, you turn around and prepare to continue on your way...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="INITIAL_ENCOUNTER_BLOWJOB_START"><![CDATA[
+	<p>
+		Seeing no reason to refuse [npc.namePos] request, you obediently drop down behind [npc.her] feral hindquarters,
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 and in full view of the rest of the warehouse,
+		#ELSE
+			 and in full view of the public,
+		#ENDIF
+		 you plant a wet, passionate kiss on [npc.her] puffy, horse-like asshole. Pulling back and smiling to yourself as you hear [npc.herHim] let out a deep [npc.moan], you quickly shuffle around beneath [npc.her] horse body, before leaning in to deliver a long, wet lick up the length of [npc.her] throbbing horse-cock.
+	</p>
+	<p>
+		[npc.speech(That's it filly! ~Mmm!~ Suck my cock!)] [npc.name] desperately calls out, and, not wanting to keep [npc.herHim] waiting, you open wide and take the flat, flared head of [npc.her] feral horse-cock into your mouth. As your partner lets out yet another desperate [npc.moan], you lewdly wrap your [pc.lips+] around [npc.her] [npc.cockGirth], hot shaft and start eagerly giving [npc.herHim] the blowjob [npc.she] was looking for...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="INITIAL_ENCOUNTER_RIMJOB_START"><![CDATA[
+	<p>
+		Seeing no reason to refuse [npc.namePos] request, you obediently drop down behind [npc.her] feral hindquarters,
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 and in full view of the rest of the warehouse,
+		#ELSE
+			 and in full view of the public,
+		#ENDIF
+		 you plant a wet, passionate kiss on [npc.her] puffy, horse-like asshole. Pulling back and smiling to yourself as you hear [npc.herHim] let out a deep [npc.moan], you deliver a few more big, wet kisses and licks to the rim of [npc.her] [npc.asshole+], before shuffling forwards and eagerly burying your face in [npc.her] feral horse-ass.
+	</p>
+	<p>
+		[npc.speech(That's it filly! ~Mmm!~ Eat my ass!)] [npc.name] desperately calls out, and, more than happy to give [npc.herHim] what [npc.she] wants, you push your [pc.tongue+] into [npc.her] ass and start passionately performing anilingus on [npc.herHim]. Encouraged to keep on going by the series of lewd, [npc.moans+] that burst out from [npc.namePos] mouth, you lewdly press your [pc.lips+] against [npc.her] puffy, feral horse-anus and continue giving [npc.herHim] the rimjob [npc.she] was looking for...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="INITIAL_ENCOUNTER_MOUNTED_START"><![CDATA[
+	<p>
+		Seeing no reason to refuse [npc.namePos] request, you obediently drop down behind [npc.her] feral hindquarters,
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 and in full view of the rest of the warehouse,
+		#ELSE
+			 and in full view of the public,
+		#ENDIF
+		 you plant a wet, passionate kiss on [npc.her] puffy, horse-like asshole. Pulling back and smiling to yourself as you hear [npc.herHim] let out a deep [npc.moan], you quickly shuffle around and present your [pc.asshole+] to [npc.herHim], before calling out for [npc.herHim] to mount you and get started.
+	</p>
+	<p>
+		[npc.speech(That's what I like to hear, filly! You're going to love my cock!)] [npc.name] excitedly calls out, before quickly mounting you and pressing the flat, flared head of [npc.her] feral horse-cock against your [pc.asshole+]. letting out a frantic, desperate [npc.moan], your partner wastes no time in thrusting forwards and ramming [npc.her] [npc.cockSize], feral horse-cock into your [pc.asshole]. Letting out [pc.a_moan+] of your own, you push your hips back, helping to sink [npc.namePos] [npc.cockGirth] cock into your ass as [npc.she] starts anally rutting you...
+	</p>
+	]]></htmlContent>
+	
+	
+	<!-- AFTER_SEX -->
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Having had [npc.her] fun, and also having put on a show for
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 the occasional passing centaur slave
+		#ELSE
+			 the members of the public who gathered to watch
+		#ENDIF
+		, [npc.name] steps back, before turning to look at you and demand, [npc.speech(Come on, filly; clean my cock off and I'll give you those filly points!)]
+	</p>
+	<p>
+		Doing as you're told, you shuffle forwards and lick all of the thick, salty cum off of [npc.namePos] softening horse-cock. Letting out a deeply-satisfied sigh, the [npc.race] once again steps back, before tossing [#SPECIAL_PARSE_0] small arcane beads to the floor in front of you. Before you can pick them up, the enchanted beads disintegrate into arcane energy, before swirling up and being absorbed into your filly choker.
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Looking up and thanking the now-satisfied [npc.race] for the filly points, you watch as [npc.she] flashes you one last smirk, before turning and trotting off
+		#IF(pc.getWorldLocation()==WORLD_TYPE_DOMINION_EXPRESS)
+			 into the warehouse's storage area.
+		#ELSE
+			#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BOULEVARD)
+				 down the wide boulevard.
+			#ELSE
+				 down the street.
+			#ENDIF
+		#ENDIF
+		 After taking a moment to watch [npc.herHim] leave, you stand up, turn around, and prepare to continue on your way...
+	</p>
+	]]></htmlContent>
+	
+	
+	
+	
+</dialogue>

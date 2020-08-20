@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		This particular street is dominated by the huge structure of Dominion's city hall. The architecture of this seat of local government is distinctly classical, with the frontage consisting of a series of huge marble pillars and polished stone steps. A sign near the entrance of this impressive building informs you that it's open to the public from
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=16)
+			 [style.colourMinorGood([units.time(9)]-[units.time(16)])].
+		#ELSE
+			 [style.colourMinorBad([units.time(9)]-[units.time(16)])].
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			As there's an arcane storm raging overhead, your surroundings are almost completely deserted, with only the occasional demon to be seen walking down the street.
+			#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=16)
+				 As city hall is [style.colourGood(currently open to the public)], you wonder how many people are inside due to legitimate business, and how many are just making use of the building to take shelter from the storm.
+			#ELSE
+				 Unfortunately, due to the time of day, city hall is [style.colourBad(currently closed to the public)], so if you had any business within, you'll have to return during regular opening times.
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=16)
+				As city hall is [style.colourGood(currently open to the public)], you could always head inside and seek to conduct whatever business you have to attend to.
+			#ELSE
+				Unfortunately, due to the time of day, city hall is [style.colourBad(currently closed to the public)], so if you had any business within, you'll have to return during regular opening times.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_ENTRANCE -->
+
+	<htmlContent tag="ENTRY"><![CDATA[
+	<p>
+		Walking up the short series of polished marble steps which lead to city hall's main entrance, you find yourself confronted by a pair of revolving glass doors. Heading through the one marked 'Entrance', you step into the main foyer and take a look at your new surroundings.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CITY_HALL_FOYER"><![CDATA[
+	<p>
+		The grand entrance to Dominion's city hall gives visitors the impression of great wealth and prestige. Huge marble pillars line the edges of this colossal foyer, and between them, sitting upon the polished marble floor, are numerous finely-carved busts of notable demons. Hanging from the walls are gigantic portraits of yet more demons and half-demons, with nameplates identifying them as particularly important members of the local government. Looking up at the high vaulted ceiling, you see the source of this area's illumination taking the form of several huge, crystal chandeliers.
+	</p>
+	<p>
+		On one end of this grand foyer, there's the pair of revolving glass doors which serve as the public entrance and exit, while on the other, a huge, circular desk is staffed by ten or so receptionists, who each wait patiently to answer any queries directed their way by visiting members of the public. Beyond that, the entrance hall branches off left and right into two corridors, which lead into the depths of this centre of bureaucracy.
+	</p>
+	<p>
+		Although not busy by any stretch of the imagination, several members of the public are milling around in this area, and are no doubt waiting for their friends or companions to finish conducting whatever business they had within.
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_INFORMATION_DESK -->
+	
+	<htmlContent tag="CITY_HALL_INFORMATION_DESK"><![CDATA[
+	<p>
+		Near the far end of the grand foyer, there's a huge, circular desk, which is staffed by ten or so receptionists. It's beside this desk that you currently find yourself standing, and you wonder whether you should approach one of the helpful-looking girls currently on duty, or simply head past them without asking for assistance.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CITY_HALL_INFORMATION_DESK_NAME_CHANGE"><![CDATA[
+	<p>
+		Wanting to know where to go in order to get your name officially changed, you step up to the desk and ask one of the receptionists for directions.
+	</p>
+	<p>
+		[genericFemale.speech(Ah, you'll want the Bureau of Demographics for that,)] the girl happily answers, before turning in her chair and pointing down the corridor which leads to the left. [genericFemale.speech(You need to head that way, and at the end of the corridor, take another left, and then the office you're looking for will be at the end of that corridor on your right. Applying for a change of name is considered minor business, so once you're there, you'll only need to fill out forms 2-B, 7-D, and the usual series of A-series documents from 1 to 13. There's also no need to wait for an appointment; the Bureau of Demographics is always open to all members of the public. Have a nice day!)]
+	</p>
+	<p>
+		Without asking if there was anything else you needed, the receptionist calls out to someone standing behind you, and proceeds to ask them if there's anything she can help them with. As you've already got the information you wanted, you step away from the desk and wonder if you should head down to this 'Bureau of Demographics' right away...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CITY_HALL_INFORMATION_DESK_PROPERTY"><![CDATA[
+	<p>
+		Curious about the purchase of property in Dominion, you approach the information desk and ask one of the free receptionists where you'd need to go to talk about such a matter.
+	</p>
+	<p>
+		[genericFemale.speech(Oh, I'm sorry, [pc.sir],)] the receptionist says, the forced smile on her face making it clear that she isn't actually sorry at all. [genericFemale.speech(The transfer of property rights have recently been suspended, and there's no telling when they might be available again. For future reference, the Bureau of Property and Commerce is down the corridor on the right. Have a good day!)]
+	</p>
+	<p>
+		Looking right past you, the girl then calls out to someone who was waiting behind you, and proceeds to ask them if they need any assistance. As your question has now been answered, you step away from the desk and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_CORRIDOR -->
+	
+	<htmlContent tag="CITY_HALL_CORRIDOR"><![CDATA[
+	<p>
+		Just like the main foyer, the corridors of Dominion's city hall are a grand affair. Polished marble flooring, high-vaulted ceilings, and impressive portraits lining the walls all give the impression of great wealth and importance.
+	</p>
+	<p>
+		Although there are several office workers and self-important bureaucrats hurrying to and fro, the corridor is easily wide enough to accommodate all of you, and, thanks to this abundance of space, you find that there's no need for anyone to adjust their tangent as you all continue on your separate ways.
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_WAITING_AREA -->
+	
+	<htmlContent tag="CITY_HALL_WAITING_AREA"><![CDATA[
+	<p>
+		For those residents of Dominion who have specific business with the city's administrators, a large, well-furnished waiting room has been provided. Sitting upon the many low-backed sofas which litter this open area, there are numerous members of the public, and you notice that many of them are holding little ticket stubs. A large, arcane-powered notification board is fixed to the far wall, and you see that it reads: <i>Now serving: [#((game.getHourOfDay()*115)+(game.getDayMinutes()%60)).toFixed(0)]</i>
+	</p>
+	<p>
+		Shuddering at the thought of being at the mercy of Dominion's bureaucracy, and with nothing more to do in this area, you turn around and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_OFFICE -->
+	
+	<htmlContent tag="CITY_HALL_OFFICE"><![CDATA[
+	<p>
+		The door to the office before you is made from rich mahogany and frosted glass, with a brass plate fixed to the centre which reads: <i>'Private'</i>. Knowing that a private office such as this one would have nothing to offer you except for tedious, pointless government bureaucracy, you decide against taking a look inside, and instead turn around and prepare to continue on your way elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CITY_HALL_STAIRS -->
+	
+	<htmlContent tag="CITY_HALL_STAIRS"><![CDATA[
+	<p>
+		While the polished marble stairs before you offer access to the upper floors of city hall, you are unable to scale them, as a barrier of red rope bars your passage. A little sign hangs from this obstacle, which reads:
+	</p>
+	<p style='text-align:center;'>
+		<i>'Public access prohibited!<br/>Admission only to visitors accompanied by a member of staff.'</i>
+	</p>
+	</p>
+	<p>
+		While there is obviously nothing really stopping you from simply stepping over this barrier and proceeding upstairs, you know that only the dull inner-workings of government bureaucracy would await you, and so, with that in mind, you decide not to waste your time and choose to head elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

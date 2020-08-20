@@ -10,9 +10,9 @@
 		
 		<determiner><![CDATA[the]]></determiner>
 		
-		<name><![CDATA[Dark Siren's Sycthe]]></name>
+		<name><![CDATA[Dark Siren's Scythe]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Sycthes]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Scythes]]></namePlural>
 		
 		<description><![CDATA[A huge, arcane-bladed metal scythe. Enchanted by 'The Dark Siren' herself, this scythe holds tremendous power, and feels as light as a feather to the one who wields it. Such power comes at a cost, however, and each strike drains a huge amount of arcane essences from the wielder...]]></description> 
 		
@@ -39,26 +39,29 @@
 		<damageVariance>LOW</damageVariance> 
 		
 		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
 		<spells>
-			<spell>DARK_SIREN_BANEFUL_FISSURE</spell>
+			<spell>DARK_SIREN_SIRENS_CALL</spell>
 		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>
 		
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
 		</effects>
 		
 		<primaryColours>
@@ -66,7 +69,7 @@
 		</primaryColours> 
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours> 
-			<colour>CLOTHING_PURPLE</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
@@ -78,10 +81,10 @@
 	
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], letting out an evil laugh as the ethereal blade unleashes a tremendous burst of arcane energy as it makes contact with [npc2.her] body!
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], letting out an evil laugh as the ethereal blade unleashes a tremendous burst of arcane energy upon contacting [npc2.her] body!
 		]]></hitText>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], grinning in delight as the ethereal blade delivers a cataclysmic blast of energy as it makes contact with [npc2.her] body!
+		[npc.Name] [npc.verb(swing)] [npc.her] scythe at [npc2.name], grinning in delight as the ethereal blade delivers a cataclysmic blast of energy upon contacting with [npc2.her] body!
 		]]></hitText>
 		<hitText><![CDATA[
 		[npc.Name] [npc.verb(swing)] at [npc2.name] with [npc.her] scythe, laughing in maniacal glee as [npc2.her] body's contact with the ethereal blade triggers a tremendous burst of arcane energy!

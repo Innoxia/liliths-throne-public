@@ -7,8 +7,10 @@ target/
 *.old
 *.class
 *.log
-res/mods/
 *.iml
+*.jar
+desktop.ini
+nbactions.xml
 
 # Ignore all generic character images
 res/images/characters/generic/

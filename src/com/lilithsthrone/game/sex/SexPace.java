@@ -1,43 +1,48 @@
 package com.lilithsthrone.game.sex;
 
-import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.colours.BaseColour;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.99
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum SexPace {
 	
-	SUB_RESISTING(3, 3, false, "resisting", BaseColour.CRIMSON),
-	SUB_NORMAL(2, 0, false, "normal", BaseColour.PINK),
-	SUB_EAGER(3, 0, false, "eager", BaseColour.PINK_DEEP),
+	SUB_RESISTING(false, "resisting", BaseColour.CRIMSON),
+	SUB_NORMAL(false, "normal", BaseColour.PINK),
+	SUB_EAGER(false, "eager", BaseColour.PINK_DEEP),
 	
-	DOM_GENTLE(1, 0, true, "gentle", BaseColour.PINK_LIGHT),
-	DOM_NORMAL(2, 0, true, "normal", BaseColour.PINK),
-	DOM_ROUGH(3, 1, true, "rough", BaseColour.CRIMSON);
+	DOM_GENTLE(true, "gentle", BaseColour.PINK_LIGHT),
+	DOM_NORMAL(true, "normal", BaseColour.PINK),
+	DOM_ROUGH(true, "rough", BaseColour.CRIMSON);
 	
-
-	private int actionStaminaCostSelf;
-	private int actionStaminaCostPartner;
 	private boolean isDom;
 	private String name;
 	private BaseColour colour;
 	
-	private SexPace(int actionStaminaCostSelf, int actionStaminaCostPartner, boolean isDom, String name, BaseColour colour) {
-		this.actionStaminaCostSelf = actionStaminaCostSelf;
-		this.actionStaminaCostPartner = actionStaminaCostPartner;
+	private SexPace(boolean isDom, String name, BaseColour colour) {
 		this.isDom = isDom;
 		this.name = name;
 		this.colour = colour;
 	}
-
-	public int getActionStaminaCostSelf() {
-		return actionStaminaCostSelf;
-	}
 	
-	public int getActionStaminaCostPartner() {
-		return actionStaminaCostPartner;
+	public SexPace getOppositeDomEquivalent() {
+		switch(this) {
+			case DOM_GENTLE:
+				return SUB_NORMAL;
+			case DOM_NORMAL:
+				return SUB_NORMAL;
+			case DOM_ROUGH:
+				return SUB_EAGER;
+			case SUB_EAGER:
+				return DOM_ROUGH;
+			case SUB_NORMAL:
+				return DOM_NORMAL;
+			case SUB_RESISTING:
+				return DOM_GENTLE;
+		}
+		return SUB_NORMAL;
 	}
 	
 	public boolean isDom() {

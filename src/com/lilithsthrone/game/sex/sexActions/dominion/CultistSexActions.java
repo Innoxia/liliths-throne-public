@@ -1,23 +1,21 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.2.9
+ * @version 0.3.4
  * @author Innoxia
  */
 public class CultistSexActions {
@@ -42,7 +40,7 @@ public class CultistSexActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Sex.getCharacterPerformingAction()) && ((Cultist)Sex.getActivePartner()).isSealedSex();
+			return Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction());
 		}
 
 		@Override
@@ -67,10 +65,10 @@ public class CultistSexActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS
-					&& Sex.isDom(Sex.getCharacterPerformingAction());
+			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()) != SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()) != SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -92,20 +90,18 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
-				Sex.setSexManager(new SMAltarMissionarySealed(
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
+			if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())
+					|| Main.sex.isCharacterSealed(Main.sex.getCharacterTargetedForSexAction(this))) {
+				Main.sex.setSexManager(new SMAltarMissionarySealed(
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
 				
 			} else {
-				Sex.setSexManager(new SMAltarMissionary(
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
+				Main.sex.setSexManager(new SMAltarMissionary(
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
 				
 			}
-			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.resetRequests();
 		}
 	};
 	
@@ -119,10 +115,10 @@ public class CultistSexActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS
-					&& Sex.isDom(Sex.getCharacterPerformingAction());
+			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()) != SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()) != SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -144,19 +140,17 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
-				Sex.setSexManager(new SMAltarMissionarySealed(
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)),
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
+			if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())
+					|| Main.sex.isCharacterSealed(Main.sex.getCharacterTargetedForSexAction(this))) {
+				Main.sex.setSexManager(new SMAltarMissionarySealed(
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)),
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
 				
 			} else {
-				Sex.setSexManager(new SMAltarMissionary(
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS)),
-						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
+				Main.sex.setSexManager(new SMAltarMissionary(
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS)),
+						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR))));
 			}
-			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.resetRequests();
 		}
 	};
 	

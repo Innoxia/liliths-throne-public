@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="crowdGradient" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#crowdGradient)" fill-rule="evenodd"/>
+ <g fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="1.3122">
+  <path d="m23.52 48.496c-2.8783 0.27162-4.0685 0.02165-7.1253-0.20339-2.0634-8.6244-3.0358-18.686-2.175-25.024 1.9115-0.32533 7.2377-0.41677 11.182-0.31895l0.39648 1.3404c-1.9073 0.15071-3.5486-0.13604-3.7542 1.5356-0.25238 2.0519 0.02133 12.78 1.4757 22.67z" fill-rule="evenodd"/>
+  <ellipse cx="21.068" cy="17.933" rx="4.9293" ry="4.9148" stroke-linecap="round"/>
+  <path d="m48.522 48.176c-2.3944 0.2265-5.0015 0.26625-7.9577 0.13189 1.1991-5.0441 1.8537-17.183 1.6799-22.132-0.06402-1.8224-3.3243-1.5172-3.6665-1.5321 0.07222-0.79988 0.21354-0.74998 0.38617-1.7535 4.0974-0.15245 10.041-0.05825 11.761 0.17536 0.40022 7.034 0.02887 13.87-2.2032 25.11z" fill-rule="evenodd"/>
+  <ellipse cx="43.943" cy="17.817" rx="4.9293" ry="4.9148" stroke-linecap="round"/>
+  <path d="m37.603 51.742c-2.8777 0.27228-7.7289 0.2257-10.786 0-2.0634-8.6238-3.0351-18.685-2.1743-25.024 2.7254-0.46321 12.831-0.40284 15.164-0.0866 0.40022 7.0347 0.02887 13.87-2.2038 25.11z" fill-rule="evenodd"/>
+  <ellipse cx="32.379" cy="21.35" rx="4.9293" ry="4.9148" stroke-linecap="round"/>
+ </g>
+</svg>

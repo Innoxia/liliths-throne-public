@@ -1,14 +1,15 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -31,7 +32,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -49,9 +50,8 @@ public class PenisFoot {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getCharacterPerformingAction().getLegType().getFootType()) {
-				case HUMANOID:
-				case PAWS:
+			if(Main.sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.HUMANOID)
+					|| Main.sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.PAWS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Eagerly(guiding)] [npc2.namePos] [npc2.foot+] to [npc.her] crotch, [npc.name] [npc.verb(press)] the [npc.cockHead+] of [npc.her] [npc.cock+] up against [npc2.her] sole,"
 										+ " before [npc.eagerly] getting [npc2.herHim] to rub [npc2.her] [npc2.foot] all the way along [npc.her] shaft.",
@@ -59,7 +59,7 @@ public class PenisFoot {
 							"[npc.Name] [npc.verb(rub)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos] [npc2.foot+],"
 										+ " before [npc.eagerly] grinding [npc.her] [npc.cock+] up against [npc2.her] sole."));
 					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.foot], and,"
@@ -76,9 +76,9 @@ public class PenisFoot {
 									" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] [npc2.eagerly] sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+]."));
 							break;
 					}
-					break;
-				
-				case HOOFS:
+			}
+			
+			if(Main.sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.HOOFS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Eagerly(bringing)] [npc2.namePos] hard hoof up to [npc.her] [npc.cock+], [npc.name] carefully [npc.verb(press)] the sole against [npc.her] genitals,"
 											+ " before thrusting [npc.her] [npc.hips] forwards and starting to receive a hoofjob.",
@@ -86,7 +86,7 @@ public class PenisFoot {
 									"[npc.Name] [npc.verb(rub)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos] hard hoof,"
 											+ " before carefully pressing [npc2.her] sole down against [npc.her] shaft and starting to receive a hoofjob."));
 					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.foot], and,"
@@ -103,17 +103,17 @@ public class PenisFoot {
 									" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] [npc2.eagerly] sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+]."));
 							break;
 					}
-					break;
-					
-				case TALONS:
+			}
+
+			if(Main.sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.TALONS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Eagerly(curling)] [npc2.namePos] bird-like foot around [npc.her] [npc.cock+], [npc.name] makes sure that [npc2.her] sharp talons are pointing away from [npc.her] genitals,"
+							"[npc.Eagerly(curling)] [npc2.namePos] bird-like foot around [npc.her] [npc.cock+], [npc.name] [npc.verb(make)] sure that [npc2.her] sharp talons are pointing away from [npc.her] genitals,"
 											+ " before thrusting [npc.her] [npc.hips] forwards and starting to receive [npc2.a_footjob].",
 		
 									"[npc.Name] [npc.verb(rub)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos] bird-like foot,"
 											+ " before wrapping [npc2.her] claws over [npc.her] [npc.cock+] and starting to receive [npc2.a_footjob]."));
 					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.foot], and,"
@@ -130,7 +130,6 @@ public class PenisFoot {
 									" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] [npc2.eagerly] sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+]."));
 							break;
 					}
-					break;
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -139,7 +138,7 @@ public class PenisFoot {
 	};
 
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -180,40 +179,39 @@ public class PenisFoot {
 						" [npc2.Moaning] in delight, [npc2.name] softly [npc2.verb(slide)] [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(deliver)] a gentle [npc2.footjob]."));
 				break;
 			case DOM_ROUGH:
-				switch(Sex.getCharacterPerformingAction().getLegType().getFootType()) {
-					case HUMANOID:
-					case PAWS:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+] in response,"
-										+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(give)] [npc.herHim] a forceful [npc2.footjob].",
-			
-								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(slide)] [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+].",
-			
-								" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(deliver)] a forceful [npc2.footjob]."));
-						break;
-					case HOOFS:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+] in response,"
-										+ " not caring about the fact that using [npc2.her] hard hoof in such a violent manner is extremely uncomfortable for [npc.herHim].",
-			
-								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(rub)] [npc2.her] hard hoof up and down against [npc.namePos] [npc.cock+],"
-										+ " not caring in the least about how uncomfortable such a rough [npc2.footjob] is to receive.",
-			
-								" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] hard hoof up and down over [npc.namePos] [npc.cock+],"
-										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.verb(administer)] the uncomfortable, forceful [npc2.footjob]."));
-						break;
-					case TALONS:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+] in response,"
-										+ " not caring about the fact that [npc2.her] sharp talons keep on coming dangerously close to cutting [npc.herHim].",
-			
-								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(rub)] [npc2.her] bird-like claw up and down against [npc.namePos] [npc.cock+],"
-										+ " not caring in the least about how close [npc2.her] sharp talons come to cutting [npc.herHim].",
-			
-								" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] clawed, bird-like foot up and down over [npc.namePos] [npc.cock+],"
-										+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.verb(draw)] dangerously close to cutting [npc.herHim] with [npc2.her] sharp talons."));
-						break;
+				if(Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.HUMANOID)
+					|| Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.PAWS)) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+] in response,"
+									+ " letting out [npc2.a_moan+] as [npc2.she] [npc2.verb(give)] [npc.herHim] a forceful [npc2.footjob].",
+		
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(slide)] [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+].",
+		
+							" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] [npc2.foot+] up and down over [npc.namePos] [npc.cock+] as [npc2.she] [npc2.verb(deliver)] a forceful [npc2.footjob]."));
 				}
+				if(Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.HOOFS)) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+] in response,"
+									+ " not caring about the fact that using [npc2.her] hard hoof in such a violent manner is extremely uncomfortable for [npc.herHim].",
+		
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(rub)] [npc2.her] hard hoof up and down against [npc.namePos] [npc.cock+],"
+									+ " not caring in the least about how uncomfortable such a rough [npc2.footjob] is to receive.",
+		
+							" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] hard hoof up and down over [npc.namePos] [npc.cock+],"
+									+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.verb(administer)] the uncomfortable, forceful [npc2.footjob]."));
+				}
+				if(Main.sex.getCharacterTargetedForSexAction(action).getLegType().getFootType().equals(FootType.TALONS)) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] [npc2.verb(start)] roughly sliding [npc2.her] [npc2.foot] up and down over [npc.namePos] [npc.cock+] in response,"
+									+ " not caring about the fact that [npc2.her] sharp talons keep on coming dangerously close to cutting [npc.herHim].",
+		
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] forcefully [npc2.verb(rub)] [npc2.her] bird-like claw up and down against [npc.namePos] [npc.cock+],"
+									+ " not caring in the least about how close [npc2.her] sharp talons come to cutting [npc.herHim].",
+		
+							" [npc2.Moaning] in delight, [npc2.name] violently [npc2.verb(rub)] [npc2.her] clawed, bird-like foot up and down over [npc.namePos] [npc.cock+],"
+									+ " laughing derisively at [npc.herHim] as [npc2.she] [npc2.verb(draw)] dangerously close to cutting [npc.herHim] with [npc2.her] sharp talons."));
+				}
+				
 				break;
 		}
 		return "";
@@ -230,7 +228,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -275,7 +273,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -321,7 +319,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -367,7 +365,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -413,7 +411,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -459,7 +457,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -477,7 +475,7 @@ public class PenisFoot {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Desperately trying, and failing, to pull [npc.her] [npc.cock+] away from [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_sob+] as, ignoring [npc.her] protests,"
@@ -531,7 +529,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterTargetedForSexAction(this));
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -549,7 +547,7 @@ public class PenisFoot {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc.her] [npc.cock+] away from [npc2.namePos] [npc2.foot+],"
@@ -566,7 +564,7 @@ public class PenisFoot {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] can't help but let out [npc2.sob+] as [npc.name] moves away,"
@@ -597,7 +595,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -614,83 +612,81 @@ public class PenisFoot {
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getCharacterPerformingAction().getLegType().getFootType()) {
-				case HUMANOID:
-				case PAWS:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] [npc.foot+] down against [npc2.namePos] [npc2.cock+],"
-									+ " before [npc.eagerly] rubbing [npc.her] sole up and down the length of [npc2.her] shaft.",
 
-							"Bringing [npc.her] [npc.foot+] down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] sole down against [npc2.her] [npc2.cock+],"
-									+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
-					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
-						case SUB_RESISTING:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
-											+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
-	
-									" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
-							break;
-						default:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
-	
-									" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]"));
-							break;
-					}
-					break;
+			if(Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.HUMANOID)
+				|| Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.PAWS)) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] [npc.foot+] down against [npc2.namePos] [npc2.cock+],"
+								+ " before [npc.eagerly] rubbing [npc.her] sole up and down the length of [npc2.her] shaft.",
+
+						"Bringing [npc.her] [npc.foot+] down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] sole down against [npc2.her] [npc2.cock+],"
+								+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
 				
-				case HOOFS:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] hard hoof down against [npc2.namePos] [npc2.cock+],"
-									+ " before carefully [npc.eagerly] rubbing it up and down the length of [npc2.her] shaft.",
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
+										+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull away.",
 
-							"Bringing [npc.her] hard hoof down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] it down against [npc2.her] [npc2.cock+],"
-									+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
-					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
-						case SUB_RESISTING:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
-											+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
-	
-									" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
-							break;
-						default:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
-	
-									" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]"));
-							break;
-					}
-					break;
-					
-				case TALONS:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] bird-like claw down against [npc2.namePos] [npc2.cock+],"
-									+ " before carefully wrapping [npc.her] talons around [npc2.her] [npc2.cock] and starting to give [npc2.herHim] [npc.a_footjob].",
+								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
 
-							"Bringing [npc.her] bird-like claw down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(grasp)] [npc2.her] [npc2.cock+],"
-									+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
-					
-					switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
-						case SUB_RESISTING:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
-											+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
-	
-									" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
-							break;
-						default:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
-	
-									" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]"));
-							break;
-					}
-					break;
+								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]."));
+						break;
+				}
+			}
+
+			if(Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.HOOFS)) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] hard hoof down against [npc2.namePos] [npc2.cock+],"
+								+ " before carefully [npc.eagerly] rubbing it up and down the length of [npc2.her] shaft.",
+
+						"Bringing [npc.her] hard hoof down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(press)] it down against [npc2.her] [npc2.cock+],"
+								+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
+				
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
+										+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull away.",
+
+								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
+
+								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]."));
+						break;
+				}
+			}
+
+			if(Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.TALONS)) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(press)] [npc.her] bird-like claw down against [npc2.namePos] [npc2.cock+],"
+								+ " before carefully wrapping [npc.her] talons around [npc2.her] [npc2.cock] and starting to give [npc2.herHim] [npc.a_footjob].",
+
+						"Bringing [npc.her] bird-like claw down to [npc2.namePos] groin, [npc.name] [npc.eagerly] [npc.verb(grasp)] [npc2.her] [npc2.cock+],"
+								+ " [npc.moaning+] as [npc.she] [npc.verb(start)] to give [npc2.herHim] [npc.a_footjob]."));
+				
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock+],"
+										+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull away.",
+
+								" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc.her] [npc.foot] against [npc2.her] [npc2.cock]."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], [npc2.eagerly] bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] [npc2.eagerly] grinding against [npc.her] [npc.foot].",
+
+								" With [npc2.a_moan+], [npc2.name] [npc2.eagerly] [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(press)] [npc2.her] [npc2.cock+] against [npc.namePos] [npc.foot+]."));
+						break;
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -699,7 +695,7 @@ public class PenisFoot {
 	};
 	
 	private static String getTargetedCharacterReceivingResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -762,7 +758,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -804,7 +800,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -846,7 +842,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -888,7 +884,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -930,7 +926,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -972,7 +968,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -990,7 +986,7 @@ public class PenisFoot {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears start to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
@@ -1040,7 +1036,7 @@ public class PenisFoot {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDoubleFootJob(Sex.getCharacterPerformingAction());
+			return !Main.sex.isDoubleFootJob(Main.sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -1058,7 +1054,7 @@ public class PenisFoot {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking [npc.her] [npc.foot] away from [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(command)] [npc2.herHim] to leave [npc.her] [npc.feet] alone.",
@@ -1073,7 +1069,7 @@ public class PenisFoot {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] realises that [npc.name] [npc.has]n't finished with [npc2.herHim] just yet.",

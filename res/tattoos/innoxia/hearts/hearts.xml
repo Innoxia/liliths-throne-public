@@ -7,7 +7,7 @@
 	This results in this particular item's id being: "innoxia_hearts_hearts".
 	IMPORTANT: If you ever change the name of this .xml, or containing folder, any tattoos that exist in the game will be removed!-->
 	
-	<coreAtributes>
+	<coreAttributes>
 		<!-- The base value of this tattoo. All of the standard tattoos are 500 flames. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
 		<value>500</value> 
 		
@@ -71,6 +71,6 @@
 		</tertiaryColours>
 		-->
 		
-	</coreAtributes>
+	</coreAttributes>
 	
 </tattoo>

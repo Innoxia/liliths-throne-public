@@ -105,6 +105,16 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="KEEP_ENTRY_PACIFIED"><![CDATA[
+	<p>
+		Once again pushing on the keep's crude wooden doors, you discover that they're still not locked, and, with yet another loud creak, they swing open before you. The hall beyond appears much as it did the last time you were here, with the many wall-mounted arcane lanterns casting a soft golden glow over the colourful rugs, cushions, and blankets which cover the floor.
+	</p>
+	<p>
+		Near the opposite end from where you entered, you spot the familiar occupants of this fortress lounging about within their usual semi-circular pile of plush cushions. [npc.Name] is the first to notice your arrival, and, swaying her [npc.hips+] as she stands up, she calls out, [npc.speechNoEffects(Oh, like, you two're back to be my playthings again! Come on, let's have some fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="KEEP_PACIFIED_LEAVE"><![CDATA[
 	<p>
 		Not wanting to have sex with [npc2.name] right now, you quickly blurt out, [pc.speech(Ah, sorry, [npc2.name], we were just checking everything was ok. We've got to go now!)]

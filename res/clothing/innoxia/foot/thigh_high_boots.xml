@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>750</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[thigh high boot]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[thigh high boots]]></namePlural>
+		<description><![CDATA[A pair of thigh-high boots, with the heel being raised off the ground in order to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>FOOT</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>thigh_high_boots.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LEATHER"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(push)] [npc.her] [npc.feet] into the boots and [npc.verb(pull)] them up to [npc.her] mid-thigh.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(push)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(pull)] them up to [npc2.her] mid-thigh.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(yank)] them up to [npc2.her] mid-thigh.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down the tops of [npc.her] thigh-high boots before tugging them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down the tops of [npc2.namePos] thigh-high boots before tugging them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] down the tops of [npc2.namePos] thigh-high boots before tugging them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENSLAVEMENT_SUCCESS_COLLAR"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+	</p>
+	<p>
+		As you lift the collar up to [npc.her] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting this [npc.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around the [npc.race] neck. The [#SPECIAL_PARSE_0]'s arcane enchantment instantly recognises [npc.herHim] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+	</p>
+	<p>
+		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsArcane(Slave Registered.
+		<br/>Identification: [npc.nameFull(true)]
+		<br/>Race: [npc.Race])]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENSLAVEMENT_SUCCESS"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+	</p>
+	<p>
+		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. The [#SPECIAL_PARSE_0]'s arcane enchantment recognises the [npc.race] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+	</p>
+	<p>
+		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsArcane(Slave Registered.
+		<br/>Identification: [npc.nameFull(true)]
+		<br/>Race: [npc.Race])]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENSLAVEMENT_FAIL_ALREADY_SLAVE"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a sigh as [npc.she] sees what you're about to do, and says, [npc.speech(If you're trying to enslave me, it won't work... I'm already a slave...)]
+	</p>
+	<p>
+		Ignoring [npc.her] warning, you force the item of clothing onto the [npc.race], before stepping back and waiting to see if anything happens. True to [npc.her] words, however, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises [npc.herHim] as already being a slave, which is evidenced by glowing green lettering that's projected into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		[style.boldGreen(Slave already registered!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENSLAVEMENT_FAIL_NOT_WANTED_DEMON"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards v. [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! No Enforcer would ever sign off on a demon's enslavement warrant!)]
+	</p>
+	<p>
+		Ignoring [npc.her] warning, you force the [#SPECIAL_PARSE_0] onto the [npc.race], before stepping back and waiting to see if anything happens. True to [npc.her] words, however, the [#SPECIAL_PARSE_0]'s arcane enchantment doesn't recognise [npc.herHim] as being a criminal, which is evidenced by glowing red lettering that's projected into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Target not wanted for enslavement!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENSLAVEMENT_FAIL_NOT_WANTED"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! I haven't been targeted by the Enforcers for anything!)]
+	</p>
+	<p>
+		Ignoring [npc.her] warning, you force the [#SPECIAL_PARSE_0] onto the [npc.race], before stepping back and waiting to see if anything happens. True to [npc.her] words, however, the [#SPECIAL_PARSE_0]'s arcane enchantment doesn't recognise [npc.herHim] as being a criminal, which is evidenced by glowing red lettering that's projected into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Target not wanted for enslavement!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENSLAVEMENT_FAIL_NO_LICENSE"><![CDATA[
+	<p>
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+	</p>
+	<p>
+		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Invalid owner! Slaver license required!<br/>
+		Please contact the nearest Enforcer and inform them that this target is a wanted criminal!)]
+	</p>
+	<p>
+		The [npc.race] lets out a relieved sigh as [npc.she] sees that [npc.sheHas] avoided being enslaved. Not wanting to waste your time trying to hunt down an Enforcer who could deal with this [npc.race], you make a disappointed tutting noise as you step back and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

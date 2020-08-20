@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" cursor="default" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#faa"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient870" x1="439.921" x2="304.561" y1="987.207" y2="927.608" gradientTransform="translate(-221.429 -5.714)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient878" x1="350.66" x2="343.589" y1="828.847" y2="790.474" gradientTransform="translate(-221.429 -5.714)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+    </defs>
+    <g stroke="#000">
+        <path fill="#ff2a2a" fill-rule="evenodd" d="M165 244.75c2.395-.655 5.858-1.31 13.214-1.964-.879-23.918-.517-47.96-5.893-71.429z"/>
+        <path fill="url(#linearGradient878)" fill-rule="evenodd" d="M89.375 804.505c-.913.012-6.72 9.777-6.16 10.357 1.554 1.616 74.042 2.345 85.714-.714.915-.24-2.446-10.46-4.465-10.67-3.367-.349-52.1.734-75.089 1.027z" transform="translate(0 -796.362)"/>
+        <path fill="url(#linearGradient870)" fill-rule="evenodd" d="M83.214 814.862S72.551 834.972 70 845.934c-3.38 14.52-4.608 54.67-2.321 76.607 3.673 35.237 7.493 111.629 7.5 115.803.004 2.321.281 4.123 2.276 4.42 27.507 4.098 58.43 3.873 89.688 2.812 3.499-20.999 4.048-39.047 6.071-58.571.745 19.255-.58 40.58 2.5 57.5 3.194-1.533 9.743-3.116 9.554-4.598-1.248-9.81-.172-19.222-.268-27.902-.527-47.536 3.736-100.765 3.802-138.041.042-23.574-14.773-54.704-19.873-59.816z" transform="translate(0 -796.362)"/>
+        <path fill="none" stroke-width=".5" d="M90.456 18.708S81.233 43.41 79.092 56.336c-2.753 16.62-2.299 32.792-1.41 49.615 2.403 45.537 9.456 80.38 15.3 142.314M165.893 18.5S178.228 54.024 179.82 76c2.735 37.719-6.075 84.99-6.607 116.25"/>
+    </g>
+</svg>

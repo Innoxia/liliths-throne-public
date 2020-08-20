@@ -192,7 +192,7 @@
 		Curious about the #IFgame.isIncestEnabled()#THENslime siblings'#ELSEslimes'#ENDIF history, and how they came to serve the Slime Queen, you decide to ask them about it. [pc.speech(So, how did you two end up working here?)]
 	</p>
 		[slimeFire.speech(Well, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I used to work up in Submission, at the Gambling Den. I was one of the security, while #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF used to referee that pregnancy roulette game they've got going in there,)]
-		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IFgame.isIncestEnabled()#THENI wasn't afraid of giving my sis' what it is she likes the most#ELSEI'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
+		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IF(!game.isIncestEnabled()) I wasn't afraid of giving my sis' what it is she likes the most#ELSE I'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
 	</p>
 	<p>
 		[slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF Please!)] [slimeIce.name] stutters, turning away to hide her blushing cheeks, and exposing her rear ones in the process.
@@ -403,7 +403,7 @@
 	
 	<htmlContent tag="ROYAL_GUARD_POST"><![CDATA[
 	<p>
-		Up ahead, a little way down the corridor, you see a rather curious sight. A purple incubus-slime, standing at well over six feet tall, is charging back and forth, wildly swinging a huge two-handed sword this way and that as he shouts and grunts from exertion. As you approach, you see that he's wearing a pair of black leather chaps, and, apart from a cloth wrapping around his stomach, is currently topless. Preparing to defend yourself, you continue walking forwards, until the muscular demonic slime finally notices your presence. 
+		Up ahead, a little way down the corridor, you see a rather curious sight. A purple incubus-slime, standing at well over [units.size(183)] in height, is charging back and forth, wildly swinging a huge two-handed sword this way and that as he shouts and grunts from exertion. As you approach, you see that he's wearing a pair of black leather chaps, and, apart from a cloth wrapping around his stomach, is currently topless. Preparing to defend yourself, you continue walking forwards, until the muscular demonic slime finally notices your presence. 
 	</p>
 	<p>
 		[slimeRoyalGuard.speech(Who dares approach I, the mighty [slimeRoyalGuard.name], royal bodyguard of her Highness, the Queen of all Slimes?!)] the [slimeRoyalGuard.race] booms, slinging his huge sword over his shoulder as he turns to bar your way forwards.
@@ -750,7 +750,7 @@
 		Before you can respond, the bath's surface starts to push upwards, carrying a golden tiara, earrings, and necklace up from the tiled floor. The distinctive shape of a woman's head quickly forms out of the slime, and you watch, ready to defend yourself from any attack, as the rest of the Queen's naked body starts to take shape.
 	</p>
 	<p>
-		To begin with, nothing seems to be out of the ordinary as the pink, female slime stands up before you. As her hips lift up out of the bath's slimy waters, however, the Queen starts to rapidly grow in size. Initially standing at just over five-and-a-half feet tall, it only takes a couple of seconds before her entire body has proportionally expanded up to seven feet in height.
+		To begin with, nothing seems to be out of the ordinary as the pink, female slime stands up before you. As her hips lift up out of the bath's slimy waters, however, the Queen starts to rapidly grow in size. Initially standing at just over [units.size(168)] in height, it only takes a couple of seconds before her entire body has proportionally expanded up to seven feet in height.
 	</p>
 	<p>
 		You instinctively step back as the slime before you continues to grow in height. Eight feet... Nine... Ten... Her growth shows no sign of stopping as she backs away from you, making no attempt to cover up her [slimeQueen.breastSize], [slimeQueen.cupSize]-cup breasts and [slimeQueen.pussy+].
@@ -806,7 +806,7 @@
 	
 	<htmlContent tag="SLIME_QUEEN_CONVINCE"><![CDATA[
 	<p>
-		[pc.speech(Please calm down,)] you say. [pc.speech(I'm here on behalf of Submission's enforcers. Your subjects up in the tunnels have been causing quite a problem, what with transforming everyone into slimes and all. I'm here to put an end to it.)]
+		[pc.speech(Please calm down,)] you say. [pc.speech(I'm here on behalf of Submission's Enforcers. Your subjects up in the tunnels have been causing quite a problem, what with transforming everyone into slimes and all. I'm here to put an end to it.)]
 	</p>
 	<p>
 		[slimeQueen.speech(S-So you're not going to ravish me?)] Catherine whines, sitting up on her bed and sulking. [slimeQueen.speech(You just want me to stop my subjects from transforming people?)]
@@ -842,7 +842,7 @@
 		[slimeQueen.speech(Yes, I will, but there's a little problem. I don't really have any way to contact my subjects, and I've distributed quite a few of those canisters by now. I won't make any more, but I don't think your problem's going to disappear any time soon...)]
 	</p>
 	<p>
-		[pc.speech(Fine. At least there's not going to be any more encouragement from you from now on.)] You sigh. [pc.speech(Now, I'm going to need some proof for the enforcers that you won't be a problem anymore.)]
+		[pc.speech(Fine. At least there's not going to be any more encouragement from you from now on.)] You sigh. [pc.speech(Now, I'm going to need some proof for the Enforcers that you won't be a problem anymore.)]
 	</p>
 	<p>
 		[slimeQueen.speech(Hmm, you can have this, I guess,)] Catherine says, taking off her crown and throwing it to you. [slimeQueen.speech(It's kind of uncomfortable to wear, so I was thinking of getting rid of it anyway.)]
@@ -851,7 +851,7 @@
 		As you catch the crown, Catherine lies back on her bed, spreading her legs once more and sighing, [slimeQueen.speech(Now, if you'll excuse me, I'll just lie here for a while, all defenceless and innocent, hoping that you don't change your mind and decide to have your wicked way with me...)]
 	</p>
 	<p>
-		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the Enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
 	</p>
 	]]>
 	</htmlContent>
@@ -882,7 +882,7 @@
 		[slimeQueen.speech(~Mhmm~ T-That's right.)] Catherine giggles, sliding her free hand down to rub at her exposed pussy. [slimeQueen.speech(I-I spend all day in that bath, drinking water and letting my body convert it into more of my yummy slime! The distillery downstairs splits the transformative and non-transformative parts, and that's how we make Slime Quencher!)]
 	</p>
 	<p>
-		[pc.speech(Enough,)] you snap, tightening your grip as you continue, [pc.speech(I'm going to need some proof for the enforcers that you won't be a problem anymore.)]
+		[pc.speech(Enough,)] you snap, tightening your grip as you continue, [pc.speech(I'm going to need some proof for the Enforcers that you won't be a problem anymore.)]
 	</p>
 	<p>
 		[slimeQueen.speech(M-My crown...)] Catherine mutters, dropping her head down a little. [slimeQueen.speech(A-As a sign of my submission, y-you should take my crown.)]
@@ -891,7 +891,7 @@
 		Doing as the Slime Queen suggests, you snatch the crown from her head, causing her to let out a particularly erotic moan, [slimeQueen.speech(~Aah!~ Stripped of my sign of authority! Y-You brute! I bet you want to have your wicked way with me now, as well!)]
 	</p>
 	<p>
-		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+		With your business with the Slime Queen finally resolved, and with the proof of your victory grasped firmly in your [pc.hand], all that's left to do is to return to the Enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
 	</p>
 	]]>
 	</htmlContent>
@@ -913,10 +913,10 @@
 		[pc.speech(Whatever your motive, I just want there to be more slimes,)] you say. [pc.speech(So what can I do to help?)]
 	</p>
 	<p>
-		[slimeQueen.speech(Mmm... Well... It would be kind of anticlimactic if the enforcers stormed my tower and simply arrested me. I'm sure they wouldn't want to ravish me, which would be just awful,)] Catherine whines, before suddenly having an idea. [slimeQueen.speech(Oh! If you could get the enforcers to stop investigating the slime problem, then only strong adventurers would come seeking me out! Oh, and I guess there'd be more slimes, as my subjects wouldn't be getting arrested as much...)]
+		[slimeQueen.speech(Mmm... Well... It would be kind of anticlimactic if the Enforcers stormed my tower and simply arrested me. I'm sure they wouldn't want to ravish me, which would be just awful,)] Catherine whines, before suddenly having an idea. [slimeQueen.speech(Oh! If you could get the Enforcers to stop investigating the slime problem, then only strong adventurers would come seeking me out! Oh, and I guess there'd be more slimes, as my subjects wouldn't be getting arrested as much...)]
 	</p>
 	<p>
-		[pc.speech(So you need me to convince the enforcers that you're not a problem? I can do that, but I'll need some proof to show them that you've been dealt with.)]
+		[pc.speech(So you need me to convince the Enforcers that you're not a problem? I can do that, but I'll need some proof to show them that you've been dealt with.)]
 	</p>
 	<p>
 		[slimeQueen.speech(Hmm, you can have this, I guess,)] Catherine says, taking off her crown and throwing it to you. [slimeQueen.speech(It's kind of uncomfortable to wear, so I was thinking of getting rid of it anyway.)]
@@ -925,7 +925,7 @@
 		As you catch the crown, Catherine lies back on her bed, spreading her legs once more and sighing, [slimeQueen.speech(Now, if you'll excuse me, I'll just lie here for a while, all defenceless and innocent, hoping that you don't change your mind and decide to have your wicked way with me...)]
 	</p>
 	<p>
-		With your business with the Slime Queen finally resolved, and with the proof needed to convince the enforcers grasped firmly in your [pc.hand], all that's left to do is to return to the enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
+		With your business with the Slime Queen finally resolved, and with the proof needed to convince the Enforcers grasped firmly in your [pc.hand], all that's left to do is to return to the Enforcer post and report back to Claire. Then again, you could always play along with Catherine's fantasy first...
 	</p>
 	]]>
 	</htmlContent>
@@ -943,19 +943,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="SLIME_QUEEN_BATH_SEX_START"><![CDATA[
-	<p>
-		Deciding to give Catherine what she so clearly wants, you sink down onto your knees behind her and grab her hips. [pc.speech(Seeing as you want to be 'ravished' so badly, I think I'll have a little fun with you...)]
-	</p>
-	<p>
-		[slimeQueen.speech(Ah! No! Please! Y-You can't do this to royalty! I-I'm a queen!)] Catherine screams, completely failing to conceal the tone of arousal in her voice as she tries, rather half-heartedly, to crawl away from you.
-	</p>
-	<p>
-		Pulling Catherine back into your groin, you look down at the huge pink Slime Queen, grinning as you prepare to give her the ravishing she so badly desires...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="SLIME_QUEEN_BATH"><![CDATA[
 	<p>
 		Wanting to relax before continuing on your way, you step over to the side of the huge bath, and take a look down into the pink slime. Sensing what it is you want, Catherine gets up from her bed and walks over to your side, before giggling, [slimeQueen.speech(Would you like to get in with me?)]
@@ -967,16 +954,26 @@
 		[slimeQueen.speech(You must be tired from travelling all this way to see me. Please, let me wash you,)] she sighs, sliding around behind you before starting to rub her slimy hands all over your back.
 	</p>
 	<p>
-		Her warm touch instantly puts you at ease, and, once she's finished with your back, you lean back into Catherine, using her [slimeQueen.breastSize] breasts as a cushion as you let out a contented sigh. The Slime Queen giggles as she hugs you close to her, and, running her hands up and down the length of your body, she submissively cleans you with her warm pink slime.
+		Her warm touch instantly puts you at ease, and, once she's finished with your back, you lean back into Catherine, using her [slimeQueen.breastSize] breasts as a cushion as you let out a contented sigh. The Slime Queen giggles as she hugs you close to her, and happily runs her hands up and down the length of your body as she submissively cleans you with her warm pink slime.
 	</p>
 	<p>
-		After a while of this, you feel as though you really should be getting on your way, and, sliding away from Catherine, you stand up and exit the bath.
+		After a while of this, you feel as though you really should be getting on your way. Somehow sensing that you're about to leave, Catherine makes a show of 'accidentally' slipping down into the slimy bath, before pushing herself up onto her hands and knees and shaking her naked ass in your direction. Putting on a tone of dismay, the huge slime cries out, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
 	</p>
 	<p>
-		 The Slime Queen moves to follow your lead, but as she steps out of the bath, she makes a show of knocking a nearby bottle of water to the floor. Instantly sinking down onto her hands and knees, she crawls towards it, shaking her naked ass in your direction as she sighs, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
+		While Catherine's attempt at getting you to fuck her is beyond transparent, you wonder if you should take advantage of this situation and just give her what she so clearly wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_QUEEN_BATH_SEX_START"><![CDATA[
+	<p>
+		Deciding to give Catherine what she so clearly wants, you sink down onto your knees behind her and grab her hips, before stating, [pc.speech(Seeing as you want to be 'ravished' so badly, I think I'll have a little fun with you...)]
 	</p>
 	<p>
-		You shake your head at Catherine's transparent attempt at getting you to fuck her, but, as you finish dressing yourself, you wonder if you should take advantage of this situation to give her what she wants...
+		[slimeQueen.speech(Ah! No! Please! Y-You can't do this to royalty! I-I'm a queen!)] Catherine screams, completely failing to conceal the tone of arousal in her voice as she half-heartedly splashes about in the bath.
+	</p>
+	<p>
+		Pulling Catherine back into your groin, you look down at the huge pink Slime Queen, grinning as you prepare to give her the ravishing she so badly desires...
 	</p>
 	]]>
 	</htmlContent>
@@ -1001,10 +998,10 @@
 		[slimeQueen.speech(H-Hold on! I-I'll get you out of me, just- ~Aaaah!~)] you hear Catherine's muffled voice calling out from above, before being interrupted by an incredibly erotic moan. [slimeQueen.speech(S-Stop! You're pressing on my- ~Aaaaaah!~)]
 	</p>
 	<p>
-		Before you have time to realise what Catherine's saying, the need for oxygen overwhelms you, and you instinctively breathe in, taking a huge gulp of Catherine's slimy pink body into your lungs. At that moment, the Slime Queen is finally able to expel you from her body, and pushes you out of the bath, panting, [slimeQueen.speech(Oh no! Are you ok? Cough it all up!)]
+		Before you have time to realise what Catherine's saying, the need for oxygen overwhelms you, and you instinctively breathe in, taking a huge gulp of Catherine's slimy pink body into your lungs. At that moment, the Slime Queen is finally able to expel you from her body, and with a huge splash, she pushes you out into the slimy pink bath water.
 	</p>
 	<p>
-		As Catherine rubs your back, you cough up a small amount of the pink goo, but you can feel that the damage is already done, and your body starts to change...
+		[slimeQueen.speech(Oh no! Are you ok? Cough it all up!)] Catherine calls out as she frantically rubs and pats your back. Although you manage to cough up a small amount of the pink goo, you can feel that the damage is already done, and you find yourself sinking down into the bath water as your body starts to change...
 	</p>
 	]]>
 	</htmlContent>
@@ -1014,45 +1011,13 @@
 		[slimeQueen.speech(Y-You're a slime!)] Catherine exclaims, stating the obvious. [slimeQueen.speech(I-I'm so sorry! I didn't mean to do this to you!)]
 	</p>
 	<p>
-		Feeling completely recovered from your sudden transformation, you let out a little sigh and stand up on your new slimy legs. [pc.speech(I-I think I'm ok...)]
+		Surprisingly, you feel completely recovered from your sudden, alarming transformation, and you let out a weary sigh, [pc.speech(I think I'm ok...)]
 	</p>
 	<p>
-		The Slime Queen moves to follow your lead, but as she starts to stand up, she makes a show of knocking a nearby bottle of water to the floor. Instantly sinking down onto her hands and knees, she crawls towards it, shaking her naked ass in your direction as she sighs, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
+		Standing up on your new, slimy legs, you prepare to step out of the bath and see about getting your things back in order. Seeing that you're about to leave, Catherine makes a show of 'accidentally' slipping back down into the slimy bath, before pushing herself up onto her hands and knees and shaking her naked ass in your direction. Putting on a tone of dismay, the huge slime cries out, [slimeQueen.speech(~Aah!~ I'm so clumsy! And now I'm in the perfect position for someone to take advantage of me...)]
 	</p>
 	<p>
-		You shake your head at Catherine's transparent attempt at getting you to fuck her, but, as you finish dressing yourself, you wonder if you should take advantage of this situation to give her what she wants...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="AFTER_SLIME_QUEEN_SEX"><![CDATA[
-	<p>
-		Exhausted from her orgasm, [slimeQueen.name] collapses back onto her huge bed. [slimeQueen.speech(~Aah!~ T-That was amazing...)]
-	</p>
-	<p>
-		Grinning at the Slime Queen, you can't help but question her satisfied sigh. [pc.speech(But I thought you didn't want to be 'ravished'?)]
-	</p>
-	<p>
-		[slimeQueen.speech(O-Oh! T-That's right!)] Catherine stutters. [slimeQueen.speech(I-I meant to say; Oh no! Now that you've had your wicked way with me, nobody will respect me any more! To think, the queen of all slimes was ravished like a common whore!)]
-	</p>
-	<p>
-		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="AFTER_SLIME_QUEEN_SEX_NO_ORGASM"><![CDATA[
-	<p>
-		Frustrated from not getting to orgasm even once, [slimeQueen.name] collapses back onto her huge bed. [slimeQueen.speech(~Aah!~ Y-You brute! You wouldn't even let me orgasm!)]
-	</p>
-	<p>
-		Grinning at the Slime Queen, you can't help but reply, [pc.speech(Well, the one who's being 'ravished' doesn't really get a say in the matter, does she?)]
-	</p>
-	<p>
-		[slimeQueen.speech(W-Well, you could have at least let me cum once!)] Catherine stutters. [slimeQueen.speech(The next time you decide to have your wicked way with me, make sure I get to have some fun too!)]
-	</p>
-	<p>
-		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+		While Catherine's attempt at getting you to fuck her is beyond transparent, you wonder if you should take advantage of this situation and just give her what she so clearly wants...
 	</p>
 	]]>
 	</htmlContent>
@@ -1101,6 +1066,75 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- AFTER_SLIME_QUEEN_SEX_BATH -->
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX_BATH"><![CDATA[
+	<p>
+		Exhausted from her orgasm, [slimeQueen.name] clambers out of the bath and sinks down onto her huge bed, before sighing, [slimeQueen.speech(~Aah!~ That was amazing...)]
+	</p>
+	<p>
+		Similarly exiting the pool of slimy water, you can't help but grin at the Slime Queen as you question her admission of enjoyment, [pc.speech(I thought you didn't want to be 'ravished'?)]
+	</p>
+	<p>
+		[slimeQueen.speech(Oh! T-That's right!)] Catherine stutters, [slimeQueen.speech(I-I meant to say; Oh no! Now that you've had your wicked way with me, nobody will respect me any more! To think, the queen of all slimes was ravished like a common whore!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX_BATH_NO_ORGASM"><![CDATA[
+	<p>
+		Frustrated from your inability to satisfy her, [slimeQueen.name] clambers out of the bath and sinks down onto her huge bed with an overly-dramatic sigh, [slimeQueen.speech(~Aah!~ Y-You brute! You were only concerned with your own pleasure!)]
+	</p>
+	<p>
+		Similarly exiting the pool of slimy water, you can't help but grin at the Slime Queen as you reply, [pc.speech(Well, the one who's being 'ravished' doesn't really get a say in the matter, does she?)]
+	</p>
+	<p>
+		[slimeQueen.speech(W-Well, it would have been better for both of us if you fully satisfied me!)] Catherine stutters, [slimeQueen.speech(The next time you decide to have your wicked way with me, make sure I get to have some fun too!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SLIME_QUEEN_SEX -->
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX"><![CDATA[
+	<p>
+		Exhausted from her orgasm, [slimeQueen.name] collapses back onto her huge bed. [slimeQueen.speech(~Aah!~ T-That was amazing...)]
+	</p>
+	<p>
+		Grinning at the Slime Queen, you can't help but question her satisfied sigh, [pc.speech(But I thought you didn't want to be 'ravished'?)]
+	</p>
+	<p>
+		[slimeQueen.speech(O-Oh! T-That's right!)] Catherine stutters, [slimeQueen.speech(I-I meant to say; Oh no! Now that you've had your wicked way with me, nobody will respect me any more! To think, the queen of all slimes was ravished like a common whore!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_QUEEN_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Frustrated from your inability to satisfy her, [slimeQueen.name] collapses back onto her huge bed with an overly-dramatic sigh, [slimeQueen.speech(~Aah!~ Y-You brute! You were only concerned with your own pleasure!)]
+	</p>
+	<p>
+		Grinning at the Slime Queen, you can't help but reply, [pc.speech(Well, the one who's being 'ravished' doesn't really get a say in the matter, does she?)]
+	</p>
+	<p>
+		[slimeQueen.speech(W-Well, it would have been better for both of us if you fully satisfied me!)] Catherine stutters, [slimeQueen.speech(The next time you decide to have your wicked way with me, make sure I get to have some fun too!)]
+	</p>
+	<p>
+		Shaking your head at Catherine's remarks, you gather your things and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 </dialogue>

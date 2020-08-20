@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" cursor="default" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset=".388" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff2a2a"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset=".134" stop-color="#ff8080" stop-opacity=".918"/>
+            <stop offset=".794" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#faa"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4539" x1="405.435" x2="416.611" y1="252.31" y2="181.607" gradientTransform="matrix(.95 0 0 .95 -265.407 -53.09)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient4551" x1="417.532" x2="413.688" y1="169.822" y2="191.379" gradientTransform="matrix(.95 0 0 .95 -265.407 -53.09)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+    </defs>
+    <g fill-rule="evenodd" stroke="#000" stroke-width=".831">
+        <path fill="url(#linearGradient4551)" d="M33.548 103.425c57.188 30.655 121.3 39.888 191.041 31.616-38.723-21.2-183.545-41.694-191.04-31.616z" transform="matrix(1.20665 -.18041 .18 1.05732 -50.522 -.508)"/>
+        <path fill="url(#linearGradient4539)" d="M31.525 106.994l-6.654 45.267c-.811 5.52.136 7.048 2.789 7.964 60.697 20.95 123.048 30.814 186.648 32.302 4.1.096 5.583-1.813 6.259-5.966l7.183-44.156c.684-4.202-1.566-7.689-5.238-7.87-64.343-3.19-126.321-12.266-185.624-31.504-3.367-1.092-5 1.494-5.363 3.963z" transform="matrix(1.20665 -.18041 .18 1.05732 -50.522 -.508)"/>
+    </g>
+</svg>

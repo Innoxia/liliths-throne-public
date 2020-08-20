@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		
+		<authorTag><![CDATA[On one side of the cylinder, a small engraving reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+	
+		<value>5600</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>true</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[revolving tranquiliser rifle]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[revolving tranquiliser rifles]]></namePlural> 
+		
+		<description><![CDATA[Firing aura-piercing fin-stabilized discarding sabot darts filled with a potent sleeping potion, this rifle is not a true sniping weapon. Rather, it is designed to extend the reach of a standard Enforcer squad. Unlike most dart rifles, it uses a six-shot revolving autoloader.]]></description> 
+		
+		<attackDescriptor>shoot</attackDescriptor>
+		
+		<attackTooltipDescription>Shoot [npc2.name] with your tranquiliser rifle.</attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the rifle, [npc.verb(load)] a fresh gas bottle, and [npc.verb(insert)] a full-moon clip of six darts into the autoloader.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(remove)] the unspent darts from the autoloader, [npc.verb(unload)] the gas bottle, and [npc.verb(put)] the rifle away.]]></unequipText>
+		
+		<imageName>trqrifle_nogas.svg</imageName> 
+		
+		<imageEquippedName>trqrifle.svg</imageEquippedName>
+		
+		<damage>45</damage> 
+		
+		<arcaneCost>4</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_GREY"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The needle on the end of the dart embeds itself in [npc2.namePos] aura and releases its contents.
+		#IF !npc2.hasStatusEffect(SE_ARCANE_DUALITY_NEGATIVE)
+		#THEN [##npc2.addStatusEffect(SE_ARCANE_DUALITY_NEGATIVE, 6)] [npc2.Name] <span style='color:#85FF8B;'><b>[npc2.verb(struggle)] to defend [npc2.herself]</b></span> as [npc2.her] eyelids grow visibly heavier. 
+		#ENDIF
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The dart clatters uselessly on the ground.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

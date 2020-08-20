@@ -1,96 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="nyanShop.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="nyanShopGradient">
-      <stop
-         style="stop-color:#ff5555;stop-opacity:1"
-         offset="0"
-         id="stop4184" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="1"
-         id="stop4186" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#nyanShopGradient"
-       id="linearGradient15"
-       x1="29.499998"
-       y1="1025.4872"
-       x2="44.125"
-       y2="1003.3622"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2884366,0,0,1.290513,-9.2250812,-296.31254)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="5.6568546"
-     inkscape:cx="23.39656"
-     inkscape:cy="37.204295"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.36216)"
-     style="display:inline">
-    <ellipse
-       ry="30.381458"
-       rx="30.382944"
-       cy="1020.3683"
-       cx="32.000488"
-       id="ellipse4146"
-       style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 43.557149,1041.7486 c -2.919559,-0.03 -4.359545,0.041 -7.01896,-0.062 -1.949485,-0.076 -4.51913,-0.2979 -6.898398,-0.3646 -3.023792,-0.084 -5.968088,0.011 -9.43189,0.1953 0.416655,-8.215 0.355178,-16.4194 0.277966,-24.4009 -1.634591,0.8637 -2.401074,1.7445 -4.215835,2.534 -2.300113,-2.5355 -4.264177,-4.175 -6.3932455,-6.2542 4.8265765,-5.2538 5.5937845,-6.8601 9.0339325,-9.5898 1.534435,-1.2178 5.924853,-3.96334 7.336964,-4.22664 1.46551,0.94714 7.549567,1.72144 10.776775,-0.076 3.19622,1.21934 5.874352,2.20974 7.737213,3.83884 3.65794,3.1991 5.905394,6.5245 8.84862,9.7752 -1.837583,2.332 -4.045811,4.2932 -6.068953,6.4396 -1.748197,-0.5553 -2.538272,-1.8289 -3.771746,-3.0718 -0.308715,7.8527 -0.125785,17.4659 -0.212443,25.2629 z"
-       id="path4848"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cssccccsccscccc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="nyanShopGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#nyanShopGradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" d="M43.557 1041.749c-2.92-.03-4.36.04-7.019-.062-1.95-.076-4.519-.298-6.898-.365-3.024-.084-5.968.011-9.432.195.417-8.215.355-16.42.278-24.4-1.635.863-2.401 1.744-4.216 2.533-2.3-2.535-4.264-4.175-6.393-6.254 4.826-5.254 5.594-6.86 9.034-9.59 1.534-1.217 5.925-3.963 7.337-4.226 1.465.947 7.55 1.721 10.776-.076 3.197 1.22 5.875 2.21 7.738 3.839 3.658 3.199 5.905 6.524 8.848 9.775-1.837 2.332-4.046 4.293-6.069 6.44-1.748-.556-2.538-1.83-3.771-3.072-.31 7.852-.126 17.466-.213 25.263z"/>
+    </g>
 </svg>

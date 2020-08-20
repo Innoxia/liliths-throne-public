@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,37 +10,42 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogueCompanions;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayProstituteDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.StormStreetAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.6
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -55,23 +62,20 @@ public class DominionAlleywayAttacker extends NPC {
 		this(Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
-		super(isImported, null, "",
+	public DominionAlleywayAttacker(Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				3,
+				null, null, null,
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false,
+				generationFlags);
 
 		if(!isImported) {
-	
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
-			
 			boolean canalSpecies = false;
-			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
-			if(pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-					|| pt == PlaceType.DOMINION_CANAL
-					|| pt == PlaceType.DOMINION_CANAL_END) {
+			AbstractPlaceType pt = Main.game.getPlayerCell().getPlace().getPlaceType();
+			if(pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+					|| pt.equals(PlaceType.DOMINION_CANAL)
+					|| pt.equals(PlaceType.DOMINION_CANAL_END)) {
 				canalSpecies = true;
 			}
 			
@@ -87,6 +91,8 @@ public class DominionAlleywayAttacker extends NPC {
 					case ANGEL:
 					case BAT_MORPH:
 					case DEMON:
+					case LILIN:
+					case ELDER_LILIN:
 					case HARPY:
 					case HARPY_RAVEN:
 					case HARPY_BALD_EAGLE:
@@ -94,100 +100,58 @@ public class DominionAlleywayAttacker extends NPC {
 					case IMP:
 					case IMP_ALPHA:
 					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_ARCTIC:
 					case FOX_ASCENDANT_FENNEC:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+					case HALF_DEMON:
 						break;
 						
 					// Canals spawn only:
 					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(canalSpecies?25:0, gender, s, availableRaces);
+						Subspecies.addToSubspeciesMap((canalSpecies?2000:0), gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(canalSpecies?30:0, gender, s, availableRaces);
+						Subspecies.addToSubspeciesMap((canalSpecies?3000:0), gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
-						addToSubspeciesMap(canalSpecies?15:0, gender, s, availableRaces);
+						Subspecies.addToSubspeciesMap((canalSpecies?2500:0), gender, s, availableRaces);
 						break;
 						
 					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+							Subspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 						break;
 						
 					// Regular spawns:
-					case CAT_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LYNX:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LION:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_TIGER:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CHEETAH:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CARACAL:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(canalSpecies?3:12, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_BORDER_COLLIE:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case FOX_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case FOX_MORPH_FENNEC:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(canalSpecies?4:16, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH_ZEBRA:
-						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
-						break;
-					case SQUIRREL_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
-					case WOLF_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH:
-						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH_LOP:
-						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
-						break;
+					default:
+						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+							Subspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						}
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
+			
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
+				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
+					this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				}
+			}
+			
+			if(Math.random()<Main.getProperties().taurSpawnRate/100f
+					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
+				CharacterUtils.applyTaurConversion(this);
+			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-	
+			
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
@@ -198,6 +162,7 @@ public class DominionAlleywayAttacker extends NPC {
 			CharacterUtils.setHistoryAndPersonality(this, true);
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				this.setHistory(Occupation.NPC_MUGGER);
+				setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			}
 			
 			// ADDING FETISHES:
@@ -213,18 +178,26 @@ public class DominionAlleywayAttacker extends NPC {
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
-	
-			CharacterUtils.equipClothing(this, true, false);
+			
+			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
+				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+			}
 			CharacterUtils.applyMakeup(this, true);
 			
-			// Set starting attributes based on the character's race
-			initAttributes();
+			// Set starting perks based on the character's race
+			initPerkTreeAndBackgroundPerks();
+			this.setStartingCombatMoves();
+			loadImages();
+
+			initHealthAndManaToMax();
 			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			this.setLocation(Main.game.getPlayer(), true);
+			if(this.isStormAttacker() && !this.isVulnerableToArcaneStorm()) { // NPCs spawned during a storm should be vulnerable to it.
+				this.addSpecialPerk(Perk.SPECIAL_ARCANE_ALLERGY);
+			}
 		}
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -238,8 +211,16 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.clearNonEquippedInventory(false);
+		CharacterUtils.generateItemsInInventory(this);
+		
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+		} else {
+			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		}
 	}
 	
 	@Override
@@ -249,19 +230,29 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE
+				&& Main.game.isLipstickMarkingEnabled()
+				&& !this.isSlave()
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
+				&& this.getLipstick().getPrimaryColour()!=PresetColour.COVERING_NONE) {
+			this.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+		}
+		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 			// Remove client:
-			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation()));
+			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
 			if(charactersPresent.size()>1) {
 				for(NPC npc : charactersPresent) {
 					if(npc instanceof GenericSexualPartner) {
-	//					System.out.println("partner removed for "+slave.getName());
+//						System.out.println("partner removed for "+this.getName());
+//						System.out.println(npc.getId());
 						Main.game.banishNPC(npc);
 					}
 				}
 				
 			} else if(Math.random()<0.33f) { // Add client:
 				GenericSexualPartner partner;
+//				System.out.println("partner generated for "+this.getNameIgnoresPlayerKnowledge()+" "+this.getLocation().toString()+", "+this.getLocationPlace().getPlaceType().getName());
 				
 				if(Math.random()<0.25f) {
 					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
@@ -298,13 +289,6 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 		}
 	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-			setPendingClothingDressing(true);
-		}
-	}
 
 	@Override
 	public boolean isClothingStealable() {
@@ -321,33 +305,30 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
-		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
-		
-		if(pt == PlaceType.DOMINION_BACK_ALLEYS
-				|| pt == PlaceType.DOMINION_CANAL
-				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
-				|| pt == PlaceType.DOMINION_CANAL_END) {
-			
+	public DialogueNode getEncounterDialogue() {
+		if(!isStormAttacker()) {
 			if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
 				
 			} else {
-				if(Main.game.getPlayer().getCompanions().isEmpty()) {
-					return AlleywayAttackerDialogue.ALLEY_ATTACK;
-				} else {
-					return AlleywayAttackerDialogueCompanions.ALLEY_ATTACK;
-				}
+				return AlleywayAttackerDialogue.ALLEY_ATTACK;
 			}
 			
 		} else {
-			return AlleywayAttackerDialogue.STORM_ATTACK;
+			return StormStreetAttackerDialogue.STORM_ATTACK;
 		}
 	}
 
 	// Combat:
 
+	@Override
+	public void applyEscapeCombatEffects() {
+		if(isStormAttacker()) {
+			Main.game.banishNPC(this);
+		}
+	}
+	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
@@ -356,20 +337,31 @@ public class DominionAlleywayAttacker extends NPC {
 			} else {
 				return new Response ("", "", AlleywayProstituteDialogue.AFTER_COMBAT_DEFEAT);
 			}
-		} else {
-			if(Main.game.getPlayer().getCompanions().isEmpty()) {
-				if (victory) {
-					return new Response("", "", AlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
-				} else {
-					return new Response ("", "", AlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
-				}
+			
+		} else if(isStormAttacker()) {
+			if (victory) {
+				return new Response("", "", StormStreetAttackerDialogue.AFTER_COMBAT_VICTORY);
 			} else {
-				if (victory) {
-					return new Response("", "", AlleywayAttackerDialogueCompanions.AFTER_COMBAT_VICTORY);
-				} else {
-					return new Response ("", "", AlleywayAttackerDialogueCompanions.AFTER_COMBAT_DEFEAT);
-				}
+				return new Response ("", "", StormStreetAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			}
+			
+		} else {
+			if (victory) {
+				return new Response("", "", AlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", AlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
 			}
 		}
+	}
+	
+	public boolean isStormAttacker() {
+		AbstractPlaceType pt = this.getLocationPlace().getPlaceType();
+		return this.getWorldLocation().equals(WorldType.DOMINION)
+				&& !pt.equals(PlaceType.DOMINION_BACK_ALLEYS)
+				&& !pt.equals(PlaceType.DOMINION_ALLEYS_CANAL_CROSSING)
+				&& !pt.equals(PlaceType.DOMINION_CANAL)
+				&& !pt.equals(PlaceType.DOMINION_CANAL_END)
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
+				&& (!this.isSlave() || !this.getOwner().isPlayer());
 	}
 }

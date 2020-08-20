@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>750</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[strap-on]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[strap-ons]]></namePlural>
+    <description><![CDATA[This [unit.size(25)] dildo is made of self-cleaning, arcane-cured silicone. It is firmly held in place at the wearer's groin by means of a comfortable leather harness. The harness's straps are cleverly positioned so as to keep the wearer's vagina and anus exposed.]]></description>
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>PENIS</slot>
+    <rarity>EPIC</rarity>
+    <imageName>penis_strapon.svg</imageName>
+	<clothingSet>BDSM</clothingSet>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+	<effects/>
+
+    <blockedPartsList>
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours values="ALL"/>
+    <primaryColoursDye/>
+    <secondaryColours>
+		<colour>CLOTHING_BLACK</colour>
+    </secondaryColours>
+    <secondaryColoursDye values="ALL"/>
+    <tertiaryColours>
+		<colour>CLOTHING_STEEL</colour>
+    </tertiaryColours>
+    <tertiaryColoursDye values="ALL_WITH_METALS"/>
+
+    <itemTags>
+      <tag>SOLD_BY_FINCH</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>REQUIRES_NO_PENIS</tag>
+    </itemTags>
+	
+	<sexAttributesOther>
+		<penetration>
+			<length>25</length>
+			<girth>3</girth>
+			<modifiers/>
+		</penetration>
+		<orifice/>
+	</sexAttributesOther>
+	
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(fit)] the strap-on around [npc.her] waist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(fit)] the strap-on around [npc2.namePos] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(fit)] the strap-on around [npc2.namePos] waist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] strap-on.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] strap-on.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(take)] off [npc2.namePos] strap-on.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

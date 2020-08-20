@@ -1,56 +1,30 @@
 package com.lilithsthrone.game.sex;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
- * @version 0.2.8
+ * @version 0.3.7
  * @author Innoxia
  */
-public class SexFlags implements Serializable {
+public class SexFlags {
 
-	private static final long serialVersionUID = 1L;
-
-	public static boolean positioningBlockedPlayer;
-	public static boolean positioningBlockedPartner;
 	public static boolean selfActionsBlockedPlayer;
 	public static boolean selfActionsBlockedPartner;
-	public static boolean playerRequestedPullOut;
-	public static boolean playerRequestedCreampie;
-	public static boolean partnerRequestedPullOut;
-	public static boolean partnerRequestedCreampie;
 	
 	// Generic:
 	public static boolean mutualOrgasmsAllowed;
 	public static List<GameCharacter> playerPreparedForCharactersOrgasm;
-	public static boolean playerGrewDemonicCock;
-	public static boolean playerDeniedPartner;
-	
-	// Position requests:
-	public static boolean requestedCowgirl;
-	public static boolean requested69;
-	public static boolean requestedDoggy;
-	public static boolean requestedDoggyOral;
-	public static boolean requestedDoggyReceiveOral;
-	public static boolean requestedDomFuckedDoggy;
-	public static boolean requestedBackToWall;
-	public static boolean requestedFaceToWall;
-	public static boolean requestedKneeling;
-	public static boolean requestedSelfKneeling;
-	public static boolean requestedMissionary;
-	public static boolean requestedMissionaryOnBack;
-	public static boolean requestedSitOnFace;
-	public static boolean requestedFaceSitting;
+	/** Typically use the key as a flag, and the value for any integer you want associated with the flag. */
+	public static Map<String, Integer> genericFlags;
 	
 	
-	public static boolean requestedChairBottom;
-	public static boolean requestedChairTop;
-	public static boolean requestedChairOralGiving;
-	public static boolean requestedChairOralReceiving;
+	//TODO remove these values and move them into DialogueFlags so that it's all in one place:
 	
 	// Brax: TODO Temporary awaiting Brax rewrite
 	public static boolean braxCumOnChest;
@@ -59,37 +33,30 @@ public class SexFlags implements Serializable {
 	public static boolean customerAtCounter;
 	public static boolean alertedCustomer;
 	public static boolean askedForBigDiscount;
+	public static int ralphDiscount;
 	
 	//Pix
 	public static boolean pixDemandedPromise;
 	public static boolean pixPlayerPromised;
 	
-	public static int ralphDiscount;
-
+	// Claire:
+	public static boolean claireSexInterrupted;
+	public static int claireSexInterruptedTurn;
+	
+	
+	
 	public SexFlags() {
 		reset();
 	}
 	
 	public static void reset() {
-		
-		positioningBlockedPlayer = false;
-		positioningBlockedPartner = false;
+		genericFlags = new HashMap<>();
 		
 		selfActionsBlockedPlayer = false;
 		selfActionsBlockedPartner = false;
 		
-		playerRequestedPullOut = false;
-		playerRequestedCreampie = false;
-		partnerRequestedPullOut = false;
-		partnerRequestedCreampie = false;
-		
 		mutualOrgasmsAllowed = true;
 		playerPreparedForCharactersOrgasm = new ArrayList<>();
-		
-		playerGrewDemonicCock = false;
-		playerDeniedPartner = false;
-		
-		resetRequests();
 		
 		// Brax:
 		braxCumOnChest = false;
@@ -103,28 +70,10 @@ public class SexFlags implements Serializable {
 		// Pix:
 		pixDemandedPromise=false;
 		pixPlayerPromised = false;
+		
+		// Claire:
+		claireSexInterrupted = false;
+		claireSexInterruptedTurn = -1;
 	}
 	
-	public static void resetRequests() {
-		requestedCowgirl = false;
-		requested69 = false;
-		requestedDoggy = false;
-		requestedDoggyOral = false;
-		requestedDoggyReceiveOral = false;
-		requestedDomFuckedDoggy = false;
-		requestedBackToWall = false;
-		requestedFaceToWall = false;
-		requestedKneeling = false;
-		requestedSelfKneeling = false;
-		requestedMissionary = false;
-		requestedMissionaryOnBack = false;
-		requestedSitOnFace = false;
-		requestedFaceSitting = false;
-		
-		requestedChairBottom = false;
-		requestedChairTop = false;
-		requestedChairOralGiving = false;
-		requestedChairOralReceiving = false;
-	}
-
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>500</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Seal]]></name>
@@ -16,7 +16,7 @@
 		<imageEquippedName/>
 		<enchantmentLimit>10</enchantmentLimit>
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SEALING" secondaryModifier="ARCANE_BOOST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
@@ -54,10 +54,10 @@
 		<tertiaryColoursDye/>
 	
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(hook)] the eyepatch's straps around [npc.her] [npc.ears], before positioning the pad over [npc.her] [npc.eye].]]>
     </self>
@@ -67,9 +67,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(hook)] the eyepatch's straps around [npc2.namePos] [npc2.ears], before firmly positioning the pad over [npc2.her] [npc2.eye].]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unloop)] the eyepatch's straps from around [npc.her] [npc.ears], before taking it off.]]>
     </self>
@@ -79,6 +79,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(tug)] the eyepatch's straps off of [npc2.namePos] [npc2.ears], before taking it off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendColourName="false"><![CDATA[cock pump]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[cock pumps]]></namePlural>
+		<description><![CDATA[Designed to slide over a person's penis via its open end, this hollow, plastic cylinder is connected to two tubes. One pressurises the container, while the other sucks up the cum that's spurted out of the wearer's cock.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PENIS</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>penis_pump.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_VIBRATION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>PENIS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLUE_GREY</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			<tag>MILKING_EQUIPMENT</tag>
+			<tag>TRANSPARENT</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>RIGID_MATERIAL</tag>
+			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<sexAttributesSelf>
+		<orifice/> <!-- This item has no orifice stats -->
+		<!-- Warning! As of v0.3.7, orifice sex toy support is not fully implemented into the game! -->
+		<!--
+		<orifice>
+			<depth>0</depth> cm value
+			<capacity>0</capacity> cm value corresponding to diameter of orifice
+			<elasticity>3</elasticity> 0-7 corresponding to OrificeElasticity Enum values
+			<plasticity>3</plasticity> 0-7 corresponding to OrificePlasticity Enum values
+			<wetness>0</wetness> 0-7 corresponding to Wetness Enum values
+			<modifiers>
+				<mod>PUFFY</mod> Drawn from OrificeModifier Enum values
+			</modifiers>
+		</orifice>
+		-->
+	</sexAttributesSelf>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(turn)] up the dial on the milking machine, before sliding the now-pressurised pump down over [npc.her] [npc.cock+].
+			#IF(npc.getTotalFluidInArea(ORIFICE_URETHRA_PENIS)>0)
+				<br/>[style.italicsCum(The cock-pump quickly drains [npc.namePos] urethra-creampie!)]
+			#ENDIF
+			]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(turn)] up the dial on the milking machine, before sliding the now-pressurised pump down over [npc2.namePos] [npc2.cock+].
+			#IF(npc2.getTotalFluidInArea(ORIFICE_URETHRA_PENIS)>0)
+				<br/>[style.italicsCum(The cock-pump quickly drains [npc2.namePos] urethra-creampie!)]
+			#ENDIF
+			]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(crank)] up the dial on the milking machine, before roughly shoving the now-pressurised pump down over [npc2.namePos] [npc2.cock+].
+			#IF(npc2.getTotalFluidInArea(ORIFICE_URETHRA_PENIS)>0)
+				<br/>[style.italicsCum(The cock-pump quickly drains [npc2.namePos] urethra-creampie!)]
+			#ENDIF
+			]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(turn)] down the dial on the milking machine, before letting the rapidly-depressurising pump slide off of [npc.her] [npc.cock+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(turn)] down the dial on the milking machine, before letting the rapidly-depressurising pump slide off of [npc2.namePos] [npc2.cock+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[With no regard for [npc2.her] comfort, [npc.name] roughly [npc.verb(yank)] the still-pressurised pump off of [npc2.namePos] [npc2.cock+].]]>
+		</otherRough>
+	</displacementText>
+</clothing>

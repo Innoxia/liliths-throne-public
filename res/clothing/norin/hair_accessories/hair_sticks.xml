@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Small engraved lettering informs you that these sticks were made by 'Norin'.]]></clothingAuthorTag>
+		<value>200</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[hair stick]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[hair sticks]]></namePlural> 
+		<description><![CDATA[A pair of sticks used to gather long hair in a bun.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>HAIR</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>hair_sticks.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> 
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL_WITH_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>TRANSPARENT</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] a pair of hair sticks out from [npc.her] [npc.hairSkin+], letting it flow free.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] a pair of hair sticks out from [npc2.NamePos] [npc2.hairSkin+], letting it flow free.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] a pair of hair sticks out from [npc2.NamePos] [npc2.hairSkin+].]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(slide)] in a pair of hair sticks.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(slide)] in a pair of hair sticks.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(force)] in a pair of hair sticks.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

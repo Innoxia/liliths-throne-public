@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- For a version with comments, see "rental_mommy.xml". -->
+<!-- For a version with comments, see "res/mods/innoxia/items/clothing/template/socks.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Rental-Daddy T-shirt]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Rental-Daddy T-shirts]]></namePlural>
 		<description><![CDATA[A T-shirt that bears the words 'Rental Daddy', with the price of fifty flames displayed below that.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>TORSO_UNDER</slot>
 		<rarity>UNCOMMON</rarity>
@@ -20,7 +20,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SEEDER" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_IMPREGNATION" timer="0"/>
 		</effects>
 		<blockedPartsList>
 			<blockedParts>
@@ -64,115 +64,56 @@
 		<tertiaryColoursDye values="ALL"/>
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your T-shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s T-shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s T-shirt and roughly pull it off over [npc.her] head.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] T-shirt off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your T-shirt off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your T-shirt and roughly pulls it off over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s T-shirt off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s T-shirt and roughly pulls it off over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc.her] [npc.arms] through the T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the T-shirt's sleeves as [npc.she] [npc.verb(pull)] it down over [npc2.her] head.]]>
+    </otherRough>
+  </replacementText>
 
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the T-shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.arms] through the T-shirt's sleeves as you pull it on [npc.herHim].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the T-shirt down over [npc.her] head, before pulling it down over [npc.her] torso.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the T-shirt.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.arms] through the T-shirt's sleeves, before pulling it down over your torso.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the T-shirt down over your head, before pushing your [pc.arms] through the sleeves.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.arms] through the T-shirt's sleeves before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the T-shirt down over [npc2.her] head, before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPCRough>
-	</replacementText>
-
-	<displacementText type="PULLS_UP">
-		<playerSelf><![CDATA[
-			You pull your T-shirt up to just below your chin.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull up [npc.name]'s T-shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You roughly yank up [npc.name]'s T-shirt.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls [npc.her] T-shirt up to just below [npc.her] chin.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls up your T-shirt.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] roughly yanks up your T-shirt.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls up [npc2.name]'s T-shirt.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] roughly pulls up [npc2.name]'s T-shirt.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] T-shirt.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] T-shirt.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] T-shirt.]]>
+    </otherRough>
+  </displacementText>
 	
-	<replacementText type="PULLS_DOWN">
-		<playerSelf><![CDATA[
-			You pull your T-shirt back down, covering your torso.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull down [npc.name]'s T-shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You roughly pull down [npc.name]'s T-shirt.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls [npc.her] T-shirt back down to cover [npc.her] torso.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls down your T-shirt.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] roughly pulls down your T-shirt.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls down [npc2.name]'s T-shirt.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] roughly pulls down [npc2.name]'s T-shirt.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+  <replacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt back down, covering [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] T-shirt back down, covering [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] T-shirt back down, covering [npc2.her] torso.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt up to just below [npc.her] chin, fully exposing [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </otherRough>
+  </displacementText>
 	
 </clothing>

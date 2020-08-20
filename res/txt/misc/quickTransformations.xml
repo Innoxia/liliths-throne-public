@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Quick Transformations -->
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY"><![CDATA[
+	#IF(npc.isAttractedTo(pc) || !game.isNonConEnabled())
+		<p>
+			Wanting to take full advantage of the fact that this horny [npc.race] can transform [npc.her] body into whatever form [npc.she] desires, you take a step forwards and prepare to tell [npc.herHim] exactly how feminine [npc.her] body should be. Looking up at you as you approach, [npc.she] whines, [npc.speech(Yes! Come on then; fuck me already!)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to take full advantage of the fact that this horny [npc.race] can transform [npc.her] body into whatever form [npc.she] desires, you take a step forwards and prepare to tell [npc.herHim] exactly how feminine [npc.her] body should be. Looking up at you as you approach, [npc.she] nervously shuffles backwards and whines, [npc.speech(What do you want?! Just leave me alone!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY_VERY_MASCULINE"><![CDATA[
+	<p>
+		#IF(npc.getFemininity() == FEMININITY_MASCULINE_STRONG)
+			You decide that you like [npc.name] having a very masculine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
+		#ELSE
+				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a very masculine face and body, you command, [pc.speech(Make your body as manly as you possibly can!)]
+			</p>
+			<p>
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+			</p>
+			<p>
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as masculine as [npc.she] can manage, and within just a moment, you find yourself smiling at his now-extremely-manly body and handsome face. You wonder if you should now get him to
+		#ENDIF
+		#IF(npc.hasPenis())
+			 transform his cock...
+		#ELSE
+			 grow him a cock...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY_MASCULINE"><![CDATA[
+	<p>
+		#IF(npc.getFemininity() == FEMININITY_MASCULINE)
+			You decide that you like [npc.name] having a masculine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
+		#ELSE
+				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a masculine face and body, you command, [pc.speech(Transform your body so that you're masculine, but not too much so!)]
+			</p>
+			<p>
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+			</p>
+			<p>
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become masculine, and within just a moment, you find yourself smiling at his now-manly body and handsome face. You wonder if you should now get him to
+		#ENDIF
+		#IF(npc.hasPenis())
+			 transform his cock...
+		#ELSE
+			 grow him a cock...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY_ANDROGYNOUS"><![CDATA[
+	<p>
+		#IF(npc.getFemininity() == FEMININITY_ANDROGYNOUS)
+			You decide that you like [npc.name] having an androgynous body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
+		#ELSE
+				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has an androgynous face and body, you command, [pc.speech(Transform your body so that you look androgynous!)]
+			</p>
+			<p>
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+			</p>
+			<p>
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become androgynous, and within just a moment, you find yourself smiling at their gender-neutral body and face. You wonder if you should now get [npc.name] to
+		#ENDIF
+		#IF(npc.hasPenis())
+			 transform their cock...
+		#ELSE
+			 grow a cock...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY_FEMININE"><![CDATA[
+	<p>
+		#IF(npc.getFemininity() == FEMININITY_FEMININE)
+			You decide that you like [npc.name] having a feminine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
+		#ELSE
+				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a feminine face and body, you command, [pc.speech(Transform your body so that you're feminine, but not too much so!)]
+			</p>
+			<p>
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+			</p>
+			<p>
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become feminine, and within just a moment, you find yourself smiling at her girly body and pretty face. You wonder if you should now get [npc.herHim] to
+		#ENDIF
+		#IF(npc.hasPenis())
+			 transform her cock...
+		#ELSE
+			 grow herself a cock...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_FEMININITY_VERY_FEMININE"><![CDATA[
+	<p>
+		#IF(npc.getFemininity() == FEMININITY_FEMININE_STRONG)
+			You decide that you like [npc.name] having a very feminine body and face, and can't help but hungrily look [npc.herHim] up and down as you wonder if you should get [npc.herHim] to
+		#ELSE
+				Wanting [npc.name] to transform [npc.herself] so that [npc.she] has a very feminine face and body, you command, [pc.speech(Make your body appear as feminine as you possibly can!)]
+			</p>
+			<p>
+				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.she] has no say in the matter, [npc.speech(Fine...)]
+			</p>
+			<p>
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as feminine as [npc.she] can manage, and within just a moment, you find yourself smiling at her extremely womanly body and beautiful face. You wonder if you should now get [npc.herHim] to
+		#ENDIF
+		#IF(npc.hasPenis())
+			 transform her cock...
+		#ELSE
+			 grow herself a cock...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS"><![CDATA[
+	<p>
+		[npc.speech(Come on... You don't want me to transform any more, do you?)] [npc.name] whines.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS_NONE"><![CDATA[
+	<p>
+		Not really liking the idea of [npc.name] having a cock, you tell [npc.herHim] as much, [pc.speech(I don't want you having a cock, ok?)]
+	</p>
+	<p>
+		[npc.speech(Not my cock!)] [npc.race] moans, before relenting, [npc.speech(Fine, I'll do as you ask...)]
+	</p>
+	<p>
+		#IF(npc.isCoverableAreaVisible(CA_PENIS))
+			Looking down at [npc.her] exposed crotch, you thankfully see that [npc.sheHas] done as [npc.sheHas] been told, and there's no evidence of any male genitalia between [npc.her] [npc.legs].
+		#ELSE
+			Looking down at [npc.her] crotch, you thankfully don't see any sign of a bulge beneath [npc.her] clothes; evidence that [npc.sheHas] done as [npc.sheHas] been told.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS_TINY"><![CDATA[
+	<p>
+		Deciding that [npc.name] should have a cute little sissy-cock, you order [npc.herHim] to transform, [pc.speech(I think a little bit of humiliation would do you good! You're going to give yourself a cute little cock for me, understood? And keep it tiny!)]
+	</p>
+	<p>
+		[npc.speech(Does it really have to be tiny?)] [npc.race] moans, before relenting, [npc.speech(Fine, I'll do as you ask...)]
+	</p>
+	<p>
+		#IF(npc.isCoverableAreaVisible(CA_PENIS))
+			Looking down at [npc.her] exposed crotch, you thankfully see that [npc.sheHas] done as [npc.sheHas] been told, and that [npc.she] now has a tiny little sissy-cock between [npc.her] [npc.legs].
+		#ELSE
+			Looking down at [npc.her] crotch, you don't see any sign of a bulge beneath [npc.her] clothes, but then again, if [npc.sheHas] kept it tiny like you asked, you wouldn't expect to see anything there anyway.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS_AVERAGE"><![CDATA[
+	<p>
+		Deciding that [npc.she] should have an average-sized cock, you order [npc.name] to grow one, [pc.speech(You're going to give yourself a nice cock for me, understood? And keep it a reasonable size! I don't want to see anything too big!)]
+	</p>
+	<p>
+		With no choice but to do as you command, [npc.race] sighs, [npc.speech(Fine, I'll do as you ask...)]
+	</p>
+	<p>
+		#IF(npc.isCoverableAreaVisible(CA_PENIS))
+			Looking down at [npc.her] exposed crotch, you thankfully see that [npc.sheHas] done as [npc.sheHas] been told, and that [npc.she] now has an average-sized cock hanging down between [npc.her] [npc.legs].
+		#ELSE
+			Looking down at [npc.her] crotch, you see a small bulge beneath [npc.her] clothes, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS_LARGE"><![CDATA[
+	<p>
+		Deciding that [npc.she] should have a nice, big cock, you order the [npc.race] to transform, [pc.speech(You're going to give yourself a nice big cock, understood? And I'm serious about it being big!)]
+	</p>
+	<p>
+		With no choice but to do as you command, [npc.race] sighs, [npc.speech(Fine, I'll do as you ask...)]
+	</p>
+	<p>
+		#IF(npc.isCoverableAreaVisible(CA_PENIS))
+			Looking down at [npc.her] exposed crotch, you thankfully see that [npc.sheHas] done as [npc.sheHas] been told, and that [npc.she] now has a large cock dangling down between [npc.her] [npc.legs].
+		#ELSE
+			Looking down at [npc.her] crotch, you see a large bulge beneath [npc.her] clothes, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_PENIS_HUGE"><![CDATA[
+	<p>
+		Deciding that [npc.she] should have the biggest cock [npc.sheIs] able to grow, you order the [npc.race] to get started, [pc.speech(You're going to give yourself a huge cock, understood? And make it as big as possible! If you aren't hung like a horse, then you're going to be in trouble!)]
+	</p>
+	<p>
+		With no choice but to do as you command, [npc.race] sighs, [npc.speech(Fine, I'll do as you ask...)]
+	</p>
+	<p>
+		#IF(npc.isCoverableAreaVisible(CA_PENIS))
+			Looking down at [npc.her] exposed crotch, you thankfully see that [npc.sheHas] done as [npc.sheHas] been told, and that [npc.she] now has an absolutely massive cock dangling down between [npc.her] [npc.legs].
+		#ELSE
+			Looking down at [npc.her] crotch, you see a massive bulge beneath [npc.her] clothing, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_VAGINA"><![CDATA[
+	<p>
+		Panting and moaning, the [npc.race] pleads with you, [npc.speech(Come on! There isn't anything else is there?!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_VAGINA_ENABLED"><![CDATA[
+	<p>
+		Wanting to [npc.name] to have female genitalia, you order [npc.herHim], [pc.speech(You're going to make sure you've got a pussy for me to play with, understand?)]
+	</p>
+	<p>
+		By now [npc.name] has give up trying to complain, and just obediently sighs, [npc.speech(Ok, ok! Hold on... And... Done!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_VAGINA_DISABLED"><![CDATA[
+	<p>
+		Not having any plans to use [npc.her] pussy, you bark out your order, [pc.speech(I don't want to see a pussy between your legs, understood? You're not getting off like that with me!)]
+	</p>
+	#IF(npc.hasVagina())
+		<p>
+			[npc.Name] shuffles around uncomfortably and lets out a mortified groan as [npc.she] voices [npc.her] reluctance to carry out your order, [npc.speech(That would really suck... Do I have to?)]
+		</p>
+		<p>
+			Reminding [npc.herHim] that [npc.sheIs] in no position to be making demands, you order [npc.her] once again to remove [npc.her] pussy. Seeing that you mean business, [npc.she] whines, [npc.speech(Fine! Just... Hold on... Ok... It's gone...)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(I don't even have one,)] [npc.name] whines, [npc.speech(and I'm in no hurry to grow one for you...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS"><![CDATA[
+	<p>
+		Shuffling about in discomfort, the [npc.race] stares up into your eyes and whines, [npc.speech(What more do you want?!)]
+	</p>
+	<p>
+		#IF(npc.hasBreasts())
+			Ignoring [npc.her] question, you wonder if you should get [npc.herHim] to perform one final transformation. [npc.Her] [npc.cupSize]-cup breasts might need some work, after all...
+		#ELSE
+			Ignoring [npc.her] question, you wonder if you should get [npc.herHim] to perform one final transformation. [npc.Her] flat chest might need some work, after all...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_FLAT"><![CDATA[
+	#IF(npc.hasBreasts())
+		<p>
+			Wanting to humiliate [npc.herHim] a little, you order [npc.name] to get rid of [npc.her] breasts, [pc.speech(You're going to get rid of your tits, understand? You're going to be as flat as a board, or else!)]
+		</p>
+		<p>
+			With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
+		</p>
+	#ELSE
+		<p>
+			Wanting [npc.herHim] to have a flat chest, you order [npc.name], [pc.speech(You're going to have a flat chest, ok?!)]
+		</p>
+		<p>
+			[npc.speech(Fine! It's not like I have any choice in the matter, do I?)] [npc.she] groans.
+		</p>
+	#ENDIF
+	<p>
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheIs] completely flat-chested. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_AA"><![CDATA[
+	<p>
+		#IF(npc.hasBreasts())
+			Wanting to humiliate [npc.herHim] a little, you order [npc.name] to shrink [npc.her] breasts, [pc.speech(You're going to shrink your tits, understand? If they're anything bigger than little double-A's, then you'll have to start all over again!)]
+		#ELSE
+			Wanting to humiliate [npc.herHim] a little, you order [npc.name] to grow some breasts, [pc.speech(You're going to grow some tiny tits for me, understand? And if they're anything other than little double-A's, then you'll have to start all over again!)]
+		#ENDIF
+	</p>
+	<p>
+		With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
+	</p>
+	<p>
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.sheIs] almost completely flat-chested. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_C"><![CDATA[
+	<p>
+		#IF(npc.hasBreasts())
+			Wanting [npc.herHim] to have average-sized breasts, you order [npc.name], [pc.speech(These tits of yours aren't to my liking! Make them a more reasonable size! C-cups should do just fine.)]
+		#ELSE
+			Wanting to humiliate [npc.herHim] a little, you order [npc.name] to grow some breasts, [pc.speech(You're going to grow some tits for me, understand? And if they're anything other than C-cups, then you'll have to start all over again!)]
+		#ENDIF
+	</p>
+	<p>
+		With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
+	</p>
+	<p>
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], C-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_E"><![CDATA[
+	<p>
+		#IF(npc.hasBreasts())
+			Wanting [npc.herHim] to have large breasts, you order [npc.name], [pc.speech(I want you with big tits! E-cups should do just fine.)]
+		#ELSE
+			Wanting to humiliate [npc.herHim], you order [npc.name] to grow some breasts, [pc.speech(You're going to grow some tits for me, understand? And if they're anything other than E-cups, then you'll have to start all over again!)]
+		#ENDIF
+	</p>
+	<p>
+		With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
+	</p>
+	<p>
+		Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], E-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_H"><![CDATA[
+	#IF(npc.hasBreasts() && npc.getBreastRawSizeValue()<15)
+		<p>
+			Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, [pc.speech(I thought [npc.races] liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards. Make them at least an H-cup.)]
+		</p>
+		<p>
+			You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve. [npc.speech(W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger for you...)]
+		</p>
+		<p>
+			Looking down at [npc.her] chest, you see [npc.her] [npc.breastSize], [npc.cupSize]-cup breasts start to expand, and after just a couple of seconds, [npc.sheIs] left with a massive, H-cup bust.
+		</p>
+	#ELSE
+		<p>
+			Wanting to humiliate [npc.herHim], you order [npc.name] to grow some huge breasts, [pc.speech(You're going to grow some massive tits for me, understand? And if they're anything other than H-cups, then you'll have to start all over again!)]
+		</p>
+		<p>
+			With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... I just need to get fucked so bad... Fine!)]
+		</p>
+		<p>
+			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], H-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUICK_TRANSFORMATIONS_BREASTS_N"><![CDATA[
+	#IF(npc.hasBreasts() && npc.getBreastRawSizeValue()<25)
+		<p>
+			Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, [pc.speech(I thought [npc.races] liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards. Make them at least an N-cup.)]
+		</p>
+		<p>
+			You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve. [npc.speech(What?! But everyone always says that these are big enough! Fine... I can make them bigger for you...)]
+		</p>
+		<p>
+			Looking down at [npc.her] chest, you see [npc.her] [npc.breastSize], [npc.cupSize]-cup breasts start to expand, and after just a couple of seconds, [npc.sheIs] left with a massive, N-cup bust. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Wanting to humiliate [npc.herHim], you order [npc.name] to grow some huge breasts, [pc.speech(You're going to grow some massive tits for me, understand? And if they're anything other than N-cups, then you'll have to start all over again!)]
+		</p>
+		<p>
+			With a desperate sob, the [npc.race] does as you command. [npc.speech(Really?! Aah... Fine!)]
+		</p>
+		<p>
+			Looking at [npc.her] torso, you see [npc.her] chest rapidly transform, and after just a couple of seconds, [npc.she] has [npc.breastShape], N-cup breasts. Satisfied with the changes you've made to [npc.namePos] body, you wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -1,0 +1,45 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+ <g fill="none" stroke="#fff">
+  <g transform="matrix(1.089 0 0 1.089 -4.323 -1084)" stroke-linecap="round" stroke-linejoin="round">
+   <ellipse transform="rotate(.008)" cx="22.741" cy="1035.9" rx="9.033" ry="4.717" stroke-width="3.229"/>
+   <ellipse transform="rotate(.876)" cx="60.641" cy="1032.6" rx="8.701" ry="4.387" stroke-width="3.056"/>
+   <g stroke-width=".652">
+    <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="159.16" cy="1034" rx="3.339" ry="1.107"/>
+    <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="162.81" cy="1033.1" rx="3.339" ry="1.107"/>
+    <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="166.69" cy="1032.3" rx="3.339" ry="1.107"/>
+    <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="170.98" cy="1032.4" rx="3.339" ry="1.107"/>
+   </g>
+  </g>
+  <g transform="matrix(.729 0 0 .729 8.2832 -723.22)">
+   <path d="m9.69 1004.3v14.745" stroke-width="3.1145"/>
+   <path d="m13.366 1008.8h1.92" stroke-linecap="round" stroke-width="3.3411"/>
+   <path d="m10.336 1013.1 21.67 0.03" stroke-width="4.6718"/>
+   <path d="m30.497 1019-0.048-5.584" stroke-width="3.1145"/>
+  </g>
+  <g transform="matrix(.729 0 0 .729 8.2832 -723.22)">
+   <path d="m35.773 1004.2v14.745" stroke-width="3.1145"/>
+   <path d="m39.449 1008.8h1.92" stroke-linecap="round" stroke-width="3.3411"/>
+   <path d="m36.42 1013 21.67 0.03" stroke-width="4.6718"/>
+   <path d="m56.58 1018.9-0.048-5.584" stroke-width="3.1145"/>
+  </g>
+  <g transform="matrix(.729 0 0 .729 8.1844 -710.47)">
+   <path d="m9.69 1004.3v14.745" stroke-width="3.1145"/>
+   <path d="m13.366 1008.8h1.92" stroke-linecap="round" stroke-width="3.3411"/>
+   <path d="m10.336 1013.1 21.67 0.03" stroke-width="4.6718"/>
+   <path d="m30.497 1019-0.048-5.584" stroke-width="3.1145"/>
+  </g>
+  <g transform="matrix(.729 0 0 .729 8.1844 -710.47)">
+   <path d="m35.773 1004.2v14.745" stroke-width="3.1145"/>
+   <path d="m39.449 1008.8h1.92" stroke-linecap="round" stroke-width="3.3411"/>
+   <path d="m36.42 1013 21.67 0.03" stroke-width="4.6718"/>
+   <path d="m56.58 1018.9-0.048-5.584" stroke-width="3.1145"/>
+  </g>
+ </g>
+</svg>

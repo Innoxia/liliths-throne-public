@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>100</value> 
 		
 		<determiner><![CDATA[an]]></determiner>
@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A hat of the sort you'd expect to see a witch or wizard wearing. Although perhaps is was of great value at one time in its life, it looks to have had countless owners since then, and is covered in signs of extensive wear and tear.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>ANDROGYNOUS</femininity> 
 		
@@ -67,7 +67,7 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
 		<itemTags/>
-	</coreAtributes>
+	</coreAttributes>
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<playerSelf><![CDATA[

@@ -3,8 +3,10 @@ package com.lilithsthrone.game.character.fetishes;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.99
@@ -13,15 +15,15 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FetishLevel {
 	
-	ZERO_NO_EXPERIENCE("inexperienced", "I", "", "overlay1", 0, 0, 10, Colour.DESIRE_STAGE_ZERO),
+	ZERO_NO_EXPERIENCE("inexperienced", "I", "", "overlay1", 0, 0, 10, PresetColour.DESIRE_STAGE_ZERO),
 	
-	ONE_AMATEUR("amateur", "II", "", "overlay2", 0.5f, 10, 50, Colour.DESIRE_STAGE_ONE),
+	ONE_AMATEUR("amateur", "II", "", "overlay2", 0.5f, 10, 50, PresetColour.DESIRE_STAGE_ONE),
 	
-	TWO_EXPERIENCED("experienced", "III", "", "overlay3", 1f, 50, 100, Colour.DESIRE_STAGE_TWO),
+	TWO_EXPERIENCED("experienced", "III", "", "overlay3", 1f, 50, 100, PresetColour.DESIRE_STAGE_TWO),
 	
-	THREE_EXPERT("expert", "IV", "", "overlay4", 2f, 100, 200, Colour.DESIRE_STAGE_THREE),
+	THREE_EXPERT("expert", "IV", "", "overlay4", 2f, 100, 200, PresetColour.DESIRE_STAGE_THREE),
 	
-	FOUR_MASTERFUL("masterful", "V", "", "overlay5", 2.5f, 200, 200, Colour.DESIRE_STAGE_FOUR);
+	FOUR_MASTERFUL("masterful", "V", "", "overlay5", 2.5f, 200, 200, PresetColour.DESIRE_STAGE_FOUR);
 	
 	private String name;
 	private String numeral;
@@ -47,12 +49,8 @@ public enum FetishLevel {
 				System.err.println("Error! FetishLevel icon file does not exist (Trying to read from '"+pathName+"')!");
 			}
 			SVGImageOverlay = Util.inputStreamToString(is);
-
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff2a2a", Colour.BASE_PINK.getShades()[0]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff5555", Colour.BASE_PINK.getShades()[1]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff8080", Colour.BASE_PINK.getShades()[2]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffaaaa", Colour.BASE_PINK.getShades()[3]);
-			SVGImageOverlay = SVGImageOverlay.replaceAll("#ffd5d5", Colour.BASE_PINK.getShades()[4]);
+			
+			SVGImageOverlay = SvgUtil.colourReplacement(this.toString(), PresetColour.BASE_PINK, SVGImageOverlay);
 
 			is.close();
 

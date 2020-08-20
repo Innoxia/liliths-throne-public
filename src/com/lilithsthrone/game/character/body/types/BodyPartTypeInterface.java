@@ -1,16 +1,20 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
-
+	
 	public boolean isDefaultPlural();
 
 	/** @return Pronoun for this body part. (They, it) */
@@ -50,69 +54,58 @@ public interface BodyPartTypeInterface {
 	/** A 1-word descriptor that best describes this body part. */
 	public String getDescriptor(GameCharacter gc);
 
-	/** @param gc TODO
+	/**
+	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
+	 * @param body The body that this covering type is a part of.
 	 * @return The type of skin that is covering this body part. */
 	public BodyCoveringType getBodyCoveringType(Body body);
 	
+	/**
+	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
+	 */
 	public default BodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getBodyCoveringType(gc.getBody());
 	}
+
+	/** @return The race of this body part. */
+	public AbstractRace getRace();
 	
-	public Race getRace();
+	/** @return The TFModifier for this body part. */
+	public default TFModifier getTFModifier() {
+		return TFModifier.NONE;
+	}
+
+	public default TFModifier getTFTypeModifier(List<? extends BodyPartTypeInterface> types) {
+		switch (types.indexOf(this)) {
+			case 0: return TFModifier.TF_TYPE_1;
+			case 1: return TFModifier.TF_TYPE_2;
+			case 2: return TFModifier.TF_TYPE_3;
+			case 3: return TFModifier.TF_TYPE_4;
+			case 4: return TFModifier.TF_TYPE_5;
+			default: return TFModifier.NONE;
+		}
+	}
+
+	//TODO
+//	/** @return The description of this body part as seen in the character view screen. */
+//	public String getBodyDescription(GameCharacter owner);
 	
+	//TODO
+//	/** @return The description of this body part being changed. */
+//	public String getTransformationDescription(GameCharacter owner);
+
+	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
 		if(getRace()==null) {
 			return "";
 		}
-		
-		switch(getRace()){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON:
-				return "demonic";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "harpy";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "reindeer";
-			case HUMAN:
-				return "human";
-			case WOLF_MORPH:
-				return "wolf";
-			case FOX_MORPH:
-				return "fox";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case ELEMENTAL_AIR:
-				return "elemental air";
-			case ELEMENTAL_ARCANE:
-				return "elemental arcane";
-			case ELEMENTAL_EARTH:
-				return "elemental earth";
-			case ELEMENTAL_FIRE:
-				return "elemental fire";
-			case ELEMENTAL_WATER:
-				return "elemental water";
-			case NONE:
-				break;
-			case SLIME:
-				return "slime";
-		}
-		return "";
+		return getRace().getDefaultTransformName();
+	}
+	
+	/**
+	 * @return A BodyPartClothingBlock object which defines how this BodyPartInterface is blocking InventorySlots. Returns null if it doesn't affect inventorySlots in any way.
+	 */
+	public default BodyPartClothingBlock getBodyPartClothingBlock() {
+		return null;
 	}
 }

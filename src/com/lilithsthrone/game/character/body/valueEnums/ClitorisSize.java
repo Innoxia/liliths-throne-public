@@ -1,31 +1,32 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Anything over ZERO_AVERAGE is basically a pseudo penis
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum ClitorisSize {
 	
-	ZERO_AVERAGE("normal-sized", 0, 1, Colour.GENERIC_SIZE_ONE),
+	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_BIG("big", 1, 3, Colour.GENERIC_SIZE_TWO),
+	ONE_BIG("big", 1, 8, PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_LARGE("large", 3, 5, Colour.GENERIC_SIZE_THREE),
+	TWO_LARGE("large", 8, 12, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_HUGE("huge", 5, 11, Colour.GENERIC_SIZE_FOUR),
+	THREE_HUGE("huge", 12, 28, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_MASSIVE("massive", 11, 22, Colour.GENERIC_SIZE_FIVE),
+	FOUR_MASSIVE("massive", 28, 55, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ENORMOUS("enormous", 22, 30, Colour.GENERIC_SIZE_SIX),
+	FIVE_ENORMOUS("enormous", 55, 75, PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_GIGANTIC("gigantic", 30, 38, Colour.GENERIC_SIZE_SEVEN),
+	SIX_GIGANTIC("gigantic", 75, 100, PresetColour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_STALLION("stallion-sized", 38, 50, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_STALLION("absurdly colossal", 100, 125, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
@@ -50,9 +51,9 @@ public enum ClitorisSize {
 		return minimumValue + (maximumValue - minimumValue) / 2;
 	}
 
-	public static ClitorisSize getClitorisSizeFromInt(int inches) {
+	public static ClitorisSize getClitorisSizeFromInt(int cm) {
 		for(ClitorisSize cs : ClitorisSize.values()) {
-			if(inches>=cs.getMinimumValue() && inches<cs.getMaximumValue()) {
+			if(cm>=cs.getMinimumValue() && cm<cs.getMaximumValue()) {
 				return cs;
 			}
 		}
@@ -61,7 +62,7 @@ public enum ClitorisSize {
 
 	/**
 	 * To fit into a sentence: "Your clitoris is "+getDescriptor()+"." "Your "
-	 * getDescriptor()+" cock is dribbling pre-cum."
+	 * getDescriptor()+" cock is dribbling precum."
 	 */
 	public String getDescriptor() {
 		return descriptor;

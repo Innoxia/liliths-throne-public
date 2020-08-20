@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>540</value>
     <determiner><![CDATA[a pair of]]></determiner>
     <name><![CDATA[clover clamps]]></name>
     <namePlural pluralByDefault="true"><![CDATA[clover clamps]]></namePlural>
-    <description><![CDATA[A pair of metal clover clamps designed to tightly pinch onto the wearer's nipples. The attached weights pull down to apply a constant, painful pressure.]]></description>
+    <description><![CDATA[A pair of metal clover clamps designed to tightly pinch onto the wearer's skin. The attached weights pull down to apply a constant, painful pressure.]]></description>
     
     <physicalResistance>0</physicalResistance>
-    <femininity>ANDROGYNOUS</femininity> 
-    <slot>NIPPLE</slot> 
+    <femininity>ANDROGYNOUS</femininity>
+    <equipSlots>
+      <slot>NIPPLE</slot>
+      <slot>VAGINA</slot>
+    </equipSlots>
+
     <rarity>EPIC</rarity> 
     
     <imageName>clover_clamps.svg</imageName>
@@ -24,26 +28,47 @@
       <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="STRENGTH" timer="6"/>     
     </effects>
 
-    <blockedPartsList>
+    <blockedPartsList slot="NIPPLE">
       <blockedParts>
-        
         <displacementType>REMOVE_OR_EQUIP</displacementType> 
-        
         <clothingAccessRequired>
           <clothingAccess>CHEST</clothingAccess>
         </clothingAccessRequired>
-
         <blockedBodyParts/>
         <clothingAccessBlocked/>        
         <concealedSlots/>
-        
+      </blockedParts>
+    </blockedPartsList>
+    <blockedPartsList slot="VAGINA">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+    <blockedPartsList slot="VAGINA">
+      <blockedParts>
+        <displacementType>SHIFTS_ASIDE</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts>
+          <bodyPart>VAGINA</bodyPart>
+        </blockedBodyParts>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
       </blockedParts>
     </blockedPartsList>
 
-    <incompatibleSlots>
+    <incompatibleSlots slot="NIPPLE">
       <slot>CHEST</slot>
     </incompatibleSlots>
-    
+    <incompatibleSlots slot="VAGINA"/>
+      
     <primaryColours values="ALL_METAL"/>
     <primaryColoursDye values="ALL_METAL"/>
     <secondaryColours/>
@@ -52,65 +77,87 @@
     <tertiaryColoursDye/>
     
     <itemTags>
-      <tag>SOLD_BY_FINCH</tag>
-      <tag>PLUGS_NIPPLES</tag>
+		<tag>SOLD_BY_FINCH</tag>
+		<tag>ENABLE_SEX_EQUIP</tag>
+		<tag>TRANSPARENT</tag>
+    </itemTags>
+    <itemTags slot="VAGINA">
+		<tag>REQUIRES_VAGINA</tag>
+    </itemTags>
+    <itemTags slot="NIPPLE">
+		<tag>SEALS_NIPPLES</tag>
+		<tag>ENABLE_SEX_EQUIP</tag>
+		<tag>TRANSPARENT</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You carefully remove the clover clamps from your [pc.nipples+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You carefully remove the clover clamps from [npc.Name]'s [npc.nipples+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You give [npc.name]'s clover clamps a rough tug, then remove them from [npc.herHis] [npc.nipples+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] carefully removes the clover clamps from [npc.herHis] [npc.nipples+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] carefully removes the clover clamps from your [pc.nipples+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] gives your clover clamps a rough tug, then removes them from your [pc.nipples+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] carefully removes the clover clamps from [npc2.name]'s [npc2.nipples+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] gives [npc2.name]'s clover clamps a rough tug, then removes them from [npc2.herHis] [npc2.nipples+].]]>
-    </NPCOtherNPCRough>
+  <displacementText slot="NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc.her] [npc.nipples+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc2.namePos] [npc.nipples+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(give)] [npc2.namePos] clover clamps a rough tug before removing them from [npc2.her] [npc2.nipples+].]]>
+    </otherRough>
   </displacementText>
-
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You wince as you affix the clover clamps to your [pc.nipples+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[[npc.name] winces as you affix the clover clamps to [npc.herHis] [npc.nipples+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You affix the clover clamps to [npc.name]'s [npc.nipples+], giving them a sharp tug.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] winces as [npc.sheHe] affixes the clover clamps to [npc.herHis] [npc.nipples+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[You wince as [npc.name] affixes the clover clamps to your [pc.nipples+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] affixes the clover clamps to your [pc.nipples+], giving them a sharp tug.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc2.Name] winces as [npc1.Name] affixes the clover clamps to [npc2.herHis] [npc2.nipples+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] affixes the clover clamps to [npc2.Name]'s [npc2.nipples+], giving them a sharp tug.]]>
-    </NPCOtherNPCRough>
+  <replacementText slot="NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(affix)] the clover clamps on [npc.her] [npc.nipples+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(affix)] the clover clamps on [npc2.her] [npc2.nipples+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(affix)] the clover clamps to [npc2.namePos] [npc2.nipples+] before giving them a sharp tug.]]>
+    </otherRough>
   </replacementText>
-  
-  
+
+  <displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc.her] [npc.vaginaColourSecondary] [npc.vagina] lips.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc2.namePos] [npc2.vaginaColourSecondary] [npc2.vagina] lips.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(give)] [npc2.namePos] clover clamps a rough tug before removing them from [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina] lips.]]>
+    </otherRough>
+  </displacementText>
+  <replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(affix)] the clover clamps on [npc.her] [npc.vaginaColourSecondary] [npc.vagina] lips.]]>
+    </self>
+    <other>
+      <![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(affix)] the clover clamps on [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina] lips.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(affix)] the clover clamps to [npc2.namePos] [npc2.vaginaColourSecondary] [npc2.vagina] lips before giving them a sharp tug.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="VAGINA" type="SHIFTS_ASIDE">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(use)] the clover clamps to spread [npc.her] [npc.vaginaColourSecondary] [npc.vagina].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(use)] the clover clamps to spread [npc2.namePos] [npc2.vaginaColourSecondary] [npc2.vagina].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(tug)] on [npc2.namePos] clover clamps, painfully spreading [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina].]]>
+    </otherRough>
+  </displacementText>
+  <replacementText slot="VAGINA" type="SHIFTS_ASIDE">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wince)] as the clover clamps bite into [npc.her] [npc.vaginaColourSecondary] [npc.vagina].]]>
+    </self>
+    <other>
+      <![CDATA[[npc2.Name] [npc2.verb(wince)] as the clover clamps bite into [npc.her] [npc.vaginaColourSecondary] [npc.vagina].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc2.Name] [npc2.verb(yelp)] as [npc.name] [npc.verb(tug)] the clover clamps on [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina] before letting them hang free.]]>
+    </otherRough>
+  </replacementText>
 </clothing>

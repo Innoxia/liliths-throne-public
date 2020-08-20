@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -33,7 +32,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -52,15 +51,9 @@ public class PlayerSelfFingerNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"You reach up and start playing with your hard nipples, pinching and rubbing them as you moan with arousal.",
-					
 					"Your fingertips tease over your breasts, stopping to pinch and tug at your nipples as you moan and sigh in delight.",
-					
 					"You reach up to your breasts, and, with eager fingers, start to pinch and rub at your exposed nipples.",
-					
-					Sex.isMasturbation()
-						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
-						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
+					"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
@@ -184,7 +177,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -204,7 +197,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Gently pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your [pc.nipple], you let out a little whimper as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your [pc.nipple(true)], you let out a little whimper as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts], you start gently pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -226,7 +219,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -246,7 +239,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -268,7 +261,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -284,11 +277,11 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to rapidly finger your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to rapidly finger your [pc.breast(true)].",
 					
 					"Roughly pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Forcefully curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start roughly grinding your digits in and out of your [pc.breast+].",
+					"Forcefully curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start roughly grinding your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts+], you start roughly slamming your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -310,7 +303,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -330,7 +323,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -352,7 +345,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -368,11 +361,11 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to desperately finger your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to desperately finger your [pc.breast(true)].",
 					
 					"Enthusiastically pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you frantically finger your [pc.breast+].",
 					
-					"Desperately curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start eagerly grinding your digits in and out of your [pc.breast+].",
+					"Desperately curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start eagerly grinding your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts+], you eagerly start slamming your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}

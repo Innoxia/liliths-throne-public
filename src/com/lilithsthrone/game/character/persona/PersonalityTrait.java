@@ -1,203 +1,206 @@
 package com.lilithsthrone.game.character.persona;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /***
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum PersonalityTrait {
-
-	/**This reflects the level of creativity, imagination, and curiosity in a person. It is an indicator of how willing a person is to try out new things or to take risks.<br/>
-	 * Cautious -> Average -> Curious*/
-	ADVENTUROUSNESS("Adventurousness",
-			"This reflects the level of creativity, imagination, and curiosity in a person. It is an indicator of how willing a person is to try out new things or to take risks.",
-			Colour.BASE_GOLD,
-			"Cautious", "[npc.Name] is risk-averse, and unwilling to try out new things.",
-			"Average", "[npc.Name] doesn't hold any particular aversion or willingness to try out new things.",
-			"Curious", "[npc.Name] is willing to take risks in order to feed [npc.her] love of experiencing new things.",
-			"Cautious", "You are risk-averse, and unwilling to try out new things.",
-			"Average", "You don't hold any particular aversion or willingness to try out new things.",
-			"Curious", "You are willing to take risks in order to feed your love of experiencing new things."),
-
-	/**How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.<br/>
-	 * Selfish -> Average -> Trusting*/
-	AGREEABLENESS("Agreeableness",
-			"How compassionate, cooperative, and friendly someone is towards others. It is an indication of how trusting, helpful, and well-tempered someone is.",
-			Colour.BASE_GREEN,
-			"Selfish", "[npc.Name] treats others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, [npc.sheIs] far more likely to act in a competitive manner.",
-			"Average", "[npc.Name] is friendly towards new people, but is also liable to drop any pretence of cooperation and compassion if that person turns out to be less-than-amicable.",
-			"Trusting", "[npc.Name] is very trusting, and always tries [npc.her] best to be friendly towards other people.",
-			"Selfish", "You treat others in an unfriendly, hostile manner, and rather than showing any signs of wanting to cooperate, you're far more likely to act in a competitive manner.",
-			"Average", "You are friendly towards new people, but are also liable to drop any pretence of cooperation and compassion if that person turns out to be less-than-amicable.",
-			"Trusting", "You are very trusting, and always try your best to be friendly towards other people."),
 	
-	/**How organised and willing to plan ahead a person is. It indicates the level of self-discipline a person has, and how seriously they treat their obligations to others.<br/>
-	 * Careless -> Average -> Vigilant*/
-	CONSCIENTIOUSNESS("Conscientiousness",
-			"How organised and willing to plan ahead a person is. It indicates the level of self-discipline a person has, and how seriously they treat their obligations to others.",
-			Colour.BASE_BLUE_LIGHT,
-			"Careless", "[npc.Name] doesn't really care for plans or commitments. [npc.She] prefers to stay flexible, and will often spontaneously decide to do things.",
-			"Average", "[npc.Name] will plan ahead when [npc.she] feels that it's the right thing to do, but will also sometimes make impulsive decisions.",
-			"Vigilant", "[npc.Name] always plans ahead, and never rushes into anything without first weighing the pros and cons.",
-			"Careless", "You don't really care for plans or commitments. You prefer to stay flexible, and will often spontaneously decide to do things.",
-			"Average", "You will plan ahead when you feel that it's the right thing to do, but will also sometimes make impulsive decisions.",
-			"Vigilant", "You always plan ahead, and never rush into anything without first weighing the pros and cons."),
-
-	// I wasn't sure whether to spell this as 'Extroversion' or 'Extraversion'.
-	/**How sociable and confident a person feels when in the company of others.<br/>
-	 * Introverted -> Average -> Extroverted*/
-	EXTROVERSION("Extroversion",
-			"How sociable and confident a person feels when in the company of others.",
-			Colour.BASE_PINK,
-			"Introverted", "[npc.Name] is not very sociable, and feels awkward and shy when in the company of others.",
-			"Average", "[npc.Name] enjoys the company of others, but [npc.she] doesn't seek to be the life of the party.",
-			"Extroverted", "[npc.Name] loves being in social situations, and always seeks to be the life of the party.",
-			"Introverted", "You are not very sociable, and feel awkward and shy when in the company of others.",
-			"Average", "You enjoy the company of others, but you don't seek to be the life of the party.",
-			"Extroverted", "You love being in social situations, and always seek to be the life of the party."),
-
-	/**How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.<br/>
-	 * Confident -> Average -> Neurotic*/
-	NEUROTICISM("Neuroticism",
-			"How prone this character is to experiencing unpleasant emotions, such as anxiety, frustration, fear, and loneliness. Neurotic characters are often shy, lack emotional stability, and suffer from low control over their impulses.",
-			Colour.BASE_PURPLE,
-			"Confident", "[npc.Name] is very emotionally stable, and always feels calm and in control.",
-			"Average", "[npc.Name] has [npc.her] emotions under control, for the most part.",
-			"Neurotic", "[npc.Name] has a tendency to interpret situations in the worst possible manner, and often feels anxious, frustrated, and worried.",
-			"Confident", "You are very emotionally stable, and always feel calm and in control.",
-			"Average", "You have your emotions under control, for the most part.",
-			"Neurotic", "You have a tendency to interpret situations in the worst possible manner, and often feel anxious, frustrated, and worried.");
+	// Core traits:
 	
+	CONFIDENT(false, PersonalityCategory.CORE, "confident", "[npc.NameIsFull] very assertive and sure of [npc.herself].", "", PresetColour.BASE_GREEN_LIME) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(SHY);
+		}
+	},
+	
+	SHY(false, PersonalityCategory.CORE, "shy", "[npc.NameIsFull] incredibly shy around other people, and [npc.verb(prefer)] to avoid conversation wherever possible.", "", PresetColour.BASE_YELLOW_LIGHT) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(CONFIDENT);
+		}
+	},
 
+	KIND(false, PersonalityCategory.CORE, "kind", "[npc.Name] always [npc.verb(try)] to be kind and considerate of others, sometimes even to the detriment of [npc.her] own happiness.", "", PresetColour.BASE_GREEN) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(SELFISH);
+		}
+	},
+	
+	SELFISH(false, PersonalityCategory.CORE, "selfish", "[npc.Name] always [npc.verb(put)] [npc.herself] first, and [npc.is] highly unlikely to do anything that doesn't directly benefit [npc.herHim].", "", PresetColour.BASE_RED) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(KIND);
+		}
+	},
+	
+	// Combat traits:
+	
+	BRAVE(false, PersonalityCategory.COMBAT, "brave", "[npc.Name] always [npc.verb(act)] in a courageous manner, and [npc.is] not one to shy away from a fight.", "", PresetColour.BASE_ORANGE) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(COWARDLY);
+		}
+	},
+	
+	COWARDLY(false, PersonalityCategory.COMBAT, "cowardly", "[npc.Name] [npc.verb(get)] scared very easily, and will prefer to run away from conflicts rather than try to resolve them directly.", "", PresetColour.BASE_RED_LIGHT) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(BRAVE);
+		}
+	},
+
+	// Sex traits:
+	
+	LEWD(false,
+			PersonalityCategory.SEX,
+			"lewd",
+			"[npc.NameHasFull] an extensive knowledge of all things sexual, and [npc.is] always eager to talk about lewd things.",
+			"", PresetColour.BASE_PINK) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(PRUDE, INNOCENT);
+		}
+	},
+	
+	INNOCENT(false,
+			PersonalityCategory.SEX,
+			"innocent",
+			"[npc.Name] always [npc.verb(act)] embarrassed and innocent when talking about (or performing) sexual acts.",
+			"", PresetColour.BASE_BLUE_LIGHT) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(LEWD, PRUDE);
+		}
+	},
+	
+	PRUDE(false,
+			PersonalityCategory.SEX,
+			"prude",
+			"[npc.Name] [npc.do] not like talking about sexual matters, and [npc.verb(refuse)] to even acknowledge that [npc.she] [npc.verb(know)] anything about such things.",
+			"", PresetColour.BASE_BLUE_STEEL) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(LEWD, INNOCENT);
+		}
+	},
+
+	// Speech traits:
+	
+	LISP(false,
+			PersonalityCategory.SPEECH,
+			"lisp",
+			"[npc.Name] [npc.verb(speak)] with a lisp, pronouncing 's' and 'z' as 'th'.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this lisp!)]", PresetColour.BASE_PURPLE_LIGHT) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+	},
+
+	STUTTER(false,
+			PersonalityCategory.SPEECH,
+			"stutter",
+			"[npc.NameHasFull] a habit of stuttering and stumbling over [npc.her] words as [npc.she] [npc.verb(speak)].",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this stutter!)]", PresetColour.BASE_PINK_SALMON) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+	},
+
+	MUTE(true,
+			PersonalityCategory.SPEECH,
+			"mute",
+			"[npc.NameIsFull] a mute, and while [npc.she] can make some lewd noises when in the grips of passion, [npc.sheIsFull] otherwise completely unable to speak.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be removed!)]", PresetColour.BASE_CRIMSON) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY);
+		}
+	},
+
+	SLOVENLY(false,
+			PersonalityCategory.SPEECH,
+			"slovenly",
+			"[npc.Name] [npc.verb(speak)] in a very slovenly manner; dropping syllables and with poor pronunciation, [npc.her] speech can often be very hard to understand.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this!)]", PresetColour.BASE_BROWN) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+	},;
+	
+	private boolean specialRequirements;
+	private PersonalityCategory personalityCategory;
 	private String name;
 	private String description;
+	private String gameplayInformation;
 	private Colour colour;
 	
-	private String nameLow;
-	private String descriptionLow;
-	private String nameAverage;
-	private String descriptionAverage;
-	private String nameHigh;
-	private String descriptionHigh;
-
-	private String nameLowPlayer;
-	private String descriptionLowPlayer;
-	private String nameAveragePlayer;
-	private String descriptionAveragePlayer;
-	private String nameHighPlayer;
-	private String descriptionHighPlayer;
-	
-	private PersonalityTrait(String name, String description, Colour colour,
-			String nameLow, String descriptionLow,
-			String nameAverage, String descriptionAverage,
-			String nameHigh, String descriptionHigh,
-			String nameLowPlayer, String descriptionLowPlayer,
-			String nameAveragePlayer, String descriptionAveragePlayer,
-			String nameHighPlayer, String descriptionHighPlayer) {
-		
+	private PersonalityTrait(boolean specialRequirements, PersonalityCategory personalityCategory, String name, String description, String gameplayInformation, Colour colour) {
+		this.specialRequirements = specialRequirements;
+		this.personalityCategory = personalityCategory;
 		this.name = name;
 		this.description = description;
+		this.gameplayInformation = gameplayInformation;
 		this.colour = colour;
-
-		this.nameLow = nameLow;
-		this.descriptionLow = descriptionLow;
-		this.nameAverage = nameAverage;
-		this.descriptionAverage = descriptionAverage;
-		this.nameHigh = nameHigh;
-		this.descriptionHigh = descriptionHigh;
-
-		this.nameLowPlayer = nameLowPlayer;
-		this.descriptionLowPlayer = descriptionLowPlayer;
-		this.nameAveragePlayer = nameAveragePlayer;
-		this.descriptionAveragePlayer = descriptionAveragePlayer;
-		this.nameHighPlayer = nameHighPlayer;
-		this.descriptionHighPlayer = descriptionHighPlayer;
+	}
+	
+	public PersonalityCategory getPersonalityCategory() {
+		return personalityCategory;
 	}
 
 	public String getName() {
 		return name;
 	}
 	
-	public String getNameFromWeight(GameCharacter character, PersonalityWeight weight) {
-		switch(weight) {
-			case LOW:
-				return this.getNameLow(character);
-			case HIGH:
-				return this.getNameHigh(character);
-			default:
-				return this.getNameAverage(character);
-		}
-	}
+	public String getDescription(GameCharacter character, boolean withGameplayInformation, boolean withMutuallyExclusiveInformation) {
+		StringBuilder sb = new StringBuilder();
 
-	public String getDescription() {
-		return description;
-	}
-	
-	public String getDescriptionFromWeight(GameCharacter character, PersonalityWeight weight) {
-		switch(weight) {
-			case LOW:
-				return this.getDescriptionLow(character);
-			case HIGH:
-				return this.getDescriptionHigh(character);
-			default:
-				return this.getDescriptionAverage(character);
+		sb.append(UtilText.parse(character, description));
+		
+		if(withGameplayInformation) {
+			if(gameplayInformation!=null && !gameplayInformation.isEmpty()) {
+				sb.append("<br/>"+UtilText.parse(character, gameplayInformation));
+			} else {
+				sb.append("<br/>[style.italicsDisabled(No current in-game effects...)]");
+			}
 		}
+		
+		if(withMutuallyExclusiveInformation) {
+			if(!this.getMutuallyExclusiveSettings().isEmpty()) {
+				sb.append("<br/>[style.colourBad(Mutually exclusive)] with ");
+				List<String> names = new ArrayList<>();
+				for(PersonalityTrait trait : this.getMutuallyExclusiveSettings()) {
+					names.add("<span style='color:"+trait.getColour().toWebHexString()+";'>"+trait.getName()+"</span>");
+				}
+				sb.append(Util.stringsToStringList(names, false)+"!");
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	public Colour getColour() {
 		return colour;
 	}
-	
-	public String getNameLow(GameCharacter character) {
-		if(character.isPlayer()) {
-			return nameLowPlayer;
-		} else {
-			return UtilText.parse(character, nameLow);
-		}
-	}
 
-	public String getDescriptionLow(GameCharacter character) {
-		if(character.isPlayer()) {
-			return descriptionLowPlayer;
-		} else {
-			return UtilText.parse(character, descriptionLow);
-		}
-	}
+	public abstract List<PersonalityTrait> getMutuallyExclusiveSettings();
 
-	public String getNameAverage(GameCharacter character) {
-		if(character.isPlayer()) {
-			return nameAveragePlayer;
-		} else {
-			return UtilText.parse(character, nameAverage);
-		}
+	public boolean isSpecialRequirements() {
+		return specialRequirements;
 	}
-
-	public String getDescriptionAverage(GameCharacter character) {
-		if(character.isPlayer()) {
-			return descriptionAveragePlayer;
-		} else {
-			return UtilText.parse(character, descriptionAverage);
-		}
-	}
-
-	public String getNameHigh(GameCharacter character) {
-		if(character.isPlayer()) {
-			return nameHighPlayer;
-		} else {
-			return UtilText.parse(character, nameHigh);
-		}
-	}
-
-	public String getDescriptionHigh(GameCharacter character) {
-		if(character.isPlayer()) {
-			return descriptionHighPlayer;
-		} else {
-			return UtilText.parse(character, descriptionHigh);
-		}
-	}
-
 }

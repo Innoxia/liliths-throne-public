@@ -1,6 +1,6 @@
 html {
 	background: #1e1e20;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	font-size:7vw; /*font-size:2vw;*/
 	color: #ffffff;
@@ -220,6 +220,19 @@ h6{
 	opacity:0.20;
 	border-radius:5px;
 }
+.overlay-alt {
+	width: 100%;
+	height: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+	-webkit-user-select: none;
+	cursor: pointer;
+}
+.overlay-alt:hover{
+	background-color:#555;
+	border-radius:5px;
+}
 
 
 /***********************************************************/
@@ -245,7 +258,7 @@ h6{
 	box-sizing:border-box;
 	border-radius: 5px;
 	background: #1B1B1D;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	width:100%;
 	overflow-y: scroll;
@@ -446,14 +459,6 @@ h6{
 .inventory-item-slot.secondary{
 	width:14.67%;
 }
-.inventory-item-slot.piercing{
-	width:40%;
-	margin:5%;
-}
-.inventory-item-slot.weapon{
-	width:46%;
-	margin:2%;
-}
 .inventory-item-slot.unequipped{
 	width:11.5%;
 	margin:0.5%;
@@ -470,6 +475,15 @@ h6{
 	  #333 10px,
 	  #222 10px,
 	  #222 20px
+	);
+}
+.inventory-item-slot.disabled-light, .inventory-item-slot.piercing.disabled-light{
+	background: repeating-linear-gradient(
+	  135deg,
+	  #333,
+	  #333 10px,
+	  #292929 10px,
+	  #292929 20px
 	);
 }
 .inventory-item-slot.concealed, .inventory-item-slot.piercing.concealed {
@@ -525,6 +539,14 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
+.stretchIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	left:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
 .concealedIcon{
 	position:absolute;
 	width:40%;
@@ -541,11 +563,20 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
+.lipstickIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	right:0;
+	bottom:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
 .raceBlockIcon{
 	position:absolute;
-	width:60%;
-	height:60%;
-	margin:20%;
+	width:75%;
+	height:75%;
+	margin:12.5%;
 	pointer-events: none;
 	-webkit-user-select: none;
 }

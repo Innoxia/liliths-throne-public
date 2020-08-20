@@ -3,13 +3,11 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -19,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class PlayerSelfFingerAnus {
@@ -34,7 +32,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -49,8 +47,8 @@ public class PlayerSelfFingerAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.isMasturbation()) {
-				if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)) {
+			if(Main.sex.isMasturbation()) {
+				if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
 					return UtilText.returnStringAtRandom(
 							"Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you spread your [pc.asshole+].",
 							"You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and spreading your [pc.asshole+].",
@@ -65,20 +63,20 @@ public class PlayerSelfFingerAnus {
 				}
 				
 			} else {
-				if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)) {
-					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+				if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
+					return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
 							UtilText.returnStringAtRandom(
-							"Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
-							"You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and presenting your [pc.asshole+] to [npc.name].",
-							"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab one of your [pc.assSize] ass cheeks and pull to one one side in order to present your [pc.asshole+] to [npc.name].",
-							"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hand] to pull your ass cheek to one side and present yourself for anal penetration."));
+							"Reaching back with one [npc.hand], you grab your [npc.ass+] and pull to one side, letting out [npc.a_moan+] as you present your [npc.asshole+] to [npc2.name].",
+							"You reach back with one [npc.hand], moaning softly as you take hold of your [npc.ass+], before invitingly pulling to one side and presenting your [npc.asshole+] to [npc2.name].",
+							"Sliding your fingertips over your [npc.asshole+], you let out [npc.a_moan+] as you grab one of your [npc.assSize] ass cheeks and pull to one one side in order to present your [npc.asshole+] to [npc2.name].",
+							"You eagerly slide your [npc.fingers] over your needy [npc.asshole], [npc.moaning+] as you use your [npc.hand] to pull your ass cheek to one side and present yourself for anal penetration."));
 				} else {
-					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+					return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
 							UtilText.returnStringAtRandom(
-							"Reaching back with both [pc.hands], you grab your [pc.assSize] ass cheeks and pull them apart, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
-							"You reach back with both [pc.hands], moaning softly as you invitingly pull your [pc.assSize] ass cheeks apart and present your [pc.asshole+] to [npc.name].",
-							"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab your [pc.assSize] ass cheeks and pull them apart in order to present your [pc.asshole+] to [npc.name].",
-							"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hands] to pull your ass cheeks aside and present yourself for anal penetration."));
+							"Reaching back with both [npc.hands], you grab your [npc.assSize] ass cheeks and pull them apart, letting out [npc.a_moan+] as you present your [npc.asshole+] to [npc2.name].",
+							"You reach back with both [npc.hands], moaning softly as you invitingly pull your [npc.assSize] ass cheeks apart and present your [npc.asshole+] to [npc2.name].",
+							"Sliding your fingertips over your [npc.asshole+], you let out [npc.a_moan+] as you grab your [npc.assSize] ass cheeks and pull them apart in order to present your [npc.asshole+] to [npc2.name].",
+							"You eagerly slide your [npc.fingers] over your needy [npc.asshole], [npc.moaning+] as you use your [npc.hands] to pull your ass cheeks aside and present yourself for anal penetration."));
 				}
 			}
 			
@@ -136,7 +134,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -156,7 +154,8 @@ public class PlayerSelfFingerAnus {
 					
 					"Gently pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out a little whimper as you start "+(Main.game.getPlayer().hasPenis()?"gently stroking your prostate.":"gently fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out a little whimper as you start "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"gently stroking your prostate.":"gently fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start gently pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -178,7 +177,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -198,7 +197,7 @@ public class PlayerSelfFingerAnus {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis()?"stroking your prostate.":"fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"stroking your prostate.":"fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -220,7 +219,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -241,7 +240,7 @@ public class PlayerSelfFingerAnus {
 					"Roughly pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you ruthlessly finger your own [pc.ass].",
 					
 					"Forcefully curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
-							+(Main.game.getPlayer().hasPenis()
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()
 									?"roughly grinding your fingertips up against your prostate."
 									:"roughly grinding your digits in and out of your [pc.ass+]."),
 					
@@ -265,7 +264,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -285,7 +284,8 @@ public class PlayerSelfFingerAnus {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis()?"stroking your prostate.":"fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"stroking your prostate.":"fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -307,7 +307,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -328,7 +328,7 @@ public class PlayerSelfFingerAnus {
 					"Enthusiastically pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you frantically finger your own [pc.ass].",
 					
 					"Desperately curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
-							+(Main.game.getPlayer().hasPenis()
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()
 									?"eagerly grinding your fingertips up against your prostate."
 									:"eagerly grinding your digits in and out of your [pc.ass+]."),
 					

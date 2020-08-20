@@ -12,15 +12,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.2
- * @version 0.2.10
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class Artwork {
 	
+	private GameCharacter character;
 	private Artist artist;
 	
 	private int index;
@@ -55,7 +59,13 @@ public class Artwork {
 						Element artistElement = (Element) doc.getElementsByTagName("artist").item(0);
 						
 						String artistName = artistElement.getAttribute("name");
-						Colour colour = Colour.valueOf(artistElement.getAttribute("colour"));
+						String colourId = artistElement.getAttribute("colour");
+						Colour colour;
+						if(colourId.startsWith("#")) {
+							colour = new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+						} else {
+							colour = PresetColour.getColourFromId(colourId);
+						}
 						String folderName = artistElement.getAttribute("folderName");
 								
 						List<ArtistWebsite> websites = new ArrayList<>();
@@ -69,16 +79,18 @@ public class Artwork {
 						allArtists.add(new Artist(artistName, colour, folderName, websites));
 						
 					} catch(Exception ex) {
+						ex.printStackTrace();
 					}
 				}
 			}
 
 			// Add artist template for custom art
-			allArtists.add(new Artist("Custom", Colour.BASE_GREY, "custom", new ArrayList<>()));
+			allArtists.add(new Artist("Custom", PresetColour.BASE_GREY, "custom", new ArrayList<>()));
 		}
 	}
 	
-	public Artwork(File folder, Artist artist) {
+	public Artwork(GameCharacter character, File folder, Artist artist) {
+		this.character = character;
 		this.artist = artist;
 
 		index = 0;
@@ -88,13 +100,16 @@ public class Artwork {
 		this.nakedImages = new ArrayList<>();
 
 		// Add all images to their respective lists
-		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png"))) {
-			if (f.getName().startsWith("partial"))
+		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".gif"))) {
+			if (f.getName().startsWith("partial")) {
 				partialImages.add(f.getAbsolutePath());
-			else if (f.getName().startsWith("naked"))
+				
+			} else if (f.getName().startsWith("naked")) {
 				nakedImages.add(f.getAbsolutePath());
-			else
+				
+			} else {
 				clothedImages.add(f.getAbsolutePath());
+			}
 		}
 	}
 
@@ -119,7 +134,7 @@ public class Artwork {
 	}
 
 	public int getTotalArtworkCount() {
-		return clothedImages.size() + partialImages.size() + nakedImages.size();
+		return getClothedImages().size() + getPartialImages().size() + getNakedImages().size();
 	}
 	
 	public boolean isCurrentImageClothed() {
@@ -127,31 +142,45 @@ public class Artwork {
 	}
 	
 	public File getCurrentImage() {
+		if(getTotalArtworkCount()==0) {
+			return null;
+		}
 		String path;
 		if(index < getClothedImages().size()) {
 			path = getClothedImages().get(index);
 			
-		} else if(index < getClothedImages().size() + getPartialImages().size()){
+		} else if(index < getClothedImages().size() + getPartialImages().size()) {
 			path = getPartialImages().get(index - getClothedImages().size());
 			
 		} else {
 			path = getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
 		}
 
-		if (path.isEmpty()) return null;
+		if(path.isEmpty()) {
+			return null;
+		}
 		return new File(path);
 	}
 	
 	public List<String> getClothedImages() {
-		return clothedImages;
+		List<String> filteredImages = new ArrayList<>(clothedImages);
+		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
+		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
+		return filteredImages;
 	}
 
 	public List<String> getPartialImages() {
-		return partialImages;
+		List<String> filteredImages = new ArrayList<>(partialImages);
+		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
+		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
+		return filteredImages;
 	}
 
 	public List<String> getNakedImages() {
-		return nakedImages;
+		List<String> filteredImages = new ArrayList<>(nakedImages);
+		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
+		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
+		return filteredImages;
 	}
 	
 }

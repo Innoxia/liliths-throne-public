@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="START_SEX_2KOMA"><![CDATA[
+	<p>
+		[npc2.Name] can't help but laugh as [npc2.she] [npc2.verb(realise)] that [npc.name] actually [npc.verb(think)] [npc.she] [npc.verb(stand)] a chance against [npc2.herHim]. With a mocking smirk on [npc2.her] face, [npc2.she] [npc2.verb(taunt)], [npc2.speech(Hah! You should know your place, you pathetic little thing! Get down and beg for my forgiveness, before I decide to end you!)]
+	</p>
+	<p style='text-align:center;'>
+		[style.italics(A few moments later...)]
+	</p>
+	<p>
+		[npc2.speechNoEffects(~Aah!~ Oh, yes! That's right, ruin my pussy! ~Mmm!~ I'm your bitch!
+		#IF(npc2.isVisiblyPregnant()) Fuck me! #ELSE Breed me! #ENDIF
+		~Aah!~ Yes!)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="POST_SEX_2KOMA"><![CDATA[
+	<p>
+		Having put [npc.name] in [npc.her] place, you gather your things and make your exit, leaving [npc.herHim] panting and moaning on the floor behind you.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="POST_SEX_2KOMA_AS_SUB"><![CDATA[
+	<p>
+		Having put you in your place, [npc.name] gathers [npc.her] things and makes [npc.her] exit, leaving you panting and [pc.moaning] on the floor. After a few minutes, you've got your breath back, and, getting your own things in order, you brush yourself down and set off on your way.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="A_WILD_CENTAUR_APPEARS"><![CDATA[
+	<p>
+		As you find yourself thinking about the nature of centaurs, one suddenly appears before you! From the lustful look in [npc.her] [npc.eyes], you can tell that [npc.she] wants some sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SEX_CENTAUR"><![CDATA[
+	<p>
+		Having put [npc.name] in [npc.her] place, you gather your things and make your exit, leaving [npc.herHim] panting and moaning on the floor behind you.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="POST_SEX_CENTAUR_AS_SUB"><![CDATA[
+	<p>
+		Having put you in your place, [npc.name] gathers [npc.her] things and makes [npc.her] exit, leaving you panting and [pc.moaning] on the floor. After a few minutes, you've got your breath back, and, getting your own things in order, you brush yourself down and set off on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- MASTURBATION -->
+
+	<htmlContent tag="MASTURBATION"><![CDATA[
+	<p>
+		Feeling turned on and desperate to get some sexual relief, you decide to take a break in order to masturbate.
+		#IF(game.getPlayerCell().getPlace().isPopulated())
+			 The fact that there are people around to witness you touching yourself serves to excite you even more, and, moving your [pc.hands] down your body, you prepare to start touching yourself...
+		#ELSEIF(game.getPlayer().hasCompanions())
+			#IF(pc.hasFetish(FETISH_EXHIBITIONIST))
+				 The idea of having [npc.name] look on as you pleasure yourself serves to excite you even more, and, after telling [npc.herHim] not to look away, you move your [pc.hands] down your body and prepare to start touching yourself...
+			#ELSE
+				 Not wanting [npc.name] to witness you pleasuring yourself, you tell [npc.herHim] to move away and not look in your direction, before moving your [pc.hands] down your body as you prepare to start touching yourself...
+			#ENDIF
+		#ELSE
+			 The idea that you're going to be orgasming very soon serves to excite you even more, and, moving your [pc.hands] down your body, you prepare to start touching yourself...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="AFTER_MASTURBATION"><![CDATA[
+	<p>
+		#IF(pc.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, you decide that you've got what you wanted out of your masturbation session, and, getting your things back in order, you prepare to continue on your way...
+		#ELSE
+			Letting out an annoyed sigh, you decide that you'll have to get the sexual satisfaction you're looking for elsewhere, and, putting an end to your masturbation session, you prepare to continue on your way...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

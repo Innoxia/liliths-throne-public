@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>150</value>
     <determiner><![CDATA[a]]></determiner>
-    <name><![CDATA[tail ribbon]]></name>
-    <namePlural pluralByDefault="false"><![CDATA[tail ribbons]]></namePlural>
-    <description><![CDATA[A small, cute cotton ribbon which is meant to be tied around a tail.]]></description>
+    <name><![CDATA[ribbon]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[ribbons]]></namePlural>
+    <description><![CDATA[A small, cute cotton ribbon. It could be tied around a tail, or into someone's hair.]]></description>
     
-    <physicalResistance>1</physicalResistance>
+    <physicalResistance>0</physicalResistance>
     <femininity>FEMININE</femininity>
-    <slot>TAIL</slot>
+	<equipSlots>
+		<slot>TAIL</slot>
+		<slot>HAIR</slot>
+	</equipSlots>
     <rarity>COMMON</rarity>
     
     <imageName>tail_ribbon.svg</imageName>
     
     <clothingSet/>
-    <imageEquippedName/>
+    <imageEquippedName slot="TAIL">tail_ribbon.svg</imageEquippedName>
+    <imageEquippedName slot="HAIR">tail_ribbon_hair.svg</imageEquippedName>
     <enchantmentLimit/>
     <effects/>
 
-    <blockedPartsList>
+    <blockedPartsList slot="TAIL">
       <blockedParts>
-        
         <displacementType>REMOVE_OR_EQUIP</displacementType>
-        
         <clothingAccessRequired/>
         <blockedBodyParts/>
         <clothingAccessBlocked/>
         <concealedSlots/>
-        
+      </blockedParts>
+    </blockedPartsList>
+    <blockedPartsList slot="HAIR">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
       </blockedParts>
     </blockedPartsList>
     
-    <incompatibleSlots/>
+    <incompatibleSlots slot="TAIL"/>
+    <incompatibleSlots slot="HAIR"/>
     
     <primaryColours values="ALL"/>
     <primaryColoursDye values="ALL"/>
@@ -46,61 +57,53 @@
       <tag>SOLD_BY_NYAN</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You untie the ribbon from your [pc.tail+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You untie the ribbon from [npc.Name]'s [npc.tail+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You yank the ribbon off of [npc.Name]'s [npc.tail+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] unties the ribbon from [npc.herHis] [npc.tail+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] unties the ribbon from your [pc.tail+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] yanks the ribbon off of your [pc.tail+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] unties the ribbon around [npc2.name]'s [npc2.tail+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] yanks the ribbon off [npc2.name]'s [npc2.tail+].]]>
-    </NPCOtherNPCRough>
+  <replacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place around [npc.her] [npc.tail+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place around [npc2.namePos] [npc2.tail+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(tie)] the ribbon into place around [npc2.namePos] [npc2.tail+].]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from around [npc.her] [npc.tail+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from around [npc2.namePos] [npc2.tail+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ribbon from around [npc2.namePos] [npc2.tail+].]]>
+    </otherRough>
   </displacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You tie the ribbon around the tip of your [pc.tail+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You tie the ribbon around the tip of [npc.Name]'s [npc.tail+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You grab [npc.name]'s [npc.tail+] and tie the ribbon tightly around the tip.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] ties the ribbon around the tip of [npc.herHis] [npc.tail+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] ties the ribbon around the tip of your [pc.tail+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] grabs your [pc.tail+] and ties the ribbon tightly around the tip.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] ties the ribbon around the tip of [npc2.Name]'s [npc2.tail+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] grabs [npc2.name]'s [npc2.tail+] and ties the ribbon tightly around the tip.]]>
-    </NPCOtherNPCRough>
+  <replacementText slot="HAIR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place into [npc.her] [npc.hair+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place into [npc2.namePos] [npc2.hair+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(tie)] the ribbon into place into [npc2.namePos] [npc2.hair+].]]>
+    </otherRough>
   </replacementText>
+  <displacementText slot="HAIR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from into [npc.her] [npc.hair+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from into [npc2.namePos] [npc2.hair+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ribbon from into [npc2.namePos] [npc2.hair+].]]>
+    </otherRough>
+  </displacementText>
   
   
 </clothing>

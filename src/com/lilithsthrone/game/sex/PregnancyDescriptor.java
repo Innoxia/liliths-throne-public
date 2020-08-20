@@ -4,265 +4,424 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.65
- * @version 0.2.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum PregnancyDescriptor {
 	
 	ALREADY_PREGNANT {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-					return UtilText.parse(characterProvidingCum,
-							"<p>"
-								+ "You feel [npc.namePos] [npc.cum+] "
-									+(isSlime
-										?"dispersing through your slimy body, seeking to impregnate your core"
-										:"deep in your [pc.pussy+]")
-								+", but because <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you're already pregnant, you don't have to worry about it!</b>"
-							+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-								+ "[npc.Name] is already pregnant, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>so there's no chance that you've knocked [npc.herHim] up!</b>"
-							+ "</p>");
+				if(characterProvidingCum==null) {
+					sb.append("You feel cum ");
+					if(isSlime) {
+						sb.append("dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append("deep in your [pc.pussy+]");
+					}
+					sb.append(", but because [style.boldSex(you're already pregnant, you don't have to worry about it)]!");
+					
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "[npc2.Name] is already pregnant, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>so there's no chance that [npc1.namePos] knocked [npc2.herHim] up!</b>"
-							+ "</p>");
+					sb.append("You feel ");
+					if(selfcest) {
+						sb.append("your own [npc.cum+]");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
+					if(isSlime) {
+						sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append(" deep in your [pc.pussy+]");
+					}
+					sb.append(", but because [style.boldSex(you're already pregnant, you don't have to worry about it)]!");
 				}
+				
+			} else {
+				if(characterProvidingCum==null) {
+					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
+					if(selfcest) {
+						sb.append("[npc.she] has knocked [npc.herself] up");
+					} else {
+						sb.append("[npc.she] has been impregnated");
+					}
+					sb.append(")]!");
+					
+				} else {
+					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
+					if(directSexInsemination) {
+						if(selfcest) {
+							sb.append("[npc.she] has knocked [npc.herself] up");
+						} else {
+							sb.append("[npc2.nameHas] knocked [npc.herHim] up");
+						}
+					} else {
+						if(selfcest) {
+							sb.append("[npc.she] has impregnated [npc.herself]");
+						} else {
+							sb.append("[npc2.nameHas] impregnated [npc.herHim]");
+						}
+					}
+					sb.append(")]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	},
 	
 	NO_CHANCE {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-					return UtilText.parse(characterProvidingCum,
-							"<p>"
-								+ "Despite feeling [npc.namePos] [npc.cum+] "
-									+(isSlime
-										?"dispersing through your slimy body, seeking to impregnate your core"
-										:"deep in your womb")
-								+", you feel that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you aren't going to get pregnant from this.</b>"
-							+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-								+ "Despite having unprotected sex with [npc.name], <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.she] isn't going to get pregnant from this.</b>"
-							+ "</p>");
+				if(characterProvidingCum==null) {
+					sb.append("Despite feeling cum ");
+					if(isSlime) {
+						sb.append("dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append("deep in your womb");
+					}
+					sb.append(", you feel that [style.boldSex(you aren't going to get pregnant from this)].");
+					
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "Despite having unprotected sex with [npc2.name], <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>there's no chance that [npc1.name] has impregnated [npc2.herHim].</b>"
-							+ "</p>");
+					sb.append("Despite feeling ");
+					if(selfcest) {
+						sb.append("your own [npc.cum+]");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
+					if(isSlime) {
+						sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append(" deep in your womb");
+					}
+					sb.append(", you feel that [style.boldSex(you aren't going to get pregnant from this)].");
 				}
+				
+			} else {
+				if(characterProvidingCum==null) {
+					sb.append("Despite having [npc.her] ");
+					if(isSlime) {
+						sb.append("slimy body");
+					} else {
+						sb.append("womb");
+					}
+					if(selfcest) {
+						sb.append(" filled with [npc.her] own seed, [style.boldSex(there's no chance that [npc.nameHasFull] impregnated [npc.herself])].");
+					} else {
+						sb.append(" filled with cum, [style.boldSex(there's no chance that [npc.nameHasFull] been impregnated)].");
+					}
+					
+				} else {
+					sb.append("Despite having [npc.her] ");
+					if(isSlime) {
+						sb.append("slimy body");
+					} else {
+						sb.append("womb");
+					}
+					if(selfcest) {
+						sb.append(" filled with [npc.her] own seed, [style.boldSex(there's no chance that [npc.nameHasFull] impregnated [npc.herself])].");
+					} else {
+						sb.append(" filled with [npc2.namePos] [npc2.cum+], [style.boldSex(there's no chance that [npc.nameHasFull] been impregnated)].");
+					}
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	},
 	
 	LOW_CHANCE {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-				return UtilText.parse(characterProvidingCum,
-						"<p>"
-							+ "You feel [npc.namePos] [npc.cum+] "
-							+(isSlime
-									?"dispersing through your slimy body, seeking to impregnate your core"
-									:"deep in your womb")
-							+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-										?"if you aren't already pregnant, there's a small chance you are now!</b>"
-										:"there's a small chance you'll get pregnant!</b>")
-						+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.namePos] "
-							+(isSlime
-									?"slimy body"
-									:"womb")
-							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-											?"if [npc.she] isn't already pregnant, there's a small chance [npc.she] is now!</b>"
-											:"there's a small chance [npc.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+				sb.append("You feel ");
+				if(selfcest) {
+					sb.append("your own [npc.cum+]");
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
-								+(isSlime
-										?"slimy body"
-										:"womb")
-								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-												?"if [npc2.she] isn't already pregnant, there's a small chance [npc2.she] is now!</b>"
-												:"there's a small chance that [npc2.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+					if(characterProvidingCum==null) {
+						sb.append("cum");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
 				}
+				if(isSlime) {
+					sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+				} else {
+					sb.append(" deep in your womb");
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(", and you realise that [style.boldSex(if you aren't already pregnant, there's a small chance you are now)]!");
+				} else {
+					sb.append(", and you realise that [style.boldSex(there's a small chance you'll get pregnant)]!");
+				}
+				
+			} else {
+				sb.append("After having [npc.her] ");
+				if(isSlime) {
+					sb.append("slimy body");
+				} else {
+					sb.append("womb");
+				}
+				if(selfcest) {
+					sb.append(" filled with [npc.her] own seed,");
+				} else {
+					if(characterProvidingCum==null) {
+						sb.append(" filled with cum,");
+					} else {
+						sb.append(" filled with [npc2.namePos] [npc2.cum+],");
+					}
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a small chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a small chance [npc.she]'ll get pregnant)]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	},
 	
 	AVERAGE_CHANCE {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+
+			StringBuilder sb = new StringBuilder();
 			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-				return UtilText.parse(characterProvidingCum,
-						"<p>"
-						+ "You feel [npc.namePos] [npc.cum+] "
-						+(isSlime
-								?"dispersing through your slimy body, seeking to impregnate your core"
-								:"deep in your womb")
-						+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-										?"if you aren't already pregnant, there's a chance you are now!</b>"
-										:"there's a chance you'll get pregnant!</b>")
-						+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.namePos] "
-							+(isSlime
-									?"slimy body"
-									:"womb")
-							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-											?"if [npc.she] isn't already pregnant, there's a chance [npc.she] is now!</b>"
-											:"there's a chance [npc.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+				sb.append("You feel ");
+				if(selfcest) {
+					sb.append("your own [npc.cum+]");
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
-								+(isSlime
-										?"slimy body"
-										:"womb")
-								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-												?"if [npc2.she] isn't already pregnant, there's a chance [npc2.she] is now!</b>"
-												:"there's a chance that [npc2.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+					if(characterProvidingCum==null) {
+						sb.append("cum");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
 				}
+				if(isSlime) {
+					sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+				} else {
+					sb.append(" deep in your womb");
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(", and you realise that [style.boldSex(if you aren't already pregnant, there's a chance you are now)]!");
+				} else {
+					sb.append(", and you realise that [style.boldSex(there's a chance you'll get pregnant)]!");
+				}
+				
+			} else {
+				sb.append("After having [npc.her] ");
+				if(isSlime) {
+					sb.append("slimy body");
+				} else {
+					sb.append("womb");
+				}
+				if(selfcest) {
+					sb.append(" filled with [npc.her] own seed,");
+				} else {
+					if(characterProvidingCum==null) {
+						sb.append(" filled with cum,");
+					} else {
+						sb.append(" filled with [npc2.namePos] [npc2.cum+],");
+					}
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a chance [npc.she]'ll get pregnant)]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	},
 	
 	HIGH_CHANCE {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+
+			StringBuilder sb = new StringBuilder();
 			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-				return UtilText.parse(characterProvidingCum,
-						"<p>"
-						+ "You feel [npc.namePos] [npc.cum+] "+
-						(isSlime
-								?"dispersing through your slimy body, seeking to impregnate your core"
-								:"deep in your womb")
-						+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-										?"if you aren't already pregnant, there's a high chance you are now!</b>"
-										:"there's a high chance you'll get pregnant!</b>")
-						+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.namePos] "
-							+(isSlime
-									?"slimy body"
-									:"womb")
-							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-											?"if [npc.she] isn't already pregnant, there's a high chance [npc.she] is now!</b>"
-											:"there's a high chance [npc.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+				sb.append("You feel ");
+				if(selfcest) {
+					sb.append("your own [npc.cum+]");
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
-								+(isSlime
-										?"slimy body"
-										:"womb")
-								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-												?"if [npc2.she] isn't already pregnant, there's a high chance [npc2.she] is now!</b>"
-												:"there's a high chance that [npc2.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+					if(characterProvidingCum==null) {
+						sb.append("cum");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
 				}
+				if(isSlime) {
+					sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+				} else {
+					sb.append(" deep in your womb");
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(", and you realise that [style.boldSex(if you aren't already pregnant, there's a high chance you are now)]!");
+				} else {
+					sb.append(", and you realise that [style.boldSex(there's a high chance you'll get pregnant)]!");
+				}
+				
+			} else {
+				sb.append("After having [npc.her] ");
+				if(isSlime) {
+					sb.append("slimy body");
+				} else {
+					sb.append("womb");
+				}
+				if(selfcest) {
+					sb.append(" filled with [npc.her] own seed,");
+				} else {
+					if(characterProvidingCum==null) {
+						sb.append(" filled with cum,");
+					} else {
+						sb.append(" filled with [npc2.namePos] [npc2.cum+],");
+					}
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, there's a high chance [npc.she] is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(there's a high chance [npc.she]'ll get pregnant)]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	},
 	
 	CERTAINTY {
 		@Override
-		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+
+			StringBuilder sb = new StringBuilder();
 			
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
-				return UtilText.parse(characterProvidingCum,
-						"<p>"
-							+ "You feel [npc.namePos] [npc.cum+] "
-							+(isSlime
-									?"dispersing through your slimy body, seeking to impregnate your core"
-									:"deep in your womb")
-							+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-										?"if you aren't already pregnant, you certainly are now!</b>"
-										:"it's a certainty that you'll get pregnant!</b>")
-						+ "</p>");
-			}else{
-				if(characterProvidingCum.isPlayer()) {
-					return UtilText.parse(characterBeingImpregnated,
-							"<p>"
-							+ "After depositing your [pc.cum+] in [npc.namePos] "
-							+(isSlime
-									?"slimy body"
-									:"womb")
-							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-											?"if [npc.she] isn't already pregnant, [npc.she] certainly is now!</b>"
-											:"it's a certainty that [npc.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+				sb.append("You feel ");
+				if(selfcest) {
+					sb.append("your own [npc.cum+]");
 				} else {
-					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
-							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.namePos] "
-								+(isSlime
-										?"slimy body"
-										:"womb")
-								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
-												?"if [npc2.she] isn't already pregnant, [npc2.she] certainly is now!</b>"
-												:"it's a certainty that [npc2.sheIs] going to get pregnant!</b>")
-							+ "</p>");
+					if(characterProvidingCum==null) {
+						sb.append("cum");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
 				}
+				if(isSlime) {
+					sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+				} else {
+					sb.append(" deep in your womb");
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(", and you realise that [style.boldSex(if you aren't already pregnant, you certainly are now)]!");
+				} else {
+					sb.append(", and you realise that [style.boldSex(it's a certainty that you've been impregnated)]!");
+				}
+				
+			} else {
+				sb.append("After having [npc.her] ");
+				if(isSlime) {
+					sb.append("slimy body");
+				} else {
+					sb.append("womb");
+				}
+				if(selfcest) {
+					sb.append(" filled with [npc.her] own seed,");
+				} else {
+					if(characterProvidingCum==null) {
+						sb.append(" filled with cum,");
+					} else {
+						sb.append(" filled with [npc2.namePos] [npc2.cum+],");
+					}
+				}
+				if(characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(if [npc.she] isn't already pregnant, [npc.she] certainly is now)]!");
+				} else {
+					sb.append(" [npc.name] [npc.verb(realise)] that [style.boldSex(it's a certainty that [npc.sheHas] been impregnated)]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
 			}
 		}
 	};
 	
-	private PregnancyDescriptor(){
-	}
 	
-	public abstract String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum);
+	public abstract String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination);
+	
+	public static PregnancyDescriptor getPregnancyDescriptorBasedOnProbability(float probability) {
+		if (probability <= 0) {
+			return PregnancyDescriptor.NO_CHANCE;
+		} else if (probability <= 0.15f) {
+			return PregnancyDescriptor.LOW_CHANCE;
+		} else if (probability <= 0.3f) {
+			return PregnancyDescriptor.AVERAGE_CHANCE;
+		} else if (probability < 1) {
+			return PregnancyDescriptor.HIGH_CHANCE;
+		} else {
+			return PregnancyDescriptor.CERTAINTY;
+		}
+	}
 }

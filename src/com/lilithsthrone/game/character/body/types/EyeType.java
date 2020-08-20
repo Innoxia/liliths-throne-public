@@ -1,167 +1,357 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.11
+ * @version 0.3.7
  * @author Innoxia
  */
-public enum EyeType implements BodyPartTypeInterface {
-	HUMAN(BodyCoveringType.EYE_HUMAN, Race.HUMAN, 1, EyeShape.ROUND, EyeShape.ROUND),
+public class EyeType {
 
-	ANGEL(BodyCoveringType.EYE_ANGEL, Race.ANGEL, 1, EyeShape.ROUND, EyeShape.ROUND),
+	public static AbstractEyeType HUMAN = new AbstractEyeType(BodyCoveringType.EYE_HUMAN,
+			Race.HUMAN,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"human",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into human eyes, with normally-proportioned irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldHuman(human eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] normal, human eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
 
-	COW_MORPH(BodyCoveringType.EYE_COW_MORPH, Race.COW_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	public static AbstractEyeType ANGEL = new AbstractEyeType(BodyCoveringType.EYE_ANGEL,
+			Race.ANGEL,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"angel",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			" By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into angelic eyes, with normally-proportioned irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldAngel(angelic eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] angelic eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
 
-	DEMON_COMMON(BodyCoveringType.EYE_DEMON_COMMON, Race.DEMON, 1, EyeShape.ROUND, EyeShape.VERTICAL),
+	public static AbstractEyeType DEMON_COMMON = new AbstractEyeType(BodyCoveringType.EYE_DEMON_COMMON,
+			Race.DEMON,
+			1,
+			EyeShape.ROUND,
+			EyeShape.VERTICAL,
+			"demonic",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"#IF(npc.isShortStature())"
+				+ "By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into impish eyes, with vertical pupils and large irises."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldImp(impish eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)]."
+			+ "#ELSE"
+				+ "By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into demonic eyes, with vertical pupils and large irises."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldDemon(demonic eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)]."
+			+ "#ENDIF",
+			"[npc.SheHasFull] [npc.eyePairs] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
 
-	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	public static AbstractEyeType CAT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_FELINE,
+			Race.CAT_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.VERTICAL,
+			"cat",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into cat-like eyes, with large irises and vertical pupils."
+					+ "<br/>"
+					+ "[npc.Name] now [npc.has] [style.boldCatMorph(cat-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] cat-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
 
-	LYCAN(BodyCoveringType.EYE_LYCAN, Race.WOLF_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	public static AbstractEyeType COW_MORPH = new AbstractEyeType(BodyCoveringType.EYE_COW_MORPH,
+			Race.COW_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"cow",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into cow-like eyes, with large pupils and irises."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldCowMorph(cow-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] cow-like eyes, the irises and pupils of which are larger than a regular human's."
+			+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType DOG_MORPH = new AbstractEyeType(BodyCoveringType.EYE_DOG_MORPH,
+			Race.DOG_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"dog",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into dog-like eyes, with large pupils and irises."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldDogMorph(dog-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] dog-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType FOX_MORPH = new AbstractEyeType(BodyCoveringType.EYE_FOX_MORPH,
+			Race.FOX_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.VERTICAL,
+			"fox",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into fox-like eyes, with large irises and vertical pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldFoxMorph(fox-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] fox-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType WOLF_MORPH = new AbstractEyeType(BodyCoveringType.EYE_LYCAN,
+			Race.WOLF_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"wolf",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into wolf-like eyes, with large irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldWolfMorph(wolf-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] wolf-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType SQUIRREL_MORPH = new AbstractEyeType(BodyCoveringType.EYE_SQUIRREL,
+			Race.SQUIRREL_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"squirrel",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into squirrel-like eyes, with large irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldSquirrelMorph(squirrel-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] squirrel-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType RAT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_RAT,
+			Race.RAT_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"rat",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into rat-like eyes, with large irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldRatMorph(rat-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] rat-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType RABBIT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_RABBIT,
+			Race.RABBIT_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"rabbit",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into rabbit-like eyes, with large irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldRabbitMorph(rabbit-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] rabbit-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType BAT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_BAT,
+			Race.BAT_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"bat",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into bat-like eyes, with large irises and pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldBatMorph(bat-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] bat-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType ALLIGATOR_MORPH = new AbstractEyeType(BodyCoveringType.EYE_ALLIGATOR_MORPH,
+			Race.ALLIGATOR_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.VERTICAL,
+			"alligator",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into alligator-like eyes, with large irises and vertical pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldAlligatorMorph(alligator-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] alligator-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType HORSE_MORPH = new AbstractEyeType(BodyCoveringType.EYE_HORSE_MORPH,
+			Race.HORSE_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.HORIZONTAL,
+			"horse",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into horse-like eyes, with large irises and horizontal pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldHorseMorph(horse-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] horse-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType REINDEER_MORPH = new AbstractEyeType(BodyCoveringType.EYE_REINDEER_MORPH,
+			Race.REINDEER_MORPH,
+			1,
+			EyeShape.ROUND,
+			EyeShape.HORIZONTAL,
+			"reindeer",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into reindeer-like eyes, with large irises and horizontal pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldReindeerMorph(reindeer-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] reindeer-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
+
+	public static AbstractEyeType HARPY = new AbstractEyeType(BodyCoveringType.EYE_HARPY,
+			Race.HARPY,
+			1,
+			EyeShape.ROUND,
+			EyeShape.ROUND,
+			"harpy",
+			"eye",
+			"eyes",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			"By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into bird-like eyes, with large irises and horizontal pupils."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [style.boldHarpy(bird-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
+			"[npc.SheHasFull] [npc.eyePairs] bird-like eyes, the irises and pupils of which are larger than a regular human's."
+				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+	};
 	
-	FOX_MORPH(BodyCoveringType.EYE_FOX_MORPH, Race.FOX_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
-	CAT_MORPH(BodyCoveringType.EYE_FELINE, Race.CAT_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
-
-	SQUIRREL_MORPH(BodyCoveringType.EYE_SQUIRREL, Race.SQUIRREL_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
-
-	RAT_MORPH(BodyCoveringType.EYE_RAT, Race.RAT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
-
-	RABBIT_MORPH(BodyCoveringType.EYE_RABBIT, Race.RABBIT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	private static List<AbstractEyeType> allEyeTypes;
+	private static Map<AbstractEyeType, String> eyeToIdMap = new HashMap<>();
+	private static Map<String, AbstractEyeType> idToEyeMap = new HashMap<>();
 	
-	BAT_MORPH(BodyCoveringType.EYE_BAT, Race.BAT_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+	static {
+		allEyeTypes = new ArrayList<>();
+		
+		// Add in hard-coded eye types:
+		Field[] fields = EyeType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractEyeType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractEyeType ct;
+				try {
+					ct = ((AbstractEyeType) f.get(null));
 
-	ALLIGATOR_MORPH(BodyCoveringType.EYE_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
-
-	HORSE_MORPH(BodyCoveringType.EYE_HORSE_MORPH, Race.HORSE_MORPH, 1, EyeShape.ROUND, EyeShape.HORIZONTAL),
-
-	REINDEER_MORPH(BodyCoveringType.EYE_REINDEER_MORPH, Race.REINDEER_MORPH, 1, EyeShape.ROUND, EyeShape.HORIZONTAL),
-
-	HARPY(BodyCoveringType.EYE_HARPY, Race.HARPY, 1, EyeShape.ROUND, EyeShape.ROUND);
-
-	
-	private BodyCoveringType coveringType;
-	private Race race;
-	private int eyePairs;
-	private EyeShape irisShape, pupilShape;
-
-	private EyeType(BodyCoveringType coveringType, Race race, int eyePairs, EyeShape irisShape, EyeShape pupilShape) {
-		this.coveringType = coveringType;
-		this.race = race;
-		this.eyePairs = eyePairs;
-		this.irisShape = irisShape;
-		this.pupilShape = pupilShape;
-	}
-
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static EyeType getTypeFromString(String value) {
-		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
+					eyeToIdMap.put(ct, f.getName());
+					idToEyeMap.put(f.getName(), ct);
+					
+					allEyeTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return valueOf(value);
-	}
-
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "a pair of";
-	}
-
-	@Override
-	public boolean isDefaultPlural() {
-		return true;
-	}
-
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		return "eye";
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		return "eyes";
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) {
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic");
-			case CAT_MORPH:
-				return UtilText.returnStringAtRandom("cat-like");
-			case COW_MORPH:
-				return UtilText.returnStringAtRandom("cow-like");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic");
-			case DOG_MORPH:
-				return UtilText.returnStringAtRandom("dog-like");
-			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("squirrel-like");
-			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("reptile-like");
-			case HARPY:
-				return UtilText.returnStringAtRandom("bird-like");
-			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("horse-like");
-			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("reindeer-like");
-			case HUMAN:
-				return UtilText.returnStringAtRandom("");
-			case LYCAN:
-				return UtilText.returnStringAtRandom("wolf-like");
-			case FOX_MORPH:
-				return UtilText.returnStringAtRandom("fox-like");
-			case RAT_MORPH:
-				return UtilText.returnStringAtRandom("rat-like");
-			case RABBIT_MORPH:
-				return UtilText.returnStringAtRandom("rabbit-like");
-			case BAT_MORPH:
-				return UtilText.returnStringAtRandom("bat-like");
+	public static AbstractEyeType getEyeTypeFromId(String id) {
+		if(id.equals("IMP")) {
+			return EyeType.DEMON_COMMON;
 		}
-		return "";
-	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return coveringType;
-	}
-
-	@Override
-	public Race getRace() {
-		return race;
-	}
-
-	public int getEyePairs() {
-		return eyePairs;
-	}
-
-	public EyeShape getIrisShape() {
-		return irisShape;
-	}
-
-	public EyeShape getPupilShape() {
-		return pupilShape;
+		if(id.equals("LYCAN")) {
+			return EyeType.WOLF_MORPH;
+		}
+		id = Util.getClosestStringMatch(id, idToEyeMap.keySet());
+		return idToEyeMap.get(id);
 	}
 	
-	private static Map<Race, List<EyeType>> typesMap = new HashMap<>();
-	public static List<EyeType> getEyeTypes(Race r) {
+	public static String getIdFromEyeType(AbstractEyeType eyeType) {
+		return eyeToIdMap.get(eyeType);
+	}
+	
+	public static List<AbstractEyeType> getAllEyeTypes() {
+		return allEyeTypes;
+	}
+	
+	private static Map<AbstractRace, List<AbstractEyeType>> typesMap = new HashMap<>();
+	
+	public static List<AbstractEyeType> getEyeTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}
 		
-		List<EyeType> types = new ArrayList<>();
-		for(EyeType type : EyeType.values()) {
+		List<AbstractEyeType> types = new ArrayList<>();
+		for(AbstractEyeType type : EyeType.getAllEyeTypes()) {
 			if(type.getRace()==r) {
 				types.add(type);
 			}
@@ -169,4 +359,5 @@ public enum EyeType implements BodyPartTypeInterface {
 		typesMap.put(r, types);
 		return types;
 	}
+	
 }

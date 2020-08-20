@@ -69,4 +69,14 @@ public enum DiceFace {
 	public String getHtmlDisplay() {
 		return htmlDisplay;
 	}
+	
+	public static DiceFace getFaceFromInt(int face) {
+		for(DiceFace df : DiceFace.values()) {
+			if(df.getValue()==face) {
+				return df;
+			}
+		}
+		System.err.println("There is no DiceFace with the value '"+face+"'...");
+		return DiceFace.ONE;
+	}
 }

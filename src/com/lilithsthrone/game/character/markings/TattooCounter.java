@@ -6,9 +6,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -30,11 +31,11 @@ public class TattooCounter implements XMLSaving {
 	}
 	
 	public static List<Colour> getAvailableColours() {
-		return ColourListPresets.ALL.getPresetColourList();
+		return ColourListPresets.ALL;
 	}
 
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof TattooCounter)
 					&& ((TattooCounter)o).getType().equals(this.getType())
@@ -48,7 +49,7 @@ public class TattooCounter implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + getType().hashCode();
 		result = 31 * result + getCountType().hashCode();
 		result = 31 * result + getColour().hashCode();
@@ -62,7 +63,7 @@ public class TattooCounter implements XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.getType().toString());
 		CharacterUtils.addAttribute(doc, element, "countType", this.getCountType().toString());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
 		CharacterUtils.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
 		
 		return element;
@@ -73,7 +74,7 @@ public class TattooCounter implements XMLSaving {
 			return new TattooCounter(
 					TattooCounterType.valueOf(parentElement.getAttribute("type")),
 					TattooCountType.valueOf(parentElement.getAttribute("countType")),
-					Colour.valueOf(parentElement.getAttribute("colour")),
+					PresetColour.getColourFromId(parentElement.getAttribute("colour")),
 					Boolean.valueOf(parentElement.getAttribute("glow")));
 			
 		} catch(Exception ex) {

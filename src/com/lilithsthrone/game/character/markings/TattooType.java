@@ -7,12 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.2.6
- * @version 0.2.8
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class TattooType {
@@ -21,7 +22,7 @@ public class TattooType {
 			"none",
 			"none",
 			"This tattoo has no particular pattern, and simply displays either writing or a counter.",
-			ColourListPresets.JUST_GREY.getPresetColourList(),
+			ColourListPresets.JUST_GREY,
 			null,
 			null,
 			null);
@@ -30,16 +31,16 @@ public class TattooType {
 			"flowers",
 			"flowers",
 			"This tattoo depicts a flowing series of intertwined flowers.",
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
 			null);
 
 	public static AbstractTattooType TRIBAL = new AbstractTattooType(
 			"tribal",
 			"tribal",
 			"A series of flowing lines and intricate patterns.",
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null,
 			null,
 			null);
@@ -48,16 +49,16 @@ public class TattooType {
 			"butterflies",
 			"butterflies",
 			"An artistic depiction of a trio of butterflies in mid-flight.",
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
 			null);
 	
 	public static AbstractTattooType LINES = new AbstractTattooType(
 			"lines",
 			"lines",
 			"A series of flowing, swirling lines.",
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null,
 			null,
 			null);
@@ -74,6 +75,15 @@ public class TattooType {
 	
 	public static String getIdFromTattooType(AbstractTattooType tattooType) {
 		return tattooToIdMap.get(tattooType);
+	}
+
+	/**
+	 * @return A list of tattoos which the target has available to them.
+	 */
+	public static List<AbstractTattooType> getConditionalTattooTypes(GameCharacter target) {
+		List<AbstractTattooType> tattoos = getAllTattooTypes();
+		tattoos.removeIf(tattoo -> !tattoo.isAvailable(target));
+		return tattoos;
 	}
 	
 	public static List<AbstractTattooType> getAllTattooTypes() {

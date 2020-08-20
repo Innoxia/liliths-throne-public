@@ -18,13 +18,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -38,8 +41,9 @@ public class AbstractTattooType extends AbstractCoreType {
 	private boolean isMod;
 	
 	private int value;
-	
-	private int enchantmentLimit;
+
+	@SuppressWarnings("unused")
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	
 	private List<InventorySlot> slotAvailability;
 
@@ -52,6 +56,8 @@ public class AbstractTattooType extends AbstractCoreType {
 	
 	private String pathName;
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
+
+	private String availabilityRequirements;
 	
 	public AbstractTattooType(
 			String pathName,
@@ -74,7 +80,7 @@ public class AbstractTattooType extends AbstractCoreType {
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
-			this.availablePrimaryColours.add(Colour.CLOTHING_BLACK);
+			this.availablePrimaryColours.add(PresetColour.CLOTHING_BLACK);
 		} else {
 			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
@@ -131,7 +137,7 @@ public class AbstractTattooType extends AbstractCoreType {
 						slotAvailability = standardInventorySlots;
 					}
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'slotAvailability' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				this.slotAvailability = slotAvailability;
 				
@@ -141,31 +147,37 @@ public class AbstractTattooType extends AbstractCoreType {
 				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
 				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
+
+				try {
+					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
+				} catch(Exception ex) {
+				}
 				
 				try {
 					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
 				} catch(Exception ex) {
+					System.err.println("AbstractTattooType loading failed. Cause: 'enchantmentLimit' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				List<Colour> importedPrimaryColours = new ArrayList<>();
 				try {
 					importedPrimaryColours = readColoursFromElement(coreAttributes, "primaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'primaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'primaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
 				try {
 					importedSecondaryColours = readColoursFromElement(coreAttributes, "secondaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'secondaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 
 				List<Colour> importedTertiaryColours = new ArrayList<>();
 				try {
 					importedTertiaryColours = readColoursFromElement(coreAttributes, "tertiaryColours");
 				} catch(Exception ex) {
-					System.err.println("AbstractTattooType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
+					System.err.println("AbstractTattooType loading failed. Cause: 'tertiaryColours' element unable to be parsed. (" + tattooXMLFile.getName() + ")\n" + ex);
 				}
 				
 				this.availablePrimaryColours = new ArrayList<>(importedPrimaryColours);
@@ -177,27 +189,27 @@ public class AbstractTattooType extends AbstractCoreType {
 				SVGStringMap = new HashMap<>();
 
 			} catch(Exception ex) {
-				System.err.println("TattooType was unable to be loaded from file!");
+				System.err.println("TattooType was unable to be loaded from file! (" + tattooXMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
 
 
 	private List<Colour> readColoursFromElement(Element coreAttributes, String elementTagName) {
-		Element coloursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
+		Element coloursElement = ((Element)coreAttributes.getElementsByTagName(elementTagName).item(0));
 		if(coloursElement.getAttribute("values").isEmpty()) {
 			NodeList coloursNodeList = coloursElement.getElementsByTagName("colour");
 			List<Colour> result = new ArrayList<>(coloursNodeList.getLength());
 			for(int i = 0; i < coloursNodeList.getLength(); i++){
-				result.add(Colour.valueOf(((Element)coloursNodeList.item(i)).getTextContent()));
+				result.add(PresetColour.getColourFromId(((Element)coloursNodeList.item(i)).getTextContent()));
 			}
 			return result;
 		}
-		return ColourListPresets.valueOf(coloursElement.getAttribute("values")).getPresetColourList();
+		return ColourListPresets.getColourListFromId(coloursElement.getAttribute("values"));
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractTattooType)
 					&& ((AbstractTattooType)o).isMod()==isMod
@@ -264,12 +276,19 @@ public class AbstractTattooType extends AbstractCoreType {
 		return slotAvailability;
 	}
 	
+	public boolean isAvailable(GameCharacter target) {
+		if(availabilityRequirements!=null && !availabilityRequirements.isEmpty()) {
+			return Boolean.valueOf(UtilText.parse(target, ("[#"+availabilityRequirements+"]").replaceAll("\u200b", "")));
+		}
+		return true;
+	}
+	
 	public String getId() {
 		return TattooType.getIdFromTattooType(this);
 	}
 	
 	public int getEnchantmentLimit() {
-		return enchantmentLimit;
+		return 100;
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {
@@ -328,7 +347,7 @@ public class AbstractTattooType extends AbstractCoreType {
 						is.close();
 					}
 					
-					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 					
 					addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
 					

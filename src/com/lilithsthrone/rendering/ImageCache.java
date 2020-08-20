@@ -73,6 +73,9 @@ public enum ImageCache {
 	 * @return A CachedImage object containing the image string if found in the cache, null otherwise
 	 */
 	public CachedImage requestImage(File f) {
+		if(f==null) {
+			return null;
+		}
 		CachedImage image = cache.get(f);
 		if (image == null) {
 			requestCache(f);
@@ -86,11 +89,17 @@ public enum ImageCache {
 	 * @return A CachedImage object containing the image string or null if the image failed to load
 	 */
 	public CachedImage getImage(File f) {
+		if(f==null) {
+			return null;
+		}
 		CachedImage image = cache.get(f);
 		if (image == null) {
-			image = new CachedImage();
-			if (image.load(f)) cache.put(f, image);
-			else return null;
+			image = f.getName().endsWith(".gif") ? new CachedGif() : new CachedImage();
+			if (image.load(f)) {
+				cache.put(f, image);
+			} else {
+				return null;
+			}
 		}
 		return image;
 	}

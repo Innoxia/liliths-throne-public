@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- INTERIOR_BRAX -->
+
+	<htmlContent tag="INTERIOR_BRAX"><![CDATA[
+	<p>
+		You soon find the door that you're looking for, marked with the words 'Inspector [brax.nameFull]'. Wondering what sort of person this '[brax.name]' might be, you reach up and knock on the door. Almost instantly, a low, gruff voice barks out in response, [brax.speech(Enter!)]
+	</p>
+	<p>
+		Pushing open the door, you step forwards into [brax.namePos] office. As you take a quick glance around, you notice that there are numerous posters of scantily-clad girls plastered all over the walls, which gives this room a rather unexpectedly-unprofessional feel to it. Apart from this oddity, the only other features of any interest are the normal collection of filing cabinets and bookshelves standing against the walls, a large mahogany desk on the other side of the room, and the imposing figure who's sitting behind it.
+	</p>
+	<p>
+		As the door starts to swing shut behind you, the person behind the desk, who you assume to be [brax.name], stands up. He's a greater wolf-morph, and is covered from head to toe in [brax.skinColour] fur. His face is formed into an anthropomorphic wolf-like muzzle, and his pair of eyes are a wild, vivid shade of [brax.eyeColour]. As would be expected, he's wearing an Enforcer's uniform, consisting of a blue shirt, black slacks, and a black tie. Behind him, hanging up on the wall, is his jacket, cap and dress belt.
+	</p>
+	<p>
+		Staring right at you, [brax.name] angrily slams his fist on the desk. You see his huge muscles bulge underneath his Enforcer's shirt as he growls at you, [brax.speech(I told that stupid slut to stop handing out passes! Who the hell are you?!)]
+	</p>
+	#IF(pc.getRace()==RACE_WOLF_MORPH && pc.isFeminine())
+		<p>
+			As he finishes barking out his question, you see his hungry eyes drop down to roam over your wolf-like body, and you wonder if he has a weakness for wolf-girls. Wanting to test your theory, you turn back to face the door, pushing it firmly shut while not-so-subtly sticking out your ass towards [brax.name]. Turning back to face him, your suspicions are proven to be correct as you see his eyes fogged over with lust...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_REPEAT -->
+
+	<htmlContent tag="INTERIOR_BRAX_REPEAT"><![CDATA[
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			As he sees that it's you who's entering his office once again, [brax.namePos] jaw drops and he exclaims, [brax.speech(What the hell are you doing back here?! Did that braindead bimbo give you <i>another</i> pass?!)]
+		</p>
+		<p>
+			As you enter his office, ready for another fight, [brax.name] stands up, and you see the familiar sight of arcane fire being summoned around his right hand, while with the other he grabs his pistol.
+		</p>
+		<p>
+			[brax.speech(I guess you've just got a craving for wolf dick!)] [brax.name] laughs, and you realise that if you lose again, you're going to be getting another taste of his cock...
+		</p>
+	#ELSE
+		<p>
+			The door to the office which used to be [brax.namePos] is securely shut and locked. There's really nothing more for you to do here except turn around and leave...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_TRUTH -->
+
+	<htmlContent tag="INTERIOR_BRAX_TRUTH"><![CDATA[
+	<p>
+		You decide that's it's probably for the best if you just tell the truth, [pc.speech(I'm here to find out what's happened to my friend, Arthur. His apartment was empty, and your name was on the arrest warrant stamped to his door.)]
+	</p>
+	<p>
+		As you mention Arthur's name, [brax.name] lets out a dismissive grunt, and as you finish speaking, he huffs, [brax.speech(As if I'd tell you that! You come barging into my office, then expect me to hand out classified information?! I think you need to be the first test subject for a special punishment I've recently thought of!)]
+	</p>
+	<p>
+		As [brax.name] finishes speaking, you see a burst of arcane fire suddenly materialise around his right hand, while with his other, he reaches down to grab the pistol at his waist. From the angry expression on his face, it's not too hard to figure out that he intends to fight you. This all seems incredibly unreasonable, and you think that he was just looking for any excuse to try this 'punishment' out on someone...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_LIE -->
+
+	<htmlContent tag="INTERIOR_BRAX_LIE"><![CDATA[
+	<p>
+		As you take a closer look at [brax.namePos] office, you notice that the scantily-clad models in every single poster are wolf-girls. Shifting your gaze to look past [brax.namePos] desk for a moment, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's full of small, half-naked wolf-girl figurines. From your observations of [brax.namePos] office, it's safe to assume that he has a thing for females of the same race as him.
+	</p>
+	<p>
+		Deciding to take a bold course of action, you use your deduction as inspiration to make up a story right there on the spot, [pc.speech(Well, after I informed the cat-girl at the front desk that I'm the owner of the establishment 'The She-wolf's Den', she said that you'd probably want to talk to me in person.)]
+	</p>
+	<p>
+		Just as you're kicking yourself for thinking up such a ridiculous name, you notice [brax.namePos] snarl fading away, and you struggle to keep your composure as he impatiently blurts out, [brax.speech(Wait, what's all this about a she-wolf's den?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_LIE_IDIOT_BRAX -->
+
+	<htmlContent tag="INTERIOR_BRAX_LIE_IDIOT_BRAX"><![CDATA[
+	<p>
+		Almost feeling sorry for [brax.name], you decide to tell him that he's a gullible idiot, [pc.speech(I can't believe you actually fell for that! Do you really have the rank of Inspector? That's just sad...)]
+	</p>
+	<p>
+		As he hears that he's been fooled, [brax.namePos] wolf-like face turns up into a snarl, and he slams his fist on the desk, shouting, [brax.speech(I-I knew you were lying all along! I don't even like wolf-girls! You'd better tell me what the hell you're here for, <i>right now</i>!)]
+	</p>
+	<p>
+		Despite the farcical nature of [brax.namePos] stuttering denial of his all-too-apparent weakness, you quickly realise from the angry expression on his face that he means business, and explain, [pc.speech(Well, if you want the truth, I'm here to find out what you've done with my friend, Arthur. I found his apartment empty, and your name was on the arrest warrant stamped to his door.)]
+	</p>
+	<p>
+		[brax.NamePos] snarling face relaxes a little, turning into a mocking sneer as he replies, [brax.speech(As if I'd tell you that! You come barging into my office, try to make a fool of me, then expect me to hand out classified information?! I think you need to be the first test subject for a special punishment I've recently thought of!)]
+	</p>
+	<p>
+		As [brax.name] finishes speaking, you see a burst of arcane fire suddenly materialise around his right hand, while with his other, he reaches down to grab the pistol at his waist. From the angry, although somewhat flustered, expression on his face, it's not too hard to figure out that he intends to fight you. Resorting to violence like this seems more than a little unreasonable, and you think that he was just looking for any excuse to try this 'punishment' out on someone...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_LIE_BLUFFING -->
+
+	<htmlContent tag="INTERIOR_BRAX_LIE_BLUFFING"><![CDATA[
+	<p>
+		Wondering just how gullible [brax.name] really is, you continue bluffing, [pc.speech(I'm not surprised that you haven't heard about it; membership of my club is by recommendation only. I'm sure you understand, but I wouldn't want any old member of the public being allowed to enjoy the company of the most beautiful wolf-girls in all of Dominion.)]
+	</p>
+	<p>
+		You struggle not to laugh as you see [brax.namePos] eyes glazing over with lust. [brax.speech(The most beautiful wolf-girls? So... what do they do in your club?)]
+	</p>
+	<p>
+		[pc.speech(Absolutely <i>anything</i> that's asked of them,)] you reply, and as you see that [brax.name] is by now totally taken in by your ruse, you decide to move onto business, [pc.speech(You know, I'm sure I could rely on an Inspector like you to really appreciate the girls at my club, and I'd love to offer you a recommendation to join, but I have a slight problem that needs solving first...)]
+	</p>
+	<p>
+		[brax.speech(Anything!)] [brax.name] eagerly blurts out.
+	</p>
+	<p>
+		[pc.speech(Excellent!)] you reply, [pc.speech(You see, an acquaintance of mine, going by the name of Arthur, owes me a good deal of money. When I paid him a visit, however, I found his apartment empty, and your name was on an arrest warrant fixed to his door. Could you tell me what happened to him?)]
+	</p>
+	<p>
+		[brax.Name] fidgets uncomfortably as you reveal the reason for your visit. [brax.speech(Ah... Well, you see, he's kind of a special case... I really shouldn't divulge information relating to-)]
+	</p>
+	<p>
+		[pc.speech(That's a real shame. You know, many of our patrons like to take two or three girls at once...)]
+	</p>
+	<p>
+		[brax.speech(Damn it!)] [brax.name] exclaims, interrupting your sentence. Grabbing a piece of paper out from a pile of freshly-signed documents, he thrusts it into your hands and says, [brax.speech(Don't tell anyone I gave you this! Now, where's this establishment of yours?!)]
+	</p>
+	<p>
+		Wanting to trick him one last time, you give [brax.name] a series of instructions which will end up with him returning right back here at Enforcer HQ. Just as you thought, he's so completely blinded by his lust for wolf-girls that he doesn't realise you're sending him in a huge circuit of the city. As he leaps up and runs for the door, you wonder if you should tell him what a gullible idiot he is...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_LIE_BLUFFING_SUCCESS -->
+
+	<htmlContent tag="INTERIOR_BRAX_LIE_BLUFFING_SUCCESS"><![CDATA[
+	<p>
+		You barely have time to say goodbye to your gullible friend before he bounds out of the door, muttering about how he won't need 'that slut downstairs' any more.
+	</p>
+	<p>
+		You finally have a moment to read over the piece of paper [brax.name] gave to you, and as you do so, you can't help but let out an annoyed sigh. It looks like Arthur is going to be one difficult person to track down, as the paper says:
+	</p>
+	<h6 style='text-align:center;'>Dominion Enforcer Department</h6>
+	<h5 style='text-align:center;'>RECORD OF SLAVE TRANSFER</h5>
+	<p style='text-align:center;'>
+		According to the laws of Dominion, the person of <i>[arthur.fullName]</i>, having being found guilty of <i>treason</i>, has been enslaved. Following standard procedure, ownership has been transferred to a registered slave trader chosen by random lottery.
+		<br/><br/>
+		Officer in charge of transferring slave ownership: <i>[brax.fullName]</i>
+		<br/><br/>
+		Slave trader taking ownership: <i>[scarlett.fullName]</i>
+		<br/><br/>
+		Contact address: <i>Scarlett's shop, Slaver Alley</i>
+	</p>
+	<p>
+		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare Enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform and add it to your inventory</b>.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX -->
+
+	<htmlContent tag="INTERIOR_BRAX_LIE_BLUFFING_IDIOT_BRAX"><![CDATA[
+	<p>
+		Almost feeling sorry for [brax.name], you decide to tell him that he's a gullible idiot, [pc.speech(Do you really believe that there's a place called 'The She-wolf's Den'? You do realise that I made all that up, right? I mean, no one can be <i>that</i> much of a gullible idiot!)]
+	</p>
+	<p>
+		With his hand on the door-handle, [brax.name] stops, and with an unsure stammer, turns back to you, [brax.speech(W-What do you mean? I-I knew you were lying all along! I don't even like wolf-girls!)]
+	</p>
+	<p>
+		You can't help but laugh at [brax.namePos] stuttering denial of his all-too-apparent weakness,
+		#IF(pc.getRace()==RACE_WOLF_MORPH && pc.isFeminine())
+			 [pc.speech(Oh, please! I see the way you keep glancing at my body! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]
+		#ELSE
+			 [pc.speech(Oh, please! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]
+		#ENDIF
+	</p>
+	<p>
+		[brax.namePos] face turns back up into the same snarl that you saw when you first entered his office. [brax.speech(S-Shut up! You want to see how much I like wolf-girls?! Fine! I think you need to be the first test subject for a special punishment I've recently thought of!)]
+	</p>
+	<p>
+		As [brax.name] finishes speaking, you see a burst of arcane fire suddenly materialise around his right hand, while with his other, he reaches down to grab the pistol at his waist. From the angry, although somewhat flustered, expression on his face, it's not too hard to figure out that he intends to fight you. Resorting to violence like this seems more than a little unreasonable, and you think that he was just looking for any excuse to try this 'punishment' out on someone...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_GETTING_TEASED -->
+
+	<htmlContent tag="INTERIOR_BRAX_GETTING_TEASED"><![CDATA[
+	<p>
+		Realising that you can use your body to get what you want, you slowly walk over to [brax.namePos] desk, suggestively swaying your [pc.hipSize] hips with each step. Just as you'd hoped, [brax.name] can't take his eyes off of you, and he slowly sits back down, his thoughts lost in a pink haze of arousal as he watches your provocative movements.
+	</p>
+	<p>
+		[pc.speech(You know, it's not often that I get to meet such handsome wolf-boys...)] you sigh, leaning forwards over [brax.namePos] desk as you bat your eyelids at him.
+	</p>
+	<p>
+		Despite it being completely obvious what you're trying to do, [brax.namePos] weakness for wolf-girls has left him completely unable to act in a rational manner. As he hears you calling him handsome, a stupid grin crosses his face, and you smile back as you realise that he's now totally under your spell.
+	</p>
+	<p>
+		[pc.speech(You know, [brax.name],)] you tease, reaching forwards to playfully straighten his tie, [pc.speech(I was hoping you could help me. My friend, Arthur, seems to have been arrested, and it was your name on the arrest warrant. Could you tell me what happened to him? Pretty please?)]
+	</p>
+	<p>
+		In a hypnotised trance, [brax.name] leans down and produces a piece of paper, before pushing it into your hands. [brax.speech(Just for you, but don't tell anyone I gave you this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_GETTING_TEASED_UH_OH -->
+
+	<htmlContent tag="INTERIOR_BRAX_GETTING_TEASED_UH_OH"><![CDATA[
+	<p>
+		Looking down, you read over the piece of paper [brax.name] gave to you, and as you do so, you can't help but let out an annoyed sigh. It looks like Arthur is going to be one difficult person to track down, as the paper says:
+	</p>
+	<p>
+	<h6 style='text-align:center;'>Dominion Enforcer Department</h6>
+	<h5 style='text-align:center;'>RECORD OF SLAVE TRANSFER</h5>
+	<p style='text-align:center;'>
+		According to the laws of Dominion, the person of <i>[arthur.fullName]</i>, having being found guilty of <i>treason</i>, has been enslaved. Following standard procedure, ownership has been transferred to a registered slave trader chosen by random lottery.
+		<br/><br/>
+		Officer in charge of transferring slave ownership: <i>[brax.fullName]</i>
+		<br/><br/>
+		Slave trader taking ownership: <i>[scarlett.fullName]</i>
+		<br/><br/>
+		Contact address: <i>Scarlett's shop, Slaver Alley</i>
+	</p>
+	<p>
+		To [brax.namePos] lust-filled mind, your sigh of annoyance sounds just like a lewd moan, and before you can react, he stands up and steps forwards, before reaching up to grab your head and pull you into a sudden, rough kiss. After a moment of frantically forcing his tongue down your throat, he releases you, and you step back, panting for breath. Being caught off-guard, you're unable to think of a response to the wolf-boy's confident move, and you simply stare at him with eyes wide open as he says, [brax.speech(Don't come in here acting the tease and expect to get away with it!)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Stepping forwards, he grabs you by the waist and dominantly pulls you in tight against his wide, muscular chest. You instantly feel his massive erection pressing against your foreleg, and you gulp as he growls, [brax.speech(I haven't fucked a wolf-taur in a good long while! I hope you like it rough!)]
+		#ELSE
+			Stepping forwards, he grabs you by the hips and dominantly pulls you in tight against his wide, muscular chest. You instantly feel his massive erection pressing against your leg, and you gulp as he growls, [brax.speech(I haven't fucked a wolf-girl as pretty as you in a good long while! I hope you like it rough!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_BRAX_GETTING_TEASED_UH_OH_GET_FUCKED"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			With [brax.namePos] strong, confident grip still on your hips, you suddenly realise that you're happily leaning in against his masculine chest. With a little whimper, you gaze into his hungry, wolf-like eyes, and, taking your submissive noise as a sign that you want to be kissed, he presses his wolf-like muzzle against your [pc.lips] and forces his tongue into your mouth.
+		</p>
+		<p>
+			As you passionately kiss the dominant wolf-boy, you feel his hands reach up to grope and squeeze your [pc.breasts]. Moaning happily into his mouth, you push out your chest, encouraging him to continue playing with your [pc.breastSize] [pc.breasts] as you close your eyes and enjoy the safe, warm feeling of his embrace.
+		</p>
+		<p>
+			[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, [brax.speech(Good bitch, now get down on the floor and present that feral ass to me!)]
+		</p>
+		<p>
+			By now desperate to have sex with the dominant wolf-boy, you obediently do as you're told, and drop down onto your animalistic [pc.legRace]'s body, presenting your feral ass and genitals to him...
+		</p>
+	#ELSE
+		<p>
+			[brax.namePos] strong, confident grip on your hips quickly moves down and around to your [pc.assSize] ass, and as he gives it a forceful squeeze, you suddenly realise that you're happily leaning in against his masculine chest. With a little whimper, you gaze into his hungry, wolf-like eyes, and, taking your submissive noise as a sign that you want to be kissed, he presses his wolf-like muzzle against your [pc.lips] and forces his tongue into your mouth.
+		</p>
+		<p>
+			As you passionately kiss the dominant wolf-boy, you feel his hands continue to grope and squeeze your rear end. Moaning happily into his mouth, you grind yourself against his muscular body, pressing your [pc.breastSize] breasts firmly against his torso as you close your eyes and enjoy the safe, warm feeling of his embrace.
+		</p>
+		<p>
+			[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, [brax.speech(Good bitch, now get down on all fours and present yourself!)]
+		</p>
+		<p>
+			By now desperate to have sex with the dominant wolf-boy, you obediently do as you're told, and drop down onto your hands and knees as you present yourself to him...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_BRAX_GETTING_TEASED_UH_OH_TAKE_CONTROL"><![CDATA[
+	<p>
+		You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl into his ear, [pc.speech(Yes, [brax.name], I <i>do</i> like it rough!)]
+	</p>
+	<p>
+		[brax.name] lets out a surprised cry as you reach down and firmly grab his groin with one hand. Pressing your lips against his to prevent him from making any more noise, you thrust your tongue into his mouth, squeezing down on his satisfyingly-large package as he squirms and melts under your touch.
+	</p>
+	<p>
+		Breaking off the kiss, but making sure not to let go of his crotch, you growl again, [pc.speech(So, the real question is, do <i>you</i> like it rough?)]
+	</p>
+	<p>
+		[brax.speech(W-Wait I-)]
+	</p>
+	<p>
+		[pc.speech(Wrong answer!)] you cry, giving [brax.namePos] throbbing cock a hard squeeze as you interrupt his response.
+	</p>
+	<p>
+		[brax.speech(Aah! Yes! Yes, I like it rough!)]
+	</p>
+	<p>
+		[pc.speech(Mmm, that's right,)] you sigh, softening your grip before running your fingers up and down over [brax.namePos] rapidly-hardening bulge. Biting your lip as you get a good feel of the impressive length of his throbbing cock, you tease, [pc.speech(So, who's going to be a good little bitch for their alpha she-wolf?)]
+	</p>
+	<p>
+		[brax.speech(I-I am...)] [brax.name] groans, admitting defeat.
+	</p>
+	<p>
+		[pc.speech(That's right! You're going to love being my good little beta,)] you squeal, happy now that you've asserted your dominance over the handsome wolf-boy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- INTERIOR_BRAX_GETTING_TEASED_ESCAPE -->
+
+	<htmlContent tag="INTERIOR_BRAX_GETTING_TEASED_ESCAPE"><![CDATA[
+	<p>
+		[pc.speech(Oh, would you look at the time! I really need to be going now,)] you exclaim, disentangling yourself from [brax.namePos] clutches. [pc.speech(I'll come back later, and we can have some fun then, ok?)]
+	</p>
+	<p>
+		Letting out a disappointed grunt, [brax.name] reluctantly steps back, seemingly placated for now by your promise of a future rendezvous. Narrowing his eyes, he growls, [brax.speech(You'd better be back soon!)]
+	</p>
+	<p>
+		Making more vague promises, you step back out into the corridor, breathing a sigh of relief as you pull the door firmly shut behind you. Turning to leave by the same route as which you arrived, you quickly set off towards the exit.
+	</p>
+	<p>
+		As you pass an empty office, you look in and notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you need a little compensation after being forcefully kissed by [brax.name], <b>you take the spare uniform and add it to your inventory on your way out</b>.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_COMBAT_VICTORY -->
+
+	<htmlContent tag="AFTER_COMBAT_VICTORY"><![CDATA[
+	<p>
+		Brax takes one last half-hearted swing at you, which you easily sidestep. Stumbling past you, he ends up collapsing against his desk, completely and utterly defeated.
+	</p>
+	<p>
+		Walking over to his submissive form, you can't help but smirk as you hear him surrender, [brax.speech(P-Please... No more...)]
+	</p>
+	<p>
+		Grinning down at the broken wolf-boy, you demand to know what's happened to Arthur. Turning to one side, Brax pulls a piece of the paper out from a pile of freshly-signed documents and hands it over to you. Reading over it, you can't help but let out an annoyed sigh. It looks like Arthur is going to be one difficult person to track down, as the paper says:
+	</p>
+	<p>
+	<h6 style='text-align:center;'>Dominion Enforcer Department</h6>
+	<h5 style='text-align:center;'>RECORD OF SLAVE TRANSFER</h5>
+	<p style='text-align:center;'>
+		According to the laws of Dominion, the person of <i>[arthur.fullName]</i>, having being found guilty of <i>treason</i>, has been enslaved. Following standard procedure, ownership has been transferred to a registered slave trader chosen by random lottery.
+		<br/><br/>
+		Officer in charge of transferring slave ownership: <i>[brax.fullName]</i>
+		<br/><br/>
+		Slave trader taking ownership: <i>[scarlett.fullName]</i>
+		<br/><br/>
+		Contact address: <i>Scarlett's shop, Slaver Alley</i>
+	</p>
+	<p>
+		As you read it over a second time, you let out another annoyed tutting sound, realising that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur's freedom from this 'Scarlett' person.
+	</p>
+	<p>
+		A little groan brings your attention back to Brax, and as you look down at him, you see a lustful glimmer in his eyes. Surprisingly, it doesn't seem as though anyone outside the office has heard your fight, and you wonder if you should take advantage of this wolf-boy's weakened state...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_DOMINATE"><![CDATA[
+	<p>
+		You feel a devious smile spread across your face as you walk over to Brax. Leaning into him, you growl down into his ear, [pc.speech(I hope you like it rough!)]
+	</p>
+	<p>
+		Brax lets out a surprised cry as you reach down and firmly grab his groin with one hand. Pressing your lips against his to prevent him from making any more noise, you thrust your tongue into his mouth, squeezing down on his satisfyingly large package as he squirms and melts under your touch.
+	</p>
+	<p>
+		Breaking off the kiss, but making sure not to let go of his crotch, you growl down to him again, [pc.speech(So, you ready to be my little bitch?)]
+	</p>
+	<p>
+		[brax.speech(W-Wait I-)]
+	</p>
+	<p>
+		[pc.speech(Wrong answer!)] you cry, giving Brax's throbbing cock a hard squeeze as you interrupt his response.
+	</p>
+	<p>
+		[brax.speech(Aah! Yes! Yes, I like it rough!)]
+	</p>
+	<p>
+		[pc.speech(Mmm, that's right,)] you sigh, softening your grip before running your fingers up and down Brax's shorts, biting your lip as you get a good feel of the impressive length of his throbbing cock, [pc.speech(and who's going to be a good little bitch for their new alpha?)]
+	</p>
+	<p>
+		[brax.speech(I-I am...)] Brax groans, admitting defeat.
+	</p>
+	<p>
+		[pc.speech(Good little beta!)] you cry, happy now that you've asserted your dominance over the handsome wolf-boy.
+	</p>
+	<p>
+		With a forceful push, you shove Brax down onto his knees before you. His meek, submissive look couldn't be further from the aggressive snarl that he greeted you with when you entered his office, and you grin down at him as you prepare to make him your bitch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SUBMIT"><![CDATA[
+	<p>
+		You reach down and run your fingertips over Brax's crotch, biting your lip and letting out a soft squeal as you feel that he's already hard. Encouraged by your touch, Brax leans forwards, and you happily accept his tongue into your mouth as he pulls you down into a kiss.
+	</p>
+	<p>
+		Your submissive nature starts to take over, and after gently breaking off the kiss, you whisper down to Brax, [pc.speech(I bet you're pretty angry at being beaten like that, huh?)]
+	</p>
+	<p>
+		As Brax grunts in agreement, you continue teasing him, [pc.speech(I wonder what you'd like to do to me to get your revenge... Perhaps you'd grab me with those big, strong hands...)]
+	</p>
+	<p>
+		You reach down, and, taking Brax's wolf-like hands in yours, guide them up to your waist. As he starts to get the idea, you feel him roughly grab your [pc.hipSize] hips, causing you to let out a lewd little cry.
+	</p>
+	<p>
+		[pc.speech(And then, pull me in against you as you ruthlessly tongue-fuck my mou- ~hrmp!~)]
+	</p>
+	<p>
+		Brax does exactly what you suggest, and eagerly jerks you forwards, slamming his lips against yours as he starts passionately kissing you. He stands up, reaching down to grope and squeeze your [pc.assSize] ass as you grind yourself against him.
+	</p>
+	<p>
+		[pc.speech(Then mayb-)] you try to continue, after breaking of the kiss, but Brax reaches up and presses his hand down firmly over your mouth.
+	</p>
+	<p>
+		[brax.speech(Then maybe you shut up, get down on all fours, and present yourself like the submissive little slut you clearly are!)]
+	</p>
+	<p>
+		You obediently do as Brax commands and drop down on all fours right there in the middle of his office.
+		#IF(pc.getTailType().getRace()==RACE_WOLF_MORPH)
+			 You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock.
+		#ELSE
+			 You can't help but shake your ass at the dominant wolf-boy, and you turn your head and make a show of biting your lip, making pitiful little whining noises as you eagerly plead for Brax's thick cock.
+		#ENDIF
+	</p>
+	<p>
+		Brax stands behind you, grinning, and you know that it's only going to be a matter of seconds before he fills you with his alpha cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_COMBAT_VICTORY_NO_SEX -->
+
+	<htmlContent tag="AFTER_COMBAT_VICTORY_NO_SEX"><![CDATA[
+	<p>
+		You really don't feel like having sex with the guy who just tried to beat you up. Instead, you push Brax back into his chair, tutting in disapproval as he lets out a desperate whine.
+	</p>
+	<p>
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform and add it to your inventory</b>.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_COMBAT_DEFEAT -->
+
+	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
+		<p>
+			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+		</p>
+		<p>
+			[brax.speech(Hah! Looks like you're still just a submissive little bitch! Didn't you learn anything from last time?!)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now lets get you another drink!)]
+		</p>
+		<p>
+			You cry out as Brax roughly drags you across the room to his desk. Fishing about in one of the drawers, he quickly finds what he's looking for, and with a light clink of glass, places a very familiar-looking bottle on the desk in front of you.
+		</p>
+		<p>
+			[brax.speech(I was so pleased with the last one, I got a few more of these potions made!)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(That's right, be a good [pc.girl] and drink it all down again...)]
+		</p>
+		<p>
+			With the bottle's transformative liquid already pouring out into your mouth, you find yourself having to make the decision of whether to spit it out, or do as the dominant wolf-boy says and swallow it all down...
+		</p>
+		
+	#ELSEIF(brax.getFoughtPlayerCount()>1)
+		<p>
+			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+		</p>
+		<p>
+			[brax.speech(Hah! What a submissive little bitch! I was kinda hoping that you'd put up a better fight than that, but, whatever,)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now this time, you're gonna drink down my potion like a good little bitch, aren't you?!)]
+		</p>
+		<p>
+			You cry out as Brax roughly drags you across the room to his desk. Fishing about in one of the drawers, he quickly finds one of his transformative potions, and with a light clink of glass, places yet another very delicate-looking bottle on the desk in front of you.
+		</p>
+		<p>
+			[brax.speech(That ungrateful slut downstairs still doesn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(So this one's all for you! Drink it down bitch!!)]
+		</p>
+		<p>
+			With the bottle's transformative liquid already pouring out into your mouth, you find yourself having to make the decision of whether to spit it out, or do as the dominant wolf-boy says and swallow it all down...
+		</p>
+	#ELSE
+		<p>
+			You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees. As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze.
+		</p>
+		<p>
+			[brax.speech(Hah! What a submissive little bitch! I was kinda hoping that you'd put up a better fight than that, but, whatever,)] he growls, stepping forwards and grabbing you by the neck, [brax.speech(Now let's talk more about that little punishment I mentioned.)]
+		</p>
+		<p>
+			You cry out as Brax roughly drags you across the room to his desk. Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very delicate-looking bottle on the desk in front of you.
+		</p>
+		<p>
+			[brax.speech(I got this made up for that useless bimbo you saw downstairs, but the ungrateful slut said she didn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(That's right, drink it all down... Oh fuck, this is gonna be good!)]
+		</p>
+		<p>
+			With the bottle's transformative liquid already pouring out into your mouth, you find yourself having to make the decision of whether to spit it out, or do as the dominant wolf-boy says and swallow it all down...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_DEFEAT_TRANSFORMATION_REFUSED -->
+
+	<htmlContent tag="AFTER_DEFEAT_TRANSFORMATION_REFUSED"><![CDATA[
+	<p>
+		You have no desire to be transformed into a wolf-girl, so, yanking your head away from Brax, you quickly spit out the fluid that's in your mouth. As the pink liquid splatters onto the floor, the aggressive wolf-boy lets out a furious growl, [brax.speech(You stupid bitch! You'll pay for that!)]
+	</p>
+	<p>
+		Angrily tossing the now-empty bottle to the floor, Brax grabs your [pc.arms] and pulls you into him, [brax.speech(You're fucked now, bitch!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_TRANSFORMATION_REFUSED_DOMINATED"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Brax grabs hold of your feral [pc.legRace]'s body, and with a forceful shove, pushes you down to the ground. As you crash down onto your knees, the wolf-boy steps around behind you, before delivering a sharp slap to your animalistic rear-end. You make a pitiful little whining noise as his wolf-like paw strikes you, and, looking back over your shoulder, you see that you're perfectly presented for Brax to start fucking you.
+		#ELSE
+			Brax spins you around, and with a forceful shove, pushes you down to the ground. You land on all-fours, with your ass raised up towards the dominant wolf-boy. Hearing him let out a deep growl, you make a pitiful little whining noise in response as you realise that you're perfectly presented for Brax to start fucking you, doggy-style.
+		#ENDIF
+	</p>
+	<p>
+		As you feel your conqueror's hands reaching down to grip your hips, you know that it's only going to be a matter of seconds before he fills you with his alpha cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_DEFEAT_TRANSFORMATION -->
+
+	<htmlContent tag="AFTER_DEFEAT_TRANSFORMATION"><![CDATA[
+	<p>
+		The liquid's transformative force is enough to knock to your knees, and you collapse to the floor, panting, as you feel your body start to change. You can't stand the powerful rush of transformations that suddenly wash through your body, and you find yourself collapsing to the floor as you pass out...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		[brax.speech(Hrmph! She never said anything about them losing consciousness! Hey! Wake up!)]
+	</p>
+	<p>
+		With Brax's worried voice sounding in your ears, you slowly start to come back to your senses. Blinking your eyes open, you see a look of relief wash over the wolf-like face that's hovering over you. Pushing yourself up on your elbows, you find yourself quickly recovering, and as Brax helps you to stand up on unfamiliar, shaking legs, the feeling of exhaustion is quickly replaced with an intense, burning lust.
+	</p>
+	<p>
+		Without thinking, you grab Brax's head and pull him into a manic, desperate kiss, grinding yourself against him as he tries to reel back in shock. After a moment, you feel the wolf-boy start to return the kiss, and you let out a happy giggle as you start making out with the very guy who's just forced you to transform...
+	</p>
+	<p>
+		As that thought crosses your mind, your eyes open wide, and you get your lust under control for a moment as you step back, looking down at your body to see what's changed. You hear Brax let out a laugh as he notices that you're trying to find out what he's done to you, and, with a powerful grip, he grabs your shoulders and spins you around to face a mirror hanging on one wall.
+	</p>
+	#IF(properties.getForcedTFPreference() == FURRY_PREF_HUMAN)
+		<p>
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a woman, and your [pc.eyes+] open wide in shock as you feel the weight of your [pc.breastSize], [pc.cupSize]-cup tits that are now sitting on your chest. As Brax steps up behind you, you feel his shaggy fur brushing up against your vulnerable, feminine body.
+		</p>
+	#ELSEIF(properties.getForcedTFPreference() == FURRY_PREF_MINIMUM)
+		<p>
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a partial wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your huge, E-cup tits that are now sitting on your chest. Up on top of your head, white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
+		</p>
+	#ELSEIF(properties.getForcedTFPreference() == FURRY_PREF_REDUCED)
+		<p>
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. White fur covers your wolf-like arms and legs, and you notice that your face and the skin covering your torso are the only parts of your that haven't transformed into anthropomorphic wolf-like counterparts. Up on top of your head, the same white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
+		</p>
+	#ELSE
+		<p>
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a greater wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. Your hands, feet and face have all transformed into anthropomorphic wolf-like counterparts, and are covered in the same bright white fur as your new upright, wolf-like ears and long, shaggy tail.
+		</p>
+	#ENDIF
+	<p>
+		You see Brax's hand reaching around in the mirror, and with a pathetic little yelp, you quiver as he roughly grabs your crotch, [brax.speech(This little cunt belongs to me, understood?)]
+	</p>
+	<p>
+		The final effect of the transformation makes itself known, and as Brax roughly gropes your body, something unlocks in your mind, and you find yourself wanting nothing more than to be dominated by your new master. You lean back into the masculine wolf-morph, feeling his hot breath on your neck as you let out a soft moan. Reaching down, you eagerly guide his paw-like hands over your new breasts, letting out little squeals of joy as he sinks his greedy fingers into your pillowy mounds of flesh.
+	</p>
+	<p>
+		You see Brax's reflection smiling greedily back at you, and he issues you a command as he steps back and starts to undress, [brax.speech(Get down and present yourself like the bitch you are.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEFEAT_TRANSFORMATION_OBEY"><![CDATA[
+	<p>
+		You obediently do as Brax commands and drop down on all fours right there in the middle of his office.
+		#IF(pc.getTailType().getRace()==RACE_WOLF_MORPH)
+			 You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock.
+		#ELSE
+			 You can't help but shake your ass at the dominant wolf-boy, and you turn your head and make a show of biting your lip, making pitiful little whining noises as you eagerly plead for Brax's thick cock.
+		#ENDIF
+	</p>
+	<p>
+		Brax stands behind you, grinning, and you know that it's only going to be a matter of seconds before he fills you with his alpha cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_SUBMISSIVE_SEX -->
+
+	<htmlContent tag="AFTER_SUBMISSIVE_SEX"><![CDATA[
+	<p>
+		[brax.speech(You're a pretty good fuck, slut!)] Brax grunts, releasing his grip on your hips as you collapse to the floor, totally worn out from his dominant treatment of you.
+	</p>
+	<p>
+		With a satisfied sigh, you feel your eyelids closing, and the last thing you hear before passing out is Brax laughing down at the mess he's made of you.
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		With a soft moan, you slowly open your eyes, the memory of Brax's rough fucking filling your groggy mind. After a few moments, your head starts to clear, and you see that you've been unceremoniously dumped out the back of the Enforcer HQ.
+	</p>
+	#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			Although you've been thrown out without so much as a goodbye, you feel a big smile spreading across your face. You found out where Arthur is, and what's more, you got to have a good fuck with that hunk of a wolf-boy.
+		</p>
+		<p>
+			As you walk out from behind the Enforcer HQ, you see that an open crate, full of spare uniforms, is sitting outside a side door. The crate is too big to fit through the doorway, and the person in charge of bringing them inside isn't anywhere to be seen. Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform and add it to your inventory as you continue on your way</b>.
+		</p>
+	#ELSE
+		<p>
+			Although you've been fucked and thrown out without so much as a goodbye, you consider that things could always be worse. Setting off, you try to look on the bright side. After all, at least you weren't enslaved or anything crazy like that...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- AFTER_DOMINANT_SEX -->
+
+	<htmlContent tag="AFTER_DOMINANT_SEX"><![CDATA[
+	<p>
+		Brax is completely exhausted, and collapses harmlessly to the floor as he passes out. Letting out a triumphant laugh, you look down at your latest sexual conquest, smirking in satisfaction as you see the happy smile covering his unconscious face.
+	</p>
+	<p>
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you want a little memento of your time with Brax, <b>you take the spare uniform and add it to your inventory</b>, before heading downstairs and back outside.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
-import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -11,81 +13,161 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
+import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaConversationTopic;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.9
  * @author Innoxia
  */
-public class DialogueFlags implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
-
+public class DialogueFlags implements XMLSaving {
+	
+	public static int MUGGER_DEMAND_1 = 250;
+	public static int MUGGER_DEMAND_2 = 500;
+	
 	public Set<DialogueFlagValue> values;
 	
-	public long ralphDiscountStartTime;
 	public int ralphDiscount;
 	public int scarlettPrice;
 	public int eponaStamps;
-	public long kalahariBreakStartTime;
+	
+	// Timers:
+	public Map<String, Long> savedLongs = new HashMap<>();
+//	public long ralphDiscountStartTime;
+//	public long kalahariBreakStartTime;
+//	public long daddyResetTimer;
+//	public long candiSexTimer;
+//	public long ralphSexTimer;
+//	public long impFortressAlphaDefeatedTime;
+//	public long impFortressDemonDefeatedTime;
+//	public long impFortressFemalesDefeatedTime;
+//	public long impFortressMalesDefeatedTime;
+	public int helenaSlaveOrderDay;
 
-	public long impFortressAlphaDefeatedTime;
-	public long impFortressDemonDefeatedTime;
-	public long impFortressFemalesDefeatedTime;
-	public long impFortressMalesDefeatedTime;
+	public int impCitadelImpWave;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
+	
+	// Murk transformation stage tracking:
+	private int murkPlayerTfStage;
+	private int murkCompanionTfStage;
+	
+	private String slaveTrader;
+	
+	private String managementCompanion;
+	private SlaveJob slaveryManagerJobSelected;
+	
+	private Colour natalyaCollarColour;
+	private int natalyaPoints;
+	private String sadistNatalyaSlave;
+	
+	// --- Sets: --- //
+	
+	private Set<String> helenaConversationTopics = new HashSet<>();
 	
 	// Reindeer event related flags:
 	private Set<String> reindeerEncounteredIDs = new HashSet<>();
 	private Set<String> reindeerWorkedForIDs = new HashSet<>();
 	private Set<String> reindeerFuckedIDs = new HashSet<>();
 	
-	// Supplier storage rooms checked:
+	// Enforcer warehouse guards defeated:
+	public Set<String> warehouseDefeatedIDs = new HashSet<>();
+
+	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
-	private String slaveTrader;
-	private String slaveryManagerSlaveSelected;
 	
 	public DialogueFlags() {
 		values = new HashSet<>();
-		
-		slaveryManagerSlaveSelected = null;
+
 		slaveTrader = null;
 		
-		ralphDiscountStartTime = -1;
-		kalahariBreakStartTime = -1;
+		managementCompanion = null;
+		slaveryManagerJobSelected = SlaveJob.IDLE;
+		
+//		ralphDiscountStartTime = -1;
+//		kalahariBreakStartTime = -1;
+//		daddyResetTimer = -1;
+//		candiSexTimer = -1;
+//		ralphSexTimer = -1;
+//		
+//		impFortressAlphaDefeatedTime
+//			= impFortressDemonDefeatedTime 
+//			= impFortressFemalesDefeatedTime
+//			= impFortressMalesDefeatedTime
+//			= -50000;
+		
+		helenaSlaveOrderDay = -1;
+				
 		ralphDiscount = 0;
 		
 		eponaStamps = 0;
 		
 		scarlettPrice = 15000;
 		
-		impFortressAlphaDefeatedTime = impFortressDemonDefeatedTime = impFortressFemalesDefeatedTime = impFortressMalesDefeatedTime = -50000;
+		
+		impCitadelImpWave = 0;
+		
+		murkPlayerTfStage = 0;
+		murkCompanionTfStage = 0;
+		
+		natalyaCollarColour = PresetColour.CLOTHING_BRONZE;
+		natalyaPoints = 0;
+		sadistNatalyaSlave = "";
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("dialogueFlags");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
+//		
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
+		
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
-		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "helenaSlaveOrderDay", String.valueOf(helenaSlaveOrderDay));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkPlayerTfStage", String.valueOf(murkPlayerTfStage));
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkCompanionTfStage", String.valueOf(murkCompanionTfStage));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
-		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
+		CharacterUtils.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
+		
+		Element savedLongsElement = doc.createElement("savedLongs");
+		element.appendChild(savedLongsElement);
+		for(Entry<String, Long> savedLong : savedLongs.entrySet()) {
+			Element save = doc.createElement("save");
+			savedLongsElement.appendChild(save);
+			save.setAttribute("id", savedLong.getKey());
+			save.setTextContent(String.valueOf(savedLong.getValue()));
+		}
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
@@ -93,9 +175,14 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
 		}
 		
+		
+		saveSet(element, doc, helenaConversationTopics, "helenaConversationTopics");
+		
 		saveSet(element, doc, reindeerEncounteredIDs, "reindeerEncounteredIDs");
 		saveSet(element, doc, reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		saveSet(element, doc, reindeerFuckedIDs, "reindeerFuckedIDs");
+		
+		saveSet(element, doc, warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
 		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
 		element.appendChild(supplierStorageRoomsCheckedElement);
@@ -113,40 +200,88 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	public static DialogueFlags loadFromXML(Element parentElement, Document doc) {
 		DialogueFlags newFlags = new DialogueFlags();
 		
-		newFlags.ralphDiscountStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value"));
+		
 		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
 		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
 		
 		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
 		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
-		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
+		newFlags.managementCompanion = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
 		try {
 			newFlags.eponaStamps = Integer.valueOf(((Element)parentElement.getElementsByTagName("eponaStamps").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 		
+		
 		try {
-			newFlags.kalahariBreakStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value"));
+			newFlags.helenaSlaveOrderDay = Integer.valueOf(((Element)parentElement.getElementsByTagName("helenaSlaveOrderDay").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
+		
+		try {
+			newFlags.impCitadelImpWave = Integer.valueOf(((Element)parentElement.getElementsByTagName("impCitadelImpWave").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 
-		
 		try {
-			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
-				newFlags.impFortressAlphaDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressDemonDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressDemonDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressFemalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressMalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesDefeatedTime").item(0)).getAttribute("value"));
-			}
+			newFlags.murkPlayerTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkPlayerTfStage").item(0)).getAttribute("value"));
+			newFlags.murkCompanionTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkCompanionTfStage").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
+
+		try {
+			newFlags.natalyaCollarColour = PresetColour.getColourFromId(((Element)parentElement.getElementsByTagName("natalyaCollarColour").item(0)).getAttribute("value"));
+			if(newFlags.natalyaCollarColour==PresetColour.CLOTHING_STEEL) {
+				newFlags.natalyaCollarColour = PresetColour.CLOTHING_BRONZE;
+			}
+			newFlags.natalyaPoints = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaPoints").item(0)).getAttribute("value"));
+			newFlags.sadistNatalyaSlave = ((Element)parentElement.getElementsByTagName("sadistNatalyaSlave").item(0)).getAttribute("value");
+		} catch(Exception ex) {
+		}
+
+		// Load saved longs:
+		if(parentElement.getElementsByTagName("savedLongs").item(0)!=null) {
+			for(int i=0; i<((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").getLength(); i++){
+				Element e = (Element) ((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").item(i);
+				
+				String id = e.getAttribute("id");
+				newFlags.setSavedLong(id, Long.valueOf(e.getTextContent()));
+			}
+			
+		} else { // Support for old timers (pre-version 0.3.9):
+			newFlags.setSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value")));
+			
+			try {
+				newFlags.setSavedLong(Kalahari.KALAHARI_BREAK_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value")));
+			} catch(Exception ex) {
+			}
+			try {
+				newFlags.setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("daddyResetTimer").item(0)).getAttribute("value")));
+			} catch(Exception ex) {
+			}
+			try {
+				if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_ALPHA_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value")));
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_FEMALES_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesDefeatedTime").item(0)).getAttribute("value")));
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_MALES_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesDefeatedTime").item(0)).getAttribute("value")));
+				}
+			} catch(Exception ex) {
+			}
+		}
 		
+		// Load flags:
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
 			try {
-				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+				String flag = e.getAttribute("value");
+				if(flag.equalsIgnoreCase("punishedByAlexa")) {
+					newFlags.values.add(DialogueFlagValue.punishedByHelena);
+				} else {
+					newFlags.values.add(DialogueFlagValue.valueOf(flag));
+				}
 			} catch(Exception ex) {
 			}
 		}
@@ -163,10 +298,14 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			newFlags.values.add(DialogueFlagValue.impFortressFemalesDefeated);
 			newFlags.values.add(DialogueFlagValue.impFortressMalesDefeated);
 		}
-
+		
+		loadSet(parentElement, doc, newFlags.helenaConversationTopics, "helenaConversationTopics");
+		
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
 		loadSet(parentElement, doc, newFlags.reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		loadSet(parentElement, doc, newFlags.reindeerFuckedIDs, "reindeerFuckedIDs");
+		
+		loadSet(parentElement, doc, newFlags.warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
 		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
 			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
@@ -178,6 +317,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 								Integer.valueOf(e.getAttribute("y"))));
 			}
 		}
+
 		return newFlags;
 	}
 	
@@ -199,9 +339,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
-			// What is this...
-			System.err.println("Whoopsie :^)"); // Prints out "Whoopsie :^) to the error output stream."
 		}
+	}
+
+	public void dailyReset() {
+		values.removeIf((flag)->flag.isDailyReset());
 	}
 
 	public boolean hasFlag(DialogueFlagValue flag) {
@@ -216,6 +358,26 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		}
 	}
 	
+	public void setSavedLong(String id, long value) {
+		savedLongs.put(id, value);
+	}
+
+	public boolean hasSavedLong(String id) {
+		return savedLongs.containsKey(id);
+	}
+
+	public void removeSavedLong(String id) {
+		savedLongs.remove(id);
+	}
+	
+	/**
+	 * @return The long saved to this id. Sets and returns -1 if there was no entry found.
+	 */
+	public long getSavedLong(String id) {
+		savedLongs.putIfAbsent(id, -1l);
+		return savedLongs.get(id);
+	}
+	
 	public NPC getSlaveTrader() {
 		if(slaveTrader==null || slaveTrader.isEmpty()) {
 			return null;
@@ -223,7 +385,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(slaveTrader);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveTrader+") returning null in method: getSlaveTrader()");
+			Util.logGetNpcByIdError("getSlaveTrader()", slaveTrader);
 			return null;
 		}
 	}
@@ -244,36 +406,51 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		this.slaveTrader = slaveTrader;
 	}
 
-	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null
-				|| slaveryManagerSlaveSelected.isEmpty()) {
+	public NPC getManagementCompanion() {
+		if(managementCompanion==null || managementCompanion.isEmpty()) {
 			return null;
 		}
 		try {
-			return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+			return (NPC) Main.game.getNPCById(managementCompanion);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveryManagerSlaveSelected+") returning null in method: getSlaveryManagerSlaveSelected()");
+			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", managementCompanion);
 			return null;
 		}
 	}
 
-	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
-		if(slaveryManagerSlaveSelected==null) {
-			this.slaveryManagerSlaveSelected = null;
+	public void setManagementCompanion(GameCharacter managementCompanion) {
+		if(managementCompanion==null) {
+			this.managementCompanion = null;
 		} else {
-			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();
+			this.managementCompanion = managementCompanion.getId();
 		}
 	}
 	
-	public String getSlaveryManagerSlaveSelectedId() {
-		return slaveryManagerSlaveSelected;
+	public String getManagementCompanionId() {
+		return managementCompanion;
 	}
 
-	public void setSlaveryManagerSlaveSelectedId(String slaveryManagerSlaveSelected) {
-		this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected;
+	public void setManagementCompanionId(String managementCompanion) {
+		this.managementCompanion = managementCompanion;
 	}
 
 	// Reindeer event:
+	
+	public SlaveJob getSlaveryManagerJobSelected() {
+		return slaveryManagerJobSelected;
+	}
+
+	public void setSlaveryManagerJobSelected(SlaveJob slaveryManagerJobSelected) {
+		this.slaveryManagerJobSelected = slaveryManagerJobSelected;
+	}
+
+	public void addHelenaConversationTopic(HelenaConversationTopic topic) {
+		helenaConversationTopics.add(topic.toString());
+	}
+	
+	public boolean hasHelenaConversationTopic(HelenaConversationTopic topic) {
+		return reindeerEncounteredIDs.contains(topic.toString());
+	}
 	
 	public void addReindeerEncountered(String reindeerID) {
 		reindeerEncounteredIDs.add(reindeerID);
@@ -307,13 +484,60 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		reindeerWorkedForIDs.remove(reindeerID);
 	}
 	
-	public void resetNyanActions() {
-		this.setFlag(DialogueFlagValue.nyanTalkedTo, false);
-		this.setFlag(DialogueFlagValue.nyanComplimented, false);
-		this.setFlag(DialogueFlagValue.nyanFlirtedWith, false);
-		this.setFlag(DialogueFlagValue.nyanKissed, false);
-		this.setFlag(DialogueFlagValue.nyanMakeOut, false);
-		this.setFlag(DialogueFlagValue.nyanSex, false);
-		this.setFlag(DialogueFlagValue.nyanGift, false);
+	public int getMurkTfStage(GameCharacter target) {
+		if(target.isPlayer()) {
+			return murkPlayerTfStage;
+		}
+		return murkCompanionTfStage;
+	}
+	
+	public void setMurkTfStage(GameCharacter target, int stage) {
+		if(target.isPlayer()) {
+			this.murkPlayerTfStage = stage;
+		} else {
+			this.murkCompanionTfStage = stage;
+		}
+	}
+
+	public Colour getNatalyaCollarColour() {
+		return natalyaCollarColour;
+	}
+
+	public void setNatalyaCollarColour(Colour natalyaCollarColour) {
+		this.natalyaCollarColour = natalyaCollarColour;
+	}
+
+	public int getNatalyaPoints() {
+		return natalyaPoints;
+	}
+
+	public void setNatalyaPoints(int natalyaPoints) {
+		this.natalyaPoints = natalyaPoints;
+		if(this.natalyaPoints<0) {
+			this.natalyaPoints = 0;
+		}
+	}
+	
+	public String incrementNatalyaPoints(int increment) {
+		setNatalyaPoints(getNatalyaPoints()+increment);
+		boolean plural = increment!=1;
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center;'>");
+			if(increment>0) {
+				sb.append("You [style.colourGood(gained)] [style.boldPink("+increment+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
+			} else {
+				sb.append("You [style.colourBad(lost)] [style.boldPink("+(-increment)+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
+			}
+			sb.append("<br/>You now have [style.boldPink("+getNatalyaPoints()+")] [style.colourPinkLight(filly points)]!");
+		sb.append("</p>");
+		return sb.toString();
+	}
+	
+	public String getSadistNatalyaSlave() {
+		return sadistNatalyaSlave;
+	}
+
+	public void setSadistNatalyaSlave(String sadistNatalyaSlave) {
+		this.sadistNatalyaSlave = sadistNatalyaSlave;
 	}
 }

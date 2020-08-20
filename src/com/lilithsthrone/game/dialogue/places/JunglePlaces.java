@@ -1,10 +1,7 @@
 package com.lilithsthrone.game.dialogue.places;
 
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -13,11 +10,10 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class JunglePlaces {
 
-	public static final DialogueNodeOld PATH = new DialogueNodeOld("Jungle path", "", false) {
+	public static final DialogueNode PATH = new DialogueNode("Jungle path", "", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -30,11 +26,10 @@ public class JunglePlaces {
 		}
 	};
 
-	public static final DialogueNodeOld CLUB = new DialogueNodeOld("Club", "A place.", false) {
+	public static final DialogueNode CLUB = new DialogueNode("Club", "A place.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -47,11 +42,10 @@ public class JunglePlaces {
 		}
 	};
 
-	public static final DialogueNodeOld BROTHEL = new DialogueNodeOld("Brothel", "A place.", false) {
+	public static final DialogueNode BROTHEL = new DialogueNode("Brothel", "A place.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -64,11 +58,10 @@ public class JunglePlaces {
 		}
 	};
 
-	public static final DialogueNodeOld TENTACLE_QUEENS_LAIR = new DialogueNodeOld("Tentacle Queen's Lair", "A place.", false) {
+	public static final DialogueNode TENTACLE_QUEENS_LAIR = new DialogueNode("Tentacle Queen's Lair", "A place.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -81,11 +74,10 @@ public class JunglePlaces {
 		}
 	};
 
-	public static final DialogueNodeOld DENSE_JUNGLE = new DialogueNodeOld("Dense Jungle", "A place.", false) {
+	public static final DialogueNode DENSE_JUNGLE = new DialogueNode("Dense Jungle", "A place.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -100,11 +92,10 @@ public class JunglePlaces {
 
 	// Entrances and exits:
 
-	public static final DialogueNodeOld JUNGLE_ENTRANCE = new DialogueNodeOld("", "Travel to Dominion.", false) {
+	public static final DialogueNode JUNGLE_ENTRANCE = new DialogueNode("", "Travel to Dominion.", false) {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
@@ -113,12 +104,7 @@ public class JunglePlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null){
-					@Override
-					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_JUNGLE, true);
-					}
-				};
+				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null);
 
 			} else {
 				return null;

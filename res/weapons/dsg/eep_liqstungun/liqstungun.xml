@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<authorTag><![CDATA[On the filler cap, slightly raised lettering reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+	
+		<value>7500</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>true</twoHanded>
+		
+		<determiner><![CDATA[an]]></determiner>
+		
+		<name><![CDATA[#IF game.isSillyModeEnabled()
+			#THEN LSG-9000 coom gun
+			#ELSE arcane liquid stun gun
+			#ENDIF]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[#IF game.isSillyModeEnabled()
+			#THEN LSG-9000 coom guns
+			#ELSE arcane liquid stun guns
+			#ENDIF]]></namePlural> 
+		
+		<description><![CDATA[
+		The final word in riot control, this weapon uses a water spell to propel a stream of water to conduct arcane lightning at any target its sights. 
+		#IF game.isSillyModeEnabled()
+		#THEN The hoses and cup-like attachments give you the feeling that <i>any</i> liquid would do as long as there was enough of it.
+		#ELSE You guess that it could be filled with <i>any</i> liquid but you don't feel silly enough to try.
+		#ENDIF
+		]]></description> 
+		
+		<attackDescriptor>Shoot</attackDescriptor>
+		
+		<attackTooltipDescription>Shoot [npc2.name] with your stun gun.</attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the stun gun
+		#IF game.isSillyModeEnabled()
+			#THEN
+				#IF npc.getBreastRawStoredMilkValue()>=150 
+					#THEN and discretely [npc.verb(attach)] the cup attachments to [npc.her] [npc.nipplesD]. [npc.She] then [npc.verb(pull)] the sling over [npc.her] shoulder and [npc.verb(let)] out a small moan as the pumps draw [npc.her] [npc.milkD] through the hoses into the built-in tank.
+					[#npc.setBreastStoredMilk(npc.getBreastRawStoredMilkValue()-150)]
+				#ELSEIF npc.getPenisRawStoredCumValue()>=150
+					#THEN and discretely [npc.verb(slide)] the cup attachment over [npc.her] [npc.penisD]. [npc.She] then [npc.verb(pull)] the sling over [npc.her] shoulder and [npc.verb(let)] out a small groan as the pumps draw [npc.her] [npc.cumD] into the built-in tank.
+					[#npc.setPenisStoredCum(npc.getPenisRawStoredCumValue()-150)]
+				#ELSE and [npc.verb(allow)] the built-in tank to magically fill itself with arcane-enhanced water, since [npc.she] has no special ammunition to put in it, before pulling the sling over [npc.her] shoulder.
+				#ENDIF
+			#ELSE and pull the sling over [npc.her] shoulder. The arcane-enhanced water sloshes around inside as the built-in tank magically fills itself.
+		#ENDIF
+		]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(holster)] the taser, before putting it away.]]></unequipText>
+		
+		<imageName>liqstungun_holstered.svg</imageName> 
+		
+		<imageEquippedName>liqstungun.svg</imageEquippedName>
+		
+		<damage>50</damage>
+		
+		<aoe chance="85">25</aoe>
+		<aoe chance="85">25</aoe>
+		<aoe chance="10">10</aoe>
+		<aoe chance="10">10</aoe>
+		
+		<arcaneCost>5</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>LUST</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>0</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_ORANGE</colour>
+		</tertiaryColours> 
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+			Aiming [npc.her] stun gun at [npc2.name], [npc.she] [npc.verb(pull)] the trigger. 
+			#IF game.isSillyModeEnabled()
+			#THEN
+				#IF npc.getBreastRawStoredMilkValue()>=150 
+					#THEN A jet of [npc.milkD] streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before being hit! </br>[npc2.speech(What the fuck?!!)] [npc2.she] [npc2.verb(splutter)] as [npc2.she] succumbs to the effects of the lightning. [npc.Name] [npc.verb(moan)] as the pumps suck on [npc.her] [npc.nipples] for more special ammunition.
+					[#npc.setBreastStoredMilk(npc.getBreastRawStoredMilkValue()-150)]
+					#IF npc2.getHighestZLayerCoverableArea(CA_HAIR) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_HAIR).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_HEAD)][##npc2.addDirtySlot(IS_HAIR)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_MOUTH) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_MOUTH).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_MOUTH)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_BREASTS) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_BREASTS).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_CHEST)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_MOUND) != null && npc2.getHighestZLayerCoverableArea(CA_THIGHS) == null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_MOUND).getClothingType().getSlot())]
+					#ELSE
+						#IF npc2.getHighestZLayerCoverableArea(CA_MOUND) == null && npc2.getHighestZLayerCoverableArea(CA_THIGHS) == null
+						#THEN [##npc2.addDirtySlot(IS_GROIN)]
+						#ENDIF
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_THIGHS) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_THIGHS).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_LEG)]
+					#ENDIF
+					#IF npc.getBreastRawStoredMilkValue()<150
+						#THEN  <b>The pumps hiccup a bit on empty air.</b> [npc.Name] [npc.verb(realize)] [npc.sheHasFull] no special ammunition left. The gun automatically switches over to arcane water replenishment until [npc.she] can produce more.
+					#ENDIF
+				#ELSEIF npc.getPenisRawStoredCumValue()>=150
+					#THEN A jet of [npc.cumD] streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before being hit! [npc2.speech(What the fuck?!!)] [npc2.she] [npc2.verb(splutter)] as [npc2.she] succumbs to the effects of the lightning. [npc.Name] [npc.verb(groan)] as the pumps suck on [npc.her] [npc.penis] for more special ammunition. <br/>[npc2.Name] [npc2.verb(shudder)] as [npc.her] impromptu bukkake soaks into [npc2.her] [npc2.skinSkin].
+					[#npc.setPenisStoredCum(npc.getPenisRawStoredCumValue()-150)]
+					#IF npc2.getHighestZLayerCoverableArea(CA_HAIR) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_HAIR).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_HEAD)][##npc2.addDirtySlot(IS_HAIR)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_MOUTH) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_MOUTH).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_MOUTH)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_BREASTS) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_BREASTS).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_CHEST)]
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_MOUND) != null && npc2.getHighestZLayerCoverableArea(CA_THIGHS) == null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_MOUND).getClothingType().getSlot())]
+					#ELSE
+						#IF npc2.getHighestZLayerCoverableArea(CA_MOUND) == null && npc2.getHighestZLayerCoverableArea(CA_THIGHS) == null
+						#THEN [##npc2.addDirtySlot(IS_GROIN)]
+						#ENDIF
+					#ENDIF
+					#IF npc2.getHighestZLayerCoverableArea(CA_THIGHS) != null
+						#THEN [##npc2.addDirtySlot(npc2.getHighestZLayerCoverableArea(CA_THIGHS).getClothingType().getSlot())]
+					#ELSE [##npc2.addDirtySlot(IS_LEG)]
+					#ENDIF
+					#IF npc.getPenisRawStoredCumValue()<150
+						#THEN  <b>The pumps hiccup a bit on empty air.</b> [npc.Name] [npc.verb(realize)] [npc.sheHasFull] no special ammunition left. The gun automatically switches over to arcane water replenishment until [npc.she] can produce more.
+					#ENDIF
+				#ELSE A jet of water streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before succumbing to the effects of the lightning! [npc2.Name] [npc2.verb(shiver)] a bit as the water soaks into [npc2.her] [npc2.skinSkin].
+					#IF npc.getBreastRawStoredMilkValue()>=150
+						#THEN   As if sensing the bounty stored in [npc.namePos] [npc.breastsD], <b>the gun's pumps start pulling [npc.her] [npc.milkD] through the hoses.</b> [npc.Name] [npc.verb(moan)] at the stimulation.
+					#ELSE
+						#IF npc.getPenisRawStoredCumValue()>=150
+							#THEN  As if sensing the bounty stored in [npc.namePos] [npc.ballsD], <b>the gun's pumps start pulling [npc.her] [npc.cumD] through the hoses.</b> [npc.Name] [npc.verb(groan)] at the stimulation.
+						#ENDIF
+					#ENDIF
+				#ENDIF
+			#ELSE A jet of water streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before succumbing to the effects of the lightning! [npc2.Name] [npc2.verb(shiver)] a bit as the water soaks [npc2.her] [npc2.skinSkin].
+			#ENDIF
+			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
+			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 6)] [npc2.Name] is <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
+			#ENDIF
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+			Aiming [npc.her] stun gun at [npc2.name], [npc.she] [npc.verb(pull)] the trigger. 
+			#IF game.isSillyModeEnabled()
+			#THEN
+				#IF npc.getBreastRawStoredMilkValue()>0 
+				#THEN A jet of [npc.milkD] streams towards [npc2.name], but it goes wide! The [npc.milk] splashes and sparks into a useless puddle on the ground. [npc.Name] [npc.verb(moan)] as the pumps suck on [npc.her] [npc.nipples] for more special ammunition.
+				[#npc.setBreastStoredMilk(npc.getBreastRawStoredMilkValue()-150)]
+					#IF npc.getBreastRawStoredMilkValue()<150
+					#THEN  <b>The pumps hiccup a bit on empty air.</b> [npc.Name] [npc.verb(realize)] [npc.sheHasFull] has no special ammunition left. The gun automatically switches over to arcane water replenishment until [npc.she] can produce more.
+					#ENDIF
+				#ELSE
+					#IF npc.getPenisRawStoredCumValue()>0
+					#THEN A jet of [npc.cumD] streams towards [npc2.name], but it goes wide! The [npc.cum] splashes and sparks into a useless puddle on the ground. [npc.Name] [npc.verb(moan)] as the pumps suck on [npc.her] [npc.penis] for more special ammunition.
+					[#npc.setPenisStoredCum(npc.getPenisRawStoredCumValue()-150)]
+						#IF npc.getPenisRawStoredCumValue()<150
+						#THEN  <b>The pumps hiccup a bit on empty air.</b> [npc.Name] [npc.verb(realize)] [npc.sheHasFull] has no special ammunition left. The gun automatically switches over to arcane water replenishment until [npc.she] can produce more.
+						#ENDIF
+					#ELSE A jet of water streams towards [npc2.name], but it goes wide! The water splashes and sparks into a useless puddle on the ground.
+					#ENDIF
+				#ENDIF
+			#ELSE A jet of water streams towards [npc2.name], but it goes wide! The water splashes and sparks into a useless puddle on the ground.
+			#ENDIF
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

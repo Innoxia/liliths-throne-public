@@ -1,47 +1,53 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
+import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.2.6
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -54,136 +60,55 @@ public class GenericSexualPartner extends NPC {
 		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), isImported);
 	}
 	
-	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
-		super(isImported, null, "",
+
+	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported) {
+		this(gender, worldLocation, location, isImported, null);
+	}
+	
+	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<Subspecies> subspeciesRemovalFilter) {
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			this.setWorldLocation(worldLocation);
-			this.setLocation(location);
+			this.setLocation(worldLocation, location, false);
 			
 			setLevel(Util.random.nextInt(5) + 5);
 			
 			// RACE & NAME:
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case DEMON:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						break;
-						
-					// Low spawn chance:
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case SLIME:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case RAT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-
-					case BAT_MORPH:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HARPY:
-						addToSubspeciesMap(4, gender, s, availableRaces);
-						break;
-					case HARPY_RAVEN:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HARPY_BALD_EAGLE:
-						addToSubspeciesMap(1, gender, s, availableRaces);
-						break;
-					case HUMAN:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-						
-					// Special spawns:
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
-						}
-						break;
-						
-					// Regular spawns:
-					case CAT_MORPH:
-						addToSubspeciesMap(25, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LION:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_TIGER:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LYNX:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CHEETAH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CARACAL:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(15, gender, s, availableRaces);
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(15, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_BORDER_COLLIE:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case FOX_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case FOX_MORPH_FENNEC:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH_ZEBRA:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case SQUIRREL_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case WOLF_MORPH:
-						addToSubspeciesMap(25, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH_LOP:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
+			List<Subspecies> availableSubspecies = new ArrayList<>();
+			Collections.addAll(availableSubspecies, Subspecies.values());
+			
+			if(subspeciesRemovalFilter!=null) {
+				availableSubspecies.removeIf(subspeciesRemovalFilter);
+			}
+			
+			for(Subspecies s : availableSubspecies) {
+				if(s==Subspecies.REINDEER_MORPH
+						&& Main.game.getSeason()==Season.WINTER
+						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					
+				} else if(s.getRace()!=Race.DEMON
+						&& s.getRace()!=Race.ANGEL
+						&& s.getRace()!=Race.ELEMENTAL
+						&& s!=Subspecies.FOX_ASCENDANT
+						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
+						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
+						&& s!=Subspecies.SLIME) {
+					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					} else {
+						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
+					}
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, subspeciesRemovalFilter==null);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -208,15 +133,16 @@ public class GenericSexualPartner extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-	
-			CharacterUtils.equipClothing(this, true, false);
+
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			initAttributes();
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			initPerkTreeAndBackgroundPerks();
+			this.setStartingCombatMoves();
+			loadImages();
+
+			initHealthAndManaToMax();
 		}
 	}
 	
@@ -233,8 +159,8 @@ public class GenericSexualPartner extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		// Not needed
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 	}
 	
 	@Override
@@ -252,41 +178,38 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
 	private boolean playerRequested = false;
 	
 	@Override
-	public void generateSexChoices(GameCharacter target, SexType request) {
-		if(this.getLocationPlace().getPlaceType()==PlaceType.WATERING_HOLE_TOILETS && Sex.getTurn()>1) {
+	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
+		if(this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) && Main.sex.getTurn()>1) {
 			playerRequested = true;
 		}
 		
-		super.generateSexChoices(target, request);
+		super.generateSexChoices(resetPositioningBan, target, request);
 	}
 	
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
-		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
-			return super.getSexPositionPreferences(target);
-		}
-		
-		sexPositionPreferences.clear();
-		
-		if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
-			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_KNEELING);
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		if(!this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) || playerRequested) {
+			return super.isHappyToBeInSlot(position, slot, target);
+			
 		} else {
-			sexPositionPreferences.add(SexPositionSlot.GLORY_HOLE_FUCKED);
+			if(Main.sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+				return slot==SexSlotUnique.GLORY_HOLE_KNEELING;
+			} else {
+				return slot==SexSlotUnique.GLORY_HOLE_FUCKED;
+			}
 		}
-		
-		return sexPositionPreferences;
 	}
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+		if(!this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) || playerRequested) {
 			return super.getForeplayPreference(target);
 		}
 		
@@ -301,7 +224,7 @@ public class GenericSexualPartner extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(this.getLocationPlace().getPlaceType()!=PlaceType.WATERING_HOLE_TOILETS || playerRequested) {
+		if(!this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) || playerRequested) {
 			return super.getMainSexPreference(target);
 		}
 		
@@ -319,73 +242,98 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(!characterPenetrated.isPlayer()
-				|| (characterPenetrating.getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-					&& characterPenetrating.getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY)) {
-			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(!receivingCharacter.isPlayer()
+				|| penetrating != SexAreaPenetration.PENIS
+				|| penetrated != SexAreaOrifice.VAGINA
+				|| (!penetratingCharacter.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) && !penetratingCharacter.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY))) {
+			return null;
 		}
 		
-		StringBuilder StringBuilderSB = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(
-							"<p>"
-								+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+		if(Main.game.getPlayer().hasHymen()) {
+			sb.append("<p>");
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
 								+ " Being so enamoured with the idea of being a pure virgin, you don't know what on Earth possessed you to sign up for pregnancy roulette,"
-									+ " but as [npc.namePos] [npc.cock+] claims your previous virginity, you don't have any time to reflect on your poor choice."
-								+ " The only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
-							+ "</p>"
-							+ "<p>"
-								+ "As your wail turns into a shuddering cry, you hear the [npc.race] on the other side of the wall let out a surprised shout,"
-								+ " [npc.speech(Holy shit! This slut was a virgin!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "The room beyond the wall is suddenly filled with laughs and lewd remarks, and you can't help but shed a tear as you realise that you've lost your precious,"
-									+ " pure virginity to some stranger who signed up to try and get you pregnant."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.thought(Pregnant... Me... I-I'm sure that's not possible...)] you think to yourself, trying to suppress your whimpers as [npc.name] pulls back, before thrusting into you once more."
-							+ "</p>"
-							+ "<p>"
-								+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
-								+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
-							+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
-						+ " As [npc.namePos] [npc.cock+] claims your virginity, the only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
-					+ "</p>"
-					+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)
-							?"<p>"
-								+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-								+ " The discomfort between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-							+ "</p>"
-							:"")
-					+"<p>"
-					+ "<p>"
+									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your poor choice."
+								+ " The only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even seen or spoken to before.");
+				} else if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to tear your hymen and claim your virginity, you can't help but let out a lewd, masochistic scream."
+							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you can't help but squeal and moan in a delightful haze of overwhelming ecstasy.");
+				} else {
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperate, shuddering wail."
+							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you squirm about on the table as you try to endure this terrible experience.");
+				}
+			sb.append("</p>");
+			
+			sb.append("<p>"
 						+ "As your wail turns into a shuddering cry, you hear the [npc.race] on the other side of the wall let out a surprised shout,"
-						+ " [npc.speech(Holy shit! This slut was a virgin!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "The room beyond the wall is suddenly filled with laughs and lewd remarks,"
-							+ " and you can't help but let out a defeated sigh as you realise that you've lost your virginity to some stranger who signed up to try and get you pregnant."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.thought(Pregnant... Me... I-I'm sure that's not possible...)] you think to yourself, trying to suppress your whimpers as [npc.name] pulls back, before thrusting into you once more."
+						+ " [npc.speechNoExtraEffects(Holy shit! This slut was a virgin!)]"
+					+ "</p>");
+			
+			sb.append("<p>");
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					sb.append("The room beyond the wall is suddenly filled with derisive laughs and lewd remarks, and you can't help but shed a tear as you realise that you've lost your precious,"
+								+ " pure virginity to some stranger who signed up to try and get you pregnant.");
+				} else {
+					sb.append("The room beyond the wall is suddenly filled with derisive laughs and lewd remarks, and you can't help but wince as you realise that you've lost your virginity to some stranger who signed up to try and get you pregnant.");
+				}
+			sb.append("</p>");
+			
+			sb.append("<p>"
+						+ "[pc.thought(Pregnant... From my first time... I'm sure that's not possible...)] you think to yourself, trying to suppress your whimpers as [npc.name] pulls back, before thrusting into you once more."
 					+ "</p>"
 					+ "<p>"
 						+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
-						+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
+						+ " [npc.speechNoExtraEffects(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
+					+ "</p>");
+			
+		} else {
+			sb.append("<p>");
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+], you can't help but let out a distressed wail."
+								+ " Being so enamoured with the idea of being a pure virgin, you don't know what on Earth possessed you to sign up for pregnancy roulette,"
+									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your poor choice."
+								+ " The only thing that's on your mind is the fact that you're being broken in by a person you've never even seen or spoken to before, and you can't help but continue to desperately cry out as [npc.she] penetrates you.");
+				} else {
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
+							+ " This person who you've never even seen or spoken to before is giving you a feeling unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
+				}
+			sb.append("</p>");
+			
+			sb.append("<p>"
+						+ "Thanks to the fact that you'd previously lost your hymen, the only indication that you were a virgin is your intense reaction to being fucked,"
+							+ " which is apparently enough for the [npc.race] on the other side of the wall, as [npc.she] lets out a surprised shout,"
+						+ " [npc.speechNoExtraEffects(Holy shit! I think this slut was a virgin!)]"
+					+ "</p>");
+			
+			sb.append("<p>");
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					sb.append("The room beyond the wall is suddenly filled with derisive laughs and lewd remarks, and you can't help but shed a tear as you realise that you've lost your precious,"
+								+ " pure virginity to some stranger who signed up to try and get you pregnant.");
+				} else {
+					sb.append("The room beyond the wall is suddenly filled with derisive laughs and lewd remarks, and you can't help but wince a little as you realise that you've lost your virginity to some stranger who signed up to try and get you pregnant.");
+				}
+			sb.append("</p>");
+			
+			sb.append("<p>"
+						+ "[pc.thought(Pregnant... From my first time... I'm sure that's not possible...)] you think to yourself, letting out an involuntary [pc.moan] as [npc.name] pulls back and thrusts into you once more."
+					+ "</p>"
+					+ "<p>"
+						+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
+						+ " [npc.speechNoExtraEffects(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
 					+ "</p>");
 		}
 		
-		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
-		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
-			StringBuilderSB.append("<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+		return sb.toString();
+	}
+	
+	@Override
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
 					+ "As the [npc.race] carries on pounding away at your pussy, the sudden realisation of what's just happened hits you like a sledgehammer."
@@ -407,8 +355,7 @@ public class GenericSexualPartner extends NPC {
 					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
 					+ " With a desperate moan, you spread your legs and resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>");
-		
-		return StringBuilderSB.toString();
+				+ "</p>";
 	}
+	
 }

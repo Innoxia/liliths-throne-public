@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>150</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[scarf]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[scarves]]></namePlural>
+		<description><![CDATA[A plain, unisex scarf. While some scarves are worn just for fashion, this one is made out of a soft, woolly fabric, making it practical for keeping the wearer warm on cold days or nights.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+    <equipSlots>
+      <slot>NECK</slot>
+    </equipSlots>
+
+    <rarity>COMMON</rarity>
+	<clothingSet/>
+	<imageName>scarf.svg</imageName>
+    <imageEquippedName/>
+	<enchantmentLimit>5</enchantmentLimit>
+	<effects/>
+	
+	<blockedPartsList slot="NECK">
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+	</blockedPartsList>
+		
+	<incompatibleSlots/>
+		
+	<primaryColours values="ALL"/>
+	<primaryColoursDye/>
+	<secondaryColours/>
+	<secondaryColoursDye/>
+	<tertiaryColours/>
+	<tertiaryColoursDye/>
+
+	<itemTags>
+		<tag>SOLD_BY_NYAN</tag>
+	</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the scarf around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the scarf around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before wrapping the scarf around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unwrap)] [npc.her] scarf, before taking it off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unwrap)] [npc2.namePos] scarf, before taking it off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unwrap)] [npc2.namePos] scarf, before yanking it off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

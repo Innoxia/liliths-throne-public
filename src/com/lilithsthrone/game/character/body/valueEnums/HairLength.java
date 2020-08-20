@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
- * Measured in inches.
+ * Measured in cm.
  * 
  * @since 0.1.0
  * @version 0.1.83
@@ -11,31 +12,33 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum HairLength {
 	/** Bald */
-	ZERO_BALD("bald", 0, 1, Colour.GENERIC_SIZE_ONE),
+	ZERO_BALD("bald", 0, 1, PresetColour.GENERIC_SIZE_ONE, false),
 	/** Very short */
-	ONE_VERY_SHORT("very short", 1, 3, Colour.GENERIC_SIZE_TWO),
+	ONE_VERY_SHORT("very short", 1, 8, PresetColour.GENERIC_SIZE_TWO, false),
 	/** Short */
-	TWO_SHORT("short", 3, 6, Colour.GENERIC_SIZE_THREE),
+	TWO_SHORT("short", 8, 15, PresetColour.GENERIC_SIZE_THREE, true),
 	/** above the shoulders */
-	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12, Colour.GENERIC_SIZE_FOUR),
+	THREE_SHOULDER_LENGTH("shoulder-length", 15, 30, PresetColour.GENERIC_SIZE_FOUR, true),
 	/** Reaching down to mid-back */
-	FOUR_MID_BACK("long", 12, 25, Colour.GENERIC_SIZE_FIVE),
+	FOUR_MID_BACK("long", 30, 60, PresetColour.GENERIC_SIZE_FIVE, true),
 	/** Reaching down to just above the ass */
-	FIVE_ABOVE_ASS("very long", 25, 40, Colour.GENERIC_SIZE_SIX),
+	FIVE_ABOVE_ASS("very long", 60, 100, PresetColour.GENERIC_SIZE_SIX, true),
 	/** Reaching down to below the ass */
-	SIX_BELOW_ASS("incredibly long", 40, 70, Colour.GENERIC_SIZE_SEVEN),
+	SIX_BELOW_ASS("incredibly long", 100, 180, PresetColour.GENERIC_SIZE_SEVEN, true),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("floor-length", 70, 140, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_TO_FLOOR("floor-length", 180, 350, PresetColour.GENERIC_SIZE_EIGHT, true);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
 	private Colour colour;
+	private boolean suitableForPulling;
 
-	private HairLength(String descriptor, int minimumValue, int maximumValue, Colour colour) {
+	private HairLength(String descriptor, int minimumValue, int maximumValue, Colour colour, boolean suitableForPulling) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour = colour;
+		this.suitableForPulling = suitableForPulling;
 	}
 
 	public int getMinimumValue() {
@@ -106,5 +109,9 @@ public enum HairLength {
 
 	public Colour getColour() {
 		return colour;
+	}
+
+	public boolean isSuitableForPulling() {
+		return suitableForPulling;
 	}
 }

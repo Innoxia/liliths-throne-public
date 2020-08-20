@@ -6,17 +6,17 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Clitoris implements BodyPartInterface {
-	
+
 	protected int clitSize;
 	protected int girth;
 	protected Set<PenetrationModifier> clitModifiers;
@@ -42,6 +42,14 @@ public class Clitoris implements BodyPartInterface {
 	public String getName(GameCharacter gc) {
 		return UtilText.returnStringAtRandom("clit", "clit", "clit", "nub", "button");
 	}
+	
+	@Override
+	public String getName(GameCharacter gc, boolean withDescriptor) {
+		String name = getName(gc);
+		return 
+//				UtilText.generateSingularDeterminer(name)+" "+
+				name;
+	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
@@ -58,7 +66,7 @@ public class Clitoris implements BodyPartInterface {
 		return UtilText.returnStringAtRandom(
 				"sensitive",
 				"sensitive",
-				this.getGirth()!=PenisGirth.TWO_AVERAGE?this.getGirth().getName():"",
+				this.getGirth()!=PenetrationGirth.THREE_AVERAGE?this.getGirth().getName():"",
 				this.getClitorisSize()!=ClitorisSize.ZERO_AVERAGE?this.getClitorisSize().getDescriptor():"little");
 	}
 	
@@ -121,8 +129,8 @@ public class Clitoris implements BodyPartInterface {
 
 	// Girth:
 
-	public PenisGirth getGirth() {
-		return PenisGirth.getPenisGirthFromInt(girth);
+	public PenetrationGirth getGirth() {
+		return PenetrationGirth.getGirthFromInt(girth);
 	}
 
 	public int getRawGirthValue() {
@@ -134,7 +142,7 @@ public class Clitoris implements BodyPartInterface {
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
 		
@@ -149,10 +157,10 @@ public class Clitoris implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenisGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenisGirth.FOUR_FAT.getValue()) {
-				girthChange = PenisGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenisGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.getMaximum()) {
+			if (this.girth != PenetrationGirth.getMaximum()) {
+				girthChange = PenetrationGirth.getMaximum() - this.girth;
+				this.girth = PenetrationGirth.getMaximum();
 			}
 		} else {
 			if (this.girth != girth) {
@@ -471,6 +479,14 @@ public class Clitoris implements BodyPartInterface {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Clitoris.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[broodmother pill]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[broodmother pills]]></namePlural>
+		<description><![CDATA[A small, pink pill, individually packaged in a foil and plastic wrapper. While the text printed on the foil identifies this pill as an 'Orally-Administered Fecundity Enhancer', it's colloquially known as a 'broodmother pill'. Its main effect is to make the user conceive far more offspring than usual.]]></description> 
+		
+		<useDescriptor>swallow</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>COMMON</rarity> 
+		
+		<imageName>pill_plus.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_PINK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(+100)] for 24 hours]]></line>
+			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(+100)] for 24 hours]]></line>
+			<line><![CDATA[[style.colourExcellent(Doubles)] offspring conceived]]></line>
+			<line><![CDATA[[style.boldBad(Removes status effect:)]]]></line>
+			<line><![CDATA['<i>[#SE_PROMISCUITY_PILL.getName(null)]</i>']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.removeStatusEffect(SE_PROMISCUITY_PILL)]
+			[##npc.addStatusEffect(SE_innoxia_item_broodmother_pill, 60*24*60)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				You remove the pink pill from its packaging and, without a moment's hesitation, pop it into your mouth. As it slides down your throat, you assume there's little effect to be felt, but suddenly a powerful cramp takes hold of your stomach!
+			</p>
+			<p>
+				#IF(npc.hasVagina())
+					You feel your ovaries kick into overdrive as eggs begin to cascade towards your womb. As the discomfort fades, you realise that you're now able to be impregnated with far more children than you're normally able to
+					#IF(pc.hasFetish(FETISH_PREGNANCY))
+						 carry, and the thought that you could get so heavily pregnant with so little work makes a happy smile settle on your face.
+					#ELSE
+						 carry.
+					#ENDIF
+					#IF(npc.hasPenisIgnoreDildo())
+						 The feeling doesn't stop there, however, as the cramp quickly moves down into your groin. You feel your testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and you realize that any womb that your semen finds its way into will be able to carry far more children than it normally
+						#IF(pc.hasFetish(FETISH_PREGNANCY))
+							 would, and you can't help but grin at the thought of someone's belly being swollen to bursting point with your numerous offspring.
+						#ELSE
+							 would.
+						#ENDIF
+					#ENDIF
+				#ELSEIF(npc.hasPenisIgnoreDildo())
+					The feeling doesn't stop there, however, as the cramp quickly moves down into your groin. You feel your testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and you realize that any womb that your semen finds its way into will be able to carry far more children than it normally
+					#IF(pc.hasFetish(FETISH_PREGNANCY))
+						 would, and you can't help but grin at the thought of someone's belly being swollen to bursting point with your numerous offspring.
+					#ELSE
+						 would.
+					#ENDIF
+				#ENDIF
+				#IF(!npc.hasVagina() && !npc.hasPenisIgnoreDildo())
+					Although the cramp quickly fades away, you're left thinking that if you were to gain a vagina or penis, then you'd be able to conceive far more offspring than would normally be possible.
+				#ENDIF
+			</p>
+			<p style='text-align:center; margin-top:0; padding-top:0;'>
+				[style.colourPink([npc.Name] [npc.is] now experiencing <i>'[#SE_innoxia_item_broodmother_pill.getName(npc)]'</i> for the next 24 hours!)]
+			</p>
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>BAT_CAVERNS_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] a broodmother's pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] a broodmother's pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

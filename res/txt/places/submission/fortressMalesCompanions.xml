@@ -86,7 +86,7 @@
 		In the very centre of the hall, the four occupants of this fortress are gathered around a series of thick, upright bamboo poles, several of which have been sliced to pieces. While the three masculine alpha-imps are much the same as the guards at the gate, their leader is a muscular red-skinned incubus, who, apart from the white cloth wrapping around his hands and torso, is clad only in very oriental-looking, black, skirt-like leggings. Two red horns point out from his forehead, and as he turns to see who's entered his home, you see that his messy, black, shoulder-length hair is framing a very rugged, handsome face. As his yellow eyes lock on to yours, he swipes the dangerous-looking arcane katana in his hands to one side, before sheathing it in the decorative scabbard at his waist. Placing his hands on his hips, the incubus's huge pecs rise and fall as he booms, [npc2.speech(What have we here, hmm?! Some new challengers come to test [npc2.namePos] mettle?!)]
 	</p>
 	<p>
-		As the incubus, who you now know is called [npc2.name], says this, you notice that he has an additional, smaller sword fastened at his waist, and you realise that the sounds you heard while outside the keep were of this swordsman testing the power of his two blades on the unfortunate poles of bamboo standing behind him. Impatient to hear who you and your companion might be, [npc2.name] doesn't give you enough time to answer, and quickly continues, [npc2.speech(None who enter my dojo uninvited may be permitted to leave without being duly punished. Fifteen years have I spent training with the youkos of the Shinrin Highlands. Even though there are two of you, you still stand no chance against my katana and I. Submit to me!)]
+		As the incubus, who you now know is called [npc2.name], says this, you notice that he has an additional, smaller sword fastened at his waist, and you realise that the sounds you heard while outside the keep were of this swordsman testing the power of his two blades on the unfortunate poles of bamboo standing behind him. Impatient to hear who you and your companion might be, [npc2.name] doesn't give you enough time to answer, and quickly continues, [npc2.speech(None who enter my dojo uninvited may be permitted to leave without being duly punished. Fifteen years have I spent training with the youko of the Shinrin Highlands. Even though there are two of you, you still stand no chance against my katana and I. Submit to me!)]
 	</p>
 	<p>
 		As he says this, the incubus places one hand on the grip of the larger of his two swords, and readies himself for a fight. The three alpha-imps rush to back their leader up, and you realise that you only have a moment in which to either diffuse the situation, or ready yourself for combat...
@@ -474,41 +474,19 @@
 	
 	<htmlContent tag="KEEP_MALES_TAMESHIGIRI_MAIN"><![CDATA[
 	<p>
-		Sensing an opportunity to intimidate this [npc2.race] into submission, you motion for [npc.name] to stand back, before gripping your weapon and stepping forwards to issue your challenge, [pc.speech(Your blades are no match for my [pc.mainWeapon], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
+		Sensing an opportunity to intimidate this [npc2.race] into submission, you motion for [npc.name] to stand back, before gripping your weapon and stepping forwards to issue your challenge, [pc.speech(Your blades are no match for my [#SPECIAL_PARSE_0], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
 	</p>
 	<p>
 		[npc2.speech(Hah! How ridiculous! None can match my katana!)] [npc2.name] booms, but, despite [npc2.her] words, [npc2.she] stands aside. [npc2.speech(So, you consider yourself a competent practitioner of tameshigiri, do you? Oh, that'd be 'test cutting' to someone not familiar with the youko's tongue.)]
 	</p>
 	<p>
-		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [pc.mainWeapon] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
+		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [#SPECIAL_PARSE_0] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
 	</p>
 	<p>
-		The [npc2.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc2.name] has repeatedly tried, and failed, to slice through it with [npc2.her] katana. [npc2.speech(Your pathetic [pc.mainWeapon] is likely to shatter if you try cutting it! One of the eight-tailed youkos themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
+		The [npc2.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc2.name] has repeatedly tried, and failed, to slice through it with [npc2.her] katana. [npc2.speech(Your pathetic [#SPECIAL_PARSE_0] is likely to shatter if you try cutting it! One of the eight-tailed youko themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
 	</p>
 	<p>
-		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc2.race] how powerful you are, you raise your [pc.mainWeapon] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
-	</p>
-	<p>
-		At first, [npc2.name] seems to think that you've missed the target completely, for [npc2.she] starts to let out a booming laugh as [npc2.she] sees that your blade seemed to encounter no resistance, and is now on the other side of the pole. [npc2.Her] mocking roar is suddenly cut short, however, as the top half of the blackened pole slides to one side, before falling to the floor with a heavy thud.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_MALES_TAMESHIGIRI_OFFHAND"><![CDATA[
-	<p>
-		Sensing an opportunity to intimidate this [npc2.race] into submission, you motion for [npc.name] to stand back, before gripping your weapon and stepping forwards to issue your challenge, [pc.speech(Your blades are no match for my [pc.secondaryWeapon], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
-	</p>
-	<p>
-		[npc2.speech(Hah! How ridiculous! None can match my katana!)] [npc2.name] booms, but, despite [npc2.her] words, [npc2.she] stands aside. [npc2.speech(So, you consider yourself a competent practitioner of tameshigiri, do you? Oh, that'd be 'test cutting' to someone not familiar with the youko's tongue.)]
-	</p>
-	<p>
-		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [pc.secondaryWeapon] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
-	</p>
-	<p>
-		The [npc2.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc2.name] has repeatedly tried, and failed, to slice through it with [npc2.her] katana. [npc2.speech(Your pathetic [pc.secondaryWeapon] is likely to shatter if you try cutting it! One of the eight-tailed youkos themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
-	</p>
-	<p>
-		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc2.race] how powerful you are, you raise your [pc.secondaryWeapon] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
+		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc2.race] how powerful you are, you raise your [#SPECIAL_PARSE_0] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
 	</p>
 	<p>
 		At first, [npc2.name] seems to think that you've missed the target completely, for [npc2.she] starts to let out a booming laugh as [npc2.she] sees that your blade seemed to encounter no resistance, and is now on the other side of the pole. [npc2.Her] mocking roar is suddenly cut short, however, as the top half of the blackened pole slides to one side, before falling to the floor with a heavy thud.
@@ -571,7 +549,7 @@
 		[pc.speech(You do realise that she's under lock and key in Lyssieth's palace, right?)] you ask.
 	</p>
 	<p>
-		[npc2.speech(That doesn't matter. She'll find a way to escape,)] [npc2.name] says. [npc2.speech(But until [npc2.she] does, I'll leave this place. Just let me go, and we can avoid a fight.)]
+		[npc2.speech(That doesn't matter. She'll find a way to escape,)] [npc2.name] says. [npc2.speech(But until [siren.she] does, I'll leave this place. Just let me go, and we can avoid a fight.)]
 	</p>
 	<p>
 		You don't believe for one moment that [npc2.name] intends to wait until [npc2.her] leader is released before returning, and you doubt that even beating [npc2.herHim] in combat would change that...
@@ -629,7 +607,7 @@
 	
 	<htmlContent tag="KEEP_AUDIENCE_BREEDING_COMPANION_IMPS"><![CDATA[
 	<p>
-		A grin breaks out across [npc2.namePos] face as [npc2.she] hears what it is you're after. With [npc2.her] gaze hungrily roaming up and down over your body, [npc2.she] offers [npc2.her] terms, [npc2.speech(Well, I haven't had the opportunity to breed [pc.a_race] as fine as you in a good long while, so you let me fill your belly with imps, and then I'll give you my help in getting to meet with our boss. Oh, and your friend can make [npc.herself] useful by satisfying my guards.)]
+		A grin breaks out across [npc2.namePos] face as [npc2.she] hears what it is you're after. With [npc2.her] gaze hungrily roaming up and down over your body, [npc2.she] offers [npc2.her] terms, [npc2.speech(Well, I haven't had the opportunity to breed [pc.a_race] as fine as you in a good long while, so you let me knock you up, and then I'll give you my help in getting to meet with our boss. Oh, and your friend can make [npc.herself] useful by satisfying my guards.)]
 	</p>
 	<p>
 		Rubbing the bulge in [npc2.her] hakama, [npc2.she] continues, [npc2.speech(Of course, you can say no, but then I'll be forced to punish you for barging in here uninvited. So, either way, I'm going to be breeding you while your friend gets fucked by my imps, so you might as well get something out of it, right?)]
@@ -642,7 +620,7 @@
 	
 	<htmlContent tag="KEEP_AUDIENCE_IMPS_COMPANION_BREEDING"><![CDATA[
 	<p>
-		A grin breaks out across [npc2.namePos] face as [npc2.she] hears what it is you're after. With [npc2.her] gaze hungrily roaming up and down over [npc.namePos] body, [npc2.she] offers [npc2.her] terms, [npc2.speech(Well, I haven't had the opportunity to breed [npc.a_race] as fine as your friend in a good long while, so you let me fill [npc.her] belly with imps, and then I'll give you my help in getting to meet with our boss. Oh, and you can make yourself useful by satisfying my guards.)]
+		A grin breaks out across [npc2.namePos] face as [npc2.she] hears what it is you're after. With [npc2.her] gaze hungrily roaming up and down over [npc.namePos] body, [npc2.she] offers [npc2.her] terms, [npc2.speech(Well, I haven't had the opportunity to breed [npc.a_race] as fine as your friend in a good long while, so you let me knock [npc.herHim] up, and then I'll give you my help in getting to meet with our boss. Oh, and you can make yourself useful by satisfying my guards.)]
 	</p>
 	<p>
 		Rubbing the bulge in [npc2.her] hakama, [npc2.she] continues, [npc2.speech(Of course, you can say no, but then I'll be forced to punish you for barging in here uninvited. So, either way, I'm going to be breeding your friend while you get fucked by my imps, so you might as well get something out of it, right?)]
@@ -674,7 +652,7 @@
 		[npc2.Name] releases [npc2.her] grip on [npc2.her] katana as [npc2.she] hears your reply. Striding forwards and coming to a halt right in front of you, [npc2.she] reaches out to grab you by the shoulders, and, before you can react, [npc2.she] pushes you down onto your knees, before booming, [npc2.speech(Excellent! Now surrender your womb to me!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Now, let's get started!)]
@@ -750,7 +728,7 @@
 		[npc2.Name] releases [npc2.her] grip on [npc2.her] katana as [npc2.she] hears your reply. Striding forwards and coming to a halt right in front of the two of you, [npc2.she] reaches out to grab you both by the shoulders, and, before you can react, [npc2.she] pushes you and [npc.name] down onto your knees, before booming, [npc2.speech(Excellent! Now surrender your womb to me!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
@@ -787,7 +765,7 @@
 	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 	#THEN
 		<p>
-			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... I'll be the mother to your imps...)]
+			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... Make me a mother...)]
 		</p>
 		<p>
 			[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before [npc.herHim] and firmly pushing [npc.herHim] down onto [npc.her] back. [npc2.speech(Come on, you three, have some fun with that [pc.race]!)]
@@ -1056,7 +1034,7 @@
 		Being held so close to [npc2.her] body, you're able to suddenly feel something hard pressing against your [pc.leg], and you glance down to see the distinctive bulge of a fat cock pressing out against the folds of [npc2.namePos] hakama. Gulping at the sight of it, you look back up into the [npc2.race]'s [npc2.eyeColour] eyes, before offering, [pc.speech(I-I could take care of that for you...)]
 	</p>
 	<p>
-		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving you down onto your back in front of [npc2.herHim]. [npc2.speech(No, if I can't fill your belly with imps, then I'm not interested. My guards, on the other hand...)]
+		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving you down onto your back in front of [npc2.herHim]. [npc2.speech(No, if I can't knock you up, then I'm not interested. My guards, on the other hand...)]
 	</p>
 	<p>
 		As [npc2.she] says this, the three alpha-imps quickly surround you, before starting to grope and squeeze your body. [npc2.Name] lets out a booming laugh, before stepping back and making sure that [npc2.her] horny imps are enough to handle you. Before you can react to what's going on, two of the imps suddenly push you down onto your back, with the third stepping up between your [pc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
@@ -1112,7 +1090,7 @@
 		[npc2.speech(Now that's what I like to hear!)] [npc2.Name] bellows, before reaching out to grab both you and [npc.name] by the shoulders. Before you can react, [npc2.she] pushes the two of you down onto your knees, before booming, [npc2.speech(The only way to earn my forgiveness is by surrendering your womb to me, while your friend satisfies my imps!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
@@ -1138,7 +1116,7 @@
 	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 	#THEN
 		<p>
-			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... I'll be the mother to your imps...)]
+			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... Make me a mother...)]
 		</p>
 		<p>
 			[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before [npc.herHim] and firmly pushing [npc.herHim] down onto [npc.her] back. [npc2.speech(Come on, you three, have some fun with that [pc.race]!)]
@@ -1260,7 +1238,7 @@
 		Being held so close to [npc2.her] body, [npc.nameIs] able to suddenly feel something hard pressing against [npc.her] [npc.leg], and [npc.she] glances down to see the distinctive bulge of a fat cock pressing out against the folds of [npc2.namePos] hakama. Gulping at the sight of it, [npc.she] looks back up into the [npc2.race]'s [npc2.eyeColour] eyes, before offering, [npc.speech(I-I could take care of that for you...)]
 	</p>
 	<p>
-		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving [npc.name] down onto [npc.her] back in front of [npc2.herHim]. [npc2.speech(No, if I can't fill your belly with imps, then I'm not interested. You can satisfy my guards instead! Come on, you three, have some fun with this [npc.race]!)]
+		[npc2.speech(I'm only interested in those I can impregnate!)] [npc2.Name] bellows, before roughly shoving [npc.name] down onto [npc.her] back in front of [npc2.herHim]. [npc2.speech(No, if I can't knock you up, then I'm not interested. You can satisfy my guards instead! Come on, you three, have some fun with this [npc.race]!)]
 	</p>
 	<p>
 		Doing as their leader commands, the three alpha-imps quickly surround [npc.name], before starting to grope and squeeze [npc.her] body. Before [npc.she] can react to what's going on, two of the imps suddenly push [npc.her] down alongside you, with the third stepping up between [npc.her] [npc.legs] and chuckling, [npc3.speech(Mmm, yeah, you're gonna love my cock!)]
@@ -1301,7 +1279,7 @@
 		[npc2.Name] lets out a triumphant bellow as [npc2.she] watches you and [npc.name] fall to the floor, defeated. With a hungry tone in [npc2.her] voice, [npc2.she] steps forwards and booms, [npc2.speech(I think it's time for your punishment!)]
 	</p>
 	<p>
-		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. [npc2.speech(You'll be the mother to a big brood of imps soon enough! And as for you, [npc.race], my imps can have some fun with you!)]
+		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. [npc2.speech(I'll make you into a mother soon enough! And as for you, [npc.race], my imps can have some fun with you!)]
 	</p>
 	<p>
 		Taking hold of your [pc.legs], [npc2.name] starts to push them apart, getting ready to breed you as the three imps rush forwards to take advantage of your companion...
@@ -1314,7 +1292,7 @@
 		[npc2.Name] lets out a triumphant bellow as [npc2.she] watches you and [npc.name] fall to the floor, defeated. With a hungry tone in [npc2.her] voice, [npc2.she] steps forwards and booms, [npc2.speech(I think it's time for your punishment!)]
 	</p>
 	<p>
-		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. Gazing hungrily down at [npc.name], [npc2.she] bellows, [npc2.speech(You'll be the mother to a big brood of imps soon enough! And as for you, [pc.race], my imps can have some fun with you!)]
+		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. Gazing hungrily down at [npc.name], [npc2.she] bellows, [npc2.speech(Surrender your womb to me! And as for you, [pc.race], my imps can have some fun with you!)]
 	</p>
 	<p>
 		Taking hold of [npc.namePos] [npc.legs], [npc2.name] starts to push them apart, getting ready to breed [npc.herHim] as the three imps rush forwards to take advantage of you...
@@ -1556,7 +1534,7 @@
 				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 			</p>
 			<p>
-				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
+				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
 			</p>
 			<p>
 				You feel your cheeks flush as [npc.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1582,7 +1560,7 @@
 				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you push your [pc.fingers] into your cum-stuffed cunt, before desperately trying to push as much of the precious seed deep into your uterus as you possibly can.
 			</p>
 			<p>
-				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
+				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
 			</p>
 			<p>
 				You feel your cheeks flush as [npc.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1655,7 +1633,7 @@
 					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 				</p>
 				<p>
-					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
+					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
 				</p>
 				<p>
 					You feel your cheeks flush as [npc2.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1714,7 +1692,7 @@
 						As [npc2.name] says this, [npc.name] can't help but let out a frantic moan at the thought of new life being born in [npc.her] womb. Reaching down between [npc.her] [npc.legs], [npc.she] makes sure that the dildo is securely in place, letting out a relieved sigh as [npc.she] feels that it's firmly plugging [npc.her] vagina and keeping all that precious cum locked deep inside [npc.her] uterus.
 					</p>
 					<p>
-						[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.name] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
+						[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.name] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
 					</p>
 					<p>
 						[npc.NamePos] cheeks flush as [npc2.name] talks about the imps that [npc.she] might be pregnant with, and [npc.she] finds [npc.herself] desperately wishing that [npc.sheIs] soon going to be showing signs of being a mother.

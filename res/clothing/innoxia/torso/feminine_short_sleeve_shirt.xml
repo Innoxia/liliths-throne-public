@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>200</value> 
 		
 		<determiner><![CDATA[a]]></determiner>
@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A form-fitting short-sleeved shirt, with a cut designed to fit comfortably on feminine figures.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>FEMININE</femininity> 
 		
@@ -32,37 +32,29 @@
 		
 		<blockedPartsList> 
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired> 
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessRequired>
-				
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				
 				<clothingAccessBlocked/>
-				
 				<concealedSlots/>
 			</blockedParts>
 			
 			<blockedParts>
 				<displacementType>UNBUTTONS</displacementType> 
-				
 				<clothingAccessRequired/>
-				
 				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 				</blockedBodyParts>
-				
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
-				
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
 			
@@ -84,8 +76,9 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	
 </clothing>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="SLAVERY_ADMINISTRATION_EXTERIOR"><![CDATA[
+	<p>
+		A large metal sign, bearing the words 'Slavery Administration', is prominently displayed above the entrance to the building before you. Its clean, white-washed walls and heavy oak doors set this particular establishment apart from the rest of the stores in Slaver Alley.
+	</p>
+	<p>
+		Noticing a little information board attached to one side of the entrance, you walk up and read what it says. From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled. A little piece of paper has been stuck to the bottom of the board, which reads; <i>'Slaver licenses are not being issued!'</i>
+	</p>
+	<p>
+		#IF(pc.isHasSlaverLicense())
+			Being in possession of a slaver license yourself, you could enter the Slavery Administration building and make use of its services.
+		#ELSE
+			Although it's doubtful that you'd be able to make use of any of its services, it looks like any member of the public is free to enter the building.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_ADMINISTRATION"><![CDATA[
+	#IF(pc.isHasSlaverLicense())
+		<p>
+			The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a cavernous entrance hall. Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them. Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'. The only other piece of furniture to be seen is a long, black-marble desk, behind which the black-haired cat-boy, [finch.name], is grinning at you with mischievous eyes.
+		</p>
+		<p>
+			[finch.speech(Ah, if it isn't my <i>favourite</i> customer, [pc.name]!)] he shouts, beckoning you over to the desk. [finch.speech(What can I help you with today?)]
+		</p>
+		<p>
+			Walking forwards, you return [finch.namePos] greeting, [pc.speech(Hi, [finch.name].)]
+		</p>
+		<p>
+			[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)] he says, standing up to reveal his tiny feline cock. [finch.speech(I've got slave collars, with the appropriate paperwork already completed, as well as a large selection of clothing suitable for your slaves!)]
+		</p>
+		<p>
+			As you come to a halt in front of the black marble desk, [finch.name] grins expectantly at you, [finch.speech(Or, if you'd like, we can discuss the management and handling of your property. Remember, any new slaves you capture will be delivered here first. All the costs of collection and transport are covered in the cost of each slave collar, so just let me know if you want to have your slaves moved elsewhere.)]
+		</p>
+		<p>
+			Thanking [finch.name], you wonder what you do next...
+		</p>
+	#ELSEIF(!game.getDialogueFlags().hasFlag(FLAG_finchIntroduced))
+		<p>
+			The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall. Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them. Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'. The only other piece of furniture to be seen is a long, black-marble desk, behind which a black-haired cat-boy is grinning at you with mischievous eyes.
+		</p>
+		<p>
+			[finch.speech(Welcome!)] he shouts, beckoning you over to the desk. [finch.speech(Can I help you with anything?)]
+		</p>
+		<p>
+			Walking forwards, you return the cat-boy's greeting, [pc.speech(Hello, I was just looking around.)]
+		</p>
+		<p>
+			[finch.speech(I'm afraid that there's not really much to see here. All the <i>fun</i> happens in the holding cells, and they're off-limits. Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)] he says, standing up and bowing a little. [finch.speech(Oh, where are my manners?! I'm [finch.name], the manager of the Slavery Administration. I keep petitioning my superiors to have the name changed to something a little more <i>exciting</i>, but they're quite set in their ways.)]
+		</p>
+		<p>
+			[pc.speech(I'm [pc.name],)] you answer, returning the cat-boy's disarming smile. As [finch.name] continues grinning at you, your eyes are drawn down to his groin, where you see that his choice of crotchless chaps and briefs have left his tiny cat-like cock completely exposed.
+		</p>
+		<p>
+			Noticing your downwards glance, [finch.name] lets out a little laugh, and you can't help but notice that there's a slightly unsettling edge to his voice, [finch.speech(I like having easy access! You never know when a disobedient slave needs to be put in their place...)]
+		</p>
+		<p>
+			Due to your lack of a slaver license, [finch.name] is unable to offer you any services. As he sits back down, concealing his exposed groin behind the desk once more, you wonder if you should ask him about how to obtain one.
+		</p>
+	#ELSE
+		<p>
+			The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall. Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them. Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'. The only other piece of furniture to be seen is a long, black-marble desk, behind which the black-haired cat-boy, [finch.name], is grinning at you with mischievous eyes.
+		</p>
+		<p>
+			[finch.speech(Hello again!)] he shouts, beckoning you over to the desk. [finch.speech(Can I help you with anything?)]
+		</p>
+		<p>
+			Walking forwards, you return [finch.namePos] greeting, [pc.speech(Hello, I was just looking around.)]
+		</p>
+		<p>
+			[finch.speech(I'm afraid that there's not really much to see here. All the <i>fun</i> happens in the holding cells, and they're off-limits. Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)] he says, standing up to reveal his tiny feline cock.
+		</p>
+		<p>
+			Due to your lack of a slaver license, [finch.name] is unable to offer you any services. Throwing a grin your way, he sits back down, concealing his exposed groin behind the desk once more.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE"><![CDATA[
+	<p>
+		Walking up to [finch.namePos] desk, you ask, [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]
+	</p>
+	<p>
+		[finch.Name] leans back in his chair, grinning up at you. [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone. If you're looking to apply for one, you're going to have to join the waiting list. Last time I looked, I think the estimated wait time for new applicants is just over four years...)]
+	</p>
+	<p>
+		[pc.speech(Four years?!)] you exclaim in disbelief. [pc.speech(Is there no other way to get one?)]
+	</p>
+	<p>
+		[finch.speech(Well, unless you can get a letter of recommendation from someone who's already got a slaver license, then no, there's no other way. And if you had that, you wouldn't be asking, would you?)]
+	</p>
+	<p>
+		[finch.Name] grins up at you, and you can't help but notice the slightly threatening look in his [finch.eyeColour] cat-like eyes. You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from Lilaya, the one person you know that can help you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED"><![CDATA[
+	<p>
+		Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him. [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]
+	</p>
+	<p>
+		[finch.speech(Hah! It's not quite as easy as that, this just means that you're on the priority list, not that-)] [finch.name] starts explaining, but as he reads the signature at the bottom of your letter, he stops talking.
+	</p>
+	<p>
+		[pc.speech(Is something wrong?)] you ask, noticing that all the colour has drained from his face.
+	</p>
+	<p>
+		[finch.speech(Your aunt is <i>Lilaya</i>?)] he asks, putting the letter to one side. [finch.speech(Why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]
+	</p>
+	<p>
+		[pc.speech(Oh, great!)] you cheerily reply, handing over the money. [pc.speech(You know Lilaya then?)]
+	</p>
+	<p>
+		[finch.Name] pulls out a large stack of forms from under his desk, and as he starts filling them out, he replies, [finch.speech(Of course! Anyone in any sort of business which deals with demons should know of all the elder lilin's recognised children. Lilaya is an especially notable individual, as she's one of only two half-demons to ever have been recognised by her elder lilin mother. Anyway, it's going to take me about fifteen minutes to fill out these forms, so you can wait on one of the benches if you'd like.)]
+	</p>
+	<p>
+		Thankful for Finch's knowledge of, and apparent respect for, your demonic aunt, you walk over to one of the wooden benches at the edge of the room and take a seat. True to his word, [finch.name] takes just under fifteen minutes to work his way through the pile of forms, and once he's finished, he calls you back over to his desk.
+	</p>
+	<p>
+		[finch.speech(Right, I just need your name and signature here, here, and here,)] he says, pointing to three different places on the forms. [finch.speech(Once you're done, I'll talk you through the rules and regulations.)]
+	</p>
+	<p>
+		Quickly skimming over the forms to make sure that you're not signing your life away by mistake, you then sign in the places that [finch.name] points to. Once you're done, the cat-boy files the papers away beneath his desk, before producing a little checklist, titled <i>'Slavery rules & regulations'</i>.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES"><![CDATA[
+	<p>
+		[finch.speech(So, before you run off and try to enslave the first person you meet, you need to be aware of the basics,)] [finch.name] states, pointing down at the checklist in front of him. [finch.speech(First of all, slaves are meant to wear a piece of enchanted clothing in order to clearly designate them as someone else's property. Slave collars are most regularly used for this purpose, and can only be purchased from here, at the Slavery Administration building. Although some slave owners allow their slaves to work without wearing a piece of enslavement clothing, we strongly advise against this. Runaway slaves who don't have their collars on are almost impossible to track down without great expense, so if you decide to take theirs off, don't come crying to me when they run away!)]
+	</p>
+	<p>
+		[pc.speech(Understood,)] you reply, nodding for Finch to continue.
+	</p>
+	<p>
+		[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some <i>strict</i> limitations. You can only enslave two sorts of people; those who are willing, and those who have been marked for enslavement by Enforcers. Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)] 
+	</p>
+	<p>
+		[pc.speech(That makes sense,)] you reply.
+	</p>
+	<p>
+		[finch.speech(Good. Now, assuming you're interested in enslaving people, the last thing you need to be aware of is what happens once you make your slave-to-be wear the enslavement clothing. As soon as you fit whatever clothing it may be into place, the collar's special enchantment will activate,)] [finch.name] says, grinning, [finch.speech(and if they're a suitable enslavement target, they'll be teleported right into the holding cells in this very building! Now, normally teleportation spells are limited to only the most powerful of arcane users, so you might be shocked the first time you see it!)]
+	</p>
+	<p>
+		[pc.speech(So I have to come here and pick up everyone I enslave?)] you ask.
+	</p>
+	<p>
+		[finch.speech(That's right, but I'm sure someone as important as you can simply send a messenger to come and collect them from the comfort of your own home. Although this system is a little inconvenient for all involved, we had to implement it a few years ago to counteract some nasty illegal enslavement practices. With this new system, we're making sure that all new slaves go through the proper channels.)]
+	</p>
+	<p>
+		[finch.Name] picks up the last piece of paper you signed and holds it out for you to take. [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like. The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers. Oh, and on that last note, there's usually no point in trying to enslave any demons you run into, as there's absolutely no way an Enforcer would sign off on an enslavement order for them, unless they're of a particularly troublesome and destitute sort. Any demon with even a shred of respectability could, for all any Enforcer knows, be a lilin's favoured son or daughter, and before they know it, they'd be the one ending up in my cells instead of the demon!)]
+	</p>
+	<p>
+		[pc.speech(I see,)] you say, wondering if any demons prowling the alleyways of Dominion have been marked for enslavement.
+	</p>
+	<p>
+		[finch.speech(Normally, non-demons wouldn't even be permitted to own demonic slaves, but as you're related to Lilaya herself, I've gone ahead and marked your license as the extended coverage type, meaning that you'll get no trouble from any Enforcers if you do end up owning some demon slaves,)] Finch states, giving you a friendly wink before leaning back and crossing his arms.
+	</p>
+	<p>
+		Thanking him for explaining things to you, you put your new slaver license safely away, but before you're able to turn and leave, the cat-boy has some final words, [finch.speech(Now that you've got that license, I can sell you some slave collars if you'd like. I've also got a few more fun things in stock...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

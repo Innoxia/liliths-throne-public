@@ -6,16 +6,17 @@
 
 https://www.eclipse.org/downloads/
 
-http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html
+You will need java version 8u172 
 
 
 1. Open Eclipse
 2. Click File, Import it will then open a wizard, open Git and choose Projects from Git, click Next
 3. Choose Clone URL and then click Next
-4. Put https://github.com/Innoxia/liliths-throne-public into the first box in Location
+4. Put https://github.com/Innoxia/liliths-throne-public (or https://github.com/Innoxia/liliths-throne-public/tree/dev if you're building from the dev branch) into the first box in Location
 5. Put github.com into the second box in Location, this may be done automatically.
-6. Put /Innoxia/liliths-throne-public in the third box in Location, this may be done automatically. Then click Next
-7. The wizard will now ask which branch you want, this will be "master", select this and then click next.
+6. Put /Innoxia/liliths-throne-public (or /Innoxia/liliths-throne-public/tree/dev for dev branch) in the third box in Location, this may be done automatically. Then click Next
+7. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click next.
 8. Unless you want to change the directory, click Next.
 9. It will now download the repository.
 10. Make sure "Import existing Eclipse projects" is selected, then click Next.
@@ -67,8 +68,8 @@ The GIT plugin of Eclipse tries to run the "bash" command, and if you hadn't ins
 6. Try Importing once again.
 
 ## Using Maven
-[Maven](https://maven.apache.org) is a Java build system that can be used to build applications.  
-Support is integrated into Eclipse, but it can be used without an IDE, so you can build the game without Eclipse.  
+[Maven](https://maven.apache.org) is a Java build system that can be used to build applications.
+Support is integrated into Eclipse, but it can be used without an IDE, so you can build the game without Eclipse.
 All build information is provided in [pom.xml](/pom.xml).
 
 ### Building
@@ -78,7 +79,7 @@ From the root of the repository (the folder where `pom.xml` is) run:
 mvn package
 ```
 
-This creates the JAR file in `/target/game-1.jar`.  
+This creates the JAR file in `/target/game-1.jar`.
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
 
 ## Using NetBeans
@@ -121,8 +122,7 @@ Since this does not create a .jar file, you can add Maven run configurations to 
 
 Running the newly created configuration (Shift + F10, make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
 
-Note that executing it will display a warning that the "res" folder wasn't found. This is because it is copied to the wrong location during the Maven building process. You can manually copy it either from your project root directory or from "target/classes" so that it resides in the same directory as the .jar file.
-Also note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
+Note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
 
 ### Common issues
 

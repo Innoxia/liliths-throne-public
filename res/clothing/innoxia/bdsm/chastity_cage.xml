@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>250</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[chastity cage]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[chastity cages]]></namePlural>
+    <description><![CDATA[A basic penis-shaped cage, complete with lock, that's designed to imprison the wearer's cock. When worn, it will physically prevent an erection from occurring.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>PENIS</slot>
+    <rarity>EPIC</rarity>
+
+    <imageName>chastity_cage.svg</imageName>
+
+	<clothingSet>BDSM</clothingSet>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+	
+	<effects> 
+		<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_DRAIN" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts>
+          <bodyPart>PENIS</bodyPart>
+        </blockedBodyParts>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours values="ALL"/>
+    <primaryColoursDye/>
+    <secondaryColours>
+		<colour>CLOTHING_BRASS</colour>
+    </secondaryColours>
+    <secondaryColoursDye values="ALL_WITH_METALS"/>
+    <tertiaryColours>
+		<colour>CLOTHING_STEEL</colour>
+    </tertiaryColours>
+    <tertiaryColoursDye values="ALL_WITH_METALS"/>
+
+    <itemTags>
+      <tag>SOLD_BY_FINCH</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>REQUIRES_PENIS</tag>
+      <tag>PREVENTS_ERECTION_PHYSICAL</tag>
+      <tag>TRANSPARENT</tag>
+      <tag>RIGID_MATERIAL</tag>
+      <tag>PROVIDES_KEY</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(lock)] the chastity cage in place around [npc.her] cock.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(lock)] the chastity cage in place around [npc2.namePos] cock.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly squeezes [npc2.namePos] cock before locking it inside the chastity cage.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unlock)] and [npc.verb(remove)] the chastity cage that was imprisoning [npc.her] cock.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unlock)] and [npc.verb(remove)] the chastity cage that was imprisoning [npc2.namePos] cock.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(unlock)] and [npc.verb(pull)] off the chastity cage that was imprisoning [npc2.namePos] cock.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

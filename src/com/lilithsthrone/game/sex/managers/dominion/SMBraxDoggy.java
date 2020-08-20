@@ -3,25 +3,25 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.8
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMBraxDoggy extends SexManagerDefault {
 
-	public SMBraxDoggy(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.DOGGY_STYLE,
+	public SMBraxDoggy(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPosition.ALL_FOURS,
 				dominants,
 				submissives);
 	}
 
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

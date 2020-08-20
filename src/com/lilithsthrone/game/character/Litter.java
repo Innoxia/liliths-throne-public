@@ -1,30 +1,38 @@
 package com.lilithsthrone.game.character;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.62
- * @version 0.2.11
- * @author Innoxia
+ * @version 0.3.5.5
+ * @author Innoxia, orvail
  */
-public class Litter implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class Litter implements XMLSaving {
 
 	private LocalDateTime conceptionDate;
 	private LocalDateTime birthDate;
@@ -39,6 +47,8 @@ public class Litter implements Serializable, XMLSaving {
 	
 	private List<String> offspring;
 	
+	private String birthedDescription;
+	
 	private Subspecies motherRace;
 	private Subspecies fatherRace;
 
@@ -47,42 +57,46 @@ public class Litter implements Serializable, XMLSaving {
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
 		
 		motherId = mother.getId();
-		fatherId = father.getId();
 		motherRace = mother.getSubspecies();
-		fatherRace = father.getSubspecies();
-		
-		this.offspring = new ArrayList<>();
-		for(NPC npc : offspring) {
-			this.offspring.add(npc.getId());
+		if(father!=null) {
+			fatherId = father.getId();
+			fatherRace = father.getSubspecies();
+		} else {
+			fatherId = "";
+			fatherRace = null;
 		}
-		
+
 		sonsMother = 0;
 		daughtersMother = 0;
 		sonsFather = 0;
 		daughtersFather = 0;
-		for(GameCharacter gc : offspring) {
-			if(gc.isFeminine()) {
-				if(gc.getRace()==mother.getRace()) {
+		this.offspring = new ArrayList<>();
+		
+		for(NPC npc : offspring) {
+			this.offspring.add(npc.getId());
+			if(npc.isFeminine()) {
+				if(npc.isTakesAfterMother()) {
 					daughtersMother++;
 				} else {
 					daughtersFather++;
 				}
-				
 			} else {
-				if(gc.getRace()==mother.getRace()) {
+				if(npc.isTakesAfterMother()) {
 					sonsMother++;
 				} else {
 					sonsFather++;
 				}
 			}
 		}
+		
+		generateBirthedDescription();
 	}
 	
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate,
 			String motherId, String fatherId,
 			int sonsMother, int daughtersMother, int sonsFather, int daughtersFather,
 			List<String> offspring,
-			Subspecies motherRace, Subspecies fatherRace) {
+			Subspecies motherRace, Subspecies fatherRace, String birthedDescription) {
 
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
@@ -98,6 +112,8 @@ public class Litter implements Serializable, XMLSaving {
 		this.offspring = offspring;
 		this.motherRace = motherRace;
 		this.fatherRace = fatherRace;
+		
+		this.birthedDescription = birthedDescription;
 	}
 
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -127,6 +143,9 @@ public class Litter implements Serializable, XMLSaving {
 		
 		CharacterUtils.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
 		CharacterUtils.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
+
+		CharacterUtils.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
+		
 		
 		Element innerElement = doc.createElement("offspringList");
 		element.appendChild(innerElement);
@@ -187,7 +206,13 @@ public class Litter implements Serializable, XMLSaving {
 			loadedBirthDate = Main.game.getStartingDate().plusDays(birthDay);
 		}
 		
-		return new Litter(
+		String birthedDescription = "";
+		try {
+			birthedDescription = parentElement.getAttribute("birthedDescription");
+		} catch(Exception ex) {
+		}
+		
+		Litter litter = new Litter(
 				loadedConceptionDate,
 				loadedBirthDate,
 				parentElement.getAttribute("motherId"),
@@ -198,9 +223,20 @@ public class Litter implements Serializable, XMLSaving {
 				Integer.valueOf(parentElement.getAttribute("daughtersFather")),
 				offspring,
 				motherRace,
-				fatherRace);
+				fatherRace,
+				birthedDescription);
+		
+//		if(birthedDescription.isEmpty()) {
+//			litter.generateBirthedDescription();
+//		}
+		
+		return litter;
 	}
 
+	public boolean isSelfImpregnation() {
+		return this.getMotherId().equals(this.getFatherId());
+	}
+	
 	public LocalDateTime getConceptionDate() {
 		return conceptionDate;
 	}
@@ -225,8 +261,10 @@ public class Litter implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(motherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+motherId+") returning null in method: Litter.getMother()");
-			return Main.game.getGenericFemaleNPC();
+			if(!motherId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("Litter.getMother()", motherId);
+			}
+			return Main.game.getNpc(GenericFemaleNPC.class);
 		}
 	}
 
@@ -238,13 +276,32 @@ public class Litter implements Serializable, XMLSaving {
 		try {
 			return Main.game.getNPCById(fatherId);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+fatherId+") returning null in method: Litter.getFather()");
-			return Main.game.getGenericMaleNPC();
+			return null;
 		}
 	}
 
+	public String getFatherName() {
+		if(getFather()==null) {
+			return "someone";
+		}
+		return getFather().getName();
+	}
+	
+	
 	public boolean isFatherId(String fatherId) {
 		return this.fatherId.equals(fatherId);
+	}
+
+	public Set<GameCharacter> getOffspringCharacters() {
+		HashSet<GameCharacter> result = new HashSet<>();
+		offspring.stream().map(x -> {
+			try {
+				return Main.game.getNPCById(x);
+			} catch (Exception e) {
+				return null;
+			}
+		}).filter(Objects::nonNull).forEach(result::add);
+		return result;
 	}
 	
 	public List<String> getOffspring() {
@@ -278,96 +335,126 @@ public class Litter implements Serializable, XMLSaving {
 	public Subspecies getFatherRace() {
 		return fatherRace;
 	}
+
+	public void setFatherRace(Subspecies fatherSubspecies) {
+		fatherRace = fatherSubspecies;
+	}
 	
-	private static StringBuilder descriptionSB = new StringBuilder();
-	public String getBirthedDescriptionList() {
-		descriptionSB.setLength(0);
-		boolean foundChildren = false;
+	public void generateBirthedDescription() {
+		Map<String, Integer> sons = new HashMap<>();
+		Map<String, Integer> daughters = new HashMap<>();
 		
-		if(getMotherRace()!=getFatherRace()) {
-			if (getSonsFromMother() > 0) {
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromMother() > 1
-								? getMotherRace().getOffspringSubspecies().getPluralMaleName(getMother())
-								: getMotherRace().getOffspringSubspecies().getSingularMaleName(getMother()))
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-			if (getSonsFromFather() > 0) {
-				if(foundChildren) {
-					if(getDaughtersFromMother()+getDaughtersFromFather() > 0) {
-						descriptionSB.append(", ");
-					} else {
-						descriptionSB.append(" and ");
-					}
+		for(String id : this.getOffspring()) {
+			try {
+				GameCharacter character = Main.game.getNPCById(id);
+				Subspecies subspecies = character.getSubspecies();
+				if(Main.game.getNPCById(id).isFeminine()) {
+					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
+					daughters.putIfAbsent(nameId, 0);
+					daughters.put(nameId, daughters.get(nameId)+1);
+				} else {
+					String nameId = subspecies.getSingularMaleName(character)+"|"+subspecies.getPluralMaleName(character);
+					sons.putIfAbsent(nameId, 0);
+					sons.put(nameId, sons.get(nameId)+1);
 				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromFather() > 1
-									? getFatherRace().getOffspringSubspecies().getPluralMaleName(getFather())
-									: getFatherRace().getOffspringSubspecies().getSingularMaleName(getFather()))
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-		} else {
-			if (getSonsFromMother()+getSonsFromFather() > 0) {
-				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother()+getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
-							+ (getSonsFromMother()+getSonsFromFather() > 1
-									? getMotherRace().getOffspringSubspecies().getPluralMaleName(getMother())
-									: getMotherRace().getOffspringSubspecies().getSingularMaleName(getMother()))
-						+ "</b>");
-				foundChildren = true;
+			} catch (Exception e) {
 			}
 		}
 		
-		if(getMotherRace()!=getFatherRace()) {
-			if (getDaughtersFromMother() > 0) {
-				if(foundChildren) {
-					if(getDaughtersFromFather() > 0) {
-						descriptionSB.append(", ");
-					} else {
-						descriptionSB.append(" and ");
-					}
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromMother() > 1
-									? getMotherRace().getOffspringSubspecies().getPluralFemaleName(getMother())
-									: getMotherRace().getOffspringSubspecies().getSingularFemaleName(getMother()))
-						+ "</b>");
-				foundChildren = true;
-			}
-			
-			if (getDaughtersFromFather() > 0) {
-				if(foundChildren) {
-					descriptionSB.append(", and ");
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromFather() > 1
-									? getFatherRace().getOffspringSubspecies().getPluralFemaleName(getFather())
-									: getFatherRace().getOffspringSubspecies().getSingularFemaleName(getFather()))
-						+ "</b>");
-			}
-		} else {
-			if (getDaughtersFromMother()+getDaughtersFromFather() > 0) {
-				if(foundChildren) {
-					descriptionSB.append(" and ");
-				}
-				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother()+getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
-							+ (getDaughtersFromMother()+getDaughtersFromFather() > 1
-									? getMotherRace().getOffspringSubspecies().getPluralFemaleName(getMother())
-									: getMotherRace().getOffspringSubspecies().getSingularFemaleName(getMother()))
-						+ "</b>");
-			}
+		List<String> entries = new ArrayList<>();
+		
+		for(Entry<String, Integer> entry : sons.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ PresetColour.MASCULINE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
+		for(Entry<String, Integer> entry : daughters.entrySet()) {
+			entries.add("<b>"+Util.intToString(entry.getValue())+"</b> <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>"
+						+(entry.getValue() > 1
+							? entry.getKey().split("\\|")[1]
+							: entry.getKey().split("\\|")[0])
+						+"</b>");
+		}
+
+		if(!entries.isEmpty()) {
+			birthedDescription = Util.stringsToStringList(entries, false);
+		}
+	}
+	
+	//TODO Add this to the generateBirthedDescription() method above.
+	@SuppressWarnings("unused")
+	private String getRelationshipInformation() {
+		StringBuilder descriptionSB = new StringBuilder();
+		
+		// FIXME: this won't work when there are multiple children, even if they all have the same gender
+		Set<PronounType> childrenPronouns = getOffspringCharacters().stream().map(x -> x.getGender().getType()).collect(Collectors.toSet());
+		PronounType childrenPronoun = PronounType.NEUTRAL;
+		if(childrenPronouns.size() == 1) {
+		    childrenPronoun = childrenPronouns.iterator().next();
 		}
 		
+		Set<Relationship> relFather = Collections.emptySet();
+		if(getFather() != null) {
+			relFather = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(getFather()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		Set<Relationship> relMother = Collections.emptySet();
+		if(getFather() != null) {
+			relMother = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(getMother()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		Set<Relationship> relPlayer = Collections.emptySet();
+		if(getFather() != null && !getFather().isPlayer() && getMother() != null && !getMother().isPlayer()) {
+			relPlayer = getOffspringCharacters().stream()
+					.flatMap(x -> x.getRelationshipsTo(Main.game.getPlayer()).stream())
+					.collect(Collectors.toSet());
+		}
+
+		if(!relMother.isEmpty() || !relFather.isEmpty()) {
+			descriptionSB.append(" (");
+			if(!relFather.isEmpty()) {
+				if(getFather().isPlayer()) {
+					descriptionSB.append("your ");
+				} else {
+					descriptionSB.append(getFather().getName(true) + "'s ");
+				}
+				descriptionSB.append(GameCharacter.getRelationshipStr(relFather, childrenPronoun));
+				if(!relMother.isEmpty() || !relPlayer.isEmpty()) {
+					descriptionSB.append(", ");
+				}
+			}
+
+			if(!relMother.isEmpty()) {
+				if(getMother().isPlayer()) {
+					descriptionSB.append("your ");
+				} else {
+					descriptionSB.append(getMother().getName(true) + "'s ");
+				}
+				descriptionSB.append(GameCharacter.getRelationshipStr(relMother, childrenPronoun));
+				if(!relPlayer.isEmpty())
+					descriptionSB.append(", ");
+			}
+
+			if(!relPlayer.isEmpty()) {
+				descriptionSB.append("your ");
+				descriptionSB.append(GameCharacter.getRelationshipStr(relPlayer, childrenPronoun));
+			}
+			descriptionSB.append(")");
+		}
 		return descriptionSB.toString();
+	}
+
+	public String getBirthedDescription() {
+		if(birthedDescription==null || birthedDescription.isEmpty()) {
+			generateBirthedDescription();
+		}
+		return birthedDescription;
 	}
 
 }

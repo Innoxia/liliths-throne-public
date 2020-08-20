@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>1000</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[snowflake earring]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[snowflake earrings]]></namePlural>
+		<description><![CDATA[A pair of decorative snowflake earrings. They are typically sold pre-enchanted with effects that boost the wearer's arcane cold damage and resistance.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PIERCING_EAR</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>SNOWFLAKE</clothingSet>
+		<imageName>piercing_ear_snowflakes.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_ICE" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_ICE" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="JUST_SILVER"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>REINDEER_GIFT</tag>
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the snowflake earrings into [npc.her] [npc.ears].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the snowflake earrings into [npc2.namePos] [npc2.ears].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the snowflake earrings into [npc2.namePos] [npc2.ears].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] snowflake earrings and [npc.verb(take)] them out.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] snowflake earrings and [npc.verb(take)] them out.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] snowflake earrings and roughly [npc.verb(pull)] them out.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

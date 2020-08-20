@@ -1,23 +1,31 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.97
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public class SMPixShowerTime extends SexManagerDefault {
 
-	public SMPixShowerTime(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.SHOWER_TIME_PIX,
+	public SMPixShowerTime(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionUnique.SHOWER_TIME_PIX,
 				dominants,
 				submissives);
+	}
+
+	@Override
+	public boolean isWashingScene() {
+		return true;
 	}
 	
 	@Override
@@ -31,17 +39,18 @@ public class SMPixShowerTime extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public List<AbstractSexPosition> getAllowedSexPositions() {
+		return Util.newArrayListOfValues(
+				SexPositionUnique.SHOWER_TIME_PIX);
+	}
+	
+	@Override
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 

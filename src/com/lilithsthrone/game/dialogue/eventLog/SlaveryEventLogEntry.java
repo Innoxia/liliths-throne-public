@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.eventLog;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,48 +11,59 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveEvent;
-import com.lilithsthrone.game.occupantManagement.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEventTag;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.87
- * @version 0.2.11
+ * @version 0.3.9.2
  * @author Innoxia
  */
-public class SlaveryEventLogEntry implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class SlaveryEventLogEntry implements XMLSaving {
 
 	protected long time;
 	private String slaveID;
+	private List<String> involvedSlaveIDs;
 	private SlaveEvent event;
 	private List<SlaveEventTag> tags;
 	private List<String> extraEffects;
 	
 	private static StringBuilder descriptionSB = new StringBuilder();
 	
-	public SlaveryEventLogEntry(long time, NPC slave, SlaveEvent event, boolean applyEffectsToSlave) {
-		this(time, slave, event, null, null, applyEffectsToSlave);
+	public SlaveryEventLogEntry(long time, NPC slave, List<String> involvedSlaveIDs, SlaveEvent event, boolean applyEffectsToSlave) {
+		this(time, slave, involvedSlaveIDs, event, null, null, applyEffectsToSlave);
 	}
 	
-	public SlaveryEventLogEntry(long time, NPC slave, SlaveEvent event, List<SlaveEventTag> tags, boolean applyEffectsToSlave) {
-		this(time, slave, event, tags, null, applyEffectsToSlave);
+	public SlaveryEventLogEntry(long time, NPC slave, List<String> involvedSlaveIDs, SlaveEvent event, List<SlaveEventTag> tags, boolean applyEffectsToSlave) {
+		this(time, slave, involvedSlaveIDs, event, tags, null, applyEffectsToSlave);
 	}
 
-	public SlaveryEventLogEntry(long time, String slaveID, SlaveEvent event, List<SlaveEventTag> tags, List<String> extraEffects) {
+	public SlaveryEventLogEntry(long time, String slaveID, List<String> involvedSlaveIDs, SlaveEvent event, List<SlaveEventTag> tags, List<String> extraEffects) {
 		this.time = time;
 		this.slaveID = slaveID;
+		if(involvedSlaveIDs==null) {
+			this.involvedSlaveIDs = new ArrayList<>();
+		} else {
+			this.involvedSlaveIDs = new ArrayList<>(involvedSlaveIDs);
+		}
 		this.event = event;
 		this.tags = tags;
 		this.extraEffects = extraEffects;
 	}
 	
-	public SlaveryEventLogEntry(long time, NPC slave, SlaveEvent event, List<SlaveEventTag> tags, List<String> extraEffects, boolean applyEffectsToSlave) {
+	public SlaveryEventLogEntry(long time, NPC slave, List<String> involvedSlaveIDs, SlaveEvent event, List<SlaveEventTag> tags, List<String> extraEffects, boolean applyEffectsToSlave) {
 		this.time = time;
 		
 		slaveID = slave.getId();
+		
+		if(involvedSlaveIDs==null) {
+			this.involvedSlaveIDs = new ArrayList<>();
+		} else {
+			this.involvedSlaveIDs = new ArrayList<>(involvedSlaveIDs);
+		}
 		
 		this.event = event;
 		
@@ -78,7 +88,17 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "time", String.valueOf(time));
 		CharacterUtils.addAttribute(doc, element, "slaveID", slaveID);
 		CharacterUtils.addAttribute(doc, element, "event", event.toString());
-
+		
+		if(this.involvedSlaveIDs!=null) {
+			Element slavesNode = doc.createElement("involvedSlaves");
+			element.appendChild(slavesNode);
+			for(String id : involvedSlaveIDs) {
+				Element idNode = doc.createElement("id");
+				slavesNode.appendChild(idNode);
+				idNode.setTextContent(id);
+			}
+		}
+		
 		if(tags!=null) {
 			Element tagsNode = doc.createElement("tags");
 			element.appendChild(tagsNode);
@@ -105,7 +125,6 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 	public static SlaveryEventLogEntry loadFromXML(Element parentElement, Document doc) {
 		
 		List<SlaveEventTag> loadedTags = null;
-
 		NodeList nodes = parentElement.getElementsByTagName("tags");
 		Element tagNode = (Element) nodes.item(0);
 		if(tagNode != null) {
@@ -127,8 +146,24 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 			}
 		}
 		
+		
+		List<String> loadedSlaveIDs = null;
+		nodes = parentElement.getElementsByTagName("involvedSlaves");
+		Element slaveIdsNode = (Element) nodes.item(0);
+		if(slaveIdsNode != null) {
+			loadedSlaveIDs = new ArrayList<>();
+			NodeList idElements = slaveIdsNode.getElementsByTagName("id");
+			for(int i=0; i<idElements.getLength(); i++){
+				Element e = ((Element)idElements.item(i));
+				try {
+					loadedSlaveIDs.add(e.getTextContent());
+				}catch(IllegalArgumentException ex){
+				}
+			}
+		}
+		
+		
 		List<String> loadedExtraEffects = null;
-
 		nodes = parentElement.getElementsByTagName("extraEffects");
 		Element extraEffectNode = (Element) nodes.item(0);
 		if(extraEffectNode != null) {
@@ -148,6 +183,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		return new SlaveryEventLogEntry(
 				Long.valueOf(parentElement.getAttribute("time")),
 				parentElement.getAttribute("slaveID"),
+				loadedSlaveIDs,
 				SlaveEvent.valueOf(parentElement.getAttribute("event")),
 				loadedTags,
 				loadedExtraEffects);
@@ -193,7 +229,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 			return UtilText.parse(slave, descriptionSB.toString());
 
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getDescription()");
+			Util.logGetNpcByIdError("SlaveryEventLogEntry.getDescription()", slaveID);
 			return descriptionSB.toString();
 		}
 	}
@@ -201,10 +237,10 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 	public String getSlaveName() {
 		try {
 			GameCharacter slave = Main.game.getNPCById(slaveID);
-			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b>";
+			return "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b>";
 		
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+slaveID+") returning null in method: SlaveryEventLogEntry.getSlaveName()");
+			Util.logGetNpcByIdError("SlaveryEventLogEntry.getSlaveName()", slaveID);
 			return "<b>Slave</b>";
 		}
 	}
@@ -213,6 +249,13 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		return slaveID;
 	}
 	
+	/**
+	 * @return A list of IDs of other slaves which were involved in this event.
+	 */
+	public List<String> getInvolvedSlaveIDs() {
+		return involvedSlaveIDs;
+	}
+
 	public SlaveEvent getEvent() {
 		return event;
 	}

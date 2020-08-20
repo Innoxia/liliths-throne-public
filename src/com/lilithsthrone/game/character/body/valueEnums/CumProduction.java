@@ -1,57 +1,72 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Measured in millilitres.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.8.7
  * @author Innoxia
  */
 public enum CumProduction {
 
 	/** Self-explanatory.... */
-	ZERO_NONE("no", 0, 1, 100, 0, Wetness.ZERO_DRY, Colour.GENERIC_SIZE_ONE),
+	ZERO_NONE("none", "no", 0, 1, 100, Wetness.ZERO_DRY, PresetColour.GENERIC_SIZE_ONE),
 	
 	/** There's about one or two drops of cum here... */
-	ONE_TRICKLE("a tiny trickle of", 1, 3, 75, 0.5f, Wetness.ONE_SLIGHTLY_MOIST, Colour.GENERIC_SIZE_TWO),
+	ONE_TRICKLE("drop", "a few drops of", 1, 3, 75, Wetness.ONE_SLIGHTLY_MOIST, PresetColour.GENERIC_SIZE_TWO),
 	
 	/** This is significantly less than an average amount of cum that a human male produces when orgasming. */
-	TWO_SMALL_AMOUNT("a small amount of", 3, 6, 50, 0.75f, Wetness.TWO_MOIST, Colour.GENERIC_SIZE_THREE),
+	TWO_SMALL_AMOUNT("trickle", "a trickle of", 3, 6, 50, Wetness.TWO_MOIST, PresetColour.GENERIC_SIZE_THREE),
 	
 	/** This is an average amount of cum that a human male produces when orgasming. */
-	THREE_AVERAGE("an average amount of", 6, 16, 25, 1f, Wetness.THREE_WET, Colour.GENERIC_SIZE_FOUR),
+	THREE_AVERAGE("average", "an average amount of", 6, 16, 25, Wetness.THREE_WET, PresetColour.GENERIC_SIZE_FOUR),
 	
 	/** This is a large amount of cum, although relatively speaking, it's not a huge quantity of liquid. */
-	FOUR_LARGE("a large amount of", 16, 30, 5, 1.2f, Wetness.FOUR_SLIMY, Colour.GENERIC_SIZE_FIVE),
+	FOUR_LARGE("large", "a large amount of", 16, 30, 5, Wetness.FOUR_SLIMY, PresetColour.GENERIC_SIZE_FIVE),
 	
 	/** This is a very large amount of cum. (About a quarter of a can of coke.)*/
-	FIVE_HUGE("a huge amount of", 30, 100, 0, 1.4f, Wetness.FIVE_SLOPPY, Colour.GENERIC_SIZE_SIX),
+	FIVE_HUGE("huge", "a huge amount of", 30, 100, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX),
 	
 	/** This and SEVEN_MONSTROUS are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SIX_EXTREME("an extreme amount of", 100, 1000, 0, 1.6f, Wetness.SIX_SOPPING_WET, Colour.GENERIC_SIZE_SEVEN),
+	SIX_EXTREME("extreme", "an extreme amount of", 100, 1000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN),
 	
 	/** This and SIX_EXTREME are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SEVEN_MONSTROUS("a monstrous amount of", 1000, 10000, 0, 2f, Wetness.SEVEN_DROOLING, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 1000, 10000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT);
 
+	private String name;
+	private String descriptor;
 	private int minimumValue;
 	private int maximumValue;
 	private int arousalNeededToStartPreCumming;
-	private float pregnancyModifier;
-	private String descriptor;
 	private Wetness associatedWetness;
 	private Colour colour;
 
-	private CumProduction(String descriptor, int minimumValue, int maximumValue, int arousalNeededToStartPreCumming, float pregnancyModifier, Wetness associatedWetness, Colour colour) {
+	private CumProduction(String name, String descriptor, int minimumValue, int maximumValue, int arousalNeededToStartPreCumming, Wetness associatedWetness, Colour colour) {
+		this.name = name;
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.arousalNeededToStartPreCumming = arousalNeededToStartPreCumming;
-		this.pregnancyModifier = pregnancyModifier;
 		this.associatedWetness = associatedWetness;
 		this.colour = colour;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * To fit into a sentence: "Your balls are producing "+getDescriptor()+"."
+	 * "They are capable of producing "getDescriptor()+", averaging at about "
+	 * +penis.getCumProduction()+"mL at each orgasm."
+	 */
+	public String getDescriptor() {
+		return descriptor;
+	}
+
 
 	public int getMinimumValue() {
 		return minimumValue;
@@ -76,22 +91,6 @@ public enum CumProduction {
 			}
 		}
 		return SEVEN_MONSTROUS;
-	}
-
-	/**
-	 * To fit into a sentence: "Your balls are producing "+getDescriptor()+"."
-	 * "They are capable of producing "getDescriptor()+", averaging at about "
-	 * +penis.getCumProduction()+"mL at each orgasm."
-	 */
-	public String getDescriptor() {
-		return descriptor;
-	}
-
-	/**
-	 * In the range of 0 to 2. Average is 1.
-	 */
-	public float getPregnancyModifier() {
-		return pregnancyModifier;
 	}
 
 	public Wetness getAssociatedWetness() {

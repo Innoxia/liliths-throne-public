@@ -1,15 +1,21 @@
 package com.lilithsthrone.game.character.markings;
 
+import java.util.Objects;
+
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.2.6
- * @version 0.2.10
+ * @version 0.3.7.2
  * @author Innoxia
  */
 public enum TattooCounterType {
@@ -18,6 +24,14 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return 0;
+		}
+	},
+
+	
+	VALUE_AS_SLAVE("value as slave", "Displays how much the bearer is worth as a slave.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getValueAsSlave(false); 
 		}
 	},
 	
@@ -32,6 +46,13 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalSexAsDomCount();
+		}
+	},
+
+	UNIQUE_SEX_PARTNERS("unique sex partners", "Keeps a count of how many different people the bearer has had sex with.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getUniqueSexPartnerCount();
 		}
 	},
 
@@ -215,6 +236,74 @@ public enum TattooCounterType {
 			return count; 
 		}
 	},
+	
+	VIRGINITIES_TAKEN_ORAL("oral deflowerments", "Keeps a count of how many oral virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+						if(pen.isTakesVirginity()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+					if(pen.isTakesVirginity()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
+	
+	VIRGINITIES_TAKEN_PENIS("penile deflowerments", "Keeps a count of how many penile virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+						if(orifice.isInternalOrifice()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+					if(orifice.isInternalOrifice()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
 
 	CURRENT_PREGNANCY("litter size", "Counts how many children the bearer is currently pregnant with.") {
 		@Override
@@ -223,6 +312,28 @@ public enum TattooCounterType {
 				return 0;
 			}
 			return bearer.getPregnantLitter().getTotalLitterCount();
+		}
+	},
+
+	OFFSPRING_BIRTHED("offspring birthed", "Counts how many children the bearer has given birth to.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersBirthed()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
+		}
+	},
+
+	OFFSPRING_FATHERED("offspring fathered", "Counts how many children the bearer has fathered.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersFathered()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
 		}
 	},
 	
@@ -236,9 +347,51 @@ public enum TattooCounterType {
 	IMPREGNATIONS("impregnation", "Keeps a count of the number of times the bearer has impregnated someone.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersFathered().size();
+			int potentials = 0;
+			for(PregnancyPossibility pp : bearer.getPotentialPartnersAsFather()) {
+				if(Objects.equals(pp.getFather(), bearer)) {
+					potentials++;
+				}
+			}
+			
+			return potentials + bearer.getLittersFathered().size();
 		}
-	};
+	},
+
+
+	CUM_IN_VAGINA("cum in womb", "Displays how much cum is currently in the bearer's womb (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.VAGINA));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.VAGINA)));
+			}
+		}
+	},
+	
+	CUM_IN_ASS("cum in ass", "Displays how much cum is currently in the bearer's ass (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.ANUS));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.ANUS)));
+			}
+		}
+	},
+	
+	CUM_IN_STOMACH("cum in stomach", "Displays how much cum is currently in the bearer's stomach (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.MOUTH));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.MOUTH)));
+			}
+		}
+	},
+	;
 	
 	private String name;
 	private String description;

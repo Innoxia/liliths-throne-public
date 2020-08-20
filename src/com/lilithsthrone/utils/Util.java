@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
+import java.nio.file.Files;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +16,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
@@ -27,11 +24,19 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
@@ -39,10 +44,11 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.2.6
- * @author Innoxia
+ * @version 0.3.9.2
+ * @author Innoxia, CognitiveMist
  */
 public class Util {
+	
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
@@ -122,15 +128,26 @@ public class Util {
 	
 	public static Color midpointColor(Color first, Color second) {
 		
-		double r = (first.getRed() + second.getRed())/2,
-				g = (first.getGreen() + second.getGreen())/2,
-					b = (first.getBlue() + second.getBlue())/2;
-		
-		return newColour(r*255, g*255, b*255);
+		double r = (first.getRed() + second.getRed())/2;
+		double g = (first.getGreen() + second.getGreen())/2;
+		double b = (first.getBlue() + second.getBlue())/2;
+//		System.out.println(r+","+g+","+b);
+		return Color.color(r, g, b);
 	}
 	
 	public static String toWebHexString(Color colour) {
-		return colour.toString().substring(2, 8);
+		String c = colour.toString().substring(2, 8);
+//		System.out.println(c);
+		return "#"+c;
+	}
+
+	public static Color newColour(String colourString) {
+		int hex = Integer.valueOf(colourString.substring(1), 16);
+		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
+//		return Color.color(
+//				Integer.valueOf(colourString.substring(1, 3), 16) / 255,
+//				Integer.valueOf(colourString.substring(3, 5), 16) / 255,
+//				Integer.valueOf(colourString.substring(5, 7), 16) / 255);
 	}
 	
 	public static Color newColour(double r, double g, double b) {
@@ -139,79 +156,6 @@ public class Util {
 
 	public static Color newColour(int hex) {
 		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
-	}
-	
-	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		String s = inputString;
-		
-		// Fixes issue of SVG icons overflowing:
-		s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
-		
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-		}
-		
-		if(colour!=null) {
-			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-		}
-		
-		if(colourSecondary!=null) {
-			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
-			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
-			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
-			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
-			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
-		}
-		
-		if(colourTertiary!=null) {
-			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
-			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
-			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
-			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
-			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
-		}
-		
-		return s;
-	}
-	
-	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		String s = inputString;
-
-		for (int i = 0; i <= 14; i++) {
-			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
-			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-		}
-		
-		if(colour!=null) {
-			s = s.replaceAll("#f4d7d7", colour.getShades()[0]);
-			s = s.replaceAll("#e9afaf", colour.getShades()[1]);
-			s = s.replaceAll("#de8787", colour.getShades()[2]);
-			s = s.replaceAll("#d35f5f", colour.getShades()[3]);
-			s = s.replaceAll("#c83737", colour.getShades()[4]);
-		}
-		
-		if(colourSecondary!=null) {
-			s = s.replaceAll("#f4e3d7", colourSecondary.getShades()[0]);
-			s = s.replaceAll("#e9c6af", colourSecondary.getShades()[1]);
-			s = s.replaceAll("#deaa87", colourSecondary.getShades()[2]);
-			s = s.replaceAll("#d38d5f", colourSecondary.getShades()[3]);
-			s = s.replaceAll("#c87137", colourSecondary.getShades()[4]);
-		}
-		
-		if(colourTertiary!=null) {
-			s = s.replaceAll("#f4eed7", colourTertiary.getShades()[0]);
-			s = s.replaceAll("#e9ddaf", colourTertiary.getShades()[1]);
-			s = s.replaceAll("#decd87", colourTertiary.getShades()[2]);
-			s = s.replaceAll("#d3bc5f", colourTertiary.getShades()[3]);
-			s = s.replaceAll("#c8ab37", colourTertiary.getShades()[4]);
-		}
-
-		return s;
 	}
 	
 	/**
@@ -245,7 +189,7 @@ public class Util {
 	public static class Value<T, S> {
 		private T key;
 		private S value;
-
+		
 		public Value(T key, S value) {
 			this.key = key;
 			this.value = value;
@@ -265,7 +209,9 @@ public class Util {
 		LinkedHashMap<T, S> map = new LinkedHashMap<>();
 
 		for (Value<T, S> v : values) {
-			map.put(v.getKey(), v.getValue());
+			if(v!=null) {
+				map.put(v.getKey(), v.getValue());
+			}
 		}
 		
 		return map;
@@ -305,15 +251,26 @@ public class Util {
 			}
 		}
 	}
-	
-	public static String getFileTime(File file) throws IOException {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
-	    return dateFormat.format(file.lastModified());
+
+	public static String getFileTime(File file) {
+		try {
+			Instant fileTime = Files.getLastModifiedTime(file.toPath()).toInstant();
+			return Units.dateTime(fileTime);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Unknown";
 	}
 	
+	/**
+	 * @param values The values to add to the new list.
+	 * @return A list of provided values, with nulls stripped.
+	 */
 	@SafeVarargs
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
-		return new ArrayList<>(Arrays.asList(values));
+		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
+		list.removeIf(e -> e==null);
+		return list;
 	}
 	
 	@SafeVarargs
@@ -325,8 +282,10 @@ public class Util {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
 		for(List<U> list : lists) {
-			for(U value : list) {
-				mergedList.add(value);
+			if(list!=null) {
+				for(U value : list) {
+					mergedList.add(value);
+				}
 			}
 		}
 		
@@ -339,26 +298,52 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param maps The maps to draw entries from.
+	 * @return A new map containing all of the entries from the provided 'maps'. Nulls are stripped, and 'maps' are unaltered.
+	 */
 	public static <U, T> Map<U, List<T>> mergeMaps(Map<U, List<T>>... maps) {
 		Map<U, List<T>> mergedMap = new HashMap<>();
 		
 		for(Map<U, List<T>> map : maps) {
-			for(Entry<U, List<T>> entry : map.entrySet()) {
-				mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
-				mergedMap.get(entry.getKey()).addAll(entry.getValue());
+			if(map!=null) {
+				for(Entry<U, List<T>> entry : map.entrySet()) {
+					mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
+					mergedMap.get(entry.getKey()).addAll(entry.getValue());
+				}
 			}
 		}
 		
 		return mergedMap;
 	}
 	
+	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		T top = null;
+		int high = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			if(entry.getValue()>high) {
+				high = entry.getValue();
+				top = entry.getKey();
+			}
+		}
+		return top;
+	}
+	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
+		return getRandomObjectFromWeightedMap(map, Util.random);
+	}
+	
+	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
 		int total = 0;
 		for(int i : map.values()) {
 			total+=i;
 		}
 		
-		int choice = Util.random.nextInt(total) + 1;
+		if(total==0) {
+			return null;
+		}
+		
+		int choice = rnd.nextInt(total) + 1;
 		
 		total = 0;
 		for(Entry<T, Integer> entry : map.entrySet()) {
@@ -372,7 +357,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
-		int total = 0;
+		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
 		}
@@ -388,22 +373,6 @@ public class Util {
 		}
 
 		return null;
-	}
-
-	public static String getDayOfMonthSuffix(int n) {
-		if (n >= 11 && n <= 13) {
-	    	return "th";
-	    }
-	    switch (n % 10) {
-	    	case 1:  return "st";
-	    	case 2:  return "nd";
-	    	case 3:  return "rd";
-	    	default: return "th";
-	    }
-	}
-	
-	public static float getRoundedFloat(float input, int significantFigures) {
-		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
 	}
 	
 	private static String[] numbersLessThanTwenty = {
@@ -462,22 +431,6 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
-
-	public static String intToDate(int integer) {
-		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
-			return integer+"st";
-		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
-			return integer+"nd";
-		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
-			return integer+"rd";
-		} else {
-			return integer+"th";
-		}
-	}
-	
-	public static String getStringOfLocalDateTime(LocalDateTime date) {
-		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())+", "+date.getYear();
-	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
@@ -492,7 +445,7 @@ public class Util {
 		}
 		integer = Math.abs(integer);
 		if (integer >= 100_000) {
-			return intToString + " a lot";
+			return String.valueOf(integer); // Too big
 		}
 		
 		
@@ -533,6 +486,59 @@ public class Util {
 		return intToString;
 	}
 	
+	private static String[] primarySequence = {
+			"primary",
+			"secondary",
+			"tertiary",
+			"quaternary",
+			"quinary",
+			"senary",
+			"septenary",
+			"octonary",
+			"nonary",
+			"denary"
+	};
+	
+	public static String intToPrimarySequence(int integer) {
+		if(integer>0 && integer<=primarySequence.length) {
+			return primarySequence[integer-1];
+		}
+		return intToString(integer);
+	}
+	
+
+	public static String intToDate(int integer) {
+		int remainderHundred = integer%100;
+		if(remainderHundred<=10 || remainderHundred>20) {
+			if(integer%10==1) {
+				return integer+"st";
+			} else if(integer%10==2) {
+				return integer+"nd";
+			} else if(integer%10==3) {
+				return integer+"rd";
+			}
+		}
+		return integer+"th";
+	}
+	
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'once', 'twice', or 'integer times'
+	 */
+	public static String intToCount(int integer) {
+		if(integer==1) {
+			return "once";
+		} else if(integer==2) {
+			return "twice";
+		}
+		
+		return intToString(integer)+" times";
+	}
+
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'first', 'second', etc.
+	 */
 	public static String intToPosition(int integer) {
 		String intToString = "";
 		
@@ -541,7 +547,7 @@ public class Util {
 		}
 		integer = Math.abs(integer);
 		if (integer >= 100_000) {
-			return intToString + " a lot";
+			return String.valueOf(integer); // Too big
 		}
 		
 		
@@ -610,13 +616,17 @@ public class Util {
         return numeralMap.get(l) + intToNumerals(integer-l);
 	}
 	
-	public static String intToTally(int integer) {
+	public static String intToTally(int integer, int max) {
 		StringBuilder numeralSB = new StringBuilder();
-		for(int i=0; i<integer/5; i++) {
+		int limit = Math.min(integer, max);
+		for(int i=0; i<limit/5; i++) {
 			numeralSB.append("<strike>IIII</strike> ");
 		}
-		for(int i=0; i<integer%5; i++) {
+		for(int i=0; i<limit%5; i++) {
 			numeralSB.append("I");
+		}
+		if(limit<integer) {
+			numeralSB.append("... (Total: "+integer+")");
 		}
 		
 		return numeralSB.toString();
@@ -627,34 +637,39 @@ public class Util {
 		return name != null? name : code.getName();
 	}
 
-	public static int conversionCentimetresToInches(int cm) {
-		// System.out.println(cm + " -> "+(int)(cm/2.54f));
-		return Math.round(cm / 2.54f);
-	}
-
-	public static int conversionInchesToCentimetres(int inches) {
-		return Math.round(inches * 2.54f);
-	}
-
-	public static String centimetresToMetresAndCentimetres(int cm) {
-		return ((cm / 100) + ((cm % 100) != 0 ? ("." + cm % 100) + "m." : "m"));
-	}
-
-	public static String inchesToFeetAndInches(int inches) {
-		return ((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? "'" : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + "&quot;" : ""));
-	}
-
-	public static int conversionKilogramsToPounds(int kg) {
-		return Math.round(kg * 2.20462268f);
-	}
-
-	public static String poundsToStoneAndPounds(int pounds) {
-		return ((((pounds) / 14) == 0 ? "" : (pounds) / 14) + (((pounds) / 12) > 0 ? "st." : "") + (((pounds) % 14) == 0 ? "" : " ") + (((pounds) % 14) != 0 ? ((pounds) % 14) + "lb" : ""));
-	}
-
+	/**
+	 * @return A capitalised version of the sentence. This method ignores spaces and html formatting, so it should be safe to use on formatted inputs.
+	 */
 	public static String capitaliseSentence(String sentence) {
 		if(sentence==null || sentence.isEmpty()) {
 			return sentence;
+		}
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = 0; i<sentence.length(); i++) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare && sentence.charAt(i)!=' ') {
+				return (i>0?sentence.substring(0, i):"") + Character.toUpperCase(sentence.charAt(i)) + sentence.substring(i+1);
+			}
+			
+			if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
 		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
@@ -662,8 +677,6 @@ public class Util {
 	public static boolean isVowel(char c) {
 		return "AEIOUaeiou".indexOf(c) != -1;
 	}
-
-	private static String[] splitSentence;
 
 	/**
 	 * Turns a normal sentence into a stuttering sentence. Example:
@@ -678,42 +691,50 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addStutter(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are stutters, with a minimum of 1.
-		int wordsToStutter = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToStutter; i++) {
-			offset = random.nextInt(frequency);
-			offset = (i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset);
-
-			// In case of an accidental comma position?
-			if (splitSentence[offset].charAt(0) != ',')
-				splitSentence[offset] = splitSentence[offset].charAt(0) + "-" + splitSentence[offset];
-			else
-				splitSentence[offset] = "," + splitSentence[offset].charAt(1) + "-" + splitSentence[offset].substring(1, splitSentence[offset].length() + 1);
-
-			for (int j = 0; j < frequency && ((i * frequency + j) < splitSentence.length); j++)
-				utilitiesStringBuilder.append(splitSentence[i * frequency + j] + " ");
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			
+			if(sentence.charAt(i)==' '
+					&& Character.isLetter(sentence.charAt(i+1))
+					&& openingCurly==closingCurly
+					&& openingAngular==closingAngular
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					modifiedSentence.append("-");
+					modifiedSentence.append(sentence.charAt(i+1));
+				}
+			}
+			modifiedSentence.append(sentence.charAt(i));
 		}
-
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static Pattern endOfSentence = Pattern.compile("[,.!?]");
-	/**
-	 * Determine whether a given string contains sentence-ending punctuation.
-	 * @param text text to check whether
-	 * @return boolean whether the text contains a period, exclamation or question mark
-	 */
-	private static boolean isEndOfSentence(String text) {
-		if(text.isEmpty()) {
-			return false;
-		}
-		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
+	
+	private static boolean isEndOfSentence(char c) {
+		return endOfSentence.matcher(String.valueOf(c)).matches();
 	}
 
 	/**
@@ -732,42 +753,41 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words have an insert, with a minimum of 1.
-		int wordsToInsert = splitSentence.length / frequency + 1,
-				offset = 0;
-		for (int i = 0; i < wordsToInsert; i++) {
-			offset = Math.min(i * frequency + random.nextInt(frequency), splitSentence.length - 1);
-			String insert = inserts[random.nextInt(inserts.length)];
-
-			// If wanted, ensure not inserting to the start or end of a sentence
-			if (offset >= splitSentence.length -1 || isEndOfSentence(splitSentence[offset])) {
-				if (middle) {
-					// Skip if at end of string or sentence
-					continue;
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			if(i!=sentence.length()-1
+					&& sentence.charAt(i+1)==' '
+					&& !isEndOfSentence(sentence.charAt(i))
+					&& (i==0 || !middle || !isEndOfSentence(sentence.charAt(i-1)))
+					&& openingCurly==closingCurly
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					String word = Util.randomItemFrom(inserts);
+					char[] charArray = word.toCharArray();
+					for(int cIndex=charArray.length-1; cIndex>=0; cIndex--) {
+						modifiedSentence.append(charArray[cIndex]);
+					}
 				}
-
-				// Add a full stop to the insert, creating its own sentence
-				insert += ".";
 			}
-
-			int len = splitSentence[offset].length();
-			// Remove duplicate commas if selected position ends with one and insert has one
-			if (insert.trim().charAt(0) == ',' && splitSentence[offset].charAt(len -1) == ',') {
-				splitSentence[offset] = splitSentence[offset].substring(0, len-1);
-			}
-
-			// Append the insert to this word:
-			splitSentence[offset] = splitSentence[offset] + insert;
-
+			modifiedSentence.append(sentence.charAt(i));
 		}
-		for (String word : splitSentence)
-			utilitiesStringBuilder.append(word + " ");
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
@@ -797,9 +817,9 @@ public class Util {
 		sentence = insertIntoSentences(sentence, frequency, bimboWords);
 		utilitiesStringBuilder.setLength(0);
 		utilitiesStringBuilder.append(sentence);
-
-		// 1/3 chance of having a bimbo sentence ending:
-		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
 			switch (random.nextInt(6)) {
 				case 0:
 					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
@@ -818,7 +838,58 @@ public class Util {
 
 		return utilitiesStringBuilder.toString();
 	}
+	
+	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like, bro,", ", like,", ", um,", ", uh,", ", ah," };
+	public static String addBro(String sentence, int frequency) {
+		sentence = insertIntoSentences(sentence, frequency, broWords);
+		utilitiesStringBuilder.setLength(0);
+		utilitiesStringBuilder.append(sentence);
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
+			switch (random.nextInt(6)) {
+				case 0:
+					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(" and stuff");
+					utilitiesStringBuilder.append(end);
+					break;
+				case 1:
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(UtilText.returnStringAtRandom(", y'know, bro?", ", y'know, dude?"));
+					break;
+				default:
+					break;
+			}
+		}
+		
+		
+		
+		return utilitiesStringBuilder.toString();
+	}
 
+	private static String[] muteSexSounds = new String[] { "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" };
+	/**
+	 * @param sentence The sentence to mute.
+	 * @param sexMoans If the character should moan/pant due to being in sex.
+	 * @return A series of "..." if no sexMoans, or "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" if sexMoans
+	 */
+	public static String replaceWithMute(String sentence, boolean sexMoans) {
+		int length = Math.max(1, sentence.split(" ").length/3);
+		
+		StringBuilder muteSB = new StringBuilder();
+		for(int i=0; i<length; i++) {
+			if(sexMoans) {
+				muteSB.append(muteSexSounds[random.nextInt(muteSexSounds.length)]+" ");
+				
+			} else {
+				muteSB.append("... ");
+			}
+		}
+		muteSB.deleteCharAt(muteSB.length()-1);
+		return muteSB.toString();
+	}
+		
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
 	 * Turns a normal sentence into a muffled sentence.<br/>
@@ -836,8 +907,18 @@ public class Util {
 	public static String addMuffle(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
 	}
+	
+	public static String replaceWithMuffle(String sentence, int wordToMuffleRatio) {
+		int muffles = sentence.split(" ").length/wordToMuffleRatio;
+		StringBuilder muffleSB = new StringBuilder();
+		for(int i=0; i<muffles; i++) {
+			muffleSB.append(muffledSounds[random.nextInt(muffledSounds.length)]);
+		}
+		muffleSB.delete(0, 1); // Remove space at start
+		return muffleSB.toString();
+	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -860,24 +941,254 @@ public class Util {
 	 * Turns a normal sentence into a drunk one.<br/>
 	 * Example:<br/>
 	 * "How far is it to the town hall?"<br/>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
+	 * "How ~Hic!~ far ish it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
-	 * @param sentence
-	 *            sentence to apply sexy modifications
-	 * @param frequency
-	 *            of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
-	 * @return
-	 *            modified sentence
+	 * @param sentence to apply drunk modifications to.
+	 * @param frequency of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
+	 * @return modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, drunkSounds, false)
-			.replaceAll("Hi ", "Heeey ")
-			.replaceAll("yes", "yesh")
-			.replaceAll("is", "ish")
-			.replaceAll("So", "Sho")
-			.replaceAll("so", "sho");
+		sentence = insertIntoSentences(sentence, frequency, drunkSounds, false);
+		
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+			for(String s2 : splitConditional) {
+				String sReplace = s2
+						.replaceAll("Hi ", "Heeey ")
+						.replaceAll("yes", "yesh")
+						.replaceAll("Is", "Ish")
+						.replaceAll("is", "ish")
+						.replaceAll("It's", "It'sh")
+						.replaceAll("it's", "it'sh")
+						.replaceAll("So", "Sho")
+						.replaceAll("so", "sho");
+					
+					sentence = sentence.replace(s2, sReplace);
+			}
+		}
+		
+		return sentence;
+		
+//		return insertIntoSentences(sentence, frequency, drunkSounds, false)
+//			.replaceAll("Hi ", "Heeey ")
+//			.replaceAll("yes", "yesh")
+//			.replaceAll("is", "ish")
+//			.replaceAll("So", "Sho")
+//			.replaceAll("so", "sho");
 	}
 
+	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
+	static {
+		slovenlySpeechReplacementMap.put("What are", "Wot's");
+		slovenlySpeechReplacementMap.put("what are", "wot's");
+		
+		slovenlySpeechReplacementMap.put("Are", "Is");
+		slovenlySpeechReplacementMap.put("are", "is");
+
+		slovenlySpeechReplacementMap.put("You're", "You's");
+		slovenlySpeechReplacementMap.put("you're", "you's");
+		
+		slovenlySpeechReplacementMap.put("Your", "Yer");
+		slovenlySpeechReplacementMap.put("your", "yer");
+		
+		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("you", "ya");
+		
+		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
+		slovenlySpeechReplacementMap.put("yourself", "yerself");
+
+		slovenlySpeechReplacementMap.put("You'd", "You's");
+		slovenlySpeechReplacementMap.put("you'd", "you's");
+		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
+		slovenlySpeechReplacementMap.put("To", "Ta");
+		slovenlySpeechReplacementMap.put("to", "ta");
+		slovenlySpeechReplacementMap.put("Into", "Inta");
+		slovenlySpeechReplacementMap.put("into", "inta");
+
+		slovenlySpeechReplacementMap.put("The", "Da");
+		slovenlySpeechReplacementMap.put("the", "da");
+
+		slovenlySpeechReplacementMap.put("Them", "Dem");
+		slovenlySpeechReplacementMap.put("them", "dem");
+
+		slovenlySpeechReplacementMap.put("They", "Dey");
+		slovenlySpeechReplacementMap.put("they", "dey");
+		
+		slovenlySpeechReplacementMap.put("And", "'An");
+		slovenlySpeechReplacementMap.put("and", "an'");
+		
+		slovenlySpeechReplacementMap.put("Of", "O'");
+		slovenlySpeechReplacementMap.put("of", "o'");
+		slovenlySpeechReplacementMap.put("Who", "'O");
+		slovenlySpeechReplacementMap.put("who", "'o");
+		slovenlySpeechReplacementMap.put("Whoever", "'Oever");
+		slovenlySpeechReplacementMap.put("whoever", "'oever");
+		
+		slovenlySpeechReplacementMap.put("Was", "Were");
+		slovenlySpeechReplacementMap.put("was", "were");
+		
+		slovenlySpeechReplacementMap.put("What", "Wot");
+		slovenlySpeechReplacementMap.put("what", "wot");
+		
+		slovenlySpeechReplacementMap.put("Isn't", "Ain't");
+		slovenlySpeechReplacementMap.put("isn't", "ain't");
+		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
+		slovenlySpeechReplacementMap.put("aren't", "ain't");
+		
+		slovenlySpeechReplacementMap.put("This one", "This 'un");
+		slovenlySpeechReplacementMap.put("this one", "this 'un");
+		slovenlySpeechReplacementMap.put("That one", "That 'un");
+		slovenlySpeechReplacementMap.put("that one", "that 'un");
+		
+		slovenlySpeechReplacementMap.put("Before", "'Afore");
+		slovenlySpeechReplacementMap.put("before", "'afore");
+		
+		slovenlySpeechReplacementMap.put("Give me", "Gimme");
+		slovenlySpeechReplacementMap.put("give me", "gimme");
+		
+		slovenlySpeechReplacementMap.put("We're", "We's");
+		slovenlySpeechReplacementMap.put("we're", "we's");
+		
+		slovenlySpeechReplacementMap.put("So that", "So's");
+		slovenlySpeechReplacementMap.put("so that", "so's");
+
+		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
+		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Haven't", "'Aven't");
+		slovenlySpeechReplacementMap.put("haven't", "'aven't");
+		slovenlySpeechReplacementMap.put("Have", "'Ave");
+		slovenlySpeechReplacementMap.put("have", "'ave");
+
+		slovenlySpeechReplacementMap.put("Here", "'Ere");
+		slovenlySpeechReplacementMap.put("here", "'ere");
+		
+		slovenlySpeechReplacementMap.put("My", "Me");
+		slovenlySpeechReplacementMap.put("my", "me");
+
+		slovenlySpeechReplacementMap.put("That", "Dat");
+		slovenlySpeechReplacementMap.put("that", "dat");
+
+		slovenlySpeechReplacementMap.put("Some", "Sum");
+		slovenlySpeechReplacementMap.put("some", "sum");
+
+		slovenlySpeechReplacementMap.put("This", "Dis");
+		slovenlySpeechReplacementMap.put("this", "dis");
+		
+		slovenlySpeechReplacementMap.put("For", "Fer");
+		slovenlySpeechReplacementMap.put("for", "fer");
+		
+		slovenlySpeechReplacementMap.put("Very", "Real");
+		slovenlySpeechReplacementMap.put("very", "real");
+		
+		slovenlySpeechReplacementMap.put("Yes", "Yeah");
+		slovenlySpeechReplacementMap.put("yes", "yeah");
+	}
+	/**
+	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
+			<br/>Are -> Is
+			<br/>You're -> You's
+			<br/>Your -> Yer
+			<br/>You -> Ya
+			<br/>Yourself - Yerself
+			<br/>You'd -> You's
+			<br/>To -> Ta
+			<br/>Into -> inta
+			<br/>The -> Da
+			<br/>Them -> Dem
+			<br/>And -> An'
+			<br/>Of -> 'O
+			<br/>Who -> 'O
+			<br/>Who -> 'O
+			<br/>Was -> Were
+			<br/>Isn't -> ain't
+			<br/>Aren't -> ain't
+			<br/>This one -> This 'un
+			<br/>That one -> That 'un
+			<br/>Before -> 'afore
+			<br/>Give me -> Gimme
+			<br/>Going to -> gonna
+			<br/><i>X</i>ing -> <i>X</i>in'
+			<br/>We're -> We's
+			<br/>So that -> so's
+			<br/>Have not -> 'aven't
+			<br/>Haven't -> 'aven't
+			<br/>Have -> 'ave
+			<br/>My -> Me
+			<br/>That -> Dat
+			<br/>Some -> Sum
+			<br/>For -> Fer
+			<br/>Here -> 'ere
+			<br/>Very -> Real
+			<br/>Yes -> Yeah
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applySlovenlySpeech(String sentence) {
+		//Use non-letter regex replacement ([^A-Za-z0-9]) 
+		String modifiedSentence = sentence;
+		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+		}
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
+		return modifiedSentence;
+	}
+	
+	/**
+	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
+	 * Example:<br/>
+	 * "Is there a zoo that's nearby?"<br/>
+	 * "I<i>th</i> there a <i>th</i>oo that'<i>th</i> nearby?"<br/>
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applyLisp(String sentence) {
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			}else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
+				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
+					modifiedSentence.append(">i/<ht>i<");
+				} else if((sentence.charAt(i)=='S' && (i-1>=0 && sentence.charAt(i-1)!='L')) || sentence.charAt(i)=='Z') {
+					modifiedSentence.append(">i/<hT>i<");
+				} else {
+					modifiedSentence.append(sentence.charAt(i));
+				}
+				
+			} else {
+				modifiedSentence.append(sentence.charAt(i));
+			}
+		}
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
+	}
+	
+	
 	/**
 	 * Builds a string representing the list of items in a collection.
 	 *
@@ -911,8 +1222,20 @@ public class Util {
 			}
 		} catch(NoSuchElementException ex) {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
+			ex.printStackTrace();
 		}
 		return utilitiesStringBuilder.toString();
+	}
+
+	public static String subspeciesToStringList(Collection<Subspecies> subspecies, boolean capitalise) {
+		return Util.toStringList(subspecies,
+				(Subspecies o) -> 
+				"<span style='color:"+o.getColour(null).toWebHexString()+";'>"
+					+(capitalise
+							?Util.capitaliseSentence(o.getNamePlural(null))
+							:o.getNamePlural(null))
+					+"</span>",
+				"and");
 	}
 
 	public static String clothesToStringList(Collection<AbstractClothing> clothingSet, boolean capitalise) {
@@ -927,11 +1250,11 @@ public class Util {
 		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "and");
 	}
 
-	public static String stringsToStringChoice(List<String> list) {
-		return Util.toStringList(list, Util::capitaliseSentence, "or");
+	public static String stringsToStringChoice(List<String> list, boolean capitalise) {
+		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "or");
 	}
 
-	public static String colourSetToStringList(Set<Colour> colourSet) {
+	public static String coloursToStringList(Collection<Colour> colourSet) {
 		return Util.toStringList(colourSet, Colour::getName, "and");
 	}
 
@@ -943,6 +1266,10 @@ public class Util {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
 	}
 	
+	public static String inventorySlotsToParsedStringList(List<InventorySlot> inventorySlots, GameCharacter owner) {
+		return Util.toStringList(inventorySlots, ((slot) -> slot.getNameOfAssociatedPart(owner)), "and");
+	}
+	
 	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getTattooSlotName, "and");
 	}
@@ -952,9 +1279,17 @@ public class Util {
 	}
 
 	public static <Any> Any randomItemFrom(List<Any> list) {
+		if(list.isEmpty()) {
+			return null;
+		}
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
+	public static <Any> Any randomItemFrom(Set<Any> set) {
+		List<Any> list = new ArrayList<>(set);
+		return randomItemFrom(list);
+	}
+	
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
@@ -962,8 +1297,22 @@ public class Util {
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
-	
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
+		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (input.isEmpty() || choices.contains(input)) {
+			return input;
+		}
 		int distance = Integer.MAX_VALUE;
 		String closestString = input;
 		for(String choice : choices) {
@@ -973,6 +1322,104 @@ public class Util {
 				distance = newDistance;
 			}
 		}
+		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+//		throw new IllegalArgumentException();
+		return closestString;
+	}
+
+	private static String unordered(String input, int prefix) {
+		// TODO This could be improved if, by some method, the non-prefix words were left as an
+		//      unordered set, rather than rejoining them in alphabetical order, since typos can
+		//      occur in the first letter, too. However, this would require
+		//      com.lilithsthrone.utils.Util.getLevenshteinDistance to handle java.util.Set<E>.
+		//      A harder problem is how to handle the omission or addition of an underscore, for
+		//      which two words should match with one, or vice-versa.
+		String p = "";
+		String r = input;
+		int prefixLen = 0;
+		for (int i = 0; i < prefix; i++) {
+			int idx = input.indexOf('_', prefixLen);
+			if (idx < 0) {
+				// we've ran out of words, the whole thing is prefix
+				p = input;
+				r = "";
+				break;
+			}
+			prefixLen = idx+1;
+			p = input.substring(0, prefixLen);
+			r = input.substring(prefixLen);
+			//System.out.println("len: "+prefixLen+", "+p+"|"+r);
+		}
+		return p + Arrays.stream(r.split("_")).sorted().collect(Collectors.joining("_"));
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * All strings will be treated as underscore-delimited words that have no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String input, Collection<String> choices) {
+		return getClosestStringMatchUnordered(input, 0, choices);
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The first {@code prefix} underscore-delimited words of each string will be preserved, but
+	 * all words after that will be treated as having no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param prefix Number of underscore-delimited words for which the ordering should be
+	 *               preserved. If zero or less, the whole string is considered unordered. If it
+	 *               is the number of words or more, the whole string is considered ordered.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String inputRaw, int prefix, Collection<String> choices) {
+		// If inputRaw is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (inputRaw.isEmpty() || choices.contains(inputRaw)) {
+			return inputRaw;
+		}
+
+		// Util.unordered expects words to be underscore-delimited. However, some misbehaving
+		// mods uses spaces or hyphens instead. We'll fix that for them here, to try to get more
+		// accurate matches. We assume all values in choices are well-behaved.
+		String input = inputRaw.replaceAll("[ -]", "_");
+
+		if (choices.contains(input)) {
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+input+"' instead. (Invalid word delimiter)");
+			return input;
+		}
+
+		Map<String,String> unorderedChoices = choices.stream().collect(Collectors
+				.toMap(s -> Util.unordered(s, prefix), Function.identity(), (a,b) -> {
+					System.err.println("Warning: keeping " + a + " and discarding " + b + "!");
+					return a;
+				}));
+		String unorderedInput = unordered(input, prefix);
+		if (unorderedChoices.containsKey(unorderedInput)) {
+			String unorderedMatch = unorderedChoices.get(unorderedInput);
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+unorderedMatch+"' instead. (Reordered words)");
+			return unorderedMatch;
+		}
+		int distance = Integer.MAX_VALUE;
+		String closestString = input;
+		for(String unorderedChoice : unorderedChoices.keySet()) {
+			int newDistance = getLevenshteinDistance(unorderedInput, unorderedChoice);
+			if(newDistance < distance) {
+				closestString = unorderedChoices.get(unorderedChoice);
+				distance = newDistance;
+			}
+		}
+		System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+//		throw new IllegalArgumentException();
 		return closestString;
 	}
 	
@@ -1002,5 +1449,42 @@ public class Util {
 			}
 		}
 		return costs[inputTwo.length()];
+	}
+	
+	private static Map<String, List<String>> errorLogMap = new HashMap<>();
+	public static void logGetNpcByIdError(String method, String id) {
+		if(Main.DEBUG) { // So this doesn't flood error.log
+			errorLogMap.putIfAbsent(method, new ArrayList<>());
+			if(!errorLogMap.get(method).contains(id)) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: "+method);
+				errorLogMap.get(method).add(id);
+			}
+		}
+	}
+
+	public static String getFileName(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+	}
+	
+	public static String getFileName(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }

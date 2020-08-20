@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 
 public class BodyCoveringSkinToneColorHelper {
 	private static final List<BodyCoveringType> NOT_FOR_THESE_BCTS = 

@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see a brown-haired horse girl. As you approach, the horse-girl catches your eye, and, beckoning you over, she calls out, [epona.speech(Hey there! You got a moment?)]
+	</p>
+	<p>
+		Deciding to see what it is this she wants, you walk up to the counter, and as you come to a halt before her, the horse-girl beams at you in delight. [epona.speech(Hello there! I haven't seen you around here before. Are you interested in pregnancy at all? Y'know, getting knocked up, knocking some fertile sluts up, all that good stuff?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_NO_FETISH"><![CDATA[
+	<p>
+		[pc.speech(Maybe. What's this about?)] you ask.
+	</p>
+	<p>
+		[epona.speech(Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_PREGNANCY_FETISH"><![CDATA[
+	<p>
+		You feel your heart start to race at the mention of getting bred, and, unable to contain your enthusiasm, you blurt out, [pc.speech(Yes! You mean this is a game about getting knocked up?! Can I have a go?)]
+	</p>
+	<p>
+		[epona.speech(Haha! You got a thing for being a Mommy, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids! I'm guessing you're going to be more interested in that second option.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_IMPREGNATION_FETISH"><![CDATA[
+	<p>
+		You feel your heart start to race at the mention of impregnation, and, unable to contain your enthusiasm, you blurt out, [pc.speech(Yes! You mean this is a game about knocking people up?! Can I have a go?)]
+	</p>
+	<p>
+		[epona.speech(Haha! You got a thing for making Mommys, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains, [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids! I'm guessing you're going to be more interested in that first option.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BOTH_FETISH"><![CDATA[
+	<p>
+		You feel your heart start to race at the mention of breeding, and, unable to contain your enthusiasm, you blurt out, [pc.speech(Yes! You mean this is a game all about breeding?! Can I have a go?)]
+	</p>
+	<p>
+		[epona.speech(Haha! You got a thing for pregnancies, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_END"><![CDATA[
+	<p>
+		[pc.speech(Ten thousand flames? That's a lot more expensive than the other games in here,)] you observe.
+	</p>
+	<p>
+		[epona.speech(Yeah, well, this is kind of the premium game here in the Gambling Den. But with a big buy-in comes the chance of a big reward! If you get a girl pregnant, you win double your money back! Oh, and if you're the one getting knocked up, and you guess the father correctly, you win fifty thousand flames! Just let me know if you're interested, or want me to go over the rules with you.)]
+	</p>
+	<p>
+		[pc.speech(Ok, thanks, Epona,)] you reply.
+	</p>
+	<p>
+		[epona.speech(Oh, and I almost forgot!)] Epona exclaims. [epona.speech(I've got a little customer loyalty thing going. Basically, each time you have a go at my game, I'll give you a stamp. Collect six stamps, and you can take me for a ride!)]
+	</p>
+	<p>
+		With that, Epona steps back from the counter, before laughing and pulling her skirt up to flash her black panties at you. Looking down at the sudden movement, you see the unmistakable bulge of a huge horse-cock between her legs.
+	</p>
+	<p>
+		[epona.speech(Haha!)] Epona laughs. [epona.speech(I've got the full package down here, so you get to choose whether you're the one riding me, or I'm the one riding you!)]
+	</p>
+	<p>
+		With that, Epona lets her skirt fall back down to cover her panties, and steps forwards to lean on the counter. [epona.speech(So, just let me know if you want to play!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_REPEAT"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see the sign's namesake waiting for another game to start. As you walk towards the counter, Epona notices you and calls out, [epona.speech(Heya, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_EPONA_IMPREGNATED"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see the sign's namesake waiting for another game to start. As you walk towards the counter, Epona notices you and calls out, [epona.speech(Ah, [pc.name]! Look! Look!)]
+	</p>
+	<p>
+		As you walk up to the counter to find out what it is Epona wants you to see, the horse-girl steps back and points down at her stomach. Looking down at the horse-girl's tummy, you see that she's sporting a round, pregnant bump. She lets out a little laugh as she sees you looking down at her stomach, and starts stroking her belly as she happily sighs, [epona.speech(Look what you did... Isn't it fantastic? I'm going to be a Mommy...)]
+	</p>
+	<p>
+		You can't help but smile as you see how pleased Epona is, and spend the next few minutes leaning over the counter to stroke her tummy while listening to her tale of how happy she was when she found out she'd been impregnated by you. Soon enough, however, Epona reminds you that she's still at work, and, as you step back from the counter, she sighs once more, [epona.speech(So, just let me know if you want to play a game of Pregnancy Roulette. I bet you want to share your potent seed with all the girls...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EPONA_START_SEX_AS_SUB"><![CDATA[
+	<p>
+		[pc.speech(I think it's time I cash those stamps in,)] you say, grinning at Epona.
+	</p>
+	<p>
+		[epona.speech(Yes! I thought you'd never ask!)] the horse-girl eagerly replies, before stepping to one side and lifting up the counter-top. [epona.speech(Come around here, we can do this in the back room. Oh, and are you wanting to ride me, or shall I take charge?)]
+	</p>
+	<p>
+		[pc.speech(I'm going to be the one in charge,)] you reply, stepping around behind the counter before moving up next to Epona and giving her [epona.ass+] a firm squeeze.
+	</p>
+	<p>
+		[epona.speech(~Mmm!~ Excellent! Right this way!)] the horse-girl squeals, placing a 'Be back soon' sign on the counter, before quickly leading you towards a a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
+	</p>
+	<p>
+		Turning to face you, Epona leans in and kisses you hotly on the lips, before pulling back and moaning, [epona.speech(~Mmm!~ Yes! Now come fuck me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EPONA_START_SEX_AS_DOM"><![CDATA[
+	<p>
+		[pc.speech(I was wondering if I could get those stamps traded in,)] you say, smiling at Epona.
+	</p>
+	<p>
+		[epona.speech(Yes! I thought you'd never ask!)] the horse-girl eagerly replies, before stepping to one side and lifting up the counter-top. [epona.speech(Come around here, we can do this in the back room. Oh, and are you wanting to ride me, or shall I take charge?)]
+	</p>
+	<p>
+		[pc.speech(If it's ok with you, could you take charge?)] you ask, stepping around behind the counter before moving up next to Epona.
+	</p>
+	<p>
+		[epona.speech(Of course! Don't you worry, I'll take you for a real good ride! Right this way!)] the horse-girl says, placing a 'Be back soon' sign on the counter, before quickly leading you towards a a door marked 'Staff Room'. Hurriedly opening it and stepping inside, Epona dominantly pulls you after her, and you suddenly find yourself standing in a rather plain-looking staff room, furnished with a couple of leather sofas and a low table.
+	</p>
+	<p>
+		Turning to face you, Epona leans in and kisses you hotly on the lips, before pulling back and moaning, [epona.speech(~Mmm!~ Yes! I hope you're ready for a good, hard fucking!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EPONA_POST_SEX"><![CDATA[
+	<p>
+		[epona.speech(Fuck... That was great...)] Epona sighs, stepping back from you and starting to clean herself up as she gets ready to return to work.
+	</p>
+	<p>
+		[pc.speech(Yeah, that was great,)] you reply, following Epona's lead as you start to get your things in order.
+	</p>
+	<p>
+		[epona.speech(Well, back to work for me. Remember, if you get another six stamps, we can do this again,)] Epona says, winking at you as she holds the door open.
+	</p>
+	<p>
+		Stepping through the open doorway, you quickly move back out into the gambling hall proper, before turning around to face Epona behind the counter. The horse-girl throws you a knowing smile, before leaning forwards and sighing, [epona.speech(If you've still got some energy left, just let me know if you want to do a game of pregnancy roulette.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EPONA_POST_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		[epona.speech(Aww... You didn't even satisfy me...)] Epona sighs, stepping back from you and starting to clean herself up as she gets ready to return to work.
+	</p>
+	<p>
+		[pc.speech(Maybe next time,)] you reply, following Epona's lead as you start to get your things in order.
+	</p>
+	<p>
+		[epona.speech(Well, back to work for me. Remember, if you get another six stamps, we can do this again,)] Epona says, winking at you as she holds the door open.
+	</p>
+	<p>
+		Stepping through the open doorway, you quickly move back out into the gambling hall proper, before turning around to face Epona behind the counter. The horse-girl throws you a knowing smile, before leaning forwards and sighing, [epona.speech(If you've still got some energy left, just let me know if you want to do a game of pregnancy roulette.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_RULES"><![CDATA[
+	<p>
+		Wanting some clarification on how pregnancy roulette works, you ask, [pc.speech(What are the rules for this game of yours?)]
+	</p>
+	<p>
+		[epona.speech(Well, it's pretty simple, really!)] Epona happily responds. [epona.speech(If you're looking to be one of the breeders, you first need to place a buy-in of ten thousand flames. After that, you join five others in trying to knock a volunteer up. I roll a dice to see in what order the breeders go, and then once you've all pumped the lucky girl full of cum, I run a pregnancy tester over her belly, and whoever's the father wins twenty thousand flames!)]
+	</p>
+	<p>
+		[pc.speech(I see,)] you reply.
+	</p>
+	<p>
+		[epona.speech(If, however, you're looking to be the one being bred, then, just like the breeders, you first need to give me ten thousand flames. After that, you have to guess which of the six studs is going to knock you up! Once they've all pumped your pussy full of cum, I use a pregnancy tester to see who's the father of your kids, and if you correctly guessed who it'd be, you win fifty thousand flames!)]
+	</p>
+	<p>
+		[pc.speech(Ok, that seems simple enough,)] you say. [pc.speech(What if the volunteer doesn't get pregnant?)]
+	</p>
+	<p>
+		[epona.speech(Well, in that case, everyone loses their bets,)] Epona replies. [epona.speech(I give the volunteer a [#ITEM_innoxia_pills_breeder.getName(false)] before we start though, so that shouldn't happen!)]
+	</p>
+	<p>
+		[pc.speech(Alright, thanks for explaining it to me.)]
+	</p>
+	<p>
+		[epona.speech(You're welcome! Let me know if you want to play,)] Epona says, leaning down on the counter in front of her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION_FUTA"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as the one being bred.)]
+	</p>
+	<p>
+		You place the ten thousand flames on the counter before you, and, after Epona has counted it all out, she looks up at you and grins. [epona.speech(This is gonna be so much fun! Now, we like to split up the breeders into groups of males and futas, so who do you want to be making you a Mommy?)]
+	</p>
+	<p>
+		[pc.speech(The futas,)] you reply.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way!)]
+	</p>
+	<p>
+		Trailing in Epona's footsteps, you're quickly led over to the futa breeding room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be spreading your legs for a bunch of horny futas!)]
+	</p>
+	<p>
+		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	<p>
+		Epona leads you over to this door, and upon opening it, ushers you inside. Within the small corridor beyond, you discover that the mirror you just passed is one-way, allowing you to look back out into the main room. Up ahead, placed in front of the round opening that links this area to the futa breeding room, is a long, padded bench. It's quite obvious that you're going to be expected to lie on this, allowing your bottom half to be exposed to the breeding room.
+	</p>
+	<p>
+		[epona.speech(Right! So, you just wait here, and I'll go fetch the futas. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess,)] Epona explains. [epona.speech(I'll be right back!)]
+	</p>
+	<p>
+		Epona quickly rushes off, leaving you to wait in the partitioned corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_SELECTION_FUTA"><![CDATA[
+	<p>
+		After only a few minutes, you look through the one-way mirror to see Epona entering the room once more. Trailing in her wake, you see six futas, all of them already stripped naked. Trotting alongside each one of these breeders is a rather excited-looking horse-girl. As this large group finishes entering the room, the horse-girls dutifully drop to their knees beside their partner, and, with a combination of licks and strokes, quickly get their chosen breeder's cock to full hardness.
+	</p>
+	<p>
+		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_innoxia_pills_breeder.getName(false)]!)]
+	</p>
+	<p>
+		Epona hands you a little pink pill, which you quickly swallow. You then turn to look over the six futas before you, and after Epona's pointed out each one and told you her name, you decide upon the futa that you think will be the father of your kids...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as the one being bred.)]
+	</p>
+	<p>
+		You place the ten thousand flames on the counter before you, and, after Epona has counted it all out, she looks up at you and grins. [epona.speech(This is gonna be so much fun! Now, we like to split up the breeders into groups of males and futas, so who do you want to be making you a Mommy?)]
+	</p>
+	<p>
+		[pc.speech(The males,)] you reply.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way!)]
+	</p>
+	<p>
+		Trailing in Epona's footsteps, you're quickly led over to the male breeding room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be spreading your legs for a bunch of horny guys!)]
+	</p>
+	<p>
+		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	<p>
+		Epona leads you over to this door, and upon opening it, ushers you inside. Within the small corridor beyond, you discover that the mirror you just passed is one-way, allowing you to look back out into the main room. Up ahead, placed in front of the round opening that links this area to the male breeding room, is a long, padded bench. It's quite obvious that you're going to be expected to lie on this, allowing your bottom half to be exposed to the breeding room.
+	</p>
+	<p>
+		[epona.speech(Right! So, you just wait here, and I'll go fetch the guys. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess,)] Epona explains. [epona.speech(I'll be right back!)]
+	</p>
+	<p>
+		Epona quickly rushes off, leaving you to wait in the partitioned corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_SELECTION"><![CDATA[
+	<p>
+		After only a few minutes, you look through the one-way mirror to see Epona entering the room once more. Trailing in her wake, you see six guys, all of them already stripped naked. Trotting alongside each one of these breeders is a rather excited-looking horse-girl. As this large group finishes entering the room, the horse-girls dutifully drop to their knees beside their partner, and, with a combination of licks and strokes, quickly get their chosen breeder's cock to full hardness.
+	</p>
+	<p>
+		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_innoxia_pills_breeder.getName(false)]!)]
+	</p>
+	<p>
+		Epona hands you a little pink pill, which you quickly swallow. You then turn to look over the six guys before you, and after Epona's pointed out each one and told you his name, you decide upon the guy that you think will be the father of your kids...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_START"><![CDATA[
+	<p>
+		[pc.speech(I think [npc.name]'s going to get me pregnant,)] you say, pointing to the [npc.race] which you think has the most impressive-looking cock.
+	</p>
+	<p>
+		[epona.speech(Great! I'll just note that down,)] Epona replies, producing a notepad and pen, before jotting taking down your selection. [epona.speech(Now, let's get you into position.)]
+	</p>
+	<p>
+		Epona leads you over to the padded bench, before turning around. [epona.speech(Right, so you just slide your legs through there, and wait for me to go give the signal to start! It's up to you whether you want to be on your front or back.)]
+	</p>
+	<p>
+		Stepping towards the bench, you prepare to slide your lower half out into the breeder's room, but first, you need to decide whether to lie on your stomach or back...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before hungrily grabbing your [pc.ass+]. [npc.speech(I'm gonna pump you full of kids!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] rubs [npc.her] fingers up and down over your [pc.pussy+], before [npc.moaning], [npc.speech(You're gonna be stuffed full of my cum in a moment, [pc.girl]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps forwards, sliding a finger up into your [pc.pussy+] as [npc.she] [npc.moansVerb], [npc.speech(Mmm, yeah, this is a nice cunt you've got!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before lining [npc.her] [npc.cock+] up to your [pc.pussy+]. [npc.speech(You're gonna love carrying my kids.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before delivering a sharp slap to your [pc.ass+]. [npc.speech(I'm gonna fill you up real good!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, [npc.she] lets out a low [npc.moan], [npc.speech(Your pussy's lookin' real good, stuffed full of my cum like that!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		[npc.Name] steps back, letting out a low whistle as [npc.she] admires the creampie [npc.she]'s just given you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, laughing as [npc.she] looks down at your creampied pussy, [npc.speech(There's no way that's not gonna get you pregnant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, [npc.she] gives your [pc.ass+] a squeeze. [npc.speech(You're gonna love being a Mommy!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_FINISHED"><![CDATA[
+	<p>
+		As the last of the breeders steps away from your well-used pussy, Epona opens the door and steps forwards into the partitioned area. [epona.speech(Great job, [pc.name]! You're sure to be a Mommy now!)]
+	</p>
+	<p>
+		With the horse-girl's help, you wriggle back out of the opening, feeling the still-hot cum sliding out of your well-used pussy as you stand up on quivering legs. Epona helpfully produces a tissue, and, before you can say anything, leans down to help wipe the excess cum off your legs. As she does this, she explains, [epona.speech(Right, so now I'll just run a pregnancy tester over your belly, and we can see which of the breeder's the father! Now, in the past, some of the breeders have lost their temper when they found out they didn't win, so, for your safety, we'll keep you back here until they're all gone.)]
+	</p>
+	<p>
+		[pc.speech(Ok,)] you respond, waiting for Epona to get on with the testing.
+	</p>
+	<p>
+		You don't have to wait more than a moment, as Epona quickly finishes helping to get you cleaned up, before swiping a pregnancy tester over your stomach. The little device makes a beeping noise as it travels over your lower abdomen, and, with this confirmation that it's taken a reading, Epona holds the tester up so that you can read the results:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_WINNER"><![CDATA[
+	<p>
+		[epona.speech(Congratulations! You guessed correctly!)] Epona happily exclaims, before leaning forwards and giving you a big hug.
+	</p>
+	<p>
+		[pc.speech(Thanks, Epona,)] you reply, smiling happily to yourself as you realise that you've just won a lot of money.
+	</p>
+	<p>
+		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know who won. You stay here for a moment, and after they've gone, we'll go back to the main counter to get your winnings.)]
+	</p>
+	<p>
+		You do as Epona asks, and wait in the little room until the horse-girl has shown all the breeders to the exit. After that, she comes to collect you, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves fifty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations once again, [pc.name]!)] 
+	</p>
+	<p>
+		Taking your winnings, you thank Epona once again, before stepping back and wondering what to do next. As you move off to continue on your travels, you wonder if you'll ever have to tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_LOSER"><![CDATA[
+	<p>
+		[epona.speech(Aww, I'm sorry! You didn't get it right this time,)] Epona says, before leaning forwards and giving you a big hug.
+	</p>
+	<p>
+		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolatory hug.
+	</p>
+	<p>
+		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know who won. You stay here for a moment, and after they've gone, we'll go back to the main counter.)]
+	</p>
+	<p>
+		You do as Epona asks, and wait in the little room until the horse-girl has shown all the breeders to the exit. After that, she comes to collect you, and the two of you head back over to the main counter. [epona.speech(I'm sorry again, [pc.name]. Please do come back and have another go some other time!)] 
+	</p>
+	<p>
+		You say goodbye to Epona, before stepping back and wondering what to do next. As you move off to continue on your travels, you wonder if you'll ever have to tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY"><![CDATA[
+	<p>
+		[epona.speech(Aww, I'm sorry! It looks like you're not having kids this time,)] Epona says, before leaning forwards and giving you a big hug.
+	</p>
+	<p>
+		[pc.speech(I'm ok, Epona,)] you reply, enduring the horse-girl's consolatory hug.
+	</p>
+	<p>
+		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know that they all lost. You stay here for a moment, and after they've gone, we'll go back to the main counter.)]
+	</p>
+	<p>
+		You do as Epona asks, and wait in the little room until the horse-girl has shown all the breeders to the exit. After that, she comes to collect you, and the two of you head back over to the main counter. [epona.speech(I'm sorry again, [pc.name]. Please do come back and have another go some other time!)] 
+	</p>
+	<p>
+		You say goodbye to Epona, before stepping back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as one of the breeders.)]
+	</p>
+	<p>
+		You place the ten thousand flames on the counter before you, and, after Epona has counted it all out, she looks up at you and grins. [epona.speech(This is gonna be so much fun! Now, we like to split up the breeders into groups based on femininity, so you're going to be joining five guys, ok?)]
+	</p>
+	<p>
+		[pc.speech(Sure,)] you reply.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way! We've already got a volunteer and five other breeders ready, so there's no need to wait around.)]
+	</p>
+	<p>
+		Trailing in Epona's footsteps, you're quickly led over to the male's breeding room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be pumping this slut full of cum!)]
+	</p>
+	<p>
+		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	<p>
+		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
+	</p>
+	<p>
+		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
+	</p>
+	<p>
+		[epona.speech(You all look like you're ready!)] the horse-girl exclaims. [epona.speech(Now, I'll roll a dice to see in what order you get to fuck [npc.name] here! [pc.Name], I'll start with you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FUTA"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as one of the breeders.)]
+	</p>
+	<p>
+		You place the ten thousand flames on the counter before you, and, after Epona has counted it all out, she looks up at you and grins. [epona.speech(This is gonna be so much fun! Now, we like to split up the breeders into groups based on femininity, so you're going to be joining five futas, ok?)]
+	</p>
+	<p>
+		[pc.speech(Sure,)] you reply.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily exclaims, stamping your loyalty card before rushing out from behind her counter. [epona.speech(Right this way! We've already got a volunteer and five other breeders ready, so there's no need to wait around.)]
+	</p>
+	<p>
+		Trailing in Epona's footsteps, you're quickly led over to the futa breeding room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. As Epona leads you around this screen, she comments, [epona.speech(I bet you can't wait to be pumping this slut full of cum!)]
+	</p>
+	<p>
+		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	<p>
+		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
+	</p>
+	<p>
+		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
+	</p>
+	<p>
+		[epona.speech(You all look like you're ready!)] the horse-girl exclaims. [epona.speech(Now, I'll roll a dice to see in what order you get to fuck [npc.name] here! [pc.Name], I'll start with you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FIRST"><![CDATA[
+	<p>
+		As you rolled a one, you're the first to step up to [npc.name]'s exposed body. Reaching down to take a hold of her legs, you line your [pc.cock+] up to her [npc.pussy+] and prepare to penetrate her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_MIDDLE"><![CDATA[
+	<p>
+		As you aren't the first to fuck [npc.name], you find yourself looking down at a fresh creampie dripping out of her exposed pussy as you step up to her. Reaching down to take a hold of her legs, you line your [pc.cock+] up to her well-used cunt and prepare to penetrate her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_POST_SEX"><![CDATA[
+	<p>
+		As all of you breeders have now finished, Epona steps forwards turns to address the room, [epona.speech(Great job everyone! Now I'll go and find out which of you is the father to this slut's kids! Please be patient, I'll be back in a moment.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FINISHED"><![CDATA[
+	<p>
+		You and the rest of the breeders watch as the volunteer's legs slide back into the other room. You hear Epona talking with her for a moment, before the solitary door opens once more. The horse-girl steps back out into the room that you're in, holding up a pregnancy tester for you all to see:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_WINNER"><![CDATA[
+	<p>
+		[epona.speech(Congratulations! You got this slut knocked up!)] Epona happily says to you, before leaning forwards and giving you a big hug.
+	</p>
+	<p>
+		[pc.speech(Thanks, Epona,)] you reply, smiling happily to yourself as you realise that you've just won a lot of money.
+	</p>
+	<p>
+		After a moment, the horse-girl releases you and steps back, before addressing the room, [epona.speech(Right, sorry everyone else. Better luck next time! Now, [pc.name], follow me to the counter so I can give you your winnings.)]
+	</p>
+	<p>
+		You do as Epona asks, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves twenty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations once again, [pc.name]!)] 
+	</p>
+	<p>
+		Taking your winnings, you thank Epona once again, before stepping back and wondering what to do next. As you move off to continue on your travels, you wonder if you'll ever have to tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LOSER"><![CDATA[
+	<p>
+		[epona.speech(Congratulations! You got this slut knocked up!)] Epona happily says to the winner, before leaning forwards and giving them a big hug.
+	</p>
+	<p>
+		You, along with all the other breeders, let out a defeated sigh as you realise that you've lost your ten thousand flame bet.
+	</p>
+	<p>
+		After a moment, the horse-girl releases the winner and steps back, before addressing the room, [epona.speech(Right, sorry everyone else. Better luck next time!)]
+	</p>
+	<p>
+		Having lost your bet, you find yourself wandering out into the gambling hall proper. You soon find yourself drifting back towards the pregnancy roulette counter, and, turning around to look back down the length of the gambling hall's atrium, you wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY"><![CDATA[
+	<p>
+		[epona.speech(Aww, I'm sorry! It looks like none of you are having kids this time,)] Epona says, placing her hands on her hips.
+	</p>
+	<p>
+		You, along with all the other breeders, let out a defeated sigh as you realise that you've lost your ten thousand flame bet.
+	</p>
+	<p>
+		After a moment, the horse-girl addresses the room, [epona.speech(Right, sorry everyone. Better luck next time!)]
+	</p>
+	<p>
+		Having lost your bet, you find yourself wandering out into the gambling hall proper. You soon find yourself drifting back towards the pregnancy roulette counter, and, turning around to look back down the length of the gambling hall's atrium, you wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK -->
+	
+	<htmlContent tag="MURK_REPEAT"><![CDATA[
+	<p>
+		You ask Epona how [murk.name] has been behaving recently. She says she doesn't really get involved with [murk.herHim], and has some of her other helpers use [murk.herHim] to help them clean whenever they need to. She again expresses her disgust at what Murk was doing in the Rat Warrens.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK"><![CDATA[
+	<p>
+		You ask Epona if she is in charge of [murk.name], having heard this from Axel. She says she is, but she doesn't really get involved with [murk.herHim], and has some of her other helpers use [murk.herHim] to help them clean the stalls whenever they need to.
+	</p>
+	<p>
+		She goes on to express her disgust at what Murk was doing in the Rat Warrens, and says that she is very impressed with you for putting an end to it all. She gives you three tokens to express her gratitude, and says if you ever want to lecture Murk or do anything else you see fit to him, you're welcome to go into the rear storeroom where he's being kept and do it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_ALONE -->
+	
+	<htmlContent tag="MURK_ALONE"><![CDATA[
+	<p>
+		You ask Epona if you can go and punish Murk for what [murk.she] did to the innocent people [murk.she] kidnapped. She readily agrees, and shows you to the storeroom in which [murk.sheIs] being kept.
+		#IF(!murk.isFeminine())
+			 She says there are feminisation potions of all kinds stored in there from an old game that's no longer played, so feel free to use them on him.
+		#ENDIF
+	</p>
+	<p>
+		You find yourself alone in the storeroom with [murk.name], who is tethered to a pole to prevent [murk.herHim] from reaching the potions stored in here.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_eponaMurkSubmitted))
+			 Murk tells you to get down and worship his cock like the submissive slut you are.
+		#ELSE
+			#IF(!murk.isFeminine())
+				 [murk.She] asks what it is you want.
+			#ELSE
+				 [murk.She] asks if you're here to dominate her pussy.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_DOM"><![CDATA[
+	<p>
+		You get [murk.name] to submit to you, and prepare to dominantly fuck [murk.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB_VAGINA"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB_ANUS"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_ALONE_LEAVE"><![CDATA[
+	<p>
+		You decide not to do anything else with [murk.name], and take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_LECTURING -->
+	
+	<htmlContent tag="MURK_LECTURING"><![CDATA[
+	<p>
+		Wanting [murk.name] to fully understand why what [murk.she] did was wrong, you spend a good amount of time lecturing [murk.herHim] on issues of morality.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SPANKING -->
+	
+	<htmlContent tag="MURK_SPANKING"><![CDATA[
+	<p>
+		Wanting to teach [murk.name] a lesson for some the bad things [murk.sheHas] done in the past, you bend [murk.herHim] over a stool and start spanking [murk.herHim].
+		#IF(!murk.isFeminine())
+			 [murk.She] clearly enjoys it, and is soon dripping wet and panting for more.
+		#ELSE
+			 [murk.She] clearly hates it, and struggles against you with each and every blow.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_MURK_SEX -->
+	
+	<htmlContent tag="AFTER_MURK_SEX_AS_DOM"><![CDATA[
+	<p>
+		You finish fucking [murk.name] and allow [murk.herHim] to collapse to the floor. It looks like you aren't going to be able to get anything else out of [murk.herHim] for some time, so you decide to leave and maybe come back later...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_AS_SUB"><![CDATA[
+	<p>
+		Murk finishes fucking you and allows you to collapse to the floor. Still acting as though he's the one in cahrge, he orders you to leave and come back another time so that he can fuck you again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_DOM_LEAVE"><![CDATA[
+	<p>
+		You head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_SUB_LEAVE"><![CDATA[
+	<p>
+		You head back out into the gambling den, but not before Murk makes you thank him for fucking you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_FEMINISE -->
+	
+	<htmlContent tag="MURK_FEMINISE"><![CDATA[
+	<p>
+		You get Murk to drink the potions on the shelves which have been marked out by Epona for being suitable to give to him. He transforms into a rat-girl version of himself. While sill short and a little chubby, she is now unmistakably feminine, and in place of a huge cock, she now has a wet pussy.
+	</p>
+	<p>
+		The potions also have affected her mental state, as she now acts submissive and begs you to fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_LEAVE -->
+	
+	<htmlContent tag="MURK_BACK"><![CDATA[
+	<p>
+		You decide against asking to see Murk. With Epona still standing at the counter, you wonder if you should ask her anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_ACCEPT -->
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_POTION"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. He produces a bottle, and says that he was able to reach one of the lower shelves, where he found this. Orders you to drink it, saying it will make your holes malleable for his cock to stretch out, turning you into his personal cock-sleeve.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_NO_ACCESS"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. As he is unable to access your holes, he gets you to stay down on all fours as he masturbates to your submissive figure.
+	</p>
+	<p>
+		When he's about to cum, he orders you to shuffle around and raise your ass to him. You do as he says and he cums all over your ass. He then tells you to get lost and only come back when you've got a hole for him to fuck.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. He pushes you down onto all fours and tells you that he's going to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_KICKED_OUT"><![CDATA[
+	<p>
+		Having been dismissed by Murk, you head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB_VAGINA"><![CDATA[
+	<p>
+		Murk makes you expose your pussy to him, and he rubs his cock up and down over it. Makes you beg for his cock before mounting you and penetrating you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB_ANUS"><![CDATA[
+	<p>
+		Murk makes you expose your asshole to him, and he rubs his cock up and down over it. Makes you beg for his cock before mounting you and penetrating you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB"><![CDATA[
+	<p>
+		Murk makes you kiss his cock, and he rubs it up and down over your face. Makes you beg for his cock before grabbing your head and thrusting it down your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_ACCEPT_POTION -->
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_POTION"><![CDATA[
+	<p>
+		You drink the potion, and feel a strange tingling feeling spread throughout your groin. Murk then says he's going to make you beg for his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_REFUSE -->
+	
+	<htmlContent tag="MURK_SUBMIT_REFUSE"><![CDATA[
+	<p>
+		You refuse to submit to Murk again, and remind him of his place.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

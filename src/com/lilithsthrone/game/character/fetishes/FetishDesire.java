@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.99
@@ -16,35 +18,34 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FetishDesire {
 	
-	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
+	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", PresetColour.BASE_CRIMSON),
 	
-	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
+	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", PresetColour.BASE_RED),
 	
-	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_BLUE_STEEL),
+	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", PresetColour.BASE_BLUE_STEEL),
 	
-	THREE_LIKE(3, "like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT),
+	THREE_LIKE(3, "like", "like", "likes", "fondness4", PresetColour.BASE_PINK_LIGHT),
 	
-	FOUR_LOVE(4, "love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK);
+	FOUR_LOVE(4, "love", "love", "loves", "fondness5", PresetColour.BASE_PINK);
 	
 	private int value;
 	private String name;
 	private String nameAsPlayerVerb;
 	private String nameAsVerb;
-	private String SVGImage, SVGImageDesaturated;
-	private float lustIncrement;
+	private String SVGImage;
+	private String SVGImageDesaturated;
 	private Colour colour;
 	private List<String> modifiersList;
 	
-	private FetishDesire(int value, String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, float lustIncrement, Colour colour) {
+	private FetishDesire(int value, String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, Colour colour) {
 		this.value = value;
 		this.name = name;
 		this.nameAsPlayerVerb = nameAsPlayerVerb;
 		this.nameAsVerb = nameAsVerb;
-		this.lustIncrement = lustIncrement;
 		this.colour = colour;
 		
 		modifiersList = new ArrayList<>();
-		modifiersList.add((lustIncrement >= 0 ? "[style.boldSex(+" + lustIncrement : "[style.boldBad(" + lustIncrement) + ")] [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ ")] from related sex actions");
+		modifiersList.add("Modifies sex actions' [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ " increments)]");
 
 		
 		try {
@@ -55,18 +56,12 @@ public enum FetishDesire {
 			String base = Util.inputStreamToString(is);
 
 			SVGImage = base;
-			SVGImage = SVGImage.replaceAll("#ff2a2a", colour.getShades()[0]);
-			SVGImage = SVGImage.replaceAll("#ff5555", colour.getShades()[1]);
-			SVGImage = SVGImage.replaceAll("#ff8080", colour.getShades()[2]);
-			SVGImage = SVGImage.replaceAll("#ffaaaa", colour.getShades()[3]);
-			SVGImage = SVGImage.replaceAll("#ffd5d5", colour.getShades()[4]);
+			
+			SVGImage = SvgUtil.colourReplacement(this.toString(), colour, SVGImage);
 			
 			SVGImageDesaturated = base;
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+			
+			SVGImageDesaturated = SvgUtil.colourReplacement(this.toString(), PresetColour.BASE_GREY, SVGImageDesaturated);
 
 			is.close();
 
@@ -147,10 +142,6 @@ public enum FetishDesire {
 	
 	public String getNameAsVerb() {
 		return nameAsVerb;
-	}
-
-	public float getLustIncrement() {
-		return lustIncrement;
 	}
 
 	public String getSVGImage() {

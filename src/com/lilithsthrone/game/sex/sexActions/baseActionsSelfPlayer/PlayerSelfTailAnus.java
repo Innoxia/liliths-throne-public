@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -73,7 +72,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -93,7 +92,8 @@ public class PlayerSelfTailAnus {
 					
 					"Gently pumping your [pc.tail] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you slowly fuck your own [pc.ass].",
 					
-					"Slowly driving your [pc.tail] deep inside your [pc.asshole], you let out a little whimper as you "+(Main.game.getPlayer().hasPenis()?"use it to gently start massaging your prostate.":"gently fuck your own [pc.ass+]."),
+					"Slowly driving your [pc.tail] deep inside your [pc.asshole], you let out a little whimper as you "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"use it to gently start massaging your prostate.":"gently fuck your own [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start gently pumping your [pc.tail] in and out of your [pc.asshole+].");
 		}
@@ -115,7 +115,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -135,7 +135,8 @@ public class PlayerSelfTailAnus {
 					
 					"Pumping your [pc.tail] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your own [pc.ass].",
 					
-					"Driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "+(Main.game.getPlayer().hasPenis()?"use it to start massaging your prostate.":"steadily fuck your own [pc.ass+]."),
+					"Driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"use it to start massaging your prostate.":"steadily fuck your own [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.tail] in and out of your [pc.asshole+].");
 		}
@@ -157,7 +158,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -177,7 +178,8 @@ public class PlayerSelfTailAnus {
 					
 					"Roughly pumping your [pc.tail] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you ruthlessly fuck your own [pc.ass].",
 					
-					"Forcefully driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "+(Main.game.getPlayer().hasPenis()?"start roughly grinding it up against your prostate.":"roughly fuck your own [pc.ass+]."),
+					"Forcefully driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"start roughly grinding it up against your prostate.":"roughly fuck your own [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start roughly slamming your [pc.tail] in and out of your [pc.asshole+].");
 		}
@@ -199,7 +201,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -219,7 +221,8 @@ public class PlayerSelfTailAnus {
 					
 					"Pumping your [pc.tail] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your own [pc.ass].",
 					
-					"Driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "+(Main.game.getPlayer().hasPenis()?"use it to start massaging your prostate.":"steadily fuck your own [pc.ass+]."),
+					"Driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"use it to start massaging your prostate.":"steadily fuck your own [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.tail] in and out of your [pc.asshole+].");
 		}
@@ -241,7 +244,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -261,7 +264,8 @@ public class PlayerSelfTailAnus {
 					
 					"Enthusiastically pumping your [pc.tail] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you frantically fuck your own [pc.ass].",
 					
-					"Desperately driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "+(Main.game.getPlayer().hasPenis()?"start eagerly grinding it up against your prostate.":"eagerly fuck your own [pc.ass+]."),
+					"Desperately driving your [pc.tail] deep inside your [pc.asshole], you let out [pc.a_moan] as you "
+							+(Main.game.getPlayer().hasPenis() && !Main.sex.getCharacterPerformingAction().hasVagina()?"start eagerly grinding it up against your prostate.":"eagerly fuck your own [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you eagerly start slamming your [pc.tail] in and out of your [pc.asshole+].");
 		}

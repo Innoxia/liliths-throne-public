@@ -4,63 +4,64 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
- * @version 0.2.9
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
 
-	public SMAltarMissionary(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.MISSIONARY_ALTAR_CULTIST,
+	public SMAltarMissionary(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionUnique.MISSIONARY_ALTAR_CULTIST,
 				dominants,
 				submissives);
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
 		// If orgasming, use an orgasm action:
-		if (ArousalLevel.getArousalLevelFromValue(Sex.getActivePartner().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
-			return super.getPartnerSexAction(sexActionPlayer);
+		if (ArousalLevel.getArousalLevelFromValue(Main.sex.getCharacterPerformingAction().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 		
-		if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
+		if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())) {
 			return CultistSexActions.SEALED;
 			
 		} else {
-			return super.getPartnerSexAction(sexActionPlayer);
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 	}
 	
 	@Override
-	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
-		if(character.isPlayer()) {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
-		} else {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
-		}
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
+		return !Main.sex.isCharacterSealed(character);
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
-		if(character.isPlayer()) {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
-		} else {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
-		}
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
+		return !Main.sex.isCharacterSealed(character);
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
+	}
+
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(!Main.sex.isDom(character) && character.isPlayer()) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
 	}
 }

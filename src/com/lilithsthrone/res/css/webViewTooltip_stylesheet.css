@@ -1,7 +1,7 @@
 html {
 	background: #1e1e20;
-	font-family:Calibri,Carlito;
-	font-size:11pt;
+	font-family: Calibri, Carlito, sans-serif;
+	font-size:15px;
 	color: #eeeeee;
 	padding: 0;
 	border:0;
@@ -76,6 +76,15 @@ h6{
 /******************************************************/
 /*GENERIC FOR ALL*/
 
+.speech{
+}
+.speech:before {
+    content: '"';
+}
+.speech:after {
+    content: '"';
+}
+
 .title{
 	font-size:20px;
 	font-weight: bold;
@@ -124,7 +133,7 @@ h6{
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	
 	box-sizing: border-box;
 	width: calc(50% - 16px);
@@ -140,9 +149,9 @@ h6{
 	line-height:18px;
 	background-color:#19191a;
 	
-	margin:8px 8px 0 8px;
-	padding:8px;
-	width:calc((352px/3)*2 - 32px);
+	margin:8px 4px 0 8px;
+	padding:4px;
+	width:calc((352px/3)*2 - 8px);
 	min-height:calc(352px/3 - 32px);
 }
 .picture{
@@ -153,8 +162,8 @@ h6{
 	line-height:18px;
 	background-color:#19191a;
 	
-	margin:8px 8px 0 8px;
-	padding:8px;
+	margin:8px 8px 0 4px;
+	padding:4px;
 	width:calc(352px/3 - 32px);
 	height:calc(352px/3 - 32px);
 }
@@ -169,7 +178,6 @@ h6{
 	padding:8px;
 	height:106px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
@@ -178,7 +186,6 @@ h6{
 	padding:8px;
 	height:66px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
@@ -188,11 +195,9 @@ h6{
 	padding:8px;
 	height:46px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
-
 
 /******************************************************/
 /*NEW*/
@@ -296,4 +301,16 @@ h6{
 	margin:0;
 	padding:0;
 	cursor:pointer;
+}
+
+/*ITEM VIEW SPECIFIC*/
+.colour-box {
+	position:relative;
+	float:left;
+	width:20px;
+	height:20px;
+	padding:0;
+	margin:2px;
+	background-color: #333333;
+	-webkit-user-select: none;
 }

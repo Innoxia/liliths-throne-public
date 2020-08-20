@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ENTRANCE -->
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		The wooden doors of the Gambling Den's front entrance are propped open, allowing you to easily make your way forwards into the establishment. As you enter, you find yourself standing in a very large entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
+	</p>
+	<p>
+		Although there only a few people loitering around in this entrance hall, the constant drone of chatter coming from up ahead lets you know that this place must be quite popular. As you start to walk forwards, intent on exploring the establishment, a voice suddenly calls out from your right-hand side, [axel.speech(Hello there! I haven't seen you here before!)]
+	</p>
+	<p>
+		Turning towards the source of the voice, you see a tall, muscular alligator-boy grinning at you. The scales covering his body are all a brilliant white, and as he comes to a halt in front of you, his pair of bright blue eyes lock onto yours, and he continues, [axel.speech(I'm [axel.name], the owner of this place, and I like to say hello to every fresh face I see!)]
+	</p>
+	<p>
+		[pc.speech(I'm [pc.name],)] you reply, returning the alligator-boy's greeting as he happily reaches out to shake your hand.
+	</p>
+	<p>
+		[axel.speech(It's a pleasure to meet you! Now, if you're looking to have some fun, you've come to the right place. We've got dice poker straight ahead down the hall here,)] [axel.name] says, pointing one of his clawed hands forwards, before turning it to the right and continuing, [axel.speech(and the slot machines are lining the main atrium down to the right there. If you continue on down to the very end, you'll find my good friend Epona, who runs our very special 'pregnancy roulette' game! You can get all the details of that from her.)]
+	</p>
+	<p>
+		[pc.speech(Thanks,)] you say, [pc.speech(I'll go and check it all out.)]
+	</p>
+	<p>
+		[axel.speech(Oh, and, erm, we've also got a shop,)] [axel.name] says, the friendly tone of his voice shifting into one of discomfort. [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll see you around,)] you say, letting [axel.name] hurry off to one side of the hall before moving off to explore the building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
+	<p>
+		You find yourself standing in the Gambling Den's entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_axelFeminised))
+			To one side of the hall, you see the curvy, feminine figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
+			To one side of the hall, you see the slim, androgynous figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ELSE
+			To one side of the hall, you see the large, muscular figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_END_VENGAR_QUEST"><![CDATA[
+	<p>
+		As you enter the gambling den, you once again spot the large, muscular figure of [axel.name] happily welcoming visitors to his establishment. Upon catching sight of you, his smile widens, and he hurries over to thank you for what you've done, [axel.speech([pc.Name]! I can't thank you enough for helping me sort out that whole Vengar situation! If I'm honest, I didn't really expect you to be able to do it, but I'm finally free of him! Well... Almost free, that is...)]
+	</p>
+	<p>
+		Asking Axel what he means by that, and also how he found out that Vengar had been dealt with so quickly, you listen as the albino alligator-boy explains, [axel.speech(Well, I had a visit from the Enforcers, you see. Apparently, they confiscated all of of Vengar's wealth as 'evidence', so they couldn't give me any of my money back. Instead, they gave me a different form of compensation...)]
+	</p>
+	<p>
+		At that moment, you notice the familiar figure of Roxy swiftly walking over from her shop, and, not caring at all about interrupting your conversation, she shouts out, [roxy.speech('Ey! Lizard! I's got another question 'bout Vengar!)]
+	</p>
+	<p>
+		[axel.speech(Please, I already asked you not to call me that,)] Axel replies, turning to one side to face the rat-girl, [axel.speech(and can't you see that I'm talking to [pc.name]? You could at least say 'excuse me', you know...)]
+	</p>
+	<p>
+		[roxy.speech(I ain't got time fer yer shit,)] Roxy states, before pausing for a moment to stick a cigarette in her mouth and light it. Blowing out a large cloud of smoke, she continues, [roxy.speech(So, you's said I could do anythin' I wanted with Vengar, right? It ain't gonna be a problem fer me later down the line if I get 'im addicted ta me cunt or transform 'im a bit, will it?)]
+	</p>
+	<p>
+		[axel.speech(Look, I don't want you abusing people you're responsible for, even if he is your ex and he wronged you in the pas-)] Axel starts, but Roxy furrows her eyebrows and interrupts him yet again.
+	</p>
+	<p>
+		[roxy.speech(Don't you's be gettin' involved in me private life, lizard! That fuckin' twat wants ta cheat on me, an' thinks he's off the hook cos he set me up workin' here? He can fuckin' think again!)] she shouts, before puffing on her cigarette and repeating her initial question, [roxy.speech(So can I get 'im addicted to me cunt an' transform 'im a bit or not? I don't want ya gettin' all pissy later on just cos I didn't ask or some shit like that.)]
+	</p>
+	<p>
+		Some of the nearby patrons of the gambling den start to turn their heads at the scene unfolding before them, and, wanting to avoid this negative publicity, Axel gives in to Roxy's demands, [axel.speech(Yes, yes, I already said you can treat him like he's yours, so long as you prevent him from causing any damage to my business. Just... don't go too far, ok?)]
+	</p>
+	<p>
+		Letting a wicked grin settle on her face, Roxy turns her back on the two of you and marches back off to her shop, calling over her shoulder and addressing you as she goes, [roxy.speech(Ya want a taste o' my cunt, all yer gotta do is drop by later! See ya!)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_RESOLUTION -->
+	
+	<htmlContent tag="AXEL_VENGAR_RESOLUTION"><![CDATA[
+	<p>
+		With an exasperated sigh, Axel turns back towards you and reveals what by now was obvious, [axel.speech(Yes, that 'compensation' the Enforcers gave me was a slaver license and the recently-enslaved Vengar, as well as another of his thugs; some nasty piece of work called 'Murk'. I have neither the time nor inclination for dealing with those two, so I agreed to give Vengar to Roxy, while Murk is being watched over by Epona.)]
+	</p>
+	<p>
+		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have places selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Asking you to wait for a moment, Axel hurries off into his office to fetch this reward, leaving you and [npc.name] to speculate between yourselves as to what it could be.
+		#ELSE
+			Asking you to wait for a moment, Axel hurries off into his office to fetch this reward, leaving you to speculate as to what it could be.
+		#ENDIF
+		 After just a couple of minutes, he returns holding a small bag, and with a big smile on his face, pushes it into your [pc.hands]. [axel.speech(This is for all your trouble, and you also have my eternal thanks!)] he happily exclaims, before revealing, [axel.speech(There are fifty thousand flames in there.)]
+	</p>
+	<p>
+		Opening the bag, you see that it's filled with coins, and after thanking him, you wonder what to say to Axel next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE -->
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		To the left-hand side of the Gambling Den's main entrance, there's a sturdy wooden door bearing a brass plaque engraved with the words '[axel.name]'s Office'. At the moment, it's securely shut and locked, so there's not really much for you to do except turn around and step away from the door...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_AXEL -->
+	
+	<htmlContent tag="OFFICE_WITH_AXEL"><![CDATA[
+	#IF(axel.isAttractedTo(pc))
+		#IF(game.getDialogueFlags().hasFlag(FLAG_axelSissified) || game.getDialogueFlags().hasFlag(FLAG_axelFeminised))
+			<p>
+				Wanting to spend some time in private with [axel.name], you ask [axel.herHim] if the two of you could step into [axel.her] office for a while. Upon hearing your suggestion, the [axel.race] smiles, and with a faint blush forming in [axel.her] cheeks, [axel.she] teases,
+				#IF(pc.hasCompanions())
+					 [axel.speech(Why of course, we can discuss absolutely <i>anything</i> you'd like in there... Oh, but I can only handle you, [npc.name] here will have to wait outside...)]
+				#ELSE
+					 [axel.speech(Why of course, we can discuss absolutely <i>anything</i> you'd like in there...)]
+				#ENDIF
+			</p>
+			<p>
+				Rubbing up against you, [axel.name] leads you over to the door of [axel.her] office, before unlocking it and stepping inside.
+				#IF(pc.hasCompanions())
+					 Leaving [npc.name] to wait for your return, you closely follow on behind [axel.name], and once you're inside [axel.her] office, you quickly turn to shut the door behind you in order to afford the two of you some privacy.
+				#ELSE
+					 Following closely behind [axel.herHim], you quickly turn to shut the door behind you in order to afford the two of you some privacy.
+				#ENDIF
+				 As you turn back to face [axel.name], you see that [axel.sheIs] standing right in front of you, and with an expectant look in [axel.her] twinkling [axel.eyeColour] eyes, [npc.she] asks, [axel.speech(So, [pc.name], what is it you want to do to me?)]
+			</p>
+		#ELSE
+			<p>
+				Wanting to spend some time in private with [axel.name], you ask [axel.herHim] if the two of you could step into [axel.her] office for a while. Upon hearing your suggestion, the [axel.race] smiles, and with a hungry look in [axel.her] eyes, [axel.she] teases,
+				#IF(pc.hasCompanions())
+					 [axel.speech(Why of course, we can discuss absolutely <i>anything</i> you'd like in there... Oh, but I'm going to have to ask that [npc.name] here waits outside...)]
+				#ELSE
+					 [axel.speech(Why of course, we can discuss absolutely <i>anything</i> you'd like in there...)]
+				#ENDIF
+			</p>
+			<p>
+				Reaching around to place one of his strong hands on your hips, [axel.name] guides you over to the door of [axel.her] office, before unlocking it and letting you step inside.
+				#IF(pc.hasCompanions())
+					 Following closely behind you, [axel.name] quickly turns to shut the door behind you, leaving [npc.name] on the other side to wait for your return.
+				#ELSE
+					 Following closely behind you, [axel.name] quickly turns to shut the door behind you in order to afford the two of you some privacy.
+				#ENDIF
+				 As you turn back to face the [axel.race], you see that [axel.she] has an expectant look in [axel.her] twinkling [axel.eyeColour] eyes, and in a lustful tone, [npc.she] asks, [axel.speech(So, [pc.name], what is it you want me to do with you?)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Wanting to spend some time in private with [axel.name], you ask [axel.herHim] if the two of you could step into [axel.her] office for a while. Upon hearing your suggestion, the [axel.race] politely smiles, before replying in a neutral tone,
+			#IF(pc.hasCompanions())
+				 [axel.speech(Why of course, I've always got time to listen to anything you have to say, [pc.name], but I'll have to ask that you leave [npc.name] to wait for us outside.)]
+			#ELSE
+				 [axel.speech(Why of course, I've always got time to listen to anything you have to say, [pc.name].)]
+			#ENDIF
+		</p>
+		<p>
+			Betraying no sign of attraction towards you, [axel.name] leads you over to the door of [axel.her] office, before unlocking it and stepping inside.
+			#IF(pc.hasCompanions())
+				 Leaving [npc.name] to wait for your return, you closely follow on behind [axel.name], and once you're inside [axel.her] office, you quickly turn to shut the door behind you in order to afford the two of you some privacy.
+			#ELSE
+				 Following closely behind [axel.herHim], you quickly turn to shut the door behind you in order to afford the two of you some privacy.
+			#ENDIF
+			 As you turn back to face [axel.name], you see that [axel.sheHas] stepped over to stand behind [axel.her] desk, and with the same polite smile still on [axel.her] face, [npc.she] asks, [axel.speech(So, [pc.name], what is it you'd like to discuss?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_LEXA_DOMINATE"><![CDATA[
+	<p>
+		Not being able to resist the submissive [axel.race] any longer, you step up to [axel.herHim] and dominantly grab hold of [axel.her] hips, before pulling [axel.herHim] in tightly against your body and pointedly asking, [pc.speech(You're going to do exactly as I say, understand?)]
+	</p>
+	<p>
+		[axel.speech(~Mmm!~ Yes!)] [axel.Name] happily replies, leaning into you and submissively planting a kiss on your neck. [axel.speech(Please, do whatever you want to me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_LEXA_SUBMIT"><![CDATA[
+	<p>
+		Not being able to resist the [axel.race] any longer, you step up to [axel.herHim] and submissively lean in against [axel.her] body, before asking, [pc.speech(Please, could you take the lead?)]
+	</p>
+	<p>
+		[axel.speech(Oh, erm, well, I suppose,)] [axel.Name] hesitantly replies, before reaching down to grab hold of your hips. Leaning into you, [axel.she] plants a kiss on your neck, before drawing back a little and saying, [axel.speech(I don't feel as dominant as I used to before meeting you, but I'll do my best!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CAGE_OFF"><![CDATA[
+	<p>
+		[pc.speech(Show me that you're still wearing your cage,)] you order [axel.name].
+	</p>
+	<p>
+		Quickly exposing [axel.herself] to you, the [axel.race] shows you that [axel.her] [axel.cockSize] cock is still locked up in [axel.her] light pink chastity cage. Producing the matching key, you step forwards and open the cage's lock, before sliding it off [axel.namePos] flaccid cock and handing it over to [axel.herHim].
+		#IF(axel.isAttractedTo(pc))
+			 Letting out a sigh of relief, the [axel.race] steps forwards and rubs up against you, teasing, [axel.speech(Now that I'm free down there, how about the two of us have some fun together, hmm?)]
+		#ELSE
+			 Letting out a sigh of relief, the [axel.race] says, [axel.speech(That feels so much better... Thank you, [pc.name]!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CAGE_ON"><![CDATA[
+	<p>
+		[pc.speech(Show me that you've still got your cage,)] you order [axel.name].
+	</p>
+	<p>
+		Quickly moving over to [axel.her] desk, the [axel.race] opens a drawer and retrieves the light pink chastity cage, before returning to stand before you. Pleased to see that [axel.sheHas] kept [axel.her] cage, you order [axel.name] to expose [axel.herself] to you, and once again, [axel.she] quickly does as [axel.sheIs] told. Taking the little cage out of [axel.her] hands, you kneel down before the [axel.race] and slide it onto [axel.her] [axel.cockSize] cock, before locking it in place and pocketing the key. Standing back up, you order, [pc.speech(You're forbidden from getting this removed. Perhaps if you're a good [axel.girl], I'll think about unlocking it.)]
+	</p>
+	<p>
+		#IF(axel.isAttractedTo(pc))
+			 Letting out a frustrated whine, the [axel.race] steps forwards and rubs up against you, moaning, [axel.speech(Could I show you how good I am right now? I've been thinking about you a lot recently...)]
+		#ELSE
+			 Letting out a frustrated whine, the [axel.race] says, [axel.speech(Fine... But please, [pc.name], don't leave me locked up for too long!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_AXEL_LEAVE"><![CDATA[
+	<p>
+		Deciding that you have other things to do, you tell [lexa.name] that you'll talk to [axel.herHim] some more another time, before opening the door to [axel.her] office and taking your leave.
+		#IF(pc.hasCompanions())
+			 Joining up with [npc.name] once more, you wonder where to go to next...
+		#ELSE
+			 Stepping out into the Gambling Den's entrance hall, you wonder where to go to next...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_DOMINATE"><![CDATA[
+	<p>
+		Not being able to resist the [axel.race] any longer, you step up to [axel.herHim] and dominantly grab hold of [axel.her] hips, before pulling [axel.herHim] in tightly against your body and pointedly asking, [pc.speech(You don't mind if I take the lead, right?)]
+	</p>
+	<p>
+		[axel.speech(~Mmm!~ I usually prefer to be the one on top, but I guess I could switch things up a bit with you,)] [axel.Name] replies, before letting out a satisfied groan as you pull him into a kiss...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_SUBMIT"><![CDATA[
+	<p>
+		Not being able to resist the [axel.race] any longer, you step up to [axel.herHim] and submissively lean in against [axel.her] body, before asking, [pc.speech(Please, could you take the lead?)]
+	</p>
+	<p>
+		[axel.speech(Of course; I prefer being the one in charge,)] [axel.Name] confidently replies, before reaching down to take a firm hold of your hips. Pulling you into him, [axel.she] plants a dominant kiss on your [pc.lips+], before drawing back a little and saying, [axel.speech(I'll make sure to satisfy you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ORAL_PERFORMING"><![CDATA[
+	<p>
+		Stepping forwards and leaning in against Axel's wide, muscular chest, you reach down to grope the sizeable bulge between his legs, teasing, [pc.speech(Now that we're alone, I wouldn't mind getting a taste of this...)]
+	</p>
+	<p>
+		Letting out a deep, rumbling groan, the [axel.race] reaches up to place his hands on your shoulders, before gently, but firmly, pushing you down onto your knees before him. Reaching down, he unbuttons his trousers before pulling both them and his boxer shorts down, allowing his [axel.cockSize], flaccid cock to flop free. Looking down at you, he groans, [axel.speech(Go on, [pc.name], get me hard.)]
+	</p>
+	<p>
+		Reaching forwards, you take hold of [axel.namePos] [axel.cock+] and start stroking, while simultaneously leaning in and starting to plant a series of kisses on it. Almost immediately, it rises to attention, and with a delighted [pc.moan], you open wide and take the [axel.race]'s cock into your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ORAL_RECEIVING"><![CDATA[
+	#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+		<p>
+			Stepping up in front of Axel, you slide your [pc.hands] up over his muscular chest to rest them on his wide shoulders. Rubbing your groin up against his leg, you tease, [pc.speech(How about you kneel down and get a taste of my cock?)]
+		</p>
+		<p>
+			Letting out a deep, rumbling groan, the [axel.race] smiles and starts to drop down before you. Contributing a gentle but firm pressure on his shoulders, you help to push [axel.name] down onto his knees. Reaching down, you quickly expose your [pc.cockSize], flaccid cock, before [pc.moaning], [pc.speech(Go on, [axel.name], get me hard.)]
+		</p>
+		<p>
+			Reaching forwards, [axel.name] takes hold of your [pc.cock+] and starts stroking, while simultaneously leaning in and starting to plant a series of kisses on it. Almost immediately, it rises to attention, and with a delighted [axel.moan], the [axel.race] opens wide and takes your cock into his mouth...
+		</p>
+	#ELSE
+		<p>
+			Stepping up in front of Axel, you slide your [pc.hands] up over his muscular chest to rest them on his wide shoulders. Rubbing your groin up against his leg, you tease, [pc.speech(How about you kneel down and get a taste of my pussy?)]
+		</p>
+		<p>
+			Letting out a deep, rumbling groan, the [axel.race] smiles and starts to drop down before you. Contributing a gentle but firm pressure on his shoulders, you help to push [axel.name] down onto his knees. Reaching down, you quickly expose your [pc.pussy+], before [pc.moaning], [pc.speech(Go on, [axel.name], use your tongue.)]
+		</p>
+		<p>
+			Leaning forwards, [axel.name] does as you suggest, and after planting a series of kisses on your [pc.labia+], he darts his tongue out and starts licking. With a delighted [pc.moan] you reach down to grip the back of the [axel.race]'s head, and as you pull him into your groin, you feel his tongue greedily sliding into your hungry pussy...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ANILINGUS_PERFORMING"><![CDATA[
+	<p>
+		Stepping forwards and leaning in against Axel's wide, muscular chest, you reach down and around to grope his ass, teasing, [pc.speech(Now that we're alone, I wouldn't mind getting a taste of your ass...)]
+	</p>
+	<p>
+		Letting out a deep, rumbling groan, the [axel.race] unbuttons his trousers before pulling both them and his boxer shorts down, exposing both his [axel.cockSize], flaccid cock as well as his [axel.asshole+]. Leaning forwards over his desk, he turns his head back and groans, [axel.speech(Come on then, [pc.name].)]
+	</p>
+	<p>
+		Stepping forwards, you drop down onto your knees behind [axel.name], before leaning in and starting to plant a series of kisses on his [axel.ass+]. Almost immediately, his cock rises to attention, and as the [axel.race] swipes his huge tail to one side, you press your [pc.lips] against his asshole and start enthusiastically performing anilingus on him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ANILINGUS_RECEIVING"><![CDATA[
+	<p>
+		Stepping forwards and leaning in against Axel's wide, muscular chest, you guide his hands down and around to grope your ass, teasing, [pc.speech(Now that we're alone, I wouldn't mind letting you worship my ass for a while...)]
+	</p>
+	<p>
+		Letting out a deep, rumbling groan, the [axel.race] hungrily watches as you step back and quickly expose yourself to him, before turning around and presenting him with your bare ass. Unable to resist, [axel.name] pushes you up against a nearby wall, before dropping down onto his knees behind you and then reaching up to spread your ass cheeks. Turning your head back and looking down at him, you [pc.moanVerb], [pc.speech(~Mmm!~ Go on then, don't be shy!)]
+	</p>
+	<p>
+		Leaning forwards, [axel.name] starts by planting a series of kisses on your [pc.ass+], before holding your cheeks apart and licking your [pc.asshole+]. Letting out [pc.a_moan+], you push your ass back, encouraging the [axel.race] to press his [axel.lips] against your rear entrance and start enthusiastically performing anilingus on you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_AXEL_SEX -->
+	
+	<htmlContent tag="AFTER_LEXA_SEX"><![CDATA[
+	<p>
+		Letting out a soft, satisfied sigh, [axel.name] disentangles [axel.herself] from you and steps back a little. Cleaning [axel.herself] up, [axel.she] starts to get [axel.her] clothing back in order while you do the same. Once [axel.sheIs] done, [axel.she] steps up to you and gently plants one last kiss on your [pc.lips], before heading over to the door and saying, [axel.speech(I'd better be getting back to work now. That sure was fun, [pc.name]...)]
+	</p>
+	<p>
+		Reciprocating [axel.namePos] remark, you finish getting your things in order and walk over to [axel.herHim]. Smiling at you once last time, the [axel.race] opens the door and heads back out into the Gambling Den, with you following on right behind [axel.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_SEX"><![CDATA[
+	<p>
+		Letting out a deep, satisfied groan, Axel disentangles himself from you and steps back a little. Cleaning himself up, he starts to get his clothing back in order while you do the same. Once he's done, he steps up to you and confidently plants one last kiss on your [pc.lips], before heading over to the door and saying, [axel.speech(I'd better be getting back to work now. That sure was fun, [pc.name].)]
+	</p>
+	<p>
+		Reciprocating Axel's remark, you finish getting your things in order and walk over to him. Smiling at you once last time, the [axel.race] opens the door and heads back out into the Gambling Den, with you following on right behind him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_SEX_LEAVE"><![CDATA[
+	<p>
+		Walking back out into the Gambling Den's entrance hall, you say goodbye to [axel.name], leaving [axel.herHim] to lock the door to [axel.her] office.
+		#IF(pc.hasCompanions())
+			 Joining up with [npc.name] once more, you wonder where to go to next...
+		#ELSE
+			 Looking around, you wonder where to go to next...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_HYPNO -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_HYPNO"><![CDATA[
+	<p>
+		Wanting [axel.name] to see that there are more opportunities available to [axel.herHim] if [axel.she] were to just broaden [axel.her] horizons a little, you guide [axel.herHim] over to sit down on [axel.her] office's comfortable leather chair. Perching yourself on the edge of the adjacent desk, you lean down to place one [pc.hand] on the [axel.race]'s leg, before leaning in and seductively asking, [pc.speech(You see me as more than just a friend, right, [axel.name]?)] 
+	</p>
+	<p>
+		[axel.speech(Erm, well, not really...)] [axel.name] replies, nervously fidgeting around on [axel.her] seat in a clear sign of discomfort. Trying to shuffle away form you a little, [axel.she] continues, [axel.speech(Sorry, [pc.name], but I only really like masculine people...)]
+	</p>
+	<p>
+		[pc.speech(Aww, that's a shame,)] you reply, lifting up your enchanted hypno-watch and playfully twisting the metallic chain around your [pc.fingers], [pc.speech(but you know, that does present me with an opportunity to give you a gift.)]
+	</p>
+	<p>
+		[axel.speech(A gift?)] [axel.name] inquisitively asks, [axel.speech(What sort of gift?)]
+	</p>
+	<p>
+		[pc.speech(One that I'm sure you'll love,)] you reply, surreptitiously swinging the swirling face of the hypno-watch back and forth in a manner that you know [axel.name] won't be able to resist staring at. Sure enough, you see her eyes travelling left and right in time with the device's steady oscillation. Knowing that the [axel.race] is now in a prime state in which the hypno-watch can permanently alter [axel.her] sexual orientation, you focus on channelling the device's power into [axel.her] mind as you ask, [pc.speech(So, you like guys, [axel.name]?)]
+	</p>
+	<p>
+		[axel.speech(Hmm... yes... I like guys...)] [axel.name] sluggishly replies, [axel.her] gaze still fixed on the hypno-watch.
+	</p>
+	<p>
+		[pc.speech(It would be good for you if you also liked girls, wouldn't it?)] you ask, [pc.speech(You'd like to have sex with feminine people, right, [axel.name]?)]
+	</p>
+	<p>
+		[axel.speech(Yes... I like girls... I'd like feminine people... I'd like sex with them...)] the [axel.race] replies, letting you know that the hypno-watch has successfully reprogrammed [axel.her] mind.
+	</p>
+	<p>
+		Smirking to yourself, you lean back a little and slowly allow the hypno-watch's rhythmic motion to settle down to a stop. Snatching it up in one [pc.hand], you watch as [axel.name] blinks a couple of times before shaking [axel.her] head clear. Looking up at you once more, [axel.she] asks, [axel.speech(What was that you were saying about a gift? I must have zoned out for a moment there.)]
+	</p>
+	<p>
+		Repeating your movement from a few minutes ago, you lean down to place one [pc.hand] on the [axel.race]'s leg, before once again seductively asking, [pc.speech(I was asking whether or not you'd like this sort of gift...)]
+	</p>
+	<p>
+		Running your [pc.hand] up the length of [axel.namePos] leg, you gently grope [axel.her] groin, and as the [axel.race]'s cheeks flush red, you squeeze the [axel.cockSize] bulge between [axel.her] legs. Letting out a horny moan, [axel.name] excitedly answers your question, [axel.speech(Y-Yes! I'd like that sort of gift very much...)]
+	</p>
+	<p>
+		[pc.speech(Well, maybe if you're lucky, you'll get it some time,)] you reply, letting out a laugh as you realise that your devious plan has been completely successful... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE"><![CDATA[
+	<p>
+		Thinking about fully feminising [axel.name], you ask [axel.herHim] if [axel.sheHas] still got the potions which Silence gave to [axel.herHim]. Heading over to [axel.her] desk, [axel.name] opens a drawer and produces them, before setting them down on the surface and sighing, [axel.speech(Yeah, I've got them. I've been thinking a lot about whether to drink them or not. I mean, I'm actually feeling pretty good with the way my body is now, which makes me think that maybe I'd feel even better if I went fully feminine...)]
+	</p>
+	<p>
+		Realising that you have the opportunity to persuade [axel.name] to [style.italicsFeminine(permanently fully femininse)] [axel.herself], you wonder what you should say next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"><![CDATA[
+	<p>
+		Knowing that it would be the best thing for [axel.herHim] to do, you tell [axel.name] that [axel.she] should drink the pink potion and become fully feminine. Obviously already thinking the same thing, the [axel.race] doesn't need any further encouragement, and replies, [axel.speech(You're right, [pc.name]. I really should have done this the moment Silence gave me the potion. I'm still unsure about what to do with the supplement she gave me, though...)]
+	</p>
+	<p>
+		[pc.speech(Just forget the supplement,)] you say, [pc.speech(you want to end up feeling as feminine as possible, right? I think that'd be easier for you if you let your cock shrink down even more...)]
+	</p>
+	<p>
+		Placing [axel.her] trust in your judgement, [axel.name] does as you say, and pushes the smaller, blue bottle to one side as [axel.she] grabs the pink feminisation potion. Pulling out the stopper, [axel.she] brings it up to [axel.her] lips, and without a moment's hesitation, gulps down all of the transformative liquid contained within. Dropping the now-empty bottle to the floor, [axel.name] staggers back a little, complaining, [axel.speech(Oh... I feel so hot! I need to get out of these clothes!)]
+	</p>
+	<p>
+		Desperately pulling [axel.her] clothes off, [axel.name] fully exposes [axel.herself] to you, allowing you to get an unobstructed view as [axel.her] body changes right before your eyes. Within seconds, she's not only lost a few [units.sizes] of height, but her body has also slimmed down and taken on a far more feminine figure than before, complete with womanly hips and a proportionally-large ass. Letting out a gasp as the wave of transformative energy flows through her, [axel.name] reaches up to her chest, and as her loose, hair-like scales grow longer, her breasts fill out and plump up into round C-cups.
+	</p>
+	<p>
+		[axel.speech(~Ooh!~)] the [axel.race] moans, squeezing her new mammaries. Obviously feeling the transformation then move down between her legs, [axel.name] pushes her thighs together and lets out another high-pitched moan. Looking down, you see her cock shrink down into a tiny little nub, while her balls retract into little more than a small bump between her legs. Just as suddenly as it started, the transformation ends, and with one final gasp, [axel.name] hefts her new breasts and exclaims, [axel.speech(Look! They're huge!)]
+	</p>
+	<p>
+		Not entirely convinced that C-cups could be regarded as being 'huge', you nevertheless compliment [axel.name] on her new appearance. Blushing as she suddenly realises that she's standing completely naked before you, the [axel.race] asks, [axel.speech(Could you do me a favour? I've bought some clothes in anticipation of this day, but now that the moment's arrived, I don't really know what to wear... Could you help me choose?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_HALF"><![CDATA[
+	<p>
+		Knowing that it would be the best thing for [axel.herHim] to do, you tell [axel.name] that [axel.she] should drink the pink potion and become fully feminine. Obviously already thinking the same thing, the [axel.race] doesn't need any further encouragement, and replies, [axel.speech(You're right, [pc.name]. I really should have done this the moment Silence gave me the potion. I'm still unsure about what to do with the supplement she gave me, though...)]
+	</p>
+	<p>
+		[pc.speech(Why don't you just take half,)] you suggest, [pc.speech(that should keep your cock the same size it is right now. You'd be happy with that, right?)]
+	</p>
+	<p>
+		Placing [axel.her] trust in your judgement, [axel.name] makes an affirmative humming noise, and grabs both the pink and blue potions. Pulling out the stoppers, [axel.she] brings the pink one up to [axel.her] lips first, and without a moment's hesitation, gulps down all of the transformative liquid contained within. Dropping the now-empty bottle to the floor, [axel.name] proceeds to drink down half of the blue potion, before staggering back a little, complaining, [axel.speech(Oh... I feel so hot! I need to get out of these clothes!)]
+	</p>
+	<p>
+		Desperately pulling [axel.her] clothes off, [axel.name] fully exposes [axel.herself] to you, allowing you to get an unobstructed view as [axel.her] body changes right before your eyes. Within seconds, she's not only lost a few [units.sizes] of height, but her body has also slimmed down and taken on a far more feminine figure than before, complete with womanly hips and a proportionally-large ass. Letting out a gasp as the wave of transformative energy flows through her, [axel.name] reaches up to her chest, and as her loose, hair-like scales grow longer, her breasts fill out and plump up into round C-cups.
+	</p>
+	<p>
+		[axel.speech(~Ooh!~)] the [axel.race] moans, squeezing her new mammaries. Obviously feeling the transformation then move down between her legs, [axel.name] pushes her thighs together and lets out another high-pitched moan. Looking down, you see her cock throb a couple of times, but other than that, nothing happens down there. Just as suddenly as it started, the transformation ends, and with one final gasp, [axel.name] hefts her new breasts and exclaims, [axel.speech(Look! They're huge!)]
+	</p>
+	<p>
+		Not entirely convinced that C-cups could be regarded as being 'huge', you nevertheless compliment [axel.name] on her new appearance. Blushing as she suddenly realises that she's standing completely naked before you, the [axel.race] asks, [axel.speech(Could you do me a favour? I've bought some clothes in anticipation of this day, but now that the moment's arrived, I don't really know what to wear... Could you help me choose?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"><![CDATA[
+	<p>
+		Knowing that it would be the best thing for [axel.herHim] to do, you tell [axel.name] that [axel.she] should drink the pink potion and become fully feminine. Obviously already thinking the same thing, the [axel.race] doesn't need any further encouragement, and replies, [axel.speech(You're right, [pc.name]. I really should have done this the moment Silence gave me the potion. I'm still unsure about what to do with the supplement she gave me, though...)]
+	</p>
+	<p>
+		[pc.speech(Why don't you drink it all?)] you suggest, [pc.speech(That should return your cock to the size it always was. You'd be happy with that, right?)]
+	</p>
+	<p>
+		Placing [axel.her] trust in your judgement, [axel.name] makes an affirmative humming noise, and grabs both the pink and blue potions. Pulling out the stoppers, [axel.she] brings the pink one up to [axel.her] lips first, and without a moment's hesitation, gulps down all of the transformative liquid contained within. Dropping the now-empty bottle to the floor, [axel.name] proceeds to drink down all of the blue potion, before staggering back a little, complaining, [axel.speech(Oh... I feel so hot! I need to get out of these clothes!)]
+	</p>
+	<p>
+		Desperately pulling [axel.her] clothes off, [axel.name] fully exposes [axel.herself] to you, allowing you to get an unobstructed view as [axel.her] body changes right before your eyes. Within seconds, she's not only lost a few [units.sizes] of height, but her body has also slimmed down and taken on a far more feminine figure than before, complete with womanly hips and a proportionally-large ass. Letting out a gasp as the wave of transformative energy flows through her, [axel.name] reaches up to her chest, and as her loose, hair-like scales grow longer, her breasts fill out and plump up into round C-cups.
+	</p>
+	<p>
+		[axel.speech(~Ooh!~)] the [axel.race] moans, squeezing her new mammaries. Obviously feeling the transformation then move down between her legs, [axel.name] pushes her thighs together and lets out another high-pitched moan. Looking down, you see her cock throb a couple of times, before rapidly expanding to the same large size as it was when you first saw [axel.name] naked. Just as suddenly as it started, the transformation ends, and with one final gasp, [axel.name] hefts her new breasts and exclaims, [axel.speech(Look! They're huge!)]
+	</p>
+	<p>
+		Not entirely convinced that C-cups could be regarded as being 'huge', you nevertheless compliment [axel.name] on her new appearance. Blushing as she suddenly realises that she's standing completely naked before you, the [axel.race] asks, [axel.speech(Could you do me a favour? I've bought some clothes in anticipation of this day, but now that the moment's arrived, I don't really know what to wear... Could you help me choose?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE_BACK_OUT -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_BACK_OUT"><![CDATA[
+	<p>
+		You decide against convincing [lexa.name] to drink the feminising potions, and instead wonder if there's anything else you want from [lexa.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE_APPLY_CLOTHING -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_CLOTHING"><![CDATA[
+	<p>
+		Seeing no reason not to help [axel.name] choose what style of clothing she wears, you ask her to show you the sorts of things that she's got available. Smiling happily as she hears that you're willing to help her, although also blushing from embarrassment at being naked, [axel.name] rushes over to an internal door on the far side of the room. Although it's marked as 'Office Supplies', [axel.name] calls out as she opens the door, [axel.speech(I don't really keep many office supplies in here; since I drank that potion Vengar gave me, I've actually started using it as a dressing room...)]
+	</p>
+	<p>
+		Disappearing into this room for a moment, the [axel.race] soon reappears with her arms full of clothing. Dropping them on the top of her desk, she picks up the items on the top of the pile, which turn out to be a light pink skater dress, black heels, light pink lingerie, and some other minor accessories. Holding the dress up to cover her body and show it off to you, [axel.name] says, [axel.speech(So, this is what I was thinking of wearing, but I also have a couple of other more... erm... <i>exotic</i> choices...)]
+	</p>
+	<p>
+		Putting the dress and other accessories to one side, [axel.name] picks up the next items of clothing. Much to your surprise, you see that she's now holding a complete set of light pink maid's clothes, complete with dress, headpiece, stockings, sleeves, and heels. Blushing as she displays them to you, [axel.name] mutters, [axel.speech(I thought this would be fun, but maybe it's too much...)]
+	</p>
+	<p>
+		Before you can offer an opinion, [axel.name] quickly puts the set of maid's clothing to one side, before letting out an embarrassed sigh as she sees what she's left until last. Slowly picking up the remaining items of clothing, the [axel.name] turns to show you one of the sluttiest outfits that you could imagine. Consisting of fishnet gloves, stockings, and top, and with a pleated miniskirt so short that it would do nothing to conceal her lacy black thong, this outfit really doesn't leave much to the imagination. You don't see any sign of a bra, either, but as [axel.name] puts the clothing back down on top of a black leather jacket she'd left on the desk, you see that there's a roll of tape which might end up being stuck as crosses over the [axel.race]'s nipples.
+	</p>
+	<p>
+		By now furiously blushing, [axel.name] asks, [axel.speech(So, which one do you think? Y-You can pretend that you didn't see that last outfit... I-I don't think it would be a good idea for me to dress like that...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE_APPLY -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_FEMININE"><![CDATA[
+	<p>
+		Thinking that it would be best for [axel.name] to stick with the more conservative of the three choices, you tell her that she's bound to look beautiful wearing the light pink dress. Her face lights up as you say this, and with an excited squeak, she quickly retreats into what's become her dressing room, clearly eager to change into the outfit you suggested.
+	</p>
+	<p>
+		After a few moments, [axel.name] walks back out into the office wearing the dress, heels, and other feminine accessories. Smiling happily at you, she says, [axel.speech(Thank you so much, [pc.name]! I feel so much better like this!)]
+	</p>
+	<p>
+		Pleased to see how happy the [axel.race] is, you can't help but smile as you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_MAID"><![CDATA[
+	<p>
+		Thinking that it would be best for [axel.name] to wear clothes which reflect her true nature, you tell her that she'd feel most comfortable wearing the set of maid's clothes. Although she blushes as you say this, she's obviously not opposed to the idea, as she quickly retreats into what's become her dressing room, clearly eager to change into the outfit you suggested.
+	</p>
+	<p>
+		After a few moments, [axel.name] walks back out into the office wearing the light pink dress, heels, stockings, headdress, and sleeves. Smiling happily at you, she does a little twirl and says, [axel.speech(Thank you so much, [pc.name]! I wasn't sure how I'd feel wearing this, but it honestly feels really fun!)]
+	</p>
+	<p>
+		Pleased to see how happy the [axel.race] is, you can't help but smile as you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_WHORE"><![CDATA[
+	<p>
+		Thinking that it would be best for [axel.name] to wear clothes which make her look like a slutty whore, you order her to wear the set of trashy, revealing clothing. Although she heavily blushes as you say this, she's obviously not opposed to the idea, as she quickly retreats into what's become her dressing room, clearly eager to change into the outfit you suggested.
+	</p>
+	<p>
+		After a few moments, [axel.name] walks back out into the office wearing the fishnets, micro skirt, thigh-high boots, and leather jacket. Striking a pose, the [axel.race] smirks and says, [axel.speech(You know, this feels really liberating! Thanks, [pc.name], I I would never have worn this without your encouragement!)]
+	</p>
+	<p>
+		Pleased to see how happy the [axel.race] is, you can't help but smile as you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_CLOTHING -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING"><![CDATA[
+	<p>
+		Thinking that it would be a good idea for [lexa.name] to change into a different outfit, you ask her if she's still the ones she showed you last time. Smiling as she hears you ask this, the [axel.race] replies, [axel.speech(I sure have, [pc.name]. Do you think I should change into something else then?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_CLOTHING_BACK_OUT -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_BACK_OUT"><![CDATA[
+	<p>
+		You decide against having [lexa.name] change her outfit, and instead wonder if there's anything else you want from [lexa.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL -->
+	
+	<htmlContent tag="AXEL"><![CDATA[
+	<p>
+		Deciding that you'd like to talk to [axel.name], you approach the albino [axel.race] and call out a greeting to [axel.herHim].
+	</p>
+	<p>
+		[axel.speech(Ah, hello, [pc.name]!)] [axel.she] responds, turning to face you. Flashing you a toothy grin, [axel.she] asks, [axel.speech(What can I do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_ROXY"><![CDATA[
+	<p>
+		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(She seems to be a little rough with her customers.)]
+	</p>
+	<p>
+		[axel.speech(Yeah, she's nothing but trouble.)] [axel.name] sighs, [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's ex, I've got no choice but to leave her alo-)]
+	</p>
+	<p>
+		[axel.name] suddenly stops talking mid-sentence, and upon realising that he's said more than he meant to, starts to panic and stutter, [axel.speech(I-I mean, she's no trouble at all, ok? I never really meant to say that I want to throw her out! I was just joking, you understand?)]
+	</p>
+	<p>
+		[pc.speech(What's the matter?)] you ask, worried about [axel.name]'s sudden shift in tone, [pc.speech(And who's Vengar?)]
+	</p>
+	<p>
+		[axel.name] glances around nervously, before leaning in towards you and lowering his voice, [axel.speech(Y-You mean you're not working for him?)]
+	</p>
+	<p>
+		[pc.speech(I don't even know who he is,)] you reply.
+	</p>
+	<p>
+		[axel.name] lets out a big sigh of relief, [axel.speech(Thank goodness. I've been getting careless recently. I really shouldn't have mentioned Vengar... Just forget what I said, ok?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_ROXY_REPEAT"><![CDATA[
+	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
+		<p>
+			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from [axel.name] about her.
+		</p>
+		<p>
+			[axel.speech(Well, other than that she's Vengar's ex-girlfriend, I don't really know too much about her,)] the [axel.race] replies, [axel.speech(That is, other than the obvious fact that she's extremely rude. She treats me like dirt whenever I try talking to her, so I've never been able to find out anything about her.)]
+		</p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+			<p>
+				[pc.speech(And you can't get rid of her even though the situation with Vengar is all sorted out now?)] you ask.
+			</p>
+			<p>
+				[axel.speech(That's right. The two of them forced me to sign a contract letting her work here indefinitely, so there's nothing that can legally be done to get rid of her now...)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(And you can't get rid of her due to Vengar?)] you ask.
+			</p>
+			<p>
+				[axel.speech(That's right, but even if Vengar was no longer a problem, I'd still be stuck with her. The two of them forced me to sign a contract letting her work here indefinitely, so there's nothing that can legally be done to get rid of her now...)]
+			</p>
+		#ENDIF
+		<p>
+			With your questions answered, you wonder what to ask [axel.name] about next...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from [axel.name] about her.
+		</p>
+		<p>
+			[axel.speech(Well, that's complicated,)] [axel.name] replies, nervously shuffling his feet. [axel.speech(I mean, I don't know anything about her really, other than she's a pleasure to be around.)]
+		</p>
+		<p>
+			You can tell that [axel.name] is lying, and you surmise that it's because he doesn't know you well enough to be openly talking to you about Roxy. Perhaps if you were to try and get some more information regarding this 'Vengar' person first, you'd be able to earn his trust and then ask him about Roxy again?
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR"><![CDATA[
+	<p>
+		Picking up on the name which [axel.name] inadvertently let slip, you inquire as to who 'Vengar' is, and why Roxy being his ex makes it so that [axel.name] has to put up with her.
+	</p>
+	<p>
+		[axel.speech(You mean you don't know who Vengar is?)] [axel.name] asks, before nervously glancing around to make sure that nobody's eavesdropping on your conversation. Convinced that it's safe to talk, he steps a little closer towards you and continues, [axel.speech(I guess you'll just end up going around asking questions elsewhere if I don't explain it to you, so I'll tell you who Vengar is. He likes to keep a low profile, so please don't mention to anyone that it was me who told you about him, ok?)]
+	</p>
+	<p>
+		You can tell from the tone of [axel.name]'s voice that he's scared to be talking about this 'Vengar' character, so you quickly reassure him that any information that he shares with you will remain a secret. Put at ease by your words, the albino [axel.race] lets out a small sigh, before once again glancing around to check for eavesdroppers, and then starting to explain.
+	</p>
+	<p>
+		[axel.speech(Vengar's the leader of the largest and most dangerous criminal gang down here in Submission,)] he reveals, [axel.speech(He and his rat-morph followers extort all of the business owners down here, and those who refuse to pay protection money either have their premises vandalised, or even worse, are sometimes beaten up or even go missing. Thanks to how successful my business has been, Vengar's taken a personal interest in me, and keeps on demanding more and more protection money every month. It's gotten almost to the point where I'm going to have to shut the Gambling Den down...)]
+	</p>
+	<p>
+		[pc.speech(Can't the Enforcers do anything?)] you ask.
+	</p>
+	<p>
+		[axel.speech(I've already tried talking to them about it, but they say they don't have the manpower to guard my business, and while Vengar <i>is</i> a wanted criminal, he's proving impossible to track down and arrest,)] [axel.name] sighs, [axel.speech(So there's nothing anyone can do to help, and that's about the whole story...)]
+	</p>
+	<p>
+		It sounds as though [axel.name] doesn't want to talk about this any more, but if you wanted to get involved, you suppose you could always offer to help track down Vengar and put a stop to his extortion of Submission's business owners...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_OFFER_HELP"><![CDATA[
+	<p>
+		Deciding that you want to help [axel.name], you offer,
+		#IF(pc.isCowardly())
+			 [pc.speech(I could try to find a way to get Vengar off your back, so long as I don't have to fight anyone or anything... Where exactly is he?)]
+		#ELSEIF(pc.isBrave() && !pc.isShy())
+			 [pc.speech(Don't worry, I'll deal with Vengar, even if it means having to fight his entire gang! Just tell me where he is!)]
+		#ELSE
+			 [pc.speech(If you tell me where he is, I'll deal with Vengar for you.)]
+		#ENDIF
+	</p>
+	<p>
+		[axel.speech(Really? You'd be willing to help me out like that?)] [axel.name] asks in disbelief, [axel.speech(I wouldn't want you to risk yourself on my behalf, but if you're really serious, then you might be able to find Vengar in his gang's main hideout; they call it the 'Rat Warrens', and it's down in the South-Western tunnels here in Submission. I don't know what the password to get is, but I guess if you say you're there regarding the money I owe them, they should let you in.)]
+	</p>
+	<p>
+		Telling [axel.name] that you'll find Vengar and bring him to justice, you get ready to set off, but before you go, the albino [axel.race] says that he has some more advice for you.
+	</p>
+	<p>
+		[axel.speech(You could always try to get the Enforcers to help,)] he suggests, [axel.speech(They told me that they were unable to make a move on his hideout, but maybe you could convince them to give you some backup? Oh, and I should also warn you; if you're thinking of fighting Vengar, then you need to be on the lookout for his two rat-girl bodyguards. I've never seen them myself, but Vengar said that if I ever refused to pay him, then I'd be given to them as a plaything...)]
+	</p>
+	<p>
+		[axel.name] shudders as he recalls a disturbing memory, before shaking his head and giving you a toothy smile. [axel.speech(I really appreciate your offer of help, but please don't feel obliged to put yourself in harm's way solely on my account. If you do decide to confront Vengar, just please stay safe, ok?)]
+	</p>
+	<p>
+		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar without their assistance...
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(Please be aware that are some rough edges to this quest! It will be finished as soon as possible!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_BUSINESS -->
+	
+	<htmlContent tag="AXEL_BUSINESS"><![CDATA[
+	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
+		<p>
+			Curious to find out about any recent events at the Gambling Den, you ask [axel.name] how [axel.she] is and how [axel.her] business is going.
+		</p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+			<p>
+				[axel.speech(I'm doing well, thank you,)] [axel.name] responds, smiling happily at you as [npc.she] continues, [axel.speech(Now that I'm not having to pay Vengar every month, I'm finally starting to turn a profit on this place. I can't thank you enough for your help in resolving that whole business...)]
+			</p>
+			<p>
+				Before you can respond to this, the [axel.race] smiles at you and asks, [axel.speech(So, is there anything else I can help you with?)] 
+			</p>
+		#ELSE
+			<p>
+				[axel.speech(I'm doing well, thank you,)] [axel.name] responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
+			</p>
+			<p>
+				Before you can respond to this, the alligator-boy shakes his head and smiles at you, before apologising, [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Curious to find out about any recent events at the Gambling Den, you ask [axel.name] how he is and how his business is going.
+		</p>
+		<p>
+			[axel.speech(I'm doing well, thank you,)] [axel.name] responds, before letting out a weary sigh as he continues, [axel.speech(But if I'm being honest with you, I'm just about ready to give up on this whole business...)]
+		</p>
+		<p>
+			Before you can respond to this, the alligator-boy shakes his head and smiles at you, [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Please ignore what I just said; everything's fine with me, thanks for asking.)] 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_SUBMIT -->
+	
+	<htmlContent tag="AXEL_VENGAR_SUBMIT"><![CDATA[
+	<p>
+		[pc.speech(I've met with Vengar,)] you report, [pc.speech(and he said that if you go and submit to him in front of his gang, then he'll be able to stop all of his criminal activities.)]
+	</p>
+	<p>
+		[axel.speech(He wants me to do what? How is that going to help?)] Axel replies, nervously clasping his hands together and furrowing his eyebrows.
+	</p>
+	<p>
+		[pc.speech(He didn't go into details, but said that if his gang sees you submit, then he'll be able to put into motion other plans that will enable him to shut down his gang,)] you explain.
+	</p>
+	<p>
+		Understandably quite reluctant to agree to this plan, the albino [axel.race] initially outright refuses to go ahead and meet with Vengar under such circumstances, but after you make the point that this seems to be the only way in which the extortion can come to an end, he sighs and says, [axel.speech(Well, I suppose I could do it, but only if you come with me. I'm also going to inform the Enforcers of this plan, so if Vengar tries to kidnap me or something, then they'll hopefully come to my rescue...)]
+	</p>
+	<p>
+		Telling Axel that you're sure everything will be fine, you ask him when he'd be free to go. Once again nervously fidgeting at the prospect of doing something so risky, the flustered [axel.race] replies, [axel.speech(Well, I suppose I could go at any time. Just let me know whenever you're ready to go.)]
+	</p>
+	<p>
+		With Axel having agreed to participate in this plan, you wonder whether you should go and see Vengar right away or leave it for another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT"><![CDATA[
+	<p>
+		You tell Axel that it would be a good time to go and see Vengar, to which he wearily replies, [axel.speech(Fine... I suppose I've got to get this over and done with at some point. I really wish there had been an easier way to resolve this whole business...)]
+	</p>
+	<p>
+		Accompanying the albino [axel.race], you head out of the Gambling Den, but instead of going directly to the Rat Warrens, Axel insists on first reporting your intended movements to the Enforcers. One short detour later, and you find yourself standing outside the nearest Enforcer Post, waiting for the [axel.race]'s return. Thankfully, he's not in there for too long, and a few minutes later, the two of you are on your way to the Rat Warrens.
+	</p>
+	<p>
+		[axel.speech(That was weird,)] Axel says as the two of you make your way through Submission's tunnels, [axel.speech(It was almost as though the Enforcer I spoke to already knew that I was going to see Vengar. When I started to explain it, she asked, 'Oh, you're the one who's doing it, than?'. This whole business seems really weird... Are you sure this is the only way to stop his gang?)]
+	</p>
+	<p>
+		Reassuring Axel that this is his best chance at stopping Vengar's criminal activities, you tell him that the rat-boy mentioned something about his plan involving a way to get the Enforcers off his back. Speculating that this might be the reason for the Enforcers already being aware of what's going on, you convince the nervous [axel.race] that everything is going to be fine. As you approach the entrance to the dark tunnels which lead to the Rat Warren's entrance, however, Axel stops in his tracks and asks, [axel.speech(Do we really have to go in there? I heard that all sorts of muggers and other bad people roam these tunnels, what if we run into one of them?)]
+	</p>
+	<p>
+		[pc.speech(We'll be fine, don't worry,)] you say, reassuring Axel once again. After a few more encouraging comments, you manage to convince him to enter the dark tunnels with you, and, sure enough, the two of you manage to travel all the way to the Rat Warren's entrance without having a single hostile encounter.
+	</p>
+	<p>
+		Reaching up to knock on the huge wooden doors, you go through the same long-winded process of gaining entry to the Rat Warrens as the last time you were here. After a few minutes, you've convinced the guards that you and Axel are here to see Vengar on legitimate business, and after stepping through the inner pair of double doors, you're surprised to see the two rat-girl bodyguards, Shadow and Silence, waiting for you.
+	</p>
+	<p>
+		[shadow.speechNoEffects(So this 'ere's the 'gator we's been 'earin' so much about?)] Shadow asks, stepping forwards and quickly sliding her hand down to grope Axel's groin. As the [axel.race] recoils in shock, the black-furred rat-girl laughs, [shadow.speech(Heh-heh-heh! Yer a big 'un down there, ain't ya? 'Ow about once yer done with yer business, ya come an' 'ave some fun with me?)]
+	</p>
+	<p>
+		Blushing profusely at Shadow's lewd suggestion, Axel replies, [axel.speech(I-I'm sorry, but I'm not interested in that sort of thing. N-No offence, but can we please just get this over with?)]
+	</p>
+	<p>
+		[shadow.speech(Suit yerself,)] Shadow shrugs, before motioning to her white-furred companion, [shadow.speech(Silence 'ere will lead the way; it's only fittin' fer the two albinos ta be together! Hah!)]
+	</p>
+	<p>
+		As Axel sets off beside Silence, you follow on beside Shadow, who leans in to whisper a warning into your ear, [shadow.speech(The boss 'as got some potion he's plannin' on trickin' yer 'gator friend inta drinkin'. If ya dno't want 'im turned inta some sissy 'gator slut, then ya better stop 'im from drinkin' it.)]
+	</p>
+	<p>
+		Asking the rat-girl why she doesn't just tell Axel this, she replies, [shadow.speech(It's more fun this way, ain't it? I wanna see what ya gonna do. Hah!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_KNEEL -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_KNEEL"><![CDATA[
+	<p>
+		After a few minutes, your small party arrives at Vengar's hall, which is once again filled with the noise of at least fifty excitedly-chattering gang members. Upon seeing your arrival, their shouts and jeers raise significantly in volume, until Vengar eventually raises his hand to silence them. Calling out to you from atop his dais at the far end of the hall, the rat-boy shouts, [vengar.speechNoEffects(What ya waiting for? Come on, get over 'ere!)]
+	</p>
+	<p>
+		Walking down the length of the hall, under the piercing gaze of the gang of rats, you, Axel, and the two rat-girls eventually come to a halt in front of Vengar's throne. Looking down at you, he exclaims, [vengar.speechNoEffects(So, ya actually came?! I weren't expectin' ya to actually do it! But, now that yer here, I's wantin' ya to show everyone in this 'all that there ain't nobody in Submission who don't submit to me! You's the largest an' most powerful of all the businesses down 'ere, ain't ya?)]
+	</p>
+	<p>
+		[axel.speech(I suppose, yes,)] Axel replies, before nervously continuing and asking, [axel.speech(So what is it you want me to do? I've come here as you asked, and I suppose I'll say that I submit to you, if it will mean putting an en-)]
+	</p>
+	<p>
+		[vengar.speechNoEffects('Ey! Not so fast!)] Vengar shouts, cutting him off before he can finish his sentence, [vengar.speechNoEffects(I's called ya 'ere to show yer submission, not just say it! I's wantin' ya ta strip naked an' kneel before me! That'll show ya! Ha-ha-ha!)]
+	</p>
+	<p>
+		As the rats in the hall join in with Vengar's laughter, Shadow leans in over Axel's shoulder, and you just about hear her hissing, [shadow.speechNoEffects(Just do as he says, 'gator! If ya go through with this, the Enforcers are waitin' ta 'andle everything! Don't fuck this up fer us all right at the end!)]
+	</p>
+	<p>
+		As the laughter in the hall dies down, Vengar reiterates his command, [vengar.speechNoEffects(So, what ya waitin' for? Strip off an' kneel before me!)]
+	</p>
+	<p>
+		Although you aren't quite sure if he would have normally done this, the words which Shadow whispered to Axel seem to have convinced him to do as he's told, and with his cheeks flushing red from embarrassment, the albino [axel.race] dutifully strips naked and kneels down at the base of the dais. Holding his arms up as he addresses the hall, Vengar shouts, [vengar.speechNoEffects(See?! Ain't nobody down 'ere but me 'o could get the owner o' the Gamblin' Den ta come and do this! If any o' yous scum are thinkin' o' challenin' me leadership, remember this moment first! I's got power the likes o' which none o' yous could ever dream o' gettin'! Now, who's ya leader?!)]
+	</p>
+	<p>
+		All of the rats throughout the hall start shouting the name 'Vengar', and after a few moments the entire chamber is echoing with the thunderous chant. Slamming fists, cutlery, and the hilts of weapons on the long wooden tables, the gang members produce such an immense racket that it feels as though the very earth itself is shaking. Letting his followers chant his name for a while longer, Vengar eventually silences them with yet another simple raise of his hand. Turning to grab a bottle of rum from off of a nearby table, Vengar once again addresses Axel and asks, [vengar.speechNoEffects(Won't ya 'ave a drink before I let ya go? Now that ya shown yer submission, there ain't no reason the two o' us can't be friends!)]
+	</p>
+	<p>
+		Recalling what Shadow whispered to you upon your arrival in the Rat Warrens, you know that the drink being offered to Axel is laced with some kind of feminising transformative potion. Should you wish to stop him from being irreversibly transformed, you should do something to stop him from drinking it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_STOPPED -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_STOPPED"><![CDATA[
+	<p>
+		Not wanting Axel to be unwittingly transformed, you step forwards and tell him that you suspect the rum is spiked with a feminising potion. Hearing what it is you're saying, Vengar lets out a hearty laugh, before exclaiming, [vengar.speechNoEffects(Ain't nothin' gettin' by you, is there?! Yeah, I's put a little potion in the rum, but I's sure Axel wouldn't 'ave minded if he were ta become me sissy 'gator bitch, would ya?!)]
+	</p>
+	<p>
+		Standing up and quickly moving to get dressed again, Axel huffs, [axel.speech(I can't believe you were planning on doing that to me, after I agreed to come here and go through with all this! I'm leaving!)]
+	</p>
+	<p>
+		Finishing buttoning up his shirt, Axel turns on the spot and marches off down the hall. After you've hurried to catch up and fallen in beside him, the [axel.race] turns his head towards you and says, [axel.speech(I don't know how you did it, but thanks for spotting that, [pc.name]. Just to think, I've I'd have drunk that, I'd be... Eugh! Come on, let's get out of here!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_STOPPED_RETURN"><![CDATA[
+	<p>
+		Leaving behind the laughter and jeers from the rats assembled in the great hall, you and [axel.name] quickly start making your way back to the entrance of the Rat Warrens. Before you're even half-way there, however, Shadow and Silence catch up with you. Darting around in front of you to block your way, the black-furred rat-girl grins maniacally at the two of you, before saying, [shadow.speechNoEffects(Ya did good, 'gator. Everythin's set up now fer this gang ta be disbanded; ya just gotta bear with one more surprise, an' then it'll all be over fer ya.)]
+	</p>
+	<p>
+		[axel.speech(And how is that supposed to happen?!)] Axel asks in a frustrated tone, [axel.speech(If anything, by me coming here today, your gang seems to be even more united than ever! You've made a fool of me!)]
+	</p>
+	<p>
+		[shadow.speechNoEffects(Heh-heh-heh!)] Shadow cackles, [shadow.speechNoEffects(Yer gonna find out 'ow it all plays out soon enough! Just stay calm if anythin' <i>unexpected</i> 'appens in the tunnels...)]
+	</p>
+	<p>
+		With that, the two rat-girls run off in front of you, heading in the same direction that you are. Letting out an exasperated sigh, Axel continues forwards, remarking to you, [axel.speech(I certainly hope that I didn't suffer that embarrassment back there for nothing...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED"><![CDATA[
+	<p>
+		Thinking that it would be unwise to call out Vengar in front of his gang, you say nothing as Axel stands up and takes the bottle offered to him. Remaining silent, you simply watch and wait as he lets out a sigh, and then brings the bottle up to his lips. Tilting his head back, he takes a long swing of the liquid contained within, and then, seemingly unable to help himself, he takes another, and another, until he's downed the entire bottle. Passing the now-empty vessel back to Vengar, Axel takes in a deep breath, and says, [axel.speech(That didn't taste like-)]
+	</p>
+	<p>
+		The voice coming out of his mouth is considerably higher-pitched than it was a moment ago, which causes Axel to stop talking mid-sentence and reahc up to clasp his hands over his mouth. Before any of you can react, the alligator-boy starts to shrink before your eyes, losing a good few [units.sizes] to stand at [axel.heightValue] tall. His body, too, undergoes a rapid change, and while his torso and limbs slim down and lose muscle, his ass and hips expand, leaving him with a very androgynous figure. Letting out another gasp, Axel's hands drop down between his legs, but not before you've seen his cock rapidly shrink to a more average [axel.penisValue] in length. Finally, his chest fills out a little, leaving him with a tiny hint of breasts, while his nipples swell and grow into distinctly feminine-looking ones.
+	</p>
+	<p>
+		As the changes finish, the rats assembled in the hall burst out laughing, and you see Axel's cheeks burning in shame as Vengar walks down the steps of his dais to stand before [axel.herHim]. Holding up his hand to quieten his subordinates, the rat-boy sneers, [vengar.speechNoEffects(Lookin' good, 'gator! Them changes weren't all physical though, was they? Ya feelin' like a subby slut now, ain't ya? 'Ow would ya feel if I were ta command ya ta get down an' present yerself ta get fucked by me big, fat cock?!)]
+	</p>
+	<p>
+		Casting [axel.her] gaze to the floor, Axel lets out a pathetic little whine, confirming to everyone present that [axel.sheHas] become far more submissive as a result of drinking the potion. Stepping forwards, Vengar reaches up to grope the [axel.race]'s chest, flicking [axel.her] big nipples before dropping his hands down to start fondling [axel.her] shrunken cock. As Axel lets out a surprised gasp, the rat-boy says, [vengar.speechNoEffects('Axel' ain't a suitable name fer someone as girly as ya! 'Ow about we reverse it instead? '[axel.name]'; ya'd like bein' called that, wouldn't ya?)]
+	</p>
+	<p>
+		[axel.speech(Y-Yes...)] '[axel.name]' replies, before letting out an alarmed cry as [axel.she] suddenly feels something click into place around [axel.her] cock. Looking down, both you and [axel.name] see that Vengar has just locked a light pink chastity cage onto the [axel.race], and with another sneer, he taunts, [vengar.speechNoEffects(Ain't no need fer ya cock ta be free! Y ain't gonna be doin' any more fuckin' from now on; yer just gonna get fucked instead!)]
+	</p>
+	<p>
+		As the hall bursts out laughing, Vengar carelessly tosses the cage's key to one side. By a stroke of luck, it ends up clattering to a halt right in front of you, and so you see no reason not to quickly pick it up for potential future use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED_RETURN -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_RETURN"><![CDATA[
+	<p>
+		Not wanting this to go any further, you step forwards and tell Vengar that [axel.name] has already done enough. Hearing what it is you're saying, the rat-boy lets out a hearty laugh, before stepping back and exclaiming, [vengar.speechNoEffects(Fine! I ain't interested in fuckin' this 'gator anyways, I just wanted to show ya all 'ow submissive [axel.she] is! Hah!)]
+	</p>
+	<p>
+		Stepping forwards and taking [axel.name] by the hand, you lead [axel.herHim] away from Vengar, before telling [axel.herHim] to put [axel.her] old clothes back on. Once [axel.sheIs] dressed, you quickly exit the hall, leaving the rats' laughter and jeers behind as you make your way back to the entrance of the Rat Warrens. Before you're even half-way there, however, Shadow and Silence catch up with you. Darting around in front of you to block your way, the black-furred rat-girl grins maniacally at the two of you, before saying, [shadow.speechNoEffects(Ya did good, 'gator. Everythin's set up now fer this gang ta be disbanded; ya just gotta bear with one more surprise, an' then it'll all be over fer ya.)]
+	</p>
+	<p>
+		[axel.speech(W-Was it really necessary to do this to me?!)] [axel.name] asks, breaking [axel.her] silence, [axel.speech(A-And anyway, if anything, your gang now seems to be even more united than ever! Y-You've made a fool of me!)]
+	</p>
+	<p>
+		[shadow.speechNoEffects(Heh-heh-heh!)] Shadow cackles, [shadow.speechNoEffects(Yer gonna find out 'ow it all plays out soon enough! Just stay calm if anythin' <i>unexpected</i> 'appens in the tunnels...)]
+	</p>
+	<p>
+		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEffects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
+	</p>
+	<p>
+		Nodding her head, Silence pushes two bottles into Shadow's hands; one is a bright pink in colour, while the other, smaller one is a deep blue. Stepping forwards to hand them over to [axel.name], Shadow explains, [shadow.speechNoEffects(Me love 'ere wants ya ta 'ave these; that pink 'un will make ya fully feminine, while that other 'un will make yer cock grow back ta its old size. Anyway, we's got stuff ta get sorted, real quick like, so we'll be seein' ya!)]
+	</p>
+	<p>
+		With that, the two rat-girls run off in front of you, heading in the same direction that you are. Letting out an exasperated sigh, [axel.name] continues forwards, remarking to you, [axel.speech(I certainly wasn't expecting all this...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED_FINISH -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH"><![CDATA[
+	<p>
+		Happy to wait and watch Vengar take it a little further, you don't object as the rat-boy commands [axel.name], [vengar.speechNoEffects(Get down on all fours an' show all me mates yer tight, fuckable ass!)]
+	</p>
+	<p>
+		Doing as [axel.sheIs] told, [axel.name] drops down onto [axel.her] hands and knees, before lifting [axel.her] tail and raising [axel.her] ass. Fully exposing [axel.her] [axel.asshole+] to the all of the rats in the hall, [axel.namePos] cheeks flush bright red as they start to jeer and comment on how lewd [axel.she] is. Turning to you, Vengar asks, [vengar.speech(So, ya gonna fuck that tight asshole, or am I gonna be the one ta do it?)]
+	</p>
+	<p>
+		#IF(!axel.isAttractedTo(pc))
+			Looking over at [axel.name], you see [axel.herHim] shaking [axel.her] head as [axel.she] looks back at you. As the [axel.race] is clearly not attracted to someone as feminine as you are, it looks like the only options left to you are letting Vengar fuck [axel.herHim], or telling the rat-boy that [axel.name] has had enough and leaving with [axel.herHim]...
+		#ELSE
+			Looking over at [axel.name], you see a lewd look plastered across [axel.her] face as [axel.she] looks back at you. As the [axel.race] is clearly attracted to you, you could step forwards and have public sex with [axel.herHim]. Then again, you could also let Vengar fuck [axel.herHim], or instead tell the rat-boy that [axel.name] has had enough and leave with [axel.herHim]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_FUCK"><![CDATA[
+	<p>
+		Liking the idea of publicly fucking [axel.name], you step forwards and tell Vengar that you'll be the one dominating [axel.herHim]. With a big grin on his face, the rat-boy sneers, [vengar.speechNoEffects(Go on then, give [axel.herHim] a good fuckin'!)]  
+	</p>
+	<p>
+		Overhearing what it is you're discussing, [axel.name] looks back at you and submissively raises [axel.her] ass. Seeing how eager [axel.she] is, you drop down onto your knees behind [axel.herHim], and in front of everyone in the hall, you prepare to fuck the [axel.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_FUCK"><![CDATA[
+	<p>
+		Liking the idea of [axel.name] being publicly fucked, but not willing to do it yourself, you tell Vengar that the [axel.race] is all his. With a big grin on his face, the rat-boy sneers, [vengar.speechNoEffects(Right, time fer me ta give this slut a real good fuckin'!)]  
+	</p>
+	<p>
+		Overhearing what it is you're discussing, [axel.name] looks back at Vengar and submissively raises [axel.her] ass. Seeing how eager [axel.she] is, the rat-boy quickly drops down onto his knees behind [axel.herHim], and in front of everyone in the hall, he prepares to fuck the [axel.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_AXEL_SISSIFIED_SEX -->
+	
+	<htmlContent tag="AFTER_AXEL_SISSIFIED_SEX"><![CDATA[
+	#IF(sex.getDominantParticipants(false).containsKey(pc))
+		<p>
+			Satisfied that you've demonstrated [axel.namePos] submissiveness in front of Vengar's entire gang, you stand up and start getting your things back in order, while telling the [axel.race] to get dressed in [axel.her] old clothes. Once the two of you are done with that, you take hold of [axel.name] by the hand and prepare to take your leave...
+		</p>
+	#ELSE
+		<p>
+			Satisfied that he's demonstrated [axel.namePos] submissiveness in front of his entire gang, Vengar stands up and starts getting his clothing back in order. Stepping forwards, you tell the [axel.race] to get dressed in [axel.her] old clothes, and once [axel.sheIs] done with that, you take hold of [axel.herHim] by the hand and prepare to take your leave...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_SISSIFIED_SEX_RETURN"><![CDATA[
+	<p>
+		Having finished what you came to do, you and [axel.name] quickly exit the hall, leaving the rats' laughter and jeers behind as you make your way back to the entrance of the Rat Warrens. Before you're even half-way there, however, Shadow and Silence catch up with you. Darting around in front of you to block your way, the black-furred rat-girl grins maniacally at the two of you, before saying, [shadow.speechNoEffects(Ya did good, 'gator. Everythin's set up now fer this gang ta be disbanded; ya just gotta bear with one more surprise, an' then it'll all be over fer ya.)]
+	</p>
+	<p>
+		[axel.speech(W-Was it really necessary to do this to me?!)] [axel.name] asks, breaking [axel.her] silence, [axel.speech(A-And anyway, if anything, your gang now seems to be even more united than ever! Y-You've made a fool of me!)]
+	</p>
+	<p>
+		[shadow.speechNoEffects(Heh-heh-heh!)] Shadow cackles, [shadow.speechNoEffects(Yer gonna find out 'ow it all plays out soon enough! Just stay calm if anythin' <i>unexpected</i> 'appens in the tunnels...)]
+	</p>
+	<p>
+		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEffects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
+	</p>
+	<p>
+		Nodding her head, Silence pushes two bottles into Shadow's hands; one is a bright pink in colour, while the other, smaller one is a deep blue. Stepping forwards to hand them over to [axel.name], Shadow explains, [shadow.speechNoEffects(Me love 'ere wants ya ta 'ave these; that pink 'un will make ya fully feminine, while that other 'un will make yer cock grow back ta its old size. Anyway, we's got stuff ta get sorted, real quick like, so we'll be seein' ya!)]
+	</p>
+	<p>
+		With that, the two rat-girls run off in front of you, heading in the same direction that you are. Letting out an exasperated sigh, [axel.name] continues forwards, remarking to you, [axel.speech(I certainly wasn't expecting all this...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_RETURN_NEXT -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_NEXT"><![CDATA[
+	<p>
+		It only takes a couple more minutes for the two of you to reach the main entrance to the Rat Warrens. Opening the doors for you and [axel.name], the rats on guard duty make a couple of derogatory comments as they let you back out into the tunnels of Submission. Once out there, [axel.name] turns to you and says, [axel.speech(I suppose we should get back as quickly as possible. I sure hope that 'Shadow' person didn't mean anything when she said something unexpected might happen...)]
+	</p>
+	<p>
+		Agreeing with the [axel.race], you set off on your way back to the Gambling Den, but you aren't able to get very far at all before the familiar voice of Shadow suddenly echoes out from around the next corner, [shadow.speech(Don't ya wave that fuckin' thing in me face! I's on yer side, remember?!)]
+	</p>
+	<p>
+		Stopping in your tracks, you and [axel.name] watch as the black-furred rat-girl appears from around the next corner. Much to your surprise and alarm, you see that she's not only accompanied by Silence, but also by a large group of heavily armed and armoured Enforcers. Immediately catching sight of you, these Enforcers raise their weapons and shout, [style.speechMasculine(This is SWORD! Show us your hands! Get down on the ground! Do it! Do it now!)]
+	</p>
+	<p>
+		[shadow.speech(Does it fuckin' look like these two are part o' the gang?!)] Shadow interjects, before turning to a large German-shepherd-boy and snarling, [shadow.speech(Tell yer trigger-happy goons ta stand down; that [axel.race] is the one 'o's bein' extorted!)]
+	</p>
+	<p>
+		Barking out an order for the SWORD Enforcers to leave you alone, the muscular leader steps forwards and scowls at Shadow, [style.speechMasculineStrong(Catching Vengar red-handed is all we needed. You've upheld your end of the bargain, so you and your girlfriend here can join these two in getting out of our way. Constable Adams! Take these four back the way we came!)]
+	</p>
+	<p>
+		One of the SWORD Enforcers, who you assume must be Constable Adams, hurries forwards and prepares to do as he's told. Wanting to find out what's going on, and thinking it best not to get in the way of this group of heavily-armed Enforcers, you decide to comply and allow yourself to be escorted to the nearest Enforcer post...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_RETURN_ENFORCERS -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_ENFORCERS"><![CDATA[
+	<p>
+		Along with [axel.name], Shadow, and Silence, you step to one side of the tunnel and allow the group of SWORD Enforcers to pass, before joining Constable Adams in travelling through the tunnels towards the nearest Enforcer post. As you set off on your way, you suddenly hear a series of loud explosions coming from the direction of the Rat Warrens, and Shadow snarkily remarks, [shadow.speech(Sounds like Vengar's about ta find out wot 'appens when ya try an' fuck me an' Silence over.)]
+	</p>
+	<p>
+		[axel.speech(So these Enforcers are here because of you?)] [axel.name] asks.
+	</p>
+	<p>
+		[shadow.speech('Course they is! Me an' Silence are gettin' a fat reward fer providin' all the juicy details on the sorts o' illegal shit Vengar an' 'is gang 'ave been gettin' up ta,)] Shadow snickers, [shadow.speech(This is wot 'e gets fer treatin' me an' Silence like trash!)]
+	</p>
+	<p>
+		Although you've now discovered the reason behind the unexpected SWORD raid, you decide that it would be best to continue letting Constable Adams escort you to the nearest Enforcer post. After all, if you were to leave now, you could end up being put on some kind of wanted list. Clearly thinking the same thing as you, [axel.name] asks, [axel.speech(We're not getting into any kind of trouble, are we?)]
+	</p>
+	<p>
+		[style.speechMasculine(No,)] the Enforcer sighs, [style.speechMasculine(We're only interested in the gang members. You'll be free to go after you've given a statement.)]
+	</p>
+	<p>
+		After travelling a little further down the tunnels, you soon arrive at the nearest Enforcer post, where you discover that 'giving a statement' involves filling out a seemingly never-ending amount of paperwork. Thankfully, Claire is there to lend you a hand, but even with her help, it takes almost three hours before you're declared free to leave. With Shadow and Silence having received their reward and departed a long time ago, you find yourself [pc.stepping] out into Submission with just [axel.name] for company. Turning towards you and flashing you a smile, the [axel.race] says, [axel.speech(Now that that's all done with, let's head back to my place. I still need to give you your reward for helping me out with all of this.)]
+	</p>
+	<p>
+		Deciding that it would be best to do as [axel.name] says, you prepare to set off and accompany [axel.herHim] back to the Gambling Den...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_ENFORCERS_END"><![CDATA[
+	<p>
+		At the side of [axel.name], you make your way back through Submission and soon find yourself once again entering the Gambling Den. Your troubles aren't over quite yet, however, for as you [pc.step] inside the building, you see the German-shepherd-boy who was leading the SWORD raid waiting for you.
+	</p>
+	<p>
+		[style.speechMasculineStrong(You took your damn time,)] he growls as he steps over to stand in front of you and [axel.name]. Thrusting a handful of papers into the [axel.race]'s hands, he declares, [style.speechMasculineStrong(As compensation for the damage caused to your business by Vengar's gang, you're being given a slaver license, as well as ownership of Vengar and one of his gang members called 'Murk'. Some horse-girl calling herself 'Epona' took charge of Murk, while the rat-girl you've got running your shop's taken charge of Vengar.)]
+	</p>
+	<p>
+		[axel.speech(Wait, but I don't really want-)] [axel.name] starts to object, but [axel.sheIs] swiftly cut off by the SWORD Enforcer.
+	</p>
+	<p>
+		[style.speechMasculineStrong(I don't care what you want. This is what you've got. Oh, also, we've placed selling restrictions on your new slaves, as we might need evidence from them later,)] the German-shepherd-boy states, before striding over to the door and calling out after him, [style.speechMasculineStrong(This concludes our involvement with you.)]
+	</p>
+	<p>
+		As the door swings shut after the Enforcer, you turn and ask [axel.name] what [axel.sheIs] going to do with the two rat-boys, seeing as he doesn't have any real interest in owning slaves. Letting [axel.her] shoulders slump, the [axel.race] lets out a very heavy sigh, before saying, [axel.speech(Well, it sounds like I'm stuck with them, so I'll just let Roxy and Epona look after them... Anyway, let me get you your reward for all of your help!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_RETURN_FINISH -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_FINISH"><![CDATA[
+	<p>
+		Telling [axel.name] that you'll wait here for [axel.herHim], you watch as [axel.she] hurries over to the door of [axel.her] nearby office and slips inside. Just a few moments later, [axel.she] returns, before handing over a bag of [#SPECIAL_PARSE_0] flames to you. With a huge grin on [axel.her] face, the [axel.race] says,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
+			 [axel.speech(I can't thank you enough for all of your help, [pc.name]! I know that I ended up getting, well... this new body of mine, but the truth is, I actually really like it... I don't think I'm going to be hurrying to change back any time soon.)]
+		#ELSE
+			 [axel.speech(I can't thank you enough for all of your help, [pc.name]! Not only did you finally put an end to Vengar's extortion, but you also saved me from being transformed by him!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(axel.isAttractedTo(pc))
+			Telling [axel.name] that you were happy to help, you prepare to set off on your way once again. Before you can leave, however, the [axel.race] steps up close to you and suggests, [axel.speech(If you ever want to get some more 'rewards' out of me, then just let me know...)]
+		#ELSE
+			Telling [axel.name] that you were happy to help, you prepare to set off on your way once again. Before you can leave, however, the [axel.race] smiles and says, [axel.speech(Really, thank you again, [pc.name]. You've no idea how much you've helped me out by doing all this!)]
+		#ENDIF
+	</p>
+	<p>
+		With your work here done, you step away from [axel.name] and wonder where to head off to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The wide, spacious atrium of the Gambling Den is filled with the laughter and chatter of at least a hundred customers. Looking around, you see all manner of races, not just the usual alligator and rat-morphs which make up most of Submission's population.
+	</p>
+	<p>
+		Lining the walls of this vast hall are countless slot machines, in front of which sit the vast majority of the people in this area. Down the middle of the hall, numerous tables and chairs have been set out, and it's here that the rest of the establishment's patrons are drinking and playing casual gambling games with one another.
+	</p>
+	<p>
+		Although most of the slot machines are occupied, there are still quite a few which have been left vacant, and you could easily walk up to one and have a go, if you so desired.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GAMBLING -->
+	
+	<htmlContent tag="GAMBLING"><![CDATA[
+	<p>
+		In one corner of the Gambling Den's central atrium, several pairs of glass doors have been propped open to grant easy access to a huge, adjoining hall, which is dedicated solely to the immensely popular game of dice poker. At least fifty tables are scattered around the hall's floor, and although each one only seats two players, there are far more than a hundred people present, as around most of the tables, large crowds of onlookers have gathered around to watch ongoing games.
+	</p>
+	<p>
+		The hall is split into three sections, with each one decorated in copper, silver, or gold. The copper section is by far the largest, and from the nearby signs, you gather that these are the tables at which the betting is lowest. The silver section is roughly half the size of the copper one, and is a place where gamblers are willing to bet considerable sums of money on the outcome of their games. Finally, the gold section is the smallest of all three, and is reserved for players willing to bet huge sums of money.
+	</p>
+	<p>
+		Although the vast majority of tables are occupied, you can spot at least one in each section which has just one player sitting at it. If you wanted to, you could walk up to one of these tables and sit down for a game, or you could walk up to one of the nearby signs to read about the rules of dice poker.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GAMBLING_RULES -->
+	
+	<htmlContent tag="GAMBLING_RULES"><![CDATA[
+	<p>
+		Deciding to read the rules of dice poker before starting a game, you walk up to the nearest informative sign, and briefly scan over it...
+	</p>
+	<p style='text-align:center;'>
+		<b>[axel.name]'s Rules For Dice Poker</b><br/>
+		1. Both players place the buy-in amount to start a game. This is [style.moneyFormat(500, span)] for [style.colourCopper(copper)] tables, [style.moneyFormat(2500, span)] for [style.colourSilver(silver)], and [style.moneyFormat(10000, span)] for [style.colourGold(gold)].<br/>
+		2. Both players roll five dice each.<br/>
+		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>
+		4. After betting is done, each player selects as many of their dice as they want to re-roll.<br/>
+		5. The players re-roll their chosen dice.<br/>
+		6. The ranking of each player's dice is compared to find the winner, who then takes all of the money in the pot.
+	</p>
+	<p style='text-align:center;'>
+		<b>Results ranking (from winning to losing)</b><br/>
+		1. Five of a kind: Five dice of the same value. (e.g. 33333)<br/>
+		2. Four of a kind: Four dice of the same value. (e.g. 55551)<br/>
+		3. High straight: Consecutive numbers starting at two. (e.g. 23456)<br/>
+		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)<br/>
+		5. Three of a kind: Three dice of the same value. (e.g. 44415)<br/>
+		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)<br/>
+		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)<br/>
+		8. Pair: Two dice of the same value. (e.g. 22415)<br/>
+		9. Runt: All dice of different values. (e.g. 13456)<br/><br/>
+		
+		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:<br/>
+		Player A: 33661<br/>
+		Player B: 22115<br/>
+		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 18 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
+		
+		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PREGNANCY_ROULETTE_MALE_STALLS -->
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MALE_STALLS"><![CDATA[
+	<p>
+		Set into the far right corner of the Gambling Den's main atrium, there's a wide, open archway, which leads into a small room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. Beneath this icon, you read the words 'Pregnancy Roulette: Male breeder room'.
+	</p>
+	<p>
+		Seeing as there's nobody around to stop you, you decide to step into the room and take a closer look at what lies beyond. Moving forwards, you peek around the side of the canvas screen, and find yourself looking upon a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"><![CDATA[
+	<p>
+		You immediately recognise the padded opening, and as you take a look at it, you see the familiar leather bench positioned right on the other side. Remembering the last time you participated in 'pregnancy roulette' you know that the 'mother' lies on that bench, with her rear half exposed to the room in order to be bred.
+	</p>
+	<p>
+		With the room currently deserted, there's not much to do in here, so you turn around and decide to go elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"><![CDATA[
+	<p>
+		Stepping into the room to take a closer look, you see that this opening in the wall has been padded on all sides, and, looking through it, you see a leather bench positioned right on the other side. You realise that this must be where the target of 'pregnancy roulette' lies, with her rear half exposed to the room, ready to be fucked by the breeders.
+	</p>
+	<p>
+		With the room currently deserted, there's not much to do in here, so you turn around and decide to go elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PREGNANCY_ROULETTE_FUTA_STALLS -->
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_FUTA_STALLS"><![CDATA[
+	<p>
+		Set into the far left corner of the Gambling Den's main atrium, there's a wide, open archway, which leads into a small room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. Beneath this icon, you read the words 'Pregnancy Roulette: Futa breeder room'.
+	</p>
+	<p>
+		Seeing as there's nobody around to stop you, you decide to step into the room and take a closer look at what lies beyond. Moving forwards, you peek around the side of the canvas screen, and find yourself looking upon a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few [unit.lSizes] to the left of those, at about waist-height, there's a round opening in the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

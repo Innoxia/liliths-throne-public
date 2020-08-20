@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+	<value>200</value>
+	<determiner><![CDATA[a]]></determiner>
+	<name><![CDATA[leather belt]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[leather belts]]></namePlural>
+	<description><![CDATA[A plain, unisex leather belt, complete with metal buckle.]]></description>
+	<physicalResistance>0</physicalResistance>
+	<femininity>ANDROGYNOUS</femininity>
+	<slot>HIPS</slot>
+	<rarity>COMMON</rarity>
+	
+	<imageName>leather_belt.svg</imageName>
+	
+	<clothingSet/>
+	<imageEquippedName/>
+	<enchantmentLimit/>
+	<effects/>
+
+	<blockedPartsList>
+	  <blockedParts>
+		
+		<displacementType>REMOVE_OR_EQUIP</displacementType>
+		
+		<clothingAccessRequired/>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+		<concealedSlots/>
+		
+	  </blockedParts>
+	</blockedPartsList>
+	
+	<incompatibleSlots/>
+	
+	<primaryColours values="LEATHER"/>
+	<primaryColoursDye values="ALL"/>
+	<secondaryColours values="ALL_METAL"/>
+	<secondaryColoursDye values="ALL_METAL"/>
+	<tertiaryColours/>
+	<tertiaryColoursDye/>
+	
+	<itemTags>
+	  <tag>SOLD_BY_NYAN</tag>
+	</itemTags>
+	
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather belt around [npc.her] waist, before fastening the buckle.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather belt around [npc2.namePos] waist, before fastening the buckle.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] tightly [npc.verb(wrap)] the leather belt around [npc2.namePos] waist, before fastening the buckle.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] leather belt and [npc.verb(slip)] it off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] leather belt and [npc.verb(slip)] it off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(unbuckle)] [npc2.namePos] leather belt and [npc.verb(pull)] it off.]]>
+    </otherRough>
+  </displacementText>
+  
+  
+</clothing>

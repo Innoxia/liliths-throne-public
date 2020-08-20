@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		Set back from one of the main streets, and with Dominion's canal running close behind it, there's an expansive lumber yard, with a couple of large warehouses sitting in the middle of it. An impressive wrought-iron sign over the entrance to this area declares it be 'Argus's DIY Depot', while smaller, wooden signs attached to the supporting posts reveal that the warehouses are open from 
+		#IF(game.isExtendedWorkTime())
+			 [style.colourMinorGood([units.time(6)]-[units.time(22)])].
+		#ELSE
+			 [style.colourMinorBad([units.time(6)]-[units.time(22)])].
+		#ENDIF
+	</p>
+	<p>
+		Looking across at the warehouses, you see that one is quite clearly signposted as being open to the general public, while the other is apparently just for supplying small businesses. Huge posters advertising cans of paint, ceramic tiles, tools, timber, and all manner of miscellaneous building supplies have been plastered all over the walls of these warehouses, letting passersby know the sort of things which can be purchased here.
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			As there's an arcane storm raging overhead, your surroundings are almost completely deserted, with only the occasional demon to be seen walking down the nearby street.
+			#IF(game.isExtendedWorkTime())
+				 As the warehouses are [style.colourGood(currently open)], you wonder how many people are inside due to legitimate business, and how many are just making use of the building to take shelter from the storm. If you wanted to, you could always head inside the one signposted as being open to the public and do some shopping for DIY or building supplies.
+			#ELSE
+				 Unfortunately, due to the time of day, the warehouses are [style.colourBad(currently closed)], so if you wanted to do any shopping for DIY or building supplies, you'll have to return at a more sociable hour.
+			#ENDIF
+		#ELSE
+			#IF(game.isExtendedWorkTime())
+				As the warehouses are [style.colourGood(currently open)], you could always head inside the one signposted as being open to the public and do some shopping for DIY or building supplies.
+			#ELSE
+				Unfortunately, due to the time of day, the warehouses are [style.colourBad(currently closed)], so if you wanted to do any shopping for DIY or building supplies, you'll have to return at a more sociable hour.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		The first thing anyone notices upon entering this warehouse is the large, colourful sign hanging from its high ceiling, which bears the exclamation, '<i>Welcome to Argus's DIY Depot!</i>'
+	</p>
+	<p>
+		In stark contrast to this cheery message, the rest of the scene which greets new customers is a distinctly boring one, consisting of a series of a dozen or so checkouts, several rows of trolleys, and a rather uninspired collection of ordinary garden plants. Taking a brief look around, you notice that less than half of these checkouts are currently staffed, which is causing a small queue of customers to build up at each one. In addition to the employees working behind these tills, there's a solitary security guard standing watch near the front doors, who seems to be doing little else but casting suspicious glances at everyone who walks past him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The interior of 'Argus's DIY Depot' is just as dull to the casual shopper as one would expect. Drab, grey concrete flooring perfectly matches the monotone steel roof high up ahead, while the goods stacked up on the tall shelves would be best described as being distinctly unremarkable. From boxes of screws to flooring tiles, arcane light bulbs to stacks of wooden planks, there really isn't anything here that threatens to hold your interest for more than a fraction of a second.
+	</p>
+	<p>
+		As you continue forwards, your progress is regularly impeded by groups of slow-moving shoppers, and occasionally also by the odd shopping trolley inconsiderately positioned so as to be blocking half of the aisle. All of this, combined with the unbearably repetitive background music being piped through the store's loudspeakers, makes you think that prolonged exposure to this environment would surely be enough to drive anybody completely insane.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_PAINT_OPTIONS"><![CDATA[
+	<p>
+		Informative signs are helpfully positioned throughout the warehouse, and after consulting the nearest one, you discover that the 'Premium-grade Supplies' are kept near the front entrance. This would undoubtedly be the place to go if you were intending to buy the 'Purple-star' paint which Helena specified. Then again, if you wanted to save some money, and are prepared to run the risk of annoying Helena, you could head over to the sides of the warehouse, where the 'Standard-grade Supplies' are marked as being kept...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_PAINT_PURCHASED"><![CDATA[
+	<p>
+		<i>As you've already purchased a can of golden paint, you should return to Helena and deliver it to her as soon as possible.</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SHELVING_PREMIUM -->
+	
+	<htmlContent tag="SHELVING_PREMIUM"><![CDATA[
+	<p>
+		Tall shelving units have been lined up to form a solid wall in front of you, and you see that each one of them is stocked full of almost every type of building supply imaginable. While the products on display don't look particularly special, their prices are listed as being anything up to ten times what they ordinarily should be. The reason for these astronomical costs seems to be that these shelves are labelled as containing 'Premium-grade supplies'. 
+	</p>
+	<p>
+		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+			Taking a quick look around, you see that while there are quite a few customers browsing these shelves, not a single one looks like they know what they're doing. Perhaps there's a reason why these supplies don't seem to be attracting the attention of the more experienced shoppers... 
+		#ELSE
+			Taking a quick look around, you see that there are quite a few customers browsing these shelves. If popularity is any measure, then perhaps these supplies are worth their steep price after all...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHELVING_PREMIUM_PRICE"><![CDATA[
+	<p>
+		A few of the shelves in this area are stocked with nothing but 'Purple-star' branded cans of paint. Heading over to the section which has been set aside for metallic colours, you quickly locate the can of golden paint [style.colourGood(which Helena requested)]. Just as it was in the brochure, it's marked up as costing [style.colourGold([#SPECIAL_PARSE_0] flames)], which is significantly more expensive than the 'Bronze-star' brand...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHELVING_PAINT_PURCHASED"><![CDATA[
+	<p>
+		<i>As you've already purchased a can of golden paint for Helena, there's nothing more for you to do here...</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SHELVING_STANDARD -->
+	
+	<htmlContent tag="SHELVING_STANDARD"><![CDATA[
+	<p>
+		Each side of the warehouse is lined with a series of tall shelves, and as you stand before them, you see that they're stocked full of all manner of miscellaneous building supplies. While the prices displayed next to each item seem to be very reasonable, there are several small signs reminding you that these 'Standard-grade supplies' are not the finest quality goods which are on offer, and that if you want the very best, you should head back to browse over the 'Premium-grade supplies' located near to the entrance.
+	</p>
+	<p>
+		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+			Taking a quick look around, you see that not only are there lots of people browsing the goods in this section, but there are also several of them who look to be experienced shoppers. Perhaps there's a reason why these people are over here instead of at the more expensive 'Premium-grade supplies' section... 
+		#ELSE
+			Taking a quick look around, you see that there are a lot of customers browsing these shelves. It seems as though most people either don't care about getting the 'Premium-grade supplies', or simply can't afford them...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHELVING_STANDARD_PRICE"><![CDATA[
+	<p>
+		A few of the shelves in this area are stocked with nothing but 'Bronze-star' branded cans of paint. Heading over to the section which has been set aside for metallic colours, you quickly locate a can of golden paint. Just as it was in the brochure, it's marked up as costing [style.colourBronze([#SPECIAL_PARSE_0] flames)], which, while being significantly cheaper than the 'Purple-star' brand, is also [style.colourBad(not the one which Helena requested)]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PAINT_PURCHASED -->
+	
+	<htmlContent tag="PAINT_PURCHASED"><![CDATA[
+	#IF(pc.getRace().equals(RACE_DEMON))
+		<p>
+			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. As the customers notice your approach, and see that you're [pc.a_race], they quickly move aside to let you move to the front. The employee behind the till immediately stops serving the customer she was dealing with, and offers, [style.speechFeminine(Good [style.afternoon], [pc.miss], please let me take that for you.)]
+		</p>
+		<p>
+			Doing as the helpful cashier says, you hand the can of paint over to her, along with the [#SPECIAL_PARSE_0] flames required to purchase it. Once the transaction is complete, you head over towards the warehouse's exit, ignoring the apologetic remarks of several customers who hurry to move out of your way.
+		</p>
+	#ELSE
+		<p>
+			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. After what seems to take an eternity, you finally reach the front of the line, whereupon the employee behind the till drones in a monotonous tone, [style.speechFeminine(Good [style.afternoon], [pc.miss], please let me take that for you.)]
+		</p>
+		<p>
+			Doing as the bored cashier says, you hand the can of paint over to her, along with the [#SPECIAL_PARSE_0] flames required to purchase it. Once the transaction is complete, you head over towards the warehouse's exit, ignoring the suspicious glare which the security guard throws your way.
+		</p>
+	#ENDIF
+	<p>
+		With the double doors right ahead of you, you wonder whether you should head back out into the streets of Dominion right away, or head back into the store and look around a little more before leaving...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BUILDING_SUPPLIES -->
+	
+	<htmlContent tag="BUILDING_SUPPLIES"><![CDATA[
+	<p>
+		The shelves near the back of the warehouse seem to have been set aside for stockpiling all sorts of building materials. Timber planks, ceramic tiles, metal piping, and all other sorts of miscellaneous supplies can be found here.
+	</p>
+	<p>
+		Looking around, you see that there aren't many people looking around in this section. Most shoppers apparently seem to be more interested in the goods on offer in other parts of the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE -->
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		Although its frosted glass windows run along the entire front length of the warehouse, the manager's office seems to have only the one entrance, which takes the form of the wooden door that you're currently standing in front of. Etched onto a polished brass plate that's fixed to the wall beside this door, you read the words: <i>'Argus's Office: No admittance to the public'</i>
+	</p>
+	<p>
+		As you have no business with Argus, you don't see any reason to knock on the door of his office, and so there's nothing for you to do except turn around and head back into the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		While quite basic, the toilets provided for the store's customers are well maintained, and are far cleaner than you'd expect of an average public restroom. You count just four stalls in here, but this limited number doesn't seem to be an issue,
+		#IF(pc.hasCompanions())
+			 as other than you and [com.name],
+		#ELSE
+			 as other than yourself,
+		#ENDIF
+		 there isn't a single person in here. Directly opposite the stalls, there are a series of mirrors and sinks, one of which has been marked as out of order.
+	</p>
+	<p>
+		As you walk past the open stalls, you see that the wall separating the two at the far end has had a glory hole cut into it. While it's been taped over on one side, there's really nothing that would be stopping someone from simply peeling this barrier off and making use of it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_USE -->
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		Stepping into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet. After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_WASH -->
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM"><![CDATA[
+	<p>
+		Deciding that it would be fun to get serviced at the glory hole, you peel off the tape that's covering it up, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		 With the restroom still completely deserted, you have little choice but to patiently wait for a stranger to turn up and choose to service you through the glory hole...
+	</p>
+	<p>
+		Five minutes later, you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger chooses to immediately kneel down
+		#IF(npc.isMute())
+			 and push [npc.her] open mouth up to the hole. With an impatient tap on the wall to let you know that [npc.sheIs] there, the stranger prepares to orally service you.
+		#ELSE
+			 and call out through the hole,
+			#IF(pc.hasPenis())
+				 [npc.speech(Come on then! Put your cock through here and I'll give it a good suck!)]
+			#ELSEIF(pc.hasVagina())
+				 [npc.speech(Come on then! Push your pussy up against the hole and I'll eat you out!)]
+			#ELSE
+				 [npc.speech(Come on then! Give me something to suck already!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about receiving oral from some random stranger, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly step up to the glory hole,
+		#IF(pc.hasPenis())
+			 preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSEIF(pc.hasVagina())
+			 preparing to have your [pc.pussy+] licked by the stranger on the other side.
+		#ELSE
+			 preparing to have your genderless mound licked by the stranger on the other side.
+		#ENDIF
+	</p>
+	<p>
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		#IF(!npc.isMute())
+			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
+			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+			|[npc.speech(~Mmm!~ Oh yeah! Let's get started!)]
+			|[npc.speech(Oh yeah, babe! I'll show you how much of a slut I am!)])]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to who just orally serviced you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB"><![CDATA[
+	<p>
+		Feeling horny and eager to pleasure some stranger's cock, you peel off the tape that's covering up the glory hole, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		 With the restroom still completely deserted, you have little choice but to patiently wait for a stranger to turn up and have you service them...
+	</p>
+	<p>
+		Five minutes later, and you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger immediately steps up to it and starts shifting their clothing out of the way. Just a moment later, and their [npc.cockDescriptive(true)] is being pushed through the hole. Before you can make a move, [npc.name]
+		#IF(npc.isMute())
+			 impatiently taps the wall, encouraging you to get started on sucking [npc.her] cock...
+		#ELSE
+			#IF(npc.isSelfish())
+				#IF(npc.isFeminine())
+					 barks out a sharp command,
+				#ELSE
+					 lets out a deep growl,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on, slut, get to work!)]
+				|[npc.speech(Start sucking, slut!)]
+				|[npc.speech(Come on, you dirty slut, get started already!)])]
+			#ELSE
+				#IF(npc.isFeminine())
+					 sensually [npc.moansVerb],
+				#ELSE
+					 lets out a deep grunt,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on then, show me what you can do!)]
+				|[npc.speech(Get your lips wrapped around my cock!)]
+				|[npc.speech(Come on, get started already!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about servicing some random stranger's cock, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly kneel down in front of the glory hole,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 before opening your mouth and leaning in towards [npc.namePos] [npc.cock+].
+		#ELSE
+			 but as your mouth is blocked, all you can prepare to do is give [npc.name] a handjob.
+		#ENDIF
+	</p>
+	<p>
+		Hearing you drop down in front of [npc.herHim], [npc.name] lets out an eager [npc.moan], and as [npc.her] cock starts to stiffen, [npc.she] impatiently bucks [npc.her] [npc.hips] up against the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning to yourself as you hear [npc.name] letting out a satisfied [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the stranger's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to whose cock you just serviced, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

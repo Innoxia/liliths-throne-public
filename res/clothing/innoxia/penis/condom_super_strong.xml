@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>500</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[dragon-branded condom]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[dragon-branded condoms]]></namePlural>
+    <description><![CDATA[A sheath-shaped rubbery barrier device, designed to fit over a penis and prevent any semen from entering the body of a sexual partner. According to the packaging, this brand is <i>'Guaranteed never to break!'</i>]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>PENIS</slot>
+    <rarity>RARE</rarity>
+
+    <imageName>condom_super_strong_unequipped.svg</imageName>
+
+	<clothingSet/>
+    <imageEquippedName>condom_equipped.svg</imageEquippedName>
+    <enchantmentLimit/>
+	
+	<effects>
+        <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_CONDOM" secondaryModifier="ARCANE_BOOST" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours>
+		<colour>CLOTHING_GOLD</colour>
+    </primaryColours>
+    <primaryColoursDye values="ALL_WITH_METALS"/>
+    <secondaryColours>
+		<colour>CLOTHING_BLACK</colour>
+	</secondaryColours>
+    <secondaryColoursDye values="ALL_WITH_METALS"/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+
+    <itemTags>
+      <tag>CONDOM</tag>
+      <tag>SOLD_BY_RALPH</tag>
+      <tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>REQUIRES_PENIS</tag>
+      <tag>TRANSPARENT</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tear)] open the packet and [npc.verb(roll)] the condom down the length of [npc.her] [npc.penis].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tear)] open the packet and [npc.verb(roll)] the condom down the length of [npc2.namePos] [npc2.penis].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(tear)] open the packet and [npc.verb(force)] the condom down the length of [npc2.namePos] [npc2.penis].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] condom and [npc.verb(throw)] it away.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] condom and [npc.verb(throw)] it away.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(pull)] off [npc2.namePos] condom and [npc.verb(throw)] it away.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- TRADER -->
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_START"><![CDATA[
+	<p>
+		Once again deciding to enter Roxy's store, you scan the interior for any sign of the crass owner or her latest rat-boy acquisition. Before you see them, however, you're alerted to their presence by the unmistakable sound of Roxy's grating laughter coming from the other side of the shop. Approaching the source of the noise, you suddenly see the rat-girl stand up from behind her counter, puffing away on a cigarette. Grinning down at who you assume must be Vengar, she teases, [roxy.speech(That's right, keep on lickin' yer lips! Ya ain't gonna be gettin' any more o' me cunt juices until yer willin' ta do exactly what I say! I'll make ya regret ever fuckin' those sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_ADDICTED"><![CDATA[
+	<p>
+		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer back ta get another taste o' me cunt, ya know ya gotta pay a thousand flames. Me little slave 'ere 'as already got me cunt all wet an' drippin' from excitement. Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_BEATEN_ADDICTION"><![CDATA[
+	<p>
+		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer back ta get another taste o' me cunt, ya know ya gotta pay a thousand flames! Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya?)]
+	</p>
+	<p>
+		Having rid yourself of your addiction to Roxy's girlcum, you tell the rat-girl that you have absolutely no interest in paying any money to eat her out. Raising one eyebrow, the foul-mouther rat-girl jeers, [roxy.speech(Oh, you's fuckin' gone an' cured yeself, 'ave ya? Well, 'ow about I offer ya the chance to earn an item by eatin' me out again? Come on, ya know yer cravin' a taste o' me wet little cunt again, ain't ya?! Me little slave 'ere sure seems ta love it! Heh-heh-heh!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_NOT_ADDICTED"><![CDATA[
+	<p>
+		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer here lookin' fer some hot little rat pussy ta get a taste of, me little slave 'ere 'as already got me cunt all wet an' drippin' from excitement. Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya? Remember, ya get a free item from me shop as an extra reward!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_END"><![CDATA[
+	<p>
+		Before you can reply, Roxy's 'little slave' stands up from behind the counter, and is, of course, the familiar figure of Vengar. Steadying himself against the counter with one hand, he doesn't notice who you are at first as he angrily addresses Roxy, [vengar.speech(I ain't ya slave, bitch! You ain't gonna get away with thi-)] 
+	</p>
+	<p>
+		[roxy.speech(You want me ta fuckin' gag ya?!)] Roxy screeches, before turning to slap Vengar across the face. Before he can react, she grabs the ring on the front of the rat-boy's slave collar and yanks downwards, forcing him to his knees. Glaring down at her insolent ex-boyfriend, she continues, [roxy.speech(That fuckin' lizard said I can do whatever I want with ya, includin' transformin' ya, so if ya don't wanna be turned into a sissy rat-slut, ya betta never even <i>think</i> about talkin' back ta me! Ain't that right, [pc.name]?)]
+	</p>
+	<p>
+		Having been present at the moment when Axel gave Roxy permission to transform Vengar, you confirm that what she's saying is the truth. Recognising your voice, Vengar peers over the top of the counter, before exclaiming, [vengar.speech(You?! This is all your faul-)] 
+	</p>
+	<p>
+		Having a habit of interrupting people, Roxy once again cuts Vengar off by roughly shoving him to the ground. Raising her paw, she steps on his face, snarling, [roxy.speech(Shut yer fuckin' mouth! Yer ain't gonna speak ta me customers without me express permission, ya understand, slave?!)]
+	</p>
+	<p>
+		After hearing a muffled groan of agreement, the rat-girl turns back towards you, cigarette still in mouth, and asks, [roxy.speech(So, wot ya wantin' this time?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+
+	<htmlContent tag="TRADER"><![CDATA[
+	<p>
+		Adjoining the main atrium of the Gambling Den, you spot an open-fronted shop, with the sign 'Roxy's Fun Box' fixed to the wall above the opening. The interior is filled with rows of shelves, holding all manner of different goods, but despite quite obviously being open for business, the shop floor looks to be completely deserted. Wanting to investigate further, you step forwards into the empty store, before starting to look around for any sign of the owner, 'Roxy'.
+	</p>
+	<p>
+		The first thing that strikes you as you enter is the fact that the interior smells strongly of cigarette smoke; a clear indication that the currently-absent owner must be a very heavy smoker indeed. Although there's a counter prominently running along half the length of the far wall, you can't see anyone standing behind it, and, recalling Axel's warning that you should watch yourself around Roxy, you carefully start walking up and down the aisles, on the lookout for any sign of trouble.
+	</p>
+	<p>
+		As you're taking a look at some of the goods on offer, you suddenly hear movement coming from behind the shop's counter, and, turning to face it, you see a rather scruffy-looking rat-girl standing up, before yawning and stretching her arms up above her head. The very next thing she does after waking from her nap is grab a cigarette from under the counter, before putting it in her mouth and inhaling a lungful of smoke.
+	</p>
+	<p>
+		Using this opportunity to take a good look at the rat-girl, the first thing you notice about her is the series of claw-shaped scars running down over one side of her face. A black eye patch conceals whatever damage this old wound has done to her eye, which gives her a rather ominous appearance. The second thing you notice about this brown-furred rat-girl is the fact that she's wearing an abundance of gold jewellery, with every possible piercing that you can imagine being home to some form of gaudy ornament or another.
+	</p>
+	<p>
+		As she catches sight of you with her good eye, the rat-girl sneers, before unleashing one of the most profane greetings you've ever heard, [roxy.speech(Heh, someone's finally fuckin' come to buy some o' my shit. Well, that'd fuckin' better be what yer here for. The last cunt that came in here just fuckin' stood around like some gormless twat, an' I had to fuckin' scream at 'im to get 'im to fuck off. You don't look like a complete fuckin' idiot, so I'm hopin' yer gonna buy somethin', an' not waste my fuckin' time.)]
+	</p>
+	<p>
+		At this point, the foul-mouthed rat-girl smirks at you, before inhaling deeply on her cigarette once again. Blowing out a huge cloud of white smoke, she lets a cackling, grating laughter burst out from between her lips. Placing both of her hands on the counter in front of her, she leans forwards and, cigarette hanging from her mouth, continues, [roxy.speech(The name's Roxy. You got a problem with any o' my prices, or what I've got fer sale, you fuckin' keep it to yerself, ya got me?)]
+	</p>
+	<p>
+		[pc.speech(Right...)] you say, taken a little off-guard by just how crass Roxy is. [pc.speech(I'm [pc.name].)]
+	</p>
+	<p>
+		[roxy.speech(Heh. You ain't like most of the cunts that wander in 'ere. I can tell there's somethin' real special about yer,)] Roxy grins, before beckoning you closer with one hand. Deciding to follow along for now, you step towards the counter, allowing her to continue, [roxy.speech(I don't offer this to any ol' cunt what wanders in here, but I got a real fuckin' special deal fer you. Not gonna give yer the whole story, cos I ain't got time fer that shit, but a couple o' years ago I used to wander 'round that shithole they call Dominion, an' I came across this real fuckin' hung horse-boy runnin' a shop up there. Well, he showed me his cock, fuckin' huge it was, an' said he'd sell me his stuff real cheap if I'd blow 'im right then and there. Well, there ain't no way I was sayin' no to that!)] Roxy bursts out laughing yet again; the sudden, grating noise causes you to flinch. Inhaling on her cigarette, Roxy carelessly blows the smoke all over you as she continues with her story, [roxy.speech(So anyways, I'd keep on goin' back to suck his fuckin' huge cock and get a real good price on the shit he was sellin'. Anyways, the whole point o' this story is that it gave me an idea, y'see?)]
+	</p>
+	<p>
+		Roxy pauses for a moment, and, hoping that she's finally getting to the point, you ask, [pc.speech(What idea was that?)]
+	</p>
+	<p>
+		[roxy.speech(Ay! Don't fuckin' interrupt!)] she berates you, before once again bursting out in her abrasive laughter. Before you can react to her rude reply, she continues, [roxy.speech(Now that I've got my own shop and shit, I was thinkin' I'd do the same as that fuckin' horse-boy, but make it even better! Instead of just givin' yer some kinda shitty discount, if yer wanna come lick my cunt 'til I cum, I'll give yer a fuckin' free item from my shop!)]
+	</p>
+	<p>
+		[pc.speech(What kind of free item?)] you ask, immediately regretting asking your question, as it causes Roxy to let out yet another of her infuriatingly annoying laughs.
+	</p>
+	<p>
+		[roxy.speech(I got a couple o' dice here. Yer come down here and let me plant my fuckin' sweet cunt on yer face, and I'll roll these to decide on a random fuckin' item from my shop. Whattya say?)]
+	</p>
+	<p>
+		Before you can answer, Roxy steps back from the counter, pulling up the skirt of her dress with one hand to reveal the fact that she's not wearing any underwear. As you look down at the sudden movement, she reaches down with her free hand to spread her exposed pussy, blowing out yet another cloud of smoke as she teases you, [roxy.speech(Come on, I can tell yer want a taste o' my fuckin' cunt! All yer gotta do is get yer fuckin' tongue buried in here an' get me ta cum. Easiest item you'll ever earn!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the one-eyed rat-girl leaning on the counter over on the far side of the room, puffing away on a cigarette. Just a moment later, she sees you entering her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer back to buy some o' this shit I got on offer?)]
+	</p>
+	<p>
+		[pc.speech(Hi, Roxy,)] you reply, [pc.speech(I just wanted to see what you've got in stock.)]
+	</p>
+	<p>
+		[roxy.speech(Well, seein' as it's you, I don't mind yer takin' a look around fer a bit. Oh, and remember, if yer want a free item, my special offer's still on!)] Roxy says, before bursting out in her abrasive laughter. [roxy.speech(All yer gotta do is come lie behind my counter fer an hour, so I can plant my sweet fuckin' cunt on yer face!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_ADDICT"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the one-eyed rat-girl leaning on the counter over on the far side of the room, puffing away on a cigarette. Just a moment later, she sees you entering her shop, and calls out, [roxy.speech(Hey, [pc.name]! Yer got a craving fer my fuckin' cunt, haven't yer?)]
+	</p>
+	<p>
+		[pc.speech(Hi, Roxy,)] you reply, trying not to reveal the fact that you're desperate for another taste of her pussy.
+	</p>
+	<p>
+		[roxy.speech(Heh! Don't yer try an' hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
+	</p>
+	<p>
+		[pc.speech(Yes...)] you admit, your craving for Roxy's girlcum getting the better of you.
+	</p>
+	<p>
+		[roxy.speech(Heh! Just as I fuckin' planned!)] Roxy suddenly laughs, making you flinch. [roxy.speech(It's gonna cost yer a thousand flames to get another taste o' my sweet fuckin' nectar. I gotta make the cost o' that item I gave yer back!)]
+	</p>
+	<p>
+		You can't help but let out a desperate whine as you imagine yourself getting another taste of Roxy's girlcum. Perhaps it would be worth handing over a thousand flames to get your fix...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_BEATEN_ADDICTION"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the one-eyed rat-girl leaning on the counter over on the far side of the room, puffing away on a cigarette. She sees you enter her shop, and calls out, [roxy.speech(Hey, [pc.name]! Yer got a craving fer gettin' addicted to my fuckin' cunt again, eh?)]
+	</p>
+	<p>
+		[pc.speech(Hi, Roxy,)] you reply, ignoring her question.
+	</p>
+	<p>
+		[roxy.speech(Heh! Don't try to hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
+	</p>
+	<p>
+		[pc.speech(No, I'm not,)] you reply, having rid yourself of your addiction to Roxy's girlcum.
+	</p>
+	<p>
+		[roxy.speech(Heh! Yer can't hold out for long!)] Roxy suddenly laughs, making you flinch. [roxy.speech(I'll give yer another free item if yer agree to come get another taste o' my sweet fuckin' nectar. Come on, we both know yer love it!)]
+	</p>
+	<p>
+		You can't help but let out a sigh as you remember the last time you serviced Roxy's pussy. Despite ridding yourself of the addiction that followed, you still find a small part of yourself wanting to do it all again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START_ADDICT"><![CDATA[
+	<p>
+		Desperate for another taste of Roxy's girlcum, you place a thousand flames on the counter in front of her, before pleading, [pc.speech(Please! I need another taste! Please, let me lick your pussy!)]
+	</p>
+	<p>
+		[roxy.speech(Heh! I can't believe this fuckin' plan of mine actually worked!)] Roxy exclaims, letting out another of her abrasive laughs as she scoops up your money. Stepping to one side, she then lifts up the hinged part of the counter, before grinning at you. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
+	</p>
+	<p>
+		You eagerly do as the rat-girl says, and hurry forwards behind the counter. As you pass by her, she lets out a big puff of cigarette smoke, before reaching down and giving your [pc.ass+] a shap slap. Letting out another grating laugh, she lets the counter-top slam shut behind you and says, [roxy.speech(Yer just fuckin' desperate fer another taste o' my cunt, ain't yer? Now hurry up and get down already. I'm eager ta get this started!)]
+	</p>
+	<p>
+		Once again doing as Roxy says, you quickly lie down on your back behind the counter. Looking up, you see Roxy hike up her skirt, before stepping over your face and sinking down onto her knees. With her [roxy.pussy+] now hovering just above your face, Roxy looks down into your eyes and sneers, [roxy.speech(You'd better make this fuckin' good, y'hear? Get that fuckin' tongue of yours nice 'n deep! Yer did a good job at servicing my cunt the last time, so you'd better put the same fuckin' amount of effort into it now!)] 
+	</p>
+	<p>
+		Before you can say anything in response, the one-eyed rat-girl lets her legs give out from under her, planting her dripping-wet cunt down firmly onto your face with an audible squelch. Thanks to the fact that her pussy is already soaking wet, her girlcum immediately starts drooling out all over your mouth, and, desperately eager to get started with eating her out, you part your [pc.lips] and greedily drive your [pc.tongue+] up between her [roxy.labia+]. Roxy's juices soon start flowing into your open mouth, and as you set about kissing and licking the rat-girl's [roxy.pussy], you find yourself frantically swallowing them down.
+	</p>
+	<p>
+		[roxy.speechNoEffects(Heh! Yer real and truly addicted to me sweet cunt, ain't yer?)] Roxy asks, [roxy.speech(That bitch up in Dominion sure knew 'er stuff; yer gonna be cunt-lickin' slave fer as long as I want yer!)]
+	</p>
+	<p>
+		You can't help but let out a desperate, muffled moan into Roxy's [roxy.pussy] as she taunts you. The addictive nature of her girlcum is already having a profound effect on your mind, and you can't help but continue hungrily licking and kissing her pussy as you seek to satisfy yourself.
+	</p>
+	<p>
+		[roxy.speech(Yer gonna do a real good job o' gettin' me ta cum at this rate! Keep on gettin' that tongue o' yers in deep, yeah, like that!)] Roxy commands, and, absolutely desperate to swallow down more of her addictive girlcum, you set about doing just that...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START"><![CDATA[
+	<p>
+		[pc.speech(Ok, I'll accept your deal in exchange for a free item,)] you say.
+	</p>
+	<p>
+		[roxy.speech(Heh! I fuckin' knew yer wouldn't be able to resist my cunt!)] Roxy exclaims, letting out another of her abrasive laughs as she steps to one side and lifts up the hinged part of the counter. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
+	</p>
+	<p>
+		You do as the rat-girl says, and step forwards behind the counter. As you pass by her, she lets out a big puff of cigarette smoke, before reaching down and giving your [pc.ass+] a firm squeeze. Letting out another grating laugh, she lets the counter-top slam shut behind you and says, [roxy.speech(Oh yeah, that's a sweet fuckin' ass yer got there! Now get down.)]
+	</p>
+	<p>
+		Once again doing as Roxy says, you lie down on your back behind the counter. Looking up, you see Roxy hike up her skirt, before stepping over your face and sinking down onto her knees. With her [roxy.pussy+] now hovering just above your face, Roxy looks down into your eyes and sneers, [roxy.speech(You'd better make this fuckin' good, y'hear? Get that fuckin' tongue of yours nice 'n deep! I ain't had my cunt serviced fer a fuckin' while now, so you'd better put some fuckin' effort into it!)] 
+	</p>
+	<p>
+		Before you can say anything in response, the one-eyed rat-girl lets her legs give out from under her, planting her dripping-wet cunt down firmly onto your face with an audible squelch. Thanks to the fact that her pussy is already soaking wet, her girlcum immediately starts drooling out all over your mouth, and, eager to get started with eating her out, you part your [pc.lips] and drive your [pc.tongue+] up between her [roxy.labia+]. Roxy's juices soon start flowing into your open mouth, and as you set about kissing and licking the rat-girl's [roxy.pussy], you find yourself swallowing them down.
+	</p>
+	<p>
+		As you gulp down her girlcum, you suddenly start to feel a strange, overwhelming desire to taste more and more of Roxy's [roxy.pussy]. Desperately craning your neck up in order to force your [pc.lips] against the rat-girl's dripping [roxy.pussy], you start frantically kissing, sucking, and licking every part of her delicious [roxy.pussy] that's in range of your mouth. As you do this, you suddenly become aware of the fact that the rat-girl is laughing up above you, [roxy.speechNoEffects(Heh-heh-heh! That's it! Fuckin' drink it down! ~Mmm!~ Yes!)]
+	</p>
+	<p>
+		Eager to do as she says, you gulp down Roxy's juices, before thrusting your tongue up into her [roxy.pussy+]. As her slimy girlcum slides down your throat, you suddenly find yourself with a desperate craving for even more, and, reaching up to grab her thighs, you pull the rat-girl's cunt down onto your face. As you start to hungrily lick up as much of her girlcum as you possibly can, she continues to laugh, [roxy.speechNoEffects(Heh! That's right, lick it all up! Tastes good, don't it?)]
+	</p>
+	<p>
+		[pc.speechNoEffects(~Mmm!~ ~Mmmm!~)] you reply, your words muffled into the rat-girl's [roxy.pussy+].
+	</p>
+	<p>
+		[roxy.speechNoEffects(Heh! Probably a bit late now, but I should let yer know somethin'. I went and bought one o' those special potions from some bitch up in Dominion. 'Makes yer girlcum real fuckin' addictive,' she said, 'Just get some cunt to eat yer out, and they'll be beggin' to be yer permanent pussy licker,' she said. From the way yer actin', it's lookin' like she was tellin' the truth!)]
+	</p>
+	<p>
+		You can't help but let out a desperate, muffled moan into Roxy's [roxy.pussy] as she reveals this. The addictive nature of her girlcum is already having a profound effect on your mind, and even as she reveals the fact that you've been tricked into drinking her addictive juices, you can't help but continue hungrily licking and kissing her pussy.
+	</p>
+	<p>
+		[roxy.speechNoEffects(Fuckin' looks like you're well an' truly addicted to my cunt now, ain't yer?)] Roxy laughs, [roxy.speech(Yer gonna do a real good job o' gettin' me ta cum at this rate! Keep on gettin' that tongue o' yers in deep, yeah, like that!)]
+	</p>
+	<p>
+		Absolutely desperate to swallow down more of her addictive girlcum, you set about doing as the rat-girl commands...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TRADER_REPLY_NO -->
+	
+	<htmlContent tag="TRADER_REPLY_NO"><![CDATA[
+	<p>
+		You really aren't interested in letting this obnoxious rat-girl sit on your face for an hour, and, taking a step away from the counter, you tell her as much, [pc.speech(I only came in to take a look at what you had for sale. I'm not interested in your deal.)]
+	</p>
+	<p>
+		[roxy.speech(Alright, alright, no need to be such a fuckin' cunt about it,)] Roxy huffs, lowering her skirt and leaning down on the counter once more. Taking a deep drag of her cigarette, she blows the smoke out in your general direction, grinning mischievously at you as she says, [roxy.speech(Yer still ain't as bad as most o' the stupid twats that wander in 'ere, so if yer ever change yer mind, just let me know, ok? Remember, yer get a free fuckin' item outta it!)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll keep that in mind,)] you say, before moving off to look around the store.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_ROXY_SEX -->
+	
+	<htmlContent tag="AFTER_ROXY_SEX"><![CDATA[
+	<p>
+		As Roxy starts to stand up, you desperately sit up to try and get one last lick of her pussy. Looking down to see you doing this, the rat-girl lets out another of her annoying laughs, before stepping to one side and denying you a final taste of her juices. [roxy.speech(Come on now! That's fuckin' enough! Get back to the other side o' the counter!)]
+	</p>
+	<p>
+		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Ashamed at having been tricked into getting addicted to Roxy's girlcum, you start to take your leave, but the rat-girl calls out to stop you, [roxy.speech(Ay! Not so fuckin' fast! Yer want yer free item, don't ya?)]
+	</p>
+	<p>
+		[pc.speech(Oh, yeah...)] you reply, turning back and stepping towards the counter.
+	</p>
+	<p>
+		[roxy.speech(Don't yer worry! I'll be gettin' the value o' this back soon enough!)] Roxy laughs, [roxy.speech(Yer gonna come crawlin' back fer another taste o' my cunt before long, and it's gonna cost yer next time!)]
+	</p>
+	<p>
+		With that, Roxy leans down to fetch a couple of dice from beneath the counter, before grinning at you. [roxy.speech(Right. I'm gonna roll these, and the item yer gonna get is based on the total value, yer get me? Two or three, yer get a vanilla water, then four or five, it's one o' those fruit boxes the bat-morphs fuckin' love. Then, if yer lucky enough to get over that, it's a mother's milk for six an' seven, a bottle o' rum for eight or nine, a fuckin' burger for ten or eleven, and, if yer really, <i>really</i> fuckin' lucky, yer get a bottle o' angel's tears for a twelve.)]
+	</p>
+	<p>
+		[pc.speech(Alright,)] you say, [pc.speech(let's see then.)]
+	</p>
+	<p>
+		[roxy.speech(Fuckin' calm down! I'm gettin' to it!)] Roxy laughs, grabbing the dice and preparing to roll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX_DICE_ROLL"><![CDATA[
+	<p>
+		Roxy rolls the dice onto the counter, and you both watch as they quickly come clattering to a halt. You can't help but get the feeling that there's something a little unnatural in the way that they tumble across the counter-top, but, not being certain about it, you decide not to say anything.
+	</p>
+	<p>
+		The first dice stops on a <b>[#SPECIAL_PARSE_0]</b>, and the second dice stops on a <b>[#SPECIAL_PARSE_1]</b>, giving a total value of <b>[#SPECIAL_PARSE_2]</b>.
+	</p>
+	<p>
+		[roxy.speech(Well, would yer fuckin' look at that!)] Roxy exclaims, looking down at the result of her roll. [roxy.speech(That fuckin' gets yer [#SPECIAL_PARSE_3]!)]
+	</p>
+	<p>
+		As the obnoxious rat-girl throws the promised item to you, another of her abrasive, cackling laughs bursts out from her mouth, [roxy.speech(Heh-heh-heh! I'll be makin' the value o' that back soon enough! Yer gonna get some real fuckin' nice cravings fer my cunt before long, and when yer do, yer gonna come crawlin' back here beggin' fer another taste o' my fuckin' sweet nectar. I think a thousand flames is a fair price, so make sure yer bring yer cash with yer when the cravings kick in! Heh!)]
+	</p>
+	<p>
+		Taking the [#SPECIAL_PARSE_4] that Roxy just gave to you, you turn around and prepare to take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_ROXY_SEX_ADDICT -->
+	
+	<htmlContent tag="AFTER_ROXY_SEX_ADDICT"><![CDATA[
+	<p>
+		As Roxy starts to stand up, you desperately sit up to try and get one last lick of her pussy. Looking down to see you doing this, the rat-girl lets out another of her annoying laughs, before stepping to one side and denying you a final taste of her juices. [roxy.speech(Come on now! That's fuckin' enough! Get back to the other side o' the counter!)]
+	</p>
+	<p>
+		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Having got your fix of Roxy's addictive girlcum, you turn to take your leave, and as you head off, the rat-girl calls out to you, [roxy.speech(Make sure to bring more o' yer cash when yer get more cravings fer my sweet fuckin' cunt!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGAR -->
+	
+	<htmlContent tag="VENGAR"><![CDATA[
+	<p>
+		You ask to see Vengar. He is insubordinate if not sissy.
+	</p>
+	<p>
+		Roxy says you can pay her to fuck him or have him fuck you. If not sissy, he is complaining, leading Roxy to threaten him with sissification and no girlcum again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGAR_SEX_DOM"><![CDATA[
+	<p>
+		You pay to dominantly fuck Vengar.
+	</p>
+	<p>
+		#IF(vengar.isFeminine())
+			Vengar submissively agrees to get fucked by you. Roxy tells you that her cage is unlocked, so take it off if you want.
+		#ELSE
+			Vengar objects, but gets put in his place by Roxy.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGAR_SEX_SUB"><![CDATA[
+	<p>
+		You pay to have Vengar dominantly fuck you.
+	</p>
+	<p>
+		#IF(vengar.isFeminine())
+			Roxy takes off her cage and tells Vengar that she can hump you if she wants.
+		#ELSE
+			Vengar readily accepts, happy to get a chance to give you some payback.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_VENGAR_SEX -->
+	
+	<htmlContent tag="AFTER_VENGAR_SEX_AS_DOM"><![CDATA[
+	<p>
+		You finish fucking Vengar. Roxy laughs and tells you that if you want to fuck [vengar.herHim] again, you just need to pay up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_VENGAR_SEX_AS_SUB"><![CDATA[
+	<p>
+		You finish being fucked by Vengar. Roxy laughs and tells you that if you want to be a subby bitch again, you just need to pay up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGAR_SISSIFY -->
+	
+	<htmlContent tag="VENGAR_SISSIFY"><![CDATA[
+	<p>
+		You convince Roxy to sissify Vengar. She forces him to drink a potion, which transforms him into a submissive rat-girl.
+	</p>
+	<p>
+		Roxy then gets Vengar to humiliate herself, before locking her small cock in a cage and inserting a buttplug into her ass. Vengar obeys Roxy's every command, much to her delight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

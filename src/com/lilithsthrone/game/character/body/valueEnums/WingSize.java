@@ -1,29 +1,28 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.95
- * @version 0.2.1
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum WingSize {
 
-	ZERO_TINY(0, false, "tiny", Colour.GENERIC_SIZE_ONE),
-	ONE_SMALL(1, false, "small", Colour.GENERIC_SIZE_TWO),
-	TWO_AVERAGE(2, true, "average-sized", Colour.GENERIC_SIZE_THREE),
-	THREE_LARGE(3, true, "large", Colour.GENERIC_SIZE_FOUR),
-	FOUR_HUGE(4, true, "huge", Colour.GENERIC_SIZE_FIVE);
+	ZERO_TINY(0, "tiny", PresetColour.GENERIC_SIZE_ONE),
+	ONE_SMALL(1, "small", PresetColour.GENERIC_SIZE_TWO),
+	TWO_AVERAGE(2, "average-sized", PresetColour.GENERIC_SIZE_THREE),
+	THREE_LARGE(3, "large", PresetColour.GENERIC_SIZE_FOUR),
+	FOUR_HUGE(4, "huge", PresetColour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;
 	private String descriptor;
 	private Colour colour;
-	private boolean sizeAllowsFlight;
 
-	private WingSize(int value, boolean sizeAllowsFlight, String descriptor, Colour colour) {
+	private WingSize(int value, String descriptor, Colour colour) {
 		this.value = value;
-		this.sizeAllowsFlight = sizeAllowsFlight;
 		this.descriptor = descriptor;
 		this.colour = colour;
 	}
@@ -55,9 +54,5 @@ public enum WingSize {
 
 	public Colour getColour() {
 		return colour;
-	}
-
-	public boolean isSizeAllowsFlight() {
-		return sizeAllowsFlight;
 	}
 }

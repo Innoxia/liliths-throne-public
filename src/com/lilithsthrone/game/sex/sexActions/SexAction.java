@@ -11,18 +11,20 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public abstract class SexAction implements SexActionInterface {
@@ -115,10 +117,10 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainSelf() {
-		if(Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
+		if(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
 				&& this.getActionType()!=SexActionType.PREPARE_FOR_PARTNER_ORGASM
 				&& this.getActionType()!=SexActionType.SPECIAL) {
-			if(Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+			if(Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.FOUR_HIGH;
 				
 			} else {
@@ -138,18 +140,23 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
-		if(!Sex.isMasturbation()) {
-			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING
+		if(this.isSadisticAction() && !Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
+			return ArousalIncrease.ZERO_NONE;
+		}
+		
+		if(!Main.sex.isMasturbation()) {
+			if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING
 					&& this.getActionType()!=SexActionType.PREPARE_FOR_PARTNER_ORGASM
 					&& this.getActionType()!=SexActionType.SPECIAL) {
-				if(Sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				if(Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 					return ArousalIncrease.FOUR_HIGH;
 					
 				} else {
 					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
 					for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-						if((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
-								|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1)) {
+						if(sArea!=null
+								&& ((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
+										|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1))) {
 							return ArousalIncrease.TWO_LOW;
 						}
 					}
@@ -171,6 +178,96 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public abstract String getDescription();
+
+	private static String formatFlavour(String input) {
+		return "<p style='text-align:center; margin:0; padding:0;'><i>"
+				+ input
+			+ "</i></p>";
+	}
+	
+	@Override
+	public String getFluidFlavourDescription(GameCharacter performing, GameCharacter receiving) {
+		if((this.getPerformingCharacterAreas().contains(SexAreaPenetration.TONGUE) || this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH)) && performing.isPlayer()) {
+			
+			if(this.getTargetedCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+				FluidFlavour flavour = receiving.getGirlcumFlavour();
+				if(flavour!=FluidFlavour.GIRL_CUM) {
+					return formatFlavour(UtilText.parse(receiving,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.pussy] tastes like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getTargetedCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+				FluidFlavour flavour = receiving.getCumFlavour();
+				if(flavour!=FluidFlavour.CUM) {
+					return formatFlavour(UtilText.parse(receiving,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.cock] tastes like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+				FluidFlavour flavour = receiving.getMilkFlavour();
+				if(flavour!=FluidFlavour.MILK) {
+					return formatFlavour(UtilText.parse(receiving,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.nipples] taste like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+				FluidFlavour flavour = receiving.getMilkCrotchFlavour();
+				if(flavour!=FluidFlavour.MILK) {
+					return formatFlavour(UtilText.parse(receiving,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.crotchNipples] taste like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+			}
+			
+		} else if((this.getTargetedCharacterAreas().contains(SexAreaPenetration.TONGUE) || this.getTargetedCharacterAreas().contains(SexAreaOrifice.MOUTH)) && receiving.isPlayer()) {
+			
+			if(this.getPerformingCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+				FluidFlavour flavour = performing.getGirlcumFlavour();
+				if(flavour!=FluidFlavour.GIRL_CUM) {
+					return formatFlavour(UtilText.parse(performing,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.pussy] tastes like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getPerformingCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+				FluidFlavour flavour = performing.getCumFlavour();
+				if(flavour!=FluidFlavour.CUM) {
+					return formatFlavour(UtilText.parse(performing,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.cock] tastes like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+				FluidFlavour flavour = performing.getMilkFlavour();
+				if(flavour!=FluidFlavour.MILK) {
+					return formatFlavour(UtilText.parse(performing,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.nipples] taste like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+				
+			} else if(this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+				FluidFlavour flavour = performing.getMilkCrotchFlavour();
+				if(flavour!=FluidFlavour.MILK) {
+					return formatFlavour(UtilText.parse(performing,
+										UtilText.returnStringAtRandom(
+												"[npc.NamePos] [npc.crotchNipples] taste like <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span>!",
+												"The taste of <span style='color:"+flavour.getColour().toWebHexString()+";'> "+flavour.getName()+"</span> fills your mouth!")));
+				}
+			}
+		}
+		
+		return "";
+	}
 	
 	@Override
 	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction) {
@@ -185,13 +282,13 @@ public abstract class SexAction implements SexActionInterface {
 	/**
 	 * To be overridden to add extra fetishes on top of the automatically-generated ones in getFetishes() and getFetishesForTargetedPartner().
 	 */
-	public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
+	public List<Fetish> getExtraFetishes(GameCharacter character) {
 		return null;
 	}
 	
 	public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
 //		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
-			GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
+			GameCharacter characterTarget = Main.sex.getTargetedPartner(characterPerformingAction);
 			
 			characterFetishes = new HashMap<>();
 			characterFetishesForPartner = new HashMap<>();
@@ -204,6 +301,11 @@ public abstract class SexAction implements SexActionInterface {
 					characterFetishes.get(characterPerformingAction).add(f);
 				}
 			}
+			if(getExtraFetishes(characterTarget)!=null) {
+				for(Fetish f : getExtraFetishes(characterTarget)) {
+					characterFetishesForPartner.get(characterPerformingAction).add(f);
+				}
+			}
 			
 //			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
 //				return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
@@ -214,7 +316,7 @@ public abstract class SexAction implements SexActionInterface {
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
 			}
 			
-			if(Sex.isPublicSex()) {
+			if(Main.sex.isPublicSex()) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
 			}
@@ -233,6 +335,9 @@ public abstract class SexAction implements SexActionInterface {
 						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
 						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
 						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SADIST);
+						if(this.getParticipantType()==SexParticipantType.SELF) {
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_MASOCHIST);
+						}
 						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_MASOCHIST);
 						break;
 					case SUB_EAGER:
@@ -252,7 +357,12 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			List<CoverableArea> cummedOnList = this.getAreasCummedOn(characterPerformingAction, characterTarget);
+			List<CoverableArea> cummedOnList = null;
+			try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
+				cummedOnList = this.getAreasCummedOn(characterPerformingAction, characterTarget);
+			} catch(Exception ex) {
+			}
+			
 			if(cummedOnList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
@@ -268,6 +378,14 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case BREASTS: case NIPPLES:
 							if(characterTarget.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+							}
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+							break;
+						case BREASTS_CROTCH: case NIPPLES_CROTCH:
+							if(characterTarget.getBreastCrotchRawMilkStorageValue()>0) {
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
 							}
@@ -304,7 +422,10 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			cummedOnList = this.getAreasCummedOn(characterTarget, characterPerformingAction);
+			try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
+				cummedOnList = this.getAreasCummedOn(characterTarget, characterPerformingAction);
+			} catch(Exception ex) {
+			}
 			if(cummedOnList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
@@ -321,6 +442,14 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case BREASTS: case NIPPLES:
 							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+							}
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+							break;
+						case BREASTS_CROTCH: case NIPPLES_CROTCH:
+							if(characterPerformingAction.getBreastCrotchRawMilkStorageValue()>0) {
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
 							}
@@ -357,7 +486,6 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
@@ -372,6 +500,14 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case BREAST: case NIPPLE:
 								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+									characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+								}
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+								break;
+							case BREAST_CROTCH: case NIPPLE_CROTCH:
+								if(characterTarget.getBreastCrotchRawMilkStorageValue()>0) {
 									characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
 									characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
 								}
@@ -453,6 +589,14 @@ public abstract class SexAction implements SexActionInterface {
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 								break;
+							case BREAST_CROTCH: case NIPPLE_CROTCH:
+								if(characterPerformingAction.getBreastCrotchRawMilkStorageValue()>0) {
+									characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+									characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+								}
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+								break;
 							case THIGHS:
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
 								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
@@ -516,7 +660,7 @@ public abstract class SexAction implements SexActionInterface {
 									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), characterPerformingAction, entry.getValue(), !characterPerformingActionFetishes));
 						}
 						characterFetishes.get(characterPerformingAction).addAll(
-								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
+								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Main.sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
 						
 					} else {
 						if(this.getParticipantType()==SexParticipantType.SELF) {
@@ -524,7 +668,7 @@ public abstract class SexAction implements SexActionInterface {
 									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), characterPerformingAction, entry.getValue(), !characterPerformingActionFetishes));
 						}
 						characterFetishesForPartner.get(characterPerformingAction).addAll(
-								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
+								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Main.sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
 					}
 				}
 			}

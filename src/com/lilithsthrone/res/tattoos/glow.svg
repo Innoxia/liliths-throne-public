@@ -1,97 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="svg4164"
-   viewBox="0 0 256 256"
-   sodipodi:docname="glow.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     id="namedview126"
-     showgrid="false"
-     inkscape:zoom="0.921875"
-     inkscape:cx="290.78989"
-     inkscape:cy="57.371935"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg4164" />
-  <style
-     id="style3">
-    svg { cursor: default;}
-  </style>
-  <defs
-     id="defs4166">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient951">
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="0"
-         id="stop947" />
-      <stop
-         style="stop-color:#ffd5d5;stop-opacity:0"
-         offset="1"
-         id="stop949" />
-    </linearGradient>
-    <marker
-       style="overflow:visible"
-       id="Arrow1Lstart"
-       refX="0.0"
-       refY="0.0"
-       orient="auto">
-      <path
-         transform="scale(0.8) translate(12.5,0)"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         id="path4233" />
-    </marker>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient951"
-       id="radialGradient953"
-       cx="127.90244"
-       cy="127.13878"
-       fx="127.90244"
-       fy="127.13878"
-       r="123.30025"
-       gradientTransform="matrix(1,0,0,1.007776,0,-0.98863453)"
-       gradientUnits="userSpaceOnUse" />
-  </defs>
-  <metadata
-     id="metadata4169">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <ellipse
-     style="opacity:1;fill:url(#radialGradient953);fill-opacity:1;stroke:none;stroke-width:4.28100014;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
-     id="path939"
-     cx="127.90244"
-     cy="127.13878"
-     rx="123.30025"
-     ry="124.25903" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" cursor="default" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="linearGradient951">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#ffd5d5" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="radialGradient953" cx="127.902" cy="127.139" r="123.3" fx="127.902" fy="127.139" gradientTransform="matrix(1 0 0 1.00778 0 -.989)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient951"/>
+    </defs>
+    <ellipse cx="127.902" cy="127.139" fill="url(#radialGradient953)" paint-order="stroke fill markers" rx="123.3" ry="124.259"/>
 </svg>

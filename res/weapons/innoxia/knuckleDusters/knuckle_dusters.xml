@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>100</value> 
+		<value>500</value> 
 		
 		<melee>true</melee>
 		
@@ -30,7 +30,7 @@
 		
 		<imageEquippedName/>
 		
-		<damage>8</damage> 
+		<damage>15</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -60,6 +60,8 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_UNARMED</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 		</itemTags>
 		
 	</coreAttributes>

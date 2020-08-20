@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- OUTSIDE -->
+	
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house. While the surrounding buildings are of an impressive size, you reckon that you could fit at least two or three of them into the plot which your [lilaya.relation(pc)]'s dwelling occupies.
+	</p>
+	<p>
+		With your demonic [lilaya.relation(pc)] happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please. If you wanted to enter the house right now, all you'd need to do is knock on the front door, and you can be sure that Lilaya's cat-girl maid, Rose, will respond in mere moments.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_DADDY_PACKAGE"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open.
+	</p>
+	<p>
+		[rose.speech(Welcome back, [pc.name],)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house, [rose.speech(While you were out, a package arrived for you.)]
+	</p>
+	<p>
+		As you forwards into the impressive entrance hall, the cat-girl maid retrieves a small box, wrapped in brown packaging paper, from off of the top of a nearby table. Smiling at you one last time, Rose hands the package to you, before excusing herself and quickly hurrying off
+		#IF(game.isExtendedWorkTime())
+			 in the direction of your [lilaya.relation(pc)]'s laboratory.
+		#ELSE
+			 upstairs to go back to sleep.
+		#ENDIF
+	</p>
+	<p>
+		Opening the package, you discover that it contains a spell book and several scrolls, along with a small note which reads;
+	</p>
+	<p style='text-align:center;'><i>
+		Hi [pc.name],<br/>
+		Here are the scrolls and spell book which I promised to send to you. Hope this letter finds you well, and look forwards to seeing you again soon!<br/>
+		Love,<br/>
+		[daddy.Dad]
+	</i></p>
+	<p>
+		Smiling to yourself as you finish reading the note, you put the contents of the package into your inventory, before discarding the now-empty box and packaging into a nearby waste-paper bin.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open.
+	</p>
+	<p>
+		[rose.speech(Welcome back, [pc.name],)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house.
+	</p>
+	<p>
+		Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you. Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off 
+		#IF(game.isExtendedWorkTime())
+			 in the direction of your [lilaya.relation(pc)]'s laboratory.
+		#ELSE
+			 upstairs to go back to sleep.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Immaculately-clean red carpet runs down the centre of the wide corridor which you're currently [pc.walking] down, while the walls are decorated in a pale, light-blue wallpaper that sports a series of delicate white floral patterns. Fine landscape paintings and portraits of beautiful demons are hung up on the walls at regular intervals, while all manner of antique curiosities are perched upon the many wooden cabinets which line the sides of these hallways.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			Large glass windows flood the corridor with an impressive amount of natural daylight, and you notice that Rose seems to be taking care to leave some of them open every now and again, making sure that the air in the house always feels fresh.
+		#ELSE
+			As it's currently night time, heavy fabric curtains have been drawn over the corridor's large glass windows, leaving the area to be illuminated by the many arcane-powered wall-lights.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROOM_ROSE -->
+	
+	<htmlContent tag="ROOM_ROSE"><![CDATA[
+	<p>
+		Evidence of Rose's close relationship with Lilaya is apparent as you approach the cat-girl's room. Hanging on the door, there's a little home-made sign bearing her name, and underneath, in flowing handwriting which you recognise as Lilaya's, a little message reads: <i>'My loving Mistress'</i>
+	</p>
+	#IF(game.isExtendedWorkTime())
+		<p>
+			The door appears to be locked at the moment, and there's no sound of anyone stirring within. Rose seems to only allow herself some rest when she's sure that nobody else is around who might need her, so she's probably off in another part of the house at the moment.
+		</p>
+		<p>
+			You notice that there's a little bell set into the wall beside her door, and you wonder if you should try ringing it to get Rose to come up to her room.
+		</p>
+	#ELSE
+		<p>
+			The door appears to be locked at the moment, and you can hear the faint sound of movement coming from within. Considering what time it currently is, you assume that the cat-girl maid must be sleeping in there.
+		</p>
+		<p>
+			You notice that there's a little bell set into the wall beside her door, and, sure enough, a little sign has been hung beneath it, which reads: [style.italicsBad(Please do not disturb.)]
+		</p>
+		<p>
+			It looks like you'll have to return during daylight hours if you wanted to talk to Rose about anything...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ROSE_INITIAL_CALL"><![CDATA[
+	<p>
+		Deciding that you'd like to talk to Rose, you decide to push the little bell that's situated beside her bedroom's door, causing a faint ringing noise to echo up from somewhere else in the house. Despite the enormous size of Lilaya's home, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call.
+	</p>
+	<p>
+		As she approaches, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing outside her bedroom waiting for her. Realising that you're obviously wanting to have a talk, she curtsies before issuing a greeting.
+	</p>
+	<p>
+		[rose.speech(Good [style.morning],)] she says, [rose.speech(How may I help you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROSE -->
+	
+	<htmlContent tag="ROSE_TALK_LILAYA"><![CDATA[
+	<p>
+		[pc.speech(What can you tell me about Lilaya?)] you ask, wanting to know more about Rose's mistress.
+	</p>
+	<p>
+		[rose.speech(Well, I can tell you what's publicly known, but as you must understand, I cannot reveal any personal information,)] Rose replies, [rose.speech(My mistress is the recognised daughter of the elder lilin Lyssieth, and as such is at the very top of Dominion's social hierarchy. Despite being invited to nearly every single prestigious social gathering in the city, she prefers to keep herself busy with her arcane experiments and research. This house in which she lives was once owned by her mother, but was given to her as a place in which she could continue with her work without being disturbed.)]
+	</p>
+	<p>
+		Having given you a brief overview of what's publicly known about her mistress, Rose smiles in a somewhat-dutiful manner, before asking, [rose.speech(Is there anything else I can help you with, [pc.sir]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_SLAVE"><![CDATA[
+	<p>
+		Not really sure about the best way to approach the subject, you decide to just ask your question outright and hope that it doesn't cause Rose any offence, [pc.speech(If you don't mind me asking, how did you end up as a slave?)]
+	</p>
+	<p>
+		Rose smiles to put you at ease, obviously sensing that you're a bit hesitant to broach the subject. [rose.speech(Well, like a lot of other slaves, I sold myself into slavery, under a contract stipulating that I am non-transferable. In other words, that I am only ever to be owned by Lilaya.)]
+	</p>
+	<p>
+		You can't help but feel shocked as you hear that Rose willingly became a slave, but before you can ask why, she seems to sense your incoming question and continues, [rose.speech(When you sell yourself as a slave, all your debts and crimes are forgiven, so many people choose a life of slavery in order to escape their past. I suppose I'm somewhat of an unusual case, though, because I didn't have anything to run away from. You see, I was originally hired through an agency to serve as one of Lilaya's personal maids, and while working for her, we grew very close...)]
+	</p>
+	<p>
+		Rose suddenly blushes, and you notice that her tail has wrapped itself tightly around her leg. She's obviously thinking back to when she first met Lilaya, and after taking a moment to move past her recollection of the past, she continues, [rose.speech(Lyssieth didn't approve of how much time we were spending together, and when Lilaya and I were discovered kissing one another, her mother didn't take it well... I was soon informed that I was to be fired, and instructed never to speak to Lilaya again. As you might understand, Lilaya and I were distraught. At my suggestion, we agreed that the only way Lyssieth would tolerate my continued presence would be if I were to become Lilaya's slave. True enough, her mother accepted my new place as her daughter's property, and from that point on we took extra care not to be discovered in one another's embrace...)]
+	</p>
+	<p>
+		From the moment you saw them interacting with each other, you knew Lilaya and Rose were close, but even so, the revelation that Rose sacrificed her freedom so that they could be together takes you by surprise. As Rose starts blushing, you realise that they must deeply care for one other, and you feel a little bit awkward at having Rose tell you about this intimate part of their relationship.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_WORLD"><![CDATA[
+	<p>
+		Wondering if Rose is able to give you any interesting information about Dominion, you ask, [pc.speech(What can you tell me about this world?)]
+	</p>
+	<p>
+		[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)] Rose replies, [rose.speech(If you want some basic knowledge, however, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed. She lives here in Dominion, in that huge tower that can be seen from miles around. Although she personally rules over this city, she allows her daughters, the elder lilin, to control other parts of her domain. Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette. Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]
+	</p>
+	<p>
+		It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember them all. Even though the maid's information was quite limited, you're still grateful that she's told you a little more about how this world works. It doesn't look like she's finished just yet, however, and takes a little breath before continuing, [rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well. The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs. Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions, so you'll see plenty of cow-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]
+	</p>
+	<p>
+		Coming to the end, Rose finishes by saying, [rose.speech(The number of humans in our world seems to decrease every year. In order to escape the discrimination and prejudice against humans, they're more and more often choosing to transform themselves. Oh, speaking of which, don't drink any unmarked bottles of liquid, as while they're a little expensive, transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]
+	</p>
+	<p>
+		With that last warning, Rose looks like she's finished, and you wonder if you should ask her anything else, or leave her to carry on with her dusting.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_DUTIES"><![CDATA[
+	<p>
+		Being curious about the sort of work Rose is expected to carry out, you ask her, [pc.speech(So, what sort of things do you have to do for Lilaya?)]
+	</p>
+	<p>
+		Rose's cheeks suddenly flush red, and although you asked your question in innocence, you realise that Rose's thoughts have instantly turned to some of her more intimate duties. [rose.speech(E-Erm, well, y-you know, demons get pretty horny, and Lilaya's no different. I attend to all of m-mistress's needs...)] she stammers, before starting to regain her composure. [rose.speech(B-But other than that, I spend most of my time cleaning and cooking. You've got no idea how much dusting this place requires!)]
+	</p>
+	<p>
+		As she says this, you suddenly become aware that she's holding a little feather duster, of the same 'French-maid' style as the rest of her uniform. Looking at the little instrument, you find your gaze being curiously drawn to Rose's delicate hands.
+	</p>
+	<p>
+		Sensing what you're looking at, Rose suddenly blushes, and blurts out, [rose.speech(I use a duster like this so I don't have to get my hands dirty! You know, I take really good care of them, but Lilaya never seems to notice...)]
+	</p>
+	<p>
+		You don't quite know what's come over you, but you're finding it hard to think of anything other than Rose's perfect, feminine hands. As you watch, she places her duster down on a little table next to you, and, with a little step forwards, she starts to gently rub her hands together, sliding her slender, feminine fingers over each other and making little moaning noises. With a gulp, you suddenly realise that she's displaying them for your benefit, and as she looks up into your eyes, she makes a pleading little whine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_MOTHERS_MILK"><![CDATA[
+	<p>
+		Wanting to help Lilaya to get her pregnancy over with as soon as possible, you produce a bottle of 'Mother's milk' from your inventory, before handing it over to Rose with the words, [pc.speech(Could you please give this to Lilaya? As you no doubt know, I got her pregnant, and I'd like to help her get it over with as soon as possible.)]
+	</p>
+	<p>
+		[rose.speech(Of course, [pc.sir],)] the maid dutifully replies, taking the bottle from you. [rose.speech(I know that mistress isn't opposed to drinking these, so I shall deliver it to her as soon as we're finished. I can assure you that she'll consume it straight away. If you had any more of these, it would be a good idea to wait for a couple of hours before handing them over to me, as I believe that the enchantment needs some time in which to work before any subsequent effects can be applied.)]
+	</p>
+	<p>
+		Thanking Rose for doing as you've asked, as well as for the information, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROSE_TALK_OFFER_ROSE"><![CDATA[
+	<p>
+		Feeling that it would be fitting to offer this cat-girl maid her namesake as a gift, you hold out the red rose which you've been carrying with you towards her, and say, [pc.speech(This is for you, Rose, as thanks for all of your hard work.)]
+	</p>
+	<p>
+		As she sees what it is you're giving to her, Rose's cheeks flush to almost the same deep scarlet as the delicate flower's petals, and as she takes the gift from you, she shyly smiles and shuffles her feet. [rose.speech([pc.Name]... That's so thoughtful of you! Thank you so much!)]
+	</p>
+	<p>
+		As you watch her take the rose from you, you suddenly notice how delicate and perfectly-formed Rose's hands are. Even after all of the cleaning and manual labour she does as part of her duties around the house, she's somehow managed to keep her hands perfectly spotless, with nails that are manicured to a perfect finish.
+	</p>
+	<p>
+		[pc.thought(Wow... Her hands are flawless!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROSE_HANDS -->
+	
+	<htmlContent tag="ROSE_HANDS"><![CDATA[
+	<p>
+		As Rose places the gifted rose into a nearby vase, you find yourself unable to look at anything but her hands... her amazing hands...
+	</p>
+	<p>
+		[pc.thought(Holy shit... Look at those hands!)]
+	</p>
+	<p>
+		With her cat-like tail swishing excitedly behind her, Rose sees what it is that's caught your attention, and holds up her perfect, angelic hands for you to admire. Her soft, pale skin almost seems to glow as she steps up in front of you, and you subconsciously start reaching out towards her delicate fingers. Her nails are painted a soft shade of pink, and as your fingertips touch with hers, you feel her soft warmth radiating into your [pc.armSkin].
+	</p>
+	<p>
+		The moment you make physical contact, Rose lets out a desperate moan, and as her cheeks somehow manage to flush an ever deeper shade of crimson, she sighs, [rose.speech(~Aah!~ Yes! Lilaya never appreciates how much effort I put into keeping my hands so nice and soft! ~Yes!~ Take me! Take me now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GARDEN -->
+	
+	<htmlContent tag="GARDEN"><![CDATA[
+	<p>
+		The garden courtyard consists of a series of wide, perfectly trimmed grass pathways, each one lined with beds of brightly-coloured flowers. Although Rose is now the one responsible for maintaining it, you guess that Lilaya must have hired a professional company in order to have had this area landscaped so perfectly.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FOUNTAIN -->
+	
+	<htmlContent tag="FOUNTAIN"><![CDATA[
+	<p>
+		In the very centre of the garden courtyard, a huge, ornate water fountain happily bubbles away with a mind of its own. The structure is made up of a collection of intricate statues; each one of a beautiful woman in some manner of indecent pose.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_HALL -->
+	
+	<htmlContent tag="ENTRANCE_HALL"><![CDATA[
+	<p>
+		Lilaya's house is by far the most impressive building you've ever been in. The entrance hall that you find yourself standing in is alone far larger than your old flat, and is extravagantly decorated in a style befitting a royal palace. Fine paintings and marble busts line the walls, and a huge crystal chandelier hangs from the double-height ceiling, casting its warm light over a grand, red-carpeted staircase that leads to the upper floor.
+	</p>
+	<p>
+		From previous explorations, you know that the rest of the house is furnished in much the same manner. You tried to count all the rooms once, but gave up after reaching well over one hundred. Despite its grand appearance and impressive size, the only member of staff you've ever seen is Lilaya's slave; the cat-girl maid called Rose. Lilaya herself spends almost every waking moment working in her lab, resulting in the house being eerily quiet for most of the time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STAIRCASE_UP -->
+	
+	<htmlContent tag="STAIRCASE_UP"><![CDATA[
+	<p>
+		The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's home. Half-way up the shallow steps, there's a secondary landing area, which is home to a couple of antique-looking cabinets and well looked after house plants. Branching off from the sides of this landing, two slightly-narrower staircases wrap around and lead up to the floor above.
+	</p>
+	<p>
+		A huge portrait of two women hangs on the wall of the landing area, overlooking the entire entrance hall. You immediately recognise the half-demon sitting in the chair as Lilaya, and you can only assume that the gorgeous figure standing behind her is her Lilin mother, Lyssieth. Although Lilin can change their appearance at will, Lyssieth has chosen to appear as a beautiful half-demon in her mid-forties, and you wonder if she did this to make Lilaya feel more comfortable, or whether that's simply the form she prefers to take.
+	</p>
+	<p>
+		Remarking one last time upon how beautiful the mother-daughter pair are, you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STAIRCASE_UP_SECONDARY -->
+	
+	<htmlContent tag="STAIRCASE_UP_SECONDARY"><![CDATA[
+	<p>
+		In this particular section of the corridor, there's a large recess set into the wall which is home to a series of carpeted stairs. While not as grand as the one positioned in front of the mansion's main entrance, this wide, sweeping staircase is nevertheless far more impressive than any you'd find in a regular house, and you wonder whether you should make use of it to travel up to the first floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STAIRCASE_DOWN -->
+	
+	<htmlContent tag="STAIRCASE_DOWN"><![CDATA[
+	<p>
+		Standing at the top of the grand, red-carpeted staircase, you find yourself looking down at the huge portrait of Lilaya and her mother. Although you didn't notice it from the ground floor, you seem to detect a hint of annoyance in Lyssieth's eyes, giving you the impression that she's trying her best to hide her resentment towards either the artist, or someone who must have been close by.
+	</p>
+	<p>
+		Wondering if you'll ever get to ask Lilaya, or perhaps even Lyssieth herself, about the circumstances under which this portrait was painted, you look away and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STAIRCASE_DOWN_SECONDARY -->
+	
+	<htmlContent tag="STAIRCASE_DOWN_SECONDARY"><![CDATA[
+	<p>
+		In this particular section of the corridor, there's a large recess set into the wall which is home to a series of carpeted stairs. While not as grand as the one positioned in front of the mansion's main entrance, this wide, sweeping staircase is nevertheless far more impressive than any you'd find in a regular house, and you wonder whether you should make use of it to travel down to the ground floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>
