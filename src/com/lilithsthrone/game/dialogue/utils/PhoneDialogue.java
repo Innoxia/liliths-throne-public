@@ -2631,7 +2631,7 @@ public class PhoneDialogue {
 							+ "<td>"+Units.size(maleBody.getPenis().getRawLengthValue())+"</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td>Penis width</td>"
+							+ "<td>Penis diameter</td>"
 							+ "<td>-</td>"
 							+ "<td>"+Units.size(maleBody.getPenis().getRawGirthValue())+"</td>"
 						+ "</tr>"
