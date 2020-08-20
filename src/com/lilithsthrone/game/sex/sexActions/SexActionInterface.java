@@ -1244,7 +1244,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isAbleToBypass() {
-					if(!Main.game.isBypassSexActions()) {
+					if(!Main.game.isBypassSexActionsEnabled()) {
 						return false;
 					}
 					return super.isAbleToBypass();

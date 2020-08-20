@@ -74,7 +74,6 @@ public enum PropertyValue {
 
 	spittingEnabled(true),
 	opportunisticAttackers(false),
-	bypassSexActions(true),
 
 	levelUpHightlight(false),
 	sharedEncyclopedia(false),

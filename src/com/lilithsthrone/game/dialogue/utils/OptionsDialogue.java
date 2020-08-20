@@ -2071,13 +2071,18 @@ public class OptionsDialogue {
 							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-							"BYPASS_SEX_ACTIONS",
-							PresetColour.BASE_PINK,
-							"Sex action bypass",
-							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
-							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
-			
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
+				for (int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='BYPASS_SEX_ACTIONS_" + i + "' class='normal-button" + (Main.getProperties().bypassSexActions == i ? " selected" : "") + "' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+ (Main.getProperties().bypassSexActions == i
+							? "[style.boldGood("
+							: "[style.colourDisabled(")
+							+ com.lilithsthrone.game.Properties.bypassSexActionsLabels[i] + ")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
+			}
+
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"VOLUNTARY_NTR",
 							PresetColour.GENERIC_MINOR_BAD,
