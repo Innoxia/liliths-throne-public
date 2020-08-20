@@ -729,7 +729,7 @@ public class CombatMove {
 					AbstractWeapon primaryWeapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
         				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.OFFHAND, weapon, isCrit));
-        			} else if(!primaryWeapon.getWeaponType().isTwoHanded()) {
+        			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
         				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.OFFHAND, null, isCrit));
         			}
         		}
@@ -751,7 +751,7 @@ public class CombatMove {
 					AbstractWeapon primaryWeapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
         				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied, isTargetAtMaximumLust(target)));
-        			} else if(!primaryWeapon.getWeaponType().isTwoHanded()) {
+        			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
         				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied, isTargetAtMaximumLust(target)));
         			}
         		}
@@ -873,7 +873,7 @@ public class CombatMove {
         					}
         				}
                 		
-        			} else if(!primaryWeapon.getWeaponType().isTwoHanded()) {
+        			} else if(primaryWeapon!=null && !primaryWeapon.getWeaponType().isTwoHanded()) {
         				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
@@ -946,16 +946,15 @@ public class CombatMove {
             public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         		int freeSlots = source.getArmRows();
         		for (int i=0; i<source.getArmRows(); i++) {
-            	   	if(source.getMainWeapon(i)!=null && source.getMainWeapon(i).getWeaponType().isTwoHanded() ||
-	            	  (source.getOffhandWeapon(i)!=null && source.getOffhandWeapon(i).getWeaponType().isTwoHanded())) {
+            	   	if((source.getMainWeapon(i)!=null && source.getMainWeapon(i).getWeaponType().isTwoHanded())
+            	   			|| (source.getOffhandWeapon(i)!=null && source.getOffhandWeapon(i).getWeaponType().isTwoHanded())) {
             	   		freeSlots--;
 	            	}
             	}
-        		if (freeSlots==0){
-        			if (source.getArmRows()> 1) {
+        		if(freeSlots==0){
+        			if(source.getArmRows()>1) {
 						return "You are using only two-handed weapons, so have no free hand with which to use an all-out strike!";
-					}
-        			else {
+					} else {
 						return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
 					}
 				}
@@ -1233,7 +1232,7 @@ public class CombatMove {
          */
         Field[] fields = CMSpecialAttack.class.getFields();
 		for(Field f : fields) {
-			if (CombatMove.class.isAssignableFrom(f.getType())) {
+			if(CombatMove.class.isAssignableFrom(f.getType())) {
 				CombatMove combatMove;
 				try {
 					combatMove = ((CombatMove) f.get(null));
@@ -1249,7 +1248,7 @@ public class CombatMove {
 
 		fields = CMFetishAttack.class.getFields();
 		for (Field f : fields) {
-			if (CombatMove.class.isAssignableFrom(f.getType())) {
+			if(CombatMove.class.isAssignableFrom(f.getType())) {
 				CombatMove combatMove;
 				try {
 					combatMove = ((CombatMove) f.get(null));
@@ -1265,7 +1264,7 @@ public class CombatMove {
 
 		fields = CMWeaponSpecials.class.getFields();
 		for (Field f : fields) {
-			if (CombatMove.class.isAssignableFrom(f.getType())) {
+			if(CombatMove.class.isAssignableFrom(f.getType())) {
 				CombatMove combatMove;
 				try {
 					combatMove = ((CombatMove) f.get(null));
@@ -1466,7 +1465,7 @@ public class CombatMove {
 				int dealtDamage = damageValue.getValue();
 				
 				int manaGain = getManaGain(source);
-				if (isCrit) {
+				if(isCrit) {
 					manaGain *= 2;
 				}
 				
