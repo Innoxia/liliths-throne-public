@@ -34,34 +34,34 @@
 			[##npc.removeStatusEffect(SE_PROMISCUITY_PILL)]
 			[##npc.addStatusEffect(SE_innoxia_item_broodmother_pill, 60*24*60)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
-				You remove the pink pill from its packaging and, without a moment's hesitation, pop it into your mouth. As it slides down your throat, you assume there's little effect to be felt, but suddenly a powerful cramp takes hold of your stomach!
+				As the pill slides down [npc.namePos] throat, [npc.she] [npc.verb(assume)] there's little effect to be felt, but suddenly a powerful cramp takes hold of [npc.her] stomach!
 			</p>
 			<p>
 				#IF(npc.hasVagina())
-					You feel your ovaries kick into overdrive as eggs begin to cascade towards your womb. As the discomfort fades, you realise that you're now able to be impregnated with far more children than you're normally able to
+					[npc.Name] [npc.verb(feel)] [npc.her] ovaries kick into overdrive as eggs begin to cascade towards [npc.her] womb. As the discomfort fades, [npc.she] [npc.verb(realise)] that [npc.sheIs] now able to be impregnated with far more children than [npc.she] would normally be able to
 					#IF(pc.hasFetish(FETISH_PREGNANCY))
-						 carry, and the thought that you could get so heavily pregnant with so little work makes a happy smile settle on your face.
+						 carry, and the thought that [npc.she] could get so heavily pregnant with so little work makes a happy smile settle on [npc.her] face.
 					#ELSE
 						 carry.
 					#ENDIF
 					#IF(npc.hasPenisIgnoreDildo())
-						 The feeling doesn't stop there, however, as the cramp quickly moves down into your groin. You feel your testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and you realize that any womb that your semen finds its way into will be able to carry far more children than it normally
+						 The feeling doesn't stop there, however, as the cramp quickly moves down into [npc.her] groin. [npc.She] [npc.verb(feel)] [npc.her] testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and [npc.she] [npc.verb(realise)] that any womb that [npc.her] semen finds its way into will be able to carry far more children than it normally
 						#IF(pc.hasFetish(FETISH_PREGNANCY))
-							 would, and you can't help but grin at the thought of someone's belly being swollen to bursting point with your numerous offspring.
+							 would, and [npc.she] can't help but grin at the thought of someone's belly being swollen to bursting point with [npc.her] numerous offspring.
 						#ELSE
 							 would.
 						#ENDIF
 					#ENDIF
 				#ELSEIF(npc.hasPenisIgnoreDildo())
-					The feeling doesn't stop there, however, as the cramp quickly moves down into your groin. You feel your testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and you realize that any womb that your semen finds its way into will be able to carry far more children than it normally
+					The feeling doesn't stop there, however, as the cramp quickly moves down into [npc.her] groin. [npc.She] [npc.verb(feel)] [npc.her] testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and [npc.she] [npc.verb(realise)] that any womb that [npc.her] semen finds its way into will be able to carry far more children than it normally
 					#IF(pc.hasFetish(FETISH_PREGNANCY))
-						 would, and you can't help but grin at the thought of someone's belly being swollen to bursting point with your numerous offspring.
+						 would, and [npc.she] can't help but grin at the thought of someone's belly being swollen to bursting point with [npc.her] numerous offspring.
 					#ELSE
 						 would.
 					#ENDIF
 				#ENDIF
 				#IF(!npc.hasVagina() && !npc.hasPenisIgnoreDildo())
-					Although the cramp quickly fades away, you're left thinking that if you were to gain a vagina or penis, then you'd be able to conceive far more offspring than would normally be possible.
+					Although the cramp quickly fades away, [npc.sheIs] left thinking that if [npc.she] were to gain a vagina or penis, then [npc.she]'d be able to conceive far more offspring than would normally be possible.
 				#ENDIF
 			</p>
 			<p style='text-align:center; margin-top:0; padding-top:0;'>

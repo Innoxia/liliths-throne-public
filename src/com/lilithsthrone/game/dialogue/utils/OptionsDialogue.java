@@ -2000,21 +2000,6 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-					"AUTO_SEX_CLOTHING_STRIP",
-					PresetColour.BASE_PINK_LIGHT,
-					"Automatic stripping",
-					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
-					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"AUTO_SEX_CLOTHING_MANAGEMENT",
-							PresetColour.BASE_BLUE_STEEL,
-							"Post-sex clothing replacement",
-							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
-							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
-			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"AGE",
 							PresetColour.AGE_TWENTIES,
@@ -2161,6 +2146,34 @@ public class OptionsDialogue {
 							"Foot Content",
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"FURRY_TAIL_PENETRATION",
+							PresetColour.BASE_MAGENTA,
+							"Furry tail penetrations",
+							"This enables furry tails to engage in penetrative actions in sex.",
+							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
+					
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"INFLATION_CONTENT",
+							PresetColour.CUM,
+							"Cum Inflation",
+							"This enables cum inflation mechanics.",
+							Main.getProperties().hasValue(PropertyValue.inflationContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_MANAGEMENT",
+							PresetColour.BASE_BLUE_STEEL,
+							"Post-sex clothing replacement",
+							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_STRIP",
+							PresetColour.BASE_PINK_LIGHT,
+							"Automatic stripping",
+							"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+							Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FUTA_BALLS",
@@ -2404,20 +2417,6 @@ public class OptionsDialogue {
 					"Enable the ability to add slaves or friendly occupants as your companion."
 						+ "<br/>[style.boldBad(Warning:)] This is an experimental feature, and support for companions was dropped in v0.3.9, so there will be no special dialogue or actions involving your companions outside of Dominion.",
 					Main.getProperties().hasValue(PropertyValue.companionContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"FURRY_TAIL_PENETRATION",
-							PresetColour.BASE_MAGENTA,
-							"Furry tail penetrations",
-							"This enables furry tails to engage in penetrative actions in sex.",
-							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
-					
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"INFLATION_CONTENT",
-							PresetColour.CUM,
-							"Cum Inflation",
-							"This enables cum inflation mechanics.",
-							Main.getProperties().hasValue(PropertyValue.inflationContent)));
 
 			if(contentOptionsPage==ContentOptionsPage.BODIES) {
 				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(

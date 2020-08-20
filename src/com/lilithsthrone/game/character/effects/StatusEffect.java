@@ -8768,9 +8768,13 @@ public class StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			StringBuilder sb = new StringBuilder();
 			
-			for(GameCharacter combatant : Main.combat.getAllies(target)) {
+			List<GameCharacter> affectedCombatants = new ArrayList<>();
+			affectedCombatants.add(target);
+			affectedCombatants.addAll(Main.combat.getAllies(target));
+			
+			for(GameCharacter combatant : affectedCombatants) {
 				Value<String, Integer> damageValue = DamageType.LUST.damageTarget(null, combatant, 15);
-
+				
 				sb.append(UtilText.parse(combatant, "<br/>[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> [style.boldLust(lust damage)]!")+damageValue.getKey());
 			}
 			
