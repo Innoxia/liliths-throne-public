@@ -63,11 +63,11 @@ import com.lilithsthrone.world.places.PlaceType;
 /**
  * @since 0.1.0
  * @version 0.3.9.2
- * @author Innoxia
+ * @author Innoxia, DSG
  */
 public enum Encounter {
 
-	LILAYAS_HOME_CORRIDOR(null) {
+	LILAYAS_HOME_CORRIDOR() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -130,7 +130,7 @@ public enum Encounter {
 	},
 	
 	
-	DOMINION_STREET(null) {
+	DOMINION_STREET() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -211,7 +211,7 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_BOULEVARD(null) {
+	DOMINION_BOULEVARD() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -277,7 +277,7 @@ public enum Encounter {
 		}
 	},
 
-	DOMINION_ALLEY(null) {
+	DOMINION_ALLEY() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = Util.newHashMapOfValues(
@@ -411,10 +411,16 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_DARK_ALLEY(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f))) {
-
+	DOMINION_DARK_ALLEY() {
 		@Override
+		public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			// Prioritise re-encountering the NPC on this tile:
@@ -436,7 +442,7 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_CANAL(null) {
+	DOMINION_CANAL() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -546,7 +552,7 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_EXPRESS(null) {
+	DOMINION_EXPRESS() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 10f));
@@ -563,7 +569,7 @@ public enum Encounter {
 		}
 	},
 	
-	HARPY_NEST_WALKWAYS(null) {
+	HARPY_NEST_WALKWAYS() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -623,7 +629,7 @@ public enum Encounter {
 		}
 	},
 	
-	HARPY_NEST_LOOK_FOR_TROUBLE(null) {
+	HARPY_NEST_LOOK_FOR_TROUBLE() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -683,11 +689,17 @@ public enum Encounter {
 		}
 	},
 	
-	SUBMISSION_TUNNELS(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f),
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 10f))) {
-		
+	SUBMISSION_TUNNELS() {		
 		@Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+			
+                    map.put(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f);
+                    map.put(EncounterType.SUBMISSION_FIND_ITEM, 10f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			
 			if(node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
@@ -917,10 +929,17 @@ public enum Encounter {
 		}
 	},
 	
-	BAT_CAVERN(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
+	BAT_CAVERN() {           
+                @Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+                    map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
+                    map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
+
+                    return map;
+                }
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
@@ -987,7 +1006,7 @@ public enum Encounter {
 	//  A rat fucks you
 	// 	Rats fuck you
 	// 	Rat gets you to perform oral under table
-	VENGAR_CAPTIVE_HALL(null) {
+	VENGAR_CAPTIVE_HALL() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = new HashMap<>();// Silence delivers if pregnant
@@ -1045,7 +1064,7 @@ public enum Encounter {
 	//  SS make you clean room
 	// 	Shadow & Silence use you
 	//  SS forbid you from sulking in room (if already cleaned)
-	VENGAR_CAPTIVE_BEDROOM(null) {
+	VENGAR_CAPTIVE_BEDROOM() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = new HashMap<>();
@@ -1308,10 +1327,7 @@ public enum Encounter {
 		return INCEST_ENCOUNTER_RATE;
 	}
 
-	private Map<EncounterType, Float> dialogues;
-
-	private Encounter(Map<EncounterType, Float> dialogues) {
-		this.dialogues = dialogues;
+	private Encounter() {
 	}
 
 	protected abstract DialogueNode initialiseEncounter(EncounterType node);
@@ -1326,9 +1342,7 @@ public enum Encounter {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 	
-	public Map<EncounterType, Float> getDialogues() {
-		return dialogues;
-	}
+	public abstract Map<EncounterType, Float> getDialogues();
 
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		float opportunisticMultiplier = 1;

@@ -28,6 +28,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added average penis girth in the Encyclopedia information on races. (PR#1385 by AceXP)
 		Prevented any succubus/incubus alleyway attackers from spawning with the 'Prude' trait, as it doesn't fit them. (PR#1386 by AceXP)
 		Fixed issue where 'Arcane impotence' was being applied when arcane was lower than 15, instead of lower than 10 as it should have been. (PR#1388 by AceXP)
+		Standardized all encounters to override getDialogues() instead of accepting Util.newHashMapOfValues() as a parameter. (PR#1389 by DSG)
 		
 	Engine:
 		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/breeder.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
