@@ -355,14 +355,14 @@ public class Response {
 		if(this.getSexActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
 			return "This action will cause you to [style.colourSex(join in)] with the related ongoing action.";
 			
-		} else if(isSwitchOngoingActionAvailable()) {
+		} else if(isSexActionSwitch()) {
 			return "This action will cause [style.colourCorruption(some ongoing actions to be stopped)] before starting the related ongoing action.";
 		}
 		return "";
 	}
 	
 	private boolean isSwitchOngoingActionAvailable() {
-		if(this.sexActionType ==SexActionType.START_ONGOING
+		if(this.sexActionType==SexActionType.START_ONGOING
 				&& Main.sex.getCharacterPerformingAction().isPlayer()
 				&& Main.sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
 //			if(Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
@@ -388,6 +388,7 @@ public class Response {
 			} catch(Exception ex) {
 				return true;
 			}
+			
 		} else {
 			return false;
 		}
