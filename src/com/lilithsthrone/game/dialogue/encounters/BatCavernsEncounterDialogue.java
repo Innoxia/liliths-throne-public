@@ -126,11 +126,11 @@ public class BatCavernsEncounterDialogue{
             @Override
             public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new ResponseEffectsOnly("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere."){
+                            return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
                                 @Override
                                 public void effects() {
                                         Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
-                                        Main.mainController.moveGameWorld(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE, true);
+                                        Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
                                 }
                             };
                     } else if (index == 2) {

@@ -939,7 +939,16 @@ public enum Encounter {
                     map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
                     map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
                     map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
-
+                    
+                    if (!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
+                            && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)
+                            && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 20f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
+                        }
+                    }                    
                     return map;
                 }
 

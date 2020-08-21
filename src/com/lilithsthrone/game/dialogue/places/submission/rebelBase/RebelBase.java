@@ -64,7 +64,7 @@ public class RebelBase {
 		@Override
                 public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new ResponseEffectsOnly("Run!", "Run for your life!")
+                            return new Response("Run!", "Run for your life!", PlaceType.BAT_CAVERN_DARK.getDialogue(false))
                             {
                                 @Override
                                 public void effects() {                                    
@@ -74,7 +74,7 @@ public class RebelBase {
                                     } else {
                                         Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_FAILED));
                                     }
-                                    Main.mainController.moveGameWorld(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR, true);
+                                    Main.game.getPlayer().setLocation(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR, true);
                                     Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERN_DARK);
                                     Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERN_DARK.getName());
                                 }

@@ -376,11 +376,11 @@ public class BatCaverns {
                     if (index == 1
                             && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
                             && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)) {
-                            return new ResponseEffectsOnly("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere."){
+                            return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
                                 @Override
                                 public void effects() {
                                         Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
-                                        Main.mainController.moveGameWorld(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE, true);
+                                        Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
                                 }
                             };
                     } else {
