@@ -190,8 +190,12 @@ public class QuestTree {
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
                 //Rebel base
-                node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
+                node1 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_ONE);
                 rebelBaseTree.addChild(node1);
+                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_TWO);
+                node1.addChild(node2);
+                node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
+                node2.addChild(node1);
                 nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
                 node1.addChild(nodeBranchA);
                 nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);

@@ -10,6 +10,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -17,7 +18,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.7.3
  * @author Innoxia
  */
-public class BatCavernsEncounterDialogue {
+public class BatCavernsEncounterDialogue{
 
 	public static final DialogueNode FIND_ITEM = new DialogueNode("Discarded Item", "", true) {
 		@Override
@@ -83,6 +84,8 @@ public class BatCavernsEncounterDialogue {
                 
             @Override
             public String getContent() {
+                Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE);
+                Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE.getName());
                 return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DISCOVERED");
             }
             
@@ -93,7 +96,7 @@ public class BatCavernsEncounterDialogue {
                             };
 
                     } else if (index == 2) {
-                            return new Response("Leave it", "Nothing good ever came of pulling strange handles in caves.", Main.game.getDefaultDialogue(false));
+                            return new Response("Leave it alone", "Nothing good ever came of pulling strange handles in caves.", Main.game.getDefaultDialogue(false));
                     } else {
                             return null;
                     }
@@ -115,28 +118,32 @@ public class BatCavernsEncounterDialogue {
                 
             @Override
             public String getContent() {
+                Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+                Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
                 return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_OPENED");
             }
             
             @Override
             public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new ResponseEffectsOnly("Continue", "This cave is not a natural formation. Someone built it, so it must lead somewhere."){
+                            return new ResponseEffectsOnly("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere."){
                                 @Override
                                 public void effects() {
                                         Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
                                         Main.mainController.moveGameWorld(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE, true);
                                 }
                             };
+                    } else if (index == 2) {
+                            return new Response("Don't enter", "No telling what's down in that cave.", Main.game.getDefaultDialogue(false));
                     } else {
                             return null;
                     }
             }
 
-                @Override
-                public String getAuthor() {
-		return "DSG";
-                }
+            @Override
+            public String getAuthor() {
+            return "DSG";
+            }
             
         };
 }

@@ -67,15 +67,16 @@ public class RebelBase {
                             return new ResponseEffectsOnly("Run!", "Run for your life!")
                             {
                                 @Override
-                                public void effects() {
+                                public void effects() {                                    
                                     Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/rebelBase", "REBEL_BASE_ESCAPE"));
                                     if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)){
                                         Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.SIDE_UTIL_COMPLETE));
                                     } else {
                                         Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_FAILED));
                                     }
-                                   
-                                    Main.mainController.moveGameWorld(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_ENTRANCE, true);                              
+                                    Main.mainController.moveGameWorld(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR, true);
+                                    Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERN_DARK);
+                                    Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERN_DARK.getName());
                                 }
                             };
                     } else {

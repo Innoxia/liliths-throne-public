@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -914,14 +915,12 @@ public enum Encounter {
                     map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
                     map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
                     
-                    if (!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE))
-                    {
-                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT))
-                        {
+                    if (!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
+                            && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)
+                            && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
                             map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 20f);
-                        }
-                        else
-                        {
+                        } else {
                             map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
                         }
                     }                   

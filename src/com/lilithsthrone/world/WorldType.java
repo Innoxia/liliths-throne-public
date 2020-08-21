@@ -975,7 +975,7 @@ public class WorldType {
 			1,
 			false,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/submission/rebelBase/rebelBase.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.REBEL_BASE_ENTRANCE, Util.newHashMapOfValues(

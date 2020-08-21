@@ -3916,8 +3916,28 @@ public class PlaceType {
 			"beside Slime Lake"
 			).initDangerous()
 			.initWeatherImmune();
-	
-	
+	//HLF MOD
+	public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR = new AbstractPlaceType(
+			"Hidden Cave Entrance",
+			"The entrance to a mysterious artificial cave, formerly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			BatCaverns.REBEL_BASE_ENTRANCE_EXTERIOR,
+			Encounter.BAT_CAVERN,
+			"beside the entrance to a mysterior artificial cave"
+			).initDangerous()
+			.initWeatherImmune();
+        
+        public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE = new AbstractPlaceType(
+			"Strange Handle",
+			"A strange handle juts out from the rock.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_GREY,
+			BatCaverns.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
+			).initDangerous()
+			.initWeatherImmune();
 	
 	// Slime queen's island tower:
 
@@ -4418,7 +4438,7 @@ public class PlaceType {
         //HLF MOD
         public static final AbstractPlaceType REBEL_BASE_ENTRANCE = new AbstractPlaceType(
 			"Entrance",
-			"The only way in or out of the cave is cleverly concealed behind a tight-fitting stone panel.",
+			"The only way in or out of the cave is cleverly concealed behind a tight-fitting stone door.",
 			"submission/rebelBase/entrance",
 			PresetColour.BASE_RED,
 			RebelBase.REBEL_BASE_ENTRANCE,
