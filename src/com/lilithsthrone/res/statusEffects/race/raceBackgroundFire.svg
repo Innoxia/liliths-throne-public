@@ -1,10 +1,10 @@
-<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="linearGradient4353" x1="154.45" x2="68.529" y1="162.79" y2="162.73" gradientTransform="matrix(.00695 .41122 -.55531 .0033286 121.73 -4.5045)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient4353" x1="154.45" x2="68.529" y1="162.79" y2="162.73" gradientTransform="matrix(.0071859 .40111 -.57416 .0032468 124.74 -7.5126)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#d85c0a" offset="0"/>
    <stop stop-color="#f4900c" offset="1"/>
   </linearGradient>
  </defs>
  <circle cx="31.978" cy="31.896" r="29.831" color="#000000" fill="#ffc66b" fill-rule="evenodd" overflow="visible" solid-color="#000000" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal"/>
- <path d="m24.185 11.026c-22.952 14.72-19.306 49.831 8.032 49.647 28.105-0.18919 29.804-37.896 7.4704-48.925 3.736 7.0872 5.5147 15.082-0.01441 19.98-2.1461 1.9011 0.4644-10.055-5.6275-9.8041 3.766 5.5927-6.5226 11.972-4.9428 3.9-3.1284 1.0208-3.2021 7.5294-5.1871 5.2749-2.7589-3.1337-5.2829-12.412 0.26926-20.073z" fill="url(#linearGradient4353)" fill-rule="evenodd" stroke-width=".22877"/>
+ <path d="m23.884 7.6362c-23.731 14.358-19.961 48.606 8.3047 48.427 29.059-0.18454 30.816-36.965 7.724-47.722 3.8628 6.913 5.7019 14.711-0.0149 19.489-2.219 1.8544 0.48016-9.8078-5.8185-9.5631 3.8938 5.4552-6.744 11.678-5.1106 3.8041-3.2346 0.99571-3.3108 7.3443-5.3632 5.1452-2.8526-3.0567-5.4622-12.107 0.2784-19.58z" fill="url(#linearGradient4353)" fill-rule="evenodd" stroke-width=".22974"/>
 </svg>

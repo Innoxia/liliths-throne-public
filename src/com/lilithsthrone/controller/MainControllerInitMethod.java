@@ -130,7 +130,6 @@ import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -266,7 +265,7 @@ public class MainControllerInitMethod {
 //		}
 		
 		if(Main.game.isInCombat()) {
-			for(GameCharacter combatant : Combat.getAllCombatants(true)) {
+			for(GameCharacter combatant : Main.combat.getAllCombatants(true)) {
 				for(DamageType dt : DamageType.values()) {
 					id = combatant.getId()+"_COMBAT_SHIELD_"+dt;
 					
@@ -6179,6 +6178,14 @@ public class MainControllerInitMethod {
 					setAutosavePreference(id, i);
 				}
 			}
+
+			// bypass sex action options:
+			for(int i=0; i<3; i++) {
+				id = "BYPASS_SEX_ACTIONS_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setBypassSexActionsPreference(id, i);
+				}
+			}
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
@@ -6187,6 +6194,7 @@ public class MainControllerInitMethod {
 					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
 					new Value<>("SILLY", PropertyValue.sillyMode),
 					new Value<>("WEATHER_INTERRUPTION", PropertyValue.weatherInterruptions),
+					new Value<>("AUTO_SEX_CLOTHING_STRIP", PropertyValue.autoSexStrip),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
 					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
@@ -6218,7 +6226,6 @@ public class MainControllerInitMethod {
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
-					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions),
 					new Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia)
 					);
 			
@@ -7034,7 +7041,17 @@ public class MainControllerInitMethod {
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 				Main.getProperties().setValue(option, value);
-				if (action != null) action.run();
+				if(action != null) {
+					action.run();
+				}
+				if(option.isFetishRelated()) {
+					Main.game.getPlayer().recalculateCombatMoves();
+					Main.game.getPlayer().calculateSpecialFetishes();
+					for(GameCharacter character : Main.game.getAllNPCs()) {
+						character.recalculateCombatMoves();
+						character.calculateSpecialFetishes();
+					}
+				}
 				Main.saveProperties();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -7097,7 +7114,19 @@ public class MainControllerInitMethod {
 		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.autoSaveLabels[i], Properties.autoSaveDescriptions[i]);
 		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 	}
-	
+
+	static void setBypassSexActionsPreference(String id, int i) {
+		((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+			Main.getProperties().bypassSexActions=i;
+			Main.saveProperties();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+		}, false);
+
+		MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+		MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.bypassSexActionsLabels[i], Properties.getBypassSexActionsDescriptions[i]);
+		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+	}
 	
 	
 	private static void fluidHandler(MilkingRoom room, FluidStored fluid) {

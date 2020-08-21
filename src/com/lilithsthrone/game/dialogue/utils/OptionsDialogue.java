@@ -31,7 +31,6 @@ import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -735,7 +734,7 @@ public class OptionsDialogue {
 						Main.saveProperties();
 						
 						for(NPC npc : Main.game.getAllNPCs()) {
-							if(!Main.game.isInCombat() || !Combat.getAllCombatants(false).contains(npc)) {
+							if(!Main.game.isInCombat() || !Main.combat.getAllCombatants(false).contains(npc)) {
 								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
 								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							}
@@ -2001,13 +2000,6 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-							"AUTO_SEX_CLOTHING_MANAGEMENT",
-							PresetColour.BASE_BLUE_STEEL,
-							"Post-sex clothing replacement",
-							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
-							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
-			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"AGE",
 							PresetColour.AGE_TWENTIES,
@@ -2064,13 +2056,18 @@ public class OptionsDialogue {
 							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-							"BYPASS_SEX_ACTIONS",
-							PresetColour.BASE_PINK,
-							"Sex action bypass",
-							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
-							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
-			
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
+				for (int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='BYPASS_SEX_ACTIONS_" + i + "' class='normal-button" + (Main.getProperties().bypassSexActions == i ? " selected" : "") + "' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+ (Main.getProperties().bypassSexActions == i
+							? "[style.boldGood("
+							: "[style.colourDisabled(")
+							+ com.lilithsthrone.game.Properties.bypassSexActionsLabels[i] + ")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
+			}
+
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"VOLUNTARY_NTR",
 							PresetColour.GENERIC_MINOR_BAD,
@@ -2149,6 +2146,34 @@ public class OptionsDialogue {
 							"Foot Content",
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"FURRY_TAIL_PENETRATION",
+							PresetColour.BASE_MAGENTA,
+							"Furry tail penetrations",
+							"This enables furry tails to engage in penetrative actions in sex.",
+							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
+					
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"INFLATION_CONTENT",
+							PresetColour.CUM,
+							"Cum Inflation",
+							"This enables cum inflation mechanics.",
+							Main.getProperties().hasValue(PropertyValue.inflationContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_MANAGEMENT",
+							PresetColour.BASE_BLUE_STEEL,
+							"Post-sex clothing replacement",
+							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_STRIP",
+							PresetColour.BASE_PINK_LIGHT,
+							"Automatic stripping",
+							"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+							Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FUTA_BALLS",
@@ -2392,20 +2417,6 @@ public class OptionsDialogue {
 					"Enable the ability to add slaves or friendly occupants as your companion."
 						+ "<br/>[style.boldBad(Warning:)] This is an experimental feature, and support for companions was dropped in v0.3.9, so there will be no special dialogue or actions involving your companions outside of Dominion.",
 					Main.getProperties().hasValue(PropertyValue.companionContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"FURRY_TAIL_PENETRATION",
-							PresetColour.BASE_MAGENTA,
-							"Furry tail penetrations",
-							"This enables furry tails to engage in penetrative actions in sex.",
-							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
-					
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"INFLATION_CONTENT",
-							PresetColour.CUM,
-							"Cum Inflation",
-							"This enables cum inflation mechanics.",
-							Main.getProperties().hasValue(PropertyValue.inflationContent)));
 
 			if(contentOptionsPage==ContentOptionsPage.BODIES) {
 				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(

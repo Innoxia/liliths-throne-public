@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving {
@@ -31,7 +31,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	protected List<ItemEffect> itemEffects;
 
 	public AbstractItem(AbstractItemType itemType) {
-		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourPrimary(), itemType.getRarity(), null, itemType.getItemTags());
+		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourShades().get(0), itemType.getRarity(), null, itemType.getItemTags());
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
@@ -78,7 +78,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
 		try {
-			AbstractItemType it = ItemType.getIdToItemMap().get(parentElement.getAttribute("id"));
+			AbstractItemType it = ItemType.getItemTypeFromId(parentElement.getAttribute("id"));
 			if(it==null) {
 				System.err.println("Warning: An instance of AbstractItem was unable to be imported, due to AbstractItemType not existing. ("+parentElement.getAttribute("id")+")");
 				return null;
@@ -141,6 +141,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		for(ItemEffect ie : getEffects()) {
 			sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
 		}
+		sb.append(UtilText.parse(target, user, this.getItemType().getSpecialEffect()));
 		
 		return sb.toString();
 	}
@@ -201,12 +202,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p>"
-					+ "<b>Effects:</b><br/>");
+					+ "<b>Effects:</b>");
 		
 		for(ItemEffect ie : getEffects()) {
 			for(String s : ie.getEffectsDescription(user, target)) {
-				sb.append(s+"<br/>");
+				sb.append("<br/>"+s);
 			}
+		}
+		for(String s : this.getItemType().getEffectTooltipLines()) {
+			sb.append("<br/>"+s);
 		}
 
 		sb.append("</p>"
@@ -245,8 +249,12 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType.getUnableToBeUsedDescription(target);
 	}
 
-	public boolean isAbleToBeUsedInCombat(){
-		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombat();
+	public boolean isAbleToBeUsedInCombatAllies(){
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombatAllies();
+	}
+
+	public boolean isAbleToBeUsedInCombatEnemies(){
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombatEnemies();
 	}
 
 	public boolean isAbleToBeUsedInSex(){

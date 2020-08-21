@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
@@ -93,8 +94,10 @@ public class Elemental extends NPC {
 			setLevel(summoner.getLevel());
 			
 			this.setSummoner(summoner);
+			this.setSurname(this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
 			this.setStartingBody(true);
 			setPassiveForm(null);
+			this.setAffection(getSummoner(), 100);
 			
 			this.setLegType(LegType.DEMON_COMMON);
 			
@@ -160,6 +163,9 @@ public class Elemental extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6")) {
 			this.resetPerksMap(false);
 			this.setHistory(Occupation.ELEMENTAL);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.3")) {
+			this.setAffection(getSummoner(), 100);
 		}
 	}
 
@@ -276,15 +282,6 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String getSurname() {
-		if(this.getSummoner()!=null) {
-			return this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"; // Akkadian for bind
-		} else {
-			return "kamu";
-		}
-	}
-	
-	@Override
 	public String getDescription() {
 		return UtilText.parse(this, getSummoner(), "");
 	}
@@ -306,6 +303,10 @@ public class Elemental extends NPC {
 	public void turnUpdate() {
 		if(!this.isActive()) {
 			this.returnToHome(); // Make sure that the Elemental is returned to the holding tile if their summoner somehow leaves them behind
+		}
+		if(!this.hasFlag(NPCFlagValue.elementalStayDirty)) {
+			this.cleanAllDirtySlots(true);
+			this.cleanAllClothing(true, false);
 		}
 	}
 	

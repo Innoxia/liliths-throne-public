@@ -1200,7 +1200,11 @@ public class CharacterInventory implements XMLSaving {
 		
 		c.setSealed(false);
 		
-		tempSB.append(character.unequipClothingIntoInventory(c, true, character));
+		if(c.getClothingType().isDiscardedOnUnequip(c.getSlotEquippedTo())) {
+			tempSB.append(character.unequipClothingIntoVoid(c, true, character));
+		} else {
+			tempSB.append(character.unequipClothingIntoInventory(c, true, character));
+		}
 		
 		clothingRemovalList.add(c);	
 	}

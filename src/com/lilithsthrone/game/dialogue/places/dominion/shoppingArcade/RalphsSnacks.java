@@ -462,8 +462,8 @@ public class RalphsSnacks {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getNpc(Ralph.class), false);
-						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getNpc(Ralph.class), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getPlayer(), false);
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ralphDailyBred, true);
 					}

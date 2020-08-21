@@ -55,12 +55,14 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.3.9
- * @version 0.3.9
+ * @version 0.3.9.3
  * @author Innoxia
  */
 public class LilayaSpa {
 	
 	public static final String SPA_CONSTRUCTTION_TIMER_ID = "spa_construction_timer";
+	
+	private static Cell cellInstallation = null;
 	
     private static List<GameCharacter> slavesWashing;
     private static List<GameCharacter> slavesSex;
@@ -82,6 +84,10 @@ public class LilayaSpa {
     			ItemType.INT_INGREDIENT_GRAPE_JUICE,
     			ItemType.STR_INGREDIENT_BLACK_RATS_RUM,
     			ItemType.STR_INGREDIENT_WOLF_WHISKEY);
+    }
+    
+    public static void setCellInstallation(Cell cellInstallation) {
+    	LilayaSpa.cellInstallation = cellInstallation;
     }
     
 	private static List<GameCharacter> getSlaves() {
@@ -898,7 +904,7 @@ public class LilayaSpa {
 					@Override
 					public void effects() {
 						int size = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).WORLD_WIDTH;
-						Cell cell = Main.game.getPlayerCell();
+						Cell cell = cellInstallation;
 						if(cell.getLocation().getY()>=size-2) { // North
 							Cell poolCell = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(new Vector2i(cell.getLocation().getX(), cell.getLocation().getY()+1));
 							poolCell.getPlace().setPlaceType(PlaceType.LILAYA_HOME_UNDER_CONSTRUCTION);
@@ -922,7 +928,7 @@ public class LilayaSpa {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(PlaceUpgrade.LILAYA_SPA.getInstallCost());
-						Main.game.getPlayerCell().addPlaceUpgrade(PlaceUpgrade.LILAYA_EMPTY_ROOM);
+						cellInstallation.addPlaceUpgrade(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_INSTALLATION_CHANGE_MIND"));
 					}
 				};
@@ -953,7 +959,9 @@ public class LilayaSpa {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_INSTALLATION_COMMIT_LEAVE"));
 						Main.game.getTextStartStringBuilder().append(PlaceType.LILAYA_HOME_CORRIDOR.getDialogue(false).getContent());
-						Main.game.getPlayer().setNearestLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR, false);
+						if(Main.game.getActiveWorld().getWorldType()==WorldType.LILAYAS_HOUSE_GROUND_FLOOR) { // To cover for if the player is upgrading via Office's occupancy ledger
+							Main.game.getPlayer().setNearestLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR, false);
+						}
 					}
 				};
 			}
@@ -1959,7 +1967,7 @@ public class LilayaSpa {
 					@Override
 					public void effects() {
 						int size = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).WORLD_WIDTH;
-						Cell cell = Main.game.getPlayerCell();
+						Cell cell = cellInstallation; //TODO
 						if(cell.getLocation().getY()>=size-2) { // North
 							Cell poolCell = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(new Vector2i(cell.getLocation().getX()+1, cell.getLocation().getY()));
 							poolCell.getPlace().setPlaceType(PlaceType.LILAYA_HOME_UNDER_CONSTRUCTION);
@@ -2054,7 +2062,7 @@ public class LilayaSpa {
 					@Override
 					public void effects() {
 						int size = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).WORLD_WIDTH;
-						Cell cell = Main.game.getPlayerCell();
+						Cell cell = cellInstallation; //TODO
 						if(cell.getLocation().getY()>=size-2) { // North
 							Cell poolCell = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(new Vector2i(cell.getLocation().getX()-1, cell.getLocation().getY()));
 							poolCell.getPlace().setPlaceType(PlaceType.LILAYA_HOME_UNDER_CONSTRUCTION);

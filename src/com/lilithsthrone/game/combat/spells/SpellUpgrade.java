@@ -201,6 +201,23 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"If Rain Cloud's target is hit by a critical attack, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
 
+	SOOTHING_WATERS_1_CLEAN(true,
+			2,
+			SpellSchool.WATER,
+			"soothing_waters_clean",
+			"Cleansing Waters",
+			"The power of Soothing Waters now spreads over the target's body and into their clothes, cleaning them of any dirty fluids.",
+			null, Util.newArrayListOfValues(
+					"Soothing Waters [style.boldAqua(cleans all worn clothing)]",
+					"Soothing Waters [style.boldAqua(cleans all fluids from body)]")),
+	SOOTHING_WATERS_2_CLEAN(true,
+			5,
+			SpellSchool.WATER,
+			"soothing_waters_clean_orifices",
+			"Deep Clean",
+			"Soothing Waters now washes deep into the target's body, cleaning out all of their dirty orifices.",
+			null, Util.newArrayListOfValues(
+					"Soothing Waters [style.boldAqua(drains [style.fluid(250)] of fluid from all orifices)]")),
 	SOOTHING_WATERS_1(true,
 			5,
 			SpellSchool.WATER,

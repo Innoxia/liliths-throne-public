@@ -334,13 +334,10 @@ public interface SexManagerInterface {
 	}
 	
 	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
-		if(performer.equals(target)) {
+		if((performer.equals(target) || Main.sex.isConsensual()) && (target.hasBreasts() || target.isFeminine())) {
 			return Util.newArrayListOfValues(CoverableArea.NIPPLES);
-		} else {
-			if(Main.sex.isConsensual() || target.hasBreasts()) {
-				return Util.newArrayListOfValues(CoverableArea.NIPPLES);
-			}
 		}
+		
 		return new ArrayList<>();
 	}
 	

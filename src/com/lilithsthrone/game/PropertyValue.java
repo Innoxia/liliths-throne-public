@@ -32,6 +32,7 @@ public enum PropertyValue {
 	twentyFourHourTime(true),
 	internationalDate(true),
 
+	autoSexStrip(false),
 	autoSexClothingManagement(true),
 
 	companionContent(false),
@@ -39,9 +40,7 @@ public enum PropertyValue {
 	badEndContent(true),
 	ageContent(true),
 	furryTailPenetrationContent(false),
-	nonConContent(false),
 	sadisticSexContent(false),
-	incestContent(false),
 	inflationContent(true),
 
 	lipstickMarkingContent(true),
@@ -53,13 +52,16 @@ public enum PropertyValue {
 	furryHairContent(true),
 	scalyHairContent(false),
 	
-	lactationContent(true),
+	nonConContent(false, true),
+	incestContent(false, true),
+	lactationContent(true, true),
+	urethralContent(false, true),
+	analContent(true, true),
+	footContent(true, true),
+	nipplePenContent(true, true),
+	gapeContent(true, true),
+	
 	cumRegenerationContent(true),
-	urethralContent(false),
-	nipplePenContent(true),
-	analContent(true),
-	footContent(true),
-	gapeContent(true),
 	penetrationLimitations(true),
 	
 	futanariTesticles(true),
@@ -72,7 +74,6 @@ public enum PropertyValue {
 
 	spittingEnabled(true),
 	opportunisticAttackers(false),
-	bypassSexActions(true),
 
 	levelUpHightlight(false),
 	sharedEncyclopedia(false),
@@ -82,12 +83,22 @@ public enum PropertyValue {
 	newRaceDiscovered(false);
 
 	private boolean defaultValue;
+	private boolean fetishRelated;
 
 	private PropertyValue(boolean defaultValue) {
+		this(defaultValue, false);
+	}
+	
+	private PropertyValue(boolean defaultValue, boolean fetishRelated) {
 		this.defaultValue = defaultValue;
+		this.fetishRelated = fetishRelated;
 	}
 	
 	public boolean getDefaultValue() {
 		return defaultValue;
+	}
+	
+	public boolean isFetishRelated() {
+		return fetishRelated;
 	}
 }

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -1176,13 +1175,13 @@ public class InventoryDialogue {
 								if(Main.game.getPlayer().isStunned()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You cannot use any items while you're stunned!", null);
 									
-								} else if(Combat.isCombatantDefeated(Main.game.getPlayer())) {
+								} else if(Main.combat.isCombatantDefeated(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You cannot use any items while you're defeated!", null);
 									
 								} else if(Main.game.getPlayer().getRemainingAP()<CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You need at least "+CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())+" AP to use this actions!", null);
 									
-								} else if (!item.isAbleToBeUsedInCombat()) {
+								} else if (!item.isAbleToBeUsedInCombatAllies()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You cannot use this during combat!", null);
 									
 								} else if (!item.isAbleToBeUsedFromInventory()) {
@@ -1195,10 +1194,10 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
 											item.getItemType().getUseTooltipDescription(owner, owner),
-											Combat.ENEMY_ATTACK){
+											Main.combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.addItemToBeUsed(owner, owner, item);
+											Main.combat.addItemToBeUsed(owner, owner, item);
 											resetPostAction();
 											Main.mainController.openInventory();
 										}
@@ -1211,29 +1210,29 @@ public class InventoryDialogue {
 							} else if (index == 10) {
 								return getQuickTradeResponse();
 								
-							} else if(index == 11) {
+							} else if(index == 11) {//TODO on ally though???
 								if(Main.game.getPlayer().isStunned()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You cannot use any items while you're stunned!", null);
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Opponent)", "You cannot use any items while you're stunned!", null);
 									
-								} else if(Combat.isCombatantDefeated(Main.game.getPlayer())) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You cannot use any items while you're defeated!", null);
+								} else if(Main.combat.isCombatantDefeated(Main.game.getPlayer())) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Opponent)", "You cannot use any items while you're defeated!", null);
 									
 								} else if(Main.game.getPlayer().getRemainingAP()<CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", "You need at least "+CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())+" AP to use this actions!", null);
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Opponent)", "You need at least "+CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())+" AP to use this actions!", null);
 									
-								} else if (!item.isAbleToBeUsedInCombat()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (opponent)", "You cannot use this during combat!", null);
+								} else if (!item.isAbleToBeUsedInCombatEnemies()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Opponent)", "You cannot use this during combat!", null);
 									
 								} else if (!item.isAbleToBeUsedFromInventory()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (opponent)", item.getUnableToBeUsedFromInventoryDescription(), null);
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Opponent)", item.getUnableToBeUsedFromInventoryDescription(), null);
 									
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 
 								} else if(item.getItemType().isFetishGiving()) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Combat.ENEMY_ATTACK,
+											Main.combat.ENEMY_ATTACK,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1241,16 +1240,16 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Combat.addItemToBeUsed(owner, inventoryNPC, item);
+											Main.combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
 											Main.mainController.openInventory();
 										}
 									};
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(
-											Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Combat.ENEMY_ATTACK,
+											Main.combat.ENEMY_ATTACK,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1258,7 +1257,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Combat.addItemToBeUsed(owner, inventoryNPC, item);
+											Main.combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
 											Main.mainController.openInventory();
 										}
@@ -1266,12 +1265,12 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(
-											Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+											Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Combat.ENEMY_ATTACK){
+											Main.combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.addItemToBeUsed(owner, inventoryNPC, item);
+											Main.combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
 											Main.mainController.openInventory();
 										}
@@ -1279,7 +1278,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 12) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (opponent)", "You can only use one item at a time during combat!", null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Opponent)", "You can only use one item at a time during combat!", null);
 								
 							} else {
 								return null;
@@ -2003,10 +2002,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)", "You can't use make someone use an item while fighting them!", null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)", "You can't use make someone use an item while fighting them!", null);
 								
 							} else if(index == 12) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (opponent)", "You can't use make someone use an item while fighting them!", null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Opponent)", "You can't use make someone use an item while fighting them!", null);
 								
 							} else {
 								return null;
@@ -2754,7 +2753,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response("Equip (opponent)", "You can't make your opponent equip a weapon!", null);
+								return new Response("Equip (Opponent)", "You can't make your opponent equip a weapon!", null);
 								
 							} else {
 								return null;
@@ -3271,10 +3270,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response("Equip Main (opponent)", "You can't use make someone use a weapon while fighting them!", null);
+								return new Response("Equip Main (Opponent)", "You can't use make someone use a weapon while fighting them!", null);
 								
 							} else if(index == 12) {
-								return new Response("Equip Offhand (opponent)", "You can't use make someone use a weapon while fighting them!", null);
+								return new Response("Equip Offhand (Opponent)", "You can't use make someone use a weapon while fighting them!", null);
 								
 							} else {
 								return null;
@@ -3439,10 +3438,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response("Equip Main (opponent)", "You can't use make someone use a weapon while having sex with them!", null);
+								return new Response("Equip Main (Opponent)", "You can't use make someone use a weapon while having sex with them!", null);
 								
 							} else if(index == 12) {
-								return new Response("Equip Offhand (opponent)", "You can't use make someone use a weapon while having sex with them!", null);
+								return new Response("Equip Offhand (Opponent)", "You can't use make someone use a weapon while having sex with them!", null);
 								
 							} else {
 								return null;
@@ -3914,7 +3913,7 @@ public class InventoryDialogue {
 
 							} else if(index >= 11 && index <= 14 && index-11<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-11);
-								return new Response("Equip: "+Util.capitaliseSentence(slot.getName())+" (opponent)", "You can't make your opponent equip clothing while fighting them!", null);
+								return new Response("Equip: "+Util.capitaliseSentence(slot.getName())+" (Opponent)", "You can't make your opponent equip clothing while fighting them!", null);
 								
 							} else {
 								return null;
@@ -4110,8 +4109,8 @@ public class InventoryDialogue {
 											public void effects() {
 												List<NPC> enslavementTargets = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 //												enslavementTargets.removeIf((npc) -> Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
-												enslavementTargets.removeIf((npc) -> !Combat.getEnemies(Main.game.getPlayer()).contains(npc));
-												if(enslavementTargets.size()==1) {
+												enslavementTargets.removeIf((npc) -> !Main.combat.getEnemies(Main.game.getPlayer()).contains(npc));
+												if(enslavementTargets.size()<=1) {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getDefaultDialogue(false));
 												} else {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
@@ -4847,8 +4846,8 @@ public class InventoryDialogue {
 											public void effects() {
 												List<NPC> enslavementTargets = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 //												enslavementTargets.removeIf((npc) -> Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
-												enslavementTargets.removeIf((npc) -> !Combat.getEnemies(Main.game.getPlayer()).contains(npc));
-												if(enslavementTargets.size()==1) {
+												enslavementTargets.removeIf((npc) -> !Main.combat.getEnemies(Main.game.getPlayer()).contains(npc));
+												if(enslavementTargets.size()<=1) {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getDefaultDialogue(false));
 												} else {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
@@ -6571,7 +6570,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
+										+ getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -6658,7 +6657,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
+										+ getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -6762,7 +6761,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
+										+ getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -6859,7 +6858,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
+										+ getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -7023,7 +7022,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -7086,7 +7085,7 @@ public class InventoryDialogue {
 							
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
@@ -7157,10 +7156,10 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed and reforged</b>!"
@@ -7249,7 +7248,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -7336,7 +7335,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been reforged</b>!"
@@ -7433,10 +7432,10 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed and reforged</b>!"
@@ -7545,7 +7544,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -7650,7 +7649,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been reforged</b>!"
@@ -7763,10 +7762,10 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed and reforged</b>!"
@@ -7875,7 +7874,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -7943,7 +7942,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
@@ -8014,10 +8013,10 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
+										+ getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+										+ getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
@@ -8078,6 +8077,33 @@ public class InventoryDialogue {
 	
 	
 	// Utility methods:
+	
+	private static String getDyeBrushEffects(AbstractClothing clothing, Colour colour) {
+		return "<p>"
+					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
+					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	private static String getDyeBrushEffects(AbstractWeapon weapon, Colour colour) {
+		return "<p>"
+					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	private static String getReforgeHammerEffects(AbstractWeapon weapon, DamageType damageType) {
+		return "<p>"
+					+ "As you take hold of the reforging hammer, you see the metal head start to emit a deep purple glow."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter this glow becomes, until suddenly, images of different damage types start flashing through your mind."
+					+ " As you touch the metal head  to the " + weapon.getName() + ", the reforge hammer instantly evaporates!"
+					+ " You see that the arcane enchantment has reforged the " + weapon.getName() + " so that it now deals " + damageType.getName() + " damage."
+				+ "</p>";
+	}
 	
 	private static String getItemDisplayPanel(String SVGString, String title, String description) {
 		return "<div class='inventoryImage'>"
@@ -8583,7 +8609,7 @@ public class InventoryDialogue {
 		resetItems();
 	}
 	
-	private static void resetItems() {
+	public static void resetItems() {
 		item = null;
 		clothing = null;
 		weapon = null;

@@ -100,9 +100,18 @@ public abstract class AbstractItemEffectType {
 		this.colour = colour;
 	}
 	
+	public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+		if(effectsDescriptions==null) {
+			return new ArrayList<>();
+		}
+		return new ArrayList<>(effectsDescriptions);
+	}
+	
 	public Colour getColour() {
 		return colour;
 	}
+
+	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
 	public String getPotionDescriptor() {
 		return "";
@@ -157,15 +166,6 @@ public abstract class AbstractItemEffectType {
 	public int getMaximumLimit() {
 		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
-	
-	public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-		if(effectsDescriptions==null) {
-			return new ArrayList<>();
-		}
-		return new ArrayList<>(effectsDescriptions);
-	}
-	
-	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
 	public static String getBookEffect(GameCharacter reader, Subspecies subspecies, boolean withDescription) {
 		Main.getProperties().addRaceDiscovered(subspecies);
@@ -458,9 +458,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						return PenisLength.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
-						return TesticleSize.SEVEN_ABSURD.getValue();
+						return PenetrationGirth.SIX_GIRTHY.getValue();
 					case TF_MOD_SIZE_TERTIARY:
-						return PenetrationGirth.FIVE_FAT.getValue();
+						return TesticleSize.SEVEN_ABSURD.getValue();
 					case TF_MOD_WETNESS:
 						return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
 					case TF_MOD_CUM_EXPULSION:

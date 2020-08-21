@@ -121,6 +121,43 @@
 	]]>
 	</htmlContent>
 	
+	<!-- Head patting -->
+	
+	<htmlContent tag="NYAN_HEAD_PAT_BASE"><![CDATA[
+	<p>
+		From the look of adoration in her big, [nyan.eyeColour] eyes, you can tell that Nyan is desperate to have some physical contact with you. Knowing exactly what this cute cat-girl deserves, you reach up and give the top of her head a gentle pat.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="NYAN_HEAD_PAT"><![CDATA[
+	<p>
+		Leaning into your [pc.hand], the cat-girl lets out a soft purr, and as you continue gently patting and stroking her head, she sighs, [nyan.speechNoEffects(~Mmm!~ T-That feels nice... D-Do my ears too...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NYAN_HEAD_PAT"><![CDATA[
+	<p>
+		Letting out a delighted purr and tilting her head into your [pc.hand], the cat-girl bites her lip and sighs, [nyan.speechNoEffects(K-Keep going... ~Mmm!~ I-If you'd like, y-you could scratch my ears as well...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NYAN_HEAD_PAT"><![CDATA[
+	<p>
+		Sighing and purring in delight, the cat-girl lets her eyelids droop down as she happily sighs, [nyan.speechNoEffects(T-That's nice... ~Mmm!~ M-My ears feel good to scratch too, i-if you'd like to try it...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NYAN_HEAD_PAT_FINAL"><![CDATA[
+	<p>
+		Doing as Nyan suggests, you move your [pc.fingers+] over to stroke her soft, [nyan.earColour]-furred ears, which causes her to let out another series of soft purrs and moans. Happily rubbing her head into your [pc.hand], the shy cat-girl encourages you to keep on patting her, until eventually, after more than ten minutes have passed, she pulls back and meekly thanks you for giving her some loving attention.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- Kissing -->
 	
 	<htmlContent tag="NYAN_KISS_BASE"><![CDATA[

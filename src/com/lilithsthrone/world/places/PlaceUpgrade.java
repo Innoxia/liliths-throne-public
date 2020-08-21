@@ -912,6 +912,7 @@ public class PlaceUpgrade {
 			null) {
 		@Override
 		public DialogueNode getInstallationDialogue(Cell c) {
+			LilayaSpa.setCellInstallation(c);
 			return LilayaSpa.SPA_INSTALLATION;
 		}
 		@Override

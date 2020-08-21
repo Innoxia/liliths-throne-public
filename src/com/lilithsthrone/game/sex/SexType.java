@@ -122,16 +122,20 @@ public class SexType implements XMLSaving {
 		
 		if(areaPerforming.isPenetration()) {
 			if(areaTargeted.isPenetration()) {
-				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			} else {
-				return UtilText.parse(performer, target, "[npc.Name] used [npc.her] "+areaPerforming.getName(performer)+" to fuck [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] used [npc.her] "+areaPerforming.getName(performer)+" "+(((SexAreaPenetration)areaPerforming).isTakesVirginity()?"to fuck":"on")+" [npc2.namePos] "+areaTargeted.getName(target)+".");
 			}
 			
 		} else {
 			if(areaTargeted.isPenetration()) {
-				return UtilText.parse(performer, target, "[npc.Name] had [npc.her] "+areaPerforming.getName(performer)+" fucked by [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] had [npc.her] "+areaPerforming.getName(performer)+" "+(((SexAreaPenetration)areaTargeted).isTakesVirginity()?"fucked by":"used by")+" [npc2.namePos] "+areaTargeted.getName(target)+".");
 			} else {
-				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			}
 		}
 	}

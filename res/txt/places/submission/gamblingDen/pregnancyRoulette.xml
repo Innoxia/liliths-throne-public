@@ -183,7 +183,7 @@
 		[pc.speech(Ok, that seems simple enough,)] you say. [pc.speech(What if the volunteer doesn't get pregnant?)]
 	</p>
 	<p>
-		[epona.speech(Well, in that case, everyone loses their bets,)] Epona replies. [epona.speech(I give the volunteer a [#ITEM_VIXENS_VIRILITY.getName(false)] before we start though, so that shouldn't happen!)]
+		[epona.speech(Well, in that case, everyone loses their bets,)] Epona replies. [epona.speech(I give the volunteer a [#ITEM_innoxia_pills_breeder.getName(false)] before we start though, so that shouldn't happen!)]
 	</p>
 	<p>
 		[pc.speech(Alright, thanks for explaining it to me.)]
@@ -230,7 +230,7 @@
 		After only a few minutes, you look through the one-way mirror to see Epona entering the room once more. Trailing in her wake, you see six futas, all of them already stripped naked. Trotting alongside each one of these breeders is a rather excited-looking horse-girl. As this large group finishes entering the room, the horse-girls dutifully drop to their knees beside their partner, and, with a combination of licks and strokes, quickly get their chosen breeder's cock to full hardness.
 	</p>
 	<p>
-		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_VIXENS_VIRILITY.getName(false)]!)]
+		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_innoxia_pills_breeder.getName(false)]!)]
 	</p>
 	<p>
 		Epona hands you a little pink pill, which you quickly swallow. You then turn to look over the six futas before you, and after Epona's pointed out each one and told you her name, you decide upon the futa that you think will be the father of your kids...
@@ -274,7 +274,7 @@
 		After only a few minutes, you look through the one-way mirror to see Epona entering the room once more. Trailing in her wake, you see six guys, all of them already stripped naked. Trotting alongside each one of these breeders is a rather excited-looking horse-girl. As this large group finishes entering the room, the horse-girls dutifully drop to their knees beside their partner, and, with a combination of licks and strokes, quickly get their chosen breeder's cock to full hardness.
 	</p>
 	<p>
-		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_VIXENS_VIRILITY.getName(false)]!)]
+		While these horse-girls are getting the breeders warmed up, Epona opens the door beside you and steps forwards into the small room. [epona.speech(Heya! Look at all those cocks lined up just for you! So, which one do you think's gonna be the one to knock you up? Remember, after you've chosen, I'll roll dice to see in what order they get to use your pussy. Oh, and I almost forgot! You need to take a [#ITEM_innoxia_pills_breeder.getName(false)]!)]
 	</p>
 	<p>
 		Epona hands you a little pink pill, which you quickly swallow. You then turn to look over the six guys before you, and after Epona's pointed out each one and told you his name, you decide upon the guy that you think will be the father of your kids...
@@ -633,10 +633,12 @@
 		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
 	</p>
 	<p>
-		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
-			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
 		#ELSE
-			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
 		#ENDIF
 	</p>
 	]]>
@@ -647,10 +649,12 @@
 		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
 	</p>
 	<p>
-		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
-			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
 		#ELSE
-			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
 		#ENDIF
 	</p>
 	]]>
@@ -661,10 +665,12 @@
 		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
 	</p>
 	<p>
-		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
-			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkMaster))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkCaptiveBlowjob))
+			He teases you about making you suck his cock as his milker. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
 		#ELSE
-			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+			He teases you about wanting his fat cock. Makes you call him Master and kiss his cock, before grabbing your head and thrusting his cock down your throat.
 		#ENDIF
 	</p>
 	]]>

@@ -922,10 +922,8 @@ public class Lab {
 				UtilText.addSpecialParsingString(getJinxedClothingExample().getName(), true);
 				UtilText.addSpecialParsingString((getJinxedClothingExample().getClothingType().isPlural()?"them":"it"), false);
 				UtilText.addSpecialParsingString((getJinxedClothingExample().getClothingType().isPlural()?"these":"this"), false);
-			} else {
-				UtilText.addSpecialParsingString("false", true);
 			}
-
+			
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_EXPLAINS_ESSENCES");
 		}
 

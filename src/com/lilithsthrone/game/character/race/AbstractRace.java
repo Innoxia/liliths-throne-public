@@ -88,6 +88,10 @@ public abstract class AbstractRace {
 	public boolean isFlyingRace() {
 		return false;
 	}
+
+	public boolean isAbleToSelfTransform() {
+		return false;
+	}
 	
 	/**
 	 * Applies any special racial changes to the body which is passed in. This is called <b>before</b> Subspecies.applySpeciesChanges()

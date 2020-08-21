@@ -1232,7 +1232,10 @@ public enum Subspecies {
 			"A fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(), Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
-		
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Subspecies.applyFoxColoring(body);
@@ -1325,6 +1328,10 @@ public enum Subspecies {
 			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(), Util.newArrayListOfValues()) {
 		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
 			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
@@ -1404,6 +1411,10 @@ public enum Subspecies {
 			"A fennec-morph, empowered by the gifts of a Lilin.",
 			Util.newHashMapOfValues(), Util.newArrayListOfValues()) {
 		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour fennecColour = PresetColour.COVERING_BLEACH_BLONDE;
 			double rand = Math.random();
@@ -1424,7 +1435,6 @@ public enum Subspecies {
 				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
 			}
 		}
-		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
@@ -1433,7 +1443,6 @@ public enum Subspecies {
 				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
-
 		@Override
 		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
 			if(character!=null && character.getTailCount()<9) {
@@ -1452,12 +1461,10 @@ public enum Subspecies {
 						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
-		
 		@Override
 		public String getSVGString(GameCharacter character) {
 			return FOX_ASCENDANT.getSVGString(character);
 		}
-
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
 			return FOX_ASCENDANT.getSVGStringDesaturated(character);
@@ -4537,6 +4544,13 @@ public enum Subspecies {
 	
 	public boolean isNonBiped() {
 		return false;
+	}
+	
+	/**
+	 * @return true if this SUbspecies is able to self-transform. Race.isAbleToSelfTransform() is factored into this.
+	 */
+	public boolean isAbleToSelfTransform() {
+		return this.getRace().isAbleToSelfTransform();
 	}
 	
 	public boolean isMainSubspecies() {

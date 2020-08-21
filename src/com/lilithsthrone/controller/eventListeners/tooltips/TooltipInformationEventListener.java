@@ -534,7 +534,11 @@ public class TooltipInformationEventListener implements EventListener {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty() || (!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty())) {
 					tooltipSB.append("<div class='subTitle' style='font-weight:normal;'><b>Requirements</b>");
 					for(Fetish f : fetish.getFetishesForAutomaticUnlock()) {
-						tooltipSB.append("<br/>[style.boldArcane(" + Util.capitaliseSentence(f.getName(owner))+")]");
+						if(owner.hasFetish(f)) {
+							tooltipSB.append("<br/>[style.italicsGood(" + Util.capitaliseSentence(f.getName(owner))+")]");
+						} else {
+							tooltipSB.append("<br/>[style.italicsBad(" + Util.capitaliseSentence(f.getName(owner))+")]");
+						}
 					}
 					if(!owner.hasFetish(fetish)) {
 						for(String s : fetish.getPerkRequirements(owner)) {
@@ -782,7 +786,7 @@ public class TooltipInformationEventListener implements EventListener {
 								owner.isNippleBestial(),
 								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):(owner.isFeminine()?"flat breasts":"pecs"))));
 					}
-					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, owner)) {
+					if(owner.hasBreastsCrotch() && Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, owner)) {
 						knownAreas++;
 						tooltipSB.append(getBodyPartDiv(owner, "Nipples",
 								owner.getBreastCrotchRace(),

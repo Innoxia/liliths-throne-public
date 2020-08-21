@@ -41,6 +41,11 @@ public class SMBreedingStall extends SexManagerDefault {
 			getAreasBannedMap().get(character).add(SexAreaOrifice.MOUTH);
 		}
 	}
+	
+	@Override
+	public boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return false;
+	}
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
@@ -78,7 +83,10 @@ public class SMBreedingStall extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(partner)>=1;
+//		if(Main.sex.isDom(partner)) {
+//			return Main.sex.getNumberOfOrgasms(partner)>=1;
+//		}
+		return Main.sex.getNumberOfOrgasms(Main.sex.getDominantParticipants(false).keySet().iterator().next())>=1;
 	}
 	
 	@Override

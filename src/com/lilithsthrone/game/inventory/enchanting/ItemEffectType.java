@@ -322,61 +322,61 @@ public class ItemEffectType {
 		}
 	};
 	
-	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(50)+" for 24 hours",
-			Attribute.VIRILITY.getFormattedValue(50)+" for 24 hours",
-			"[style.boldBad(Removes status effect:)]",
-			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
-			return UtilText.parse(target,
-					"<p style='margin-bottom:0; padding-bottom:0;'>"
-						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
-						+ ( target.hasVagina()
-								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
-									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
-									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
-									+ (target.hasPenisIgnoreDildo()
-											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
-											:"") 
-								:"")
-						+ (target.hasPenisIgnoreDildo()
-								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
-								: "")
-						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
-								?"a desperate heat in [npc.her] genderless mound."
-								:"")
-					+"</p>"
-					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
-						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
-					+ "</p>");
-		}
-	};
-	
-	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(-100)+" for 24 hours",
-			Attribute.VIRILITY.getFormattedValue(-100)+" for 24 hours",
-			"[style.boldBad(Removes status effect:)]",
-			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
-			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
-			return UtilText.parse(target,
-					"<p>"
-						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
-					+ "</p>"
-					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
-						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
-					+ "</p>");
-		}
-	};
+//	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.FERTILITY.getFormattedValue(50)+" for 24 hours",
+//			Attribute.VIRILITY.getFormattedValue(50)+" for 24 hours",
+//			"[style.boldBad(Removes status effect:)]",
+//			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
+//			PresetColour.GENERIC_SEX) {
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+//			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
+//			return UtilText.parse(target,
+//					"<p style='margin-bottom:0; padding-bottom:0;'>"
+//						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
+//						+ ( target.hasVagina()
+//								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
+//									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
+//									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
+//									+ (target.hasPenisIgnoreDildo()
+//											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
+//											:"") 
+//								:"")
+//						+ (target.hasPenisIgnoreDildo()
+//								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
+//								: "")
+//						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
+//								?"a desperate heat in [npc.her] genderless mound."
+//								:"")
+//					+"</p>"
+//					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+//						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
+//					+ "</p>");
+//		}
+//	};
+//	
+//	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.FERTILITY.getFormattedValue(-100)+" for 24 hours",
+//			Attribute.VIRILITY.getFormattedValue(-100)+" for 24 hours",
+//			"[style.boldBad(Removes status effect:)]",
+//			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
+//			PresetColour.GENERIC_SEX) {
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
+//			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
+//			return UtilText.parse(target,
+//					"<p>"
+//						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
+//					+ "</p>"
+//					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+//						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
+//					+ "</p>");
+//		}
+//	};
 	
 
 	public static AbstractItemEffectType MOO_MILKER = new AbstractItemEffectType(Util.newArrayListOfValues(
@@ -391,14 +391,14 @@ public class ItemEffectType {
 				return "<p>"
 							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped, Units.UnitType.LONG)+" of your [pc.milk]."
 						+ "</p>"
-						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourShades().get(0), target, target.getMilk(), milkPumped), false, true);
 			
 			} else {
 				return UtilText.parse(target,
 						"<p>"
 							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped, Units.UnitType.LONG)+" of [npc.her] [npc.milk]."
 						+ "</p>"
-						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourShades().get(0), target, target.getMilk(), milkPumped), false, true));
 			}
 		}
 	};

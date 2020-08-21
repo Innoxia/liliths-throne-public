@@ -243,7 +243,7 @@ public class HarpyNympho extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	
 	@Override

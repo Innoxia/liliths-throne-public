@@ -141,7 +141,7 @@ public enum Attack {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(damage);
 		} else {
 			return Math.round(damage);
@@ -171,7 +171,7 @@ public enum Attack {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(finalDamage);
 		} else {
 			return Math.round(finalDamage);
@@ -201,7 +201,7 @@ public enum Attack {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Main.combat.getTurn()==0) {
 			return 2 * Math.round(finalDamage);
 		} else {
 			return Math.round(finalDamage);
