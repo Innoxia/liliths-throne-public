@@ -127,7 +127,7 @@
 		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
+		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant a weapon in your game, save the game, then copy over that weapon's 'effects' in your save file.
 		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
 		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
 		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
@@ -162,7 +162,7 @@
 		Use the exact same format as onHitEffect (the element above). -->
 		<onCriticalHitEffect/>
 		
-		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
+		<!-- Your weapon can be coloured any way you like, but if you'd like the player to be able to dye your weapon, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the weapon in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
 		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
 			#ff2a2a
 			#ff5555
@@ -187,7 +187,7 @@
 			#cdde87
 			#dde9af
 			#eef4d7
-		As you can see above, weapons differ from clothing in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours", "secondaryColours", and "tertiaryColours" defined below are for recolouring the Orange, Yellow, and Green values, respectively.
+		As you can see above, weapons differ from weapon in that their 'Red' colour is recoloured based on the weapon's damage type! The "primaryColours", "secondaryColours", and "tertiaryColours" defined below are for recolouring the Orange, Yellow, and Green values, respectively.
 			
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
@@ -215,7 +215,7 @@
 			 <!-- This particular copyColourIndex, having an index of 1, will always be coloured the same as the secondary colour when generated -->
 			<customColour copyColourIndex="1" recolouringAllowed="true" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB"> <!-- These are the colours which you've used in your svg and would like replaced with the colours you define below. c0 is the darkest shade. Shades can go up to any number, but setting just 5 shades should work best. -->
 				<defaultColours>
-					<colour>CLOTHING_BLACK</colour> <!-- The colours which this clothing should spawn in with. -->
+					<colour>CLOTHING_BLACK</colour> <!-- The colours which this weapon should spawn in with. -->
 				</defaultColours> 
 				<extraColours values="ALL"/> <!-- The colours which this weapon can be dyed to. -->
 			</customColour>

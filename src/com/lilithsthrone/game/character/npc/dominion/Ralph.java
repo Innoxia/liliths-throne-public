@@ -302,8 +302,8 @@ public class Ralph extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "Although the memory of you submissively pleasuring Ralph's huge horse-cock is still fresh in both of your minds, he treats you with the utmost respect and politely lists off the prices of the transformative consumables on display."
-						+ (this.hasItemType(ItemType.PROMISCUITY_PILL)
-								?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.PROMISCUITY_PILL.getNamePlural(false)+"' appear to be unreasonably pricy,"
+						+ (this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
+								?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.getItemTypeFromId("innoxia_pills_sterility").getNamePlural(false)+"' appear to be unreasonably pricy,"
 								+ " and Ralph once again notes that there's a huge tax levied on their sale."
 							+ "</p>"
 							+ "<p>"
@@ -331,8 +331,8 @@ public class Ralph extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "After a brief greeting, you ask him about the transformative consumables on display. He politely informs you that they're all for sale and quickly lists off their prices."
-						+ (this.hasItemType(ItemType.PROMISCUITY_PILL)
-							?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.PROMISCUITY_PILL.getNamePlural(false)+"' appear to be unreasonably pricy,"
+						+ (this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
+							?" While most of them seem to have a reasonable markup, the small blue '"+ItemType.getItemTypeFromId("innoxia_pills_sterility").getNamePlural(false)+"' appear to be unreasonably pricy,"
 									+ " and after asking Ralph about their high cost, he explains that there's a huge tax levied on their sale."
 								+ "</p>"
 								+ "<p>"
@@ -353,7 +353,7 @@ public class Ralph extends NPC {
 	public float getSellModifier(AbstractCoreItem item) {
 		float base = 1.5f;
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType()==ItemType.PROMISCUITY_PILL) {
+			if(((AbstractItem)item).getItemType()==ItemType.getItemTypeFromId("innoxia_pills_sterility")) {
 				base*=10;
 			}
 		}
@@ -525,13 +525,13 @@ public class Ralph extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
 				itemOwner.useItem(item, target, false);
 				
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "You pull out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
+								+ "You pull out a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 								+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 								+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy, although somewhat muffled, giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");
@@ -539,7 +539,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a '[#ITEM_VIXENS_VIRILITY.getName(false)]'."
+								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
 								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to swallow it."
 								+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 								+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -553,7 +553,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 								"<p>"
-									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a '[#ITEM_VIXENS_VIRILITY.getName(false)]'."
+									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
 									+ " Suppressing your groans, you turn back, holding out your hand as you ask him to swallow it."
 									+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 									+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -563,7 +563,7 @@ public class Ralph extends NPC {
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
+								+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
 									+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 									+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");

@@ -51,7 +51,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -82,8 +81,6 @@ public class Lumi extends NPC {
 				PlaceType.GENERIC_HOLDING_CELL,
 				true);
 		
-		this.useItem(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), this, false);
-
 		this.setPlayerKnowsName(false);
 	}
 
@@ -235,7 +232,7 @@ public class Lumi extends NPC {
 	
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	
 	@Override

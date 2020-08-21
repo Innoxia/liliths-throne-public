@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.87
- * @version 0.3.6.5
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public enum SlavePermissionSetting {
@@ -33,6 +33,7 @@ public enum SlavePermissionSetting {
 	SEX_INITIATE_SLAVES(false, "Initiate Sex", "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."),
 	SEX_INITIATE_PLAYER(false, "Use You", "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time."),
 	SEX_RECEIVE_SLAVES(false, "Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled."),
+	SEX_SAVE_VIRGINITY(true, "Save Virginity", "Do not let any other slaves take this slave's virginity during sex."),
 	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled."),
 	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events."),
 
@@ -41,22 +42,22 @@ public enum SlavePermissionSetting {
 	PREGNANCY_PROMISCUITY_PILLS(false, "", "") {
 		@Override
 		public String getName() {
-			return Util.capitaliseSentence(ItemType.PROMISCUITY_PILL.getName(false));
+			return Util.capitaliseSentence(ItemType.getItemTypeFromId("innoxia_pills_sterility").getName(false));
 		}
 		@Override
 		public String getDescription() {
-			return UtilText.parse("Keep this slave on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], greatly reducing both their fertility and virility.");
+			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], greatly reducing both their fertility and virility.");
 		}
 	},
 	PREGNANCY_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	PREGNANCY_VIXENS_VIRILITY(false, "", "") {
 		@Override
 		public String getName() {
-			return Util.capitaliseSentence(ItemType.VIXENS_VIRILITY.getName(false));
+			return Util.capitaliseSentence(ItemType.getItemTypeFromId("innoxia_pills_fertility").getName(false));
 		}
 		@Override
 		public String getDescription() {
-			return UtilText.parse("Keep this slave on [#ITEM_VIXENS_VIRILITY.getNamePlural(false)], greatly increasing both their fertility and virility.");
+			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_fertility.getNamePlural(false)], greatly increasing both their fertility and virility.");
 		}
 	},
 

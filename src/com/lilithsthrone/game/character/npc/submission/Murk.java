@@ -68,7 +68,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.submission.SAMurkSpecials;
 import com.lilithsthrone.main.Main;
@@ -429,10 +428,10 @@ public class Murk extends NPC {
 		return super.getOrgasmsBeforeSatisfied();
 	}
 	
-	@Override
-	public SexPace getSexPaceDomPreference(){
-		return SexPace.DOM_NORMAL;
-	}
+//	@Override
+//	public SexPace getSexPaceDomPreference(){
+//		return SexPace.DOM_NORMAL;
+//	}
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {

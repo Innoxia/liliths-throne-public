@@ -714,12 +714,52 @@ public class Sex {
 		List<AbstractClothing> clothingToStrip = new ArrayList<>();
 
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(sexManager.isCharacterStartNaked(character)) {
+			if(sexManager.isCharacterStartNaked(character)
+					|| (Main.getProperties().hasValue(PropertyValue.autoSexStrip) && character.isPlayer() && Main.sex.getInitialSexManager().isAbleToRemoveSelfClothing(character))) {
 				clothingToStrip.clear();
 				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
-				for (AbstractClothing c : clothingToStrip) {
+				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
+				for(AbstractClothing c : clothingToStrip) {
 					character.unequipClothingOntoFloor(c, true, character);
 				}
+				// If any clothing was unable to be removed, displace it in every way possible:
+				clothingToStrip.clear();
+				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
+				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
+				for(AbstractClothing c : clothingToStrip) {
+					for(DisplacementType dt : c.getClothingType().getBlockedPartsKeysAsListWithoutNONE(character, c.getSlotEquippedTo())) {
+						character.isAbleToBeDisplaced(c, dt, true, true, character);
+					}
+				}
+				if(!sexManager.isCharacterStartNaked(character)) {
+					sexSB.append("<p style='text-align:center;'>"
+									+ "[style.italicsSex(You quickly strip off all of your clothes!)]"
+								+ "</p>");
+				}
+				
+			} else if(Main.getProperties().hasValue(PropertyValue.autoSexStrip) && !character.isPlayer()) {
+				clothingToStrip.clear();
+				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
+				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
+				for(AbstractClothing c : clothingToStrip) {
+					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
+						character.unequipClothingOntoFloor(c, true, character);
+					}
+				}
+				// If any clothing was unable to be removed, displace it in every way possible:
+				clothingToStrip.clear();
+				clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
+				clothingToStrip.removeIf(c -> c.getSlotEquippedTo().isJewellery() || c.isMilkingEquipment());
+				for(AbstractClothing c : clothingToStrip) {
+					if(Main.sex.getInitialSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), c)) {
+						for(DisplacementType dt : c.getClothingType().getBlockedPartsKeysAsListWithoutNONE(character, c.getSlotEquippedTo())) {
+							character.isAbleToBeDisplaced(c, dt, true, true, character);
+						}
+					}
+				}
+				sexSB.append("<p style='text-align:center;'>"
+								+ UtilText.parse(character, "[style.italicsSex(You quickly strip off all of [npc.namePos] clothes!)]")
+							+ "</p>");
 			}
 		}
 		

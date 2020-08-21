@@ -237,7 +237,7 @@ public class RatWarrensDialogue {
 		}
 	}
 	
-	private static void banishTwoGuards() {
+	public static void banishTwoGuards() {
 		Main.game.banishNPC((NPC) getGuards(false).get(getGuards(false).size()-1));
 		Main.game.banishNPC((NPC) getGuards(false).get(getGuards(false).size()-1));
 	}
@@ -625,12 +625,12 @@ public class RatWarrensDialogue {
 	public static final DialogueNode GUARD_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT
-					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
-					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
-				Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
-			}
-			banishTwoGuards();
+//			if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT
+//					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
+//					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
+//				Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+//			}
+//			banishTwoGuards();
 		}
 		
 		@Override

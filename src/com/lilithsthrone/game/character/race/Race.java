@@ -120,6 +120,10 @@ public class Race {
 			FurryPreference.NORMAL,
 			false) {
 		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
 		public boolean isBestialPartsAvailable() {
 			return false;
 		}
@@ -160,6 +164,10 @@ public class Race {
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
 		@Override
 		public String getName(GameCharacter character, boolean bestial) {
 			if(bestial) {
@@ -726,15 +734,17 @@ public class Race {
 			FurryPreference.MAXIMUM,
 			false) {
 		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HUMAN;
 		}
-
 		@Override
 		public BodyCoveringType getBodyHairType() {
 			return BodyCoveringType.SLIME_BODY_HAIR;
 		}
-
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
 			return ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
@@ -806,6 +816,10 @@ public class Race {
 				FurryPreference.MAXIMUM,
 				FurryPreference.MAXIMUM,
 				false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.DEMON;

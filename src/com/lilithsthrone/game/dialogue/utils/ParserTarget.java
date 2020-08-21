@@ -68,7 +68,6 @@ import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
 import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
 import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -134,7 +133,7 @@ public enum ParserTarget {
 						}
 						
 					} else if(Main.game.isInCombat()) {
-						return Combat.getActiveNPC();
+						return Main.combat.getActiveNPC();
 						
 					} else if (Main.game.isInSex()) {
 						return Main.sex.getTargetedPartner(Main.game.getPlayer());

@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -91,6 +92,8 @@ public class EnforcerWarehouseGuard extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
+			
+			this.setCombatBehaviour(CombatBehaviour.ATTACK);
 			
 			this.setEssenceCount(100);
 			

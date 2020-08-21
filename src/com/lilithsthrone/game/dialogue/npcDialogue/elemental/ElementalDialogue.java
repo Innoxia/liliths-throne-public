@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -26,7 +27,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.9
- * @version 0.3.9
+ * @version 0.3.9.3
  * @author Innoxia
  */
 public class ElementalDialogue {
@@ -41,6 +42,10 @@ public class ElementalDialogue {
 			return "";
 		}
 		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
+		@Override
 		public Response getResponse(int responseTab, int index) {
 			return ELEMENTAL_START.getResponse(responseTab, index);
 		}
@@ -52,69 +57,163 @@ public class ElementalDialogue {
 			return UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_START");
 		}
 		@Override
+		public String getResponseTabTitle(int index) {
+			if(index==0) {
+				return "Interactions";
+			} else if(index==1) {
+				return UtilText.parse("[style.colourCompanion(Manage)]");
+			}
+			return null;
+		}
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==0) { // Interactions:
+				if(index==1) {
+					if(!getElemental().isActive()) {
+						return new Response("Inspect", "You need to have [el.name] take on [el.her] active form in order to inspect [el.herHim].", null);
+					}
+					return new Response("Inspect", "Take a good look at [el.name].", ELEMENTAL_INSPECT);
+					
+				} else if(index==2) {
+					return new Response("Talk", "Talk to [el.name] for a while.", ELEMENTAL_TALK);
+					
+				} else if(index==3) {
+					if(getElemental().isActive()) {
+						return new Response("Pet", "[el.Name] needs to be in [el.her] passive form in order to pet [el.herHim]...", null);
+					}
+					return new Response("Pet", "Give [el.name] a good petting.", ELEMENTAL_PETTING);
+					
+				}
+				// index==5 is transform toggle defined below
+				if(index==6) {
+					if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						return new Response("Dominant sex", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						return new Response("Dominant sex",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with the idea of having sex with [el.name] in a place where people could see you!",
+								null);
+						
+					} else if(!getElemental().isActive()) {
+						return new Response("Dominant sex", "You need to have [el.name] take on [el.her] active form in order to have sex with [el.herHim].", null);
+						
+					} else if(getElemental().isSummonerServant() && !getElemental().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+						return new Response("Dominant sex",
+								"As you have sworn subservience to the school of [el.school], and [el.name] does not have the '"+Fetish.FETISH_SUBMISSIVE.getName(getElemental())+"' fetish, [el.name] is not going to let you dominantly fuck [el.herHim]...",
+								null);
+					}
+					return new ResponseSex("Dominant sex",
+							"Have dominant sex with [el.name].",
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))),
+							null,
+							null,
+							ELEMENTAL_AFTER_SEX,
+							UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_START_SEX_DOMINANT"));
+					
+				} else if(index==7) {
+					if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						return new Response("Submissive sex", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						return new Response("Submissive sex",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with the idea of having sex with [el.name] in a place where people could see you!",
+								null);
+						
+					} else if(!getElemental().isActive()) {
+						return new Response("Submissive sex", "You need to have [el.name] take on [el.her] active form in order to have sex with [el.herHim].", null);
+					}
+					return new ResponseSex("Submissive sex",
+							"Let [el.name] take charge and have submissive sex with [el.herHim].",
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))),
+							null,
+							null,
+							ELEMENTAL_AFTER_SEX,
+							UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_START_SEX_SUBMISSIVE"));
+					
+				}
 			
-			if(index==1) {
-				if(!getElemental().isActive()) {
-					return new Response("Inspect", "You need to have [el.name] take on [el.her] active form in order to inspect [el.herHim].", null);
+			} else if(responseTab==1) { // Management:
+				if(index==1) {
+					if(getElemental().isActive()) {
+						return new Response("Passive transform", "You need to have [el.name] take on [el.her] passive form in order for [el.herHim] to change it to something else...", null);
+					}
+					return new Response("Passive transform", "Ask [el.name] about [el.her] passive form and whether [el.she] can change it to something else...", ELEMENTAL_PASSIVE_FORM);
+					
+				} else if(index==2) {
+					if(!getElemental().isActive()) {
+						return new Response("Active transform", "You need to have [el.name] take on [el.her] active form in order for [el.herHim] to change it to something else...", null);
+					}
+					return new Response("Active transform",
+							"Get [el.name] to transform [el.herself] into a different form...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(getElemental());
+						}
+					};
+					
+				} else if(index==3) {
+					return new Response("Perks", "Assign [el.namePos] perk points.", ELEMENTAL_PERKS);
+					
+				} else if(index==4) {
+					return new Response("Set names", "Change [el.namePos] name or tell [el.herHim] to call you by a different name.", ELEMENTAL_CHOOSE_NAME);
+					
 				}
-				return new Response("Inspect", "Take a good look at [el.name].", ELEMENTAL_INSPECT);
-				
-			} else if(index==2) {
-				return new Response("Talk", "Talk to [el.name] for a while.", ELEMENTAL_TALK);
-				
-			} else if(index==3) {
-				if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
-					return new Response("Dominant sex", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+				// index==5 is transform toggle defined below
+				if(index==6) {
+					return new Response("Combat moves", "Adjust the moves [el.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(getElemental(), ELEMENTAL_START);
+						}
+					};
 					
-				} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-					return new Response("Dominant sex",
-							"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with the idea of having sex with [el.name] in a place where people could see you!",
-							null);
+				} else if(index==7) {
+					if(!getElemental().isActive()) {
+						return new Response("Inventory", "You need to have [el.name] take on [el.her] active form in order to manage [el.her] inventory...", null);
+					}
+					return new ResponseEffectsOnly("Inventory", "Manage [el.namePos] inventory.") {
+						@Override
+						public void effects() {
+							Main.mainController.openInventory((NPC) getElemental(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					};
 					
-				} else if(!getElemental().isActive()) {
-					return new Response("Dominant sex", "You need to have [el.name] take on [el.her] active form in order to have sex with [el.herHim].", null);
+				} else if(index==8) {
+					return new ResponseEffectsOnly("Self-clean: "+(!getElemental().hasFlag(NPCFlagValue.elementalStayDirty)?"[style.colourGood(On)]":"[style.colourBad(Off)]"),
+							!getElemental().hasFlag(NPCFlagValue.elementalStayDirty)
+								?"[el.Name] is currently using [el.her] self-transformative powers to clean any fluids from [el.her] body or clothing.<br/>[style.colourMinorBad(Click to toggle self-clean off.)]"
+								:"[el.Name] is currently using [el.her] self-transformative powers to retain any fluids which dirty [el.her] body or clothing.<br/>[style.colourMinorGood(Click to toggle self-clean on.)]") {
+						@Override
+						public void effects() {
+							if(getElemental().hasFlag(NPCFlagValue.elementalStayDirty)) {
+								getElemental().removeFlag(NPCFlagValue.elementalStayDirty);
+							} else {
+								getElemental().addFlag(NPCFlagValue.elementalStayDirty);
+							}
+							Main.game.updateResponses();
+						}
+					};
 					
-				} else if(getElemental().isSummonerServant() && !getElemental().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-					return new Response("Dominant sex",
-							"As you have sworn subservience to the school of [el.school], and [el.name] does not have the '"+Fetish.FETISH_SUBMISSIVE.getName(getElemental())+"' fetish, [el.name] is not going to let you dominantly fuck [el.herHim]...",
-							null);
+				} else if(index==10) {
+					return new Response("Dispel", "Dispel [el.name]...",  Main.game.getDefaultDialogue(false)) {
+						@Override
+						public void effects() {
+							getElemental().returnToHome();
+							Main.game.getPlayer().setElementalSummoned(false);
+						}
+					};
 				}
-				return new ResponseSex("Dominant sex",
-						"Have dominant sex with [el.name].",
-						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_SUBMISSIVE))),
-						null,
-						null,
-						ELEMENTAL_AFTER_SEX,
-						UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_START_SEX_DOMINANT"));
-				
-			} else if(index==4) {
-				if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
-					return new Response("Submissive sex", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
-					
-				} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-					return new Response("Submissive sex",
-							"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with the idea of having sex with [el.name] in a place where people could see you!",
-							null);
-					
-				} else if(!getElemental().isActive()) {
-					return new Response("Submissive sex", "You need to have [el.name] take on [el.her] active form in order to have sex with [el.herHim].", null);
-				}
-				return new ResponseSex("Submissive sex",
-						"Let [el.name] take charge and have submissive sex with [el.herHim].",
-						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getElemental(), SexSlotStanding.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))),
-						null,
-						null,
-						ELEMENTAL_AFTER_SEX,
-						UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_START_SEX_SUBMISSIVE"));
-				
-			} else if(index==5) {
+			}
+			
+			if(index==5) {
 				if(getElemental().isActive()) {
 					return new Response("Form: <b style='color:"+getElemental().getCurrentSchool().getColour().toWebHexString()+";'>Active</b>",
 							"Tell [el.name] to switch back into [el.her] passive form.",
@@ -138,71 +237,12 @@ public class ElementalDialogue {
 						}
 					};
 				}
-				
-			} else if(index==6) {
-				if(getElemental().isActive()) {
-					return new Response("Passive transform", "You need to have [el.name] take on [el.her] passive form in order for [el.herHim] to change it to something else...", null);
-				}
-				return new Response("Passive transform", "Ask [el.name] about [el.her] passive form and whether [el.she] can change it to something else...", ELEMENTAL_PASSIVE_FORM);
-				
-			} else if(index==7) {
-				if(!getElemental().isActive()) {
-					return new Response("Active transform", "You need to have [el.name] take on [el.her] active form in order for [el.herHim] to change it to something else...", null);
-				}
-				return new Response("Active transform",
-						"Get [el.name] to transform [el.herself] into a different form...",
-						BodyChanging.BODY_CHANGING_CORE){
-					@Override
-					public void effects() {
-						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(getElemental());
-					}
-				};
-				
-			} else if(index==8) {
-				return new Response("Perks", "Assign [el.namePos] perk points.", ELEMENTAL_PERKS);
-				
-			} else if(index==9) {
-				return new Response("Set names", "Change [el.namePos] name or tell [el.herHim] to call you by a different name.", ELEMENTAL_CHOOSE_NAME);
-				
-			} else if(index==10) {
-				return new Response("Dispel", "Dispel [el.name]...",  Main.game.getDefaultDialogue(false)) {
-					@Override
-					public void effects() {
-						getElemental().returnToHome();
-						Main.game.getPlayer().setElementalSummoned(false);
-					}
-				};
-				
-			} else if(index==11) {
-				return new Response("Combat moves", "Adjust the moves [el.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
-					@Override
-					public void effects() {
-						CombatMovesSetup.setTarget(getElemental(), ELEMENTAL_START);
-					}
-				};
-				
-			} else if(index==12) {
-				if(!getElemental().isActive()) {
-					return new Response("Inventory", "You need to have [el.name] take on [el.her] active form in order to manage [el.her] inventory...", null);
-				}
-				return new ResponseEffectsOnly("Inventory", "Manage [el.namePos] inventory.") {
-					@Override
-					public void effects() {
-						Main.mainController.openInventory((NPC) getElemental(), InventoryInteraction.FULL_MANAGEMENT);
-					}
-				};
-				
-			} else if(index==13) {
-				if(getElemental().isActive()) {
-					return new Response("Pet", "[el.Name] needs to be in [el.her] passive form in order to pet [el.herHim]...", null);
-				}
-				return new Response("Pet", "Give [el.name] a good petting.", ELEMENTAL_PETTING);
-				
-			} else if(index==0) {
+			}
+			if(index==0) {
 				return new Response("Finished", "Tell [el.name] that you've finished talking with [el.herHim] and let [el.herHim] return to [el.her] passive form.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(0);
 						getElemental().returnToHome();
 					}
 				};
@@ -217,6 +257,10 @@ public class ElementalDialogue {
 			return UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_AFTER_SEX");
 		}
 		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
+		@Override
 		public Response getResponse(int responseTab, int index) {
 			return ELEMENTAL_START.getResponse(responseTab, index);
 		}
@@ -227,6 +271,10 @@ public class ElementalDialogue {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_INSPECT")
 					+ getElemental().getCharacterInformationScreen(false);
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -244,6 +292,10 @@ public class ElementalDialogue {
 			return UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_TALK");
 		}
 		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
+		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(ELEMENTAL_START.getResponse(responseTab, index)!=null
 					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_TALK) {
@@ -257,6 +309,10 @@ public class ElementalDialogue {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_PETTING");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -354,6 +410,10 @@ public class ElementalDialogue {
 			return UtilText.nodeContentSB.toString();
 		}
 		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
+		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(ELEMENTAL_START.getResponse(responseTab, index)!=null
 					&& ELEMENTAL_START.getResponse(responseTab, index).getNextDialogue()==ELEMENTAL_PERKS) {
@@ -425,7 +485,10 @@ public class ElementalDialogue {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-		
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ELEMENTAL_START.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(ELEMENTAL_START.getResponse(responseTab, index)!=null

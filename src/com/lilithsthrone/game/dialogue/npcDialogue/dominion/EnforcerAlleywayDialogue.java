@@ -453,7 +453,7 @@ public class EnforcerAlleywayDialogue {
 		}
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return 0; // 0 seconds as don't want time to tick over into night (which would make dialogue and actions inconsistent with one another)
 		}
 		@Override
 		public String getContent() {

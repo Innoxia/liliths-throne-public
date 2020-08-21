@@ -19,7 +19,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -160,10 +159,10 @@ public class HomeImprovements {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Main.game.isExtendedWorkTime()) {
-					return new ResponseEffectsOnly("Enter", "Enter the warehouse signposted as being open to members of the public.") {
+					return new Response("Enter", "Enter the warehouse signposted as being open to members of the public.", PlaceType.HOME_IMPROVEMENTS_ENTRANCE.getDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, true);
+							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, false);
 						}
 					};
 				} else {
@@ -186,10 +185,10 @@ public class HomeImprovements {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseEffectsOnly("Exit", "Exit the warehouse and head back out into Dominion."){
+				return new Response("Exit", "Exit the warehouse and head back out into Dominion.", PlaceType.DOMINION_HOME_IMPROVEMENT.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HOME_IMPROVEMENT, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HOME_IMPROVEMENT, false);
 					}
 				};
 			}

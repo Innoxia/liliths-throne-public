@@ -724,7 +724,7 @@ public class CharacterModificationUtils {
 		}
 		
 		if(type.getPerformingSexArea()==SexAreaPenetration.PENIS) {
-			if(index==0) {
+			if(index==0 || type.getTargetedSexArea().isPenetration() || (type.getTargetedSexArea().isOrifice() && !((SexAreaOrifice)type.getTargetedSexArea()).isInternalOrifice())) {
 				BodyChanging.getTarget().setPenisVirgin(true);
 			} else {
 				BodyChanging.getTarget().setPenisVirgin(false);

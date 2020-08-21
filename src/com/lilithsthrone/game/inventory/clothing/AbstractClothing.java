@@ -1792,7 +1792,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(isBadEnchantment()) {
 				sb.append(
 						"<p style='text-align:center;'>"
-								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Negative Enchantment Revealed revealed:</b><br/>"
+								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Negative Enchantment Revealed:</b><br/>"
 										+ "<b>"+Util.capitaliseSentence(getDisplayName(true))+"</b>");
 				
 			} else {

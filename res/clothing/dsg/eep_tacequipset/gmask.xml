@@ -156,7 +156,7 @@
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.her] gas mask.]]>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] gas mask.]]>
 		</self>
 		<other>
 			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] gas mask off [npc2.her] [npc2.face].]]>

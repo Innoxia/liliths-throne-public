@@ -38,6 +38,10 @@ public class ItemGeneration {
 	
 	// Item generation:
 
+	public AbstractItem generateItem(String id) {
+		return new AbstractItem(ItemType.getItemTypeFromId(id)) {};
+	}
+	
 	public AbstractItem generateItem(AbstractItemType itemType) {
 		return new AbstractItem(itemType) {};
 	}

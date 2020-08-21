@@ -51,7 +51,6 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -111,7 +110,6 @@ import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
-import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.population.Population;
 
@@ -311,10 +309,10 @@ public class MainController implements Initializable {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
-			if(Combat.getTargetedCombatant().isPlayer()) {
-				openInventory((NPC) Combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
+			if(Main.combat.getTargetedCombatant().isPlayer()) {
+				openInventory((NPC) Main.combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
 			} else {
-				openInventory((NPC) Combat.getTargetedCombatant(), InventoryInteraction.COMBAT);
+				openInventory((NPC) Main.combat.getTargetedCombatant(), InventoryInteraction.COMBAT);
 			}
 			
 		} else if(Main.game.isInSex()) {
@@ -1738,7 +1736,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
-			charactersBeingRendered.addAll(Combat.getAllies(Main.game.getPlayer()));
+			charactersBeingRendered.addAll(Main.combat.getAllies(Main.game.getPlayer()));
 		} else {
 			if(Main.game.getPlayer()!=null) {
 				charactersBeingRendered.add(Main.game.getPlayer());
@@ -1793,7 +1791,7 @@ public class MainController implements Initializable {
 						// block when in character creation
 						if(Main.game.isInNewWorld()) {
 							if(Main.game.isInCombat()) {
-								Combat.setTargetedCombatant(character);
+								Main.combat.setTargetedCombatant(character);
 								updateUI();
 								Main.game.updateResponses();
 								
@@ -1823,7 +1821,7 @@ public class MainController implements Initializable {
 							Main.game.updateResponses();
 								
 						} else if(Main.game.isInCombat()) {
-							Combat.setTargetedCombatant((NPC) character);
+							Main.combat.setTargetedCombatant((NPC) character);
 							updateUI();
 							Main.game.updateResponses();
 								
@@ -2126,7 +2124,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
-			charactersBeingRendered.addAll(Combat.getEnemies(Main.game.getPlayer()));
+			charactersBeingRendered.addAll(Main.combat.getEnemies(Main.game.getPlayer()));
 			
 		} else if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 			charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
@@ -2192,7 +2190,7 @@ public class MainController implements Initializable {
 					
 				} else if(Main.game.isInCombat()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-						Combat.setTargetedCombatant((NPC) character);
+						Main.combat.setTargetedCombatant((NPC) character);
 						updateUI();
 						Main.game.updateResponses();
 					}, false);
@@ -2430,14 +2428,14 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants(false).size()==1
-						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
+						&& Main.combat.getAllCombatants(false).size()==1
+						&& !Main.combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
 						&& Main.game.getPlayer().hasPenis()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
-						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasVagina()
-						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
-					Combat.endCombat(true);
+						&& Main.combat.getEnemies(Main.game.getPlayer()).get(0).hasVagina()
+						&& Main.combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Main.combat.getEnemies(Main.game.getPlayer()).get(0);
+					Main.combat.endCombat(true);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominate",
@@ -2509,14 +2507,14 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants(false).size()==1
-						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
-						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasPenis()
-						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Main.combat.getAllCombatants(false).size()==1
+						&& !Main.combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
+						&& Main.combat.getEnemies(Main.game.getPlayer()).get(0).hasPenis()
+						&& Main.combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 						&& Main.game.getPlayer().hasVagina()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
-					Combat.endCombat(false);
+					GameCharacter target = Main.combat.getEnemies(Main.game.getPlayer()).get(0);
+					Main.combat.endCombat(false);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominated",
@@ -2627,21 +2625,6 @@ public class MainController implements Initializable {
 			RenderingEngine.ENGINE.renderButtonsLeft();
 			RenderingEngine.ENGINE.renderButtonsRight();
 		}
-	}
-
-	/**
-	 * Moves the player to the World that is linked to the supplied portal. If
-	 * no world exists, a new world is generated.
-	 * 
-	 * @param forward
-	 *            true if move to next world, false if move to previous world
-	 */
-	public void moveGameWorld(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setDefaultDialogue) {
-		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
-
-		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
-		
-		Main.game.endTurn(timeToTransition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}
 
 	private void moveTile(int xOffset, int yOffset) {

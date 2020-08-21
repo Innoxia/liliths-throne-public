@@ -991,11 +991,11 @@
 			</p>
 			<p>
 				#IF(brax.hasFetish(FETISH_DOMINANT))
-					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)],)] [brax.name] interjects in an angry tone.
+					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)],)] [brax.name] interjects in an angry tone.
 				#ELSEIF(brax.hasFetish(FETISH_SUBMISSIVE))
-					[brax.speech(Yes, but you didn't, did you? You even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)]...)] [brax.name] interjects in a soft tone.
+					[brax.speech(Yes, but you didn't, did you? You even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)]...)] [brax.name] interjects in a soft tone.
 				#ELSE
-					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)],)] [brax.name] interjects in a disapproving tone.
+					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)],)] [brax.name] interjects in a disapproving tone.
 				#ENDIF
 			</p>
 			<p>
@@ -1026,11 +1026,11 @@
 			</p>
 			<p>
 				#IF(brax.hasFetish(FETISH_DOMINANT))
-					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)],)] [brax.name] interjects in an angry tone.
+					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)],)] [brax.name] interjects in an angry tone.
 				#ELSEIF(brax.hasFetish(FETISH_SUBMISSIVE))
-					[brax.speech(Yes, but you didn't, did you? You even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)]...)] [brax.name] interjects in a soft tone.
+					[brax.speech(Yes, but you didn't, did you? You even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)]...)] [brax.name] interjects in a soft tone.
 				#ELSE
-					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_VIXENS_VIRILITY.getNamePlural(false)],)] [brax.name] interjects in a disapproving tone.
+					[brax.speech(But you didn't, and you even tricked her into taking one of those [#ITEM_innoxia_pills_breeder.getNamePlural(false)],)] [brax.name] interjects in a disapproving tone.
 				#ENDIF
 			</p>
 			<p>
@@ -1045,7 +1045,7 @@
 			[pc.speech(Oh yeah, and you didn't,)] you say, remembering what [sean.name] told you the last time you asked him about this.
 		</p>
 		<p>
-			[sean.speech(Heh, yeah, I sort of got carried away, and tricked her into taking a [#ITEM_VIXENS_VIRILITY.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to [brax.name], who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
+			[sean.speech(Heh, yeah, I sort of got carried away, and tricked her into taking a [#ITEM_innoxia_pills_breeder.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to [brax.name], who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
 		</p>
 	#ELSE
 		#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTalked))
@@ -1056,7 +1056,7 @@
 				[pc.speech(And then you didn't,)] you recall.
 			</p>
 			<p>
-				[sean.speech(Yeah, that's right, I sort of got carried away, and tricked her into taking a [#ITEM_VIXENS_VIRILITY.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to my superior, who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
+				[sean.speech(Yeah, that's right, I sort of got carried away, and tricked her into taking a [#ITEM_innoxia_pills_breeder.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to my superior, who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
 			</p>
 		#ELSE
 			<p>
@@ -1066,7 +1066,7 @@
 				[pc.speech(And you didn't?)] you guess.
 			</p>
 			<p>
-				[sean.speech(Heh, yeah, I sort of got carried away, and tricked her into taking a [#ITEM_VIXENS_VIRILITY.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to my superior, who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
+				[sean.speech(Heh, yeah, I sort of got carried away, and tricked her into taking a [#ITEM_innoxia_pills_breeder.getName(false)] and then finished inside of her. The thing is, I didn't even end up getting her pregnant, but she still filed a formal complaint to my superior, who wasted no time in demoting me and assigning me to this pointless post,)] [sean.name] sighs, before explaining, [sean.speech(Apparently, the private security guys here wanted an official Enforcer presence to remind everyone that the law's on their side. You know, I wouldn't have cared so much about the demotion, but it's the fact that it's absolutely pointless me being here that's the real punishment. I never have anything to do!)]
 			</p>
 		#ENDIF
 	#ENDIF
@@ -1161,7 +1161,7 @@
 		Feeling like you want to do something a little more exciting than just having sex in an alleyway, you step up close to [sean.name] and seductively suggest that he lock you in the stocks and publicly breed you.
 	</p>
 	<p>
-		[sean.speech(You're a really kinky [pc.girl], you know that, right?)] the [sean.race] asks as he hears your suggestion. Asking him if he's willing to do it or not, you can't help but grin as he replies, [sean.speech(Of course I'll do it! If you're looking to get bred, though, then you're going to be wanting to take a [#ITEM_VIXENS_VIRILITY.getName(false)]; it'll make your womb nice and fertile.)]
+		[sean.speech(You're a really kinky [pc.girl], you know that, right?)] the [sean.race] asks as he hears your suggestion. Asking him if he's willing to do it or not, you can't help but grin as he replies, [sean.speech(Of course I'll do it! If you're looking to get bred, though, then you're going to be wanting to take a [#ITEM_innoxia_pills_breeder.getName(false)]; it'll make your womb nice and fertile.)]
 	</p>
 	<p>
 		Producing a small pink pill from out of one of his pockets, [sean.name] pops it out of its protective wrapper and holds it up to your mouth. Leaning forwards and opening your mouth, you allow the [sean.race] to place it onto your outstretched tongue, and with a quick smile, you gulp it down.
@@ -1235,7 +1235,7 @@
 		Feeling like you want to do something a little more exciting than just having sex in an alleyway, you step up close to [sean.name] and seductively suggest that he lock you and [com.name] in the stocks and publicly breed the two of you.
 	</p>
 	<p>
-		[sean.speech(You're a really kinky [pc.girl], you know that, right?)] the [sean.race] asks as he hears your suggestion. Asking him if he's willing to do it or not, you can't help but grin as he replies, [sean.speech(Of course I'll do it! If you're looking to get bred, though, then you're both going to want to take a [#ITEM_VIXENS_VIRILITY.getName(false)]; it'll make your wombs nice and fertile.)]
+		[sean.speech(You're a really kinky [pc.girl], you know that, right?)] the [sean.race] asks as he hears your suggestion. Asking him if he's willing to do it or not, you can't help but grin as he replies, [sean.speech(Of course I'll do it! If you're looking to get bred, though, then you're both going to want to take a [#ITEM_innoxia_pills_breeder.getName(false)]; it'll make your wombs nice and fertile.)]
 	</p>
 	<p>
 		Producing two small pink pills from out of one of his pockets, [sean.name] pops them out of their protective wrappers and holds them up to you and [com.name]. Leaning forwards and opening your mouth, you allow the [sean.race] to place one of them onto your outstretched tongue, and with a quick smile, you gulp it down. Following your lead, your [com.companion] does the same thing, and lets out an exited [com.moan] as [com.she] swallows down the fertility-enhancing pill.
@@ -2135,7 +2135,7 @@
 		Walking around in front of you and [com.name], [sean.name] grins and says, [sean.speech(Now, I was thinking of giving the two of you a choice as to what happens to you. I can always mark you both as being available for public use, or, if you'd like, I could spare you that and keep you all to myself instead.)]
 	</p>
 	<p>
-		Fishing around in his pocket, the [sean.race] produces a pair of small pink pills, and holds them up in front of you and [com.name] as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow these [#ITEM_VIXENS_VIRILITY.getNamePlural(false)] and beg for me to breed you. You'd like me to pound your pussies and fill you with my virile seed, wouldn't you?)]
+		Fishing around in his pocket, the [sean.race] produces a pair of small pink pills, and holds them up in front of you and [com.name] as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow these [#ITEM_innoxia_pills_breeder.getNamePlural(false)] and beg for me to breed you. You'd like me to pound your pussies and fill you with my virile seed, wouldn't you?)]
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
 		#IF(com.equals(brax))
@@ -2198,7 +2198,7 @@
 		Walking around in front of you, [sean.name] grins and says, [sean.speech(Now, I was thinking of giving you a choice as to what happens to you. I can always mark you as being available for public use, or, if you'd like, I could spare you that and keep you all to myself instead.)]
 	</p>
 	<p>
-		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of you as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
+		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of you as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_innoxia_pills_breeder.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2208,7 +2208,7 @@
 		Walking around in front of [com.name], [sean.name] grins and says, [sean.speech(Now, I was thinking of giving you a choice as to what happens to you. I can always mark you as being available for public use, or, if you'd like, I could spare you that and keep you all to myself instead.)]
 	</p>
 	<p>
-		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of your [com.companion] he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
+		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of your [com.companion] he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_innoxia_pills_breeder.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
 		#IF(com.equals(brax))

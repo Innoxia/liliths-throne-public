@@ -189,6 +189,11 @@ public class ItemEffect implements XMLSaving {
 				primary = TFModifier.CLOTHING_MAJOR_ATTRIBUTE;
 			}
 			
+			// If there is no ItemEffectType with the id type, return null, as otherwise the game tries to load an incorrect ItemEffectType.
+			if(!ItemEffectType.idToItemEffectTypeMap.containsKey(itemEffectType)) {
+				return null;
+			}
+			
 			ie = new ItemEffect(
 					ItemEffectType.getItemEffectTypeFromId(itemEffectType),
 					primary,
@@ -236,7 +241,7 @@ public class ItemEffect implements XMLSaving {
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
 		if(target!=null) {
-			if((target.getSubspeciesOverrideRace()==Race.DEMON || target.getRace()==Race.ANGEL)
+			if((target.getSubspeciesOverrideRace()==Race.DEMON || (!target.isAbleToHaveRaceTransformed() && target.getRace()!=Race.SLIME))
 					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_3
@@ -315,12 +320,6 @@ public class ItemEffect implements XMLSaving {
 				}
  				return AbstractItemEffectType.getRacialEffect(target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
 			}
-//			if(!target.isAbleToHaveRaceTransformed()) {
-//				return UtilText.parse(target,
-//						"<p style='text-align:center;'>"
-//							+ "As [npc.nameIsFull] <b style='color:"+target.getRace().getColour().toWebHexString()+";'>[npc.a_race]</b>, the transformation has [style.boldBad(no effect)]!"
-//						+ "</p>");
-//			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}

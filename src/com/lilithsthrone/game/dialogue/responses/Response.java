@@ -273,7 +273,7 @@ public class Response {
 		if(!hasRequirements()) {
 			return true;
 		}
-		if(sexActionType!=null && !Main.game.isBypassSexActions() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
+		if(sexActionType!=null && !Main.game.isBypassSexActionsEnabled() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
 			return false;
 		}
 		
@@ -301,7 +301,7 @@ public class Response {
 	 */
 	public boolean isAbleToBypass(){
 		if(!isAvailable()
-				&& (!Main.game.isInSex() || Main.game.isBypassSexActions())
+				&& (!Main.game.isInSex() || Main.game.isBypassSexActionsEnabled())
 				&& !isBlockedFromPerks()
 				&& isFemininityInRange()
 				&& isRequiredRace()
@@ -310,7 +310,9 @@ public class Response {
 			if(!Main.game.isInSex() && corruptionBypass==null) { // Do not allow bypass out of sex if there is no corruption bypassing
 				return false;
 			}
-			return !isCorruptionWithinRange();
+			return ((Main.getProperties().bypassSexActions==2 && !isCorruptionWithinRange()) ||
+					(Main.getProperties().bypassSexActions==1 && Main.game.isInSex() && isCorruptionWithinRange() && isActionCorrupting()) ||
+					(Main.getProperties().bypassSexActions<=1 && !Main.game.isInSex()));
 		}
 		
 		return false;
@@ -321,7 +323,7 @@ public class Response {
 		SB = new StringBuilder();
 		
 		if(!isAvailable() && !isAbleToBypass()) {
-			if(!Main.game.isBypassSexActions() && !isCorruptionWithinRange()) {
+			if(!Main.game.isBypassSexActionsEnabled() && !isCorruptionWithinRange()) {
 				SB.append("This action is blocked as [style.colourTerrible(you are not corrupt enough)] to think of performing it.");
 				
 			} else {
@@ -335,7 +337,7 @@ public class Response {
 			}
 			
 			if(corruptionBypass != null) {
-				if(isCorruptionWithinRange()) {
+				if(!isActionCorrupting()) {
 					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
 							+ " [style.colourCorruption(corruption)] has unlocked this action!");
 				} else {
@@ -353,14 +355,14 @@ public class Response {
 		if(this.getSexActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
 			return "This action will cause you to [style.colourSex(join in)] with the related ongoing action.";
 			
-		} else if(isSwitchOngoingActionAvailable()) {
+		} else if(isSexActionSwitch()) {
 			return "This action will cause [style.colourCorruption(some ongoing actions to be stopped)] before starting the related ongoing action.";
 		}
 		return "";
 	}
 	
 	private boolean isSwitchOngoingActionAvailable() {
-		if(this.sexActionType ==SexActionType.START_ONGOING
+		if(this.sexActionType==SexActionType.START_ONGOING
 				&& Main.sex.getCharacterPerformingAction().isPlayer()
 				&& Main.sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
 //			if(Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
@@ -386,6 +388,7 @@ public class Response {
 			} catch(Exception ex) {
 				return true;
 			}
+			
 		} else {
 			return false;
 		}
@@ -588,12 +591,14 @@ public class Response {
 			if(isCorruptionWithinRange()) {
 				SB.append("<br/>"
 						+"[style.colourCorruption(Associated Corruption)]"
-						+ " ([style.colourMinorGood(within range)]): "
+						+ (!isActionCorrupting()
+							?" ([style.colourMinorGood(within range)]): "
+							:" ([style.colourMinorBad(just out of range)]): ")
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			} else {
 				SB.append("<br/>"
 						+"[style.colourCorruption(Associated Corruption)]"
-						+ (!Main.game.isBypassSexActions()
+						+ (!Main.game.isBypassSexActionsEnabled()
 								?" ([style.colourTerrible(out of range)]): "
 								:" ([style.colourMinorBad(out of range)]): ")
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
@@ -640,7 +645,16 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		return corruptionBypass!=null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
+		if (Main.getProperties().bypassSexActions==1) {
+			return corruptionBypass!=null && Main.game.getPlayer().getCorruptionLevel().isAbleToPerformCorruptiveAction(corruptionBypass);
+		}
+		else {
+			return corruptionBypass!=null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
+		}
+	}
+
+	public boolean isActionCorrupting() {
+		return corruptionBypass!=null && corruptionBypass.getMinimumValue() > Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {

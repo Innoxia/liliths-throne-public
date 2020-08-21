@@ -764,15 +764,21 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		int yIncrease = 0;
 		int listIncrease = 0;
+
+		String author = absItem.getItemType().getAuthorDescription();
+		if(!author.isEmpty()) {
+			yIncrease+=4;
+		}
 		
 		if(!absItem.getEffects().isEmpty()) {
 			listIncrease+=1;
 			for(ItemEffect ie : absItem.getEffects()) {
 				listIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 			}
+			listIncrease+=absItem.getItemType().getEffectTooltipLines().size();
 		}
 		
-		yIncrease += Math.max(0, listIncrease-5);
+		yIncrease += Math.max(0, listIncrease-4);
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -797,6 +803,9 @@ public class TooltipInventoryEventListener implements EventListener {
 				tooltipSB.append("</br>"+ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
 			}
 		}
+		for(String s : absItem.getItemType().getEffectTooltipLines()) {
+			tooltipSB.append("</br>"+s);
+		}
 		
 		tooltipSB.append("</div>");
 		
@@ -815,9 +824,9 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		
 		// Value:
-
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
-			if (owner.isPlayer()) {
+		
+		if(owner!=null && InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
+			if(owner.isPlayer()) {
 				if (InventoryDialogue.getInventoryNPC().willBuy(absItem)) {
 					tooltipSB.append("<div class='container-full-width titular'>"
 										+ "Value: "+UtilText.formatAsMoney(absItem.getValue())
@@ -849,7 +858,11 @@ public class TooltipInventoryEventListener implements EventListener {
 		} else {
 			tooltipSB.append("<div class='container-full-width titular'>" + "Value: "+UtilText.formatAsMoney(absItem.getValue()) + "</div>");
 		}
-
+		
+		if(!author.isEmpty()) {
+			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
+		}
+		
 		tooltipSB.append("</body>");
 
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT));
