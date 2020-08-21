@@ -1173,7 +1173,87 @@ public enum Quest {
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
 	},
-	
+        
+	//Rebel Base        
+        REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Pull Lever, Recieve Mystery";
+		}
+		@Override
+		public String getDescription() {
+			return "You discovered a seemingly randomly placed handle in the Bat Caverns. Against your better judgement, you pulled it and it asked some kind of password that you don't have."
+                                + " Perhaps a bit of searching in the vicinity will reveal some clues.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+		}
+         },
+        
+        REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Fill In The Blank";
+		}
+		@Override
+		public String getDescription() {
+			return "The other half of the password must be on the other half of the journal page. Perhaps it could still be found nearby.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
+		}
+         },
+        
+        REBEL_BASE_EXPLORATION(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Going Spelunking";
+		}
+		@Override
+		public String getDescription() {
+			return "With the completed password, you were able to answer the handle's challenge" +
+                                " and have discovered a hidden cave within the Bat Caverns, no telling what it's for or where it goes. Perhaps you can find some answers inside.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found out that the hidden cave was a hideout for a long gone rebel group. Looks like they didn't win.";
+		}
+                
+	},
+        
+        REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Getting Away With It";
+		}
+		@Override
+		public String getDescription() {
+			return "Time to make your escape, preferably before this cave collapses in on itself.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece.";
+		}
+                
+	},
+        
+        REBEL_BASE_FAILED(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Cold Feet";
+		}
+		@Override
+		public String getDescription() {
+			return "This place is just too creepy, time to get out.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+		}
+                
+	},
 	
 	// Romance quests:
 

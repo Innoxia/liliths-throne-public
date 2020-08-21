@@ -207,5 +207,65 @@
 	</p>
 	]]>
 	</htmlContent>
+        
+	<htmlContent tag="REBEL_BASE_DISCOVERED"><![CDATA[
+	<p>
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you notice a strange shadow the cave wall, seemingly floating in midair. As you approach, you can see that this shadow is actually a well hidden door handle jutting out from the rock.
+	</p>
+	<p>
+		Between the dim light and the thick layer of dust on it, you can't tell how old it is or how long it's been there. Briefly glancing around, you can see no obvious seams or hinges that might suggest the presence of a door. This might be a trap.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_HANDLE"><![CDATA[
+	<p>
+		The strange door handle in the cavern wall is still here, barely visible in the dark.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_NO_PASS"><![CDATA[
+	<p>
+		Taking your chances, you grab the handle. To your surprise, the moment you make contact with the cold metal glowing letters appear in the cavern wall spelling out the question "Fiat Justitia?" You give the handle and experimental tug, but it remains fixed in place. Looks like the wall wants an answer, and since you're not sure how to answer there's nothing more that you can do at the moment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_ONE"><![CDATA[
+	<p>
+		As you walk through the 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_DOOR_PASS_TWO"><![CDATA[
+	<p>
+		
+	</p>
+	]]>
+	</htmlContent>
+        
+    <htmlContent tag="REBEL_BASE_DOOR_OPENED"><![CDATA[
+	<p>
+		Armed with the complete password, you grab the handle once more. When the letters asking "Fiat Justitia?" appear, you answer [pc.speech("Ruat Caelum.")] The handle suddenly loosens and you pull it with all your might. The ground starts to vibrate as you pull, and before you know it a section of the cavern wall has swung open, revealing the entrance to another cave! You can just about see some dim lights inside, but nothing else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR"><![CDATA[
+	<p>
+		The entrance to the other cave sits open. You can just about see a few dim lights inside.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REBEL_BASE_ENTRANCE_EXTERIOR_COLLAPSED"><![CDATA[
+	<p>
+		As there is no way back into the cave without digging through tons of rock, this section of the Bat Caverns is no longer any more interesting than any other.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

@@ -72,6 +72,7 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.rebelBase.RebelBase;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -3915,8 +3916,28 @@ public class PlaceType {
 			"beside Slime Lake"
 			).initDangerous()
 			.initWeatherImmune();
-	
-	
+	//HLF MOD
+	public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR = new AbstractPlaceType(
+			"Hidden Cave Entrance",
+			"The entrance to a mysterious artificial cave, formerly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			BatCaverns.REBEL_BASE_ENTRANCE_EXTERIOR,
+			Encounter.BAT_CAVERN,
+			"beside the entrance to a mysterior artificial cave"
+			).initDangerous()
+			.initWeatherImmune();
+        
+        public static final AbstractPlaceType BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE = new AbstractPlaceType(
+			"Strange Handle",
+			"A strange handle juts out from the rock.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_GREY,
+			BatCaverns.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE,
+			Encounter.BAT_CAVERN,
+			"in the Bat Caverns"
+			).initDangerous()
+			.initWeatherImmune();
 	
 	// Slime queen's island tower:
 
@@ -4414,6 +4435,96 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 	
+        //HLF MOD
+        public static final AbstractPlaceType REBEL_BASE_ENTRANCE = new AbstractPlaceType(
+			"Entrance",
+			"The only way in or out of the cave is cleverly concealed behind a tight-fitting stone door.",
+			"submission/rebelBase/entrance",
+			PresetColour.BASE_RED,
+			RebelBase.REBEL_BASE_ENTRANCE,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_CORRIDOR = new AbstractPlaceType(
+			"Corridor",
+			"An artificial cave lined with questionable wooden supports.",
+			null,
+			PresetColour.BASE_BLACK,
+			RebelBase.REBEL_BASE_CORRIDOR,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA = new AbstractPlaceType(
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_BLUE,
+			RebelBase.REBEL_BASE_SLEEPING_AREA,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_SLEEPING_AREA_SEARCHED = new AbstractPlaceType(
+			"Abandoned Sleeping Area",
+			"A long abandoned room full of long abandoned beds.",
+			"submission/rebelBase/cache1",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_SLEEPING_AREA_SEARCHED,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_COMMON_AREA = new AbstractPlaceType(
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_ORANGE,
+			RebelBase.REBEL_BASE_COMMON_AREA,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_COMMON_AREA_SEARCHED = new AbstractPlaceType(
+			"Abandoned Common Area",
+			"The sparsely furnished ruins of a common area.",
+			"submission/rebelBase/cache2",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_COMMON_AREA_SEARCHED,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+	
+        public static final AbstractPlaceType REBEL_BASE_ARMORY = new AbstractPlaceType(
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREEN,
+			RebelBase.REBEL_BASE_ARMORY,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+        public static final AbstractPlaceType REBEL_BASE_ARMORY_SEARCHED = new AbstractPlaceType(
+			"A Partly Caved-in Room",
+			"A room partly filled with rubble.",
+			"submission/rebelBase/cache3",
+			PresetColour.BASE_GREY,
+			RebelBase.REBEL_BASE_ARMORY_SEARCHED,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
+        
+         public static final AbstractPlaceType REBEL_BASE_CAVED_IN_ROOM = new AbstractPlaceType(
+			"A Mostly Caved-in Room",
+			"A room with nothing but rubble in it.",
+			"submission/rebelBase/cavein",
+			PresetColour.BASE_GREY_DARK,
+			RebelBase.REBEL_BASE_CAVED_IN_ROOM,
+			null,
+			"in a mysterious artificial cave")
+                .initWeatherImmune();
 	
 	
 	
