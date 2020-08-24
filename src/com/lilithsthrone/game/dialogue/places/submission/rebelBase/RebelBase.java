@@ -35,8 +35,10 @@ public class RebelBase {
 
 		@Override
                 public Response getResponse(int responseTab, int index) {
-                    if (index == 1) {
-                            return new Response("Exit", "This place makes you seriously uncomfortable, best leave while you still can.", REBEL_BASE_COLLAPSE);
+                    if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_ESCAPE)) {
+                            return new Response("[style.colourBad(Exit)]", "This place looks seriously unstable, it could collapse at any moment. It might be best to leave whatever secrets are in here and while you still can.", REBEL_BASE_COLLAPSE);
+                    } else if (index == 1) {
+                            return new Response("[style.colourGood(Exit)]", "You've had a look through everything that you could find. It might be best to leave while you still can.", REBEL_BASE_COLLAPSE);
                     } else {
                             return null;
                     }
@@ -131,11 +133,11 @@ public class RebelBase {
                                     @Override
                                     public void effects() {
                                             Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/rebelBase", "SLEEPING_AREA_CACHE_OPEN"));
-                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rbooniehat", false), 2, false, true));
-                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rtunic", false), 2, false, true));
-                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rtrousers", false), 2, false, true));
-                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_vcboots", false), 2, false, true));
-                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rbrassard", false), 5, false, true));
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rbooniehat", false), 2, false, true));
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rtunic", false), 2, false, true));
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rtrousers", false), 2, false, true));
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_vcboots", false), 2, false, true));
+                                            Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rbrassard", false), 5, false, true));
                                             Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.REBEL_BASE_SLEEPING_AREA_SEARCHED);
                                             Main.game.getPlayerCell().getPlace().setName(PlaceType.REBEL_BASE_SLEEPING_AREA_SEARCHED.getName());
                                     }
@@ -246,9 +248,9 @@ public class RebelBase {
                                     @Override
                                     public void effects() {
                                             Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/rebelBase", "COMMON_AREA_CACHE_OPEN"));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rwebbing", false), 3, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_sbandana", false), 1, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlfequip_rbandolier", false), 3, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rwebbing", false), 3, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_sbandana", false), 1, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_hlf_equip_rbandolier", false), 3, false, true));
                                             Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.REBEL_BASE_COMMON_AREA_SEARCHED);
                                             Main.game.getPlayerCell().getPlace().setName(PlaceType.REBEL_BASE_COMMON_AREA_SEARCHED.getName());
                                     }
@@ -310,11 +312,11 @@ public class RebelBase {
                                     @Override
                                     public void effects() {
                                             Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/rebelBase", "ARMORY_CACHE_OPEN"));    
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlfweap_pbsmg"), 3, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlfweap_pboltrifle"), 2, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlfweap_pbrevolver"), 5, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlfweap_gbshotgun"), 1, false, true));
-                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlfweap_pbomb"), 10, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbsmg"), 3, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pboltrifle"), 2, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbrevolver"), 5, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_gbshotgun"), 1, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, true));
                                             Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.REBEL_BASE_ARMORY_SEARCHED);
                                             Main.game.getPlayerCell().getPlace().setName(PlaceType.REBEL_BASE_ARMORY_SEARCHED.getName());
                                     }
@@ -345,7 +347,7 @@ public class RebelBase {
 		@Override
                 public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new Response("Salvage", "There's nothing left in this rubble worth taking.", null);
+                            return new Response("Open bags", "There's nothing left in this rubble worth taking.", null);
                     } else {
                             return null;
                     }

@@ -3933,7 +3933,7 @@ public class PlaceType {
 			"A strange handle juts out from the rock.",
 			"submission/rebelBase/entrance",
 			PresetColour.BASE_GREY,
-			BatCaverns.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE,
+			BatCaverns.REBEL_BASE_ENTRANCE_HANDLE,
 			Encounter.BAT_CAVERN,
 			"in the Bat Caverns"
 			).initDangerous()

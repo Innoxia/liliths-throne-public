@@ -389,7 +389,7 @@ public class BatCaverns {
             }
         };
         
-        public static final DialogueNode BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE = new DialogueNode("Strange Handle", "", false) {
+        public static final DialogueNode REBEL_BASE_ENTRANCE_HANDLE = new DialogueNode("Strange Handle", "", false) {
 		
 		@Override
 		public String getAuthor() {

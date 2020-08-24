@@ -829,7 +829,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& !worldType.equals("JUNGLE")
-                                                        && !worldType.equals("REBEL_BASE")
+//                                                        && !worldType.equals("REBEL_BASE")
 							) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);

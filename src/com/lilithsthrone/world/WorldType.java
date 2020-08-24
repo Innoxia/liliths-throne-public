@@ -970,7 +970,7 @@ public class WorldType {
 		}
 	};
 	
-        public static AbstractWorldType REBEL_BASE = new AbstractWorldType("Mysterious Artificial Cave",
+        public static AbstractWorldType REBEL_BASE = new AbstractWorldType("Mysterious Cave",
 			PresetColour.BASE_GREY,
 			1,
 			false,
