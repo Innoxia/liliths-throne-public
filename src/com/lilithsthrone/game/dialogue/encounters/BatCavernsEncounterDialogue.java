@@ -4,13 +4,10 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -86,17 +83,18 @@ public class BatCavernsEncounterDialogue{
             public String getContent() {
                 Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE);
                 Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE.getName());
+                Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED));
                 return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DISCOVERED");
             }
             
             @Override
             public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new Response("Pull the handle", "What could possibly go wrong?", REBEL_BASE_DOOR_OPENED){
+                            return new Response("Pull the handle", "What could possibly go wrong?", REBEL_BASE_DOOR_NO_PASS){
                             };
 
                     } else if (index == 2) {
-                            return new Response("Leave it alone", "Nothing good ever came of pulling strange handles in caves.", Main.game.getDefaultDialogue(false));
+                            return new Response("Leave it alone", "Nothing good ever came of pulling strange handles in caves.", PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE.getDialogue(false));
                     } else {
                             return null;
                     }
@@ -109,7 +107,7 @@ public class BatCavernsEncounterDialogue{
             
         };
         
-        public static final DialogueNode REBEL_BASE_DOOR_OPENED = new DialogueNode("Hidden Doorway", "", true) {
+        public static final DialogueNode REBEL_BASE_DOOR_NO_PASS = new DialogueNode("Strange Handle", "", true) {
             
             @Override
             public int getSecondsPassed() {
@@ -117,24 +115,77 @@ public class BatCavernsEncounterDialogue{
             }
                 
             @Override
-            public String getContent() {
-                Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
-                Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
-                return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_OPENED");
+            public String getContent() {                
+                Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE));
+                return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_NO_PASS");
             }
             
             @Override
             public Response getResponse(int responseTab, int index) {
                     if (index == 1) {
-                            return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
-                                @Override
-                                public void effects() {
-                                        Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
-                                        Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
-                                }
+                            return new Response("Pull harder", "The handle won't budge. Looks like you really do need the password.", null){
                             };
                     } else if (index == 2) {
-                            return new Response("Don't enter", "No telling what's down in that cave.", Main.game.getDefaultDialogue(false));
+                            return new Response("Leave it alone", "Go look for the password instead.", PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_HANDLE.getDialogue(false));
+                    } else {
+                            return null;
+                    }
+            }
+
+                @Override
+                public String getAuthor() {
+		return "DSG";
+                }
+            
+        };
+
+        
+        public static final DialogueNode REBEL_BASE_PASSWORD_ONE = new DialogueNode("Journal Fragment", "", true) {
+            
+            @Override
+            public int getSecondsPassed() {
+                return 60;
+            }
+                
+            @Override
+            public String getContent() {
+                Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO));
+                return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_PASS_ONE");
+            }
+            
+            @Override
+            public Response getResponse(int responseTab, int index) {
+                    if (index == 1) {
+                            return new Response("Continue", "This is only one part of the password, you need to find the other", PlaceType.BAT_CAVERN_DARK.getDialogue(false));
+                    } else {
+                            return null;
+                    }
+            }
+
+            @Override
+            public String getAuthor() {
+            return "DSG";
+            }
+            
+        };
+        
+        public static final DialogueNode REBEL_BASE_PASSWORD_TWO = new DialogueNode("Another Journal Fragment", "", true) {
+            
+            @Override
+            public int getSecondsPassed() {
+                return 60;
+            }
+                
+            @Override
+            public String getContent() {
+                Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE));
+                return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_PASS_TWO");               
+            }
+            
+            @Override
+            public Response getResponse(int responseTab, int index) {
+                    if (index == 1) {
+                            return new Response("Continue", "You've found both parts of the password, you can head back to the mysterious handle when you're ready.", PlaceType.BAT_CAVERN_DARK.getDialogue(false));
                     } else {
                             return null;
                     }

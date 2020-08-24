@@ -940,15 +940,39 @@ public enum Encounter {
                     map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
                     map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
                     
-                    if (!Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
-                            && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
                             && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
                         if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
                             map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 20f);
                         } else {
                             map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
                         }
-                    }                    
+                    }
+                    
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 10f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 5f);
+                        }
+                    }
+                    
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 10f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 5f);
+                        }
+                    }
+                    
                     return map;
                 }
 
@@ -1005,6 +1029,14 @@ public enum Encounter {
                         } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED) {
 
                                 return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
+                                
+                        } else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE;
+				
+			} else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO;
 				
 			} else {
 				return null;

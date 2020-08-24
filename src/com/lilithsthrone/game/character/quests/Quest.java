@@ -1175,15 +1175,28 @@ public enum Quest {
 	},
         
 	//Rebel Base        
-        REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Pull Lever, Recieve Mystery";
+			return "Hit The Lever!";
 		}
 		@Override
 		public String getDescription() {
-			return "You discovered a seemingly randomly placed handle in the Bat Caverns. Against your better judgement, you pulled it and it asked some kind of password that you don't have."
-                                + " Perhaps a bit of searching in the vicinity will reveal some clues.";
+			return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You pulled the handle against your better judement.";
+		}
+         },
+        REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Pull Handle, Recieve Mystery";
+		}
+		@Override
+		public String getDescription() {
+			return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1198,11 +1211,26 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "The other half of the password must be on the other half of the journal page. Perhaps it could still be found nearby.";
+			return "The other half of the password must be on the other half of the journal page. Perhaps it can still be found nearby.";
 		}
 		@Override
 		public String getCompletedDescription() {
 			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
+		}
+         },
+        
+        REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Open Says Me";
+		}
+		@Override
+		public String getDescription() {
+			return "With the completed password, you can now give the handle's challenge another try.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
 		}
          },
         
@@ -1213,17 +1241,16 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "With the completed password, you were able to answer the handle's challenge" +
-                                " and have discovered a hidden cave within the Bat Caverns, no telling what it's for or where it goes. Perhaps you can find some answers inside.";
+			return "No telling what the hidden cave is for or where it goes. Perhaps you can find some answers inside.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You found out that the hidden cave was a hideout for a long gone rebel group. Looks like they didn't win.";
+			return "You found out that the hidden cave was a hideout for a long gone rebel group. From the looks of things, they didn't win.";
 		}
                 
 	},
         
-        REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Getting Away With It";
@@ -1234,12 +1261,12 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You managed to get out in one piece.";
+			return "You managed to get out in one piece. Whatever else that cave held is now buried forever.";
 		}
                 
 	},
         
-        REBEL_BASE_FAILED(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_FAILED(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Cold Feet";
