@@ -149,7 +149,6 @@
 
 		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
 	

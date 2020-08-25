@@ -170,7 +170,6 @@
 		
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			<tag>SOLD_BY_VICKY</tag>
 		</itemTags>
 		
 	</coreAttributes>
