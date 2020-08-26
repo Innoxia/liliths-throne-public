@@ -2,9 +2,12 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -163,24 +166,40 @@ public class ShoppingArcadeDialogue {
 	};
 	
 	public static final DialogueNode ARCADE = new DialogueNode("Shopping arcade", "-", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 20;
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ARCADE");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ARCADE"));
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_START
+					&& Vector2i.getDistance(Main.game.getPlayer().getLocation(), Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE).getCell(PlaceType.SHOPPING_ARCADE_PIXS_GYM).getLocation())==1) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ARCADE_WES_REMINDER"));
+			}
+			return sb.toString();
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return getCoreResponseTab(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==0) {
+				if(index==1) {
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_START) {
+						if(Vector2i.getDistance(Main.game.getPlayer().getLocation(), Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE).getCell(PlaceType.SHOPPING_ARCADE_PIXS_GYM).getLocation())==1) {
+							if(Main.game.getHourOfDay()==13) {
+								return new Response("Meet Enforcer", "Loiter around the area and wait for the mysterious Enforcer to contact you...", WesQuest.WES_QUEST_SHOPPING_ARCADE_MEETING);
+								
+							} else {
+								return new Response("Meet Enforcer", "The mysterious Enforcer told you to meet him between the hours of [units.time(13)] and [units.time(14)], so you'll have to come back then...", null);
+							}
+						}
+					}
+				}
+			}
 			return getFastTravelResponses(responseTab, index);
 		}
 		

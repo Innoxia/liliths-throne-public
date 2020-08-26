@@ -2055,7 +2055,12 @@
 		Craning their necks to see why their Master hasn't replied to their cries, the four 'milkers' start to quieten down as they see#IF(pc.hasCompanions()) you and [npc.name]#ELSE you#ENDIF standing there instead. They don't completely stop making a noise, however, as the steady pumping of their milking machines is enough to draw a stream of subdued, horny moans out from between their parted lips.
 	</p>
 	<p>
-		As you look over the human milkers arrayed before you, you see that each of their puffy, milk-dripping nipples are encased in the pressurised cups of their milking machine's breast pumps, while a vibrating pussy-pump is similarly working away at their quivering cunts. With nobody here to stop you,#IF(pc.hasCompanions()) you and [npc.name]#ELSE you#ENDIF could quite easily have some fun with one or more of these milkers. Then again, you could always just turn around and leave, or even try to free them...
+		As you look over the human milkers arrayed before you, you see that each of their puffy, milk-dripping nipples are encased in the pressurised cups of their milking machine's breast pumps, while a vibrating pussy-pump is similarly working away at their quivering cunts. With nobody here to stop you,#IF(pc.hasCompanions()) you and [npc.name]#ELSE you#ENDIF could quite easily have some fun with one or more of these milkers.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensMilkersFreeAttempt))
+			 Having already tried to release them, only to find out that they're unwilling to escape, your only other option is to just turn around and leave...
+		#ELSE
+			 Then again, you could always just turn around and leave, or even try to free them...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -4261,33 +4266,16 @@
 	
 	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID"><![CDATA[
 	<p>
-		Shadow leaves you with Silence while she makes sure the way is clear. 
+		Along with Shadow and Silence, you [pc.step] over to one side of the tunnel and allow the group of SWORD Enforcers to pass, before joining Constable Adams in travelling through the tunnels towards the nearest Enforcer post. As you set off on your way, you suddenly hear a series of loud explosions coming from the direction of the Rat Warrens, and Shadow snarkily remarks, [shadow.speech(Sounds like Vengar's about ta find out wot 'appens when ya try an' fuck me an' Silence over.)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID_FINISH"><![CDATA[
 	<p>
-		Shadow returns and leads you out of the Warrens. To your surprise, SWORD squad is there with Claire. They start their raid and Claire tells you to go with her. Shadow and Silence seem to vanish while this is happening. 
+		After travelling a little further down the tunnels, you soon arrive at the nearest Enforcer post, where you discover that you're required to give a statement and fill out a seemingly never-ending amount of paperwork. Thankfully, Claire is there to lend you a hand, but even with her help, it takes almost three hours before you're declared free to leave. With Shadow and Silence having received their reward and departed a long time ago, you find yourself alone as Claire steps over to you and sighs, [claire.speech(I hope you've learned your lesson about how dangerous some people can be! You just stay safe out there, ok?)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- POST_DEFEAT_SWORD_RAID -->
-	
-	<htmlContent tag="POST_DEFEAT_SWORD_RAID"><![CDATA[
 	<p>
-		SWORD raids the Warrens. They seem to recognise or at least know who Silence is (random rat says they betrayed them). She stops SWORD from taking you into custody. The officer says he'll wait for the one who can actually talk.
+		Telling Claire that you'll do your best, you prepare to set off and report back to [axel.name] at the Gambling Den...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID_FINISH"><![CDATA[
-	<p>
-		Shadow returns with Claire, who tells you to go with her. Shadow and Silence seem to vanish while this is happening.
-	</p>
-	]]>
-	</htmlContent>
 	
 </dialogue>

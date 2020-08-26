@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- WES_QUEST_START -->
+	
+	<htmlContent tag="WES_QUEST_START"><![CDATA[
+	<p>
+		You are approached by a mysterious fox-boy who reveals that he's a SWORD Enforcer. Describe overall appearance.
+	</p>
+	<p>
+		Says he can't talk out in public like this, but he needs your help. Describe him having a faint country accent.
+	</p>
+	<p>
+		Tells you to meet him outside 'Pix's Playground' in the Shopping Arcade any day between [units.time(13)] and [units.time(14)], although preferably tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_QUEST_AGREE"><![CDATA[
+	<p>
+		#IF(game.isDayTime())
+			You agree to meet the Enforcer and watch as he blends into the crowd and disappears.
+		#ELSE
+			You agree to meet the Enforcer and watch as he ducks down into a nearby alleyway and disappears.
+		#ENDIF
+	</p>
+	<p>
+		There's nothing else to do except continue on your way as you wonder what the Enforcer could want to discuss with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_QUEST_QUESTION"><![CDATA[
+	<p>
+		You ask the Enforcer what he wants, but he says that he can't talk about it out here.
+		#IF(game.isDayTime())
+			 He again asks you to meet him outside 'Pix's Playground', before blending into the crowd and disappearing.
+		#ELSE
+			 He again asks you to meet him outside 'Pix's Playground', before ducking down into a nearby alleyway and disappearing.
+		#ENDIF
+	</p>
+	<p>
+		There's nothing else to do except continue on your way as you wonder what the Enforcer could want to discuss with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_QUEST_SHOPPING_ARCADE_MEETING -->
+	
+	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING"><![CDATA[
+	<p>
+		You wait in the area for the Enforcer to contact you, and after a short while, he appears. Says that he made sure you weren't followed, and thanks you for meeting him like this. Reveals that he knows about you from your work of clearing out the Harpy Nests.
+	</p>
+	<p>
+		Tells you that his name is Wesley Wormwood, but you can just call him Wes. Says that he needs your help with investigating his superior officer.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL_1"><![CDATA[
+	<p>
+		You say to Wes that you were only here to tell him that you have no interest in helping him, and to not bother you again.
+	</p>
+	<p>
+		He makes a cynical comment about not being able to trust anyone in this city, and without wasting any more time on you, he swiftly departs.
+	</p>
+	<p>
+		You tell yourself that whatever he was offering wasn't worth the trouble, but you can't help but feel as though you may have missed out on an opportunity by refusing to help Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION -->
+	
+	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION"><![CDATA[
+	<p>
+		You ask Wes why he doesn't simply report his superior officer so that she can be internally investigated by the Enforcers.
+	</p>
+	<p>
+		He says that the weapons she's illegally selling aren't showing up on the street, no probable cause exists for an investigation via SWORD's own channels. ORICL Directorate Blue doesn't need probable cause to investigate, but doesn't want to get involved because arresting a half-demon is always a messy affair.
+	</p>
+	<p>
+		Convinced that Wes really does require outside help, you ask him what exactly it is that he requires of you.
+	</p>
+	<p>
+		Wes explains that his superior officer (whose name is [elle.name], or 'Elle' for short) is teleporting out of her office during her unusually long lunch breaks every Wednesday, and so he has no time in which to try and pursue her. He needs someone on the outside to find out where she's teleporting to, and then to record any evidence of her wrongdoing. He shows you an arcane recording device he's requisitioned for this purpose.
+	</p>
+	<p>
+		You ask how you're supposed to know where Elle is teleporting to, to which Wes replies that she takes a set of night vision goggles with her, and that when she returns, her shoes are often wet and sometimes have trace amounts of some kind of glowing residue on them. That's all he can offer, and says that after your impressive display of ability in pacifying the Harpy Nests, he's sure you can figure it out.
+	</p>
+	<p>
+		He tells you that if you're able to help him bring Elle to justice, he'll be able to sort out a suitable reward for you. Asks you if you're going to help or not.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL_2"><![CDATA[
+	<p>
+		You don't want to get tangled up in this sort of business, and so say to Wes that he's going to have to find someone else to help him.
+	</p>
+	<p>
+		He makes a cynical comment about not being able to trust anyone in this city, and without wasting any more time on you, he swiftly departs.
+	</p>
+	<p>
+		You tell yourself that whatever he was offering wasn't worth the trouble, but you can't help but feel as though you may have missed out on an opportunity by refusing to help Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION_END -->
+	
+	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION_END"><![CDATA[
+	<p>
+		You agree to help Wes, and he gives you the recorder. Tells you that once you've gathered the evidence, you're going to need to anonymously hand it in to an Enforcer. Says that Submission's Enforcers are probably your best bet, but handing it in to Enforcer HQ should be fine too. After handing it in, wait at least 48 hours for the investigation to have proceeded, then return to Enforcer HQ to meet him.
+	</p>
+	<p>
+		You agree once again to do as Wes says, and he tells you not to come looking or him until the evidence has been handed in and the investigation concluded. Thanks you for your help, then swiftly leaves.
+	</p>
+	<p>
+		Putting the recording device away, you wonder where Elle could be conducting her business. Thinking back on what Wes told you, the main points were:
+		<br/>She takes [style.colourOrange(unusually long lunch breaks)].
+		<br/>She only does this on a [style.colourOrange(Wednesday)].
+		<br/>She takes a set of [style.colourOrange(night vision goggles)] with her.
+		<br/>Afterwards, her [style.colourOrange(shoes are often wet)] and sometimes have trace amounts of some kind of [style.colourOrange(glowing residue on them)].
+	</p>
+	<p>
+		You're confident that you can figure out where Elle is going, but if not, you could always ask Lilaya for help.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_SEARCH -->
+	
+	<htmlContent tag="ELLE_SEARCH"><![CDATA[
+	<p>
+		You search the Bat Caverns, and by a stroke of good fortune, find what appears to be the trail of heavy crates having been dragged through some luminescent fungi. Following the trail for quite some time, you eventually reach a section of the Caverns in which a bioluminescent fungal forest is growing.
+	</p>
+	<p>
+		Continuing to follow the trail for a little further, you stumble across a small cave, the entrance to which is almost completely concealed by abnormally-huge mushrooms. This has to be the place where Elle has been visiting...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_SEARCH_CAVE -->
+	
+	<htmlContent tag="ELLE_SEARCH_CAVE"><![CDATA[
+	<p>
+		Squeezing your way around the trucks of the huge mushrooms, you enter the cave, making sure to keep a sharp lookout for any sign of Elle. Inside, there are large piles of locked crates with scraped-off SWORD stamps.
+	</p>
+	<p>
+		There's no sign of Wes's superior, but as you approach the crates to take a closer look, you hear the soft, flirty laughter of a woman approaching the cave's entrance. A slovenly voice asks her how much further the weapons stash is, to which she reveals that it's right inside the cave you're currently in!
+	</p>
+	<p>
+		With just moments in which to conceal yourself and get into a good position from which to record Elle's criminal dealings, you decide to duck down behind the largest stack of crates. You manage to get out of sight just in time, as the moment you settle down into your hiding place, Elle and several thuggish gang members enter the cave.
+	</p>
+	<p>
+		(Describe Elle here, and make reference to the way she instantly switches from flirty to violent when one of the gang-members half-jokingly suggests double-crossing her.)
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_SEARCH_CAVE_RECORDING -->
+	
+	<htmlContent tag="ELLE_SEARCH_CAVE_RECORDING"><![CDATA[
+	<p>
+		Making sure to stay concealed from sight, you use the arcane recorder Wes gave to you to record Elle's dealings with the gang members.
+	</p>
+	<p>
+		Her motives are partially revealed here, and she successfully intimidates the gang-members by revealing that she's a veteran of the crime waves of the late 1970s and of the Fifth Human Rebellion. She is tired of watching the Enforcers decay from fighting petty criminals armed with crude weapons or poor excuses for organized crime that almost never shoot back. She wants the gang to start a crime spree and bring some excitement back into the threat board.
+	</p>
+	<p>
+		She opens the crates to reveal Enforcer weapons, and while she takes the gang's money, she is obviously not at all interested in it. Tells them to have fun and to make sure to share the weapons with their friends, before teleporting out of the cave.
+	</p>
+	<p>
+		Thankfully, the crates which you're hiding behind have been emptied by what you assume to be previous dealings just like the one you've just witnessed, and so your hiding place remains undetected. After the gang has made their exit, you stop the recording device and prepare to slip away before they return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_SEARCH_CAVE_LEAVE -->
+	
+	<htmlContent tag="ELLE_SEARCH_CAVE_LEAVE"><![CDATA[
+	<p>
+		Swiftly exiting the cave, you wonder whether you should go and anonymously hand in the recorder to Claire or Candi, as Wes asked, or instead seek out Elle and betray the fox-boy's trust. If you were to betray Wes, you'd need to go and wait for her to leave work outside the Enforcer HQ between [units.time(16)]-[units.time(18)].
+	</p>
+	<p>
+		Not wanting to be discovered by the gang if they decide to make a sudden return, you set off into the Bat Caverns, wondering where to head to now...
+	</p>
+	<p>
+		[style.italicsBad(I've only added the framework up to here at the moment! There is no more Wes content to see (until v0.3.9.5)!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

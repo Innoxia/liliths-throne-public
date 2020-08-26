@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -47,6 +48,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -189,7 +191,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				}else if (index == 13) {
+				} else if (index == 13) {
 					return new Response("Very long action text for testing", "Very long action text for testing.", null);
 					
 				}
@@ -493,6 +495,16 @@ public class DebugDialogue {
 							Main.game.getTextEndStringBuilder().append(Main.game.getDialogueFlags().incrementNatalyaPoints(1000));
 						}
 					};
+					
+				} else if(index==15) {
+					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)) {
+						return new Response("Wes test", "You have already started Wes's quest!", null);
+					}
+					if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_STREET) {
+						return new Response("Wes test", "You need to be on a Dominion Street tile to trigger this!", null);
+					}
+					return new Response("Wes test", "Spawn Wes and start his quest.<br/>[style.italicsBad(Warning! Save your game before testing this! Please only test this if you know what you're doing!!!)]", WesQuest.WES_QUEST_START);
+					
 				}
 				
 			} else if(responseTab == 3) {

@@ -2202,10 +2202,21 @@ public class RatWarrensDialogue {
 			
 			if(index==5) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensMilkersFreeAttempt)) {
+						return new Response(
+								"Free captives",
+								"You've already tried to free the milkers, and discovered that they are entirely unwilling to escape with you...",
+								null);
+					}
 					return new Response(
 							"Free captives",
 							"Now that you've defeated the gang members in this area, there's nobody to stop you from freeing the captive humans...",
-							MILKING_ROOM_FREE_ATTEMPT);
+							MILKING_ROOM_FREE_ATTEMPT) {
+						@Override
+						public void effects() {
+							 Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensMilkersFreeAttempt, true);
+						}
+					};
 					
 				} else {
 					return new Response(
@@ -2495,6 +2506,7 @@ public class RatWarrensDialogue {
 								boolean surprised = !isCompanionDialogue() && !Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT);
 								boolean companionSurprised = isCompanionDialogue() && !Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) && !getMainCompanion().hasTraitActivated(Perk.OBSERVANT);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarIntroduced, true);
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 								if(surprised) {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_FIGHT_SURPRISED", getGuards(true)));
 								} else if(companionSurprised) {
@@ -2514,6 +2526,7 @@ public class RatWarrensDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarIntroduced, true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHALLENGE", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vengar.class).setAffection(Main.game.getPlayer(), -75));
@@ -2533,6 +2546,7 @@ public class RatWarrensDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarIntroduced, true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarPersuaded, true);
 						}
 					};
@@ -2557,6 +2571,7 @@ public class RatWarrensDialogue {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarIntroduced, true);
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarThreatened, true);
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vengar.class).setAffection(Main.game.getPlayer(), -75));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_CONFLICT));
@@ -2583,6 +2598,7 @@ public class RatWarrensDialogue {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarIntroduced, true);
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarSeduced, true);
 								Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS, false);
 								Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS, false);
@@ -3562,12 +3578,7 @@ public class RatWarrensDialogue {
 								Util.newArrayListOfValues(Main.game.getNpc(Vengar.class)),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null) {
-								@Override
-								public boolean isPlayerAbleToStopSex() {
-									return false;
-								}
-							},
+								null),
 						VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_SUBMISSIVE", getGuards(true)));
 				
@@ -3581,12 +3592,7 @@ public class RatWarrensDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								Util.newArrayListOfValues(Main.game.getNpc(Vengar.class)),
 								null,
-								null) {
-								@Override
-								public boolean isPlayerAbleToStopSex() {
-									return false;
-								}
-							},
+								null),
 						VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_DOMINANT", getGuards(true)));	
 			}
@@ -4208,10 +4214,17 @@ public class RatWarrensDialogue {
 	
 	// After captivity enforcer raid:
 	
-	public static final DialogueNode POST_CAPTIVITY_SWORD_RAID = new DialogueNode("", "", true) {
+	public static final DialogueNode POST_CAPTIVITY_SWORD_RAID = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			applyRatWarrensRaid();
+			Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_ENFORCERS));
+			Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
+		}
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return 4*60*60;
 		}
 		@Override
 		public String getContent() {
@@ -4220,85 +4233,57 @@ public class RatWarrensDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "Wait with Silence for Shadow to return.", POST_CAPTIVITY_SWORD_RAID_FINISH) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_ENFORCERS));
-					}
-				};
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue(false));
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode POST_CAPTIVITY_SWORD_RAID_FINISH = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 10*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH", getGuards(true));
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Follow", "You don't have much choice but to follow Claire out of the Rat Warrens...", SWORD_RAID_EXIT) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
-					}
-				};
-			}
-			return null;
-		}
-	};
 	
-	public static final DialogueNode POST_DEFEAT_SWORD_RAID = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 2*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_DEFEAT_SWORD_RAID", getGuards(true));
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Wait", "Wait with Silence for Shadow to return.", POST_DEFEAT_SWORD_RAID_FINISH) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_ENFORCERS));
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode POST_DEFEAT_SWORD_RAID_FINISH = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 10*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH", getGuards(true));
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Follow", "You don't have much choice but to follow Claire out of the Rat Warrens...", SWORD_RAID_EXIT) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
-					}
-				};
-			}
-			return null;
-		}
-	};
+//	public static final DialogueNode POST_DEFEAT_SWORD_RAID = new DialogueNode("", "", true) {
+//		@Override
+//		public int getSecondsPassed() {
+//			return 2*60;
+//		}
+//		@Override
+//		public String getContent() {
+//			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_DEFEAT_SWORD_RAID", getGuards(true));
+//		}
+//		@Override
+//		public Response getResponse(int responseTab, int index) {
+//			if(index==1) {
+//				return new Response("Wait", "Wait with Silence for Shadow to return.", POST_DEFEAT_SWORD_RAID_FINISH) {
+//					@Override
+//					public void effects() {
+//						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
+//						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_ENFORCERS));
+//					}
+//				};
+//			}
+//			return null;
+//		}
+//	};
+//	
+//	public static final DialogueNode POST_DEFEAT_SWORD_RAID_FINISH = new DialogueNode("", "", true) {
+//		@Override
+//		public int getSecondsPassed() {
+//			return 10*60;
+//		}
+//		@Override
+//		public String getContent() {
+//			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH", getGuards(true));
+//		}
+//		@Override
+//		public Response getResponse(int responseTab, int index) {
+//			if(index==1) {
+//				return new Response("Follow", "You don't have much choice but to follow Claire out of the Rat Warrens...", SWORD_RAID_EXIT) {
+//					@Override
+//					public void effects() {
+//						Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
+//					}
+//				};
+//			}
+//			return null;
+//		}
+//	};
 }

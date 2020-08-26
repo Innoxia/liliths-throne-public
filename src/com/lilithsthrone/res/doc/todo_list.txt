@@ -33,7 +33,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added variation of what your starter spell is based on your character's birth month (fireball, slam, ice shard, or poison cloud). (PR#966 by Rfpnj)
 		
 	Engine:
-		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/breeder.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
+		Added modding support for items. You can find a fully-documented example in 'res/items/innoxia/pills/fertility.xml'. Item modding will be expanded at a later date to support enchantments, but for now, the modding framework should be enough for most uses.
 		Converted Combat from an Enum to a class, which can now be accessed via the parser using the command 'combat'.
 	
 	Rat Warrens:
@@ -41,6 +41,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed several instances of Murk's sex scenes ending with an action named 'Milking room' with no tooltip description.
 		Fixed bug where Murk would fuck you without first taking out your pussy pump.
 		Fixed issue with missing dialogue node when having sex with Murk in the Gambling Den.
+		THe 'Free captives' action in the milking room is now correctly disabled once you've discovered that the milkers cannot be freed.
+		Filled in all placeholder dialogue for both Vengar's and Murk's post-quest-completion scenes in the Gambling Den.
+		Murk's name now remains as 'Murk' after feminising him in the post-quest gambling den content.
 	
 	Items:
 		Reduced rarity of crafted 'Fetish Endowment' potions from legendary to epic.
@@ -79,6 +82,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added pregnancy reactions for if you manage to impregnate Bunny and Loppy, and slightly improved the flow of dialogue when entering their rooms.
 		Added two new upgrades to the 'Soothing Waters' spell, which cause it to clean the target's body & clothing and wash out fluids from their orifices.
 		Added 'Head pat' action to Nyan's romance actions.
+		Added 'naive' and 'cynical' personality traits. (They are like the other core traits in that they are mostly for roleplaying purposes and will have some limited dialogue variations throughout the game.)
+		Updated 'Enforcer HQ' map.
 	
 	Bugs:
 		Numerous parsing and typo fixes.
@@ -114,64 +119,125 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Upgrading a room into the spa from the Office's 'Occupancy ledger' will no longer place the 'under construction' tile next to the office instead of next to the spa tile.
 		Fixed bug where your elemental was being affected by the 'Blinded by Freedom' status effect (from the silly mode's 'American Tourist' background perk).
 		Fixed bug where the 'Localised Storm' upgrade for the 'Arcane Cloud' spell would not apply lust damage to the character affected by it.
+		Fixed strawberry and blueberry fluid flavour using plural descriptions where all other flavours were singular.
+		In her sex scene in Lilaya's room, Rose should no longer have her orifices penetrated during 'quick sex' action generation.
 	
 	
 	
-	Rattes
+	[x] Unique characters
+		[x] Wes
+			[x] Disguise and uniform variation method
+		[x] Elle
+		[x] Parser tags
+		[x] Spawn if missing
+		[x] Affection towards one another
+		[x] descriptions
+		[] voice colours
+	[x] Locations
+		[x] Requisitions area and Elle's office in Enforcer HQ
+			[x] Add place descriptions
+			[x] Handle inner-door tile (should be different type)
+			[x] corridor
+			[x] Add 'Enforcer Entry' to HQ exterior to enter via door next to Elle office/Requisition area
+			[x] Requisitions
+			[x] Elle/Wes office
+	[x] Quest code
+		[x] Place handling quest completion
+			[x] descriptions
+			[x] colour of doors
+			[x] door access
+	[x] Items
+		[x] recorder
+		[x] special pass
+	[] XML framework
+		[x] Intro
+			[x] Neutral Dominion tile after clearing Harpy Nests (and past Brax quest progress, otherwise things get messy with access/dialogue variations)
+			[x] Wes initial description
+				[x] Appearance
+				[x] Accent
+				[x] Disguise
+			[x] Wes revealing quest details
+			[x] Can accept to start quest
+			[x] Refuse to delay quest start
+				[x] Can start it later by choosing to 'Meet Wes' near the gym between 13:00-14:00
+		[x] Collecting evidence
+			[x] Strong hints at Elle's activity taking place somewhere in the Bat Caverns 
+				[x] Lilaya reveals location if you ask her about it
+			[x] Add a 'Search for Elle' action (so players don't get confused by having to trigger a random event)
+				[x] 12:00-15:00
+			[x] Hide and wait for Elle, she teleports in after some time
+			[x] Describe Elle's appearance
+			[x] Gang appears soon after, in their conversation, she displays her quick swing from seductive/flirty to violent/angry
+			[x] Business concludes, she teleports away
+			[x] Have to wait for gang to leave before leaving yourself (come close to being discovered when they look in other crates for stuff worth taking)
+		[] Route 1 (Wes)
+			[] Give evidence to Claire (most players will probably(?) do this as they run into her when leaving Submission)
+				[] Alternatively, give evidence to Candi
+			[] Quest hint saying you'll be contacted by Wes in the Shopping Arcade after 24 hours have passed
+			[] Contact Wes
+				[] Reveal consequences
+				[] Gain access to Enforcer Requisition station
+			[] Upon arriving there, further reveal Elle is slave
+				[] Elle lewd under desk? (Does this fit Wes's character, or would he have her just helping out with stock?)
+			[] Add Enforcer gear shop
+				[] Basic weapons and gear, with one random advanced weapon each day?
+			[] Wes interactions
+				[] Talk about his promotion (reveals some of his history in the Enforcers)
+				[] Talk about his accent (his history on a farm and moving to Dominion?)
+				[] Flirt (greyed-out with tooltip saying more Wes content added soon?)
+			[] Elle interactions
+				[] Talk? Sex? (Not sure what Wes would feel comfortable with letting the player do.)
+		[] Route 2 (Elle)
+			[] Quest hint that you could betray Wes and give the evidence to Elle
+			[] Wait outside Enforcer HQ 16:00-18:00
+				[] Option to betray Wes or leave Elle alone
+				[] Betray: Give evidence to Elle and explain Wes's plan
+			[] She tells you to return and ask 'the bimbo on the front desk' to see her after 24 hours have passed
+			[] Return after 24 hours, Candi shows you to Elle's office
+				[] Elle greets you and says she's been able to sort everything out
+				[] Wes is slave
+					[] Wes reaction
+					[] Elle using him for sexual relief? Or something else?
+				[] Gain access to Enforcer Requisition station
+					[] Add generic Enforcer on desk
+					[] Basic weapons and gear, with one random advanced weapon each day?
+			[] Elle interactions
+				[] Talk about her plan?
+				[] Talk about her history
+				[] Sex (she hits on the player hard)
+			[] Wes interactions
+				[] Elle lets player talk to him? Or use him? Or neither? (Not sure what Elle would feel comfortable with letting the player do.)
+				
+	[] writing
+	
+	
+	Murk pregnancy reactions...
+	
+	[] Add Shadow-Silence content dom-focused
+		[] Assist them in hunting down criminals for bounties
+			Word got out how they betrayed Vengar and now nobody wants to work with them
+			They can't get contracts due to this, so they want you to accept contracts on their behalf
+			They have no respect for people they consider weak (they rape guys who they defeat - taunt their women while doing so)
+		[] Chances to dominate the two of them after successful missions
+	
+	Amber artwork
+		add a scene where she commands the player to drink her cum from a pet bowl while she puts her foot on their head and forces them to drink the whole thing
+		shrikes suggestions
 	
 	Read PMs
-	
-	BLOG POST END OF DAY
-
-	Writing:
-		[x] Lose to Vengar when non-con is off
-			[x] Check flow of dialogue
-		[] Full escape dialogues
-			[x] Escape sex needs to factor in stage of transformations (handjob, oral, fucked)
-			[] Prevent player from forcing creampie
-		[x] Make it so if you do as Vengar asks, SWORD raids as you leave the den with Axel
-		[x] Silence screams when Shadow is defeated
-		[x] Shadow keeps her slovenly accent
-			[x] Convert into her selling out Vengar
-		[] gambling den post-quest content for Murk/Vengar
-	
-	Testing:
-		[x] Cooperate end
-		[] Vengar defeat
-		[] Axel quest resolve
-		[] Pregnancy before/during captivity
-			[] remove pregnancy status effect update when delivered (as otherwise it triggers at night even though pregnancy has ended)
-		[] make sure that full refusal on every option prevents obedience lock-out day 1 & 2
-		[] Make sure that obedience is 100 at end of day 3
-		[] Bad end
-		[] bad end alt
-	
-	Rat Warrens content
-			[] Add interaction with rats in dorms
-			[] Vengar full fem option
-		[] Writing -make sure parsing targets are passed in correctly.
-		[] Roxy's shop enter variations for Vengar slave.
-		[] Test end-state for Axel
-		[] Murk at gambling den
-			Epona hates him after finding out what he had been doing. Tells you that she's got a helping hand in rehabilitating slave girls.
-			You can suggest that he be given a taste of his own medicine. Epona transforms & trains him into female (Minx), taking a week, and then offers her as a prize for new game.
-		[] Vengar at gambling den
-			Roxy is abusive (tells you that she broke up with him after she caught him fucking Shadow/Silence)
-			Has Vengar addicted to her pussy.
-			You can buy an hour with Vengar.
-		[] Roxy full sex
+	(story)
 		
-	Remove the 'Free milkers' action
-	
-	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
-	
-	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
-	
-	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
-	
-	Very rarely it seems like Silence spams the protective gusts spell on herself...
-	
 	---------------------
+	
+	 Right I don't know if this has been pointed out yet or now but when you do the taur potion effect it just seem to change the tag but not change the dick other than saying its now a sheathed, knotted, tapered cow dick.
+	   All the parts are what they were with a basic grow fox cock but the game changing the name from fox to feral cow, same with the ass and puss as it says they have grow to take
+	    a feral one but no change apart it says feral cow instead of what it was
+	
+	Is the glory hole scene broken or am I just a goober? In previous versions (from a few months back)you could request how you were serviced but now you are at the whim of the NPC on the other side.
+	
+	When using The Watering Hole to search for a partner, I find that the vast majority of partners I find all have submissive fetishes even tho they are supposed to be the dominant partner.
+	
+	Hand-holding sex action
 	
 	Would it be possible to change how Angel's Kiss works to be more like the Nightclub?
 	 Right now you can quicky run out of room to send prostitutes her way and have no way to remove them from the building. So I was wondering if it could be changed so going to a room opens a menu to select prostitutes you've sent her way?
@@ -182,14 +248,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Lyssieth content that doesn't involve her desk, Helena sex without her becoming a total slut
 	
 	Security slave job
-	
-	[] Add Shadow-Silence content dom-focused
-		[] Assist them in hunting down criminals for bounties
-			Word got out how they betrayed Vengar and now nobody wants to work with them
-			They can't get contracts due to this, so they want you to accept contracts on their behalf
-			They have no respect for people they consider weak (they rape guys who they defeat - taunt their women while doing so)
-		[] Chances to dominate the two of them after successful missions
-	
 	
 	-------------
 	
@@ -233,28 +291,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	think of some way to still have Brax+Sean encounter
 	
-	-----------------
-	
 	will half demons ever have their transformation target changed? when you lose to them theyll say some thing like "alright, now to change you to be my perfect female!" and attempt to change you to a demon (which is now currently impossible)
 	
 	The tooltip for the enforcer "search" say they fuck me in the ass, but that seems to be a figure of speech as they don't use the ass.
-	
-	bug_reports (make sure you go all the way back)
-	
-	[] Wes
-		[] Characters
-		[] Framework
-			[] Run by DSG
-		[] XML framework
-		[] writing
 	
 	[] Add invite option for slave sex so you can get more slaves in on the action
 	
 	Add support for inventories in outfit files, and add DSG handcuffs to inventories
 	
-	Amber artwork
-		add a scene where she commands the player to drink her cum from a pet bowl while she puts her foot on their head and forces them to drink the whole thing
-		shrikes suggestions
 		
 	--- RELEASE ---
 	

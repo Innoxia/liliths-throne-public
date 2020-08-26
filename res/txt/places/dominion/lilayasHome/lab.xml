@@ -438,6 +438,51 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LILAYA_ELLE_HELP_REPEAT"><![CDATA[
+	<p>
+		Having forgotten what it was that Lilaya deduced about Elle's location, you ask your [lilaya.relation(pc)] if she can remind you of where you should be looking for her. Letting out an exasperated sigh, Lilaya pushes her glasses up onto the bridge of her nose and sharply states, [lilaya.speech(She's going down into the Bat Caverns, remember?! Just travel down to the west side of Submission to get there!)]
+	</p>
+	<p>
+		#IF(game.isSillyMode())
+			As you start to thank Lilaya for her help, she steps forwards and bonks you over the head with a rolled-up stack of papers. Frowning at you in disapproval, she states, [lilaya.speech(Please do try to remember what I've said this time!)]
+		#ELSE
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_ELLE_HELP"><![CDATA[
+	<p>
+		Struggling to figure out for yourself where Elle could be teleporting to during her long Wednesday lunch breaks, you ask Lilaya if she can help you to figure out where to go. Telling her that the Superintendent apparently takes a pair of night vision goggles with her, and that she returns with wet shoes often coated in some kind of glowing residue, you ask your [lilaya.relation(pc)] if she can figure out what location Elle is visiting.
+	</p>
+	<p>
+		[lilaya.speech(Hmm, well, if she's taking night vision goggles with her, then she's going somewhere that's dark even in the middle of the day,)] Lilaya muses, before stepping over to a nearby pile of books and retrieving one that appears to be a reference guide on local flora. Flicking through the pages, she quickly finds what she was looking for, and reads out loud, [lilaya.speech(<i>'Bioluminescent fungi are found all throughout Lilith's Realm...'</i> Now where's the section on Dominion... Ah, here it is; <i>'One may be surprised to discover that the subterranean Bat Caverns are home to one of the most diverse fungal ecosystems currently known to exist. In places, vast carpets of bioluminescent fungi can be observed, and it is impossible to take a step without disturbing their vividly-glowing spores...'</i>)]
+	</p>
+	<p>
+		Closing her book and looking up at you with a triumphant look on her face, your [lilaya.relation(pc)] proudly declares, [lilaya.speech(Mystery solved! Your elusive Enforcer must be teleporting down into the Bat Caverns. If you've never been there before, then you should know that you have to travel down to the west side of Submission to get there. Please do be careful if you do decide to follow this 'Elle' character though; the last I heard, the Bat Caverns are quite a dangerous place...)]
+	</p>
+	#IF(game.isSillyMode())
+		<p>
+			You start to thank Lilaya for her help, but before you're able to articulate your thoughts, she steps forwards and bonks you on the head with the book that she's still holding. Frowning at you in disapproval, she tuts, [lilaya.speech(You really should have been able to solve this by yourself...)]
+		</p>
+		<p>
+			Rubbing your head and feeling more than a little ashamed from your [lilaya.relation(pc)]'s words, you wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- LAB_EXIT -->
 	

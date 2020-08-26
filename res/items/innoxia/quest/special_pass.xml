@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>5000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA['Special Access Pass']]></name>
+		<namePlural pluralByDefault="false"><![CDATA['Special Access Passes']]></namePlural>
+		<description><![CDATA[Complete with a sturdy fabric lanyard, and signed by Wesley Wormwood himself, this pass grants the bearer access to the requisitions area of Dominion's Enforcer HQ.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>special_pass.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_BLUE_LIGHT</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Grants access to requisitions area of Dominion's Enforcer HQ]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			Signed by Wesley Wormwood, and attached to a sturdy fabric lanyard, this 'Special Access Pass' grants the bearer access to the requisitions area of Dominion's Enforcer HQ.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the pass...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] pass to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -159,6 +159,9 @@ public enum DialogueFlagValue {
 	slaverAlleyTwoPartners,
 	slaverAlleySlavesFreed, // Reset every day at midnight (as part of stocks reset method)
 	
+	// Wes:
+	wesQuestLilayaHelp,
+	
 	// Helena (romance quest):
 	helenaCheapPaint,
 	helenaGoneHome(true),
@@ -251,6 +254,7 @@ public enum DialogueFlagValue {
 	playedPregnancyRouletteAsBreeder,
 	
 	eponaMurkOwnerIntroduced,
+	eponaMurkSeen,
 	eponaMurkSubmitted,
 	
 	// Nightlife:
@@ -318,6 +322,7 @@ public enum DialogueFlagValue {
 	ratWarrensEntranceGuardsFight,
 	ratWarrensSeenMilkers,
 	ratWarrensMilkersBackground,
+	ratWarrensMilkersFreeAttempt,
 	ratWarrensSilenceIntroduced,
 	
 	ratWarrensClearedLeft,
@@ -357,7 +362,10 @@ public enum DialogueFlagValue {
 	ratWarrensCaptiveCompanionGivenBirth(true),
 	ratWarrensCaptiveOwnerSex(true),
 	ratWarrensCaptiveOwnerCompanionSex(true),
-	ratWarrensCaptiveDailyTransformed(true)
+	ratWarrensCaptiveDailyTransformed(true),
+
+	murkLectured(true),
+	murkSpanked(true),
 	;
 	
 	boolean dailyReset;

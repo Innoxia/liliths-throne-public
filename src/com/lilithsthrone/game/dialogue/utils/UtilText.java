@@ -3714,6 +3714,23 @@ public class UtilText {
 		});
 		
 		// Gender parsing:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"guy"),
+				true,
+				true,
+				"",
+				"Returns the correct gender version of 'girl' or 'guy' for this character."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.isFeminine()) {
+					return "girl";
+				} else {
+					return "guy";
+				}
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(

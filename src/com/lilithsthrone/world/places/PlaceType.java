@@ -843,7 +843,17 @@ public class PlaceType {
 			"This particular corridor doesn't have any distinguishing features to it.",
 			null,
 			PresetColour.BASE_BLACK,
-			EnforcerHQDialogue.CELLS_CORRIDOR,
+			EnforcerHQDialogue.CORRIDOR_PLAIN,
+			null,
+			"in the Enforcer HQ")
+			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
+			"Guarded Staircase",
+			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"dominion/enforcerHQ/stairs",
+			PresetColour.BASE_GREEN,
+			EnforcerHQDialogue.STAIRCASE,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -875,8 +885,33 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.GUARDED_DOOR,
 			null,
-			"in the Enforcer HQ")
-			.initWeatherImmune();
+			"in the Enforcer HQ") {
+		@Override
+		public Colour getColour() {
+			if((Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) && !Main.game.isBraxMainQuestComplete())
+					|| Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
+				return PresetColour.BASE_GREEN_LIGHT;
+			}
+			return PresetColour.BASE_CRIMSON;
+		}
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS_DOOR = new AbstractPlaceType(
+			"Locked door",
+			"This internal door is firmly locked, barring passage to anyone not in possession of the required key.",
+			"dominion/enforcerHQ/guardedDoor",
+			PresetColour.BASE_CRIMSON,
+			EnforcerHQDialogue.REQUISITIONS_DOOR,
+			null,
+			"in the Enforcer HQ") {
+		@Override
+		public Colour getColour() {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
+				return PresetColour.BASE_GREEN_LIGHT;
+			}
+			return PresetColour.BASE_CRIMSON;
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType ENFORCER_HQ_LOCKED_DOOR = new AbstractPlaceType(
 			"Locked door",
@@ -887,11 +922,21 @@ public class PlaceType {
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_LOCKED_DOOR_EDGE = new AbstractPlaceType(
+			"Locked door",
+			"This internal door is firmly locked, barring passage to anyone not in possession of the required key.",
+			"dominion/enforcerHQ/guardedDoor",
+			PresetColour.BASE_RED_DARK,
+			EnforcerHQDialogue.LOCKED_DOOR,
+			null,
+			"in the Enforcer HQ")
+			.initWeatherImmune();
 	
 	public static final AbstractPlaceType ENFORCER_HQ_BRAXS_OFFICE = new AbstractPlaceType(
 			"Brax's Office",
 			"Enforcers of the rank 'Inspector' are allowed their own office, and are permitted to decorate them as they see fit.",
-			"dominion/enforcerHQ/braxsOffice",
+			"dominion/enforcerHQ/office",
 			PresetColour.BASE_BLUE_DARK,
 			BraxOffice.INTERIOR_BRAX,
 			null,
@@ -953,13 +998,45 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_ENTRANCE = new AbstractPlaceType(
 			"Entranceway",
-			"The entrance to the Enforcer HQ consists of a pair of soundproof glass doors.",
+			"The entrance to the Enforcer HQ consists of a pair of sound-proof glass doors.",
 			"dominion/enforcerHQ/exit",
 			PresetColour.BASE_RED,
 			EnforcerHQDialogue.ENTRANCE,
 			null,
 			"")
 			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_ENFORCER_ENTRANCE = new AbstractPlaceType(
+			"Enforcer Entrance",
+			"One of the many non-public entrances to the Enforcer HQ, the sound-proof glass doors only open when a special pass is swiped over a nearby arcane scanner.",
+			"dominion/enforcerHQ/exit",
+			PresetColour.BASE_BLUE,
+			EnforcerHQDialogue.ENTRANCE_ENFORCER,
+			null,
+			"")
+			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
+			"Requisions Desk",
+			"Specialist or replacement Enforcer equipment is checked out of this area.",
+			"dominion/enforcerHQ/requisitions",
+			PresetColour.BASE_TAN,
+			EnforcerHQDialogue.REQUISITIONS,
+			null,
+			"")
+			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
+			"Quartermaster's Office",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"dominion/enforcerHQ/office",
+			PresetColour.BASE_ORANGE,
+			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
+			null,
+			"")
+			.initWeatherImmune();
+	
+	
 	
 	
 	// Enforcer warehouse:
@@ -4084,7 +4161,7 @@ public class PlaceType {
 			"'Roxy's Box' is a rather over-priced pawn shop, and offers goods that can be found at much reduced prices up in Dominion.",
 			"submission/gamblingDen/trader",
 			PresetColour.BASE_TEAL,
-			RoxysShop.TRADER,
+			RoxysShop.TRADER_EXTERIOR,
 			null,
 			"in the Gambling Den"
 			).initWeatherImmune();

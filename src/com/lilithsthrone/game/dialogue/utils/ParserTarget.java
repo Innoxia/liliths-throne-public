@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
@@ -41,6 +42,7 @@ import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vanessa;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
@@ -948,6 +950,28 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Natalya.class);
+		}
+	},
+	
+	WES(Util.newArrayListOfValues("wes", "wesley"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Wes.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Wes.class);
+		}
+	},
+	
+	ELLE(Util.newArrayListOfValues("elle", "aellasys"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Elle.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Elle.class);
 		}
 	},
 	

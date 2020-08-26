@@ -1757,6 +1757,7 @@ public class CharacterUtils {
 					characterAdjectives.add("prude");
 					break;
 				case SELFISH:
+				case CYNICAL:
 					characterAdjectives.add("rude");
 					break;
 				case SHY:
@@ -1774,6 +1775,8 @@ public class CharacterUtils {
 				case MUTE:
 					break;
 				case INNOCENT:
+					break;
+				case NAIVE:
 					break;
 			}
 		}
