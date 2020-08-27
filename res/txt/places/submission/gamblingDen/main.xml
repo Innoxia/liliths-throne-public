@@ -86,7 +86,7 @@
 		With an exasperated sigh, Axel turns back towards you and reveals what by now was obvious, [axel.speech(Yes, that 'compensation' the Enforcers gave me was a slaver license and the recently-enslaved Vengar, as well as another of his thugs; some nasty piece of work called 'Murk'. I have neither the time nor inclination for dealing with those two, so I agreed to give Vengar to Roxy, while Murk is being watched over by Epona.)]
 	</p>
 	<p>
-		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have places selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
+		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have placed selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
