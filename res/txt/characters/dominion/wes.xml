@@ -114,7 +114,7 @@
 	
 	<htmlContent tag="WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION_END"><![CDATA[
 	<p>
-		You agree to help Wes, and he gives you the recorder. Tells you that once you've gathered the evidence, you're going to need to anonymously hand it in to an Enforcer. Says that Submission's Enforcers are probably your best bet, but handing it in to Enforcer HQ should be fine too. After handing it in, wait at least 48 hours for the investigation to have proceeded, then return to Enforcer HQ to meet him.
+		You agree to help Wes, and he gives you the recorder. Tells you that once you've gathered the evidence, you're going to need to anonymously hand it in to an Enforcer. Says that Submission's Enforcers are probably your best bet, but handing it in to Enforcer HQ should be fine too. After handing it in, wait at least a week for the investigation to have proceeded, then return to Enforcer HQ and ask to see him at the front desk.
 	</p>
 	<p>
 		You agree once again to do as Wes says, and he tells you not to come looking or him until the evidence has been handed in and the investigation concluded. Thanks you for your help, then swiftly leaves.
@@ -193,8 +193,724 @@
 	<p>
 		Not wanting to be discovered by the gang if they decide to make a sudden return, you set off into the Bat Caverns, wondering where to head to now...
 	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CLAIRE_ELLE_EVIDENCE -->
+	
+	<htmlContent tag="CLAIRE_ELLE_EVIDENCE"><![CDATA[
 	<p>
-		[style.italicsBad(I've only added the framework up to here at the moment! There is no more Wes content to see (until v0.3.9.5)!)]
+		Although you're sure that you can trust Claire with the incriminating evidence of Elle, you think that it would be best to follow Wes's instructions, and so you ask the busty cat-girl if there's any way for you to anonymously submit evidence of criminal activity. Raising her eyebrows and flashing you a curious look, the short cat-girl points over to a dark blue box on the other side of the room, saying, [claire.speech(You can deposit stuff like that in there. Is it anything I could help with?)]
+	</p>
+	<p>
+		Thanking Claire for her offer, you tell her that it's nothing to worry about, before [pc.walking] over to the anonymous drop-box and depositing the arcane recorder in it. Her curiosity getting the better of her, the busty cat-girl skips over to where you're standing, before flashing you another curious glance and musing out loud, [claire.speech(I wonder what you're up to...)]
+	</p>
+	<p>
+		After you've once again told her not to worry about it, Claire flashes you a big grin and declares, [claire.speech(Oh well, I suppose I shouldn't be asking about anonymous tips anyway! So, is there anything else I can do for you, [pc.name]?)]
+	</p>
+	<p>
+		Recalling what Wes said, you make a mental note to pay him a visit up at the Enforcer HQ after forty-eight hours have passed. Turning your attention back towards Claire, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CANDI_ELLE_EVIDENCE -->
+	
+	<htmlContent tag="CANDI_ELLE_EVIDENCE"><![CDATA[
+	<p>
+		Deciding to follow Wes's instructions regarding the handling of the arcane recorder's incriminating footage, you ask Candi if there's any way for you to anonymously submit evidence of criminal activity. Blankly starting at you for a moment, the bimbo cat-girl bats her eyelids and asks, [candi.speechNoEffects(Umm, you mean, like, using the blue box thing? Yeah, I think you can, like, submit anonymous tips using that, or something...)]
+	</p>
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX) && game.getSecondsPassed()-game.getDialogueFlags().getSavedLong("candi_sex_timer")>60*60*12)
+		<p>
+			After pointing down at a dark blue box fixed to the front of her counter, Candi bites her lip and lets out a horny moan, before asking, [candi.speechNoEffects(Hey, like, how about you come back here and give me a different kind of anonymous tip? My pussy's, like, all wet and ready for a good fuck, y'know?)]
+		</p>
+		<p>
+			Focusing on the task at hand, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it, before turning back to face Candi and wondering whether you should give her what she wants...
+		</p>
+	#ELSE
+		<p>
+			After pointing down at a dark blue box fixed to the front of her counter, Candi instantly loses interest in you, and after producing a nail-file from somewhere beneath her desk, starts focusing all of her attention on giving herself a manicure. Leaving the narcissistic bimbo to focus on her nails, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it, before turning back to face the reception desk and wondering what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- APPROACH_ELLE -->
+	
+	<htmlContent tag="APPROACH_ELLE"><![CDATA[
+	<p>
+		Deciding to betray Wes, you wait outside the Enforcer HQ for Elle to leave work. After 45 minutes, you see her, and approach.
+	</p>
+	<p>
+		She asks you who you are, and you see from the shifty look in her eyes that she's deciding whether to treat you in a seductive or hostile manner.
+	</p>
+	<p>
+		You say who you are, and she quickly connects the dots and recognises that you were the one who cleared out the Harpy Nests. Realising that you're no ordinary citizen, she makes a move on you and seductively asks what it is that you wanted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- APPROACH_ELLE_EXPLAIN -->
+	
+	<htmlContent tag="APPROACH_ELLE_EXPLAIN"><![CDATA[
+	<p>
+		Producing the arcane recorder and showing it to her, you explain how it was Wes that tried to get her arrested. She drops her seductive tone as she realises how serious this is, and says that you've chosen very wisely to bring this to her attention. 
+	</p>
+	<p>
+		You give her the recorder, and she immediately uses a spell to destroy it. Says she needs to fix this before Wes tries anything else. Tells you to return after a week and ask to see her at the front desk so that she can give you a reward for your unexpected loyalty.
+	</p>
+	<p>
+		With a dark look in her eyes, she strides back towards the Enforcer HQ, leaving you with little other option but to do as she says and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- RECEPTION_DESK -->
+	
+	<htmlContent tag="RECEPTION_DESK_WES"><![CDATA[
+	<p><i>
+		#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+			As it's been more than a week since you anonymously handed in the evidence needed to arrest Elle, you could ask Candi to tell Wes that you're here to see him...
+		#ELSE
+			As it hasn't yet been more than a week since you anonymously handed in the evidence needed to arrest Elle, you shouldn't ask Candi about seeing Wes yet...
+		#ENDIF
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_DESK_ELLE"><![CDATA[
+	<p><i>
+		#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+			As it's been more than a week since you contacted Elle, you could tell Candi that you're here to see her...
+		#ELSE
+			As it hasn't yet been more than a week since you contacted Elle, you shouldn't ask Candi about seeing her yet...
+		#ENDIF
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_WES -->
+	
+	<htmlContent tag="INTRO_HQ_WES"><![CDATA[
+	<p>
+		As it's been more than a week since you anonymously deposited the arcane recorder in the evidence drop-box, you tell Candi that you're here to meet with a fox-boy SWORD Enforcer called Wesley Wormwood. For a moment, it seems as though the bimbo cat-girl doesn't understand what you're talking about, before suddenly remembering that it's her job to help out visitors and saying, [candi.speechNoEffects(So, you're wanting me to, like, let him know you've arrived? Umm... Hold on a moment...)]
+	</p>
+	<p>
+		Looking down at the arcane intercom that's built into the top of her desk, she hovers her index finger back and forth between several buttons, speaking out loud to herself as she does so, [candi.speechNoEffects(I know that Wes is, like, at requisitions... I think it's this button that I need...)]
+	</p>
+	<p>
+		The dim-witted cat-girl presses the button that's quite clearly marked as 'SWORD Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Wes asking, [wes.speech(What is it now, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Uh, like, that's kinda rude of you to think that, y'know? I'm actually doing my job for once, thank you very much!)] Candi drawls, [candi.speech(There's, like, [pc.a_race] here at the front desk for you. Are you, like, expecting someone called '[pc.name]'?)]
+	</p>
+	<p>
+		[wes.speech(Yes, I am,)] Wes replies, [wes.speech(Tell [pc.herHim] to wait right there; I'm on my way.)]
+	</p>
+	<p>
+		Even though it's blatantly obvious that you were able to overhear the brief conversation, Candi feels the need to look up at you and explain, [candi.speechNoEffects(Ok, so, like, Wes was kinda rude to me just now, but he's, like, agreed to come and meet you here. You're going to have to wait for him here, y'know? You can, like, use the waiting area.)]
+	</p>
+	<p>
+		After pointing over to the collection of sofas on the other side of the room, Candi turns her attention towards the mirror that's sitting on her desk. Leaving the ditzy bimbo behind, you [pc.walk] over to the nearest sofa and wait for Wes arrive...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_WES_ARRIVE -->
+	
+	<htmlContent tag="INTRO_HQ_WES_ARRIVE"><![CDATA[
+	<p>
+		After 5 minutes of waiting, Wes arrives and thanks you for your help. You notice that his uniform looks particularly smart, and he reveals that he's been promoted to Superintendent.
+	</p>
+	<p>
+		He tells you that he'd like to discuss some things with you, and asks you to follow him to his office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_WES_OFFICE -->
+	
+	<htmlContent tag="INTRO_HQ_WES_OFFICE"><![CDATA[
+	<p>
+		You follow Wes to his office. Describe office.
+	</p>
+	<p>
+		He reveals that the internal investigation went according to his plan, and he was able to get the promotion to Superintendent that he's been chasing for a long time. He's been given Elle's old title of Senior Quartermaster, and speaking of which, the [elle.race] has been enslaved and given to Wes as a bonus.
+	</p>
+	<p>
+		Says that despite his promotion, he's still working on the requisitions desk, and doesn't get to use this office much. This is due to the fact that the higher-ups have ordered him to make more regular reports on the inventory's status in an attempt to avoid a repeat of Elle's siphoning off of equipment.
+	</p>
+	<p>
+		He says that while he's not too keen on owning Elle as a slave, she is invaluable in helping him do inventory organisation, and so now works with him in the requisitions area. Says that he's arranged it so that you're to be granted access to this requisitions area, and he'll be able to sell you surplus equipment.
+	</p>
+	<p>
+		Asks you to accompany him over to the requisitions desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_WES_REQUISITIONS -->
+	
+	<htmlContent tag="INTRO_HQ_WES_REQUISITIONS"><![CDATA[
+	<p>
+		You follow Wes over to the requisitions area/desk, where you see that Elle is wearing a slutty fancy-dress Enforcer uniform. Wes remarks on it being his way of punishing Elle for all that she's done.
+	</p>
+	<p>
+		Elle says that it's actually because it turns Wes on, and he likes having his cock sucked by a slutty slave. Wes denies this, to which Elle steps up right behind him and reaches around to start stroking his crotch.
+	</p>
+	<p>
+		Wes tried to shake Elle off, but she keeps on harassing him. Ignoring the horny [elle.race], Wes tells you that you can buy gear from him at any time, or, if you'd like to do him a favour again, you could help to calm Elle's libido by taking her to his office and spending some time with her.
+	</p>
+	<p>
+		As Elle continues trying to get into Wes's pants, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_ELLE -->
+	
+	<htmlContent tag="INTRO_HQ_ELLE"><![CDATA[
+	<p>
+		As it's been more than a week since you contacted Elle, you tell Candi that you're here to meet with [elle.a_race] SWORD Enforcer called [elle.name] [elle.surname]. For a moment, it seems as though the bimbo cat-girl doesn't understand what you're talking about, before suddenly remembering that it's her job to help out visitors and saying, [candi.speechNoEffects(So, you're wanting me to, like, let her know you've arrived? Umm... Hold on a moment...)]
+	</p>
+	<p>
+		Looking down at the arcane intercom that's built into the top of her desk, she hovers her index finger back and forth between several buttons, speaking out loud to herself as she does so, [candi.speechNoEffects(I know that Elle is, like, at requisitions... I think it's this button that I need...)]
+	</p>
+	<p>
+		The dim-witted cat-girl presses the button that's quite clearly marked as 'SWORD Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Elle asking, [elle.speech(What can I help you with, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Uh, like, that's kinda rude of you to think that, y'know? I'm actually doing my job for once, thank you very much!)] Candi drawls, [candi.speech(There's, like, [pc.a_race] here at the front desk for you. Are you, like, expecting someone called '[pc.name]'?)]
+	</p>
+	<p>
+		[elle.speech(As a matter of fact, I am,)] Elle replies, [elle.speech(Be a dear and tell [pc.herHim] to wait right there; I'm on my way.)]
+	</p>
+	<p>
+		Even though it's blatantly obvious that you were able to overhear the brief conversation, Candi feels the need to look up at you and explain, [candi.speechNoEffects(Ok, so, like, Elle was kinda rude to me just now, but she's, like, agreed to come and meet you here. You're going to have to wait for her here, y'know? You can, like, use the waiting area.)]
+	</p>
+	<p>
+		After pointing over to the collection of sofas on the other side of the room, Candi turns her attention towards the mirror that's sitting on her desk. Leaving the ditzy bimbo behind, you [pc.walk] over to the nearest sofa and wait for Elle arrive...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_ELLE_ARRIVE -->
+	
+	<htmlContent tag="INTRO_HQ_ELLE_ARRIVE"><![CDATA[
+	<p>
+		After 5 minutes of waiting, Elle arrives and thanks you for your help.
+	</p>
+	<p>
+		She tells you that she'd like to discuss some things with you, and asks you to follow her to her office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_ELLE_OFFICE -->
+	
+	<htmlContent tag="INTRO_HQ_ELLE_OFFICE"><![CDATA[
+	<p>
+		<i>During all of this, Elle is heavily flirting with the player.</i>
+	</p>
+	<p>
+		You follow Elle to her office. Describe office.
+	</p>
+	<p>
+		She reveals that, thanks to your help, she was able to pin all of the blame of the missing equipment on Wes, who ended up being enslaved. Unfortunately, the higher-ups have ordered her to make more regular reports on the inventory's status in an attempt to avoid a repeat of the siphoning off of equipment.
+	</p>
+	<p>
+		She says that while she's always regarded Wes as being somewhat odd, he's proving to be invaluable in helping her to do inventory organisation. Now that she has to work at the desk for most of the day, she can't go around the station getting sex, so Wes is proving to be very useful in providing sexual relief as well.
+	</p>
+	<p>
+		Says that she's arranged it so that you're to be granted access to this requisitions area, and she'll be able to sell you surplus equipment. Asks you to accompany her over to the requisitions desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTRO_HQ_ELLE_REQUISITIONS -->
+	
+	<htmlContent tag="INTRO_HQ_ELLE_REQUISITIONS"><![CDATA[
+	<p>
+		<i>During all of this, Elle is heavily flirting with the player.</i>
+	</p>
+	<p>
+		You follow Elle over to the requisitions area/desk, where you see that Wes is wearing nothing but boxers and a slave collar.
+	</p>
+	<p>
+		Wes throws you a hateful glare, which Elle sees. Offers to calm him down by letting him eat her out. Pushes Wes down beneath the desk and lifts up her skirt.
+	</p>
+	<p>
+		Elle tells you that you can buy gear from her at any time, or, if you'd like to have a go with Wes, you could take him to her office and spend some time with him.
+	</p>
+	<p>
+		As lewd sounds starts to be heard from beneath the counter, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Post-quest dialogues: -->
+	
+	
+	<!-- REQUISITIONS -->
+	
+	<htmlContent tag="REQUISITIONS_POST_QUEST"><![CDATA[
+	<p>
+		Connected to the adjoining corridor by a pair of wide, propped-open doors, the requisitions area is the place where specialist or replacement equipment can be checked out by the HQ's Enforcers. [pc.Stepping] through the open doors into this area, you find yourself standing in a relatively small room, which, other than a couple of basic metal tables pushed up against one wall, is devoid of any furniture. The only other point of interest is the counter on the far side of the room, which currently appears to be unmanned.
+	</p>
+	<p>
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+			Continuing to move forwards into the room, you look past the counter to see a huge storage area filled with all sorts of weapons and protective equipment. Down at the end of one of the aisles formed by the well-stocked shelving units, you see the familiar figure of Elle pinning Wes back against the wall. She's slipped her hand down the fox-boy's boxers, and from the rapid movements of her arm, it's quite obvious that she's giving him a handjob.
+		#ELSE
+			Continuing to move forwards into the room, you look past the counter to see a huge storage area filled with all sorts of weapons and protective equipment. Down at the end of one of the aisles formed by the well-stocked shelving units, you see the familiar figure of Elle forcing herself on Wes and pinning him back against the wall. She's slipped her hand down the fox-boy's boxers, and from the rapid movements of her arm, it's quite obvious that she's giving him a handjob.
+		#ENDIF
+	</p>
+	<p>
+		You wonder whether you should ring the bell on the desk's counter to get their attention, or turn around and leave them to it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_TRADE_DIALOGUE"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			Telling [npc.name] that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Crossing his arms and letting out a short sigh, he grunts, [npc.speech(This is what I can offer you. Don't blame me if the prices seem steep; I'm just following the pricing guidelines I've been given.)]
+		</p>
+		<p>
+			Looking down at the list, you wonder whether you should buy anything...
+		</p>
+	#ELSE
+		<p>
+			Telling [npc.name] that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Crossing his arms and letting out a short sigh, he grunts, [npc.speech(This is what I can offer you. Don't blame me if the prices seem steep; I'm just following the pricing guidelines I've been given.)]
+		</p>
+		<p>
+			Looking down at the list, you wonder whether you should buy anything...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- REQUISITIONS_INTERACTION -->
+	
+	<htmlContent tag="REQUISITIONS_INTERACTION"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			You ring the counter's bell. Elle pulls her hand out of Wes's boxers, whispers something in his ear, then walks over to you.
+		</p>
+		<p>
+			She seductively asks what she can help you with.
+		</p>
+	#ELSE
+		<p>
+			You ring the counter's bell. Elle pulls her hand out of Wes's boxers, whispers something in his ear, then steps back and lets him walk over to you.
+		</p>
+		<p>
+			A little flustered from his interaction with Elle, the fox-boy clears his throat and asks what he can do for you.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_INTERACTION_LEAVE"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			You tell Elle that you need to be getting on your way and leave. As you exit, you take one last look back to see the horny [elle.race] advancing on Wes and reaching towards his groin...
+		</p>
+	#ELSE
+		<p>
+			You tell Wes that you need to be getting on your way and leave. As you exit, you take one last look back to see Elle advancing on the fox-boy and reaching towards his groin...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_BACKGROUND -->
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			You ask Elle about her background. (She heavily flirts with the player throughout this scene.)
+		</p>
+		<p>
+			TODO: Display 1 of at least 5 different background scenes. Revealing more about Elle's history with each interaction. (After all 5 have been seen, display repeat variations on each at random.)
+		</p>
+	#ELSE
+		<p>
+			You ask Wes about his background.
+		</p>
+		<p>
+			TODO: Display 1 of at least 5 different background scenes. Revealing more about Wes's history with each interaction. (After all 5 have been seen, display repeat variations on each at random.)
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_WORK -->
+	
+	<htmlContent tag="REQUISITIONS_WORK"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			You ask Elle about how work is going. (She heavily flirts with the player throughout this scene.)
+		</p>
+		<p>
+			TODO: Display 1 of at least 10 small work dialogue variations. Overall giving the picture of a lot of work to do, and how Wes is handling most of the tedious/physical work. She doesn't get as much done as is expected of her due to the fact that she keeps on sexually harassing Wes.
+		</p>
+	#ELSE
+		<p>
+			You ask Wes about how work is going.
+		</p>
+		<p>
+			TODO: Display 1 of at least 10 small work dialogue variations. Overall giving the picture of a lot of work to do, and how Elle is not much use. He finds learning curve of being master of both the borough's equipment and Elle to be steep and it's taking a toll on on him.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_ELLE -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE"><![CDATA[
+	<p>
+		You flirt back with Elle, and she is soon taking things very far.
+	</p>
+	<p>
+		She comes around to the other side of the counter and gets physical with you, before breathlessly suggesting that she gives you a very personal tour of her office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_ELLE_DECLINED -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_DECLINED"><![CDATA[
+	<p>
+		You turn down Elle's offer. She is visibly annoyed, and returns to the other side of her desk.
+	</p>
+	<p>
+		Quickly re-assuming her flirty temperament, she asks you if there's anything else you wanted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_ELLE_OFFICE -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE"><![CDATA[
+	<p>
+		You agree to go to Elle's office with her. She tells Wes to watch the place while she's gone.
+	</p>
+	<p>
+		You head into her office. She locks the door behind you and instantly is all over you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_SEX_START_AS_DOM"><![CDATA[
+	<p>
+		Taking charge, you dominantly kiss Elle before telling her that you're going to give her a good fucking.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_SEX_START_AS_SUB"><![CDATA[
+	<p>
+		Letting Elle take charge, you allow her to dominantly kiss you, before she tells you that she's going to add you to her long list of successful sexual conquests. (If already had sex with her, she says something else.)
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_END_SEX -->
+	
+	<htmlContent tag="ELLE_END_SEX"><![CDATA[
+	<p>
+		If satisfied, Elle is flirty and teases you a little as you both get your things back in order. If not satisfied, she is clearly frustrated, and says she'll get Wes to finish her off.
+	</p>
+	<p>
+		The two of you exit her office, and she heads into the requisitions area, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME"><![CDATA[
+	<p>
+		You suggest to Elle taht she bring Wes along for the tour. She likes the idea, and tells the fox-boy to join you. Hangs a 'be back soon' sign on the door to the requisitions area.
+	</p>
+	<p>
+		You, Elle, and Wes head into the office. Elle locks the door behind you and instantly is all over you and Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_DOM"><![CDATA[
+	<p>
+		You take charge and tell Wes and Elle that you're going to fuck them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_JOINT_DOM"><![CDATA[
+	<p>
+		You join Elle in taking charge and tell Wes that the two of you are going to fuck him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_JOINT_SUB"><![CDATA[
+	<p>
+		You join Wes in submitting to Elle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_SUB"><![CDATA[
+	<p>
+		You submit to both Elle and Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_WES_REVENGE"><![CDATA[
+	<p>
+		You lead Elle into joining you in submitting to Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_END_SEX_THREESOME -->
+	
+	<htmlContent tag="ELLE_END_SEX_THREESOME"><![CDATA[
+	<p>
+		If satisfied, Elle is flirty and teases you a little as the three of you get your things back in order. If not satisfied, she is clearly frustrated, and says to Wes that he's going to finish her off back in the requisitions area.
+	</p>
+	<p>
+		The three of you exit her office, and Elle and Wes head back into the requisitions area, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_WES_OFFICE -->
+	
+	<htmlContent tag="ELLE_WES_OFFICE"><![CDATA[
+	<p>
+		You ask Elle if you can spend some time with Wes. She agrees and tells you to use her office.
+	</p>
+	<p>
+		You take Wes into Elle's office. All of Elle's flirting and sexual harassment has got Wes worked up, and although he quite clearly hates you for betraying him (vary based on his affection), he seems eager enough to have sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELLE_WES_OFFICE_START_AS_DOM"><![CDATA[
+	<p>
+		You take charge and prepare to fuck Wes....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELLE_WES_OFFICE_START_AS_SUB"><![CDATA[
+	<p>
+		You let Wes take charge and prepare to be fucked by him....
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ELLE_END_SEX_WES -->
+	
+	<htmlContent tag="ELLE_END_SEX_WES"><![CDATA[
+	<p>
+		If satisfied, Wes is happy enough as the two of you get your things back in order. If not satisfied, he is clearly frustrated, and says that Elle will no doubt enjoy finishing him off back in the requisitions area.
+	</p>
+	<p>
+		You exit Elle's office, and Wes heads back into the requisitions area, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_WES -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES"><![CDATA[
+	<p>
+		You flirt with Wes. From all of Elle's teasing and sexual harassment, he seems quite horny.
+	</p>
+	<p>
+		After a short while of making suggestive remarks to him (with an envious Elle in the background?), you think that you could suggest taking things a step further...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_WES_FINISH -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_FINISH"><![CDATA[
+	<p>
+		You decide not to take things any further, and stop flirting with Wes.
+	</p>
+	<p>
+		The fox-boy asks if he can help you with anything.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_WES_OFFICE -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE"><![CDATA[
+	<p>
+		You suggest to Wes that he should take a break from work by giving you a tour of his office. He agrees, and tells Elle to watch the place while he's gone.
+	</p>
+	<p>
+		You head into Wes's office. He locks the door behind you and instantly is all over you... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_SEX_START_AS_DOM"><![CDATA[
+	<p>
+		You take charge and start having sex with Wes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_SEX_START_AS_SUB"><![CDATA[
+	<p>
+		You let Wes take charge and start having sex with him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_END_SEX -->
+	
+	<htmlContent tag="WES_END_SEX"><![CDATA[
+	<p>
+		If satisfied, Wes is in good spirits and teases you a little as you both get your things back in order. If not satisfied, he is clearly frustrated, and says he'll have to let Elle finish him off.
+	</p>
+	<p>
+		The two of you exit his office, and he heads into the requisitions area, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_FLIRT_WES_OFFICE_THREESOME -->
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME"><![CDATA[
+	<p>
+		You suggest to Wes that he should take a break from work by giving you a tour of his office, and to bring Elle along. He agrees, and tells Elle to join you. Hangs a 'be back soon' sign on the door to the requisitions area.
+	</p>
+	<p>
+		You, Elle, and Wes head into the office. Wes locks the door behind you and instantly is all over you and Elle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_DOM"><![CDATA[
+	<p>
+		You take charge and tell Elle and Wes that you're going to fuck them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_JOINT_DOM"><![CDATA[
+	<p>
+		You join Wes in taking charge and dominantly fuck Elle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_JOINT_SUB"><![CDATA[
+	<p>
+		You join Elle in submitting to Wes and get dominantly fucked by him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_SUB"><![CDATA[
+	<p>
+		You submit to both Wes and Elle, who both seem more than happy to dominantly fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_ELLE_REVENGE"><![CDATA[
+	<p>
+		You convince Wes to join you in submitting to Elle, who seems very happy to be given a chance to get some dominant revenge (or is she just the big horny?) on the two of you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_END_SEX_THREESOME -->
+	
+	<htmlContent tag="WES_END_SEX_THREESOME"><![CDATA[
+	<p>
+		If satisfied, Wes is in good spirits and teases you a little as the three of you get your things back in order. If not satisfied, he is clearly frustrated, and says to Elle that she can finish him off back in the requisitions area.
+	</p>
+	<p>
+		The three of you exit the office, and Elle and Wes head back into the requisitions area, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_ELLE_OFFICE -->
+	
+	<htmlContent tag="WES_ELLE_OFFICE"><![CDATA[
+	<p>
+		You ask Wes if you can spend some time with Elle. He is more than happy to be given some relief from the [elle.race]'s constant sexual harassment, and tells you to take her to his office.
+	</p>
+	<p>
+		You take Elle into Wes's office. She doesn't seem too bitter about the fact that you're the cause of her being enslaved, and is very quickly all over you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_ELLE_OFFICE_START_AS_DOM"><![CDATA[
+	<p>
+		You take charge and dominantly fuck Elle...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WES_ELLE_OFFICE_START_AS_SUB"><![CDATA[
+	<p>
+		You submit to Elle and let her dominantly fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WES_END_SEX_ELLE -->
+	
+	<htmlContent tag="WES_END_SEX_ELLE"><![CDATA[
+	<p>
+		If satisfied, Elle is flirty and teases you a little as you both get your things back in order. If not satisfied, she is clearly frustrated, and says she'll get Wes to finish her off.
+	</p>
+	<p>
+		The two of you exit Wes's office, and Elle heads into the requisitions area, leaving you to continue on your way...
 	</p>
 	]]>
 	</htmlContent>

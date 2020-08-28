@@ -45,7 +45,7 @@
 		<cond2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></cond2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
-		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 		<presetColourGroup1 singleColour="true"> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
 			<randomColour>CLOTHING_PINK</randomColour>
 			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
@@ -140,7 +140,7 @@
 				<type>CHEST_LACY_PLUNGE_BRA</type>
 				<type>CHEST_FULLCUP_BRA</type>
 			</types>
-			<primaryColours values="LINGERIE"/> <!-- The optional attribute "values" can be used as a pre-set colour list instead of defining individual colours. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+			<primaryColours values="LINGERIE"/> <!-- The optional attribute "values" can be used as a pre-set colour list instead of defining individual colours. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>

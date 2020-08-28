@@ -18271,10 +18271,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.cleanAllDirtySlots(true);
 		sb.append(this.cleanAllClothing(cleanAllClothing, true));
 		
-		this.removeStatusEffect("innoxia_cleaned_shower");
-		this.removeStatusEffect("innoxia_cleaned_bath");
-		this.removeStatusEffect("innoxia_cleaned_spa");
 		if(effect!=null) {
+			this.removeStatusEffect("innoxia_cleaned_shower");
+			this.removeStatusEffect("innoxia_cleaned_bath");
+			this.removeStatusEffect("innoxia_cleaned_spa");
 			this.addStatusEffect(effect, statusEffectMinutes*60);
 		}
 		
@@ -21037,7 +21037,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getAllBodyParts();
 	}
 	
-	private class GenderAppearance {
+	private static class GenderAppearance {
 		public String description;
 		public Gender gender;
 		public GenderAppearance(String description, Gender gender) {

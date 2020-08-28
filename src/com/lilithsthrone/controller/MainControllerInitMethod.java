@@ -7044,7 +7044,7 @@ public class MainControllerInitMethod {
 				if(action != null) {
 					action.run();
 				}
-				if(option.isFetishRelated()) {
+				if(option.isFetishRelated() && Main.game.isStarted()) {
 					Main.game.getPlayer().recalculateCombatMoves();
 					Main.game.getPlayer().calculateSpecialFetishes();
 					for(GameCharacter character : Main.game.getAllNPCs()) {

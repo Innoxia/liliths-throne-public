@@ -46,10 +46,13 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
@@ -282,5 +285,76 @@ public class Elle extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
+	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isWorkTime()) {
+				if(this.isSlave()) {
+					this.setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
+					
+				} else {
+					this.setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER, true);
+				}
+				
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
+	@Override
+	public void dailyUpdate() {
+		if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
+			clearNonEquippedInventory(false);
+			
+			// Weapons:
+			this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton"), 5, false, false);
+			this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"), 5, false, false);
+			this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbrifle"), 5, false, false);
+			this.addWeapon(Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"), 5, false, false);
+			
+			// Clothing:
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_bglasses", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_milsweatervest_crew", PresetColour.CLOTHING_GREY, false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_milsweater_crew", PresetColour.CLOTHING_GREY, false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_milsweater_vee", PresetColour.CLOTHING_GREY, false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cbtshirt", PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_BLACK, null, false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_sslcbtshirt", PresetColour.CLOTHING_GREY, PresetColour.CLOTHING_BLACK, null, false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_utilbelt", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_battlebelt", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_bgoggles", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cboots", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_chelmet", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_gmask", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_nvgoggles", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_telbowpads", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_tkneepads", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_hndcuffs_hndcuffs", false), 5, false, false);
+			
+			//TODO after sticker system:
+			//dsg_eep_ptrlequipset_stpvest
+			//dsg_eep_tacequipset_pltcarrier
+		}
+	}
+	
+	@Override
+	public String getTraderDescription() {
+		return UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_TRADE_DIALOGUE");
+	}
+	
+	@Override
+	public boolean isTrader() {
+		return true;
+	}
 
+	@Override
+	public boolean willBuy(AbstractCoreItem item) {
+		return false;
+	}
+	
+	@Override
+	public float getSellModifier(AbstractCoreItem item) {
+		return 1.5f;
+	}
 }

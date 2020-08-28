@@ -53,7 +53,7 @@ public enum PersonalityTrait {
 		}
 	},
 	
-	CYNICAL(false, PersonalityCategory.CORE, "cynical", "[npc.NameIsFull] primarily motivated by [npc.her] own self-interests and [npc.is] particularly distrustful of others' intentions.", "", PresetColour.BASE_RED_DARK) {
+	CYNICAL(false, PersonalityCategory.CORE, "cynical", "[npc.NameIsFull] particularly distrustful of the intentions and motivations of other people.", "", PresetColour.BASE_RED_DARK) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(NAIVE);

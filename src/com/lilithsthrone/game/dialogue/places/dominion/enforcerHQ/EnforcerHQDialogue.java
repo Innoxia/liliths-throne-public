@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -12,18 +11,19 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
+import com.lilithsthrone.game.character.npc.dominion.Elle;
+import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
@@ -32,6 +32,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
@@ -84,13 +85,25 @@ public class EnforcerHQDialogue {
 					}
 				};
 				
-			} else if(index==2 && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
-				return new Response("Enter (Requisitions)", "Cross the grounds and enter the Enforcer HQ via the Enforcer entrance.", PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE.getDialogue(false)){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE, false);
+			} else if(index==2) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_2) {
+					if(Main.game.getHourOfDay()<16 || Main.game.getHourOfDay()>=18) {
+						return new Response("Elle",
+								"Betray Wes by waiting for Elle to leave work and telling her everything..."
+									 +"<br/>You can only do this at the time when Elle is expected to leave work, which is [style.italicsMinorBad([units.time(16)]-[units.time(18)])].",
+								null);
 					}
-				};
+					
+					return new Response("Elle", "Betray Wes by waiting for Elle to leave work and telling her everything...", WesQuest.APPROACH_ELLE);
+				}
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
+					return new Response("Enter (Requisitions)", "Cross the grounds and enter the Enforcer HQ via the Enforcer entrance.", PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE.getDialogue(false)){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE, false);
+						}
+					};
+				}
 			} 
 			return null;
 		}
@@ -127,7 +140,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public String getContent() {
 			try {
-				if(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE) {
+				if(Vector2i.getDistance(Main.game.getPlayer().getLocation(), Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE).getLocation())<=2) {
 					return  UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR_PLAIN_ENFORCER_ENTRANCE");
 				}
 			} catch(Exception ex) {
@@ -328,17 +341,25 @@ public class EnforcerHQDialogue {
 	};
 	
 	public static final DialogueNode RECEPTION_DESK = new DialogueNode("Reception desk", "", true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK");
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK"));
+			
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_WES) {
+				sb.append(UtilText.parseFromXMLFile("characters/dominion/wes", "RECEPTION_DESK_WES"));
+				
+			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_ELLE) {
+				sb.append(UtilText.parseFromXMLFile("characters/dominion/wes", "RECEPTION_DESK_ELLE"));
+			}
+			
+			return sb.toString();
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.isWorkTime()) {
@@ -351,6 +372,11 @@ public class EnforcerHQDialogue {
 							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA, false);
 						}
 					};
+					
+				} else if(index==5) {
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_2) {
+						return new Response("Anonymous tip", "You'll have to return while Candi is at work if you wanted to deposit the arcane recorder here.", null);
+					}
 				}
 				return null;
 			}
@@ -570,6 +596,44 @@ public class EnforcerHQDialogue {
 					} else {
 						return new Response("Greet Candi", "Get her attention by saying hello.", INTERIOR_SECRETARY,
 								null, null, null, null, null);
+					}
+				}
+			}
+			
+
+			if(index==5) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_2) {
+					return new Response("Anonymous tip",
+							"Ask Candi if there's a way to anonymously submit evidence of criminal activity, so that you can deposit the arcane recorder containing the footage of Elle dealing with the gang.",
+							WesQuest.CANDI_ELLE_EVIDENCE);
+				}
+				
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_WES) {
+					if(Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)<60*24*7) {
+						long days = (((Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)+(60*24*7))-Main.game.getMinutesPassed())/(60*24)) + 1;
+						return new Response("Wes",
+								"It hasn't yet a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Wes just yet..."
+									+ "<br/>You need to wait another [style.italicsMinorBad("+days+" day"+(days==1?"":"s")+")]!",
+								null);
+						
+					} else {
+						return new Response("Wes",
+								"As it's now been more than a week since you anonymously handed in the arcane recorder, you could tell Candi that you're here to see Wes.",
+								WesQuest.INTRO_HQ_WES);
+					}
+					
+				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_ELLE) {
+					if(Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)<60*60*24*7) {
+						long days = (((Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)+(60*24*7))-Main.game.getMinutesPassed())/(60*24)) + 1;
+						return new Response("Elle",
+								"It hasn't yet a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Elle just yet..."
+									+ "<br/>You need to wait another [style.italicsMinorBad("+days+" day"+(days==1?"":"s")+")]!",
+								null);
+						
+					} else {
+						return new Response("Elle",
+								"As it's now been more than a week since you anonymously handed in the arcane recorder, you could tell Candi that you're here to see Elle.",
+								WesQuest.INTRO_HQ_ELLE);
 					}
 				}
 			}
@@ -1100,27 +1164,31 @@ public class EnforcerHQDialogue {
 	public static final DialogueNode REQUISITIONS = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
-			return 30;
+			return 60;
 		}
 		@Override
 		public String getContent() {
-			try {
-				GameCharacter enforcer = Main.game.getNonCompanionCharactersPresent().get(0);
-				return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "REQUISITIONS", enforcer);
+			if(!Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Elle.class))
+					&& !Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Wes.class))) {
+				return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "REQUISITIONS");
 				
-			} catch(Exception ex) {
-				return "<p>[style.italicsBad(You aren't supposed to be able to be here yet!)]</p>";
+			} else {
+				return UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_POST_QUEST");
 			}
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				try {
-					NPC enforcer = Main.game.getNonCompanionCharactersPresent().get(0);
-					return new ResponseTrade("Trade", "Buy some gear from the Enforcer.", enforcer);
-					
-				} catch(Exception ex) {
-					return null;
+			if(!Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Elle.class))
+					&& !Main.game.getNonCompanionCharactersPresent().contains(Main.game.getNpc(Wes.class))) {
+				return null;
+				
+			} else {
+				if(index==1) {
+					return new Response("Approach",
+							Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)
+								?"[pc.Step] up to the requisitions desk and get Elle's attention."
+								:"[pc.Step] up to the requisitions desk and get Wes's attention.",
+							WesQuest.REQUISITIONS_INTERACTION);
 				}
 			}
 			return null;
@@ -1138,20 +1206,6 @@ public class EnforcerHQDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				if(!Main.game.isWorkTime()) {
-					return new Response("Enter",
-							Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)
-								?"Elle is not at work at this hour, so you cannot enter her locked office..."
-								:"Wes is not at work at this hour, so you cannot enter his locked office...",
-							null);
-				}
-				return new Response("Enter",
-						Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)
-							?"Knock on the door and enter Elle's office."
-							:"Knock on the door and enter Wes's office.",
-						null); //TODO
-			}
 			return null;
 		}
 	};

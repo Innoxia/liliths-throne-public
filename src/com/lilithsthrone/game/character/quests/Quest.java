@@ -1253,7 +1253,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "You decided to do as Wes asked and hand in the incriminating evidence as an anonymous tip to the Enforcers."
-					+ " You should wait at least 48 hours for things to be settled, then look for Wes in the Shopping Arcade near 'Pix's Playground' between [units.time(13)]-[units.time(14)].";
+					+ " You should wait at least one week for things to be settled, then ask to see Wes up in the Enforcer HQ between [units.time(9)]-[units.time(17)].";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1271,7 +1271,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "You decided to betray Wes and reveal everything to Elle."
-					+ " Thankful for your unexpected support, the [elle.race] promised to reward you if you return to the Enforcer HQ after 48 hours have passed...";
+					+ " Thankful for your unexpected support, the [elle.race] promised to reward you if you return to the Enforcer HQ after at least a week has passed...";
 		}
 		@Override
 		public String getCompletedDescription() {
