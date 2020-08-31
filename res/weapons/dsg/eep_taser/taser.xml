@@ -52,7 +52,9 @@
 		<secondaryColours values="JUST_GREY"/> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_MEDIUM</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

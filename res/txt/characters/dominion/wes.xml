@@ -150,7 +150,7 @@
 	
 	<htmlContent tag="ELLE_SEARCH_CAVE"><![CDATA[
 	<p>
-		Squeezing your way around the trucks of the huge mushrooms, you enter the cave, making sure to keep a sharp lookout for any sign of Elle. Inside, there are large piles of locked crates with scraped-off SWORD stamps.
+		Squeezing your way around the trunks of the huge mushrooms, you enter the cave, making sure to keep a sharp lookout for any sign of Elle. Inside, there are large piles of locked crates with scraped-off SWORD stamps.
 	</p>
 	<p>
 		There's no sign of Wes's superior, but as you approach the crates to take a closer look, you hear the soft, flirty laughter of a woman approaching the cave's entrance. A slovenly voice asks her how much further the weapons stash is, to which she reveals that it's right inside the cave you're currently in!
@@ -210,7 +210,7 @@
 		After you've once again told her not to worry about it, Claire flashes you a big grin and declares, [claire.speech(Oh well, I suppose I shouldn't be asking about anonymous tips anyway! So, is there anything else I can do for you, [pc.name]?)]
 	</p>
 	<p>
-		Recalling what Wes said, you make a mental note to pay him a visit up at the Enforcer HQ after forty-eight hours have passed. Turning your attention back towards Claire, you wonder what to do next...
+		Recalling what Wes said, you make a mental note to pay him a visit up at the Enforcer HQ after at least a week has passed. Turning your attention back towards Claire, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -220,18 +220,18 @@
 	
 	<htmlContent tag="CANDI_ELLE_EVIDENCE"><![CDATA[
 	<p>
-		Deciding to follow Wes's instructions regarding the handling of the arcane recorder's incriminating footage, you ask Candi if there's any way for you to anonymously submit evidence of criminal activity. Blankly starting at you for a moment, the bimbo cat-girl bats her eyelids and asks, [candi.speechNoEffects(Umm, you mean, like, using the blue box thing? Yeah, I think you can, like, submit anonymous tips using that, or something...)]
+		Deciding to follow Wes's instructions regarding the handling of the arcane recorder's incriminating footage, you ask Candi if there's any way for you to anonymously submit evidence of criminal activity. Blankly staring at you for a moment, the bimbo cat-girl bats her eyelids and asks, [candi.speechNoEffects(Umm, you mean, like, using the blue box thing? Yeah, I think you can, like, submit anonymous tips using that, or something...)]
 	</p>
 	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX) && game.getSecondsPassed()-game.getDialogueFlags().getSavedLong("candi_sex_timer")>60*60*12)
 		<p>
 			After pointing down at a dark blue box fixed to the front of her counter, Candi bites her lip and lets out a horny moan, before asking, [candi.speechNoEffects(Hey, like, how about you come back here and give me a different kind of anonymous tip? My pussy's, like, all wet and ready for a good fuck, y'know?)]
 		</p>
 		<p>
-			Focusing on the task at hand, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it, before turning back to face Candi and wondering whether you should give her what she wants...
+			Focusing on the task at hand, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it. Recalling what Wes said, you make a mental note to pay him a visit here at the Enforcer HQ after at least a week has passed. Finally, you turn back to face Candi wondering whether you should give her what she wants...
 		</p>
 	#ELSE
 		<p>
-			After pointing down at a dark blue box fixed to the front of her counter, Candi instantly loses interest in you, and after producing a nail-file from somewhere beneath her desk, starts focusing all of her attention on giving herself a manicure. Leaving the narcissistic bimbo to focus on her nails, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it, before turning back to face the reception desk and wondering what to do next...
+			After pointing down at a dark blue box fixed to the front of her counter, Candi instantly loses interest in you, and after producing a nail-file from somewhere beneath her desk, starts focusing all of her attention on giving herself a manicure. Leaving the narcissistic bimbo to focus on her nails, you [pc.step] over to the anonymous drop-box and deposit the arcane recorder in it. Recalling what Wes said, you make a mental note to pay him a visit here at the Enforcer HQ after at least a week has passed. Finally, you turn back to face the reception desk and wonder what to do next...
 		</p>
 	#ENDIF
 	]]>
@@ -274,10 +274,18 @@
 	
 	<htmlContent tag="RECEPTION_DESK_WES"><![CDATA[
 	<p><i>
-		#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
-			As it's been more than a week since you anonymously handed in the evidence needed to arrest Elle, you could ask Candi to tell Wes that you're here to see him...
+		#IF(game.isWorkTime())
+			#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+				As it's been more than a week since you anonymously handed in the evidence needed to arrest Elle, you could ask Candi to tell Wes that you're here to see him...
+			#ELSE
+				As it hasn't yet been more than a week since you anonymously handed in the evidence needed to arrest Elle, you shouldn't ask Candi about seeing Wes yet. [style.italicsMinorBad(You should return after [#SPECIAL_PARSE_0]...)]
+			#ENDIF
 		#ELSE
-			As it hasn't yet been more than a week since you anonymously handed in the evidence needed to arrest Elle, you shouldn't ask Candi about seeing Wes yet...
+			#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+				Although it's been more than a week since you anonymously handed in the evidence needed to arrest Elle, Candi is only at work from [style.colourMinorBad([units.time(9)]-[units.time(17)])], so you'll have to return during normal work hours  in order to meet Wes...
+			#ELSE
+				It hasn't yet been more than a week since you anonymously handed in the evidence needed to arrest Elle, and even it had been, Candi is only at work from [style.colourMinorBad([units.time(9)]-[units.time(17)])], so you'd be unable to meet Wes regardless. [style.italicsMinorBad(You should return after [#SPECIAL_PARSE_0]...)]
+			#ENDIF
 		#ENDIF
 	</i></p>
 	]]>
@@ -285,10 +293,18 @@
 	
 	<htmlContent tag="RECEPTION_DESK_ELLE"><![CDATA[
 	<p><i>
-		#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
-			As it's been more than a week since you contacted Elle, you could tell Candi that you're here to see her...
+		#IF(game.isWorkTime())
+			#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+				As it's been more than a week since you contacted Elle, you could tell Candi that you're here to see her...
+			#ELSE
+				As it hasn't yet been more than a week since you contacted Elle, you shouldn't ask Candi about seeing her yet. [style.italicsMinorBad(You should return after [#SPECIAL_PARSE_0]...)]
+			#ENDIF
 		#ELSE
-			As it hasn't yet been more than a week since you contacted Elle, you shouldn't ask Candi about seeing her yet...
+			#IF(game.getMinutesPassed()-game.getDialogueFlags().getSavedLong("wes_completion_timer")>60*24*7)
+				Although it's been more than a week since you contacted Elle, Candi is only at work from [style.colourMinorBad([units.time(9)]-[units.time(17)])], so you'll have to return during normal work hours in order to meet her...
+			#ELSE
+				It hasn't yet been more than a week since you contacted Elle, and even it had been, Candi is only at work from [style.colourMinorBad([units.time(9)]-[units.time(17)])], so you'd be unable to meet her regardless. [style.italicsMinorBad(You should return after [#SPECIAL_PARSE_0]...)]
+			#ENDIF
 		#ENDIF
 	</i></p>
 	]]>
@@ -305,7 +321,7 @@
 		Looking down at the arcane intercom that's built into the top of her desk, she hovers her index finger back and forth between several buttons, speaking out loud to herself as she does so, [candi.speechNoEffects(I know that Wes is, like, at requisitions... I think it's this button that I need...)]
 	</p>
 	<p>
-		The dim-witted cat-girl presses the button that's quite clearly marked as 'SWORD Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Wes asking, [wes.speech(What is it now, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
+		The dim-witted cat-girl presses the button that's quite clearly marked as 'Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Wes asking, [wes.speech(What is it now, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
 	</p>
 	<p>
 		[candi.speechNoEffects(Uh, like, that's kinda rude of you to think that, y'know? I'm actually doing my job for once, thank you very much!)] Candi drawls, [candi.speech(There's, like, [pc.a_race] here at the front desk for you. Are you, like, expecting someone called '[pc.name]'?)]
@@ -387,7 +403,7 @@
 		Looking down at the arcane intercom that's built into the top of her desk, she hovers her index finger back and forth between several buttons, speaking out loud to herself as she does so, [candi.speechNoEffects(I know that Elle is, like, at requisitions... I think it's this button that I need...)]
 	</p>
 	<p>
-		The dim-witted cat-girl presses the button that's quite clearly marked as 'SWORD Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Elle asking, [elle.speech(What can I help you with, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
+		The dim-witted cat-girl presses the button that's quite clearly marked as 'Requisitions', and after letting out a low-pitched buzzing noise, the arcane intercom's speaker crackles into life, and you hear the familiar voice of Elle asking, [elle.speech(What can I help you with, Candi? Don't tell me that you've lost your jacket <i>again</i>...)]
 	</p>
 	<p>
 		[candi.speechNoEffects(Uh, like, that's kinda rude of you to think that, y'know? I'm actually doing my job for once, thank you very much!)] Candi drawls, [candi.speech(There's, like, [pc.a_race] here at the front desk for you. Are you, like, expecting someone called '[pc.name]'?)]
@@ -487,14 +503,14 @@
 	<htmlContent tag="REQUISITIONS_TRADE_DIALOGUE"><![CDATA[
 	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
 		<p>
-			Telling [npc.name] that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Crossing his arms and letting out a short sigh, he grunts, [npc.speech(This is what I can offer you. Don't blame me if the prices seem steep; I'm just following the pricing guidelines I've been given.)]
+			Telling Elle that you'd like to buy some Enforcer equipment, you wait as she rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Leaning forwards over the counter-top and flashing you a seductive look, she reveals, [npc.speech(Here's what I can sell to you without causing any trouble...)]
 		</p>
 		<p>
 			Looking down at the list, you wonder whether you should buy anything...
 		</p>
 	#ELSE
 		<p>
-			Telling [npc.name] that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Crossing his arms and letting out a short sigh, he grunts, [npc.speech(This is what I can offer you. Don't blame me if the prices seem steep; I'm just following the pricing guidelines I've been given.)]
+			Telling Wes that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Pushing Elle off of him, he lets out a sigh and reveals, [npc.speech(Here's what I can sell to you without causing any trouble...)]
 		</p>
 		<p>
 			Looking down at the list, you wonder whether you should buy anything...

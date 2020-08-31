@@ -374,7 +374,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
 				SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
 				if((preference!=null && preference.getPerformingSexArea().getRelatedCoverableArea()==exposeArea) //TODO
-						|| (clothingToRemove!=null && !clothingToRemove.getKey().getClothingType().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
+						|| (clothingToRemove!=null && !clothingToRemove.getKey().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
 					return Main.sex.manageClothingToAccessCoverableArea(partner, partner, exposeArea);
 				}
 			}
@@ -398,7 +398,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
 					SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
 					if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea()==exposeArea)
-							|| (clothingToRemove!=null && !clothingToRemove.getKey().getClothingType().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
+							|| (clothingToRemove!=null && !clothingToRemove.getKey().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
 						return Main.sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, exposeArea);
 					}
 				}

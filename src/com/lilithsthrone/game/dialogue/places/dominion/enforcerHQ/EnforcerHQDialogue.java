@@ -352,9 +352,13 @@ public class EnforcerHQDialogue {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK"));
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_WES) {
+				long days = 7-((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID))/(60*24));
+				UtilText.addSpecialParsingString(Util.intToString((int) days)+" day"+(days==1?"":"s"), true);
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/wes", "RECEPTION_DESK_WES"));
 				
 			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_ELLE) {
+				long days = 7-((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID))/(60*24));
+				UtilText.addSpecialParsingString(Util.intToString((int) days)+" day"+(days==1?"":"s"), true);
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/wes", "RECEPTION_DESK_ELLE"));
 			}
 			
@@ -610,9 +614,9 @@ public class EnforcerHQDialogue {
 				
 				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_WES) {
 					if(Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)<60*24*7) {
-						long days = (((Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)+(60*24*7))-Main.game.getMinutesPassed())/(60*24)) + 1;
+						long days = 7-((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID))/(60*24));
 						return new Response("Wes",
-								"It hasn't yet a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Wes just yet..."
+								"It hasn't yet been a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Wes just yet..."
 									+ "<br/>You need to wait another [style.italicsMinorBad("+days+" day"+(days==1?"":"s")+")]!",
 								null);
 						
@@ -623,10 +627,10 @@ public class EnforcerHQDialogue {
 					}
 					
 				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_3_ELLE) {
-					if(Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)<60*60*24*7) {
-						long days = (((Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)+(60*24*7))-Main.game.getMinutesPassed())/(60*24)) + 1;
+					if(Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID)<60*24*7) {
+						long days = 7-((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong(WesQuest.QUEST_COMPLETION_MINUTES_TIMER_ID))/(60*24));
 						return new Response("Elle",
-								"It hasn't yet a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Elle just yet..."
+								"It hasn't yet been a week since you anonymously handed in the arcane recorder, so you shouldn't ask to see Elle just yet..."
 									+ "<br/>You need to wait another [style.italicsMinorBad("+days+" day"+(days==1?"":"s")+")]!",
 								null);
 						

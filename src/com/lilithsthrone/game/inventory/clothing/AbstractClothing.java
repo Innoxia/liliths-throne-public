@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.inventory.clothing;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -18,9 +20,15 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
+import com.lilithsthrone.game.character.body.types.FootType;
+import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -50,7 +58,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.9
+ * @version 0.3.9.5
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
@@ -64,6 +72,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	private String pattern; // name of the pattern. 
 	private List<Colour> patternColours;
 
+	private Map<String, String> stickers; // Mapping StickerCategory id to Sticker id
+	
 	private boolean dirty;
 	private boolean enchantmentKnown;
 	private boolean unlocked;
@@ -99,6 +109,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		
 		handlePatternCreation();
+		
+		handleStickerCreation();
 
 		displacedList = new ArrayList<>();
 
@@ -169,6 +181,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		handlePatternCreation();
 		
+		handleStickerCreation();
+		
 		displacedList = new ArrayList<>();
 		if(effects!=null) {
 			this.effects = new ArrayList<>(effects);
@@ -186,6 +200,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		this.setPattern(clothing.getPattern());
 		this.setPatternColours(clothing.getPatternColours());
+		
+		this.setStickers(clothing.getStickers());
 		
 		this.displacedList = new ArrayList<>(clothing.getDisplacedList());
 		
@@ -212,6 +228,24 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		for(ColourReplacement cr : clothingType.getPatternColourReplacements()) {
 			patternColours.add(cr.getRandomOfDefaultColours());
+		}
+	}
+	
+	private void handleStickerCreation() {
+		stickers = new HashMap<>();
+		
+		for(Entry<StickerCategory, List<Sticker>> entry : this.getClothingType().getStickers().entrySet()) {
+			if(!stickers.containsKey(entry.getKey().getId())) {
+				Sticker sticker = null;
+				for(Sticker s : entry.getValue()) {
+					if(sticker==null || s.isDefaultSticker()) {
+						sticker = s;
+					}
+				}
+				if(sticker!=null) {
+					stickers.put(entry.getKey().getId(), sticker.getId());
+				}
+			}
 		}
 	}
 	
@@ -317,6 +351,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				innerElement.appendChild(colourElement);
 				colourElement.setAttribute("i", String.valueOf(i));
 				colourElement.setTextContent(this.getPatternColour(i).getId());
+			}
+		}
+		
+		if(!this.getStickers().isEmpty()) {
+			Element innerElement = doc.createElement("stickers");
+			element.appendChild(innerElement);
+			
+			for(Entry<String, String> entry : this.getStickers().entrySet()) {
+				Element stickerElement = doc.createElement("sticker");
+				innerElement.appendChild(stickerElement);
+				stickerElement.setAttribute("category", String.valueOf(entry.getKey()));
+				stickerElement.setTextContent(entry.getValue());
 			}
 		}
 		
@@ -506,7 +552,17 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			} catch(Exception ex) {
 			}
 		}
-
+		
+		// Load stickers:
+		Element stickersElement = (Element) parentElement.getElementsByTagName("stickers").item(0);
+		if(stickersElement!=null) {
+			NodeList nodes = stickersElement.getElementsByTagName("sticker");
+			for(int i=0; i<nodes.getLength(); i++) {
+				Element stickerElement = (Element) nodes.item(i);
+				clothing.setSticker(stickerElement.getAttribute("category"), stickerElement.getTextContent());
+			}
+		}
+		
 		// Try to load core features:
 		try {
 			if(!parentElement.getAttribute("sealed").isEmpty()) {
@@ -518,7 +574,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		
 		// Try to load attributes:
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5") || !clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) { // Do not load condom effects from versions prior to 0.3.0.5
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5") || !clothing.isCondom(clothing.getClothingType().getEquipSlots().get(0))) { // Do not load condom effects from versions prior to 0.3.0.5
 			if(parentElement.getElementsByTagName("attributeModifiers")!=null && parentElement.getElementsByTagName("attributeModifiers").getLength()>0) {
 				if(clothing.getClothingType().getClothingSet()==null) {
 					clothing.getEffects().clear();
@@ -598,7 +654,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					
 					DisplacementType dt = DisplacementType.valueOf(e.getAttribute("value"));
 					boolean displacementTypeFound = false;
-					for (BlockedParts bp : clothing.getClothingType().getBlockedPartsMap(null, clothing.getSlotEquippedTo())) {
+					for (BlockedParts bp : clothing.getBlockedPartsMap(null, clothing.getSlotEquippedTo())) {
 						if(bp.displacementType == dt) {
 							displacementTypeFound = true;
 						}
@@ -655,11 +711,72 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		patternColours.remove(index);
 		patternColours.add(index, colour);
 	}
+	
+	public void setSticker(StickerCategory stickerCategory, Sticker sticker) {
+		stickers.put(stickerCategory.getId(), sticker.getId());
+	}
+
+	public void setSticker(String stickerCategoryId, String stickerId) {
+		stickers.put(stickerCategoryId, stickerId);
+	}
+
+	public void removeSticker(StickerCategory stickerCategory) {
+		stickers.remove(stickerCategory.getId());
+	}
+
+	public void removeSticker(String stickerCategoryId) {
+		stickers.remove(stickerCategoryId);
+	}
+	
+	public Map<String, String> getStickers() {
+		return stickers;
+	}
+
+	public Map<StickerCategory, Sticker> getStickersAsObjects() {
+		Map<StickerCategory, Sticker> stickersAsObjects = new HashMap<>();
+		
+		for(Entry<StickerCategory, List<Sticker>> typeStickers : this.getClothingType().getStickers().entrySet()) {
+			if(getStickers().containsKey(typeStickers.getKey().getId())) {
+				for(Sticker typeSticker : typeStickers.getValue()) {
+					if(getStickers().get(typeStickers.getKey().getId()).equals(typeSticker.getId())) {
+						stickersAsObjects.put(typeStickers.getKey(), typeSticker);
+						break;
+					}
+				}
+			}
+		}
+		
+		return stickersAsObjects;
+	}
+	
+	public void setStickers(Map<String, String> stickers) {
+		this.stickers = new HashMap<>(stickers);
+	}
+	
+	public void setStickersAsObjects(Map<StickerCategory, Sticker> stickers) {
+		this.stickers = new HashMap<>();
+		for(Entry<StickerCategory, Sticker> entry : stickers.entrySet()) {
+			this.stickers.put(entry.getKey().getId(), entry.getValue().getId());
+		}
+	}
 
 	private static StringBuilder descriptionSB = new StringBuilder();
 
 	public String getTypeDescription() {
-		return this.getClothingType().getDescription();
+		String description = this.getClothingType().getDescription();
+		
+		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
+		List<Sticker> orderedStickers = new ArrayList<>(stickersAsObjects.values());
+		Collections.sort(orderedStickers, (s1, s2)->s1.getDescriptionPriority()-s2.getDescriptionPriority());
+		for(Sticker st : orderedStickers) {
+			if(st.isDescriptionFullReplacement()) {
+				description = st.getDescription();
+				break;
+			}
+			description += st.getDescription();
+		}
+		
+		return description;
 	}
 	
 	@Override
@@ -723,11 +840,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isCanBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
-		return this.getClothingType().isAbleToBeBeEquipped(clothingOwner, slot).getKey();
+		return this.isAbleToBeBeEquipped(clothingOwner, slot).getKey();
 	}
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner, InventorySlot slot) {
-		return UtilText.parse(clothingOwner, this.getClothingType().isAbleToBeBeEquipped(clothingOwner, slot).getValue());
+		return UtilText.parse(clothingOwner, this.isAbleToBeBeEquipped(clothingOwner, slot).getValue());
 	}
 	
 	@Override
@@ -816,9 +933,32 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public String getName() {
-		return !this.getEffects().isEmpty() || !name.isEmpty()
-					?name
-					:this.getClothingType().getName();
+		String parsedName = this.getClothingType().getName();
+		
+		if(!this.getEffects().isEmpty() || !name.isEmpty()) {
+			parsedName = name;
+		}
+		
+		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
+		List<Sticker> orderedStickers = new ArrayList<>(stickersAsObjects.values());
+		
+		Collections.sort(orderedStickers, (s1, s2)->s1.getNamePrefixPriority()-s2.getNamePrefixPriority());
+		String prefix = "";
+		for(Sticker st : orderedStickers) {
+			if(!st.getNamePrefix().isEmpty()) {
+				prefix += st.getNamePrefix() + " ";
+			}
+		}
+		
+		Collections.sort(orderedStickers, (s1, s2)->s1.getNamePostfixPriority()-s2.getNamePostfixPriority());
+		String postfix = "";
+		for(Sticker st : orderedStickers) {
+			if(!st.getNamePostfix().isEmpty()) {
+				prefix += " " + st.getNamePostfix();
+			}
+		}
+		
+		return prefix + parsedName + postfix;
 	}
 	
 	public String getColourName() {
@@ -876,7 +1016,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					? (getClothingType().isPlural()
 							? getClothingType().getDeterminer()
 							: UtilText.generateSingularDeterminer(
-									getClothingType().isAppendColourName()
+								getClothingType().isAppendColourName()
 									?getColourName()
 									:getName()))
 						+" "
@@ -905,7 +1045,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 * @return A string in the format "Blue cap of frostbite" or "Gold circlet of anti-magic"
 	 */
 	public String getDisplayName(boolean withRarityColour, boolean withEnchantmentPostFix) {
-		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getClothingType().getName().replaceAll("\u00A0"," "))) { // If this item has a custom name, just display that:
+		if(!this.name.replaceAll("\u00A0"," ").equalsIgnoreCase(this.getClothingType().getName().replaceAll("\u00A0"," "))) { // If this item has a custom name, just display that:
 			return (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?PresetColour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName());
@@ -932,7 +1072,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(slotEquippedTo==null) {
 			slotEquippedTo = this.getClothingType().getEquipSlots().get(0);
 		}
-		return getClothingType().getSVGImage(slotEquippedTo, getColours(), pattern, getPatternColours());
+		return getClothingType().getSVGImage(slotEquippedTo, getColours(), pattern, getPatternColours(), getStickers());
 	}
 	
 	public String getSVGEquippedString(GameCharacter character) {
@@ -940,7 +1080,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(slotEquippedTo==null) {
 			slotEquippedTo = this.getClothingType().getEquipSlots().get(0);
 		}
-		return getClothingType().getSVGEquippedImage(character, slotEquippedTo, getColours(), pattern, getPatternColours());
+		return getClothingType().getSVGEquippedImage(character, slotEquippedTo, getColours(), pattern, getPatternColours(), getStickers());
 	}
 
 	/**
@@ -975,7 +1115,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			sb.append(getClothingType().equipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, true));
 		}
 		
-		if(this.getClothingType().getItemTags(this.getSlotEquippedTo()).contains(ItemTag.DILDO_SELF)) {
+		if(this.getItemTags().contains(ItemTag.DILDO_SELF)) {
 			int length = this.getClothingType().getPenetrationSelfLength();
 			PenisLength penisLength = PenisLength.getPenisLengthFromInt(length);
 			PenetrationGirth girth = PenetrationGirth.getGirthFromInt(this.getClothingType().getPenetrationSelfGirth());
@@ -1125,7 +1265,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			
 			sb.append("</p>");
 		}
-		if(this.getClothingType().getItemTags(this.getSlotEquippedTo()).contains(ItemTag.DILDO_OTHER)) {
+		if(this.getItemTags().contains(ItemTag.DILDO_OTHER)) {
 			int length = this.getClothingType().getPenetrationOtherLength();
 			PenisLength penisLength = PenisLength.getPenisLengthFromInt(length);
 			PenetrationGirth girth = PenetrationGirth.getGirthFromInt(this.getClothingType().getPenetrationOtherGirth());
@@ -1168,7 +1308,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	public String getDisplacementBlockingDescriptions(GameCharacter equippedToCharacter){
 		descriptionSB = new StringBuilder("<p><b>Displacement types:</b>");
-		for(BlockedParts bp : getClothingType().getBlockedPartsMap(equippedToCharacter, this.getSlotEquippedTo())){
+		for(BlockedParts bp : getBlockedPartsMap(equippedToCharacter, this.getSlotEquippedTo())){
 			descriptionSB.append("<br/><b>"+Util.capitaliseSentence(bp.displacementType.getDescription())+":</b> ");
 			if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP) {
 				if(equippedToCharacter.isAbleToUnequip(this, false, equippedToCharacter)) {
@@ -1223,22 +1363,22 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			incompatibleClothing.clear();
 			
 			if(slotToBeEquippedTo!=null) {
-				if(!getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo).isEmpty()) {
-					for (InventorySlot invSlot : getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo)) {
+				if(!getIncompatibleSlots(null, slotToBeEquippedTo).isEmpty()) {
+					for (InventorySlot invSlot : getIncompatibleSlots(null, slotToBeEquippedTo)) {
 						if(Main.game.getPlayer().getClothingInSlot(invSlot) != null) {
 							incompatibleClothing.add(Main.game.getPlayer().getClothingInSlot(invSlot).getClothingType().getName());
 						}
 					}
 				}
 				for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-					for (InventorySlot invSlot : c.getClothingType().getIncompatibleSlots(null, c.getSlotEquippedTo())) {
+					for (InventorySlot invSlot : c.getIncompatibleSlots(null, c.getSlotEquippedTo())) {
 						if(slotToBeEquippedTo == invSlot) {
 							incompatibleClothing.add(c.getClothingType().getName());
 						}
 					}
 				}
 				
-				List<InventorySlot> incompSlots = getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo);
+				List<InventorySlot> incompSlots = getIncompatibleSlots(null, slotToBeEquippedTo);
 				if(!incompSlots.isEmpty()) {
 					if(verbose) {
 						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()==1?"s":"")+"!");
@@ -1292,7 +1432,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				}
 			}
 			if(slotToBeEquippedTo!=null) {
-				List<InventorySlot> incompSlots = getClothingType().getIncompatibleSlots(equippedToCharacter, slotToBeEquippedTo);
+				List<InventorySlot> incompSlots = getIncompatibleSlots(equippedToCharacter, slotToBeEquippedTo);
 				if(!incompSlots.isEmpty()) {
 					if(verbose) {
 						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()==1?"s":"")+"!");
@@ -1316,23 +1456,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 		}
 		
-		List<ItemTag> universalTags = new ArrayList<>();
+		Set<ItemTag> universalTags = new HashSet<>(this.getItemTags());
 		for(int i=0; i<this.getClothingType().getEquipSlots().size();i++) {
-			if(i==0) {
-				universalTags.addAll(this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)));
-				
-			} else {
-				List<ItemTag> tags = this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(i));
-				universalTags.removeIf((it) -> !tags.contains(it));
-			}
+			Set<ItemTag> tags = this.getItemTags(this.getClothingType().getEquipSlots().get(i));
+			universalTags.removeIf((it) -> !tags.contains(it));
 		}
 		
-		List<ItemTag> tagsToBeDescribed;
+		Set<ItemTag> tagsToBeDescribed;
 		if(slotToBeEquippedTo==null) {
-			tagsToBeDescribed = new ArrayList<>(universalTags);
+			tagsToBeDescribed = new HashSet<>(universalTags);
 			
 		} else {
-			tagsToBeDescribed = new ArrayList<>(this.getClothingType().getItemTags(slotToBeEquippedTo));
+			tagsToBeDescribed = new HashSet<>(this.getItemTags(slotToBeEquippedTo));
 			tagsToBeDescribed.removeIf((it) -> universalTags.contains(it) && it!=ItemTag.DILDO_SELF);
 		}
 		
@@ -1615,13 +1750,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Set<CoverableArea> coveredAreas = new HashSet<>();// EnumSet.noneOf(CoverableArea.class);
 
 		if(dt == null) {
-			for (BlockedParts bp : this.getClothingType().getBlockedPartsMap(owner, slotToBeEquippedTo)) {
+			for (BlockedParts bp : this.getBlockedPartsMap(owner, slotToBeEquippedTo)) {
 				if(!this.getDisplacedList().contains(bp.displacementType)) {
 					coveredAreas.addAll(bp.blockedBodyParts);
 				}
 			}
 		} else {
-			for (BlockedParts bp : this.getClothingType().getBlockedPartsMap(owner, slotToBeEquippedTo)) {
+			for (BlockedParts bp : this.getBlockedPartsMap(owner, slotToBeEquippedTo)) {
 				if(bp.displacementType == dt) {
 					coveredAreas.addAll(bp.blockedBodyParts);
 				}
@@ -1887,7 +2022,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 * @return A Value whose key is true if this clothing can be equipped during sex. If false, the Value's value is a description of why it cannot be equipped
 	 */
 	public Value<Boolean, String> isAbleToBeEquippedDuringSex(InventorySlot slotEquippedTo) {
-		if(this.getClothingType().isAbleToBeEquippedDuringSex(slotEquippedTo)) {
+		if(getItemTags(slotEquippedTo).contains(ItemTag.ENABLE_SEX_EQUIP)) {
 			if(isEnslavementClothing()) {
 				return new Value<>(false, "Clothing with enslavement enchantments cannot be equipped during sex!");
 			}
@@ -1959,17 +2094,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return clothingType.getEnchantmentItemType(effects);
 	}
 	
-	public boolean isCondom(InventorySlot slotEquippedTo) {
-		return this.getClothingType().getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
-	}
-	
-	public boolean isCondom() {
-		if(this.getSlotEquippedTo()==null) {
-			return this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)).contains(ItemTag.CONDOM);
-		}
-		return this.getClothingType().getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
-	}
-	
 	public ItemEffect getCondomEffect() {
 		for(ItemEffect ie : this.getEffects()) {
 			if(ie.getPrimaryModifier()==TFModifier.CLOTHING_CONDOM) {
@@ -1980,17 +2104,404 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	public boolean isMilkingEquipment() {
-		if(this.getSlotEquippedTo()==null) {
-			return this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)).contains(ItemTag.MILKING_EQUIPMENT);
+		return this.getItemTags().contains(ItemTag.MILKING_EQUIPMENT);
+	}
+
+	public Set<ItemTag> getItemTags(InventorySlot slot) {
+		Set<ItemTag> clothingTags;
+		
+		if(slot==null) {
+			clothingTags = new HashSet<>(this.getClothingType().getDefaultItemTags());
+		} else {
+			clothingTags = new HashSet<>(this.getClothingType().getItemTags(slot));
 		}
-		return this.getClothingType().getItemTags(this.getSlotEquippedTo()).contains(ItemTag.MILKING_EQUIPMENT);
+
+		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
+		for(Sticker st : stickersAsObjects.values()) {
+			clothingTags.addAll(st.getTagsApplied());
+			clothingTags.removeAll(st.getTagsRemoved());
+		}
+		
+		return clothingTags;
 	}
 	
 	@Override
 	public Set<ItemTag> getItemTags() {
+		Set<ItemTag> clothingTags;
+		
 		if(this.getSlotEquippedTo()==null) {
-			return new HashSet<>(this.getClothingType().getDefaultItemTags());
+			clothingTags = new HashSet<>(this.getClothingType().getDefaultItemTags());
+		} else {
+			clothingTags = new HashSet<>(this.getClothingType().getItemTags(this.getSlotEquippedTo()));
 		}
-		return new HashSet<>(this.getClothingType().getItemTags(this.getSlotEquippedTo()));
+
+		Map<StickerCategory, Sticker> stickersAsObjects = this.getStickersAsObjects();
+		for(Sticker st : stickersAsObjects.values()) {
+			clothingTags.addAll(st.getTagsApplied());
+			clothingTags.removeAll(st.getTagsRemoved());
+		}
+		
+		return clothingTags;
 	}
+	
+	
+	// Clothing methods which rely upon ItemTags:
+	
+	public boolean isCondom(InventorySlot slotEquippedTo) {
+		return this.getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
+	}
+	
+	public boolean isCondom() {
+		return this.getItemTags().contains(ItemTag.CONDOM);
+	}
+	
+	public boolean isSexToy(InventorySlot slotEquippedTo) {
+		for(ItemTag tag : this.getItemTags(slotEquippedTo)) {
+			if(tag.isSexToy()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isTransparent(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT);
+	}
+	
+	public boolean isMufflesSpeech(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.MUFFLES_SPEECH);
+	}
+	
+	public boolean isHindersLegMovement(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_LEG_MOVEMENT);
+	}
+	
+	public boolean isHindersArmMovement(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_ARM_MOVEMENT);
+	}
+	
+	public boolean isDiscardedOnUnequip(InventorySlot slotEquippedTo) {
+		return getItemTags(slotEquippedTo).contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
+	}
+	
+	public Value<Boolean, String> isAbleToBeBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
+		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
+		Set<ItemTag> tags = this.getItemTags(slot);
+		
+		boolean plural = this.getClothingType().isPlural();
+		
+		if(!this.getClothingType().getEquipSlots().contains(slot)) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(The "+this.getName()+" cannot be equipped into this slot!)]"));
+		}
+		if (block != null && Collections.disjoint(block.getRequiredTags(), tags)) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
+		}
+		if(tags.contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_FEATHERED)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feathered arm-wings, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_LEATHERY)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for leathery arm-wings, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
+		}
+		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		if(clothingOwner.hasVagina() && tags.contains(ItemTag.REQUIRES_NO_VAGINA)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
+		}
+		if(!clothingOwner.hasVagina() && tags.contains(ItemTag.REQUIRES_VAGINA)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a vagina, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		if(!clothingOwner.isBreastFuckableNipplePenetration() && tags.contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
+			if(slot==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] ears are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+		
+			} else if(slot==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] lips are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nose is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] penis is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] navel is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] tongue is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+				
+			} else if(slot==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
+				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] vagina is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
+			}
+		}
+		if(slot==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
+			
+		} else if(slot==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a vagina, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		
+		if (slot == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any wings, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		if (slot == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any horns, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		if (slot == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
+			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a tail, so [npc.she] can't wear the "+this.getName()+"!"));
+		}
+		return new Value<>(true, "");
+	}
+
+	public List<BlockedParts> getBlockedPartsMap(GameCharacter character, InventorySlot slotEquippedTo) {
+		Set<ItemTag> tags = this.getItemTags(slotEquippedTo);
+		
+		if(character!=null) {
+			boolean replaceCrotchBoobAccess = false;
+			boolean replaceGroinAccess = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!tags.contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case TAUR:
+					if(!tags.contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replaceCrotchBoobAccess = true;
+						replaceGroinAccess = true;
+					}
+					break;
+			}
+			if(replaceGroinAccess
+					&& slotEquippedTo!=InventorySlot.ANUS
+					&& slotEquippedTo!=InventorySlot.PENIS
+					&& slotEquippedTo!=InventorySlot.VAGINA
+					&& slotEquippedTo!=InventorySlot.PIERCING_PENIS
+					&& slotEquippedTo!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
+				boolean cAccess = replaceCrotchBoobAccess;
+				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
+				for(BlockedParts blockedparts : this.clothingType.blockedPartsMap.get(slotEquippedTo)) {
+					BlockedParts copy = new BlockedParts(blockedparts);
+					
+					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
+						bp ->
+							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
+							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
+							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
+							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
+							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.concealedSlots = copy.concealedSlots.stream().filter(
+						cs ->
+							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
+							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
+							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
+							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
+							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
+							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
+						).collect(Collectors.toList());
+					
+					modifiedBlockedParts.add(copy);
+				}
+				return modifiedBlockedParts;
+			}
+		}
+		return clothingType.blockedPartsMap.get(slotEquippedTo);
+	}
+	
+	public boolean isConcealsSlot(GameCharacter character, InventorySlot slotEquippedTo, InventorySlot slotToCheck) {
+		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
+			if(blockedPart.concealedSlots.contains(slotToCheck) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isConcealsCoverableArea(GameCharacter character, InventorySlot slotEquippedTo, CoverableArea area) {
+		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
+			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<InventorySlot> getIncompatibleSlots(GameCharacter character, InventorySlot slotEquippedTo) { //TODO
+		if(character!=null) {
+			boolean replace = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						replace = true;
+					}
+					break;
+				case TAUR:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replace = true;
+					}
+					break;
+			}
+			if(replace) {
+				List<InventorySlot> modifiedIncompatibleSlots = new ArrayList<>(clothingType.incompatibleSlotsMap.get(slotEquippedTo));
+				
+				if(InventorySlot.getHumanoidSlots().contains(slotEquippedTo)) {
+					modifiedIncompatibleSlots.removeIf(slot -> !InventorySlot.getHumanoidSlots().contains(slot));
+				} else {
+					modifiedIncompatibleSlots.removeIf(slot -> InventorySlot.getHumanoidSlots().contains(slot));
+				}
+				
+				return modifiedIncompatibleSlots;
+			}
+		}
+		return clothingType.incompatibleSlotsMap.get(slotEquippedTo);
+	}
+
+	public List<DisplacementType> getBlockedPartsKeysAsListWithoutNONE(GameCharacter character, InventorySlot slotEquippedTo) {
+		if(character!=null) {
+			boolean replaceCrotchBoobAccess = false;
+			boolean replaceGroinAccess = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case TAUR:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replaceCrotchBoobAccess = true;
+						replaceGroinAccess = true;
+					}
+					break;
+			}
+			if(replaceGroinAccess
+					&& slotEquippedTo!=InventorySlot.ANUS
+					&& slotEquippedTo!=InventorySlot.PENIS
+					&& slotEquippedTo!=InventorySlot.VAGINA
+					&& slotEquippedTo!=InventorySlot.PIERCING_PENIS
+					&& slotEquippedTo!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
+				boolean cAccess = replaceCrotchBoobAccess;
+				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
+				for(BlockedParts blockedparts : clothingType.blockedPartsMap.get(slotEquippedTo)) {
+					BlockedParts copy = new BlockedParts(blockedparts);
+					
+					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
+						bp ->
+							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
+							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
+							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
+							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
+							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.concealedSlots = copy.concealedSlots.stream().filter(
+						cs ->
+							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
+							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
+							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
+							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
+							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
+							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
+						).collect(Collectors.toList());
+					
+					modifiedBlockedParts.add(copy);
+				}
+				List<DisplacementType> moddedDisplacementTypesAvailableWithoutNONE = new ArrayList<>();
+				for (BlockedParts bp : modifiedBlockedParts) {
+					if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+						moddedDisplacementTypesAvailableWithoutNONE.add(bp.displacementType);
+					}
+				}
+				return moddedDisplacementTypesAvailableWithoutNONE;
+			}
+		}
+		return clothingType.displacementTypesAvailableWithoutNONE.get(slotEquippedTo);
+	}
+	
 }

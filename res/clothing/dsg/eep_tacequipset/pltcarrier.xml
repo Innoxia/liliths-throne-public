@@ -148,6 +148,7 @@
 		<itemTags> 
 			<tag>RIGID_MATERIAL</tag>
 			<tag>FITS_ARM_WINGS</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 

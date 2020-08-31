@@ -225,6 +225,24 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ENFORCER_ALLEYWAY_CONTRABAND_HEAVY"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsTerrible(Your contraband items will be confiscated and you will be arrested if you allow the Enforcers to search you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_CONTRABAND_MEDIUM"><![CDATA[
+	<p style='text-align:center;'>
+		#IF(pc.hasItemType("innoxia_quest_special_pass_elle") || pc.hasItemType("innoxia_quest_special_pass"))
+			<i>Although you have [style.italicsBad(contraband items)], your Contractor Pass grants you [style.italicsExcellent(immunity)] from having them confiscated!</i>
+		#ELSE
+			[style.italicsBad(Your contraband items will be confiscated if you allow the Enforcers to search you!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ENFORCER_ALLEYWAY_START_CONTINUE_HAD_SEX"><![CDATA[
 	#VAR
 		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
@@ -395,6 +413,56 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_HEAVY_CONTRABAND"><![CDATA[
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down. Recognising some of your possessions as being [style.colourBlueDark(heavy contraband)], [npc.name] quickly confiscates them
+		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
+			 and securely stows them in [npc.her] inventory.
+		#ELSE
+			 and passes them to [npc2.name] to securely stow in [npc2.her] inventory.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.boldTerrible(You have lost:)]<br/>
+		[#SPECIAL_PARSE_0]
+	</p>
+	<p>
+		Pressing you up against the wall, [npc.name] reaches down to [npc.her] waist to grab a pair of handcuffs, before stating, [npc.speech(It's illegal to be in possession of these items, so we're taking you in. Do not resist!)]
+	</p>
+	<p>
+		Realising that you only have a moment in which to act before you're placed under arrest, you wonder whether you should try and fight back against these Enforcers and take your items back from them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_CONTRABAND_DEMAND_STRIP"><![CDATA[
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down.
+		#IF(pc.hasBreasts())
+			 Running [npc.her] [npc.hands] up and over your [pc.breasts+], [npc.she] lets out an amused grunt as [npc.she] gives them a firm squeeze.
+		#ELSE
+			 Running [npc.her] [npc.hands] down over your ass, [npc.she] lets out an amused grunt as [npc.she] gives your cheeks a firm squeeze.
+		#ENDIF
+		 Before you're able to react to react to this sexual harassment, the [npc.race] suddenly finds some items that you aren't supposed to have, and grunts, [npc.speech(I'm going to have to confiscate these...)]
+	</p>
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] quickly confiscates your [style.colourBlueDark(medium contraband)] items
+		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
+			 and securely stows them in [npc.her] inventory.
+		#ELSE
+			 and passes them to [npc2.name] to securely stow in [npc2.her] inventory.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.boldTerrible(You have lost:)]<br/>
+		[#SPECIAL_PARSE_0]
+	</p>
+	<p>
+		Having carried out [npc.her] duty, [npc.name] starts groping your body and feeling you up once again, before grunting into your ear, [npc.speech(Naughty [pc.races] like you need to be taught a lesson. You'd like that, wouldn't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND"><![CDATA[
 	<p>
 		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down.
@@ -460,6 +528,29 @@
 	</p>
 	<p>
 		Realising that submitting to [npc.namePos] demands will undoubtedly lead into [npc.herHim] fingering your ass, you wonder if you should refuse to strip for [npc.herHim]. Then again, if you were feeling particularly horny, you could take things a step further and ask [npc2.name] to join in by putting your mouth to good use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_CONTRABAND"><![CDATA[
+	<p>
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to quickly pat you down. Quickly discovering that you're in possession [style.colourBlueDark(medium contraband)] items, [npc.name] confiscates them
+		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
+			 and securely stows them in [npc.her] inventory.
+		#ELSE
+			 and passes them to [npc2.name] to securely stow in [npc2.her] inventory.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.boldTerrible(You have lost:)]<br/>
+		[#SPECIAL_PARSE_0]
+	</p>
+	</p>
+	<p>
+		Finding no further evidence of wrongdoing, [npc.name] soon [npc.steps] back and says, [npc.speech(Ok, we'll be holding onto these items of yours, but other than that, there's no cause for us to take any further action against you. You can turn around again now.)]
+	</p>
+	<p>
+		Doing as you're told, you turn around to face the two Enforcers once again. Placing [npc2.her] [npc2.hands] on [npc2.her] [npc2.hips], [npc2.name] states, [npc2.speech(If you don't have any criminals to report to us, we'll be on our way.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1836,6 +1927,40 @@
 	</p>
 	<p>
 		As the barred door is locked behind you, [npc.name] calls out, [npc.speech(I hope you enjoy your new life as someone's slave! It's a fitting end for anyone who dares to attack us Enforcers! [npc2.Name], you can fill [pc.her] paperwork out; I'm off to get a coffee.)]
+	</p>
+	<p>
+		Having been left by [npc2.her] superior to handle the paperwork involved in arresting you, [npc2.name] lets out a weary sigh and trudges off to fetch the required forms. Just a minute later, and [npc2.she] returns to the door of your cell to start asking you a series of personal questions.
+	</p>
+	<p>
+		Seeing no hope of escape at the moment, you play along and start off by answering the [npc2.race]'s request for your name and address. Upon hearing where it is that you claim to live, however, the Enforcer lowers [npc2.her] clipboard and snaps, [npc2.speech(You'd better not be bullshitting me! If I find out that you're lying about this, there's going to be hell to pay!)]
+	</p>
+	<p>
+		Clearly unsure about how to proceed after learning that Lilaya's mansion is your fixed address, [npc2.name] runs off to seek the advice of [npc2.her] superior, leaving you with little else to do but wait in your cell...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_CONTRABAND_CELLS -->
+	
+	<htmlContent tag="AFTER_CONTRABAND_CELLS"><![CDATA[
+	#VAR
+		var canal = npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_ALLEYS_CANAL_CROSSING)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL)
+				|| npc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_DOMINION_CANAL_END);
+	#ENDVAR
+	
+	<p>
+		Submitting to the Enforcers, you allow them to lock a pair of handcuffs around your wrists, before accompanying them
+		#IF(canal)
+			 away from the canal
+		#ELSE
+			 out of the alleyways
+		#ENDIF
+		 and down Dominion's streets. Before you know it, you've arrived at Dominion's Enforcer HQ, and after being led inside and down a series of corridors, you're unceremoniously hurled into an empty cell.
+	</p>
+	<p>
+		As the barred door is locked behind you, [npc.name] calls out, [npc.speech(Possession of heavy contraband carries some tough sentences; I wouldn't be surprised if you end up serving a few years as a slave! [npc2.Name], you can fill [pc.her] paperwork out; I'm off to get a coffee.)]
 	</p>
 	<p>
 		Having been left by [npc2.her] superior to handle the paperwork involved in arresting you, [npc2.name] lets out a weary sigh and trudges off to fetch the required forms. Just a minute later, and [npc2.she] returns to the door of your cell to start asking you a series of personal questions.

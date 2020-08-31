@@ -21,7 +21,7 @@
 	</p>
 	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
 		<p>
-			As you're in possession of a 'Special Access Pass', you could also choose to enter the Enforcer HQ via the door that's close to the requisitions area...
+			As you're in possession of a Contractor Pass, you could also choose to enter the Enforcer HQ via the door that's close to the requisitions area...
 		</p>
 	#ENDIF
 	]]>
@@ -71,15 +71,15 @@
 	<p>
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
 			#IF(!game.isWorkTime())
-				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Elle only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])], and as such, her office's door is firmly shut and locked. Having been given permission to do so, you could make use of the requisitions area, or instead continue on your way into or out of the Enforcer HQ...
+				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Elle only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while she's present, there's not much for you to do here except head out of the Enforcer HQ...
 			#ELSE
-				As you're here during Elle's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could [pc.step] over and knock on the door to her office if you wanted to see her again. Having been given permission to do so, you could also make use of the requisitions area, or instead simply continue on your way into or out of the Enforcer HQ...
+				As you're here during Elle's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where she's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
 			#ENDIF
 		#ELSE
 			#IF(!game.isWorkTime())
-				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Wes only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])], and as such, his office's door is firmly shut and locked. Having been given permission to do so, you could make use of the requisitions area, or instead continue on your way into or out of the Enforcer HQ...
+				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Wes only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while he's present, there's not much for you to do here except head out of the Enforcer HQ...
 			#ELSE
-				As you're here during Wes's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could [pc.step] over and knock on the door to his office if you wanted to see him again. Having been given permission to do so, you could also make use of the requisitions area, or instead simply continue on your way into or out of the Enforcer HQ...
+				As you're here during Wes's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where he's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -180,7 +180,7 @@
 	<htmlContent tag="GUARDED_DOOR"><![CDATA[
 	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
 		<p>
-			You flash your 'Special Access Pass' to the horse-boy guard, and, with a deep grunt, he steps aside to let you pass.
+			You flash your Contractor Pass to the horse-boy guard, and, with a deep grunt, he steps aside to let you pass.
 		</p>
 		<p>
 			#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
@@ -236,7 +236,7 @@
 	<p>
 		The door in front of you is firmly shut and locked, and you see that instead of a regular lock, access is granted via what appears to be some kind of arcane barcode scanner attached to the wall to one side of it.
 		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
-			 Although you try swiping your 'Special Access Pass' over it, nothing happens, and you realise that the area beyond is not going to be accessible to you. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
+			 Although you try swiping your Contractor Pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
 		#ELSE
 			 Although you try swiping Candi's pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
 		#ENDIF
@@ -258,7 +258,7 @@
 	<p>
 		The door in front of you is firmly shut and locked, and you see that instead of a regular lock, access is granted via what appears to be some kind of arcane barcode scanner attached to the wall to one side of it.
 		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
-			 After [pc.stepping] forwards and swiping your 'Special Access Pass' over this scanner, you hear a high-pitched beep being emitted by the arcane device. Pushing on the door, you discover that it's now unlocked, allowing you to proceed forwards into the area beyond...
+			 After [pc.stepping] forwards and swiping your Contractor Pass over this scanner, you hear a high-pitched beep being emitted by the arcane device. Pushing on the door, you discover that it's now unlocked, allowing you to proceed forwards into the area beyond...
 		#ELSE
 			 Although you try swiping Candi's pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you at this time. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
 		#ENDIF
@@ -1133,7 +1133,7 @@
 	
 	<htmlContent tag="ENTRANCE_ENFORCER"><![CDATA[
 	<p>
-		This entrance to the Enforcer HQ is typically not able to be used by members of the public, but as you've got a 'Special Access Pass', you're able to activate the arcane scanner attached to the nearby wall and unlock the doors whenever you want. Thanks to this, you could choose to leave the Enforcer HQ via this entrance, or instead head further inside
+		This entrance to the Enforcer HQ is typically not able to be used by members of the public, but as you've got a Contractor Pass, you're able to activate the arcane scanner attached to the nearby wall and unlock the doors whenever you want. Thanks to this, you could choose to leave the Enforcer HQ via this entrance, or instead head further inside
 		#IF(!game.isWorkTime())
 			 and make use of the requisitions area...
 		#ELSE

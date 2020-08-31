@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.inventory.item;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,6 +14,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -220,7 +223,21 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		
 		return sb.toString();
 	}
-
+	
+	/**
+	 * @param characterOwner The character who owns this item.
+	 * @return A List of Strings describing extra features of this ItemType.
+	 */
+	public List<String> getExtraDescriptions(GameCharacter characterOwner) {
+		List<String> descriptionsList = new ArrayList<>();
+		
+		for(ItemTag it : this.getItemType().getItemTags()) {
+			descriptionsList.addAll(it.getClothingTooltipAdditions());
+		}
+		
+		return descriptionsList;
+	}
+	
 	public String getPathName() {
 		return itemType.getPathName();
 	}
@@ -264,5 +281,9 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	public boolean isGift() {
 		return itemType.isGift();
 	}
-	
+
+	@Override
+	public Set<ItemTag> getItemTags() {
+		return new HashSet<>(this.getItemType().getItemTags());
+	}
 }

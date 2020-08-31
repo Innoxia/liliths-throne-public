@@ -44,8 +44,8 @@ public class WesQuest {
 	public static final DialogueNode WES_QUEST_START = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			((Wes)Main.game.getNpc(Wes.class)).applyDisguise();
 			Main.game.getNpc(Wes.class).setLocation(Main.game.getPlayer(), false);
-			Main.game.getNpc(Wes.class).equipClothing();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -104,8 +104,8 @@ public class WesQuest {
 	public static final DialogueNode WES_QUEST_SHOPPING_ARCADE_MEETING = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			((Wes)Main.game.getNpc(Wes.class)).applyDisguise();
 			Main.game.getNpc(Wes.class).setLocation(Main.game.getPlayer(), false);
-			Main.game.getNpc(Wes.class).equipClothing();
 			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
 			Main.game.getNpc(Wes.class).setPlayerKnowsName(true);
 		}
@@ -725,7 +725,7 @@ public class WesQuest {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestTalkedAlt)) {
 							return new Response("Background", "You've already spent some time asking Wes about himself...<br/>[style.italicsMinorBad(You can only do this once per day.)]", null);
 						}
-						return new Response("Background", "Ask Wes about herself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
+						return new Response("Background", "Ask Wes about himself.<br/>[style.italicsMinorGood(You can do this once per day.)]", REQUISITIONS_BACKGROUND) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);

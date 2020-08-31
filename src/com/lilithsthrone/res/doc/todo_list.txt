@@ -18,14 +18,29 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed issue where changing content options at the start of new character creation would throw background errors, causing the UI to become unresponsive. (by AceXP)
+		Fixed issue where fluid addiction status effect tooltip descriptions would display 'demonic horse fluid' instead of 'demonic fluid'. (by AceXP)
+		Fixed bug where the defined horse-morph names in Name.java were never being used. (by AceXP)
 	
+	Engine:
+		Added ItemTags for defining items, clothing, and weapons as being restricted or illegal, causing them to be unable to be sold to merchants and confiscated by Enforcers.
+		Added mod support for defining clothing 'stickers', which apply cosmetic changes to clothing items. (See 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for a fully documented example of how to define them.)
+	
+	Items:
+		Added sticker support to the 'rental mommy' and 'rental daddy' T-shirts.
+		'Biojuice Canisters' and 'Glowing Mushrooms' are now tagged as restricted items.
+		'Demon's Dagger' (no longer sold by Vicky) and all of the Enforcer weapons are now tagged as either illegal (Enforcers will confiscate them) or highly illegal (Enforcers will arrest you).
+		All Enforcer clothing is now tagged as illegal (Enforcers will confiscate them).
+		
 	Other:
 		Slightly altered description of 'cynical' personality trait to differentiate it from 'selfish'.
+		Items and weapons will now correctly display ItemTag descriptions in their tooltips.
+		Roxy now buys weapons as well as items and clothing. Her buy modifier has been reduced from 0.4 to 0.3 (meaning she will now only give you 30% of an item's value).
 	
 	Bugs:
 		Parsing fixes.
 		Updated example links in xml modding files to point to the correct files.
 		Fixed bug where you could get stuck in Brax's office after resolving the part of the main quest which involves him.
+		Fixed issue with the cheat guns' 'mag dump' combat move being automatically removed after selecting it.
 	
 	
 	
@@ -41,27 +56,57 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Pregnancy reactions
 	
 	
-	 I might just keep it simple with one "contraband" tag, which would say something to the effect of "Honest traders will not buy this" and "Will be confiscated by Enforcers"
+	Contraband tags implementation
+		[x] sell
+		[x] Enforcer
+			[x] confiscate
+			[x] arrest
 	
-	For Wesley information on penis/ass is always shown from the start. No idea why though? Ella does not have this problem.
+	[x] ClothingType
+	[x] Clothing
+		[x] SVGs implemented 
+		[x] saving/loading
+		[x] Name
+		[x] descriptions
+		[x] item tags
+		[x] dye to add/remove stickers
+			[x] Requirements check to display option (tooltip saying not unlocked yet)
+				[x] Change it to a definition of unavailability text (with attribute of display when disabled)
+			[x] Tooltip saying if ItemTags are added/removed by adding sticker (*?)
+		[x] Infix
+			[x] Remove definition of none and add none stickers
+		[x] Colours
+		[x] Tags working correctly
+		[x] Move all ClothingType tags out into AbstractClothing
+		[x] Test z-layer sticker rendering
+		[x] Loading of old clothing which ahsn't had stickers defined?
+	[x] Test all of the above
+	[x] Outfit files for sticker definitions
 	
-	" These items are automatically not added if the character doesn't have the related slot pierced."
+	[x] Rental Mommy NPC T-shirt setup
 	
-	can we get an update to the behavior of half demon encounters so they can stop trying to turn us into demons via potions
+	[x] Special Access Pass to Contractor Pass
 	
-	 In the combat moves section if you add any other move it removes mag dump first
-	 It actually removes itself whenever you gain/lose a potential move or the move list updates
-	 Ok that's not fair it's removing itself whenever I exit the menu
 	
-	In the Name.java there is a list with equine names. It never gets used as the code checks if(r==Race.REINDEER_MORPH) while it should be HORSE_MORPH Line 723 in Name.java
+	GITHUB PUSH
+	
+
+
+
+	In the Enforcer HQ, it says the door to Brax/Bree/Brandi's office is locked, but there are some items (uniform) on the tile that you can pick up.
+	
+	Demons and Half-Demons spawning with a variety of horn colors ranging from gray to black instead of just ivory
 	
 	Also Figured to toss in a suggestion/ idea for the slave management. Have pages for the slave list instead of having to scroll down.
 	 Like page 1 having 5 of your slaves. Using the tabs at the button for each page since you can use a forward and back button for extra tabs.
 	  For those who have a lot of slaves and having to scroll down each time to alter slave jobs/permissions etc. Also possible sorting them by name, but can skip that if too hard.
 	
+	Scarlett as slave is not handled correctly when companions are turned off?
+	
+	can we get an update to the behavior of half demon encounters so they can stop trying to turn us into demons via potions
+	
 	 I need to add a  'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
 	
-	Scarlett as slave is not handled correctly when companions are turned off?
 	
 	
 	
@@ -178,8 +223,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		What will this affect...
 			[x] getMother()/getFather()
 			[] getVirginityLossDescription
-	
-	clothing sticker system
 	
 	cigars (Kruger?)
 	

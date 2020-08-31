@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.main.Main;
@@ -7,51 +8,69 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.9
+ * @version 0.3.9.5
  * @author Innoxia
  */
 public enum ItemTag {
 
-	CHEAT_ITEM(false), // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
-	SILLY_MODE(false), // Silly mode items only appear in shopkeepers inventories when silly mode is on.
+	CHEAT_ITEM, // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
+	SILLY_MODE, // Silly mode items only appear in shopkeepers inventories when silly mode is on.
 	
-	REMOVE_FROM_DEBUG_SPAWNER(false),
-	NOT_FOR_SALE(false),
+	REMOVE_FROM_DEBUG_SPAWNER,
+	NOT_FOR_SALE,
 	
-	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
-	SOLD_BY_RALPH(false), // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN(false), // Clothing
-	SOLD_BY_KATE(false), // Jewellery
-	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
-	SOLD_BY_VICKY(false), // Weapons
+	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
+	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
+	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_KATE, // Jewellery
+	SOLD_BY_FINCH, // BDSM and sex-related stuff
+	SOLD_BY_VICKY, // Weapons
 	
-	SPELL_BOOK(false),
-	SPELL_SCROLL(false),
-	ESSENCE(false),
-	ATTRIBUTE_TF_ITEM(false),
-	RACIAL_TF_ITEM(false),
-	MISC_TF_ITEM(false), // Fetish or non-racial body part transformations
-	BOOK(false), 
-	GIFT(false),
-	DOMINION_ALLEYWAY_SPAWN(false),
-	SUBMISSION_TUNNEL_SPAWN(false),
-	BAT_CAVERNS_SPAWN(false),
-	ALCOHOLIC(false), // For easy detection of alcoholic items in some scenes
+	SPELL_BOOK,
+	SPELL_SCROLL,
+	ESSENCE,
+	ATTRIBUTE_TF_ITEM,
+	RACIAL_TF_ITEM,
+	MISC_TF_ITEM, // Fetish or non-racial body part transformations
+	BOOK, 
+	GIFT,
+	DOMINION_ALLEYWAY_SPAWN,
+	SUBMISSION_TUNNEL_SPAWN,
+	BAT_CAVERNS_SPAWN,
+	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
+	
+	CONTRABAND_LIGHT(// 'Restricted' items will not be bought by honest shopkeepers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Restricted)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]"),
+			false),
+	CONTRABAND_MEDIUM(// 'Illegal' items will not be bought by honest shopkeepers and will be confiscated by Enforcers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourBad(Enforcers will confiscate this)]"),
+			false),
+	CONTRABAND_HEAVY(// 'Highly Illegal' items will not be bought by honest shopkeepers and Enforcers will arrest anyone possessing them
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Highly Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourTerrible(Enforcers will arrest people possessing this)]"),
+			false),
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 
-	REVEALS_CONCEALABLE_SLOT(false), // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
+	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 
 	TRANSPARENT( // This item of clothing does not conceal any areas. Used for chastity cages & condoms (so penis is still visible). Could also be used for sheer clothing material.
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
 			false),
 	
-	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
+	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
 	
-	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
 	
-	DRESS(false), // For helping to generate clothing in CharacterUtils
+	DRESS, // For helping to generate clothing in CharacterUtils
 
 	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
@@ -207,7 +226,7 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Plugs asshole (does not get dirty from creampies))]"),
 			true),
-	SEALS_ANUS( // Counts as sealing(false), but not inserted into(false), the wearer's anus. E.g. Tape
+	SEALS_ANUS( // Counts as sealing, but not inserted into, the wearer's anus. E.g. Tape
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals asshole (does not get dirty from creampies))]"),
 			true),
@@ -287,8 +306,16 @@ public enum ItemTag {
 		this.clothingTooltipAdditions = null;
 		this.sexToy = sexToy;
 	}
+	
+	private ItemTag() {
+		this.clothingTooltipAdditions = null;
+		this.sexToy = false;
+	}
 
 	public List<String> getClothingTooltipAdditions() {
+		if(clothingTooltipAdditions==null) {
+			return new ArrayList<>();
+		}
 		return clothingTooltipAdditions;
 	}
 

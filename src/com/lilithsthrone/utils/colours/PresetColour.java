@@ -381,7 +381,7 @@ public class PresetColour {
 	public static Colour RARITY_QUEST_BACKGROUND = new Colour(false, Util.newColour(0x344C4B), Util.newColour(0xBEE4E4), "teal") {};
 
 	// Inventory colours:
-	public static Colour CURRENCY_GOLD = new Colour(true, BaseColour.GOLD, "gold", Util.newArrayListOfValues("currency", "currencyGold")) {};
+	public static Colour CURRENCY_GOLD = new Colour(true, BaseColour.GOLD, "gold", Util.newArrayListOfValues("money", "currency", "currencyGold")) {};
 	public static Colour CURRENCY_SILVER = new Colour(true, BaseColour.SILVER, "silver", Util.newArrayListOfValues("currencySilver")) {};
 	public static Colour CURRENCY_COPPER = new Colour(true, BaseColour.COPPER, "copper", Util.newArrayListOfValues("currencyCopper")) {};
 

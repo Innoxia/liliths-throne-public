@@ -617,8 +617,15 @@ public class Vicky extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		if(item instanceof AbstractWeapon)
+		if(item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+			return false;
+		}
+		
+		if(item instanceof AbstractWeapon) {
 			return true;
+		}
 		
 		if(item instanceof AbstractItem) {
 			if(((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.ESSENCE)

@@ -26,13 +26,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
-import com.lilithsthrone.game.character.body.types.FootType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -125,9 +119,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private boolean isPatternAvailable;
 	private boolean isPatternAvailableInitCompleted;
 	
+	// Stickers:
+	private Map<StickerCategory, List<Sticker>> stickers;
+	
 	// Access and block stuff:
-	private Map<InventorySlot, List<BlockedParts>> blockedPartsMap;
-	private Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap;
+	// protected due to use in ClothingType methods
+	protected Map<InventorySlot, List<BlockedParts>> blockedPartsMap;
+	protected Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap;
+	protected Map<InventorySlot, List<DisplacementType>> displacementTypesAvailableWithoutNONE;
 	
 	private AbstractSetBonus clothingSet;
 	private Rarity rarity;
@@ -141,8 +140,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private List<ColourReplacement> patternColourReplacements;
 
 	// Other:
-	private Map<InventorySlot, List<DisplacementType>> displacementTypesAvailableWithoutNONE;
-	
 	private Map<InventorySlot, List<ItemTag>> itemTags;
 
 	@Deprecated
@@ -307,7 +304,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		setUpPatternColours(null, null, null, null, null, null);
 		populateEmptyPatternColours();
-
+		
+		stickers = new HashMap<>();
+		
 		this.itemTags = new HashMap<>();
 		if(itemTags!=null) {
 			this.itemTags = itemTags;
@@ -632,7 +631,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
 				}
 			};
-
+			
 			copyGenerationColours = new HashMap<>();
 			
 			boolean primaryRecolourAllowed = true;
@@ -817,6 +816,138 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 			populateEmptyPatternColours();
+			
+			
+			// Stickers:
+			stickers = new HashMap<>();
+			
+			if(clothingElement.getOptionalFirstOf("stickers").isPresent()) {
+				Element stickersElement = clothingElement.getMandatoryFirstOf("stickers");
+				
+				for(Element categoryElement : stickersElement.getAllOf("category")) {
+					String categoryId = categoryElement.getAttribute("id");
+					if(!categoryId.isEmpty()) { // Need an id or else saving/loading won't work
+						int priority = 10;
+						if(!categoryElement.getAttribute("priority").isEmpty()) {
+							priority = Integer.valueOf(categoryElement.getAttribute("priority"));
+						}
+						StickerCategory category = new StickerCategory(categoryId, priority);
+						stickers.put(category, new ArrayList<>());
+						
+						for(Element stickerElement : categoryElement.getAllOf("sticker")) {
+							String stickerId = stickerElement.getAttribute("id");
+							int stickerPriority = 10;
+							if(!stickerElement.getAttribute("priority").isEmpty()) {
+								stickerPriority = Integer.valueOf(stickerElement.getAttribute("priority"));
+							}
+							boolean stickerDefaultSticker = false;
+							if(!stickerElement.getAttribute("defaultSticker").isEmpty()) {
+								stickerDefaultSticker = Boolean.valueOf(stickerElement.getAttribute("defaultSticker"));
+							}
+							int stickerZLayer = 1;
+							if(!stickerElement.getAttribute("zLayer").isEmpty()) {
+								stickerZLayer = Integer.valueOf(stickerElement.getAttribute("zLayer"));
+							}
+							Colour colourDisabled = PresetColour.TEXT_GREY_DARK;
+							if(!stickerElement.getAttribute("colourDisabled").isEmpty()) {
+								colourDisabled = PresetColour.getColourFromId(stickerElement.getAttribute("colourDisabled"));
+							}
+							Colour colourSelected = PresetColour.GENERIC_GOOD;
+							if(!stickerElement.getAttribute("colourSelected").isEmpty()) {
+								colourSelected = PresetColour.getColourFromId(stickerElement.getAttribute("colourSelected"));
+							}
+							
+							String stickerNamePrefix = "";
+							int stickerPrefixPriority = 1;
+							if(stickerElement.getOptionalFirstOf("namePrefix").isPresent()) {
+								Element namePrefixElement = stickerElement.getMandatoryFirstOf("namePrefix");
+								stickerNamePrefix = namePrefixElement.getTextContent();
+								if(!namePrefixElement.getAttribute("priority").isEmpty()) {
+									stickerPrefixPriority = Integer.valueOf(namePrefixElement.getAttribute("priority"));
+								}
+							}
+
+							String stickerNamePostfix = "";
+							int stickerPostfixPriority = 1;
+							if(stickerElement.getOptionalFirstOf("namePostfix").isPresent()) {
+								Element namePostfixElement = stickerElement.getMandatoryFirstOf("namePostfix");
+								stickerNamePostfix = namePostfixElement.getTextContent();
+								if(!namePostfixElement.getAttribute("priority").isEmpty()) {
+									stickerPostfixPriority = Integer.valueOf(namePostfixElement.getAttribute("priority"));
+								}
+							}
+
+							String stickerDescription = "";
+							boolean stickerDescriptionFullReplacement = false;
+							int stickerDescriptionPriority = 1;
+							if(stickerElement.getOptionalFirstOf("descriptionModification").isPresent()) {
+								Element descriptionElement = stickerElement.getMandatoryFirstOf("descriptionModification");
+								stickerDescription = descriptionElement.getTextContent();
+								if(!descriptionElement.getAttribute("fullReplacement").isEmpty()) {
+									stickerDescriptionFullReplacement = Boolean.valueOf(descriptionElement.getAttribute("fullReplacement"));
+								}
+								if(!descriptionElement.getAttribute("priority").isEmpty()) {
+									stickerDescriptionPriority = Integer.valueOf(descriptionElement.getAttribute("priority"));
+								}
+							}
+							
+							Map<InventorySlot, String> stickerSvgPaths = new HashMap<>();
+							for(Element svgPathElement : stickerElement.getAllOf("imageName")) {
+								String path = "";
+								if(!svgPathElement.getTextContent().isEmpty()) {
+									path = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ svgPathElement.getTextContent();
+								}
+								InventorySlot slot = this.getEquipSlots().get(0);
+								if(!svgPathElement.getAttribute("slot").isEmpty()) {
+									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
+								}
+								stickerSvgPaths.put(slot, path);
+							}
+							
+							List<ItemTag> stickerAddedTags = new ArrayList<>();
+							if(stickerElement.getOptionalFirstOf("itemTagsAdded").isPresent()) {
+								Element tagsElement = stickerElement.getMandatoryFirstOf("itemTagsAdded");
+								for(Element tag : tagsElement.getAllOf("tag")) {
+									stickerAddedTags.add(ItemTag.valueOf(tag.getTextContent()));
+								}
+							}
+							
+							List<ItemTag> stickerRemovedTags = new ArrayList<>();
+							if(stickerElement.getOptionalFirstOf("itemTagsRemoved").isPresent()) {
+								Element tagsElement = stickerElement.getMandatoryFirstOf("itemTagsRemoved");
+								for(Element tag : tagsElement.getAllOf("tag")) {
+									stickerRemovedTags.add(ItemTag.valueOf(tag.getTextContent()));
+								}
+							}
+							
+							String stickerUnavailabilityText = "";
+							String stickerAvailabilityText = "";
+							boolean showDisabledButton = true;
+							if(stickerElement.getOptionalFirstOf("unavailabilityText").isPresent()) {
+								stickerUnavailabilityText = stickerElement.getMandatoryFirstOf("unavailabilityText").getTextContent();
+								if(!stickerElement.getMandatoryFirstOf("unavailabilityText").getAttribute("showDisabledButton").isEmpty()) {
+									showDisabledButton = Boolean.valueOf(stickerElement.getMandatoryFirstOf("unavailabilityText").getAttribute("showDisabledButton"));
+								}
+							}
+							if(stickerElement.getOptionalFirstOf("availabilityText").isPresent()) {
+								stickerAvailabilityText = stickerElement.getMandatoryFirstOf("availabilityText").getTextContent();
+							}
+							
+							Sticker sticker = new Sticker(stickerId, stickerPriority, stickerDefaultSticker, stickerZLayer,
+									colourDisabled, colourSelected,
+									stickerNamePrefix, stickerPrefixPriority,
+									stickerNamePostfix, stickerPostfixPriority,
+									stickerDescription, stickerDescriptionFullReplacement, stickerDescriptionPriority,
+									stickerSvgPaths,
+									stickerAddedTags,
+									stickerRemovedTags,
+									showDisabledButton, stickerUnavailabilityText, stickerAvailabilityText);
+							
+							stickers.get(category).add(sticker);
+						}
+					}
+				}
+			}
 			
 			
 			// Self sex attributes:
@@ -1218,7 +1349,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-		if(this.isCondom(slotToEquipInto) && applyEffects) {
+		if(clothing.isCondom(slotToEquipInto) && applyEffects) {
 			if(InventoryDialogue.getInventoryNPC()!=null) {
 				return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingEquipper, clothingOwner, rough);
 			}
@@ -1702,128 +1833,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 	}
-
-	public Value<Boolean, String> isAbleToBeBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
-		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
-		List<ItemTag> tags = this.getItemTags(slot);
-		
-		if(!this.getEquipSlots().contains(slot)) {
-			return new Value<>(false, UtilText.parse("[style.colourBad(The "+this.getName()+" cannot be equipped into this slot!)]"));
-		}
-		if (block != null && Collections.disjoint(block.getRequiredTags(), tags)) {
-			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
-		}
-		if(tags.contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS)) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_FEATHERED)) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for feathered arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_LEATHERY)) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for leathery arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
-		}
-		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
-		}
-		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		if(clothingOwner.hasVagina() && tags.contains(ItemTag.REQUIRES_NO_VAGINA)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
-		}
-		if(!clothingOwner.hasVagina() && tags.contains(ItemTag.REQUIRES_VAGINA)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a vagina, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		if(!clothingOwner.isBreastFuckableNipplePenetration() && tags.contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
-			if(slot==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] ears are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-		
-			} else if(slot==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] lips are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] nose is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] penis is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] navel is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] tongue is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-				
-			} else if(slot==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
-				return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NamePos] vagina is not pierced, so [npc.she] can't wear the "+this.getName()+"!"));
-			}
-		}
-		if(slot==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
-			
-		} else if(slot==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a vagina, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		
-		if (slot == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any wings, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		if (slot == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any horns, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		if (slot == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
-			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a tail, so [npc.she] can't wear the "+this.getName()+"!"));
-		}
-		return new Value<>(true, "");
-	}
-	
-	public boolean isMufflesSpeech(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.MUFFLES_SPEECH);
-	}
-	
-	public boolean isHindersLegMovement(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_LEG_MOVEMENT);
-	}
-	
-	public boolean isHindersArmMovement(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_ARM_MOVEMENT);
-	}
 	
 	// Getters & setters:
-	
-	public boolean isDiscardedOnUnequip(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
-	}
-	
-	public boolean isAbleToBeEquippedDuringSex(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.ENABLE_SEX_EQUIP);
-	}
 
 	public boolean isAppendColourName() {
 		return appendColourName;
@@ -1876,233 +1887,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public List<InventorySlot> getEquipSlots() {
 		return equipSlots;
 	}
-
-	public List<BlockedParts> getBlockedPartsMap(GameCharacter character, InventorySlot slotEquippedTo) {
-		List<ItemTag> tags = this.getItemTags(slotEquippedTo);
-		
-		if(character!=null) {
-			boolean replaceCrotchBoobAccess = false;
-			boolean replaceGroinAccess = false;
-			switch(character.getLegConfiguration()) {
-				case BIPEDAL:
-				case TAIL:
-				case TAIL_LONG:
-				case CEPHALOPOD:
-					// These are all in such a position that normal clothing conceals as normal
-					break;
-				case ARACHNID:
-					if(!tags.contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
-						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
-						replaceGroinAccess = true;
-					}
-					break;
-				case TAUR:
-					if(!tags.contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
-						replaceCrotchBoobAccess = true;
-						replaceGroinAccess = true;
-					}
-					break;
-			}
-			if(replaceGroinAccess
-					&& slotEquippedTo!=InventorySlot.ANUS
-					&& slotEquippedTo!=InventorySlot.PENIS
-					&& slotEquippedTo!=InventorySlot.VAGINA
-					&& slotEquippedTo!=InventorySlot.PIERCING_PENIS
-					&& slotEquippedTo!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
-				boolean cAccess = replaceCrotchBoobAccess;
-				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
-				for(BlockedParts blockedparts : this.blockedPartsMap.get(slotEquippedTo)) {
-					BlockedParts copy = new BlockedParts(blockedparts);
-					
-					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
-						bp ->
-							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
-							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
-							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
-							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
-							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
-						).collect(Collectors.toList());
-					
-					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
-						ca ->
-							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
-							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
-							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
-							&& ca!=ClothingAccess.WAIST
-						).collect(Collectors.toList());
-					
-					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
-						ca ->
-							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
-							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
-							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
-							&& ca!=ClothingAccess.WAIST
-						).collect(Collectors.toList());
-					
-					copy.concealedSlots = copy.concealedSlots.stream().filter(
-						cs ->
-							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
-							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
-							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
-							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
-							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
-							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
-						).collect(Collectors.toList());
-					
-					modifiedBlockedParts.add(copy);
-				}
-				return modifiedBlockedParts;
-			}
-		}
-		return this.blockedPartsMap.get(slotEquippedTo);
-	}
 	
-	@Deprecated
+	/**
+	 * <b>You should probably be using AbstractClothing's version of this!</b>
+	 */
 	public boolean isConcealsSlot(GameCharacter character, InventorySlot slotToCheck) {
-		return isConcealsSlot(character, this.getEquipSlots().get(0), slotToCheck);
-	}
-	
-	public boolean isConcealsSlot(GameCharacter character, InventorySlot slotEquippedTo, InventorySlot slotToCheck) {
-		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
-			if(blockedPart.concealedSlots.contains(slotToCheck) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Deprecated
-	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
-		return isConcealsCoverableArea(character, this.getEquipSlots().get(0), area);
-	}
-	
-	public boolean isConcealsCoverableArea(GameCharacter character, InventorySlot slotEquippedTo, CoverableArea area) {
-		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
-			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
-				return true;
-			}
-		}
-		return false;
+		return Main.game.getItemGen().generateClothing(this).isConcealsSlot(character, this.getEquipSlots().get(0), slotToCheck);
 	}
 
-	public List<InventorySlot> getIncompatibleSlots(GameCharacter character, InventorySlot slotEquippedTo) { //TODO
-		if(character!=null) {
-			boolean replace = false;
-			switch(character.getLegConfiguration()) {
-				case BIPEDAL:
-				case TAIL:
-				case TAIL_LONG:
-				case CEPHALOPOD:
-					// These are all in such a position that normal clothing conceals as normal
-					break;
-				case ARACHNID:
-					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
-						replace = true;
-					}
-					break;
-				case TAUR:
-					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
-						replace = true;
-					}
-					break;
-			}
-			if(replace) {
-				List<InventorySlot> modifiedIncompatibleSlots = new ArrayList<>(incompatibleSlotsMap.get(slotEquippedTo));
-				
-				if(InventorySlot.getHumanoidSlots().contains(slotEquippedTo)) {
-					modifiedIncompatibleSlots.removeIf(slot -> !InventorySlot.getHumanoidSlots().contains(slot));
-				} else {
-					modifiedIncompatibleSlots.removeIf(slot -> InventorySlot.getHumanoidSlots().contains(slot));
-				}
-				
-				return modifiedIncompatibleSlots;
-			}
-		}
-		return incompatibleSlotsMap.get(slotEquippedTo);
-	}
-	
-	public List<DisplacementType> getBlockedPartsKeysAsListWithoutNONE(GameCharacter character, InventorySlot slotEquippedTo) {
-		if(character!=null) {
-			boolean replaceCrotchBoobAccess = false;
-			boolean replaceGroinAccess = false;
-			switch(character.getLegConfiguration()) {
-				case BIPEDAL:
-				case TAIL:
-				case TAIL_LONG:
-				case CEPHALOPOD:
-					// These are all in such a position that normal clothing conceals as normal
-					break;
-				case ARACHNID:
-					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
-						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
-						replaceGroinAccess = true;
-					}
-					break;
-				case TAUR:
-					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
-						replaceCrotchBoobAccess = true;
-						replaceGroinAccess = true;
-					}
-					break;
-			}
-			if(replaceGroinAccess
-					&& slotEquippedTo!=InventorySlot.ANUS
-					&& slotEquippedTo!=InventorySlot.PENIS
-					&& slotEquippedTo!=InventorySlot.VAGINA
-					&& slotEquippedTo!=InventorySlot.PIERCING_PENIS
-					&& slotEquippedTo!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
-				boolean cAccess = replaceCrotchBoobAccess;
-				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
-				for(BlockedParts blockedparts : blockedPartsMap.get(slotEquippedTo)) {
-					BlockedParts copy = new BlockedParts(blockedparts);
-					
-					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
-						bp ->
-							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
-							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
-							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
-							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
-							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
-						).collect(Collectors.toList());
-					
-					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
-						ca ->
-							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
-							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
-							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
-							&& ca!=ClothingAccess.WAIST
-						).collect(Collectors.toList());
-					
-					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
-						ca ->
-							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
-							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
-							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
-							&& ca!=ClothingAccess.WAIST
-						).collect(Collectors.toList());
-					
-					copy.concealedSlots = copy.concealedSlots.stream().filter(
-						cs ->
-							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
-							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
-							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
-							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
-							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
-							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
-						).collect(Collectors.toList());
-					
-					modifiedBlockedParts.add(copy);
-				}
-				List<DisplacementType> moddedDisplacementTypesAvailableWithoutNONE = new ArrayList<>();
-				for (BlockedParts bp : modifiedBlockedParts) {
-					if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-						moddedDisplacementTypesAvailableWithoutNONE.add(bp.displacementType);
-					}
-				}
-				return moddedDisplacementTypesAvailableWithoutNONE;
-			}
-		}
-		return displacementTypesAvailableWithoutNONE.get(slotEquippedTo);
+	/**
+	 * <b>You should probably be using AbstractClothing's version of this!</b>
+	 */
+	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
+		return Main.game.getItemGen().generateClothing(this).isConcealsCoverableArea(character, this.getEquipSlots().get(0), area);
 	}
 	
 	public String getPathName() {
@@ -2128,36 +1925,44 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return colourReplacements;
 	}
 	
-	private static String generateIdentifier(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours) {
+	private static String generateIdentifier(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		StringBuilder sb = new StringBuilder(slotEquippedTo.toString());
 		for(Colour c : colours) {
 			sb.append(c.getId());
 		}
 		if(pattern==null) {
-			sb.append("none");
+			sb.append("nopattern");
 		} else {
 			sb.append(pattern);
 		}
 		for(Colour c : patternColours) {
 			sb.append(c.getId());
 		}
+		if(stickers==null || stickers.isEmpty()) {
+			sb.append("nostickers");
+			
+		} else {
+			for(Entry<String, String> entry : stickers.entrySet()) {
+				sb.append(entry.getKey()+entry.getValue());
+			}
+		}
 		return sb.toString();
 	}
 	
-	private void addSVGStringMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, String svgString) {
-		SVGStringMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours), svgString);
+	private void addSVGStringMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
+		SVGStringMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
 	
-	private void addSVGStringEquippedMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, String svgString) {
-		SVGStringEquippedMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours), svgString);
+	private void addSVGStringEquippedMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
+		SVGStringEquippedMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
 	
-	private String getSVGStringFromMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours) {
-		return SVGStringMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours));
+	private String getSVGStringFromMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return SVGStringMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 	
-	private String getSVGStringFromEquippedMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours) {
-		return SVGStringEquippedMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours));
+	private String getSVGStringFromEquippedMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return SVGStringEquippedMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 
 	public String getSVGImage() {
@@ -2167,7 +1972,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			colours.add(cr.getFirstOfDefaultColours());
 		}
 		
-		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>());
+		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>(), null);
 	}
 
 	public String getSVGImageRandomColour(boolean randomPrimary, boolean randomSecondary, boolean randomTertiary) {
@@ -2185,7 +1990,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>());
+		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>(), null);
 	}
 	
 	/**
@@ -2194,8 +1999,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String getSVGImage(InventorySlot slotEquippedTo,
 			List<Colour> colours,
 			String pattern,
-			List<Colour> patternColours) {
-		return getSVGImage(null, slotEquippedTo, colours, false, pattern, patternColours);
+			List<Colour> patternColours,
+			Map<String, String> stickers) {
+		return getSVGImage(null, slotEquippedTo, colours, false, pattern, patternColours, stickers);
 	}
 	
 	/**
@@ -2206,8 +2012,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			InventorySlot slotEquippedTo,
 			List<Colour> colours,
 			String pattern,
-			List<Colour> patternColours) {
-		return getSVGImage(character, slotEquippedTo, colours, true, pattern, patternColours);
+			List<Colour> patternColours,
+			Map<String, String> stickers) {
+		return getSVGImage(character, slotEquippedTo, colours, true, pattern, patternColours, stickers);
 	}
 	
 	private String getSVGImage(GameCharacter character,
@@ -2215,7 +2022,27 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			List<Colour> colours,
 			boolean equippedVariant,
 			String pattern,
-			List<Colour> patternColours) {
+			List<Colour> patternColours,
+			Map<String, String> stickers) {
+		
+		if(stickers==null) { // If stickers are null, display default stickers
+			stickers = new HashMap<>();
+			
+			for(Entry<StickerCategory, List<Sticker>> entry : this.getStickers().entrySet()) {
+				if(!stickers.containsKey(entry.getKey().getId())) {
+					Sticker sticker = null;
+					for(Sticker s : entry.getValue()) {
+						if(sticker==null || s.isDefaultSticker()) {
+							sticker = s;
+						}
+					}
+					if(sticker!=null) {
+						stickers.put(entry.getKey().getId(), sticker.getId());
+					}
+				}
+			}
+		}
+		
 		if(this.equals(ClothingType.HIPS_CONDOMS)) {
 			if(!colours.isEmpty()) {
 				try {
@@ -2232,7 +2059,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s);
 						is.close();
 						
-						addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, s);
+						addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
 						
 						return s;
 						
@@ -2287,8 +2114,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 		} else {
+			
+			// Handle empty stickers when defaults are needed:
+			HashMap<String, String> handledStickers = new HashMap<>(stickers);
+			for(Entry<StickerCategory, List<Sticker>> entry : this.getStickers().entrySet()) {
+				if(!stickers.containsKey(entry.getKey().getId())) {
+					Sticker sticker = null;
+					for(Sticker s : entry.getValue()) {
+						if(sticker==null || s.isDefaultSticker()) {
+							sticker = s;
+						}
+					}
+					handledStickers.put(entry.getKey().getId(), sticker.getId());
+				}
+			}
+			
 			if(equippedVariant && pathNameEquipped!=null && pathNameEquipped.get(slotEquippedTo)!=null) {
-				String stringFromMap = getSVGStringFromEquippedMap(slotEquippedTo, colours, pattern, patternColours);
+				String stringFromMap = getSVGStringFromEquippedMap(slotEquippedTo, colours, pattern, patternColours, handledStickers);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -2311,7 +2153,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColours);
-							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s);
+//							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s);
+							
+							// Handle stickers:
+							s = getSVGWithHandledStickers(slotEquippedTo, s, handledStickers);
+							
+							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s); //TODO moved from above
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -2327,7 +2174,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, s);
+							addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
 							
 							return s;
 						} catch (IOException e) {
@@ -2337,7 +2184,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 				
 			} else {
-				String stringFromMap = getSVGStringFromMap(slotEquippedTo, colours, pattern, patternColours);
+				String stringFromMap = getSVGStringFromMap(slotEquippedTo, colours, pattern, patternColours, handledStickers);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -2360,7 +2207,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColours);
-							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s);
+							
+//							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s);
+							
+							// Handle stickers:
+							s = getSVGWithHandledStickers(slotEquippedTo, s, handledStickers);
+							
+							s = SvgUtil.colourReplacement(this.getId(), colours, this.getColourReplacements(), s); //TODO moved from above
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -2376,7 +2229,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 							
-							addSVGStringMapping(slotEquippedTo, colours, pattern, patternColours, s);
+							addSVGStringMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
 		
 							return s;
 						} catch (IOException e) {
@@ -2387,6 +2240,70 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		return "";
+	}
+	
+	private String getSVGWithHandledStickers(InventorySlot slotEquippedTo, String s, Map<String, String> handledStickers) {
+		List<Sticker> stickersToRenderUnder = new ArrayList<>();
+		List<Sticker> stickersToRenderOver = new ArrayList<>();
+		for(Entry<StickerCategory, List<Sticker>> typeStickers: this.getStickers().entrySet()) {
+			if(handledStickers.containsKey(typeStickers.getKey().getId())) {
+				String stickerId = handledStickers.get(typeStickers.getKey().getId());
+				for(Sticker stickerFromType : typeStickers.getValue()) {
+					if(stickerFromType.getId().equals(stickerId)) {
+						if(stickerFromType.getzLayer()<0) {
+							stickersToRenderUnder.add(stickerFromType);
+						} else {
+							stickersToRenderOver.add(stickerFromType);
+						}
+						break;
+					}
+				}
+			}
+		}
+		
+		// Order by zLayer: //TODO test
+		Collections.sort(stickersToRenderUnder, (s1, s2) ->s1.getzLayer()-s2.getzLayer());
+		Collections.sort(stickersToRenderOver, (s1, s2) ->s1.getzLayer()-s2.getzLayer());
+		
+		String finalSvg = "";
+		for(Sticker sticker : stickersToRenderUnder) {
+			if(!sticker.getSvgPaths().get(slotEquippedTo).isEmpty()) {
+				try {
+					List<String> lines = Files.readAllLines(Paths.get(sticker.getSvgPaths().get(slotEquippedTo)));
+					StringBuilder sb = new StringBuilder();
+					for(String line : lines) {
+						sb.append(line);
+					}
+					finalSvg += "<div style='width:100%;height:100%;position:absolute;left:0;top:0;'>"+sb.toString()+"</div>";
+				} catch(IOException ex) {
+					System.err.println("Error: getSVGWithHandledStickers() Code 2");
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		s = s + finalSvg;
+
+		finalSvg = "";
+		for(Sticker sticker : stickersToRenderOver) {
+			if(!sticker.getSvgPaths().get(slotEquippedTo).isEmpty()) {
+				try {
+					List<String> lines = Files.readAllLines(Paths.get(sticker.getSvgPaths().get(slotEquippedTo)));
+					StringBuilder sb = new StringBuilder();
+					for(String line : lines) {
+						sb.append(line);
+					}
+					finalSvg += "<div style='width:100%;height:100%;position:absolute;left:0;top:0;'>"+sb.toString()+"</div>";
+				} catch(IOException ex) {
+					System.err.println("Error: getSVGWithHandledStickers() Code 2");
+					ex.printStackTrace();
+				}
+			}
+		}
+
+		s = finalSvg + s;
+		
+		return s;
 	}
 	
 	public boolean isPatternAvailable() {
@@ -2426,6 +2343,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public List<ColourReplacement> getPatternColourReplacements() {
 		return patternColourReplacements;
+	}
+
+	public Map<StickerCategory, List<Sticker>> getStickers() {
+		return stickers;
 	}
 
 	public Rarity getRarity() {
@@ -2472,22 +2393,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public List<ItemTag> getDefaultItemTags() {
 		return itemTags.get(this.equipSlots.get(0));
 	}
-	
-	public boolean isSexToy(InventorySlot slotEquippedTo) {
-		for(ItemTag tag : this.getItemTags(slotEquippedTo)) {
-			if(tag.isSexToy()) {
-				return true;
-			}
-		}
-		return false;
+
+	public boolean isDefaultSlotCondom(InventorySlot slotEquippedTo) {
+		return this.getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
 	}
 	
-	public boolean isCondom(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
-	}
-	
-	public boolean isTransparent(InventorySlot slotEquippedTo) {
-		return getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT);
+	public boolean isDefaultSlotCondom() {
+		return this.getDefaultItemTags().contains(ItemTag.CONDOM);
 	}
 
 	public boolean isColourDerivedFromPattern() {

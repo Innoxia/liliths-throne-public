@@ -171,6 +171,8 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.Sticker;
+import com.lilithsthrone.game.inventory.clothing.StickerCategory;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -5175,7 +5177,8 @@ public class MainControllerInitMethod {
 					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION
 					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_CLOTHING
 					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
-//				for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				
+				// Clothing recolouring:
 				AbstractClothingType clothing = InventoryDialogue.getClothing().getClothingType();
 				for(int i=0; i<clothing.getColourReplacements().size(); i++) {
 					int index = i;
@@ -5198,7 +5201,8 @@ public class MainControllerInitMethod {
 						}
 					}
 				}
-				
+
+				// Clothing pattern selection:
 				for(Pattern pattern : Pattern.getAllPatterns().values()) {
 					id = "ITEM_PATTERN_"+pattern.getName();
 					
@@ -5221,6 +5225,8 @@ public class MainControllerInitMethod {
 						}*/
 					}
 				}
+				
+				// Clothing pattern recolouring:
 				for(int i=0; i<clothing.getPatternColourReplacements().size(); i++) {
 					int index = i;
 					ColourReplacement cr = clothing.getPatternColourReplacement(i);
@@ -5238,6 +5244,68 @@ public class MainControllerInitMethod {
 //							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPattern(InventoryDialogue.getClothing(), Pattern.getPattern(InventoryDialogue.dyePreviewPattern));
 							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPattern(InventoryDialogue.getClothing(), i, c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+						}
+					}
+				}
+
+				// Clothing sticker selection:
+				for(Entry<StickerCategory, List<Sticker>> stickerEntry : clothing.getStickers().entrySet()) {
+					for(Sticker s : stickerEntry.getValue()) {
+						id = "ITEM_STICKER_"+stickerEntry.getKey().getId()+s.getId();
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								if(InventoryDialogue.dyePreviewStickers.get(stickerEntry.getKey())!=s){
+									InventoryDialogue.dyePreviewStickers.put(stickerEntry.getKey(), s);
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+								}
+							}, false);
+							
+							int lineHeight = 0;
+							StringBuilder tooltipDescriptionSB = new StringBuilder();
+							if(!s.getAvailabilityText().isEmpty()) {
+								tooltipDescriptionSB.append("[style.boldGood(Unlocked:)] <i>"+s.getAvailabilityText()+"</i><br/>");
+								lineHeight+=2;
+							}
+							
+							boolean tagApplicationFound = false;
+							for(ItemTag tag : s.getTagsApplied()) {
+								for(String tagTooltip : tag.getClothingTooltipAdditions()) {
+									if(!tagApplicationFound) {
+										tooltipDescriptionSB.append("[style.boldMinorGood(Effects added:)]<br/>");
+										tagApplicationFound = true;
+										lineHeight++;
+									}
+									tooltipDescriptionSB.append(tagTooltip+"<br/>");
+									lineHeight++;
+								}
+							}
+							
+							tagApplicationFound = false;
+							for(ItemTag tag : s.getTagsRemoved()) {
+								for(String tagTooltip : tag.getClothingTooltipAdditions()) {
+									if(!tagApplicationFound) {
+										tooltipDescriptionSB.append("[style.boldMinorBad(Effects removed:)]<br/>");
+										tagApplicationFound = true;
+										lineHeight++;
+									}
+									tooltipDescriptionSB.append(tagTooltip+"<br/>");
+									lineHeight++;
+								}
+							}
+							
+								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+								if(lineHeight>0) {
+									TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+											"Special Effects",
+											tooltipDescriptionSB.toString(),
+											(lineHeight*16));
+									MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+									
+								} else {
+									TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("No Special Effects", "");
+									MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+								}
 						}
 					}
 				}

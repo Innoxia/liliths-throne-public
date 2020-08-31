@@ -57,7 +57,9 @@
 		<secondaryColours values="JUST_BLACK"/> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

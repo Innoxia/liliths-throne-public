@@ -250,7 +250,7 @@ public class Ralph extends NPC {
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
 					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
+				if(clothing.isDefaultSlotCondom()) {
 					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
 					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
 					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
@@ -362,12 +362,17 @@ public class Ralph extends NPC {
 	
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
+		if(item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+			return false;
+		}
 		if(item instanceof AbstractItem) {
 			return true;
 		}
 		if(item instanceof AbstractClothing) {
 			AbstractClothingType type = ((AbstractClothing)item).getClothingType();
-			return type.isCondom(type.getEquipSlots().get(0));
+			return type.isDefaultSlotCondom();
 		}
 		
 		return false;
@@ -401,7 +406,7 @@ public class Ralph extends NPC {
 		if(Main.game.isInSex()) {
 			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
+				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
 					inventory.resetEquipDescription();
 				}
