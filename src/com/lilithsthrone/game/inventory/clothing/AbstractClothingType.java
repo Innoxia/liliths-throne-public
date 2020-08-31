@@ -892,16 +892,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							
 							Map<InventorySlot, String> stickerSvgPaths = new HashMap<>();
+							boolean svgImageFound = false;
 							for(Element svgPathElement : stickerElement.getAllOf("imageName")) {
 								String path = "";
 								if(!svgPathElement.getTextContent().isEmpty()) {
 									path = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ svgPathElement.getTextContent();
+									svgImageFound = true;
 								}
 								InventorySlot slot = this.getEquipSlots().get(0);
 								if(!svgPathElement.getAttribute("slot").isEmpty()) {
 									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
 								}
 								stickerSvgPaths.put(slot, path);
+							}
+							if(!svgImageFound && stickerElement.getAttribute("colourSelected").isEmpty()) {
+								colourSelected = PresetColour.TEXT_GREY;
 							}
 							
 							List<ItemTag> stickerAddedTags = new ArrayList<>();

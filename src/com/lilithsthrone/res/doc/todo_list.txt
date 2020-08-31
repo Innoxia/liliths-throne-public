@@ -25,6 +25,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added ItemTags for defining items, clothing, and weapons as being restricted or illegal, causing them to be unable to be sold to merchants and confiscated by Enforcers.
 		Added mod support for defining clothing 'stickers', which apply cosmetic changes to clothing items. (See 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for a fully documented example of how to define them.)
 	
+	Gameplay:
+		Enforcers in the 'alleyway Enforcer encounters' will now confiscate illegal items, and arrest you if they find that you're carrying highly illegal items.
+	
 	Items:
 		Added sticker support to the 'rental mommy' and 'rental daddy' T-shirts.
 		'Biojuice Canisters' and 'Glowing Mushrooms' are now tagged as restricted items.
@@ -44,6 +47,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
+	
 	Wes:
 		[] XML framework
 			[x] Wes win
@@ -56,42 +60,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Pregnancy reactions
 	
 	
-	Contraband tags implementation
-		[x] sell
-		[x] Enforcer
-			[x] confiscate
-			[x] arrest
-	
-	[x] ClothingType
-	[x] Clothing
-		[x] SVGs implemented 
-		[x] saving/loading
-		[x] Name
-		[x] descriptions
-		[x] item tags
-		[x] dye to add/remove stickers
-			[x] Requirements check to display option (tooltip saying not unlocked yet)
-				[x] Change it to a definition of unavailability text (with attribute of display when disabled)
-			[x] Tooltip saying if ItemTags are added/removed by adding sticker (*?)
-		[x] Infix
-			[x] Remove definition of none and add none stickers
-		[x] Colours
-		[x] Tags working correctly
-		[x] Move all ClothingType tags out into AbstractClothing
-		[x] Test z-layer sticker rendering
-		[x] Loading of old clothing which ahsn't had stickers defined?
-	[x] Test all of the above
-	[x] Outfit files for sticker definitions
-	
-	[x] Rental Mommy NPC T-shirt setup
-	
-	[x] Special Access Pass to Contractor Pass
-	
-	
-	GITHUB PUSH
-	
-
-
 
 	In the Enforcer HQ, it says the door to Brax/Bree/Brandi's office is locked, but there are some items (uniform) on the tile that you can pick up.
 	
@@ -106,8 +74,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	can we get an update to the behavior of half demon encounters so they can stop trying to turn us into demons via potions
 	
 	 I need to add a  'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
-	
-	
 	
 	
 	

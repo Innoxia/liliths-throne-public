@@ -27,7 +27,10 @@
 				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
 				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
 				'zLayer' defines the rendering z-layer priority. These 'zLayer' values are compared against one another when rendering, with higher values being drawn on top of stickers with lower values. *The base svg has a zLayer value of 0*, meaning that negative values will be drawn beneath the base svg. Defining zLayer as 0 is not advised (although it is handled by always being drawn on top of the base layer).
-				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. (You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like: colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD") Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like:
+				colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD"
+				(Note: If you do not define an 'imageName' variable, or if you leave it blank, the default selected colour will be TEXT_GREY instead of GENERIC_GOOD.)
+				Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 					<namePrefix priority="1"><![CDATA[Rental]]></namePrefix> <!-- Define a 'namePrefix' to add a prefix to the base clothing's name when this sticker is applied.
 					The 'priority' variable defines the order in which multiple sticker 'namePrefix's are displayed. A *lower value* means they will be *displayed first*. This can be left undefined. -->
 					<namePostfix/> <!-- Exactly the same as 'namePrefix', but the text is appended after the base clothing name. -->
@@ -117,7 +120,7 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="None" priority="0" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+				<sticker id="None" priority="0" defaultSticker="false" zLayer="1"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
 					<namePrefix/>
 					<namePostfix/>
 					<descriptionModification/>

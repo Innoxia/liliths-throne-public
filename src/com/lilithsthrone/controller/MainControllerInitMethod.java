@@ -5252,60 +5252,69 @@ public class MainControllerInitMethod {
 				for(Entry<StickerCategory, List<Sticker>> stickerEntry : clothing.getStickers().entrySet()) {
 					for(Sticker s : stickerEntry.getValue()) {
 						id = "ITEM_STICKER_"+stickerEntry.getKey().getId()+s.getId();
+						String requirements = UtilText.parse(s.getUnavailabilityText()).trim();
+						
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(InventoryDialogue.dyePreviewStickers.get(stickerEntry.getKey())!=s){
+								if(InventoryDialogue.dyePreviewStickers.get(stickerEntry.getKey())!=s && requirements.isEmpty()){
 									InventoryDialogue.dyePreviewStickers.put(stickerEntry.getKey(), s);
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 								}
 							}, false);
-							
+
 							int lineHeight = 0;
 							StringBuilder tooltipDescriptionSB = new StringBuilder();
-							if(!s.getAvailabilityText().isEmpty()) {
-								tooltipDescriptionSB.append("[style.boldGood(Unlocked:)] <i>"+s.getAvailabilityText()+"</i><br/>");
+							
+							if(!requirements.isEmpty()) {
+								tooltipDescriptionSB.append("[style.boldBad(Locked:)] <i>"+requirements+"</i><br/>");
 								lineHeight+=2;
-							}
-							
-							boolean tagApplicationFound = false;
-							for(ItemTag tag : s.getTagsApplied()) {
-								for(String tagTooltip : tag.getClothingTooltipAdditions()) {
-									if(!tagApplicationFound) {
-										tooltipDescriptionSB.append("[style.boldMinorGood(Effects added:)]<br/>");
-										tagApplicationFound = true;
+								
+							} else {
+								if(!s.getAvailabilityText().isEmpty()) {
+									tooltipDescriptionSB.append("[style.boldGood(Unlocked:)] <i>"+s.getAvailabilityText()+"</i><br/>");
+									lineHeight+=2;
+								}
+								
+								boolean tagApplicationFound = false;
+								for(ItemTag tag : s.getTagsApplied()) {
+									for(String tagTooltip : tag.getClothingTooltipAdditions()) {
+										if(!tagApplicationFound) {
+											tooltipDescriptionSB.append("[style.boldMinorGood(Effects added:)]<br/>");
+											tagApplicationFound = true;
+											lineHeight++;
+										}
+										tooltipDescriptionSB.append(tagTooltip+"<br/>");
 										lineHeight++;
 									}
-									tooltipDescriptionSB.append(tagTooltip+"<br/>");
-									lineHeight++;
 								}
-							}
-							
-							tagApplicationFound = false;
-							for(ItemTag tag : s.getTagsRemoved()) {
-								for(String tagTooltip : tag.getClothingTooltipAdditions()) {
-									if(!tagApplicationFound) {
-										tooltipDescriptionSB.append("[style.boldMinorBad(Effects removed:)]<br/>");
-										tagApplicationFound = true;
+								
+								tagApplicationFound = false;
+								for(ItemTag tag : s.getTagsRemoved()) {
+									for(String tagTooltip : tag.getClothingTooltipAdditions()) {
+										if(!tagApplicationFound) {
+											tooltipDescriptionSB.append("[style.boldMinorBad(Effects removed:)]<br/>");
+											tagApplicationFound = true;
+											lineHeight++;
+										}
+										tooltipDescriptionSB.append(tagTooltip+"<br/>");
 										lineHeight++;
 									}
-									tooltipDescriptionSB.append(tagTooltip+"<br/>");
-									lineHeight++;
 								}
 							}
 							
-								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-								if(lineHeight>0) {
-									TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
-											"Special Effects",
-											tooltipDescriptionSB.toString(),
-											(lineHeight*16));
-									MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-									
-								} else {
-									TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("No Special Effects", "");
-									MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-								}
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+							if(lineHeight>0) {
+								TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+										"Special Effects",
+										tooltipDescriptionSB.toString(),
+										(lineHeight*16));
+								MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+								
+							} else {
+								TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("No Special Effects", "");
+								MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+							}
 						}
 					}
 				}

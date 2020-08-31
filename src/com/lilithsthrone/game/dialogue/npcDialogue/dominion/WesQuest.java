@@ -34,7 +34,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.9.4
- * @version 0.3.9.4
+ * @version 0.3.9.5
  * @author Innoxia, concept by DSG
  */
 public class WesQuest {

@@ -5,7 +5,7 @@
 	
 	<coreAttributes>
 		<clothingAuthorTag><![CDATA[Printed on the inside, a small tag reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
-	<value>250</value> 
+		<value>250</value> 
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[kitty panties]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[kitty panties]]></namePlural> 
