@@ -44,6 +44,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Updated example links in xml modding files to point to the correct files.
 		Fixed bug where you could get stuck in Brax's office after resolving the part of the main quest which involves him.
 		Fixed issue with the cheat guns' 'mag dump' combat move being automatically removed after selecting it.
+		Fixed descriptions of putting kitty panties on/off being inverted.
 	
 	
 	

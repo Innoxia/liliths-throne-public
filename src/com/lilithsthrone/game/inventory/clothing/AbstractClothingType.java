@@ -850,11 +850,27 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							}
 							Colour colourDisabled = PresetColour.TEXT_GREY_DARK;
 							if(!stickerElement.getAttribute("colourDisabled").isEmpty()) {
-								colourDisabled = PresetColour.getColourFromId(stickerElement.getAttribute("colourDisabled"));
+								String colourDefinition = stickerElement.getAttribute("colourDisabled");
+								if(PresetColour.getAllColourIds().contains(colourDefinition)) {
+									colourDisabled = PresetColour.getColourFromId(colourDefinition);
+								} else {
+									try {
+										colourDisabled = new Colour(false, Util.newColour(Integer.valueOf(colourDefinition, 16)), Util.newColour(Integer.valueOf(colourDefinition, 16)), "");
+									} catch(Exception ex) {
+									}
+								}
 							}
 							Colour colourSelected = PresetColour.GENERIC_GOOD;
 							if(!stickerElement.getAttribute("colourSelected").isEmpty()) {
-								colourSelected = PresetColour.getColourFromId(stickerElement.getAttribute("colourSelected"));
+								String colourDefinition = stickerElement.getAttribute("colourSelected");
+								if(PresetColour.getAllColourIds().contains(colourDefinition)) {
+									colourSelected = PresetColour.getColourFromId(colourDefinition);
+								} else {
+									try {
+										colourSelected = new Colour(false, Util.newColour(Integer.valueOf(colourDefinition, 16)), Util.newColour(Integer.valueOf(colourDefinition, 16)), "");
+									} catch(Exception ex) {
+									}
+								}
 							}
 							
 							String stickerNamePrefix = "";

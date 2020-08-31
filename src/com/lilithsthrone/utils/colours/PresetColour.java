@@ -1127,9 +1127,6 @@ public class PresetColour {
 			PresetColour.COVERING_RAINBOW_PASTEL);
 	
 	
-	
-	
-
 	private static List<Colour> allPresetColours;
 	private static Map<Colour, String> colourToIdMap = new HashMap<>();
 	private static Map<String, Colour> idToColourMap = new HashMap<>();
@@ -1157,6 +1154,10 @@ public class PresetColour {
 				}
 			}
 		}
+	}
+	
+	public static List<String> getAllColourIds() {
+		return new ArrayList<>(idToColourMap.keySet());
 	}
 	
 	public static Colour getColourFromId(String id) {

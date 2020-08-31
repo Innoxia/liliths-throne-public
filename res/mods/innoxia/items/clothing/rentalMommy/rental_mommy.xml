@@ -30,7 +30,9 @@
 				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like:
 				colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD"
 				(Note: If you do not define an 'imageName' variable, or if you leave it blank, the default selected colour will be TEXT_GREY instead of GENERIC_GOOD.)
-				Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+				Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
+				You can also define custom colours instead of a PresetColour id, in which case you *must* use a standard RGB hex code as the value.
+				e.g. colourDisabled="777777" colourSelected="57DB7E"-->
 					<namePrefix priority="1"><![CDATA[Rental]]></namePrefix> <!-- Define a 'namePrefix' to add a prefix to the base clothing's name when this sticker is applied.
 					The 'priority' variable defines the order in which multiple sticker 'namePrefix's are displayed. A *lower value* means they will be *displayed first*. This can be left undefined. -->
 					<namePostfix/> <!-- Exactly the same as 'namePrefix', but the text is appended after the base clothing name. -->
