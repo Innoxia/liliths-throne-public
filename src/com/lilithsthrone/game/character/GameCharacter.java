@@ -14071,7 +14071,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(reactingPace!=SexPace.SUB_RESISTING
 					&& characterReacting.getFetishDesire(Fetish.FETISH_VAGINAL_GIVING).isNegative()) {
 				sb.append(UtilText.returnStringAtRandom(
-						"[npc.Name] tuts in disappointment as [npc2.namePos] [npc2.pussy+] is revealed, ",
+						"[npc.Name] [npc.verb(tut)] in disappointment as [npc2.namePos] [npc2.pussy+] is revealed, ",
 						"[npc.Name] [npc.verb(let)] out an annoyed whine as [npc2.namePos] [npc2.pussy+] is revealed, "));
 				sb.append(UtilText.returnStringAtRandom(
 						"[npc.speech(I hate pussies!)]",
@@ -14080,52 +14080,46 @@ public abstract class GameCharacter implements XMLSaving {
 			} else {
 				switch(reactingPace) {
 					case DOM_GENTLE:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-									"[npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(see)] "
-										+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
-												? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, "
-												: "[npc.namePos] [npc.pussy+], ")
-										+ (this.hasPenis()
-												?"[npc2.speech(You're going to love this, I promise...)]"
-												:"[npc2.speech(I'll make this feel good, I promise...)]")));
+						sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(see)] ");
+						sb.append(Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+                                ? "[npc2.namePos] wet [npc2.pussy] betraying [npc2.her] arousal, "
+                                : "[npc2.namePos] [npc2.pussy+], ");
+						sb.append(this.hasPenis()
+                                ? "[npc.speech(You're going to love this, I promise...)]"
+                                : "[npc.speech(I'll make this feel good, I promise...)]");
 						break;
 					case DOM_NORMAL:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-								"[npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(see)] "
-										+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
-												? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, "
-												: "[npc.namePos] [npc.pussy+], ")
-										+ (this.hasPenis()
-												?"[npc2.speech(You're going to be a good fuck!)]"
-												:"[npc2.speech(This is going to be fun!)]")));
+						sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(see)] ");
+						sb.append(Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+								? "[npc2.namePos] wet [npc2.pussy] betraying [npc2.her] arousal, "
+								: "[npc2.namePos] [npc2.pussy+], ");
+						sb.append(this.hasPenis()
+								?"[npc.speech(You're going to be a good fuck!)]"
+								:"[npc.speech(This is going to be fun!)]");
 						break;
 					case DOM_ROUGH:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-								"[npc2.Name] [npc2.verb(smirk)] when [npc2.she] [npc2.verb(see)] "
-										+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
-												? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, "
-												: "[npc.namePos] [npc.pussy+], ")
-										+ (this.hasPenis()
-												?"[npc2.speech(Ready for a good hard fucking, slut?)]"
-												:"[npc2.speech(Looking good, slut!)]")));
+						sb.append("[npc.Name] [npc.verb(smirk)] when [npc.she] [npc.verb(see)] ");
+						sb.append(Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+								? "[npc2.namePos] wet [npc2.pussy] betraying [npc2.her] arousal, "
+								: "[npc2.namePos] [npc2.pussy+], ");
+						sb.append(this.hasPenis()
+								?"[npc.speech(Ready for a good hard fucking, slut?)]"
+								:"[npc.speech(Looking good, slut!)]");
 						break;
 					case SUB_EAGER:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-								"[npc2.NamePos] eyes light up when [npc2.she] [npc2.verb(see)] "
-								+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
-										? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal."
-										: "[npc.namePos] [npc.pussy].")));
+						sb.append("[npc.NamePos] eyes light up when [npc.she] [npc.verb(see)] ");
+						sb.append(Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+								? "[npc2.namePos] wet [npc2.pussy] betraying [npc2.her] arousal."
+								: "[npc2.namePos] [npc2.pussy].");
 						break;
 					case SUB_NORMAL:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-								"[npc2.Name] [npc2.verb(let)] out [npc2.a_moan] as [npc.namePos] [npc.pussy+] is revealed."));
+						sb.append("[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc2.namePos] [npc2.pussy+] is revealed.");
 						break;
 					case SUB_RESISTING:
-						sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
-								"[npc2.Name] [npc2.verb(try)] to pull away from [npc.name] as "
-								+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
-										? "[npc.namePos] wet [npc.pussy] is revealed."
-										: "[npc.namePos] [npc.pussy+] is revealed.")));
+						sb.append("[npc.Name] [npc.verb(try)] to pull away from [npc2.name] as ");
+						sb.append(Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+								? "[npc2.namePos] wet [npc2.pussy] is revealed."
+								: "[npc2.namePos] [npc2.pussy+] is revealed.");
 						break;
 				}
 			}
@@ -14133,61 +14127,63 @@ public abstract class GameCharacter implements XMLSaving {
 		} else if(this.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer()) || !characterReacting.equals(Main.game.getPlayer()) || isFeminine()) {
 			switch(selfPace) {
 				case DOM_GENTLE:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed.");
 					break;
 				case DOM_NORMAL:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out an excited [npc.moan] as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.her] [npc.pussy+] is revealed.");
 					break;
 				case DOM_ROUGH:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] grins as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] grins as [npc.her] [npc.pussy+] is revealed.");
 					break;
 				case SUB_EAGER:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out an excited [npc.moan] as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] lets out an excited [npc.moan] as [npc.her] [npc.pussy+] is revealed.");
 					break;
 				case SUB_NORMAL:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out [npc.a_moan] as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] lets out [npc.a_moan] as [npc.her] [npc.pussy+] is revealed.");
 					break;
 				case SUB_RESISTING:
-					sb.append(UtilText.parse(characterBeingRevealed, "[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.pussy+] is revealed."));
+					sb.append("[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.pussy+] is revealed.");
 					break;
 			}
-			
+            if(characterReacting.isPlayer()) {
+                sb.append("</p>");
+                return UtilText.parse(characterBeingRevealed, sb.toString());
+            }
 		} else {
 			switch(selfPace) {
 				case DOM_GENTLE:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed,"
-								+ " [npc.speech(~Mmm!~ Like what you see?)]"));
+					sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed,"
+								+ " [npc.speech(~Mmm!~ Like what you see?)]");
 					break;
 				case DOM_NORMAL:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(let)] out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
-								+ " [npc.speech(This is going to be good!)]"));
+					sb.append("[npc.Name] [npc.verb(let)] out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
+								+ " [npc.speech(This is going to be good!)]");
 					break;
 				case DOM_ROUGH:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(grin)] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
-								+ " [npc.speech(Time to see what a bitch like you can do!)]"));
+					sb.append("[npc.Name] [npc.verb(grin)] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
+								+ " [npc.speech(Time to see what a bitch like you can do!)]");
 					break;
 				case SUB_EAGER:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(let)] out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
-								+ " [npc.speech(~Ahh!~ Yes! My pussy's aching for your touch!)]"));
+					sb.append("[npc.Name] [npc.verb(let)] out an excited [npc.moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
+								+ " [npc.speech(~Ahh!~ Yes! My pussy's aching for your touch!)]");
 					break;
 				case SUB_NORMAL:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
-								+ " [npc.speech(~Mmm!~ Come on, use my pussy!)]"));
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.she] sees you staring at [npc.her] [npc.pussy+],"
+								+ " [npc.speech(~Mmm!~ Come on, use my pussy!)]");
 					break;
 				case SUB_RESISTING:
-					sb.append(UtilText.parse(characterBeingRevealed,
-							"[npc.Name] [npc.verb(let)] out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.pussy+] is revealed,"
-								+ " [npc.speech(No! Leave me alone!)]"));
+					sb.append("[npc.Name] [npc.verb(let)] out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.pussy+] is revealed,"
+								+ " [npc.speech(No! Leave me alone!)]");
 					break;
 			}
+            if(characterReacting.isPlayer()) {
+                sb.append("</p>");
+                return UtilText.parse(characterBeingRevealed, sb.toString());
+            }
 		}
 		sb.append("</p>");
-		return sb.toString();
+
+        return UtilText.parse(characterReacting, characterBeingRevealed, sb.toString());
 	}
 
 	public String getMoundRevealDescription(GameCharacter characterBeingRevealed, GameCharacter characterReacting) {
