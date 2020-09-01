@@ -907,7 +907,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								}
 							}
 							
-							Map<InventorySlot, String> stickerSvgPaths = new HashMap<>();
+							Map<InventorySlot, Map<Integer, String>> stickerSvgPaths = new HashMap<>();
 							boolean svgImageFound = false;
 							for(Element svgPathElement : stickerElement.getAllOf("imageName")) {
 								String path = "";
@@ -919,7 +919,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								if(!svgPathElement.getAttribute("slot").isEmpty()) {
 									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
 								}
-								stickerSvgPaths.put(slot, path);
+								stickerSvgPaths.putIfAbsent(slot, new HashMap<>());
+								
+								int zLayer = stickerZLayer;
+								if(!svgPathElement.getAttribute("zLayer").isEmpty()) {
+									zLayer = Integer.valueOf(svgPathElement.getAttribute("zLayer"));
+//									System.out.println(zLayer);
+								}
+								stickerSvgPaths.get(slot).put(zLayer, path);
 							}
 							if(!svgImageFound && stickerElement.getAttribute("colourSelected").isEmpty()) {
 								colourSelected = PresetColour.TEXT_GREY;
@@ -954,7 +961,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								stickerAvailabilityText = stickerElement.getMandatoryFirstOf("availabilityText").getTextContent();
 							}
 							
-							Sticker sticker = new Sticker(stickerId, stickerPriority, stickerDefaultSticker, stickerZLayer,
+							Sticker sticker = new Sticker(stickerId, stickerPriority, stickerDefaultSticker,
 									colourDisabled, colourSelected,
 									stickerNamePrefix, stickerPrefixPriority,
 									stickerNamePostfix, stickerPostfixPriority,
@@ -2264,17 +2271,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledStickers(InventorySlot slotEquippedTo, String s, Map<String, String> handledStickers) {
-		List<Sticker> stickersToRenderUnder = new ArrayList<>();
-		List<Sticker> stickersToRenderOver = new ArrayList<>();
-		for(Entry<StickerCategory, List<Sticker>> typeStickers: this.getStickers().entrySet()) {
+		List<Value<Integer, String>> svgRendering = new ArrayList<>();
+		
+		for(Entry<StickerCategory, List<Sticker>> typeStickers : this.getStickers().entrySet()) {
 			if(handledStickers.containsKey(typeStickers.getKey().getId())) {
 				String stickerId = handledStickers.get(typeStickers.getKey().getId());
 				for(Sticker stickerFromType : typeStickers.getValue()) {
 					if(stickerFromType.getId().equals(stickerId)) {
-						if(stickerFromType.getzLayer()<0) {
-							stickersToRenderUnder.add(stickerFromType);
-						} else {
-							stickersToRenderOver.add(stickerFromType);
+						for(Entry<Integer, String> stickerSvgEntry : stickerFromType.getSvgPaths().get(slotEquippedTo).entrySet()) {
+							svgRendering.add(new Value<>(stickerSvgEntry.getKey(), stickerSvgEntry.getValue()));
 						}
 						break;
 					}
@@ -2282,15 +2287,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		// Order by zLayer: //TODO test
-		Collections.sort(stickersToRenderUnder, (s1, s2) ->s1.getzLayer()-s2.getzLayer());
-		Collections.sort(stickersToRenderOver, (s1, s2) ->s1.getzLayer()-s2.getzLayer());
-		
+		// Order by zLayer:
+		Collections.sort(svgRendering, (v1, v2) -> v1.getKey()-v2.getKey());
+
 		String finalSvg = "";
-		for(Sticker sticker : stickersToRenderUnder) {
-			if(!sticker.getSvgPaths().get(slotEquippedTo).isEmpty()) {
+		for(Value<Integer, String> entry : svgRendering) {
+//			System.out.println(entry.getKey());
+			if(entry.getKey()>=0) {
+				break;
+			}
+			if(!entry.getValue().isEmpty()) {
 				try {
-					List<String> lines = Files.readAllLines(Paths.get(sticker.getSvgPaths().get(slotEquippedTo)));
+					List<String> lines = Files.readAllLines(Paths.get(entry.getValue()));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -2302,14 +2310,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 			}
 		}
-		
-		s = s + finalSvg;
+
+		s = finalSvg + "<div style='width:100%;height:100%;position:absolute;left:0;top:0;'>"+s+"</div>";
 
 		finalSvg = "";
-		for(Sticker sticker : stickersToRenderOver) {
-			if(!sticker.getSvgPaths().get(slotEquippedTo).isEmpty()) {
+		for(Value<Integer, String> entry : svgRendering) {
+//			System.out.println(entry.getKey());
+			if(entry.getKey()>0 && !entry.getValue().isEmpty()) {
 				try {
-					List<String> lines = Files.readAllLines(Paths.get(sticker.getSvgPaths().get(slotEquippedTo)));
+					List<String> lines = Files.readAllLines(Paths.get(entry.getValue()));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -2322,7 +2331,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 
-		s = finalSvg + s;
+		s = s + finalSvg;
 		
 		return s;
 	}

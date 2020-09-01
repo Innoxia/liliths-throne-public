@@ -48,7 +48,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	
 	Wes:
 		[] XML framework
 			[x] Wes win
@@ -60,7 +59,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] writing
 			[] Pregnancy reactions
 	
+	PRs
 	
+	Claire's quest should be restricted until you've finished The Dark Siren
 
 	In the Enforcer HQ, it says the door to Brax/Bree/Brandi's office is locked, but there are some items (uniform) on the tile that you can pick up.
 	

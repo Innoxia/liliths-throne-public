@@ -17,7 +17,6 @@ public class Sticker {
 	private String id;
 	private int priority;
 	private boolean defaultSticker;
-	private int zLayer;
 	private Colour colourDisabled;
 	private Colour colourSelected;
 	
@@ -31,7 +30,7 @@ public class Sticker {
 	private boolean descriptionFullReplacement;
 	private int descriptionPriority;
 
-	private Map<InventorySlot, String> svgPaths;
+	private Map<InventorySlot, Map<Integer, String>> svgPaths;
 
 	private List<ItemTag> tagsApplied;
 	private List<ItemTag> tagsRemoved;
@@ -41,12 +40,12 @@ public class Sticker {
 	private String availabilityText;
 	
 	
-	public Sticker(String id, int priority, boolean defaultSticker, int zLayer,
+	public Sticker(String id, int priority, boolean defaultSticker,
 			Colour colourDisabled, Colour colourSelected,
 			String namePrefix, int namePrefixPriority,
 			String namePostfix, int namePostfixPriority,
 			String description, boolean descriptionFullReplacement, int descriptionPriority,
-			Map<InventorySlot, String> svgPaths,
+			Map<InventorySlot, Map<Integer, String>> svgPaths,
 			List<ItemTag> tagsApplied,
 			List<ItemTag> tagsRemoved,
 			boolean showDisabledButton, String unavailabilityText, String availabilityText) {
@@ -55,7 +54,6 @@ public class Sticker {
 		this.defaultSticker = defaultSticker;
 		this.colourDisabled = colourDisabled;
 		this.colourSelected = colourSelected;
-		this.zLayer = zLayer;
 		
 		this.namePrefix = namePrefix;
 		this.namePrefixPriority = namePrefixPriority;
@@ -86,10 +84,6 @@ public class Sticker {
 	
 	public boolean isDefaultSticker() {
 		return defaultSticker;
-	}
-
-	public int getzLayer() {
-		return zLayer;
 	}
 
 	public Colour getColourDisabled() {
@@ -128,7 +122,10 @@ public class Sticker {
 		return descriptionPriority;
 	}
 
-	public Map<InventorySlot, String> getSvgPaths() {
+	/**
+	 * Mapping InventorySlot as the equipped slot to a Map of Integers (representing zLayers) mapped to svg Strings.
+	 */
+	public Map<InventorySlot, Map<Integer, String>> getSvgPaths() {
 		return svgPaths;
 	}
 
