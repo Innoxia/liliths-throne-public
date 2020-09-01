@@ -831,7 +831,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						if(!categoryElement.getAttribute("priority").isEmpty()) {
 							priority = Integer.valueOf(categoryElement.getAttribute("priority"));
 						}
-						StickerCategory category = new StickerCategory(categoryId, priority);
+						String categoryName = categoryId;
+						if(categoryElement.getOptionalFirstOf("categoryName").isPresent()) {
+							categoryName = categoryElement.getMandatoryFirstOf("categoryName").getTextContent();
+						}
+						StickerCategory category = new StickerCategory(categoryId, categoryName, priority);
 						stickers.put(category, new ArrayList<>());
 						
 						for(Element stickerElement : categoryElement.getAllOf("sticker")) {
@@ -839,6 +843,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							int stickerPriority = 10;
 							if(!stickerElement.getAttribute("priority").isEmpty()) {
 								stickerPriority = Integer.valueOf(stickerElement.getAttribute("priority"));
+							}
+							String stickerName = stickerId;
+							if(stickerElement.getOptionalFirstOf("stickerName").isPresent()) {
+								stickerName = stickerElement.getMandatoryFirstOf("stickerName").getTextContent();
 							}
 							boolean stickerDefaultSticker = false;
 							if(!stickerElement.getAttribute("defaultSticker").isEmpty()) {
@@ -961,7 +969,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								stickerAvailabilityText = stickerElement.getMandatoryFirstOf("availabilityText").getTextContent();
 							}
 							
-							Sticker sticker = new Sticker(stickerId, stickerPriority, stickerDefaultSticker,
+							Sticker sticker = new Sticker(stickerId, stickerName, stickerPriority, stickerDefaultSticker,
 									colourDisabled, colourSelected,
 									stickerNamePrefix, stickerPrefixPriority,
 									stickerNamePostfix, stickerPostfixPriority,

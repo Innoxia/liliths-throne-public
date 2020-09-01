@@ -21,6 +21,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where fluid addiction status effect tooltip descriptions would display 'demonic horse fluid' instead of 'demonic fluid'. (by AceXP)
 		Fixed bug where the defined horse-morph names in Name.java were never being used. (by AceXP)
 	
+	DSG's Enforcer Uniform Update:
+		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.
+		Added the following sticker assets that did not already exist in some form in the game: Combat Diver Badge, Commissioner Cap Badge, Commissioner/Deputy Commissioner Visor/Crown Oak Leaves, Commissioner Aiguillette, Elis Cap Badge, Thinis Cap Badge, Itza'aak Cap Badge, Lyonesse Cap Badge.
+		Detailed buttons added to the Enforcer coat and waistcoat.
+		Fixes and standardization of ribbon racks and name plates.
+		Hand optimization of almost all vectorized text.
+		Added the 'Contractor's' variant to the stab vest and plate carrier.
+	
 	Engine:
 		Added ItemTags for defining items, clothing, and weapons as being restricted or illegal, causing them to be unable to be sold to merchants and confiscated by Enforcers.
 		Added mod support for defining clothing 'stickers', which apply cosmetic changes to clothing items. (See 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for a fully documented example of how to define them.)
@@ -59,7 +67,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] writing
 			[] Pregnancy reactions
 	
+	
 	PRs
+	
+	 a milk gush on orgasm, like the squirter effect, but from the nips
 	
 	Claire's quest should be restricted until you've finished The Dark Siren
 

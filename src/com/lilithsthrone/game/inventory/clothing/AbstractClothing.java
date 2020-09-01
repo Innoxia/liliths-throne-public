@@ -413,11 +413,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return null;
 		}
 		
-
-		if(!parentElement.getAttribute("name").isEmpty()) {
-			clothing.setName(parentElement.getAttribute("name"));
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.6") || clothing.getClothingType().getStickers().isEmpty()) { // Reset name at version 0.3.9.6 for clothing which has had sticker support added
+			if(!parentElement.getAttribute("name").isEmpty()) {
+				clothing.setName(parentElement.getAttribute("name"));
+			}
 		}
-
+		
 		if(!parentElement.getAttribute("slotEquippedTo").isEmpty()) {
 			InventorySlot slot = InventorySlot.valueOf(parentElement.getAttribute("slotEquippedTo"));
 			if(!clothing.getClothingType().getEquipSlots().contains(slot)) {

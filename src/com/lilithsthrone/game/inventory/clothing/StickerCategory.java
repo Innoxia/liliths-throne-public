@@ -11,9 +11,9 @@ public class StickerCategory {
 	private String name;
 	private int priority;
 	
-	public StickerCategory(String id, int priority) {
+	public StickerCategory(String id, String name, int priority) {
 		this.id = id.replaceAll("'", "").replaceAll("\"", "");
-		this.name = id;
+		this.name = name;
 		this.priority = priority;
 	}
 

@@ -18,11 +18,11 @@
 		<!-- 'Stickers' are additional svgs which can be overlaid on top of (or beneath the) base svg image.
 		Definitions are all within the 'stickers' element. -->
 		<stickers>
-			<!-- Note: All of the 'id' attributes are used in-game as category titles and sticker names in the sticker application menu. As such, please try to make your id human-readable. -->
-			<category id="Top Text" priority="1"> <!-- All stickers defined within this category are *mutually exclusive with one another, but not with stickers defined in other 'category' elements*.
-			The 'id' should be unique to each category, and can be defined as whatever you want.
+			<category id="top_txt" priority="1"> <!-- All stickers defined within this category are *mutually exclusive with one another, but not with stickers defined in other 'category' elements*.
+			The 'id' should be unique to each category, and can be defined as whatever you want, but for formatting purposes, it would be preferable for it to just contain basic alpha-numerical values and underscores.
 			The 'priority' variable determines the position of this category in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the top of the category list.-->
-				<sticker id="Rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected=""> <!-- A sticker element.
+				<categoryName><![CDATA[Top Text]]></categoryName> <!-- This is used in-game as the title for this sticker category in the sticker application menu UI. As such, please try to make this human-readable. -->
+				<sticker id="rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected=""> <!-- A sticker element.
 				The 'id' element should be unique to stickers within this category element.
 				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
 				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
@@ -33,6 +33,7 @@
 				Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 				You can also define custom colours instead of a PresetColour id, in which case you *must* use a standard RGB hex code as the value.
 				e.g. colourDisabled="777777" colourSelected="57DB7E"-->
+					<stickerName><![CDATA[Rental]]></stickerName> <!-- This is used in-game as the title for this sticker's button in the sticker application menu UI. As such, please try to make this human-readable. -->
 					<namePrefix priority="1"><![CDATA[Rental]]></namePrefix> <!-- Define a 'namePrefix' to add a prefix to the base clothing's name when this sticker is applied.
 					The 'priority' variable defines the order in which multiple sticker 'namePrefix's are displayed. A *lower value* means they will be *displayed first*. This can be left undefined. -->
 					<namePostfix/> <!-- Exactly the same as 'namePrefix', but the text is appended after the base clothing name. -->
@@ -79,7 +80,8 @@
 					]]></availabilityText>
 					-->
 				</sticker>
-				<sticker id="Dommy" priority="2" defaultSticker="false" zLayer="1"> <!-- This sticker is mutually exclusive with the one above, as it is defined within the same 'category' element. -->
+				<sticker id="dommy" priority="2" defaultSticker="false" zLayer="1"> <!-- This sticker is mutually exclusive with the one above, as it is defined within the same 'category' element. -->
+					<stickerName><![CDATA[Dommy]]></stickerName>
 					<namePrefix priority="1"><![CDATA[Dommy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Dommy </i>]]></descriptionModification>
@@ -90,8 +92,10 @@
 					<availabilityText/>
 				</sticker>
 			</category>
-			<category id="Bottom Text" priority="2"> <!-- A new category, meaning that these stickers can be used in conjunction with one of the two defined above. -->
-				<sticker id="Mommy" priority="1" defaultSticker="true" zLayer="1">
+			<category id="btm_txt" priority="2"> <!-- A new category, meaning that these stickers can be used in conjunction with one of the two defined above. -->
+				<categoryName><![CDATA[Bottom Text]]></categoryName>
+				<sticker id="mommy" priority="1" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[Mommy]]></stickerName>
 					<namePrefix priority="2"><![CDATA[Mommy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Mommy</i>]]></descriptionModification>
@@ -101,7 +105,8 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="Daddy" priority="2" defaultSticker="false" zLayer="1">
+				<sticker id="daddy" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Daddy]]></stickerName>
 					<namePrefix priority="2"><![CDATA[Daddy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Daddy</i>]]></descriptionModification>
@@ -113,8 +118,10 @@
 				</sticker>
 				<!-- I haven't defined a 'None' sticker for this category, meaning that either the 'Mommy' or 'Daddy' sticker will always be displayed. -->
 			</category>
-			<category id="Price" priority="3">
+			<category id="price" priority="3">
+				<categoryName><![CDATA[Price]]></categoryName>
 				<sticker id="50" priority="1" defaultSticker="true" zLayer="1"> <!-- The 'defaultSticker' variable is set to true, meaning that this clothing will spawn in with it applied, but if it were false, this sticker slot would be unused (which is available due to the 'allowsNone="true"' definition in the 'category' element above).-->
+					<stickerName><![CDATA[50]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(50, span)]</i>]]></descriptionModification>
@@ -124,7 +131,8 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="None" priority="0" defaultSticker="false" zLayer="1"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+				<sticker id="none" priority="0" defaultSticker="false" zLayer="1"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+					<stickerName><![CDATA[None]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>
 					<descriptionModification/>

@@ -16,8 +16,10 @@
 		<imageEquippedName/>
 		
 		<stickers>
-			<category id="Top Text" priority="1">
-				<sticker id="Rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+			<category id="top_txt" priority="1">
+				<categoryName><![CDATA[Top Text]]></categoryName>
+				<sticker id="rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Rental]]></stickerName>
 					<namePrefix priority="1"><![CDATA[Rental]]></namePrefix>
 					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Rental </i>]]></descriptionModification>
 					<imageName slot="TORSO_UNDER">text_rental.svg</imageName>
@@ -26,7 +28,8 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="Dommy" priority="2" defaultSticker="false" zLayer="1">
+				<sticker id="dommy" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Dommy]]></stickerName>
 					<namePrefix priority="1"><![CDATA[Dommy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Dommy </i>]]></descriptionModification>
@@ -37,8 +40,10 @@
 					<availabilityText/>
 				</sticker>
 			</category>
-			<category id="Bottom Text" priority="2">
-				<sticker id="Daddy" priority="1" defaultSticker="true" zLayer="1">
+			<category id="btm_txt" priority="2">
+				<categoryName><![CDATA[Bottom Text]]></categoryName>
+				<sticker id="daddy" priority="1" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[Daddy]]></stickerName>
 					<namePrefix priority="2"><![CDATA[Daddy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Daddy</i>]]></descriptionModification>
@@ -48,7 +53,8 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="Mommy" priority="2" defaultSticker="false" zLayer="1">
+				<sticker id="mommy" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Mommy]]></stickerName>
 					<namePrefix priority="2"><![CDATA[Mommy]]></namePrefix>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Mommy</i>]]></descriptionModification>
@@ -59,8 +65,10 @@
 					<availabilityText/>
 				</sticker>
 			</category>
-			<category id="Price" priority="3">
+			<category id="price" priority="3">
+				<categoryName><![CDATA[Price]]></categoryName>
 				<sticker id="50" priority="1" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[50]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>
 					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(50, span)]</i>]]></descriptionModification>
@@ -70,7 +78,8 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="None" priority="0" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY">
+				<sticker id="none" priority="0" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>
 					<descriptionModification/>

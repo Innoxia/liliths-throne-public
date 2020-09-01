@@ -41,7 +41,7 @@ public class Sticker {
 	private String availabilityText;
 	
 	
-	public Sticker(String id, int priority, boolean defaultSticker,
+	public Sticker(String id, String name, int priority, boolean defaultSticker,
 			Colour colourDisabled, Colour colourSelected,
 			String namePrefix, int namePrefixPriority,
 			String namePostfix, int namePostfixPriority,
@@ -51,7 +51,7 @@ public class Sticker {
 			List<ItemTag> tagsRemoved,
 			boolean showDisabledButton, String unavailabilityText, String availabilityText) {
 		this.id = id.replaceAll("'", "").replaceAll("\"", "");
-		this.name = id;
+		this.name = name;
 		this.priority = priority;
 		this.defaultSticker = defaultSticker;
 		this.colourDisabled = colourDisabled;
