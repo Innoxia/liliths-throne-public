@@ -6421,7 +6421,7 @@ public class InventoryDialogue {
 			for(StickerCategory cat : orderedCategories) {
 				stickerSB.append("<div class='container-quarter-width' style='width:calc(75% - 16px); margin:0 8px; padding:0;'>");
 					stickerSB.append("<div class='container-quarter-width' style='margin:0; padding-top:6px; width:20%;'>");
-						stickerSB.append(Util.capitaliseSentence(cat.getId())+":"); // Category name
+						stickerSB.append(Util.capitaliseSentence(cat.getName())+":"); // Category name
 					stickerSB.append("</div>");
 					
 					stickerSB.append("<div class='container-quarter-width' style='margin:0; padding:0; width:80%;'>");
@@ -6432,21 +6432,22 @@ public class InventoryDialogue {
 							if(requirements.isEmpty() || sticker.isShowDisabledButton()) {
 								boolean specialSticker = !sticker.getAvailabilityText().isEmpty() || !sticker.getTagsApplied().isEmpty() || !sticker.getTagsRemoved().isEmpty();
 								stickerFound = true;
+								String id = "ITEM_STICKER_"+cat.getId()+sticker.getId();
 								if(!requirements.isEmpty()) {
 									stickerSB.append(
-											"<div id='ITEM_STICKER_"+cat.getId()+sticker.getId()+"' class='cosmetics-button disabled'>"
-													+ "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>" + Util.capitaliseSentence(sticker.getId()) + (specialSticker?"*":"") + "</b>"
+											"<div id='"+id+"' class='cosmetics-button disabled'>"
+													+ "<b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>" + Util.capitaliseSentence(sticker.getName()) + (specialSticker?"*":"") + "</b>"
 											+ "</div>");
 									
 								} else if(dyePreviewStickers.get(cat)==sticker) {
 									stickerSB.append(
-											"<div id='ITEM_STICKER_"+cat.getId()+sticker.getId()+"' class='cosmetics-button active'>"
-													+ "<b style='color:" + sticker.getColourSelected().toWebHexString() + ";'>" + Util.capitaliseSentence(sticker.getId()) + (specialSticker?"*":"") + "</b>"
+											"<div id='"+id+"' class='cosmetics-button active'>"
+													+ "<b style='color:" + sticker.getColourSelected().toWebHexString() + ";'>" + Util.capitaliseSentence(sticker.getName()) + (specialSticker?"*":"") + "</b>"
 											+ "</div>");
 								} else {
 									stickerSB.append(
-											"<div id='ITEM_STICKER_"+cat.getId()+sticker.getId()+"' class='cosmetics-button'>"
-													+ "<span style='color:"+sticker.getColourDisabled().toWebHexString()+";'>" + Util.capitaliseSentence(sticker.getId()) + (specialSticker?"*":"") + "</span>"
+											"<div id='"+id+"' class='cosmetics-button'>"
+													+ "<span style='color:"+sticker.getColourDisabled().toWebHexString()+";'>" + Util.capitaliseSentence(sticker.getName()) + (specialSticker?"*":"") + "</span>"
 											+ "</div>");
 								}
 							}

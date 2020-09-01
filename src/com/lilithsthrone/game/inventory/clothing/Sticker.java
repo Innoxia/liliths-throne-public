@@ -15,6 +15,7 @@ import com.lilithsthrone.utils.colours.Colour;
 public class Sticker {
 
 	private String id;
+	private String name;
 	private int priority;
 	private boolean defaultSticker;
 	private Colour colourDisabled;
@@ -49,7 +50,8 @@ public class Sticker {
 			List<ItemTag> tagsApplied,
 			List<ItemTag> tagsRemoved,
 			boolean showDisabledButton, String unavailabilityText, String availabilityText) {
-		this.id = id;
+		this.id = id.replaceAll("'", "").replaceAll("\"", "");
+		this.name = id;
 		this.priority = priority;
 		this.defaultSticker = defaultSticker;
 		this.colourDisabled = colourDisabled;
@@ -78,6 +80,10 @@ public class Sticker {
 		return id;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
 	public int getPriority() {
 		return priority;
 	}
