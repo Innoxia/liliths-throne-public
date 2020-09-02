@@ -326,9 +326,8 @@ public class Wes extends NPC {
 			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_tkneepads", false), 5, false, false);
 			this.addClothing(Main.game.getItemGen().generateClothing("dsg_hndcuffs_hndcuffs", false), 5, false, false);
 			
-			//TODO after sticker system:
-			//dsg_eep_ptrlequipset_stpvest
-			//dsg_eep_tacequipset_pltcarrier
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false), 5, false, false);
+			this.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_pltcarrier", false), 5, false, false);
 		}
 	}
 	
