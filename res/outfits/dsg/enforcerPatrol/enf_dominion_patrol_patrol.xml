@@ -107,29 +107,48 @@
 			<!-- Vest always-->
 			<uniqueClothing>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_GREY" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_ptrlequipset_stpvest" isDirty="false">
+					<stickers>
+						<sticker category="name_plate">enforcer</sticker>
+					</stickers>
 				</clothing>
 			</uniqueClothing>
 			
 			<!--Hat or beret, 33% chance of beret when weather is not SNOW-->
 			<uniqueClothing>
 				<conditional><![CDATA[(condChance66 || condSnow) && condFeminine]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PINK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_bwhat" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PINK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_bwhat" isDirty="false">
+					<stickers>
+						<sticker category="badge">badge_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[(!condChance66) && (!condSnow) && condFeminine]]></conditional>
-				<clothing colour="CLOTHING_PINK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false"></clothing>
+				<conditional><![CDATA[(!condChance66) && condFeminine]]></conditional>
+				<clothing colour="CLOTHING_PINK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">					
+					<stickers>
+						<sticker category="flash">flash_patrol_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<!--Cap or beret, 33% chance of beret when weather is not SNOW-->
 			<uniqueClothing>
 				<conditional><![CDATA[(condChance66 || condSnow) && (!condFeminine)]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLUE" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_pcap" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLUE" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_pcap" isDirty="false">
+					<stickers>
+						<sticker category="badge">badge_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[(!condChance66) && (!condSnow) && (!condFeminine)]]></conditional>
-				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false"></clothing>
+				<conditional><![CDATA[(!condChance66) && (!condFeminine)]]></conditional>
+				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">
+					<stickers>
+						<sticker category="flash">flash_patrol_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<!--A tie always-->

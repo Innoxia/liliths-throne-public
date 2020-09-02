@@ -28,6 +28,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixes and standardization of ribbon racks and name plates.
 		Hand optimization of almost all vectorized text.
 		Added the 'Contractor's' variant to the stab vest and plate carrier.
+		
+	DSG's Enforcer outfit update:
+		Added sticker and pattern support.
+		Renamed conditionals to be more reader friendly.
+		Changed comments to be more clear.
+		Removed berets from the Patrol Service Uniform.
+		Possibly fixed bugs related to headgear spawning on Enforcers with the wrong colors and no headgear spawning on Enforcers entirely.
 	
 	Engine:
 		Added ItemTags for defining items, clothing, and weapons as being restricted or illegal, causing them to be unable to be sold to merchants and confiscated by Enforcers.
