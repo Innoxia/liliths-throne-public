@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
+	Your clothing's id (which is very important to the game), is calculated from your clothing's folder and .xml name using the following code:
+		modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
+	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
+	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
+	
+	<coreAtributes>
+	
+		<authorTag><![CDATA[A small tag sewn into the side seam reads "Official Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
+	
+		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
+		<value>850</value> 
+		
+		<!-- The determiner that's displayed before this item's name. While usually 'a' or 'an', for things like socks or gloves, you'll want to use 'a pair of'. I use the CDATA tag for all text values, as it allows html markup to be embedded without causing issues.-->
+		<determiner><![CDATA[an]]></determiner>
+		
+		<!-- The name of this clothing. -->
+		<name><![CDATA[test coat]]></name>
+		
+		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
+		<namePlural pluralByDefault="false"><![CDATA[test coats]]></namePlural> 
+		
+		<!-- The description that's shown in tooltips and on the item's inspection page. -->
+		<description><![CDATA[A dress uniform coat with four pockets.]]></description> 
+		
+		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
+		<physicalResistance>0</physicalResistance> 
+		
+		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<!-- The slot that this clothing fits into. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<slot>TORSO_OVER</slot> 
+		
+		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<rarity>EPIC</rarity> 
+		
+		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+		<clothingSet>dsg_enforcer_service</clothingSet> 
+		
+		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
+		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
+		<imageName>enfdjacket_base.svg</imageName> 
+		
+		<!-- The file path for this clothing's image while equipped. It's only used by condoms in the base game at the moment (so an unequipped condom in your inventory has a different image than while being worn). -->
+		<imageEquippedName/>
+		
+		<stickers>
+			<!-- Note: All of the 'id' attributes are used in-game as category titles and sticker names in the sticker application menu. As such, please try to make your id human-readable. -->
+			<category id="collar" priority="1"> <!-- All stickers defined within this category are *mutually exclusive with one another, but not with stickers defined in other 'category' elements*.
+			The 'id' should be unique to each category, and can be defined as whatever you want.
+			The 'priority' variable determines the position of this category in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the top of the category list.-->
+				<categoryName><![CDATA[Collar Tabs]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+					<stickerName><![CDATA[Enforcer]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="tab_pc" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> <!-- A sticker element.
+				The 'id' element should be unique to stickers within this category element.
+				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
+				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
+				'zLayer' defines the rendering z-layer priority. These 'zLayer' values are compared against one another when rendering, with higher values being drawn on top of stickers with lower values. *The base svg has a zLayer value of 0*, meaning that negative values will be drawn beneath the base svg. Defining zLayer as 0 is not advised (although it is handled by always being drawn on top of the base layer).
+				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like:
+				colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD"
+				(Note: If you do not define an 'imageName' variable, or if you leave it blank, the default selected colour will be TEXT_GREY instead of GENERIC_GOOD.)
+				Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer Constable ]]></namePrefix> <!-- Define a 'namePrefix' to add a prefix to the base clothing's name when this sticker is applied.
+					The 'priority' variable defines the order in which multiple sticker 'namePrefix's are displayed. A *lower value* means they will be *displayed first*. This can be left undefined. -->
+					<namePostfix/> <!-- Exactly the same as 'namePrefix', but the text is appended after the base clothing name. -->
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Police Constable attached to it.</i>]]></descriptionModification> <!-- You can set whether this sticker should define a new description for the clothing.
+					If 'fullReplacement' is true, then the clothing's description is completely replaced with 'descriptionModification' while this sticker is applied. If 'fullReplacement' is false, then it is appended to the base clothing description (so long as another sticker has not applied a 'fullReplacement').
+					The 'priority' element defines in what order the description appending is performed, or, if 'fullReplacement' is true for multiple active stickers, which sticker's description has priority. -->
+					<imageName>enfdjacket_st_tab_pc.svg</imageName> <!-- The path name for this sticker, which should be in the same folder location as this xml file.
+					The 'slot' variable can be omitted, in which case the default slot for the clothing item is used.
+					If the clothing can be equipped into multiple slots, you don't *need* to define an 'imageName' element for every slot, but if you don't, the game will end up using any of your defined 'imageName's at random (which is not a problem if you only define one 'imageName' that's suitable for any of the clothing's base imageName).-->
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> <!-- If this sticker should add any ItemTags to the clothing, then you can define them in here. Use <tag> elements within the 'itemTagsAdded' element (e.g. <tag>SOLD_BY_NYAN</tag>)using ItemTag names as defined here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> <!-- If this sticker should remove any ItemTags to the clothing, then you can define them in here. Use <tag> elements in the same manner as 'itemTagsAdded'. (Warning: If you define either a single sticker or multiple stickers to have conflicting tag behaviour (i.e. both adding and removing identical tags), then behaviour is undefined and you will end up with the ItemTag applied or removed at random.) -->
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText> <!-- Sticker are available to be used by the player by default, but if you want there to be requirements for using this sticker, then define this element as a CDATA text element, with any non-whitespace text returned signalling to the game that this sticker is unavailable. The returned text will be displayed to the player in the button's tooltip, so it should describe why this sticker is unavailable.
+					You can define a 'showDisabledButton' attribute, which by default is set to true, and which defines whether or not this sticker's selection button is shown to the player when disabled.
+					Please note that no 'npc' tag can be used, as this clothing might not belong to anyone.
+					
+					An example where the player could only use the sticker while being feminine would be:
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.isFeminine())
+							Only feminine characters can apply this sticker!
+						#ENDIF
+					]]></unavailabilityText>
+					
+					And for this example, the disabled button is not shown to the player, so there's no need for an elaborate description, as the player will never see it:
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getSubspeciesOverrideRace()!=RACE_DEMON && !pc.isFeminine())
+							unavailable
+						#ENDIF
+					]]></unavailabilityText>
+					-->
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use these collar tabs.
+					</availabilityText> <!-- The counterpart to 'unavailabilityText', this text is shown when 'unavailabilityText' is returning an empty String, and therefore this sticker is available. Use a CDATA text element.
+					Counterpart examples to the two above:
+					<availabilityText><![CDATA[
+						You have unlocked this sticker due to being feminine!
+					]]></availabilityText>
+					
+					<availabilityText><![CDATA[
+						#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON)
+							You have unlocked this sticker due to being a demon!
+						#ELSE
+							You have unlocked this sticker due to being feminine!
+						#ENDIF
+					]]></availabilityText>
+					-->
+				</sticker>
+				<sticker id="tab_sg" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> <!-- This sticker is mutually exclusive with the one above, as it is defined within the same 'category' element. -->
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Sergeant ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Sergeant attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_sg.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_ip" priority="3" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Inspector ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of an Inspector attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_ip.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_ci" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Inspector]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Chief Inspector ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Chief Inspector attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_ci.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Inspector, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_su" priority="4" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_su.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_cs" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Chief Superintendent ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of a Chief Superintendent attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_cs.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+				<sticker id="tab_cm" priority="5" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Enforcer Commissioner ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> It has the insignia of the Commissioner attached to it.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_tab_cm.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use these collar tabs.
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="name" priority="2"> <!-- A new category, meaning that these stickers can be used in conjunction with one of the two defined above. -->
+				<categoryName><![CDATA[Name Plate]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="2" colourSelected="TEXT_GREY"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="name_pc" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Police Constable]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_pc.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Police Constable, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_sg" priority="2" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Sergeant]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_sg.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Sergeant, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_ip" priority="3" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Inspector]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_ip.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Inspector, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_su" priority="4" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_su.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_cs" priority="5" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Chief Superintendent]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_name_cs.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Chief Superintendent, you can freely use this name plate.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_brax" priority="6" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="ADB4FF">
+					<stickerName><![CDATA[Brax]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Brax's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Brax.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_brax.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Look at you, hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_candi" priority="7" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS">
+					<stickerName><![CDATA[Candi]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Candi's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Candi.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_candi.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						A pathetic creature of meat and bone.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_claire" priority="8" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="FEMININE">
+					<stickerName><![CDATA[Claire]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Claire's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Claire.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_claire.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getId() != claire.getId())
+							You can't use Claire's name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						Panting and sweating as you run through my corridors.
+					</availabilityText>
+				</sticker>
+				<sticker id="name_elle" priority="9" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="d69423">
+					<stickerName><![CDATA[Elle]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Elle's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Elle.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_elle.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						How can you challenge a perfect immortal machine?
+					</availabilityText>
+				</sticker>
+				<sticker id="name_wesley" priority="10" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="d6c19c">
+					<stickerName><![CDATA[Wes]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Wes' ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Wes.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_wesley.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Welcome to my DEATH MACHINE, interloper!
+					</availabilityText>
+				</sticker>
+				<sticker id="name_nysa" priority="11" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_ORANGE">
+					<stickerName><![CDATA[Nysa]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Nysa's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Nysa.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_nysa.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						I have nothing more to say to you, hacker
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="ribbon" priority="3">
+				<categoryName><![CDATA[Ribbon Rack]]></categoryName>
+				<sticker id="None" priority="0" defaultSticker="true" zLayer="3" colourSelected="TEXT_GREY">
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="ribbon_brax" priority="1" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="ADB4FF">
+					<stickerName><![CDATA[Brax]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_brax.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						My plans have come to fruition prematurely, but quite to my satisfaction.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_candi" priority="2" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS">
+					<stickerName><![CDATA[Candi]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_candi.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						You have my thanks, hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_claire" priority="3" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="FEMININE">
+					<stickerName><![CDATA[Claire]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_claire.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Let me show you the destruction you have brought upon the planet Earth.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_elle" priority="4" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="d69423">
+					<stickerName><![CDATA[Elle]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_elle.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Make yourself comfortable, Hacker.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_wes" priority="5" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="d6c19c">
+					<stickerName><![CDATA[Wes]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_wesley.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						Stay a while.
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_nysa" priority="6" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_ORANGE">
+					<stickerName><![CDATA[Nysa]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_nysa.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						I have nothing more to say to you, hacker
+					</availabilityText>
+				</sticker>
+			</category>
+			<category id="qual" priority="4">
+				<categoryName><![CDATA[Qualification Badge]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="4" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="qual_flyer" priority="0" defaultSticker="false" zLayer="4" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_PURPLE_LIGHT">
+					<stickerName><![CDATA[Combat Flyer]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_qual_flyer.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who has a Combat Flyer qualification, you can freely wear this badge!
+					</availabilityText>
+				</sticker>
+				<sticker id="qual_diver" priority="0" defaultSticker="false" zLayer="4" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE_GREY">
+					<stickerName><![CDATA[Combat Diver]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_qual_diver.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who has a Combat Diver qualification, you can freely wear this badge!
+					</availabilityText>
+				</sticker>	
+			</category>
+			<category id="aig" priority="5">
+				<categoryName><![CDATA[Aiguillette]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="5" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="aig_cm" priority="1" defaultSticker="false" zLayer="5" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE">
+					<stickerName><![CDATA[Commissioner]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_aig_cm.svg</imageName>
+					<imageName zLayer="-1">enfdjacket_st_aig_cm_backing.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+					]]></unavailabilityText>
+					<availabilityText>
+						As an Enforcer who holds the rank of Commissioner, you can freely use this aiguillette.
+					</availabilityText>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 5, and is calculated as:
+			int base = (getClothingSet()==null?5:10);
+			return base + getIncompatibleSlots().size()*base;-->
+		<enchantmentLimit/>
+		
+		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
+		<effects/>
+		
+		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
+		<blockedPartsList> 
+		
+			<!-- You can add as many blockedParts elements as you like, but they should each have a different 'displacementType', and THERE SHOULD BE AT LEAST ONE, OF TYPE 'REMOVE_OR_EQUIP'.-->
+			<blockedParts>
+			
+				<!-- If this clothing is displaced in the following way (in this case, by being removed), then the 'blockedBodyParts', 'clothingAccessBlocked', and 'concealedSlots' will all be revealed. If multiple 'blockedParts' block or conceal the same slot, only one 'blockedParts' needs to be displaced to reveal it. (e.g. If a pair of trousers has 'UNZIPS' and 'PULLS_DOWN' displacementTypes, and both of these contain the 'concealedSlots' 'slot' 'PENIS', then the penis will be revealed if either UNZIPS or PULLS_DOWN is activated.)
+				A full list of displacementTypes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<!-- The access required to perform this displacementType. clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				
+				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart> <!-- Use the tag 'bodyPart' for values inserted here. -->
+				</blockedBodyParts>
+				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> <!-- Use the tag 'clothingAccess' for values inserted here. -->
+				
+				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
+				<concealedSlots/><!-- Use the tag 'slot' for values inserted here. -->
+			</blockedParts>
+			
+			<!-- The second 'blockedParts' for this item of clothing. As well as being equipped/removed, this T-shirt can also be pulled up.-->
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<!-- You can substitute the <concealedSlots> list for the value below: -->
+				<!-- CS Example: <concealedSlots values="CONCEALED_PARTIAL_TORSO"/> -->
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<incompatibleSlots/> 
+		
+		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours, secondaryColours, and tertiaryColours can all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
+		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff2a2a
+			#ff5555
+			#ff8080
+			#ffaaaa
+			#ffd5d5
+		Orange is used as base colour for changing the secondary colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ff7f2a
+			#ff9955
+			#ffb380
+			#ffccaa
+			#ffe6d5
+		Yellow is used as base colour for changing the tertiary colour of the graphic in-game, and the game will only recognise and change the following colours:
+			#ffd42a
+			#ffdd55
+			#ffe680
+			#ffeeaa
+			#fff6d5
+		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
+		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_GOLD"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
+		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.
+		(i.e. If you've defined a primaryColours element, do not use #ff7f2a, #ff9955, #ffb380, #ffccaa, or #ffe6d5 in the customColour attributes.)
+		
+		You should NEVER use the primary recolouring shades, as they are always reserved for the damage type's colour:
+		#ff2a2a, #ff5555, #ff8080, #ffaaaa, or #ffd5d5
+		-->
+		<customColours>
+			<!-- The 'copyColourIndex' attribute defines which colour index should be copied into this colour slot on weapon generation. This particular colour, having an index of 0, will always be coloured the same as the primary colour when generated. Indexes go from 0->X, where X is the number of defined colours. i.e. If you only define primary and secondary, the first custom colour (i.e. this one) will have an index of 2. -->
+			<customColour copyColourIndex="3" c0="#483737" c1="#6c5353" c2="#916f6f" c3="#ac9393" c4="#c8b7b7">
+				<defaultColours>
+					<colour>CLOTHING_GOLD</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+		</customColours>
+		
+		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags> 
+			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>CHEAT_ITEM</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+	
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the coat's sleeves and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the coat's sleeves and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the coat's sleeves and hastily [npc.verb(button)] up the front.]]>
+		</otherRough>
+	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc.her] coat and [npc.verb(pull)] [npc.her] arms out of the sleeves.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc2.namePos] coat and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on the front of [npc2.namePos] coat and roughly [npc.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</otherRough>
+	</displacementText>
+	
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] coat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] coat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] coat.]]>
+		</otherRough>
+	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] coat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] coat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] coat.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

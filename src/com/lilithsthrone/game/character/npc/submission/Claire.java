@@ -47,6 +47,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.sexActions.submission.SAClaireDangerSex;
@@ -94,7 +95,6 @@ public class Claire extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			this.setStartingBody(false);
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_SERGEANT);
 			this.setDescription(
 				"Claire is the messenger who's responsible for keeping all of Submission's Enforcer posts up-to-date with one another."
@@ -111,6 +111,9 @@ public class Claire extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.7")) {
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -232,8 +235,6 @@ public class Claire extends NPC {
 		
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_taser_taser")));
-//			this.equipMainWeaponFromNowhere(Main.game.getItemGeneration().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_enbaton_enbaton")));
-//			this.equipOffhandWeaponFromNowhere(Main.game.getItemGeneration().generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 		}
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
@@ -244,11 +245,16 @@ public class Claire extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_utilbelt", PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_fssldshirt", PresetColour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_uniques_stpvest_claire", PresetColour.CLOTHING_BLACK, false), true, this);
+
+		AbstractClothing vest = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", PresetColour.CLOTHING_BLACK, false);
+		vest.setSticker("name_plate", "claire");
+		this.equipClothingFromNowhere(vest, true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", PresetColour.CLOTHING_PINK, false), true, this);
+		AbstractClothing beret = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", PresetColour.CLOTHING_PINK, false);
+		beret.setSticker("flash", "flash_patrol_dominion");
+		this.equipClothingFromNowhere(beret, true, this);
 
 	}
 

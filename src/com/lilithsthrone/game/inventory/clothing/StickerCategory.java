@@ -12,7 +12,7 @@ public class StickerCategory {
 	private int priority;
 	
 	public StickerCategory(String id, String name, int priority) {
-		this.id = id.replaceAll("'", "").replaceAll("\"", "");
+		this.id = id.replaceAll("'", "").replaceAll("\"", "").toLowerCase();
 		this.name = name;
 		this.priority = priority;
 	}

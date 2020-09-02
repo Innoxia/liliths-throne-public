@@ -402,7 +402,142 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		
 		try {
-			clothing = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id"), slotHint), false);
+			String loadedId = parentElement.getAttribute("id");
+			
+			// Handle old Enforcer clothing ids (pre-sticker update):
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.6")) {
+				// Berets:
+				if(loadedId.equals("dsg_eep_servequipset_enfberet")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
+					clothing.setSticker("flash", "flash_patrol_dominion");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_academy")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
+					clothing.setSticker("flash", "flash_academy");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_oricl")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
+					clothing.setSticker("flash", "flash_oricl");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfberet_sword")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfberet", false);
+					clothing.setSticker("flash", "flash_sword");
+					return clothing;
+				}
+				
+				// Hats:
+				if(loadedId.equals("dsg_eep_ptrlequipset_bwhat")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_bwhat", false);
+					clothing.setSticker("badge", "badge_dominion");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_ptrlequipset_pcap")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", false);
+					clothing.setSticker("badge", "badge_dominion");
+					return clothing;
+				}
+				
+				// Jackets:
+				if(loadedId.equals("dsg_eep_servequipset_enfdjacket_cs")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
+					clothing.setSticker("collar", "tab_cs");
+					clothing.setSticker("name", "name_cs");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_ip")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
+					clothing.setSticker("collar", "tab_ip");
+					clothing.setSticker("name", "name_ip");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_pc")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
+					clothing.setSticker("collar", "tab_pc");
+					clothing.setSticker("name", "name_pc");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_sg")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
+					clothing.setSticker("collar", "tab_sg");
+					clothing.setSticker("name", "name_sg");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdjacket_su")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", false);
+					clothing.setSticker("collar", "tab_su");
+					clothing.setSticker("name", "name_su");
+					return clothing;
+				}
+				
+				// Unique jackets:
+				if(loadedId.equals("dsg_eep_uniques_enfdjacket_brax")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
+					clothing.setSticker("collar", "tab_ip");
+					clothing.setSticker("name", "name_brax");
+					clothing.setSticker("ribbon", "ribbon_brax");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_candi")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
+					clothing.setSticker("collar", "tab_pc");
+					clothing.setSticker("name", "name_candi");
+					clothing.setSticker("ribbon", "ribbon_candi");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_claire")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
+					clothing.setSticker("collar", "tab_sg");
+					clothing.setSticker("name", "name_claire");
+					clothing.setSticker("ribbon", "ribbon_claire");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_elle")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, null, false);
+					clothing.setSticker("collar", "tab_su");
+					clothing.setSticker("name", "name_elle");
+					clothing.setSticker("ribbon", "ribbon_elle");
+					clothing.setSticker("qual", "qual_flyer");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_wesley")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
+					clothing.setSticker("collar", "tab_ip");
+					clothing.setSticker("name", "name_wesley");
+					clothing.setSticker("ribbon", "ribbon_wes");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_enfdjacket_wesley_su")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
+					clothing.setSticker("collar", "tab_su");
+					clothing.setSticker("name", "name_wesley");
+					clothing.setSticker("ribbon", "ribbon_wes");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_uniques_stpvest_claire")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false);
+					clothing.setSticker("name_plate", "claire");
+					return clothing;
+				}
+				
+				// Waistcoats:
+				if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_cs")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
+					clothing.setSticker("collar", "tab_cs");
+					clothing.setSticker("name", "name_cs");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_ip")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
+					clothing.setSticker("collar", "tab_ip");
+					clothing.setSticker("name", "name_ip");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_pc")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
+					clothing.setSticker("collar", "tab_pc");
+					clothing.setSticker("name", "name_pc");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_sg")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
+					clothing.setSticker("collar", "tab_sg");
+					clothing.setSticker("name", "name_sg");
+					return clothing;
+				} else if(loadedId.equals("dsg_eep_servequipset_enfdwaistcoat_su")) {
+					clothing = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdwaistcoat", false);
+					clothing.setSticker("collar", "tab_su");
+					clothing.setSticker("name", "name_su");
+					return clothing;
+				}
+			}
+			
+			clothing = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(loadedId, slotHint), false);
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
@@ -560,7 +695,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			NodeList nodes = stickersElement.getElementsByTagName("sticker");
 			for(int i=0; i<nodes.getLength(); i++) {
 				Element stickerElement = (Element) nodes.item(i);
-				clothing.setSticker(stickerElement.getAttribute("category"), stickerElement.getTextContent());
+				clothing.setSticker(stickerElement.getAttribute("category").toLowerCase(), stickerElement.getTextContent().toLowerCase());
 			}
 		}
 		

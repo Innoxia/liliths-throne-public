@@ -46,6 +46,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Slightly altered description of 'cynical' personality trait to differentiate it from 'selfish'.
 		Items and weapons will now correctly display ItemTag descriptions in their tooltips.
 		Roxy now buys weapons as well as items and clothing. Her buy modifier has been reduced from 0.4 to 0.3 (meaning she will now only give you 30% of an item's value).
+		Sean now correctly wears an Enforcer patrol uniform instead of a dress uniform.
 	
 	Bugs:
 		Parsing fixes.
