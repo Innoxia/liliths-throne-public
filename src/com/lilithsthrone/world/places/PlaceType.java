@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
+import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -75,6 +77,7 @@ import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiv
 import com.lilithsthrone.game.dialogue.places.submission.rebelBase.RebelBase;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -844,7 +847,17 @@ public class PlaceType {
 			"This particular corridor doesn't have any distinguishing features to it.",
 			null,
 			PresetColour.BASE_BLACK,
-			EnforcerHQDialogue.CELLS_CORRIDOR,
+			EnforcerHQDialogue.CORRIDOR_PLAIN,
+			null,
+			"in the Enforcer HQ")
+			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
+			"Guarded Staircase",
+			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"dominion/enforcerHQ/stairs",
+			PresetColour.BASE_GREEN,
+			EnforcerHQDialogue.STAIRCASE,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -876,8 +889,33 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.GUARDED_DOOR,
 			null,
-			"in the Enforcer HQ")
-			.initWeatherImmune();
+			"in the Enforcer HQ") {
+		@Override
+		public Colour getColour() {
+			if((Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) && !Main.game.isBraxMainQuestComplete())
+					|| Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
+				return PresetColour.BASE_GREEN_LIGHT;
+			}
+			return PresetColour.BASE_CRIMSON;
+		}
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS_DOOR = new AbstractPlaceType(
+			"Locked door",
+			"This internal door is firmly locked, barring passage to anyone not in possession of the required key.",
+			"dominion/enforcerHQ/guardedDoor",
+			PresetColour.BASE_CRIMSON,
+			EnforcerHQDialogue.REQUISITIONS_DOOR,
+			null,
+			"in the Enforcer HQ") {
+		@Override
+		public Colour getColour() {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
+				return PresetColour.BASE_GREEN_LIGHT;
+			}
+			return PresetColour.BASE_CRIMSON;
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType ENFORCER_HQ_LOCKED_DOOR = new AbstractPlaceType(
 			"Locked door",
@@ -888,20 +926,38 @@ public class PlaceType {
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_LOCKED_DOOR_EDGE = new AbstractPlaceType(
+			"Locked door",
+			"This internal door is firmly locked, barring passage to anyone not in possession of the required key.",
+			"dominion/enforcerHQ/guardedDoor",
+			PresetColour.BASE_RED_DARK,
+			EnforcerHQDialogue.LOCKED_DOOR,
+			null,
+			"in the Enforcer HQ")
+			.initWeatherImmune();
 	
 	public static final AbstractPlaceType ENFORCER_HQ_BRAXS_OFFICE = new AbstractPlaceType(
 			"Brax's Office",
 			"Enforcers of the rank 'Inspector' are allowed their own office, and are permitted to decorate them as they see fit.",
-			"dominion/enforcerHQ/braxsOffice",
+			"dominion/enforcerHQ/office",
 			PresetColour.BASE_BLUE_DARK,
 			BraxOffice.INTERIOR_BRAX,
 			null,
 			"in his office") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false));
+			AbstractClothing jacket = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
+			jacket.setSticker("collar", "tab_ip");
+			jacket.setSticker("name", "name_brax");
+			jacket.setSticker("ribbon", "ribbon_brax");
+			inventory.addClothing(jacket);
+			
 			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false));
-			inventory.addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false));
+			
+			AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false);
+			hat.setSticker("badge", "badge_dominion");
+			inventory.addClothing(hat);
 		}
 		@Override
 		public boolean isItemsDisappear() {
@@ -954,13 +1010,53 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_ENTRANCE = new AbstractPlaceType(
 			"Entranceway",
-			"The entrance to the Enforcer HQ consists of a pair of soundproof glass doors.",
+			"The entrance to the Enforcer HQ consists of a pair of sound-proof glass doors.",
 			"dominion/enforcerHQ/exit",
 			PresetColour.BASE_RED,
 			EnforcerHQDialogue.ENTRANCE,
 			null,
 			"")
 			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_ENFORCER_ENTRANCE = new AbstractPlaceType(
+			"Enforcer Entrance",
+			"One of the many non-public entrances to the Enforcer HQ, the sound-proof glass doors only open when a special pass is swiped over a nearby arcane scanner.",
+			"dominion/enforcerHQ/exit",
+			PresetColour.BASE_BLUE,
+			EnforcerHQDialogue.ENTRANCE_ENFORCER,
+			null,
+			"")
+			.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
+			"Requisions Desk",
+			"Specialist or replacement Enforcer equipment is checked out of this area.",
+			"dominion/enforcerHQ/requisitions",
+			PresetColour.BASE_TAN,
+			EnforcerHQDialogue.REQUISITIONS,
+			null,
+			"") {
+		@Override
+		public List<Population> getPopulation() {
+			if(!Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(ENFORCER_HQ_REQUISITIONS)).contains(Main.game.getNpc(Wes.class))
+					&& !Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(ENFORCER_HQ_REQUISITIONS)).contains(Main.game.getNpc(Elle.class))) {
+				return Util.newArrayListOfValues(new Population(false, PopulationType.ENFORCER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.DOG_MORPH_GERMAN_SHEPHERD, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
+			"Quartermaster's Office",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"dominion/enforcerHQ/office",
+			PresetColour.BASE_ORANGE,
+			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
+			null,
+			"")
+			.initWeatherImmune();
+	
+	
 	
 	
 	// Enforcer warehouse:
@@ -3870,8 +3966,19 @@ public class PlaceType {
 			BatCaverns.CAVERN_LIGHT,
 			Encounter.BAT_CAVERN,
 			"in the Bat Caverns"
-			).initDangerous()
-			.initWeatherImmune();
+			) {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Elle.class))) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(
+						new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+						new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+						new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initDangerous()
+	.initWeatherImmune();
 	
 	public static final AbstractPlaceType BAT_CAVERN_RIVER = new AbstractPlaceType(
 			"Underground River",
@@ -4105,7 +4212,7 @@ public class PlaceType {
 			"'Roxy's Box' is a rather over-priced pawn shop, and offers goods that can be found at much reduced prices up in Dominion.",
 			"submission/gamblingDen/trader",
 			PresetColour.BASE_TEAL,
-			RoxysShop.TRADER,
+			RoxysShop.TRADER_EXTERIOR,
 			null,
 			"in the Gambling Den"
 			).initWeatherImmune();

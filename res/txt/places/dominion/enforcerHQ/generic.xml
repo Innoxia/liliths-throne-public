@@ -19,6 +19,11 @@
 			 'Public Inquiries; Reception open [style.colourMinorBad([units.time(9)]-[units.time(17)])]'. While the reception within may currently be [style.colourBad(closed)], you're still able to enter the building through this door.
 		#ENDIF
 	</p>
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
+		<p>
+			As you're in possession of a Contractor Pass, you could also choose to enter the Enforcer HQ via the door that's close to the requisitions area...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
@@ -37,12 +42,47 @@
 		<p>
 			The door nearest to you is marked with the name 'Inspector [brax.nameFull]', letting you know that this is the office you were looking for.
 			#IF(pc.getLevel()<5)
-				 [style.italicsBad(Be prepared for a potentially difficult fight before entering his office!)]
+				 [style.italicsBad(Be prepared for a difficult fight before entering his office!)]
 			#ELSE
-				 [style.italicsMinorBad(Be prepared for a possible fight before entering his office!)]
+				 [style.italicsMinorBad(Be prepared for a potentially difficult fight before entering his office!)]
 			#ENDIF
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR_PLAIN -->
+	
+	<htmlContent tag="CORRIDOR_PLAIN"><![CDATA[
+	<p>
+		This corridor, much like all the others which run throughout the Enforcer HQ, is just as bland and uninteresting as you'd expect to see inside a government building. The floor, walls, and ceiling are all differing shades of grey, and are illuminated in a bright, artificial light which is being emitted from the arcane lightbulbs overhead.
+	</p>
+	<p>
+		There really isn't anything to do in this area other than continue on your way forwards...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_PLAIN_ENFORCER_ENTRANCE"><![CDATA[
+	<p>
+		Having been granted special access to one the many restricted areas of the Enforcer HQ, you find yourself standing in the corridor between the Quartermaster's office and the requisitions area. At one end of the corridor, there's the locked door which leads deeper into the Enforcer HQ's, while at the other end, there are a pair of heavy doors which lead out into Dominion.
+	</p>
+	<p>
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+			#IF(!game.isWorkTime())
+				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Elle only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while she's present, there's not much for you to do here except head out of the Enforcer HQ...
+			#ELSE
+				As you're here during Elle's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where she's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
+			#ENDIF
+		#ELSE
+			#IF(!game.isWorkTime())
+				While there's an Enforcer stationed behind the nearby requisitions desk at all times, Wes only works from [style.colourMinorBad([units.time(9)]-[units.time(17)])]. As you're only able to make use of the requisitions area while he's present, there's not much for you to do here except head out of the Enforcer HQ...
+			#ELSE
+				As you're here during Wes's work hours ([style.colourMinorGood([units.time(9)]-[units.time(17)])]), you could head over to where he's working at the requisitions area, or instead simply continue on your way deeper into into or out of the Enforcer HQ...
+			#ENDIF
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -102,6 +142,19 @@
 	</htmlContent>
 
 	
+	<!-- STAIRCASE -->
+
+	<htmlContent tag="STAIRCASE"><![CDATA[
+	<p>
+		In front of you, there's a large staircase which leads up to the next floor of the building. An Enforcer Constable is standing guard to one side of the foot of the stairs, and as he sees you stop and take a look around, he simply shakes his head and motions for you to turn around and go back the way you came.
+	</p>
+	<p>
+		As it's clear that members of the public aren't allowed to access the upper floors of the Enforcer HQ, you decide that it would be best to simply turn around and head elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- CELLS_OFFICE -->
 
 	<htmlContent tag="CELLS_OFFICE"><![CDATA[
@@ -125,9 +178,28 @@
 	<!-- GUARDED_DOOR -->
 
 	<htmlContent tag="GUARDED_DOOR"><![CDATA[
-	#IF(game.isBraxMainQuestComplete())
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
 		<p>
-			You flash the pass that Candi gave to you at the horse-boy guard, but he refuses to step aside. [style.speechMasculine(Those passes aren't valid anymore, don't waste my time.)]
+			You flash your Contractor Pass to the horse-boy guard, and, with a deep grunt, he steps aside to let you pass.
+		</p>
+		<p>
+			#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+				#IF(!game.isWorkTime())
+					Although you have access the inner part of the Enforcer HQ, Elle isn't going to be in her office at this time, so all that's left for you to do is head over to the requisitions area...
+				#ELSE
+					Now able to access the inner part of the Enforcer HQ, you wonder whether you should go and pay Elle a visit, or instead head over to the requisitions area...
+				#ENDIF
+			#ELSE
+				#IF(!game.isWorkTime())
+					Although you have access the inner part of the Enforcer HQ, Wes isn't going to be in his office at this time, so all that's left for you to do is head over to the requisitions area...
+				#ELSE
+					Now able to access the inner part of the Enforcer HQ, you wonder whether you should go and pay Wes a visit, or instead head over to the requisitions area...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSEIF(game.isBraxMainQuestComplete())
+		<p>
+			You flash the pass that Candi gave to you at the horse-boy guard, but he refuses to step aside and grunts, [style.speechMasculine(Those passes aren't valid anymore. Don't waste my time.)]
 		</p>
 		<p>
 			It looks like he's not going to let you pass, and you don't really have any business back there anyway...
@@ -137,7 +209,7 @@
 			You flash the pass that Candi gave to you at the horse-boy guard, and, with a grunt, he steps aside to let you pass.
 		</p>
 		<p>
-			 As you walk through the doors, you hear him muttering,  [style.speechMasculine(That slut's gonna get in trouble with [brax.name] again... Giving out passes like she does blowjobs...)]
+			As you walk through the doors, you hear him muttering, [style.speechMasculine(That slut's gonna get in trouble with [brax.name] again... Giving out passes like she does blowjobs...)]
 		</p>
 	#ELSE
 		<p>
@@ -162,7 +234,12 @@
 
 	<htmlContent tag="LOCKED_DOOR"><![CDATA[
 	<p>
-		The door before you is firmly shut, and, giving it an experimental push, you discover that it's locked. Doubting that the pass which Candi gave to you grants you access to the area beyond, you decide against asking a nearby Enforcer to open it for you, and instead prepare to turn around and head back the way you came...
+		The door in front of you is firmly shut and locked, and you see that instead of a regular lock, access is granted via what appears to be some kind of arcane barcode scanner attached to the wall to one side of it.
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
+			 Although you try swiping your Contractor Pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
+		#ELSE
+			 Although you try swiping Candi's pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -173,7 +250,22 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- REQUISITIONS_DOOR -->
 
+	<htmlContent tag="REQUISITIONS_DOOR"><![CDATA[
+	<p>
+		The door in front of you is firmly shut and locked, and you see that instead of a regular lock, access is granted via what appears to be some kind of arcane barcode scanner attached to the wall to one side of it.
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_WES))
+			 After [pc.stepping] forwards and swiping your Contractor Pass over this scanner, you hear a high-pitched beep being emitted by the arcane device. Pushing on the door, you discover that it's now unlocked, allowing you to proceed forwards into the area beyond...
+		#ELSE
+			 Although you try swiping Candi's pass over it, nothing happens, and you realise that the area beyond is not going to be accessible to you at this time. Deciding that there's nothing more to be gained here, you decide to turn around and head back the way you came...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- RECEPTION_DESK -->
 	
@@ -225,7 +317,7 @@
 				</p>
 			#ELSE
 				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX))
-					#IF(game.getSecondsPassed()-game.getDialogueFlags().candiSexTimer>60*60*12)
+					#IF(game.getSecondsPassed()-game.getDialogueFlags().getSavedLong("candi_sex_timer")>60*60*12)
 						<p>
 							#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
 									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze, you find yourself looking down not only at the cat-girl's fingers rubbing away at her pussy, but also a large, rounded bump in her belly. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
@@ -1036,5 +1128,88 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- ENTRANCE_ENFORCER -->
+	
+	<htmlContent tag="ENTRANCE_ENFORCER"><![CDATA[
+	<p>
+		This entrance to the Enforcer HQ is typically not able to be used by members of the public, but as you've got a Contractor Pass, you're able to activate the arcane scanner attached to the nearby wall and unlock the doors whenever you want. Thanks to this, you could choose to leave the Enforcer HQ via this entrance, or instead head further inside
+		#IF(!game.isWorkTime())
+			 and make use of the requisitions area...
+		#ELSE
+			#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+				and either visit Elle or make use of the requisitions area...
+			#ELSE
+				and either visit Wes or make use of the requisitions area...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REQUISITIONS -->
+	
+	<htmlContent tag="REQUISITIONS"><![CDATA[
+	<p>
+		Connected to the adjoining corridor by a pair of wide, propped-open doors, the requisitions area is the place where specialist or replacement equipment can be checked out by the HQ's Enforcers. [pc.Stepping] through the open doors into this area, you find yourself standing in a relatively small room, which, other than a couple of basic metal tables pushed into each corner, is devoid of any furniture. The only other points of interest are the locked door and waist-high counter set into the wall before you.
+	</p>
+	<p>
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+			As it's currently outside of Elle's regular working hours ([style.colourMinorBad([units.time(9)] and [units.time(17)])]), a particularly bored-looking German-shepherd-boy is currently on duty behind the counter. Catching sight of you, this SWORD Enforcer stifles a yawn and asks, [style.speechMasculineStrong(Hey, you're that [pc.guy] who Elle gave the special pass to, right?)]
+		#ELSE
+			As it's currently outside of Wes's regular working hours ([style.colourMinorBad([units.time(9)] and [units.time(17)])]), a particularly bored-looking German-shepherd-boy is currently on duty behind the counter. Catching sight of you, this SWORD Enforcer stifles a yawn and asks, [style.speechMasculineStrong(Hey, you're that [pc.guy] who Wes gave the special pass to, right?)]
+		#ENDIF
+	</p>
+	<p>
+		Flashing [npc.name] your pass to confirm that you are indeed the person he's thinking of, you approach the counter and look past him to see a huge storage area filled with all sorts of weapons and protective equipment. Seeing what it is that's caught your attention, the Enforcer shakes his head and reveals,
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+			 [style.speechMasculineStrong(Elle is the only one who's going to sell you any surplus. Sorry, but orders are orders. She's sticking her neck out a little for you and wants to keep a personal check on what you're buying from her.)]
+		#ELSE
+			 [style.speechMasculineStrong(Wes is the only one who's going to sell you any surplus. Sorry, but orders are orders. He's sticking his neck out a little for you and wants to keep a personal check on what you're buying from him.)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+			Disappointed to discover that you're only able to buy Enforcer gear directly from Elle,
+		#ELSE
+			Disappointed to discover that you're only able to buy Enforcer gear directly from Wes,
+		#ENDIF
+		 there's little else for you to do except turn around and leave. If you wanted to purchase something, then you'll have to return between the hours of [style.colourMinorBad([units.time(9)]-[units.time(17)])]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_QUARTERMASTER -->
+	
+	<htmlContent tag="OFFICE_QUARTERMASTER"><![CDATA[
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+		<p>
+			[pc.Walking] up to the door to Elle's office, you see that it bears the words 'Superintendent [elle.surname]'.
+			#IF(!game.isWorkTime())
+					 Just like most of the other offices in the HQ at this time, the lights are off inside and the door is securely locked. Even if you were to return during Elle's regular work hours, you know that she wouldn't be found inside, as she spends her days working at the requisitions desk.
+				</p>
+				<p>
+					There's really nothing more for you to do here except turn around and leave...
+			#ELSE
+				 Despite the fact that you're here during Elle's regular work hours, the lights are off inside and the door is securely locked. Knowing that this is because she spends her days working at the requisitions desk, there's really nothing more for you to do here except turn around and leave...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			[pc.Walking] up to the door to Wes's office, you see that it bears the words 'Superintendent [wes.surname]'.
+			#IF(!game.isWorkTime())
+					 Just like most of the other offices in the HQ at this time, the lights are off inside and the door is securely locked. Even if you were to return during Wes's regular work hours, you know that he wouldn't be found inside, as he spends his days working at the requisitions desk.
+				</p>
+				<p>
+					There's really nothing more for you to do here except turn around and leave...
+			#ELSE
+				 Despite the fact that you're here during Wes's regular work hours, the lights are off inside and the door is securely locked. Knowing that this is because he spends his days working at the requisitions desk, there's really nothing more for you to do here except turn around and leave...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
 	
 </dialogue>

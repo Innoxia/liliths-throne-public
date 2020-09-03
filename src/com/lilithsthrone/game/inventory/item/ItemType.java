@@ -1394,7 +1394,8 @@ public class ItemType {
 			Rarity.EPIC,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MUSHROOMS)),
 			Util.newArrayListOfValues(
-					ItemTag.BAT_CAVERNS_SPAWN)) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.CONTRABAND_LIGHT)) {
 		@Override
 		public boolean isTransformative() {
 			return true;
@@ -2157,6 +2158,7 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BIOJUICE)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.CONTRABAND_LIGHT,
 					ItemTag.NOT_FOR_SALE)) {
 
 

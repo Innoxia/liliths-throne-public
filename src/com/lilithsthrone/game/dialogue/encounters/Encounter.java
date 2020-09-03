@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.SlaveEncountersDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -64,7 +65,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.2
+ * @version 0.3.9.4
  * @author Innoxia, DSG
  */
 public enum Encounter {
@@ -135,14 +136,39 @@ public enum Encounter {
 	DOMINION_STREET() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
+			boolean cultistAvailable = 
+					Main.game.getCurrentWeather() != Weather.MAGIC_STORM
+						&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
+						&& Main.game.getNumberOfWitches()<4
+						&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET);
+			
+			//TODO
+//			boolean wesQuestAvailable = 
+//					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+//						&& !Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)
+//						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
+//						&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+//						&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
+			
 			return Util.newHashMapOfValues(
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
-					new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
+					Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f)
+						:null,
+					cultistAvailable
+						?new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f)
+						:null,
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f)
+						:null,
 					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null,
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
+//					wesQuestAvailable
+//						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 1f)
+//						:null,
+					Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu") && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f)
+						:null);
 		}
 		
 		@Override
@@ -158,12 +184,7 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
-					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
-					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
-					&& Main.game.getNumberOfWitches()<4
-					&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET)) {
-				
+			if(node == EncounterType.SPECIAL_DOMINION_CULTIST) {
 				boolean suitableTile = true;
 				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
 					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
@@ -184,18 +205,15 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 			}
-
-			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR
-					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
 				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
 					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
 				}
 			}
 			
-			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
-					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
-					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
+			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
@@ -207,6 +225,10 @@ public enum Encounter {
 					return null;
 				}
 				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
+			}
+			
+			if(node == EncounterType.WES_QUEST_START) {
+				return WesQuest.WES_QUEST_START;
 			}
 			
 			return null;

@@ -5,7 +5,7 @@
 	
 	<coreAttributes>
 		<clothingAuthorTag><![CDATA[Printed on the inside, a small tag reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
-	<value>250</value> 
+		<value>250</value> 
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[kitty panties]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[kitty panties]]></namePlural> 
@@ -71,18 +71,6 @@
 
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] panties and [npc.verb(let)] them fall from [npc.her] waist.]]>
-    </self>
-    <other>
-	  <![CDATA[[npc.Name] [npc.verb(untie)] [npc2.namePos] panties and [npc.verb(let)] them fall from [npc2.her] waist.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(rip)] off [npc2.namePos] panties.]]>
-    </otherRough>
-  </replacementText>
-  
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
       <![CDATA[[npc.Name] [npc.verb(pull)] the panties up to [npc.her] groin and [npc.verb(tie)] it up on either side of [npc.her] waist.]]>
     </self>
     <other>
@@ -90,6 +78,18 @@
     </other>
     <otherRough>
 	  <![CDATA[[npc.Name] [npc.verb(pull)] the panties up to [npc2.namePos] groin so hard it practically gives [npc2.her] a wedgie and [npc.verb(tie)] it up on either side of [npc2.namePos] waist as tightly as possible.]]>
+    </otherRough>
+  </replacementText>
+  
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] panties and [npc.verb(let)] them fall from [npc.her] waist.]]>
+    </self>
+    <other>
+	  <![CDATA[[npc.Name] [npc.verb(untie)] [npc2.namePos] panties and [npc.verb(let)] them fall from [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(rip)] off [npc2.namePos] panties.]]>
     </otherRough>
   </displacementText>
 	

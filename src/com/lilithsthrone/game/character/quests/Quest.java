@@ -1173,9 +1173,116 @@ public enum Quest {
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
 	},
+
+	// Wes:
+
+	WES_FAIL(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Opportunity Missed";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd told Wesley that you had no intention of helping him with his investigation, the fox-boy disappeared, and you can be sure that he'll never try to seek out your help again...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
+	WES_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Help Needed";
+		}
+		@Override
+		public String getDescription() {
+			return "While travelling through Dominion, you were approached by a mysterious undercover SWORD Enforcer who asked for your help."
+					+ " He'd like you to meet him outside of the Shopping Arcade's antiques shop between [units.time(13)]-[units.time(14)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You agreed to help Wesley investigate his superior officer.";
+		}
+	},
+
+	WES_1(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Finding Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "Wes told you that his superior officer, [elle.name] (or 'Elle' for short), takes night vision goggles with her while taking suspiciously long lunches on Wednesdays, and always comes back with wet shoes."
+					+ " You need to find her and record any incriminating evidence on the arcane recording device Wes gave to you..."
+					+ "<br/>She takes [style.colourOrange(unusually long lunch breaks)]."
+					+ "<br/>She only does this on a [style.colourOrange(Wednesday)]."
+					+ "<br/>She takes a set of [style.colourOrange(night vision goggles)] with her."
+					+ "<br/>Afterwards, her [style.colourOrange(shoes are often wet)] and sometimes have trace amounts of some kind of [style.colourOrange(glowing residue on them)]."
+					+ "<br/>[style.italicsMinorGood(For a hint on where to go, ask Lilaya about it.)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having deduced that Elle was doing her shady business down in the Bat Caverns, you managed to collect evidence of her selling weapons to a dangerous criminal gang.";
+		}
+	},
+
+	WES_2(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Using the Evidence";
+		}
+		@Override
+		public String getDescription() {
+			return "With your arcane recording device now containing incriminating evidence of Elle's corruption, you're left with two possible choices of what to do with it."
+					+ " You could hand it in as an anonymous tip to either Claire or Candi, or if you wanted to betray Wes and side with Elle,"
+						+ " you could wait outside the Enforcer HQ between [units.time(16)]-[units.time(18)] and reveal everything to the [elle.race] as she leaves work.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You made use of the evidence which you collected in order to bring an end to this whole business with Wes and Elle.";
+		}
+	},
+
+	WES_3_WES(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Wes";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to do as Wes asked and hand in the incriminating evidence as an anonymous tip to the Enforcers."
+					+ " You should wait at least one week for things to be settled, then ask to see Wes up in the Enforcer HQ between [units.time(9)]-[units.time(17)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Wes, and after anonymously handing in the incriminating evidence, you met the fox-boy in the Enforcer HQ to discover that he's been promoted to take Elle's job."
+					+ " With his new authority, he's granted you access to the Enforcer HQ's requisitions area as a reward for your help."
+					+ " You can also now freely visit Wes in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
+
+	WES_3_ELLE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to betray Wes and reveal everything to Elle."
+					+ " Thankful for your unexpected support, the [elle.race] promised to reward you if you return to the Enforcer HQ after at least a week has passed...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Elle, and after returning to meet with her at the Enforcer HQ, you discovered that Wes has been enslaved."
+					+ " Thankful for your support, the [elle.race] has granted you access to the Enforcer HQ's requisitions area."
+					+ " You can also now freely visit Elle (and Wes) in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
         
-	//Rebel Base        
-        REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 1, 5) {
+ //Rebel Base        
+ REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Hit The Lever!";
@@ -1188,23 +1295,24 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You pulled the handle against your better judement.";
 		}
-         },
-        REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
-		@Override
-		public String getName() {
-			return "Pull Handle, Recieve Mystery";
-		}
-		@Override
-		public String getDescription() {
-			return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
-		}
-         },
+  },
+   
+  REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
+    @Override
+    public String getName() {
+      return "Pull Handle, Recieve Mystery";
+    }
+    @Override
+    public String getDescription() {
+      return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
+    }
+    @Override
+    public String getCompletedDescription() {
+      return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+    }
+  },
         
-        REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 1, 5) {
+  REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Fill In The Blank";
@@ -1217,9 +1325,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
 		}
-         },
+  },
         
-        REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE, 1, 5) {
+  REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Open Says Me";
@@ -1232,9 +1340,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
 		}
-         },
+  },
         
-        REBEL_BASE_EXPLORATION(QuestType.SIDE, 1, 5) {
+  REBEL_BASE_EXPLORATION(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Going Spelunking";
@@ -1246,11 +1354,10 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You found out that the hidden cave was a hideout for a long gone rebel group. From the looks of things, they didn't win.";
-		}
-                
+		}               
 	},
         
-        REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 10) {
+  REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Getting Away With It";
@@ -1262,11 +1369,10 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You managed to get out in one piece. Whatever else that cave held is now buried forever.";
-		}
-                
+		}                
 	},
         
-        REBEL_BASE_FAILED(QuestType.SIDE, 1, 0) {
+  REBEL_BASE_FAILED(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Cold Feet";
@@ -1278,8 +1384,7 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
-		}
-                
+		}               
 	},
 	
 	// Romance quests:

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.GamblingDenDialogue;
@@ -1000,92 +1002,55 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Claire that you need to get going.", SEWER_ENTRANCE);
+			List<Response> responses = new ArrayList<>();
+			
+			responses.add(new Response("Back", "Tell Claire that you need to get going.", SEWER_ENTRANCE));
+			
 
-			} else if (index == 1) {
-				if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_SUBMISSION_SOCIETY) {
-					return new Response("Information", "You are already asking Claire about Submission society.", null);
-				}
-				return new Response("Information", "Ask Claire about Submission society.", CLAIRE_INFO_SUBMISSION_SOCIETY) {
+			if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_SUBMISSION_SOCIETY) {
+				responses.add(new Response("Information", "You are already asking Claire about Submission society.", null));
+			} else {
+				responses.add(new Response("Information", "Ask Claire about Submission society.", CLAIRE_INFO_SUBMISSION_SOCIETY) {
 					@Override
 					public void effects() {
 						applyClaireMeetingEffects();
 					}
-				};
-
-			} else if (index == 2) {
-				if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_LYSSIETH) {
-					return new Response("Lyssieth", "You are already asking Claire about Lyssieth.", null);
-				}
-				return new Response("Lyssieth", "Ask Claire about Lyssieth.", CLAIRE_INFO_LYSSIETH) {
+				});
+			}
+			
+			if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_LYSSIETH) {
+				responses.add(new Response("Lyssieth", "You are already asking Claire about Lyssieth.", null));
+			} else {
+				responses.add(new Response("Lyssieth", "Ask Claire about Lyssieth.", CLAIRE_INFO_LYSSIETH) {
 					@Override
 					public void effects() {
 						applyClaireMeetingEffects();
 					}
-				};
-
-			} else if (index == 3) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
-					if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_SWORD_ORICL) {
-						return new Response("SWORD & ORICL", "You are already asking Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", null);
-					}
-					return new Response("SWORD & ORICL", "Ask Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", CLAIRE_INFO_SWORD_ORICL);
-					
+				});
+			}
+			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
+				if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_SWORD_ORICL) {
+					responses.add(new Response("SWORD & ORICL", "You are already asking Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", null));
 				} else {
-					return new Response("Teleportation", "Ask Claire about teleportation.", CLAIRE_INFO_TELEPORTATION) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireAskedTeleportation, true);
-							applyClaireMeetingEffects();
-						}
-					};
-				}
-
-			} else if(index==4) {
-				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_TWO) {
-					return new Response("Report Back", "Report what the slime said about a 'Slime Queen'.", CLAIRE_INFO_REPORT_BACK) {
-						@Override
-						public void effects() {
-							applyClaireMeetingEffects();
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_THREE));
-						}
-					};
-					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_SUBMIT
-							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_FORCE
-							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_CONVINCE) {
-					return new Response("Report Back", "Report to Claire that you've defeated the Slime Queen.", CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK) {
-						@Override
-						public void effects() {
-							applyClaireMeetingEffects();
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SIDE_UTIL_COMPLETE));
-						}
-					};
-					
-				} else {
-					return null;
+					responses.add(new Response("SWORD & ORICL", "Ask Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", CLAIRE_INFO_SWORD_ORICL));
 				}
 				
-			} else if(index==5
-					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
-					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
-					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
-					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
-				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
+			} else {
+				responses.add(new Response("Teleportation", "Ask Claire about teleportation.", CLAIRE_INFO_TELEPORTATION) {
 					@Override
 					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireAskedTeleportation, true);
 						applyClaireMeetingEffects();
 					}
-				};
-				
-				
-			} else if(index == 6 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
+				});
+			}
+			
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_TELEPORTATION) || !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_TELEPORTATION)) {
-					return new Response("Teleportation pads",
-							"Tell Claire that you'd like to see the teleportation pads now.<br/>[style.italicsQuestSide(This will start a side quest which will need to be resolved before you're able to continue with whatever it is you were doing...)]",
+					responses.add(new Response("Teleportation pads",
+							"Tell Claire that you'd like to see the teleportation pads now."
+									+ "<br/>[style.italicsQuestSide(This will start a side quest which will need to be resolved before you're able to continue with whatever it is you were doing...)]",
 							CLAIRE_TELEPORTATION_PADS) {
 						@Override
 						public void effects() {
@@ -1095,11 +1060,11 @@ public class SubmissionGenericPlaces {
 						public Colour getHighlightColour() {
 							return PresetColour.QUEST_SIDE;
 						}
-					};
+					});
 					
 				} else {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedWarehouseEscape)) {
-						return new ResponseSex(
+						responses.add(new ResponseSex(
 								"Risky sex",
 								"From your experience in the SWORD warehouse, Claire seems to have obtained a fetish for risky sex."
 										+ " You could always satisfy her craving for it if you wanted to...",
@@ -1117,21 +1082,73 @@ public class SubmissionGenericPlaces {
 								null,
 								null,
 								AFTER_CLAIRE_SEX,
-								UtilText.parseFromXMLFile("places/submission/submissionPlaces", "START_CLAIRE_SEX"));
+								UtilText.parseFromXMLFile("places/submission/submissionPlaces", "START_CLAIRE_SEX")));
+						
+					} else {
+						responses.add(new Response("Warehouse", "Ask Claire if she still thinks about your escape from the SWORD warehouse.", CLAIRE_WAREHOUSE) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireAskedWarehouseEscape, true);
+								applyClaireMeetingEffects();
+							}
+						});
 					}
-					return new Response("Warehouse", "Ask Claire if she still thinks about your escape from the SWORD warehouse.", CLAIRE_WAREHOUSE) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireAskedWarehouseEscape, true);
-							applyClaireMeetingEffects();
-						}
-					};
-					
 				}
-					
-			} else {
-				return null;
 			}
+			
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_TWO) {
+				responses.add(new Response("Report Back", "Report what the slime said about a 'Slime Queen'.", CLAIRE_INFO_REPORT_BACK) {
+					@Override
+					public void effects() {
+						applyClaireMeetingEffects();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_THREE));
+					}
+				});
+				
+			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_SUBMIT
+						|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_FORCE
+						|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_CONVINCE) {
+				responses.add(new Response("Report Back", "Report to Claire that you've defeated the Slime Queen.", CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK) {
+					@Override
+					public void effects() {
+						applyClaireMeetingEffects();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SIDE_UTIL_COMPLETE));
+					}
+				});
+			}
+			
+			if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				responses.add(new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
+					@Override
+					public void effects() {
+						applyClaireMeetingEffects();
+					}
+				});
+			}
+
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_2) {
+				responses.add(new Response("Anonymous tip",
+						"Ask Claire if there's a way to anonymously submit evidence of criminal activity, so that you can deposit the arcane recorder containing the footage of Elle dealing with the gang.",
+						WesQuest.CLAIRE_ELLE_EVIDENCE) {
+					@Override
+					public void effects() {
+						applyClaireMeetingEffects();
+					}
+				});
+			}
+			
+			for(int i=0; i<responses.size(); i++) {
+				if(index==i) {
+					return responses.get(i);
+				}
+			}
+			
+			return null;
 		}
 	};
 	
@@ -1176,12 +1193,7 @@ public class SubmissionGenericPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Let Claire get back on with her work, and continue on your way.", SEWER_ENTRANCE);
-				
-			} else {
-				return null;
-			}
+			return CLAIRE.getResponse(responseTab, index);
 		}
 	};
 	

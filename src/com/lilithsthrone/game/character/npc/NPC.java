@@ -409,7 +409,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Check for this NPC's willingness to have clothing equipped on them.
 	 */
 	public Value<Boolean, String> isInventoryEquipAllowed(AbstractClothing clothing, InventorySlot slotToEquipTo) {
-		if((this.isSlave() && this.getOwner().isPlayer()) || clothing.getClothingType().isCondom(slotToEquipTo)) {
+		if((this.isSlave() && this.getOwner().isPlayer()) || clothing.isCondom(slotToEquipTo)) {
 			// Can always equip condoms onto anyone (as they have a getCondomEquipEffects() method to handle it)
 			// Can also always equip anything onto owned slaves
 			return new Value<>(true, ""); 

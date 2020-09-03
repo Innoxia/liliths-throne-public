@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.3.7
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class QuestTree {
@@ -22,7 +22,8 @@ public class QuestTree {
 	public static TreeNode<Quest> daddyTree = new TreeNode<Quest>(Quest.DADDY_START);
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
-
+	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
+	
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
@@ -207,6 +208,23 @@ public class QuestTree {
                 node1.addChild(nodeBranchB);
                 node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
                 nodeBranchA.addChild(node2);
+		
+		// Wes quest:
+
+		node1 = new TreeNode<Quest>(Quest.WES_1);
+		wesTree.addChild(node1);
+
+		node2 = new TreeNode<Quest>(Quest.WES_2);
+		node1.addChild(node2);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_WES);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_ELLE);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
 		
 		// Romance quests:
 

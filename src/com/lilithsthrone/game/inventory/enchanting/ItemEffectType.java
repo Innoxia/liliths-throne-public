@@ -3379,11 +3379,17 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
 				List<TFModifier> mods =  Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
 				if(targetItem instanceof AbstractClothing) {
-					for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
-						List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
-						if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) { //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
-							mods.add(TFModifier.CLOTHING_VIBRATION);
-							break;
+					 //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
+					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP) || ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN) {
+						mods.add(TFModifier.CLOTHING_VIBRATION);
+						
+					} else {
+						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
+							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
+							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) {
+								mods.add(TFModifier.CLOTHING_VIBRATION);
+								break;
+							}
 						}
 					}
 				}

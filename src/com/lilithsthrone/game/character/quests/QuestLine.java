@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.3.7.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public enum QuestLine {
@@ -68,10 +68,15 @@ public enum QuestLine {
 	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
 			QuestType.SIDE,
 			QuestTree.vengarTree),
+
+
+	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
+			QuestType.SIDE,
+			QuestTree.wesTree),
         
-        SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
-                        QuestType.SIDE,
-                        QuestTree.rebelBaseTree),
+  SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+      QuestType.SIDE,
+      QuestTree.rebelBaseTree),
 	
 	// Romance quests:
 	

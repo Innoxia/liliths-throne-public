@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -30,10 +31,12 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -63,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.8.3
- * @version 0.3.8.6
+ * @version 0.3.9.5
  * @author Innoxia
  */
 public class EnforcerAlleywayDialogue {
@@ -75,14 +78,34 @@ public class EnforcerAlleywayDialogue {
 	private static boolean isLeaderSearching = false;
 	private static boolean hadSex = false;
 	private static boolean encounteredBefore = false;
+
+	private static boolean contrabandFound = false;
+	private static boolean heavyContrabandFound = false;
+	private static Map<AbstractItem, Integer> itemsConfiscated = new HashMap<>();
+	private static Map<AbstractWeapon, Integer> weaponsConfiscated = new HashMap<>();
+	private static Map<AbstractClothing, Integer> clothingConfiscated = new HashMap<>();
+	
 	
 	private static SexType playerSexType;
 	private static boolean enforcerWantsPlayerSex;
 
+	private static boolean playerContraband(ItemTag tag) {
+		return Main.game.getPlayer().getAllItemsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag))
+				|| Main.game.getPlayer().getAllWeaponsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag))
+				|| Main.game.getPlayer().getAllClothingInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(tag));
+	}
+	
 	private static void initVariables() {
 		bribed = false;
 		searched = false;
 		hadSex = false;
+		
+		contrabandFound = false;
+		heavyContrabandFound = false;
+		itemsConfiscated = new HashMap<>();
+		weaponsConfiscated = new HashMap<>();
+		clothingConfiscated = new HashMap<>();
+		
 		encounteredBefore = ((NPC)getEnforcerLeader()).hasEncounteredBefore();
 		setDemonRevealed(Main.game.getPlayer().getRace()==Race.DEMON);
 		setThinksPlayerEnforcer(Main.game.getPlayer().hasAnyEnforcerStatusEffect());
@@ -457,11 +480,26 @@ public class EnforcerAlleywayDialogue {
 		}
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
 			if(encounteredBefore) {
-				return UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_START_REPEAT", getEnforcers());
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_START_REPEAT", getEnforcers()));
 			} else {
-				return UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_START", getEnforcers());
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_START", getEnforcers()));
 			}
+			
+			if(Main.game.getPlayer().getAllItemsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_HEAVY))
+					|| Main.game.getPlayer().getAllWeaponsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_HEAVY))
+					|| Main.game.getPlayer().getAllClothingInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_HEAVY))) {
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_CONTRABAND_HEAVY", getEnforcers()));
+				
+			} else if(Main.game.getPlayer().getAllItemsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM))
+					|| Main.game.getPlayer().getAllWeaponsInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM))
+					|| Main.game.getPlayer().getAllClothingInInventory().keySet().stream().anyMatch(c->c.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM))) {
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_CONTRABAND_MEDIUM", getEnforcers()));
+			}
+			
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -530,8 +568,23 @@ public class EnforcerAlleywayDialogue {
 								UtilText.parse(getEnforcerLeader(),
 									((Main.game.getPlayer().getRace()==Race.HUMAN || !Main.game.isDayTime()) && !isDemonRevealed())
 										?"Do as [npc.name] says and submit to a pat-down search so that they can confirm that you're not up to no good..."
-										:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good..."),
+										:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good...")
+								+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+									?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
+									:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+										?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
+										:"")),
 								ENFORCER_ALLEYWAY_SEARCHED) {
+							@Override
+							public Colour getHighlightColour() {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+									return PresetColour.GENERIC_TERRIBLE;
+								}
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+									return PresetColour.GENERIC_BAD;
+								}
+								return super.getHighlightColour();
+							}
 							@Override
 							public void effects() {
 								isLeaderSearching = true;
@@ -566,8 +619,23 @@ public class EnforcerAlleywayDialogue {
 								UtilText.parse(getEnforcerSubordinate(),
 										((Main.game.getPlayer().getRace()==Race.HUMAN || !Main.game.isDayTime()) && !isDemonRevealed())
 											?"Submit to a pat-down search and ask for [npc.name] to be the one to search you..."
-											:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good..."),
+											:"Tell [npc.name] that you think that [npc.she] should do [npc.her] job and give you a pat-down search to make sure that you're not up to no good...")
+									+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+										?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
+										:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+											?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
+											:"")),
 								ENFORCER_ALLEYWAY_SEARCHED) {
+							@Override
+							public Colour getHighlightColour() {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+									return PresetColour.GENERIC_TERRIBLE;
+								}
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+									return PresetColour.GENERIC_BAD;
+								}
+								return super.getHighlightColour();
+							}
 							@Override
 							public void effects() {
 								isLeaderSearching = false;
@@ -710,12 +778,84 @@ public class EnforcerAlleywayDialogue {
 		}
 	};
 	
+	private static boolean contrabandCheck(Collection<ItemTag> tags) {
+		if(tags==null) {
+			return false;
+		}
+		if(tags.contains(ItemTag.CONTRABAND_HEAVY)) {
+			heavyContrabandFound = true;
+			return true;
+		}
+		return tags.contains(ItemTag.CONTRABAND_MEDIUM)
+				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass")
+				&& !Main.game.getPlayer().hasItemType("innoxia_quest_special_pass_elle");
+	}
+	
 	public static final DialogueNode ENFORCER_ALLEYWAY_SEARCHED = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			searched = true;
 			playerSexType = getWantedSexType(isLeaderSearching?getEnforcerLeader():getEnforcerSubordinate(), Main.game.getPlayer());
 			enforcerWantsPlayerSex = (isLeaderSearching?getEnforcerLeader():getEnforcerSubordinate()).isAttractedTo(Main.game.getPlayer());
+			
+			// Equipped contraband:
+			for(AbstractClothing c : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
+				if(contrabandCheck(c.getItemTags())) {
+					Main.game.getPlayer().forceUnequipClothingIntoVoid(getEnforcerLeader(), c);
+					getEnforcerLeader().addClothing(c, false);
+					clothingConfiscated.put(c, 1);
+				}
+			}
+			for(int i=0; i<3; i++) {
+				AbstractWeapon w = Main.game.getPlayer().getMainWeapon(i);
+				if(w!=null && contrabandCheck(w.getItemTags())) {
+					Main.game.getPlayer().unequipMainWeaponIntoVoid(i, false);
+					getEnforcerLeader().addWeapon(w, false);
+					weaponsConfiscated.putIfAbsent(w, 0);
+					weaponsConfiscated.put(w, weaponsConfiscated.get(w)+1);
+				}
+				w = Main.game.getPlayer().getOffhandWeapon(i);
+				if(w!=null && contrabandCheck(w.getItemTags())) {
+					Main.game.getPlayer().unequipOffhandWeaponIntoVoid(i, false);
+					getEnforcerLeader().addWeapon(w, false);
+					weaponsConfiscated.putIfAbsent(w, 0);
+					weaponsConfiscated.put(w, weaponsConfiscated.get(w)+1);
+				}
+			}
+			
+			// Contraband in inventory:
+			for(Entry<AbstractWeapon, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllWeaponsInInventory()).entrySet()) {
+				AbstractWeapon weapon = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(weapon.getItemTags())) {
+					Main.game.getPlayer().removeWeapon(weapon, count);
+					getEnforcerLeader().addWeapon(weapon, count, false, false);
+					weaponsConfiscated.putIfAbsent(weapon, 0);
+					weaponsConfiscated.put(weapon, weaponsConfiscated.get(weapon)+count);
+				}
+			}
+			for(Entry<AbstractClothing, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllClothingInInventory()).entrySet()) {
+				AbstractClothing clothing = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(clothing.getItemTags())) {
+					Main.game.getPlayer().removeClothing(clothing, count);
+					getEnforcerLeader().addClothing(clothing, count, false, false);
+					clothingConfiscated.putIfAbsent(clothing, 0);
+					clothingConfiscated.put(clothing, clothingConfiscated.get(clothing)+count);
+				}
+			}
+			for(Entry<AbstractItem, Integer> entry : new HashMap<>(Main.game.getPlayer().getAllItemsInInventory()).entrySet()) {
+				AbstractItem item = entry.getKey();
+				int count = entry.getValue();
+				if(contrabandCheck(item.getItemTags())) {
+					Main.game.getPlayer().removeItem(item, count);
+					getEnforcerLeader().addItem(item, count, false, false);
+					itemsConfiscated.putIfAbsent(item, 0);
+					itemsConfiscated.put(item, itemsConfiscated.get(item)+count);
+				}
+			}
+			
+			contrabandFound = !weaponsConfiscated.isEmpty() || !clothingConfiscated.isEmpty() || !itemsConfiscated.isEmpty();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -732,14 +872,38 @@ public class EnforcerAlleywayDialogue {
 				enforcers.add(getEnforcerLeader());
 			}
 			
+			if(contrabandFound) {
+				List<String> confiscationList = new ArrayList<>();
+	
+				for(Entry<AbstractWeapon, Integer> entry : weaponsConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				for(Entry<AbstractClothing, Integer> entry : clothingConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				for(Entry<AbstractItem, Integer> entry : itemsConfiscated.entrySet()) {
+					confiscationList.add("<b>"+entry.getValue()+"x "+entry.getKey().getDisplayName(true)+"</b>");
+				}
+				
+				UtilText.addSpecialParsingString(Util.stringsToStringList(confiscationList, false), true);
+			}
+			
 			if(isLeaderSearching) {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED", getEnforcers()));
 			} else {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_SUBORDINATE", getEnforcers()));
 			}
 			
-			if(playerSexType!=null && enforcerWantsPlayerSex) {
-				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND", enforcers));
+			if(heavyContrabandFound) {
+				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_HEAVY_CONTRABAND", enforcers));
+				
+			} else if(playerSexType!=null && enforcerWantsPlayerSex) {
+				if(contrabandFound) {
+					sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_CONTRABAND_DEMAND_STRIP", enforcers));
+					
+				} else {
+					sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND", enforcers));
+				}
 				
 				if(playerSexType.getPerformingSexArea()==SexAreaPenetration.PENIS) {
 					if(playerSexType.getPerformingSexArea()==SexAreaOrifice.VAGINA) {
@@ -754,8 +918,14 @@ public class EnforcerAlleywayDialogue {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_FINGER_ANUS", enforcers));
 					}
 				}
+				
 			} else {
-				sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_NONE", enforcers));
+				if(contrabandFound) {
+					sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_CONTRABAND", enforcers));
+					
+				} else {
+					sb.append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEARCHED_STRIP_DEMAND_NONE", enforcers));
+				}
 			}
 			
 			return sb.toString();
@@ -765,7 +935,24 @@ public class EnforcerAlleywayDialogue {
 			GameCharacter partner = isLeaderSearching?getEnforcerLeader():getEnforcerSubordinate();
 			GameCharacter spectator = isLeaderSearching?getEnforcerSubordinate():getEnforcerLeader();
 			
-			if((playerSexType!=null && enforcerWantsPlayerSex)) {
+			if(heavyContrabandFound) {
+				if (index == 1) {
+					return new Response("Comply", "Comply with the Enforcers and let them take you off to the cells...", AFTER_CONTRABAND_CELLS);
+					
+				} else if(index==2) {
+					return new ResponseCombat("Resist",
+							"Resist arrest, which will cause the Enforcers to attempt to subdue you by force..."
+									+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
+							(NPC)getEnforcerLeader(),
+							getEnforcers(),
+							Util.newHashMapOfValues(
+									new Value<>(Main.game.getPlayer(), "[pc.speech(I'm not going quietly!)] you shout, getting ready to defend yourself against the Enforcers."),
+									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(Looks like we'll have to do this the hard way!)] [npc.name] shouts.")),
+									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(This is the last mistake you'll ever make!)] [npc.name] exclaims."))));
+				}
+				
+				
+			} else if((playerSexType!=null && enforcerWantsPlayerSex)) {
 				if(index==1) {
 					return getEnforcerSexResponse("Strip",
 							UtilText.parse(partner,
@@ -1549,6 +1736,30 @@ public class EnforcerAlleywayDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_DEFEAT_CELLS", getEnforcers()));
+			banishEnforcers(false);
+			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELL);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 25*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Wait...", "There's really nothing that you can do except wait in your cell...", AFTER_DEFEAT_CELLS_WAITING);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AFTER_CONTRABAND_CELLS = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "AFTER_CONTRABAND_CELLS", getEnforcers()));
 			banishEnforcers(false);
 			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELL);
 		}

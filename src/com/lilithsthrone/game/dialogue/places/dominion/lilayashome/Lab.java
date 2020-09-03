@@ -358,6 +358,30 @@ public class Lab {
 			});
 		}
 		
+		if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_1) {
+			if(Main.game.getCurrentDialogueNode()==LILAYA_ELLE_HELP) {
+				generatedResponses.add(new Response("Elle's location", "You are already asking Lilaya about where Elle could be!", null));
+				
+			} else {
+				generatedResponses.add(new Response("Elle's location",
+						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestLilayaHelp)
+							?"Ask Lilaya if she can remind you where Elle is teleporting to."
+							:"Ask Lilaya for some help in figuring out where Elle is teleporting to.",
+						LILAYA_ELLE_HELP){
+					@Override
+					public void effects() {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestLilayaHelp)) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_ELLE_HELP_REPEAT"));
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_ELLE_HELP"));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestLilayaHelp, true);
+						}
+						setEntryFlags();
+					}
+				});
+			}
+		}
+		
 		return generatedResponses;
 	}
 	
@@ -891,6 +915,17 @@ public class Lab {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_JINX_REMOVAL");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(0, index);
+		}
+	};
+
+	public static final DialogueNode LILAYA_ELLE_HELP = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

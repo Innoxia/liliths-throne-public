@@ -1051,8 +1051,19 @@ public class Properties {
 						for(int i=0; i<element.getElementsByTagName("clothingType").getLength(); i++){
 							Element e = ((Element)element.getElementsByTagName("clothingType").item(i));
 							
-							if(!e.getAttribute("id").isEmpty()) {
-								clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getAttribute("id")));
+							String clothingId = e.getAttribute("id");
+							
+							if(!clothingId.isEmpty()) {
+								if(!clothingId.startsWith("dsg_eep_uniques")) {
+									if(clothingId.startsWith("dsg_eep_servequipset_enfdjacket")) {
+										clothingId = "dsg_eep_servequipset_enfdjacket";
+									} else if(clothingId.startsWith("dsg_eep_servequipset_enfdwaistcoat")) {
+										clothingId = "dsg_eep_servequipset_enfdwaistcoat";
+									} else if(clothingId.startsWith("dsg_eep_servequipset_enfberet")) {
+										clothingId = "dsg_eep_servequipset_enfberet";
+									}
+									clothingDiscovered.add(ClothingType.getClothingTypeFromId(clothingId));
+								}
 							}
 						}
 					}
@@ -1084,7 +1095,17 @@ public class Properties {
 					if(element!=null && nodes!=null) {
 						for(int i=0; i<nodes.getLength(); i++){
 							Element e = ((Element)nodes.item(i));
-							clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getTextContent()));
+							String clothingId = e.getTextContent();
+							if(!clothingId.startsWith("dsg_eep_uniques")) {
+								if(clothingId.startsWith("dsg_eep_servequipset_enfdjacket")) {
+									clothingId = "dsg_eep_servequipset_enfdjacket";
+								} else if(clothingId.startsWith("dsg_eep_servequipset_enfdwaistcoat")) {
+									clothingId = "dsg_eep_servequipset_enfdwaistcoat";
+								} else if(clothingId.startsWith("dsg_eep_servequipset_enfberet")) {
+									clothingId = "dsg_eep_servequipset_enfberet";
+								}
+								clothingDiscovered.add(ClothingType.getClothingTypeFromId(clothingId));
+							}
 						}
 					}
 				}

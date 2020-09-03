@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /***
  * @since 0.2.4
- * @version 0.3.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public enum PersonalityTrait {
@@ -43,6 +43,20 @@ public enum PersonalityTrait {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(KIND);
+		}
+	},
+
+	NAIVE(false, PersonalityCategory.CORE, "naive", "Lacking in life experience and wisdom, [npc.name] [npc.has] absolutely no understanding of the harsh facts of reality.", "", PresetColour.BASE_PINK_LIGHT) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(CYNICAL);
+		}
+	},
+	
+	CYNICAL(false, PersonalityCategory.CORE, "cynical", "[npc.NameIsFull] particularly distrustful of the intentions and motivations of other people.", "", PresetColour.BASE_RED_DARK) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(NAIVE);
 		}
 	},
 	

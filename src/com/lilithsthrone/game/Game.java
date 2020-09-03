@@ -65,6 +65,7 @@ import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
@@ -96,6 +97,7 @@ import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vanessa;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
@@ -876,7 +878,6 @@ public class Game implements XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
 						Main.game.getWorlds().put(WorldType.ENFORCER_WAREHOUSE, gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE));
-						Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
 						Main.game.getWorlds().put(WorldType.GAMBLING_DEN, gen.worldGeneration(WorldType.GAMBLING_DEN));
@@ -890,6 +891,9 @@ public class Game implements XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
 						Main.game.getWorlds().put(WorldType.DOMINION_EXPRESS, gen.worldGeneration(WorldType.DOMINION_EXPRESS));
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.9.4")) {
+						Main.game.getWorlds().put(WorldType.ENFORCER_HQ, gen.worldGeneration(WorldType.ENFORCER_HQ));
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						Main.game.getWorlds().put(wt, gen.worldGeneration(wt));
@@ -1322,9 +1326,18 @@ public class Game implements XMLSaving {
 							Main.game.getNpc(Brax.class).addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_ssldshirt", PresetColour.CLOTHING_BLUE, false), false);
 							Main.game.getNpc(Brax.class).addClothing(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_BLACK, false), false);
 						}
-						Main.game.getNpc(Brax.class).addClothing(Main.game.getItemGen().generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false), false);
+						
+						AbstractClothing jacket = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, null, false);
+						jacket.setSticker("collar", "tab_ip");
+						jacket.setSticker("name", "name_brax");
+						jacket.setSticker("ribbon", "ribbon_brax");
+						Main.game.getNpc(Brax.class).addClothing(jacket, false);
+						
 						Main.game.getNpc(Brax.class).addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false);
-						Main.game.getNpc(Brax.class).addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), false);
+						
+						AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false);
+						hat.setSticker("badge", "badge_dominion");
+						Main.game.getNpc(Brax.class).addClothing(hat, false);
 					}
 				}
 
@@ -1629,6 +1642,16 @@ public class Game implements XMLSaving {
 				getNpc(CandiReceptionist.class).setAffection(getNpc(Brax.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 			}
 
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Wes.class))) { addNPC(new Wes(), false); addedNpcs.add(Wes.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Elle.class))) { addNPC(new Elle(), false); addedNpcs.add(Elle.class); }
+
+			if(addedNpcs.contains(Wes.class)) {
+				getNpc(Wes.class).setAffection(getNpc(Elle.class), AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue());
+			}
+			if(addedNpcs.contains(Elle.class)) {
+				getNpc(Elle.class).setAffection(getNpc(Wes.class), AffectionLevel.NEGATIVE_ONE_ANNOYED.getMedianValue());
+			}
+			
 			// Shopping Promenade:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ralph.class))) { addNPC(new Ralph(), false); addedNpcs.add(Ralph.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nyan.class))) { addNPC(new Nyan(), false); addedNpcs.add(Nyan.class); }

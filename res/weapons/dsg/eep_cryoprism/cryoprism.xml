@@ -57,7 +57,9 @@
 		<tertiaryColours values="JUST_BLACK"/> 
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
