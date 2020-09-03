@@ -227,7 +227,7 @@
 	
 	<htmlContent tag="ENFORCER_ALLEYWAY_CONTRABAND_HEAVY"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italicsTerrible(Your contraband items will be confiscated and you will be arrested if you allow the Enforcers to search you!)]
+		[style.italicsTerrible(Your illegal items will be confiscated and you will be arrested if you allow the Enforcers to search you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -235,9 +235,9 @@
 	<htmlContent tag="ENFORCER_ALLEYWAY_CONTRABAND_MEDIUM"><![CDATA[
 	<p style='text-align:center;'>
 		#IF(pc.hasItemType("innoxia_quest_special_pass_elle") || pc.hasItemType("innoxia_quest_special_pass"))
-			<i>Although you have [style.italicsBad(contraband items)], your Contractor Pass grants you [style.italicsExcellent(immunity)] from having them confiscated!</i>
+			<i>Although you have [style.italicsBad(illegal items)], your Contractor Pass grants you [style.italicsExcellent(immunity)] from having them confiscated!</i>
 		#ELSE
-			[style.italicsBad(Your contraband items will be confiscated if you allow the Enforcers to search you!)]
+			[style.italicsBad(Your illegal items will be confiscated if you allow the Enforcers to search you!)]
 		#ENDIF
 	</p>
 	]]>
@@ -415,7 +415,7 @@
 	
 	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_HEAVY_CONTRABAND"><![CDATA[
 	<p>
-		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down. Recognising some of your possessions as being [style.colourBlueDark(heavy contraband)], [npc.name] quickly confiscates them
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to pat you down. Recognising some of your possessions as being [style.colourBlueDark(highly illegal)], [npc.name] quickly confiscates them
 		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
 			 and securely stows them in [npc.her] inventory.
 		#ELSE
@@ -446,7 +446,7 @@
 		 Before you're able to react to react to this sexual harassment, the [npc.race] suddenly finds some items that you aren't supposed to have, and grunts, [npc.speech(I'm going to have to confiscate these...)]
 	</p>
 	<p>
-		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] quickly confiscates your [style.colourBlueDark(medium contraband)] items
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] quickly confiscates your [style.colourBlueDark(illegal)] items
 		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
 			 and securely stows them in [npc.her] inventory.
 		#ELSE
@@ -534,7 +534,7 @@
 	
 	<htmlContent tag="ENFORCER_ALLEYWAY_SEARCHED_CONTRABAND"><![CDATA[
 	<p>
-		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to quickly pat you down. Quickly discovering that you're in possession [style.colourBlueDark(medium contraband)] items, [npc.name] confiscates them
+		With [npc2.name] keeping watch to make sure that you don't try anything funny, [npc.name] [npc.steps] up behind you and starts to quickly pat you down. Quickly discovering that you're in possession [style.colourBlueDark(illegal)] items, [npc.name] confiscates them
 		#IF(npc.getTrueLevel()>npc2.getTrueLevel())
 			 and securely stows them in [npc.her] inventory.
 		#ELSE
@@ -1960,7 +1960,7 @@
 		 and down Dominion's streets. Before you know it, you've arrived at Dominion's Enforcer HQ, and after being led inside and down a series of corridors, you're unceremoniously hurled into an empty cell.
 	</p>
 	<p>
-		As the barred door is locked behind you, [npc.name] calls out, [npc.speech(Possession of heavy contraband carries some tough sentences; I wouldn't be surprised if you end up serving a few years as a slave! [npc2.Name], you can fill [pc.her] paperwork out; I'm off to get a coffee.)]
+		As the barred door is locked behind you, [npc.name] calls out, [npc.speech(Possession of highly illegal items carries some tough sentences; I wouldn't be surprised if you end up serving a few years as a slave! [npc2.Name], you can fill [pc.her] paperwork out; I'm off to get a coffee.)]
 	</p>
 	<p>
 		Having been left by [npc2.her] superior to handle the paperwork involved in arresting you, [npc2.name] lets out a weary sigh and trudges off to fetch the required forms. Just a minute later, and [npc2.she] returns to the door of your cell to start asking you a series of personal questions.

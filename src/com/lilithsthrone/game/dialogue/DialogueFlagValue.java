@@ -161,6 +161,8 @@ public enum DialogueFlagValue {
 	
 	// Wes:
 	wesQuestLilayaHelp,
+	wesQuestMet(true),
+	wesQuestRefused,
 
 	wesQuestTalked(true),
 	wesQuestTalkedAlt(true),

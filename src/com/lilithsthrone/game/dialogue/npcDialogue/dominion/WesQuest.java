@@ -26,8 +26,6 @@ import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.colours.Colour;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -41,7 +39,7 @@ public class WesQuest {
 
 	public static final String QUEST_COMPLETION_MINUTES_TIMER_ID = "wes_completion_timer";
 	
-	public static final DialogueNode WES_QUEST_START = new DialogueNode("", "", true) {
+	public static final DialogueNode WES_QUEST_START = new DialogueNode("A Sudden Interruption", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			((Wes)Main.game.getNpc(Wes.class)).applyDisguise();
@@ -58,7 +56,7 @@ public class WesQuest {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Agree", "Agree to meet this mysterious Enforcer near 'Pix's Playground'.", WES_QUEST_START_END) {
+				return new Response("Agree", "Agree to meet this mysterious Enforcer outside of the Shopping Arcade's antiques shop.", WES_QUEST_START_END) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "WES_QUEST_AGREE"));
@@ -106,8 +104,8 @@ public class WesQuest {
 		public void applyPreParsingEffects() {
 			((Wes)Main.game.getNpc(Wes.class)).applyDisguise();
 			Main.game.getNpc(Wes.class).setLocation(Main.game.getPlayer(), false);
-			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
 			Main.game.getNpc(Wes.class).setPlayerKnowsName(true);
+			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -119,23 +117,13 @@ public class WesQuest {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Question", "Ask Wes for more details on what he wants you to do.", WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestRefused)) {
+				return WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION.getResponse(responseTab, index);
 				
-			} else if(index==2) {
-				return new Response("Refuse",
-						"Tell Wes that you have absolutely no interest in helping him."
-								+ "<br/>[style.italicsBad(This will fail the quest, and as such, you will permanently lose the opportunity to gain access to an Enforcer equipment store!)]",
-								WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL) {
-					@Override
-					public Colour getHighlightColour() {
-						return PresetColour.GENERIC_BAD;
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL_1"));
-					}
-				};
+			} else {
+				if(index==1) {
+					return new Response("Question", "Ask Wes for more details on what he wants you to do.", WES_QUEST_SHOPPING_ARCADE_MEETING_QUESTION);
+				}
 			}
 			return null;
 		}
@@ -157,18 +145,9 @@ public class WesQuest {
 				
 			} else if(index==2) {
 				return new Response("Refuse",
-						"Tell Wes that you have absolutely no interest in helping him."
-								+ "<br/>[style.italicsBad(This will fail the quest, and as such, you will permanently lose the opportunity to gain access to an Enforcer equipment store!)]",
-								WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL) {
-					@Override
-					public Colour getHighlightColour() {
-						return PresetColour.GENERIC_BAD;
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL_2"));
-					}
-				};
+						"Tell Wes that you don't want to get involved in something like this."
+								+ "<br/>[style.italicsMinorGood(You will be able to change your mind and seek out Wes to help him again later.)]",
+								WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL);
 			}
 			return null;
 		}
@@ -179,8 +158,9 @@ public class WesQuest {
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Wes.class).returnToHome();
 			Main.game.getNpc(Wes.class).equipClothing();
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.SIDE_WES, Quest.WES_FAIL));
-			Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).setAffection(Main.game.getPlayer(), -50));
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestRefused)) {
+				Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).setAffection(Main.game.getPlayer(), -10));
+			}
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -188,12 +168,18 @@ public class WesQuest {
 		}
 		@Override
 		public String getContent() {
-			return "";
+			return UtilText.parseFromXMLFile("characters/dominion/wes", "WES_QUEST_SHOPPING_ARCADE_MEETING_FAIL");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue on your way through the Shopping Arcade...", Main.game.getPlayer().getLocationPlace().getPlaceType().getDialogue(false));
+				return new Response("Continue", "Continue on your way through the Shopping Arcade...", Main.game.getPlayer().getLocationPlace().getPlaceType().getDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestMet, true);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestRefused, true);
+					}
+				};
 			}
 			return null;
 		}
@@ -248,7 +234,7 @@ public class WesQuest {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Cave", "Take a look inside the cave...", ELLE_SEARCH_CAVE);
+				return new Response("Enter cave", "Enter the cave and take a look around...", ELLE_SEARCH_CAVE);
 			}
 			return null;
 		}
@@ -408,7 +394,7 @@ public class WesQuest {
 		}
 	};
 	
-	public static final DialogueNode INTRO_HQ_WES = new DialogueNode("", "", true) {
+	public static final DialogueNode INTRO_HQ_WES = new DialogueNode("Meeting Wes", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
@@ -430,7 +416,7 @@ public class WesQuest {
 		}
 	};
 
-	public static final DialogueNode INTRO_HQ_WES_ARRIVE = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_WES_ARRIVE = new DialogueNode("Meeting Wes", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Wes.class).addSlave(Main.game.getNpc(Elle.class));
@@ -457,7 +443,7 @@ public class WesQuest {
 		}
 	};
 	
-	public static final DialogueNode INTRO_HQ_WES_OFFICE = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_WES_OFFICE = new DialogueNode("Meeting Wes", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Vector2i playerLoc = Main.game.getPlayer().getLocation();
@@ -471,7 +457,6 @@ public class WesQuest {
 				c.setTravelledTo(true);
 			}
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_WES, Quest.SIDE_UTIL_COMPLETE));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_special_pass"), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -490,11 +475,12 @@ public class WesQuest {
 		}
 	};
 
-	public static final DialogueNode INTRO_HQ_WES_REQUISITIONS = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_WES_REQUISITIONS = new DialogueNode("Meeting Wes", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, false);
 			Main.game.getNpc(Wes.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_special_pass"), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -510,7 +496,7 @@ public class WesQuest {
 		}
 	};
 	
-	public static final DialogueNode INTRO_HQ_ELLE = new DialogueNode("", "", true) {
+	public static final DialogueNode INTRO_HQ_ELLE = new DialogueNode("Meeting Elle", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
@@ -532,7 +518,7 @@ public class WesQuest {
 		}
 	};
 
-	public static final DialogueNode INTRO_HQ_ELLE_ARRIVE = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_ELLE_ARRIVE = new DialogueNode("Meeting Elle", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Elle.class).addSlave(Main.game.getNpc(Wes.class));
@@ -559,7 +545,7 @@ public class WesQuest {
 		}
 	};
 
-	public static final DialogueNode INTRO_HQ_ELLE_OFFICE = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_ELLE_OFFICE = new DialogueNode("Meeting Elle", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Vector2i playerLoc = Main.game.getPlayer().getLocation();
@@ -573,7 +559,6 @@ public class WesQuest {
 				c.setTravelledTo(true);
 			}
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_WES, Quest.SIDE_UTIL_COMPLETE));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_special_pass_elle"), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -592,11 +577,12 @@ public class WesQuest {
 		}
 	};
 
-	public static final DialogueNode INTRO_HQ_ELLE_REQUISITIONS = new DialogueNode("", "", true, true) {
+	public static final DialogueNode INTRO_HQ_ELLE_REQUISITIONS = new DialogueNode("Meeting Elle", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, false);
 			Main.game.getNpc(Elle.class).setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS, true);
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_quest_special_pass_elle"), false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -633,6 +619,7 @@ public class WesQuest {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
+								Main.game.getTextStartStringBuilder().append(PlaceType.ENFORCER_HQ_CELLS_CORRIDOR.getDialogue(false).getContent());
 								Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
 							}
 						};

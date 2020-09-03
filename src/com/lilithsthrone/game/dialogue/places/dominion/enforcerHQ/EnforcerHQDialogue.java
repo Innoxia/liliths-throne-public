@@ -1198,10 +1198,10 @@ public class EnforcerHQDialogue {
 				
 			} else {
 				if(index==1) {
-					return new Response("Approach",
+					return new Response("Ring bell",
 							Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)
-								?"[pc.Step] up to the requisitions desk and get Elle's attention."
-								:"[pc.Step] up to the requisitions desk and get Wes's attention.",
+								?"Ring the bell on the requisitions desk to get Elle's attention."
+								:"Ring the bell on the requisitions desk to get Wes's attention.",
 							WesQuest.REQUISITIONS_INTERACTION);
 				}
 			}

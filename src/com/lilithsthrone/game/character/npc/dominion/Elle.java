@@ -138,9 +138,8 @@ public class Elle extends NPC {
 		this.setAssType(AssType.DEMON_COMMON);
 		this.setBreastType(BreastType.DEMON_COMMON);
 		this.setVaginaType(VaginaType.DEMON_COMMON);
-//		this.setTailType(TailType.DEMON_COMMON); //TODO?
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.THREE_LARGE.getValue()); //TODO?
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setEyeType(EyeType.DEMON_COMMON);
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		
@@ -150,7 +149,7 @@ public class Elle extends NPC {
 		this.setMuscle(70);
 		this.setBodySize(50);
 		
-		// Coverings: //TODO?
+		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_PINK));
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LILAC), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN), true);
@@ -184,7 +183,7 @@ public class Elle extends NPC {
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		
-		this.setNippleCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true); //TODO?
+		this.setNippleCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
 		
 		// Crotch-boobs:
 		this.setBreastCrotchType(BreastType.NONE);
@@ -279,11 +278,11 @@ public class Elle extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {//TODO
+	public String getSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#754a86";
 		}
-		return "#d69423";
+		return "#d0a0e2";
 	}
 	
 	@Override

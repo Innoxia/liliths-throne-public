@@ -1152,7 +1152,7 @@
 	
 	<htmlContent tag="REQUISITIONS"><![CDATA[
 	<p>
-		Connected to the adjoining corridor by a pair of wide, propped-open doors, the requisitions area is the place where specialist or replacement equipment can be checked out by the HQ's Enforcers. [pc.Stepping] through the open doors into this area, you find yourself standing in a relatively small room, which, other than a couple of basic metal tables pushed up against one wall, is devoid of any furniture. The only other point of interest is the counter on the far side of the room.
+		Connected to the adjoining corridor by a pair of wide, propped-open doors, the requisitions area is the place where specialist or replacement equipment can be checked out by the HQ's Enforcers. [pc.Stepping] through the open doors into this area, you find yourself standing in a relatively small room, which, other than a couple of basic metal tables pushed into each corner, is devoid of any furniture. The only other points of interest are the locked door and waist-high counter set into the wall before you.
 	</p>
 	<p>
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))

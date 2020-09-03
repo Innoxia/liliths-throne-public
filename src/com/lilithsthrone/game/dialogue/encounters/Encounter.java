@@ -146,7 +146,7 @@ public enum Encounter {
 //						&& !Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)
 //						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
 //						&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-//						&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=22;
+//						&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
 			
 			return Util.newHashMapOfValues(
 					Main.game.getCurrentWeather()==Weather.MAGIC_STORM

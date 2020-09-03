@@ -3144,7 +3144,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"speechMasculineStrong"),
+						"speechMasculineStrong",
+						"speechMasculineHeavy",
+						"speechMasculinePlus"),
 				false,
 				false,
 				"(speech content)",
@@ -3195,7 +3197,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"speechFeminineStrong"),
+						"speechFeminineStrong",
+						"speechFeminineHeavy",
+						"speechFemininePlus"),
 				false,
 				false,
 				"(speech content)",

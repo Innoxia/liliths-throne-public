@@ -189,7 +189,7 @@ public class Wes extends NPC {
 		} else {
 			this.setEssenceCount(100);
 			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"));
-
+			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 			
@@ -224,6 +224,8 @@ public class Wes extends NPC {
 	}
 	
 	public void applyDisguise() {
+		this.unequipAllClothingIntoVoid(true, true);
+		
 		this.setEssenceCount(100);
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"));
 
@@ -269,11 +271,11 @@ public class Wes extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {//TODO
+	public String getSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
-			return "#d69423";
+			return "#ef9424";
 		}
-		return "#d6c19c";
+		return "#ffbb7f";
 	}
 
 	@Override

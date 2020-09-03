@@ -75,8 +75,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] writing
 			[] Pregnancy reactions
 	
+	Improve:
+		Elle vagina
+		Wes jacket rank?
+		Wes appearance age
+		
+	Ask DSG:
+		Speech colours
+		Personalities
+		
+	
 	
 	PRs
+	
+	there are two "miss" parser commands
 	
 	 a milk gush on orgasm, like the squirter effect, but from the nips
 	

@@ -1199,7 +1199,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "While travelling through Dominion, you were approached by a mysterious undercover SWORD Enforcer who asked for your help."
-					+ " He'd like you to meet him near 'Pix's Playground' (in the Shopping Arcade) between [units.time(13)]-[units.time(14)].";
+					+ " He'd like you to meet him outside of the Shopping Arcade's antiques shop between [units.time(13)]-[units.time(14)].";
 		}
 		@Override
 		public String getCompletedDescription() {

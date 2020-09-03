@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Elle's Contractor Pass]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Elle's Contractor Pass]]></namePlural>
-		<description><![CDATA[Complete with a sturdy fabric lanyard, and signed by Superintendent Aellasys Lunettemartu herself, this pass grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent medium contraband from being confiscated.]]></description> 
+		<description><![CDATA[Complete with a sturdy fabric lanyard, and signed by Superintendent Aellasys Lunettemartu herself, this pass grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent illegal items from being confiscated.]]></description> 
 		
 		<useDescriptor>examine</useDescriptor>
 		
@@ -24,12 +24,12 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.colourGood(Grants access)] to Enforcer HQ's requisitions area]]></line>
-			<line><![CDATA[Provides [style.colourExcellent(immunity)] to [style.colourBlueDark(medium contraband)] confiscations]]></line>
+			<line><![CDATA[Provides [style.colourExcellent(immunity)] to [style.colourBlueDark(illegal)] item confiscations]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 		<p>
-			Signed by Superintendent Aellasys Lunettemartu, and attached to a sturdy fabric lanyard, this 'Contractor Pass' grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent medium contraband from being confiscated.
+			Signed by Superintendent Aellasys Lunettemartu, and attached to a sturdy fabric lanyard, this 'Contractor Pass' grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent illegal items from being confiscated.
 		</p>
 		]]></applyEffects>
 		

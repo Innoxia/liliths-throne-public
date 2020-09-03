@@ -3965,8 +3965,19 @@ public class PlaceType {
 			BatCaverns.CAVERN_LIGHT,
 			Encounter.BAT_CAVERN,
 			"in the Bat Caverns"
-			).initDangerous()
-			.initWeatherImmune();
+			) {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Elle.class))) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(
+						new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+						new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+						new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return super.getPopulation();
+		}
+	}.initDangerous()
+	.initWeatherImmune();
 	
 	public static final AbstractPlaceType BAT_CAVERN_RIVER = new AbstractPlaceType(
 			"Underground River",
