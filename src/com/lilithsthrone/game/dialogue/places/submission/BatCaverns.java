@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
+import com.lilithsthrone.game.dialogue.encounters.BatCavernsEncounterDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -351,4 +352,121 @@ public class BatCaverns {
 			return null;
 		}
 	};
+        
+        public static final DialogueNode REBEL_BASE_ENTRANCE_EXTERIOR = new DialogueNode("Hidden Doorway", "", false) {
+		
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
+		@Override
+		public String getContent() {
+                    if (Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
+                        || Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)) {
+                        return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_EXTERIOR_COLLAPSED");
+                    } else {
+                        return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_EXTERIOR");
+                    }			
+		}
+                
+                @Override
+		public Response getResponse(int responseTab, int index) {
+                    if (index == 1
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE) 
+                            && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)) {
+                            return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
+                                @Override
+                                public void effects() {
+                                        Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
+                                        Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
+                                }
+                            };
+                    } else {
+                            return null;
+                    }
+            }
+        };
+        
+        public static final DialogueNode REBEL_BASE_ENTRANCE_HANDLE = new DialogueNode("Strange Handle", "", false) {
+		
+		@Override
+		public String getAuthor() {
+			return "DSG";
+		}
+		
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
+		@Override
+		public String getContent() {
+                    return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_ENTRANCE_HANDLE");			
+		}
+                
+                @Override
+		public Response getResponse(int responseTab, int index) {
+                    if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)) {
+                            return new Response("Pull the handle", "What could possibly go wrong?", BatCavernsEncounterDialogue.REBEL_BASE_DOOR_NO_PASS);
+                    } else if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
+                            return new Response("Pull the handle", "The handle won't budge. Looks like you really do need the password.", null);
+                    } else if (index == 1) {
+                            return new Response("Pull the handle", "You have the complete password now. What could possibly go wrong?", REBEL_BASE_DOOR_OPENED){
+                                @Override
+                                public void effects() {
+                                        Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+                                        Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+                                }
+                            };
+                    } else {
+                            return null;
+                    }
+            }
+        };
+        
+                
+        public static final DialogueNode REBEL_BASE_DOOR_OPENED = new DialogueNode("Hidden Doorway", "", true) {
+            
+            @Override
+            public int getSecondsPassed() {
+                return 30;
+            }
+                
+            @Override
+            public String getContent() {
+                Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR);
+                Main.game.getPlayerCell().getPlace().setName(PlaceType.BAT_CAVERNS_REBEL_BASE_ENTRANCE_EXTERIOR.getName());
+                return UtilText.parseFromXMLFile("places/submission/batCaverns", "REBEL_BASE_DOOR_OPENED");
+            }
+            
+            @Override
+            public Response getResponse(int responseTab, int index) {
+                    if (index == 1) {
+                            return new Response("Enter", "This cave is not a natural formation. Someone built it, so it must lead somewhere.", PlaceType.REBEL_BASE_ENTRANCE.getDialogue(false)){
+                                @Override
+                                public void effects() {
+                                        Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION));
+                                        Main.game.getPlayer().setLocation(WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE);
+                                }
+                            };
+                    } else if (index == 2) {
+                            return new Response("Don't enter", "No telling what's down in that cave.", Main.game.getDefaultDialogue(false));
+                    } else {
+                            return null;
+                    }
+            }
+
+            @Override
+            public String getAuthor() {
+            return "DSG";
+            }
+            
+        };
+        
 }

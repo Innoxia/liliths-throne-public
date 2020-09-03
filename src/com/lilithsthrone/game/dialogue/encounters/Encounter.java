@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -29,6 +30,7 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -959,7 +961,42 @@ public enum Encounter {
                     map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
                     map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
                     map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
-
+                    
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
+                            && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 10f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 5f);
+                        }
+                    }
+                    
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_HANDLE_REFUSED)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)
+                            && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_DARK)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 5f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE, 1f);
+                        }
+                    }
+                    
+                    if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE)
+                            && !Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)
+                            && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_ONE)
+                            && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)
+                            && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
+                        if(Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)){
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 5f);
+                        } else {
+                            map.put(EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO, 1f);
+                        }
+                    }
+                    
                     return map;
                 }
 
@@ -1013,6 +1050,17 @@ public enum Encounter {
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
 				return BatCavernsEncounterDialogue.FIND_ITEM;
+                        } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
+                                
+                        } else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_ONE) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_ONE;
+				
+			} else if (node == EncounterType.BAT_CAVERN_REBEL_PASSWORD_TWO) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_PASSWORD_TWO;
 				
 			} else {
 				return null;

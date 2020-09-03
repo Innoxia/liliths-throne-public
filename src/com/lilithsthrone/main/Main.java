@@ -701,7 +701,7 @@ public class Main extends Application {
 				@SuppressWarnings("resource")
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
-				System.err.println("Version: "+VERSION_NUMBER);
+				System.err.println("Game Version: "+VERSION_NUMBER);
 				System.err.println("Java: "+System.getProperty("java.version"));
 //				System.err.println("OS: "+System.getProperty("os.name"));
 				

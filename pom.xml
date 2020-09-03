@@ -6,7 +6,7 @@
 	<artifactId>game</artifactId>
 	<packaging>jar</packaging>
 	<version>1</version>
-	<name>lilithsthrone</name>
+	<name>lilithsthrone_dsgmodenv</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
