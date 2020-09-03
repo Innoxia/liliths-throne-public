@@ -100,11 +100,13 @@ public class RentalMommy extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.9")) {
 			this.setLevel(15);
 			this.resetPerksMap(true);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.5")) {
+			this.equipClothing();
 		}
 	}
 

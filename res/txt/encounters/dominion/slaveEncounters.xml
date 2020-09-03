@@ -241,7 +241,7 @@
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
 			It's clear from [npc2.her] eager [npc2.moan] that [npc2.name] is more than willing to submit to [npc.name] and be fucked by [npc.herHim]. As the two slaves prepare to get it on, you take a moment to decide whether to turn this into a threesome, or stay back and let them have their fun.
 		#ELSE
-			[np2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
+			[npc2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
 		#ENDIF
 	</p>
 	]]>
@@ -438,7 +438,7 @@
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
 			It's clear from [npc2.her] eager [npc2.moan] that [npc2.name] is more than willing to submit to [npc.name] and be fucked by [npc.herHim]. As the two slaves prepare to get it on, you take a moment to decide whether to turn this into a threesome, or stay back and let them have their fun.
 		#ELSE
-			[np2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
+			[npc2.Name] seems every bit as enthusiastic about having sex with [npc.name] as [npc2.she] could possibly be. As [npc2.she] gets ready to tumble with [npc2.her] partner, it's time to choose whether or not you want to join them, or sit back and enjoy the sight them enjoying each other.
 		#ENDIF
 	</p>
 	]]>

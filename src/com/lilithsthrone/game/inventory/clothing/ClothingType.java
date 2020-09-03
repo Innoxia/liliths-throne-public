@@ -6683,14 +6683,7 @@ public class ClothingType {
 					
 					allClothing.add(ct);
 					
-					// hmm... I don't know why this is here... TODO remove?
-					if(ct.isCondom(ct.getEquipSlots().get(0))
-//							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
-//							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
-//							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
-//							|| ct==ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD
-//							|| ct==ClothingType.NECK_SNOWFLAKE_NECKLACE
-							) {
+					if(ct.isDefaultSlotCondom()) {
 						continue;
 					}
 					

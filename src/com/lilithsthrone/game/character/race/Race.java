@@ -661,15 +661,17 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
+		public boolean isFlyingRace() {
+			return true;
+		}
+		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.BAT_MORPH;
 		}
-
 		@Override
 		public BodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_BAT_FUR;
 		}
-
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
 			return ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH;

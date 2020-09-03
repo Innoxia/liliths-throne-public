@@ -141,7 +141,8 @@ public class TooltipInventoryEventListener implements EventListener {
 								slotEquippedTo,
 								dyeColours,
 								InventoryDialogue.dyePreviewPattern,
-								InventoryDialogue.dyePreviewPatterns)
+								InventoryDialogue.dyePreviewPatterns,
+								InventoryDialogue.getDyePreviewStickersAsStrings())
 						+ "</div>");
 			
 			} else if(patternColour!=null) {
@@ -155,7 +156,8 @@ public class TooltipInventoryEventListener implements EventListener {
 								slotEquippedTo,
 								InventoryDialogue.dyePreviews,
 								InventoryDialogue.dyePreviewPattern,
-								dyeColours)
+								dyeColours,
+								InventoryDialogue.getDyePreviewStickersAsStrings())
 						+ "</div>");
 				
 			}
@@ -348,7 +350,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						
 						List<String> clothingBlockingThisSlot = new ArrayList<>();
 						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped()) {
-							if (c.getClothingType().getIncompatibleSlots(equippedToCharacter, c.getSlotEquippedTo()).contains(invSlot)) {
+							if (c.getIncompatibleSlots(equippedToCharacter, c.getSlotEquippedTo()).contains(invSlot)) {
 								clothingBlockingThisSlot.add(c.getName());
 							}
 						}
@@ -778,6 +780,10 @@ public class TooltipInventoryEventListener implements EventListener {
 			listIncrease+=absItem.getItemType().getEffectTooltipLines().size();
 		}
 		
+		if(!absItem.getExtraDescriptions(equippedToCharacter).isEmpty()) { //TODO
+			yIncrease += 2 + absItem.getExtraDescriptions(equippedToCharacter).size();
+		}
+		
 		yIncrease += Math.max(0, listIncrease-4);
 		
 		// Title:
@@ -821,6 +827,20 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
 						+ absItem.getDescription()
 					+ "</div>");
+		
+		
+		// Extra descriptions:
+		List<String> extraDescriptions = absItem.getExtraDescriptions(equippedToCharacter);
+
+		if(!extraDescriptions.isEmpty()) {
+			tooltipSB.append("<div class='container-full-width titular' style='font-weight: normal;'>");
+				tooltipSB.append("<b>Status</b>");
+				for(int i=0; i<extraDescriptions.size();i++) {
+					tooltipSB.append("<br/>");
+					tooltipSB.append(extraDescriptions.get(i));
+				}
+			tooltipSB.append("</div>");
+		}
 
 		
 		// Value:
@@ -880,6 +900,9 @@ public class TooltipInventoryEventListener implements EventListener {
 		String author = absWep.getWeaponType().getAuthorDescription();
 		if(!author.isEmpty()) {
 			yIncrease+=4;
+		}
+		if(!absWep.getExtraDescriptions(equippedToCharacter).isEmpty()) { //TODO
+			yIncrease += 2 + absWep.getExtraDescriptions(equippedToCharacter).size();
 		}
 		
 		// Title:
@@ -1006,6 +1029,19 @@ public class TooltipInventoryEventListener implements EventListener {
 			tooltipSB.append("<div class='container-full-width titular'>"
 								+ "[style.colourBad(Not enough essences to fire!)]"
 							+ "</div>");
+		}
+		
+		// Extra descriptions:
+		List<String> extraDescriptions = absWep.getExtraDescriptions(equippedToCharacter);
+
+		if(!extraDescriptions.isEmpty()) {
+			tooltipSB.append("<div class='container-full-width titular' style='font-weight: normal;'>");
+				tooltipSB.append("<b>Status</b>");
+				for(int i=0; i<extraDescriptions.size();i++) {
+					tooltipSB.append("<br/>");
+					tooltipSB.append(extraDescriptions.get(i));
+				}
+			tooltipSB.append("</div>");
 		}
 		
 		// Value:

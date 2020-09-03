@@ -35,13 +35,10 @@
 		<damage>60</damage>
 		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'):-->
 		<aoe chance="100">54</aoe>
-		<aoe chance="100">54</aoe>
 		<aoe chance="100">42</aoe>
 		<aoe chance="100">42</aoe>
 		<aoe chance="100">24</aoe>
 		<aoe chance="100">24</aoe>
-		<aoe chance="100">6</aoe>
-		<aoe chance="100">6</aoe>
 			
 		<arcaneCost>6</arcaneCost> 
 		
@@ -66,7 +63,9 @@
 		<tertiaryColours values="JUST_BLACK"/> 
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

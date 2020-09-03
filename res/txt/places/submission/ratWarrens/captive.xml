@@ -3055,6 +3055,9 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- CAPTIVE_RELEASED_AFTER_SEX_LOCKED_UP -->
+	
 	<htmlContent tag="CAPTIVE_RELEASED_AFTER_SEX_LOCKED_UP"><![CDATA[
 	<p>
 		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
@@ -3075,25 +3078,246 @@
 	<!-- CAPTIVE_RELEASED_OFFER_COMPANY -->
 	
 	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY"><![CDATA[
-	<p>
-		You offer to spend the night with Murk. He accepts and fondles you before sleeping.
-	</p>
+	#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+		<p>
+			Giving your Master your most seductive look, you submissively kneel down before him and plead for him to allow you to sleep with him tonight. Smirking down at you, the chubby rat-boy lets out a loud belch, before grunting, [murk.speech(Fine! You's can sleep with me tonight; I's often wakin' up feelin' like me balls could be emptied, so havin' yer nice wet 'ole ta fuck is gonna be real nice.)]
+		</p>
+		<p>
+			Leading you out through the door and into the milking storage room, your Master waddles over to his faded red sofa, and after jumping up onto it, he sneers, [murk.speech(Get over 'ere an' give me fat cock a goodnight kiss, slut!)]
+		</p>
+		<p>
+			Obediently doing as you're told, you eagerly drop down in front of the rat-boy and plant a big, wet kiss on his delicious, fat cock. Grunting in pleasure, your Master lies back on his sofa and sleepily orders, [murk.speech(You's can use me lap as yer pillow, slut... I'll be wakin' ya later an' givin' ya anotha 'ard poundin'...)]
+		</p>
+		<p>
+			With that, your tired Master closes his eyes, and within a few moments, he's letting out a series of deep, rumbling snores. Finding yourself free from both your restraints and your Master's orders, you wonder whether you should use this final opportunity to escape, or submit to your fate and stay here to become another of the chubby rat-boy's milker sluts...
+		</p>
+	#ELSE
+		<p>
+			Giving Murk your most seductive look, you submissively kneel down before him and ask him to allow you to sleep with him tonight. Smirking down at you, the chubby rat-boy lets out a loud belch, before grunting, [murk.speech(Fine! You's can sleep with me tonight; I's often wakin' up feelin' like me balls could be emptied, so havin' yer about ta 'elp me with dat is gonna be real nice.)]
+		</p>
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+			<p>
+				Leading you out through the door and into the milking storage room, Murk waddles over to his faded red sofa, and after jumping up onto it, he sneers, [murk.speech(Get over 'ere an' give me fat cock a goodnight stroke, slut!)]
+			</p>
+			<p>
+				Deciding to do as you're told, you drop down in front of the rat-boy and give his fat cock and huge balls a few tender strokes. Grunting in pleasure, Murk lies back on his sofa and sleepily orders, [murk.speech(You's can use me lap as yer pillow, slut... I'll be wakin' ya later an' gettin' ya ta give me anotha 'andjob...)]
+			</p>
+		#ELSE
+			<p>
+				Leading you out through the door and into the milking storage room, Murk waddles over to his faded red sofa, and after jumping up onto it, he sneers, [murk.speech(Get over 'ere an' give me fat cock a goodnight kiss, slut!)]
+			</p>
+			<p>
+				Deciding to do as you're told, you drop down in front of the rat-boy and plant a big, wet kiss on his fat cock. Grunting in pleasure, Murk lies back on his sofa and sleepily orders, [murk.speech(You's can use me lap as yer pillow, slut... I'll be wakin' ya later an' givin' yer face anotha good fuckin'...)]
+			</p>
+		#ENDIF
+		<p>
+			With that, the tired rat-boy closes his eyes, and within a few moments, he's letting out a series of deep, rumbling snores. Finding yourself free from both your restraints and Murk's orders, you wonder whether you should use this opportunity to escape, or stay here and wait for the chubby rat-boy to use you for his sexual relief once again...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_SLIP_AWAY"><![CDATA[
+	#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+		<p>
+			Having been well and truly broken-in and conditioned into accepting your place as yet another of your Master's milkers, you find it extraordinarily difficult to summon the willpower to attempt to escape. After twenty minutes of having an internal conflict about whether or not to abandon the chubby rat-boy who you now see as your owner and Master, you eventually manage to convince yourself to part ways with him.
+		</p>
+		<p>
+			Leaning in to give his fat, delicious cock one last passionate kiss, you let out a whimsical sigh and crawl away from the sofa. Hoping to yourself that your Master will wake up at any moment and pin you to the floor to give you the hard fucking you deserve, you don't really try to stay quiet as you move over to the chest in which all of your gear is being stored and throw open the lid. Finding the key to your collar, you quickly take it off, before grabbing all of your belongings and heading for the exit.
+		</p>
+		<p>
+			Unfortunately, the rat-boy isn't woken by the sound of your escape, and you let out another pathetic whine as you take one last look back at his fat cock. After reflecting for a moment on how much fun it would have been to stay as your Master's milker, you summon the willpower to leave him behind, and set off into the dimly-lit tunnels of the Rat Warrens. 
+		</p>
+	#ELSE
+		<p>
+			Waiting for a short while to make sure that Murk is well and truly asleep, you gently lean back and take your head away from his furry groin. As you do so, the chubby rat-boy lets out a particularly loud snore, and for a moment you freeze, worried that he's about to wake up and dominate you once again.
+		</p>
+		<p>
+			Thankfully, the chubby rat-boy shows no further signs of being disturbed by your movement, and as his snores settle back down into a regular pattern, you let out a silent sigh and quietly crawl away from the sofa. Moving over to the chest in which all of your gear is being stored, you take your time in slowly opening the heavy lid. Finding the key to your collar contained within, you quietly take it off, before grabbing all of your belongings and very carefully heading for the exit.
+		</p>
+		<p>
+			Much to your relief, the rat-boy isn't woken by the sound of your escape, and you let out another inaudible sigh as you take one last look back at his sleeping form. After reflecting for a brief moment on how terrible it would have been to have been turned into another of Murk's milker, you happily leave him behind, and set off into the dimly-lit tunnels of the Rat Warrens. 
+		</p>
+	#ENDIF
 	<p>
-		You take the opportunity to escape and get your gear back.
+		You're not able to get further than half-way towards the exit, however, before you suddenly find yourself almost jumping out of your [pc.skin] as a voice hisses out from a dark recess in the tunnel's wall, [shadow.speech('Ey! Stop there!)]
 	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+		<p>
+			Turning towards the voice and preparing yourself for a fight, you're surprised to see the rat-girls, Shadow and Silence, stepping forwards and holding up their hands to show that they mean no threat. Before you can ask them what they want, Shadow grins and sneers, [shadow.speech(So, you's escapin' from dat fat prick? Good on ya! Me an' Silence 'ere are just as fed up o' this fuckin' place as you are; we's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! If ya ain't wantin' ta be caught up in it an' arrested, then you's betta follow us!)]
+		</p>
+	#ELSE
+		<p>
+			Turning towards the voice and preparing yourself for a fight, you're surprised to see a pair of rat-girls stepping forwards and holding up their hands to show that they mean no threat. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the more dominant-looking of the two rat-girls that isn't as dark as the night sky.
+		</p>
+		<p>
+			In stark contrast to her partner, the second rat-girl's fur is a brilliant white, while the skin covering her paw pads, nose, and tail is a ghostly pale colour. It isn't her white fur which draws your attention the most, however, as instead you find yourself marvelling at the fact that her pink eyes are giving off a steady, luminescent glow. This, combined with the fact that she's wearing what appears to be a pink shard of demonstone on a thin chain around her neck, hints at the fact that this rat-girl is an arcane user.
+		</p>
+		<p>
+			[shadow.speech(Silence 'ere's right pretty, ain't she?)] the black-furred rat-girl asks as she sees you looking at her albino friend, [shadow.speech(If ya ain't 'eard about me already, I's go by the name o' Shadow. Anyways, you's escapin' from dat fat prick? Good on ya! We's two is just as fed up o' this fuckin' place as you are; we's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! If ya ain't wantin' ta be caught up in it an' arrested, then you's betta follow us!)]
+		</p>
+	#ENDIF
 	<p>
-		You travel through the tunnels.
+		You don't like the sound of being arrested by this apparent incoming Enforcer raid, and so while you don't entirely trust her, you decide to do as Shadow suggests and follow her and Silence through the tunnels...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_LOCKED_UP"><![CDATA[
+	
+	<!-- CAPTIVE_RELEASED_OFFER_COMPANY_STAY -->
+	
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY"><![CDATA[
+	#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+		<p>
+			Not daring to try and escape from your beloved Master, you rest your head in his groin and choose to submissively fall asleep with him. With the musky smell of his fat cock overwhelming your senses, you let out a delighted sigh and soon find yourself drifting off to sleep...
+		</p>
+		<p>
+			Some time later, you find yourself being woken by a sudden, heavy slapping against your cheeks. Opening your eyes and looking up to find the cause of your rude awakening, you see that your Master is holding his fat, fully-erect cock in one hand, and before you can react, he slaps it against your face once again and grunts,
+			#IF(pc.hasVagina())
+				 [murk.speech(Come on, slut! Give me stinkin' cock a kiss an' then climb up 'ere an' ride it! I's wantin' ta empty me balls in yer ugly wet cunt!)]
+			#ELSE
+				 [murk.speech(Come on, slut! Give me stinkin' cock a kiss an' then climb up 'ere an' ride it! I's wantin' ta empty me balls in yer ass!)]
+			#ENDIF
+		</p>
+		<p>
+			Without even having to think about it, you instinctively obey your Master's orders, and after leaning in to plant a big, wet kiss on the bulbous head of his cock, you get ready to ride it...
+		</p>
+	#ELSE
+		<p>
+			Not wanting to take the risk of trying to escape, you rest your head in Murk's groin and choose to submissively fall asleep with him. With the musky smell of his fat cock overwhelming your senses, you let out a pathetic whine and soon find yourself drifting off to sleep...
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+				Some time later, you find yourself being woken by a sudden, heavy slapping against your cheeks. Opening your eyes and looking up to find the cause of your rude awakening, you see that Murk is holding his fat, fully-erect cock in one hand, and before you can react, he slaps it against your face once again and grunts, [murk.speech(Come on, slut! Give me stinkin' cock a stroke! I's wantin' an 'andjob so I's can empty me balls all over yer face!)]
+			#ELSE
+				Some time later, you find yourself being woken by a sudden, heavy slapping against your cheeks. Opening your eyes and looking up to find the cause of your rude awakening, you see that Murk is holding his fat, fully-erect cock in one hand, and before you can react, he slaps it against your face once again and grunts, [murk.speech(Come on, slut! Give me stinkin' cock a kiss an' tell it yer love it! I's wantin' ta empty me balls all over yer face!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY_HANDJOB"><![CDATA[
 	<p>
-		You stay with Murk. After a while he wakes back up and then locks you back up again.
+		Dutifully reaching up to give Murk's fat cock a quick stroke, you can't help but let out a shocked gasp as you watch a stream of musky precum ooze out of the tip. Grunting in amusement as he sees your reaction, the chubby rat-boy crassly orders, [murk.speech(Fuckin' get on with it an' start jerkin' me off already, ya dumb slut!)]
+	</p>
+	<p>
+		Doing as you're told, you take hold of Murk's fat, throbbing rat-cock and start giving him a handjob. Grunting in pleasure, he snarls, [murk.speech(Remember, slut, I's savin' yer first kiss fer tomorrow, so no usin' yer mouth! Heh-heh-heh!)]
+	</p>
+	<p>
+		Restricted to just using your [pc.hands], you put your full effort into trying to bring Murk to a climax as soon as possible...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY_ORAL"><![CDATA[
+	<p>
+		Doing as you're told, you lean forwards and plant a big, wet kiss on the tip of Murk's hot cock. Grunting in amusement as he sees you submissively servicing his throbbing dick, the chubby rat-boy crassly orders, [murk.speech(Now tell me fat cock that ya love it!)]
+	</p>
+	<p>
+		Doing as you're told, you lean in towards Murk's cock and play along by saying to it, [pc.speech(I love you...)]
+	</p>
+	<p>
+		[murk.speech(That's me good milker slut!)] Murk snickers in delight, before grabbing the back of your head and pulling you down onto his cock. Ramming his fat, musky shaft past your [pc.lips+] and all the way down your throat, he grunts in amusement as you let out an involuntary, gargled splutter. Starting to roughly fuck your face, he sneers, [murk.speech(That's it, slut! ~Mmm!~ You's gonna be makin' me spurt me stinkin' cum all over yer face real soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY_SEX"><![CDATA[
+	#IF(pc.isTaur())
+		#IF(pc.hasVagina())
+			<p>
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering the hindquarters of your feral [pc.legRace]'s body into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				#IF(game.isGapeContentEnabled())
+					 drooling, ruined
+				#ELSE
+					 drooling
+				#ENDIF
+				 cunt. Roughly slapping your flanks, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer stinkin', ugly pussy down on me fat cock!)]
+			</p>
+			<p>
+				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your
+				#IF(game.isGapeContentEnabled())
+					 ruined
+				#ELSE
+					 [pc.pussyColour]
+				#ENDIF
+				 cunt on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your flanks, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+			</p>
+		#ELSE
+			<p>
+				Desperate to be fucked by your Master's fat cock again, you quickly stand up and turn around, before lowering the hindquarters of your feral [pc.legRace]'s body into his lap. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				#IF(game.isGapeContentEnabled())
+					 puffy, ruined
+				#ELSE
+					 wet, puffy
+				#ENDIF
+				 asshole. Roughly slapping your flanks, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer slimy asshole down on me fat cock!)]
+			</p>
+			<p>
+				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your [pc.asshole+] on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy continues roughly slapping your flanks, and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(pc.hasVagina())
+			<p>
+				Desperate to be fucked by your Master's fat cock again, you quickly move up onto the sofa, before straddling the chubby rat-boy and lowering your drooling cunt down towards his groin. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				#IF(game.isGapeContentEnabled())
+					 drooling, ruined
+				#ELSE
+					 drooling
+				#ENDIF
+				 cunt. Roughly rubbing his fat fingers over your massive, dangling labia, he sneers, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer stinkin', ugly pussy down on me fat cock!)]
+			</p>
+			<p>
+				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your
+				#IF(game.isGapeContentEnabled())
+					 ruined
+				#ELSE
+					 [pc.pussyColour]
+				#ENDIF
+				 cunt on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy tightly grabs hold of your [pc.hips+], and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+			</p>
+		#ELSE
+			<p>
+				Desperate to be fucked by your Master's fat cock again, you quickly move up onto the sofa, before straddling the chubby rat-boy and lowering your ass down towards his groin. Grunting in amusement, your Master starts rubbing the head of his fat, throbbing cock up and down over your
+				#IF(game.isGapeContentEnabled())
+					 puffy, ruined
+				#ELSE
+					 wet, puffy
+				#ENDIF
+				 cunt, sneering, [murk.speech(That's it, slut! Tell me that yer a good milker slut, an' drop yer slimy asshole down on me fat cock!)]
+			</p>
+			<p>
+				[pc.speech(I'm your good milker slut, Master! ~Ooh!~ Yes! I love your cock!)] you obediently squeal as you drop your hips down and spear your [pc.asshole+] on your Master's fat, throbbing rat-cock. Grunting and panting, the chubby rat-boy tightly grabs hold of your [pc.hips+], and you find your mind melting from the pleasure as you start enthusiastically riding the cock which you love...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_RELEASED_OFFER_COMPANY_STAY_AFTER_SEX -->
+	
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_STAY_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+			Having had his fun with you, your Master pushes you off of him, before sitting up and yawning, [murk.speech(Now I's emptied me balls, it's time ta get yer locked up again! Inta yer milkin' room, slut!)]
+		#ELSE
+			Having had his fun with you, Murk pushes you off of him, before sitting up and yawning, [murk.speech(Now I's emptied me balls, it's time ta get yer locked up again! Inta yer milkin' room, slut!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+			Doing as you're told, you [pc.walk] back into the milking room, before submissively letting your Master lock the chain back up to your collar. After giving his delicious cock one last kiss, you watch as your Master leaves the room, before lying down on your straw bedding and preparing to get some sleep...
+		#ELSE
+			Doing as you're told, you [pc.walk] back into the milking room, before submissively letting Murk lock the chain back up to your collar.
+			#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+				 After giving his fat cock one last stroke, you watch as Murk leaves the room, before lying down on your straw bedding and preparing to get some sleep...
+			#ELSE
+				 After giving his fat cock one last kiss, you watch as Murk leaves the room, before lying down on your straw bedding and preparing to get some sleep...
+			#ENDIF
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -3103,14 +3327,38 @@
 	
 	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_VICTORY"><![CDATA[
 	<p>
-		You beat Murk. No time to do anything, as guards will arrive soon. Get gear and escape.
+		The baseball bat falls from Murk's hand, and after staggering back, he collapses to floor with a pathetic whine, [murk.speech(You's... gonna pay...)]
+	</p>
+	<p>
+		With that, the chubby rat-boy's head drops down, and you [pc.step] forwards to see that he's fainted. With all of the noise he made during your fight, you realise that you have no time in which to take advantage of Murk's unconcious form before reinforcements arrive, and so quickly rush over to the chest in which all of your gear is being stored. Throwing open the lid, you immediately find the key to your collar contained within, and after taking it off, you grab all of your belongings and head for the exit.
+	</p>
+	<p>
+		Leaving the still-unconscious rat-boy behind, you set off into the dimly-lit tunnels of the Rat Warrens and begin to make your escape...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_VICTORY_ESCAPING"><![CDATA[
 	<p>
-		You travel through the tunnels.
+		You're not able to get further than half-way towards the exit before you suddenly find yourself almost jumping out of your [pc.skin] as a voice hisses out from a dark recess in the tunnel's wall, [shadow.speech('Ey! Stop there!)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+		<p>
+			Turning towards the voice and preparing yourself for a fight, you're surprised to see the rat-girls, Shadow and Silence, stepping forwards and holding up their hands to show that they mean no threat. Before you can ask them what they want, Shadow grins and sneers, [shadow.speech(So, you's escapin' from dat fat prick? Good on ya! Me an' Silence 'ere are just as fed up o' this fuckin' place as you are; we's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! If ya ain't wantin' ta be caught up in it an' arrested, then you's betta follow us!)]
+		</p>
+	#ELSE
+		<p>
+			Turning towards the voice and preparing yourself for a fight, you're surprised to see a pair of rat-girls stepping forwards and holding up their hands to show that they mean no threat. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the more dominant-looking of the two rat-girls that isn't as dark as the night sky.
+		</p>
+		<p>
+			In stark contrast to her partner, the second rat-girl's fur is a brilliant white, while the skin covering her paw pads, nose, and tail is a ghostly pale colour. It isn't her white fur which draws your attention the most, however, as instead you find yourself marvelling at the fact that her pink eyes are giving off a steady, luminescent glow. This, combined with the fact that she's wearing what appears to be a pink shard of demonstone on a thin chain around her neck, hints at the fact that this rat-girl is an arcane user.
+		</p>
+		<p>
+			[shadow.speech(Silence 'ere's right pretty, ain't she?)] the black-furred rat-girl asks as she sees you looking at her albino friend, [shadow.speech(If ya ain't 'eard about me already, I's go by the name o' Shadow. Anyways, you's escapin' from dat fat prick? Good on ya! We's two is just as fed up o' this fuckin' place as you are; we's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! If ya ain't wantin' ta be caught up in it an' arrested, then you's betta follow us!)]
+		</p>
+	#ENDIF
+	<p>
+		You don't like the sound of being arrested by this apparent incoming Enforcer raid, and so while you don't entirely trust her, you decide to do as Shadow suggests and follow her and Silence through the tunnels...
 	</p>
 	]]>
 	</htmlContent>
@@ -3120,21 +3368,43 @@
 	
 	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_DEFEAT"><![CDATA[
 	<p>
-		You are defeated. Murk says you're going to pay. Orders you to submit.
+		Unable to continue fighting any longer, you sink to the ground with a defeated sigh. The sound of Murk's triumphant laugh causes you to look up, and you see him sneering down at you as he grunts, [murk.speech(You's gonna fuckin' pay fer tryin' ta beat me, bitch!)]
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+			Stepping up in front of you, the chubby rat-boy pushes his sheathed cock towards your face and angrily grunts, [murk.speech(Come on, slut! Give me stinkin' cock a stroke! You's gonna jerk me off so I's can empty me balls all over yer face!)]
+		#ELSE
+			Stepping up in front of you, the chubby rat-boy pushes his sheathed cock into your face and angrily grunts, [murk.speech(Come on, slut! Give me stinkin' cock a kiss! You's gonna suck me off so I's can empty me balls all over yer face!)]
+		#ENDIF
+	</p>
+	<p>
+		Completely defeated and at the mercy of Murk, you realise that you have very little choice but to do as he says...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DEFEAT_SEX_HANDJOB"><![CDATA[
 	<p>
-		You do as you're told and kneel down before the chubby rat-boy. He makes you give him a handjob.
+		Dutifully reaching up to give Murk's fat cock a quick stroke, you can't help but let out a shocked gasp as you watch it push out of its sheath and rise to full attention. Grunting in amusement as a stream of musky precum oozes out of the tip of his throbbing dick, the chubby rat-boy crassly orders, [murk.speech(Fuckin' get on with it an' start jerkin' me off already, ya dumb slut!)]
+	</p>
+	<p>
+		Doing as you're told, you take hold of Murk's fat, throbbing rat-cock and start giving him a handjob. Grunting in pleasure, he snarls, [murk.speech(I's savin' yer first kiss fer tomorrow, so no usin' yer mouth! Heh-heh-heh!)]
+	</p>
+	<p>
+		Restricted to just using your [pc.hands], you put your full effort into trying to bring Murk to a climax as soon as possible...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DEFEAT_SEX_ORAL_START"><![CDATA[
 	<p>
-		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
+		Doing as you're told, you lean forwards and plant a big, wet kiss on the tip of Murk's hot cock. Grunting in amusement as his throbbing dick pushes out of its sheath and rises to full attention, the chubby rat-boy crassly orders, [murk.speech(Now tell me fat cock that ya love it!)]
+	</p>
+	<p>
+		Doing as you're told, you lean in towards Murk's cock and play along by saying to it, [pc.speech(I love you...)]
+	</p>
+	<p>
+		[murk.speech(That's me good milker slut!)] Murk snickers in delight, before grabbing the back of your head and pulling you down onto his cock. Ramming his fat, musky shaft past your [pc.lips+] and all the way down your throat, he grunts in amusement as you let out an involuntary, gargled splutter. Starting to roughly fuck your face, he sneers, [murk.speech(That's it, slut! ~Mmm!~ You's gonna be makin' me spurt me stinkin' cum all over yer face real soon!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -3151,7 +3421,15 @@
 	
 	<htmlContent tag="CAPTIVE_AFTER_DEFEAT_SEX"><![CDATA[
 	<p>
-		Murk attaches the chain to your collar, before letting you sleep on the straw again.
+		Having had his fun with you, Murk pushes you off of him, before grabbing you by the collar and dragging you across the floor, grunting, [murk.speech(Now I's emptied me balls, it's time ta get yer locked up again! Inta yer milkin' room, slut!)]
+	</p>
+	<p>
+		Completely exhausted from your fight and the subsequent sex, you can't resist as you're taken back into the milking room and locked back up to the chain.
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+			 After being forced to give his fat cock one last stroke, you watch as Murk leaves the room, before lying down on your straw bedding and preparing to get some sleep...
+		#ELSE
+			 After being forced to give his fat cock one last kiss, you watch as Murk leaves the room, before lying down on your straw bedding and preparing to get some sleep...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -3161,10 +3439,28 @@
 	
 	<htmlContent tag="CAPTIVE_NIGHT_SLEEP_RESCUED"><![CDATA[
 	<p>
-		Shadow and Silence come to rescue you.
+		Thankfully, the comfortable ambient temperature of the grotto never seems to fluctuate by more than a few degrees, and so while you haven't been provided with a blanket, you find that you really don't need one in order to keep warm. Curling up on your straw bedding, you close your eyes and soon find yourself drifting off to sleep...
 	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+		<p>
+			Some time later in the night, you're suddenly awoken by a feminine hand being clasped over your mouth. Opening your eyes, you're surprised to see the rat-girls, Shadow and Silence, crouched down over you. Seeing the state that you're in, Shadow hisses, [shadow.speech(We's gettin' ya out o' 'ere! We's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! We's needin' somethin' as proof that there's illegal shit goin' on in 'ere, an' you's gonna be that proof!)]
+		</p>
+	#ELSE
+		<p>
+			Some time later in the night, you're suddenly awoken by a feminine hand being clasped over your mouth. Opening your eyes, you see a pair of rat-girls crouched down over you. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the more dominant-looking of the two rat-girls that isn't as dark as the night sky.
+		</p>
+		<p>
+			In stark contrast to her partner, the second rat-girl's fur is a brilliant white, while the skin covering her paw pads, nose, and tail is a ghostly pale colour. It isn't her white fur which draws your attention the most, however, as instead you find yourself marvelling at the fact that her pink eyes are giving off a steady, luminescent glow. This, combined with the fact that she's wearing what appears to be a pink shard of demonstone on a thin chain around her neck, hints at the fact that this rat-girl is an arcane user.
+		</p>
+		<p>
+			[shadow.speech(Silence 'ere's right pretty, ain't she?)] the black-furred rat-girl asks as she sees you looking at her albino friend, [shadow.speech(If ya ain't 'eard about me already, I's go by the name o' Shadow. Anyways, we's gettin' ya out o' 'ere! We's gone an' snitched on Vengar to the Enforcers, 'o are meant ta be showin' up ta raid this place at any moment! We's needin' somethin' as proof that there's illegal shit goin' on in 'ere, an' you's gonna be that proof!)]
+		</p>
+	#ENDIF
 	<p>
-		Shadow sees that Murk has broken you and roughly orders you to do as she says. Your submissive nature makes you unable to resist, and you let the two rat-girls drag you out of the milking room...
+		Although you're reluctant to leave your Master, your submissive nature makes you unable to resist Shadow's demands, and after she's released you from your chain, you let the two rat-girls drag you out of the milking room. Entering the storage room, you see that there's no sign of your Master anywhere nearby, and so after retrieving your items from the nearby crate, you reluctantly agree to escape...
 	</p>
 	]]>
 	</htmlContent>
@@ -3174,7 +3470,16 @@
 	
 	<htmlContent tag="ESCAPING"><![CDATA[
 	<p>
-		Shadow and Silence lead you down tunnels.
+		Being dragged along by Silence, you follow Shadow as she leads you through the tunnels and to the front entrance to the Rat Warrens. After bullying her way past the guards, she then leads you out into Submission, where, much to your surprise and alarm, you see that there's a large group of heavily armed and armoured Enforcers waiting for you. Catching sight of you, these Enforcers raise their weapons and shout, [style.speechMasculine(This is SWORD! Show us your hands! Get down on the ground! Do it! Do it now!)]
+	</p>
+	<p>
+		[shadow.speech(Does it fuckin' look like this 'un is part o' the gang?!)] Shadow snaps, before addressing a particularly large German-shepherd-boy who's at the head of the group, [shadow.speech(Tell yer trigger-happy goons ta stand down; this [pc.race] is the one 'o's been kept as a sex slave!)]
+	</p>
+	<p>
+		Barking out an order for the SWORD Enforcers to leave you alone, the muscular leader steps forwards and scowls at Shadow, [style.speechMasculineStrong(Catching Vengar red-handed is all we needed. You've upheld your end of the bargain, so all three of you can get out of our way. Constable Adams! Take them back the way we came!)]
+	</p>
+	<p>
+		One of the SWORD Enforcers, who you assume must be Constable Adams, hurries forwards and prepares to do as he's told. Wanting to find out what's going on, and thinking it best not to get in the way of this group of heavily-armed Enforcers, you decide to comply and allow yourself to be escorted to the nearest Enforcer post...
 	</p>
 	]]>
 	</htmlContent>

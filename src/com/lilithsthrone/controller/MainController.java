@@ -504,7 +504,46 @@ public class MainController implements Initializable {
 //								}
 //							}
 //							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
+							
 							System.out.println(Main.game.getPlayer().getLocation());
+							
+//							int mines = 6;
+//							int gridSize = 8;
+//							String[][] grid = new String[gridSize][gridSize];
+//							String mine = "||:InnoScrem:||";
+//							String[] counts = new String[] {":zero:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:"};
+//							for(int i=mines; i>0; i--) {
+//							    int rndX = Util.random.nextInt(gridSize);
+//							    int rndY = Util.random.nextInt(gridSize);
+//							    while(grid[rndX][rndY]==mine) {
+//							        rndX = Util.random.nextInt(gridSize);
+//							        rndY = Util.random.nextInt(gridSize);
+//							    }
+//							    grid[rndX][rndY] = mine;
+//							}
+//							for(int i=0;i<gridSize;i++) {
+//							    for(int j=0;j<gridSize;j++) {
+//							        if(grid[i][j]!=mine) {
+//							            int count = 0;
+//							            for(int x=-1;x<=1;x++) {
+//							                for(int y=-1;y<=1;y++) {
+//							                    if(i+x>=0 && i+x<gridSize && j+y>=0 && j+y<gridSize) {
+//							                        if(grid[i+x][j+y]==mine) {
+//							                            count++;
+//							                        }
+//							                    }
+//							                }
+//							            }
+//							            grid[i][j] = "||"+counts[count]+"||";
+//							        }
+//							    }
+//							}
+//							for(int i=0;i<gridSize;i++) {
+//							    for(int j=0;j<gridSize;j++) {
+//							        System.out.print(grid[i][j]);
+//							    }
+//							    System.out.println();
+//							}
 						}
 						 
 

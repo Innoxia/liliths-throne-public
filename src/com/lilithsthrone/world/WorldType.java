@@ -407,19 +407,26 @@ public class WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
 					new Value<>(new Color(0xb9b9b9), PlaceType.ENFORCER_HQ_CELLS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ENFORCER_HQ_STAIRS),
 					
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
+					new Value<>(new Color(0x808000), PlaceType.ENFORCER_HQ_REQUISITIONS_DOOR),
 					new Value<>(new Color(0xff0080), PlaceType.ENFORCER_HQ_LOCKED_DOOR),
+					new Value<>(new Color(0x800080), PlaceType.ENFORCER_HQ_LOCKED_DOOR_EDGE),
 					
-
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE),
 					new Value<>(new Color(0x00ffff), PlaceType.ENFORCER_HQ_OFFICE),
 					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_HQ_CELLS_OFFICE),
-					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL))) {
+					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL),
+
+					new Value<>(new Color(0xff4000), PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE),
+					new Value<>(new Color(0x80ff80), PlaceType.ENFORCER_HQ_REQUISITIONS),
+					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER)
+					)) {
 		@Override
 		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex in the Enforcer HQ!";

@@ -2756,6 +2756,7 @@ public class OptionsDialogue {
 
 			UtilText.nodeContentSB.append("<br/>"
 					+ "Contributors:</br>" // In alphabetical order:
+					+ "<b style='color:#21bfc5;'>AceXP</b></br>"
 					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
 					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"

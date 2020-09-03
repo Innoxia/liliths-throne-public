@@ -2,8 +2,10 @@ package com.lilithsthrone.game.inventory.weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -22,6 +24,7 @@ import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -525,6 +528,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return Math.max(1, (int)(this.getWeaponType().getBaseValue() * modifier));
 	}
 
+	/**
+	 * @param characterOwner The character who owns this item.
+	 * @return A List of Strings describing extra features of this WeaponType.
+	 */
+	public List<String> getExtraDescriptions(GameCharacter characterOwner) {
+		List<String> descriptionsList = new ArrayList<>();
+		
+		for(ItemTag it : this.getWeaponType().getItemTags()) {
+			descriptionsList.addAll(it.getClothingTooltipAdditions());
+		}
+		
+		return descriptionsList;
+	}
+	
 	public DamageType getDamageType() {
 		return damageType;
 	}
@@ -657,4 +674,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return weaponType.getEnchantmentItemType(effects);
 	}
 
+	@Override
+	public Set<ItemTag> getItemTags() {
+		return new HashSet<>(this.getWeaponType().getItemTags());
+	}
 }

@@ -9110,7 +9110,7 @@ public abstract class GameCharacter implements XMLSaving {
 					if(((target.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive() && equipper.hasVagina()) || target.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive())
 							&& ((Main.game.isInSex() && Main.sex.getSexPace(target)==SexPace.DOM_ROUGH) || (target.hasPersonalityTrait(PersonalityTrait.SELFISH)))) {
 						AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-						if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
+						if(clothing!=null && clothing.isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 							target.unequipClothingIntoVoid(clothing, true, equipper);
 							inventory.resetEquipDescription();
 						}
@@ -17233,7 +17233,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getUnableToEscapeDescription() {
 		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			if(clothing.getClothingType().isHindersLegMovement(clothing.getSlotEquippedTo()) && !this.isAbleToFly()) {
+			if(clothing.isHindersLegMovement(clothing.getSlotEquippedTo()) && !this.isAbleToFly()) {
 				return "Escape is blocked due to your "+clothing.getName()+" hindering your movement!";
 			}
 		}
@@ -17703,7 +17703,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isWearingCondom() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isCondom(c.getSlotEquippedTo())) {
+			if(c.isCondom(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -18271,10 +18271,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.cleanAllDirtySlots(true);
 		sb.append(this.cleanAllClothing(cleanAllClothing, true));
 		
-		this.removeStatusEffect("innoxia_cleaned_shower");
-		this.removeStatusEffect("innoxia_cleaned_bath");
-		this.removeStatusEffect("innoxia_cleaned_spa");
 		if(effect!=null) {
+			this.removeStatusEffect("innoxia_cleaned_shower");
+			this.removeStatusEffect("innoxia_cleaned_bath");
+			this.removeStatusEffect("innoxia_cleaned_spa");
 			this.addStatusEffect(effect, statusEffectMinutes*60);
 		}
 		
@@ -18845,7 +18845,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return true;
 		}
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isMufflesSpeech(c.getSlotEquippedTo())) {
+			if(c.isMufflesSpeech(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -18854,7 +18854,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isArmMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isHindersArmMovement(c.getSlotEquippedTo())) {
+			if(c.isHindersArmMovement(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -18863,7 +18863,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isLegMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isHindersLegMovement(c.getSlotEquippedTo())) {
+			if(c.isHindersLegMovement(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -19184,6 +19184,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
+	 * @return true If one of the items in this inventory has the same type as the Item provided.
+	 */
+	public boolean hasItemType(String id) {
+		return hasItemType(ItemType.getItemTypeFromId(id));
+	}
+	
+	/**
 	 * @return true If an item was removed.
 	 */
 	public boolean removeItemByType(AbstractItemType item) {
@@ -19324,6 +19331,20 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		return false;
+	}
+
+	public boolean hasWeaponEquipped(AbstractWeaponType weaponType) {
+		for(AbstractWeapon equippedWeapon : inventory.getMainWeaponArray()) {
+			if(equippedWeapon!=null && equippedWeapon.getWeaponType()==weaponType) {
+				return true;
+			}
+		}
+		for(AbstractWeapon equippedWeapon : inventory.getOffhandWeaponArray()) {
+			if(equippedWeapon!=null && equippedWeapon.getWeaponType()==weaponType) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -20126,7 +20147,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public void equipClothingOverride(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean replaceClothing, boolean removeFromInventoryOrFloor) {
 		List<InventorySlot> slotsToClear = new ArrayList<>();
 		slotsToClear.add(slotToEquipInto);
-		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots(this, slotToEquipInto));
+		slotsToClear.addAll(newClothing.getIncompatibleSlots(this, slotToEquipInto));
 
 		if(removeFromInventoryOrFloor) {
 			if(Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().hasClothing(newClothing)) {
@@ -21037,7 +21058,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getAllBodyParts();
 	}
 	
-	private class GenderAppearance {
+	private static class GenderAppearance {
 		public String description;
 		public Gender gender;
 		public GenderAppearance(String description, Gender gender) {
@@ -22521,7 +22542,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isAbleToFlyFromArms() {
 		if(body.isAbleToFlyFromArms()) {
 			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-				if(clothing.getClothingType().isHindersArmMovement(clothing.getSlotEquippedTo())) {
+				if(clothing.isHindersArmMovement(clothing.getSlotEquippedTo())) {
 					return false;
 				}
 			}
@@ -25211,8 +25232,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasErection() {
 		if(Main.game.isInSex()) {
 			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				if(c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_OTHER)
-						|| c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+				if(c.getItemTags().contains(ItemTag.PREVENTS_ERECTION_OTHER)
+						|| c.getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
 					return false;
 				}
 			}
@@ -25226,7 +25247,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public boolean isErectionPreventedPhysically() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+			if(c.getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
 				return true;
 			}
 		}

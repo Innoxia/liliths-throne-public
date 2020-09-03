@@ -33,7 +33,9 @@
 		<secondaryColours/> 
 		<secondaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_MEDIUM</tag>
+		</itemTags>
 	</coreAttributes>
 	
 	<hitDescriptions>

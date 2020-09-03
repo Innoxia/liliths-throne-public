@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.9.2
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public enum EncounterType {
@@ -27,6 +27,8 @@ public enum EncounterType {
 	DOMINION_STORM_ATTACK(true),
 	
 	DOMINION_EXPRESS_CENTAUR,
+	
+	WES_QUEST_START,
 	
 	
 	// Harpy nests:

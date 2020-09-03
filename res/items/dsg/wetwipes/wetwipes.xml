@@ -42,10 +42,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly [npc.verb(clean)] [npc.herself] with it.
+		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly cleaning [npc.herself] with it.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly [npc.verb(clean)] [npc2.name] with it.
+		[npc.Name] [npc.verb(tear)] open the foil packet and [npc.verb(take)] out the wet wipe, before quickly cleaning [npc2.name] with it.
 		]]></otherUse>
 	</useDescriptions>
 

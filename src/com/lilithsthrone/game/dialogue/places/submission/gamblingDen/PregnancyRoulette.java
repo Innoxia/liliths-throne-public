@@ -10,7 +10,6 @@ import java.util.Objects;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -27,8 +26,6 @@ import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DiceFace;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -38,8 +35,11 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotBreedingStall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
@@ -53,7 +53,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.5.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class PregnancyRoulette {
@@ -63,6 +63,7 @@ public class PregnancyRoulette {
 	private static int roll = 1;
 	private static GenericSexualPartner mother;
 	private static GameCharacter selectedBreeder;
+	private static SexType murkPreference = null;
 	
 	private static void initBreeder(NPC partner) {
 		partner.deleteAllEquippedClothing(true);
@@ -170,7 +171,7 @@ public class PregnancyRoulette {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaIntroduced, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "PREGNANCY_ROULETTE_GREETING_UTIL_END"));
 						}
 					};
 				} else {
@@ -183,7 +184,7 @@ public class PregnancyRoulette {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Epona.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "PREGNANCY_ROULETTE_GREETING_UTIL_PREG_END"));
 						}
 					};
 				} else {
@@ -381,7 +382,7 @@ public class PregnancyRoulette {
 					}
 					
 				} else if(index==11 && Main.game.getNpc(Murk.class).isSlave()) {
-					return new Response("[murk.Name]", "Ask Epona about [murk.name].", MURK);
+					return new Response("[murk.Name]", "Ask Epona if you can see [murk.name].", MURK);
 					
 				} else {
 					return null;
@@ -408,7 +409,7 @@ public class PregnancyRoulette {
 		
 	};
 	
-	public static final DialogueNode PREGNANCY_ROULETTE_GREETING_UTIL = new DialogueNode("Pregnancy Roulette Counter", "", false) {
+	public static final DialogueNode PREGNANCY_ROULETTE_GREETING_UTIL = new DialogueNode("Pregnancy Roulette Counter", "", false, true) {
 		
 		@Override
 		public String getContent() {
@@ -979,15 +980,11 @@ public class PregnancyRoulette {
 		}
 	};
 	
-	/* Murk:
-	 * 	Ask about him. Epons reveals she is disgusted by what he's done. He's tasked with cleaning up the stalls in pregnancy roulette. Currently chained up in the back, however.
-	 *  Can convince to let you punish him.
-	 * 	When alone, can submit instead.
-	 *  Or fuck him
-	 *  Or permanently transform him into rat-girl
-	 */
-	
 	public static final DialogueNode MURK = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaMurkOwnerIntroduced)) {
@@ -998,7 +995,7 @@ public class PregnancyRoulette {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Punish", "Tell Epona that you could spend some time punishing [murk.name] for [murk.her] past crimes.", MURK_ALONE) {
+				return new Response("Enter", "Enter the room which [murk.name] is being kept in...", MURK_ALONE) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkOwnerIntroduced, true);
@@ -1006,7 +1003,7 @@ public class PregnancyRoulette {
 				};
 				
 			} else if(index==0) {
-				return new Response("Back", "Tell Epona that you've had enough of discussing [murk.name] for now.", MURK_BACK) {
+				return new Response("Leave", "Have second thoughts about visiting [murk.name] and instead turn around and leave...", MURK_BACK) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkOwnerIntroduced, true);
@@ -1019,6 +1016,10 @@ public class PregnancyRoulette {
 
 	public static final DialogueNode MURK_BACK = new DialogueNode("", "", false) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_BACK");
 		}
@@ -1030,44 +1031,65 @@ public class PregnancyRoulette {
 	
 	public static final DialogueNode MURK_ALONE = new DialogueNode("", "", true) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public void applyPreParsingEffects() {
+			Map<SexType, Integer> sexMap = new HashMap<>();
+			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				sexMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), 10);
+			}
+			if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+				sexMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), 3);
+			}
+			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				sexMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1);
+			}
+			if(sexMap.isEmpty()) {
+				murkPreference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER);
+			} else {
+				murkPreference = Util.getRandomObjectFromWeightedMap(sexMap);
+			}
+		}
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_ALONE");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaMurkSubmitted)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.murkMaster)) {
 				if(index==1) {
-					return new Response("Obey", "Do as [murk.name] commands and get down on your knees to worship his cock.", MURK_SUBMIT_ACCEPT) {
+					return new Response("Obey", "Do as your Master commands and get down on your knees to worship his cock.", MURK_SUBMIT_ACCEPT) {
 						@Override
 						public boolean isSexHighlight() {
 							return true;
 						}
 						@Override
 						public void effects() {
-							if(isMurkNoAccess()) {
-								int increment = (int) (Main.game.getNpc(Murk.class).getPenisRawStoredCumValue()/2);
-								Main.game.getNpc(Murk.class).incrementPenisStoredCum(increment);
-								List<CoverableArea> cummedOnAreas = Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.ASS, CoverableArea.BACK, CoverableArea.LEGS, CoverableArea.VAGINA);
-								for(CoverableArea area : cummedOnAreas) {
-									for(InventorySlot slot : area.getAssociatedInventorySlots(Main.game.getPlayer())) {
-										List<AbstractClothing> dirtyClothing = new ArrayList<>(Main.game.getPlayer().getVisibleClothingConcealingSlot(slot));
-										if(!dirtyClothing.isEmpty()) {
-											for(AbstractClothing c : dirtyClothing) {
-												c.setDirty(Main.game.getPlayer(), true);
-											}
-										} else if(slot!=InventorySlot.TORSO_OVER) { // Do not dirty over-torso slot, as it doesn't really make much sense...
-											Main.game.getPlayer().addDirtySlot(slot);
-										}
-									}
-								}
-							}
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+						}
+					};
+				}
+				
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaMurkSubmitted)) {
+				if(index==1) {
+					return new Response("Obey", "Do as [murk.name] commands and get down on your knees to worship [murk.her] cock.", MURK_SUBMIT_ACCEPT) {
+						@Override
+						public boolean isSexHighlight() {
+							return true;
+						}
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 						}
 					};
 					
 				} else if(index==2) {
-					return new Response("Refuse", "Tell [murk.name] not to get cocky, just because you let him dominate you the last time you were here.", MURK_SUBMIT_REFUSE) {
+					return new Response("Refuse", "Tell [murk.name] not to get cocky and refuse to submit to [murk.herHim].", MURK_SUBMIT_REFUSE) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, false);
 						}
 					};
@@ -1075,25 +1097,33 @@ public class PregnancyRoulette {
 				
 			} else {
 				if(index==1) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.murkLectured)) {
+						return new Response("Lecture", "You've already lectured [murk.name] today, and feel like there'd be no point in doing it again until tomorrow...", null);
+					}
 					return new Response("Lecture", "Spend some time lecturing [murk.name] on why what [murk.she] did was wrong.", MURK_LECTURING) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							if(Main.game.getNpc(Murk.class).isFeminine() && Main.game.getNpc(Murk.class).getAffection(Main.game.getPlayer())<25) {
-								Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 5));
 							} else {
-								Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), -5));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), -5));
 							}
 						}
 					};
 					
 				} else if(index==2) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.murkSpanked)) {
+						return new Response("Spank", "You've already spanked [murk.name] today, and feel like there'd be no point in doing it again until tomorrow...", null);
+					}
 					return new Response("Spank", "Spend some time spanking [murk.name].", MURK_SPANKING) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							if(Main.game.getNpc(Murk.class).isFeminine()) {
-								Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 10));
 							} else {
-								Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), -10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), -10));
 							}
 						}
 					};
@@ -1104,34 +1134,35 @@ public class PregnancyRoulette {
 							"Dominantly fuck [murk.name].",
 							true,
 							false,
-							new SMGeneric(
-									Util.newArrayListOfValues(
-											Main.game.getPlayer()),
-									Util.newArrayListOfValues(
-											Main.game.getNpc(Murk.class)),
-									null,
-									null) {
+							new SMLyingDown(
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getNpc(Murk.class), SexSlotLyingDown.MISSIONARY))) {
 							},
+							null,
+							null,
 							AFTER_MURK_SEX,
-							UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_DOM"));
+							UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_DOM")) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+						}
+					};
 					
 				} else if(index==4 && !Main.game.getNpc(Murk.class).isFeminine()) {
-					if((!Main.game.getPlayer().hasVagina() || Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-							&& (!Main.game.isAnalContentEnabled() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-							&& !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-						return new Response("Submit", "Murk is unable to access your mouth, ass, or pussy, so has no interest in trying to fuck you.", null);
-					}
 					return new ResponseSex(
 							"Submit",
 							"Tell [murk.name] that you want [murk.herHim] to dominate you...",
 							true,
 							false,
 							new SMAllFours(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Murk.class),
-											(!Main.game.getPlayer().hasVagina() || Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-											&& (!Main.game.isAnalContentEnabled() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-												?SexSlotAllFours.IN_FRONT
-												:SexSlotAllFours.HUMPING)),
+									Util.newHashMapOfValues(
+										new Value<>(
+											Main.game.getNpc(Murk.class),
+											murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA || murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS
+												?SexSlotAllFours.HUMPING
+												:SexSlotAllFours.IN_FRONT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
 								@Override
 								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
@@ -1144,19 +1175,14 @@ public class PregnancyRoulette {
 								@Override
 								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
-										return getMainSexPreference(character, targetedCharacter);
+										return murkPreference;
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
 								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
-										if(targetedCharacter.hasVagina()) {
-											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-											
-										} else if(Main.game.isAnalContentEnabled()) {
-											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
-										}
+										return murkPreference;
 									}
 									return super.getMainSexPreference(character, targetedCharacter);
 								}
@@ -1164,19 +1190,16 @@ public class PregnancyRoulette {
 								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 									
-									if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+									if(murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
 										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA));
 										
-									} else if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
+									} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS) {
 										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS));
 										
-									} else {
+									} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH) {
 										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH));
 									}
 									
-									if(map.isEmpty()) {
-										return super.exposeAtStartOfSexMap();
-									}
 									map.put(Main.game.getNpc(Murk.class), Util.newArrayListOfValues(CoverableArea.PENIS));
 									
 									return map;
@@ -1185,44 +1208,56 @@ public class PregnancyRoulette {
 							null,
 							null,
 							AFTER_MURK_SEX,
-							(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-								?UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_SUB_VAGINA")
-								:((Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-									?UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_SUB_ANUS")
-									:UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_SUB"))) {
+							UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette",
+									murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA
+										?"MURK_SEX_SUB_VAGINA"
+										:(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS
+											?"MURK_SEX_SUB_ANUS"
+											:(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH
+												?"MURK_SEX_SUB_ORAL"
+												:"MURK_SEX_SUB_HANDJOB")))) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, true);
 						}
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
-							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+							if(murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
 								
-							} else if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
+							} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS){
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
 								
-							} else {
+							} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH) {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+								
+							} else {
+								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), FingerPenis.COCK_MASTURBATED_START, false, true));
 							}
 						}
 					};
 					
 				} else if(index==5 && !Main.game.getNpc(Murk.class).isFeminine()) {
 					return new Response("Feminise",
-							"Use some of the potions in the storage room to feminise [murk.name] into a submissive rat-girl."
+							"Use the potion on the top shelf to feminise [murk.name] into a submissive rat-girl."
 									+ "<br/>[style.italicsGenericTf(This is a permanent transformation, after which you will no longer be able to choose the 'Submit' action with her.)]",
 							MURK_FEMINISE) {
 						@Override
 						public void effects() {
-							((Murk)Main.game.getNpc(Murk.class)).applyFeminisation();
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, false);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_FEMINISE"));
+							Main.game.getTextStartStringBuilder().append(((Murk)Main.game.getNpc(Murk.class)).applyFeminisation());
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_FEMINISE_END"));
 						}
 					};
 					
 				} else if(index==0) {
-					return new Response("Back", "Head back out of the storage room and let Epona know that you've finished with [murk.name].", MURK_LEAVE) {
+					return new Response("Leave", "Head back out of the storage room and let Epona know that you've finished with [murk.name].", MURK_LEAVE) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_ALONE_LEAVE"));
 						}
 					};
@@ -1233,6 +1268,14 @@ public class PregnancyRoulette {
 	};
 
 	public static final DialogueNode MURK_LECTURING = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkLectured, true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_LECTURING");
@@ -1245,6 +1288,14 @@ public class PregnancyRoulette {
 
 	public static final DialogueNode MURK_SPANKING = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkSpanked, true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SPANKING");
 		}
@@ -1254,7 +1305,15 @@ public class PregnancyRoulette {
 		}
 	};
 
-	public static final DialogueNode AFTER_MURK_SEX = new DialogueNode("", "", true) {
+	public static final DialogueNode AFTER_MURK_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getDescription() {
+			return "[murk.Name] has had enough for now...";
+		}
 		@Override
 		public String getContent() {
 			if(Main.sex.isDom(Main.game.getPlayer())) {
@@ -1272,8 +1331,9 @@ public class PregnancyRoulette {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "AFTER_MURK_SEX_DOM_LEAVE"));
 						}
 					};
+					
 				} else {
-						return new Response("Leave", "Do as Murk says and leave", MURK_LEAVE){
+						return new Response("Leave", "Do as [murk.name] says and leave", MURK_LEAVE){
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "AFTER_MURK_SEX_SUB_LEAVE"));
@@ -1287,8 +1347,12 @@ public class PregnancyRoulette {
 
 	public static final DialogueNode MURK_FEMINISE = new DialogueNode("", "", true) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_FEMINISE");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1298,8 +1362,12 @@ public class PregnancyRoulette {
 
 	public static final DialogueNode MURK_LEAVE = new DialogueNode("", "", false) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_CORRIDOR);
+			Main.game.getPlayer().setNearestLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_CORRIDOR, false);
 		}
 		@Override
 		public String getContent() {
@@ -1310,162 +1378,115 @@ public class PregnancyRoulette {
 			return GamblingDenDialogue.CORRIDOR.getResponse(responseTab, index);
 		}
 	};
-
-	private static boolean isMurkNoAccess() {
-		return (!Main.game.getPlayer().hasVagina() || Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-				&& (!Main.game.isAnalContentEnabled() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-				&& !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true);
-	}
 	
 	public static final DialogueNode MURK_SUBMIT_ACCEPT = new DialogueNode("", "", true) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
 		public String getContent() {
-			if(Main.game.isGapeContentEnabled()
-					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
-					&& ((Main.game.getPlayer().hasVagina() && Main.game.getPlayer().getVaginaPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue())
-							|| (Main.game.isAnalContentEnabled() && Main.game.getPlayer().getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()))) {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_ACCEPT_POTION");
-			}
-			if(isMurkNoAccess()) {
-				return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_ACCEPT_NO_ACCESS");
-			}
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_ACCEPT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.isGapeContentEnabled()
-					&& ((Main.game.getPlayer().hasVagina() && Main.game.getPlayer().getVaginaPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue())
-							|| (Main.game.isAnalContentEnabled() && Main.game.getPlayer().getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()))) {
-				if(index==1) {
-					return new Response("Drink",
-							"Drink the potion Murk has found for you.",
-									MURK_SUBMIT_ACCEPT_POTION) {
-						@Override
-						public void effects() {
-							if(Main.game.getPlayer().hasVagina()) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-							}
-							if(Main.game.isAnalContentEnabled()) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-							}
-						}
-					};
-				}
-				
-			} else {
-				if(index==1) {
-					if(isMurkNoAccess()) {
-						return new Response("Kicked out", "Murk is unable to access your mouth, ass, or pussy, so has no interest in trying to fuck you.", MURK_LEAVE) {
+			if(index==1) {
+				return new ResponseSex(
+						"Submit",
+						"You submit to your Master and let him dominate you...",
+						true,
+						false,
+						new SMAllFours(
+								Util.newHashMapOfValues(
+									new Value<>(
+										Main.game.getNpc(Murk.class),
+										murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA || murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS
+											?SexSlotAllFours.HUMPING
+											:SexSlotAllFours.IN_FRONT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
 							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_ACCEPT_KICKED_OUT"));
+							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+								return false;
 							}
-						};
+							@Override
+							public boolean isPositionChangingAllowed(GameCharacter character) {
+								return false;
+							}
+							@Override
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								if(!character.isPlayer()) {
+									return murkPreference;
+								}
+								return super.getForeplayPreference(character, targetedCharacter);
+							}
+							@Override
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								if(!character.isPlayer()) {
+									return murkPreference;
+								}
+								return super.getMainSexPreference(character, targetedCharacter);
+							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
+								
+								if(murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
+									map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA));
+									
+								} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS) {
+									map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS));
+									
+								} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH) {
+									map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH));
+								}
+								
+								map.put(Main.game.getNpc(Murk.class), Util.newArrayListOfValues(CoverableArea.PENIS));
+								
+								return map;
+							}
+						},
+						null,
+						null,
+						AFTER_MURK_SEX,
+						UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette",
+								murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA
+									?"MURK_SEX_SUB_VAGINA"
+									:(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS
+										?"MURK_SEX_SUB_ANUS"
+										:(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH
+											?"MURK_SEX_SUB_ORAL"
+											:"MURK_SEX_SUB_HANDJOB")))) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, true);
 					}
-					return new ResponseSex(
-							"Submit",
-							"You submit to [murk.name] and let him dominate you...",
-							true,
-							false,
-							new SMAllFours(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Murk.class),
-											(!Main.game.getPlayer().hasVagina() || Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-											&& (!Main.game.isAnalContentEnabled() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-												?SexSlotAllFours.IN_FRONT
-												:SexSlotAllFours.HUMPING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
-								@Override
-								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-									return false;
-								}
-								@Override
-								public boolean isPositionChangingAllowed(GameCharacter character) {
-									return false;
-								}
-								@Override
-								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									if(!character.isPlayer()) {
-										return getMainSexPreference(character, targetedCharacter);
-									}
-									return super.getForeplayPreference(character, targetedCharacter);
-								}
-								@Override
-								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-									if(!character.isPlayer()) {
-										if(targetedCharacter.hasVagina()) {
-											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
-											
-										} else if(Main.game.isAnalContentEnabled()) {
-											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
-										}
-									}
-									return super.getMainSexPreference(character, targetedCharacter);
-								}
-								@Override
-								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-									
-									if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA));
-										
-									} else if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
-										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS));
-										
-									} else {
-										map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH));
-									}
-									
-									if(map.isEmpty()) {
-										return super.exposeAtStartOfSexMap();
-									}
-									map.put(Main.game.getNpc(Murk.class), Util.newArrayListOfValues(CoverableArea.PENIS));
-									
-									return map;
-								}
-							},
-							null,
-							null,
-							AFTER_MURK_SEX,
-							(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-								?UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_SEX_SUB_VAGINA")
-								:((Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-									?UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_SEX_SUB_ANUS")
-									:UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_SEX_SUB"))) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, true);
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						if(murkPreference.getTargetedSexArea()==SexAreaOrifice.VAGINA) {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
+							
+						} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.ANUS){
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
+							
+						} else if(murkPreference.getTargetedSexArea()==SexAreaOrifice.MOUTH) {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+							
+						} else {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), FingerPenis.COCK_MASTURBATED_START, false, true));
 						}
-						@Override
-						public List<InitialSexActionInformation> getInitialSexActions() {
-							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
-								
-							} else if(Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)){
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
-								
-							} else {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Murk.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-							}
-						}
-					};
-				}
+					}
+				};
 			}
 			return null;
 		}
 	};
 
-	public static final DialogueNode MURK_SUBMIT_ACCEPT_POTION = new DialogueNode("", "", true) {
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_ACCEPT_POTION");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return MURK_SUBMIT_ACCEPT.getResponse(responseTab, index);
-		}
-	};
-
 	public static final DialogueNode MURK_SUBMIT_REFUSE = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SUBMIT_REFUSE");

@@ -818,13 +818,8 @@ public class GamblingDenDialogue {
 			} else if(index==3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelMentionedVengar) && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) { // Initial asking/quest start:
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
-//						return new Response("Offer help",
-//								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-//								+ "<br/>[style.italicsBad(This quest is temporarily disabled while work is being done on it. It will be completely finished soon!)]",
-//								null);
 						return new Response("Offer help",
-								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+ "<br/>[style.italicsBad(Please be aware that are some rough edges to this quest! It will be finished as soon as possible!)]",
+								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.",
 								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {
@@ -832,7 +827,7 @@ public class GamblingDenDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP")); //TODO remove rough warning
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
 								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
 							}
 						};
