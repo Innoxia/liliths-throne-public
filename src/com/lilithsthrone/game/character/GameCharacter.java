@@ -19216,20 +19216,26 @@ public abstract class GameCharacter implements XMLSaving {
 			return "";
 		}
 	}
-	
-	
-	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor) {
-		return useItem(item, target, removingFromFloor, false);
-	}
-	
-	/**
+
+
+    public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor) {
+        return useItem(item, target, removingFromFloor, false, true);
+    }
+
+    public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
+        return useItem(item, target, removingFromFloor, onlyReturnEffects, true);
+    }
+
+    /**
 	 * Uses the specified item on the specified target. If the item returns true on isConsumedOnUse() call, this item is removed from the character's inventory.
 	 * 
 	 * @param removingFromFloor true if an instance of this item should be consumed from the floor of the area the character is currently in. If item isConsumedOnUse() returns false, an item will not be removed from the floor.
+     * @param onlyReturnEffects if true effects() will be applied, but there will be no description generated
+     * @param removeItem if false, the item will not be removed from the inventory (used when the item is in another inventory than the one of the character using the item)
 	 * @return Description of what happened.
 	 */
 
-	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
+	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects, boolean removeItem) {
 		if(ItemType.getAllItems().contains(item.getItemType()) && (isPlayer() || target.isPlayer())) {
 			Main.game.addEvent(
 					new EventLogEntry(
@@ -19243,7 +19249,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if (item.getItemType().isConsumedOnUse()) {
+		if (item.getItemType().isConsumedOnUse() && removeItem) {
 			if(removingFromFloor) {
 				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
 			} else {
@@ -19256,7 +19262,7 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			return item.getUseDescription(this, target) + item.applyEffect(this, target);
 		}
-		
+
 	}
 
 	
