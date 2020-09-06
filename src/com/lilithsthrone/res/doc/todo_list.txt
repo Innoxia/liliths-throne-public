@@ -27,6 +27,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where you would return to an incorrect dialogue scene when leaving inventory management in a friendly occupant's apartment. (PR#1394 by AceXP)
 		Typo fixes in the Rat Warrens. (Pr#1400 by aDrunkLittleDerp)
 		While carrying an arcane makeup set, characters will now reapply heavy lipstick if it was worn off during sex. (PR#1403 by CognitiveMist)
+		Fixed parser errors in vagina reveal descriptions. (PR#1404 by AceXP)
+		Enable loading of patterns from the res/mods folder. (PR#1405 by AceXP)
 	
 	DSG's Enforcer Uniform Update:
 		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.
