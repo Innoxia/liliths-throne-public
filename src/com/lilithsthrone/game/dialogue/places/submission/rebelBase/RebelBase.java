@@ -36,7 +36,7 @@ public class RebelBase {
 		@Override
                 public Response getResponse(int responseTab, int index) {
                     if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_ESCAPE)) {
-                            return new Response("[style.colourBad(Exit)]", "This place looks seriously unstable, it could collapse at any moment. It might be best to leave whatever secrets are in here and while you still can.", REBEL_BASE_COLLAPSE);
+                            return new Response("[style.colourBad(Exit)]", "This place looks seriously unstable, it could collapse at any moment. It might be best to leave whatever secrets are in here and leave while you still can.", REBEL_BASE_COLLAPSE);
                     } else if (index == 1) {
                             return new Response("[style.colourGood(Exit)]", "You've had a look through everything that you could find. It might be best to leave while you still can.", REBEL_BASE_COLLAPSE);
                     } else {

@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[boonie hats]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A cotton twill hat with a stiff, downward sloping brim intended to keep the sun and rain off of the wearer's eyes and neck.​ A band of nylon webbing around the crown allows foliage to be inserted to improve camoflage.]]></description> 
+		<description><![CDATA[A cotton twill hat with a stiff, downward sloping brim intended to keep the sun and rain off of the wearer's eyes and neck.​ A band of nylon webbing around the crown allows foliage to be inserted to improve camouflage.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>0</physicalResistance> 

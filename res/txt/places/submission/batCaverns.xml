@@ -210,7 +210,7 @@
         
 	<htmlContent tag="REBEL_BASE_DISCOVERED"><![CDATA[
 	<p>
-		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate the way, you notice a strange shadow the cave wall, seemingly floating in midair. As you approach, you can see that this shadow is actually a well hidden door handle jutting out from the rock.
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate the way, you notice a strange shadow on the cave wall, seemingly floating in midair. As you approach, you can see that this shadow is actually a well hidden door handle jutting out from the rock.
 	</p>
 	<p>
 		Between the dim light and the thick layer of dust on it, you can't tell how old it is or how long it's been there. Briefly glancing around, you can see no obvious seams or hinges that might suggest the presence of a door. This might be a trap.
@@ -227,7 +227,7 @@
 	
 	<htmlContent tag="REBEL_BASE_DOOR_NO_PASS"><![CDATA[
 	<p>
-		Taking your chances, you grab the handle. To your surprise, the moment you make contact with the cold metal glowing letters appear in the cavern wall spelling out the question "Fiat Justitia?" You give the handle and experimental tug, but it remains fixed in place. Looks like the wall wants an answer, and since you're not sure how to answer there's nothing more that you can do at the moment. The glowing letters fade away when you let go of the handle.
+		Taking your chances, you grab the handle. To your surprise, the moment you make contact with the cold metal glowing letters appear in the cavern wall spelling out the question "Fiat Justitia?" You give the handle an experimental tug, but it remains fixed in place. Looks like the wall wants an answer, and since you're not sure how to answer there's nothing more that you can do at the moment. The glowing letters fade away when you let go of the handle.
 	</p>
 	]]>
 	</htmlContent>
@@ -243,7 +243,7 @@
 	</p>
 	<p>
 		<i>
-			Under Astrea's command, we have successfully broken through into the Bat Caverns. At last, a way into the wretched heart of Dominion! And not a moment too soon, if news from the other fronts is to be believed. A small hideout hidden in wall will provide us a staging area for the operations to come, and in any case, the cool damp is welcome relief from the sweltering heat above. The door has been enchanted to only open for those who know the password:</br><center>RUAT C</center>
+			Under Astrea's command, we have successfully broken through into the Bat Caverns. At last, a way into the wretched heart of Dominion! And not a moment too soon, if news from the other fronts is to be believed. A small hideout hidden in the cave wall will provide us a staging area for the operations to come, and in any case, the cool damp is a welcome relief from the sweltering heat above. The door has been enchanted to only open for those who know the password:</br><center>RUAT C</center>
 		</i>
 	</p>
 	<p>

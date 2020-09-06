@@ -416,7 +416,9 @@ public class BatCaverns {
                             return new Response("Pull the handle", "What could possibly go wrong?", BatCavernsEncounterDialogue.REBEL_BASE_DOOR_NO_PASS);
                     } else if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_PART_TWO)) {
                             return new Response("Pull the handle", "The handle won't budge. Looks like you really do need the password.", null);
-                    } else if (index == 1) {
+                    } else if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_PASSWORD_COMPLETE)) {
+                            return new Response("Pull the handle", "You don't have the complete password!", null);
+                    } else if (index == 1 && Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION)) {
                             return new Response("Pull the handle", "You have the complete password now. What could possibly go wrong?", REBEL_BASE_DOOR_OPENED){
                                 @Override
                                 public void effects() {

@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[skull-patterned bandanas]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A square piece of cloth with a stylized canine skull printed on it. Folded and tied just right, it can be made into intimidating face mask.]]></description> 
+		<description><![CDATA[A square piece of cloth with a stylized canine skull printed on it. Folded and tied just right, it can be made into an intimidating face mask.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>0</physicalResistance> 

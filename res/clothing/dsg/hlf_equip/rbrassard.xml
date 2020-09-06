@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[canvas brassards]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A band of heavy cotton fabric designed to be worn around the arm and provide easy identification when uniforms are not available or desireable. You have never seen the insignia sewn into it before.]]></description> 
+		<description><![CDATA[A band of heavy cotton fabric designed to be worn around the arm and provide easy identification when uniforms are not available or desirable. You have never seen the insignia sewn into it before.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>0</physicalResistance> 
@@ -124,7 +124,8 @@
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> 
+		<itemTags>
+			<tag>CONTRABAND_LIGHT</tag>
 		</itemTags>
 	</coreAtributes>
 

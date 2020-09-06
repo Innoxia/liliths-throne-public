@@ -50,7 +50,7 @@
 		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out the submachine gun, [npc.verb(load)] a fresh magazine, and [npc.verb(pulls)] the charging handle before disengaging the safety.]]></equipText>
 		
 		<!-- The description that's used when equipping this weapon. Follow the same guidelines as equipText. -->
-		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before removing the magazing and putting the submachine gun away.]]></unequipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(open)] the bolt and [npc.verb(check)] to see that the chamber is empty before removing the magazine and putting the submachine gun away.]]></unequipText>
 		
 		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
 		<imageName>pbsmg_uneq.svg</imageName> 
@@ -171,7 +171,8 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> 
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
 		</itemTags>
 		
 	</coreAttributes>

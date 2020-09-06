@@ -47,7 +47,7 @@
 		The target "npc" OR "npc1" should be used for the character using the weapon. e.g. If the player is the one attacking (and is called Innoxia), then [npc.Name] will return "Innoxia"
 		The target "npc2" should be used for the character being attacked. e.g. If Brax is the one being attacked, then [npc2.Name] will return "Brax"
 		-->
-		<equipText><![CDATA[[npc.Name] [npc.verb(grab)] the arcane firebomb. The rag stuffed down the bottle's neck immedately ignites but the arcane flames don't seem to be consuming it.]]></equipText>
+		<equipText><![CDATA[[npc.Name] [npc.verb(grab)] the arcane firebomb. The rag stuffed down the bottle's neck immediately ignites but the arcane flames don't seem to be consuming it.]]></equipText>
 		
 		<!-- The description that's used when equipping this weapon. Follow the same guidelines as equipText. -->
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] the arcane firebomb away. The rag immediately extinguishes itself.]]></unequipText>
@@ -169,7 +169,8 @@
 		<primaryColoursDye/>
 		
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> 
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
 		</itemTags>
 		
 	</coreAttributes>
