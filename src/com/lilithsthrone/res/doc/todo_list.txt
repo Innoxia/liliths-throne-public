@@ -31,6 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Enable loading of patterns from the res/mods folder. (PR#1405 by AceXP)
 		Fixed bug where five minutes passed, instead of twenty-five, when selling yourself as a submissive partner in Angel's Kiss. (PR#1406 by void-weaver)
 		Fixed bug where Sean's fight scene wouldn't initialise correctly. (PR#1407 by void-weaver)
+		Fixed bug where if you used an item from an NPC's inventory it would be described as though the NPC was using the item. (PR#1408)
 	
 	DSG's Enforcer Uniform Update:
 		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.
