@@ -122,6 +122,7 @@ public class HarpyNestsDialogue {
 									public void effects() {
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
+										Main.game.getDialogueFlags().setSavedLong("angry_harpies_completed", Main.game.getMinutesPassed());
 									}
 								});
 						

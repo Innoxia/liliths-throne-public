@@ -53,7 +53,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added mod support for defining clothing 'stickers', which apply cosmetic changes to clothing items. (See 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for a fully documented example of how to define them.)
 	
 	Gameplay:
-		Added two new Enforcer characters and a new quest involving them, all of which has been designed by DSG. The start of this quest will randomly trigger in Dominion's street tiles under the following conditions: no arcane storm; main quest is past Brax's section; 'Angry Harpies' quest is complete; time is 17:00-21:00.
+		Added two new Enforcer characters and a new quest involving them, all of which has been designed by DSG. The start of this quest will randomly trigger in Dominion's street tiles under the following conditions: no arcane storm; main quest is past Brax's section; over 5 days have passed since completing the 'Angry Harpies' quest; time is 17:00-21:00.
 		Enforcers in the 'alleyway Enforcer encounters' will now confiscate illegal items, and arrest you if they find that you're carrying highly illegal items.
 	
 	Items:
@@ -78,12 +78,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	PRs
 	
-	Add timer since Brax/Harpy Nest quest for Wes showing up
-	
-	bugs
-	
+	bug reports
 	
 	there are two "miss" parser commands
 	

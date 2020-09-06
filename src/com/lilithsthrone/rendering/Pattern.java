@@ -12,15 +12,14 @@ import java.util.TreeMap;
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
-import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.2.6
- * @version 0.3.7.7
- * @author Irbynx, Innoxia
+ * @version 0.3.9.8
+ * @author Irbynx, Innoxia, AceXp
  */
 public class Pattern {
 	

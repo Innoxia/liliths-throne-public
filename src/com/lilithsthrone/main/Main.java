@@ -54,7 +54,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.3
+ * @version 0.3.9.8
  * @author Innoxia
  */
 public class Main extends Application {
@@ -92,18 +92,23 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I've managed to get the vast majority of bugs reported in v0.3.9.1 fixed for this release, and have also (finally) finished off the last placeholders related to the Rat Warrens content."
-			+ " I feel as though there are still some parts of that which could do with a lot of polish, and I also still need to add Shadow/Silence content, but I think I'll leave that until a later version."
+			+ "Sorry that this update is out later than I originally planned;"
+				+ " implementing the new clothing 'sticker' system support ended up pushing the work on the new character/quest back a little, and then the writing for that character took me a little longer than I expected."
+		+ "</p>"
+				
+		+ "<p>"
+			+ "Anyway, this version is mainly focused on getting the aforementioned character(s) and quest released, which was part of my original plan for the preview version 0.3.9.5."
+			+ " There are also a lot of contributor bug fixes and updates to DSG's Enforcer clothing in this version."
+		+ "</p>"
+		
+		+ "<p>"
+			+ "After this release, I am planning on fixing bugs (as a lot of the reported ones haven't been addressed in this version), implementing race modding support, and then adding some content to the Fields area."
+			+ " That will most likely include the next stage of the main quest, as well as some random encounters for the fields & river tiles."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've also added support for (basic) item modding in this version, and I've also got a lot of background work done on adding the last character which I've planning on adding as the last piece of content before v0.4."
-			+ " I haven't quite got that into a state that's ready for full inclusion into the game, so I've decided to call this release v0.3.9.4, and will release the content for this new character by the end of the week as part of v0.3.9.5."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "That should definitely be ready by this Sunday at the very latest, so I'll release the updated preview version of v0.3.9.5 by then,"
-				+ " and will then move on to getting the public version of v0.4 out within the next couple of weeks after that."
+			+ "I will do my very best to have v0.4 out within the next two weeks."
+			+ " The race modding support may end up being more complex to implement than I'm imagining, but hopefully it won't end up taking too much time..."
 		+ "</p>"
 		
 		+ "<br/>"
@@ -113,6 +118,68 @@ public class Main extends Application {
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 
+		+ "<br/>"
+		
+		+ "<list>"
+			+ "<h6>v0.3.9.8</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issue where changing content options at the start of new character creation would throw background errors, causing the UI to become unresponsive. (by AceXP)</ul>"
+			+"<ul>Fixed issue where fluid addiction status effect tooltip descriptions would display 'demonic horse fluid' instead of 'demonic fluid'. (by AceXP)</ul>"
+			+"<ul>Fixed bug where the defined horse-morph names in Name.java were never being used. (by Rydelfox)</ul>"
+			+"<ul>Several parsing and typo fixes. (by AceXP)</ul>"
+			+"<ul>Fixed issue where you would return to an incorrect dialogue scene when leaving inventory management in a friendly occupant's apartment. (PR#1394 by AceXP)</ul>"
+			+"<ul>Typo fixes in the Rat Warrens. (Pr#1400 by aDrunkLittleDerp)</ul>"
+			+"<ul>While carrying an arcane makeup set, characters will now reapply heavy lipstick if it was worn off during sex. (PR#1403 by CognitiveMist)</ul>"
+			+"<ul>Fixed parser errors in vagina reveal descriptions. (PR#1404 by AceXP)</ul>"
+			+"<ul>Enable loading of patterns from the res/mods folder. (PR#1405 by AceXP)</ul>"
+			+"<ul>Fixed bug where five minutes passed, instead of twenty-five, when selling yourself as a submissive partner in Angel's Kiss. (PR#1406 by void-weaver)</ul>"
+			+"<ul>Fixed bug where Sean's fight scene wouldn't initialise correctly. (PR#1407 by void-weaver)</ul>"
+			+"<ul>Fixed bug where if you used an item from an NPC's inventory it would be described as though the NPC was using the item. (PR#1408)</ul>"
+			
+			+"<li>DSG's Enforcer Uniform Update:</li>"
+			+"<ul>Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.</ul>"
+			+"<ul>Added the following sticker assets that did not already exist in some form in the game: Combat Diver Badge, Commissioner Cap Badge, Commissioner/Deputy Commissioner Visor/Crown Oak Leaves, Commissioner Aiguillette, Elis Cap Badge, Thinis Cap Badge, Itza'aak Cap Badge, Lyonesse Cap Badge.</ul>"
+			+"<ul>Detailed buttons added to the Enforcer coat and waistcoat.</ul>"
+			+"<ul>Fixes and standardization of ribbon racks and name plates.</ul>"
+			+"<ul>Hand optimization of almost all vectorized text.</ul>"
+			+"<ul>Added the 'Contractor's' variant to the stab vest and plate carrier.</ul>"
+			
+			+"<li>DSG's Enforcer outfit update:</li>"
+			+"<ul>Added sticker and pattern support.</ul>"
+			+"<ul>Renamed conditionals to be more reader friendly.</ul>"
+			+"<ul>Changed comments to be more clear.</ul>"
+			+"<ul>Removed berets from the Patrol Service Uniform.</ul>"
+			+"<ul>Possibly fixed bugs related to headgear spawning on Enforcers with the wrong colors and no headgear spawning on Enforcers entirely.</ul>"
+			
+			+"<li>Engine:</li>"
+			+"<ul>Added ItemTags for defining items, clothing, and weapons as being restricted or illegal, causing them to be unable to be sold to merchants and confiscated by Enforcers.</ul>"
+			+"<ul>Added mod support for defining clothing 'stickers', which apply cosmetic changes to clothing items. (See 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' for a fully documented example of how to define them.)</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added two new Enforcer characters and a new quest involving them, all of which has been designed by DSG. The start of this quest will randomly trigger in Dominion's street tiles under the following conditions: no arcane storm; main quest is past Brax's section; over 5 days have passed since completing the 'Angry Harpies' quest; time is 17:00-21:00.</ul>"
+			+"<ul>Enforcers in the 'alleyway Enforcer encounters' will now confiscate illegal items, and arrest you if they find that you're carrying highly illegal items.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added sticker support to the 'rental mommy' and 'rental daddy' T-shirts.</ul>"
+			+"<ul>'Biojuice Canisters' and 'Glowing Mushrooms' are now tagged as restricted items.</ul>"
+			+"<ul>'Demon's Dagger' (no longer sold by Vicky) and all of the Enforcer weapons are now tagged as either illegal (Enforcers will confiscate them) or highly illegal (Enforcers will arrest you).</ul>"
+			+"<ul>All Enforcer clothing is now tagged as illegal (Enforcers will confiscate them).</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Slightly altered description of 'cynical' personality trait to differentiate it from 'selfish'.</ul>"
+			+"<ul>Items and weapons will now correctly display ItemTag descriptions in their tooltips.</ul>"
+			+"<ul>Roxy now buys weapons as well as items and clothing. Her buy modifier has been reduced from 0.4 to 0.3 (meaning she will now only give you 30% of an item's value).</ul>"
+			+"<ul>Sean now correctly wears an Enforcer patrol uniform instead of a dress uniform.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Updated example links in xml modding files to point to the correct files.</ul>"
+			+"<ul>Fixed bug where you could get stuck in Brax's office after resolving the part of the main quest which involves him.</ul>"
+			+"<ul>Fixed issue with the cheat guns' 'mag dump' combat move being automatically removed after selecting it.</ul>"
+			+"<ul>Fixed descriptions of putting kitty panties on/off being inverted.</ul>"
+			+"<ul>Fixed bug where weapons could show incorrect image previews in the dye screen. (The 'Demon's Dagger' was suffering from this.)</ul>"
+		+"</list>"
+		
 		+ "<br/>"
 		
 		+ "<list>"

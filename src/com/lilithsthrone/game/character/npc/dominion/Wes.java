@@ -259,7 +259,10 @@ public class Wes extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.isSlave()) {
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_WES, Quest.WES_1)) {
+			return "This mysterious fox-boy approached you regarding some matter which couldn't be discussed in public.";
+			
+		} else if(this.isSlave()) {
 			return "Wes was once the Junior Quartermaster for all of the Enforcers in Central Dominion. Thanks to you, he is now a plaything of his former commanding officer, Elle.";
 			
 		} else if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_WES)) {
