@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -140,13 +141,12 @@ public enum Encounter {
 						&& Main.game.getNumberOfWitches()<4
 						&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET);
 			
-			//TODO
-//			boolean wesQuestAvailable = 
-//					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-//						&& !Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)
-//						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
-//						&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-//						&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
+			boolean wesQuestAvailable = 
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						&& !Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)
+						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
+						&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+						&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
 			
 			return Util.newHashMapOfValues(
 					Main.game.getCurrentWeather()==Weather.MAGIC_STORM
@@ -161,9 +161,9 @@ public enum Encounter {
 					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null,
-//					wesQuestAvailable
-//						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 1f)
-//						:null,
+					wesQuestAvailable
+						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 1f)
+						:null,
 					Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu") && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f)
 						:null);

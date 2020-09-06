@@ -54,6 +54,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -1235,8 +1236,14 @@ public class Sex {
 				endSexSB.append(getEndSexStretchingDescription(participant));
 				
 				if(getHeavyLipstickUsedCharacter().contains(participant)) {
-					participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
-					endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+					if(participant.hasItemType(ItemType.MAKEUP_SET)) {
+						endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but you have "
+								+ ItemType.MAKEUP_SET.getName(true, false)
+								+ ", so you take a few moments to [style.italicsGood(reapply)] your [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
+					} else {
+						participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+						endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+					}
 				}
 				
 				if((participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() || Main.sex.getNumberOfDeniedOrgasms(participant)>0) && getNumberOfOrgasms(participant) == 0) {
@@ -1342,8 +1349,14 @@ public class Sex {
 				endSexSB.append(getEndSexStretchingDescription(participant));
 
 				if(getHeavyLipstickUsedCharacter().contains(participant)) {
-					participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
-					endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+					if(participant.hasItemType(ItemType.MAKEUP_SET)) {
+						endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but [npc.she] [npc.has] "
+								+ ItemType.MAKEUP_SET.getName(true, false)
+								+ ", so [npc.she] [npc.verb(take)] a few moments to [style.italicsGood(reapply)] [npc.her] [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
+					} else {
+						participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+						endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+					}
 				}
 				
 				// Extra effects:

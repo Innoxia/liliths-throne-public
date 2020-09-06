@@ -25,6 +25,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where the defined horse-morph names in Name.java were never being used. (by Rydelfox)
 		Several parsing and typo fixes. (by AceXP)
 		Fixed issue where you would return to an incorrect dialogue scene when leaving inventory management in a friendly occupant's apartment. (PR#1394 by AceXP)
+		Typo fixes in the Rat Warrens. (Pr#1400 by aDrunkLittleDerp)
+		While carrying an arcane makeup set, characters will now reapply heavy lipstick if it was worn off during sex. (PR#1403 by CognitiveMist)
 	
 	DSG's Enforcer Uniform Update:
 		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.

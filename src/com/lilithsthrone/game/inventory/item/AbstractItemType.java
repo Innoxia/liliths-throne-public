@@ -331,18 +331,40 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 
 	public String getName(boolean displayName) {
+		// by default, the display name is capitalised, and the bare name is not
+		return this.getName(displayName, displayName);
+	}
+	
+	public String getName(boolean displayName, boolean capitalise) {
+		String out;
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?namePlural:name) + "</span>");
+			out = (determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?namePlural:name) + "</span>";
 		} else {
-			return (this.isPlural()?namePlural:name);
+			out = (this.isPlural()?namePlural:name);
+		}
+		if(capitalise) {
+			return Util.capitaliseSentence(out);
+		} else {
+			return out;
 		}
 	}
 	
 	public String getNamePlural(boolean displayName) {
+		// by default, the display name is capitalised, and the bare name is not
+		return getNamePlural(displayName, displayName);
+	}
+	
+	public String getNamePlural(boolean displayName, boolean capitalise) {
+		String out;
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>");
+			out = (determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>";
 		} else {
-			return namePlural;
+			out = namePlural;
+		}
+		if(capitalise) {
+			return Util.capitaliseSentence(out);
+		} else {
+			return out;
 		}
 	}
 
