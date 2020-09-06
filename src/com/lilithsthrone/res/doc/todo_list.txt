@@ -29,6 +29,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		While carrying an arcane makeup set, characters will now reapply heavy lipstick if it was worn off during sex. (PR#1403 by CognitiveMist)
 		Fixed parser errors in vagina reveal descriptions. (PR#1404 by AceXP)
 		Enable loading of patterns from the res/mods folder. (PR#1405 by AceXP)
+		Fixed bug where five minutes passed, instead of twenty-five, when selling yourself as a submissive partner in Angel's Kiss. (PR#1406 by void-weaver)
+		Fixed bug where Sean's fight scene wouldn't initialise correctly. (PR#1407 by void-weaver)
 	
 	DSG's Enforcer Uniform Update:
 		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.
@@ -71,7 +73,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where you could get stuck in Brax's office after resolving the part of the main quest which involves him.
 		Fixed issue with the cheat guns' 'mag dump' combat move being automatically removed after selecting it.
 		Fixed descriptions of putting kitty panties on/off being inverted.
-	
+		Fixed bug where weapons could show incorrect image previews in the dye screen. (The 'Demon's Dagger' was suffering from this.)
 	
 	
 	

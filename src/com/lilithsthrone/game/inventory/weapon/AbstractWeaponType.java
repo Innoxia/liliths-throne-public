@@ -918,7 +918,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
-			s = SvgUtil.colourReplacement(this.getId(), coloursPlusDT, this.getColourReplacements(true), s);
+			s = SvgUtil.colourReplacement(this.getId()+"Equipped", coloursPlusDT, this.getColourReplacements(true), s);
 			
 			addSVGStringEquippedMapping(dt, colours, s);
 			
