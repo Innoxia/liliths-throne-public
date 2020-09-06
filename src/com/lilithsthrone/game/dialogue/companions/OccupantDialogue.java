@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
@@ -52,12 +51,14 @@ public class OccupantDialogue {
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 			Main.game.saveDialogueNode();
 		}
-		if(!isApartment || targetedOccupant.isAtHome()) {
-			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
-		}
+		
 		if(isApartment) {
 			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
+			
+		} else if(targetedOccupant.isAtHome()) {
+			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		}
+		
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
 
