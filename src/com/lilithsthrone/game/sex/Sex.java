@@ -1236,10 +1236,10 @@ public class Sex {
 				endSexSB.append(getEndSexStretchingDescription(participant));
 				
 				if(getHeavyLipstickUsedCharacter().contains(participant)) {
-					if(participant.getInventory().hasItemType(ItemType.MAKEUP_SET)) {
-						endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but you have " +
-								ItemType.MAKEUP_SET.getName(true, false) +
-								", so you take a few moments to [style.italicsGood(reapply)] your [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
+					if(participant.hasItemType(ItemType.MAKEUP_SET)) {
+						endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but you have "
+								+ ItemType.MAKEUP_SET.getName(true, false)
+								+ ", so you take a few moments to [style.italicsGood(reapply)] your [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
 					} else {
 						participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
 						endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
@@ -1349,10 +1349,10 @@ public class Sex {
 				endSexSB.append(getEndSexStretchingDescription(participant));
 
 				if(getHeavyLipstickUsedCharacter().contains(participant)) {
-					if(participant.getInventory().hasItemType(ItemType.MAKEUP_SET)) {
-						endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but [npc.she] has " +
-								ItemType.MAKEUP_SET.getName(true, false) +
-								", so [npc.she] take a few moments to [style.italicsGood(reapply)] [npc.her] [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
+					if(participant.hasItemType(ItemType.MAKEUP_SET)) {
+						endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has worn off, but [npc.she] [npc.has] "
+								+ ItemType.MAKEUP_SET.getName(true, false)
+								+ ", so [npc.she] [npc.verb(take)] a few moments to [style.italicsGood(reapply)] [npc.her] [style.italicsPinkDeep(heavy layer)] of lipstick.</i></p>");
 					} else {
 						participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
 						endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
