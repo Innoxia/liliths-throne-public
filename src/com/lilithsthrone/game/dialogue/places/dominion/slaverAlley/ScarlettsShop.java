@@ -5136,7 +5136,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to move away form her...", true) {
+	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to move away from her...", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;

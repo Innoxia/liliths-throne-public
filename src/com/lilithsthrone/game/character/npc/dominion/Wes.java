@@ -10,6 +10,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -53,6 +54,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -63,7 +65,7 @@ import com.lilithsthrone.world.places.PlaceType;
 /**
  * @since 0.3.9.4
  * @version 0.3.9.4
- * @author DSG, Innoxia
+ * @author DSG (character creator), Innoxia
  */
 public class Wes extends NPC {
 	
@@ -93,6 +95,9 @@ public class Wes extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.7")) {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.8")) {
+			this.setHistory(Occupation.NPC_ENFORCER_SWORD_CHIEF_INSPECTOR);
+		}
 	}
 
 	@Override
@@ -117,7 +122,7 @@ public class Wes extends NPC {
 			
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
-			this.setHistory(Occupation.NPC_ENFORCER_SWORD_INSPECTOR);
+			this.setHistory(Occupation.NPC_ENFORCER_SWORD_CHIEF_INSPECTOR);
 			
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
 		}
@@ -204,7 +209,7 @@ public class Wes extends NPC {
 				jacket.setSticker("name", "name_wesley");
 				jacket.setSticker("ribbon", "ribbon_wes");
 			} else {
-				jacket.setSticker("collar", "tab_ip");
+				jacket.setSticker("collar", "tab_ci");
 				jacket.setSticker("name", "name_wesley");
 				jacket.setSticker("ribbon", "ribbon_wes");
 			}
@@ -352,5 +357,14 @@ public class Wes extends NPC {
 	public float getSellModifier(AbstractCoreItem item) {
 		return 1.5f;
 	}
-	
+
+	@Override
+	public SexPace getSexPaceSubPreference(GameCharacter character){
+		return SexPace.SUB_NORMAL;
+	}
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_NORMAL;
+	}
 }

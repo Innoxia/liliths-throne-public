@@ -12,14 +12,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
 	
 	- Pregnancy mechanics update
-	
+		Cycle, heat/rut(?)
+		Increase pregnancy time (add a toggle. Demons quicker pregnancies? Perks?)
+		Add hospital as alternative to Lilaya
+		
 	
 	Patch notes:
 	
 	Contributors:
 		Fixed issue where changing content options at the start of new character creation would throw background errors, causing the UI to become unresponsive. (by AceXP)
 		Fixed issue where fluid addiction status effect tooltip descriptions would display 'demonic horse fluid' instead of 'demonic fluid'. (by AceXP)
-		Fixed bug where the defined horse-morph names in Name.java were never being used. (by AceXP)
+		Fixed bug where the defined horse-morph names in Name.java were never being used. (by Rydelfox)
+		Several parsing and typo fixes. (by AceXP)
 	
 	DSG's Enforcer Uniform Update:
 		Added sticker system support, consolidated all extant variants of the Enforcer stabvest, coat, waistcoat, beret, peaked cap, and bowler hat into their respective items.
@@ -64,29 +68,34 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	Wes:
-		[] XML framework
-			[x] Wes win
-			[x] Elle win
-			[x] Post-quest completion
-				[x] Trading
-				[x] Lewds
-			[x] Enforcer HQ tiles
-		[] writing
-			[] Pregnancy reactions
 	
-	Improve:
-		Elle vagina
-		Wes jacket rank?
-		Wes appearance age
-		
-	Ask DSG:
-		Speech colours
-		Personalities
-		
+	[x] writing
+		[x] background talk
+			[x] 5 elle
+				[x] alts
+			[x] 5 wes
+				[x] alts
+		[x] work talk
+			[x] 5 elle
+			[x] 5 wes
+		[x] flirt
+			[x] elle
+			[x] wes
+		[x] sex scenes
+			[x] elle
+			[x] wes
+		[x] Threesome
+		[x] Elle from Wes
+	[x] Elle pill use dialogue
+	[x] Sex paces
+	[x] Elle restrict penis growing
+	[x] Wes impregnated player reactions
 	
 	
 	PRs
+	
+	bugs
+	
 	
 	there are two "miss" parser commands
 	
@@ -108,6 +117,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	 I need to add a  'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
 	
+	can't make genitals go away completely with cursed clothing and have to make transformatives to finish the job
 	
 	
 	Murk pregnancy reactions...

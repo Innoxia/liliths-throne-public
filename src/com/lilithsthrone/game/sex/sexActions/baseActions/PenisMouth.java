@@ -2216,7 +2216,7 @@ public class PenisMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Pull your [npc.cock+] out of [npc2.namePos] mouth and stop receiving a blowjob form [npc2.herHim].";
+			return "Pull your [npc.cock+] out of [npc2.namePos] mouth and stop receiving a blowjob from [npc2.herHim].";
 		}
 
 		@Override
