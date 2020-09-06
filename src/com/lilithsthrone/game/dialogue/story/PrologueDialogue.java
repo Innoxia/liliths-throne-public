@@ -717,7 +717,14 @@ public class PrologueDialogue {
 							}
 						}
 						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.POISON));
+						} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.PHYSICAL));
+						} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						} else 
+							Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.ICE));
 						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
