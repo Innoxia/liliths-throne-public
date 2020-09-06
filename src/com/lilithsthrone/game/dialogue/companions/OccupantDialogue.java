@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
@@ -53,6 +54,9 @@ public class OccupantDialogue {
 		}
 		if(!isApartment || targetedOccupant.isAtHome()) {
 			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
+		}
+		if(isApartment) {
+			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
 		}
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
@@ -1196,6 +1200,7 @@ public class OccupantDialogue {
 						occupant().setRandomUnoccupiedLocation(WorldType.DOMINION, true, PlaceType.DOMINION_STREET, PlaceType.DOMINION_STREET_HARPY_NESTS, PlaceType.DOMINION_BOULEVARD);
 						occupant().setHomeLocation();
 						OccupantDialogue.isApartment = true;
+						Main.game.getDialogueFlags().setManagementCompanion(occupant());
 						Main.game.getPlayer().setLocation(occupant().getWorldLocation(), occupant().getLocation(), false);
 					}
 				};
