@@ -362,6 +362,13 @@ public class DialogueFlags implements XMLSaving {
 		savedLongs.put(id, value);
 	}
 
+	/**
+	 * @return Increments the long saved to this id. Sets to -1 before incrementing if there was no entry found.
+	 */
+	public void incrementSavedLong(String id, long increment) {
+		savedLongs.put(id, getSavedLong(id)+increment);
+	}
+
 	public boolean hasSavedLong(String id) {
 		return savedLongs.containsKey(id);
 	}

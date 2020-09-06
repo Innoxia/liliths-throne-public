@@ -96,7 +96,7 @@
 	<p><i>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestMet))
 			While this is the place where you can meet Wes, you've already refused to help him today, and so you'll be unable to see him again until tomorrow at the earliest...
-		#ELSIF(game.getHourOfDay()==13)
+		#ELSEIF(game.getHourOfDay()==13)
 			This is both the time and place in which to
 			#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestRefused))
 				 [style.colourMinorGood(meet Wes)],

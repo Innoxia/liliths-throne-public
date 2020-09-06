@@ -113,9 +113,9 @@ public class CMFetishAttack {
 									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]")))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-                	"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                	"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -211,9 +211,9 @@ public class CMFetishAttack {
     							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-                	"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                	"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -312,9 +312,9 @@ public class CMFetishAttack {
 								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-                	"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                	"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -414,9 +414,9 @@ public class CMFetishAttack {
 							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -546,9 +546,9 @@ public class CMFetishAttack {
         								+ "[npc1.speech("+dialogue+")]"))+dealtDamage.getKey(),
                 		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
                 		(isCrit
-                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
                 			:null),
-                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
             	
             	
             } else {
@@ -562,9 +562,9 @@ public class CMFetishAttack {
         								+ "[npc1.speech(I wish you were my relative; I love incestuous sex!)]"))+dealtDamage.getKey(),
                 		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
                 		(isCrit
-                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
                 			:null),
-                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
             }
         }
 
@@ -662,9 +662,9 @@ public class CMFetishAttack {
     								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -768,9 +768,9 @@ public class CMFetishAttack {
     								+ "[npc.speech(Please! I need some cum!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -869,9 +869,9 @@ public class CMFetishAttack {
             			+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -965,9 +965,9 @@ public class CMFetishAttack {
 						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(You're going to love the feeling of my cock!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1062,9 +1062,9 @@ public class CMFetishAttack {
     								+ " [npc.speech(I just want to worship your [npc2.feet]!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1158,9 +1158,9 @@ public class CMFetishAttack {
     						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(Crawl over here and kiss my feet!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1257,9 +1257,9 @@ public class CMFetishAttack {
     							+" [npc.speech(I'm going to put your [npc2.lips] to good use!)]"))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1366,9 +1366,9 @@ public class CMFetishAttack {
     									:"[npc.speech(You know you want me to suck your cock!)]")))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1483,9 +1483,9 @@ public class CMFetishAttack {
             		attackText+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1592,9 +1592,9 @@ public class CMFetishAttack {
     									:"[npc.speech(~Aah!~ My nipples are so hard!)]")))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1720,9 +1720,9 @@ public class CMFetishAttack {
             		attackText+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -1828,9 +1828,9 @@ public class CMFetishAttack {
         								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]"))+dealtDamage.getKey(),
                 		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
                 		(isCrit
-                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
                 			:null),
-                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
             	
             } else { // Crotch boobs:
                 return formatAttackOutcome(source, target,
@@ -1850,9 +1850,9 @@ public class CMFetishAttack {
                 				+dealtDamage.getKey(),
                 		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
                 		(isCrit
-                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
                 			:null),
-                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+                		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
             	
             }
         }
@@ -1987,9 +1987,9 @@ public class CMFetishAttack {
             		attackText+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -2114,9 +2114,9 @@ public class CMFetishAttack {
             		attackText+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -2223,9 +2223,9 @@ public class CMFetishAttack {
     									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override
@@ -2328,9 +2328,9 @@ public class CMFetishAttack {
     									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]")))+dealtDamage.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+            			?"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!"
             			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            		"[npc2.NameIsFull] incredibly turned on, and [npc2.verb(take)] triple damage!");
         }
 
         @Override

@@ -18,13 +18,13 @@
 	</p>
 	<p>
 		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
-			 As you're passing a slow-moving group of obnoxiously-loud revellers, you suddenly notice that an orange-furred greater fox-boy, dressed in a grey hoodie and blue jeans, over on the far side of the street keeps on glancing your way. Although his gaze is hidden behind a pair of dark glasses, you can tell that he's got some kind of particular interest in you. As your path around the crowd brings you closer to where he's standing, you see the fox-boy suddenly begin to move towards you, and as he sees that you've noticed his approach, he smiles and asks, [wes.speech(If I'm not mistaken, then you're [pc.name], right?)]
+			 As you're passing a slow-moving group of obnoxiously-loud revellers, you suddenly notice that an orange-furred, greater fox-boy, dressed in a grey hoodie and blue jeans, keeps on glancing your way from over on the other side of the street. Although his gaze is hidden behind a pair of dark glasses, you can tell that he's got some kind of particular interest in you. As your path around the crowd brings you closer to where he's standing, you see the fox-boy suddenly begin to move towards you, and as he sees that you've noticed his approach, he smiles and asks, [wes.speech(If I'm not mistaken, then you're [pc.name], right?)]
 		#ELSE
-			 As you're passing a slow-moving group of obnoxiously-loud revellers, you suddenly see that an orange-furred greater fox-boy, dressed in a grey hoodie and blue jeans, is rapidly moving towards you. Although his gaze is hidden behind a pair of dark glasses, you can tell that he's got some kind of particular interest in you, and before you can react to his approach, he smiles and asks, [wes.speech(If I'm not mistaken, then you're [pc.name], right?)]
+			 As you're passing a slow-moving group of obnoxiously-loud revellers, you suddenly see that an orange-furred, greater fox-boy, dressed in a grey hoodie and blue jeans, is rapidly moving towards you. Although his gaze is hidden behind a pair of dark glasses, you can tell that he's got some kind of particular interest in you, and before you can react to his approach, he smiles and asks, [wes.speech(If I'm not mistaken, then you're [pc.name], right?)]
 		#ENDIF
 	</p>
 	<p>
-		The warm, friendly tone of this mysterious character's voice is not quite what you were expecting, and from his subtle country accent, you get the strong impression that he's not a native city-dweller. Despite his endearing manner of speech, you detect a sense of urgency in the fox-boy's question, and so, seeing no harm in answering him, you quickly reply that you are indeed [pc.name].
+		The warm, friendly tone of this mysterious character's voice is not quite what you were expecting, and from his subtle country accent, you get the strong impression that he's not a native city-dweller. Despite his endearing manner of speech, you detect a sense of urgency in this middle-aged fox-boy's question, and so, seeing no harm in answering him, you quickly reply that you are indeed [pc.name].
 	</p>
 	<p>
 		Retrieving a very official-looking SWORD Enforcer badge from out of his hoodie's pocket, this stranger flashes it at you and reveals, [wes.speech(I know that you're the one who dealt with that sticky situation up in the Harpy Nests, which is why I've come to you for help. I can't talk for too long out in the streets like this, but if you want to help the Enforcers again, then-)]
@@ -252,7 +252,7 @@
 		With that, Elle is suddenly enveloped in a bright flash of purple arcane energy, and after you've blinked away the after-image that's been momentarily burned into your vision, you see that she's vanished. Letting out a deep sigh of relief, the gang's leader steps over to the still-prone form of the rat-boy who threatened Elle, before kicking him and grunting, [style.speechMasculineHeavy(Ya fuckin' idiot! You's almost got us all fuckin' killed there! Now grab as many o' these weapons as ya can carry, then let's get out o' 'ere before that crazy bitch returns.)]
 	</p>
 	<p>
-		Thankfully, the crates which you're hiding behind have all been emptied by what you assume to be Elle's previous dealings, and so none of the gang-members approach your hiding place. Continuing to film the gang as they encumber themselves with armfuls of pistols, batons, sub-machine guns, and all manner of highly-illegal Enforcer weaponry, you watch and wait until they've exited the cave, before turning the recording device off and putting it away into your inventory. Not wanting to hang around and risk the chance of Elle or the gang suddenly returning, you prepare to follow in their footsteps and head back out into the Bat Caverns...
+		Thankfully, the crates which you're hiding behind have all been emptied by what you assume to be Elle's previous dealings, and so none of the gang-members approach your hiding place. Continuing to film the gang as they encumber themselves with armfuls of pistols, batons, rifles, and all manner of highly-illegal Enforcer weaponry, you watch and wait until they've exited the cave, before turning the recording device off and putting it away into your inventory. Not wanting to hang around and risk the chance of Elle or the gang suddenly returning, you prepare to follow in their footsteps and head back out into the Bat Caverns...
 	</p>
 	]]>
 	</htmlContent>
@@ -567,7 +567,7 @@
 		Standing up from behind her desk, she explains, [elle.speech(In an attempt at avoiding a repeat of 'Wes's' siphoning off of equipment, the higher-ups have ordered me to make more regular reports on the inventory's status, which means I'm having to spend all of my time working at the requisitions desk. Thankfully, my little fox-boy slave knows just how to get things done in there, and what's more, he's surprisingly good at keeping me satisfied...)]
 	</p>
 	<p>
-		Moving over to the door of his office, the [elle.race] lets out a soft laugh and runs her hand over your [pc.arm], before teasing, [elle.speech(Perhaps we can talk more about the ways in which I can be satisfied later...)]
+		Moving over to the door of her office, the [elle.race] lets out a soft laugh and runs her hand over your [pc.arm], before teasing, [elle.speech(Perhaps we can talk more about the ways in which I can be satisfied later...)]
 	</p>
 	<p>
 		Opening the door and beckoning you to once again follow her, Elle reveals, [elle.speech(As a way of thanking you for your help, I've arranged for you to be granted a contractor's pass, so you'll not only be granted access to the requisitions area, but I'll also able to sell you surplus Enforcer equipment. Come on, I've got the pass waiting for you over there.)]
@@ -583,7 +583,7 @@
 		Following Elle out of her office, you accompany her as she walks over to the other side of the corridor and strides through the pair of propped-open doors which lead into the station's requisitions area. Consisting of a large, empty room, the only points of interest in this area are the couple of bare metal tables pushed into each corner, as well as the locked door and waist-high counter set into the wall before you. Telling you to remain here, Elle opens the door, before stepping around to the other side of the counter and starting to rummage around in some of the drawers.
 	</p>
 	<p>
-		[elle.speech(Wes, my darling? What have you done with that contractor pass I told you put away?)] she calls out in a flirty, high-pitched tone.
+		[elle.speech(Wes, my darling? What have you done with that contractor pass I told you to put away?)] she calls out in a flirty, high-pitched tone.
 	</p>
 	<p>
 		[wes.speech(I told you that I'd put it in the top drawer!)] the familiar voice of Wes calls out from somewhere within the maze of shelving units which fill the vast storage area behind the counter. A moment later, the fox-boy steps into view, and you see that while he looks just as he did the last time you saw him, he's now wearing nothing but a metal slave collar and a pair of black boxers. Catching sight of you waiting behind the counter, Wes flashes you a furious look, before angrily asking, [wes.speech(So, are you happy with what you've done? This criminal keeps her job, and I'm the one who got punished for her crimes!)]
@@ -629,14 +629,14 @@
 	<htmlContent tag="REQUISITIONS_TRADE_DIALOGUE"><![CDATA[
 	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
 		<p>
-			Telling Elle that you'd like to buy some Enforcer equipment, you wait as she rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Leaning forwards over the counter-top and flashing you a seductive look, she reveals, [npc.speech(Here's what I can sell to you without causing any trouble...)]
+			Telling Elle that you'd like to buy some Enforcer equipment, you wait as she rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Leaning forwards over the counter-top and flashing you a seductive look, she reveals, [elle.speech(Here's what I can sell to you without causing any trouble...)]
 		</p>
 		<p>
 			Looking down at the list, you wonder whether you should buy anything...
 		</p>
 	#ELSE
 		<p>
-			Telling Wes that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Pushing Elle off of him, he lets out a sigh and reveals, [npc.speech(Here's what I can sell to you without causing any trouble...)]
+			Telling Wes that you'd like to buy some Enforcer equipment, you wait as he rummages around in a nearby drawer for a moment, before producing a list of available equipment and placing it down on the counter-top in front of you. Pushing Elle off of him, he lets out a sigh and reveals, [wes.speech(Here's what I can sell to you without causing any trouble...)]
 		</p>
 		<p>
 			Looking down at the list while Elle continues to sexually harass Wes, you wonder whether you should buy anything...
@@ -654,21 +654,42 @@
 			Wanting to talk to Elle, you ring the counter's bell, causing her to look over towards the counter and see you standing there. Turning back to whisper something into Wes's ear, she slides her hand out from the fox-boy's boxers, before giving his groin a firm squeeze and then turning to walk over towards you.
 		</p>
 		<p>
-			Stepping up to the counter, the [elle.race] puts on her most seductive look, before teasing, [elle.speech(You caught me in the middle of disciplining my slave... So, what can I do for you thins time, [pc.name]?)]
+			Stepping up to the counter, the [elle.race] puts on her most seductive look, before teasing, [elle.speech(You caught me in the middle of disciplining my slave... So, what can I do for you this time, [pc.name]?)]
 		</p>
 	#ELSE
 		<p>
 			Wanting to talk to Wes, you ring the counter's bell, causing both him and Elle to look over towards the counter and see you standing there. Turning back to whisper something into Wes's ear, Elle slides her hand out from the fox-boy's trousers, before giving his groin a firm squeeze and then stepping back to let Wes walk over towards you.
 		</p>
 		<p>
-			Clearly being a little flustered from the attention Elle was giving to him, the Wes clears his throat and takes a deep breath, before flashing you a warm smile and asking, [wes.speech(What can I do for you today, [pc.name]? Sorry that you had to catch me like that, Elle was just-)]
+			Clearly being a little flustered from the attention Elle was giving to him, Wes clears his throat and takes a deep breath, before flashing you a warm smile and asking, [wes.speech(What can I do for you today, [pc.name]? Sorry that you had to catch me like that, Elle was just-)]
 		</p>
 		<p>
 			[elle.speech(Giving you a quickie,)] the [elle.race] teases, cutting off Wes's sentence as she steps up behind him and lewdly presses her huge breasts into his back. Ignoring Wes's firm request for her to step back, Elle leans in over his shoulder and teases, [elle.speech(Don't worry, babe, I'll finish you off with my mouth once you've dealt with [pc.name].)]
 		</p>
-		<p>
-			Letting out a frustrated huff, Wes does his best to ignore Elle's hand as it creeps back down towards his groin, and once again asks, [wes.speech(So, [pc.name], what can I help you with?)]
-		</p>
+		#IF(pc.isVisiblyPregnant())
+			#IF(!pc.isCharacterReactedToPregnancy(wes))
+				#IF(pc.getPregnantLitter().isFatherId(wes.getId()))
+					<p>
+						With his back-and-forth with Elle now at an end, Wes is able to finally take a proper look at you, and immediately notices the fact that you're now pregnant. Realising that he must be the father, the fox-boy gulps and asks, [wes.speech(Are you going to be ok, [pc.name]? Is there anything I can do for you? I mean, I know that having kids doesn't seem to be as big a deal here in the city as it is for a lot of country folk, but I'd still like to take responsibility.)]
+					</p>
+					<p>
+						Thanking Wes for his concern, you tell him that you're managing just fine, and won't require any sort of help from him. Warmly smiling at you, he says, [wes.speech(If there's anything I can help you with, [pc.name], please just let me know...)]
+					</p>
+				#ELSE
+					<p>
+						With his back-and-forth with Elle now at an end, Wes is able to finally take a proper look at you, and quickly notices the fact that you're still pregnant. Warmly smiling at you, he kindly asks how you are, and after you've replied that you're feeling well, he gets down to business by once again asking, [wes.speech(So, [pc.name], what can I help you with today?)]
+					</p>
+				#ENDIF
+			#ELSE
+				<p>
+					With his back-and-forth with Elle now at an end, Wes is able to finally take a proper look at you, and quickly notices the fact that you're still pregnant. Warmly smiling at you, he kindly asks how you are, and after you've replied that you're feeling well, he gets down to business by once again asking, [wes.speech(So, [pc.name], what can I help you with today?)]
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				Letting out a frustrated huff, Wes does his best to ignore Elle's hand as it creeps back down towards his groin, and once again asks, [wes.speech(So, [pc.name], what can I help you with?)]
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -689,20 +710,424 @@
 	
 	<!-- REQUISITIONS_BACKGROUND -->
 	
-	<htmlContent tag="REQUISITIONS_BACKGROUND"><![CDATA[
-	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
+	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_1"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
 		<p>
-			You ask Elle about her background. (She heavily flirts with the player throughout this scene.)
+			Wanting to get to know Elle a little better, you ask her what she did before becoming an Enforcer, and what made her decide to join Dominion's law enforcement.
 		</p>
 		<p>
-			TODO: Display 1 of at least 5 different background scenes. Revealing more about Elle's history with each interaction. (After all 5 have been seen, display repeat variations on each at random.)
+			Letting out a soft hum as she thinks back to the start of her career, she reveals, [elle.speech(I didn't do much of anything before signing up to become an Enforcer... I suppose that was the main reason why I joined them in the first place; I was simply bored of doing nothing.)]
+		</p>
+		<p>
+			Pressing her on the issue a little further, you say to Elle that surely she must have been doing <i>something</i> before signing up.
+		</p>
+		<p>
+			[elle.speech(Very well, you've got me to admit it; my mother is a direct daughter of Lunette herself, and what's more, I was her favourite child. I was given absolutely anything I asked for, and so never had to even think about working for a living,)] Elle reveals, before smirking at you and teasing, [elle.speech(I couldn't live that sort of life forever, though; it's far more fun having to work at seducing your next conquest rather than having them simply given to you...)]
+		</p>
+		<p>
+			Hungrily looking you up and down, she lowers her voice a little and breathlessly whispers, [elle.speech(Enough talk about my past; surely there are other things you'd like to discus...)]
 		</p>
 	#ELSE
 		<p>
-			You ask Wes about his background.
+			Wanting to talk to Elle about her past again, you ask her if she can tell you anything about her pre-Enforcer days spent living with her mother.
 		</p>
 		<p>
-			TODO: Display 1 of at least 5 different background scenes. Revealing more about Wes's history with each interaction. (After all 5 have been seen, display repeat variations on each at random.)
+			[elle.speech(There's not really much to tell,)] she sighs, before suddenly flashing you a dirty look and revealing, [elle.speech(The sex was the best part about it; I got to fuck a new guy or girl almost every night, and when my mother hosted parties, I'd try to perform oral on as many different guests as I could. I think my record was twenty-seven in one night...)]
+		</p>
+		<p>
+			Letting out a mischievous giggle, Elle bats her eyelashes at you and teases,
+			#IF(pc.hasPenis())
+				 [elle.speech(All that practice is why I'm so good at giving head...)]
+			#ELSE
+				 [elle.speech(All that practice is why I'm so good with my tongue...)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_2"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
+		<p>
+			Having previously discovered from Elle that she joined the Enforcers out of boredom with her privileged life, you ask her what her early experiences as an officer of the law were like.
+		</p>
+		<p>
+			[elle.speech(Mmm... Well, my training at the Academy and my first year as being a member of the Patrol were both pretty boring. I'd slept with everyone worth sleeping with after the first month or so, and I quickly started to realise that being a regular Enforcer wasn't all that fun,)] she sighs, and without any further prompt from you, she quickly continues, [elle.speech(That's when I decided to apply to join SWORD. There were loads of hot guys and girls in their ranks, and I'd heard that they got loads of fun assignments.)]
+		</p>
+		<p>
+			Overhearing what it is that Elle is saying, Wes quips in from somewhere behind a nearby shelving unit, [wes.speech(Typical demon... Being allowed to apply for SWORD after just a year of service...)]
+		</p>
+		<p>
+			[elle.speech(My instructor said that I was one of the best he'd seen, thank you very much,)] Elle calls out in a light-hearted tone, before biting her lip and teasing, [elle.speech(Of course, that might have had something to do with the fact that I was spreading my legs for him every day in his office...)]
+		</p>
+		<p>
+			Hearing no further comment from Wes, Elle smirks and continues, [elle.speech(Anyway, I graduated with above-average grades and then applied for the position of courier, which I was immediately granted. I'd thought that as a courier, I'd be able to have all sorts of fun fucking different people all over Lilith's Realm, but I just so happened to graduate in the July of '88, right before the fifth human rebellion started...)]
+		</p>
+		<p>
+			As she says this, the flirty, light-hearted look in Elle's eyes quickly fades away, and she lets out a deep, remorseful sigh. Realising that she's not comfortable talking about this right now, you tell Elle that it wasn't your intention to uncover any unpleasant memories, and perhaps it would be best to drop the subject for now.
+		</p>
+		<p>
+			[elle.speech(Yeah, ask me about this again some other time,)] the [elle.race] sighs, before shaking her head and returning to her flirty attitude as she teases, [elle.speech(It's a lot more fun talking about other stuff, such as the fact that I can easily orgasm just from performing oral on someone...)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Elle about her past again, you ask her if she can tell you anything about her early days in the Enforcer Academy or as a Patrol officer.
+		</p>
+		<p>
+			[elle.speech(Oh, you want to know the sorts of things I got up to back then, do you?)] she teases, before seductively biting her lip and recalling, [elle.speech(The actual training at the Academy was really boring, as you'd expect, but I had a lot of fun seducing and fucking the instructors one-by-one... The best memory I've got of my training is the night of our graduation party, when I got three of the instructors to gang-bang me, and the next morning, I woke each of them up in turn by giving them a blowjob! Fun times...)]
+		</p>
+		<p>
+			Licking her lips and flashing you a dirty look, she continues, [elle.speech(My days as a Patrol officer were much of the same. It was all boring work while on duty, but getting to fuck my way through all of my superiors sure was fun! But anyway, speaking of fucking, how about we talk more about that...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_3"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
+		<p>
+			Although Elle seemed to have some unpleasant memories of her early days as a SWORD Enforcer, you're sure that she's prepared to answer your questions about it by now, and so you ask her what her job was like after graduating.
+		</p>
+		<p>
+			Once again, Elle's flirty demeanour vanishes as she recalls her early memories of working as a member of SWORD, but despite the troubled expression which settles on her face, she willingly answers, [elle.speech(Well, as I mentioned before, I'd graduated in the July of '88, less than a month before all the troubles of the fifth human rebellion kicked off. You won't hear many people talking about it these days, but back then, it seemed like the whole world was starting to fall apart...)]
+		</p>
+		<p>
+			Letting out a deep sigh, she recalls, [elle.speech(I'd been given the job of courier over at SWORD's Fifth Company, which seemed like a cushy assignment for the first couple of weeks. Thanks to my wings, I could fly all over Dominion in no time at all, and if the situation called for it, I could even make the roundabout trip to Elis, Thinis, and even Itza'aak in less than a day. The main thing on my mind back then was who I'd get to seduce and fuck when I arrived at my destination, but that all changed with the violent start of the rebellion; the 'Day of Four Eights'...)]
+		</p>
+		<p>
+			[wes.speech(You've never spoken about this before,)] Wes chimes in as he peers around the corner of a nearby shelving unit.
+		</p>
+		<p>
+			[elle.speech(Nobody's ever asked before,)] Elle replies, [elle.speech(And what is there to find out? From my perspective, the rebellion was four years of chaos, uncertainty, and... a hell of a lot of fun!)]
+		</p>
+		<p>
+			Letting a big smirk settle on her after saying this, Elle goes on to reveal, [elle.speech(As my job of courier got a lot more dangerous with the start of the rebellion, I was ordered to get flight combat qualified. I wasn't sure about it at first, but that's where I found my true calling! Swooping and diving... Knowing that the bastards who're after you intend to take you prisoner... The adrenaline! It gets me going just thinking about it! Oh, how I remember the looks on their faces when they realised that I'd out-manoeuvred them! Hahaha!)]
+		</p>
+		<p>
+			Caught up in her excitement, Elle suddenly unfurls her large, demonic wings, and with an intense, maniacal look in her bright pink eyes, she gives them a powerful flap and declares, [elle.speech(I was never beaten in the skies, not once! They may have called themselves the 'Human Liberation Front', but those rebel scum had harpies, bats, even dragons attempt to intercept me, and I beat them all!)]  
+		</p>
+		<p>
+			Remembering that those glory days are long gone, Elle folds her wings back down behind her back, before letting out a long sigh and saying, [elle.speech(My early days at SWORD were hell, sure, but I've never felt more alive than I did during those aerial fights... Well, having a good fuck is a decent substitute I suppose, and seeing as I've gone on for long enough about my past, how about we talk more about that sort of thing...)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Elle about her past again, you ask her if she's got any stories to tell about her experiences during the fifth human rebellion.
+		</p>
+		<p>
+			A slight smile breaks out across Elle's face as she hears you ask this, and in a wistful tone, she recalls, [elle.speech(Well, if you want a story, then I can tell you about the one rebel who managed to get away from me... Out of all the countless scum who I fought and bested in aerial combat, he was the only one who I'd ever consider to be my equal. He was some kind of greater bird-of-prey harpy, perhaps a falcon, but despite fighting against one another over a dozen times, I could never get a good look at him; he was just too fast.)]
+		</p>
+		<p>
+			Elle starts to subconsciously unfurl her wings as she remembers the fights she had with this unidentified harpy, [elle.speech(At the time when I first saw him, I'd already got more than a year's worth of experience in the skies, but despite that, he almost took me out on his first pass. It was just by mere chance that I happened to look behind me as I was flying, and I saw him just a second away from crashing into me. I was able to dodge him, but only just, and before I knew what was happening, he was on me again... I had to drop the package I was carrying, but even then, I was only barely able to keep up with his moves. He pursued me all the way back to HQ, and even had the balls to dive at the Enforcers manning the towers...)]
+		</p>
+		<p>
+			With your curiosity piqued, you ask Elle what happened to this rebel harpy, to which she shrugs and replies, [elle.speech(I never found out. There was nothing extraordinary about the last time we fought, and after that ended in a stalemate, I watched him fly off in the direction of the Mountains of the Moon. That was the last I ever saw of him. He was probably caught by a routine ground patrol; I couldn't imagine someone of his fervour ever abandoning his cause.)]
+		</p>
+		<p>
+			Taking on a flirty tone once again, she teases, [elle.speech(I would have loved to have found out what he was like to fuck...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_4"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
+		<p>
+			Curious to hear about Elle's more recent past, you ask her what she did once the fifth human rebellion had ended.
+		</p>
+		<p>
+			[elle.speech(I continued with my job as a courier,)] she reveals, [elle.speech(Of course, I'd been promoted by that time, so I could delegate the more tedious assignments to those serving under me. Despite taking only the most 'exciting' of assignments, however, I soon grew very bored of my once-exhilarating job. Flying just isn't the same when you don't have to worry about being attacked at any moment by a swooping rebel harpy...)]
+		</p>
+		<p>
+			Softly chuckling to herself at the thought, she continues, [elle.speech(Anyway, after several years of working my way up through the ranks, I eventually applied to be transferred to logistics here at Enforcer HQ, hoping that I'd be able to get some excitement from fucking my way through all of my superiors. Well, I did get some excitement doing that, but the higher-ups aren't exactly the best fucks I've ever had, and I soon grew bored again...)]
+		</p>
+		<p>
+			All of her talk about fucking her superiors seems to have got Elle turned on again, for she leans over the counter and suggestively teases, [elle.speech(I'm always up for a good fuck, you know...)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Elle about her past again, you ask her if any of her old courier colleagues transferred to logistics, just like she did.
+		</p>
+		<p>
+			[elle.speech(No, all of the Enforcers I worked with back then have either stayed on as couriers, been promoted to some cushy desk job in other parts of the realm, or retired. I'm the only one from my old Company who's working here at the HQ,)] Elle reveals, before smirking and continuing, [elle.speech(My good little slave, Wes, is actually the one I've known here for the longest.)]
+		</p>
+		<p>
+			Seductively biting her lip and leaning forwards over the counter, she teases, [elle.speech(How about we talk about something a little more fun? Like how good it must feel to fuck me...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_5"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<=5)
+		<p>
+			Having found out almost everything there is to know about Elle's past, you have just one last question to ask her. Wanting to hear her reasons for siphoning off the Enforcer's weapons and selling them to criminal gangs, you ask her why she did it.
+		</p>
+		<p>
+			[elle.speech(Because I was bored!)] she exclaims, as though that's a legitimate reason for breaking the law, [elle.speech(I'm sure that you overheard me saying this to those gang-members back in the cave, but there's really nothing exciting for us Enforcers to do these days. It's all routine patrols, routine equipment checks, routine reports, routine boredom! If the criminals had access to more fire-power, then they could start a serious crime wave, and then I'd finally get to see some action again!)]
+		</p>
+		<p>
+			[wes.speech(So much for that,)] Wes snarkily calls out from somewhere behind the shelving units.
+		</p>
+		<p>
+			[elle.speech(Mmm, yes, things didn't quite go as planned, thanks to [pc.name] here,)] Elle replies, before smirking at you and revealing, [elle.speech(Everything worked out well, though. I may not get the excitement of fighting criminals, but Wes has turned out to be surprisingly fun! I always thought he was a little odd, so I never tried to seduce him, but it turns out that he's got a seemingly-endless reserve of stamina, and is ready to fuck at any time! His cock's nice and big as well, and when he shoves his knot into my mouth... Fuck, I can cum just from that!)]
+		</p>
+		<p>
+			[wes.speech(It's not like I can say no!)] Wes exclaims.
+		</p>
+		<p>
+			[elle.speech(Just to think that for all of these years, Wes was right under my nose... I could have been having so much fun with him!)] Elle softly laughs, [elle.speech(I let him sleep in my bed at night, and all I have to do is spread my legs and let out a little moan, and he's immediately on top of me, stuffing his big cock into my hungry little pussy...)]
+		</p>
+		<p>
+			Getting herself worked up by all this talk of sex, Elle breathlessly pants, [elle.speech(Fuck... I'm getting wet just thinking about it...)]
+		</p>
+		<p>
+			Having now found out all there is to know about Elle's past, you wonder what to say to her next...
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Elle about her past again, you ask her what sort of things she got up to while working in logistics here at the Enforcer HQ.
+		</p>
+		<p>
+			[elle.speech(There's not really much to tell about all of that,)] Elle sighs, [elle.speech(I transferred here ten years ago, and since then, I got a promotion, fucked over half of all the Enforcers who work here, and ended up gaining Wes as a slave. Other than that, nothing much happened.)]
+		</p>
+		<p>
+			Leaning forwards over the counter, she teases, [elle.speech(My little fox-boy slave is proving to be a hell of a lot of fun to fuck, but he's not the only one I've got an interest in...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_WES_1"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<5)
+		<p>
+			Wanting to get to know Wes a little better, you ask him about his past life and what he did before joining the Enforcers.
+		</p>
+		<p>
+			[wes.speech(Before I joined the Enforcers? Well, that would be before I came to Dominion,)] Wes recalls, and you can't help but notice how his country accent gets a lot stronger as he thinks back to his past, [wes.speech(I spent my early life working on my parents' farm, out on the fringes of the Foloi Fields. Being the youngest of my eight siblings, I realised that I didn't stand much of a chance of inheriting anything, so rather than stay there and find out what ploughing fields would be like with a back bent by age, I decided to travel to the big city.)]
+		</p>
+		<p>
+			At this point in his story, the fox-boy's muzzle turns up into a wry grin, and he scoffs, [wes.speech(I was so naive and foolish back then... I didn't realise how opportunistic and self-serving the majority of city folks are. I went from job to job, always being promised steady work, only to be laid off or replaced by cheaper labour a few weeks after I'd started.)]
+		</p>
+		<p>
+			[elle.speech(You poor thing,)] Elle interrupts. Sliding her hand down to rub at Wes's groin, she presses her huge breasts into the fox-boy's back and teases, [elle.speech(I can make you feel better...)]
+		</p>
+		<p>
+			[wes.speech(Later, Elle!)] Wes snaps, pushing his horny slave off of him and sighing, [wes.speech(Anyway, where was I... Oh yes, I'd been working odd jobs for a few months, and had finally saved up enough to rent a half-decent apartment. On my way to pay the landlord, I foolishly decided to take a shortcut through some alleyways, and ran straight into a pair of muggers...)]
+		</p>
+		<p>
+			Seemingly obsessed with her owner's cock, Elle steps forwards once again and leans heavily into Wes's back, before slipping her hand down to gently tease his groin. Interrupted once again, the fox-boy lets out a sigh and finishes his story by saying, [wes.speech(Anyway, to cut a long story short, I ended up being saved from the muggers by a passing Enforcer patrol. Being the impressionable young fool I was, I saw those kind Enforcers as being representative of all the realm's law enforcement, and quickly convinced myself that I should apply to join them...)]
+		</p>
+		<p>
+			Unable to ignore Elle's hand as it slips down into his trousers, Wes apologises, [wes.speech(Sorry, if you're interested in hearing more, ask me about this some other time. Elle here is being particularly difficult today!)]
+		</p>
+		<p>
+			As you watch Wes push his horny, unruly slave off of him once again, you wonder what you should say next...
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Wes about his past again, you ask him what he remembers of his life before becoming an Enforcer. 
+		</p>
+		<p>
+			[wes.speech(Well, my early days in Dominion were nothing but bad memories of hopping from one temporary job to another, but my life before that was pretty good,)] he recalls, falling back into his country accent as he remembers his days on his family's farm, [wes.speech(I got on well with my brothers and sisters, but I was the only one out of all of them who wanted more out of life than to be working on the farm or in the local village. The work there wasn't bad, mind you, but I just felt like I was missing out on something being stuck there...)]
+		</p>
+		<p>
+			[elle.speech(You mean you wanted to find some hot city girls to fuck?)] Elle teases, before leaning in to playfully nibble on Wes's ear.
+		</p>
+		<p>
+			[wes.speech(Not everyone is motivated by sex, you know,)] Wes sharply replies, pulling away from Elle's embrace as he finishes, [wes.speech(I've been back to visit my family several times, but no matter how much time passes, nothing there ever seems to change. My siblings are all still working on the farm or in the village, and none of them have any ambition to ever leave.)]
+		</p>
+		<p>
+			Having come to the end of his tale, the fox-boy lets out a small sigh, before waiting for you to take the conversation elsewhere...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_WES_2"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<5)
+		<p>
+			Having previously heard about Wes's early days on his family's farm and then about his experience of being saved from muggers in Dominion, you ask him if he can tell you more of what happened after that.
+		</p>
+		<p>
+			[wes.speech(Well, as I mentioned before, I quickly convinced myself that joining the Enforcers and helping to uphold the law of the land was a just, righteous thing to do with my life,)] Wes says, his cynical tone of voice making it quite clear that he no longer believes this to be the case. Smirking to himself as he recalls his old memories, he continues, [wes.speech(My naive zeal was apparently just what the recruiters were looking for, as I was immediately accepted into the Academy. I didn't really pay it any notice at the time, but thinking back on it, I remember that all of us 'normal' folk had to do a hell of a lot of work to pass the tests, while all the demons and half-demons had to do was mention their demonic lineage to the instructors...)]
+		</p>
+		<p>
+			[elle.speech(If it was still anything like it was when I graduated, then that wasn't all we were doing to secure good grades,)] Elle flirtily teases, [elle.speech(I was on my instructor's desk spreading my legs for him practically every afternoon!)]
+		</p>
+		<p>
+			Letting out an annoyed grunt as he pushes his horny slave away from him, Wes snaps, [wes.speech(That's exactly what I'm talking about! It's one rule for you, another for us. Anyway, despite the favouritism shown towards demons like Elle here, I ended up graduating from the Academy with better marks than most of them. For the next few years after that I worked as a regular Patrol officer, and despite there being some obvious signs of corruption, I chose to ignore them. I'd take all the unpleasant assignments given to me without complaint. Anything for justice, anything to clean up the streets, anything to uphold the pile of pleasant words I'd been fed at the Academy...)]
+		</p>
+		<p>
+			[elle.speech(What a good boy you must have been,)] Elle teases, before sliding her hands down over Wes's hips and reaching around to start stroking his groin. Leaning in over his shoulder, she breathlessly whispers, [elle.speech(Why don't I give you a reward for all of your past hard work...)]
+		</p>
+		<p>
+			Pushing his unruly slave's hands away from his groin, Wes sighs, [wes.speech(Sorry, [pc.name], but she's getting to be too much again. Let's continue this another time.)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Wes about his past again, you ask him what it was like working as a regular Patrol officer. 
+		</p>
+		<p>
+			[wes.speech(It was all pretty much as you'd expect it to be,)] he says, [wes.speech(The more 'exciting' parts, such as catching muggers, were pretty few and far between. Most of my time was spent doing more mundane jobs, such as issuing fines, informing the public of the law, writing reports, and just walking around the streets to show criminals that we're never far away.)]
+		</p>
+		<p>
+			[elle.speech(What about your first arrest?)] Elle asks, seemingly just as curious as you are to hear more about Wes's early days as an Enforcer.
+		</p>
+		<p>
+			[wes.speech(Looking back at it, I found it exciting at the time, sure,)] Wes admits, [wes.speech(It really wasn't anything special though. We'd got reports of a huge, aggressive wolf-boy mugging people in an alleyway close to HQ, and so I was sent with a more experienced partner to track him down and get him enslaved. We found him quickly enough, and instead of running, he actually tried to fight back.)]
+		</p>
+		<p>
+			Shaking his head as he recalls the outcome, Wes sighs, [wes.speech(I didn't lose my cool, and hit him straight in the chest with my taser. You know, it really is true what they say; 'The bigger they are, the harder they fall.')]
+		</p>
+		<p>
+			[elle.speech(So, did you fuck him?)] Elle playfully teases.
+		</p>
+		<p>
+			[wes.speech(What?! Of course not!)] the fox-boy angrily replies, [wes.speech(I know a lot of the other Enforcers do that sort of thing, but never on my watch! Besides, you know I don't swing that way.)]
+		</p>
+		<p>
+			Pushing Elle away from him, Wes turns back towards you and waits to hear what it is you'll ask next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_WES_3"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<5)
+		<p>
+			Having heard all about Wes's early days as an Enforcer, you ask him where he went next in his career.
+		</p>
+		<p>
+			[wes.speech(After three years of what my superiors described as 'exceptional commitment' to the job, I was approached by a recruiter for SWORD and told that I should apply for their training program,)] Wes reveals, before letting out a deep, remorseful sigh and continuing, [wes.speech(I can't believe that I was still so naive at that point. I actually believed all the crap the recruiter told me about SWORD being the branch that makes the most difference, and how my 'natural talent as an Enforcer' was being wasted in the regular Patrol units.)]
+		</p>
+		<p>
+			[elle.speech(You know, it only took me a year of serving before I was asked to join SWORD,)] Elle reveals, [elle.speech(It took you three?)]
+		</p>
+		<p>
+			Elle's words clearly strike a nerve in the fox-boy, and you see his eye twitch a little as he hisses through clenched teeth, [wes.speech(That's because you're a demon! Us normal folk usually have to work for at least five years in the Patrol before being considered eligible for SWORD training.)]
+		</p>
+		<p>
+			[elle.speech(Well, whatever,)] the [elle.race] casually replies, before sliding her hands down to Wes's groin and teasing, [elle.speech(I can tell that you're getting worked up. How about I help you to relieve some stress...)]
+		</p>
+		<p>
+			[wes.speech(Not now, Elle!)] the fox-boy sharply replies, before pushing his unruly slave off of him and continuing, [wes.speech(So anyway, I signed up for SWORD, and spent the next several months having all of my naivety, trust, and respect for the Enforcers beaten out of me. To say that the training was brutal is a gross understatement, and despite the fact that you can only ever apply for SWORD once in your life, over half of my fellow recruits had dropped out after the first couple of weeks. Looking back on it, I should have done the same, but some kind of misguided sense of duty kept me going...)]
+		</p>
+		<p>
+			[elle.speech(My SWORD training wasn't like that at all,)] Elle reveals, [elle.speech(Sure, parts of it were tough, but all you had to do was ask the instructors to be a little nicer. I guess sucking their cocks helped a bit as well, but still, it really wasn't all that bad.)]
+		</p>
+		<p>
+			Whether it's her intention or not, Elle's words seem to infuriate the fox-boy, who closes his eyes and takes a long, deep breath to calm himself down, before saying, [wes.speech(You demons have no idea what the real training was like for us normal folk... None of the demons in my class had to live in the communal dormitory, none of them were publicly punished by the instructors, none of them were threatened with dismissal from the program if they failed even one of the fitness tests...)]
+		</p>
+		<p>
+			Pushing Elle's hands away from his groin, Wes shakes his head clear of some unpleasant memories, before looking at you and saying, [wes.speech(Let's talk about something else for now. Did you want to buy any gear?)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to find out why Wes's SWORD training was such a bad experience, you ask him what it involved. 
+		</p>
+		<p>
+			[wes.speech(The vast majority of it was focused on physical training and weapons proficiency,)] he reveals, [wes.speech(The instructors were absolutely merciless; if anyone fell behind during the daily runs, they'd either get physically beaten or be forced to perform pointless, humiliating tasks. The worst one I saw was when a recruit thought it was a good idea to tell one of the instructors to 'fuck off'. By the time the instructors were finished with him, he could barely stand...)]
+		</p>
+		<p>
+			[elle.speech(I told an instructor to fuck off once,)] Elle recalls, [elle.speech(All I had to do was another lap around the track.)]
+		</p>
+		<p>
+			[wes.speech(Lucky you,)] Wes sighs, [wes.speech(It sure must have been nice, being a demon during training. As for the rest of us, it only got worse at night, when the instructors left us alone in the communal dormitory. The ones seen to have been the weak link during the day's exercises got ganged up on, hard. My naive views on Enforcer comradeship slipped quietly into the dark with each muffled scream I heard...)]
+		</p>
+		<p>
+			[elle.speech(Come on, don't dwell on stuff like that,)] Elle says as she starts to undo Wes's belt. [elle.speech(You'd rather be fucking my throat, right?)]
+		</p>
+		<p>
+			Pushing his horny slave's hands away from his groin, Wes sighs and asks you, [wes.speech(Is there anything else you wanted, [pc.name]?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_WES_4"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<5)
+		<p>
+			Having heard about Wes's SWORD training, you ask him what he did after graduating.
+		</p>
+		<p>
+			[wes.speech(I expected to be able to lead a fireteam,)] he says, [wes.speech(But apparently, foxes aren't considered to be a suitably martial race, and so I was told that I was being assigned to logistics. Instead of breaking down doors and putting an end to criminal gangs, I found myself sorting inventories and doing laundry for Third Company...)]
+		</p>
+		<p>
+			[elle.speech(Logistics is just as important as the flashy combat roles,)] Elle says, dropping her hands down to start rubbing at Wes's crotch. Letting out a soft giggle, she points out, [elle.speech(It's not as fun as combat, sure, but it's one of the best places to be to get loads of sex!)]
+		</p>
+		<p>
+			[wes.speech(That's not on my list of priorities,)] Wes flatly replies as he pushes Elle's hands away from his groin. Letting out a sigh, he continues, [wes.speech(You are right about the importance of logistics, though. Without us, all the ground-pounders running around in the city would stop functioning within a week. Telling myself this day after day, I continued to work my way up the ranks, and even with there being a slower rate of promotion for non-combat personnel, I became Chief Inspector and Junior Quartermaster at the ripe young age of thirty-four.)]
+		</p>
+		<p>
+			[elle.speech(That's when I first met you,)] Elle says, teasing her fingers over the fox-boy's bushy tail. [elle.speech(Right from the start, I thought that there was something a little odd about the fact that a country boy had worked his way so high up the ranks in SWORD. I thought it best not to try and seduce you, but oh, was I <i>so</i> wrong not to have done so. You've got so much stamina, and your cock's nice and big as well. When you shove your knot into my mouth... Fuck, I cum every time!)]
+		</p>
+		<p>
+			Looking more and more embarrassed the longer Elle goes on, Wes suddenly snaps, [wes.speech(Elle, please! Can you try to control yourself for just five minutes?!)]
+		</p>
+		<p>
+			[elle.speech(Mmm,)] the horny [elle.race] hums, [elle.speech(I just want another taste of your cock...)]
+		</p>
+		<p>
+			[wes.speech(It was while working here that I finally acknowledged the corruption within the Enforcers,)] Wes continues, ignoring Elle's persistent fondling of his crotch as he reveals, [wes.speech(Half-demons and demons always get promoted over ordinary folk, even when it's obvious that they're ill-suited for the job at hand. Just look at Elle here; all she did on the job was fuck her way around the station, leaving all of the real work for me to do.)] 
+		</p>
+		<p>
+			[elle.speech(But fucking is so much fun,)] Elle whines, before pouting at Wes and saying, [elle.speech(You know, nobody else comes close to having your stamina and technique; I just want your big fox-cock stuffed deep into one of my holes... Fuck, I need it <i>now</i>...)]
+		</p>
+		<p>
+			Dropping down onto her knees, the horny [elle.race] shuffles underneath the counter and out of sight. By now seeming to have learned to just deal with Elle's horniness instead of repeatedly resisting it, Wes tries to keep a straight face as Elle covertly starts giving him a blowjob, and he grunts, [wes.speech(I can tell you the rest of my story tomorrow; Elle here is being particularly forceful at the moment...)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Wes about his experiences working in SWORD logistics, you ask him what sort of duties he was expected to perform. 
+		</p>
+		<p>
+			[wes.speech(My old job was exactly the same as what I'm having to do now,)] the fox-boy sighs, [wes.speech(Having to make more regular reports to my superiors means that I don't even get to enjoy the use of my new office.)]
+		</p>
+		<p>
+			[elle.speech(You do when you take me in there to fuck me,)] Elle interjects, before leaning in over Wes's shoulder to playfully nibble on his fox-like ear.
+		</p>
+		<p>
+			Shaking himself free of his unruly slave's embrace, Wes sighs, [wes.speech(Sometimes it feels like the universe is out to get me. I spend all of my life working so hard to do the right thing, and then when I finally get the promotion I deserve, what do I get rewarded with? Even more work than I had to do before, only this time, with a horny half-demon interrupting me every five minutes trying to get into my pants.)]
+		</p>
+		<p>
+			[elle.speech(You know you love it really,)] Elle giggles, [elle.speech(Especially when I do the 'naughty Enforcer' roleplay for you...)]
+		</p>
+		<p>
+			Loudly clearing his throat to interrupt Elle before she says anything else to embarrass him, Wes looks at you and states, [wes.speech(Let's change the subject. Is there anything you wanted to buy from me?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_BACKGROUND_WES_5"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<=5)
+		<p>
+			Wanting to hear the final part of Wes's story about his background, you ask him what happened after he started working here at the Enforcer HQ and saw clear evidence of demons being promoted over more competent non-demons.
+		</p>
+		<p>
+			[wes.speech(What happened? Nothing,)] Wes sighs, [wes.speech(What could I do about it? The people who would end up investigating unfair promotions would likely be demons themselves, and the end result would most likely either be nothing, or, if I was unlucky, I'd be the one being disciplined for 'wasting their time'. Even when I discovered evidence of Elle siphoning off weapons to sell to gangs, I couldn't do anything about it. That is, until I happened to read a report about some kind of vigilante who managed to clear out the Harpy Nests...)]
+		</p>
+		<p>
+			[elle.speech(Well, everything worked out well thanks to that,)] Elle surprisingly remarks, before pressing her huge breasts into Wes's back and saying to you, [elle.speech(I was only doing that to try and get some more fun into my life, but being Wes's slave is far better than anything I could have asked for! I can't get enough of his cock, and, luckily for me, he loves it when I give him a blowjob or spread my legs for him in his office...)]
+		</p>
+		<p>
+			[wes.speech(That's enough, Elle!)] Wes snaps, but his command is ignored by his horny slave, who drops down onto her knees and once again shuffles forwards under the counter.
+		</p>
+		<p>
+			Demonstrating a legendary level of self-control, Wes keeps a straight face as Elle starts sucking his cock beneath the counter and grunts, [wes.speech(Now you know all that there is worth knowing about my past... Is there anything else I can help you with? Do you want to buy some gear, or perhaps you could help me again by taking Elle over to my office and working some of the horniness out of her system...)] 
+		</p>
+	#ELSE
+		<p>
+			Wanting to talk to Wes about the corruption in the Enforcer HQ, you ask him whether Elle's arrest has made any sort of impact on the other officers. 
+		</p>
+		<p>
+			[wes.speech(I can't say that it has,)] the fox-boy sighs, [wes.speech(I doubt that anything much is going to change as a result of Elle's enslavement. I suppose that I'll have to be satisfied with just one less corrupt Enforcer...)]
+		</p>
+		<p>
+			[elle.speech(I'll make you satisfied, all right,)] Elle teases, before reaching down to grope Wes's groin and breathlessly whisper into his ear, [elle.speech(I want to be choking on your knot again tonight...)]
+		</p>
+		<p>
+			Pushing his horny slave off of him, Wes clears his throat and asks, [wes.speech(So, [pc.name], is there anything else I can do for you?)]
 		</p>
 	#ENDIF
 	]]>
@@ -710,23 +1135,144 @@
 	
 	
 	<!-- REQUISITIONS_WORK -->
-	
 	<htmlContent tag="REQUISITIONS_WORK"><![CDATA[
 	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
 		<p>
-			You ask Elle about how work is going. (She heavily flirts with the player throughout this scene.)
-		</p>
-		<p>
-			TODO: Display 1 of at least 10 small work dialogue variations. Overall giving the picture of a lot of work to do, and how Wes is handling most of the tedious/physical work. She doesn't get as much done as is expected of her due to the fact that she keeps on sexually harassing Wes.
+			Deciding to try and make some small-talk with Elle, you ask her how her work is going.
 		</p>
 	#ELSE
 		<p>
-			You ask Wes about how work is going.
-		</p>
-		<p>
-			TODO: Display 1 of at least 10 small work dialogue variations. Overall giving the picture of a lot of work to do, and how Elle is not much use. He finds learning curve of being master of both the borough's equipment and Elle to be steep and it's taking a toll on on him.
+			Deciding to try and make some small-talk with Wes, you ask him how his work is going.
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_ELLE_1"><![CDATA[
+	<p>
+		[elle.speech(Well, I was supposed to have had a report on my superior's desk this morning, but while working on it late last evening, I kind of got distracted and ended up spending all night riding Wes's cock,)] she admits with a big smirk on her face. Leaning forwards over the counter, she bites her lip and reveals, [elle.speech(I was given an extension on the report's deadline, so I've got plenty of time in which to do some more fucking...)]
+	</p>
+	<p>
+		Elle doesn't seem interested in talking about her work any further than that, and so you're quickly left wondering what to say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_ELLE_2"><![CDATA[
+	<p>
+		[elle.speech(It's going pretty well; I've got Wes handling most of the work, but although he does a good job, I can't help but keep on interrupting him to get more of his big cock,)] Elle giggles, before leaning forwards over the counter and suggestively teasing, [elle.speech(I just can't stop myself; I'm so horny all the time...)]
+	</p>
+	<p>
+		Elle doesn't seem interested in talking about her work any further than that, and so you're quickly left wondering what to say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_ELLE_3"><![CDATA[
+	<p>
+		[elle.speech(I need to have a report on the inventory's status ready for tomorrow, but every time I begin work on it, I start daydreaming about Wes's big cock,)] Elle wistfully replies, [elle.speech(I hope that I can resist fucking him all night; I'll be in big trouble if I don't get this report finished on time...)]
+	</p>
+	<p>
+		Elle doesn't seem interested in talking about her work any further than that, and so you're quickly left wondering what to say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_ELLE_4"><![CDATA[
+	<p>
+		[elle.speech(I actually don't really have too much work to do at the moment, as I've got Wes handling it all,)] Elle admits, before smirking and continuing to reveal, [elle.speech(He's not working as fast as he could be, though, as I keep on interrupting him to get another taste of his big cock...)]
+	</p>
+	<p>
+		Elle doesn't seem interested in talking about her work any further than that, and so you're quickly left wondering what to say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_ELLE_5"><![CDATA[
+	<p>
+		[elle.speech(Everything's going fine; I had to give a presentation to my superiors earlier, but now that that's out of the way, I can leave the rest of the day's work to Wes,)] she replies, before playfully biting her lip and revealing, [elle.speech(You know, I couldn't stop thinking about Wes's cock during the whole of the presentation, and when I got back here, I rode him for almost an hour without any break...)]
+	</p>
+	<p>
+		Elle doesn't seem interested in talking about her work any further than that, and so you're quickly left wondering what to say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_WES_1"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong("wes_background_progress")<4)
+		<p>
+			[wes.speech(To tell you the truth, I'm finding the learning curve of being master of both the borough's equipment and Elle to be pretty steep,)] Wes sighs, [wes.speech(It's taking a bit of a toll on on me.)]
+		</p>
+		<p>
+			[elle.speech(Come on, I'm not <i>that</i> demanding, am I?)] Elle asks while continuing to forcefully press her huge breasts into Wes's back.
+		</p>
+		<p>
+			Simply letting out a weary sigh in response, the fox-boy asks, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+		</p>
+	#ELSE
+		<p>
+			[wes.speech(Everything's going better now than it was to start with,)] Wes replies, [wes.speech(It took me a while to figure out how best to handle Elle, but it seems best to just let her do her thing and then carry on with work after she's satisfied.)]
+		</p>
+		<p>
+			[elle.speech(Mmm, yeah, that works a lot better, doesn't it, babe?)] Elle teases.
+		</p>
+		<p>
+			Letting out an amused huff in response, the fox-boy asks, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+		</p>
+	#ENDIF
+		
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_WES_2"><![CDATA[
+	<p>
+		[wes.speech(I've got a huge amount of inventory management work to get done by the end of today,)] the fox-boy responds, [wes.speech(Elle is mostly proving to be more of a hindrance than a help...)]
+	</p>
+	<p>
+		[elle.speech(Hey, I help by making sure that your balls are regularly emptied, don't I?)] Elle teases.
+	</p>
+	<p>
+		[wes.speech(See what I mean?)] Wes sighs, before asking, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_WES_3"><![CDATA[
+	<p>
+		[wes.speech(Everything's going well today, thanks to Elle,)] the fox-boy responds, [wes.speech(She was able to 'convince' my superior to give me an extra few days to get a report finished. Of course, it was Elle's fault in the first place that the report wasn't done on time...)]
+	</p>
+	<p>
+		[elle.speech(I told you that I'd sort it out for you,)] Elle teases, [elle.speech(All I had to do was give him a quick handjob!)]
+	</p>
+	<p>
+		[wes.speech(Next time, it would be better if you just let me get the report done on time to begin with,)] Wes sighs, before asking, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_WES_4"><![CDATA[
+	<p>
+		[wes.speech(I had to give a presentation to my superiors earlier, which went far better than I could have hoped for,)] the fox-boy proudly responds, before letting out a sigh and revealing, [wes.speech(When I got back, however, Elle tricked me into going into my office, before locking the door and refusing to hand over the key until I'd let her ride my cock...)]
+	</p>
+	<p>
+		[elle.speech(You make it sound like you didn't enjoy it,)] Elle complains, [elle.speech(You know you love it when I show you my dominant side!)]
+	</p>
+	<p>
+		[wes.speech(Well, thanks to you 'showing off your dominant side', I've got no real work done all day,)] Wes replies, before looking over at you and asking, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REQUISITIONS_WORK_WES_5"><![CDATA[
+	<p>
+		[wes.speech(Things are going relatively well, but I'd be much further ahead with my work if Elle didn't keep on interrupting me,)] Wes reveals, [wes.speech(She's absolutely insatiable...)]
+	</p>
+	<p>
+		[elle.speech(You know you love it,)] Elle teases in response, [elle.speech(I can't imagine how boring it would be for you if I wasn't here to suck your cock!)]
+	</p>
+	<p>
+		[wes.speech(I suppose I can't argue with that,)] Wes relents, before looking over at you and asking, [wes.speech(So, is there anything else I can do for you, [pc.name]?)]
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -735,10 +1281,13 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE"><![CDATA[
 	<p>
-		You flirt back with Elle, and she is soon taking things very far.
+		Deciding to have a little fun with Elle, you start flirting back with her, and before you know it, she's staring hungrily at your body and dropping multiple graphic hints that she wants to take you to her office and fuck you.
 	</p>
 	<p>
-		She comes around to the other side of the counter and gets physical with you, before breathlessly suggesting that she gives you a very personal tour of her office...
+		Not being able to control herself, she's soon unlocking the door to the storage area, before stepping out to the other side of her counter and getting physical with you. Pressing her hot body up against you, she reaches down to give your groin a firm grope, before breathlessly suggesting, [elle.speech(Come on, [pc.name], how about you let me give you a very personal tour of my office?)]
+	</p>
+	<p>
+		Knowing that a 'tour of Elle's office' will undoubtedly lead into having sex with the horny [elle.race], you wonder what to say in response to her suggestion...
 	</p>
 	]]>
 	</htmlContent>
@@ -748,10 +1297,13 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_DECLINED"><![CDATA[
 	<p>
-		You turn down Elle's offer. She is visibly annoyed, and returns to the other side of her desk.
+		Although you were happy enough to flirt with her, you don't really want to have sex with Elle, and so you [pc.step] back and turn down her offer.
 	</p>
 	<p>
-		Quickly re-assuming her flirty temperament, she asks you if there's anything else you wanted.
+		For a brief moment, you see a furious look flash across the [elle.race]'s bright pink eyes, before she lets out an annoyed tut and declares, [elle.speech(You shouldn't lead me on if you aren't willing to go all the way!)]
+	</p>
+	<p>
+		With that, Elle storms over to the nearby door, and after unlocking it, quickly returns to the other side of the counter. Thankfully, the angry expression on her face fades away almost as quickly as it appeared, and after adjusting her uniform, she flashes you a mischievous smirk and light-heartedly declares, [elle.speech(I won't fall for your tricks again, [pc.name]! Not today at least... Anyway, is there anything else I can help you with?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -761,24 +1313,32 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE"><![CDATA[
 	<p>
-		You agree to go to Elle's office with her. She tells Wes to watch the place while she's gone.
+		Liking the sound of Elle's suggestion, you tell her that you'd love to have a tour of her office. After flashing you a dirty smirk as she hears you agree to go with her, Elle calls out over the counter, [elle.speech(Wes! I'm heading out for a while; look after the place while I'm gone!)]
 	</p>
 	<p>
-		You head into her office. She locks the door behind you and instantly is all over you...
+		Upon hearing an affirmative reply from her slave, Elle leads you out of the requisitions area and over to the door of her office. Unlocking the door, she steps forwards and beckons you inside.
+	</p>
+	<p>
+		The moment you [pc.step] into her spacious office, the horny [elle.race] immediately shuts and locks the door behind you, before rushing forwards and pulling you into a desperate, passionate kiss. Flapping her wings in excitement, and sending a pile of stacked papers flying across the room in the process, Elle pulls back from kissing you and breathlessly pants, [elle.speech(So, are you going to take the lead, or shall I?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_SEX_START_AS_DOM"><![CDATA[
 	<p>
-		Taking charge, you dominantly kiss Elle before telling her that you're going to give her a good fucking.
+		Firmly taking hold of Elle's hips, you pull her into your body, before telling her that you're going to be the one in charge. Pulling the hot [elle.race] into a dominant kiss, you reach around and give her [elle.ass+] a good grope, before pulling back and wondering how best to fuck her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_SEX_START_AS_SUB"><![CDATA[
 	<p>
-		Letting Elle take charge, you allow her to dominantly kiss you, before she tells you that she's going to add you to her long list of successful sexual conquests. (If already had sex with her, she says something else.)
+		Letting Elle take charge, you submissively lean in against her and allow her to pull you into another dominant, forceful kiss. Reaching around to give your [pc.ass+] a good grope, the horny [elle.race] pulls back and moans, 
+		#IF(elle.hasSexCountWith(pc))
+			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
+		#ELSE
+			 [elle.speech(I'm looking forwards to adding you to my list of sexual conquests!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -788,111 +1348,14 @@
 	
 	<htmlContent tag="ELLE_END_SEX"><![CDATA[
 	<p>
-		If satisfied, Elle is flirty and teases you a little as you both get your things back in order. If not satisfied, she is clearly frustrated, and says she'll get Wes to finish her off.
+		#IF(elle.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Elle steps over to her luxurious leather office chair and sinks down into it. Flashing you a cheeky smirk, she moans, [elle.speech(You were good, [pc.name]... <i>Real</i> good...)]
+		#ELSE
+			Letting out a frustrated sigh, Elle steps over to her luxurious leather office chair and sinks down into it. Pouting at you in annoyance, she whines, [elle.speech(I'm not satisfied from that, [pc.name]... It's no problem, as I'll just have Wes finish me off, but I was really hoping for more from you...)]
+		#ENDIF
 	</p>
 	<p>
-		The two of you exit her office, and she heads into the requisitions area, leaving you to continue on your way...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME -->
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME"><![CDATA[
-	<p>
-		You suggest to Elle taht she bring Wes along for the tour. She likes the idea, and tells the fox-boy to join you. Hangs a 'be back soon' sign on the door to the requisitions area.
-	</p>
-	<p>
-		You, Elle, and Wes head into the office. Elle locks the door behind you and instantly is all over you and Wes...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_DOM"><![CDATA[
-	<p>
-		You take charge and tell Wes and Elle that you're going to fuck them...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_JOINT_DOM"><![CDATA[
-	<p>
-		You join Elle in taking charge and tell Wes that the two of you are going to fuck him...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_JOINT_SUB"><![CDATA[
-	<p>
-		You join Wes in submitting to Elle...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_AS_SUB"><![CDATA[
-	<p>
-		You submit to both Elle and Wes...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="REQUISITIONS_FLIRT_ELLE_OFFICE_THREESOME_WES_REVENGE"><![CDATA[
-	<p>
-		You lead Elle into joining you in submitting to Wes...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- ELLE_END_SEX_THREESOME -->
-	
-	<htmlContent tag="ELLE_END_SEX_THREESOME"><![CDATA[
-	<p>
-		If satisfied, Elle is flirty and teases you a little as the three of you get your things back in order. If not satisfied, she is clearly frustrated, and says to Wes that he's going to finish her off back in the requisitions area.
-	</p>
-	<p>
-		The three of you exit her office, and Elle and Wes head back into the requisitions area, leaving you to continue on your way...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- ELLE_WES_OFFICE -->
-	
-	<htmlContent tag="ELLE_WES_OFFICE"><![CDATA[
-	<p>
-		You ask Elle if you can spend some time with Wes. She agrees and tells you to use her office.
-	</p>
-	<p>
-		You take Wes into Elle's office. All of Elle's flirting and sexual harassment has got Wes worked up, and although he quite clearly hates you for betraying him (vary based on his affection), he seems eager enough to have sex...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ELLE_WES_OFFICE_START_AS_DOM"><![CDATA[
-	<p>
-		You take charge and prepare to fuck Wes....
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ELLE_WES_OFFICE_START_AS_SUB"><![CDATA[
-	<p>
-		You let Wes take charge and prepare to be fucked by him....
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- ELLE_END_SEX_WES -->
-	
-	<htmlContent tag="ELLE_END_SEX_WES"><![CDATA[
-	<p>
-		If satisfied, Wes is happy enough as the two of you get your things back in order. If not satisfied, he is clearly frustrated, and says that Elle will no doubt enjoy finishing him off back in the requisitions area.
-	</p>
-	<p>
-		You exit Elle's office, and Wes heads back into the requisitions area, leaving you to continue on your way...
+		After quickly getting your things back in order, you and Elle move over to the door of her office, and after she's unlocked it, you [pc.step] back out into the corridor beyond. Saying that she needs to get back to work, the [elle.race] heads back into the requisitions area, leaving you wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -902,10 +1365,10 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES"><![CDATA[
 	<p>
-		You flirt with Wes. From all of Elle's teasing and sexual harassment, he seems quite horny.
+		Deciding to have a little fun with Wes, you start flirting with him and playfully teasing him about the sorts of things he gets up to with Elle. Thanks to his slave's prior teasing and sexual harassment, the fox-boy seems to already be very horny, and after just a few minutes of being subjected to your flirty behaviour, you can tell that he's keen to fuck you.
 	</p>
 	<p>
-		After a short while of making suggestive remarks to him (with an envious Elle in the background?), you think that you could suggest taking things a step further...
+		Realising what's going on, Elle offers Wes her own series of flirtatious remarks in a clear attempt at getting him to fuck her instead of you. Caught between the two of you making advances upon him, Wes soon appears to be on the edge of losing his cool, and you realise that you could easily take advantage of his arousal by asking him to give you a 'personal tour' of his office...
 	</p>
 	]]>
 	</htmlContent>
@@ -915,10 +1378,10 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_FINISH"><![CDATA[
 	<p>
-		You decide not to take things any further, and stop flirting with Wes.
+		Deciding against taking things any further with Wes, you put an end to your flirtatious remarks and stop teasing him. Taking advantage of the fact that you've dropped out of the race, Elle brazenly slips her hand down Wes's trousers and starts giving him a handjob.
 	</p>
 	<p>
-		The fox-boy asks if he can help you with anything.
+		Doing his absolute best to retain his composure, the fox-boy ignores Elle's happy little moans and grunts, [wes.speech(So, [pc.name]... Can... Can I do anything else for you?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -928,24 +1391,33 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE"><![CDATA[
 	<p>
-		You suggest to Wes that he should take a break from work by giving you a tour of his office. He agrees, and tells Elle to watch the place while he's gone.
+		Eager to get into Wes's pants, you put on your most seductive voice and ask him if he could give you a private tour of his office.
 	</p>
 	<p>
-		You head into Wes's office. He locks the door behind you and instantly is all over you... 
+		On edge from all of the teasing that you and Elle have subjected him to, the fox-boy quickly replies, [wes.speech(I'd love to, [pc.name]! Elle, watch the place while I'm gone.)]
+	</p>
+	<p>
+		Ignoring his slave's disappointed whine, Wes unlocks the door to the storage area, before stepping out to the other side of the counter and hooking one of his arms around your waist. Pressing your body up against him, you allow Wes to lead you out into the corridor and over to the door of his office. Unlocking the door, and with his arm still around your waist, he leads you inside and locks the door after him.
+	</p>
+	<p>
+		Knowing exactly what it is that he wants, the fox-boy steps up to you and pulls you into a passionate kiss. Holding you in his tight embrace for a moment, he pulls back, before smirking at you and asking, [wes.speech(Are you happy with me taking the lead?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_SEX_START_AS_DOM"><![CDATA[
 	<p>
-		You take charge and start having sex with Wes...
+		Flashing Wes a smirk of your own, you tell him that you're going to be the one in charge, to which he responds, [wes.speech(That's fine with me, [pc.name].)]
+	</p>
+	<p>
+		Eagerly pulling the fox-boy into your dominant embrace, you wonder how best to fuck him...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_SEX_START_AS_SUB"><![CDATA[
 	<p>
-		You let Wes take charge and start having sex with him...
+		Happy to let Wes act as the dominant partner, you tell him that he can take the lead, and let out a happy little [pc.moan] as he pulls you into his embrace. After planting another passionate kiss on your [pc.lips+], the fox-boy pulls back and prepares to start fucking you...
 	</p>
 	]]>
 	</htmlContent>
@@ -955,10 +1427,14 @@
 	
 	<htmlContent tag="WES_END_SEX"><![CDATA[
 	<p>
-		If satisfied, Wes is in good spirits and teases you a little as you both get your things back in order. If not satisfied, he is clearly frustrated, and says he'll have to let Elle finish him off.
+		#IF(wes.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Flashing you a warm smile, he sighs, [wes.speech(That was just what what I needed... Thanks, [pc.name]...)]
+		#ELSE
+			Letting out a frustrated sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Still sporting a clear erection, he tuts, [wes.speech(That really wasn't enough to satisfy me, [pc.name]... I guess I'll have to let Elle finish me off...)]
+		#ENDIF
 	</p>
 	<p>
-		The two of you exit his office, and he heads into the requisitions area, leaving you to continue on your way...
+		After quickly getting your things back in order, you and Wes move over to the door of his office, and after he's unlocked it, you [pc.step] back out into the corridor beyond. Saying that he needs to get back to work, the fox-boy heads back into the requisitions area, leaving you wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -968,45 +1444,62 @@
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME"><![CDATA[
 	<p>
-		You suggest to Wes that he should take a break from work by giving you a tour of his office, and to bring Elle along. He agrees, and tells Elle to join you. Hangs a 'be back soon' sign on the door to the requisitions area.
+		Not wanting Elle to miss out on the fun, and knowing that Wes has by now grown accustomed to having sex with his perpetually-horny slave, you ask the fox-boy to give you and Elle a personal tour of his office.
 	</p>
 	<p>
-		You, Elle, and Wes head into the office. Wes locks the door behind you and instantly is all over you and Elle...
+		[elle.speech(Oooh, I like the sound of that!)] the [elle.race] eagerly exclaims.
+	</p>
+	<p>
+		[wes.speech(I really could do with taking a break,)] Wes states, before placing a 'be back soon' sign on the counter's surface and declaring, [wes.speech(Come on then, Elle, follow me.)]
+	</p>
+	<p>
+		With his excited slave beside him, Wes unlocks the door to the storage area, before stepping out to the other side of the counter and hooking one of his arms around your waist. Not wanting to be left out, Elle presses herself up against Wes's free side, letting out a happy giggle as the fox-boy takes hold of her waist with his free hand.
+	</p>
+	<p>
+		With you and Elle now on either side of him, Wes heads out into the corridor and over to the door of his office. Retrieving the keys from out of her owner's pocket, Elle unlocks the door, and joins you in being ushered inside by the horny fox-boy.
+	</p>
+	<p>
+		Shutting and locking the door after him, Wes lets out a surprised cry as you and Elle immediately press yourselves up against him. Jostling against one another in your haste to passionately kiss he fox-boy, you and the [elle.race] start groping Wes's body, causing him to ask, [wes.speech(Hey, hey, who's meant to be the one in charge in here?!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_DOM"><![CDATA[
 	<p>
-		You take charge and tell Elle and Wes that you're going to fuck them...
+		Choosing this moment in which to make your intentions clear, you declare to Elle and Wes that you're the one in charge. Happy enough to let you take the dominant role, the two of them wait to see what it is you'll decide to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_JOINT_DOM"><![CDATA[
 	<p>
-		You join Wes in taking charge and dominantly fuck Elle...
+		Moving around behind Elle, you reach down to give her [elle.ass+] a good grope, before telling her that it only seems right that the slave should be the one to take the submissive role. Happy enough to let you and Wes take the dominant role, the [elle.race] lets out an excited moan and waits to see how the two of you will decide to use her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_JOINT_SUB"><![CDATA[
 	<p>
-		You join Elle in submitting to Wes and get dominantly fucked by him...
+		Following Elle's lead in submissively rubbing up against Wes, you tell the fox-boy that he should take charge. Happy enough to take the dominant role, Wes orders the two of you to get down on all fours and present yourselves to him. Doing as you're told, you drop down onto the floor beside Elle, before preparing to be fucked beside her by Wes...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_AS_SUB"><![CDATA[
 	<p>
-		You submit to both Wes and Elle, who both seem more than happy to dominantly fuck you...
+		Wanting to be dominated by Wes and Elle, you tell them that they should take charge and fuck you.
+		#IF(pc.isTaur())
+			 Happy enough to do as you suggest, Elle pushes you down so that you're lying on your animalistic stomach, before moving around in front of you and preparing to use your mouth. Kneeling down behind your feral [pc.legRace]'s body, Wes joins his slave in getting ready to dominantly fuck you...
+		#ELSE
+			 Happy enough to do as you suggest, Elle pushes you down onto the floor so that you're lying on your back, before kneeling down and planting her groin over your face. Kneeling down between your legs, Wes joins his slave in getting ready to dominantly fuck you...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="REQUISITIONS_FLIRT_WES_OFFICE_THREESOME_ELLE_REVENGE"><![CDATA[
 	<p>
-		You convince Wes to join you in submitting to Elle, who seems very happy to be given a chance to get some dominant revenge (or is she just the big horny?) on the two of you...
+		Thinking that it would be fun for Elle to take charge, you convince Wes to join you in submitting to the horny [elle.race]. Happy to find herself being put in charge, Elle dominantly pushes you and Wes down onto your backs, before straddling you in the cowgirl position and wondering out loud how best to fuck the two of you...
 	</p>
 	]]>
 	</htmlContent>
@@ -1016,10 +1509,14 @@
 	
 	<htmlContent tag="WES_END_SEX_THREESOME"><![CDATA[
 	<p>
-		If satisfied, Wes is in good spirits and teases you a little as the three of you get your things back in order. If not satisfied, he is clearly frustrated, and says to Elle that she can finish him off back in the requisitions area.
+		#IF(wes.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Flashing you and Elle a warm smile, he sighs, [wes.speech(That was just what what I needed... Thanks, you two...)]
+		#ELSE
+			Letting out a frustrated sigh, Wes steps over to his luxurious leather office chair and sinks down into it. Still sporting a clear erection, he tuts, [wes.speech(That really wasn't enough to satisfy me... I guess you can finish me off back in the requisitions area, Elle...)]
+		#ENDIF
 	</p>
 	<p>
-		The three of you exit the office, and Elle and Wes head back into the requisitions area, leaving you to continue on your way...
+		After quickly getting your things back in order, the three of you move over to the door of Wes's office, and after he's unlocked it, you [pc.step] back out into the corridor beyond. Saying that he needs to get back to work, the fox-boy leads Elle back into the requisitions area, leaving you wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -1029,24 +1526,38 @@
 	
 	<htmlContent tag="WES_ELLE_OFFICE"><![CDATA[
 	<p>
-		You ask Wes if you can spend some time with Elle. He is more than happy to be given some relief from the [elle.race]'s constant sexual harassment, and tells you to take her to his office.
+		Wanting to have some fun with Elle, you tell Wes that you're willing to take him up on his offer of working some of the horniness out of his slave's system. Hearing what it is that you're saying, Elle lets out an excited moan, before telling Wes that she's happy to go and spend some time with you.
 	</p>
 	<p>
-		You take Elle into Wes's office. She doesn't seem too bitter about the fact that you're the cause of her being enslaved, and is very quickly all over you...
+		[wes.speech(Great, I should be able to get this work finished in the meantime,)] the fox-boy sighs in relief, before handing a key to his slave and instructing her, [wes.speech(Go and use my office, and come straight back here after you're done.)]
+	</p>
+	<p>
+		Taking the key from Wes, Elle unlocks the door to the storage area, before stepping out to the other side of the counter and and getting physical with you. Pressing her hot body up against you, she reaches down to give your groin a firm grope, before breathlessly teasing, [elle.speech(Don't worry, [pc.name], I don't hold anything against you for helping Wes to get me arrested and enslaved... I'm just looking forwards to having a good fuck!)]
+	</p>
+	<p>
+		As she's the one who's got the key, you let Elle take the lead as she heads out of the requisitions area and over to the door of Wes's office. Quickly unlocking it, she steps forwards and beckons you inside.
+	</p>
+	<p>
+		The moment you [pc.step] into Wes's spacious office, the horny [elle.race] immediately shuts and locks the door behind you, before rushing forwards and pulling you into a desperate, passionate kiss. Flapping her wings in excitement, and sending a pile of stacked papers flying across the room in the process, Elle pulls back from kissing you and breathlessly pants, [elle.speech(So, are you going to take the lead, or shall I?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WES_ELLE_OFFICE_START_AS_DOM"><![CDATA[
 	<p>
-		You take charge and dominantly fuck Elle...
+		Firmly taking hold of Elle's hips, you pull her into your body, before telling her that you're going to be the one in charge. Pulling the hot [elle.race] into a dominant kiss, you reach around and give her [elle.ass+] a good grope, before pulling back and wondering how best to fuck her...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WES_ELLE_OFFICE_START_AS_SUB"><![CDATA[
 	<p>
-		You submit to Elle and let her dominantly fuck you...
+		Letting Elle take charge, you submissively lean in against her and allow her to pull you into a dominant, forceful kiss. Reaching around to give your [pc.ass+] a good grope, the horny [elle.race] pulls back and moans, 
+		#IF(elle.hasSexCountWith(pc))
+			 [elle.speech(Let's do this a little differently than the last time we were in here...)]
+		#ELSE
+			 [elle.speech(I'm looking forwards to adding you to my list of sexual conquests!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -1056,10 +1567,14 @@
 	
 	<htmlContent tag="WES_END_SEX_ELLE"><![CDATA[
 	<p>
-		If satisfied, Elle is flirty and teases you a little as you both get your things back in order. If not satisfied, she is clearly frustrated, and says she'll get Wes to finish her off.
+		#IF(elle.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, Elle steps over to Wes's luxurious leather office chair and sinks down into it. Flashing you a cheeky smirk, she moans, [elle.speech(You were good, [pc.name]... <i>Real</i> good...)]
+		#ELSE
+			Letting out a frustrated sigh, Elle steps over to Wes's luxurious leather office chair and sinks down into it. Pouting at you in annoyance, she whines, [elle.speech(I'm not satisfied from that, [pc.name]... It's no problem, as I'll just have Wes finish me off, but I was really hoping for more from you...)]
+		#ENDIF
 	</p>
 	<p>
-		The two of you exit Wes's office, and Elle heads into the requisitions area, leaving you to continue on your way...
+		After quickly getting your things back in order, you and Elle move over to the door of her office, and after she's unlocked it, you [pc.step] back out into the corridor beyond. Saying that she needs to quickly return to Wes, the [elle.race] heads back into the requisitions area, leaving you wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>

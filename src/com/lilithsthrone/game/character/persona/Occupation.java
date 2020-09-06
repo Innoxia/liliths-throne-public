@@ -30,6 +30,7 @@ public enum Occupation {
 	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 
 	NPC_ENFORCER_SWORD_SUPER(Perk.JOB_NPC_ENFORCER_SWORD_SUPER, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_CHIEF_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_CHIEF_INSPECTOR, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_INSPECTOR, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_SERGEANT(Perk.JOB_NPC_ENFORCER_SWORD_SERGEANT, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
 	NPC_ENFORCER_SWORD_CONSTABLE(Perk.JOB_NPC_ENFORCER_SWORD_CONSTABLE, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),

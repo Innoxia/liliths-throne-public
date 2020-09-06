@@ -18,8 +18,8 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.2.6
- * @version 0.3.7.7
- * @author Irbynx, Innoxia
+ * @version 0.3.9.8
+ * @author Irbynx, Innoxia, AceXp
  */
 public class Pattern {
 	
@@ -35,21 +35,50 @@ public class Pattern {
 	static {
 		allPatterns = new TreeMap<>();
 		defaultPatterns = new TreeMap<>();
-		
-		File dir = new File("res/patterns");
-		
-		allPatterns.put("none", new Pattern("none")); // Adding empty pattern
-		defaultPatterns.put("none", new Pattern("none"));
+
+		allPatterns.put("none", new Pattern("none", null)); // Adding empty pattern
+		defaultPatterns.put("none", new Pattern("none", null));
+
+		File dir = new File("res/mods");
+
+		if (dir.exists() && dir.isDirectory()) {
+			File[] modDirectoryListing = dir.listFiles();
+			if (modDirectoryListing != null) {
+				for (File modAuthorDirectory : modDirectoryListing) {
+					File modAuthorPatternDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/patterns");
+					FilenameFilter textFilter = (dir1, name) -> {
+						String lowercaseName = name.toLowerCase();
+						if (lowercaseName.endsWith(".xml")) {
+							return true;
+						} else {
+							return false;
+						}
+					};
+					File[] patternFilesListing = modAuthorPatternDirectory.listFiles(textFilter);
+					if (patternFilesListing != null) {
+						for (File patternFile : patternFilesListing) {
+							try {
+								if(patternFile.exists()) {
+									loadFromFile(patternFile);
+								}
+							} catch(Exception ex) {
+								System.err.println("Loading modded pattern failed in 'mod folder patterns'. File path: "+patternFile.getAbsolutePath());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		dir = new File("res/patterns");
 		
 		if(dir.exists()) {
-			FilenameFilter textFilter = new FilenameFilter() {
-				public boolean accept(File dir, String name) {
-					String lowercaseName = name.toLowerCase();
-					if (lowercaseName.endsWith(".xml")) {
-						return true;
-					} else {
-						return false;
-					}
+			FilenameFilter textFilter = (dir1, name) -> {
+				String lowercaseName = name.toLowerCase();
+				if (lowercaseName.endsWith(".xml")) {
+					return true;
+				} else {
+					return false;
 				}
 			};
 			
@@ -61,14 +90,15 @@ public class Pattern {
 		}
 	}
 	
-	public Pattern(String name) {
+	public Pattern(String name, File xmlFile) {
 		this.name = name;
 		SVGStringMap = new HashMap<>();
 		
 		baseSVGString = "";
 		if(!name.equals("none")) {
 			try {
-				File patternFile = new File(System.getProperty("user.dir")+"/res/patterns/" + this.getName().toLowerCase() + ".svg");
+				String fileName = xmlFile.getPath().replaceAll("xml","svg");
+				File patternFile = new File(fileName);
 				List<String> lines = Files.readAllLines(patternFile.toPath());
 				StringBuilder sb = new StringBuilder();
 				for(String line : lines) {
@@ -89,7 +119,7 @@ public class Pattern {
 			boolean loadedDefaultPattern = Boolean.valueOf(patternElement.getMandatoryFirstOf("defaultPattern").getTextContent());
 			String loadedPatternName = patternElement.getMandatoryFirstOf("patternName").getTextContent().replace(".svg", "");
 
-			Pattern pattern = new Pattern(loadedPatternName);
+			Pattern pattern = new Pattern(loadedPatternName, clothingXMLFile);
 			pattern.displayName = loadedDisplayName;
 			
 			allPatterns.put(loadedPatternName, pattern);

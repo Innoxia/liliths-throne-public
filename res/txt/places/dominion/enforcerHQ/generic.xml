@@ -66,7 +66,7 @@
 	
 	<htmlContent tag="CORRIDOR_PLAIN_ENFORCER_ENTRANCE"><![CDATA[
 	<p>
-		Having been granted special access to one the many restricted areas of the Enforcer HQ, you find yourself standing in the corridor between the Quartermaster's office and the requisitions area. At one end of the corridor, there's the locked door which leads deeper into the Enforcer HQ's, while at the other end, there are a pair of heavy doors which lead out into Dominion.
+		Having been granted special access to one the many restricted areas of the Enforcer HQ, you find yourself standing in the corridor between the Quartermaster's office and the requisitions area. At one end of the corridor, there's the locked door which leads deeper into the Enforcer HQ, while at the other end, there are a pair of heavy doors which lead out into Dominion.
 	</p>
 	<p>
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
