@@ -502,7 +502,7 @@ public class RedLightDistrict {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 25*60;
 		}
 
 		@Override
