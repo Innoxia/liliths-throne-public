@@ -19,6 +19,7 @@ public enum CoveringModifier {
 
 	BLAZING("blazing"),
 	SHIMMERING("shimmering"),
+	GLITTERING("glittering"),
 	SWIRLING("swirling"),
 	
 	GOOEY("gooey") {

@@ -200,43 +200,97 @@ public enum BodyCoveringType {
 	VAGINA(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_VAGINA)),
 	
 
-	FIRE(BodyCoveringTemplateFactory.createElemental("flames", CoveringModifier.BLAZING, 
-					PresetColour.COVERING_ORANGE,
-					PresetColour.COVERING_BLUE_LIGHT)),
-	
-	FIRE_HAIR(BodyCoveringTemplateFactory.createElemental("flames", CoveringModifier.BLAZING, 
+	FIRE(BodyCoveringTemplateFactory.createElemental("flames", null,
+			CoveringModifier.BLAZING,
 			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_BLUE_LIGHT)),
 	
-	WATER(BodyCoveringTemplateFactory.createElemental("water", CoveringModifier.SHIMMERING, 
-			PresetColour.COVERING_BLUE,
-			PresetColour.COVERING_BLUE_LIGHT)),
-	
-	WATER_HAIR(BodyCoveringTemplateFactory.createElemental("water", CoveringModifier.SHIMMERING, 
-			PresetColour.COVERING_BLUE,
+	FIRE_HAIR(BodyCoveringTemplateFactory.createElemental("flames", null,
+			CoveringModifier.BLAZING,
+			PresetColour.COVERING_ORANGE,
 			PresetColour.COVERING_BLUE_LIGHT)),
 
-	ICE(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, PresetColour.COVERING_BLUE_LIGHT)),
+	FIRE_ANUS(BodyCoveringTemplateFactory.createElemental("flames", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.BLAZING,
+			PresetColour.COVERING_ORANGE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 	
-	ICE_HAIR(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, PresetColour.COVERING_BLUE_LIGHT)),
+	WATER(BodyCoveringTemplateFactory.createElemental("water", null,
+			CoveringModifier.SHIMMERING,
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 
-	AIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, PresetColour.COVERING_BLUE_LIGHT)),
-	
-	AIR_HAIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, PresetColour.COVERING_BLUE_LIGHT)),
+	WATER_HAIR(BodyCoveringTemplateFactory.createElemental("water", null,
+			CoveringModifier.SHIMMERING,
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 
-	STONE(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, PresetColour.COVERING_GREY)),
-	
-	STONE_HAIR(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, PresetColour.COVERING_GREY)),
+	WATER_ANUS(BodyCoveringTemplateFactory.createElemental("water", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.SHIMMERING,
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 
-	RUBBER(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, PresetColour.COVERING_BLACK)),
-	
-	RUBBER_HAIR(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, PresetColour.COVERING_BLACK)),
+	ICE(BodyCoveringTemplateFactory.createElemental("ice", null,
+			CoveringModifier.GLITTERING,
+			PresetColour.COVERING_BLUE_LIGHT)),
 
-	ARCANE(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, PresetColour.COVERING_PINK)),
-	
-	ARCANE_HAIR(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, PresetColour.COVERING_PINK)),
-	
-	
+	ICE_HAIR(BodyCoveringTemplateFactory.createElemental("ice", null,
+			CoveringModifier.GLITTERING,
+			PresetColour.COVERING_BLUE_LIGHT)),
+
+	ICE_ANUS(BodyCoveringTemplateFactory.createElemental("ice", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.GLITTERING,
+			PresetColour.COVERING_BLUE_LIGHT)),
+
+	AIR(BodyCoveringTemplateFactory.createElemental("vapours", null,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_BLUE_LIGHT)),
+
+	AIR_HAIR(BodyCoveringTemplateFactory.createElemental("vapours", null,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_BLUE_LIGHT)),
+
+	AIR_ANUS(BodyCoveringTemplateFactory.createElemental("vapours", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_BLUE_LIGHT)),
+
+	STONE(BodyCoveringTemplateFactory.createElemental("stone", null,
+			CoveringModifier.MATTE,
+			PresetColour.COVERING_GREY)),
+
+	STONE_HAIR(BodyCoveringTemplateFactory.createElemental("stone", null,
+			CoveringModifier.MATTE,
+			PresetColour.COVERING_GREY)),
+
+	STONE_ANUS(BodyCoveringTemplateFactory.createElemental("stone", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.MATTE,
+			PresetColour.COVERING_GREY)),
+
+	RUBBER(BodyCoveringTemplateFactory.createElemental("rubber", null,
+			CoveringModifier.GLOSSY,
+			PresetColour.COVERING_BLACK)),
+
+	RUBBER_HAIR(BodyCoveringTemplateFactory.createElemental("rubber", null,
+			CoveringModifier.GLOSSY,
+			PresetColour.COVERING_BLACK)),
+
+	RUBBER_ANUS(BodyCoveringTemplateFactory.createElemental("rubber", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.GLOSSY,
+			PresetColour.COVERING_BLACK)),
+
+	ARCANE(BodyCoveringTemplateFactory.createElemental("energy", null,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_PINK)),
+
+	ARCANE_HAIR(BodyCoveringTemplateFactory.createElemental("energy", null,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_PINK)),
+
+	ARCANE_ANUS(BodyCoveringTemplateFactory.createElemental("energy", CoveringPattern.ORIFICE_ANUS,
+			CoveringModifier.SWIRLING,
+			PresetColour.COVERING_PINK)),
+
+
 	SLIME(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allStandardCoveringPatterns)),
 
 	SLIME_EYE(BodyCoveringTemplateFactory.createSlime(CoveringPattern.EYE_IRISES,

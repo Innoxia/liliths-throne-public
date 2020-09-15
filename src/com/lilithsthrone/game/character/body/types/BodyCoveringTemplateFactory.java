@@ -105,22 +105,24 @@ public class BodyCoveringTemplateFactory {
 	public static BodyCoveringTemplate createBodyHair(CoveringModifier modifier) {
 		return createHairWithoutPatterns("a layer of", "hair", modifier);
 	}
-	
-	public static BodyCoveringTemplate createElemental(String name, CoveringModifier modifier, Colour... naturalHairColours) {
+
+	public static BodyCoveringTemplate createElemental(String name, CoveringPattern pattern, CoveringModifier modifier, Colour... naturalHairColours) {
 		return new BodyCoveringTemplate("",
 				false,
 				name,
 				name,
 				Util.newArrayListOfValues(modifier),
 				null,
-				Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+				pattern==null
+					?Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1))
+					:Util.newHashMapOfValues(new Value<>(pattern, 1)),
 				null,
 				Arrays.asList(naturalHairColours),
 				null,
 				null,
 				null);
 	}
-	
+
 	public static BodyCoveringTemplate createOrificeSkin(CoveringPattern pattern) {
 		return new BodyCoveringTemplate("a layer of",
 				false,

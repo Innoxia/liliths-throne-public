@@ -20455,7 +20455,7 @@ public abstract class GameCharacter implements XMLSaving {
 		clothing.onUnequipApplyEffects(this, characterRemovingClothing, false);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
-	
+
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
 		boolean unknownPenis = !this.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.PENIS);
 		boolean unknownBreasts = !this.isAreaKnownByCharacter(CoverableArea.BREASTS, Main.game.getPlayer()) && !this.isCoverableAreaVisible(CoverableArea.BREASTS);
@@ -25905,16 +25905,25 @@ public abstract class GameCharacter implements XMLSaving {
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.AIR_HAIR);
 				}
-				return body.getCoverings().get(BodyCoveringType.AIR);
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.AIR_ANUS);
+                }
+                return body.getCoverings().get(BodyCoveringType.AIR);
 			case ARCANE:
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.ARCANE_HAIR);
 				}
-				return body.getCoverings().get(BodyCoveringType.ARCANE);
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.ARCANE_ANUS);
+                }
+                return body.getCoverings().get(BodyCoveringType.ARCANE);
 			case FIRE:
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.FIRE_HAIR);
 				}
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.FIRE_ANUS);
+                }
 				return body.getCoverings().get(BodyCoveringType.FIRE);
 			case FLESH:
 				break;
@@ -25922,24 +25931,36 @@ public abstract class GameCharacter implements XMLSaving {
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.ICE_HAIR);
 				}
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.ICE_ANUS);
+                }
 				return body.getCoverings().get(BodyCoveringType.ICE);
 			case RUBBER:
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.RUBBER_HAIR);
 				}
-				return body.getCoverings().get(BodyCoveringType.RUBBER);
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.RUBBER_ANUS);
+                }
+                return body.getCoverings().get(BodyCoveringType.RUBBER);
 			case SLIME:
 				break;
 			case STONE:
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.STONE_HAIR);
 				}
-				return body.getCoverings().get(BodyCoveringType.STONE);
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.STONE_ANUS);
+                }
+                return body.getCoverings().get(BodyCoveringType.STONE);
 			case WATER:
 				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
 					return body.getCoverings().get(BodyCoveringType.WATER_HAIR);
 				}
-				return body.getCoverings().get(BodyCoveringType.WATER);
+                if(bodyCoveringType==BodyCoveringType.ANUS) {
+                    return body.getCoverings().get(BodyCoveringType.WATER_ANUS);
+                }
+                return body.getCoverings().get(BodyCoveringType.WATER);
 		}
 		
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
