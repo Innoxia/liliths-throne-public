@@ -240,7 +240,7 @@ public class ItemEffect implements XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
-		if(target!=null) {
+		if(target!=null && getItemEffectType()!=ItemEffectType.CLOTHING && getItemEffectType()!=ItemEffectType.TATTOO) {
 			if((target.getSubspeciesOverrideRace()==Race.DEMON || (!target.isAbleToHaveRaceTransformed() && target.getRace()!=Race.SLIME))
 					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_2

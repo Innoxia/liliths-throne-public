@@ -1421,7 +1421,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
-					&& ((!target.isVulnerableToArcaneStorm() && !target.getLocationPlace().isStormImmune()) || !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
+					&& Main.game.isStarted()
+					&& ((!target.isVulnerableToArcaneStorm() && !(target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune())
+							|| !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1487,8 +1489,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
+					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
-					&& !target.getLocationPlace().isStormImmune()
+					&& !(target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
 		@Override
@@ -1555,9 +1558,10 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getLocationPlace().isStormImmune()
-					&& Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
+					&& Main.game.isStarted()
+					&& (target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
 		@Override

@@ -46,7 +46,7 @@ public class EnforcerPatrolSA {
 		@Override
 		public String getDescription() {
 			return "Upon seeing you self-transform into your demonic form, [npc.name] lets out a shocked gasp and exclaims,"
-					+ " [npc.speechNoExtraEffects(You're a demon?! I'm sorry, [pc.miss], I-I didn't know!)]"
+					+ " [npc.speechNoExtraEffects(You're a demon?! I'm sorry, [pc.maam], I-I didn't know!)]"
 					+ "<br/><br/>"
 					+ "Pushing back against the [npc.race], you moan, [pc.speech(Come on, don't stop now! Carry on treating me like I'm a dirty little human!)]"
 					+ "<br/><br/>"

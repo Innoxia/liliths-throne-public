@@ -10,6 +10,7 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -182,6 +183,15 @@ public class EnforcerPatrol extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.9")) {
+			AbstractClothing vest = this.getClothingInSlot(InventorySlot.TORSO_OVER);
+			if(vest!=null) {
+				this.unequipClothingIntoVoid(vest, true, this);
+				AbstractClothing newVest = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false);
+				newVest.setSticker("name_plate", "enforcer");
+				this.equipClothingFromNowhere(newVest, true, this);
+			}
+		}
 	}
 
 	@Override

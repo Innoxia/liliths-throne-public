@@ -106,6 +106,15 @@ public interface SexManagerInterface {
 	public default boolean isWashingScene() {
 		return false;
 	}
+
+	/**
+	 * Being hidden restricts the character's ability to end sex, and they can only use 'self' sex actions.<br/>
+	 * <b>This should only ever be applied to spectators, as it makes no sense otherwise.</b>
+	 * @return true if the character is considered to be out of sight and hidden in this sex scene.
+	 */
+	public default boolean isHidden(GameCharacter character) {
+		return false;
+	}
 	
 	public default SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return character.getForeplayPreference(targetedCharacter);
@@ -116,6 +125,9 @@ public interface SexManagerInterface {
 	}
 
 	public default SexControl getSexControl(GameCharacter character) {
+		if(isHidden(character)) {
+			return SexControl.SELF;
+		}
 		if(Main.sex.isDom(character)) {
 			return SexControl.FULL;
 		} else {
@@ -143,7 +155,7 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
-	public default boolean isSlotAvailable(SexSlot slot) {
+	public default boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
 		return true;
 	}
 	

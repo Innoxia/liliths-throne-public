@@ -133,14 +133,14 @@
 	<htmlContent tag="PAINT_PURCHASED"><![CDATA[
 	#IF(pc.getRace().equals(RACE_DEMON))
 		<p>
-			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. As the customers notice your approach, and see that you're [pc.a_race], they quickly move aside to let you move to the front. The employee behind the till immediately stops serving the customer she was dealing with, and offers, [style.speechFeminine(Good [style.afternoon], [pc.miss], please let me take that for you.)]
+			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. As the customers notice your approach, and see that you're [pc.a_race], they quickly move aside to let you move to the front. The employee behind the till immediately stops serving the customer she was dealing with, and offers, [style.speechFeminine(Good [style.afternoon], [pc.maam], please let me take that for you.)]
 		</p>
 		<p>
 			Doing as the helpful cashier says, you hand the can of paint over to her, along with the [#SPECIAL_PARSE_0] flames required to purchase it. Once the transaction is complete, you head over towards the warehouse's exit, ignoring the apologetic remarks of several customers who hurry to move out of your way.
 		</p>
 	#ELSE
 		<p>
-			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. After what seems to take an eternity, you finally reach the front of the line, whereupon the employee behind the till drones in a monotonous tone, [style.speechFeminine(Good [style.afternoon], [pc.miss], please let me take that for you.)]
+			Picking up the can of golden paint, you quickly make your way over to the checkouts, before joining on at the end of the shortest queue. After what seems to take an eternity, you finally reach the front of the line, whereupon the employee behind the till drones in a monotonous tone, [style.speechFeminine(Good [style.afternoon], [pc.maam], please let me take that for you.)]
 		</p>
 		<p>
 			Doing as the bored cashier says, you hand the can of paint over to her, along with the [#SPECIAL_PARSE_0] flames required to purchase it. Once the transaction is complete, you head over towards the warehouse's exit, ignoring the suspicious glare which the security guard throws your way.

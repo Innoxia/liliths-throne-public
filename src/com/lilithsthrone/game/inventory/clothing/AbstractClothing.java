@@ -236,14 +236,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		for(Entry<StickerCategory, List<Sticker>> entry : this.getClothingType().getStickers().entrySet()) {
 			if(!stickers.containsKey(entry.getKey().getId())) {
-				Sticker sticker = null;
+				List<Sticker> availableStickers = new ArrayList<>();
 				for(Sticker s : entry.getValue()) {
-					if(sticker==null || s.isDefaultSticker()) {
-						sticker = s;
+					if(s.isDefaultSticker()) {
+						availableStickers.add(s);
 					}
 				}
-				if(sticker!=null) {
-					stickers.put(entry.getKey().getId(), sticker.getId());
+				if(availableStickers.isEmpty() && !entry.getValue().isEmpty()) {
+					stickers.put(entry.getKey().getId(), entry.getValue().get(0).getId());
+				} else {
+					stickers.put(entry.getKey().getId(), Util.randomItemFrom(availableStickers).getId());
 				}
 			}
 		}

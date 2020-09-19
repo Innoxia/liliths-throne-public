@@ -700,7 +700,9 @@ public class WesQuest {
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/wes", "REQUISITIONS_INTERACTION_LEAVE"));
 								Main.game.getPlayer().setNearestLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_CORRIDOR, false);
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								if(Main.game.getPlayer().isVisiblyPregnant()) {
+									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								}
 							}
 						};
 						
@@ -719,7 +721,9 @@ public class WesQuest {
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalked, true);
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								if(Main.game.getPlayer().isVisiblyPregnant()) {
+									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								}
 							}
 						};
 						
@@ -735,7 +739,9 @@ public class WesQuest {
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestTalkedAlt, true);
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								if(Main.game.getPlayer().isVisiblyPregnant()) {
+									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								}
 							}
 						};
 						
@@ -751,7 +757,9 @@ public class WesQuest {
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestFlirted, true);
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Wes.class).incrementAffection(Main.game.getPlayer(), 5));
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								if(Main.game.getPlayer().isVisiblyPregnant()) {
+									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								}
 							}
 						};
 						
@@ -769,7 +777,9 @@ public class WesQuest {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestSex, true);
 								Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER);
 								Main.game.getNpc(Elle.class).setLocation(Main.game.getPlayer(), false);
-								Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								if(Main.game.getPlayer().isVisiblyPregnant()) {
+									Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Wes.class), true);
+								}
 							}
 						};
 					}

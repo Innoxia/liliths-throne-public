@@ -460,7 +460,7 @@ public class ItemEffectType {
 				if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
 					return UtilText.parse(target,
 							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
 								+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
 							+ "</p>");
 					
@@ -473,7 +473,7 @@ public class ItemEffectType {
 					}
 					return UtilText.parse(target,
 							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
 								+ " Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
 								+ " After just a moment, the effects come a halt, and [npc.name] [npc.verb(smile)] happily to [npc.herself] as"
 									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy..."
@@ -487,7 +487,7 @@ public class ItemEffectType {
 					if(target.isPregnant()) {
 						return UtilText.parse(target,
 								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
 									+ " A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
 										+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!"
 								+ "</p>");
@@ -495,7 +495,7 @@ public class ItemEffectType {
 					} else {
 						return UtilText.parse(target,
 								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
 									+ " Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
 									+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all..."
 								+ "</p>");
@@ -504,7 +504,7 @@ public class ItemEffectType {
 				} else {
 					return UtilText.parse(target,
 							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
 								+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
 							+ "</p>");
 				}
@@ -1022,7 +1022,7 @@ public class ItemEffectType {
 
 	public static AbstractItemEffectType COR_IMPISH_BREW = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 10% [style.boldAura(aura)]",
-			Attribute.MAJOR_CORRUPTION.getFormattedValue(50)+" to 'potion effects'"),
+			Attribute.MAJOR_CORRUPTION.getFormattedValue(25)+" to 'potion effects'"),
 			PresetColour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
@@ -1032,7 +1032,7 @@ public class ItemEffectType {
 			return "<p style='text-align:center;'>"
 						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
 					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	};
 	
@@ -1077,6 +1077,12 @@ public class ItemEffectType {
 			if(!Main.game.isIncestEnabled()) {
 				fetishesToAdd.remove(Fetish.FETISH_INCEST);
 				fetishesToRemove.remove(Fetish.FETISH_INCEST);
+			}
+			if(!Main.game.isNonConEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_NON_CON_DOM);
+				fetishesToRemove.remove(Fetish.FETISH_NON_CON_DOM);
+				fetishesToAdd.remove(Fetish.FETISH_NON_CON_SUB);
+				fetishesToRemove.remove(Fetish.FETISH_NON_CON_SUB);
 			}
 
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
@@ -3408,19 +3414,21 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
-					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
-					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
-					|| primaryModifier == TFModifier.CLOTHING_CONDOM
-					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
-				return TFPotency.getAllPotencies();
-				
-			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
+			 if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
 				
-			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION) {
+			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION
+					|| secondaryModifier == TFModifier.REMOVAL
+					|| secondaryModifier == TFModifier.TF_TYPE_1) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
+				
+			} else if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+				|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
+				|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+				|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+				|| primaryModifier == TFModifier.CLOTHING_CONDOM
+				|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
+			return TFPotency.getAllPotencies();
 				
 			} else {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
@@ -3564,7 +3572,12 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+			 if(secondaryModifier == TFModifier.CLOTHING_VIBRATION
+					|| secondaryModifier == TFModifier.REMOVAL
+					|| secondaryModifier == TFModifier.TF_TYPE_1) {
+				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
+				
+			} else if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART

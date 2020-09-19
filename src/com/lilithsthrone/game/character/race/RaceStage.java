@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.race;
 
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -373,8 +374,16 @@ public enum RaceStage {
 		return colour;
 	}
 	
-	public static RaceStage getRaceStageFromUserPreferences(Subspecies subspecies) {
-		FurryPreference preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);
+	public static RaceStage getRaceStageFromUserPreferences(Gender gender, Subspecies subspecies) {
+		FurryPreference preference;
+		if(gender.isFeminine()) {
+			preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);
+		} else {
+			preference = Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies);
+		}
+		if(preference==null) {
+			preference = FurryPreference.HUMAN;
+		}
 		
 		RaceStage raceStage = RaceStage.PARTIAL;
 		

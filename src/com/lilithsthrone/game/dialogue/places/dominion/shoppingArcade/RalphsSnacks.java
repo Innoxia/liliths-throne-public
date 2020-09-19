@@ -215,7 +215,7 @@ public class RalphsSnacks {
 				
 			}else{
 				return "<p>"
-							+ "You get the feeling that some of these items may be out of your price range."
+							+ "You get the feeling that the price of many of these items is inflated past what would be considered a fair markup."
 							+ " Glancing over to the other side of the shop, you see Ralph giving you a cheerful wave from behind the counter."
 							+ " Encouraged by his disarming smile and friendly face, you decide to ask him if there's any way you can get a discount on some of these transformative items, and start to walk over to him."
 						+ "</p>"

@@ -1022,8 +1022,8 @@ public class Lyssieth extends NPC {
 		if(returnedLine.isEmpty()) {
 			return null;
 		}
-		
-		return UtilText.parse(this, target, returnedLine);
+
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 
 	@Override
@@ -1071,7 +1071,8 @@ public class Lyssieth extends NPC {
 		if(returnedLine.isEmpty()) {
 			return null;
 		}
-		return UtilText.parse(this, target, returnedLine);
+		
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 
 	@Override
@@ -1134,7 +1135,9 @@ public class Lyssieth extends NPC {
 		if(availableLines.isEmpty()) {
 			return null;
 		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+		
+		String returnedLine = Util.randomItemFrom(availableLines);
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 
 	@Override
@@ -1196,6 +1199,8 @@ public class Lyssieth extends NPC {
 		if(availableLines.isEmpty()) {
 			return null;
 		}
-		return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+		
+		String returnedLine = Util.randomItemFrom(availableLines);
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 }

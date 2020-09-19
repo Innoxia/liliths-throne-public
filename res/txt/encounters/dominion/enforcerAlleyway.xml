@@ -75,7 +75,7 @@
 		#ELSE
 			#IF(playerDemon)
 				<p>
-					[npc.speech(Oh, good [style.evening], [pc.miss],)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
+					[npc.speech(Oh, good [style.evening], [pc.maam],)] the [npc.race] calls out as [npc.she] catches sight of you, before quickly [npc.walking] over with [npc2.name] to stand right in front of you.
 				</p>
 				<p>
 					Due to the fact that you're a demon, the two officers show you a great deal of respect, and they each stand to attention as [npc.name] explains, [npc.speech(We've had some more reports of criminal activity in this area, so if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
@@ -114,9 +114,9 @@
 				</p>
 				<p>
 					#IF(kindEncounter)
-						With a gentle smile on [npc.her] face, [npc.name] explains, [npc.speech(Sorry about this inconvenience, [pc.miss], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+						With a gentle smile on [npc.her] face, [npc.name] explains, [npc.speech(Sorry about this inconvenience, [pc.maam], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
 					#ELSE
-						Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] explains, [npc.speech(Sorry about this inconvenience, [pc.miss], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+						Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] explains, [npc.speech(Sorry about this inconvenience, [pc.maam], but we're continuing to receive reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
 					#ENDIF
 				</p>
 			#ENDIF
@@ -173,7 +173,7 @@
 	#ELSE
 		#IF(pc.getRace()==RACE_DEMON)
 			<p>
-				With a guilty look on [npc.her] face, [npc.name] introduces [npc.herself] by apologising, [npc.speech(I'm so sorry, [pc.miss], I didn't see that you were a demon when I called out for you to stop. I'm [npc.name], and this here's [npc2.name].)]
+				With a guilty look on [npc.her] face, [npc.name] introduces [npc.herself] by apologising, [npc.speech(I'm so sorry, [pc.maam], I didn't see that you were a demon when I called out for you to stop. I'm [npc.name], and this here's [npc2.name].)]
 			</p>
 			<p>
 				Clearly showing you a great deal more respect than [npc2.she] would to a non-demon, [npc2.name] steps in to explain, [npc2.speech(We've had reports of criminal activity in this area, and so we were expecting to run into trouble. If you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
@@ -181,7 +181,7 @@
 		#ELSEIF(pc.getRace()==RACE_HUMAN || !game.isDayTime())
 			#IF(kindEncounter)
 				<p>
-					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.miss]. I'm [npc.name], and this here's [npc2.name].)]
+					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.maam]. I'm [npc.name], and this here's [npc2.name].)]
 				</p>
 				<p>
 					While [npc.she] clearly doesn't trust you to be on the right side of the law, [npc.name] tries to treat you in a kind manner as [npc.she] explains, [npc.speech(I'm sorry about this, but we've had reports of criminal activity in this area,
@@ -212,13 +212,13 @@
 		#ELSE
 			<p>
 				#IF(kindEncounter)
-					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.miss]. I'm [npc.name], and this here's [npc2.name].)]
+					With a gentle smile on [npc.her] face, [npc.name] introduces [npc.herself] by stating, [npc.speech(Good [style.evening], [pc.maam]. I'm [npc.name], and this here's [npc2.name].)]
 				#ELSE
 					Throwing you a suspicious glare, [npc.name] puts [npc.her] hand on the baton that's holstered at [npc.her] side, and in a commanding tone, [npc.she] states, [npc.speech(I'm [npc.name], and this here's [npc2.name].)]
 				#ENDIF
 			</p>
 			<p>
-				Stepping forwards, [npc2.name] explains, [npc2.speech(Sorry about this inconvenience, [pc.miss], but we've had reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
+				Stepping forwards, [npc2.name] explains, [npc2.speech(Sorry about this inconvenience, [pc.maam], but we've had reports of criminal activity in this area. I can see that you're not the one we're after, but if you've seen any suspicious characters nearby, then details on their whereabouts would be much appreciated.)]
 			</p>
 		#ENDIF
 	#ENDIF

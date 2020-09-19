@@ -527,7 +527,7 @@ public class SlaveDialogue {
 					}
 					return new Response("Helena",
 							UtilText.parse(getSlave(), "Accompany [npc.name] to Helena's store in Slaver Alley."),
-							ScarlettsShop.ROMANCE_SHOP_CORE) {//TODO
+							ScarlettsShop.ROMANCE_SHOP_CORE) {
 						@Override
 						public Colour getHighlightColour() {
 							return PresetColour.QUEST_RELATIONSHIP;

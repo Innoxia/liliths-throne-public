@@ -1048,19 +1048,27 @@ public class SubmissionGenericPlaces {
 			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_TELEPORTATION) || !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_TELEPORTATION)) {
-					responses.add(new Response("Teleportation pads",
-							"Tell Claire that you'd like to see the teleportation pads now."
-									+ "<br/>[style.italicsQuestSide(This will start a side quest which will need to be resolved before you're able to continue with whatever it is you were doing...)]",
-							CLAIRE_TELEPORTATION_PADS) {
-						@Override
-						public void effects() {
-							applyClaireMeetingEffects();
-						}
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.QUEST_SIDE;
-						}
-					});
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
+						responses.add(new Response("Teleportation pads",
+								"You're unable to see the teleportation pads until the Submission Enforcers have a reason to trust you..."
+										+ "<br/>[style.italicsMinorBad(You'll be able to access this option once you've completed the quest '"+QuestLine.SIDE_SLIME_QUEEN.getName()+"'.)]",
+								null));
+						
+					} else {
+						responses.add(new Response("Teleportation pads",
+								"Tell Claire that you'd like to see the teleportation pads now."
+										+ "<br/>[style.italicsQuestSide(This will start a side quest which will need to be resolved before you're able to continue with whatever it is you were doing...)]",
+								CLAIRE_TELEPORTATION_PADS) {
+							@Override
+							public void effects() {
+								applyClaireMeetingEffects();
+							}
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.QUEST_SIDE;
+							}
+						});
+					}
 					
 				} else {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedWarehouseEscape)) {
