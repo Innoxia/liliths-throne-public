@@ -1932,7 +1932,10 @@ public class PhoneDialogue {
 				+ (contact.getRaceStage()==RaceStage.HUMAN || contact.isRaceConcealed()
 					?"[npc.a_race(true)]"
 					:"[npc.a_raceStage(true)] [npc.race(true)]")
-				+", whose current location is: <i>"+contact.getWorldLocation().getName()+", "+contact.getLocationPlace().getPlaceType().getName()+"</i>.");
+				+", whose current location is: "
+				+ (contact.getWorldLocation()==WorldType.EMPTY
+					?"[style.italicsDisabled(Unknown!)]"
+					:"<i>"+contact.getWorldLocation().getName()+", "+contact.getLocationPlace().getPlaceType().getName()+"</i>."));
 	}
 	
 	public static final DialogueNode CONTACTS = new DialogueNode("Contacts", "Look at your contacts.", true) {
@@ -2821,7 +2824,9 @@ public class PhoneDialogue {
 			journalSB.append(getFetishEntry(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST));
-			journalSB.append(getFetishEntry(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
+			if(Main.game.isNonConEnabled()) {
+				journalSB.append(getFetishEntry(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB));
+			}
 			
 //			journalSB.append("<div class='container-full-width' style='text-align:center; font-weight:bold; margin-top:16px;'><h6>Individual Fetishes</h6></div>");
 			journalSB.append(getFetishEntry(Fetish.FETISH_DENIAL, Fetish.FETISH_DENIAL_SELF));

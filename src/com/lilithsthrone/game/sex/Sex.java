@@ -2708,14 +2708,14 @@ public class Sex {
 			Set<GameCharacter> levelDrains = new HashSet<>();
 			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
 				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
-					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(false).keySet()) {
+					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(true).keySet()) {
 						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!sub.isPlayer() && sub.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
 							levelDrains.add(sub);
 						}
 					}
 					
 				} else {
-					for(GameCharacter dom : Main.sex.getDominantParticipants(false).keySet()) {
+					for(GameCharacter dom : Main.sex.getDominantParticipants(true).keySet()) {
 						if(dom.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!dom.isPlayer() && dom.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
 							levelDrains.add(dom);
 						}

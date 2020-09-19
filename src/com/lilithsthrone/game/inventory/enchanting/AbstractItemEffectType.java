@@ -279,9 +279,11 @@ public abstract class AbstractItemEffectType {
 						);
 			case TF_PENIS:
 				List<TFModifier> penisMods = Util.newArrayListOfValues(
+						TFModifier.TF_TYPE_1,
+						TFModifier.REMOVAL,
 						TFModifier.TF_MOD_SIZE,
 						TFModifier.TF_MOD_SIZE_SECONDARY);
-
+				
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
 					penisMods.add(TFModifier.TF_MOD_CAPACITY);
 					if(Main.game.isPenetrationLimitationsEnabled()) {
@@ -308,6 +310,8 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_VAGINA:
 				List<TFModifier> mods = Util.newArrayListOfValues(
+						TFModifier.TF_TYPE_1,
+						TFModifier.REMOVAL,
 						TFModifier.TF_MOD_SIZE,// clit size
 						TFModifier.TF_MOD_SIZE_SECONDARY,// labia size
 						TFModifier.TF_MOD_CAPACITY,
@@ -726,6 +730,36 @@ public abstract class AbstractItemEffectType {
 				break;
 			case TF_PENIS:
 				switch(secondaryModifier) {
+					case TF_TYPE_1:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, grows penis.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, grows penis.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, grows penis.");
+								break;
+							default:
+								break;
+						}
+						break;
+					case REMOVAL:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, removes penis.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, removes penis.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, removes penis.");
+								break;
+							default:
+								break;
+						}
+						break;
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "penis length", Units.size(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
@@ -765,6 +799,36 @@ public abstract class AbstractItemEffectType {
 				break;
 			case TF_VAGINA:
 				switch(secondaryModifier) {
+					case TF_TYPE_1:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, grows vagina.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, grows vagina.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, grows vagina.");
+								break;
+							default:
+								break;
+						}
+						break;
+					case REMOVAL:
+						switch(potency) {
+							case MINOR_BOOST:
+								descriptions.add("In a week, removes vagina.");
+								break;
+							case BOOST:
+								descriptions.add("In a day, removes vagina.");
+								break;
+							case MAJOR_BOOST:
+								descriptions.add("In an hour, removes vagina.");
+								break;
+							default:
+								break;
+						}
+						break;
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "clitoris size", Units.size(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
@@ -1487,8 +1551,11 @@ public abstract class AbstractItemEffectType {
 					}
 					break;
 				case TF_PENIS:
-					if(target.hasPenis()) {
+					if(target.hasPenisIgnoreDildo()) {
 						switch(secondaryModifier) {
+							case REMOVAL:
+								sb.append(target.setPenisType(PenisType.NONE));
+								break;
 							case TF_MOD_SIZE:
 								if(isWithinLimits(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
 									sb.append(target.incrementPenisSize(penisSizeIncrement));
@@ -1613,11 +1680,27 @@ public abstract class AbstractItemEffectType {
 							default:
 								break;
 						}
+						
+					} else { // Do not have penis:
+						switch(secondaryModifier) {
+							case TF_TYPE_1:
+								if(target.getSubspeciesOverride()!=null) {
+									sb.append(target.setPenisType(PenisType.getPenisTypes(target.getSubspeciesOverrideRace()).get(0)));
+								} else {
+									sb.append(target.setPenisType(PenisType.getPenisTypes(target.getRace()).get(0)));
+								}
+								break;
+							default:
+								break;
+						}
 					}
 					break;
 				case TF_VAGINA:
 					if(target.hasVagina()) {
 						switch(secondaryModifier) {
+							case REMOVAL:
+								sb.append(target.setVaginaType(VaginaType.NONE));
+								break;
 							case TF_MOD_SIZE:
 								if(isWithinLimits(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
 									sb.append(target.incrementVaginaClitorisSize(clitorisSizeIncrement));
@@ -1788,6 +1871,19 @@ public abstract class AbstractItemEffectType {
 									sb.append(target.incrementPubicHair(bodyHairIncrement));
 								} else if(isSetToLimit(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
 									sb.append(target.setPubicHair(limit));
+								}
+								break;
+							default:
+								break;
+						}
+						
+					} else { // Does not have vagina:
+						switch(secondaryModifier) {
+							case TF_TYPE_1:
+								if(target.getSubspeciesOverride()!=null) {
+									sb.append(target.setVaginaType(VaginaType.getVaginaTypes(target.getSubspeciesOverrideRace()).get(0)));
+								} else {
+									sb.append(target.setVaginaType(VaginaType.getVaginaTypes(target.getRace()).get(0)));
 								}
 								break;
 							default:
@@ -3752,27 +3848,27 @@ public abstract class AbstractItemEffectType {
 
 					case TF_MOD_LEG_CONFIG_BIPEDAL:
 						return new RacialEffectUtil(" Transforms legs to bipedal "+race.getName(false)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.BIPEDAL).applyLegConfigurationTransformation(target, LegConfiguration.BIPEDAL, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.BIPEDAL).applyLegConfigurationTransformation(target, LegConfiguration.BIPEDAL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAUR:
 						return new RacialEffectUtil(" Transforms lower body to a quadrupedal, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAUR).applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAUR).applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL_LONG:
 						return new RacialEffectUtil(" Transforms lower body to a long-tailed, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL_LONG).applyLegConfigurationTransformation(target, LegConfiguration.TAIL_LONG, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL_LONG).applyLegConfigurationTransformation(target, LegConfiguration.TAIL_LONG, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL:
 						return new RacialEffectUtil(" Transforms lower body to a tailed, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL).applyLegConfigurationTransformation(target, LegConfiguration.TAIL, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL).applyLegConfigurationTransformation(target, LegConfiguration.TAIL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_ARACHNID:
 						return new RacialEffectUtil(" Transforms lower body to an eight-legged, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.ARACHNID).applyLegConfigurationTransformation(target, LegConfiguration.ARACHNID, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.ARACHNID).applyLegConfigurationTransformation(target, LegConfiguration.ARACHNID, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_CEPHALOPOD:
 						return new RacialEffectUtil(" Transforms lower body to an eight-tentacled, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.CEPHALOPOD).applyLegConfigurationTransformation(target, LegConfiguration.CEPHALOPOD, true, false); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.CEPHALOPOD).applyLegConfigurationTransformation(target, LegConfiguration.CEPHALOPOD, true, true); } };
 							
 
 					case TF_MOD_FOOT_STRUCTURE_PLANTIGRADE:

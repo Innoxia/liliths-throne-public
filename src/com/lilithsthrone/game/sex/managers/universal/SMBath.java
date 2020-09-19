@@ -51,7 +51,7 @@ public class SMBath extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isSlotAvailable(SexSlot slot) {
+	public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
 		return !slot.hasTag(SexSlotTag.FACE_SITTING)
 				&& !slot.hasTag(SexSlotTag.FACE_SITTING_REVERSE)
 				&& !slot.hasTag(SexSlotTag.LAP_PILLOW)

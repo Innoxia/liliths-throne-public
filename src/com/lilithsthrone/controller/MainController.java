@@ -265,7 +265,7 @@ public class MainController implements Initializable {
 	}
 	
 	public void openPhone(DialogueNode toDialogue) {
-		if(isPhoneDisabled() && toDialogue!=PositioningMenu.POSITIONING_MENU) {
+		if(isPhoneDisabled() && toDialogue!=PositioningMenu.POSITIONING_MENU && Main.game.getCurrentDialogueNode()!=PositioningMenu.POSITIONING_MENU) {
 			return;
 		}
 		
@@ -489,61 +489,7 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							for(AbstractClothingType ct : ClothingType.getAllClothing()) {
-//								if(ct.isPatternAvailable()) {
-//									Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGeneration().generateClothing(ct));
-//								}
-//							}
-//							for(int i=0; i<20; i++) {
-//								NPC n = new DominionExpressCentaur();
-//								n.setLocation(Main.game.getPlayer(), false);
-//								try {
-//									Main.game.addNPC(n, false);
-//								} catch (Exception e) {
-//									e.printStackTrace();
-//								}
-//							}
-//							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
-							
-							System.out.println(Main.game.getPlayer().getLocation());
-							
-//							int mines = 6;
-//							int gridSize = 8;
-//							String[][] grid = new String[gridSize][gridSize];
-//							String mine = "||:InnoScrem:||";
-//							String[] counts = new String[] {":zero:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:"};
-//							for(int i=mines; i>0; i--) {
-//							    int rndX = Util.random.nextInt(gridSize);
-//							    int rndY = Util.random.nextInt(gridSize);
-//							    while(grid[rndX][rndY]==mine) {
-//							        rndX = Util.random.nextInt(gridSize);
-//							        rndY = Util.random.nextInt(gridSize);
-//							    }
-//							    grid[rndX][rndY] = mine;
-//							}
-//							for(int i=0;i<gridSize;i++) {
-//							    for(int j=0;j<gridSize;j++) {
-//							        if(grid[i][j]!=mine) {
-//							            int count = 0;
-//							            for(int x=-1;x<=1;x++) {
-//							                for(int y=-1;y<=1;y++) {
-//							                    if(i+x>=0 && i+x<gridSize && j+y>=0 && j+y<gridSize) {
-//							                        if(grid[i+x][j+y]==mine) {
-//							                            count++;
-//							                        }
-//							                    }
-//							                }
-//							            }
-//							            grid[i][j] = "||"+counts[count]+"||";
-//							        }
-//							    }
-//							}
-//							for(int i=0;i<gridSize;i++) {
-//							    for(int j=0;j<gridSize;j++) {
-//							        System.out.print(grid[i][j]);
-//							    }
-//							    System.out.println();
-//							}
+							System.out.println(Main.sex.isSexStarted());
 						}
 						 
 

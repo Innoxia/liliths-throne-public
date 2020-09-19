@@ -253,7 +253,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));
@@ -309,7 +309,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_BRIDGE"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));

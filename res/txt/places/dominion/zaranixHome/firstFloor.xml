@@ -43,7 +43,7 @@
 	</p>
 	<p>
 		Before you have a chance to take any action, however, she looks up and catches sight of you.
-		 [kelly.speech(Ah! Sorry, [pc.miss]! I didn't know we were expecting guests! My name is Kelly, at your service!)]
+		 [kelly.speech(Ah! Sorry, [pc.maam]! I didn't know we were expecting guests! My name is Kelly, at your service!)]
 	</p>
 	<p>
 		The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down.

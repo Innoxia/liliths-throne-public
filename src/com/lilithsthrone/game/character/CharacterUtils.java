@@ -2353,7 +2353,7 @@ public class CharacterUtils {
 				
 			// Fetishes for content locks:
 			} else if (f==Fetish.FETISH_NON_CON_DOM || f==Fetish.FETISH_NON_CON_SUB) {
-				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+				if(Main.game.isNonConEnabled()) {
 					allowedFetishes.add(f);
 				}
 				

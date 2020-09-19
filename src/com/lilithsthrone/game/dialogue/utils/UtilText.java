@@ -178,7 +178,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.9
+ * @version 0.3.9.9
  * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
@@ -198,6 +198,7 @@ public class UtilText {
 	private static ScriptEngine engine;
 	
 	private static List<String> specialParsingStrings = new ArrayList<>();
+	private static List<GameCharacter> parsingCharactersForSpeech = new ArrayList<>();
 	
 	private static Map<String, String> americanEnglishConversions = Util.newHashMapOfValues(
 			// -our to -or:
@@ -415,7 +416,7 @@ public class UtilText {
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
-		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
+		modifiedSentence = UtilText.parse(parsingCharactersForSpeech, splitOnConditional[splitOnConditional.length-1]);
 		
 		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
 			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Main.sex.getAllParticipants().contains(target));
@@ -895,6 +896,7 @@ public class UtilText {
 	 */
 	public static String parse(List<GameCharacter> specialNPC, String input, boolean xmlParsing, List<ParserTag> tags) {
 		parserTags = (tags);
+		parsingCharactersForSpeech = specialNPC;
 		
 		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
 			input = input.replaceAll("\u200b", "");
@@ -2133,7 +2135,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"miss",
+						"maam",
 						"ma'am",
 						"sir"),
 				true,

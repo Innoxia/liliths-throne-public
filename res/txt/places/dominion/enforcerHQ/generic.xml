@@ -5,10 +5,10 @@
 
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
-		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words "Enforcer Headquarters, Greyhaven Park'.
+		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words 'Enforcer Headquarters, Greyhaven Park'.
 	</p>
 	<p>
-		As if the sign wasn't enough to reveal this establishment's purpose to any passersby, there are also a half-dozen or so groups of smartly-dressed
+		As if the sign wasn't enough to reveal this establishment's purpose to any passersby, there are also numerous groups of smartly-dressed
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
 			 demon
 		#ENDIF
@@ -1162,7 +1162,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Flashing [npc.name] your pass to confirm that you are indeed the person he's thinking of, you approach the counter and look past him to see a huge storage area filled with all sorts of weapons and protective equipment. Seeing what it is that's caught your attention, the Enforcer shakes his head and reveals,
+		Flashing the Enforcer your pass to confirm that you are indeed the person he's thinking of, you approach the counter and look past him to see a huge storage area filled with all sorts of weapons and protective equipment. Seeing what it is that's caught your attention, the Enforcer shakes his head and reveals,
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_ELLE))
 			 [style.speechMasculineStrong(Elle is the only one who's going to sell you any surplus. Sorry, but orders are orders. She's sticking her neck out a little for you and wants to keep a personal check on what you're buying from her.)]
 		#ELSE

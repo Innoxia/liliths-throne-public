@@ -64,12 +64,14 @@ import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class NightlifeDistrict {
 	
 	private static boolean isSearchingForASub = true;
+	private static Gender clubberGender;
+	private static Subspecies clubberSubspecies;
 	
 	private static boolean isClubOpen(int minutesPassedForNextScene) {
 		return !((Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) >= (60 * 5) && (Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) < (60 * 19));
@@ -112,6 +114,66 @@ public class NightlifeDistrict {
 	
 	public static boolean isPartnerSub() {
 		return !getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT);
+	}
+
+	private static void spawnClubbers(boolean submissiveClubbers) {
+		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, false);
+				
+		if(Math.random()<0.4f) {
+			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		} else {
+			if(Main.game.getPlayer().isFeminine()) {
+				clubber.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			} else {
+				clubber.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+			}
+		}
+		
+		if(submissiveClubbers) {
+			clubber.removePersonalityTrait(PersonalityTrait.SELFISH);
+			clubber.removePersonalityTrait(PersonalityTrait.BRAVE);
+			clubber.removePersonalityTrait(PersonalityTrait.CONFIDENT);
+			if(Math.random()<0.5) {
+				clubber.addPersonalityTrait(PersonalityTrait.SHY);
+			}
+			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isNegative()) {
+				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
+			}
+			clubber.removeFetish(Fetish.FETISH_DOMINANT);
+			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()) {
+				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+			}
+			
+		} else {
+			double rnd = Math.random();
+			clubber.removePersonalityTrait(PersonalityTrait.SHY);
+			clubber.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+			if(rnd<0.33f) {
+				clubber.addPersonalityTrait(PersonalityTrait.KIND);
+			} else if(rnd<0.66f) {
+				clubber.addPersonalityTrait(PersonalityTrait.SELFISH);
+			}
+			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
+				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+			}
+			clubber.removeFetish(Fetish.FETISH_SUBMISSIVE);
+			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()) {
+				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
+			}
+		}
+		
+		try {
+			Main.game.addNPC(clubber, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+//		if(Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
+//			// spawn 1 or 2
+//		} else {
+//			// spawn 2
+//			// spawn second one with companion's preferences
+//		}
 	}
 	
 	public static void saveClubbers() {
@@ -1132,61 +1194,6 @@ public class NightlifeDistrict {
 			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
-	
-	private static Gender clubberGender;
-	private static Subspecies clubberSubspecies;
-	
-	private static void spawnClubbers(boolean submissiveClubbers) {
-		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, false);
-				
-		if(Math.random()<0.4f) {
-			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		} else {
-			if(Main.game.getPlayer().isFeminine()) {
-				clubber.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			} else {
-				clubber.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-			}
-		}
-		
-		if(submissiveClubbers) {
-			clubber.removePersonalityTrait(PersonalityTrait.SELFISH);
-			clubber.removePersonalityTrait(PersonalityTrait.BRAVE);
-			clubber.removePersonalityTrait(PersonalityTrait.CONFIDENT);
-			if(Math.random()<0.5) {
-				clubber.addPersonalityTrait(PersonalityTrait.SHY);
-			}
-			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isNegative()) {
-				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
-			}
-			
-		} else {
-			double rnd = Math.random();
-			clubber.removePersonalityTrait(PersonalityTrait.SHY);
-			clubber.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-			if(rnd<0.33f) {
-				clubber.addPersonalityTrait(PersonalityTrait.KIND);
-			} else if(rnd<0.66f) {
-				clubber.addPersonalityTrait(PersonalityTrait.SELFISH);
-			}
-			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
-				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
-			}
-		}
-		
-		try {
-			Main.game.addNPC(clubber, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-//		if(Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
-//			// spawn 1 or 2
-//		} else {
-//			// spawn 2
-//			// spawn second one with companion's preferences
-//		}
-	}
 
 	public static final DialogueNode WATERING_HOLE_SEATING = new DialogueNode("The Watering Hole", "", false) {
 		

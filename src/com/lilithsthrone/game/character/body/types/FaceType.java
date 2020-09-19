@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.types;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -496,6 +497,13 @@ public class FaceType {
 				}
 			}
 		}
+		
+		Collections.sort(allFaceTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractFaceType getFaceTypeFromId(String id) {

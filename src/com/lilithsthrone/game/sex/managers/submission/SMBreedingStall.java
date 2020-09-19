@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.7
- * @version 0.3.5.5
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class SMBreedingStall extends SexManagerDefault {
@@ -40,6 +40,11 @@ public class SMBreedingStall extends SexManagerDefault {
 			getAreasBannedMap().get(character).add(SexAreaOrifice.ANUS);
 			getAreasBannedMap().get(character).add(SexAreaOrifice.MOUTH);
 		}
+	}
+
+	@Override
+	public boolean isPublicSex() {
+		return false;
 	}
 	
 	@Override

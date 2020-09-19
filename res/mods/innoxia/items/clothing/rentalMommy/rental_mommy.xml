@@ -25,7 +25,7 @@
 				<sticker id="rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected=""> <!-- A sticker element.
 				The 'id' element should be unique to stickers within this category element.
 				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
-				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
+				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in. If multiple stickers in one category are defined as being default, then one is chosen at random when an instance of this clothing is spawned.
 				'zLayer' defines the rendering z-layer priority. These 'zLayer' values are compared against one another when rendering, with higher values being drawn on top of stickers with lower values. *The base svg has a zLayer value of 0*, meaning that negative values will be drawn beneath the base svg. Defining zLayer as 0 is not advised (although it is handled by always being drawn on top of the base layer).
 				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like:
 				colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD"

@@ -962,7 +962,7 @@ public class RoomPlayer {
 			
 			sb.append("<p>"
 					+ "Your bedroom is positioned close to the main staircase linking the entrance hall to the first-floor corridor, and is one of the largest chambers in the entire mansion."
-					+ " Opposite the room's main doorway, a set of four large, sach windows provide an excellent view of the courtyard garden below, while off to the left, another door leads through into your private ensuite bathroom."
+					+ " Opposite the room's main doorway, a set of four large, sash windows provide an excellent view of the courtyard garden below, while off to the left, another door leads through into your private ensuite bathroom."
 				+ "</p>");
 			
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_PLAYER_ROOM_BED)) {

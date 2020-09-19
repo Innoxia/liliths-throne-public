@@ -142,7 +142,7 @@ public class HarpyNestHelena {
 			}
 			@Override
 			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-				if(!character.isPlayer()) {
+				if(!character.isPlayer() && scarlettPreference!=null) {
 					return scarlettPreference;
 				}
 				return super.getForeplayPreference(character, targetedCharacter);
@@ -1517,6 +1517,21 @@ public class HarpyNestHelena {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
+			
+			responses.add(new ResponseSex(
+					"No preference",
+					"Tell Scarlett that you have no preference in how you want her to fuck you, and that she can figure it out after getting started...",
+					true,
+					false,
+					getScarlettSexManager(SexPosition.STANDING, SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_SUBMISSIVE,
+							null,
+							Util.newHashMapOfValues(),
+							""),
+					null,
+					null,
+					AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
+					UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NO_PREFERENCE")) {
+			});
 			
 			if(Main.game.getNpc(Scarlett.class).hasPenis()) {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {

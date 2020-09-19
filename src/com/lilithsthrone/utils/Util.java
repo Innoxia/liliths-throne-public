@@ -1000,6 +1000,12 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("You'd", "You's");
 		slovenlySpeechReplacementMap.put("you'd", "you's");
+
+		slovenlySpeechReplacementMap.put("Her", "'Er");
+		slovenlySpeechReplacementMap.put("her", "'er");
+
+		slovenlySpeechReplacementMap.put("His", "'Is");
+		slovenlySpeechReplacementMap.put("his", "'is");
 		
 		slovenlySpeechReplacementMap.put("Going to", "Gonna");
 		slovenlySpeechReplacementMap.put("going to", "gonna");
@@ -1086,6 +1092,9 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Yes", "Yeah");
 		slovenlySpeechReplacementMap.put("yes", "yeah");
+		
+		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
+		slovenlySpeechReplacementMap.put("hurry", "'urry");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1095,6 +1104,8 @@ public class Util {
 			<br/>You -> Ya
 			<br/>Yourself - Yerself
 			<br/>You'd -> You's
+			<br/>Her -> 'Er
+			<br/>His -> 'Is
 			<br/>To -> Ta
 			<br/>Into -> inta
 			<br/>The -> Da
@@ -1124,6 +1135,7 @@ public class Util {
 			<br/>Here -> 'ere
 			<br/>Very -> Real
 			<br/>Yes -> Yeah
+			<br/>Hurry -> 'Urry
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.
@@ -1132,9 +1144,9 @@ public class Util {
 		//Use non-letter regex replacement ([^A-Za-z0-9]) 
 		String modifiedSentence = sentence;
 		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
-			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9\\.]|^)"+entry.getKey()+"([^A-Za-z0-9\\]])", "$1"+entry.getValue()+"$2");
 		}
-		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9\\]])", "in'$1");
 		return modifiedSentence;
 	}
 	

@@ -3379,13 +3379,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public void incrementArtworkIndex(int increment) {
 		setArtworkIndex(this.artworkIndex + increment);
 	}
-
-	public String speech(String text) {
-		return UtilText.parseSpeech(text, this);
-	}
-	public String thought(String text) {
-		return UtilText.parseThought(text, this);
-	}
+	
 	public String getName(String determiner) {
 		if (Character.isUpperCase(getName(true).charAt(0)) || determiner.isEmpty()) { //|| getName().equals(this.getGenericName())
 			if(determiner!=null && !determiner.isEmpty() && Character.isUpperCase(determiner.charAt(0))) {
@@ -4114,9 +4108,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
-				) {
+		if((!getSexualOrientation().isAttractedToFeminine() && character.isFeminine()) || (!getSexualOrientation().isAttractedToMasculine() && !character.isFeminine())) {
 			return false;
 		}
 		
@@ -4130,9 +4122,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAttractedTo(Gender gender) {
-		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && gender.isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !gender.isFeminine())
-				) {
+		if((!getSexualOrientation().isAttractedToFeminine() && gender.isFeminine()) || (!getSexualOrientation().isAttractedToMasculine() && !gender.isFeminine())) {
 			return false;
 		}
 		
@@ -4612,15 +4602,17 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			// Set up default permissions:
 			for(SlavePermission permission : SlavePermission.values()) {
-				for(SlavePermissionSetting setting : Main.game.getOccupancyUtil().getEnabledByDefaultPermissionSettings()) {
-					this.addSlavePermissionSetting(permission, setting);
+				for(SlavePermissionSetting setting : permission.getSettings()) {
+					if(Main.game.getOccupancyUtil().getEnabledByDefaultPermissionSettings().contains(setting)) {
+						slave.addSlavePermissionSetting(permission, setting);
+					}
 				}
 			}
 			
 			// Set up default job settings:
 			for(Entry<SlaveJob, List<SlaveJobSetting>> entry : Main.game.getOccupancyUtil().getEnabledByDefaultJobSettings().entrySet()) {
 				for(SlaveJobSetting setting : entry.getValue()) {
-					this.addSlaveJobSettings(entry.getKey(), setting);
+					slave.addSlaveJobSettings(entry.getKey(), setting);
 				}
 			}
 		}
@@ -6117,8 +6109,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return fetishes.contains(f);
 	}
 	
-	public boolean hasFetish(Fetish f) {
-		return fetishes.contains(f) || fetishesFromClothing.contains(f);
+	public boolean hasFetish(Fetish fetish) {
+		// If content settings are disabled, always treat fetish as not being owned:
+		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
+			return false;
+		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
+			return false;
+		} else if(!Main.game.isFootContentEnabled() && (fetish==Fetish.FETISH_FOOT_GIVING || fetish==Fetish.FETISH_FOOT_RECEIVING)) {
+			return false;
+		} else if(!Main.game.isAnalContentEnabled() && (fetish==Fetish.FETISH_ANAL_GIVING || fetish==Fetish.FETISH_ANAL_RECEIVING)) {
+			return false;
+		}
+		return fetishes.contains(fetish) || fetishesFromClothing.contains(fetish);
 	}
 	
 	/**
@@ -6295,6 +6297,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public FetishDesire getBaseFetishDesire(Fetish fetish) {
+		// If content settings are disabled, revert base desire to neutral so that it is not shown anywhere:
+		if(!Main.game.isNonConEnabled() && (fetish==Fetish.FETISH_NON_CON_DOM || fetish==Fetish.FETISH_NON_CON_SUB)) {
+			return FetishDesire.TWO_NEUTRAL;
+		} else if(!Main.game.isLactationContentEnabled() && (fetish==Fetish.FETISH_LACTATION_OTHERS || fetish==Fetish.FETISH_LACTATION_SELF)) {
+			return FetishDesire.TWO_NEUTRAL;
+		} else if(!Main.game.isFootContentEnabled() && (fetish==Fetish.FETISH_FOOT_GIVING || fetish==Fetish.FETISH_FOOT_RECEIVING)) {
+			return FetishDesire.TWO_NEUTRAL;
+		} else if(!Main.game.isAnalContentEnabled() && (fetish==Fetish.FETISH_ANAL_GIVING || fetish==Fetish.FETISH_ANAL_RECEIVING)) {
+			return FetishDesire.TWO_NEUTRAL;
+		}
 		if(!fetishDesireMap.containsKey(fetish)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
@@ -9187,16 +9199,25 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getLevelDrainDescription(GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(UtilText.returnStringAtRandom(
-				"Licking [npc.her] [npc.lips], [npc.name] [npc.verb(let)] out a hungry [npc.moan] and [npc.verb(tease)], ",
-				"Greedily absorbing [npc2.namePos] energy, [npc.name] [npc.verb(let)] out an erotic [npc.moan] and [npc.verb(cry)] out, ",
-				"Letting out a deeply erotic [npc.moan], [npc.name] eagerly [npc.verb(absorb)] [npc2.namePos] energy and [npc.verb(tease)], "
-				));
-		
-		sb.append(UtilText.returnStringAtRandom(
-				"[npc.speech(That's right... You don't need to be this powerful anymore!)]",
-				"[npc.speech(Oh yes... Give me all your power!)]",
-				"[npc.speech(You'll be completely powerless once I'm done with you!)]"));
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager().isHidden(this)) { // For if this character is hidden during the sex scene:
+			sb.append(UtilText.returnStringAtRandom(
+					"Licking [npc.her] [npc.lips], [npc.name] [npc.verb(let)] out a quiet [npc.moan] and [npc.verb(concentrate)] on absorbing [npc2.namePos] power.",
+					"[npc.Name] [npc.verb(let)] out a quiet, horny [npc.moan] as [npc.she] greedily [npc.verb(absorb)] [npc2.namePos] energy.",
+					"Letting out a quiet, erotic [npc.moan], [npc.name] eagerly [npc.verb(absorb)] [npc2.namePos] energy."
+					));
+			
+		} else {
+			sb.append(UtilText.returnStringAtRandom(
+					"Licking [npc.her] [npc.lips], [npc.name] [npc.verb(let)] out a hungry [npc.moan] and [npc.verb(tease)], ",
+					"Greedily absorbing [npc2.namePos] energy, [npc.name] [npc.verb(let)] out an erotic [npc.moan] and [npc.verb(cry)] out, ",
+					"Letting out a deeply erotic [npc.moan], [npc.name] eagerly [npc.verb(absorb)] [npc2.namePos] energy and [npc.verb(tease)], "
+					));
+			
+			sb.append(UtilText.returnStringAtRandom(
+					"[npc.speech(That's right... You don't need to be this powerful anymore!)]",
+					"[npc.speech(Oh yes... Give me all your power!)]",
+					"[npc.speech(You'll be completely powerless once I'm done with you!)]"));
+		}
 		
 		return UtilText.parse(this, target, sb.toString());
 	}
@@ -20452,6 +20473,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		applyUnequipClothingEffects(clothing, clothing.getSlotEquippedTo(), false);
 		clothing.onUnequipApplyEffects(this, characterRemovingClothing, false);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
@@ -21736,7 +21758,6 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getGender();
 	}
 	
-	//TODO Improve isFeminine method to take into account knowledge of the character's gender.
 	public boolean isFeminine() {
 		boolean isFeminine = body==null || body.isFeminine();
 		
@@ -21760,9 +21781,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-//		else {
-//			return body.getGender().isFeminine();
-//		}
+		
 		return isFeminine;
 	}
 

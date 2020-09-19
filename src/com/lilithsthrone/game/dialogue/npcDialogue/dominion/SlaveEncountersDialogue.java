@@ -77,12 +77,16 @@ public class SlaveEncountersDialogue {
 		return SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR;
 	}
 	
-	private static SMGeneric getSlaveOnSlaveSexManager(List<GameCharacter> doms, List<GameCharacter> subs, List<GameCharacter> spectators) { //TODO position? 
+	private static SMGeneric getSlaveOnSlaveSexManager(List<GameCharacter> doms, List<GameCharacter> subs, List<GameCharacter> spectators) {
 		return new SMGeneric(
 				doms,
 				subs,
 				null,
 				spectators) {
+			@Override
+			public boolean isHidden(GameCharacter character) {
+				return character.isPlayer() && Main.sex.isSpectator(character);
+			}
 			@Override
 			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 				GameCharacter fuckingTarget = 

@@ -69,9 +69,11 @@ import com.lilithsthrone.game.sex.managers.submission.SMVengarDominantSex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
@@ -2079,6 +2081,18 @@ public class RatWarrensDialogue {
 									public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 										return false;
 									}
+									@Override
+									public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+										return false;
+									}
+									@Override
+									public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+										if(character instanceof RatWarrensCaptive) {
+											return slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										} else {
+											return !slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										}
+									}
 								},
 								Main.game.getPlayer().getParty(),
 								null,
@@ -2098,7 +2112,20 @@ public class RatWarrensDialogue {
 								false,
 								new SMMilkingStall(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
+									@Override
+									public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+										return false;
+									}
+									@Override
+									public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+										if(character instanceof RatWarrensCaptive) {
+											return slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										} else {
+											return !slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										}
+									}
+								},
 								Main.game.getPlayer().getParty(),
 								null,
 								AFTER_MILKER_SEX,
@@ -2135,6 +2162,18 @@ public class RatWarrensDialogue {
 									public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 										return false;
 									}
+									@Override
+									public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+										return false;
+									}
+									@Override
+									public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+										if(character instanceof RatWarrensCaptive) {
+											return slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										} else {
+											return !slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										}
+									}
 								},
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
@@ -2154,7 +2193,20 @@ public class RatWarrensDialogue {
 								false,
 								new SMMilkingStall(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
+									@Override
+									public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+										return false;
+									}
+									@Override
+									public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+										if(character instanceof RatWarrensCaptive) {
+											return slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										} else {
+											return !slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+										}
+									}
+								},
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								AFTER_MILKER_SEX,
@@ -2187,7 +2239,20 @@ public class RatWarrensDialogue {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL),
 											new Value<>(getMainCompanion(), SexSlotMilkingStall.RECEIVING_ORAL)),
-									Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+									Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
+								@Override
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+									return false;
+								}
+								@Override
+								public boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+									if(character instanceof RatWarrensCaptive) {
+										return slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+									} else {
+										return !slot.hasTag(SexSlotTag.LOCKED_IN_STOCKS);
+									}
+								}
+							},
 							null,
 							null,
 							AFTER_MILKER_SEX,

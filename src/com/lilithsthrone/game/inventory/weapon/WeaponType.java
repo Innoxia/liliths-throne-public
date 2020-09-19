@@ -42,7 +42,7 @@ public class WeaponType {
 			id = "innoxia_gun_revolver";
 		}
 
-		if(id.equals("innoxia_pistolCrossbow")) {
+		if(id.equals("innoxia_pistolCrossbow") || id.equals("innoxia_pistolCrossbow_pistol_crossbow")) {
 			id = "innoxia_bow_pistol_crossbow";
 		}
 		

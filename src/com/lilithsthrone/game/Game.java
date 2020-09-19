@@ -164,6 +164,7 @@ import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
+import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -2354,6 +2355,9 @@ public class Game implements XMLSaving {
 	private int positionAnchor = 0;
 	private String dialogueTitle = "";
 	public void setContent(int index) {
+		if(OptionsDialogue.startingNewGame) {
+			return;
+		}
 		informationTooltips = new HashMap<>();
 		
 		Response response = currentDialogueNode.getResponse(responseTab, index);

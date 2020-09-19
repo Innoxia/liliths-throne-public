@@ -352,8 +352,15 @@ public class PregnancyRoulette {
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										Util.newArrayListOfValues(Main.game.getNpc(Epona.class)),
-								null,
-								null), EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "EPONA_START_SEX_AS_SUB")) {
+										null,
+										null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								EPONA_POST_SEX,
+								UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "EPONA_START_SEX_AS_SUB")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().eponaStamps-=6;
@@ -372,8 +379,15 @@ public class PregnancyRoulette {
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getNpc(Epona.class)),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								null), EPONA_POST_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "EPONA_START_SEX_AS_DOM")) {
+										null,
+										null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								EPONA_POST_SEX,
+								UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "EPONA_START_SEX_AS_DOM")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().eponaStamps-=6;
@@ -1029,6 +1043,16 @@ public class PregnancyRoulette {
 		}
 	};
 	
+	private static void applyMurkReactions() {
+		if(Main.game.getNpc(Murk.class).isVisiblyPregnant()) {
+			Main.game.getNpc(Murk.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().setCharacterReactedToPregnancy(Main.game.getNpc(Murk.class), true);
+		}
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+	}
+	
 	public static final DialogueNode MURK_ALONE = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
@@ -1067,7 +1091,7 @@ public class PregnancyRoulette {
 						}
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 						}
 					};
 				}
@@ -1081,7 +1105,7 @@ public class PregnancyRoulette {
 						}
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 						}
 					};
 					
@@ -1089,8 +1113,8 @@ public class PregnancyRoulette {
 					return new Response("Refuse", "Tell [murk.name] not to get cocky and refuse to submit to [murk.herHim].", MURK_SUBMIT_REFUSE) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, false);
+							applyMurkReactions();
 						}
 					};
 				}
@@ -1103,7 +1127,7 @@ public class PregnancyRoulette {
 					return new Response("Lecture", "Spend some time lecturing [murk.name] on why what [murk.she] did was wrong.", MURK_LECTURING) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 							if(Main.game.getNpc(Murk.class).isFeminine() && Main.game.getNpc(Murk.class).getAffection(Main.game.getPlayer())<25) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 5));
 							} else {
@@ -1119,7 +1143,7 @@ public class PregnancyRoulette {
 					return new Response("Spank", "Spend some time spanking [murk.name].", MURK_SPANKING) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 							if(Main.game.getNpc(Murk.class).isFeminine()) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Murk.class).incrementAffection(Main.game.getPlayer(), 10));
 							} else {
@@ -1138,7 +1162,11 @@ public class PregnancyRoulette {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Murk.class), SexSlotLyingDown.MISSIONARY))) {
+											new Value<>(Main.game.getNpc(Murk.class), SexSlotLyingDown.LYING_DOWN))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
 							},
 							null,
 							null,
@@ -1146,7 +1174,7 @@ public class PregnancyRoulette {
 							UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_SEX_DOM")) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 						}
 					};
 					
@@ -1164,6 +1192,10 @@ public class PregnancyRoulette {
 												?SexSlotAllFours.HUMPING
 												:SexSlotAllFours.IN_FRONT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
 								@Override
 								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 									return false;
@@ -1218,8 +1250,8 @@ public class PregnancyRoulette {
 												:"MURK_SEX_SUB_HANDJOB")))) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, true);
+							applyMurkReactions();
 						}
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
@@ -1245,8 +1277,8 @@ public class PregnancyRoulette {
 							MURK_FEMINISE) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSubmitted, false);
+							applyMurkReactions();
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_FEMINISE"));
 							Main.game.getTextStartStringBuilder().append(((Murk)Main.game.getNpc(Murk.class)).applyFeminisation());
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_FEMINISE_END"));
@@ -1257,7 +1289,7 @@ public class PregnancyRoulette {
 					return new Response("Leave", "Head back out of the storage room and let Epona know that you've finished with [murk.name].", MURK_LEAVE) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkSeen, true);
+							applyMurkReactions();
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_ALONE_LEAVE"));
 						}
 					};
@@ -1379,7 +1411,7 @@ public class PregnancyRoulette {
 		}
 	};
 	
-	public static final DialogueNode MURK_SUBMIT_ACCEPT = new DialogueNode("", "", true) {
+	public static final DialogueNode MURK_SUBMIT_ACCEPT = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -1404,6 +1436,10 @@ public class PregnancyRoulette {
 											?SexSlotAllFours.HUMPING
 											:SexSlotAllFours.IN_FRONT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
 							@Override
 							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 								return false;

@@ -1716,6 +1716,10 @@ public enum TFModifier {
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
 		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
+		if(!Main.game.isNonConEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_DOM);
+			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_SUB);
+		}
 		if(!Main.game.isIncestEnabled()) {
 			returnList.remove(TFModifier.TF_MOD_FETISH_INCEST);
 		}

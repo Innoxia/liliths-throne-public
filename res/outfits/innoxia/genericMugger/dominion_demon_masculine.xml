@@ -18,14 +18,14 @@
 		
 		<acceptableLegConfigurations/>
 		
-		<conditional><![CDATA[npc.getRace()==RACE_DEMON]]></conditional>
+		<conditional><![CDATA[npc.getTrueSubspecies()==SUBSPECIES_DEMON]]></conditional>
 		
 		<weight>100</weight>
 	</coreAttributes>
 	
 	<generationAttributes>
 		<condWeapons constant="true"><![CDATA[RND.nextInt(100)<=80]]></condWeapons>
-		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDagger>
+		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=5]]></condDagger>
 		<condDualWielding constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDualWielding>
 		
 		<condPlantigrade constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condPlantigrade>

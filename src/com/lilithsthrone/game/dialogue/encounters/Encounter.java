@@ -175,7 +175,7 @@ public enum Encounter {
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null,
 					wesQuestAvailable
-						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 10f)
+						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 50f)
 						:null,
 					Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu") && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f)
@@ -1284,6 +1284,8 @@ public enum Encounter {
 		}
 		
 //		System.out.println(hornySlaves.size());
+
+		keys = new ArrayList<>(hornySlaves.keySet());
 		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(keys);
@@ -1340,7 +1342,7 @@ public enum Encounter {
 			}
 		}
 		
-//		System.out.println(hornySlaves.size());
+		keys = new ArrayList<>(hornySlaves.keySet());
 		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(keys);

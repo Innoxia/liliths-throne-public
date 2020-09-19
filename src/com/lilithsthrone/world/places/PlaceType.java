@@ -326,12 +326,8 @@ public class PlaceType {
 			"dominion/enforcerHQIcon",
 			PresetColour.BASE_BLUE,
 			EnforcerHQDialogue.EXTERIOR,
-			Encounter.DOMINION_STREET,
+			null,
 			"in the streets of Dominion") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
 		@Override
 		public List<Population> getPopulation() {
 			return DOMINION_STREET.getPopulation();
@@ -1944,7 +1940,8 @@ public class PlaceType {
 			}
 			return pop;
 		}
-	}.initItemsPersistInTile();
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
 	
 	public static final AbstractPlaceType LILAYA_HOME_SPA = new AbstractPlaceType(
 			"Spa pools",
@@ -1954,7 +1951,8 @@ public class PlaceType {
 			LilayaSpa.SPA_CORE,
 			null,
 			"in Lilaya's spa"
-			).initItemsPersistInTile();
+			).initItemsPersistInTile()
+			.initWeatherImmune();
 	
 	public static final AbstractPlaceType LILAYA_HOME_SPA_POOL = new AbstractPlaceType(
 			"Swimming pool",

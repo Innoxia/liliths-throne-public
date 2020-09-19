@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.types;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,6 +176,13 @@ public class WingType {
 				}
 			}
 		}
+		
+		Collections.sort(allWingTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractWingType getWingTypeFromId(String id) {
@@ -197,6 +205,7 @@ public class WingType {
 	}
 	
 	private static Map<AbstractRace, List<AbstractWingType>> typesMap = new HashMap<>();
+	
 	public static List<AbstractWingType> getWingTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
