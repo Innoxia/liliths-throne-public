@@ -6286,6 +6286,7 @@ public class MainControllerInitMethod {
 					new Value<>("ANAL", PropertyValue.analContent),
 					new Value<>("GAPE", PropertyValue.gapeContent),
 					new Value<>("PENETRATION_LIMITATION", PropertyValue.penetrationLimitations),
+					new Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
 					new Value<>("FOOT", PropertyValue.footContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),

@@ -4362,6 +4362,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.penetrationLimitations);
 	}
 	
+	public boolean isElasticityAffectDepthEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth);
+	}
+	
 	public boolean isFootContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.footContent);
 	}
