@@ -1489,7 +1489,7 @@ public class ItemType {
 			"Bread Roll",
 			"Bread Roll",
 			"A perfectly average bread roll, wrapped in a small, brown paper bag."
-					+ " A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs up while surrounded by all manner of delicious-looking baked goods.",
+					+ " A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs-up while surrounded by all manners of delicious-looking baked goods.",
 			"raceHumanBreadRoll",
 			PresetColour.RACE_HUMAN,
 			null,
