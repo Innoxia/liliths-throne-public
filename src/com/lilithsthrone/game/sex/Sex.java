@@ -2366,18 +2366,26 @@ public class Sex {
 		if(Main.sex.getSexPace(activeCharacter)==SexPace.SUB_RESISTING && !activeCharacter.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 			lustIncrements.put(activeCharacter, -2.5f);
 		} else {
-			lustIncrements.put(activeCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainSelf().getArousalIncreaseValue())));
+			if (activeCharacter.getFetishDesire(Fetish.FETISH_NON_CON_DOM).isPositive() && Main.sex.getSexPace(targetCharacter) == SexPace.SUB_RESISTING) {
+				lustIncrements.put(activeCharacter, 2.5f);
+			} else {
+				lustIncrements.put(activeCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainSelf().getArousalIncreaseValue())));
+			}
 		}
 		lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + (activeCharacter.getAffection(targetCharacter)/40)); //+-2.5
 		
 		if(Main.sex.getSexPace(targetCharacter)==SexPace.SUB_RESISTING && !targetCharacter.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 			lustIncrements.put(targetCharacter, -2.5f);
 		} else {
-			lustIncrements.put(targetCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainTarget().getArousalIncreaseValue())));
+			if (targetCharacter.getFetishDesire(Fetish.FETISH_NON_CON_DOM).isPositive() && Main.sex.getSexPace(activeCharacter) == SexPace.SUB_RESISTING) {
+				lustIncrements.put(targetCharacter, 2.5f);
+			} else {
+				lustIncrements.put(targetCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainTarget().getArousalIncreaseValue())));
+			}
 		}
 		lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + (targetCharacter.getAffection(activeCharacter)/40)); //+-2.5
 
-		
+
 		// Arousal increments for related status effects:
 		for(AbstractStatusEffect se : activeCharacter.getStatusEffects()) {
 			if(se.isSexEffect()) {
