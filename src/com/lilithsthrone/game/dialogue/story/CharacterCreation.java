@@ -690,7 +690,7 @@ public class CharacterCreation {
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 						
-						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						+ CharacterModificationUtils.getPersonalityChoiceDiv(false)
 						
 					+"</div>";
 		}

@@ -879,12 +879,6 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(), "Tongue colour",
-								(BodyChanging.getTarget().isPlayer()
-										?"The colour of your tongue."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),
-								true, true)
-						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(), "Hair colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"Change the colour of your hair."
