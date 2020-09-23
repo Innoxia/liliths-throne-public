@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -29,8 +30,8 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -178,14 +179,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element playerSpecific = doc.createElement("playerSpecific");
 		playerElement.appendChild(playerSpecific);
 		
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
 		
 		Element questUpdatesElement = doc.createElement("questUpdates");
 		playerSpecific.appendChild(questUpdatesElement);
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
 		
 		Element innerElement = doc.createElement("raceBooksDiscovered");
 		playerSpecific.appendChild(innerElement);
@@ -200,7 +201,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
 		playerSpecific.appendChild(charactersEncounteredElement);
 		for(String id : charactersEncountered) {
-			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
+			XMLUtil.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
 		}
 		
 		innerElement = doc.createElement("questMap");
@@ -208,9 +209,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		for(Entry<QuestLine, List<Quest>> entry : quests.entrySet()) {
 			Element e = doc.createElement("entry");
 			innerElement.appendChild(e);
-			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, e, "questLine", entry.getKey().toString());
 			for(int i=0; i<entry.getValue().size(); i++) {
-				CharacterUtils.addAttribute(doc, e, "q"+i, String.valueOf(entry.getValue().get(i)));
+				XMLUtil.addAttribute(doc, e, "q"+i, String.valueOf(entry.getValue().get(i)));
 			}
 		}
 
@@ -219,8 +220,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		for(Entry<QuestLine, Quest> entry : questsFailed.entrySet()) {
 			Element e = doc.createElement("entry");
 			innerElement.appendChild(e);
-			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, e, "q", String.valueOf(entry.getValue()));
+			XMLUtil.addAttribute(doc, e, "questLine", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, e, "q", String.valueOf(entry.getValue()));
 		}
 		
 		Element friendlyOccupants = doc.createElement("friendlyOccupants");
@@ -229,7 +230,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("occupant");
 			friendlyOccupants.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", occupant);
+			XMLUtil.addAttribute(doc, element, "id", occupant);
 		}
 		
 		Element worldsVisitedElement = doc.createElement("worldsVisited");
@@ -238,7 +239,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("world");
 			worldsVisitedElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
+			XMLUtil.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
 		}
 
 		// Discoveries:
@@ -530,7 +531,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					
 					if(!e.getAttribute("id").equals("NOT_SET")) {
 						character.getFriendlyOccupants().add(e.getAttribute("id"));
-						CharacterUtils.appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
 					}
 				}
 			} catch(Exception ex) {	
@@ -541,7 +542,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
 					
 					character.getWorldsVisited().add(WorldType.getWorldTypeFromId(e.getAttribute("id")));
-					CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
 				}
 			} catch(Exception ex) {	
 			}

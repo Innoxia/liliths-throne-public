@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
@@ -180,15 +181,15 @@ public class FluidStored implements XMLSaving {
 		// Core:
 		Element fluidStoredElement = doc.createElement("fluidStored");
 		parentElement.appendChild(fluidStoredElement);
-		CharacterUtils.addAttribute(doc, fluidStoredElement, "charactersFluidID", charactersFluidID);
-		CharacterUtils.addAttribute(doc, fluidStoredElement, "bestial", String.valueOf(bestial));
-		CharacterUtils.addAttribute(doc, fluidStoredElement, "virility", String.valueOf(virility));
-		CharacterUtils.addAttribute(doc, fluidStoredElement, "millilitres", String.valueOf(millilitres));
+		XMLUtil.addAttribute(doc, fluidStoredElement, "charactersFluidID", charactersFluidID);
+		XMLUtil.addAttribute(doc, fluidStoredElement, "bestial", String.valueOf(bestial));
+		XMLUtil.addAttribute(doc, fluidStoredElement, "virility", String.valueOf(virility));
+		XMLUtil.addAttribute(doc, fluidStoredElement, "millilitres", String.valueOf(millilitres));
 		
 		if(isCum()) {
-			CharacterUtils.addAttribute(doc, fluidStoredElement, "cumSubspecies", cumSubspecies.toString());
+			XMLUtil.addAttribute(doc, fluidStoredElement, "cumSubspecies", cumSubspecies.toString());
 			if(cumHalfDemonSubspecies!=null) {
-				CharacterUtils.addAttribute(doc, fluidStoredElement, "cumHalfDemonSubspecies", cumHalfDemonSubspecies.toString());
+				XMLUtil.addAttribute(doc, fluidStoredElement, "cumHalfDemonSubspecies", cumHalfDemonSubspecies.toString());
 			}
 			cum.saveAsXML(fluidStoredElement, doc);
 		}

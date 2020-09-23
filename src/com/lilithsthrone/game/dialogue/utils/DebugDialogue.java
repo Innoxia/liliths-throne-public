@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -1039,7 +1038,7 @@ public class DebugDialogue {
 						if(subspecies==Subspecies.HALF_DEMON) {
 							Main.game.getPlayer().setSubspeciesOverride(null);
 							Main.game.getPlayer().setBody(
-									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
+									Main.game.getCharacterUtils().generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
 									false);
 //							System.out.println("Subspecies override: "+Main.game.getPlayer().getSubspeciesOverride());
 							
@@ -1057,7 +1056,7 @@ public class DebugDialogue {
 								stage = RaceStage.GREATER;
 							}
 							
-							CharacterUtils.reassignBody(
+							Main.game.getCharacterUtils().reassignBody(
 									Main.game.getPlayer(),
 									Main.game.getPlayer().getBody(),
 									Main.game.getPlayer().getGender(),

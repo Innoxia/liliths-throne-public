@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -203,7 +202,7 @@ public class ImpCitadelDialogue {
 					imp.addSpell(Spell.TELEKENETIC_SHOWER);
 					
 				} else {
-					impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+					impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 					imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 				}
 				impGroup.add(imp);

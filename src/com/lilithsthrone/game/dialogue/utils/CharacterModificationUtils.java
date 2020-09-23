@@ -1049,9 +1049,20 @@ public class CharacterModificationUtils {
 						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
-				false);
+				true);
 	}
-
+	
+	public static String getSelfTransformTailLengthDiv() {
+		return applyFullVariableWrapper("Tail Length",
+				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height, and is limited to values of between 10% and 200%."),
+				"TAIL_LENGTH",
+				"5%",
+				"25%",
+				(int)(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%",
+				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN,
+				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX);
+	}
+	
 	public static String getSelfTransformTailCountDiv() {
 		contentSB.setLength(0);
 		

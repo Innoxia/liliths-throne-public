@@ -4,13 +4,11 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -20,6 +18,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -70,13 +69,13 @@ public class DominionSuccubusAttacker extends NPC {
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
-			CharacterUtils.setHistoryAndPersonality(this, false);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			addFetish(Fetish.FETISH_DEFLOWERING);
 			addFetish(Fetish.FETISH_DOMINANT);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 
 			this.removePersonalityTrait(PersonalityTrait.PRUDE);
 
@@ -98,13 +97,13 @@ public class DominionSuccubusAttacker extends NPC {
 			// Set random inventory & weapons:
 			resetInventory(true);
 			inventory.setMoney(50);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			// CLOTHING:
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
@@ -141,9 +140,9 @@ public class DominionSuccubusAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override

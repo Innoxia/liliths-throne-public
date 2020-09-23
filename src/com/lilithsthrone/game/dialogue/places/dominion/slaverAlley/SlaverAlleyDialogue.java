@@ -1120,10 +1120,10 @@ public class SlaverAlleyDialogue {
 
 	private static List<AbstractItemType> getCafeItems() {
 		return Util.newArrayListOfValues(
-				ItemType.INT_INGREDIENT_VANILLA_WATER,
-				ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH,
-				ItemType.SEX_INGREDIENT_BUNNY_JUICE,
-				ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
+				ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice"),
+				ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java"),
 				ItemType.RACE_INGREDIENT_RABBIT_MORPH,
 				ItemType.RACE_INGREDIENT_RAT_MORPH,
 				ItemType.RACE_INGREDIENT_BAT_MORPH);

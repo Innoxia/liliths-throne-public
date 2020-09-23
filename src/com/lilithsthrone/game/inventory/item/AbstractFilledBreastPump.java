@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -83,10 +83,10 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		Element element = doc.createElement("item");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
-		CharacterUtils.addAttribute(doc, element, "milkProvider", this.getMilkProviderId());
-		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
+		XMLUtil.addAttribute(doc, element, "id", this.getItemType().getId());
+		XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		XMLUtil.addAttribute(doc, element, "milkProvider", this.getMilkProviderId());
+		XMLUtil.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);

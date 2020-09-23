@@ -2040,7 +2040,7 @@ public class GenericPositioning {
 				return false;
 			case BIPEDAL:
 			case CEPHALOPOD:
-			case TAUR:
+			case QUADRUPEDAL:
 				return true;
 		}
 		return true;

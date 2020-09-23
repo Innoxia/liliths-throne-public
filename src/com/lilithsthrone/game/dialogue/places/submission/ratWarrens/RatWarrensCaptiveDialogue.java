@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -112,7 +111,7 @@ public class RatWarrensCaptiveDialogue {
 			Main.game.addNPC(rat, false);
 			rat.setLevel(4+Util.random.nextInt(5));
 			rat.setLocation(Main.game.getPlayer(), true);
-			adjectives.add(CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), adjectives));
+			adjectives.add(Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), adjectives));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -17,9 +17,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -278,7 +278,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * <b>-</b> Clothing (remember underwear and accessories).<br/>
 	 */
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfit(this, null, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfit(this, null, settings);
 	}
 	
 	protected void resetBodyAfterVersion_2_10_5() {
@@ -302,21 +302,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		Element npcSpecific = doc.createElement("npcSpecific");
 		properties.appendChild(npcSpecific);
 
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
 
 		Element valuesElement = doc.createElement("NPCValues");
 		npcSpecific.appendChild(valuesElement);
 		for(NPCFlagValue value : NPCFlagValues) {
-			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "NPCValue", value.toString());
+			XMLUtil.createXMLElementWithValue(doc, valuesElement, "NPCValue", value.toString());
 		}
 
 		if(genderPreference!=null) {
-			CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "genderPreference", String.valueOf(genderPreference));
-			CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "subspeciesPreference", String.valueOf(subspeciesPreference));
-			CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "raceStagePreference", String.valueOf(raceStagePreference));
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "genderPreference", String.valueOf(genderPreference));
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "subspeciesPreference", String.valueOf(subspeciesPreference));
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "raceStagePreference", String.valueOf(raceStagePreference));
 		}
 		
 		return properties;
@@ -931,7 +931,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(ItemType.ADDICTION_REMOVAL));
 			
 		} else {
-			AbstractItemType raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
+			AbstractItemType raceIngredient = ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
 			AbstractItemType raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
 			AbstractItemType book = ItemType.getLoreBook(getSubspecies());
 			
@@ -944,12 +944,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case CAT_MORPH_LION:
 				case CAT_MORPH_LYNX:
 				case CAT_MORPH_TIGER:
-					raceIngredient = ItemType.INT_INGREDIENT_FELINE_FANCY;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_CAT_MORPH;
 					break;
 					
 				case COW_MORPH:
-					raceIngredient = ItemType.STR_INGREDIENT_BUBBLE_MILK;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_cow_bubble_milk");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_COW_MORPH;
 					break;
 					
@@ -957,7 +957,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case DOG_MORPH_BORDER_COLLIE:
 				case DOG_MORPH_DOBERMANN:
 				case DOG_MORPH_GERMAN_SHEPHERD:
-					raceIngredient = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					break;
 					
@@ -967,7 +967,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
 				case FOX_MORPH_ARCTIC:
-					raceIngredient = ItemType.INT_INGREDIENT_GRAPE_JUICE;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_fox_vulpines_vineyard");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_FOX_MORPH;
 					break;
 					
@@ -980,22 +980,22 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ALITAUR:
 				case UNITAUR:
 				case HORSE_MORPH_ZEBRA:
-					raceIngredient = ItemType.STR_INGREDIENT_EQUINE_CIDER;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HORSE_MORPH;
 					break;
 					
 				case REINDEER_MORPH:
-					raceIngredient = ItemType.FIT_INGREDIENT_EGG_NOG;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
 					break;
 					
 				case WOLF_MORPH:
-					raceIngredient = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_WOLF_MORPH;
 					break;
 					
 				case HUMAN:
-					raceIngredient = ItemType.INT_INGREDIENT_VANILLA_WATER;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 					
@@ -1009,47 +1009,47 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HALF_DEMON:
 				case LILIN:
 				case ELDER_LILIN:
-					raceIngredient = ItemType.COR_INGREDIENT_LILITHS_GIFT;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
 					raceTFIngredient = null;
 					break;
 					
 				case IMP:
 				case IMP_ALPHA:
-					raceIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
-					raceTFIngredient = ItemType.COR_INGREDIENT_IMPISH_BREW;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_imp_impish_brew");
+					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_imp_impish_brew");
 					break;
 					
 				case HARPY:
 				case HARPY_BALD_EAGLE:
 				case HARPY_RAVEN:
 				case HARPY_PHOENIX:
-					raceIngredient = ItemType.SEX_INGREDIENT_HARPY_PERFUME;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_harpy_harpy_perfume");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HARPY;
 					break;
 					
 				case ALLIGATOR_MORPH:
-					raceIngredient = ItemType.STR_INGREDIENT_SWAMP_WATER;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_alligator_swamp_water");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
 					break;
 					
 				case SQUIRREL_MORPH:
-					raceIngredient = ItemType.FIT_INGREDIENT_SQUIRREL_JAVA;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
 					break;
 					
 				case BAT_MORPH:
-					raceIngredient = ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_BAT_MORPH;
 					break;
 					
 				case RAT_MORPH:
-					raceIngredient = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_RAT_MORPH;
 					break;
 					
 				case RABBIT_MORPH:
 				case RABBIT_MORPH_LOP:
-					raceIngredient = ItemType.SEX_INGREDIENT_BUNNY_JUICE;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice");
 					raceTFIngredient = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
 					
@@ -1084,11 +1084,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 					
 				case SLIME:
-					raceIngredient = ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
+					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
 					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 						raceTFIngredient = ItemType.RACE_INGREDIENT_SLIME;
 					} else {
-						raceTFIngredient =  ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
+						raceTFIngredient =  ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
 					}
 					break;
 					
@@ -1236,7 +1236,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			BodyMaterial material = this.getBodyMaterial();
 			this.setBody(this.getGenderIdentity(), Subspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
-			CharacterUtils.randomiseBody(this, false);
+			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
 			this.setAssVirgin(assVirgin);
 			this.setFaceVirgin(faceVirgin);
@@ -1469,10 +1469,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		Body body;
 		Util.random = new Random((this.getId()).hashCode()); // Set random with seed of this cahracter's id hash so that it's consistent across multiple calls (as some methods inside generateBody() use random).
 		if(cannotTransformPreference) { // As demons and angels cannot be created via transformation, use the target's current body as Subspecies preference (so that gender changes use that Subspecies' body parts) 
-			body = CharacterUtils.generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
+			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
-			body = CharacterUtils.generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
 		}
 		Util.random = new Random();
 

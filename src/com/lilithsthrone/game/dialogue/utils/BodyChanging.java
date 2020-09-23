@@ -500,6 +500,7 @@ public class BodyChanging {
 		
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(getSlaveCustomisationRaceOptions(), false)
+							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 						+"</div>"
 							
 						+"<div style='clear:left;'>"
@@ -570,6 +571,7 @@ public class BodyChanging {
 											?Util.newArrayListOfValues(Race.DEMON)
 											:getMinorPartsDemonRaces(true)),
 									removeNoneFromTailChoices())
+							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -637,6 +639,7 @@ public class BodyChanging {
 
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(allRaces, false)
+						+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 					+"</div>"
 						
 					+"<div style='clear:left;'>"

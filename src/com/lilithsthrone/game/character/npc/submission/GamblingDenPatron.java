@@ -8,8 +8,8 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -91,25 +91,25 @@ public class GamblingDenPatron extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, false);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(750 + Util.random.nextInt(750));
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -127,7 +127,7 @@ public class GamblingDenPatron extends NPC {
 		Element tableElement = doc.createElement("table");
 		properties.appendChild(tableElement);
 		
-		CharacterUtils.addAttribute(doc, tableElement, "value", table.toString());
+		XMLUtil.addAttribute(doc, tableElement, "value", table.toString());
 		
 		return properties;
 	}
@@ -150,7 +150,7 @@ public class GamblingDenPatron extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 //		super.equipClothing(settings);
 	}
 	

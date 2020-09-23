@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>10</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Impish Brew]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Impish Brews]]></namePlural>
+		<description><![CDATA[A cracked and dirty glass bottle, filled with a creamy-yellow liquid. There's no label, but someone's helpfully, albeit crudely, written 'Impish Brew' in black marker pen on one side. You think you can guess what the thick, musky liquid is...]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">imp_impish_brew.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_CORRUPTION</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_CORRUPTION</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(50)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A sickly wave of corruptive arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_CORRUPTION, 50)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		As [npc.name] [npc.verb(unscrew)] the cap from the bottle of Impish Brew, [npc.her] senses are immediately assaulted by the musky, potent smell of the liquid within. Bringing the dirty bottle to [npc.her] [npc.lips], [npc.she] [npc.verb(force)] [npc.herself] to gulp down all of the thick, musky liquid contained within.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Unscrewing the cap from the dirty bottle of Impish Brew, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. After letting out an uncomfortable whine, [npc2.she] [npc2.verb(force)] [npc2.herself] to gulp down all of the thick, musky liquid contained within.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

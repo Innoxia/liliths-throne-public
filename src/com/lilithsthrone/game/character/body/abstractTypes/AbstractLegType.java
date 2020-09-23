@@ -389,7 +389,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(huge tail)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
 						+ "</p>");
 				break;
-			case TAUR:
+			case QUADRUPEDAL:
 				bestialStringBuilder.append(
 						"<p>"
 							+ "An extremely unsettling, tingling feeling starts to spread down into [npc.namePos] [npc.legs+],");

@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -250,7 +249,7 @@ public class SlimeGuardIce extends NPC {
 		
 		this.setMoney(0);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.ICE));
 		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.ICE));

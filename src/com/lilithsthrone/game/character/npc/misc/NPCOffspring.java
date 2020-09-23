@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -106,15 +105,15 @@ public class NPCOffspring extends NPC {
 		
 		// PERSONALITY & BACKGROUND:
 		
-		CharacterUtils.setHistoryAndPersonality(this, true);
+		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 		
 		// ADDING FETISHES:
 		
-		CharacterUtils.addFetishes(this);
+		Main.game.getCharacterUtils().addFetishes(this);
 
 		// BODY RANDOMISATION:
 		
-		CharacterUtils.randomiseBody(this, true);
+		Main.game.getCharacterUtils().randomiseBody(this, true);
 		
 		// INVENTORY:
 		
@@ -123,7 +122,7 @@ public class NPCOffspring extends NPC {
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.applyMakeup(this, true);
+		Main.game.getCharacterUtils().applyMakeup(this, true);
 
 		initHealthAndManaToMax();
 
@@ -154,12 +153,12 @@ public class NPCOffspring extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 		}
 	}
 	

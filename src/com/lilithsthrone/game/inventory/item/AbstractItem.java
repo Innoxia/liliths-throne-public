@@ -9,7 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -63,10 +63,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		Element element = doc.createElement("item");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		XMLUtil.addAttribute(doc, element, "id", this.getItemType().getId());
+		XMLUtil.addAttribute(doc, element, "name", this.getName());
 		if(this.getColour(0)!=null) {
-			CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
+			XMLUtil.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		}
 		
 		Element innerElement = doc.createElement("itemEffects");

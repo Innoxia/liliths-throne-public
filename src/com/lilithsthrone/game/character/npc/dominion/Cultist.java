@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
@@ -89,7 +88,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 				this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 			}
@@ -97,7 +96,7 @@ public class Cultist extends NPC {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			this.setHistory(Occupation.NPC_CULTIST);
 			

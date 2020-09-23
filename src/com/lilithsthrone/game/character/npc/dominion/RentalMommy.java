@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
@@ -126,7 +125,7 @@ public class RentalMommy extends NPC {
 
 		Subspecies subspecies = Subspecies.COW_MORPH;
 		
-		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
+		RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
 		setBody(Gender.F_V_B_FEMALE, subspecies, stage, false);
 		
 		// Persona:

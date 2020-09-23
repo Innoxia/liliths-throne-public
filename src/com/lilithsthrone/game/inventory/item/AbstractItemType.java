@@ -21,6 +21,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -54,6 +55,9 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	private boolean fromExternalFile;
 
 	private String pathName;
+	private String backgroundPathName;
+	private int imageSize;
+	private int imageRotation;
 	private List<Colour> colourShades;
 	
 	protected String SVGString;
@@ -64,6 +68,11 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	protected List<String> useDescriptionsOther;
 	
 	protected List<ItemEffect> effects;
+	
+	// For use in enchanting into a different item:
+	protected String enchantmentEffectId;
+	protected String enchantmentItemTypeId;
+	
 	protected Set<ItemTag> itemTags;
 
 	public AbstractItemType(
@@ -89,6 +98,9 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		this.description = description;
 		this.useDescriptor = "use";
 		this.pathName = pathName==null?"":pathName;
+		this.backgroundPathName = "";
+		this.imageSize = 100;
+		this.imageRotation = 0;
 		this.authorDescription = "";
 
 		this.sexUse = true;
@@ -116,6 +128,9 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		} else {
 			this.effects=effects;
 		}
+		
+		enchantmentEffectId = null;
+		enchantmentItemTypeId = null;
 		
 		this.colourShades = new ArrayList<>();
 		
@@ -179,6 +194,29 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.consumedOnUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("consumedOnUse").getTextContent());
 			
 			this.pathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("background").isEmpty()) {
+				this.backgroundPathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getAttribute("background");
+			} else {
+				backgroundPathName = "";
+			}
+			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageSize").isEmpty()) {
+				try {
+					this.imageSize = Math.min(100, Math.max(1, Integer.valueOf(coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageSize"))));
+				} catch(Exception ex) {
+					this.imageSize = 100;
+				}
+			} else {
+				this.imageSize = 100;
+			}
+			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageRotation").isEmpty()) {
+				try {
+					this.imageRotation = Math.min(360, Math.max(-360, Integer.valueOf(coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageRotation"))));
+				} catch(Exception ex) {
+					this.imageRotation = 0;
+				}
+			} else {
+				this.imageRotation = 0;
+			}
 			SVGString = null;
 			
 			Colour colourShade = PresetColour.getColourFromId(coreAttributes.getMandatoryFirstOf("colourPrimary").getTextContent());
@@ -198,8 +236,20 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			}
 
 			this.effects = new ArrayList<>();
-
+			
 			this.specialEffect = coreAttributes.getMandatoryFirstOf("applyEffects").getTextContent();
+
+			if(coreAttributes.getOptionalFirstOf("enchantmentEffectId").isPresent() && !coreAttributes.getMandatoryFirstOf("enchantmentEffectId").getTextContent().isEmpty()) {
+				enchantmentEffectId = coreAttributes.getMandatoryFirstOf("enchantmentEffectId").getTextContent();
+			} else {
+				enchantmentEffectId = null;
+			}
+			
+			if(coreAttributes.getOptionalFirstOf("enchantmentItemTypeId").isPresent() && !coreAttributes.getMandatoryFirstOf("enchantmentItemTypeId").getTextContent().isEmpty()) {
+				enchantmentItemTypeId = coreAttributes.getMandatoryFirstOf("enchantmentItemTypeId").getTextContent();
+			} else {
+				enchantmentItemTypeId = null;
+			}
 			
 			this.effectTooltipLines = new ArrayList<>();
 			if(coreAttributes.getOptionalFirstOf("effectTooltipLines").isPresent()) {
@@ -313,11 +363,17 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {
-		return null;
+		if(enchantmentEffectId==null || enchantmentEffectId.isEmpty()) {
+			return null;
+		}
+		return ItemEffectType.getItemEffectTypeFromId(enchantmentEffectId);
 	}
 	
 	public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-		return null;
+		if(enchantmentItemTypeId==null || enchantmentItemTypeId.isEmpty()) {
+			return null;
+		}
+		return ItemType.getItemTypeFromId(enchantmentItemTypeId);
 	}
 	
 	// Getters & setters:
@@ -413,6 +469,18 @@ public abstract class AbstractItemType extends AbstractCoreType {
 							sb.append(line);
 						}
 						SVGString = sb.toString();
+						
+						if(!backgroundPathName.isEmpty()) {
+							lines = Files.readAllLines(Paths.get(backgroundPathName));
+							sb = new StringBuilder();
+							for(String line : lines) {
+								sb.append(line);
+							}
+							int sizeOffset = (100-imageSize)/2;
+							SVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0;'>"+sb.toString()+"</div>"
+									+ "<div style='width:"+imageSize+"%;height:"+imageSize+"%;transform:rotate("+imageRotation+"deg);position:absolute;left:"+sizeOffset+"%;bottom:"+sizeOffset+"%;padding:0;margin:0;'>"+SVGString+"</div>";
+						}
+						
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {

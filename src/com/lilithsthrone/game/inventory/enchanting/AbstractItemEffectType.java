@@ -2333,7 +2333,7 @@ public abstract class AbstractItemEffectType {
 				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.BIPEDAL)) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.TAUR)) {
+				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAUR, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL_LONG)) {
@@ -2414,6 +2414,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				break;
 				
@@ -3852,7 +3853,7 @@ public abstract class AbstractItemEffectType {
 
 					case TF_MOD_LEG_CONFIG_TAUR:
 						return new RacialEffectUtil(" Transforms lower body to a quadrupedal, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAUR).applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.QUADRUPEDAL).applyLegConfigurationTransformation(target, LegConfiguration.QUADRUPEDAL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL_LONG:
 						return new RacialEffectUtil(" Transforms lower body to a long-tailed, feral "+race.getName(true)+"'s.") {
@@ -4213,13 +4214,41 @@ public abstract class AbstractItemEffectType {
 										return target.incrementTailCount(singleBoost, false);
 									} } };
 						}
-						
+
 					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in tail length. (" + mediumChangeMajorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMajorDrain/100f); }
+									};
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in tail length. (" + mediumChangeDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeDrain/100f); }
+									};
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in tail length. (" + mediumChangeMinorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMinorDrain/100f); }
+									};
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in tail length. (+" + mediumChangeMinorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMinorBoost/100f); }
+									};
+							case BOOST:
+								return new RacialEffectUtil("Increase in tail length. (+" + mediumChangeBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeBoost/100f); }
+									};
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in tail length. (+" + mediumChangeMajorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMajorBoost/100f); }
+									};
+						}
+						
+					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {
 							case MAJOR_DRAIN:
 								return new RacialEffectUtil("Huge decrease in tail girth. (" + smallChangeMajorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in tail girth. (" + smallChangeDrain + " size)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeDrain); } };
+								return new RacialEffectUtil("Decrease in tail girth. (" + smallChangeDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeDrain); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in tail girth. (" + smallChangeMinorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:

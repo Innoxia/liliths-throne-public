@@ -8,9 +8,9 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -135,9 +135,9 @@ public class Elemental extends NPC {
 		Element npcSpecific = doc.createElement("elementalSpecial");
 		properties.appendChild(npcSpecific);
 
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "summoner", this.getSummoner().getId());
+		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "summoner", this.getSummoner().getId());
 		if(passiveForm!=null) {
-			CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "passiveForm", passiveForm.toString());
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "passiveForm", passiveForm.toString());
 		}
 		return properties;
 	}

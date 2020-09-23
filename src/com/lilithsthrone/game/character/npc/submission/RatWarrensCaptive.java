@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -91,14 +90,14 @@ public class RatWarrensCaptive extends NPC {
 			this.setPlayerKnowsName(false);
 			this.setGenericName("captive");
 
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(0);
 	
-//			CharacterUtils.applyMakeup(this, true);
+//			Main.game.getCharacterUtils().applyMakeup(this, true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			initPerkTreeAndBackgroundPerks();

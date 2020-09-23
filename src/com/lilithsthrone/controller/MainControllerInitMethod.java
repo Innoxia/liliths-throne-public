@@ -3466,6 +3466,36 @@ public class MainControllerInitMethod {
 					MainController.setTailCountListener(i);
 				}
 
+				// Tail length:
+				id = "TAIL_LENGTH_INCREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementTailLengthAsPercentageOfHeight(0.05f);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "TAIL_LENGTH_INCREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementTailLengthAsPercentageOfHeight(0.25f);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "TAIL_LENGTH_DECREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementTailLengthAsPercentageOfHeight(-0.05f);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "TAIL_LENGTH_DECREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementTailLengthAsPercentageOfHeight(-0.25f);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				
 				// Tail girth:
 				for(PenetrationGirth girth : PenetrationGirth.values()) {
 					id = "TAIL_GIRTH_"+girth;

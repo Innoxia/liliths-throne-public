@@ -239,13 +239,13 @@ public class RoxysShop {
 						
 						int dTotal = d1 + d2;
 						if(dTotal<=3) {
-							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER);
+							item = Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water");
 						} else if(dTotal<=5) {
-							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH);
+							item = Main.game.getItemGen().generateItem("innoxia_race_bat_fruit_bats_juice_box");
 						} else if(dTotal<=7) {
 							item = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
 						} else if(dTotal<=9) {
-							item = Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM);
+							item = Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum");
 						} else if(dTotal<=11) {
 							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH);
 						} else {

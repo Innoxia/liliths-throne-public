@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -2595,8 +2594,8 @@ public class PhoneDialogue {
 		public String getContent() {
 			subspeciesSB.setLength(0);
 			
-			Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspeciesSelected, RaceStage.GREATER);
-			Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
+			Body femaleBody = Main.game.getCharacterUtils().generateBody(null, Gender.F_V_B_FEMALE, subspeciesSelected, RaceStage.GREATER);
+			Body maleBody = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
 			
 			subspeciesSB.append(
 				"<div class='container-full-width' style='width:40%; float:right;'>"

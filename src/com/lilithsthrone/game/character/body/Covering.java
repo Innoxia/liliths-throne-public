@@ -3,7 +3,7 @@ package com.lilithsthrone.game.character.body;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -106,16 +106,16 @@ public class Covering implements XMLSaving {
 		Element element = doc.createElement("covering");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
-		CharacterUtils.addAttribute(doc, element, "pat", this.pattern.toString());
-		CharacterUtils.addAttribute(doc, element, "mod", this.modifier.toString());
-		CharacterUtils.addAttribute(doc, element, "c1", this.primaryColour.getId());
+		XMLUtil.addAttribute(doc, element, "type", this.type.toString());
+		XMLUtil.addAttribute(doc, element, "pat", this.pattern.toString());
+		XMLUtil.addAttribute(doc, element, "mod", this.modifier.toString());
+		XMLUtil.addAttribute(doc, element, "c1", this.primaryColour.getId());
 		if(this.primaryGlowing) {
-			CharacterUtils.addAttribute(doc, element, "g1", String.valueOf(this.primaryGlowing));
+			XMLUtil.addAttribute(doc, element, "g1", String.valueOf(this.primaryGlowing));
 		}
-		CharacterUtils.addAttribute(doc, element, "c2", this.secondaryColour.getId());
+		XMLUtil.addAttribute(doc, element, "c2", this.secondaryColour.getId());
 		if(this.secondaryGlowing) {
-			CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.secondaryGlowing));
+			XMLUtil.addAttribute(doc, element, "g2", String.valueOf(this.secondaryGlowing));
 		}
 		return element;
 	}

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -147,9 +146,9 @@ public class EnforcerWarehouse {
 			Subspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			RaceStage stage = RaceStage.GREATER;
 			if(gender.isFeminine()) {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 			} else {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
+				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 			}
 			
 			try {
@@ -171,7 +170,7 @@ public class EnforcerWarehouse {
 		for(Cell c : Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getCells(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)) {
 			EnforcerWarehouseGuard guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_CONSTABLE);
 			guard.setLocation(c.getType(), c.getLocation(), true);
-			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+			usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
 		
 		// Add four Enforcers to the entrance:
@@ -181,12 +180,12 @@ public class EnforcerWarehouse {
 		
 		guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_SERGEANT);
 		guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
-		usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+		usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		
 		for(int i=0; i<2; i++) {
 			guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_CONSTABLE);
 			guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
-			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+			usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
 	}
 	
@@ -611,7 +610,7 @@ public class EnforcerWarehouse {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, 1, false, true));
 								
 							} else {
-								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.COR_INGREDIENT_LILITHS_GIFT, ItemType.FETISH_UNREFINED);
+								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift"), ItemType.FETISH_UNREFINED);
 								AbstractItem item = Main.game.getItemGen().generateItem(Util.randomItemFrom(itemTypes));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3+Util.random.nextInt(6), false, true));
 							}

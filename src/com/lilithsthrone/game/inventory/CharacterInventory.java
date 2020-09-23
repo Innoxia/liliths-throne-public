@@ -15,7 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -153,9 +153,9 @@ public class CharacterInventory implements XMLSaving {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element characterInventory = doc.createElement("characterInventory");
 		parentElement.appendChild(characterInventory);
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essenceCount", String.valueOf(this.getEssenceCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
+		XMLUtil.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
+		XMLUtil.createXMLElementWithValue(doc, characterInventory, "essenceCount", String.valueOf(this.getEssenceCount()));
 		
 		if(extraBlockedParts!=null) {
 			Element innerElement = doc.createElement("extraBlockedParts");
@@ -168,7 +168,7 @@ public class CharacterInventory implements XMLSaving {
 		for(InventorySlot slot : this.getDirtySlots()) {
 			Element element = doc.createElement("dirtySlot");
 			dirtySlotsElement.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "slot", slot.toString());
+			XMLUtil.addAttribute(doc, element, "slot", slot.toString());
 		}
 
 		if(!unlockKeyMap.isEmpty()) {
@@ -177,12 +177,12 @@ public class CharacterInventory implements XMLSaving {
 			for(Entry<String, List<InventorySlot>> entry : unlockKeyMap.entrySet()) {
 				Element element = doc.createElement("character");
 				innerElement.appendChild(element);
-				CharacterUtils.addAttribute(doc, element, "id", entry.getKey());
+				XMLUtil.addAttribute(doc, element, "id", entry.getKey());
 				
 				for(InventorySlot slot : entry.getValue()) {
 					Element elementSlot = doc.createElement("slot");
 					element.appendChild(elementSlot);
-					CharacterUtils.addAttribute(doc, elementSlot, "id", slot.toString());
+					XMLUtil.addAttribute(doc, elementSlot, "id", slot.toString());
 				}
 			}
 		}
@@ -220,7 +220,7 @@ public class CharacterInventory implements XMLSaving {
 				if(item.getValue()!=null) {
 					value = item.getValue();
 				}
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
+				XMLUtil.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -233,7 +233,7 @@ public class CharacterInventory implements XMLSaving {
 				if(clothing.getValue()!=null) { // TODO figure out how this was being assigned to null
 					value = clothing.getValue();
 				}
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
+				XMLUtil.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -246,7 +246,7 @@ public class CharacterInventory implements XMLSaving {
 				if(weapon.getValue()!=null) {
 					value = weapon.getValue();
 				}
-				CharacterUtils.addAttribute(doc, e, "count", String.valueOf(value));
+				XMLUtil.addAttribute(doc, e, "count", String.valueOf(value));
 			}
 		}
 		
@@ -2174,7 +2174,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
 //					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
 					return isCoverableAreaExposed(character, CoverableArea.STOMACH, justVisible);
-				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
 					// Should only account for taur-specific clothing:
 					List<AbstractClothing> clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
 					clothingBlocking.removeIf(c -> !c.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || c.getItemTags().contains(ItemTag.TRANSPARENT));
@@ -2234,7 +2234,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;
-				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
 					// Should only account for taur-specific clothing:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
 					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));
@@ -2273,7 +2273,7 @@ public class CharacterInventory implements XMLSaving {
 				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;
-				case TAUR:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
+				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
 					// Should only account for taur-specific clothing:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.THIGHS, false);
 					clothingBlocking.removeIf(clothing -> !clothing.getItemTags().contains(ItemTag.FITS_TAUR_BODY) || clothing.getItemTags().contains(ItemTag.TRANSPARENT));

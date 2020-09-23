@@ -89,7 +89,7 @@ public class CMSpecialAttack {
             return formatAttackOutcome(source, target,
             		(source.isLegMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] leg movement, [npc.name] [npc.verb(struggle)] to put any power behind [npc.her] kick, dealing minimal damage to [npc2.name]..."
-            				:"[npc.Name] [npc.verb(turn)] to one side, before kicking out and powerfully striking [npc2.name] with [npc.her] "+(source.getLegConfiguration()==LegConfiguration.TAUR?"hoofs":"hoof")+"!")+damageValue.getKey(),
+            				:"[npc.Name] [npc.verb(turn)] to one side, before kicking out and powerfully striking [npc2.name] with [npc.her] "+(source.getLegConfiguration()==LegConfiguration.QUADRUPEDAL?"hoofs":"hoof")+"!")+damageValue.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
             			?"[npc.Name] immediately strikes again in an attempt to break through [npc2.namePos] block!"+critDamageValue.getKey()

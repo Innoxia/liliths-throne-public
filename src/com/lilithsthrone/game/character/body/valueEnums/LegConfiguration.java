@@ -24,66 +24,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public enum LegConfiguration {
-	
-//	/**
-//	 * An entirely feral form of an animal.
-//	 */
-//	FERAL("feral",
-//			0,
-//			0,
-//			false,
-//			false,
-//			WingSize.THREE_LARGE,
-//			false,
-//			2,
-//			0,
-//			"A configuration in which the character has the feral body of their associated animal-morph, making them no difference in appearance to a regular animal",
-//			"Down beneath the groin on [npc.her] feral body.",
-//			null) {
-//		@Override
-//		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-//			return new BodyPartClothingBlock(
-//					InventorySlot.getClothingSlots(),
-//					character.getLegType().getRace(),
-//					"Due to the fact that [npc.nameHasFull] a feral body, [npc.she] cannot equip any clothing!",
-//					Util.newArrayListOfValues());
-//		}
-//		@Override
-//		public void setLegsToDemon(GameCharacter character) {
-//			character.setLegType(LegType.DEMON_HORSE_HOOFED);
-//		}
-//		@Override
-//		public List<Class<? extends BodyPartInterface>> getBestialParts() {
-//			return Util.newArrayListOfValues(
-//					Antenna.class,
-//					Anus.class,
-//					Arm.class,
-//					Ass.class,
-//					Breast.class,
-//					BreastCrotch.class,
-//					Clitoris.class,
-//					Ear.class,
-//					Eye.class,
-//					Face.class,
-//					Hair.class,
-//					Horn.class,
-//					Leg.class,
-//					Mouth.class,
-//					Nipples.class,
-//					Penis.class,
-//					Tail.class,
-//					Tentacle.class,
-//					Testicle.class,
-//					Tongue.class,
-//					Torso.class,
-//					Vagina.class,
-//					Wing.class);
-//		}
-//	},
 	
 	/**
 	 * This LegConfiguration is the standard for humans, demons, angels, and the vast majority of animal-morphs.
@@ -118,11 +62,10 @@ public enum LegConfiguration {
 		}
 	},
 	
-	//TODO rename to QUADRUPED
 	/**
 	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
 	 */
-	TAUR("taur",
+	QUADRUPEDAL("quadrupedal",
 			-50,
 			0,
 			false,
@@ -388,6 +331,13 @@ public enum LegConfiguration {
 		this.tfModifier = tfModifier;
 	}
 
+	public static LegConfiguration getValueFromString(String configuration) {
+		if(configuration.equalsIgnoreCase("TAUR")) {
+			configuration = "QUADRUPEDAL";
+		}
+		return LegConfiguration.valueOf(configuration);
+	}
+	
 	/**
 	 * @return A list of BodyPartInterface classes which are considered to be fully animalistic as part of this LegConfiguration. e.g. A taur's Tail, Ass, BreastCrotch, Penis, and Vagina are all animalistic.
 	 */

@@ -55,7 +55,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.INT_INGREDIENT_VANILLA_WATER;
+			return ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -93,7 +93,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.INT_INGREDIENT_VANILLA_WATER;
+			return ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -137,7 +137,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.COR_INGREDIENT_ANGELS_TEARS;
+			return ItemType.getItemTypeFromId("innoxia_race_angel_angels_tears");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -210,7 +210,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.COR_INGREDIENT_LILITHS_GIFT;
+			return ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -248,7 +248,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.STR_INGREDIENT_BUBBLE_MILK;
+			return ItemType.getItemTypeFromId("innoxia_race_cow_bubble_milk");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -288,7 +288,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.FIT_INGREDIENT_CANINE_CRUSH;
+			return ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -329,7 +329,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.STR_INGREDIENT_WOLF_WHISKEY;
+			return ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -371,7 +371,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.INT_INGREDIENT_GRAPE_JUICE;
+			return ItemType.getItemTypeFromId("innoxia_race_fox_vulpines_vineyard");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -410,7 +410,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.INT_INGREDIENT_FELINE_FANCY;
+			return ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -486,7 +486,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.STR_INGREDIENT_EQUINE_CIDER;
+			return ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -524,7 +524,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.FIT_INGREDIENT_EGG_NOG;
+			return ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -561,7 +561,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.FIT_INGREDIENT_SQUIRREL_JAVA;
+			return ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -598,7 +598,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
+			return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -635,7 +635,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.SEX_INGREDIENT_BUNNY_JUICE;
+			return ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -674,7 +674,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH;
+			return ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -711,7 +711,7 @@ public class Race {
 
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.STR_INGREDIENT_SWAMP_WATER;
+			return ItemType.getItemTypeFromId("innoxia_race_alligator_swamp_water");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -749,7 +749,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.SEX_INGREDIENT_SLIME_QUENCHER;
+			return ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -789,7 +789,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.SEX_INGREDIENT_HARPY_PERFUME;
+			return ItemType.getItemTypeFromId("innoxia_race_harpy_harpy_perfume");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
@@ -832,7 +832,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.COR_INGREDIENT_LILITHS_GIFT;
+			return ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {

@@ -40,6 +40,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -228,6 +229,7 @@ public class Game implements XMLSaving {
 	
 	private PlayerCharacter player;
 	private ItemGeneration itemGeneration;
+	private CharacterUtils characterUtils;
 	
 	// NPCs:
 	private NPC activeNPC;
@@ -299,6 +301,7 @@ public class Game implements XMLSaving {
 		}
 		
 		itemGeneration = new ItemGeneration();
+		characterUtils = new CharacterUtils();
 		OccupantManagementDialogue.resetImportantCells();
 		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00);
 		secondsPassed = TIME_START_SECONDS;
@@ -496,19 +499,19 @@ public class Game implements XMLSaving {
 			try {
 				Element informationNode = doc.createElement("coreInfo");
 				game.appendChild(informationNode);
-				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
-				CharacterUtils.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
-				CharacterUtils.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
-				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
-				CharacterUtils.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
-				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
-				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+				XMLUtil.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
+				XMLUtil.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
+				XMLUtil.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
+				XMLUtil.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
 
 				Element inventoryNode = doc.createElement("savedInventories");
 				game.appendChild(inventoryNode);
 				for(Entry<String, CharacterInventory> entry : savedInventories.entrySet()) {
 					Element element = doc.createElement("savedInventory");
-					CharacterUtils.addAttribute(doc, element, "character", entry.getKey());
+					XMLUtil.addAttribute(doc, element, "character", entry.getKey());
 					inventoryNode.appendChild(element);
 					entry.getValue().saveAsXML(element, doc);
 				}
@@ -518,7 +521,7 @@ public class Game implements XMLSaving {
 				for(Entry<AbstractWorldType, List<List<String>>> entrySet : Main.game.savedEnforcers.entrySet()) {
 					Element element = doc.createElement("world");
 					savedEnforcersNode.appendChild(element);
-					CharacterUtils.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
+					XMLUtil.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
 					for(List<String> ids : entrySet.getValue()) {
 						Element enforcersElement = doc.createElement("enforcers");
 						element.appendChild(enforcersElement);
@@ -539,11 +542,11 @@ public class Game implements XMLSaving {
 				
 				Element dateNode = doc.createElement("date");
 				informationNode.appendChild(dateNode);
-				CharacterUtils.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
-				CharacterUtils.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
-				CharacterUtils.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
-				CharacterUtils.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
-				CharacterUtils.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
+				XMLUtil.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
+				XMLUtil.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
+				XMLUtil.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
+				XMLUtil.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
+				XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
 			} catch(Exception ex) {
 				System.err.println("coreInfo saving failed!");
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
@@ -568,7 +571,7 @@ public class Game implements XMLSaving {
 				for(Value<Integer, List<SlaveryEventLogEntry>> entry : Main.game.getSlaveryEventLog()) {
 					Element element = doc.createElement("day");
 					slaveryEventLogNode.appendChild(element);
-					CharacterUtils.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
+					XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
 					for(SlaveryEventLogEntry event : entry.getValue()) {
 						event.saveAsXML(element, doc);
 					}
@@ -1015,12 +1018,12 @@ public class Game implements XMLSaving {
 										}
 										// Generate desires in non-unique NPCs:
 										if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-											CharacterUtils.generateDesires(npc);
+											Main.game.getCharacterUtils().generateDesires(npc);
 										}
 	
 										if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
 											npc.clearFetishDesires();
-											CharacterUtils.generateDesires(npc);
+											Main.game.getCharacterUtils().generateDesires(npc);
 										}
 										if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4") && npc.getWorldLocation()==WorldType.GAMBLING_DEN) {
 											if(npc instanceof Roxy) {
@@ -2149,7 +2152,7 @@ public class Game implements XMLSaving {
 						&& !npc.isAllowingPlayerToManageInventory()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayerCell().getDialogue(false)) || !(getCharactersPresent().contains(npc)))) {
 					npc.clearNonEquippedInventory(false);
-					CharacterUtils.generateItemsInInventory(npc);
+					Main.game.getCharacterUtils().generateItemsInInventory(npc);
 				}
 				try {
 					npc.dailyUpdate();
@@ -3649,6 +3652,10 @@ public class Game implements XMLSaving {
 		return itemGeneration;
 	}
 
+	public CharacterUtils getCharacterUtils() {
+		return characterUtils;
+	}
+	
 	public long getSecondsPassed() {
 		return secondsPassed;
 	}

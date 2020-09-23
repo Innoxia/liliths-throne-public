@@ -24,7 +24,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -140,7 +139,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class CharacterUtils {
 	
-	public static void saveCharacterAsXML(PlayerCharacter character){
+	public void saveCharacterAsXML(PlayerCharacter character){
 		try {
 //			long timeStart = System.nanoTime();
 //			System.out.println(timeStart);
@@ -205,37 +204,22 @@ public class CharacterUtils {
 		}
 	}
 	
-	
-	public static void createXMLElementWithValue(Document doc, Element parentElement, String elementName, String value){
-		Element element = doc.createElement(elementName);
-		parentElement.appendChild(element);
-		Attr attr = doc.createAttribute("value");
-		attr.setValue(value);
-		element.setAttributeNode(attr);
-	}
-	
-	public static void addAttribute(Document doc, Element parentElement, String attributeName, String value){
-		Attr attr = doc.createAttribute(attributeName);
-		attr.setValue(value);
-		parentElement.setAttributeNode(attr);
-	}
-	
 	private static StringBuilder characterImportLog;
-	public static String getCharacterImportLog() {
+	public String getCharacterImportLog() {
 		return characterImportLog.toString();
 	}
 	
-	public static void appendToImportLog(StringBuilder log, String message) {
+	public void appendToImportLog(StringBuilder log, String message) {
 		if(log!=null) {
 			log.append(message);
 		}
 	}
 	
-	public static PlayerCharacter startLoadingCharacterFromXML(){
+	public PlayerCharacter startLoadingCharacterFromXML(){
 		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
-	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
+	public PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
 		
 		characterImportLog = new StringBuilder();
 		
@@ -262,7 +246,7 @@ public class CharacterUtils {
 		return importedCharacter;
 	}
 	
-	public static RaceStage getRaceStageFromPreferences(FurryPreference preference, Gender gender, Subspecies species) {
+	public RaceStage getRaceStageFromPreferences(FurryPreference preference, Gender gender, Subspecies species) {
 		RaceStage raceStage = RaceStage.PARTIAL;
 		
 		switch(preference) {
@@ -281,7 +265,7 @@ public class CharacterUtils {
 		return raceStage;
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
+	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
 		Body body = null;
 		if(father!=null) {
 			body = Subspecies.getPreGeneratedBody(linkedCharacter, startingGender, mother, father);
@@ -983,12 +967,12 @@ public class CharacterUtils {
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
 
-	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
+	public Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
 //		Gender startingGender;
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
 		}
-		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
+		RaceStage stage = getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		AbstractRacialBody demonBody = RacialBody.DEMON;
 		
 		if(linkedCharacter!=null) {
@@ -1017,7 +1001,7 @@ public class CharacterUtils {
 				stage = RaceStage.LESSER;
 				break;
 		}
-		Body body = CharacterUtils.generateBody(linkedCharacter, startingGender, halfSubspecies, stage);
+		Body body = generateBody(linkedCharacter, startingGender, halfSubspecies, stage);
 		body.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		
 		body.setAss(new Ass(AssType.DEMON_COMMON,
@@ -1159,15 +1143,15 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies species, RaceStage stage) {
+	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies species, RaceStage stage) {
 		return generateBody(linkedCharacter, startingGender, RacialBody.valueOfRace(species.getRace()), species, stage);
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, RaceStage stage) {
+	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, RaceStage stage) {
 		return generateBody(linkedCharacter, startingGender, startingBodyType, null, stage);
 	}
 	
-	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, Subspecies species, RaceStage stage) {
+	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, Subspecies species, RaceStage stage) {
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
@@ -1225,10 +1209,10 @@ public class CharacterUtils {
 				}
 				
 				if(startingGender.isFeminine()) {
-					stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
+					stage = getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), startingGender, species);
 					
 				} else {
-					stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), startingGender, species);
+					stage = getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), startingGender, species);
 				}
 				
 				startingBodyType = RacialBody.valueOfRace(species.getRace());
@@ -1363,7 +1347,7 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	public static Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, Subspecies species, RaceStage stage, boolean removeDemonOverride) {
+	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, Subspecies species, RaceStage stage, boolean removeDemonOverride) {
 		
 		if(removeDemonOverride) {
 			body.setSubspeciesOverride(null);
@@ -1518,7 +1502,7 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	public static void applyTaurConversion(GameCharacter character) {
+	public void applyTaurConversion(GameCharacter character) {
 		int taurLevel = Main.getProperties().taurFurryLevel;
 		if(character.getRace()==Race.DEMON && character.getSubspeciesOverride()!=Subspecies.HALF_DEMON) {
 			taurLevel = 0; // Demons and imps should always be untouched
@@ -1545,7 +1529,7 @@ public class CharacterUtils {
 				break;
 		}
 		
-		character.setLegConfiguration(LegConfiguration.TAUR, true);
+		character.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true);
 		
 		if(raceStage==null) {
 			return;
@@ -1716,7 +1700,7 @@ public class CharacterUtils {
 	
 	
 
-	public static String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
+	public String setGenericName(GameCharacter character, List<String> exclusiveAdjectives) {
 		return setGenericName(character, null, exclusiveAdjectives);
 	}
 	/**
@@ -1725,7 +1709,7 @@ public class CharacterUtils {
 	 * @param exclusiveAdjectives A list of adjectives to exclude from the random assignment.
 	 * @return The adjective that was chosen to describe the character.
 	 */
-	public static String setGenericName(GameCharacter character, String baseName, List<String> exclusiveAdjectives) {
+	public String setGenericName(GameCharacter character, String baseName, List<String> exclusiveAdjectives) {
 
 		List<String> characterAdjectives = new ArrayList<>();
 		for(PersonalityTrait trait : character.getPersonalityTraits()) {
@@ -1802,7 +1786,7 @@ public class CharacterUtils {
 		return adjective;
 	}
 	
-	public static void randomiseBody(GameCharacter character, boolean randomiseAge) {
+	public void randomiseBody(GameCharacter character, boolean randomiseAge) {
 		
 		if(randomiseAge) {
 			int dayOfMonth = character.getDayOfBirth();
@@ -2077,7 +2061,7 @@ public class CharacterUtils {
 		return Math.max(1, (int)(years*count));
 	}
 	
-	public static void generateAndApplySexCounts(GameCharacter character) {
+	public void generateAndApplySexCounts(GameCharacter character) {
 		boolean fullVirgin = character.isAssVirgin()
 				&& character.isFaceVirgin()
 				&& character.isNippleCrotchVirgin()
@@ -2203,7 +2187,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void generateItemsInInventory(NPC character) {
+	public void generateItemsInInventory(NPC character) {
 		List<AbstractCoreItem> items;
 		List<AbstractCoreItem> itemsRemoved = new ArrayList<>();
 		
@@ -2248,7 +2232,7 @@ public class CharacterUtils {
 	 * Sets the History for the supplied character.
 	 * @param character
 	 */
-	public static void setHistoryAndPersonality(GameCharacter character, boolean lowlife) {
+	public void setHistoryAndPersonality(GameCharacter character, boolean lowlife) {
 
 		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
 		
@@ -2377,7 +2361,7 @@ public class CharacterUtils {
 	 * @param character The character to add fetishes to.
 	 * @param exclusions Any fetishes that should not be modified.
 	 */
-	public static void addFetishes(GameCharacter character, Fetish... exclusions) {
+	public void addFetishes(GameCharacter character, Fetish... exclusions) {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		
@@ -2449,7 +2433,7 @@ public class CharacterUtils {
 		generateDesires(character);
 	}
 	
-	public static void generateDesires(GameCharacter character) {
+	public void generateDesires(GameCharacter character) {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		availableFetishes.removeAll(character.getFetishes(false));
@@ -2566,15 +2550,15 @@ public class CharacterUtils {
 	}
 	
 
-	public static void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
+	public void equipClothingFromOutfitFolderId(GameCharacter character, OutfitType outfitType, String folderId, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getOutfitsFromIdStart(folderId), outfitType, settings);
 	}
 
-	public static void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, List<EquipClothingSetting> settings) {
+	public void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, settings);
 	}
 
-	private static void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, List<EquipClothingSetting> settings) {
+	private void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, List<EquipClothingSetting> settings) {
 		Map<AbstractOutfit, Integer> weightedOutfits = new HashMap<>();
 		
 		for(AbstractOutfit outfit : availableOutfits) {
@@ -2590,11 +2574,11 @@ public class CharacterUtils {
 		}
 	}
 
-	public static void equipClothingFromOutfitId(GameCharacter character, String outfitId, List<EquipClothingSetting> settings) {
+	public void equipClothingFromOutfitId(GameCharacter character, String outfitId, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfit(character, OutfitType.getOutfitTypeFromId(outfitId), settings);
 	}
 	
-	public static void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, List<EquipClothingSetting> settings) {
+	public void equipClothingFromOutfit(GameCharacter character, AbstractOutfit outfit, List<EquipClothingSetting> settings) {
 		if(outfit!=null) {
 			try {
 				outfit.applyOutfit(character, settings);
@@ -2650,7 +2634,7 @@ public class CharacterUtils {
 								!c.isDefaultSlotCondom(slot)
 									&& (block==null || !Collections.disjoint(c.getItemTags(slot), block.getRequiredTags()))
 									&& (!character.hasBreastsCrotch()
-											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
+											|| character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
 											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
 											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
 											|| character.getInventorySlotsConcealed(Main.game.getPlayer()).containsKey(InventorySlot.STOMACH))
@@ -2703,7 +2687,7 @@ public class CharacterUtils {
 								!c.isDefaultSlotCondom(slot)
 								&& (block==null || !Collections.disjoint(c.getItemTags(slot), block.getRequiredTags()))
 									&& (!character.hasBreastsCrotch()
-											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
+											|| character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
 											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
 											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
 											|| character.getInventorySlotsConcealed(Main.game.getPlayer()).containsKey(InventorySlot.STOMACH))
@@ -2732,7 +2716,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void equipPiercings(GameCharacter character, boolean replaceUnsuitableClothing) {
+	public void equipPiercings(GameCharacter character, boolean replaceUnsuitableClothing) {
 		 Map<InventorySlot, List<AbstractClothingType>> clothingMap = ClothingType.getCommonClothingMapMaleIncludingAndrogynous();
 		 
 		if(character.isFeminine() || character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
@@ -2815,7 +2799,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
+	public void applyMakeup(GameCharacter character, boolean overrideExistingMakeup) {
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
 					PresetColour.COVERING_NONE,
@@ -2845,7 +2829,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static List<AbstractClothing> generateEnchantedClothingForTrader(GameCharacter trader, List<AbstractClothing> clothingToSell, int numberOfUncommonsToGenerate, int numberofRaresToGenerate) {
+	public List<AbstractClothing> generateEnchantedClothingForTrader(GameCharacter trader, List<AbstractClothing> clothingToSell, int numberOfUncommonsToGenerate, int numberofRaresToGenerate) {
 
 		List<AbstractClothing> clothingGenerated = new ArrayList<>();
 		List<AbstractClothingType> enchantedClothingTypes = new ArrayList<>();

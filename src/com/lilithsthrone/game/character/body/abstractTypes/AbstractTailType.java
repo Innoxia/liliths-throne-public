@@ -27,7 +27,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	private AbstractRace race;
 	
 	private int defaultGirth;
-	private float lengthAsPercentageOfHeight;
+	private float defaultLengthAsPercentageOfHeight;
 
 	private String transformationName;
 	
@@ -53,7 +53,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	 * @param skinType What covers this tail type (i.e skin/fur/feather type).
 	 * @param race What race has this tail type.
 	 * @param defaultGirth The girth which this TailType spawns with.
-	 * @param lengthAsPercentageOfHeight The percentage, as a float from 0->1, of this tail's length as a proportion of the owner's body height.
+	 * @param defaultLengthAsPercentageOfHeight The percentage, as a float from 0->1, of this tail's length as a proportion of the owner's body height.
 	 * @param transformationName The name that should be displayed when offering this tail type as a transformation. Should be something like "demonic spaded" or "demonic hair-tipped".
 	 * @param determiner The singular determiner which should be used for this tail type. Should normally be left blank unless the tail is of a special type (such as harpy 'tail feathers' needing 'a plume of' as the determiner).
 	 * @param determinerPlural The plural determiner which should be used for this tail type, appended after a number. Should normally be left blank unless the tail is of a special type (such as harpy 'tail feathers' needing 'plumes of' as the determiner).
@@ -73,7 +73,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			BodyCoveringType skinType,
 			AbstractRace race,
 			PenetrationGirth defaultGirth,
-			float lengthAsPercentageOfHeight,
+			float defaultLengthAsPercentageOfHeight,
 			String transformationName,
 			String determiner,
 			String determinerPlural,
@@ -93,7 +93,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		this.race = race;
 
 		this.defaultGirth = defaultGirth.getValue();
-		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
+		this.defaultLengthAsPercentageOfHeight = defaultLengthAsPercentageOfHeight;
 		
 		this.transformationName = transformationName;
 		
@@ -120,8 +120,8 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		return defaultGirth;
 	}
 	
-	public float getLengthAsPercentageOfHeight() {
-		return lengthAsPercentageOfHeight;
+	public float getDefaultLengthAsPercentageOfHeight() {
+		return defaultLengthAsPercentageOfHeight;
 	}
 	
 	public List<TailTypeTag> getTags() {
@@ -532,7 +532,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow thicker)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows thicker)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -544,7 +544,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -558,7 +558,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fluff up and grow bigger)]."
 									:" [npc.tail] suddenly [style.boldGrow(fluffs up and grows bigger)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -570,7 +570,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -584,7 +584,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -596,7 +596,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -610,7 +610,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -622,7 +622,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -636,7 +636,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow larger)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows larger)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -648,7 +648,142 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+						+ "</p>");
+			}
+		}
+		return "";
+	}
+	
+	public String getLengthTransformationDescription(GameCharacter owner, boolean positive) {
+		String heightPercentageDescription = " (length is "+((int)(owner.getTailLengthAsPercentageOfHeight()*100))+"% of [npc.namePos] height)";
+		if(this.getTags().contains(TailTypeTag.TYPE_SKIN) || this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+			if(positive) {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+							+ " Without any further warning of what's to come, [npc.her]"
+							+(owner.getTailCount()>1
+									?" [npc.tails] suddenly [style.boldGrow(grow longer)]."
+									:" [npc.tail] suddenly [style.boldGrow(grows longer)].")
+							+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+					
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+								+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+								+ " Without any further warning of what's to come, [npc.her]"
+								+(owner.getTailCount()>1
+										?" [npc.tails] suddenly [style.boldShrink(shorten)]."
+										:" [npc.tail] suddenly [style.boldShrink(shortens)].")
+								+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+			}
+		}
+		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
+			if(positive) {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+							+ " Without any further warning of what's to come, [npc.her]"
+							+(owner.getTailCount()>1
+									?" [npc.tails] suddenly [style.boldGrow(fluff up and grow longer)]."
+									:" [npc.tail] suddenly [style.boldGrow(fluffs up and grows longer)].")
+							+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+					
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+								+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+								+ " Without any further warning of what's to come, [npc.her]"
+								+(owner.getTailCount()>1
+										?" [npc.tails] suddenly [style.boldShrink(shorten)]."
+										:" [npc.tail] suddenly [style.boldShrink(shortens)].")
+								+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+			}
+		}
+		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
+			if(positive) {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+							+ " Without any further warning of what's to come, [npc.her]"
+							+(owner.getTailCount()>1
+									?" [npc.tails] suddenly [style.boldGrow(grow longer)]."
+									:" [npc.tail] suddenly [style.boldGrow(grows longer)].")
+							+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+					
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+								+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+								+ " Without any further warning of what's to come, [npc.her]"
+								+(owner.getTailCount()>1
+										?" [npc.tails] suddenly [style.boldShrink(shorten)]."
+										:" [npc.tail] suddenly [style.boldShrink(shortens)].")
+								+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+			}
+		}
+		if(this.getTags().contains(TailTypeTag.TYPE_FEATHER)) {
+			if(positive) {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+							+ " Without any further warning of what's to come, [npc.her]"
+							+(owner.getTailCount()>1
+									?" [npc.tails] suddenly [style.boldGrow(grow longer)]."
+									:" [npc.tail] suddenly [style.boldGrow(grows longer)].")
+							+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+					
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+								+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+								+ " Without any further warning of what's to come, [npc.her]"
+								+(owner.getTailCount()>1
+										?" [npc.tails] suddenly [style.boldShrink(shorten)]."
+										:" [npc.tail] suddenly [style.boldShrink(shortens)].")
+								+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+			}
+		}
+		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
+			if(positive) {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+							+ " Without any further warning of what's to come, [npc.her]"
+							+(owner.getTailCount()>1
+									?" [npc.tails] suddenly [style.boldGrow(grow longer)]."
+									:" [npc.tail] suddenly [style.boldGrow(grows longer)].")
+							+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
+						+ "</p>");
+					
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+								+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] spine."
+								+ " Without any further warning of what's to come, [npc.her]"
+								+(owner.getTailCount()>1
+										?" [npc.tails] suddenly [style.boldShrink(shorten)]."
+										:" [npc.tail] suddenly [style.boldShrink(shortens)].")
+								+ "<br/>"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailLength] [npc.tail])]"+heightPercentageDescription+"!"
 						+ "</p>");
 			}
 		}

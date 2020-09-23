@@ -22,7 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
@@ -286,7 +286,7 @@ public class Properties {
 			properties.appendChild(valuesElement);
 			for(PropertyValue value : PropertyValue.values()) {
 				if(values.contains(value)) {
-					CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+					XMLUtil.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
 				}
 			}
 			

@@ -99,7 +99,7 @@ public abstract class AbstractOutfit {
 						.getMandatoryFirstOf("acceptableLegConfigurations") 
 						.getAllOf("legConfiguration")
 						.stream()
-						.map( e -> LegConfiguration.valueOf(e.getTextContent()))
+						.map( e -> LegConfiguration.getValueFromString(e.getTextContent()))
 						.filter(Objects::nonNull)
 						.collect(Collectors.toList());
 			} catch(Exception ex) {

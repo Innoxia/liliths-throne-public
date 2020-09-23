@@ -11,7 +11,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -140,14 +139,14 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
 				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-					this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 				}
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
-				CharacterUtils.applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
+				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -159,7 +158,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				this.setHistory(Occupation.NPC_MUGGER);
 				setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -167,22 +166,22 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -214,12 +213,12 @@ public class DominionAlleywayAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 		}
 	}
 	

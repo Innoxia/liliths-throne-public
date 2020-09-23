@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -317,7 +316,7 @@ public enum Subspecies {
 		@Override
 		public String getName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[0];
 				}
 				return super.getName(character);
@@ -328,7 +327,7 @@ public enum Subspecies {
 		@Override
 		public String getNamePlural(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[1];
 				}
 				return super.getNamePlural(character);
@@ -339,7 +338,7 @@ public enum Subspecies {
 		@Override
 		public String getSingularMaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[2];
 				}
 				return super.getSingularMaleName(character);
@@ -350,7 +349,7 @@ public enum Subspecies {
 		@Override
 		public String getSingularFemaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[3];
 				}
 				return super.getSingularFemaleName(character);
@@ -361,7 +360,7 @@ public enum Subspecies {
 		@Override
 		public String getPluralMaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[4];
 				}
 				return super.getPluralMaleName(character);
@@ -372,7 +371,7 @@ public enum Subspecies {
 		@Override
 		public String getPluralFemaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
-				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 					return centaurNames[5];
 				}
 				return super.getPluralFemaleName(character);
@@ -2319,7 +2318,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.NONE);
 			body.getWing().setType(null, WingType.NONE);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
@@ -2379,7 +2378,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
@@ -2445,7 +2444,7 @@ public enum Subspecies {
 			body.getHorn().setHornsPerRow(null, 1);
 			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			body.getWing().setType(null, WingType.NONE);
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
@@ -2510,7 +2509,7 @@ public enum Subspecies {
 			body.getHorn().setHornsPerRow(null, 1);
 			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
@@ -2761,7 +2760,7 @@ public enum Subspecies {
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			// Slime subspecies are set in the CharacterUtils.generateBody() method
+			// Slime subspecies are set in the Main.game.getCharacterUtils().generateBody() method
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 
@@ -4110,7 +4109,7 @@ public enum Subspecies {
 				break;
 			case TAIL_LONG:
 				break;
-			case TAUR:
+			case QUADRUPEDAL:
 				if(body.getSubspeciesOverride()==null) {
 					if(body.getLeg().getType().getRace()==Race.HORSE_MORPH) {
 						if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
@@ -4466,19 +4465,19 @@ public enum Subspecies {
 					case ELDER_LILIN:
 					case LILIN:
 						if(motherSubspecies==Subspecies.ELDER_LILIN || motherSubspecies==Subspecies.LILIN) {
-							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.LILIN, RaceStage.GREATER);
+							return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.LILIN, RaceStage.GREATER);
 						} else {
-							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
+							return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 						}
 					case DEMON:
-						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
+						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 					case HALF_DEMON:
-						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
+						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 					case IMP:
 					case IMP_ALPHA:
-						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 					default:
-						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
+						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
 				}
 			case HALF_DEMON:
 				if(motherHalfDemonSubspecies==Subspecies.HUMAN) {
@@ -4488,11 +4487,11 @@ public enum Subspecies {
 						case DEMON:
 						case HALF_DEMON:
 							if(fatherHalfDemonSubspecies==Subspecies.HUMAN) {
-								return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);	
+								return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);	
 							}
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+							return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 						default:
-							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+							return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 					}
 					
 				} else {
@@ -4500,27 +4499,27 @@ public enum Subspecies {
 						case ELDER_LILIN:
 						case LILIN:
 						case DEMON:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+							return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 						case HALF_DEMON: // If both are non-human half-demons, it's random as to whose species is birthed
 							if(Math.random()<0.5f || fatherHalfDemonSubspecies==Subspecies.HUMAN) {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+								return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 							} else {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
+								return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 							}
 						case IMP:
 						case IMP_ALPHA:
-							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+							return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 						default:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+							return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					}
 				}
 			case IMP_ALPHA:
 			case IMP:
 				switch(fatherSubspecies) {
 					case IMP:
-						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 					default:
-						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 				}
 			default:
 				switch(fatherSubspecies) {
@@ -4573,7 +4572,7 @@ public enum Subspecies {
 				return "mer"+baseName+(plural?"s":"");
 			case TAIL_LONG:
 				return baseName+"-lamia"+(plural?"s":"");
-			case TAUR:
+			case QUADRUPEDAL:
 				return baseName+getTaurEnding()+(applyFeminineForm?"ess"+(plural?"es":""):(plural?"s":""));
 		}
 		return baseName;

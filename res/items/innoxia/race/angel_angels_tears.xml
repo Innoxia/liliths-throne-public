@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>100000</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Angel's Tears]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Angel's Tears]]></namePlural>
+		<description><![CDATA[A delicate glass vial full of a light turquoise liquid.​ There's an image of a weeping angel engraved into the glass, and you see that her tears are falling into a vial just like this one.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">angel_angels_tears.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_CORRUPTION</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_CORRUPTION</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 100% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Restores)] 100% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldExcellent(Lowers)] [style.boldLust(lust)] to resting level]]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_LUST.getFormattedValue(50)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM))]
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM))]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of pure energy washes over [npc.name]...
+			</p>
+			#IF(npc.getLust()>npc.getRestingLust)
+				[#npc.setLust(npc.getRestingLust())]
+			#ENDIF
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_LUST, 50)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Pulling out the stopper from the vial of Angel's Tears, [npc.name] [npc.verb(bring)] it up to [npc.her] waiting [npc.lips]. The faint scent of roses rises up from the opening, and [npc.she] [npc.verb(find)] [npc.herself] letting out a gentle sigh before tilting back [npc.her] head and drinking down all of the cool liquid.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Pulling out the stopper from the vial of Angel's Tears, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. The faint scent of roses rises up from the opening, and [npc2.name] [npc2.verb(find)] [npc2.herself] letting out a gentle sigh before tilting back [npc2.her] head and drinking down all of the cool liquid.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -106,11 +105,11 @@ public class SlaveInStocks extends NPC {
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
@@ -119,7 +118,7 @@ public class SlaveInStocks extends NPC {
 
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 
 			if(Math.random()<0.8f) {
 				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);

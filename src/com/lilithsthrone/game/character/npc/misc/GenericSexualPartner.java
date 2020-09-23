@@ -12,7 +12,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -119,15 +118,15 @@ public class GenericSexualPartner extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, false);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
@@ -135,7 +134,7 @@ public class GenericSexualPartner extends NPC {
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -160,7 +159,7 @@ public class GenericSexualPartner extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 	}
 	
 	@Override

@@ -36,6 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -722,36 +723,36 @@ public abstract class GameCharacter implements XMLSaving {
 		Comment comment = doc.createComment("If you want to edit any of these values, just be warned that it might break the game...");
 		properties.appendChild(characterCoreInfo);
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().getCanonicalName());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().getCanonicalName());
 		
 		Element name = doc.createElement("name");
 		characterCoreInfo.appendChild(name);
-		CharacterUtils.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
-		CharacterUtils.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
-		CharacterUtils.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
+		XMLUtil.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
+		XMLUtil.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
+		XMLUtil.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerOnFirstNameTerms", String.valueOf(this.isPlayerOnFirstNameTerms()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "genericName", this.getGenericName());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "playerOnFirstNameTerms", String.valueOf(this.isPlayerOnFirstNameTerms()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "raceConcealed", String.valueOf(this.isRaceConcealed()));
 		if(captive) {
-			CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "captive", String.valueOf(captive));
+			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "captive", String.valueOf(captive));
 		}
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "ageAppearanceDifference", String.valueOf(this.getAgeAppearanceDifference()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "yearOfBirth", String.valueOf(this.getBirthday().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "monthOfBirth", this.getBirthMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elementalSummoned", String.valueOf(elementalSummoned));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "ageAppearanceDifference", String.valueOf(this.getAgeAppearanceDifference()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "yearOfBirth", String.valueOf(this.getBirthday().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "monthOfBirth", this.getBirthMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "elementalSummoned", String.valueOf(elementalSummoned));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
 		
 		Element desiredJobsElement = doc.createElement("desiredJobs");
 		characterCoreInfo.appendChild(desiredJobsElement);
@@ -768,8 +769,8 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("petNameEntry");
 			petnamesElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, element, "petName", entry.getValue().toString());
+			XMLUtil.addAttribute(doc, element, "id", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, element, "petName", entry.getValue().toString());
 		}
 		
 		Element personalityElement = doc.createElement("personality");
@@ -780,19 +781,19 @@ public abstract class GameCharacter implements XMLSaving {
 			element.setTextContent(trait.toString());
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "foughtPlayerCount", String.valueOf(this.getFoughtPlayerCount()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lostCombatCount", String.valueOf(this.getLostCombatCount()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "wonCombatCount", String.valueOf(this.getWonCombatCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "foughtPlayerCount", String.valueOf(this.getFoughtPlayerCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "lostCombatCount", String.valueOf(this.getLostCombatCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "wonCombatCount", String.valueOf(this.getWonCombatCount()));
 		
 
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getAdditionalPerkPoints()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getAdditionalPerkPoints()));
 
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
 		
 		// Knows area map:
 		Element areasKnownByCharactersElement = doc.createElement("areasKnownByCharacters");
@@ -801,12 +802,12 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!this.areasKnownByCharactersMap.get(area).isEmpty()) {
 				Element element = doc.createElement("area");
 				areasKnownByCharactersElement.appendChild(element);
-				CharacterUtils.addAttribute(doc, element, "type", area.toString());
+				XMLUtil.addAttribute(doc, element, "type", area.toString());
 				
 				for(String id : areasKnownByCharactersMap.get(area)) {
 					Element elementId = doc.createElement("character");
 					element.appendChild(elementId);
-					CharacterUtils.addAttribute(doc, elementId, "id", id);
+					XMLUtil.addAttribute(doc, elementId, "id", id);
 				}
 			}
 		}
@@ -818,20 +819,20 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element locationInformation = doc.createElement("locationInformation");
 		properties.appendChild(locationInformation);
-		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "worldLocation", WorldType.getIdFromWorldType(this.getWorldLocation()));
-		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", WorldType.getIdFromWorldType(this.getHomeWorldLocation()));
+		XMLUtil.createXMLElementWithValue(doc, locationInformation, "worldLocation", WorldType.getIdFromWorldType(this.getWorldLocation()));
+		XMLUtil.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", WorldType.getIdFromWorldType(this.getHomeWorldLocation()));
 		Element location = doc.createElement("location");
 		locationInformation.appendChild(location);
-		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
-		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
+		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
+		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
 		location = doc.createElement("homeLocation");
 		locationInformation.appendChild(location);
-		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getHomeLocation().getX()));
-		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getHomeLocation().getY()));
+		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getHomeLocation().getX()));
+		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getHomeLocation().getY()));
 		location = doc.createElement("globalLocation");
 		locationInformation.appendChild(location);
-		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getGlobalLocation().getX()));
-		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getGlobalLocation().getY()));
+		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getGlobalLocation().getX()));
+		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getGlobalLocation().getY()));
 		
 		
 
@@ -877,7 +878,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element element = doc.createElement("scarEntry");
 				scarsElement.appendChild(element);
 	
-				CharacterUtils.addAttribute(doc, element, "slot", scar.getKey().toString());
+				XMLUtil.addAttribute(doc, element, "slot", scar.getKey().toString());
 				scar.getValue().saveAsXML(element, doc);
 			}
 		}
@@ -889,7 +890,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element element = doc.createElement("tattooEntry");
 				tattooElement.appendChild(element);
 	
-				CharacterUtils.addAttribute(doc, element, "slot", tattoo.getKey().toString());
+				XMLUtil.addAttribute(doc, element, "slot", tattoo.getKey().toString());
 				tattoo.getValue().saveAsXML(element, doc);
 			}
 		}
@@ -900,7 +901,7 @@ public abstract class GameCharacter implements XMLSaving {
 			for(Entry<InventorySlot, SizedStack<Covering>> lipstickEntry : this.lipstickMarks.entrySet()) {
 				Element element = doc.createElement("lipstickEntry");
 				lipstickMarksElement.appendChild(element);
-				CharacterUtils.addAttribute(doc, element, "slot", lipstickEntry.getKey().toString());
+				XMLUtil.addAttribute(doc, element, "slot", lipstickEntry.getKey().toString());
 				
 				for(Covering covering : lipstickEntry.getValue()) {
 					covering.saveAsXML(element, doc);
@@ -919,8 +920,8 @@ public abstract class GameCharacter implements XMLSaving {
 				Element element = doc.createElement("attribute");
 				characterCoreAttributes.appendChild(element);
 				
-				CharacterUtils.addAttribute(doc, element, "type", att.toString());
-				CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
+				XMLUtil.addAttribute(doc, element, "type", att.toString());
+				XMLUtil.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
 			}
 		}
 		
@@ -930,8 +931,8 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("attribute");
 			characterPotionAttributes.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "type", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(entry.getValue()));
+			XMLUtil.addAttribute(doc, element, "type", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getValue()));
 		}
 		
 		// Perks:
@@ -941,7 +942,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractPerk p : this.getTraits()){
 			Element element = doc.createElement("perk");
 			characterEquippedPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
+			XMLUtil.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 
 		Element characterSpecialPerks = doc.createElement("specialPerks");
@@ -949,7 +950,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractPerk p : this.getSpecialPerks()){
 			Element element = doc.createElement("perk");
 			characterSpecialPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
+			XMLUtil.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 		
 		Element characterPerks = doc.createElement("perks");
@@ -959,8 +960,8 @@ public abstract class GameCharacter implements XMLSaving {
 				Element element = doc.createElement("perk");
 				characterPerks.appendChild(element);
 	
-				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
-				CharacterUtils.addAttribute(doc, element, "type",  Perk.getIdFromPerk(perk));
+				XMLUtil.addAttribute(doc, element, "row", p.getKey().toString());
+				XMLUtil.addAttribute(doc, element, "type",  Perk.getIdFromPerk(perk));
 			}
 		}
 		
@@ -970,7 +971,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(Spell spell : this.getSpells()) {
 			Element element = doc.createElement("spell");
 			characterSpells.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", spell.toString());
+			XMLUtil.addAttribute(doc, element, "type", spell.toString());
 		}
 		
 		Element characterSpellUpgrades = doc.createElement("spellUpgrades");
@@ -978,7 +979,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(SpellUpgrade upgrade : this.getSpellUpgrades()) {
 			Element element = doc.createElement("upgrade");
 			characterSpellUpgrades.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", upgrade.toString());
+			XMLUtil.addAttribute(doc, element, "type", upgrade.toString());
 		}
 
 		Element characterSpellUpgradePoints = doc.createElement("spellUpgradePoints");
@@ -986,8 +987,8 @@ public abstract class GameCharacter implements XMLSaving {
 		for(SpellSchool school : SpellSchool.values()) {
 			Element element = doc.createElement("upgradeEntry");
 			characterSpellUpgradePoints.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "school", school.toString());
-			CharacterUtils.addAttribute(doc, element, "points", String.valueOf(this.getSpellUpgradePoints(school)));
+			XMLUtil.addAttribute(doc, element, "school", school.toString());
+			XMLUtil.addAttribute(doc, element, "points", String.valueOf(this.getSpellUpgradePoints(school)));
 		}
 		
 		// Fetishes:
@@ -997,7 +998,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("fetish");
 			characterFetishes.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "type", f.toString());
+			XMLUtil.addAttribute(doc, element, "type", f.toString());
 		}
 		
 		Element fetishDesire = doc.createElement("fetishDesire");
@@ -1006,8 +1007,8 @@ public abstract class GameCharacter implements XMLSaving {
 			Element fondnessEntry = doc.createElement("entry");
 			fetishDesire.appendChild(fondnessEntry);
 			
-			CharacterUtils.addAttribute(doc, fondnessEntry, "fetish", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, fondnessEntry, "desire", entry.getValue().toString());
+			XMLUtil.addAttribute(doc, fondnessEntry, "fetish", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, fondnessEntry, "desire", entry.getValue().toString());
 		}
 		
 		Element fetishExperience = doc.createElement("fetishExperience");
@@ -1016,8 +1017,8 @@ public abstract class GameCharacter implements XMLSaving {
 			Element expEntry = doc.createElement("entry");
 			fetishExperience.appendChild(expEntry);
 			
-			CharacterUtils.addAttribute(doc, expEntry, "fetish", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, expEntry, "experience", String.valueOf(entry.getValue()));
+			XMLUtil.addAttribute(doc, expEntry, "fetish", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, expEntry, "experience", String.valueOf(entry.getValue()));
 		}
 		
 		
@@ -1028,10 +1029,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("statusEffect");
 			characterStatusEffects.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "type", StatusEffect.getIdFromStatusEffect(ase.getEffect()));
-			CharacterUtils.addAttribute(doc, element, "sr", String.valueOf(ase.getSecondsRemaining()));
-			CharacterUtils.addAttribute(doc, element, "sp", String.valueOf(ase.getSecondsPassed()));
-			CharacterUtils.addAttribute(doc, element, "lta", String.valueOf(ase.getLastTimeAppliedEffect()));
+			XMLUtil.addAttribute(doc, element, "type", StatusEffect.getIdFromStatusEffect(ase.getEffect()));
+			XMLUtil.addAttribute(doc, element, "sr", String.valueOf(ase.getSecondsRemaining()));
+			XMLUtil.addAttribute(doc, element, "sp", String.valueOf(ase.getSecondsPassed()));
+			XMLUtil.addAttribute(doc, element, "lta", String.valueOf(ase.getLastTimeAppliedEffect()));
 		}
 
 
@@ -1044,7 +1045,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("move");
 			characterMoves.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
+			XMLUtil.addAttribute(doc, element, "type", move.getIdentifier());
 		}
 
 		// Equipped moves
@@ -1054,7 +1055,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("move");
 			characterEquippedMoves.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
+			XMLUtil.addAttribute(doc, element, "type", move.getIdentifier());
 		}
 		
 		
@@ -1067,8 +1068,8 @@ public abstract class GameCharacter implements XMLSaving {
 			Element relationship = doc.createElement("relationship");
 			characterRelationships.appendChild(relationship);
 			
-			CharacterUtils.addAttribute(doc, relationship, "character", entry.getKey());
-			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
+			XMLUtil.addAttribute(doc, relationship, "character", entry.getKey());
+			XMLUtil.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
 		}
 		
 		
@@ -1078,7 +1079,7 @@ public abstract class GameCharacter implements XMLSaving {
 		// Pregnancy:
 		Element characterPregnancy = doc.createElement("pregnancy");
 		properties.appendChild(characterPregnancy);
-		CharacterUtils.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
+		XMLUtil.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
 
 		if(!this.getPotentialPartnersAsMother().isEmpty()) {
 			Element characterPotentialPartnersAsMother = doc.createElement("potentialPartnersAsMother");
@@ -1122,7 +1123,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element pregnancyReactionsElement = doc.createElement("pregnancyReactions");
 			characterPregnancy.appendChild(pregnancyReactionsElement);
 			for(String value : pregnancyReactions) {
-				CharacterUtils.createXMLElementWithValue(doc, pregnancyReactionsElement, "id", value.toString());
+				XMLUtil.createXMLElementWithValue(doc, pregnancyReactionsElement, "id", value.toString());
 			}
 		}
 		
@@ -1133,11 +1134,11 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterFamily = doc.createElement("family");
 		properties.appendChild(characterFamily);
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		XMLUtil.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
+		XMLUtil.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
+		XMLUtil.createXMLElementWithValue(doc, characterFamily, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, characterFamily, "monthOfConception", this.getConceptionDate().getMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
 		
 		
 		
@@ -1147,7 +1148,7 @@ public abstract class GameCharacter implements XMLSaving {
 		properties.appendChild(slaveryElement);
 		
 		if(this.isAbleToBeEnslaved()) {
-			CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "ableToBeEnslaved", String.valueOf(this.isAbleToBeEnslaved()));
+			XMLUtil.createXMLElementWithValue(doc, slaveryElement, "ableToBeEnslaved", String.valueOf(this.isAbleToBeEnslaved()));
 		}
 		
 		Element slavesOwned = doc.createElement("slavesOwned");
@@ -1156,10 +1157,10 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("slave");
 			slavesOwned.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", slave);
+			XMLUtil.addAttribute(doc, element, "id", slave);
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
+		XMLUtil.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
 		
 		if(this.isSlave()) {
 			Element slaveJobSettings = doc.createElement("slaveJobSettings");
@@ -1167,7 +1168,7 @@ public abstract class GameCharacter implements XMLSaving {
 			for(SlaveJob job : SlaveJob.values()) {
 				if(!this.getSlaveJobSettings(job).isEmpty()) {
 					Element element = doc.createElement("jobSetting");
-					CharacterUtils.addAttribute(doc, element, "job", job.toString());
+					XMLUtil.addAttribute(doc, element, "job", job.toString());
 					slaveJobSettings.appendChild(element);
 					for(SlaveJobSetting setting : this.getSlaveJobSettings(job)) {
 						Element settingElement = doc.createElement("setting");
@@ -1183,11 +1184,11 @@ public abstract class GameCharacter implements XMLSaving {
 				Element element = doc.createElement("permission");
 				slavePermissionSettings.appendChild(element);
 	
-				CharacterUtils.addAttribute(doc, element, "type", entry.getKey().toString());
+				XMLUtil.addAttribute(doc, element, "type", entry.getKey().toString());
 				for(SlavePermissionSetting setting : entry.getValue()) {
 					Element settingElement = doc.createElement("setting");
 					element.appendChild(settingElement);
-					CharacterUtils.addAttribute(doc, settingElement, "value", setting.toString());
+					XMLUtil.addAttribute(doc, settingElement, "value", setting.toString());
 				}
 			}
 			
@@ -1195,7 +1196,7 @@ public abstract class GameCharacter implements XMLSaving {
 			slaveryElement.appendChild(slaveAssignedJobs);
 			for(int i=0; i<workHours.length; i++) {
 				if(workHours[i]!=SlaveJob.IDLE) {
-					CharacterUtils.addAttribute(doc, slaveAssignedJobs, "h"+String.valueOf(i), workHours[i].toString());
+					XMLUtil.addAttribute(doc, slaveAssignedJobs, "h"+String.valueOf(i), workHours[i].toString());
 				}
 			}
 		}
@@ -1212,11 +1213,11 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("companion");
 			companionsFollowing.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", companion);
+			XMLUtil.addAttribute(doc, element, "id", companion);
 		}
 		
-		CharacterUtils.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
-		CharacterUtils.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
+		XMLUtil.createXMLElementWithValue(doc, companionElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
+		XMLUtil.createXMLElementWithValue(doc, companionElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
 		
 		
 		
@@ -1231,15 +1232,15 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("entry");
 			fluidsStoredMapElement.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "orifice", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, element, "orifice", entry.getKey().toString());
 			for(FluidStored f : entry.getValue()) {
 				f.saveAsXML(element, doc);
 			}
 		}
 
-		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCount", String.valueOf(this.getDaysOrgasmCount()));
-		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCountRecord", String.valueOf(this.getDaysOrgasmCountRecord()));
-		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "totalOrgasmCount", String.valueOf(this.getTotalOrgasmCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCount", String.valueOf(this.getDaysOrgasmCount()));
+		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCountRecord", String.valueOf(this.getDaysOrgasmCountRecord()));
+		XMLUtil.createXMLElementWithValue(doc, characterSexStats, "totalOrgasmCount", String.valueOf(this.getTotalOrgasmCount()));
 		
 		Element sexPartners = doc.createElement("sexPartners");
 		characterSexStats.appendChild(sexPartners);
@@ -1265,7 +1266,7 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterAddictionsCore = doc.createElement("addictionsCore");
 		properties.appendChild(characterAddictionsCore);
 
-		CharacterUtils.addAttribute(doc, characterAddictionsCore, "alcoholLevel", String.valueOf(alcoholLevel));
+		XMLUtil.addAttribute(doc, characterAddictionsCore, "alcoholLevel", String.valueOf(alcoholLevel));
 		
 		Element characterAddictions = doc.createElement("addictions");
 		characterAddictionsCore.appendChild(characterAddictions);
@@ -1279,7 +1280,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractFluidType ft : this.getPsychoactiveFluidsIngested()) {
 			Element element = doc.createElement("fluid");
 			psychoactives.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "value", FluidType.getIdFromFluidType(ft));
+			XMLUtil.addAttribute(doc, element, "value", FluidType.getIdFromFluidType(ft));
 		}
 
 
@@ -1294,14 +1295,14 @@ public abstract class GameCharacter implements XMLSaving {
 			if (index != getDefaultArtworkIndex()) {
 				Element artistElement = doc.createElement("overrideArtist");
 				artworkOverride.appendChild(artistElement);
-				CharacterUtils.addAttribute(doc, artistElement, "index", String.valueOf(index));
+				XMLUtil.addAttribute(doc, artistElement, "index", String.valueOf(index));
 			}
 
 			index = getCurrentArtwork().getIndex();
 			if (getCurrentArtwork().getIndex() != 0) {
 				Element imageElement = doc.createElement("overrideImage");
 				artworkOverride.appendChild(imageElement);
-				CharacterUtils.addAttribute(doc, imageElement, "index", String.valueOf(index));
+				XMLUtil.addAttribute(doc, imageElement, "index", String.valueOf(index));
 			}
 		}
 
@@ -1341,7 +1342,7 @@ public abstract class GameCharacter implements XMLSaving {
 		String loadedCharacterId = getValueFromElementWithTagName(element, "id");
 		if (loadedCharacterId != null) {
 			character.setId(loadedCharacterId);
-			CharacterUtils.appendToImportLog(log, "<br/>Set id: " + character.getId());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set id: " + character.getId());
 		}
 		
 		// Name:
@@ -1349,7 +1350,7 @@ public abstract class GameCharacter implements XMLSaving {
 		String nameElementValue = nameElement.getAttribute("value");
 		if (!nameElementValue.isEmpty()) {
 			character.setName(new NameTriplet(nameElementValue));
-			CharacterUtils.appendToImportLog(log, "<br/>Set name: " + nameElementValue);
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set name: " + nameElementValue);
 		} else {
 			String nameMasculine = nameElement.getAttribute("nameMasculine");
 			String nameAndrogynous = nameElement.getAttribute("nameAndrogynous");
@@ -1366,7 +1367,7 @@ public abstract class GameCharacter implements XMLSaving {
 			String surname = ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value");
 			if((surname!=null && !surname.isEmpty()) || character.isPlayer()) {
 				character.setSurname(surname);
-				CharacterUtils.appendToImportLog(log, "<br/>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
 			}
 		}
 
@@ -1377,12 +1378,12 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// Level:
 		character.setLevel(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
-		CharacterUtils.appendToImportLog(log, "<br/>Set level: " + Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
+		Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set level: " + Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
 		
 		// Age appearance difference:
 		try {
 			character.setAgeAppearanceDifference(Integer.valueOf(((Element)element.getElementsByTagName("ageAppearanceDifference").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set ageAppearanceDifference: " + Integer.valueOf(((Element)element.getElementsByTagName("ageAppearanceDifference").item(0)).getAttribute("value")));
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set ageAppearanceDifference: " + Integer.valueOf(((Element)element.getElementsByTagName("ageAppearanceDifference").item(0)).getAttribute("value")));
 		} catch(Exception ex) {
 		}
 		
@@ -1400,16 +1401,16 @@ public abstract class GameCharacter implements XMLSaving {
 		if(element.getElementsByTagName("sexualOrientation").getLength()!=0) {
 			if(!((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value").equals("null")) {
 				character.setSexualOrientation(SexualOrientation.valueOf(((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set Sexual Orientation: " + SexualOrientation.valueOf(((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value")));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set Sexual Orientation: " + SexualOrientation.valueOf(((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value")));
 			} else {
 				character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-				CharacterUtils.appendToImportLog(log, "<br/>Set Sexual Orientation: " + SexualOrientation.AMBIPHILIC);
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set Sexual Orientation: " + SexualOrientation.AMBIPHILIC);
 			}
 		}
 
 		if(element.getElementsByTagName("description").getLength()!=0) {
 			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Set description");
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set description");
 		}
 
 		if(element.getElementsByTagName("petNames").getLength()!=0) {
@@ -1421,7 +1422,7 @@ public abstract class GameCharacter implements XMLSaving {
 					Element e = ((Element)petNameEntries.item(i));
 					try {
 						character.setPetName(e.getAttribute("id"), e.getAttribute("petName"));
-						CharacterUtils.appendToImportLog(log, "<br/>Added pet name: "+e.getAttribute("id")+" "+e.getAttribute("petName"));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added pet name: "+e.getAttribute("id")+" "+e.getAttribute("petName"));
 					}catch(IllegalArgumentException ex){
 					}
 				}
@@ -1432,19 +1433,19 @@ public abstract class GameCharacter implements XMLSaving {
 			try {
 				if(!petName.isEmpty()) {
 					character.setPetName(Main.game.getPlayer().getId(), petName);
-					CharacterUtils.appendToImportLog(log, "<br/>Set playerPetName: "+petName);
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set playerPetName: "+petName);
 				}
 			} catch(Exception ex) {
 			}
 		}
 		if(element.getElementsByTagName("playerKnowsName").getLength()!=0) {
 			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set playerKnowsName: "+character.isPlayerKnowsName());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set playerKnowsName: "+character.isPlayerKnowsName());
 		}
 
 		if(element.getElementsByTagName("playerOnFirstNameTerms").getLength()!=0) {
 			character.setPlayerOnFirstNameTerms(Boolean.valueOf(((Element)element.getElementsByTagName("playerOnFirstNameTerms").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set playerOnFirstNameTerms: "+character.isPlayerOnFirstNameTerms());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set playerOnFirstNameTerms: "+character.isPlayerOnFirstNameTerms());
 		}
 		
 		if(removeRaceConcealed) {
@@ -1452,12 +1453,12 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			if(element.getElementsByTagName("raceConcealed").getLength()!=0) {
 				character.setRaceConcealed(Boolean.valueOf(((Element)element.getElementsByTagName("raceConcealed").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set raceConcealed: "+character.isRaceConcealed());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set raceConcealed: "+character.isRaceConcealed());
 			}
 		}
 		if(element.getElementsByTagName("captive").getLength()!=0) {
 			character.setCaptive(Boolean.valueOf(((Element)element.getElementsByTagName("captive").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set captive: "+character.captive);
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set captive: "+character.captive);
 		}
 		if(element.getElementsByTagName("history").getLength()!=0) {
 			try {
@@ -1468,10 +1469,10 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 				character.setHistory(Occupation.valueOf(history));
-				CharacterUtils.appendToImportLog(log, "<br/>Set history: "+character.getHistory());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set history: "+character.getHistory());
 			} catch(Exception ex) {
 				character.setHistory(Occupation.STUDENT);
-				CharacterUtils.appendToImportLog(log, "<br/>History import failed. Set history to: "+character.getHistory());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>History import failed. Set history to: "+character.getHistory());
 			}
 		}
 
@@ -1528,7 +1529,7 @@ public abstract class GameCharacter implements XMLSaving {
 							try {
 								PersonalityTrait t = PersonalityTrait.valueOf(e.getTextContent());
 								character.addPersonalityTrait(t);
-								CharacterUtils.appendToImportLog(log, "<br/>Added personality trait: "+t);
+								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added personality trait: "+t);
 							}catch(IllegalArgumentException ex){
 							}
 						}
@@ -1581,7 +1582,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
 			character.setObedienceSilentlyFromSavefile(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set obedience: "+character.getObedience());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set obedience: "+character.getObedience());
 		}
 		
 		boolean setGenderIdentity = false;
@@ -1589,7 +1590,7 @@ public abstract class GameCharacter implements XMLSaving {
 			try {
 				if(!((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value").equals("null")) {
 					character.setGenderIdentity(Gender.valueOf(((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set genderIdentity: "+character.getGenderIdentity());
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set genderIdentity: "+character.getGenderIdentity());
 					setGenderIdentity = true;
 				}
 			} catch (Exception ex) {
@@ -1599,17 +1600,17 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!clearCombatHistory) {
 			if(element.getElementsByTagName("foughtPlayerCount").getLength()!=0) {
 				character.setFoughtPlayerCount(Integer.valueOf(((Element)element.getElementsByTagName("foughtPlayerCount").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set foughtPlayerCount: "+character.getFoughtPlayerCount());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set foughtPlayerCount: "+character.getFoughtPlayerCount());
 			}
 			
 			if(element.getElementsByTagName("lostCombatCount").getLength()!=0) {
 				character.setLostCombatCount(Integer.valueOf(((Element)element.getElementsByTagName("lostCombatCount").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set lostCombatCount: "+character.getLostCombatCount());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set lostCombatCount: "+character.getLostCombatCount());
 			}
 			
 			if(element.getElementsByTagName("wonCombatCount").getLength()!=0) {
 				character.setWonCombatCount(Integer.valueOf(((Element)element.getElementsByTagName("wonCombatCount").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set wonCombatCount: "+character.getWonCombatCount());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set wonCombatCount: "+character.getWonCombatCount());
 			}
 		}
 		
@@ -1657,7 +1658,7 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 						
-						CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 					}
 					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.3.6") && attribute==Attribute.DAMAGE_IMP) {
 						if(Float.valueOf(e.getAttribute("value"))>=100) {
@@ -1670,7 +1671,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			extraLevelUpPoints = (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5);
-			CharacterUtils.appendToImportLog(log, "<br/>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
 		}
 		
 		
@@ -1680,11 +1681,11 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(element.getElementsByTagName("health").getLength()!=0) {
 			newHealth = Float.valueOf(((Element)element.getElementsByTagName("health").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Loaded health: "+character.getHealth());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Loaded health: "+character.getHealth());
 		}
 		if(element.getElementsByTagName("mana").getLength()!=0) {
 			newMana = Float.valueOf(((Element)element.getElementsByTagName("mana").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Loaded mana: "+character.getMana());
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Loaded mana: "+character.getMana());
 		}
 
 		// Knows area map:
@@ -1701,7 +1702,7 @@ public abstract class GameCharacter implements XMLSaving {
 						try {
 							String id = Main.game.getPlayer().getId();
 							character.setAreaKnownByCharacter(ca, id, true);
-							CharacterUtils.appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
 						}catch(IllegalArgumentException ex){
 						}
 					}
@@ -1723,7 +1724,7 @@ public abstract class GameCharacter implements XMLSaving {
 							try {
 								String id = characterIdElement.getAttribute("id");
 								character.setAreaKnownByCharacter(ca, id, true);
-								CharacterUtils.appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
+								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added character knows area: "+ca+", "+id);
 							}catch(IllegalArgumentException ex){
 							}
 						}
@@ -1740,16 +1741,16 @@ public abstract class GameCharacter implements XMLSaving {
 			element = (Element) nodes.item(0);
 	
 			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")), false);
-			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 		} else {
 			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")), false);
-			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
 				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.3.9")) {
 					character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 				}
 			} catch(Exception ex) {
 			}
@@ -2013,7 +2014,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 				try {
 					character.addPotionEffect(Attribute.getAttributeFromId(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")), false);
-					CharacterUtils.appendToImportLog(log, "<br/>Set Potion Attribute: "+Attribute.getAttributeFromId(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set Potion Attribute: "+Attribute.getAttributeFromId(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -2032,7 +2033,7 @@ public abstract class GameCharacter implements XMLSaving {
 						&& (!Main.isVersionOlderThan(version, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character))) { // If older than 0.2.12, check to see if the perk should actually be added.
 					character.addTrait(p);
 				}
-				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 
@@ -2045,7 +2046,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)perkElements.item(i));
 				AbstractPerk p = Perk.getPerkFromId(e.getAttribute("type"));
 				character.addSpecialPerk(p);
-				CharacterUtils.appendToImportLog(log, "<br/>Added Special Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Special Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 		
@@ -2066,7 +2067,7 @@ public abstract class GameCharacter implements XMLSaving {
 							AbstractPerk p = Perk.getPerkFromId(type);
 							if(!Main.isVersionOlderThan(version, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character)) { // If older than 0.3, check to see if the perk should actually be added.
 								character.addPerk(Integer.valueOf(e.getAttribute("row")), p);
-								CharacterUtils.appendToImportLog(log, "<br/>Added Perk: "+p.getName(character));
+								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Perk: "+p.getName(character));
 							}
 						}
 					} catch(Exception ex) {
@@ -2136,12 +2137,12 @@ public abstract class GameCharacter implements XMLSaving {
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
 							character.incrementEssenceCount(5, false);
-							CharacterUtils.appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
 						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
 							if(Boolean.valueOf(e.getAttribute("value"))) {
 								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-								CharacterUtils.appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+								Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
 							}
 						}
 					}catch(IllegalArgumentException ex){
@@ -2155,11 +2156,11 @@ public abstract class GameCharacter implements XMLSaving {
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
 							character.incrementEssenceCount(5, false);
-							CharacterUtils.appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added refund for old non-con fetish. (+5 arcane essences)");
 							
 						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
 							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-							CharacterUtils.appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
 						}
 					}catch(IllegalArgumentException ex){
 					}
@@ -2176,7 +2177,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 				try {
 					character.setFetishDesire(Fetish.valueOf(e.getAttribute("fetish")), FetishDesire.valueOf(e.getAttribute("desire")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set fetish desire: "+e.getAttribute("fetish") +" , "+ e.getAttribute("desire"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set fetish desire: "+e.getAttribute("fetish") +" , "+ e.getAttribute("desire"));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -2191,7 +2192,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 				try {
 					character.setFetishExperience(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("experience")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set fetish experience: "+e.getAttribute("fetish") +" , "+ e.getAttribute("experience"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set fetish experience: "+e.getAttribute("fetish") +" , "+ e.getAttribute("experience"));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -2215,7 +2216,7 @@ public abstract class GameCharacter implements XMLSaving {
 								seconds*=60;
 							}
 							character.addStatusEffect(effect, seconds);
-							CharacterUtils.appendToImportLog(log, "<br/>Added Status Effect: "+effect.getName(character));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Status Effect: "+effect.getName(character));
 						}
 					}
 					
@@ -2226,7 +2227,7 @@ public abstract class GameCharacter implements XMLSaving {
 						if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
 							character.addStatusEffect(effect, Long.valueOf(e.getAttribute("lta")), Long.valueOf(e.getAttribute("sp")), Integer.valueOf(e.getAttribute("sr")));
 							
-							CharacterUtils.appendToImportLog(log, "<br/>Added Status Effect: "+effect.getName(character));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Status Effect: "+effect.getName(character));
 						}
 					}
 				}
@@ -2278,7 +2279,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				if(!characterId.equals("NOT_SET")) {
 					character.setAffection(characterId, Float.valueOf(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set Relationship: "+characterId +" , "+ Float.valueOf(e.getAttribute("value")));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set Relationship: "+characterId +" , "+ Float.valueOf(e.getAttribute("value")));
 				}
 			}
 		}
@@ -2291,7 +2292,7 @@ public abstract class GameCharacter implements XMLSaving {
 			nodes = parentElement.getElementsByTagName("pregnancy");
 			Element pregnancyElement = (Element) nodes.item(0);
 			if(pregnancyElement!=null) {
-				CharacterUtils.appendToImportLog(log, "<br/><br/>Pregnancies:");
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Pregnancies:");
 				
 				if(Main.isVersionOlderThan(version, "0.3.0.6")) {
 					character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage"))*60);
@@ -2308,7 +2309,7 @@ public abstract class GameCharacter implements XMLSaving {
 							Element e = ((Element)motherPregPossibilities.item(i));
 							
 							character.getPotentialPartnersAsMother().add(PregnancyPossibility.loadFromXML(e, doc));
-							CharacterUtils.appendToImportLog(log, "<br/>Added Pregnancy Possibility as mother.");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Pregnancy Possibility as mother.");
 						}
 					}
 				}
@@ -2322,7 +2323,7 @@ public abstract class GameCharacter implements XMLSaving {
 							Element e = ((Element)fatherPregPossibilities.item(i));
 							
 							character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
-							CharacterUtils.appendToImportLog(log, "<br/>Added Pregnancy Possibility as father.");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Pregnancy Possibility as father.");
 						}
 					}
 				}
@@ -2332,7 +2333,7 @@ public abstract class GameCharacter implements XMLSaving {
 					element = (Element) ((Element) nodes.item(0)).getElementsByTagName("litter").item(0);
 					if(element!=null) {
 						character.setPregnantLitter(Litter.loadFromXML(element, doc));
-						CharacterUtils.appendToImportLog(log, "<br/>Added Pregnant litter.");
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Pregnant litter.");
 					}
 				}
 				
@@ -2345,7 +2346,7 @@ public abstract class GameCharacter implements XMLSaving {
 							Element e = ((Element)litterElements.item(i));
 							
 							character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
-							CharacterUtils.appendToImportLog(log, "<br/>Added litter birthed.");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter birthed.");
 						}
 					}
 				}
@@ -2359,7 +2360,7 @@ public abstract class GameCharacter implements XMLSaving {
 							Element e = ((Element)litterElements.item(i));
 							
 							character.getLittersFathered().add(Litter.loadFromXML(e, doc));
-							CharacterUtils.appendToImportLog(log, "<br/>Added litter fathered.");
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter fathered.");
 						}
 					}
 				}
@@ -2429,7 +2430,7 @@ public abstract class GameCharacter implements XMLSaving {
 					
 					if(!e.getAttribute("id").equals("NOT_SET")) {
 						character.getSlavesOwned().add(e.getAttribute("id"));
-						CharacterUtils.appendToImportLog(log, "<br/>Added owned slave: "+e.getAttribute("id"));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added owned slave: "+e.getAttribute("id"));
 					}
 				}
 				
@@ -2438,7 +2439,7 @@ public abstract class GameCharacter implements XMLSaving {
 					ownerId = ownerId.replaceAll("Alexa", "Helena");
 				}
 				character.setOwner(ownerId);
-				CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+ownerId);
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set owner: "+ownerId);
 				
 				if(slaveryElement.getElementsByTagName("slaveJob").item(0)!=null) { // Old slave job versions:
 					SlaveJob sJob = SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value"));
@@ -2448,7 +2449,7 @@ public abstract class GameCharacter implements XMLSaving {
 						if(Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)))) {
 							character.workHours[i] = sJob;
 						}
-						CharacterUtils.appendToImportLog(log, "<br/>Set legacy work hour: "+i+", "+character.workHours[i]);
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set legacy work hour: "+i+", "+character.workHours[i]);
 					}
 					
 					NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
@@ -2458,7 +2459,7 @@ public abstract class GameCharacter implements XMLSaving {
 						try {
 							SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
 							character.addSlaveJobSettings(sJob, setting);
-							CharacterUtils.appendToImportLog(log, "<br/>Added slave job setting: "+setting);
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added slave job setting: "+setting);
 						} catch(Exception ex) {
 						}
 					}
@@ -2517,7 +2518,7 @@ public abstract class GameCharacter implements XMLSaving {
 									} else {
 										SlaveJobSetting setting = SlaveJobSetting.valueOf(id);
 										character.addSlaveJobSettings(job, setting);
-										CharacterUtils.appendToImportLog(log, "<br/>Added slave job ("+job+") setting: "+setting);
+										Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added slave job ("+job+") setting: "+setting);
 									}
 								}
 								
@@ -2545,7 +2546,7 @@ public abstract class GameCharacter implements XMLSaving {
 							
 							SlavePermissionSetting setting = SlavePermissionSetting.valueOf(e2.getAttribute("value"));
 							character.addSlavePermissionSetting(slavePermission, setting);
-							CharacterUtils.appendToImportLog(log, "<br/>Added slave permission setting: "+slavePermission+", "+setting);
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added slave permission setting: "+slavePermission+", "+setting);
 						}
 					}
 					if(Main.isVersionOlderThan(version, "0.3.9.3")) {
@@ -2569,15 +2570,15 @@ public abstract class GameCharacter implements XMLSaving {
 					
 					if(!e.getAttribute("id").equals("NOT_SET")) {
 						character.getCompanionsId().add(e.getAttribute("id"));
-						CharacterUtils.appendToImportLog(log, "<br/>Added companion: "+e.getAttribute("id"));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added companion: "+e.getAttribute("id"));
 					}
 				}
 				
 				character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
-				CharacterUtils.appendToImportLog(log, "<br/>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
 				
 				character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set max companions: "+String.valueOf(character.getMaxCompanions()));
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 			}
 		}
 		
@@ -2591,17 +2592,17 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			if(sexStatsElement.getElementsByTagName("daysOrgasmCountRecord").getLength()!=0) {
 				character.setDaysOrgasmCountRecord(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("daysOrgasmCountRecord").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set daysOrgasmCountRecord: "+character.getDaysOrgasmCountRecord());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set daysOrgasmCountRecord: "+character.getDaysOrgasmCountRecord());
 			}
 			
 			if(sexStatsElement.getElementsByTagName("daysOrgasmCount").getLength()!=0) {
 				character.setDaysOrgasmCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("daysOrgasmCount").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set daysOrgasmCount: "+character.getDaysOrgasmCount());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set daysOrgasmCount: "+character.getDaysOrgasmCount());
 			}
 			
 			if(sexStatsElement.getElementsByTagName("totalOrgasmCount").getLength()!=0) {
 				character.setTotalOrgasmCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("totalOrgasmCount").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set totalOrgasmCount: "+character.getTotalOrgasmCount());
+				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set totalOrgasmCount: "+character.getTotalOrgasmCount());
 			}
 			
 			// Fluids stored:
@@ -2666,7 +2667,7 @@ public abstract class GameCharacter implements XMLSaving {
 							
 							int count = Integer.parseInt(e.getAttribute("count"));
 							character.setCumCount(null, sexType, character.getCumCount(null, sexType) + count);
-							CharacterUtils.appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2689,7 +2690,7 @@ public abstract class GameCharacter implements XMLSaving {
 							
 							int count = Integer.parseInt(e.getAttribute("count"));
 							character.setCumCount(null, sexType, character.getCumCount(null, sexType) + count);
-							CharacterUtils.appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2721,7 +2722,7 @@ public abstract class GameCharacter implements XMLSaving {
 							SexType sexType = new SexType(pt, performing, targeting);
 							int count = Integer.parseInt(e.getAttribute("c"));
 							character.setCumCount(null, sexType, character.getCumCount(null, sexType) + count);
-//							CharacterUtils.appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+//							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2738,7 +2739,7 @@ public abstract class GameCharacter implements XMLSaving {
 							SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")));
 							int count = Integer.parseInt(e.getAttribute("count"));
 							character.setSexCount(null, sexType, character.getSexCount(null, sexType) + count);
-							CharacterUtils.appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2750,7 +2751,7 @@ public abstract class GameCharacter implements XMLSaving {
 							SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")));
 							int count = Integer.parseInt(e.getAttribute("count"));
 							character.setSexCount(null, sexType, character.getSexCount(null, sexType) + count);
-							CharacterUtils.appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
+							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2782,7 +2783,7 @@ public abstract class GameCharacter implements XMLSaving {
 							SexType sexType = new SexType(pt, performing, targeting);
 							int count = Integer.parseInt(e.getAttribute("c"));
 							character.setSexCount(null, sexType, character.getSexCount(null, sexType) + count);
-//							CharacterUtils.appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+//							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 						}catch(Exception ex){
 						}
 					}
@@ -2809,7 +2810,7 @@ public abstract class GameCharacter implements XMLSaving {
 								"",//Main.game.getUniqueNPCId(GenericAndrogynousNPC.class),
 								e.getAttribute("takenBy"));
 						
-						CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
 					}catch(Exception ex){
 					}
 				}
@@ -2829,7 +2830,7 @@ public abstract class GameCharacter implements XMLSaving {
 								e.getAttribute("takenBy"),
 								e.getAttribute("takenDescription"));
 						
-						CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
 					}catch(Exception ex){
 					}
 				}
@@ -2847,7 +2848,7 @@ public abstract class GameCharacter implements XMLSaving {
 								e.getAttribute("takenBy"),
 								e.getAttribute("takenDescription"));
 						
-						CharacterUtils.appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" (taken by:"+e.getAttribute("takenBy")+")");
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added virginity loss:"+e.getAttribute("orificeType")+" "+e.getAttribute("penetrationType")+" (taken by:"+e.getAttribute("takenBy")+")");
 					}catch(Exception ex){
 					}
 				}
@@ -2873,14 +2874,14 @@ public abstract class GameCharacter implements XMLSaving {
 //			add.saveAsXML(characterAddictions, doc);
 //		}
 //		
-//		CharacterUtils.addAttribute(doc, characterAddictions, "alcoholLevel", String.valueOf(alcoholLevel));
+//		XMLUtil.addAttribute(doc, characterAddictions, "alcoholLevel", String.valueOf(alcoholLevel));
 //		
 //		Element psychoactives = doc.createElement("psychoactiveFluids");
 //		properties.appendChild(psychoactives);
 //		for(FluidType ft : this.getPsychoactiveFluidsIngested()) {
 //			Element element = doc.createElement("fluid");
 //			psychoactives.appendChild(element);
-//			CharacterUtils.addAttribute(doc, element, "value", ft.toString());
+//			XMLUtil.addAttribute(doc, element, "value", ft.toString());
 //		}
 		
 		nodes = parentElement.getElementsByTagName("addictionsCore");
@@ -2901,7 +2902,7 @@ public abstract class GameCharacter implements XMLSaving {
 					Element e = ((Element)fluidElements.item(i));
 					
 					character.addPsychoactiveFluidIngested(FluidType.getFluidTypeFromId(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Added psychoactive fluid:"+e.getAttribute("value"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added psychoactive fluid:"+e.getAttribute("value"));
 				}
 			}
 			
@@ -2913,7 +2914,7 @@ public abstract class GameCharacter implements XMLSaving {
 					Element e = ((Element)addictionElements.item(i));
 					
 					character.setLastTimeSatisfiedAddiction(FluidType.getFluidTypeFromId(e.getAttribute("type")), Long.valueOf(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
 				}
 			}
 			
@@ -3573,7 +3574,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setBody(Gender startingGender, GameCharacter mother, GameCharacter father, boolean additionalSetups) {
-		body = CharacterUtils.generateBody(this, startingGender, mother, father);
+		body = Main.game.getCharacterUtils().generateBody(this, startingGender, mother, father);
 
 		if(additionalSetups) {
 			additionalBodySetup(startingGender, RacialBody.valueOfRace(body.getRace()));
@@ -3583,7 +3584,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setBody(Gender startingGender, AbstractRacialBody startingBodyType, RaceStage stage, boolean additionalSetups) {
-		body = CharacterUtils.generateBody(this, startingGender, startingBodyType, stage);
+		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingBodyType, stage);
 
 		if(additionalSetups) {
 			additionalBodySetup(startingGender, startingBodyType);
@@ -3593,7 +3594,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setBody(Gender startingGender, Subspecies startingSpeciesType, RaceStage stage, boolean additionalSetups) {
-		body = CharacterUtils.generateBody(this, startingGender, startingSpeciesType, stage);
+		body = Main.game.getCharacterUtils().generateBody(this, startingGender, startingSpeciesType, stage);
 		
 		if(additionalSetups) {
 			additionalBodySetup(startingGender, RacialBody.valueOfRace(startingSpeciesType.getRace()));
@@ -3670,11 +3671,11 @@ public abstract class GameCharacter implements XMLSaving {
 			Subspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			
 			if(gender.isFeminine()) {
-				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 				setBody(gender, species, stage, additionalSetups);
 				
 			} else {
-				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
+				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 				setBody(gender, species, stage, additionalSetups);
 			}
 		}
@@ -26191,7 +26192,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isTailBestial() {
 		return body.getTail().isBestial(this);
 	}
-	// Tail size:
+	// Tail length:
+	public float getTailLengthAsPercentageOfHeight() {
+		return body.getTail().getLengthAsPercentageOfHeight();
+	}
+	public String setTailLengthAsPercentageOfHeight(float length) {
+		return body.getTail().setLengthAsPercentageOfHeight(this, length);
+	}
+	public String incrementTailLengthAsPercentageOfHeight(float increment) {
+		return setTailLengthAsPercentageOfHeight(getTailLengthAsPercentageOfHeight() + increment);
+	}
 	/** @param penetrationLength true if you want to know the length of tail that is used in penetrations. It is equal to 80% of total length. */
 	public int getTailLength(boolean penetrationLength) {
 		return (int) (body.getTail().getLength(this) * (penetrationLength?0.8f:1));

@@ -131,7 +131,7 @@ public class DominionExpress {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							return new Value<>(false, "You need to be able to access your mouth to receive this reward!");
 						}
-						if(Main.game.getPlayer().getLegConfiguration()==LegConfiguration.TAUR) {
+						if(Main.game.getPlayer().getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 							return new Value<>(false, "You are already a taur, so this reward will do nothing!");
 						}
 						return new Value<>(true, "");
@@ -146,12 +146,12 @@ public class DominionExpress {
 							if(Main.game.getPlayer().getLegType()!=LegType.DEMON_HORSE_HOOFED) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.DEMON_HORSE_HOOFED));
 							}
-							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, true));
+							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
 						} else {
 							if(Main.game.getPlayer().getLegType()!=LegType.HORSE_MORPH) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.HORSE_MORPH));
 							}
-							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, true));
+							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
 						}
 						return sb.toString();
 					}

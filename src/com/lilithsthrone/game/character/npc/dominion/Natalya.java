@@ -169,7 +169,7 @@ public class Natalya extends NPC {
 		this.setWingType(WingType.NONE);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());
-		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.TAUR, true);
+		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
 		this.setBreastCrotchType(BreastType.NONE);
 		
 		// Core:

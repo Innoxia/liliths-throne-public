@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -99,25 +98,25 @@ public class ImpAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			// Clothing is equipped in the Encounter class, when the imps are spawned.
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -174,9 +173,9 @@ public class ImpAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) { //TODO gang tattoos?
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override

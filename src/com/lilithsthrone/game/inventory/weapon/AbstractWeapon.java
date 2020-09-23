@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.combat.Attack;
@@ -224,10 +224,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		Element element = doc.createElement("weapon");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
-		CharacterUtils.addAttribute(doc, element, "name", name);
-		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
-		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		XMLUtil.addAttribute(doc, element, "id", this.getWeaponType().getId());
+		XMLUtil.addAttribute(doc, element, "name", name);
+		XMLUtil.addAttribute(doc, element, "damageType", this.getDamageType().toString());
+		XMLUtil.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
 
 		if(!this.getColours().isEmpty()) {
 			Element innerElement = doc.createElement("colours");
@@ -252,7 +252,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		for(Spell s : this.getSpells()) {
 			Element spell = doc.createElement("spell");
 			innerElement.appendChild(spell);
-			CharacterUtils.addAttribute(doc, spell, "value", s.toString());
+			XMLUtil.addAttribute(doc, spell, "value", s.toString());
 		}
 
 		innerElement = doc.createElement("combatMoves");
@@ -260,7 +260,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		for(CombatMove cm : this.getCombatMoves()) {
 			Element move = doc.createElement("move");
 			innerElement.appendChild(move);
-			CharacterUtils.addAttribute(doc, move, "value", cm.getIdentifier());
+			XMLUtil.addAttribute(doc, move, "value", cm.getIdentifier());
 		}
 		
 		

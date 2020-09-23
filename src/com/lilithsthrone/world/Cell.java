@@ -10,8 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -65,11 +65,11 @@ public class Cell implements XMLSaving {
 		
 		Element location = doc.createElement("location");
 		element.appendChild(location);
-		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
-		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
+		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
+		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
 		
-		CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
-		CharacterUtils.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
+		XMLUtil.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
+		XMLUtil.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
 		
 		place.saveAsXML(element, doc);
 		

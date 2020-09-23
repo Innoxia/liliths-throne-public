@@ -41,7 +41,9 @@
 		<!-- The rarity of this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity> 
 		
-		<!-- The file name of this item's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
+		<!-- The file name of this item's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game.
+		'imageName' supports additional attributes 'background', 'imageRotation', and 'imageSize'.
+		Please see 'horse_equine_cider.xml' to see an example of these in use. -->
 		<imageName>pill.svg</imageName> 
 		
 		<!-- Your item can be coloured any way you like, but if you'd like the game to automatically re-colour your item, you can specify available colours here.
@@ -69,6 +71,12 @@
 		<colourPrimary>CLOTHING_PURPLE_LIGHT</colourPrimary>
 		<colourSecondary/>
 		<colourTertiary/>
+		
+		<!-- You can define the item which this item can be enchanted into here. For an example, see the 'horse_equine_cider.xml' file. -->
+		<enchantmentItemTypeId/>
+		<!-- As an accompaniment to the 'enchantmentItemTypeId' element above, you can define the item effect type which is available when enchanting this item into a new item.
+		Again, for an example, see the 'horse_equine_cider.xml' file. -->
+		<enchantmentEffectId/>
 		
 		<!-- You can use this section to describe any extra features of this item.
 		These effects are shown in the tooltip when the player hovers over the item icon, so try and keep them short (as they should fit on one line).

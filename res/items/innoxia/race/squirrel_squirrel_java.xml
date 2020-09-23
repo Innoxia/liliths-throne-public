@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>25</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Squirrel Java]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Squirrel Javas]]></namePlural>
+		<description><![CDATA[A plastic bottle of what looks to be some kind of coffee. A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">squirrel_squirrel_java.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Unscrewing the cap from the bottle of Squirrel Java, [npc.name] [npc.verb(bring)] it up to [npc.her] [npc.lips], before tilting [npc.her] head back and gulping down the liquid contained within. The coffee turns out to be far creamier than a typical blend, and after swallowing the last drop, [npc.nameIsFull] left with a sweet aftertaste lingering on [npc.her] [npc.tongue].
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Unscrewing the cap from the bottle of Squirrel Java, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] [npc2.lips] and [npc.verb(get)] [npc2.her] to gulp down the liquid contained within. The coffee turns out to be far creamier than a typical blend, and after swallowing the last drop, [npc2.nameIsFull] left with a sweet aftertaste lingering on [npc2.her] [npc2.tongue].
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

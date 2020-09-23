@@ -4086,7 +4086,7 @@ public class PlaceType {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
 			for(int i=0; i<15; i++) {
-				inventory.addItem(Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+				inventory.addItem(Main.game.getItemGen().generateItem("innoxia_race_slime_slime_quencher"));
 			}
 			for(int i=0; i<5; i++) {
 				inventory.addItem(Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_SLIME));

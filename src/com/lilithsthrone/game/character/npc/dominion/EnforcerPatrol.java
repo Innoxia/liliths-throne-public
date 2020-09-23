@@ -12,7 +12,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -118,12 +117,12 @@ public class EnforcerPatrol extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 			}
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
-				CharacterUtils.applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
+				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -134,7 +133,7 @@ public class EnforcerPatrol extends NPC {
 			
 			this.setHistory(occupation);
 			
-			CharacterUtils.addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
+			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
 			List<Fetish> fetishesForNonNegative = Util.newArrayListOfValues(
 					Fetish.FETISH_ANAL_GIVING,
@@ -150,17 +149,17 @@ public class EnforcerPatrol extends NPC {
 				}
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			this.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), 5, false, false);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
 			
@@ -203,7 +202,7 @@ public class EnforcerPatrol extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
 		
 		// Do not wear gas masks:
 		AbstractClothing mouthClothing = this.getClothingInSlot(InventorySlot.MOUTH);

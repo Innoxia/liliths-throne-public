@@ -65,7 +65,7 @@ public enum CoverableArea {
 				case ARACHNID:
 				case BIPEDAL:
 				case CEPHALOPOD:
-				case TAUR:
+				case QUADRUPEDAL:
 					return true;
 				case TAIL:
 				case TAIL_LONG:

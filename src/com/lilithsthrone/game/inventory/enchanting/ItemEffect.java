@@ -5,8 +5,8 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.types.TailType;
@@ -100,12 +100,12 @@ public class ItemEffect implements XMLSaving {
 		Element effect = doc.createElement("effect");
 		parentElement.appendChild(effect);
 
-		CharacterUtils.addAttribute(doc, effect, "type", ItemEffectType.getIdFromItemEffectType(getItemEffectType()));
-		CharacterUtils.addAttribute(doc, effect, "mod1", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
-		CharacterUtils.addAttribute(doc, effect, "mod2", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
-		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
-		CharacterUtils.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
-		CharacterUtils.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getSecondsPassed()));
+		XMLUtil.addAttribute(doc, effect, "type", ItemEffectType.getIdFromItemEffectType(getItemEffectType()));
+		XMLUtil.addAttribute(doc, effect, "mod1", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
+		XMLUtil.addAttribute(doc, effect, "mod2", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
+		XMLUtil.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
+		XMLUtil.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
+		XMLUtil.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getSecondsPassed()));
 		
 		return effect;
 	}
@@ -178,6 +178,10 @@ public class ItemEffect implements XMLSaving {
 			case "TF_MOD_ORIFICE_DEEP_2":
 				secondaryMod = "TF_MOD_DEPTH_2";
 				break;
+		}
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1") && itemEffectType=="TF_TAIL" && primaryMod=="TF_MOD_SIZE") { // Girth TF was moved from TF_MOD_SIZE to TF_MOD_SIZE_SECONDARY in v0.4
+			primaryMod = "TF_MOD_SIZE_SECONDARY";
 		}
 		
 		ItemEffect ie;
@@ -270,7 +274,7 @@ public class ItemEffect implements XMLSaving {
 				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL_LONG) || target.getLegType().getRace()==Race.DEMON)) {
 					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
 				}
-				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAUR) || target.getLegType().getRace()==Race.DEMON)) {
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL) || target.getLegType().getRace()==Race.DEMON)) {
 					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
 				}
 				TFModifier secondaryMod = getSecondaryModifier();

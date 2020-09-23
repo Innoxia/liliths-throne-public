@@ -21,12 +21,88 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed issue where NPC speech would sometimes have errors in it. (PR#1415 by AceXP)
+	
+	Engine:
+		Added modding support for items to be defined as being able to be enchanted into new items, and support for a background to be added to item images, as well as size and rotation definitions. (See 'res/items/innoxia/race/horse_equine_cider.xml' for an example.)
+	
+	Items:
+		Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.
+		The 'Angel's Tears' item has been considerably buffed and can no longer be naturally found in-game (it will be added back into the game later on).
+	
+	Body:
+		Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 200%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.
+		If a tail's girth is the same as the default value for its type, then changing the tail type will reset the girth to the new tail's default girth. The same happens with tail length.
 	
 	
 	
 	
 	
-	PR parsing fixes
+	[] Race modding
+		[] Final improvements
+			[x] Add tail length modifier TFs
+				[x] mechanics
+				[x] saving/loading
+				[x] TF options
+					[x] potion
+					[x] self-TF menu
+					
+			[] Racial TF item mod support
+				[x] Add potion enchanting modding support.
+					[x] Draw background and angling/size for consistent background rendering
+					[x] Improve all potion items and move out into items folder
+				[] Add elixir enchanting modding support.
+					[] Draw from base race icon for consistent background rendering
+					[] Improve all elicir items and move out into items folder
+			[] Check support for other leg types
+				[] Race icon improvements
+					[] Background modifications
+				[] Sex availability
+				[] Water limitation
+					[] Subspecies boolean for water limitation
+						[] Default to true for tail & cephalopod
+					[] Eels/mermaids grow legs when exposed to air? (Otherwise land limitations will dead-end the player)
+						[] Massive negative status effect
+						[] Positive status effect when in water
+				[] Nocturnal boolean
+				[] Combat move unlocks
+					[] Combat Move modding
+						[] Quadruped kick
+						[] Arachnid web-spin
+						[] Cephalopod tentacle embrace
+			[] Coverings improvements
+				[] Simplify into just fur/hair?
+				
+			[] Ferals
+				[] Subspecies definition of feral support
+					[] LegConfiguration define what form they take
+				[] Sex positions
+					[] All fours
+				
+		[] Structure plan
+			[] Race
+			[] Parts
+			[] Subspecies
+			[] TF items
+			
+		[] Add races
+			[] Panther
+			[] Hyena
+	
+	
+	tbh i mostly lack the option to have a person underneath you when you are on all fours
+	
+	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
+		went to bed at 39/39 hp and woke up with 40/70 or so
+	
+	"Meeting Wes" quest is incompletable if you go through "Side with Wes" branch, there's a last quest where you receive Wes' Contractor Pass and you're moved into requisitions. In there you get a dialogue and a pass, but dialogue itself doesn't end nor you can halt it anyhow. 
+	
+	Contractor pass should be neck clothing item
+	
+	Murk's path needs to disenchant tattoos and remove enchanted piercings
+	
+	Add player name triplet choices
 	
 	how about reducing the amount of text lines show for defeated enemies? single line if u can eg The Licentious imp - Defeated.....
 	
@@ -198,8 +274,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Throwable weapon
 		% chance to recover after thrown
 		% chance to recover after combat
-	
-	Panther
 	
 	add a repeat-descriptor exclusion variable
 	
@@ -432,11 +506,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	Add tail length modifier TFs (5 step)
-	
-	Add throat wetness, capacity, elasticity, and plasticity to the self-TF menu
-	
-	males shouldn't displace their t-shirts
 	NPCs should remove tops and bras
 	
 	Changing options mid-sex resets dialogue scroll index?
@@ -741,8 +810,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	the 1/2 reduction in potion making cost seems a bit too powerful for a fetish bonus. Therefore I suggest it be given to a perk
 	
-	cannot make corruption potions?
-		Make ItemType modded
+	cannot make corruption potions
 	
 	Need AI to want to swap to other character hole if already cummed in other one
 		Make them recalculate wants after orgasming
@@ -1574,8 +1642,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	If you remove scarlets slave collar when she is in slave room she attacks you and game bugs out
-	
-	Add set bonus for gothic - add set modding support
 	
 	Render map icons offset based on number
 	

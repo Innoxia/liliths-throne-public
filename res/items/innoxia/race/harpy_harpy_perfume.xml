@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Harpy Perfume]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Harpy Perfumes]]></namePlural>
+		<description><![CDATA[A bright pink glass bottle of what looks to be a kind of feminine perfume. There's a stylised image of a harpy's feather etched into the base of the bottle, but other than that, it bears no markings.]]></description> 
+		
+		<useDescriptor>spray</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">harpy_harpy_perfume.svg</imageName>
+		
+		<colourPrimary>GENERIC_SEX</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_SEXUAL</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldSex(+1)] [style.boldFeminine(femininity)]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.incrementFemininity(1)]
+			[#npc.addPotionEffect(ATTRIBUTE_DAMAGE_LUST, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Spraying a little squirt of the Harpy Perfume onto [npc.her] neck, [npc.name] [npc.verb(take)] in a deep breath of its intoxicating feminine scent. Curiously, after just one spray the bottle of perfume is completely emptied, and as [npc.name] [npc.verb(throw)] it away, [npc.she] [npc.verb(feel)] a bubbly wave of excitement running through [npc.herHim], and without thinking, [npc.she] [npc.verb(let)] out a very girly giggle.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(spray)] a little squirt of the Harpy Perfume onto [npc2.namePos] neck, and [npc.verb(watch)] as [npc2.she] [npc2.verb(take)] in a deep breath of its intoxicating feminine scent. Curiously, after just one spray the bottle of perfume is completely emptied, and as [npc.name] [npc.verb(throw)] it away, [npc2.name] [npc2.verb(feel)] a bubbly wave of excitement running through [npc2.herHim], and without thinking, [npc2.she] [npc2.verb(let)] out a very girly giggle.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

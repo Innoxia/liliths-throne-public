@@ -122,7 +122,7 @@ public class LegType {
 			"[npc.Her] demonic legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 		@Override
 		public String getTransformationDescription(GameCharacter owner) {
 			if (!owner.isShortStature()) {
@@ -176,7 +176,7 @@ public class LegType {
 			"[npc.Her] demonic, horse-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 		@Override
 		public String getTransformationDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
@@ -226,7 +226,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic cow-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 
 		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
 				Util.newArrayListOfValues(
@@ -260,7 +260,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType WOLF_MORPH = new AbstractLegType(BodyCoveringType.LYCAN_FUR,
@@ -283,7 +283,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType FOX_MORPH = new AbstractLegType(BodyCoveringType.FOX_FUR,
@@ -306,7 +306,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType SQUIRREL_MORPH = new AbstractLegType(BodyCoveringType.SQUIRREL_FUR,
@@ -329,7 +329,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType RAT_MORPH = new AbstractLegType(BodyCoveringType.RAT_FUR,
@@ -352,7 +352,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType RABBIT_MORPH = new AbstractLegType(BodyCoveringType.RABBIT_FUR,
@@ -375,7 +375,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType BAT_MORPH = new AbstractLegType(BodyCoveringType.BAT_FUR,
@@ -420,7 +420,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType ALLIGATOR_MORPH = new AbstractLegType(BodyCoveringType.ALLIGATOR_SCALES,
@@ -443,7 +443,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 	};
 	
 	public static AbstractLegType HORSE_MORPH = new AbstractLegType(BodyCoveringType.HORSE_HAIR,
@@ -467,7 +467,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic horse-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 		
 		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
 				Util.newArrayListOfValues(
@@ -502,7 +502,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic reindeer-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL)) {
 		
 		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
 				Util.newArrayListOfValues(

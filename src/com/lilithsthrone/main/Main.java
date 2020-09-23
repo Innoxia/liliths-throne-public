@@ -15,7 +15,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -71,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.9.9";
+	public static final String VERSION_NUMBER = "0.4";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -1166,8 +1165,8 @@ public class Main extends Application {
 	public static void importCharacter(File file) {
 		if (file != null) {
 			try {
-				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(),
+				Main.game.setPlayer(Main.game.getCharacterUtils().startLoadingCharacterFromXML());
+				Main.game.setPlayer(Main.game.getCharacterUtils().loadCharacterFromXML(file, Main.game.getPlayer(),
 						CharacterImportSetting.NEW_GAME_IMPORT,
 						CharacterImportSetting.NO_PREGNANCY,
 						CharacterImportSetting.NO_COMPANIONS,

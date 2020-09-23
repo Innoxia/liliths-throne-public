@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -125,21 +125,21 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		Element element = doc.createElement("tattoo");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "id", TattooType.getIdFromTattooType(getType()));
+		XMLUtil.addAttribute(doc, element, "id", TattooType.getIdFromTattooType(getType()));
 
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		XMLUtil.addAttribute(doc, element, "name", this.getName());
 		
-		CharacterUtils.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().getId());
+		XMLUtil.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().getId());
 
 		if(this.getSecondaryColour()!=null) {
-			CharacterUtils.addAttribute(doc, element, "secondaryColour", this.getSecondaryColour().getId());
+			XMLUtil.addAttribute(doc, element, "secondaryColour", this.getSecondaryColour().getId());
 		}
 
 		if(this.getTertiaryColour()!=null) {
-			CharacterUtils.addAttribute(doc, element, "tertiaryColour", this.getTertiaryColour().getId());
+			XMLUtil.addAttribute(doc, element, "tertiaryColour", this.getTertiaryColour().getId());
 		}
 		
-		CharacterUtils.addAttribute(doc, element, "glowing", String.valueOf(this.isGlowing()));
+		XMLUtil.addAttribute(doc, element, "glowing", String.valueOf(this.isGlowing()));
 		
 		if(this.getWriting()!=null) {
 			this.getWriting().saveAsXML(element, doc);

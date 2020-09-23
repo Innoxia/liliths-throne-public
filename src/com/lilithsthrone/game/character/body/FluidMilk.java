@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -47,13 +47,13 @@ public class FluidMilk implements FluidInterface {
 		Element element = doc.createElement(rootElementName);
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
-		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
+		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
 		
 		Element milkModifiers = doc.createElement("milkModifiers");
 		element.appendChild(milkModifiers);
 		for(FluidModifier fm : this.getFluidModifiers()) {
-			CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), "true");
+			XMLUtil.addAttribute(doc, milkModifiers, fm.toString(), "true");
 		}
 		
 		return element;

@@ -188,7 +188,7 @@ public class RacialBody {
 		}
 		@Override
 		public AbstractLegType getLegType(LegConfiguration configuration) {
-			if(configuration==LegConfiguration.TAUR) {
+			if(configuration==LegConfiguration.QUADRUPEDAL) {
 				return LegType.DEMON_HORSE_HOOFED;
 			}
 			return super.getLegType(configuration);

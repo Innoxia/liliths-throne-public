@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>120</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Wolf Whiskey]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Wolf Whiskies]]></namePlural>
+		<description><![CDATA[Filled with a highly alcoholic whiskey, this glass bottle has a label on the front which depicts a greater wolf-boy having sex with a trio of lesser wolf-girls. A slogan written above this reads: 'Wolf Whiskey; For a real alpha!']]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">wolf_wolf_whiskey.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+			[#npc.incrementAlcoholLevel(0.4)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Wolf Whiskey, before tilting [npc.her] head back and bringing it up to [npc.her] waiting [npc.lips]. A thick, musky scent rises from the opening, and with a gulp, [npc.name] [npc.verb(start)] downing the liquid, discovering that its taste is almost identical to its pungent aroma.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Wolf Whiskey, before bringing it up to [npc2.namePos] waiting [npc2.lips]. A thick, musky scent rises from the opening, and with a gulp, [npc2.name] [npc2.verb(start)] downing the liquid, discovering that its taste is almost identical to its pungent aroma.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

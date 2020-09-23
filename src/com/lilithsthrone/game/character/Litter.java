@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
@@ -120,31 +121,31 @@ public class Litter implements XMLSaving {
 		Element element = doc.createElement("litter");
 		parentElement.appendChild(element);
 
-//		CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
-//		CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+//		XMLUtil.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
+//		XMLUtil.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfBirth", String.valueOf(this.getBirthDate().getDayOfMonth()));
+		XMLUtil.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, element, "dayOfBirth", String.valueOf(this.getBirthDate().getDayOfMonth()));
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfConception", this.getConceptionDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		XMLUtil.createXMLElementWithValue(doc, element, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, element, "monthOfConception", this.getConceptionDate().getMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, element, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
 		
 		
 		
-		CharacterUtils.addAttribute(doc, element, "motherId", this.getMotherId());
-		CharacterUtils.addAttribute(doc, element, "fatherId", this.getFatherId());
+		XMLUtil.addAttribute(doc, element, "motherId", this.getMotherId());
+		XMLUtil.addAttribute(doc, element, "fatherId", this.getFatherId());
 		
-		CharacterUtils.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
-		CharacterUtils.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
-		CharacterUtils.addAttribute(doc, element, "sonsFather", String.valueOf(this.getSonsFromFather()));
-		CharacterUtils.addAttribute(doc, element, "daughtersFather", String.valueOf(this.getDaughtersFromFather()));
+		XMLUtil.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
+		XMLUtil.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
+		XMLUtil.addAttribute(doc, element, "sonsFather", String.valueOf(this.getSonsFromFather()));
+		XMLUtil.addAttribute(doc, element, "daughtersFather", String.valueOf(this.getDaughtersFromFather()));
 		
-		CharacterUtils.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
-		CharacterUtils.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
+		XMLUtil.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
+		XMLUtil.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
 
-		CharacterUtils.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
+		XMLUtil.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
 		
 		
 		Element innerElement = doc.createElement("offspringList");
@@ -155,7 +156,7 @@ public class Litter implements XMLSaving {
 			element = doc.createElement("offspring");
 			innerElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", offspring);
+			XMLUtil.addAttribute(doc, element, "id", offspring);
 		}
 		
 		return element;

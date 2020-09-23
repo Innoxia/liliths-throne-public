@@ -7,15 +7,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -325,10 +325,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		Element element = doc.createElement("clothing");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
-		CharacterUtils.addAttribute(doc, element, "name", name);
+		XMLUtil.addAttribute(doc, element, "id", this.getClothingType().getId());
+		XMLUtil.addAttribute(doc, element, "name", name);
 		if(slotEquippedTo!=null) {
-			CharacterUtils.addAttribute(doc, element, "slotEquippedTo", slotEquippedTo.toString());
+			XMLUtil.addAttribute(doc, element, "slotEquippedTo", slotEquippedTo.toString());
 		}
 
 		if(!this.getColours().isEmpty()) {
@@ -368,8 +368,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 		}
 		
-		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
-		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
+		XMLUtil.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
+		XMLUtil.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
 		
 		if(!this.getEffects().isEmpty()) {
 			Element innerElement = doc.createElement("effects");
@@ -386,7 +386,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			for(DisplacementType dt : this.getDisplacedList()) {
 				Element displacementType = doc.createElement("displacementType");
 				innerElement.appendChild(displacementType);
-				CharacterUtils.addAttribute(doc, displacementType, "value", dt.toString());
+				XMLUtil.addAttribute(doc, displacementType, "value", dt.toString());
 			}
 		}
 		
@@ -2361,7 +2361,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(tags.contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
-		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
 		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
@@ -2443,7 +2443,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						replaceGroinAccess = true;
 					}
 					break;
-				case TAUR:
+				case QUADRUPEDAL:
 					if(!tags.contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replaceCrotchBoobAccess = true;
 						replaceGroinAccess = true;
@@ -2537,7 +2537,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						replace = true;
 					}
 					break;
-				case TAUR:
+				case QUADRUPEDAL:
 					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replace = true;
 					}
@@ -2575,7 +2575,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						replaceGroinAccess = true;
 					}
 					break;
-				case TAUR:
+				case QUADRUPEDAL:
 					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replaceCrotchBoobAccess = true;
 						replaceGroinAccess = true;

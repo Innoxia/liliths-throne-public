@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>100000000</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[Inno-chan's gift]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Inno-chan's gifts]]></namePlural>
+		<description><![CDATA[This is no ordinary bottle of wine, as it turns anyone who drinks it into a youko! Additional consumption will increase the number of Youko tails the drinker has.<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<imageName background="attribute_liquid_background.svg" imageRotation="0" imageSize="80">inno_chans_gift.svg</imageName>
+		
+		<colourPrimary>RACE_FOX_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldBad(Does not affect unique characters)]]]></line>
+			<line><![CDATA[[style.boldTfGeneric(Transforms)] non-youko into [style.boldFox(youko)]]]></line>
+			<line><![CDATA[[style.boldTfGeneric(Grants)] youko an extra tail]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p style='text-align:center'>
+			#IF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
+				[style.italicsDisabled(This item does not work on non-slave unique characters...)]
+			#ELSEIF(npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_ARCTIC && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_FENNEC)
+				[##game.getCharacterUtils().reassignBody(npc, npc.getBody(), npc.getGender(), SUBSPECIES_FOX_ASCENDANT, RACE_STAGE_PARTIAL_FULL, true)]
+				[style.italicsFox([npc.NameIsFull] now [npc.a_race]!)]
+			#ELSE
+				[#npc.incrementTailCount(1, true)]
+			#ENDIF
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Opening the bottle of Inno-chan's gift, [npc.name] [npc.verb(tilt)] [npc.her] head back and [npc.verb(bring)] it up to [npc.her] waiting [npc.lips]. The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, which is soon joined by a rich, sweet taste that lingers on [npc.namePos] [npc.tongue] well after [npc.sheHas] had [npc.her] fill.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Opening the bottle of Inno-chan's gift, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, which is soon joined by a rich, sweet taste that lingers on [npc2.namePos] [npc2.tongue] well after [npc2.sheHas] had [npc2.her] fill.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
