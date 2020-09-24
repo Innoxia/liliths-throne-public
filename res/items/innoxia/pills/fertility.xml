@@ -42,8 +42,8 @@
 		<rarity>COMMON</rarity> 
 		
 		<!-- The file name of this item's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game.
-		'imageName' supports additional attributes 'background', 'imageRotation', and 'imageSize'.
-		Please see 'horse_equine_cider.xml' to see an example of these in use. -->
+		'imageName' supports additional attributes 'zLayer', 'imageRotation', and 'imageSize'.
+		Please see 'human_bread_roll.xml' to see a full example of these in use. -->
 		<imageName>pill.svg</imageName> 
 		
 		<!-- Your item can be coloured any way you like, but if you'd like the game to automatically re-colour your item, you can specify available colours here.
@@ -72,10 +72,12 @@
 		<colourSecondary/>
 		<colourTertiary/>
 		
-		<!-- You can define the item which this item can be enchanted into here. For an example, see the 'horse_equine_cider.xml' file. -->
+		<!-- You can define a race to be associated with this item here. This is not necessary unless you want this item to be enchanted into a transformative elixir. For an example, see the 'human_bread_roll.xml' file. -->
+		<associatedRace/>
+		<!-- You can define the item which this item can be enchanted into here. For an example, see the 'human_bread_roll.xml' file. -->
 		<enchantmentItemTypeId/>
 		<!-- As an accompaniment to the 'enchantmentItemTypeId' element above, you can define the item effect type which is available when enchanting this item into a new item.
-		Again, for an example, see the 'horse_equine_cider.xml' file. -->
+		Again, for an example, see the 'human_bread_roll.xml' file. -->
 		<enchantmentEffectId/>
 		
 		<!-- You can use this section to describe any extra features of this item.

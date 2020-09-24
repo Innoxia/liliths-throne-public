@@ -16,7 +16,9 @@
 		
 		<rarity>LEGENDARY</rarity> 
 		
-		<imageName background="attribute_liquid_background.svg" imageRotation="0" imageSize="80">inno_chans_gift.svg</imageName>
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="80">inno_chans_gift.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
 		
 		<colourPrimary>RACE_FOX_MORPH</colourPrimary>
 		<colourSecondary/>
@@ -44,7 +46,9 @@
 		</p>
 		]]></applyEffects>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+		</itemTags>
 	</coreAttributes>
 
 	<useDescriptions>

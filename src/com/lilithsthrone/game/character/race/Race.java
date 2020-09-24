@@ -59,7 +59,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HUMAN;
+			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 	
@@ -97,7 +97,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HUMAN;
+			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -141,7 +141,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HUMAN;
+			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -214,7 +214,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HUMAN;
+			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -252,7 +252,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_COW_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_cow_bubble_cream");
 		}
 	};
 
@@ -292,7 +292,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_DOG_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_dog_canine_crunch");
 		}
 	};
 
@@ -333,7 +333,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_WOLF_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
 		}
 	};
 	
@@ -375,7 +375,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_FOX_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
 		}
 	};
 	
@@ -414,7 +414,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_CAT_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_cat_kittys_reward");
 		}
 	};
 	
@@ -490,7 +490,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HORSE_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
 		}
 	};
 
@@ -528,7 +528,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_REINDEER_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie");
 		}
 	};
 			
@@ -565,7 +565,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_squirrel_round_nuts");
 		}
 	};
 
@@ -602,7 +602,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_RAT_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger");
 		}
 	};
 
@@ -639,7 +639,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_RABBIT_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake");
 		}
 	};
 	
@@ -678,7 +678,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_BAT_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad");
 		}
 	};
 	
@@ -715,7 +715,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
+			return ItemType.getItemTypeFromId("innoxia_race_alligator_gators_gumbo");
 		}
 	};
 
@@ -753,7 +753,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_SLIME;
+			return ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister");
 		}
 	};
 
@@ -793,7 +793,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HARPY;
+			return ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop");
 		}
 	};
 	
@@ -836,7 +836,7 @@ public class Race {
 		}
 		@Override
 		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.RACE_INGREDIENT_HUMAN;
+			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 

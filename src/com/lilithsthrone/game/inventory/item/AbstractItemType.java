@@ -6,8 +6,12 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +19,8 @@ import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -29,7 +35,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3.9.2
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractItemType extends AbstractCoreType {
@@ -54,10 +60,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	private boolean mod;
 	private boolean fromExternalFile;
 
-	private String pathName;
-	private String backgroundPathName;
-	private int imageSize;
-	private int imageRotation;
+	private List<SvgInformation> svgPathInformation;
 	private List<Colour> colourShades;
 	
 	protected String SVGString;
@@ -70,6 +73,8 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	protected List<ItemEffect> effects;
 	
 	// For use in enchanting into a different item:
+	protected String potionDescriptor;
+	protected AbstractRace associatedRace;
 	protected String enchantmentEffectId;
 	protected String enchantmentItemTypeId;
 	
@@ -97,10 +102,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		this.namePlural = namePlural;
 		this.description = description;
 		this.useDescriptor = "use";
-		this.pathName = pathName==null?"":pathName;
-		this.backgroundPathName = "";
-		this.imageSize = 100;
-		this.imageRotation = 0;
+		this.svgPathInformation = Util.newArrayListOfValues(new SvgInformation(1, pathName==null?"":pathName, 100, 0, new HashMap<>()));
 		this.authorDescription = "";
 
 		this.sexUse = true;
@@ -129,6 +131,8 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.effects=effects;
 		}
 		
+		potionDescriptor = "";
+		associatedRace = Race.NONE;
 		enchantmentEffectId = null;
 		enchantmentItemTypeId = null;
 		
@@ -193,29 +197,46 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.combatUseEnemies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseEnemies").getTextContent());
 			this.consumedOnUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("consumedOnUse").getTextContent());
 			
-			this.pathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
-			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("background").isEmpty()) {
-				this.backgroundPathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getAttribute("background");
-			} else {
-				backgroundPathName = "";
-			}
-			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageSize").isEmpty()) {
-				try {
-					this.imageSize = Math.min(100, Math.max(1, Integer.valueOf(coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageSize"))));
-				} catch(Exception ex) {
-					this.imageSize = 100;
+			this.svgPathInformation = new ArrayList<>();
+			
+			for(Element imagePathElement : coreAttributes.getAllOf("imageName")) {
+				String rawPath = imagePathElement.getTextContent();
+				String pathName;
+				if(rawPath.contains("res/")) {
+					pathName = rawPath;
+				} else {
+					pathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ imagePathElement.getTextContent();
 				}
-			} else {
-				this.imageSize = 100;
-			}
-			if(!coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageRotation").isEmpty()) {
-				try {
-					this.imageRotation = Math.min(360, Math.max(-360, Integer.valueOf(coreAttributes.getMandatoryFirstOf("imageName").getAttribute("imageRotation"))));
-				} catch(Exception ex) {
-					this.imageRotation = 0;
+				int zLayer = 1;
+				int imageSize = 100;
+				int imageRotation = 0;
+				Map<String, String> replacements = new HashMap<>();
+
+				if(!imagePathElement.getAttribute("zLayer").isEmpty()) {
+					try {
+						zLayer = Integer.valueOf(imagePathElement.getAttribute("zLayer"));
+					} catch(Exception ex) {
+					}
 				}
-			} else {
-				this.imageRotation = 0;
+				if(!imagePathElement.getAttribute("imageSize").isEmpty()) {
+					try {
+						imageSize = Math.min(100, Math.max(1, Integer.valueOf(imagePathElement.getAttribute("imageSize"))));
+					} catch(Exception ex) {
+					}
+				}
+				if(!imagePathElement.getAttribute("imageRotation").isEmpty()) {
+					try {
+						imageRotation = Math.min(360, Math.max(-360, Integer.valueOf(imagePathElement.getAttribute("imageRotation"))));
+					} catch(Exception ex) {
+					}
+				}
+				int i=1;
+				while(!imagePathElement.getAttribute("target"+i).isEmpty()) {
+					replacements.put(imagePathElement.getAttribute("target"+i), imagePathElement.getAttribute("replacement"+i));
+					i++;
+				}
+				
+				svgPathInformation.add(new SvgInformation(zLayer, pathName, imageSize, imageRotation, replacements));
 			}
 			SVGString = null;
 			
@@ -238,7 +259,19 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.effects = new ArrayList<>();
 			
 			this.specialEffect = coreAttributes.getMandatoryFirstOf("applyEffects").getTextContent();
-
+			
+			if(coreAttributes.getOptionalFirstOf("potionDescriptor").isPresent()) {
+				this.potionDescriptor = coreAttributes.getMandatoryFirstOf("potionDescriptor").getTextContent();
+			} else {
+				this.potionDescriptor = "";
+			}
+			
+			if(coreAttributes.getOptionalFirstOf("associatedRace").isPresent() && !coreAttributes.getMandatoryFirstOf("associatedRace").getTextContent().isEmpty()) {
+				associatedRace = Race.getRaceFromId(coreAttributes.getMandatoryFirstOf("associatedRace").getTextContent());
+			} else {
+				this.associatedRace = Race.NONE;
+			}
+			
 			if(coreAttributes.getOptionalFirstOf("enchantmentEffectId").isPresent() && !coreAttributes.getMandatoryFirstOf("enchantmentEffectId").getTextContent().isEmpty()) {
 				enchantmentEffectId = coreAttributes.getMandatoryFirstOf("enchantmentEffectId").getTextContent();
 			} else {
@@ -303,7 +336,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		if(super.equals(o)){
 			if(o instanceof AbstractItemType){
 				if(((AbstractItemType)o).getName(false).equals(getName(false))
-						&& ((AbstractItemType)o).getPathName().equals(getPathName())
+						&& ((AbstractItemType)o).getPathNameInformation().equals(getPathNameInformation())
 						&& ((AbstractItemType)o).getRarity() == getRarity()
 						&& ((AbstractItemType)o).getEffects().equals(getEffects())
 						){
@@ -318,7 +351,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
 		int result = super.hashCode();
 		result = 31 * result + getName(false).hashCode();
-		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + getPathNameInformation().hashCode();
 		result = 31 * result + getRarity().hashCode();
 		result = 31 * result + getEffects().hashCode();
 		return result;
@@ -348,6 +381,10 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return specialEffect;
 	}
 
+	public String getPotionDescriptor() {
+		return potionDescriptor;
+	}
+
 	public boolean isAbleToBeSold() {
 		return getRarity()!=Rarity.QUEST;
 	}
@@ -366,7 +403,11 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		if(enchantmentEffectId==null || enchantmentEffectId.isEmpty()) {
 			return null;
 		}
-		return ItemEffectType.getItemEffectTypeFromId(enchantmentEffectId);
+		if(enchantmentEffectId.equalsIgnoreCase("RACE")) {
+			return ItemEffectType.getRacialEffectType(associatedRace);
+		} else {
+			return ItemEffectType.getItemEffectTypeFromId(enchantmentEffectId);
+		}
 	}
 	
 	public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
@@ -442,8 +483,8 @@ public abstract class AbstractItemType extends AbstractCoreType {
 				: (this.isPlural()?getNamePlural(false):getName(false))));
 	}
 
-	public String getPathName() {
-		return pathName;
+	public List<SvgInformation> getPathNameInformation() {
+		return svgPathInformation;
 	}
 
 	public Colour getColour() {
@@ -460,33 +501,63 @@ public abstract class AbstractItemType extends AbstractCoreType {
 
 	public String getSVGString() {
 		if(SVGString==null) {
-			if(pathName!=null && !pathName.isEmpty()) {
+			if(getPathNameInformation()!=null && !getPathNameInformation().isEmpty()) {
 				try {
 					if(isFromExternalFile()) {
-						List<String> lines = Files.readAllLines(Paths.get(pathName));
-						StringBuilder sb = new StringBuilder();
-						for(String line : lines) {
-							sb.append(line);
-						}
-						SVGString = sb.toString();
+						Collections.sort(svgPathInformation, (i1, i2)->i1.getZLayer()-i2.getZLayer());
 						
-						if(!backgroundPathName.isEmpty()) {
-							lines = Files.readAllLines(Paths.get(backgroundPathName));
-							sb = new StringBuilder();
+						StringBuilder svgBuilder = new StringBuilder();
+						for(SvgInformation info : getPathNameInformation()) {
+							List<String> lines = Files.readAllLines(Paths.get(info.getPathName()));
+							StringBuilder sb = new StringBuilder();
 							for(String line : lines) {
 								sb.append(line);
 							}
-							int sizeOffset = (100-imageSize)/2;
-							SVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0;'>"+sb.toString()+"</div>"
-									+ "<div style='width:"+imageSize+"%;height:"+imageSize+"%;transform:rotate("+imageRotation+"deg);position:absolute;left:"+sizeOffset+"%;bottom:"+sizeOffset+"%;padding:0;margin:0;'>"+SVGString+"</div>";
+							int sizeOffset = (100-info.getImageSize())/2;
+							svgBuilder.append("<div style='"
+									+ "width:"+info.getImageSize()+"%;"
+									+ "height:"+info.getImageSize()+"%;"
+									+ "transform:rotate("+info.getImageRotation()+"deg);"
+									+ "position:absolute;"
+									+ "left:"+sizeOffset+"%;"
+									+ "bottom:"+sizeOffset+"%;"
+									+ "padding:0;"
+									+ "margin:0;'>");
+							String finalSvg = sb.toString();
+							for(Entry<String, String> entry : info.getReplacements().entrySet()) {
+								finalSvg = finalSvg.replaceAll(entry.getKey(), entry.getValue());
+							}
+							svgBuilder.append(finalSvg);
+							svgBuilder.append("</div>");
 						}
-						
+
+						SVGString = svgBuilder.toString();
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
+//						List<String> lines = Files.readAllLines(Paths.get(pathName));
+//						StringBuilder sb = new StringBuilder();
+//						for(String line : lines) {
+//							sb.append(line);
+//						}
+//						SVGString = sb.toString();
+//						
+//						if(!backgroundPathName.isEmpty()) {
+//							lines = Files.readAllLines(Paths.get(backgroundPathName));
+//							sb = new StringBuilder();
+//							for(String line : lines) {
+//								sb.append(line);
+//							}
+//							int sizeOffset = (100-imageSize)/2;
+//							SVGString = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0;'>"+sb.toString()+"</div>"
+//									+ "<div style='width:"+imageSize+"%;height:"+imageSize+"%;transform:rotate("+imageRotation+"deg);position:absolute;left:"+sizeOffset+"%;bottom:"+sizeOffset+"%;padding:0;margin:0;'>"+SVGString+"</div>";
+//						}
+//						
+//						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
+						
 					} else {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + svgPathInformation.get(0).getPathName() + ".svg");
 						if(is==null) {
-							System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+							System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+svgPathInformation.get(0).getPathName()+"')!");
 						}
 						String s = Util.inputStreamToString(is);
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, s);
@@ -564,7 +635,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 	
 	public boolean isTransformative() {
-		return false;
+		return getItemTags().contains(ItemTag.RACIAL_TF_ITEM);
 	}
 	
 	public boolean isGift() {

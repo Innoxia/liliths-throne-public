@@ -21811,6 +21811,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
+	 * @return The subspecies which this character appears to be if they were made of flesh.
+	 *  Use getTrueSubspecies() or do some checks with getSubspeciesOverride() to get their true Subspecies, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
+	public Subspecies getFleshSubspecies() {
+		return Subspecies.getFleshSubspecies(this);
+	}
+
+	/**
 	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
 	 */
 	public Subspecies getTrueSubspecies() {

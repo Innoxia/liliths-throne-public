@@ -238,8 +238,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return descriptionsList;
 	}
 	
-	public String getPathName() {
-		return itemType.getPathName();
+	public List<SvgInformation> getPathNameInformation() {
+		return itemType.getPathNameInformation();
 	}
 
 	public boolean isConsumedOnUse() {

@@ -315,7 +315,7 @@ public class SubmissionCitadelArcanist extends NPC {
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 		
@@ -353,7 +353,7 @@ public class SubmissionCitadelArcanist extends NPC {
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
 				break;
 			case HUMAN:
-				itemType = ItemType.RACE_INGREDIENT_HUMAN;
+				itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 				break;
 		}
 		

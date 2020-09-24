@@ -29,10 +29,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Items:
 		Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.
+		Moved all racial food items out from the code into the external 'res/items/innoxia/race' folder.
 		The 'Angel's Tears' item has been considerably buffed and can no longer be naturally found in-game (it will be added back into the game later on).
 	
 	Body:
-		Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 200%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.
+		Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 250%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.
 		If a tail's girth is the same as the default value for its type, then changing the tail type will reset the girth to the new tail's default girth. The same happens with tail length.
 	
 	
@@ -52,10 +53,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Add potion enchanting modding support.
 					[x] Draw background and angling/size for consistent background rendering
 					[x] Improve all potion items and move out into items folder
-				[] Add elixir enchanting modding support.
-					[] Draw from base race icon for consistent background rendering
-					[] Improve all elicir items and move out into items folder
+				[x] Add elixir enchanting modding support.
+					[x] Draw from base race icon for consistent background rendering
+					[x] Improve all elixir items and move out into items folder
 			[] Check support for other leg types
+				[] long tail should be ratio of 5:1 tail:body
 				[] Race icon improvements
 					[] Background modifications
 				[] Sex availability
@@ -71,6 +73,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[] Quadruped kick
 						[] Arachnid web-spin
 						[] Cephalopod tentacle embrace
+			[] make pregnancy type (live, egg) a property of vagina, rather than race as a whole
 			[] Coverings improvements
 				[] Simplify into just fur/hair?
 				
@@ -91,13 +94,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Hyena
 	
 	
+	
 	tbh i mostly lack the option to have a person underneath you when you are on all fours
 	
 	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
 		went to bed at 39/39 hp and woke up with 40/70 or so
 	
-	"Meeting Wes" quest is incompletable if you go through "Side with Wes" branch, there's a last quest where you receive Wes' Contractor Pass and you're moved into requisitions. In there you get a dialogue and a pass, but dialogue itself doesn't end nor you can halt it anyhow. 
+	Bunny acts like she doens't know Loppy is a futa when Loppy is revealed in sex for the first time
 	
+	"Meeting Wes" quest is incompletable if you go through "Side with Wes" branch, there's a last quest where you receive Wes' Contractor Pass and you're moved into requisitions. In there you get a dialogue and a pass, but dialogue itself doesn't end nor you can halt it anyhow. 
+		 If you complete the quest to go see wes just before the office closes, it glitches up because time progresses as you talk and you are trapped in a location that you should not be able to be in at that time.
+		
 	Contractor pass should be neck clothing item
 	
 	Murk's path needs to disenchant tattoos and remove enchanted piercings

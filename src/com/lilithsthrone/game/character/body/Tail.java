@@ -23,7 +23,7 @@ public class Tail implements BodyPartInterface {
 
 	public static final int MAXIMUM_COUNT = 9;
 	public static final float LENGTH_PERCENTAGE_MIN = 0.05f;
-	public static final float LENGTH_PERCENTAGE_MAX = 2.0f;
+	public static final float LENGTH_PERCENTAGE_MAX = 2.5f;
 	
 	protected AbstractTailType type;
 	protected int tailCount;

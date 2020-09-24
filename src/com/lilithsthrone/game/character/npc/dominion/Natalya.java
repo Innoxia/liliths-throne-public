@@ -442,7 +442,7 @@ public class Natalya extends NPC {
 	
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 

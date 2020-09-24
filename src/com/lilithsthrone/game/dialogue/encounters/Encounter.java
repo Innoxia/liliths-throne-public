@@ -651,7 +651,7 @@ public enum Encounter {
 					randomItem = Main.game.getItemGen().generateItem("innoxia_race_harpy_harpy_perfume");
 					
 				} else {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop"));
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -711,7 +711,7 @@ public enum Encounter {
 					randomItem = Main.game.getItemGen().generateItem("innoxia_race_harpy_harpy_perfume");
 					
 				} else {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop"));
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);

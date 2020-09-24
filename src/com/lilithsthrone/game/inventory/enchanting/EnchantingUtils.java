@@ -146,11 +146,15 @@ public class EnchantingUtils {
 		String potionSuffix = "";
 		String potionPreSuffix = "";
 		
-		if(ingredient!=null && !ingredient.getEffects().isEmpty()) {
-			try {
-				potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
-			} catch(Exception ex) {
-				System.err.println("EnchantingUtils: getPotionName() error 1."); 
+		if(ingredient!=null) {
+			if(!ingredient.getEffects().isEmpty()) {
+				try {
+					potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
+				} catch(Exception ex) {
+					System.err.println("EnchantingUtils: getPotionName() error 1."); 
+				}
+			} else if(ingredient instanceof AbstractItem) {
+				potionDescriptor = ((AbstractItem)ingredient).getItemType().getPotionDescriptor();
 			}
 		}
 		

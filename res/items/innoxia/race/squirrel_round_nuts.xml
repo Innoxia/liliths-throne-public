@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50</value> 
+		<determiner><![CDATA[a bag of]]></determiner>
+		<name><![CDATA[Round Nuts]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Round Nuts]]></namePlural>
+		<description><![CDATA[A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/squirrel/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="75">squirrel_round_nuts.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_SQUIRREL_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[squirrel]]></potionDescriptor>
+		<associatedRace>SQUIRREL_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pull)] at the sides of the bag of Round Nuts to open it. A rich, earthy smell accompanies the sight of the nuts inside, and [npc.she] [npc.verb(find)] [npc.herself] unable to resist the delicious-looking display. [npc.She] quickly [npc.verb(wolf)] down the bag's contents, finding that the nuts are as delicious as they look.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pull)] at the sides of the bag of Round Nuts to open it, before presenting it to [npc2.name]. A rich, earthy smell accompanies the sight of the nuts inside, and [npc2.name] [npc2.verb(find)] [npc2.herself] unable to resist the delicious-looking display. [npc2.She] quickly [npc2.verb(wolf)] down the bag's contents, finding that the nuts are as delicious as they look.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

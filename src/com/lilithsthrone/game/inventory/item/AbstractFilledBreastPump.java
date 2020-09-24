@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.3.7.7
+ * @version 0.4
  * @author Innoxia
  */
 public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving {
@@ -41,7 +41,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 			this.milk.addFluidModifier(milkProvider, fm);
 		}
 		this.setColour(0, colour);
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	
@@ -55,7 +55,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 			this.milk.addFluidModifier(null, fm);
 		}
 		this.setColour(0, colour);
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	

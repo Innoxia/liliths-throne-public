@@ -1124,9 +1124,9 @@ public class SlaverAlleyDialogue {
 				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
 				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice"),
 				ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java"),
-				ItemType.RACE_INGREDIENT_RABBIT_MORPH,
-				ItemType.RACE_INGREDIENT_RAT_MORPH,
-				ItemType.RACE_INGREDIENT_BAT_MORPH);
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake"),
+				ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad"));
 	}
 	
 	public static final DialogueNode MARKET_STALL_CAFE_INTERIOR = new DialogueNode("", "", true) {

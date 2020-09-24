@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>75</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Chicken Pot Pie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Chicken Pot Pies]]></namePlural>
+		<description><![CDATA[A small tin containing a pie with a mix of vegetables and meat. While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/fox/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">fox_chicken_pot_pie.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_FOX_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[vulpine]]></potionDescriptor>
+		<associatedRace>FOX_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot more energetic...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] the Chicken Pot Pie out of its tin, before bringing it up to [npc.her] mouth and taking a bite. [npc.She] [npc.verb(find)] that its delicious, nutritious mix of vegetables and meat is easy to chew through, and [npc.she] swiftly [npc.verb(consume)] the entire thing.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(take)] the Chicken Pot Pie out of its tin, before bringing it up to [npc2.namePos] mouth and getting [npc2.herHim] to take a bite. [npc2.She] [npc2.verb(find)] that its delicious, nutritious mix of vegetables and meat is easy to chew through, and [npc2.name] swiftly [npc2.verb(consume)] the entire thing.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

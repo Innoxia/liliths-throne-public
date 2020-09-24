@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
- * @version 0.3.7.7
+ * @version 0.4
  * @author Innoxia
  */
 public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
@@ -43,7 +43,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 			this.cum.addFluidModifier(cumProvider, fm);
 		}
 		this.setColour(0, colour);
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	
@@ -57,7 +57,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 			this.cum.addFluidModifier(null, fm);
 		}
 		this.setColour(0, colour);
-		SVGString = getSVGString(itemType.getPathName(), colour);
+		SVGString = getSVGString(itemType.getPathNameInformation().get(0).getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	

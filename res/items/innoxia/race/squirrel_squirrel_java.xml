@@ -16,7 +16,9 @@
 		
 		<rarity>UNCOMMON</rarity> 
 		
-		<imageName background="attribute_liquid_background.svg" imageRotation="-15" imageSize="80">squirrel_squirrel_java.svg</imageName>
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">squirrel_squirrel_java.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
 		
 		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
 		<colourSecondary/>

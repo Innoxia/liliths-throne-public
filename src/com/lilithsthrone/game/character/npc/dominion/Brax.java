@@ -482,7 +482,7 @@ public class Brax extends NPC {
 	@SuppressWarnings("fallthrough")
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 		

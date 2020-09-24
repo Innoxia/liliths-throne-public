@@ -247,9 +247,9 @@ public class RoxysShop {
 						} else if(dTotal<=9) {
 							item = Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum");
 						} else if(dTotal<=11) {
-							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH);
+							item = Main.game.getItemGen().generateItem("innoxia_race_rat_brown_rats_burger");
 						} else {
-							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HUMAN);
+							item = Main.game.getItemGen().generateItem("innoxia_race_human_bread_roll");
 						}
 						
 						UtilText.addSpecialParsingString(Util.intToString(d1), true);

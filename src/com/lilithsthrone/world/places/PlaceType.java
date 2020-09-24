@@ -4089,7 +4089,7 @@ public class PlaceType {
 				inventory.addItem(Main.game.getItemGen().generateItem("innoxia_race_slime_slime_quencher"));
 			}
 			for(int i=0; i<5; i++) {
-				inventory.addItem(Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_SLIME));
+				inventory.addItem(Main.game.getItemGen().generateItem("innoxia_race_slime_biojuice_canister"));
 			}
 		}
 	}.initItemsPersistInTile()

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>100000000</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Innoxia's Gift]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Innoxia's Gifts]]></namePlural>
+		<description><![CDATA[Once thought to be lost forever, this bottle of bubbling pink liquid has made a surprise return, and can turn anyone who drinks it into a demon!<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/demon/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="-15" imageSize="80">demon_innoxias_gift.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_CORRUPTION</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldBad(Does not affect unique characters)]]]></line>
+			<line><![CDATA[[style.boldTfGeneric(Transforms)] non-demons into [style.boldDemon(half-demons)]]]></line>
+			<line><![CDATA[[style.boldTfGeneric(Transforms)] half-demons into [style.boldDemon(demons)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p style='text-align:center'>
+			#IF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
+				[style.italicsDisabled(This item does not work on non-slave unique characters...)]
+			#ELSEIF(npc.getSubspeciesOverride()==SUBSPECIES_HALF_DEMON)
+				[##npc.setBody(npc.getGender(), SUBSPECIES_DEMON, RACE_STAGE_GREATER, false)]
+				[##npc.setSubspeciesOverride(SUBSPECIES_DEMON)]
+				[style.italicsDemon([npc.NameIsFull] now [npc.a_race]!)]
+			#ELSE
+				[##npc.setBody(game.getCharacterUtils().generateHalfDemonBody(npc, npc.getGender(), npc.getFleshSubspecies(), true), false)]
+				[style.italicsDemon([npc.NameIsFull] now [npc.a_race]!)]
+			#ENDIF
+		</p>
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		The moment [npc.name] [npc.verb(pull)] the stopper out from the bottle of Innoxia's Gift, [npc.sheIs] filled with a desperate need to drink the bubbling pink liquid contained within. Instantly, [npc.she] [npc.verb(bring)] the bottle to [npc.her] [npc.lips] and [npc.verb(gulp)] it all down, suppressing [npc.her] gag reflex as [npc.her] senses are overwhelmed by how sickeningly sweet it is.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Pulling out the stopper from the bottle of Innoxia's Gift, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. Instantly, [npc2.she] [npc2.verb(gulp)] it all down, suppressing [npc2.her] gag reflex as [npc2.her] senses are overwhelmed by how sickeningly sweet it is.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
