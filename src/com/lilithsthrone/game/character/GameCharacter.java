@@ -20190,13 +20190,15 @@ public abstract class GameCharacter implements XMLSaving {
 				this.addClothing(clothing, false);
 			}
 		}
+
+        AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
+
+		inventory.getClothingCurrentlyEquipped().add(clonedClothing);
+        clonedClothing.setSlotEquippedTo(slotToEquipInto);
+
+        clonedClothing.onEquipApplyEffects(this, this, false);
 		
-		inventory.getClothingCurrentlyEquipped().add(newClothing);
-		newClothing.setSlotEquippedTo(slotToEquipInto);
-		
-		newClothing.onEquipApplyEffects(this, this, false);
-		
-		applyEquipClothingEffects(newClothing, slotToEquipInto, null, false);
+		applyEquipClothingEffects(clonedClothing, slotToEquipInto, null, false);
 		
 		updateInventoryListeners();
 	}
