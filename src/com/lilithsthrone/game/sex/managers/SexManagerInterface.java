@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.AbstractRace;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -390,13 +390,13 @@ public interface SexManagerInterface {
 	}
 
 	public default String getPublicSexStartingDescription() {
-		Set<Subspecies> subspeciesSet = new HashSet<>();
+		Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
 			subspeciesSet.addAll(pop.getSpecies().keySet());
 		}
 		if(!subspeciesSet.isEmpty()) {
 			List<AbstractRace> racesPresent = new ArrayList<>();
-			for(Subspecies species : subspeciesSet) {
+			for(AbstractSubspecies species : subspeciesSet) {
 				if(!racesPresent.contains(species.getRace())) {
 					racesPresent.add(species.getRace());
 				}
@@ -404,7 +404,7 @@ public interface SexManagerInterface {
 			Collections.shuffle(racesPresent);
 			List<String> raceNames = new ArrayList<>();
 			for(int i=0; i<racesPresent.size() && i<3;i++) {
-				raceNames.add(Subspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural(null));
+				raceNames.add(AbstractSubspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural(null));
 			}
 			if(raceNames.size() < racesPresent.size()) {
 				raceNames.add("many other races");

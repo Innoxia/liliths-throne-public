@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -57,7 +58,7 @@ public class EnforcerWarehouseGuard extends NPC {
 		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public EnforcerWarehouseGuard(Occupation occupation, Subspecies subspecies, RaceStage raceStage, Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
+	public EnforcerWarehouseGuard(Occupation occupation, AbstractSubspecies subspecies, RaceStage raceStage, Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, gender, subspecies, raceStage,

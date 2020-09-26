@@ -50,7 +50,7 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -2125,7 +2125,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 						
-						Set<Subspecies> subspecies = new HashSet<>();
+						Set<AbstractSubspecies> subspecies = new HashSet<>();
 						subspecies.addAll(pop.getSpecies().keySet());
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								"Races Present",

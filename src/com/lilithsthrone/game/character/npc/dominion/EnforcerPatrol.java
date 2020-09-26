@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -77,47 +78,57 @@ public class EnforcerPatrol extends NPC {
 		if(!isImported) {
 			setLevel(Util.random.nextInt(5)+3);
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case BAT_MORPH:
-					case DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HUMAN:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_ARCTIC:
-					case FOX_ASCENDANT_FENNEC:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case HALF_DEMON:
-					case SLIME:
-					case REINDEER_MORPH:
-						break;
-					// Regular spawns:
-					default:
-						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						}
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+					continue;
 				}
+				if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
+					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				}
+				
+//				switch(s) {
+//					// No spawn chance:
+//					case ANGEL:
+//					case BAT_MORPH:
+//					case DEMON:
+//					case LILIN:
+//					case ELDER_LILIN:
+//					case HARPY:
+//					case HARPY_RAVEN:
+//					case HARPY_BALD_EAGLE:
+//					case HUMAN:
+//					case IMP:
+//					case IMP_ALPHA:
+//					case FOX_ASCENDANT:
+//					case FOX_ASCENDANT_ARCTIC:
+//					case FOX_ASCENDANT_FENNEC:
+//					case ELEMENTAL_AIR:
+//					case ELEMENTAL_ARCANE:
+//					case ELEMENTAL_EARTH:
+//					case ELEMENTAL_FIRE:
+//					case ELEMENTAL_WATER:
+//					case HALF_DEMON:
+//					case SLIME:
+//					case REINDEER_MORPH:
+//						break;
+//					// Regular spawns:
+//					default:
+//						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+//							Subspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+//						} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
+//							Subspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+//						}
+//				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
 					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)

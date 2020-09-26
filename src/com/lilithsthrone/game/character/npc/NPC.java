@@ -57,13 +57,13 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
-import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -121,7 +121,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected Set<SexSlot> sexPositionPreferences;
 	
 	protected Gender genderPreference = null;
-	protected Subspecies subspeciesPreference = null;
+	protected AbstractSubspecies subspeciesPreference = null;
 	protected RaceStage raceStagePreference = null;
 	
 	protected NPC(boolean isImported,
@@ -133,7 +133,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			int birthDay,
 			int level,
 			Gender startingGender,
-			Subspecies startingSubspecies,
+			AbstractSubspecies startingSubspecies,
 			RaceStage stage,
 			CharacterInventory inventory,
 			AbstractWorldType worldLocation,
@@ -315,7 +315,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 		if(genderPreference!=null) {
 			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "genderPreference", String.valueOf(genderPreference));
-			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "subspeciesPreference", String.valueOf(subspeciesPreference));
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "subspeciesPreference", Subspecies.getIdFromSubspecies(subspeciesPreference));
 			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "raceStagePreference", String.valueOf(raceStagePreference));
 		}
 		
@@ -360,7 +360,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			try {
 				npc.genderPreference = Gender.valueOf(((Element)npcSpecificElement.getElementsByTagName("genderPreference").item(0)).getAttribute("value"));
-				npc.subspeciesPreference = Subspecies.valueOf(((Element)npcSpecificElement.getElementsByTagName("subspeciesPreference").item(0)).getAttribute("value"));
+				npc.subspeciesPreference = Subspecies.getSubspeciesFromId(((Element)npcSpecificElement.getElementsByTagName("subspeciesPreference").item(0)).getAttribute("value"));
 				npc.raceStagePreference = RaceStage.valueOf(((Element)npcSpecificElement.getElementsByTagName("raceStagePreference").item(0)).getAttribute("value"));
 			} catch(Exception ex) {
 			}
@@ -931,168 +931,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(ItemType.ADDICTION_REMOVAL));
 			
 		} else {
-			AbstractItemType raceIngredient = ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
-			AbstractItemType raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
-			AbstractItemType book = ItemType.getLoreBook(getSubspecies());
+			AbstractItemType raceIngredient = getSubspecies().getAttributeItem(this);
+			AbstractItemType raceTFIngredient = getSubspecies().getTransformativeItem(this);
+			AbstractItemType book = getSubspecies().getBook();
 			
-			switch(getSubspecies()) {
-				case CAT_MORPH:
-				case CAT_MORPH_CARACAL:
-				case CAT_MORPH_CHEETAH:
-				case CAT_MORPH_LEOPARD:
-				case CAT_MORPH_LEOPARD_SNOW:
-				case CAT_MORPH_LION:
-				case CAT_MORPH_LYNX:
-				case CAT_MORPH_TIGER:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_cat_kittys_reward");
-					break;
-					
-				case COW_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_cow_bubble_milk");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_cow_bubble_cream");
-					break;
-					
-				case DOG_MORPH:
-				case DOG_MORPH_BORDER_COLLIE:
-				case DOG_MORPH_DOBERMANN:
-				case DOG_MORPH_GERMAN_SHEPHERD:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_dog_canine_crunch");
-					break;
-					
-				case FOX_MORPH:
-				case FOX_ASCENDANT:
-				case FOX_ASCENDANT_ARCTIC:
-				case FOX_ASCENDANT_FENNEC:
-				case FOX_MORPH_FENNEC:
-				case FOX_MORPH_ARCTIC:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_fox_vulpines_vineyard");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
-					break;
-					
-				case HORSE_MORPH:
-				case HORSE_MORPH_UNICORN:
-				case HORSE_MORPH_PEGASUS:
-				case HORSE_MORPH_ALICORN:
-				case CENTAUR:
-				case PEGATAUR:
-				case ALITAUR:
-				case UNITAUR:
-				case HORSE_MORPH_ZEBRA:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
-					break;
-					
-				case REINDEER_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie");
-					break;
-					
-				case WOLF_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
-					break;
-					
-				case HUMAN:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
-					break;
-					
-				case ANGEL:
-					book = ItemType.DYE_BRUSH; //TODO
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_angel_angels_tears");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
-					break;
-					
-				case DEMON:
-				case HALF_DEMON:
-				case LILIN:
-				case ELDER_LILIN:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
-					raceTFIngredient = null;
-					break;
-					
-				case IMP:
-				case IMP_ALPHA:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_imp_impish_brew");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_imp_impish_brew");
-					break;
-					
-				case HARPY:
-				case HARPY_BALD_EAGLE:
-				case HARPY_RAVEN:
-				case HARPY_PHOENIX:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_harpy_harpy_perfume");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop");
-					break;
-					
-				case ALLIGATOR_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_alligator_swamp_water");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_alligator_gators_gumbo");
-					break;
-					
-				case SQUIRREL_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_squirrel_round_nuts");
-					break;
-					
-				case BAT_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad");
-					break;
-					
-				case RAT_MORPH:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger");
-					break;
-					
-				case RABBIT_MORPH:
-				case RABBIT_MORPH_LOP:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice");
-					raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake");
-					break;
-					
-				case ELEMENTAL_AIR:
-					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
-					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
-					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.AIR);
-					break;
-					
-				case ELEMENTAL_ARCANE:
-					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
-					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
-					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.ARCANE);
-					break;
-					
-				case ELEMENTAL_EARTH:
-					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
-					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
-					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.EARTH);
-					break;
-					
-				case ELEMENTAL_FIRE:
-					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
-					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
-					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.FIRE);
-					break;
-					
-				case ELEMENTAL_WATER:
-					book = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
-					raceIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
-					raceTFIngredient = ItemType.getIdToItemMap().get("SPELL_SCROLL_"+SpellSchool.WATER);
-					break;
-					
-				case SLIME:
-					raceIngredient = ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
-					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-						raceTFIngredient = ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister");
-					} else {
-						raceTFIngredient =  ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
-					}
-					break;
-					
-			}
 			
 			if(rnd<0.6 && raceTFIngredient!=null) {
 				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(raceTFIngredient));
@@ -1100,9 +942,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getSubspecies())) {
 				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(book));
 				
-			} else {
+			} else if(raceIngredient!=null) {
 				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(raceIngredient));
 				
+			} else {
+				return Util.newArrayListOfValues(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH));
 			}
 		}
 	}
@@ -1234,7 +1078,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
 			
 			BodyMaterial material = this.getBodyMaterial();
-			this.setBody(this.getGenderIdentity(), Subspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBody(this.getGenderIdentity(), AbstractSubspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
 			Main.game.getCharacterUtils().randomiseBody(this, false);
 			
@@ -1247,7 +1091,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			
 		} else {
-			AbstractRacialBody racialBody = RacialBody.valueOfRace(Subspecies.getFleshSubspecies(this).getRace());
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(this).getRace());
 			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
 				this.setFemininity(racialBody.getFemaleFemininity());
 				
@@ -1328,7 +1172,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return genderPreference;
 	}
 	
-	public Subspecies getSubspeciesPreference() {
+	public AbstractSubspecies getSubspeciesPreference() {
 		if(subspeciesPreference == null) {
 			generatePartnerPreferences();
 		}
@@ -1375,91 +1219,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		if(Main.getProperties().getForcedTFPreference() != FurryPreference.HUMAN) {
-			switch(cannotTransformPreference
-					?target.getSubspecies()
-					:getSubspeciesPreference()) {
-				case CAT_MORPH:
-				case CAT_MORPH_CARACAL:
-				case CAT_MORPH_CHEETAH:
-				case CAT_MORPH_LEOPARD:
-				case CAT_MORPH_LEOPARD_SNOW:
-				case CAT_MORPH_LION:
-				case CAT_MORPH_LYNX:
-				case CAT_MORPH_TIGER:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_cat_kittys_reward");
-					break;
-				case DOG_MORPH:
-				case DOG_MORPH_BORDER_COLLIE:
-				case DOG_MORPH_DOBERMANN:
-				case DOG_MORPH_GERMAN_SHEPHERD:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_dog_canine_crunch");
-					break;
-				case FOX_MORPH:
-				case FOX_ASCENDANT:
-				case FOX_ASCENDANT_ARCTIC:
-				case FOX_ASCENDANT_FENNEC:
-				case FOX_MORPH_FENNEC:
-				case FOX_MORPH_ARCTIC:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
-					break;
-				case HARPY:
-				case HARPY_BALD_EAGLE:
-				case HARPY_RAVEN:
-				case HARPY_PHOENIX:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop");
-					break;
-				case HORSE_MORPH:
-				case HORSE_MORPH_UNICORN:
-				case HORSE_MORPH_PEGASUS:
-				case HORSE_MORPH_ALICORN:
-				case CENTAUR:
-				case PEGATAUR:
-				case ALITAUR:
-				case UNITAUR:
-				case HORSE_MORPH_ZEBRA:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
-					break;
-				case REINDEER_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie");
-					break;
-				case SQUIRREL_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_squirrel_round_nuts");
-					break;
-				case WOLF_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
-					break;
-				case ALLIGATOR_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_alligator_gators_gumbo");
-					break;
-				case COW_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_cow_bubble_cream");
-					break;
-				case RAT_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger");
-					break;
-				case BAT_MORPH:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad");
-					break;
-				case RABBIT_MORPH:
-				case RABBIT_MORPH_LOP:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake");
-					break;
-				case ANGEL:
-				case HALF_DEMON:
-				case DEMON:
-				case LILIN:
-				case ELDER_LILIN:
-				case IMP:
-				case IMP_ALPHA:
-				case HUMAN:
-				case SLIME:
-				case ELEMENTAL_AIR:
-				case ELEMENTAL_ARCANE:
-				case ELEMENTAL_EARTH:
-				case ELEMENTAL_FIRE:
-				case ELEMENTAL_WATER:
-					itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
-					break;
+			AbstractSubspecies transformationItemSubspecies = cannotTransformPreference
+																	?target.getSubspecies()
+																	:getSubspeciesPreference();
+					
+			itemType = transformationItemSubspecies.getTransformativeItem(this);
+			if(itemType==null || transformationItemSubspecies==Subspecies.SLIME) {
+				itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 			}
 		}
 		
@@ -1467,7 +1233,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean skipGenitalsTF = false;
 		
 		Body body;
-		Util.random = new Random((this.getId()).hashCode()); // Set random with seed of this cahracter's id hash so that it's consistent across multiple calls (as some methods inside generateBody() use random).
+		Util.random = new Random((this.getId()).hashCode()); // Set random with seed of this character's id hash so that it's consistent across multiple calls (as some methods inside generateBody() use random).
 		if(cannotTransformPreference) { // As demons and angels cannot be created via transformation, use the target's current body as Subspecies preference (so that gender changes use that Subspecies' body parts) 
 			body = Main.game.getCharacterUtils().generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
@@ -2106,7 +1872,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Preferred race:
 		
-		Subspecies species = getSubspecies();
+		AbstractSubspecies species = getSubspecies();
 		RaceStage stage = getRaceStage();
 		
 		if(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN) {
@@ -2119,7 +1885,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				species = Subspecies.HARPY;
 			}
 			if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.8f) {
-				List<Subspecies> availableRaces = new ArrayList<>();
+				List<AbstractSubspecies> availableRaces = new ArrayList<>();
 				availableRaces.add(Subspecies.CAT_MORPH);
 				availableRaces.add(Subspecies.HARPY);
 				availableRaces.add(Subspecies.COW_MORPH);
@@ -2129,7 +1895,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			// Chance for race to be random:
 			if(Math.random() <= Main.getProperties().getRandomRacePercentage()) {
-				List<Subspecies> availableRaces = new ArrayList<>();
+				List<AbstractSubspecies> availableRaces = new ArrayList<>();
 				availableRaces.add(Subspecies.CAT_MORPH);
 				availableRaces.add(Subspecies.DOG_MORPH);
 				availableRaces.add(Subspecies.HARPY);

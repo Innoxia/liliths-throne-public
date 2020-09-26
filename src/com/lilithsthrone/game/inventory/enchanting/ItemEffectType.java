@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -899,20 +900,6 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType FEMININE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldSex(+10)] [style.boldFeminine(femininity)]"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+UtilText.parse(target, "[npc.Name] feels the burger's side effects kicking in almost immediately...")
-					+ "<br/>"
-					+ target.incrementFemininity(10)
-					+ "</p>";
 		}
 	};
 	
@@ -2499,7 +2486,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			Subspecies sub = Subspecies.getFleshSubspecies(target);
+			AbstractSubspecies sub = AbstractSubspecies.getFleshSubspecies(target);
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
@@ -2508,69 +2495,6 @@ public class ItemEffectType {
 				target.setSubspeciesOverride(Subspecies.DEMON);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
 			}
-		}
-	};
-	
-	public static AbstractItemEffectType getRacialEffectType(AbstractRace race) {
-		return racialEffectTypes.get(race);
-	}
-	
-	
-	public static AbstractItemEffectType RACE_HARPY = new AbstractItemEffectType(null,
-			PresetColour.RACE_HARPY) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.HARPY, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.HARPY, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-
-	public static AbstractItemEffectType RACE_SLIME = new AbstractItemEffectType(null,
-			PresetColour.RACE_SLIME) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return Util.newArrayListOfValues(TFModifier.TF_MATERIAL_FLESH);
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues("Changes the target's body material to flesh.");
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return target.setBodyMaterial(BodyMaterial.FLESH);
 		}
 	};
 	
@@ -2914,7 +2838,10 @@ public class ItemEffectType {
 			return "";
 		}
 	};
-	
+
+	public static AbstractItemEffectType getRacialEffectType(AbstractRace race) {
+		return racialEffectTypes.get(race);
+	}
 	
 	public static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
 	public static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();
@@ -2929,6 +2856,9 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
+		if(id.startsWith("RACE_")) {
+			return getRacialEffectType(Race.getRaceFromId(id.substring(5)));
+		}
 		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);
 	}
@@ -2938,8 +2868,8 @@ public class ItemEffectType {
 	}
 	
 	// set in ItemType
-	public static AbstractItemEffectType getBookEffectFromSubspecies(Subspecies subspecies) {
-		String id = Util.getClosestStringMatch("BOOK_READ_"+subspecies.toString(), idToItemEffectTypeMap.keySet());
+	public static AbstractItemEffectType getBookEffectFromSubspecies(AbstractSubspecies subspecies) {
+		String id = Util.getClosestStringMatch("BOOK_READ_"+Subspecies.getIdFromSubspecies(subspecies), idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);
 	}
 	
@@ -2992,6 +2922,15 @@ public class ItemEffectType {
 							return getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 						}
 					});
+		}
+		
+		for(Entry<AbstractRace, AbstractItemEffectType> entry : racialEffectTypes.entrySet()) {
+
+			allEffectTypes.add(entry.getValue());
+			
+			String id = "RACE_"+Race.getIdFromRace(entry.getKey());
+			itemEffectTypeToIdMap.put(entry.getValue(), id);
+			idToItemEffectTypeMap.put(id, entry.getValue());
 		}
 	}
 	

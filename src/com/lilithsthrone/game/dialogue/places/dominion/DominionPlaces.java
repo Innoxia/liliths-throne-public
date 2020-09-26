@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -573,7 +574,7 @@ public class DominionPlaces {
 							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
 								@Override
 								public void effects() {
-									List<Subspecies> possibleSubspecies = new ArrayList<>();
+									List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
 									possibleSubspecies.add(Subspecies.CAT_MORPH);
 									possibleSubspecies.add(Subspecies.DOG_MORPH);
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);

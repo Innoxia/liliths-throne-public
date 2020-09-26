@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -70,13 +71,13 @@ public class RatGangMember extends NPC {
 		if(!isImported) {
 			// RACE:
 			
-			Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<Subspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
 				if(entry.getKey().getRace()==Race.RAT_MORPH) {
 					subspeciesMap.put(entry.getKey(), entry.getValue().getValue());
 				}
 			}
-			Subspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
+			AbstractSubspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			if(subspecies==null) {
 				subspecies = Subspecies.RAT_MORPH;
 			}

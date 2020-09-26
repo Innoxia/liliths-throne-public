@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -287,801 +288,6 @@ public class ItemType {
 					"[npc.Name] pops a small cluster of glowing mushrooms into your mouth, and as [npc.she] makes you chew and swallow them down, you discover that they have a refreshing, minty taste.");
 		}
 	};
-	
-	// Racial ingredients:
-	
-//	public static AbstractItemType DEBUG_DEMON_POTION = new AbstractItemType(100_000_000,
-//			"a bottle of",
-//			false,
-//			"Innoxia's Gift",
-//			"Innoxia's Gifts",
-//			"Once thought to be lost forever, this bottle of bubbling pink liquid has made a surprise return, and can turn anyone who drinks it into a demon!"
-//					+ "",
-//			"raceDemonInnoxiasGift",
-//			PresetColour.ATTRIBUTE_CORRUPTION,
-//			null,
-//			null,
-//			Rarity.LEGENDARY,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_DEMON_POTION_EFFECT)),
-//			Util.newArrayListOfValues()) {
-//		@Override
-//		public boolean isTransformative() {
-//			return true;
-//		}
-//		@Override
-//		public String getUseName() {
-//			return "drink";
-//		}
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
-//							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is.",
-//					"You pull the stopper out from the top of the bottle of 'Innoxia's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
-//					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
-//					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-//						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(15,
-//			"a",
-//			false,
-//			"Bread Roll",
-//			"Bread Roll",
-//			"A perfectly average bread roll, wrapped in a small, brown paper bag."
-//					+ " A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs up while surrounded by all manner of delicious-looking baked goods.",
-//			"raceHumanBreadRoll",
-//			PresetColour.RACE_HUMAN,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BREAD_ROLL)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_HUMAN;
-//		}
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You take the bread roll out of its protective paper bag and quickly devour it."
-//							+ " The delicious taste of freshly baked bread fills your mouth...",
-//					"You take the bread roll out of its protective paper bag and get [npc.name] to eat it.",
-//					"[npc.Name] pulls out a bread roll, and after taking it out of its protective paper bag, [npc.she] quickly devours it.",
-//					"[npc.Name] pulls out a bread roll, and after taking it out of its protective paper bag, [npc.she] brings it to your [pc.lips] and gets you to eat it."
-//						+ " The delicious taste of freshly baked bread fills your mouth...");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_CAT_MORPH = new AbstractItemType(30,
-//			"a",
-//			false,
-//			"Kitty's Reward",
-//			"Kitty's Rewards",
-//			"A small, square food tin with a ring-pull lid."
-//					+ " A label on the side shows a greater cat-girl devouring a plate of what looks to be this can's contents; some sort of tinned salmon.",
-//			"raceCatMorphKittysReward",
-//			PresetColour.RACE_CAT_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_CAT_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You pull back the ring-pull and peel off the lid to the can of 'Kitty's Reward'."
-//						+ " A rich, fishy smell accompanies the sight of what looks to be tinned salmon, and you find yourself unable to resist the delicious-looking meat."
-//						+ " You quickly wolf down the can's contents, finding that it was as delicious as it looked.",
-//					"You pull out the can of 'Kitty's Reward', and, after pulling off the lid, force [npc.name] to eat the fishy contents.",
-//					"[npc.Name] pulls out a can of 'Kitty's Reward', and, after peeling off the lid, quickly devours the contents.",
-//					"[npc.Name] pulls out a can of 'Kitty's Reward', and, after peeling off the lid, [npc.she] forces you to eat the contents."
-//						+ " A rich, fishy smell accompanies the sight of what looks to be tinned salmon, and you soon find yourself greedily gulping down the delicious meat.");
-//		}
-//	};
-	
-
-//	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(20,
-//			"a pot of",
-//			false,
-//			"Bubble Cream",
-//			"Bubble Creams",
-//			"A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid."
-//					+ " A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
-//			"raceCowMorphBubbleCream",
-//			PresetColour.RACE_COW_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_COW_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You peel back the foil lid to reveal the pot's contents."
-//						+ " Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within."
-//						+ " Detaching the tiny wooden spoon that was stuck to one side, you eagerly dig in to the creamy mixture,"
-//							+ " letting out satisfied little humming noises as you discover that it's quite possibly the most delicious yoghurt that you've ever tasted.",
-//					"You pull out the pot of 'Bubble Cream', and, after pulling off the lid, force [npc.name] to eat the contents.",
-//					"[npc.Name] pulls out a pot of 'Bubble Cream', and, after peeling off the lid, quickly devours the contents.",
-//					"[npc.Name] pulls out a pot of 'Bubble Cream', and, after peeling off the lid, [npc.she] forces you to eat the contents."
-//						+ " Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within."
-//						+ " Detaching the tiny wooden spoon that was stuck to one side, you eagerly dig in to the creamy mixture,"
-//							+ " letting out satisfied little humming noises as you discover that it's quite possibly the most delicious yoghurt that you've ever tasted.");
-//		}
-//	};
-	
-
-//	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(50,
-//			"a bag of",
-//			false,
-//			"Round Nuts",
-//			"Round Nuts",
-//			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
-//			"raceSquirrelMorphRoundNuts",
-//			PresetColour.RACE_SQUIRREL_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_SQUIRREL_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You pull at the sides of one end of the bag, and open the package."
-//						+ " A rich, earthy smell accompanies the sight of the nuts inside, and you find yourself unable to resist the delicious-looking display."
-//						+ " You quickly wolf down the bag's contents, finding that the nuts are as delicious as they look.",
-//					"You pull out the bag of 'Round Nuts', and, after tearing it open, force [npc.name] to eat the contents.",
-//					"[npc.Name] pulls out a bag of 'Round Nuts', and, after tearing it open, quickly devours the contents.",
-//					"[npc.Name] pulls out a bag of 'Round Nuts', and, after tearing it open, [npc.she] forces you to eat the contents."
-//						+ " A rich, earthy smell accompanies the sight of the nuts inside, and you find yourself unable to resist the delicious-looking display."
-//						+ " You quickly wolf down the bag's contents, finding that the nuts are as delicious as they look.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_BAT_MORPH = new AbstractItemType(40,
-//			"a",
-//			false,
-//			"Fruit Bat's Salad",
-//			"Fruit Bat's Salads",
-//			"A little plastic pot, containing a delicious-looking fruit salad."
-//					+ " Printed into the film lid, there's a little picture of a bat-girl sitting cross-legged as she eats her way through a mountain of fruit.",
-//			"raceBatMorphFruitSalad",
-//			PresetColour.RACE_BAT_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
-//			Util.newArrayListOfValues(
-//					ItemTag.BAT_CAVERNS_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_BAT_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"Peeling off the film lid, you start eating the fruit salad."
-//						+ " The slices of orange, mango, and strawberry are all absolutely delicious, and it only takes you a moment to finish off the entire pot.",
-//					"Peeling off the film lid, you force [npc.name] to eat the 'Fruit Bat's Salad'.",
-//					"[npc.Name] pulls out a pot of 'Fruit Bat's Salad', and, after peeling off the lid, quickly wolfs down the contents.",
-//					"[npc.Name] pulls out a pot of 'Fruit Bat's Salad', and, after peeling off the lid, forces you to eat the contents."
-//							+ " The slices of orange, mango, and strawberry are all absolutely delicious, and it only takes you a moment to finish off the entire pot.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_RAT_MORPH = new AbstractItemType(80,
-//			"a",
-//			false,
-//			"Brown Rat's Burger",
-//			"Brown Rat's Burgers",
-//			"A double-cheeseburger, wrapped up in greaseproof paper."
-//					+ " On the wrapper, there's a picture of a brown-furred rat-boy greedily shoving one of these burgers into his mouth.",
-//			"raceRatMorphBurger",
-//			PresetColour.RACE_RAT_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
-//			Util.newArrayListOfValues(
-//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_RAT_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
-//							+ " Bringing it up to your mouth, you take a big bite, and discover that it's absolutely delicious."
-//							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
-//					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
-//							+ " Bringing it up to [npc.namePos] mouth, you force [npc.herHim] to eat the entire burger.",
-//					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, quickly wolfs down the contents.",
-//					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, forces you to eat the contents."
-//							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_RABBIT_MORPH = new AbstractItemType(40,
-//			"a",
-//			false,
-//			"Bunny Carrot-Cake",
-//			"Bunny Carrot-Cakes",
-//			"An individually-wrapped slice of frosted carrot cake, complete with a decorative icing carrot on the top."
-//					+ " On the wrapper, there's a very lewd image of a rabbit-girl being bred by a muscular rabbit-boy.",
-//			"raceRabbitMorphCarrotCake",
-//			PresetColour.RACE_RABBIT_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_RABBIT_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"Tearing off the little plastic wrapper, you pop the small slice of carrot cake into your mouth."
-//							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.",
-//					"Unwrapping the little plastic wrapper, you pop the small slice of carrot cake into [npc.namePos] mouth, before making [npc.herHim] swallow it all down.",
-//					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, quickly wolfs down the cake in one go.",
-//					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, forces the small slice of cake into your mouth."
-//							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_DOG_MORPH = new AbstractItemType(25,
-//			"a",
-//			false,
-//			"Canine Crunch",
-//			"Canine Crunches",
-//			"An individually-wrapped dog-biscuit in the shape of a bone."
-//					+ " It's obviously meant as a snack for dog-morphs, but is edible for all races.",
-//			"raceDogMorphCanineCrunch",
-//			PresetColour.RACE_DOG_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_DOG_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You peel back the paper packaging and pop the 'Canine Crunch' into your mouth."
-//						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty.",
-//					"You pull out the 'Canine Crunch', and, after tearing off the packaging, force [npc.name] to eat it.",
-//					"[npc.Name] pulls out a 'Canine Crunch', and, quickly unwrapping the paper packaging, proceeds to wolf down the bone-shaped biscuit.",
-//					"[npc.Name] pulls out a 'Canine Crunch', and, after tearing off the paper packaging, [npc.she] forces you to eat it."
-//						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty.");
-//		}
-//	};
-//	
-//	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(75,
-//			"a",
-//			false,
-//			"Chicken Pot Pie",
-//			"Chicken Pot Pies",
-//			"A tin containing a pie with a mix of vegetables and meat."
-//					+ " While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.",
-//			"raceFoxMorphPie",
-//			PresetColour.RACE_FOX_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_FOX_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You bring the chicken pot pie up to your mouth, before taking a bite."
-//						+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.",
-//					"You bring the chicken pot pie up to [npc.namePos] mouth, before feeding it to [npc.herHim].",
-//					"[npc.Name] pulls out a chicken pot pie, and promptly wolfs it down.",
-//					"[npc.Name] brings a chicken pot pie up to your mouth, before starting to feed it to you."
-//							+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.");
-//		}
-//	};
-
-//	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(15,
-//			"a",
-//			false,
-//			"Sugar Carrot Cube",
-//			"Sugar Carrot Cubes",
-//			"A bright orange sugar cube, which smells of carrots."
-//					+ " From the equine icon on the wrapper, this is obviously meant as a snack for horse-morphs, but is edible for all races.",
-//			"raceHorseMorphSugarCarrotCube",
-//			PresetColour.RACE_HORSE_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_HORSE_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You peel off the paper packaging and pop the 'Sugar Carrot Cube' into your mouth."
-//							+ " The strong taste of carrots instantly fills your mouth, but before you have any time to relish the flavour, you find that it's dissolved in your saliva, and you've gulped down the sugary mess.",
-//					"You pull out the 'Sugar Carrot Cube', and, after tearing off the packaging, force [npc.name] to eat it.",
-//					"[npc.Name] pulls out a 'Sugar Carrot Cube', and, quickly unwrapping the paper packaging, pops it into [npc.her] mouth and swallows it down.",
-//					"[npc.Name] pulls out a 'Sugar Carrot Cube', and, after tearing off the paper packaging, [npc.she] forces you to eat it."
-//						+ " The strong taste of carrots instantly fills your mouth, but before you have any time to relish the flavour, you find that it's dissolved in your saliva, and you've gulped down the sugary mess.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(25,
-//			"a",
-//			false,
-//			"Sugar Cookie",
-//			"Sugar Cookies",
-//			"An individually-wrapped, icing-and-sprinkles-topped sugar cookie, which looks, rather surprisingly, extremely normal.",
-//			"raceReindeerMorphSugarCookie",
-//			PresetColour.RACE_REINDEER_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
-//			Util.newArrayListOfValues(
-//					ItemTag.REINDEER_GIFT,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_REINDEER_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You unwrap the 'Sugar Cookie' from its protective packaging and pop it into your mouth."
-//						+ " Although it looked normal enough, you soon discover that the taste is anything but, being both extremely sweet and salty at the same time."
-//						+ " Despite the unusual combination of flavours, it's tasty enough, and you soon find yourself having eaten the whole cookie.",
-//					"You pull out the 'Sugar Cookie', and, after tearing off the packaging, force [npc.name] to eat it.",
-//					"[npc.Name] pulls out a 'Sugar Cookie', and, quickly unwrapping the paper packaging, pops it into [npc.her] mouth and swallows it down.",
-//					"[npc.Name] pulls out a 'Sugar Cookie', and, after tearing off the paper packaging, [npc.she] forces you to eat it."
-//						+ " Although it looked normal enough, you soon discover that the taste is anything but, being both extremely sweet and salty at the same time."
-//						+ " Despite the unusual combination of flavours, it's tasty enough, and you soon find yourself having eaten the whole cookie.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(100,
-//			"a",
-//			false,
-//			"Gator's Gumbo",
-//			"Gator's Gumbo",
-//			"An iron bowl, complete with a sealable lid."
-//				+ " The contents take the form of a delicious-smelling variety of gumbo, containing meat, okra, and a variety of other mysterious vegetables.",
-//			"raceGatorMorphGatorsGumbo",
-//			PresetColour.RACE_ALLIGATOR_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
-//			Util.newArrayListOfValues(
-//					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_ALLIGATOR_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You remove the lid from the bowl of 'Gator's Gumbo' and start eating the rich meal contained within."
-//							+ " The delicious, slightly spicy taste of seafood instantly fills your mouth, but you don't take any time to really relish the flavour,"
-//							+ " as you can't help but greedily gulp down the tangy mess and move on to your next mouthful.",
-//					"You pull out the bowl of 'Gator's Gumbo', and, after removing the lid, force [npc.name] to eat the contents.",
-//					"[npc.Name] pulls out a bowl of 'Gator's Gumbo', and, quickly removing the lid, wolfs down the rich meal contained within.",
-//					"[npc.Name] pulls out a bowl of 'Gator's Gumbo', and, after quickly removing the lid, [npc.she] forces you to eat it."
-//						+ " The delicious, slightly spicy taste of seafood instantly fills your mouth, but you don't take any time to really relish the flavour,"
-//							+ " as you can't help but greedily gulp down the tangy mess and move on to your next mouthful.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(80,
-//			"a package of",
-//			false,
-//			"Meat and Marrow",
-//			"Meat and Marrows",
-//			"A package of 'Meat and Marrow', which consists of a slab of some sort of raw meat, wrapped in grease-proof paper and tied up with brown string.",
-//			"raceWolfMorphMeatAndMarrow",
-//			PresetColour.RACE_WOLF_MORPH,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
-//			Util.newArrayListOfValues(
-//					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_WOLF_MORPH;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "eat";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"You untie the brown string, and, peeling back the grease-proof paper, bring the now-exposed slab of meat to your mouth."
-//						+ " A rich, bloody smell rises to fill your nostrils, but instead of repulsing you, you find yourself drooling at the thought of eating the raw meat."
-//						+ " Without further thought, you greedily devour the dripping flesh, licking your fingers clean after rapidly finishing your impromptu meal.",
-//					"You pull out the package of 'Meat and Marrow', and, after peeling back the grease-proof paper, force [npc.name] to eat the contents.",
-//					"[npc.Name] pulls out a package of 'Meat and Marrow', and, tearing off the paper packaging, [npc.she] quickly devours the slab of raw meat that was stored within.",
-//					"[npc.Name] pulls out a package of 'Meat and Marrow', and, after quickly tearing off the paper packaging, [npc.she] forces you to eat it."
-//						+ " A rich, bloody smell rises to fill your nostrils, but instead of repulsing you, you find yourself drooling at the thought of eating the raw meat."
-//						+ " Without further thought, you greedily devour the dripping flesh, licking your fingers clean after rapidly finishing your impromptu meal.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_HARPY = new AbstractItemType(10,
-//			"a",
-//			false,
-//			"Bubblegum Lollipop",
-//			"Bubblegum Lollipops",
-//			"A bright pink lollipop, with a little ball of gum at its core."
-//				+ " Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.",
-//			"raceHarpyLollipop",
-//			PresetColour.RACE_HARPY,
-//			null,
-//			null,
-//			Rarity.RARE,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
-//			Util.newArrayListOfValues(
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.SOLD_BY_RALPH)) {
-//
-//
-//		@Override
-//		public boolean isTransformative() {
-//			return true;
-//		}
-//		
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_HARPY;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public String getUseName() {
-//			return "suck";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"The moment you push the bright pink lollipop past your lips, your taste buds are overwhelmed by the sweet, sugary flavour of bubblegum."
-//						+ " Before you know what you're doing, you're letting out soft little feminine moans,"
-//							+ " which soon turn into desperate whines as you find yourself unable to think about anything other than wildly sucking on the object in your mouth.",
-//					"You pull out the 'Bubblegum Lollipop', and force [npc.name] to suck on it.",
-//					"[npc.Name] pulls out a 'Bubblegum Lollipop', and quickly shoves it into [npc.her] mouth.",
-//					"[npc.Name] pulls out a 'Bubblegum Lollipop', and, after quickly tearing off the plastic wrapper, [npc.she] forces it past your lips."
-//						+ " Before you know what you're doing, you're letting out soft little feminine moans,"
-//							+ " which soon turn into desperate whines as you find yourself unable to think about anything other than wildly sucking on the object in your mouth.");
-//		}
-//	};
-	
-//	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(2500,
-//			"a",
-//			false,
-//			"Biojuice Canister",
-//			"Biojuice Canisters",
-//			"A canister of glowing pink liquid, which has a thick, slimy consistency."
-//					+ " The warning sign on the front makes it quite clear that drinking this would be a bad idea...",
-//			"raceSlimeBiojuice",
-//			PresetColour.RACE_SLIME,
-//			null,
-//			null,
-//			Rarity.LEGENDARY,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BIOJUICE)),
-//			Util.newArrayListOfValues(
-//					ItemTag.RACIAL_TF_ITEM,
-//					ItemTag.CONTRABAND_LIGHT,
-//					ItemTag.NOT_FOR_SALE)) {
-//
-//
-//		@Override
-//		public boolean isTransformative() {
-//			return true;
-//		}
-//		
-//		@Override
-//		public AbstractItemEffectType getEnchantmentEffect() {
-//			return ItemEffectType.RACE_SLIME;
-//		}
-//
-//		@Override
-//		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
-//			return ELIXIR;
-//		}
-//
-//		@Override
-//		public boolean isAbleToBeUsed(GameCharacter target) {
-////			return (!Main.game.isInCombat() || target.isPlayer()) && !target.isPregnant();
-//			return !Main.game.isInCombat();
-//		}
-//		
-//		@Override
-//		public String getUnableToBeUsedDescription(GameCharacter target) {
-//			return "This item cannot be used in combat!";//"This item cannot be used on pregnant people!";
-//		}
-//		
-//		@Override
-//		public String getUseName() {
-//			return "drink";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			return getGenericUseDescription(user, target,
-//					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
-//							+ " The glowing pink liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
-//					"You unseal one end of the canister and bring it up to [npc.namePos] [npc.lips]."
-//							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing pink liquid...",
-//					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
-//					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
-//							+ " The glowing pink liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
-//		}
-//	};
-	
-	// Essence bottles:
-	
-//	BOTTLED_ESSENCE_ANGEL(
-//			null,
-//			false,
-//			"Bottled Angel's Essence",
-//			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-//					+ " Inside, there's a swirling  ",
-//			null,
-//			PresetColour.RARITY_LEGENDARY,
-//			50,
-//			Rarity.LEGENDARY,
-//			null,
-//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ANGEL))) {
-//
-//		@Override
-//		public String getUseName() {
-//			return "suck";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			if (target.isPlayer()) {
-//				return "<p>"
-//							+ ""
-//						+ "</p>";
-//				
-//			} else {
-//				return "<p>"
-//						+ "(You shouldn't be seeing this. x_x)"
-//					+ "</p>";
-//			}
-//		}
-//	  override SVG
-//	};
 	
 	private static String getEssenceAbsorptionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
 			if (user!=null && user.isPlayer()) {
@@ -2797,43 +2003,6 @@ public class ItemType {
 		}
 	};
 
-	// Why did I make this?
-	public static AbstractItemType FEMININE_BURGER = new AbstractItemType(
-			25,
-			null,
-			false,
-			"'Unlikely-Whammer'",
-			"'Unlikely-Whammers'",
-			"Although this may look and taste like an ordinary burger, the packaging declares this 'Unlikely-Whammer' to be 100% meat free."
-					+ " Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...",
-			"raceRatMorphBurger",
-			PresetColour.GENERIC_SEX,
-			null,
-			null,
-			Rarity.LEGENDARY,
-			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FEMININE_BURGER)),
-			null) {
-
-		@Override
-		public String getUseName() {
-			return "eat";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
-							+ " Bringing it up to your mouth, you take a big bite, and discover that it's absolutely delicious."
-							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
-					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
-							+ " Bringing it up to [npc.namePos] mouth, you force [npc.herHim] to eat the entire burger.",
-					"[npc.Name] pulls out an 'Unlikely-Whammer', and, after peeling off the wrapper, quickly wolfs down the contents.",
-					"[npc.Name] pulls out an 'Unlikely-Whammer', and, after peeling off the wrapper, forces you to eat the contents."
-							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
-		}
-	};
-	
-
 	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
 			"",
 			false,
@@ -3684,7 +2853,7 @@ public class ItemType {
 	private static List<AbstractItemType> essences = new ArrayList<>();
 	private static List<AbstractItemType> allItems = new ArrayList<>();
 	private static List<AbstractItemType> moddedItems = new ArrayList<>();
-	private static Map<Subspecies, String> subspeciesBookId = new HashMap<>();
+	private static Map<AbstractSubspecies, String> subspeciesBookId = new HashMap<>();
 	
 	/**
 	 * If you're looking for spell books, their id is:<br/>
@@ -3746,14 +2915,16 @@ public class ItemType {
 			id = "innoxia_race_rabbit_bunny_juice";
 		} else if(id.equalsIgnoreCase("SEX_INGREDIENT_MINCE_PIE")) {
 			id = "innoxia_race_none_mince_pie";
-		} else if(id.equalsIgnoreCase("DEBUG_YOUKO_POTION")) {
-			id = "innoxia_cheat_inno_chans_gift";
 		} else if(id.equalsIgnoreCase("COR_INGREDIENT_ANGELS_TEARS")) {
 			id = "innoxia_race_angel_angels_tears";
 		} else if(id.equalsIgnoreCase("COR_INGREDIENT_LILITHS_GIFT")) {
 			id = "innoxia_race_demon_liliths_gift";
 		} else if(id.equalsIgnoreCase("COR_INGREDIENT_IMPISH_BREW")) {
 			id = "innoxia_race_imp_impish_brew";
+		} else if(id.equalsIgnoreCase("DEBUG_YOUKO_POTION")) {
+			id = "innoxia_cheat_inno_chans_gift";
+		} else if(id.equalsIgnoreCase("FEMININE_BURGER")) {
+			id = "innoxia_cheat_unlikely_whammer";
 		}
 		
 		// Racial-transformative consumables were also moved into external res folder in v0.4:
@@ -3808,7 +2979,7 @@ public class ItemType {
 		return idToItemMap.get("SPELL_SCROLL_"+school);
 	}
 	
-	public static AbstractItemType getLoreBook(Subspecies subspecies) {
+	public static AbstractItemType getLoreBook(AbstractSubspecies subspecies) {
 		return idToItemMap.get(subspeciesBookId.get(subspecies));
 	}
 	
@@ -4235,33 +3406,33 @@ public class ItemType {
 		
 		// Race books:
 		
-		Map<String, List<Subspecies>> subspeciesLoreMap = new HashMap<>();
-		for(Subspecies sub : Subspecies.values()) {
+		Map<String, List<AbstractSubspecies>> subspeciesLoreMap = new HashMap<>();
+		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			subspeciesLoreMap.putIfAbsent(sub.getAdvancedDescriptionId(), new ArrayList<>());
 			subspeciesLoreMap.get(sub.getAdvancedDescriptionId()).add(sub);
 		}
 		
 		// Add effects from here, as Subspecies and ItemEffectType are dependent on one another to be initialised.
-		for(Subspecies sub : Subspecies.values()) {
+		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			subspeciesLoreMap.putIfAbsent(sub.getAdvancedDescriptionId(), new ArrayList<>());
 			subspeciesLoreMap.get(sub.getAdvancedDescriptionId()).add(sub);
 		}
 		
-		for(Entry<String, List<Subspecies>> entry : subspeciesLoreMap.entrySet()) {
-			Subspecies mainSubspecies = entry.getValue().contains(Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
-											?Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
-											:entry.getValue().get(0);
-			
-			AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
-			ItemEffectType.allEffectTypes.add(bookType);
-			String id = "BOOK_READ_"+mainSubspecies.toString();
-			ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
-			ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
-		}
+//		for(Entry<String, List<AbstractSubspecies>> entry : subspeciesLoreMap.entrySet()) {
+//			AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
+//											?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
+//											:entry.getValue().get(0);
+//			
+//			AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
+//			ItemEffectType.allEffectTypes.add(bookType);
+//			String id = "BOOK_READ_"+mainSubspecies.toString();
+//			ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
+//			ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
+//		}
 		
-		for(Entry<String, List<Subspecies>> entry : subspeciesLoreMap.entrySet()) {
-			Subspecies mainSubspecies = entry.getValue().contains(Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
-											?Subspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
+		for(Entry<String, List<AbstractSubspecies>> entry : subspeciesLoreMap.entrySet()) {
+			AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
+											?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
 											:entry.getValue().get(0);
 			
 			AbstractItemType loreBook = new AbstractItemType(250,
@@ -4275,9 +3446,24 @@ public class ItemType {
 							PresetColour.CLOTHING_GOLD,
 							mainSubspecies.getColour(null),
 							Rarity.LEGENDARY,
-							Util.newArrayListOfValues(new ItemEffect(ItemEffectType.getBookEffectFromSubspecies(mainSubspecies))),
+							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
-
+				@Override
+				public List<ItemEffect> getEffects() {
+					AbstractSubspecies mainSubspecies = entry.getValue().contains(AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace()))
+							?AbstractSubspecies.getMainSubspeciesOfRace(entry.getValue().get(0).getRace())
+							:entry.getValue().get(0);
+					String id = "BOOK_READ_"+Subspecies.getIdFromSubspecies(mainSubspecies);
+					
+					if(!ItemEffectType.idToItemEffectTypeMap.containsKey(id)) {
+						AbstractItemEffectType bookType = generateBookEffect(mainSubspecies);
+						ItemEffectType.allEffectTypes.add(bookType);
+						ItemEffectType.itemEffectTypeToIdMap.put(bookType, id);
+						ItemEffectType.idToItemEffectTypeMap.put(id, bookType);
+					}
+					
+					return Util.newArrayListOfValues(new ItemEffect(ItemEffectType.getBookEffectFromSubspecies(mainSubspecies)));
+				}
 				@Override
 				public String getSVGString() {
 					int offset = 6;
@@ -4289,17 +3475,14 @@ public class ItemType {
 								+ mainSubspecies.getSVGStringNoBackground()
 							+ "</div>";
 				}
-		
 				@Override
 				public boolean isConsumedOnUse() {
 					return false;
 				}
-				
 				@Override
 				public String getUseName() {
 					return "read";
 				}
-				
 				@Override
 				public String getUseDescription(GameCharacter user, GameCharacter target) {
 					return getGenericUseDescription(user, target,
@@ -4310,12 +3493,12 @@ public class ItemType {
 				}
 			};
 			
-			String id = "BOOK_"+mainSubspecies.toString();
+			String id = "BOOK_"+Subspecies.getIdFromSubspecies(mainSubspecies);
 					
 			itemToIdMap.put(loreBook, id);
 			idToItemMap.put(id, loreBook);
 			
-			for(Subspecies subspecies : entry.getValue()) {
+			for(AbstractSubspecies subspecies : entry.getValue()) {
 				subspeciesBookId.put(subspecies, id);
 			}
 			
@@ -4323,7 +3506,7 @@ public class ItemType {
 		}
 	}
 	
-	private static AbstractItemEffectType generateBookEffect(Subspecies subspecies) {
+	private static AbstractItemEffectType generateBookEffect(AbstractSubspecies subspecies) {
 		return new AbstractItemEffectType(Util.newArrayListOfValues(
 				"Adds "+subspecies.getName(null)+" encyclopedia entry.",
 				"[style.boldExcellent(+10)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>"),
@@ -4335,9 +3518,9 @@ public class ItemType {
 		};
 	}
 	
-	private static Map<Subspecies, String> essenceMap = new HashMap<>();
+	private static Map<AbstractSubspecies, String> essenceMap = new HashMap<>();
 	
-	private static String getEssenceSvg(Subspecies subspecies) {
+	private static String getEssenceSvg(AbstractSubspecies subspecies) {
 		if(essenceMap.containsKey(subspecies)) {
 			return essenceMap.get(subspecies);
 		}

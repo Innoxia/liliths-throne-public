@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
@@ -69,7 +69,7 @@ public class NightlifeDistrict {
 	
 	private static boolean isSearchingForASub = true;
 	private static Gender clubberGender;
-	private static Subspecies clubberSubspecies;
+	private static AbstractSubspecies clubberSubspecies;
 	
 	private static boolean isClubOpen(int minutesPassedForNextScene) {
 		return !((Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) >= (60 * 5) && (Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) < (60 * 19));
@@ -1044,12 +1044,12 @@ public class NightlifeDistrict {
 			}
 			int count = 1;
 			
-			Set<Subspecies> subspeciesSet = new HashSet<>();
+			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
 				subspeciesSet.addAll(pop.getSpecies().keySet());
 			}
 			if(!subspeciesSet.isEmpty()) {
-				for(Subspecies subspecies : subspeciesSet) {
+				for(AbstractSubspecies subspecies : subspeciesSet) {
 					if(count==index) {
 						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -39,7 +40,7 @@ public class DominionClubNPC extends NPC {
 		this(Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, isImported);
 	}
 	
-	public DominionClubNPC(Gender gender, Subspecies subspecies, boolean isImported) {
+	public DominionClubNPC(Gender gender, AbstractSubspecies subspecies, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,

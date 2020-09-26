@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -56,7 +57,7 @@ public class NPCOffspring extends NPC {
 		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
 	
-	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
+	public NPCOffspring(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3,
@@ -81,9 +82,9 @@ public class NPCOffspring extends NPC {
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		Body preGeneratedBody = null;
 		if(father!=null) {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
 		}
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody, true);

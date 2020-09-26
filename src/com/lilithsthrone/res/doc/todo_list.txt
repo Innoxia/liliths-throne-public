@@ -31,13 +31,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.
 		Moved all racial food items out from the code into the external 'res/items/innoxia/race' folder.
 		The 'Angel's Tears' item has been considerably buffed and can no longer be naturally found in-game (it will be added back into the game later on).
+		Made 'tabi socks' unisex.
+		Most racial transformative food items now additionally restore 10% health when consumed.
 	
 	Body:
 		Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 250%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.
 		If a tail's girth is the same as the default value for its type, then changing the tail type will reset the girth to the new tail's default girth. The same happens with tail length.
 	
-	
-	
+	Bugs:
+		Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.
 	
 	
 	[] Race modding
@@ -49,39 +51,58 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] potion
 					[x] self-TF menu
 					
-			[] Racial TF item mod support
+			[x] Racial TF item mod support
 				[x] Add potion enchanting modding support.
 					[x] Draw background and angling/size for consistent background rendering
 					[x] Improve all potion items and move out into items folder
 				[x] Add elixir enchanting modding support.
 					[x] Draw from base race icon for consistent background rendering
 					[x] Improve all elixir items and move out into items folder
-			[] Check support for other leg types
-				[] long tail should be ratio of 5:1 tail:body
-				[] Race icon improvements
-					[] Background modifications
-				[] Sex availability
-				[] Water limitation
-					[] Subspecies boolean for water limitation
-						[] Default to true for tail & cephalopod
-					[] Eels/mermaids grow legs when exposed to air? (Otherwise land limitations will dead-end the player)
-						[] Massive negative status effect
-						[] Positive status effect when in water
-				[] Nocturnal boolean
-				[] Combat move unlocks
-					[] Combat Move modding
-						[] Quadruped kick
-						[] Arachnid web-spin
-						[] Cephalopod tentacle embrace
-			[] make pregnancy type (live, egg) a property of vagina, rather than race as a whole
-			[] Coverings improvements
-				[] Simplify into just fur/hair?
+			
+			[] Subspecies
+				[x] Convert to abstract classes
+					[x] All AbstractSubspecies toString() instances need to be caught (Subspecies.getSubspeciesFromId might be a good search term) (subspecies.toString)
+					[x] Test all books
+					[x] Subspecies overrides need to be defined within class
+					[x] switch statements handled
+					[x] Improve detection methods
+					[x] getSubspeciesRelatedPerk
+					[x] getRandomCommonRacialBodyFromPreferences
+					
+				[x] Full testing:
+					[x] New game main quest up to Lyssieth
+						[x] Brax's surprise lost all effects when save/load
+						[x] Saved recipes not working with updated items
+					[x] Encounters in alleyways (forced TFs)
+					[x] Slime encounters (TFs)
+					[x] Imp encounter (TFs)
 				
-			[] Ferals
-				[] Subspecies definition of feral support
-					[] LegConfiguration define what form they take
-				[] Sex positions
-					[] All fours
+				[] Coverings improvements
+					[] Simplify into just fur/hair/eyes?
+				
+				[] Add support for other leg types
+					[] long tail should be ratio of 5:1 tail:body
+					[] Race icons (background modifications)
+					[] Sex availability
+					[] Water limitation
+						[] Subspecies boolean for water limitation
+							[] Default to true for tail & cephalopod
+						[] Eels/mermaids grow legs when exposed to air? (Otherwise land limitations will dead-end the player)
+							[] Massive negative status effect
+							[] Positive status effect when in water
+					[] Nocturnal boolean
+						[] Add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
+					[] Combat move unlocks
+						[] Combat Move modding
+							[] Quadruped kick
+							[] Arachnid web-spin
+							[] Cephalopod tentacle embrace
+				
+				[] Ferals
+					[] Subspecies definition of feral support
+						[] LegConfiguration define what form they take
+					[] Sex positions
+						[] All fours
 				
 		[] Structure plan
 			[] Race
@@ -94,8 +115,28 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Hyena
 	
 	
+	male imp has "succubus-cock"?
+	
+	post-defeat transformation sometimes makes parts too big (breasts, lips, hair), and then in next defeat TF, they shrink them
+	
+	Takahashi sex:
+		Needs to start with oral ongoing
+		"A crowd of demons quickly forms around you and Takahashi..."
+	
+	Error: one-piece swimsuit and skater dress are blocking one another's removal!!!
 	
 	tbh i mostly lack the option to have a person underneath you when you are on all fours
+	
+	make the elemental dispel button persist in both tabs, like the form switch button
+	
+	go slime -> demon horse legs -> taur -> unslime
+		demon gets slime options
+	
+	1. Visit any merchant
+	2. Select any enchantable item from the player character's inventory
+	3. Click on enchant
+	4. Without exiting the enchant window (cancel/finish enchantment), click on either player character or npc's equipped item inventory
+	5. Shop inventory becomes free to take, so is equipped ones
 	
 	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
 		went to bed at 39/39 hp and woke up with 40/70 or so
@@ -147,7 +188,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	 Like page 1 having 5 of your slaves. Using the tabs at the button for each page since you can use a forward and back button for extra tabs.
 	  For those who have a lot of slaves and having to scroll down each time to alter slave jobs/permissions etc. Also possible sorting them by name, but can skip that if too hard.
 	
-	I need to add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
 	
 	I want to leave the dirty panties in liliya's room instead of being forced to take them
 	

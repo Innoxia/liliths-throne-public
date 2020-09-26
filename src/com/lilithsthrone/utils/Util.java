@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -1239,9 +1239,9 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
-	public static String subspeciesToStringList(Collection<Subspecies> subspecies, boolean capitalise) {
+	public static String subspeciesToStringList(Collection<AbstractSubspecies> subspecies, boolean capitalise) {
 		return Util.toStringList(subspecies,
-				(Subspecies o) -> 
+				(AbstractSubspecies o) -> 
 				"<span style='color:"+o.getColour(null).toWebHexString()+";'>"
 					+(capitalise
 							?Util.capitaliseSentence(o.getNamePlural(null))

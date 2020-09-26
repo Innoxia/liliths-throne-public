@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -73,11 +74,11 @@ public class ImpAttacker extends NPC {
 		this(Subspecies.IMP, Gender.F_V_B_FEMALE, isImported);
 	}
 	
-	public ImpAttacker(Subspecies subspecies, Gender gender) {
+	public ImpAttacker(AbstractSubspecies subspecies, Gender gender) {
 		this(subspecies, gender, false);
 	}
 	
-	public ImpAttacker(Subspecies subspecies, Gender gender, boolean isImported) {
+	public ImpAttacker(AbstractSubspecies subspecies, Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, subspecies, RaceStage.GREATER,

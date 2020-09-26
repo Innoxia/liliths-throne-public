@@ -21,8 +21,10 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
@@ -83,55 +85,25 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case BAT_MORPH:
-					case DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HUMAN:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_ARCTIC:
-					case FOX_ASCENDANT_FENNEC:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case HALF_DEMON:
-						break;
-						
-					// Canals spawn only:
-					case ALLIGATOR_MORPH:
-						Subspecies.addToSubspeciesMap((canalSpecies?2000:0), gender, s, availableRaces);
-						break;
-					case SLIME:
-						Subspecies.addToSubspeciesMap((canalSpecies?3000:0), gender, s, availableRaces);
-						break;
-					case RAT_MORPH:
-						Subspecies.addToSubspeciesMap((canalSpecies?2500:0), gender, s, availableRaces);
-						break;
-						
-					// Special spawns:
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							Subspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+					continue;
+				}
+				if(s==Subspecies.REINDEER_MORPH) {
+					if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+						AbstractSubspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* SubspeciesSpawnRarity.THREE_UNCOMMON.getChanceMultiplier()), gender, s, availableRaces);
+					}
+					
+				} else {
+					if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					}
+					if(canalSpecies) {
+						if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
+							AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
-						break;
-						
-					// Regular spawns:
-					default:
-						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						}
+					}
 				}
 			}
 			
@@ -139,7 +111,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
 				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+					this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
 				}
 			}
 			

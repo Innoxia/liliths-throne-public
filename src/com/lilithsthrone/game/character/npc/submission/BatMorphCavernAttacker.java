@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -60,7 +61,7 @@ public class BatMorphCavernAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			Subspecies species = Subspecies.BAT_MORPH;
+			AbstractSubspecies species = Subspecies.BAT_MORPH;
 
 			RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 			if(!gender.isFeminine()) {

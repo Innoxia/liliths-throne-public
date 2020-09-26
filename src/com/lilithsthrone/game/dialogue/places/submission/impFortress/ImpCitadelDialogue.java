@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -179,7 +180,7 @@ public class ImpCitadelDialogue {
 			}
 			
 			for(int i=0; i<impCount; i++) {
-				Subspecies subspecies = i<3?Subspecies.IMP_ALPHA:Subspecies.IMP;
+				AbstractSubspecies subspecies = i<3?Subspecies.IMP_ALPHA:Subspecies.IMP;
 				
 				ImpAttacker imp = new ImpAttacker(subspecies, Gender.getGenderFromUserPreferences(false, false), false);
 				imp.setLevel(12-(i*2)+Util.random.nextInt(3));

@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -5477,7 +5478,12 @@ public class Perk {
 	public static Map<AbstractPerk, String> perkToIdMap = new HashMap<>();
 	public static Map<String, AbstractPerk> idToPerkMap = new HashMap<>();
 	
+	private static boolean subspeciesPerksGenerated = false;
+	
 	public static AbstractPerk getPerkFromId(String id) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 //		System.out.print("ID: "+id);
 		if(id.equalsIgnoreCase("MERAXIS")
 				|| id.equalsIgnoreCase("ARCANE_TATTOOIST")
@@ -5495,6 +5501,9 @@ public class Perk {
 	}
 	
 	public static String getIdFromPerk(AbstractPerk perk) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return perkToIdMap.get(perk);
 	}
 
@@ -5527,12 +5536,18 @@ public class Perk {
 			}
 		}
 		
+		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+	}
+	
+	private static void generateSubspeciesPerks() {
 		List<Attribute> resistancesAdded = new ArrayList<>();
-		for(Subspecies sub : Subspecies.values()) {
+		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
 				resistancesAdded.add(sub.getDamageMultiplier());
-				boolean mainSubspecies = sub.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier();
-				Subspecies subToUse = mainSubspecies?Subspecies.getMainSubspeciesOfRace(sub.getRace()):sub;
+				boolean mainSubspecies = sub.getDamageMultiplier()==AbstractSubspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier();
+				AbstractSubspecies subToUse = mainSubspecies
+												?AbstractSubspecies.getMainSubspeciesOfRace(sub.getRace())
+												:sub;
 				
 				AbstractPerk racePerk = new AbstractPerk(20,
 						false,
@@ -5561,30 +5576,40 @@ public class Perk {
 					}
 				};
 //				System.out.println(subToUse.toString()+" "+racePerk.getName(null)+" "+racePerk.hashCode());
-				perkToIdMap.put(racePerk, subToUse.toString());
-				idToPerkMap.put(subToUse.toString(), racePerk);
+				perkToIdMap.put(racePerk, Subspecies.getIdFromSubspecies(subToUse));
+				idToPerkMap.put(Subspecies.getIdFromSubspecies(subToUse), racePerk);
 				allPerks.add(racePerk);
 				hiddenPerks.add(racePerk);
 			}
 		}
-		
+		subspeciesPerksGenerated = true;
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
 	
-	public static AbstractPerk getSubspeciesRelatedPerk(Subspecies subspecies) {
-		Subspecies subToUse = 
-				subspecies.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
-					?Subspecies.getMainSubspeciesOfRace(subspecies.getRace())
+	public static AbstractPerk getSubspeciesRelatedPerk(AbstractSubspecies subspecies) {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
+		
+		AbstractSubspecies subToUse = 
+				subspecies.getDamageMultiplier()==AbstractSubspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
+					?AbstractSubspecies.getMainSubspeciesOfRace(subspecies.getRace())
 					:subspecies;
 		
-		return Perk.getPerkFromId(subToUse.toString());
+		return Perk.getPerkFromId(Subspecies.getIdFromSubspecies(subToUse));
 	}
 	
 	public static List<AbstractPerk> getAllPerks() {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return allPerks;
 	}
 	
 	public static List<AbstractPerk> getHiddenPerks() {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
 		return hiddenPerks;
 	}
 }

@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -50,8 +51,8 @@ public class Litter implements XMLSaving {
 	
 	private String birthedDescription;
 	
-	private Subspecies motherRace;
-	private Subspecies fatherRace;
+	private AbstractSubspecies motherRace;
+	private AbstractSubspecies fatherRace;
 
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
@@ -93,11 +94,14 @@ public class Litter implements XMLSaving {
 		generateBirthedDescription();
 	}
 	
-	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate,
+	public Litter(LocalDateTime conceptionDate,
+			LocalDateTime birthDate,
 			String motherId, String fatherId,
-			int sonsMother, int daughtersMother, int sonsFather, int daughtersFather,
+			int sonsMother, int daughtersMother,
+			int sonsFather, int daughtersFather,
 			List<String> offspring,
-			Subspecies motherRace, Subspecies fatherRace, String birthedDescription) {
+			AbstractSubspecies motherRace, AbstractSubspecies fatherRace,
+			String birthedDescription) {
 
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
@@ -142,8 +146,8 @@ public class Litter implements XMLSaving {
 		XMLUtil.addAttribute(doc, element, "sonsFather", String.valueOf(this.getSonsFromFather()));
 		XMLUtil.addAttribute(doc, element, "daughtersFather", String.valueOf(this.getDaughtersFromFather()));
 		
-		XMLUtil.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
-		XMLUtil.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
+		XMLUtil.addAttribute(doc, element, "motherRace", Subspecies.getIdFromSubspecies(this.getMotherRace()));
+		XMLUtil.addAttribute(doc, element, "fatherRace", Subspecies.getIdFromSubspecies(this.getFatherRace()));
 
 		XMLUtil.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
 		
@@ -173,11 +177,11 @@ public class Litter implements XMLSaving {
 			offspring.add(e.getAttribute("id"));
 		}
 		
-		Subspecies motherRace = Subspecies.HUMAN;
-		Subspecies fatherRace = Subspecies.HUMAN;
+		AbstractSubspecies motherRace = Subspecies.HUMAN;
+		AbstractSubspecies fatherRace = Subspecies.HUMAN;
 		try {
-			motherRace = Subspecies.valueOf(parentElement.getAttribute("motherRace"));
-			fatherRace = Subspecies.valueOf(parentElement.getAttribute("fatherRace"));
+			motherRace = Subspecies.getSubspeciesFromId(parentElement.getAttribute("motherRace"));
+			fatherRace = Subspecies.getSubspeciesFromId(parentElement.getAttribute("fatherRace"));
 		} catch(Exception ex) {
 		}
 		
@@ -329,15 +333,15 @@ public class Litter implements XMLSaving {
 		return sonsMother + daughtersMother + sonsFather + daughtersFather;
 	}
 
-	public Subspecies getMotherRace() {
+	public AbstractSubspecies getMotherRace() {
 		return motherRace;
 	}
 
-	public Subspecies getFatherRace() {
+	public AbstractSubspecies getFatherRace() {
 		return fatherRace;
 	}
 
-	public void setFatherRace(Subspecies fatherSubspecies) {
+	public void setFatherRace(AbstractSubspecies fatherSubspecies) {
 		fatherRace = fatherSubspecies;
 	}
 	
@@ -348,7 +352,7 @@ public class Litter implements XMLSaving {
 		for(String id : this.getOffspring()) {
 			try {
 				GameCharacter character = Main.game.getNPCById(id);
-				Subspecies subspecies = character.getSubspecies();
+				AbstractSubspecies subspecies = character.getSubspecies();
 				if(Main.game.getNPCById(id).isFeminine()) {
 					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
 					daughters.putIfAbsent(nameId, 0);

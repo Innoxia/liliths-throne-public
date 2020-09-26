@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -1021,12 +1022,12 @@ public class DebugDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<Subspecies> availableSubspecies = new ArrayList<>();
-			Collections.addAll(availableSubspecies, Subspecies.values());
+			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
+			availableSubspecies.addAll(Subspecies.getAllSubspecies());
 			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
 			
-			if (index != 0 && index < availableSubspecies.size()) {
-				Subspecies subspecies = availableSubspecies.get(index - 1);
+			if (index!=0 && index<availableSubspecies.size()+1) {
+				AbstractSubspecies subspecies = availableSubspecies.get(index - 1);
 				String name = subspecies.getName(null);
 				
 				return new Response(

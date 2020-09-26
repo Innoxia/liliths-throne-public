@@ -80,6 +80,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -130,10 +131,10 @@ public class Body implements XMLSaving {
 	private GenitalArrangement genitalArrangement;
 
 	private Map<AbstractRace, Integer> raceWeightMap = new ConcurrentHashMap<>();
-	private Subspecies subspecies;
+	private AbstractSubspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
-	private Subspecies subspeciesOverride = null;
+	private AbstractSubspecies subspeciesOverride = null;
 	private int height;
 	private int femininity;
 	private int bodySize;
@@ -438,11 +439,11 @@ public class Body implements XMLSaving {
 		XMLUtil.addAttribute(doc, bodyCore, "bodyMaterial", String.valueOf(this.getBodyMaterial()));
 		XMLUtil.addAttribute(doc, bodyCore, "genitalArrangement", String.valueOf(this.getGenitalArrangement()));
 		if(this.getSubspeciesOverride()!=null) {
-			XMLUtil.addAttribute(doc, bodyCore, "subspeciesOverride", String.valueOf(this.getSubspeciesOverride()));
+			XMLUtil.addAttribute(doc, bodyCore, "subspeciesOverride", Subspecies.getIdFromSubspecies(this.getSubspeciesOverride()));
 		}
-		if(this.getHalfDemonSubspecies()!=null) {
-			XMLUtil.addAttribute(doc, bodyCore, "halfDemonSubspecies", String.valueOf(this.getHalfDemonSubspecies()));
-		}
+//		if(this.getHalfDemonSubspecies()!=null) {
+//			XMLUtil.addAttribute(doc, bodyCore, "halfDemonSubspecies", Subspecies.getIdFromSubspecies(this.getHalfDemonSubspecies()));
+//		}
 		XMLUtil.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
@@ -812,10 +813,10 @@ public class Body implements XMLSaving {
 			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
 		}
 
-		Subspecies importedSubspeciesOverride = null;
+		AbstractSubspecies importedSubspeciesOverride = null;
 		try {
 			if(element.getAttribute("subspeciesOverride") != null && !element.getAttribute("subspeciesOverride").isEmpty()) {
-				importedSubspeciesOverride = Subspecies.valueOf(element.getAttribute("subspeciesOverride"));
+				importedSubspeciesOverride = Subspecies.getSubspeciesFromId(element.getAttribute("subspeciesOverride"));
 			}
 		} catch(Exception ex) {	
 		}
@@ -2802,75 +2803,60 @@ public class Body implements XMLSaving {
 //		}
 		
 		AbstractRace race = Race.HUMAN;
-		switch(this.getBodyMaterial()) {
-			case AIR:
-				race = Race.ELEMENTAL;
-				this.raceStage = RaceStage.GREATER;
-				break;
-			case ARCANE:
-				race = Race.ELEMENTAL;
-				this.raceStage = RaceStage.GREATER;
-				break;
-			case FIRE:
-				race = Race.ELEMENTAL;
-				this.raceStage = RaceStage.GREATER;
-				break;
-			case FLESH:
-				race = getRaceFromPartWeighting();
-				this.raceStage = getRaceStageFromPartWeighting();
-				break;
-			case ICE:
-			case WATER:
-				race = Race.ELEMENTAL;
-				this.raceStage = RaceStage.GREATER;
-				break;
-			case RUBBER:
-			case STONE:
-				race = Race.ELEMENTAL;
-				this.raceStage = RaceStage.GREATER;
-				break;
-			case SLIME:
-				race = Race.SLIME;
-				this.raceStage = RaceStage.GREATER;
-				break;
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			race = Race.SLIME;
+			this.raceStage = RaceStage.GREATER;
+			
+		} else if(target!=null && target.isElemental()) {
+			race = Race.ELEMENTAL;
+			this.raceStage = RaceStage.GREATER;
+			
+		} else {
+			race = getRaceFromPartWeighting();
+			this.raceStage = getRaceStageFromPartWeighting();
 		}
 		
-		subspecies = Subspecies.getSubspeciesFromBody(target, this, race);
-		boolean overrideSubspecies = false;
+		subspecies = AbstractSubspecies.getSubspeciesFromBody(this, race);
+//		boolean overrideSubspecies = false;
 		
-		switch(subspecies) {
-			case IMP:
-				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.IMP_ALPHA
-						&& this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
-						&& this.getSubspeciesOverride()!=Subspecies.DEMON
-						&& this.getSubspeciesOverride()!=Subspecies.LILIN
-						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
-				break;
-			case IMP_ALPHA:
-				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
-						&& this.getSubspeciesOverride()!=Subspecies.DEMON
-						&& this.getSubspeciesOverride()!=Subspecies.LILIN
-						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
-				break;
-			case HALF_DEMON:
-				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.DEMON
-						&& this.getSubspeciesOverride()!=Subspecies.LILIN
-						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
-				break;
-			case DEMON:
-				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.LILIN
-						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
-				break;
-			case ELDER_LILIN:
-			case LILIN:
-				overrideSubspecies = true;
-				break;
-			default:
-				break;
-		}
-		if(overrideSubspecies) {
+		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
+		
+//		switch(subspecies) {
+//			case IMP:
+//				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.IMP_ALPHA
+//						&& this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
+//						&& this.getSubspeciesOverride()!=Subspecies.DEMON
+//						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+//						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+//				break;
+//			case IMP_ALPHA:
+//				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
+//						&& this.getSubspeciesOverride()!=Subspecies.DEMON
+//						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+//						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+//				break;
+//			case HALF_DEMON:
+//				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.DEMON
+//						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+//						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+//				break;
+//			case DEMON:
+//				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.LILIN
+//						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+//				break;
+//			case ELDER_LILIN:
+//			case LILIN:
+//				overrideSubspecies = true;
+//				break;
+//			default:
+//				break;
+//		}
+//		
+//		if(overrideSubspecies) {
+//			this.setSubspeciesOverride(subspecies);
+//		}
 		
 //		if(target!=null && target.getBody()!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
 //			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
@@ -2956,7 +2942,7 @@ public class Body implements XMLSaving {
 		return subspecies.getRace();
 	}
 	
-	public Subspecies getSubspecies() {
+	public AbstractSubspecies getSubspecies() {
 		return subspecies;
 	}
 	
@@ -2964,16 +2950,16 @@ public class Body implements XMLSaving {
 		return raceStage;
 	}
 
-	public Subspecies getSubspeciesOverride() {
+	public AbstractSubspecies getSubspeciesOverride() {
 		return subspeciesOverride;
 	}
 
-	public void setSubspeciesOverride(Subspecies subspeciesOverride) {
+	public void setSubspeciesOverride(AbstractSubspecies subspeciesOverride) {
 		this.subspeciesOverride = subspeciesOverride;
 	}
 
-	public Subspecies getHalfDemonSubspecies() {
-		return Subspecies.getSubspeciesFromBody(null, this, getRaceFromPartWeighting(true), true);
+	public AbstractSubspecies getHalfDemonSubspecies() {
+		return AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
 	}
 
 	public Antenna getAntenna() {

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -76,20 +77,20 @@ public class SubmissionAttacker extends NPC {
 			
 			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 200 : 80;
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.SLIME) {
-					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
 				} else if(s==Subspecies.IMP || s==Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
 				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 
-			Subspecies randomSpecies = Util.getRandomObjectFromWeightedMap(availableRaces);
+			AbstractSubspecies randomSpecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 			if(randomSpecies==Subspecies.SLIME || randomSpecies==Subspecies.IMP || randomSpecies==Subspecies.IMP_ALPHA) {
 				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
 				
@@ -98,7 +99,7 @@ public class SubmissionAttacker extends NPC {
 			}
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f

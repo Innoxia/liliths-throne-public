@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -67,12 +68,12 @@ public class HarpyNestsAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<Subspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
 				if(entry.getKey().getRace()==Race.HARPY) {
 
 					if(entry.getKey().getRace()==Race.HARPY && Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).containsKey(entry.getKey())) {
-						Subspecies.addToSubspeciesMap((int) (100*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
+						AbstractSubspecies.addToSubspeciesMap((int) (100*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
 					}
 				}
 			}
@@ -80,7 +81,7 @@ public class HarpyNestsAttacker extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
@@ -111,15 +112,15 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	@Override
-	public void setBodyFromSubspeciesPreference(Gender gender, Map<Subspecies, Integer> subspeciesMap, boolean additionalSetups, boolean includeHumanChance) {
+	public void setBodyFromSubspeciesPreference(Gender gender, Map<AbstractSubspecies, Integer> subspeciesMap, boolean additionalSetups, boolean includeHumanChance) {
 		if(gender.isFeminine()) {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
 		} else {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
@@ -131,7 +132,7 @@ public class HarpyNestsAttacker extends NPC {
 			total += i;
 		}
 
-		Subspecies species = Subspecies.HARPY;
+		AbstractSubspecies species = Subspecies.HARPY;
 		if(!subspeciesMap.isEmpty() && total>0) {
 			species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 		}

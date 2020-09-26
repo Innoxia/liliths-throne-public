@@ -389,7 +389,7 @@ public enum Encounter {
 					if(Math.random()<0.5f) {
 						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem("innoxia_cheat_unlikely_whammer");
 					}
 				}
 				
@@ -537,7 +537,7 @@ public enum Encounter {
 					if(Math.random()<0.5f) {
 						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem("innoxia_cheat_unlikely_whammer");
 					}
 				}
 				

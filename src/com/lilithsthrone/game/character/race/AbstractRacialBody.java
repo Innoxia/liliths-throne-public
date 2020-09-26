@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
@@ -17,9 +16,9 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -53,7 +52,6 @@ import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -334,40 +332,39 @@ public abstract class AbstractRacialBody {
 		
 	}
 	
-	/**
-	 * <b>Does not include angels or slimes</b>
-	 * @param gender
-	 * @return
-	 */
-	public static AbstractRacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
-		
-		List<AbstractRace> availableRaces = new ArrayList<>();
-		for(AbstractRace r : Race.getAllRaces()) {
-			if(r != Race.ANGEL) {
-				availableRaces.add(r);
-			}
-		}
-		
-		if(gender.isFeminine()) {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey().getRace());
-				}
-			}
-		} else {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey().getRace());
-				}
-			}
-		}
-		
-		if(availableRaces.isEmpty()) {
-			return RacialBody.HUMAN;
-		}
-		
-		return RacialBody.valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
-	}
+//	/**
+//	 * <b>Does not include angels</b>
+//	 * @param gender
+//	 * @return
+//	 */
+//	public static AbstractRacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
+//		List<AbstractRace> availableRaces = new ArrayList<>();
+//		for(AbstractRace r : Race.getAllRaces()) {
+//			if(r != Race.ANGEL) {
+//				availableRaces.add(r);
+//			}
+//		}
+//		
+//		if(gender.isFeminine()) {
+//			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+//				if(entry.getValue() == FurryPreference.HUMAN) {
+//					availableRaces.remove(entry.getKey().getRace());
+//				}
+//			}
+//		} else {
+//			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+//				if(entry.getValue() == FurryPreference.HUMAN) {
+//					availableRaces.remove(entry.getKey().getRace());
+//				}
+//			}
+//		}
+//		
+//		if(availableRaces.isEmpty()) {
+//			return RacialBody.HUMAN;
+//		}
+//		
+//		return RacialBody.valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
+//	}
 	
 	/**
 	 * @return A map of personality traits and the percentage chance that a member of this race will spawn with them.

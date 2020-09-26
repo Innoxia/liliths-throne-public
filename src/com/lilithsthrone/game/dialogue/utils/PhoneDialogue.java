@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -801,7 +802,7 @@ public class PhoneDialogue {
 					+ "<p style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'><b>Racial Damage Attributes</b></p>");
 			
 			List<Attribute> encounteredAttributes = new ArrayList<>();
-			for(Subspecies subspecies : Subspecies.values()) {
+			for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 				Attribute damageModifier = subspecies.getDamageMultiplier();
 				if(!encounteredAttributes.contains(damageModifier)) {
 					UtilText.nodeContentSB.append(
@@ -2031,7 +2032,7 @@ public class PhoneDialogue {
 	};
 	
 	private static String getSubspeciesDiscoveredIndication() {
-		return Main.getProperties().getSubspeciesDiscoveredCount()+"/"+Subspecies.values().length;
+		return Main.getProperties().getSubspeciesDiscoveredCount()+"/"+Subspecies.getAllSubspecies().size();
 	}
 
 	private static String getWeaponsDiscoveredIndication() {
@@ -2060,7 +2061,7 @@ public class PhoneDialogue {
 			
 			sb.append("<p style='text-align:center;'>");
 				sb.append("You have discovered:");
-				sb.append(Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.values().length
+				sb.append(Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.getAllSubspecies().size()
 								?"<br/>[style.colourGood(Subspecies: "+getSubspeciesDiscoveredIndication()+")]"
 								:"<br/>Subspecies: "+getSubspeciesDiscoveredIndication());
 
@@ -2495,16 +2496,16 @@ public class PhoneDialogue {
 	};
 
 	private static List<AbstractRace> racesDiscovered = new ArrayList<>();
-	private static List<Subspecies> subspeciesDiscovered = new ArrayList<>();
+	private static List<AbstractSubspecies> subspeciesDiscovered = new ArrayList<>();
 	private static AbstractRace raceSelected;
-	private static Subspecies subspeciesSelected;
+	private static AbstractSubspecies subspeciesSelected;
 	private static StringBuilder subspeciesSB = new StringBuilder();
 	
 	public static void resetContentForRaces() {
 		
 		subspeciesDiscovered.clear();
 		
-		for (Subspecies subspecies : Subspecies.values()) {
+		for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 			if(Main.getProperties().isRaceDiscovered(subspecies)) {
 				AbstractRace race = subspecies.getRace();
 				if(!racesDiscovered.contains(race)) {
@@ -2562,9 +2563,9 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						raceSelected = racesDiscovered.get(index - 1);
-						subspeciesSelected = Subspecies.getMainSubspeciesOfRace(raceSelected);
+						subspeciesSelected = AbstractSubspecies.getMainSubspeciesOfRace(raceSelected);
 						if(!subspeciesDiscovered.contains(subspeciesSelected)) {
-							for(Subspecies sub : subspeciesDiscovered) {
+							for(AbstractSubspecies sub : subspeciesDiscovered) {
 								if(sub.getRace()==raceSelected) {
 									subspeciesSelected = sub;
 									break;
@@ -2652,7 +2653,7 @@ public class PhoneDialogue {
 					
 				+"<p>"
 					+ "<b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b>"
-					+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
+					+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
 							?" ([style.colourGood(Core)] subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)"
 							:" (Subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)")
 					+ "<br/>"
@@ -2676,13 +2677,13 @@ public class PhoneDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<Subspecies> raceSubspecies = Subspecies.getSubspeciesOfRace(raceSelected);
+			List<AbstractSubspecies> raceSubspecies = Subspecies.getSubspeciesOfRace(raceSelected);
 			
 			if (index == 0) {
 				return new Response("Back", "Return to the race selection screen.", RACES);
 			
 			} else if (index <= raceSubspecies.size()) {
-				Subspecies indexSubspecies = raceSubspecies.get(index - 1);
+				AbstractSubspecies indexSubspecies = raceSubspecies.get(index - 1);
 				if(!subspeciesDiscovered.contains(indexSubspecies)) {
 					return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
 							"You haven't discovered this subspecies yet!",
@@ -2690,13 +2691,13 @@ public class PhoneDialogue {
 				}
 				return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
 						"Take a detailed look at what " + indexSubspecies.getNamePlural(null) + " are like."
-						+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
+						+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
 							?"<br/>This is the [style.colourGood(core)] "+raceSelected.getName(false)+" subspecies."
 							:""),
 						SUBSPECIES){
 					@Override
 					public Colour getHighlightColour() {
-						if(Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
+						if(AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
 							return PresetColour.GENERIC_GOOD;
 						}
 						return super.getHighlightColour();

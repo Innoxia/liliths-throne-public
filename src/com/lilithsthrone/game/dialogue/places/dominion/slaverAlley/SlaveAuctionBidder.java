@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -16,13 +17,13 @@ import com.lilithsthrone.utils.Util;
 public class SlaveAuctionBidder {
 
 	private String name;
-	private Subspecies subspecies;
+	private AbstractSubspecies subspecies;
 	private Gender gender;
 	private List<String> biddingComments;
 	private List<String> failedBidComments;
 	private List<String> successfulBidComments;
 	
-	public SlaveAuctionBidder(Subspecies subspecies, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
+	public SlaveAuctionBidder(AbstractSubspecies subspecies, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
 		super();
 		this.subspecies = subspecies;
 		this.gender = gender;
@@ -44,7 +45,7 @@ public class SlaveAuctionBidder {
 		return name;
 	}
 	
-	public Subspecies getRace() {
+	public AbstractSubspecies getRace() {
 		return subspecies;
 	}
 
@@ -78,13 +79,21 @@ public class SlaveAuctionBidder {
 	
 	public static SlaveAuctionBidder generateNewSlaveAuctionBidder(NPC slave) {
 		
-		Subspecies[] races = new Subspecies[] {Subspecies.CAT_MORPH, Subspecies.COW_MORPH, Subspecies.DEMON, Subspecies.DOG_MORPH, Subspecies.HARPY, Subspecies.HORSE_MORPH, Subspecies.HUMAN, Subspecies.SQUIRREL_MORPH, Subspecies.WOLF_MORPH};
+		List<AbstractSubspecies> races = Util.newArrayListOfValues(
+				Subspecies.CAT_MORPH,
+				Subspecies.COW_MORPH, 
+				Subspecies.DEMON,
+				Subspecies.DOG_MORPH,
+				Subspecies.HARPY,
+				Subspecies.HORSE_MORPH,
+				Subspecies.HUMAN,
+				Subspecies.SQUIRREL_MORPH,
+				Subspecies.WOLF_MORPH);
 		
-		// I did consider basing gender on slave's preferences, so that players who export their own character aren't turned-off by the fact their character is being sold to a gender they don't like, but I figured that maybe some people are into that too...
-		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI, Gender.M_P_MALE};
+		List<Gender> genders = Util.newArrayListOfValues(Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI, Gender.M_P_MALE);
 		
-		Subspecies race = races[Util.random.nextInt(races.length)];
-		Gender gender = genders[Util.random.nextInt(genders.length)];
+		AbstractSubspecies race = Util.randomItemFrom(races);
+		Gender gender = Util.randomItemFrom(genders);
 		
 		List<String> biddingComments = Util.newArrayListOfValues(
 				"I deserve a new fucktoy...",

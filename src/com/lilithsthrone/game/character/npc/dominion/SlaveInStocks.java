@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -68,12 +69,12 @@ public class SlaveInStocks extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					
 				} else if(s.getRace()!=Race.DEMON
 						&& s.getRace()!=Race.ANGEL
@@ -82,10 +83,10 @@ public class SlaveInStocks extends NPC {
 						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
-					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					if(AbstractSubspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+						AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					} else {
-						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap(3, gender, s, availableRaces);
 					}
 				}
 			}
@@ -220,10 +221,10 @@ public class SlaveInStocks extends NPC {
 				if(!Main.game.getCharactersPresent().contains(this)) {
 					Gender gender = Gender.getGenderFromUserPreferences(false, true);
 					
-					Map<Subspecies, Integer> availableRaces = Subspecies.getGenericSexPartnerSubspeciesMap(gender);
+					Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
 					
-					Subspecies subspecies = Subspecies.HUMAN;
-					Subspecies halfDemonSubspecies = null;
+					AbstractSubspecies subspecies = Subspecies.HUMAN;
+					AbstractSubspecies halfDemonSubspecies = null;
 					if(!availableRaces.isEmpty()) {
 						subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 					}

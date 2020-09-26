@@ -16,9 +16,9 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -537,7 +537,7 @@ public class GenericActions {
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
 			} else {
-				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
+				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.game.getPlayer()).getRace()).getPenisType()));
 			}
 			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
 				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
@@ -627,7 +627,7 @@ public class GenericActions {
 					|| Main.sex.getCharacterTargetedForSexAction(this).isElemental()) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
 			} else {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(AbstractSubspecies.getFleshSubspecies(Main.sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawCumStorageValue() < 150) {
 				Main.sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);

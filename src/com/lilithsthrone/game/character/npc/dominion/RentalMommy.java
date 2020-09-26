@@ -45,6 +45,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -123,7 +124,7 @@ public class RentalMommy extends NPC {
 	@Override
 	public void setStartingBody(boolean setPersona) {
 
-		Subspecies subspecies = Subspecies.COW_MORPH;
+		AbstractSubspecies subspecies = Subspecies.COW_MORPH;
 		
 		RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
 		setBody(Gender.F_V_B_FEMALE, subspecies, stage, false);

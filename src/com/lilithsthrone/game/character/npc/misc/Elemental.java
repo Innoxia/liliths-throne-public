@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -66,7 +67,7 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class Elemental extends NPC {
 	private String summonerID;
-	private Subspecies passiveForm;
+	private AbstractSubspecies passiveForm;
 
 	public Elemental(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, null, isImported);
@@ -137,7 +138,7 @@ public class Elemental extends NPC {
 
 		XMLUtil.createXMLElementWithValue(doc, npcSpecific, "summoner", this.getSummoner().getId());
 		if(passiveForm!=null) {
-			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "passiveForm", passiveForm.toString());
+			XMLUtil.createXMLElementWithValue(doc, npcSpecific, "passiveForm", Subspecies.getIdFromSubspecies(passiveForm));
 		}
 		return properties;
 	}
@@ -149,7 +150,7 @@ public class Elemental extends NPC {
 		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("elementalSpecial").item(0);
 		this.setSummoner(((Element)npcSpecificElement.getElementsByTagName("summoner").item(0)).getAttribute("value"));
 		if(npcSpecificElement.getElementsByTagName("passiveForm").item(0)!=null) {
-			this.setPassiveForm(Subspecies.valueOf(((Element)npcSpecificElement.getElementsByTagName("passiveForm").item(0)).getAttribute("value")));
+			this.setPassiveForm(Subspecies.getSubspeciesFromId(((Element)npcSpecificElement.getElementsByTagName("passiveForm").item(0)).getAttribute("value")));
 		}
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.6")) {
@@ -352,7 +353,7 @@ public class Elemental extends NPC {
 	}
 
 	@Override
-	public Subspecies getSubspeciesOverride() {
+	public AbstractSubspecies getSubspeciesOverride() {
 		return getSubspecies();
 	}
 
@@ -493,14 +494,14 @@ public class Elemental extends NPC {
 	/**
 	 * @return The passive, ethereal form which this elemental spends most of their time as. <b>Returns null</b> when the form should be the default 'wisp'.
 	 */
-	public Subspecies getPassiveForm() {
+	public AbstractSubspecies getPassiveForm() {
 		return passiveForm;
 	}
 
 	/**
 	 * @param passiveForm The passive, ethereal form which this elemental spends most of their time as. Pass in null for a default 'wisp' form.
 	 */
-	public void setPassiveForm(Subspecies passiveForm) {
+	public void setPassiveForm(AbstractSubspecies passiveForm) {
 		this.passiveForm = passiveForm;
 	}
 	

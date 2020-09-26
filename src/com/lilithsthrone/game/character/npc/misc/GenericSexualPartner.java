@@ -2,7 +2,6 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +19,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -64,7 +64,7 @@ public class GenericSexualPartner extends NPC {
 		this(gender, worldLocation, location, isImported, null);
 	}
 	
-	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<Subspecies> subspeciesRemovalFilter) {
+	public GenericSexualPartner(Gender gender, AbstractWorldType worldLocation, Vector2i location, boolean isImported, Predicate<AbstractSubspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
@@ -78,19 +78,19 @@ public class GenericSexualPartner extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			List<Subspecies> availableSubspecies = new ArrayList<>();
-			Collections.addAll(availableSubspecies, Subspecies.values());
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
+			availableSubspecies.addAll(Subspecies.getAllSubspecies());
 			
 			if(subspeciesRemovalFilter!=null) {
 				availableSubspecies.removeIf(subspeciesRemovalFilter);
 			}
 			
-			for(Subspecies s : availableSubspecies) {
+			for(AbstractSubspecies s : availableSubspecies) {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					
 				} else if(s.getRace()!=Race.DEMON
 						&& s.getRace()!=Race.ANGEL
@@ -99,10 +99,10 @@ public class GenericSexualPartner extends NPC {
 						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
-					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					if(AbstractSubspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+						AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					} else {
-						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap(3, gender, s, availableRaces);
 					}
 				}
 			}

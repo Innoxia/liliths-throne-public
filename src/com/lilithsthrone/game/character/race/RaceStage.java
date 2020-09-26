@@ -374,7 +374,7 @@ public enum RaceStage {
 		return colour;
 	}
 	
-	public static RaceStage getRaceStageFromUserPreferences(Gender gender, Subspecies subspecies) {
+	public static RaceStage getRaceStageFromUserPreferences(Gender gender, AbstractSubspecies subspecies) {
 		FurryPreference preference;
 		if(gender.isFeminine()) {
 			preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);

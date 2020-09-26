@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -467,7 +467,7 @@ public enum RenderingEngine {
 				if (clothing != null) {
 					equippedPanelSB.append("<div class='"+inventorySlotId+getClassRarityIdentifier(clothing.getRarity())+"'"+(clothing.isSealed()?"style='border-width:2px; border-color:"+PresetColour.SEALED.toWebHexString()+"; border-style:solid;'":"")+">");
 
-						equippedPanelSB.append((block!=null?"<div class='raceBlockIcon' style='opacity:0.5;'>" + Subspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>":""));
+						equippedPanelSB.append((block!=null?"<div class='raceBlockIcon' style='opacity:0.5;'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>":""));
 						
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(charactersInventoryToRender)+"</div>");
 	
@@ -501,7 +501,7 @@ public enum RenderingEngine {
 								"<div class='"+inventorySlotId+" disabled-light'>"
 									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-									+ "<div class='raceBlockIcon' style='opacity:0.5;'>" + Subspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
+									+ "<div class='raceBlockIcon' style='opacity:0.5;'>" + AbstractSubspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
 								+ "</div>");
 						
 					} else {
@@ -1465,7 +1465,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			Set<Subspecies> subspeciesSet = new HashSet<>();
+			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			if(place.getPopulation()!=null) {
 				for(Population pop : place.getPopulation()) {
 					subspeciesSet.addAll(pop.getSpecies().keySet());

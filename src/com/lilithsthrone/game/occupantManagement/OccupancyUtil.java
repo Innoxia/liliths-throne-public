@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -819,10 +820,10 @@ public class OccupancyUtil implements XMLSaving {
 						settingsEnabled = getSexSettingsEnabled(currentJob, slave);
 						
 						Gender gender = Gender.getGenderFromUserPreferences(false, true);
-						Map<Subspecies, Integer> availableRaces = Subspecies.getGenericSexPartnerSubspeciesMap(gender);
+						Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
 						
-						Subspecies subspecies = Subspecies.HUMAN;
-						Subspecies halfDemonSubspecies = null;
+						AbstractSubspecies subspecies = Subspecies.HUMAN;
+						AbstractSubspecies halfDemonSubspecies = null;
 						if(!availableRaces.isEmpty()) {
 							subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 						}
@@ -959,9 +960,9 @@ public class OccupancyUtil implements XMLSaving {
 					String partnerName = "";
 					
 					Gender partnerGender = null;
-					Map<Subspecies, Integer> availablePartnerRaces = null;
-					Subspecies partnerSubspecies = Subspecies.HUMAN;
-					Subspecies partnerHalfDemonSubspecies = null;
+					Map<AbstractSubspecies, Integer> availablePartnerRaces = null;
+					AbstractSubspecies partnerSubspecies = Subspecies.HUMAN;
+					AbstractSubspecies partnerHalfDemonSubspecies = null;
 					
 					if(usingRealPartner) {
 						if(Math.random()<0.25f) {
@@ -978,7 +979,7 @@ public class OccupancyUtil implements XMLSaving {
 						
 					} else {
 						partnerGender = Gender.getGenderFromUserPreferences(false, true);
-						availablePartnerRaces = Subspecies.getGenericSexPartnerSubspeciesMap(partnerGender);
+						availablePartnerRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(partnerGender);
 						
 						if(!availablePartnerRaces.isEmpty()) {
 							partnerSubspecies = Util.getRandomObjectFromWeightedMap(availablePartnerRaces);

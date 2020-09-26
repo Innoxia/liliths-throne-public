@@ -31,10 +31,13 @@
 		<enchantmentEffectId>RACE</enchantmentEffectId> <!-- 'RACE' is a special value, and when defined, this item will use the defined 'associatedRace' to give the player enchantment options for making a TF elixir for that race. -->
 		
 		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
 			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel a lot healthier...
 			</p>

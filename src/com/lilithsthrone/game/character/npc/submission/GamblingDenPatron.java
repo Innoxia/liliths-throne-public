@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -69,16 +70,16 @@ public class GamblingDenPatron extends NPC {
 			
 			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 100 : 50;
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.SLIME) {
-					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
 				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
 				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
