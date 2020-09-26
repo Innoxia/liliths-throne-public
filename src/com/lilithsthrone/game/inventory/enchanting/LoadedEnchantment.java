@@ -99,10 +99,18 @@ public class LoadedEnchantment {
 			}
 			
 		} else if(weaponType!=null) {
+			List<AbstractWeapon> weaponList = new ArrayList<>();
 			for(AbstractWeapon w :  Main.game.getPlayer().getAllWeaponsInInventory().keySet()) {
-				if(w.getWeaponType().equals(weaponType) && w.getEffects().isEmpty()) {
-					return w;
+				if(w.getWeaponType().equals(weaponType) ) {
+					if (w.getEffects().isEmpty()) {
+						return w;
+					} else {
+						weaponList.add(w);
+					}
 				}
+			}
+			if(!weaponList.isEmpty()) {
+				return weaponList.get(0);
 			}
 			
 		} else if(tattooType!=null) {
