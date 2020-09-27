@@ -81,6 +81,7 @@ public class Roxy extends NPC {
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.getItemTypeFromId("innoxia_pills_fertility"),
+			ItemType.getItemTypeFromId("innoxia_pills_broodmother"),
 			ItemType.getItemTypeFromId("innoxia_pills_sterility"),
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);

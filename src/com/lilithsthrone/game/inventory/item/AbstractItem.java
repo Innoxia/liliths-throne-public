@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -280,6 +281,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	public boolean isGift() {
 		return itemType.isGift();
+	}
+
+	public boolean isFertilityPill() {
+		return this.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))
+				|| this.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_broodmother"));
 	}
 
 	@Override
