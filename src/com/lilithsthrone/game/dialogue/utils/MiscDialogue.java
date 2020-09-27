@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;

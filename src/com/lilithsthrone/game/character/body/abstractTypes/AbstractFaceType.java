@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	private AbstractMouthType mouthType;
 	
@@ -51,7 +51,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	 * @param faceBodyDescription A sentence or two to describe this face type, as seen in the character view screen. It should follow the same format as all of the other entries in the AssType class.
 	 * @param tags A list of tags which help to define the features of this face type.
 	 */
-	public AbstractFaceType(BodyCoveringType skinType,
+	public AbstractFaceType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractMouthType mouthType,
 			List<String> names,
@@ -132,13 +132,13 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	/**
-	 * <b>This should never be used - the covering of an face is determined by the torso's covering!</b>
-	 */
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		if(body!=null) {
-			return body.getTorso().getBodyCoveringType(body);
-		}
+//	/**
+//	 * <b>This should never be used - the covering of a face is determined by the torso's covering!</b>
+//	 */
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
+//		if(body!=null) {
+//			return body.getTorso().getBodyCoveringType(body);
+//		}
 		return skinType;
 	}
 

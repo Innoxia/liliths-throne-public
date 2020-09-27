@@ -37,6 +37,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Body:
 		Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 250%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.
 		If a tail's girth is the same as the default value for its type, then changing the tail type will reset the girth to the new tail's default girth. The same happens with tail length.
+		Alligator-morph body hair is now coarse hair (the same as their head hair). It is always absent on alligator-morphs by default if you have your 'Scaly Hair' option off.
+		Added more options to change the colour of your elemental's body coverings.
+		Fixed issue where face type would always use the same covering as torso type.
 	
 	Bugs:
 		Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.
@@ -77,21 +80,31 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] Slime encounters (TFs)
 					[x] Imp encounter (TFs)
 				
-				[] Coverings improvements
-					[] Simplify into just fur/hair/eyes?
+				[x] Coverings improvements
+					[x] Make abstract class
+						[x] Make sure .toString() is handled
+					[x] Make TypeCategory (iris, covering_fur, head_hair, covering_hair, etc.)
+						[x] Can replace makeup and slime lists in BodyCoveringType
+						[x] Automatically generate 1 covering type for each generic type for all non-flesh materials
+					[x] Util.newArrayListOfValues("SLIME")
+					[x] When slimes are generated, make all slime parts the same colour
+					[x] Add more colours for elemental materials
+						[x] Make them all the same when first spawned
+					[x] AbstractFaceType uses torso covering?
+				
+				[] BodyPart providesNightVision() (eyes, ears (bats))
+					[] Add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
 				
 				[] Add support for other leg types
-					[] long tail should be ratio of 5:1 tail:body
-					[] Race icons (background modifications)
-					[] Sex availability
 					[] Water limitation
 						[] Subspecies boolean for water limitation
 							[] Default to true for tail & cephalopod
 						[] Eels/mermaids grow legs when exposed to air? (Otherwise land limitations will dead-end the player)
 							[] Massive negative status effect
 							[] Positive status effect when in water
-					[] Nocturnal boolean
-						[] Add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
+					[] long tail should be ratio of 5:1 tail:body
+					[] Race icons (background modifications)
+					[] Sex availability
 					[] Combat move unlocks
 						[] Combat Move modding
 							[] Quadruped kick
@@ -105,6 +118,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[] All fours
 				
 		[] Structure plan
+			[] Required covering types
 			[] Race
 			[] Parts
 			[] Subspecies
@@ -115,9 +129,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Hyena
 	
 	
+	
+	Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
+	 I do remember finding a diamond necklace in the crates at Wolfgang's. Maybe those items should also have some value limit on them?
+	
+	For these pills, although there is a determiner provided in the XML file, the items in the game have a null value for determiner
+	
+	Check 'Kevin' save for multiple clients in Angel's Kiss bug
+	
 	male imp has "succubus-cock"?
 	
 	post-defeat transformation sometimes makes parts too big (breasts, lips, hair), and then in next defeat TF, they shrink them
+	I've had plenty of times where characters say "I'm gonna turn you into a Zebra Girl" or something along those lines only for the forced TF to be stopped at the default Horse features but no Zebra tail or black and white fur colours.
 	
 	Takahashi sex:
 		Needs to start with oral ongoing

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	private AbstractFluidType fluidType;
 	private boolean internal;
@@ -35,7 +35,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	 * @param namesPlural A list of plural names for this testicle type. Pass in null to use generic names.
 	 * @param descriptors The descriptors that can be used for this testicle type.
 	 */
-	public AbstractTesticleType(BodyCoveringType skinType,
+	public AbstractTesticleType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractFluidType fluidType,
 			boolean internal,
@@ -53,7 +53,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 		this.descriptors = descriptors;
 	}
 	
-	public AbstractTesticleType(BodyCoveringType skinType,
+	public AbstractTesticleType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractFluidType fluidType,
 			boolean internal) {
@@ -114,9 +114,9 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 
 	@Override
 	/**
-	 * <b>This should never be used - the covering of breasts is determined by the torso's covering!</b>
+	 * <b>This should never be used - the covering of testicles is determined by the torso's covering!</b>
 	 */
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}

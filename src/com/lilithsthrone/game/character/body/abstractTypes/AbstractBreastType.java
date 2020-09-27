@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	private AbstractNippleType nippleType;
 	private AbstractFluidType fluidType;
@@ -52,7 +52,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	 * @param breastsCrotchTransformationDescription A paragraph describing a character's crotch-boobs transforming into this breasts type. Parsing assumes that the character already has this breasts type and associated skin covering.
 	 * @param breastsCrotchBodyDescription A sentence or two to describe this crotch-boob type, as seen in the character view screen. It should follow the same format as all of the other entries in the BreastType class.
 	 */
-	public AbstractBreastType(BodyCoveringType skinType,
+	public AbstractBreastType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractNippleType nippleType,
 			AbstractFluidType fluidType,
@@ -87,7 +87,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 		this.breastsCrotchBodyDescription = breastsCrotchBodyDescription;
 	}
 	
-	public AbstractBreastType(BodyCoveringType skinType,
+	public AbstractBreastType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractNippleType nippleType,
 			AbstractFluidType fluidType,
@@ -190,7 +190,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	/**
 	 * <b>This should never be used - the covering of breasts is determined by the torso's covering!</b>
 	 */
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}

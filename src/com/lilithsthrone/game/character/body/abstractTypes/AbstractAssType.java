@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractAssType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	private AbstractAnusType anusType;
 	
@@ -41,7 +41,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	 * @param assTransformationDescription A paragraph describing a character's ass transforming into this ass type. Parsing assumes that the character already has this ass type and associated skin covering.
 	 * @param assBodyDescription A sentence or two to describe this ass type, as seen in the character view screen. It should follow the same format as all of the other entries in the AssType class.
 	 */
-	public AbstractAssType(BodyCoveringType skinType,
+	public AbstractAssType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractAnusType anusType,
 			List<String> names,
@@ -108,7 +108,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	/**
 	 * <b>This should never be used - the covering of an ass is determined by the torso's covering!</b>
 	 */
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}

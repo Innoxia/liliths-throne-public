@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractHairType implements BodyPartTypeInterface {
 
-	private BodyCoveringType coveringType;
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 
 	private boolean ableToBeGrabbedInSex; //TODO make sure this is accounted for
@@ -47,7 +47,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	 * @param hairTransformationDescription A paragraph describing a character's hair transforming into this hair type. Parsing assumes that the character already has this hair type and associated covering.
 	 * @param hairBodyDescription A sentence or two to describe this hair type, as seen in the character view screen. It should follow the same format as all of the other entries in the HairType class.
 	 */
-	public AbstractHairType(BodyCoveringType skinType,
+	public AbstractHairType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			boolean ableToBeGrabbedInSex,
 			String transformationName,
@@ -119,7 +119,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return coveringType;
 	}
 

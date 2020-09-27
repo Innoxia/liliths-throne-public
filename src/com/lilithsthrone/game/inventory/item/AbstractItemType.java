@@ -176,14 +176,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.mod = mod;
 			this.fromExternalFile = true;
 
-			if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
-				this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
-			} else if(!author.equalsIgnoreCase("innoxia")){
-				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
-			} else {
-				this.authorDescription = "";
-			}
-			
 			this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
 			this.namePlural = coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
 			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
@@ -191,6 +183,14 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.plural = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
 			this.value = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
 			this.rarity = Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+			
+			if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
+			} else if(!author.equalsIgnoreCase("innoxia")){
+				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
+			} else {
+				this.authorDescription = "";
+			}
 			
 			this.sexUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("sexUse").getTextContent());
 			this.combatUseAllies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseAllies").getTextContent());

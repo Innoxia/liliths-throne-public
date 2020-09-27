@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -22,7 +23,7 @@ public class TesticleType {
 	public static AbstractTesticleType NONE = new AbstractTesticleType(null, Race.NONE, FluidType.CUM_HUMAN, false) {
 	};
 
-	public static AbstractTesticleType DILDO = new AbstractTesticleType(BodyCoveringType.RUBBER, Race.NONE, FluidType.CUM_HUMAN, false) {
+	public static AbstractTesticleType DILDO = new AbstractTesticleType(BodyCoveringType.getBodyCoveringTypeFromId("RUBBER_MAIN_SKIN"), Race.NONE, FluidType.CUM_HUMAN, false) {
 	};
 	
 	public static AbstractTesticleType HUMAN = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HUMAN, FluidType.CUM_HUMAN, false) {

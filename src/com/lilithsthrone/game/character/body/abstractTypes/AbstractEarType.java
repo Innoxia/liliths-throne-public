@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractEarType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 
 	private boolean ableToBeUsedAsHandlesInSex;
@@ -46,7 +46,7 @@ public abstract class AbstractEarType implements BodyPartTypeInterface {
 	 * @param earTransformationDescription A paragraph describing a character's ears transforming into this ear type. Parsing assumes that the character already has this ear type and associated skin covering.
 	 * @param earBodyDescription A sentence or two to describe this ear type, as seen in the character view screen. It should follow the same format as all of the other entries in the EarType class.
 	 */
-	public AbstractEarType(BodyCoveringType skinType,
+	public AbstractEarType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			boolean ableToBeUsedAsHandlesInSex,
 			String transformationName,
@@ -112,7 +112,7 @@ public abstract class AbstractEarType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

@@ -1,18 +1,24 @@
-package com.lilithsthrone.game.character.body.valueEnums;
+package com.lilithsthrone.game.character.body.coverings;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 
+/**
+ * @since 0.2.8
+ * @version 0.4
+ * @author Pimgd, Innoxia
+ */
 public class BodyCoveringSkinToneColorHelper {
-	private static final List<BodyCoveringType> NOT_FOR_THESE_BCTS = 
+	private static final List<AbstractBodyCoveringType> NOT_FOR_THESE_BCTS = 
 			Util.newArrayListOfValues(BodyCoveringType.MAKEUP_BLUSHER,
 					BodyCoveringType.MAKEUP_EYE_LINER,
 					BodyCoveringType.MAKEUP_EYE_SHADOW,
@@ -41,25 +47,25 @@ public class BodyCoveringSkinToneColorHelper {
 		
 	}
 	
-	private static Map<StartingSkinTone, Map<BodyCoveringType, FilteredColours>> filteredColours = new EnumMap<>(StartingSkinTone.class);
+	private static Map<StartingSkinTone, Map<AbstractBodyCoveringType, FilteredColours>> filteredColours = new EnumMap<>(StartingSkinTone.class);
 	
 	private BodyCoveringSkinToneColorHelper() {
 		//singleton via statics
 	}
 	
-	public static List<Colour> getAcceptableColoursForPrimary(StartingSkinTone tone, BodyCoveringType bct) {
+	public static List<Colour> getAcceptableColoursForPrimary(StartingSkinTone tone, AbstractBodyCoveringType bct) {
 		return getOrCreateFilteredColoursForCombination(tone, bct).getPrimary();
 	}
 	
-	public static List<Colour> getAcceptableColoursForSecondary(StartingSkinTone tone, BodyCoveringType bct) {
+	public static List<Colour> getAcceptableColoursForSecondary(StartingSkinTone tone, AbstractBodyCoveringType bct) {
 		return getOrCreateFilteredColoursForCombination(tone, bct).getSecondary();
 	}
 	
-	private static FilteredColours getOrCreateFilteredColoursForCombination(StartingSkinTone tone, BodyCoveringType bct) {
+	private static FilteredColours getOrCreateFilteredColoursForCombination(StartingSkinTone tone, AbstractBodyCoveringType bct) {
 		if (NOT_FOR_THESE_BCTS.contains(bct)) {
 			return new FilteredColours(new ArrayList<>(), new ArrayList<>());
 		}
-		return filteredColours.computeIfAbsent(tone, ignored -> new EnumMap<>(BodyCoveringType.class)).computeIfAbsent(bct, ignored -> {
+		return filteredColours.computeIfAbsent(tone, ignored -> new HashMap<>()).computeIfAbsent(bct, ignored -> {
 			Set<Colour> colourApplicationListPrimary = new HashSet<>();
 
 			colourApplicationListPrimary.addAll(bct.getNaturalColoursPrimary());

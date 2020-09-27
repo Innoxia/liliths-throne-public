@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -247,6 +249,10 @@ public class HairType {
 		@Override
 		public boolean isDefaultPlural() {
 			return true;
+		}
+		@Override
+		public String getDeterminer(GameCharacter gc) {
+			return "a plume of";
 		}
 	};
 

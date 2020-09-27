@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractNippleType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	
 	private List<String> descriptorsMasculine;
@@ -35,7 +35,7 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this ass type.
 	 * @param defaultRacialOrificeModifiers Which modifiers this nipple naturally spawns with.
 	 */
-	public AbstractNippleType(BodyCoveringType skinType,
+	public AbstractNippleType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			List<String> descriptorsMasculine,
 			List<String> descriptorsFeminine,
@@ -219,7 +219,7 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

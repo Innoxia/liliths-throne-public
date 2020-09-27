@@ -38,7 +38,6 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Ear;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Face;
@@ -53,11 +52,13 @@ import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -399,7 +400,7 @@ public class CharacterUtils {
 		
 		float takesAfterMotherChance = takesAfterMother?0.75f:0.25f;
 		
-		List<BodyCoveringType> typesToInfluence = new ArrayList<>();
+		List<AbstractBodyCoveringType> typesToInfluence = new ArrayList<>();
 		// Skin & fur colours:
 		for(BodyPartInterface bp : body.getAllBodyParts()){
 			if(bp.getBodyCoveringType(body)!=null
@@ -908,8 +909,8 @@ public class CharacterUtils {
 		return body;
 	}
 	
-	private static List<BodyCoveringType> setCoveringColours(Body body, GameCharacter character, List<BodyCoveringType> typesToInfluence) {
-		List<BodyCoveringType> tempList = new ArrayList<>(typesToInfluence);
+	private static List<AbstractBodyCoveringType> setCoveringColours(Body body, GameCharacter character, List<AbstractBodyCoveringType> typesToInfluence) {
+		List<AbstractBodyCoveringType> tempList = new ArrayList<>(typesToInfluence);
 		
 		// Skin & fur colours:
 		for(BodyPartInterface bp : character.getAllBodyParts()){
@@ -926,13 +927,13 @@ public class CharacterUtils {
 			}
 		}
 		
-		List<BodyCoveringType> extraCoverings = new ArrayList<>();
+		List<AbstractBodyCoveringType> extraCoverings = new ArrayList<>();
 		extraCoverings.add(BodyCoveringType.ANUS);
 		extraCoverings.add(BodyCoveringType.NIPPLES);
 		extraCoverings.add(BodyCoveringType.MOUTH);
 		extraCoverings.add(BodyCoveringType.TONGUE);
 		
-		for(BodyCoveringType bct : extraCoverings) {
+		for(AbstractBodyCoveringType bct : extraCoverings) {
 			if(tempList.contains(bct)) {
 				Covering covering = character.getCovering(bct);
 					body.getCoverings().put(
@@ -1601,83 +1602,118 @@ public class CharacterUtils {
 	}
 	
 	private static void setBodyHair(Body body) {
-		int slobLevel = Util.random.nextInt(101);
-
+		int slobLevel = (int) (Util.random.nextInt(101)*body.getRace().getDisposition().getBodyHairModifier());
+		
+		boolean facialHair = body.getFace().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		boolean underarmHair = body.getArm().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		boolean assHair = body.getAss().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		boolean pubicHair;
+		if(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO) {
+			pubicHair = body.getPenis().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		} else if(body.getVagina().getType()!=VaginaType.NONE) {
+			pubicHair = body.getVagina().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		} else {
+			pubicHair = body.getTorso().getType().getRace().getRacialClass().isAnthroHair() || Main.game.isScalyHairEnabled();
+		}
+		
+		BodyHair facialHairLevel = BodyHair.ZERO_NONE;
+		BodyHair underarmHairLevel = BodyHair.ZERO_NONE;
+		BodyHair assHairLevel = BodyHair.ZERO_NONE;
+		BodyHair pubicHairLevel = BodyHair.ZERO_NONE;
+		
 		if(body.isFeminine()) {
-			body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+			facialHairLevel = BodyHair.ZERO_NONE;
 			if(slobLevel>=95) {
-				body.getArm().setUnderarmHair(null, BodyHair.SIX_BUSHY);
-				body.setPubicHair(BodyHair.SEVEN_WILD);
-				body.getAss().getAnus().setAssHair(null, BodyHair.FIVE_UNKEMPT);
+				underarmHairLevel = BodyHair.SIX_BUSHY;
+				pubicHairLevel = BodyHair.SEVEN_WILD;
+				assHairLevel = BodyHair.FIVE_UNKEMPT;
 				
 			} else if(slobLevel>=80) {
-				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
-				body.setPubicHair(BodyHair.SIX_BUSHY);
-				body.getAss().getAnus().setAssHair(null, BodyHair.FOUR_NATURAL);
+				underarmHairLevel = BodyHair.FOUR_NATURAL;
+				pubicHairLevel = BodyHair.SIX_BUSHY;
+				assHairLevel = BodyHair.FOUR_NATURAL;
 				
 			} else if(slobLevel>=60) {
-				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
-				body.setPubicHair(BodyHair.FOUR_NATURAL);
-				body.getAss().getAnus().setAssHair(null, BodyHair.TWO_MANICURED);
+				underarmHairLevel = BodyHair.ZERO_NONE;
+				pubicHairLevel = BodyHair.FOUR_NATURAL;
+				assHairLevel = BodyHair.TWO_MANICURED;
 				
 			} else if(slobLevel>=40) {
-				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
-				body.setPubicHair(BodyHair.TWO_MANICURED);
-				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				underarmHairLevel = BodyHair.ZERO_NONE;
+				pubicHairLevel = BodyHair.TWO_MANICURED;
+				assHairLevel = BodyHair.ZERO_NONE;
 				
 			} else {
-				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
-				body.setPubicHair(BodyHair.ZERO_NONE);
-				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				underarmHairLevel = BodyHair.ZERO_NONE;
+				pubicHairLevel = BodyHair.ZERO_NONE;
+				assHairLevel = BodyHair.ZERO_NONE;
 			}
 			
 		} else {
 			if(slobLevel>=95) {
 				if(Math.random()>0.5) {
-					body.getFace().setFacialHair(null, BodyHair.SEVEN_WILD);
+					facialHairLevel = BodyHair.SEVEN_WILD;
 				} else {
-					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+					facialHairLevel = BodyHair.ZERO_NONE;
 				}
-				body.getArm().setUnderarmHair(null, BodyHair.SIX_BUSHY);
-				body.setPubicHair(BodyHair.SEVEN_WILD);
-				body.getAss().getAnus().setAssHair(null, BodyHair.FIVE_UNKEMPT);
+				underarmHairLevel = BodyHair.SIX_BUSHY;
+				pubicHairLevel = BodyHair.SEVEN_WILD;
+				assHairLevel = BodyHair.FIVE_UNKEMPT;
 				
 			} else if(slobLevel>=80) {
 				if(Math.random()>0.6) {
-					body.getFace().setFacialHair(null, BodyHair.SIX_BUSHY);
+					facialHairLevel = BodyHair.SIX_BUSHY;
 				} else {
-					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+					facialHairLevel = BodyHair.ZERO_NONE;
 				}
-				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
-				body.setPubicHair(BodyHair.SIX_BUSHY);
-				body.getAss().getAnus().setAssHair(null, BodyHair.FOUR_NATURAL);
+				underarmHairLevel = BodyHair.FOUR_NATURAL;
+				pubicHairLevel = BodyHair.SIX_BUSHY;
+				assHairLevel = BodyHair.FOUR_NATURAL;
 				
 			} else if(slobLevel>=60) {
 				if(Math.random()>0.7) {
-					body.getFace().setFacialHair(null, BodyHair.FOUR_NATURAL);
+					facialHairLevel = BodyHair.FOUR_NATURAL;
 				} else {
-					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+					facialHairLevel = BodyHair.ZERO_NONE;
 				}
-				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
-				body.setPubicHair(BodyHair.FOUR_NATURAL);
-				body.getAss().getAnus().setAssHair(null, BodyHair.TWO_MANICURED);
+				underarmHairLevel = BodyHair.FOUR_NATURAL;
+				pubicHairLevel = BodyHair.FOUR_NATURAL;
+				assHairLevel = BodyHair.TWO_MANICURED;
 				
 			} else if(slobLevel>=20) {
 				if(Math.random()>0.8) {
-					body.getFace().setFacialHair(null, BodyHair.ONE_STUBBLE);
+					facialHairLevel = BodyHair.ONE_STUBBLE;
 				} else {
-					body.getFace().setFacialHair(null, BodyHair.ZERO_NONE);
+					facialHairLevel = BodyHair.ZERO_NONE;
 				}
-				body.getArm().setUnderarmHair(null, BodyHair.FOUR_NATURAL);
-				body.setPubicHair(BodyHair.THREE_TRIMMED);
-				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				underarmHairLevel = BodyHair.FOUR_NATURAL;
+				pubicHairLevel = BodyHair.THREE_TRIMMED;
+				assHairLevel = BodyHair.ZERO_NONE;
 				
 			} else {
-				body.getArm().setUnderarmHair(null, BodyHair.ZERO_NONE);
-				body.setPubicHair(BodyHair.ZERO_NONE);
-				body.getAss().getAnus().setAssHair(null, BodyHair.ZERO_NONE);
+				underarmHairLevel = BodyHair.ZERO_NONE;
+				pubicHairLevel = BodyHair.ZERO_NONE;
+				assHairLevel = BodyHair.ZERO_NONE;
 			}
 		}
+		
+		if(!facialHair) {
+			facialHairLevel = BodyHair.ZERO_NONE;
+		}
+		if(!underarmHair) {
+			underarmHairLevel = BodyHair.ZERO_NONE;
+		}
+		if(!pubicHair) {
+			pubicHairLevel = BodyHair.ZERO_NONE;
+		}
+		if(!assHair) {
+			assHairLevel = BodyHair.ZERO_NONE;
+		}
+		
+		body.getFace().setFacialHair(null, facialHairLevel);
+		body.getArm().setUnderarmHair(null, underarmHairLevel);
+		body.setPubicHair(pubicHairLevel);
+		body.getAss().getAnus().setAssHair(null, assHairLevel);
 	}
 	
 	

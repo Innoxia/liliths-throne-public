@@ -17,7 +17,9 @@ import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -1073,7 +1075,7 @@ public class CompanionManagement {
 	};
 	
 
-	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
+	private static Map<AbstractBodyCoveringType, List<String>> CoveringsNamesMap;
 	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
@@ -1111,37 +1113,66 @@ public class CompanionManagement {
 					
 					CoveringsNamesMap = new LinkedHashMap<>();
 
-					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
-					} else {
-						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-							if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
-									&& !(bp instanceof Hair)
-									&& !(bp instanceof Eye)) {
-								
-								String name = bp.getName(BodyChanging.getTarget());
-								if(bp instanceof Torso) {
-									name = "torso";
-								} else if(bp instanceof Vagina) {
-									name = "vagina";
-								}
-								
-								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
-									CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
-								} else {
-									CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
-								}
+//					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
+//						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
+//						
+//					} else {
+					for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
+						if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
+								&& !(bp instanceof Hair)
+								&& !(bp instanceof Eye)) {
+							
+							String name = bp.getName(BodyChanging.getTarget());
+							if(bp instanceof Torso) {
+								name = "torso";
+							} else if(bp instanceof Vagina) {
+								name = "vagina";
+							}
+							
+							if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
+								CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
+							} else {
+								CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
 							}
 						}
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
-						if(BodyChanging.getTarget().hasBreastsCrotch()) {
-							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+					}
+
+					// Alter the map for if the target's body is not made of flesh:
+					if(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
+						Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
+						for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
+							altMaterialCoveringsNamesMap.put(BodyCoveringType.getBodyCoveringTypeFromId(BodyChanging.getTarget().getBodyMaterial()+"_"+entry.getKey().getCategory().toString()), entry.getValue());
+						}
+						CoveringsNamesMap = altMaterialCoveringsNamesMap;
+					}
+
+					for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
+						if(entry.getKey().getCategory()==BodyCoveringCategory.ANUS) {
+							entry.getValue().clear();
+							entry.getValue().add("anus");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.MOUTH) {
+							entry.getValue().clear();
+							entry.getValue().add("mouth");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.NIPPLE) {
+							entry.getValue().clear();
+							entry.getValue().add("nipples");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.NIPPLE_CROTCH) {
+							entry.getValue().clear();
+							entry.getValue().add("crotch nipples");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.TONGUE) {
+							entry.getValue().clear();
+							entry.getValue().add("tongue");
 						}
 					}
+//					CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
+//					CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
+//					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
+//					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
+//					if(BodyChanging.getTarget().hasBreastsCrotch()) {
+//						CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+//					}
 				}
+//				}
 			};
 
 		} else if (index == 6) {
@@ -1388,33 +1419,33 @@ public class CompanionManagement {
 									+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 								+ "</h6>");
 			
-			for(Entry<BodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
-				BodyCoveringType bct = entry.getKey();
+			for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
+				AbstractBodyCoveringType bct = entry.getKey();
 				
 				String title = Util.capitaliseSentence(bct.getName(BodyChanging.getTarget()));
 				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".";
 				
-				if(bct == BodyCoveringType.ANUS) {
+				if(bct.getCategory()==BodyCoveringCategory.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering [npc.namePos] anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.VAGINA) {
+				} else if(bct.getCategory()==BodyCoveringCategory.VAGINA) {
 					title = "Vagina";
 					description = "This is the skin that's currently covering [npc.namePos] labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.PENIS) {
+				} else if(bct.getCategory()==BodyCoveringCategory.PENIS) {
 					title = "Penis";
 					description = "This is the skin that's currently covering [npc.namePos] penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE_CROTCH) {
 					title = "Crotch Nipples";
 					description = "This is the skin that's currently covering the nipples and areolae on [npc.namePos] [npc.crotchBoobs]. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.MOUTH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.MOUTH) {
 					title = "Lips & Throat";
 					if(BodyChanging.getTarget().getFaceType() == FaceType.HARPY) {
 						description = "This is the colour of [npc.namePos] beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
@@ -1422,7 +1453,7 @@ public class CompanionManagement {
 						description = "This is the skin that's currently covering [npc.namePos] lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
 					}
 					
-				} else if(bct == BodyCoveringType.TONGUE) {
+				} else if(bct.getCategory()==BodyCoveringCategory.TONGUE) {
 					title = "Tongue";
 					description = "This is the skin that's currently covering [npc.namePos] tongue.";
 				}
@@ -1497,7 +1528,7 @@ public class CompanionManagement {
 							:"")
 					);
 			
-			for(BodyCoveringType bct : BodyCoveringType.values()) {
+			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
 				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
 						|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
 						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)

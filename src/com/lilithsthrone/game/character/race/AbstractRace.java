@@ -5,14 +5,14 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.3.9.1
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractRace {
@@ -22,8 +22,12 @@ public abstract class AbstractRace {
 	private String nameBestial;
 	private String nameBestialPlural;
 	private String defaultTransformName;
+	
 	private Colour colour;
+	
 	private Disposition disposition;
+	private RacialClass racialClass;
+	
 	private List<Attack> preferredAttacks;
 	private int numberOfOffspringLow;
 	private int numberOfOffspringHigh;
@@ -40,6 +44,7 @@ public abstract class AbstractRace {
 			String defaultTransformName,
 			Colour colour,
 			Disposition disposition,
+			RacialClass racialClass,
 			List<Attack> preferredAttacks,
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
@@ -56,8 +61,10 @@ public abstract class AbstractRace {
 		this.defaultTransformName = defaultTransformName;
 		
 		this.colour = colour;
+		
 		this.disposition = disposition;
-
+		this.racialClass = racialClass;
+		
 		this.preferredAttacks = preferredAttacks;
 
 		this.chanceForMaleOffspring=chanceForMaleOffspring;
@@ -75,7 +82,7 @@ public abstract class AbstractRace {
 	
 	public abstract AbstractRacialBody getRacialBody();
 	
-	public abstract BodyCoveringType getBodyHairType();
+	public abstract AbstractBodyCoveringType getBodyHairType();
 
 	public abstract AbstractItemType getConsumableAttributeItem();
 
@@ -127,6 +134,10 @@ public abstract class AbstractRace {
 
 	public Disposition getDisposition() {
 		return disposition;
+	}
+
+	public RacialClass getRacialClass() {
+		return racialClass;
 	}
 
 	public List<Attack> getPreferredAttacks() {

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character.body.types;
+package com.lilithsthrone.game.character.body.coverings;
 
 import java.util.ArrayList;
 import java.util.Collections;

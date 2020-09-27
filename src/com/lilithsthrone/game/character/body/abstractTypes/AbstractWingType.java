@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractWingType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	
 	private boolean allowsFlight;
@@ -47,7 +47,7 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	 * @param wingBodyDescription A sentence or two to describe this wing type, as seen in the character view screen. It should follow the same format as all of the other entries in the WingType class.
 	 */
 	public AbstractWingType(
-			BodyCoveringType skinType,
+			AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			boolean allowsFlight,
 			String transformationName,
@@ -113,7 +113,7 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

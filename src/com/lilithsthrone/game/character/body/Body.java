@@ -2,8 +2,6 @@ package com.lilithsthrone.game.character.body;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,11 +23,15 @@ import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringSkinToneColorHelper;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.TailTypeTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -44,7 +46,6 @@ import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
-import com.lilithsthrone.game.character.body.valueEnums.BodyCoveringSkinToneColorHelper;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
@@ -141,9 +142,9 @@ public class Body implements XMLSaving {
 	private int muscle;
 	private BodyHair pubicHair;
 
-	private Set<BodyCoveringType> heavyMakeup;
-	private Map<BodyCoveringType, Covering> coverings;
-	private Set<BodyCoveringType> coveringsDiscovered;
+	private Set<AbstractBodyCoveringType> heavyMakeup;
+	private Map<AbstractBodyCoveringType, Covering> coverings;
+	private Set<AbstractBodyCoveringType> coveringsDiscovered;
 
 	private List<BodyPartInterface> allBodyParts;
 
@@ -276,19 +277,19 @@ public class Body implements XMLSaving {
 		
 		height = builder.height;
 		femininity = builder.femininity;
-		bodySize =builder. bodySize;
-		muscle= builder.muscle;
+		bodySize = builder. bodySize;
+		muscle = builder.muscle;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
 		
 		handleAllBodyPartsList();
 		
-		coverings = new EnumMap<>(BodyCoveringType.class);
+		coverings = new HashMap<>();
 		heavyMakeup = new HashSet<>();
 
 		applyStartingCoveringValues();
 		
-		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
+		coveringsDiscovered = new HashSet<>();
 		for(BodyPartInterface bp : allBodyParts) {
 			if(bp.getBodyCoveringType(this)!=null) {
 				coveringsDiscovered.add(bp.getBodyCoveringType(this));
@@ -326,18 +327,11 @@ public class Body implements XMLSaving {
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
 		if(bodyMaterial==BodyMaterial.SLIME) {
-			coveringsDiscovered.add(BodyCoveringType.SLIME);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_EYE);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_HAIR);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_PUPILS);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_SCLERA);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES_CROTCH);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_MOUTH);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_TONGUE);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_ANUS);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_VAGINA);
-			coveringsDiscovered.add(BodyCoveringType.SLIME_PENIS);
+			for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
+				if(cat.isInfluencedByMaterialType()) {
+					coveringsDiscovered.add(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_"+cat.toString()));
+				}
+			}
 			
 		} else {
 			coveringsDiscovered.add(BodyCoveringType.EYE_SCLERA);
@@ -351,7 +345,7 @@ public class Body implements XMLSaving {
 		}
 	}
 	
-	public static BodyCoveringType getBodyHairCoveringType(AbstractRace race) {
+	public static AbstractBodyCoveringType getBodyHairCoveringType(AbstractRace race) {
 		return race.getBodyHairType();
 	}
 	
@@ -360,7 +354,7 @@ public class Body implements XMLSaving {
 		// Everything is based on human skin value:
 		StartingSkinTone tone = StartingSkinTone.values()[Util.random.nextInt(StartingSkinTone.values().length)];
 		
-		for(BodyCoveringType s : BodyCoveringType.values()) {
+		for(AbstractBodyCoveringType s : BodyCoveringType.getAllBodyCoveringTypes()) {
 			// Specials:
 			// orifice exterior/interior
 			// makeup
@@ -376,6 +370,7 @@ public class Body implements XMLSaving {
 						PresetColour.COVERING_NONE, false));
 				continue;
 			}
+			
 			List<Colour> colourApplicationList = BodyCoveringSkinToneColorHelper.getAcceptableColoursForPrimary(tone, s);
 			Colour primary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
 			
@@ -446,7 +441,7 @@ public class Body implements XMLSaving {
 //		}
 		XMLUtil.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
-		for(BodyCoveringType bct : BodyCoveringType.values()) {
+		for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
 			if(this.isBodyCoveringTypesDiscovered(bct)
 					|| ((bct == BodyCoveringType.MAKEUP_BLUSHER
 							|| bct == BodyCoveringType.MAKEUP_EYE_LINER
@@ -460,7 +455,7 @@ public class Body implements XMLSaving {
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
 				
-				XMLUtil.addAttribute(doc, element, "type", bct.toString());
+				XMLUtil.addAttribute(doc, element, "type", BodyCoveringType.getIdFromBodyCoveringType(bct));
 				XMLUtil.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
 				XMLUtil.addAttribute(doc, element, "modifier", this.coverings.get(bct).getModifier().toString());
 				XMLUtil.addAttribute(doc, element, "c1", this.coverings.get(bct).getPrimaryColour().getId());
@@ -480,10 +475,10 @@ public class Body implements XMLSaving {
 		if(!heavyMakeup.isEmpty()) {
 			Element element = doc.createElement("heavyMakeup");
 			bodyCore.appendChild(element);
-			for(BodyCoveringType bct : heavyMakeup) {
+			for(AbstractBodyCoveringType bct : heavyMakeup) {
 				Element bctElement = doc.createElement("type");
 				element.appendChild(bctElement);
-				bctElement.setTextContent(bct.toString());
+				bctElement.setTextContent(BodyCoveringType.getIdFromBodyCoveringType(bct));
 			}
 		}
 		
@@ -776,10 +771,10 @@ public class Body implements XMLSaving {
 	}
 
 	
-	private void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, CoveringModifier modifier, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+	private void setBodyCoveringForXMLImport(AbstractBodyCoveringType bct, CoveringPattern pattern, CoveringModifier modifier, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
 		this.getCoverings().put(bct, new Covering(bct, pattern, modifier, primary, primaryGlow, secondary, secondaryGlow));
 	}
-	private void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+	private void setBodyCoveringForXMLImport(AbstractBodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
 		this.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
 	}
 	
@@ -1774,7 +1769,7 @@ public class Body implements XMLSaving {
 				}
 				
 				if(e.getAttribute("modifier").isEmpty()) {
-					body.setBodyCoveringForXMLImport(BodyCoveringType.getTypeFromString(type),
+					body.setBodyCoveringForXMLImport(BodyCoveringType.getBodyCoveringTypeFromId(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							PresetColour.getColourFromId(colourPrimary),
 							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
@@ -1782,7 +1777,7 @@ public class Body implements XMLSaving {
 							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
 					
 				} else { //TODO
-					BodyCoveringType coveringType = BodyCoveringType.getTypeFromString(type);
+					AbstractBodyCoveringType coveringType = BodyCoveringType.getBodyCoveringTypeFromId(type);
 					CoveringModifier modifier = CoveringModifier.valueOf(e.getAttribute("modifier"));
 					
 					body.setBodyCoveringForXMLImport(coveringType,
@@ -1795,7 +1790,7 @@ public class Body implements XMLSaving {
 				}
 				
 //				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
-					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getTypeFromString(type));
+					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getBodyCoveringTypeFromId(type));
 //				}
 				
 				Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Body: Set bodyCovering: "+colourPrimary+", "+colourSecondary);
@@ -1810,7 +1805,7 @@ public class Body implements XMLSaving {
 			NodeList bodyTypes = heavyMakeupElement.getElementsByTagName("type");
 			for(int i = 0; i < bodyTypes.getLength(); i++){
 				Element e = ((Element)bodyTypes.item(i));
-				body.addHeavyMakeup(BodyCoveringType.valueOf(e.getTextContent()));
+				body.addHeavyMakeup(BodyCoveringType.getBodyCoveringTypeFromId(e.getTextContent()));
 			}
 		} catch(Exception ex) {	
 		}
@@ -3009,7 +3004,7 @@ public class Body implements XMLSaving {
 	public Penis getPenis() {
 		return penis;
 	}
-
+	
 	public Penis getSecondPenis() {
 		return secondPenis;
 	}
@@ -5126,31 +5121,31 @@ public class Body implements XMLSaving {
 		this.piercedStomach = piercedStomach;
 	}
 
-	public Set<BodyCoveringType> getHeavyMakeup() {
+	public Set<AbstractBodyCoveringType> getHeavyMakeup() {
 		return heavyMakeup;
 	}
 
-	public boolean isHeavyMakeup(BodyCoveringType type) {
+	public boolean isHeavyMakeup(AbstractBodyCoveringType type) {
 		return heavyMakeup.contains(type);
 	}
 	
-	public void addHeavyMakeup(BodyCoveringType type) {
+	public void addHeavyMakeup(AbstractBodyCoveringType type) {
 		heavyMakeup.add(type);
 	}
 	
-	public boolean removeHeavyMakeup(BodyCoveringType type) {
+	public boolean removeHeavyMakeup(AbstractBodyCoveringType type) {
 		return heavyMakeup.remove(type);
 	}
 
-	public Map<BodyCoveringType, Covering> getCoverings() {
+	public Map<AbstractBodyCoveringType, Covering> getCoverings() {
 		return coverings;
 	}
 
-	public boolean isBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
 		return coveringsDiscovered.contains(bct);
 	}
 
-	public boolean addBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+	public boolean addBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
 		return coveringsDiscovered.add(bct);
 	}
 	
@@ -5198,41 +5193,36 @@ public class Body implements XMLSaving {
 		
 		// Make all orifice colours the same as their surroundings:
 		if(updateSkin) {
-			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-				coverings.put(BodyCoveringType.SLIME_ANUS, new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				
-				coverings.put(BodyCoveringType.SLIME_NIPPLES, new Covering(BodyCoveringType.SLIME_NIPPLES, CoveringPattern.ORIFICE_NIPPLE,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-
-				coverings.put(BodyCoveringType.SLIME_NIPPLES_CROTCH, new Covering(BodyCoveringType.SLIME_NIPPLES_CROTCH, CoveringPattern.ORIFICE_NIPPLE_CROTCH,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				
-				coverings.put(BodyCoveringType.SLIME_MOUTH, new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-
-				coverings.put(BodyCoveringType.SLIME_TONGUE, new Covering(BodyCoveringType.SLIME_TONGUE, CoveringPattern.NONE,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				
-				coverings.put(BodyCoveringType.SLIME_VAGINA, new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-
-				coverings.put(BodyCoveringType.SLIME_PENIS, new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE,
-						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				
-			} else {
-				updateAnusColouring();
-
-				updateNippleColouring();
-				
-				updateNippleCrotchColouring();
-
-				updateMouthColouring();
-
-				updateVaginaColouring();
-				
-				updatePenisColouring();
+			for(BodyMaterial mat : BodyMaterial.values()) { // Update all non-flesh parts to be the same colour as main skin:
+				if(mat!=BodyMaterial.FLESH) {
+					AbstractBodyCoveringType coreSlimeCovering = BodyCoveringType.getBodyCoveringTypeFromId(mat.toString()+"_MAIN_SKIN");
+					
+					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
+						if(cat.isInfluencedByMaterialType()) {
+							AbstractBodyCoveringType slimeCovering = BodyCoveringType.getBodyCoveringTypeFromId(mat.toString()+"_"+cat.toString());
+							coverings.put(slimeCovering,
+									new Covering(slimeCovering,
+											slimeCovering.getNaturalPatterns().entrySet().iterator().next().getKey(),
+											coverings.get(coreSlimeCovering).getPrimaryColour(),
+											false,
+											coverings.get(coreSlimeCovering).getPrimaryColour(),
+											false));
+						}
+					}
+				}
 			}
+			
+			updateAnusColouring();
+
+			updateNippleColouring();
+			
+			updateNippleCrotchColouring();
+
+			updateMouthColouring();
+
+			updateVaginaColouring();
+			
+			updatePenisColouring();
 		}
 	}
 	

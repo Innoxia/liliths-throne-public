@@ -20,7 +20,8 @@ import com.lilithsthrone.game.character.body.Nipples;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
@@ -333,42 +334,42 @@ public class BodyChanging {
 		return BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON;
 	}
 	
-	private static Map<BodyCoveringType, List<String>> getMainCoveringsMap() {
-		Map<BodyCoveringType, List<String>> coveringsNamesMap = new LinkedHashMap<>();
+	private static Map<AbstractBodyCoveringType, List<String>> getMainCoveringsMap() {
+		Map<AbstractBodyCoveringType, List<String>> coveringsNamesMap = new LinkedHashMap<>();
 		
-		if(getTarget().isElemental()) {
-			switch(getTarget().getBodyMaterial()) {
-				case AIR:
-					coveringsNamesMap.put(BodyCoveringType.AIR, Util.newArrayListOfValues("AIR"));
-					break;
-				case ARCANE:
-					coveringsNamesMap.put(BodyCoveringType.ARCANE, Util.newArrayListOfValues("ARCANE"));
-					break;
-				case FIRE:
-					coveringsNamesMap.put(BodyCoveringType.FIRE, Util.newArrayListOfValues("FIRE"));
-					break;
-				case FLESH:
-					break;
-				case ICE:
-					coveringsNamesMap.put(BodyCoveringType.ICE, Util.newArrayListOfValues("ICE"));
-					break;
-				case RUBBER:
-					coveringsNamesMap.put(BodyCoveringType.RUBBER, Util.newArrayListOfValues("RUBBER"));
-					break;
-				case SLIME:
-					break;
-				case STONE:
-					coveringsNamesMap.put(BodyCoveringType.STONE, Util.newArrayListOfValues("STONE"));
-					break;
-				case WATER:
-					coveringsNamesMap.put(BodyCoveringType.WATER, Util.newArrayListOfValues("WATER"));
-					break;
-			}
-			
-		} else if(getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-			coveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
-			
-		} else {
+//		if(getTarget().isElemental()) {
+//			switch(getTarget().getBodyMaterial()) {
+//				case AIR:
+//					coveringsNamesMap.put(BodyCoveringType.AIR, Util.newArrayListOfValues("AIR"));
+//					break;
+//				case ARCANE:
+//					coveringsNamesMap.put(BodyCoveringType.ARCANE, Util.newArrayListOfValues("ARCANE"));
+//					break;
+//				case FIRE:
+//					coveringsNamesMap.put(BodyCoveringType.FIRE, Util.newArrayListOfValues("FIRE"));
+//					break;
+//				case FLESH:
+//					break;
+//				case ICE:
+//					coveringsNamesMap.put(BodyCoveringType.ICE, Util.newArrayListOfValues("ICE"));
+//					break;
+//				case RUBBER:
+//					coveringsNamesMap.put(BodyCoveringType.RUBBER, Util.newArrayListOfValues("RUBBER"));
+//					break;
+//				case SLIME:
+//					break;
+//				case STONE:
+//					coveringsNamesMap.put(BodyCoveringType.STONE, Util.newArrayListOfValues("STONE"));
+//					break;
+//				case WATER:
+//					coveringsNamesMap.put(BodyCoveringType.WATER, Util.newArrayListOfValues("WATER"));
+//					break;
+//			}
+//			
+//		} else if(getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
+//			coveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
+//			
+//		} else {
 			for(BodyPartInterface bp : getTarget().getAllBodyParts()){
 				if(bp.getBodyCoveringType(getTarget())!=null
 						&& !(bp instanceof Hair)
@@ -396,8 +397,18 @@ public class BodyChanging {
 			if(getTarget().getTailType()==TailType.DEMON_HAIR_TIP && !coveringsNamesMap.containsKey(BodyCoveringType.HAIR_DEMON)) {
 				coveringsNamesMap.put(BodyCoveringType.HAIR_DEMON, Util.newArrayListOfValues(BodyCoveringType.HAIR_DEMON.getName(getTarget())));
 			}
+//		}
+		
+		// Return an altered map for if the target's body is not made of flesh:
+		if(getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
+			Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
+			for(Entry<AbstractBodyCoveringType, List<String>> entry : coveringsNamesMap.entrySet()) {
+				altMaterialCoveringsNamesMap.put(BodyCoveringType.getBodyCoveringTypeFromId(getTarget().getBodyMaterial()+"_"+entry.getKey().getCategory().toString()), entry.getValue());
+			}
+			return altMaterialCoveringsNamesMap;
 		}
 		
+			
 		return coveringsNamesMap;
 	}
 	
@@ -654,17 +665,18 @@ public class BodyChanging {
 					+"</div>");
 			}
 			
-			for(Entry<BodyCoveringType, List<String>> entry : getMainCoveringsMap().entrySet()){
-				BodyCoveringType bct = entry.getKey();
+			for(Entry<AbstractBodyCoveringType, List<String>> entry : getMainCoveringsMap().entrySet()){
+				AbstractBodyCoveringType bct = entry.getKey();
 				
 				String title = Util.capitaliseSentence(bct.getName(getTarget()));
 				String description = UtilText.parse(getTarget(), "This is the "+bct.getName(getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".");
 				
-				if(bct == BodyCoveringType.SLIME) {
-					title = "Slime";
-					description = UtilText.parse(getTarget(), "[npc.NamePos] entire body is made of slime!");
-					
-				} else if(Main.getProperties().hasValue(PropertyValue.bodyHairContent) && bct == getTarget().getBodyHairCoveringType()) {
+//				if(bct == BodyCoveringType.SLIME) {
+//					title = "Slime";
+//					description = UtilText.parse(getTarget(), "[npc.NamePos] entire body is made of slime!");
+//					
+//				} else
+				if(Main.getProperties().hasValue(PropertyValue.bodyHairContent) && bct == getTarget().getBodyHairCoveringType()) {
 					title = "Body "+bct.getName(getTarget());
 					description = "This is the "+bct.getName(getTarget())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
 				}
@@ -832,19 +844,19 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
 						+"</div>"
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_EYE, "Iris colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_IRIS"), "Iris colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your irises."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] irises.")),
 								true, true)
 
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_PUPILS, "Pupil colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_PUPIL"), "Pupil colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your pupils."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] pupils.")),
 								true, true)
 
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_SCLERA, "Sclerae colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_SCLERA"), "Sclerae colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your sclerae."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] sclerae.")),
@@ -949,7 +961,7 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_HAIR, "Hair colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_HAIR"), "Hair colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"You can freely change the colour of your slimy hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can freely change the colour of [npc.her] slimy hair.")), true, true));
@@ -1215,11 +1227,11 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTongueModifiersDiv()
 						+"</div>"
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_MOUTH, "Lip & Throat colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MOUTH"), "Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(), "The natural colour of [npc.namePos] slimy "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."),
 								true, true)
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.SLIME_TONGUE).getType(), "Tongue colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_TONGUE")).getType(), "Tongue colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour of your tongue."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),

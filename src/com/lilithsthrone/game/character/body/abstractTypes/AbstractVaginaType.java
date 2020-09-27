@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -40,7 +40,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			new Value<>("slits", 1),
 			new Value<>("twats", 2));
 	
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractFluidType fluidType;
 	private AbstractRace race;
 	private boolean eggLayer;
@@ -73,7 +73,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	 * @param bodyDescription A sentence or two to describe this vagina type, as seen in the character view screen. It should follow the same format as all of the other entries in the PenisType class.
 	 * @param defaultRacialPenetrationModifiers Which modifiers this vagina naturally spawns with.
 	 */
-	public AbstractVaginaType(BodyCoveringType skinType,
+	public AbstractVaginaType(AbstractBodyCoveringType skinType,
 			AbstractFluidType fluidType,
 			AbstractRace race,
 			boolean eggLayer,
@@ -103,7 +103,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		}
 	}
 	
-	public AbstractVaginaType(BodyCoveringType skinType,
+	public AbstractVaginaType(AbstractBodyCoveringType skinType,
 			AbstractFluidType fluidType,
 			AbstractRace race,
 			boolean eggLayer,
@@ -210,7 +210,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

@@ -9,9 +9,10 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
@@ -37,6 +38,7 @@ public class Race {
 			"none",
 			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
+			RacialClass.MAMMAL,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
 			1,
@@ -50,7 +52,7 @@ public class Race {
 			return RacialBody.HUMAN;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_HUMAN;
 		}
 		@Override
@@ -71,6 +73,7 @@ public class Race {
 			"human",
 			PresetColour.RACE_HUMAN,
 			Disposition.CIVILIZED,
+			RacialClass.MAMMAL,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
 			1,
@@ -88,7 +91,7 @@ public class Race {
 			return RacialBody.HUMAN;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_HUMAN;
 		}
 		@Override
@@ -109,6 +112,7 @@ public class Race {
 			"angelic",
 			PresetColour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
+			RacialClass.MAMMAL,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPELL),
@@ -132,7 +136,7 @@ public class Race {
 			return RacialBody.ANGEL;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_ANGEL;
 		}
 		@Override
@@ -153,6 +157,7 @@ public class Race {
 			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
+			RacialClass.MAMMAL,
 			Util.newArrayListOfValues(
 					Attack.SPECIAL_ATTACK,
 					Attack.SEDUCTION,
@@ -205,7 +210,7 @@ public class Race {
 			return RacialBody.DEMON;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_DEMON;
 		}
 		@Override
@@ -226,6 +231,7 @@ public class Race {
 				"cow",
 				PresetColour.RACE_COW_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -242,7 +248,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 		}
 
@@ -264,6 +270,7 @@ public class Race {
 				"dog",
 				PresetColour.RACE_DOG_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(Attack.MAIN),
 				0.5f,
 				1,
@@ -283,7 +290,7 @@ public class Race {
 			return RacialBody.DOG_MORPH;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_CANINE_FUR;
 		}
 		@Override
@@ -303,6 +310,7 @@ public class Race {
 				"wolf",
 				PresetColour.RACE_WOLF_MORPH,
 				Disposition.SAVAGE,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -324,7 +332,7 @@ public class Race {
 			return RacialBody.WOLF_MORPH;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
 		}
 		@Override
@@ -344,6 +352,7 @@ public class Race {
 				"fox",
 				PresetColour.RACE_FOX_MORPH,
 				Disposition.UNPREDICTABLE,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SEDUCTION,
@@ -366,7 +375,7 @@ public class Race {
 			return RacialBody.FOX_MORPH;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_FOX_FUR;
 		}
 		@Override
@@ -388,6 +397,7 @@ public class Race {
 				"cat",
 				PresetColour.RACE_CAT_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.SEDUCTION,
 						Attack.SPECIAL_ATTACK),
@@ -404,7 +414,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_FELINE_FUR;
 		}
 
@@ -441,6 +451,7 @@ public class Race {
 				"horse",
 				PresetColour.RACE_HORSE_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -481,7 +492,7 @@ public class Race {
 			return RacialBody.HORSE_MORPH;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_HORSE_HAIR;
 		}
 		@Override
@@ -502,6 +513,7 @@ public class Race {
 				"reindeer",
 				PresetColour.RACE_REINDEER_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -518,7 +530,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_REINDEER_HAIR;
 		}
 
@@ -540,6 +552,7 @@ public class Race {
 				"squirrel",
 				PresetColour.RACE_SQUIRREL_MORPH,
 				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN),
 				0.5f,
@@ -555,7 +568,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
 		}
 
@@ -576,6 +589,7 @@ public class Race {
 				"rat",
 				PresetColour.RACE_RAT_MORPH,
 				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -592,7 +606,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_RAT_FUR;
 		}
 
@@ -613,6 +627,7 @@ public class Race {
 				"rabbit",
 				PresetColour.RACE_RABBIT_MORPH,
 				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.SEDUCTION,
 						Attack.SPECIAL_ATTACK),
@@ -629,7 +644,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
 		}
 
@@ -650,6 +665,7 @@ public class Race {
 				"bat",
 				PresetColour.RACE_BAT_MORPH,
 				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -669,7 +685,7 @@ public class Race {
 			return RacialBody.BAT_MORPH;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_BAT_FUR;
 		}
 		@Override
@@ -689,6 +705,7 @@ public class Race {
 				"alligator",
 				PresetColour.RACE_ALLIGATOR_MORPH,
 				Disposition.NEUTRAL,
+				RacialClass.REPTILE,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SPECIAL_ATTACK),
@@ -705,7 +722,7 @@ public class Race {
 		}
 
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
 		}
 
@@ -727,6 +744,7 @@ public class Race {
 			"slime",
 			PresetColour.RACE_SLIME,
 			Disposition.NEUTRAL,
+			RacialClass.OTHER,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			0.5f,
 			1,
@@ -744,8 +762,8 @@ public class Race {
 			return RacialBody.HUMAN;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
-			return BodyCoveringType.SLIME_BODY_HAIR;
+		public AbstractBodyCoveringType getBodyHairType() {
+			return BodyCoveringType.getBodyCoveringTypeFromId("SLIME_BODY_HAIR");
 		}
 		@Override
 		public AbstractItemType getConsumableAttributeItem() {
@@ -765,6 +783,7 @@ public class Race {
 			"harpy",
 			PresetColour.RACE_HARPY,
 			Disposition.NEUTRAL,
+			RacialClass.BIRD,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
 					Attack.SPECIAL_ATTACK),
@@ -784,7 +803,7 @@ public class Race {
 			return RacialBody.HARPY;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_HARPY;
 		}
 		@Override
@@ -807,6 +826,7 @@ public class Race {
 				"elemental",
 				PresetColour.SPELL_SCHOOL_ARCANE,
 				Disposition.NEUTRAL,
+				RacialClass.OTHER,
 				Util.newArrayListOfValues(
 						Attack.MAIN,
 						Attack.SEDUCTION,
@@ -827,7 +847,7 @@ public class Race {
 			return RacialBody.DEMON;
 		}
 		@Override
-		public BodyCoveringType getBodyHairType() {
+		public AbstractBodyCoveringType getBodyHairType() {
 			return BodyCoveringType.BODY_HAIR_DEMON;
 		}
 		@Override

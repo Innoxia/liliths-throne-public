@@ -11,10 +11,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HairType;
@@ -1045,7 +1046,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				BodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.CANINE_FUR;
 				if(body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						&& body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_WHITE
 						&& body.getCoverings().get(canineFur).getPattern() == CoveringPattern.MARKED
@@ -1149,7 +1150,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				BodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.CANINE_FUR;
 				
 				if((body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						|| body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_JET_BLACK)
@@ -1241,7 +1242,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				BodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.CANINE_FUR;
 				
 				if(body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						&& body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_TAN
@@ -1443,7 +1444,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				BodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE && body.getTail().getType()!=TailType.FOX_MORPH_MAGIC) {
@@ -1513,7 +1514,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				BodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
 				
@@ -1740,7 +1741,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				BodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE &&  body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
@@ -1853,7 +1854,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				BodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
 				
@@ -1995,7 +1996,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH || faceType == FaceType.HUMAN)
 						&& body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF
@@ -2083,7 +2084,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -2164,7 +2165,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -2247,7 +2248,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
@@ -2328,7 +2329,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.STRIPED
@@ -2415,7 +2416,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FUR"):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH || faceType == FaceType.HUMAN)
 						&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -3210,7 +3211,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HORSE_MORPH) {
-				BodyCoveringType horseHair = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.HORSE_HAIR;
+				AbstractBodyCoveringType horseHair = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_HAIR"):BodyCoveringType.HORSE_HAIR;
 				Colour zebraPrimary = body.getCoverings().get(horseHair).getPrimaryColour();
 				Colour zebraSecondary = body.getCoverings().get(horseHair).getSecondaryColour();
 				if((((zebraPrimary==PresetColour.COVERING_BLACK || zebraPrimary==PresetColour.COVERING_JET_BLACK) && zebraSecondary==PresetColour.COVERING_WHITE)
@@ -3965,7 +3966,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				BodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FEATHER"):BodyCoveringType.FEATHERS;
 				
 				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BLACK
 						|| body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_JET_BLACK) {
@@ -4048,8 +4049,8 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				BodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FEATHERS;
-				BodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME_HAIR:BodyCoveringType.HAIR_HARPY;
+				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FEATHER"):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_HAIR"):BodyCoveringType.HAIR_HARPY;
 				
 				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
 						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
@@ -4138,7 +4139,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				BodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_FEATHER"):BodyCoveringType.FEATHERS;
 				
 				if((body.getCoverings().get(feathers).isPrimaryGlowing()
 						&& (body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_RED

@@ -10,10 +10,11 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -792,38 +793,10 @@ public class ItemEffectType {
 						sb.append(UtilText.parse(target, "[npc.NamePos] slimy body starts [style.boldTfGeneric(glowing)]!"));
 					}
 					
-					target.getCovering(BodyCoveringType.SLIME).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_ANUS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_ANUS).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_EYE).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_EYE).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_HAIR).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_HAIR).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_MOUTH).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_MOUTH).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_TONGUE).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_TONGUE).setSecondaryGlowing(true);
-					
-					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_PUPILS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_PUPILS).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_SCLERA).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_SCLERA).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_VAGINA).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_VAGINA).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_PENIS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_PENIS).setSecondaryGlowing(true);
+					for(AbstractBodyCoveringType bct : BodyCoveringType.getAllSlimeTypes()) {
+						target.getCovering(bct).setPrimaryGlowing(true);
+						target.getCovering(bct).setSecondaryGlowing(true);
+					}
 					
 				} else {
 					if(target.isPlayer()) {

@@ -52,6 +52,7 @@ public enum CoveringPattern {
 	public static Map<CoveringPattern, Integer> allStandardCoveringPatterns = new HashMap<>();
 	public static Map<CoveringPattern, Integer> allHairCoveringPatterns = new HashMap<>();
 	public static Map<CoveringPattern, Integer> allScalesCoveringPatterns = new HashMap<>();
+	public static Map<CoveringPattern, Integer> allSlimeCoveringPatterns = new HashMap<>();
 	
 	static {
 		allStandardCoveringPatterns.put(NONE, 1);
@@ -77,6 +78,16 @@ public enum CoveringPattern {
 		allScalesCoveringPatterns.put(SPOTTED, 1);
 		allScalesCoveringPatterns.put(MOTTLED, 1);
 		allScalesCoveringPatterns.put(MARKED, 1);
+		
+		allSlimeCoveringPatterns.put(NONE, 1);
+		allSlimeCoveringPatterns.put(HIGHLIGHTS, 1);
+		allSlimeCoveringPatterns.put(STRIPED, 1);
+		allSlimeCoveringPatterns.put(SPOTTED, 1);
+		allSlimeCoveringPatterns.put(MOTTLED, 1);
+		allSlimeCoveringPatterns.put(MARKED, 1);
+		allStandardCoveringPatterns.put(FRECKLED, 1);
+		allStandardCoveringPatterns.put(FRECKLED_FACE, 1);
+		allSlimeCoveringPatterns.put(OMBRE, 1);
 	}
 	
 	

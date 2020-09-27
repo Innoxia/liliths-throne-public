@@ -5,8 +5,8 @@ import java.util.List;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.TailTypeTag;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractTailType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	
 	private int defaultGirth;
@@ -70,7 +70,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	 * @param tags The tags which define this tail's properties.
 	 */
 	public AbstractTailType(
-			BodyCoveringType skinType,
+			AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			PenetrationGirth defaultGirth,
 			float defaultLengthAsPercentageOfHeight,
@@ -194,7 +194,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

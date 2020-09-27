@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractTongueType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 
 	private int defaultLength;
@@ -46,7 +46,7 @@ public abstract class AbstractTongueType implements BodyPartTypeInterface {
 	 * @param tongueBodyDescription A sentence or two to describe this tongue type, as seen in the character view screen. It should follow the same format as all of the other entries in the TongueType class.
 	 * @param defaultRacialTongueModifiers The default modifiers that this tongue type spawns with.
 	 */
-	public AbstractTongueType(BodyCoveringType skinType,
+	public AbstractTongueType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			int defaultLength,
 			String transformationName,
@@ -113,7 +113,7 @@ public abstract class AbstractTongueType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

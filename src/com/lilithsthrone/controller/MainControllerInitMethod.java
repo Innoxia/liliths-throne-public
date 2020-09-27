@@ -26,7 +26,6 @@ import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Tail;
@@ -46,10 +45,12 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -4463,8 +4464,8 @@ public class MainControllerInitMethod {
 								|| Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.PHONE;
 			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.coveringChangeListenersRequired)) {
-				for(BodyCoveringType bct : BodyCoveringType.values()) {
-					id = "APPLY_COVERING_"+bct;
+				for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
+					id = "APPLY_COVERING_"+BodyCoveringType.getIdFromBodyCoveringType(bct);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
@@ -4489,7 +4490,7 @@ public class MainControllerInitMethod {
 							}
 						}, false);
 					}
-					id = "RESET_COVERING_"+bct;
+					id = "RESET_COVERING_"+BodyCoveringType.getIdFromBodyCoveringType(bct);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
@@ -4505,7 +4506,7 @@ public class MainControllerInitMethod {
 					
 					
 					
-					id = bct+"_PRIMARY_GLOW_OFF";
+					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PRIMARY_GLOW_OFF";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -4519,7 +4520,7 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 					
-					id = bct+"_PRIMARY_GLOW_ON";
+					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PRIMARY_GLOW_ON";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -4535,7 +4536,7 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 					
-					id = bct+"_SECONDARY_GLOW_OFF";
+					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_SECONDARY_GLOW_OFF";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -4550,7 +4551,7 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 					
-					id = bct+"_SECONDARY_GLOW_ON";
+					id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_SECONDARY_GLOW_ON";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -4566,7 +4567,7 @@ public class MainControllerInitMethod {
 					}
 					
 					for(CoveringPattern pattern : CoveringPattern.values()) {
-						id = bct+"_PATTERN_"+pattern;
+						id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PATTERN_"+pattern;
 						
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							
@@ -4583,7 +4584,7 @@ public class MainControllerInitMethod {
 					}
 					
 					for(CoveringModifier modifier : CoveringModifier.values()) {
-						id = bct+"_MODIFIER_"+modifier;
+						id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_MODIFIER_"+modifier;
 						
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							
@@ -4600,7 +4601,7 @@ public class MainControllerInitMethod {
 					}
 	
 					for(Colour colour : bct.getAllPrimaryColours()) {
-						id = bct+"_PRIMARY_"+colour.getId();
+						id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_PRIMARY_"+colour.getId();
 						
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -4616,7 +4617,7 @@ public class MainControllerInitMethod {
 						}
 					}
 					for(Colour colour : bct.getAllSecondaryColours()) {
-						id = bct+"_SECONDARY_"+colour.getId();
+						id = BodyCoveringType.getIdFromBodyCoveringType(bct)+"_SECONDARY_"+colour.getId();
 						
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {

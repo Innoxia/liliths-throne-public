@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -26,7 +26,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	protected static final Map<String, Integer> BASE_NAMES_SINGULAR = Util.newHashMapOfValues(new Value<>("cock", 3), new Value<>("dick", 2), new Value<>("shaft", 1));
 	protected static final Map<String, Integer> BASE_NAMES_PLURAL = Util.newHashMapOfValues(new Value<>("cocks", 3), new Value<>("dicks", 2), new Value<>("shafts", 1));
 	
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 	private AbstractTesticleType testicleType;
 	
@@ -61,7 +61,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	 * @param bodyDescription A sentence or two to describe this penis type, as seen in the character view screen. It should follow the same format as all of the other entries in the PenisType class.
 	 * @param defaultRacialPenetrationModifiers Which modifiers this penis naturally spawns with.
 	 */
-	public AbstractPenisType(BodyCoveringType skinType,
+	public AbstractPenisType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractTesticleType testicleType,
 			List<String> namesFeminine,
@@ -93,7 +93,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 		}
 	}
 	
-	public AbstractPenisType(BodyCoveringType skinType,
+	public AbstractPenisType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractTesticleType testicleType,
 			String transformationDescription,
@@ -249,7 +249,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

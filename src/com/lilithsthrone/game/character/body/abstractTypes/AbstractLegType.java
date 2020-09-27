@@ -11,8 +11,8 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -43,7 +43,7 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractLegType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType skinType;
 	private AbstractRace race;
 
 	private FootStructure defaultFootStructure;
@@ -86,7 +86,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * @param legBodyDescription A sentence or two to describe this leg type, as seen in the character view screen. It should follow the same format as all of the other entries in the LegType class.
 	 * @param allowedLegConfigurations A list of LegConfigurations that are allowed for this LegType.
 	 */
-	public AbstractLegType(BodyCoveringType skinType,
+	public AbstractLegType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			FootStructure defaultFootStructure,
 			AbstractFootType footType,
@@ -159,7 +159,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

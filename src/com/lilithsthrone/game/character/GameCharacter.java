@@ -51,7 +51,6 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidInterface;
@@ -77,12 +76,14 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -21933,64 +21934,24 @@ public abstract class GameCharacter implements XMLSaving {
 		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : this.getAllBodyParts()) {
-			BodyCoveringType bct = bp.getBodyCoveringType(this);
+			AbstractBodyCoveringType bct = bp.getBodyCoveringType(this);
+			
 			if(!this.isBodyCoveringTypesDiscovered(bct)) {
 				if(bct!=null) {
 					this.addBodyCoveringTypesDiscovered(bct);
 					
 					String bctName = bct.getName(this);
 					
-					switch(bct) {
-						case ANTLER_REINDEER:
-							bctName = "antler";
-						break;
-						case HORN:
-							bctName = "horn";
-						break;
-//						// For orifices & penis, make sure the colour is the same as skin:
-//						case ANUS:
-//							this.body.updateAnusColouring();
-//							bctName = bct.getName(this);
-//							break;
-//						case MOUTH:
-//							this.body.updateMouthColouring();
-//							bctName = bct.getName(this);
-//							break;
-//						case NIPPLES:
-//							this.body.updateNippleColouring();
-//							bctName = bct.getName(this);
-//							break;
-//						case NIPPLES_CROTCH:
-//							this.body.updateNippleCrotchColouring();
-//							bctName = bct.getName(this);
-//							break;
-//						case PENIS:
-//							this.body.updatePenisColouring();
-//							bctName = bct.getName(this);
-//							break;
-//						case VAGINA:
-//							this.body.updateVaginaColouring();
-//							bctName = bct.getName(this);
-//							break;
-						default:
-							break;
-					}
-					
 					if(displayColourDiscovered) {
-						if(isPlayer()) {
-							postTFSB.append(
-									"<b>You have discovered that your natural "+bctName+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>");
-						} else {
-							postTFSB.append(UtilText.parse(this,
-									"<b>[npc.Name] has discovered that [npc.her] natural "+bctName+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>"));
-						}
+						postTFSB.append(UtilText.parse(this,
+								"<b>[npc.Name] [npc.has] discovered that the natural colour of [npc.her] "+bctName+" is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>"));
 					}
 				}
 			}
 		}
 		body.calculateRace(this);
 		recalculateCombatMoves();
-
+		
 		postTFSB.append(inventory.calculateClothingAndWeaponsPostTransformation(this));
 		postTFSB.append(this.calculateMarkingsPostTransformation());
 
@@ -22078,19 +22039,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return "";
 	}
 	
-	public boolean isBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
 		return body.isBodyCoveringTypesDiscovered(bct);
 	}
 
-	public boolean addBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+	public boolean addBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
 		return body.addBodyCoveringTypesDiscovered(bct);
 	}
 	
-	public BodyCoveringType getBodyHairCoveringType(AbstractRace race) {
+	public AbstractBodyCoveringType getBodyHairCoveringType(AbstractRace race) {
 		return Body.getBodyHairCoveringType(race);
 	}
 	
-	public BodyCoveringType getBodyHairCoveringType() {
+	public AbstractBodyCoveringType getBodyHairCoveringType() {
 		return getBodyHairCoveringType(getRace());
 	}
 
@@ -22714,7 +22675,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAntennaType(AbstractAntennaType antennaType) {
 		return body.getAntenna().setType(this, antennaType);
 	}
-	public BodyCoveringType getAntennaCovering() {
+	public AbstractBodyCoveringType getAntennaCovering() {
 		return getCovering(body.getAntenna());
 	}
 	public boolean isAntennaBestial() {
@@ -22768,7 +22729,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<ArmTypeTag> getArmTypeTags() {
 		return body.getArm().getType().getTags();
 	}
-	public BodyCoveringType getArmCovering() {
+	public AbstractBodyCoveringType getArmCovering() {
 		return getCovering(body.getArm());
 	}
 	public boolean isArmBestial() {
@@ -22872,10 +22833,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setAssType(AbstractAssType type) {
 		return body.getAss().setType(this, type);
 	}
-	public BodyCoveringType getAssCovering() {
+	public AbstractBodyCoveringType getAssCovering() {
 		return getCovering(body.getAss());
 	}
-	public BodyCoveringType getAnusCovering() {
+	public AbstractBodyCoveringType getAnusCovering() {
 		return getCovering(body.getAss().getAnus());
 	}
 	public boolean isAssBestial() {
@@ -23102,44 +23063,24 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "</p>";
 		}
 		
-		//TODO other material types
-		
 		if(type == BodyMaterial.SLIME) {
-			for(BodyCoveringType bct : BodyCoveringType.values()) {
-				switch(bct) {
-					case MAKEUP_BLUSHER:
-					case MAKEUP_EYE_LINER:
-					case MAKEUP_EYE_SHADOW:
-					case MAKEUP_LIPSTICK:
-					case MAKEUP_NAIL_POLISH_FEET:
-					case MAKEUP_NAIL_POLISH_HANDS:
-						 // Slimes can't wear makeup:
-						body.getCoverings().put(bct, new Covering(bct, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE, false, PresetColour.COVERING_NONE, false));
-						break;
-					case SLIME:
-					case SLIME_EYE:
-					case SLIME_PUPILS:
-					case SLIME_SCLERA:
-					case SLIME_ANUS:
-					case SLIME_HAIR:
-					case SLIME_MOUTH:
-					case SLIME_TONGUE:
-					case SLIME_NIPPLES:
-					case SLIME_VAGINA:
-					case SLIME_PENIS:
-						this.addBodyCoveringTypesDiscovered(bct);
-						break;
-					default:
-						break;
-				}
+			// Slimes can't wear makeup:
+			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllMakeupTypes()) {
+				body.getCoverings().put(bct, new Covering(bct, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE, false, PresetColour.COVERING_NONE, false));
+			}
+			// Add discovery of all slime coverings:
+			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllSlimeTypes()) {
+				this.addBodyCoveringTypesDiscovered(bct);
 			}
 			
-			String colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName();
+			AbstractBodyCoveringType baseSlimeCoveringType = BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_SKIN");
+			
+			String colourBasic = this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName();
 			try {
-				if(this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getRainbowColours()!=null) {
+				if(this.getCovering(baseSlimeCoveringType).getPrimaryColour().getRainbowColours()!=null) {
 					colourBasic = "rainbow-coloured";
 				} else {
-					colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName().split(" ")[1];
+					colourBasic = this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName().split(" ")[1];
 				}
 			} catch(Exception ex) {
 			}
@@ -23149,7 +23090,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Despite the fact that there's no sudden change in the weather, you feel as though the air around you is rapidly getting warmer and warmer,"
 								+ " and within the space of just a few seconds, it's as though you're standing in the middle of a sauna."
 							+ " Droplets of sweat quickly begin to bead on your [pc.skin], forming little rivulets of cool, "
-								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over your burning body to drip onto the floor beneath you."
+								+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" liquid, which quickly run down over your burning body to drip onto the floor beneath you."
 						+ "</p>"
 						+ "<p>"
 							+ "Despite your body's best efforts at cooling you down, you still find yourself getting hotter and hotter, and, with a heavy sigh, you feel your [pc.legs] collapse out from under you as the heavy heat beats you down."
@@ -23165,7 +23106,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "Thrashing around in a frenzied state of panic, your efforts to escape this mysterious goo prove to be completely fruitless, and within a matter of seconds your entire body is covered in slime."
 							+ " What's more, you suddenly realise that you've gotten a lot smaller, and, looking down, you see that your [pc.legs] have completely melted away to form more of the goo that's quickly overtaking you."
 							+ " Your struggles only seem to speed this alarming process up, and after just a minute more, your [pc.arms] have suffered the same fate as your [pc.legs], having melted away into yet more of the "
-								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid."
+								+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" liquid."
 						+ "</p>"
 						+ "<p>"
 							+ "As the rest of your body proceeds to turn into slime, the intense heat that started this whole process starts to fade away, quickly being replaced by the sense of a still, calm coolness all around you."
@@ -23179,7 +23120,7 @@ public abstract class GameCharacter implements XMLSaving {
 								+ " you find that you can manipulate the liquid surrounding you in any way you like."
 							+ " Quickly reforming a slimy version of your old body around yourself, you discover that you can project your senses into the areas where they used to reside."
 							+ " Your vision travels up out of your core and into your slimy eyes, finally allowing you escape the world of "
-								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" goo and see clearly out into your surroundings once again."
+								+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" goo and see clearly out into your surroundings once again."
 							+ " Similarly, you restore your senses of hearing, taste, touch, and smell to their original homes, leaving you as very much the person you were before this alarming transformation, albeit now being composed entirely of slime."
 						+ "</p>"
 						+ "<p>"
@@ -23197,7 +23138,7 @@ public abstract class GameCharacter implements XMLSaving {
 						"<p>"
 							+ "[npc.NamePos] cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.sheIs] suffering from an intense heat stroke."
 							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little rivulets of cool, "
-								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
+								+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
 						+ "</p>"
 						+ "<p>"
 							+ "Despite [npc.her] body's best efforts at cooling [npc.her] down, [npc.she] lets out a heavy sigh, and [npc.her] [npc.legs] collapse out from under [npc.herHim] as [npc.sheIs] beaten down by the intense heat [npc.sheIs] feeling."
@@ -23214,7 +23155,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ " What's more, [npc.she] suddenly realises that [npc.sheIs] gotten a lot smaller, and, looking down,"
 								+ " [npc.she] sees that [npc.her] [npc.legs] have completely melted away to form more of the goo that's quickly overtaking [npc.herHim]."
 							+ " [npc.Her] struggles only seem to speed this alarming process up, and after just a minute more, [npc.her] [npc.arms] have suffered the same fate as [npc.her] [npc.legs], having melted away into yet more of the "
-								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid."
+								+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" liquid."
 						+ "</p>"
 						+ "<p>"
 							+ "As [npc.name] proceeds to turn into a slime, the final solid parts of [npc.her] body condense down into a small sphere, which is what now houses [npc.her] senses and consciousness."
@@ -23222,7 +23163,7 @@ public abstract class GameCharacter implements XMLSaving {
 						+"</p>"
 						+ "<p>"
 							+ "Quickly reforming a slimy version of [npc.her] old body around [npc.herself], [npc.she] discovers that [npc.she] can project [npc.her] senses into the areas where they used to reside."
-							+ " [npc.Her] slimy eyes slowly blink as [npc.she] escapes the world of "+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" goo and sees clearly out into [npc.her] surroundings once again."
+							+ " [npc.Her] slimy eyes slowly blink as [npc.she] escapes the world of "+this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName()+" goo and sees clearly out into [npc.her] surroundings once again."
 							+ " Similarly, [npc.she] restores [npc.her] senses of hearing, taste, touch, and smell to their original homes, leaving [npc.herHim] as very much the person [npc.she] was before this alarming transformation,"
 								+ " albeit now being composed entirely of slime."
 						+ "</p>"
@@ -23610,10 +23551,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isBreastFuckablePaizuri() {
 		return body.getBreast().getRawSizeValue() >= CupSize.C.getMeasurement();
 	}
-	public BodyCoveringType getBreastCovering() {
+	public AbstractBodyCoveringType getBreastCovering() {
 		return getCovering(body.getBreast());
 	}
-	public BodyCoveringType getNippleCovering() {
+	public AbstractBodyCoveringType getNippleCovering() {
 		return getCovering(body.getBreast().getNipples());
 	}
 	public boolean isBreastBestial() {
@@ -23983,10 +23924,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isBreastCrotchFuckablePaizuri() {
 		return body.getBreastCrotch().getRawSizeValue() >= CupSize.C.getMeasurement();
 	}
-	public BodyCoveringType getBreastCrotchCovering() {
+	public AbstractBodyCoveringType getBreastCrotchCovering() {
 		return getCovering(body.getBreastCrotch());
 	}
-	public BodyCoveringType getNippleCrotchCovering() {
+	public AbstractBodyCoveringType getNippleCrotchCovering() {
 		return getCovering(body.getBreastCrotch().getNipples());
 	}
 	public boolean isBreastCrotchBestial() {
@@ -24343,7 +24284,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setEarType(AbstractEarType type) {
 		return body.getEar().setType(this, type);
 	}
-	public BodyCoveringType getEarCovering() {
+	public AbstractBodyCoveringType getEarCovering() {
 		return getCovering(body.getEar());
 	}
 	public boolean isEarBestial() {
@@ -24387,7 +24328,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setEyeType(AbstractEyeType type) {
 		return body.getEye().setType(this, type);
 	}
-	public BodyCoveringType getEyeCovering() {
+	public AbstractBodyCoveringType getEyeCovering() {
 		return getCovering(body.getEye());
 	}
 	public boolean isEyeBestial() {
@@ -24517,10 +24458,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<FaceTypeTag> getFaceTypeTags() {
 		return body.getFace().getType().getTags();
 	}
-	public BodyCoveringType getFaceCovering() {
+	public AbstractBodyCoveringType getFaceCovering() {
 		return getCovering(body.getFace());
 	}
-	public BodyCoveringType getMouthCovering() {
+	public AbstractBodyCoveringType getMouthCovering() {
 		return getCovering(body.getFace().getMouth());
 	}
 	public boolean isFaceBestial() {
@@ -24887,7 +24828,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHairType(AbstractHairType type) {
 		return body.getHair().setType(this, type);
 	}
-	public BodyCoveringType getHairCovering() {
+	public AbstractBodyCoveringType getHairCovering() {
 		return getCovering(body.getHair());
 	}
 	public boolean isHairBestial() {
@@ -24971,7 +24912,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setHornType(AbstractHornType hornType) {
 		return body.getHorn().setType(this, hornType);
 	}
-	public BodyCoveringType getHornCovering() {
+	public AbstractBodyCoveringType getHornCovering() {
 		return getCovering(body.getHorn());
 	}
 	public boolean isHornBestial() {
@@ -25057,7 +24998,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setLegType(AbstractLegType type) {
 		return body.getLeg().setType(this, type);
 	}
-	public BodyCoveringType getLegCovering() {
+	public AbstractBodyCoveringType getLegCovering() {
 		return getCovering(body.getLeg());
 	}
 	public boolean isLegBestial() {
@@ -25172,7 +25113,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public AbstractTongueType getTongueType() {
 		return body.getFace().getTongue().getType();
 	}
-	public BodyCoveringType getTongueCovering() {
+	public AbstractBodyCoveringType getTongueCovering() {
 		return getCovering(body.getFace().getTongue());
 	}
 	public boolean isTongueBestial() {
@@ -25303,7 +25244,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return s + clothingRemovalSB.toString();
 	}
-	public BodyCoveringType getPenisCovering() {
+	public AbstractBodyCoveringType getPenisCovering() {
 		return getCurrentPenis().getBodyCoveringType(this);
 	}
 	public boolean isPenisBestial() {
@@ -25314,8 +25255,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return hasPenisIgnoreDildo();
 	}
 	public boolean hasPenisIgnoreDildo() {
-		return this.getBody().getPenis().getType() != PenisType.NONE
-				&& this.getBody().getPenis().getType() != PenisType.DILDO;
+		return getCurrentPenis().getType()!=PenisType.NONE && getCurrentPenis().getType()!=PenisType.DILDO;
 	}
 	public boolean hasPenis() {
 		return getCurrentPenis()!=null && getCurrentPenis().getType() != PenisType.NONE;
@@ -25508,7 +25448,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setSecondPenisType(AbstractPenisType type) {
 		return body.getSecondPenis().setType(this, type);
 	}
-	public BodyCoveringType getSecondPenisCovering() {
+	public AbstractBodyCoveringType getSecondPenisCovering() {
 		return getCovering(body.getSecondPenis());
 	}
 	public boolean isSecondPenisBestial() {
@@ -25646,7 +25586,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// ------------------------------ Testicles: ------------------------------ //
 
-	public BodyCoveringType getTesticlesCovering() {
+	public AbstractBodyCoveringType getTesticlesCovering() {
 		return getCovering(body.getPenis().getTesticle());
 	}
 	public boolean isTesticlesBestial() {
@@ -25863,7 +25803,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setTorsoType(AbstractTorsoType type) {
 		return body.getTorso().setType(this, type);
 	}
-	public BodyCoveringType getTorsoCovering() {
+	public AbstractBodyCoveringType getTorsoCovering() {
 		return getCovering(body.getTorso());
 	}
 	public boolean isTorsoBestial() {
@@ -25888,223 +25828,46 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isAbleToWearMakeup() {
 		return this.getBodyMaterial().isAbleToWearMakeup();
 	}
-	public Set<BodyCoveringType> getHeavyMakeup() {
+	public Set<AbstractBodyCoveringType> getHeavyMakeup() {
 		return body.getHeavyMakeup();
 	}
-	public boolean isHeavyMakeup(BodyCoveringType type) {
+	public boolean isHeavyMakeup(AbstractBodyCoveringType type) {
 		return body.isHeavyMakeup(type);
 	}
-	public void addHeavyMakeup(BodyCoveringType type) {
+	public void addHeavyMakeup(AbstractBodyCoveringType type) {
 		body.addHeavyMakeup(type);
 	}
-	public boolean removeHeavyMakeup(BodyCoveringType type) {
+	public boolean removeHeavyMakeup(AbstractBodyCoveringType type) {
 		return body.removeHeavyMakeup(type);
 	}
-	public BodyCoveringType getCovering(BodyPartInterface bodyPart) {
+	public AbstractBodyCoveringType getCovering(BodyPartInterface bodyPart) {
 		return bodyPart.getBodyCoveringType(this);
 	}
-	public Covering getCovering(BodyCoveringType bodyCoveringType) {
-		switch(bodyCoveringType) {
-			case MAKEUP_BLUSHER:
-			case MAKEUP_EYE_LINER:
-			case MAKEUP_EYE_SHADOW:
-			case MAKEUP_LIPSTICK:
-			case MAKEUP_NAIL_POLISH_FEET:
-			case MAKEUP_NAIL_POLISH_HANDS:
+	public Covering getCovering(AbstractBodyCoveringType bodyCoveringType) {
+		if(BodyCoveringType.getAllMakeupTypes().contains(bodyCoveringType)) {
+			return body.getCoverings().get(bodyCoveringType);
+		}
+		
+		if(bodyCoveringType==BodyCoveringType.DILDO) {
+			try {
+				return new Covering(bodyCoveringType, this.getClothingInSlot(InventorySlot.PENIS).getColour(0));
+			}catch(Exception ex) {
+				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped penis clothing for bodyCoveringType 'DILDO'!");
 				return body.getCoverings().get(bodyCoveringType);
-				
-			case DILDO:
-				try {
-					return new Covering(bodyCoveringType, this.getClothingInSlot(InventorySlot.PENIS).getColour(0));
-				}catch(Exception ex) {
-					System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped penis clothing for bodyCoveringType 'DILDO'!");
-					return body.getCoverings().get(bodyCoveringType);
-				}
-				
-			default:
-				break;
+			}
 		}
 		
 		switch(this.getBodyMaterial()) {
 			case AIR:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.AIR_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.AIR);
 			case ARCANE:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.ARCANE_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.ARCANE);
 			case FIRE:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.FIRE_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.FIRE);
-			case FLESH:
-				break;
 			case ICE:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.ICE_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.ICE);
 			case RUBBER:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.RUBBER_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.RUBBER);
-			case SLIME:
-				break;
 			case STONE:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.STONE_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.STONE);
 			case WATER:
-				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
-					return body.getCoverings().get(BodyCoveringType.WATER_HAIR);
-				}
-				return body.getCoverings().get(BodyCoveringType.WATER);
-		}
-		
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			switch(bodyCoveringType) {
-				case MAKEUP_BLUSHER:
-				case MAKEUP_EYE_LINER:
-				case MAKEUP_EYE_SHADOW:
-				case MAKEUP_LIPSTICK:
-				case MAKEUP_NAIL_POLISH_FEET:
-				case MAKEUP_NAIL_POLISH_HANDS:
-					break;
-				case EYE_PUPILS: case SLIME_PUPILS:
-					return body.getCoverings().get(BodyCoveringType.SLIME_PUPILS);
-				case EYE_SCLERA: case SLIME_SCLERA:
-					return body.getCoverings().get(BodyCoveringType.SLIME_SCLERA);
-
-				case EYE_ALLIGATOR_MORPH:
-				case EYE_ANGEL:
-				case EYE_BAT:
-				case EYE_COW_MORPH:
-				case EYE_DEMON_COMMON:
-				case EYE_DOG_MORPH:
-				case EYE_FELINE:
-				case EYE_HARPY:
-				case EYE_HORSE_MORPH:
-				case EYE_HUMAN:
-				case EYE_LYCAN:
-				case EYE_RABBIT:
-				case EYE_RAT:
-				case EYE_REINDEER_MORPH:
-				case EYE_SQUIRREL:
-				case SLIME_EYE:
-					return body.getCoverings().get(BodyCoveringType.SLIME_EYE);
-					
-				case HAIR_ANGEL:
-				case HAIR_BOVINE_FUR:
-				case HAIR_CANINE_FUR:
-				case HAIR_DEMON:
-				case HAIR_FELINE_FUR:
-				case HAIR_HARPY:
-				case HAIR_HORSE_HAIR:
-				case HAIR_HUMAN:
-				case HAIR_LYCAN_FUR:
-				case HAIR_REINDEER_FUR:
-				case HAIR_SCALES_ALLIGATOR:
-				case HAIR_SQUIRREL_FUR:
-				case AIR_HAIR:
-				case HAIR_BAT_FUR:
-				case HAIR_FOX_FUR:
-				case HAIR_RABBIT_FUR:
-				case HAIR_RAT_FUR:
-				case ICE_HAIR:
-				case RUBBER_HAIR:
-				case STONE_HAIR:
-				case WATER_HAIR:
-				case SLIME_HAIR:
-					return body.getCoverings().get(BodyCoveringType.SLIME_HAIR);
-
-				case BODY_HAIR_ANGEL:
-				case BODY_HAIR_BAT_FUR:
-				case BODY_HAIR_BOVINE_FUR:
-				case BODY_HAIR_CANINE_FUR:
-				case BODY_HAIR_DEMON:
-				case BODY_HAIR_FELINE_FUR:
-				case BODY_HAIR_FOX_FUR:
-				case BODY_HAIR_HARPY:
-				case BODY_HAIR_HORSE_HAIR:
-				case BODY_HAIR_HUMAN:
-				case BODY_HAIR_LYCAN_FUR:
-				case BODY_HAIR_RABBIT_FUR:
-				case BODY_HAIR_RAT_FUR:
-				case BODY_HAIR_REINDEER_HAIR:
-				case BODY_HAIR_SCALES_ALLIGATOR:
-				case BODY_HAIR_SQUIRREL_FUR:
-				case SLIME_BODY_HAIR:
-					return body.getCoverings().get(BodyCoveringType.SLIME_BODY_HAIR);
-					
-				case ANUS:
-				case SLIME_ANUS:
-					return body.getCoverings().get(BodyCoveringType.SLIME_ANUS);
-				case NIPPLES:
-				case SLIME_NIPPLES:
-					return body.getCoverings().get(BodyCoveringType.SLIME_NIPPLES);
-				case NIPPLES_CROTCH:
-				case SLIME_NIPPLES_CROTCH:
-					return body.getCoverings().get(BodyCoveringType.SLIME_NIPPLES_CROTCH);
-				case MOUTH:
-				case SLIME_MOUTH:
-					return body.getCoverings().get(BodyCoveringType.SLIME_MOUTH);
-				case TONGUE:
-				case SLIME_TONGUE:
-					return body.getCoverings().get(BodyCoveringType.SLIME_TONGUE);
-				case VAGINA:
-				case SLIME_VAGINA:
-					return body.getCoverings().get(BodyCoveringType.SLIME_VAGINA);
-				case PENIS:
-				case SLIME_PENIS:
-					return body.getCoverings().get(BodyCoveringType.SLIME_PENIS);
-					
-				case AIR:
-				case ALLIGATOR_SCALES:
-				case ANGEL:
-				case ANGEL_FEATHER:
-				case ANTLER_REINDEER:
-				case ARCANE:
-				case ARCANE_HAIR:
-				case BAT_FUR:
-				case BAT_SKIN:
-				case BOVINE_FUR:
-				case CANINE_FUR:
-				case CUM:
-				case DEMON_COMMON:
-				case DEMON_HORSE_HAIR:
-				case DEMON_FEATHER:
-				case DILDO:
-				case EYE_FOX_MORPH:
-				case FEATHERS:
-				case FELINE_FUR:
-				case FIRE:
-				case FIRE_HAIR:
-				case FOX_FUR:
-				case GIRL_CUM:
-				case HORN:
-				case HUMAN:
-				case HORSE_HAIR:
-				case ICE:
-				case LYCAN_FUR:
-				case MILK:
-				case RABBIT_FUR:
-				case RAT_FUR:
-				case RAT_SKIN:
-				case REINDEER_FUR:
-				case RUBBER:
-				case SLIME:
-				case SQUIRREL_FUR:
-				case STONE:
-				case WATER:
-				case WING_LEATHER:
-					return body.getCoverings().get(BodyCoveringType.SLIME);
-			}
+			case SLIME:
+				return body.getCoverings().get(BodyCoveringType.getBodyCoveringTypeFromId(this.getBodyMaterial().toString()+"_"+bodyCoveringType.getCategory().toString()));
+			case FLESH:
 		}
 		
 		return body.getCoverings().get(bodyCoveringType);
@@ -26114,24 +25877,14 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Formatted description of skin colour change.
 	 */
 	public String setSkinCovering(Covering covering, boolean updateAllSkinColours) {
-		if(!this.isAbleToWearMakeup()) {
-			switch(covering.getType()) {
-				case MAKEUP_BLUSHER:
-				case MAKEUP_EYE_LINER:
-				case MAKEUP_EYE_SHADOW:
-				case MAKEUP_LIPSTICK:
-				case MAKEUP_NAIL_POLISH_FEET:
-				case MAKEUP_NAIL_POLISH_HANDS:
-					return "<p>"
-								+ "[style.colourDisabled(Makeup cannot be applied to "+this.getBodyMaterial().getName()+"...)]"
-							+ "</p>";
-				default:
-					break;
-			}
+		if(!this.isAbleToWearMakeup() && BodyCoveringType.getAllMakeupTypes().contains(covering.getType())) {
+			return "<p>"
+					+ "[style.colourDisabled(Makeup cannot be applied to "+this.getBodyMaterial().getName()+"...)]"
+				+ "</p>";
 		}
 		
 		if(!getCovering(covering.getType()).equals(covering)) {
-			BodyCoveringType coveringType = covering.getType();
+			AbstractBodyCoveringType coveringType = covering.getType();
 			
 			body.getCoverings().put(coveringType, covering);
 			
@@ -26191,7 +25944,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setTailType(AbstractTailType type) {
 		return body.getTail().setType(this, type);
 	}
-	public BodyCoveringType getTailCovering() {
+	public AbstractBodyCoveringType getTailCovering() {
 		return getCovering(body.getTail());
 	}
 	public boolean isTailBestial() {
@@ -26291,7 +26044,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setTentacleType(AbstractTentacleType type) {
 		return body.getTentacle().setType(this, type);
 	}
-	public BodyCoveringType getTentacleCovering() {
+	public AbstractBodyCoveringType getTentacleCovering() {
 		return getCovering(body.getTentacle());
 	}
 	public boolean isTentacleBestial() {
@@ -26382,7 +26135,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setVaginaType(AbstractVaginaType type) {
 		return body.getVagina().setType(this, type);
 	}
-	public BodyCoveringType getVaginaCovering() {
+	public AbstractBodyCoveringType getVaginaCovering() {
 		return getCovering(body.getVagina());
 	}
 	public boolean isVaginaBestial() {
@@ -26740,7 +26493,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setWingType(AbstractWingType type) {
 		return body.getWing().setType(this, type);
 	}
-	public BodyCoveringType getWingCovering() {
+	public AbstractBodyCoveringType getWingCovering() {
 		return getCovering(body.getWing());
 	}
 	public boolean isWingBestial() {

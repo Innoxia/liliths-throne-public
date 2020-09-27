@@ -1,11 +1,10 @@
-package com.lilithsthrone.game.character.body;
+package com.lilithsthrone.game.character.body.coverings;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
@@ -22,19 +21,22 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class Covering implements XMLSaving {
 	
-	protected BodyCoveringType type;
+	protected AbstractBodyCoveringType type;
 	protected CoveringPattern pattern;
 	protected CoveringModifier modifier;
 	
-	protected Colour primaryColour, secondaryColour;
-	protected boolean primaryGlowing, secondaryGlowing;
+	protected Colour primaryColour;
+	protected Colour secondaryColour;
+	
+	protected boolean primaryGlowing;
+	protected boolean secondaryGlowing;
 
 	/**
 	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to a random value, and boolean glowing to false.
 	 * @param type The BodyCoveringType to set this skin to.
 	 */
-	public Covering(BodyCoveringType type) {
+	public Covering(AbstractBodyCoveringType type) {
 		this(type,
 				Util.getRandomObjectFromWeightedMap(type.getNaturalPatterns()),
 				type.getNaturalColoursPrimary().get(Util.random.nextInt(type.getNaturalColoursPrimary().size())), false,
@@ -49,7 +51,7 @@ public class Covering implements XMLSaving {
 	 * @param type
 	 * @param primaryColour
 	 */
-	public Covering(BodyCoveringType type, Colour primaryColour) {
+	public Covering(AbstractBodyCoveringType type, Colour primaryColour) {
 		this(type,
 				Util.getHighestProbabilityEntryFromWeightedMap(type.getNaturalPatterns()),
 				primaryColour, false,
@@ -64,7 +66,7 @@ public class Covering implements XMLSaving {
 	 * @param type
 	 * @param primaryColour
 	 */
-	public Covering(BodyCoveringType type, Colour primaryColour, Colour secondaryColour) {
+	public Covering(AbstractBodyCoveringType type, Colour primaryColour, Colour secondaryColour) {
 		this(type,
 				Util.getHighestProbabilityEntryFromWeightedMap(type.getNaturalPatterns()),
 				primaryColour, false,
@@ -73,15 +75,15 @@ public class Covering implements XMLSaving {
 	
 	/**
 	 * Constructor.
-	 * @param type The BodyCoveringType to set this skin to.
+	 * @param type The AbstractBodyCoveringType to set this skin to.
 	 * @param pattern The CoveringPattern to set this skin to.
 	 * @param glowing Whether this skin is glowing or not.
 	 */
-	public Covering(BodyCoveringType type, CoveringPattern pattern, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
+	public Covering(AbstractBodyCoveringType type, CoveringPattern pattern, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
 		this(type, pattern, type.getNaturalModifiers().get(0), primaryColour, primaryGlowing, secondaryColour, secondaryGlowing);
 	}
 	
-	public Covering(BodyCoveringType type, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
+	public Covering(AbstractBodyCoveringType type, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColour, boolean primaryGlowing, Colour secondaryColour, boolean secondaryGlowing) {
 		this.type = type;
 		this.pattern = pattern;
 		this.modifier = modifier;
@@ -106,7 +108,7 @@ public class Covering implements XMLSaving {
 		Element element = doc.createElement("covering");
 		parentElement.appendChild(element);
 		
-		XMLUtil.addAttribute(doc, element, "type", this.type.toString());
+		XMLUtil.addAttribute(doc, element, "type", BodyCoveringType.getIdFromBodyCoveringType(type));
 		XMLUtil.addAttribute(doc, element, "pat", this.pattern.toString());
 		XMLUtil.addAttribute(doc, element, "mod", this.modifier.toString());
 		XMLUtil.addAttribute(doc, element, "c1", this.primaryColour.getId());
@@ -123,7 +125,7 @@ public class Covering implements XMLSaving {
 	public static Covering loadFromXML(StringBuilder log, Element parentElement, Document doc) {
 		try {
 			return new Covering(
-					BodyCoveringType.getTypeFromString(parentElement.getAttribute("type")),
+					BodyCoveringType.getBodyCoveringTypeFromId(parentElement.getAttribute("type")),
 					CoveringPattern.valueOf(parentElement.getAttribute("pat")),
 					CoveringModifier.valueOf(parentElement.getAttribute("mod")),
 					PresetColour.getColourFromId(parentElement.getAttribute("c1")),
@@ -137,7 +139,7 @@ public class Covering implements XMLSaving {
 			
 		} catch(Exception ex) {
 			System.err.println(ex.getMessage());
-			return new Covering(BodyCoveringType.getTypeFromString(parentElement.getAttribute("type")));
+			return new Covering(BodyCoveringType.getBodyCoveringTypeFromId(parentElement.getAttribute("type")));
 		}
 	}
 	
@@ -488,11 +490,11 @@ public class Covering implements XMLSaving {
 		return result;
 	}
 
-	public BodyCoveringType getType() {
+	public AbstractBodyCoveringType getType() {
 		return type;
 	}
 
-	public void setType(BodyCoveringType type) {
+	public void setType(AbstractBodyCoveringType type) {
 		this.type = type;
 	}
 

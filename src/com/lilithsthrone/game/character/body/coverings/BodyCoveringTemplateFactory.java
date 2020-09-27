@@ -1,6 +1,5 @@
-package com.lilithsthrone.game.character.body.types;
+package com.lilithsthrone.game.character.body.coverings;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +105,7 @@ public class BodyCoveringTemplateFactory {
 		return createHairWithoutPatterns("a layer of", "hair", modifier);
 	}
 	
-	public static BodyCoveringTemplate createElemental(String name, CoveringModifier modifier, Colour... naturalHairColours) {
+	public static BodyCoveringTemplate createElemental(String name, CoveringModifier modifier, List<Colour> naturalColours) {
 		return new BodyCoveringTemplate("",
 				false,
 				name,
@@ -115,8 +114,8 @@ public class BodyCoveringTemplateFactory {
 				null,
 				Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 				null,
-				Arrays.asList(naturalHairColours),
-				null,
+				naturalColours,
+				PresetColour.allCoveringColours,
 				null,
 				null);
 	}
