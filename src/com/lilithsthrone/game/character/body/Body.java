@@ -326,10 +326,10 @@ public class Body implements XMLSaving {
 	}
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
-		if(bodyMaterial==BodyMaterial.SLIME) {
+		if(bodyMaterial!=BodyMaterial.FLESH) {
 			for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 				if(cat.isInfluencedByMaterialType()) {
-					coveringsDiscovered.add(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_"+cat.toString()));
+					coveringsDiscovered.add(BodyCoveringType.getMaterialBodyCoveringType(bodyMaterial, cat));
 				}
 			}
 			
@@ -5195,11 +5195,11 @@ public class Body implements XMLSaving {
 		if(updateSkin) {
 			for(BodyMaterial mat : BodyMaterial.values()) { // Update all non-flesh parts to be the same colour as main skin:
 				if(mat!=BodyMaterial.FLESH) {
-					AbstractBodyCoveringType coreSlimeCovering = BodyCoveringType.getBodyCoveringTypeFromId(mat.toString()+"_MAIN_SKIN");
+					AbstractBodyCoveringType coreSlimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, BodyCoveringCategory.MAIN_SKIN);
 					
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
-							AbstractBodyCoveringType slimeCovering = BodyCoveringType.getBodyCoveringTypeFromId(mat.toString()+"_"+cat.toString());
+							AbstractBodyCoveringType slimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, cat);
 							coverings.put(slimeCovering,
 									new Covering(slimeCovering,
 											slimeCovering.getNaturalPatterns().entrySet().iterator().next().getKey(),

@@ -43,7 +43,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Bugs:
 		Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.
-	
+		Fixed bug where summoning your elemental for the first time in a new game wouldn't work.
 	
 	[] Race modding
 		[] Final improvements
@@ -91,6 +91,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] Add more colours for elemental materials
 						[x] Make them all the same when first spawned
 					[x] AbstractFaceType uses torso covering?
+					
+				[x] Add a way to get BCT from category instead of manually inputting ids
+				
+				[] Testing
+					[x] Elemental changing types
+					[x] Slime TFs
+						[x] To slime
+						[x] Return
+					[x] Demon self-TF
+						[x] Demon slime
+					[x] In self-TF menu, slime covering names need to have "Slime (fur)"
+					[x] New game
+						[x] check slime characters
+						[x] Elemental
 				
 				[] BodyPart providesNightVision() (eyes, ears (bats))
 					[] Add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
@@ -105,11 +119,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] long tail should be ratio of 5:1 tail:body
 					[] Race icons (background modifications)
 					[] Sex availability
-					[] Combat move unlocks
-						[] Combat Move modding
-							[] Quadruped kick
-							[] Arachnid web-spin
-							[] Cephalopod tentacle embrace
+					
+				[] Combat move unlocks
+					[] Combat Move modding
+						[] Quadruped kick
+						[] Arachnid web-spin
+						[] Cephalopod tentacle embrace
 				
 				[] Ferals
 					[] Subspecies definition of feral support
@@ -129,6 +144,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Hyena
 	
 	
+	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	
 	Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
 	 I do remember finding a diamond necklace in the crates at Wolfgang's. Maybe those items should also have some value limit on them?

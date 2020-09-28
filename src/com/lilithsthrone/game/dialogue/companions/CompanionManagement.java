@@ -1141,7 +1141,7 @@ public class CompanionManagement {
 					if(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
 						Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
 						for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
-							altMaterialCoveringsNamesMap.put(BodyCoveringType.getBodyCoveringTypeFromId(BodyChanging.getTarget().getBodyMaterial()+"_"+entry.getKey().getCategory().toString()), entry.getValue());
+							altMaterialCoveringsNamesMap.put(BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), entry.getKey().getCategory()), entry.getValue());
 						}
 						CoveringsNamesMap = altMaterialCoveringsNamesMap;
 					}
@@ -1376,10 +1376,14 @@ public class CompanionManagement {
 							true, BodyChanging.getTarget().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL),
+							"Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_SCLERA, "Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA),
+							"Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 		}
 		
 		@Override

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -403,7 +404,9 @@ public class BodyChanging {
 		if(getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
 			Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
 			for(Entry<AbstractBodyCoveringType, List<String>> entry : coveringsNamesMap.entrySet()) {
-				altMaterialCoveringsNamesMap.put(BodyCoveringType.getBodyCoveringTypeFromId(getTarget().getBodyMaterial()+"_"+entry.getKey().getCategory().toString()), entry.getValue());
+				if(entry.getKey().getCategory().isInfluencedByMaterialType()) {
+					altMaterialCoveringsNamesMap.put(BodyCoveringType.getMaterialBodyCoveringType(getTarget().getBodyMaterial(), entry.getKey().getCategory()), entry.getValue());
+				}
 			}
 			return altMaterialCoveringsNamesMap;
 		}
@@ -519,7 +522,6 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 						+"</div>"
 						
-							
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(getSlaveCustomisationRaceOptions(), false)
 							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
@@ -668,7 +670,12 @@ public class BodyChanging {
 			for(Entry<AbstractBodyCoveringType, List<String>> entry : getMainCoveringsMap().entrySet()){
 				AbstractBodyCoveringType bct = entry.getKey();
 				
-				String title = Util.capitaliseSentence(bct.getName(getTarget()));
+				String title;
+				if(getTarget().getBodyMaterial()==BodyMaterial.FLESH) {
+					title = Util.capitaliseSentence(bct.getName(getTarget()));
+				} else {
+					title = Util.capitaliseSentence(bct.getName(getTarget()))+" ("+bct.getCategory().getName()+")";
+				}
 				String description = UtilText.parse(getTarget(), "This is the "+bct.getName(getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".");
 				
 //				if(bct == BodyCoveringType.SLIME) {
@@ -844,19 +851,19 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
 						+"</div>"
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_IRIS"), "Iris colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_IRIS), "Iris colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your irises."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] irises.")),
 								true, true)
 
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_PUPIL"), "Pupil colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_PUPIL), "Pupil colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your pupils."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] pupils.")),
 								true, true)
 
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_SCLERA"), "Sclerae colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_SCLERA), "Sclerae colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your sclerae."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.namePos] sclerae.")),
@@ -961,7 +968,7 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_HAIR"), "Hair colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), "Hair colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"You can freely change the colour of your slimy hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can freely change the colour of [npc.her] slimy hair.")), true, true));
@@ -1227,11 +1234,15 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTongueModifiersDiv()
 						+"</div>"
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MOUTH"), "Lip & Throat colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+								BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH),
+								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(), "The natural colour of [npc.namePos] slimy "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."),
 								true, true)
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_TONGUE")).getType(), "Tongue colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+								BodyChanging.getTarget().getCovering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE)).getType(),
+								"Tongue colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour of your tongue."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),

@@ -920,7 +920,16 @@ public class BodyCoveringType {
 	public static String getIdFromBodyCoveringType(AbstractBodyCoveringType bct) {
 		return bodyCoveringTypesToIdMap.get(bct);
 	}
-
+	
+	/**
+	 * @param material The BodyMaterial which the body is made up of.
+	 * @param category The BodyCoveringCategory which you want to find the AbstractBodyCoveringType of.
+	 * @return The AbstractBodyCoveringType which corresponds to the supplied material and category.
+	 */
+	public static AbstractBodyCoveringType getMaterialBodyCoveringType(BodyMaterial material, BodyCoveringCategory category) {
+		return getBodyCoveringTypeFromId(material.toString()+"_"+category.toString());
+	}
+	
 	static {
 		allBodyCoveringTypes = new ArrayList<>();
 		allMakeupTypes = new ArrayList<>();
@@ -950,7 +959,6 @@ public class BodyCoveringType {
 		
 		// Automatically add AbstractBodyCoveringTypes for all non-flesh materials:
 		for(BodyMaterial mat : BodyMaterial.values()) {
-			
 			if(mat!=BodyMaterial.FLESH) {
 				if(mat==BodyMaterial.SLIME) {
 					allSlimeTypes = new ArrayList<>();

@@ -966,7 +966,7 @@ public class DebugDialogue {
 
 		@Override
 		public String getContent() {
-			return "Choose a material type.";
+			return "<p>Choose a material type.</p>";
 		}
 		
 		@Override

@@ -77,6 +77,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
@@ -23073,7 +23074,7 @@ public abstract class GameCharacter implements XMLSaving {
 				this.addBodyCoveringTypesDiscovered(bct);
 			}
 			
-			AbstractBodyCoveringType baseSlimeCoveringType = BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_SKIN");
+			AbstractBodyCoveringType baseSlimeCoveringType = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN);
 			
 			String colourBasic = this.getCovering(baseSlimeCoveringType).getPrimaryColour().getName();
 			try {
@@ -25856,18 +25857,20 @@ public abstract class GameCharacter implements XMLSaving {
 				return body.getCoverings().get(bodyCoveringType);
 			}
 		}
-		
-		switch(this.getBodyMaterial()) {
-			case AIR:
-			case ARCANE:
-			case FIRE:
-			case ICE:
-			case RUBBER:
-			case STONE:
-			case WATER:
-			case SLIME:
-				return body.getCoverings().get(BodyCoveringType.getBodyCoveringTypeFromId(this.getBodyMaterial().toString()+"_"+bodyCoveringType.getCategory().toString()));
-			case FLESH:
+
+		if(bodyCoveringType.getCategory().isInfluencedByMaterialType()) {
+			switch(this.getBodyMaterial()) {
+				case AIR:
+				case ARCANE:
+				case FIRE:
+				case ICE:
+				case RUBBER:
+				case STONE:
+				case WATER:
+				case SLIME:
+					return body.getCoverings().get(BodyCoveringType.getMaterialBodyCoveringType(this.getBodyMaterial(), bodyCoveringType.getCategory()));
+				case FLESH:
+			}
 		}
 		
 		return body.getCoverings().get(bodyCoveringType);

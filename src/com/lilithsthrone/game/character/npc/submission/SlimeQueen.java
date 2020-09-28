@@ -10,11 +10,13 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -117,17 +119,17 @@ public class SlimeQueen extends NPC {
 					PersonalityTrait.CONFIDENT);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_SKIN"), PresetColour.COVERING_PINK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_IRIS"), PresetColour.COVERING_PINK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_SCLERA"), PresetColour.COVERING_PINK_LIGHT), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_PUPIL"), PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_ANUS"), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setHairCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_HAIR"), PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MOUTH"), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_TONGUE"), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_NIPPLE"), PresetColour.COVERING_PINK_DARK), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_VAGINA"), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-			this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_PENIS"), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_PINK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_IRIS), PresetColour.COVERING_PINK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_SCLERA), PresetColour.COVERING_PINK_LIGHT), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_PUPIL), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.ANUS), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setHairCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), PresetColour.COVERING_PINK_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.VAGINA), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
@@ -192,17 +194,17 @@ public class SlimeQueen extends NPC {
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MAIN_SKIN"), PresetColour.COVERING_PINK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_IRIS"), PresetColour.COVERING_PINK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_SCLERA"), PresetColour.COVERING_PINK_LIGHT), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_EYE_PUPIL"), PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_ANUS"), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setHairCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_HAIR"), PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_MOUTH"), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_TONGUE"), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_NIPPLE"), PresetColour.COVERING_PINK_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_VAGINA"), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.getBodyCoveringTypeFromId("SLIME_PENIS"), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_PINK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_IRIS), PresetColour.COVERING_PINK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_SCLERA), PresetColour.COVERING_PINK_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.EYE_PUPIL), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.ANUS), CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setHairCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MOUTH), CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.TONGUE), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, true, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), PresetColour.COVERING_PINK_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.VAGINA), CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.PENIS), CoveringPattern.NONE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);	
 		
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMaximumValue());
 		this.setHairStyle(HairStyle.HIME_CUT);

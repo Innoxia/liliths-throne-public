@@ -400,7 +400,7 @@ public class SuccubisSecrets {
 					if(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
 						Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
 						for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
-							altMaterialCoveringsNamesMap.put(BodyCoveringType.getBodyCoveringTypeFromId(BodyChanging.getTarget().getBodyMaterial()+"_"+entry.getKey().getCategory().toString()), entry.getValue());
+							altMaterialCoveringsNamesMap.put(BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), entry.getKey().getCategory()), entry.getValue());
 						}
 						CoveringsNamesMap = altMaterialCoveringsNamesMap;
 					}
@@ -580,27 +580,27 @@ public class SuccubisSecrets {
 //					description = "Your entire body is made of slime!";
 //					
 //				} else
-				if(bct == BodyCoveringType.ANUS) {
+				if(bct.getCategory()==BodyCoveringCategory.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering your anal rim. The secondary colour determines what your anus's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.VAGINA) {
+				} else if(bct.getCategory()==BodyCoveringCategory.VAGINA) {
 					title = "Vagina";
 					description = "This is the skin that's currently covering your labia. The secondary colour determines what your vagina's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.PENIS) {
+				} else if(bct.getCategory()==BodyCoveringCategory.PENIS) {
 					title = "Penis";
 					description = "This is the skin that's currently covering your penis. The secondary colour determines what the inside of your urethra looks like (if it's fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering your nipples and areolae. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE_CROTCH) {
 					title = "Crotch Nipples";
 					description = "This is the skin that's currently covering the nipples and areolae on your [pc.crotchBoobs]. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.MOUTH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.MOUTH) {
 					title = "Lips & Throat";
 					if(Main.game.getPlayer().getFaceType() == FaceType.HARPY) {
 						description = "This is the colour of your beak. The secondary colour determines what the insides of your mouth and throat look like.";
@@ -608,7 +608,7 @@ public class SuccubisSecrets {
 						description = "This is the skin that's currently covering your lips. The secondary colour determines what the insides of your mouth and throat look like.";
 					}
 					
-				} else if(bct == BodyCoveringType.TONGUE) {
+				} else if(bct.getCategory()==BodyCoveringCategory.TONGUE) {
 					title = "Tongue";
 					description = "This is the skin that's currently covering your tongue.";
 				
@@ -671,10 +671,14 @@ public class SuccubisSecrets {
 							true, Main.game.getPlayer().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 		
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL),
+							"Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
 		
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_SCLERA, "Sclerae", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA),
+							"Sclerae", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 			
 			return UtilText.nodeContentSB.toString();
 		}
