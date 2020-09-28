@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
 
@@ -7024,8 +7025,12 @@ public class MainControllerInitMethod {
 							LoadedEnchantment lEnch = EnchantmentDialogue.loadEnchant(fileName);
 							
 							EnchantmentDialogue.resetNonTattooEnchantmentVariables();
-							EnchantmentDialogue.initModifiers(lEnch.getSuitableItem());
+							AbstractCoreItem abstractItem = lEnch.getSuitableItem();
+							EnchantmentDialogue.initModifiers(abstractItem);
 							EnchantmentDialogue.getEffects().clear();
+							for(ItemEffect ie : abstractItem.getEffects()) {
+								EnchantmentDialogue.addEffect(ie);
+							}
 							for(ItemEffect ie : lEnch.getEffects()) {
 								EnchantmentDialogue.addEffect(ie);
 							}
