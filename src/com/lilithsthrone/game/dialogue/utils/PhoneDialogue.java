@@ -3126,9 +3126,9 @@ public class PhoneDialogue {
 			}
 			Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" +
 					"<i>You spend the next ").append(period).append(" loitering about, doing nothing in particular...</i>").append("</p>");
-			Main.game.getPlayer().isActive=false;
+			Main.game.getPlayer().setActive(false);
 			Main.game.endTurn(60*minutes);
-			Main.game.getPlayer().isActive=true;
+			Main.game.getPlayer().setActive(true);
 			Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 		}
 
