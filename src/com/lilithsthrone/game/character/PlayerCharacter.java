@@ -107,7 +107,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private boolean sideQuestUpdated;
 	private boolean relationshipQuestUpdated;
 
-	private boolean isActive;
+	public boolean isActive = true;
 
 	protected List<String> friendlyOccupants;
 	
@@ -1649,14 +1649,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public boolean isDiscoveredWorldMap() {
 		return this.isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
-	}
-
-	public boolean isInActive() {
-		return !isActive;
-	}
-
-	public void setActive(boolean active) {
-		isActive = active;
 	}
 
 	protected String losingPureVirginity(GameCharacter characterPenetrating, SexAreaPenetration penetrationType) {
