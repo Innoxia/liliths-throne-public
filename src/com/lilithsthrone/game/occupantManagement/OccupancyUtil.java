@@ -215,7 +215,7 @@ public class OccupancyUtil implements XMLSaving {
 		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 			try {
 				NPC occupant = (NPC) Main.game.getNPCById(id);
-				if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
+				if(Main.game.getPlayer().isInActive() || !Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
 //					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
 						if(occupant.getHistory().isAtWork(hour)) {
 							occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
@@ -252,7 +252,7 @@ public class OccupancyUtil implements XMLSaving {
 					continue;
 				}
 				
-				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
+				if(Main.game.getPlayer().isInActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
 						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
 					slavesAtJob.get(currentJob).add(slave.getId());
 					
@@ -266,11 +266,13 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 					}
-					
+
 					if(currentJob==SlaveJob.IDLE) {
 						slavesResting.add(slave);
+					} else {
+						slavesToSendToWork.add(slave);
 					}
-					slavesToSendToWork.add(slave);
+
 				}
 				if(Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 					Main.game.updateResponses();
@@ -279,17 +281,15 @@ public class OccupancyUtil implements XMLSaving {
 				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
 			}
 		}
-		
+
+		// a slave's room always has enough room, so do this first
+		for(NPC slave : slavesResting) {
+			updateSlaveJob(slave, hour, previousJobs);
+		}
+
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : slavesToSendToWork) {
-			SlaveJob currentJob = slave.getSlaveJob(hour);
-			SlaveJob previousJob = previousJobs.get(slave.getId());
-//			System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
-			if(previousJob!=null && previousJob!=currentJob) {
-				previousJob.applyJobEndEffects(slave);
-			}
-			currentJob.sendToWorkLocation(hour, slave);
-			currentJob.applyJobStartEffects(slave);
+			updateSlaveJob(slave, hour, previousJobs);
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -551,6 +551,22 @@ public class OccupancyUtil implements XMLSaving {
 			}
 		}
 		
+	}
+
+	/**
+	 * @param slave The slave whose job gets updated.
+	 * @param hour Time at which this event is happening.
+	 * @param previousJobs Map with the previous job of all slaves
+	 */
+	private void updateSlaveJob(NPC slave, int hour, Map<String, SlaveJob> previousJobs) {
+		SlaveJob currentJob = slave.getSlaveJob(hour);
+		SlaveJob previousJob = previousJobs.get(slave.getId());
+		// System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
+		if(previousJob!=null && previousJob!=currentJob) {
+			previousJob.applyJobEndEffects(slave);
+		}
+		currentJob.sendToWorkLocation(hour, slave);
+		currentJob.applyJobStartEffects(slave);
 	}
 
 	/**

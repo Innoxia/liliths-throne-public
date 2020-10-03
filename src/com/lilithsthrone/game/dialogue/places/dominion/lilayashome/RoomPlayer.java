@@ -87,9 +87,11 @@ public class RoomPlayer {
 		List<GameCharacter> charactersPresent = new ArrayList<>(LilayaHomeGeneric.getSlavesAndOccupantsPresent());
 		charactersPresent.addAll(Main.game.getPlayer().getCompanions());
 		charactersPresent.add(Main.game.getPlayer());
-		
+
+		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(sleepTimeInMinutes*60);
-		
+		Main.game.getPlayer().setActive(true);
+
 		for(GameCharacter character : charactersPresent) {
 			character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 			character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
