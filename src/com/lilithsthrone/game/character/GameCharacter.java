@@ -4599,22 +4599,24 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			slave.setOwner(this);
 			slave.setPendingClothingDressing(false);
-			
-			// Set up default permissions:
-			for(SlavePermission permission : SlavePermission.values()) {
-				for(SlavePermissionSetting setting : permission.getSettings()) {
-					if(Main.game.getOccupancyUtil().getEnabledByDefaultPermissionSettings().contains(setting)) {
-						slave.addSlavePermissionSetting(permission, setting);
-					}
-				}
-			}
-			
-			// Set up default job settings:
-			for(Entry<SlaveJob, List<SlaveJobSetting>> entry : Main.game.getOccupancyUtil().getEnabledByDefaultJobSettings().entrySet()) {
-				for(SlaveJobSetting setting : entry.getValue()) {
-					slave.addSlaveJobSettings(entry.getKey(), setting);
-				}
-			}
+
+			if(this.isPlayer()) {
+                // Set up default permissions:
+                for(SlavePermission permission : SlavePermission.values()) {
+                    for(SlavePermissionSetting setting : permission.getSettings()) {
+                        if(Main.game.getOccupancyUtil().getEnabledByDefaultPermissionSettings().contains(setting)) {
+                            slave.addSlavePermissionSetting(permission, setting);
+                        }
+                    }
+                }
+
+                // Set up default job settings:
+                for(Entry<SlaveJob, List<SlaveJobSetting>> entry : Main.game.getOccupancyUtil().getEnabledByDefaultJobSettings().entrySet()) {
+                    for(SlaveJobSetting setting : entry.getValue()) {
+                        slave.addSlaveJobSettings(entry.getKey(), setting);
+                    }
+                }
+            }
 		}
 		
 		return added;
