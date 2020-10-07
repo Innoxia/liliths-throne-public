@@ -96,7 +96,7 @@ public class SlaveInStocks extends NPC {
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(this.getRace()));
-			this.setPlayerKnowsName(false);
+			this.setPlayerKnowsName(true);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a slave, who, for one reason or another, has been locked into the stocks for public use."));
 			
@@ -144,8 +144,6 @@ public class SlaveInStocks extends NPC {
 			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
 			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 			
-			this.setPlayerKnowsName(true);
-
 			initHealthAndManaToMax();
 		}
 	}
