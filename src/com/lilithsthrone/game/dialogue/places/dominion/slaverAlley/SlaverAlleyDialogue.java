@@ -2543,6 +2543,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_CHALLENGE_BACK_OUT"));
 						Main.game.getPlayer().setNearestLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PATH, false);
 						Main.game.getNpc(Sean.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS);
+						Main.game.getNpc(Sean.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						if(Main.game.getNpc(Sean.class).getAffection(Main.game.getPlayer())>AffectionLevel.NEGATIVE_ONE_ANNOYED.getMedianValue()) {
 							Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Sean.class).incrementAffection(Main.game.getPlayer(), -5));
 						}
