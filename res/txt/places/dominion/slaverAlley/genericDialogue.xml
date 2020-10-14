@@ -950,7 +950,7 @@
 			</p>
 		#ELSE
 			<p>
-				As you prepare to answer, you look down to see the surname '[sean.Surname]' displayed on this Enforcer's stabproof vest. Catching your eye, the [sean.race] impatiently says, [sean.speech(Yeah, the name's [sean.surname]. <i>Constable</i> [sean.surname] to you, mind. Now, who are you and what do you want?)]
+				As you prepare to answer, you look down to see the surname '[sean.Surname]' displayed on this Enforcer's stab proof vest. Catching your eye, the [sean.race] impatiently says, [sean.speech(Yeah, the name's [sean.surname]. <i>Constable</i> [sean.surname] to you, mind. Now, who are you and what do you want?)]
 			</p>
 			<p>
 				Seeing no reason not to give the Enforcer your name, you do so, and then wonder what to say next...
@@ -1731,7 +1731,7 @@
 		</p>
 	#ENDIF
 	<p>
-		Taking off his utility belt, stabproof vest, and beret, [sean.name] rests his hands on his pistols, ready to engage you in combat. This seems to be your final opportunity to back out, although the [sean.race] will undoubtedly think less of you for wasting his time if you choose to do so...
+		Taking off his utility belt, stab proof vest, and beret, [sean.name] rests his hands on his pistols, ready to engage you in combat. This seems to be your final opportunity to back out, although the [sean.race] will undoubtedly think less of you for wasting his time if you choose to do so...
 	</p>
 	]]>
 	</htmlContent>
@@ -1757,9 +1757,9 @@
 	#ENDIF
 	<p>
 		#IF(!sean.isPlayerKnowsName())
-			[sean.speech(Seeing as I'm not exactly following Enforcer guidelines with you anymore, I guess you can call me [sean.name(true)] from now on,)] he continues, before taking off his utility belt, stabproof vest, and beret, and then resting his hands on his pistols, ready to engage you in combat.
+			[sean.speech(Seeing as I'm not exactly following Enforcer guidelines with you anymore, I guess you can call me [sean.name(true)] from now on,)] he continues, before taking off his utility belt, stab proof vest, and beret, and then resting his hands on his pistols, ready to engage you in combat.
 		#ELSE
-			Taking off his utility belt, stabproof vest, and beret, [sean.name] rests his hands on his pistols, ready to engage you in combat.
+			Taking off his utility belt, stab proof vest, and beret, [sean.name] rests his hands on his pistols, ready to engage you in combat.
 		#ENDIF
 		 This seems to be your final opportunity to back out, although the [sean.race] will undoubtedly think less of you for wasting his time if you choose to do so...
 	</p>
@@ -1919,7 +1919,7 @@
 	
 	<htmlContent tag="PUBLIC_STOCKS_COMPLAIN_CHALLENGE_BACK_OUT"><![CDATA[
 	<p>
-		Having second thoughts about this whole endeavour, you take a step back and explain to [sean.name] that you don't want to fight him after all. Letting out a disappointed sigh, the [sean.race] grabs his stabproof vest, utility belt, and beret, and while putting them back on, complains, [sean.speech(Damn it, you got me really fired up here! You shouldn't do that to folks!)]
+		Having second thoughts about this whole endeavour, you take a step back and explain to [sean.name] that you don't want to fight him after all. Letting out a disappointed sigh, the [sean.race] grabs his stab proof vest, utility belt, and beret, and while putting them back on, complains, [sean.speech(Damn it, you got me really fired up here! You shouldn't do that to folks!)]
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
