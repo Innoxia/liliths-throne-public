@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
-import com.lilithsthrone.game.character.body.tags.TailTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface {
@@ -315,12 +315,12 @@ public class Tail implements BodyPartInterface {
 		float baseDiameter = (owner.getHeightValue() * 0.08f) * (1f + this.getGirth().getDiameterPercentageModifier());
 		float lengthPercentage = Math.min(1, atLength / this.getLength(owner));
 		
-		if(this.getType().getTags().contains(TailTypeTag.TAPERING_EXPONENTIAL)) { // Exponential diameter tapering:
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) { // Exponential diameter tapering:
 			// y = 1/(4x+1)
 			// At maximum length, diameter is 20% base length
 			return (1 / (4*lengthPercentage + 1)) * baseDiameter;
 			
-		} else if(this.getType().getTags().contains(TailTypeTag.TAPERING_LINEAR)) { // Linear diameter tapering:
+		} else if(this.getType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) { // Linear diameter tapering:
 			// y = 1 - (0.8x)
 			// At maximum length, diameter is 20% base length
 			return (1 - (0.8f * lengthPercentage)) * baseDiameter;

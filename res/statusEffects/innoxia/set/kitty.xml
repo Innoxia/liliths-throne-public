@@ -36,7 +36,7 @@
 	]]></description>
 	
 	<!-- The name of the icon which should be used to represent this status effect. The icon must be an svg file, and must be placed in the same folder as this XML file. -->
-	<imageName>set_kitty.svg</imageName>
+	<imageName>kitty.svg</imageName>
 	
 	<!-- The colour which should be associated with this status effect. Just like with clothing and weapon recolouring, this is used to recolour the image you used above.
 	A PresetColour value should be used here, drawn from: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->

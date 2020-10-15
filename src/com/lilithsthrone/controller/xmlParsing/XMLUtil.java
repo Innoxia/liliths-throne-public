@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
  * Helper methods for XMl saving/loading. Used to be in CharacterUtils for some reason.
  * 
  * @since 0.4
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class XMLUtil {

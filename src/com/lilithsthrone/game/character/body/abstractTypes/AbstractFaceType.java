@@ -5,7 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -37,7 +37,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	private String faceTransformationDescription;
 	private String faceBodyDescription;
 
-	private List<FaceTypeTag> tags;
+	private List<BodyPartTag> tags;
 	
 	/**
 	 * @param skinType What covers this face type (i.e skin/fur/feather type).
@@ -64,7 +64,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 			List<String> noseDescriptorsFeminine,
 			String faceTransformationDescription,
 			String faceBodyDescription,
-			List<FaceTypeTag> tags) {
+			List<BodyPartTag> tags) {
 		
 		this.skinType = skinType;
 		this.race = race;
@@ -103,7 +103,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		if(names==null) {
-			if(this.getTags().contains(FaceTypeTag.MUZZLE)) {
+			if(this.getTags().contains(BodyPartTag.FACE_MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			}
 			return "face";
@@ -114,7 +114,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		if(namesPlural==null) {
-			if(this.getTags().contains(FaceTypeTag.MUZZLE)) {
+			if(this.getTags().contains(BodyPartTag.FACE_MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			}
 			return "faces";
@@ -178,7 +178,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		return getTFTypeModifier(FaceType.getFaceTypes(race));
 	}
 
-	public List<FaceTypeTag> getTags() {
+	public List<BodyPartTag> getTags() {
 		return tags;
 	}
 }

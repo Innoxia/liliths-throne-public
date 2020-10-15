@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class AbstractFilledCondom extends AbstractItem implements XMLSaving {

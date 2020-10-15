@@ -16,7 +16,7 @@
 		After consuming a '[#ITEM_innoxia_pills_broodmother.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted, and if [npc.she] impregnates someone or becomes impregnated [npc.herself], [npc.she] will conceive far more offspring than usual!
 	]]></description>
 	
-	<imageName>item_broodmother_pill.svg</imageName>
+	<imageName>broodmother_pill.svg</imageName>
 	
 	<colourPrimary>CLOTHING_PINK</colourPrimary>
 	<colourSecondary/>

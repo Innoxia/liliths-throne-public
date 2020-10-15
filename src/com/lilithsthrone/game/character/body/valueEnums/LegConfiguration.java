@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public enum LegConfiguration {
@@ -43,7 +43,8 @@ public enum LegConfiguration {
 			0,
 			"The most common type of lower body; the character's legs and groin are in the same configuration as that of a regular human.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,",
-			TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL) {
+			TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL,
+			"") {
 		@Override
 		public boolean isGenitalConfigurationTransformable() {
 			return true;
@@ -77,7 +78,8 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by the quadrupedal, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 				+ " The most common example of this is the 'centaur', in which the character's legs and groin are replaced by the body and genitals of a horse.",
 			"Down beneath the groin on [npc.her] animal body,",
-			TFModifier.TF_MOD_LEG_CONFIG_TAUR) {
+			TFModifier.TF_MOD_LEG_CONFIG_TAUR,
+			"statusEffects/race/raceBackgroundLegQuadrupedal") {
 
 			@Override
 			public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -112,7 +114,8 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by an extremely long tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
-			TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG) {
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG,
+			"statusEffects/race/raceBackgroundLegTailLong") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -175,7 +178,8 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by a tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 					+ " The most common example of this is the 'mermaid', in which the character's legs and groin are replaced by the body and genitals of a fish.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
-			TFModifier.TF_MOD_LEG_CONFIG_TAIL) {
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL,
+			"statusEffects/race/raceBackgroundLegTailShort") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -206,7 +210,8 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by the eight-legged, bestial body of the associated arachnid-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'arachne', in which the character's legs and groin are replaced by the body and genitals of a spider.",
 			"Occupying the lower region of [npc.her] humanoid abdomen,",
-			TFModifier.TF_MOD_LEG_CONFIG_ARACHNID) {
+			TFModifier.TF_MOD_LEG_CONFIG_ARACHNID,
+			"statusEffects/race/raceBackgroundLegArachnid") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -259,7 +264,8 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by the tentacled, bestial body of the associated cephalopod-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'kraken', in which the character's legs and groin are replaced by the body and genitals of a squid.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
-			TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD) {
+			TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD,
+			"statusEffects/race/raceBackgroundLegCephalopod") {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -296,6 +302,8 @@ public enum LegConfiguration {
 	private String crotchBoobLocationDescription;
 
 	private TFModifier tfModifier;
+
+	private String subspeciesStatusEffectBackgroundPath;
 	
 	private LegConfiguration(
 			String name,
@@ -309,7 +317,8 @@ public enum LegConfiguration {
 			int numberOfTentacles,
 			String genericDescription,
 			String crotchBoobLocationDescription,
-			TFModifier tfModifier) {
+			TFModifier tfModifier,
+			String subspeciesStatusEffectBackgroundPath) {
 		
 		this.name = name;
 		
@@ -329,6 +338,8 @@ public enum LegConfiguration {
 		this.crotchBoobLocationDescription = crotchBoobLocationDescription;
 
 		this.tfModifier = tfModifier;
+		
+		this.subspeciesStatusEffectBackgroundPath = subspeciesStatusEffectBackgroundPath;
 	}
 
 	public static LegConfiguration getValueFromString(String configuration) {
@@ -455,4 +466,8 @@ public enum LegConfiguration {
 	 * @return A BodyPartClothingBlock object which defines how this LegConfiguration is blocking InventorySlots. Returns null if it doesn't affect inventorySlots in any way.
 	 */
 	public abstract BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character);
+
+	public String getSubspeciesStatusEffectBackgroundPath() {
+		return subspeciesStatusEffectBackgroundPath;
+	}
 }

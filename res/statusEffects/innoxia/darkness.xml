@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>90</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<beneficial>DETRIMENTAL</beneficial>
+	
+	<combatEffect>false</combatEffect>
+	
+	<sexEffect>false</sexEffect>
+	
+	<name><![CDATA[Darkness]]></name>
+	
+	<description><![CDATA[
+		The area which [npc.name] [npc.verb(find)] [npc.herself] travelling through is very dark, and as [npc.she] [npc.verb(lack)] any means of illuminating the area, [npc.she] [npc.is] struggling to see where [npc.sheIs] going!
+	]]></description>
+	
+	<imageName>darkness.svg</imageName>
+	
+	<colourPrimary>BASE_BLACK</colourPrimary>
+	<colourSecondary>BASE_RED</colourSecondary>
+	<colourTertiary>BASE_GREY_LIGHT</colourTertiary>
+	
+	<attributeModifiers>
+		<modifier value="-25">DAMAGE_UNARMED</modifier>
+		<modifier value="-25">DAMAGE_MELEE_WEAPON</modifier>
+		<modifier value="-25">DAMAGE_RANGED_WEAPON</modifier>
+		<modifier value="-25">DAMAGE_SPELLS</modifier>
+	</attributeModifiers>
+	
+	<combatMoves/>
+	
+	<spells/>
+	
+	<extraEffects/>
+	
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[
+		[#npc.getCell().isDark() && npc.isInDarkness()]
+	]]></applicationCondition>
+	
+	<applyEffect/>
+	
+	<applyRemovalEffect/>
+	
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

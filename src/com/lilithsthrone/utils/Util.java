@@ -44,7 +44,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3.9.2
+ * @version 0.4.0
  * @author Innoxia, CognitiveMist
  */
 public class Util {
@@ -186,6 +186,84 @@ public class Util {
 		}
 	}
 
+	/**
+	 * @param containingFolderId To be in the format: <b>"/statusEffects"</b>
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId) {
+		File dir = new File("res/mods");
+		Map<String, Map<String, File>> returnMap = new HashMap<>();
+		
+		if(dir.exists() && dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles();
+			if(directoryListing != null) {
+				for(File directory : directoryListing) {
+					String modAuthorName = directory.getName();
+					returnMap.putIfAbsent(modAuthorName, new HashMap<>());
+					File modAuthorDirectory = new File(directory.getAbsolutePath()+containingFolderId);
+					
+					populateMapFiles(modAuthorName, directory.getName()+"_", modAuthorDirectory, returnMap);
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+
+	/**
+	 * @param containingFolderId To be in the format: <b>"res/statusEffects"</b>
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalFilesById(String containingFolderId) {
+		File dir = new File(containingFolderId);
+		Map<String, Map<String, File>> returnMap = new HashMap<>();
+		
+		if(dir.exists() && dir.isDirectory()) {
+			File[] authorDirectoriesListing = dir.listFiles();
+			if(authorDirectoriesListing != null) {
+				for(File authorDirectory : authorDirectoriesListing) {
+					if(authorDirectory.isDirectory()){
+						String authorName = authorDirectory.getName();
+						returnMap.putIfAbsent(authorName, new HashMap<>());
+						
+						populateMapFiles(authorName, authorDirectory.getName()+"_", authorDirectory, returnMap);
+					}
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+	
+	private static Map<String, Map<String, File>> populateMapFiles(String modAuthorName, String idPrefix, File directory, Map<String, Map<String, File>> returnMap) {
+		File[] innerDirectoryListing = directory.listFiles((path, filename) -> filename.toLowerCase().endsWith(".xml"));
+		
+		if(innerDirectoryListing != null) {
+			for(File innerChild : innerDirectoryListing) {
+				try {
+					String id = (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0];
+					returnMap.get(modAuthorName).put(id, innerChild);
+				} catch(Exception ex) {
+					System.err.println("Loading external mod files failed at Util.getExternalModFilesById()");
+					System.err.println("File path: "+innerChild.getAbsolutePath());
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		File[] additionalDirectories =  directory.listFiles();
+
+		if(additionalDirectories != null) {
+			for(File f : additionalDirectories) {
+				if(f.isDirectory()) {
+					populateMapFiles(modAuthorName, (idPrefix!=null?idPrefix:"")+f.getName()+"_", f, returnMap);
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+	
 	public static class Value<T, S> {
 		private T key;
 		private S value;

@@ -22,6 +22,8 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
+import com.lilithsthrone.world.places.Aquatic;
+import com.lilithsthrone.world.places.Darkness;
 import com.lilithsthrone.world.places.GenericPlace;
 
 /**
@@ -160,7 +162,7 @@ public class Cell implements XMLSaving {
 	public void setTravelledTo(boolean travelledTo) {
 		this.travelledTo = travelledTo;
 	}
-
+	
 	public GenericPlace getPlace() {
 		return place;
 	}
@@ -170,6 +172,19 @@ public class Cell implements XMLSaving {
 		if(applyInventoryInit) {
 			place.getPlaceType().applyInventoryInit(this.getInventory());
 		}
+	}
+
+	public boolean isLight() {
+		return !isDark();
+	}
+	
+	public boolean isDark() {
+		return getPlace().getPlaceType().getDarkness()==Darkness.ALWAYS_DARK
+				|| (getPlace().getPlaceType().getDarkness()==Darkness.DAYLIGHT && !Main.game.isDayTime());
+	}
+
+	public Aquatic getAquatic() {
+		return getPlace().getPlaceType().getAquatic();
 	}
 	
 	public DialogueNode getDialogue(boolean withRandomEncounter) {

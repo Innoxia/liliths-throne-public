@@ -6495,7 +6495,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 					+ "Pattern:<br/>");
 	 
-			for (Pattern pattern : Pattern.getAllPatterns().values()) {
+			for (Pattern pattern : Pattern.getAllPatterns()) {
 				if (dyePreviewPattern.equals(pattern.getName())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"

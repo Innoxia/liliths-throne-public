@@ -34,7 +34,7 @@ import com.lilithsthrone.world.Season;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public abstract class AbstractSubspecies {
@@ -69,6 +69,9 @@ public abstract class AbstractSubspecies {
 	private Colour colour;
 	private SubspeciesPreference subspeciesPreferenceDefault;
 	private String description;
+
+	private boolean aquatic;
+	private LegConfiguration feralConfiguration;
 	
 	// SVGs:
 	protected String pathName;
@@ -87,7 +90,6 @@ public abstract class AbstractSubspecies {
 	
 	private List<SubspeciesFlag> flags;
 
-	//TODO?
 	protected static Map<Integer, String> youkoIconMap;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
@@ -244,6 +246,9 @@ public abstract class AbstractSubspecies {
 		} else {
 			this.flags = flags;
 		}
+		
+		this.aquatic = false;
+		this.feralConfiguration = null;
 		
 		this.pathName = pathName;
 		this.backgroundPathName = backgroundPathName;
@@ -753,23 +758,35 @@ public abstract class AbstractSubspecies {
 		return description;
 	}
 	
+	public boolean isAquatic() {
+		return aquatic;
+	}
+
+	public LegConfiguration getFeralConfiguration() {
+		return feralConfiguration;
+	}
+
 	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {//TODO - when support other body types, add different backgrounds
 		String returnString = svg;
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
-			try {
-				String SVGStringLegConfigurationBackground = "";
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundNonBiped.svg");
-				SVGStringLegConfigurationBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
-				is.close();
-				SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
-						colour,
-						colour,
-						colour,
-						SVGStringLegConfigurationBackground);
-				
-				returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
-			} catch (IOException e) {
-				e.printStackTrace();
+		
+		if(character!=null) {
+			String backgroundPath = character.getLegConfiguration().getSubspeciesStatusEffectBackgroundPath();
+			if(!backgroundPath.isEmpty()) {
+				try {
+					String SVGStringLegConfigurationBackground = "";
+					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"+backgroundPath+".svg");
+					SVGStringLegConfigurationBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+					is.close();
+					SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
+							colour,
+							colour,
+							colour,
+							SVGStringLegConfigurationBackground);
+					
+					returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		if(character!=null && (character.isTorsoBestial() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive()))) {

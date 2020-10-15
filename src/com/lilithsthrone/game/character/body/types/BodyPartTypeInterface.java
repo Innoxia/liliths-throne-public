@@ -1,17 +1,19 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
@@ -74,6 +76,10 @@ public interface BodyPartTypeInterface {
 	/** @return The TFModifier for this body part. */
 	public default TFModifier getTFModifier() {
 		return TFModifier.NONE;
+	}
+	
+	public default List<BodyPartTag> getTags() {
+		return new ArrayList<>();
 	}
 
 	public default TFModifier getTFTypeModifier(List<? extends BodyPartTypeInterface> types) {

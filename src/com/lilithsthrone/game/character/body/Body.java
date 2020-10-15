@@ -28,7 +28,7 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringSkinToneColorHelper;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
-import com.lilithsthrone.game.character.body.tags.TailTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -101,7 +101,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class Body implements XMLSaving {
@@ -2648,10 +2648,10 @@ public class Body implements XMLSaving {
 			sb.append(owner.getTailType().getGirthDescription(owner));
 			if(owner.getTailCount()==1) {
 				sb.append(" It measures [npc.tailLength(true)] in length and, at the base, it measures [npc.tailBaseDiameter(true)] in diameter ([npc.tailBaseCircumference(true)] in circumference).");
-				if(owner.getTailType().getTags().contains(TailTypeTag.TAPERING_EXPONENTIAL)) {
+				if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) {
 					sb.append(" It rapidly tapers off from the base, and so at the [npc.tailTip], it is [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
-				} else if(owner.getTailType().getTags().contains(TailTypeTag.TAPERING_LINEAR)) {
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" It tapers off at a steady rate from the base, and so at the [npc.tailTip], it is [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
 				} else {
@@ -2660,10 +2660,10 @@ public class Body implements XMLSaving {
 				
 			} else {
 				sb.append(" They measure [npc.tailLength(true)] in length and, at their base, each one measures [npc.tailBaseDiameter(true)] in diameter ([npc.tailBaseCircumference(true)] in circumference).");
-				if(owner.getTailType().getTags().contains(TailTypeTag.TAPERING_EXPONENTIAL)) {
+				if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_EXPONENTIAL)) {
 					sb.append(" They rapidly taper off from the base, and so at their [npc.tailTips], they are [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
-				} else if(owner.getTailType().getTags().contains(TailTypeTag.TAPERING_LINEAR)) {
+				} else if(owner.getTailType().getTags().contains(BodyPartTag.TAIL_TAPERING_LINEAR)) {
 					sb.append(" They taper off at a steady rate from the base, and so at their [npc.tailTips], they are [npc.tailTipDiameter(true)] in diameter ([npc.tailTipCircumference(true)] in circumference).");
 					
 				} else {

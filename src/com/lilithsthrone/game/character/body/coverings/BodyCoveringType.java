@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class BodyCoveringType {

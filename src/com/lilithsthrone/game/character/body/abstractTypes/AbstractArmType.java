@@ -5,7 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -188,8 +188,8 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		return UtilText.parse(owner, armTransformationDescription);
 	}
 
-//	@Override
-	public List<ArmTypeTag> getTags() {
-		return Util.newArrayListOfValues(ArmTypeTag.STANDARD);
+	@Override
+	public List<BodyPartTag> getTags() {
+		return Util.newArrayListOfValues(BodyPartTag.ARM_STANDARD);
 	}
 }

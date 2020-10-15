@@ -43,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class ItemType {
@@ -2984,76 +2984,49 @@ public class ItemType {
 	}
 	
 	static{
-		// Load in modded items:
-		moddedItems = new ArrayList<>();
-		File dir = new File("res/mods");
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/items");
-					
-					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
-					if (clothingDirectoriesListing != null) {
-						for (File clothingDirectory : clothingDirectoriesListing) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractItemType ct = new AbstractItemType(innerChild, modAuthorDirectory.getName(), true) {};
-											moddedItems.add(ct);
-											itemToIdMap.put(ct, id);
-											idToItemMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded item failed at 'ItemType' Code 1. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
+		// Modded item types:
+
+		moddedItems = new ArrayList<>();
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/items/items");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractItemType ct = new AbstractItemType(innerEntry.getValue(), entry.getKey(), true) {};
+					moddedItems.add(ct);
+					itemToIdMap.put(ct, id);
+					idToItemMap.put(id, ct);
+				} catch(Exception ex) {
+					System.err.println("Loading modded item failed at 'ItemType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
-		
 		allItems.addAll(moddedItems);
 		
-		
-		// Add in external res items:
-		
-		dir = new File("res/items");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						for (File clothingDirectory : authorDirectory.listFiles()) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractItemType ct = new AbstractItemType(innerChild, authorDirectory.getName(), false) {};
-											allItems.add(ct);
-											itemToIdMap.put(ct, id);
-											idToItemMap.put(id, ct);
-										} catch(Exception ex) {
-											ex.printStackTrace();
-											System.err.println("Loading modded item failed at 'ItemType' Code 2. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
+		// External res item types:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/items");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractItemType ct = new AbstractItemType(innerEntry.getValue(), entry.getKey(), false) {};
+					allItems.add(ct);
+					itemToIdMap.put(ct, id);
+					idToItemMap.put(id, ct);
+//					System.out.println("IT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading item failed at 'ItemType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
+		
 		for(AbstractItemType it : allItems) {
 			it.getSVGString(); // Initialise all SVGStrings so that initialisation methods do not conflict with one another in other places in the code.
 		}

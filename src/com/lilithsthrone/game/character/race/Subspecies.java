@@ -54,7 +54,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.4
+ * @version 0.4.0
  * @author tukaima, Innoxia
  */
 public class Subspecies {

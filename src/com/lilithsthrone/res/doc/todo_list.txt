@@ -26,8 +26,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Engine:
 		Added modding support for items to be defined as being able to be enchanted into new items, and support for a background to be added to item images, as well as size and rotation definitions. (See 'res/items/innoxia/race/horse_equine_cider.xml' for an example.)
+		Added support for nesting folders inside mod folders (so mod makers can more easily categorise mod files within their directories).
+	
+	Gameplay:
+		Added a 'darkness' status effect, which gets applied when a character is located in a map tile which should realistically suffer from it. This status effect can be negated by having animal morph eyes which grant night vision, bat ears (which grant echo location), a body made of fire, mastery of fire spells, or an equipped piece of clothing/weapon which counteracts darkness (night vision goggles or the flashlight).
 	
 	Items:
+		Added weapon: 'Flashlight'. Sold by Ralph, illuminates dark areas when equipped.
 		Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.
 		Moved all racial food items out from the code into the external 'res/items/innoxia/race' folder.
 		The 'Angel's Tears' item has been considerably buffed and can no longer be naturally found in-game (it will be added back into the game later on).
@@ -41,9 +46,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added more options to change the colour of your elemental's body coverings.
 		Fixed issue where face type would always use the same covering as torso type.
 	
+	Other:
+		Ralph now sells modded weapons which have been given the tag 'SOLD_BY_RALPH'.
+		Slaves now enjoy the prostitute job if they have the 'nymphomanic' trait active, instead of if they have the cum addict fetish.
+	
 	Bugs:
 		Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.
 		Fixed bug where summoning your elemental for the first time in a new game wouldn't work.
+		Taking a thorough shower in your room's bathroom now correctly applies the 'Recently showered' status effect.
+	
+	
+	
+	After escaping combat, elemental is not desummoned?
 	
 	[] Race modding
 		[] Final improvements
@@ -94,7 +108,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					
 				[x] Add a way to get BCT from category instead of manually inputting ids
 				
-				[] Testing
+				[x] Testing
 					[x] Elemental changing types
 					[x] Slime TFs
 						[x] To slime
@@ -106,25 +120,47 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[x] check slime characters
 						[x] Elemental
 				
-				[] BodyPart providesNightVision() (eyes, ears (bats))
-					[] Add an 'isDark()' method to tiles, so that things like night vision (or mastery of fire spells) negates some kind of 'dark area' debuff
+				[x] BodyPart providesNightVision() (eyes, ears (bats))
+					[x] Add a 'getDarkness()' method to tiles
+					[x] Add icon on map or somewhere to show if it's dark or not
+						[x] Darkness gradient
+					[x] Add status effect debuff 'Darkness'
+							[x] Tooltip/icon for when negated?
+						[x] Body material fire should illuminate
+						[x] Fire spells should also negate it
+							[x] Tooltip
+						[x] Add tag for body parts to be able to negate as well (eyes of nocturnal species and ears of bats)
+							[x] Tooltip
+						[x] ItemTag 'NEGATES_DARKNESS_SELF' and 'NEGATES_DARKNESS_AREA' so that items (night vision) removes debuff
+							[x] Tooltip
+						[x] Add flashlight weapon (minimal damage, combat move 'dazzle', NEGATES_DARKNESS)
+				
+				[x] Make nested folder structure possible in status effect
+					[x] For all abstract classes that use xml loading
 				
 				[] Add support for other leg types
+					[x] Race icons (background modifications)
 					[] Water limitation
-						[] Subspecies boolean for water limitation
-							[] Default to true for tail & cephalopod
-						[] Eels/mermaids grow legs when exposed to air? (Otherwise land limitations will dead-end the player)
-							[] Massive negative status effect
-							[] Positive status effect when in water
-					[] long tail should be ratio of 5:1 tail:body
-					[] Race icons (background modifications)
+						[x] Subspecies boolean for aquatic subspecies
+							[x] tiles need Aquatic variable
+							[] Massive negative status effect when on land
+							[] Positive status effect when in water (+AP)
+						[] Body descriptions (tooltip & character appearance screen)
+							[] Need body part limitations (no tail or legs for long-tail, cephalopod, short-tail, and arachnid?)
+							[] Short-tail needs to grow legs when exposed to air (Otherwise land limitations will dead-end the player)
+								[] Make as a status effect (need some kind of boolean for tail legs active?)
+					[] Need spinneret for arachnids
+					[] In body description (height?), long tail should be ratio of 5:1 tail:body
 					[] Sex availability
-					
+						[] need isAbleToAccessGenitaliaFromBehind()
+						[] Search for all .isTaur()
+				
 				[] Combat move unlocks
 					[] Combat Move modding
-						[] Quadruped kick
-						[] Arachnid web-spin
-						[] Cephalopod tentacle embrace
+						[] Quadruped kick (High damage)
+						[] Arachnid web-spin (-AP)
+						[] Cephalopod tentacle embrace (when enemy is below 15% health, can instantly defeat them)
+						[] Long tail constrict (when enemy is below 15% health, can instantly defeat them)
 				
 				[] Ferals
 					[] Subspecies definition of feral support
@@ -143,6 +179,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Panther
 			[] Hyena
 	
+	
+	
+	item generation in equipClothingFromOutfit is applying sticker prefixes twice and stripping the color prefix
+	
+	Weapons do not list their bonuses when clicked on them in inventory
 	
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	

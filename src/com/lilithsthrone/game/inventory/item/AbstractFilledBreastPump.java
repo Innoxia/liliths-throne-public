@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving {

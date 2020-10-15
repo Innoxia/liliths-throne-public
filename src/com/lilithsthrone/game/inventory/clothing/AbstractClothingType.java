@@ -300,7 +300,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				availableTertiaryDyeColours);
 		
 		patternChance = 0;
-		defaultPatterns = new ArrayList<>(Pattern.getAllDefaultPatterns().values());
+		defaultPatterns = new ArrayList<>(Pattern.getAllDefaultPatterns());
 		
 		setUpPatternColours(null, null, null, null, null, null);
 		populateEmptyPatternColours();
@@ -737,7 +737,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
 				try {
 					return patternsElement.getAllOf("pattern").stream()
-							.map(Element::getTextContent).map(Pattern.getAllPatterns()::get)
+							.map(Element::getTextContent).map(Pattern::getPattern)
 							.collect(Collectors.toList());
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -767,7 +767,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 			defaultPatterns = coreAttributes.getOptionalFirstOf("defaultPatterns")
 					.map(getPatternsFromElement::apply)
-					.orElse(new ArrayList<>(Pattern.getAllDefaultPatterns().values()));
+					.orElse(new ArrayList<>(Pattern.getAllDefaultPatterns()));
 					
 			setUpPatternColours(
 					coreAttributes.getOptionalFirstOf("patternPrimaryColours")

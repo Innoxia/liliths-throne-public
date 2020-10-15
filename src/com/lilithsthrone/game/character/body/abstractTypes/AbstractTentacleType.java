@@ -5,7 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.TentacleTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -45,7 +45,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	private String tentacleTransformationDescription;
 	private String tentacleBodyDescription;
 
-	private List<TentacleTypeTag> tags;
+	private List<BodyPartTag> tags;
 	
 	/**
 	 * @param skinType What covers this tentacle type (i.e skin/fur/feather type).
@@ -85,7 +85,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 			List<String> tipDescriptorsFeminine,
 			String tentacleTransformationDescription,
 			String tentacleBodyDescription,
-			List<TentacleTypeTag> tags) {
+			List<BodyPartTag> tags) {
 		
 		this.skinType = skinType;
 		this.race = race;
@@ -122,7 +122,8 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 		return lengthAsPercentageOfHeight;
 	}
 	
-	public List<TentacleTypeTag> getTags() {
+	@Override
+	public List<BodyPartTag> getTags() {
 		return tags;
 	}
 
@@ -209,7 +210,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	public String getGirthDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.getTags().contains(TentacleTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(owner.getTentacleCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tentacles] are"));
 			} else {
@@ -277,7 +278,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthDescriptor(PenetrationGirth girth) {
-		if(this.getTags().contains(TentacleTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -345,15 +346,15 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	}
 	
 	public boolean isPrehensile() {
-		return tags.contains(TentacleTypeTag.PREHENSILE);
+		return tags.contains(BodyPartTag.TAIL_PREHENSILE);
 	}
 	
 	public boolean isSuitableForPenetration() {
-		return this.isPrehensile() && tags.contains(TentacleTypeTag.SUTABLE_FOR_PENETRATION);
+		return this.isPrehensile() && tags.contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION);
 	}
 	
 	public boolean isSuitableForSleepHugging() {
-		return tags.contains(TentacleTypeTag.SLEEP_HUGGING);
+		return tags.contains(BodyPartTag.TAIL_SLEEP_HUGGING);
 	}
 
 	@Override

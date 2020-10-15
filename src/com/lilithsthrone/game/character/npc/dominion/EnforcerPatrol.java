@@ -87,7 +87,7 @@ public class EnforcerPatrol extends NPC {
 					AbstractSubspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
 				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
-					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 				
 //				switch(s) {

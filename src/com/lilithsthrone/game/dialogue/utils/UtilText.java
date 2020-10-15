@@ -135,6 +135,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -8514,6 +8515,9 @@ public class UtilText {
 		}
 		for(SpellUpgrade spellUpgrade: SpellUpgrade.values()) {
 			engine.put("SPELL_UPGRADE_"+spellUpgrade.toString(), spellUpgrade);
+		}
+		for(CombatBehaviour behaviour: CombatBehaviour.values()) {
+			engine.put("COMBAT_BEHAVIOUR_"+behaviour.toString(), behaviour);
 		}
 		
 		// Sex:

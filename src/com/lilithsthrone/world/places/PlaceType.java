@@ -104,16 +104,16 @@ public class PlaceType {
 	// Generic holding map:
 	
 	public static final AbstractPlaceType GENERIC_IMPASSABLE = new AbstractPlaceType(
-			"Impassable Tile", "", null, PresetColour.BASE_GREY, null, null, "");
+			"Impassable Tile", "", null, PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
 	
 	public static final AbstractPlaceType GENERIC_EMPTY_TILE = new AbstractPlaceType(
-			"Empty", "", "dominion/slaverAlleyIcon", PresetColour.BASE_CRIMSON, null, null, "");
+			"Empty", "", "dominion/slaverAlleyIcon", PresetColour.BASE_CRIMSON, null, Darkness.ALWAYS_LIGHT, null, "");
 
 	public static final AbstractPlaceType GENERIC_HOLDING_CELL = new AbstractPlaceType(
-			"Unknown", "", "dominion/slaverAlleyIcon", PresetColour.BASE_GREY, null, null, "");
+			"Unknown", "", "dominion/slaverAlleyIcon", PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
 	
 	public static final AbstractPlaceType GENERIC_MUSEUM = new AbstractPlaceType(
-			"Museum", "", "dominion/slaverAlleyIcon", PresetColour.BASE_TAN, null, null, "in Lily's Museum"
+			"Museum", "", "dominion/slaverAlleyIcon", PresetColour.BASE_TAN, null, Darkness.ALWAYS_LIGHT, null, "in Lily's Museum"
 			).initItemsPersistInTile()
 			.initWeatherImmune();
 	
@@ -127,6 +127,7 @@ public class PlaceType {
 			"prologue/exit",
 			PresetColour.BASE_RED,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum") {
 		@Override
@@ -142,6 +143,7 @@ public class PlaceType {
 			"prologue/crowd",
 			PresetColour.BASE_YELLOW,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum") {
 		@Override
@@ -157,6 +159,7 @@ public class PlaceType {
 			"prologue/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum"
 			).initItemsPersistInTile()
@@ -168,6 +171,7 @@ public class PlaceType {
 			"prologue/stage",
 			PresetColour.BASE_ORANGE,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum") {
 		@Override
@@ -183,6 +187,7 @@ public class PlaceType {
 			"prologue/room",
 			PresetColour.BASE_TAN,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum"
 			).initItemsPersistInTile()
@@ -194,6 +199,7 @@ public class PlaceType {
 			"prologue/stairsUp",
 			PresetColour.BASE_GREEN,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum"
 			).initItemsPersistInTile()
@@ -205,6 +211,7 @@ public class PlaceType {
 			 null,
 			PresetColour.BASE_TAN,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum") {
 		@Override
@@ -220,6 +227,7 @@ public class PlaceType {
 			 null,
 			PresetColour.BASE_TAN,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum"
 			).initItemsPersistInTile()
@@ -231,6 +239,7 @@ public class PlaceType {
 			"prologue/mirror",
 			PresetColour.BASE_PINK,
 			null,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lily's Museum"
 			).initItemsPersistInTile()
@@ -246,6 +255,7 @@ public class PlaceType {
 			"dominion/statue",
 			PresetColour.BASE_PINK_DEEP,
 			DominionPlaces.DOMINION_PLAZA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's central plaza") {
 		@Override
@@ -271,8 +281,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			DominionPlaces.STREET,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -297,8 +307,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_PINK_LIGHT,
 			DominionPlaces.BOULEVARD,
-			Encounter.DOMINION_BOULEVARD,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_BOULEVARD, "in the streets of Dominion") {
 
 		@Override
 		public List<Population> getPopulation() {
@@ -312,6 +322,7 @@ public class PlaceType {
 			"dominion/lilithsTowerIcon",
 			PresetColour.BASE_PURPLE,
 			LilithsTower.OUTSIDE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 
@@ -327,6 +338,7 @@ public class PlaceType {
 			"dominion/enforcerHQIcon",
 			PresetColour.BASE_BLUE,
 			EnforcerHQDialogue.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -341,6 +353,7 @@ public class PlaceType {
 			"dominion/gate",
 			PresetColour.BASE_PINK_LIGHT,
 			DemonHome.DEMON_HOME_GATE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -355,6 +368,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -369,6 +383,7 @@ public class PlaceType {
 			"dominion/demonHomeArthurIcon",
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -394,6 +409,7 @@ public class PlaceType {
 			"dominion/demonHomeZaranixIcon",
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET_ZARANIX,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -419,6 +435,7 @@ public class PlaceType {
 			"dominion/demonHomeDaddyIcon",
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET_DADDY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -447,8 +464,8 @@ public class PlaceType {
 			"dominion/shoppingArcadeIcon",
 			PresetColour.BASE_GOLD,
 			ShoppingArcadeDialogue.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -465,8 +482,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			DominionPlaces.STREET_SHADED,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -483,8 +500,8 @@ public class PlaceType {
 			"dominion/harpyNestIcon",
 			PresetColour.BASE_MAGENTA,
 			HarpyNestsDialogue.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -501,6 +518,7 @@ public class PlaceType {
 			"dominion/demonHomeHelenaIcon",
 			PresetColour.BASE_GOLD,
 			DominionPlaces.HELENAS_HOTEL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Demon Home") {
 		@Override
@@ -515,8 +533,8 @@ public class PlaceType {
 			"dominion/nightlifeIcon",
 			PresetColour.BASE_PINK_LIGHT,
 			NightlifeDistrict.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -533,8 +551,8 @@ public class PlaceType {
 			"dominion/townHallIcon",
 			PresetColour.BASE_INDIGO,
 			CityHall.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -551,8 +569,8 @@ public class PlaceType {
 			"dominion/homeIcon",
 			PresetColour.BASE_BLUE_LIGHT,
 			LilayaHomeGeneric.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -569,6 +587,7 @@ public class PlaceType {
 			"dominion/slaverAlleyIcon",
 			PresetColour.BASE_CRIMSON,
 			SlaverAlleyDialogue.OUTSIDE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the alleyways near Slaver Alley") {
 		@Override
@@ -590,8 +609,8 @@ public class PlaceType {
 			"dominion/brothel",
 			PresetColour.BASE_MAGENTA,
 			RedLightDistrict.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -608,8 +627,8 @@ public class PlaceType {
 			"dominion/park",
 			PresetColour.BASE_GREEN,
 			DominionPlaces.PARK,
-			Encounter.DOMINION_STREET,
-			"in one of Dominion's parks") {
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_STREET, "in one of Dominion's parks") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -626,8 +645,8 @@ public class PlaceType {
 			"dominion/construction",
 			PresetColour.BASE_ORANGE,
 			HomeImprovements.OUTSIDE,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -644,8 +663,8 @@ public class PlaceType {
 			"dominion/warehouse",
 			PresetColour.BASE_BROWN,
 			Warehouses.WAREHOUSE_DISTRICT,
-			Encounter.DOMINION_STREET,
-			"in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -666,8 +685,8 @@ public class PlaceType {
 			"dominion/alleysIcon",
 			PresetColour.BASE_GREY,
 			DominionPlaces.BACK_ALLEYS_SAFE,
-			Encounter.DOMINION_STREET,
-			"in one of Dominion's backalleys"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_STREET, "in one of Dominion's backalleys"
 			) {
 		@Override
 		public boolean isDangerous() {
@@ -690,8 +709,8 @@ public class PlaceType {
 			"dominion/alleysIcon",
 			PresetColour.BASE_BLACK,
 			DominionPlaces.BACK_ALLEYS,
-			Encounter.DOMINION_ALLEY,
-			"in one of Dominion's backalleys"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
 			).initDangerous();
 
 	public static final AbstractPlaceType DOMINION_DARK_ALLEYS = new AbstractPlaceType(
@@ -700,8 +719,8 @@ public class PlaceType {
 			"dominion/alleysDarkIcon",
 			PresetColour.BASE_PURPLE,
 			DominionPlaces.DARK_ALLEYS,
-			Encounter.DOMINION_DARK_ALLEY,
-			"in one of Dominion's dark alleyways"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_DARK_ALLEY, "in one of Dominion's dark alleyways"
 			).initDangerous();
 	
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
@@ -710,8 +729,8 @@ public class PlaceType {
 			"dominion/bridge",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.BACK_ALLEYS_CANAL,
-			Encounter.DOMINION_ALLEY,
-			"in one of Dominion's backalleys"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_ALLEY, "in one of Dominion's backalleys"
 			).initDangerous();
 	
 	// Canals:
@@ -722,8 +741,8 @@ public class PlaceType {
 			"dominion/canalIcon",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.CANAL,
-			Encounter.DOMINION_CANAL,
-			"beside one of Dominion's canals"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_CANAL, "beside one of Dominion's canals"
 			).initDangerous();
 	
 	public static final AbstractPlaceType DOMINION_CANAL_END = new AbstractPlaceType(
@@ -732,8 +751,8 @@ public class PlaceType {
 			"dominion/canalEndIcon",
 			PresetColour.BASE_BLUE,
 			DominionPlaces.CANAL_END,
-			Encounter.DOMINION_CANAL,
-			"beside one of Dominion's canals"
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_CANAL, "beside one of Dominion's canals"
 			).initDangerous();
 	
 	// Exits & entrances:
@@ -744,6 +763,7 @@ public class PlaceType {
 			"dominion/submissionExit",
 			PresetColour.BASE_TEAL,
 			DominionPlaces.CITY_EXIT_SEWERS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -766,6 +786,7 @@ public class PlaceType {
 			"dominion/exitEast",
 			PresetColour.BASE_RED,
 			DominionPlaces.CITY_EXIT,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -784,6 +805,7 @@ public class PlaceType {
 			"dominion/exitNorth",
 			PresetColour.BASE_RED,
 			DominionPlaces.CITY_EXIT,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -798,6 +820,7 @@ public class PlaceType {
 			"dominion/exitWest",
 			PresetColour.BASE_RED,
 			DominionPlaces.CITY_EXIT,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -812,6 +835,7 @@ public class PlaceType {
 			"dominion/exitSouth",
 			PresetColour.BASE_RED,
 			DominionPlaces.CITY_EXIT,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the streets of Dominion") {
 		@Override
@@ -830,6 +854,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			EnforcerHQDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ") {
 		@Override
@@ -844,6 +869,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			EnforcerHQDialogue.CORRIDOR_PLAIN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -854,6 +880,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/stairs",
 			PresetColour.BASE_GREEN,
 			EnforcerHQDialogue.STAIRCASE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -864,6 +891,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/waitingRoom",
 			PresetColour.BASE_BROWN,
 			EnforcerHQDialogue.WAITING_AREA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -874,6 +902,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/receptionDesk",
 			PresetColour.BASE_BLUE_LIGHT,
 			EnforcerHQDialogue.RECEPTION_DESK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Candi's office")
 			.initWeatherImmune();
@@ -884,6 +913,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/guardedDoor",
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.GUARDED_DOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ") {
 		@Override
@@ -902,6 +932,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/guardedDoor",
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.REQUISITIONS_DOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ") {
 		@Override
@@ -919,6 +950,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/guardedDoor",
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.LOCKED_DOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -929,6 +961,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/guardedDoor",
 			PresetColour.BASE_RED_DARK,
 			EnforcerHQDialogue.LOCKED_DOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -939,6 +972,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_BLUE_DARK,
 			BraxOffice.INTERIOR_BRAX,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in his office") {
 		@Override
@@ -980,6 +1014,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_GREY,
 			EnforcerHQDialogue.OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -990,6 +1025,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_PURPLE,
 			EnforcerHQDialogue.CELLS_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -1000,6 +1036,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/cell",
 			PresetColour.BASE_BROWN_DARK,
 			EnforcerHQDialogue.CELL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the cells of the Enforcer HQ")
 			.initWeatherImmune();
@@ -1010,6 +1047,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/exit",
 			PresetColour.BASE_RED,
 			EnforcerHQDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"")
 			.initWeatherImmune();
@@ -1020,6 +1058,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/exit",
 			PresetColour.BASE_BLUE,
 			EnforcerHQDialogue.ENTRANCE_ENFORCER,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"")
 			.initWeatherImmune();
@@ -1030,6 +1069,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/requisitions",
 			PresetColour.BASE_TAN,
 			EnforcerHQDialogue.REQUISITIONS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"") {
 		@Override
@@ -1048,6 +1088,7 @@ public class PlaceType {
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_ORANGE,
 			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"")
 			.initWeatherImmune();
@@ -1063,6 +1104,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/exit",
 			PresetColour.BASE_RED,
 			EnforcerWarehouse.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initDangerous()
@@ -1074,6 +1116,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			EnforcerWarehouse.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1084,6 +1127,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			EnforcerWarehouse.CLAIRE_WARNING,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1094,6 +1138,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			EnforcerWarehouse.ENCLOSURE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1104,6 +1149,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/teleportPads",
 			PresetColour.BASE_MAGENTA,
 			EnforcerWarehouse.ENCLOSURE_TELEPORT_PADS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1114,6 +1160,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/shelving",
 			PresetColour.BASE_PURPLE_LIGHT,
 			EnforcerWarehouse.ENCLOSURE_SHELVING,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1124,6 +1171,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/enforcerGuardPost",
 			PresetColour.BASE_BLUE_STEEL,
 			EnforcerWarehouse.ENFORCER_GUARD_POST,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initDangerous()
@@ -1135,6 +1183,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/crates",
 			PresetColour.BASE_ORANGE,
 			EnforcerWarehouse.CRATES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1145,6 +1194,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/cratesSearched",
 			PresetColour.BASE_GREY,
 			EnforcerWarehouse.CRATES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1155,6 +1205,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/crates",
 			PresetColour.BASE_ORANGE,
 			EnforcerWarehouse.CRATES_ARK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1165,6 +1216,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/cratesSearched",
 			PresetColour.BASE_GREY,
 			EnforcerWarehouse.CRATES_ARK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1175,6 +1227,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/cratesLustWeapon",
 			PresetColour.BASE_PINK_DEEP,
 			EnforcerWarehouse.CRATES_LUST_WEAPON,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1185,6 +1238,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/shelvingSpellBook",
 			PresetColour.BASE_MAGENTA,
 			EnforcerWarehouse.SHELVES_SPELL_BOOK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1195,6 +1249,7 @@ public class PlaceType {
 			"dominion/enforcerWarehouse/shelvingSearched",
 			PresetColour.BASE_GREY,
 			EnforcerWarehouse.SHELVES_SPELL_BOOK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Enforcer warehouse")
 			.initWeatherImmune();
@@ -1208,6 +1263,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			CityHall.CITY_HALL_CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 
@@ -1223,6 +1279,7 @@ public class PlaceType {
 			"dominion/cityHall/exit",
 			PresetColour.BASE_RED,
 			CityHall.CITY_HALL_FOYER,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 
@@ -1238,6 +1295,7 @@ public class PlaceType {
 			"dominion/cityHall/front_desk",
 			PresetColour.BASE_BLUE_LIGHT,
 			CityHall.CITY_HALL_INFORMATION_DESK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 
@@ -1253,6 +1311,7 @@ public class PlaceType {
 			"dominion/cityHall/waiting_area",
 			PresetColour.BASE_PURPLE_LIGHT,
 			CityHall.CITY_HALL_WAITING_AREA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 
@@ -1268,6 +1327,7 @@ public class PlaceType {
 			"dominion/cityHall/office",
 			PresetColour.BASE_ORANGE,
 			CityHall.CITY_HALL_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
@@ -1278,6 +1338,7 @@ public class PlaceType {
 			"dominion/cityHall/stairs",
 			PresetColour.BASE_GREY,
 			CityHall.CITY_HALL_STAIRS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
@@ -1288,6 +1349,7 @@ public class PlaceType {
 			"dominion/cityHall/officeDemographics",
 			PresetColour.BASE_TEAL,
 			CityHallDemographics.CITY_HALL_DEMOGRAPHICS_ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
@@ -1298,6 +1360,7 @@ public class PlaceType {
 			"dominion/cityHall/officeDemographicsArchives",
 			PresetColour.BASE_BLUE,
 			CityHallDemographics.CITY_HALL_DEMOGRAPHICS_ENTRANCE, // Player cannot enter this tile.
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
@@ -1308,6 +1371,7 @@ public class PlaceType {
 			"dominion/cityHall/officeProperty",
 			PresetColour.BASE_GOLD,
 			CityHallProperty.CITY_HALL_PROPERTY_ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
@@ -1321,6 +1385,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			HomeImprovements.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'Argus's DIY Depot'") {
 		@Override
@@ -1335,6 +1400,7 @@ public class PlaceType {
 			"dominion/homeImprovements/exit",
 			PresetColour.BASE_RED,
 			HomeImprovements.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'Argus's DIY Depot'") {
 		@Override
@@ -1349,6 +1415,7 @@ public class PlaceType {
 			"dominion/homeImprovements/shelving",
 			PresetColour.BASE_GOLD,
 			HomeImprovements.SHELVING_PREMIUM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'Argus's DIY Depot'") {
 		@Override
@@ -1363,6 +1430,7 @@ public class PlaceType {
 			"dominion/homeImprovements/shelving",
 			PresetColour.BASE_BROWN,
 			HomeImprovements.SHELVING_STANDARD,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'Argus's DIY Depot'") {
 		@Override
@@ -1377,6 +1445,7 @@ public class PlaceType {
 			"dominion/homeImprovements/crates",
 			PresetColour.BASE_ORANGE,
 			HomeImprovements.BUILDING_SUPPLIES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'Argus's DIY Depot'") {
 		@Override
@@ -1391,6 +1460,7 @@ public class PlaceType {
 			"dominion/homeImprovements/office",
 			PresetColour.BASE_MAGENTA,
 			HomeImprovements.OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Argus's office")
 	.initWeatherImmune();
@@ -1401,6 +1471,7 @@ public class PlaceType {
 			"dominion/homeImprovements/toilets",
 			PresetColour.BASE_GREEN_DARK,
 			HomeImprovements.TOILETS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the toilets at 'Argus's DIY Depot'")
 	.initWeatherImmune();
@@ -1414,8 +1485,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			DominionExpress.CORRIDOR,
-			Encounter.DOMINION_EXPRESS,
-			"in the 'Dominion Express' warehouse") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_EXPRESS, "in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
@@ -1431,6 +1502,7 @@ public class PlaceType {
 			"dominion/dominionExpress/exit",
 			PresetColour.BASE_RED,
 			DominionExpress.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the 'Dominion Express' warehouse") {
 		@Override
@@ -1448,8 +1520,8 @@ public class PlaceType {
 			"dominion/dominionExpress/crates",
 			PresetColour.BASE_ORANGE,
 			DominionExpress.STORAGE,
-			Encounter.DOMINION_EXPRESS,
-			"in the 'Dominion Express' warehouse") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_EXPRESS, "in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
 			return DOMINION_EXPRESS_CORRIDOR.getPopulation();
@@ -1462,6 +1534,7 @@ public class PlaceType {
 			"dominion/dominionExpress/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionExpress.OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the 'Dominion Express' warehouse") {
 		@Override
@@ -1476,6 +1549,7 @@ public class PlaceType {
 			"dominion/dominionExpress/fillyStation",
 			PresetColour.BASE_PINK_LIGHT,
 			DominionExpress.FILLY_STATION,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the 'Dominion Express' warehouse")
 		.initWeatherImmune();
@@ -1486,6 +1560,7 @@ public class PlaceType {
 			"dominion/dominionExpress/officeStable",
 			PresetColour.BASE_TAN,
 			DominionExpress.OFFICE_STABLE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Stable Mistress's office at the 'Dominion Express' warehouse")
 	.initWeatherImmune();
@@ -1496,6 +1571,7 @@ public class PlaceType {
 			"dominion/dominionExpress/stables",
 			PresetColour.BASE_BROWN,
 			DominionExpress.STABLES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the stables at the 'Dominion Express' warehouse") {
 		@Override
@@ -1514,8 +1590,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			HarpyNestsDialogue.WALKWAY,
-			Encounter.HARPY_NEST_WALKWAYS,
-			"in the Harpy Nests") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.HARPY_NEST_WALKWAYS, "in the Harpy Nests") {
 		@Override
 		public boolean isDangerous() {
 			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
@@ -1536,8 +1612,8 @@ public class PlaceType {
 			"dominion/harpyNests/bridge",
 			PresetColour.BASE_GREY,
 			HarpyNestsDialogue.WALKWAY_BRIDGE,
-			Encounter.HARPY_NEST_WALKWAYS,
-			"in the Harpy Nests") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.HARPY_NEST_WALKWAYS, "in the Harpy Nests") {
 		@Override
 		public boolean isDangerous() {
 			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
@@ -1554,6 +1630,7 @@ public class PlaceType {
 			"dominion/harpyNests/exit",
 			PresetColour.BASE_RED,
 			HarpyNestsDialogue.ENTRANCE_ENFORCER_POST,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Harpy Nests") {
 		@Override
@@ -1568,6 +1645,7 @@ public class PlaceType {
 			"dominion/harpyNests/nestHelena",
 			PresetColour.BASE_GOLD,
 			HarpyNestHelena.HELENAS_NEST_EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Helena's nest"){
 		@Override
@@ -1582,6 +1660,7 @@ public class PlaceType {
 			"dominion/harpyNests/nestRed",
 			PresetColour.BASE_CRIMSON,
 			HarpyNestDominant.HARPY_NEST_DOMINANT,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Diana's nest"){
 		@Override
@@ -1596,6 +1675,7 @@ public class PlaceType {
 			"dominion/harpyNests/nestPink",
 			PresetColour.BASE_PINK_LIGHT,
 			HarpyNestNympho.HARPY_NEST_NYMPHO,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lexi's nest"){
 		@Override
@@ -1610,6 +1690,7 @@ public class PlaceType {
 			"dominion/harpyNests/nestYellow",
 			PresetColour.BASE_YELLOW_LIGHT,
 			HarpyNestBimbo.HARPY_NEST_BIMBO,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Brittany's nest"){
 		@Override
@@ -1627,8 +1708,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.CORRIDOR,
-			Encounter.LILAYAS_HOME_CORRIDOR,
-			"in Lilaya's Home"
+			Darkness.ALWAYS_LIGHT,
+			Encounter.LILAYAS_HOME_CORRIDOR, "in Lilaya's Home"
 			).initItemsPersistInTile()
 			.initWeatherImmune();
 	
@@ -1638,6 +1719,7 @@ public class PlaceType {
 			"dominion/lilayasHome/room",
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.ROOM_WINDOW,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home") {
 		@Override
@@ -1698,6 +1780,7 @@ public class PlaceType {
 			"dominion/lilayasHome/room",
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home") {
 		@Override
@@ -1736,6 +1819,7 @@ public class PlaceType {
 			"dominion/lilayasHome/room",
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.ROOM_WINDOW,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home") {
 		@Override
@@ -1774,6 +1858,7 @@ public class PlaceType {
 			"dominion/lilayasHome/room",
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.ROOM_GARDEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home") {
 		@Override
@@ -1812,6 +1897,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomArthur",
 			PresetColour.BASE_BLUE_STEEL,
 			RoomArthur.ROOM_ARTHUR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Arthur's Room"
 			).initItemsPersistInTile()
@@ -1823,6 +1909,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomBirthing",
 			PresetColour.BASE_PINK,
 			LilayaHomeGeneric.BIRTHING_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1834,6 +1921,7 @@ public class PlaceType {
 			"dominion/lilayasHome/kitchen",
 			PresetColour.BASE_TAN,
 			LilayaHomeGeneric.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's kitchen"
 			).initItemsPersistInTile()
@@ -1845,6 +1933,7 @@ public class PlaceType {
 			"dominion/lilayasHome/library",
 			PresetColour.BASE_TEAL,
 			Library.LIBRARY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's library") {
 		@Override
@@ -1860,6 +1949,7 @@ public class PlaceType {
 			"dominion/lilayasHome/stairsUp",
 			PresetColour.BASE_GREEN_LIGHT,
 			LilayaHomeGeneric.STAIRCASE_UP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1871,6 +1961,7 @@ public class PlaceType {
 			"dominion/lilayasHome/stairsUpSecondary",
 			PresetColour.BASE_GREEN_LIME,
 			LilayaHomeGeneric.STAIRCASE_UP_SECONDARY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1882,6 +1973,7 @@ public class PlaceType {
 			"dominion/lilayasHome/entranceHall",
 			PresetColour.BASE_RED,
 			LilayaHomeGeneric.ENTRANCE_HALL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1893,6 +1985,7 @@ public class PlaceType {
 			"dominion/lilayasHome/lab",
 			PresetColour.BASE_GREEN_LIME,
 			Lab.LAB,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's lab") {
 		@Override
@@ -1908,6 +2001,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREEN,
 			LilayaHomeGeneric.GARDEN,
+			Darkness.DAYLIGHT,
 			null,
 			"in Lilaya's garden"
 			).initItemsPersistInTile()
@@ -1919,6 +2013,7 @@ public class PlaceType {
 			"dominion/lilayasHome/fountain",
 			PresetColour.BASE_BLUE_LIGHT,
 			LilayaHomeGeneric.FOUNTAIN,
+			Darkness.DAYLIGHT,
 			null,
 			"in Lilaya's garden"
 			).initItemsPersistInTile()
@@ -1930,6 +2025,7 @@ public class PlaceType {
 			"dominion/lilayasHome/construction",
 			PresetColour.BASE_BROWN,
 			LilayaSpa.SPA_CONSTRUCTION,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's spa"
 			) {
@@ -1950,6 +2046,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomSpa",
 			PresetColour.BASE_TEAL,
 			LilayaSpa.SPA_CORE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's spa"
 			).initItemsPersistInTile()
@@ -1961,6 +2058,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomSpaPool",
 			PresetColour.BASE_BLUE_LIGHT,
 			LilayaSpa.SPA_POOL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's spa"
 			).initItemsPersistInTile();
@@ -1971,6 +2069,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomSpaSauna",
 			PresetColour.BASE_BROWN,
 			LilayaSpa.SPA_SAUNA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's spa"
 			).initItemsPersistInTile();
@@ -1985,6 +2084,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomLilaya",
 			PresetColour.BASE_CRIMSON,
 			LilayasRoom.ROOM_LILAYA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -1996,6 +2096,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomRose",
 			PresetColour.BASE_PINK,
 			LilayaHomeGeneric.ROOM_ROSE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -2007,6 +2108,7 @@ public class PlaceType {
 			"dominion/lilayasHome/roomPlayer",
 			PresetColour.BASE_AQUA,
 			RoomPlayer.ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in your room"
 			) {
@@ -2028,6 +2130,7 @@ public class PlaceType {
 			"dominion/lilayasHome/stairsDown",
 			PresetColour.BASE_RED,
 			LilayaHomeGeneric.STAIRCASE_DOWN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -2039,6 +2142,7 @@ public class PlaceType {
 			"dominion/lilayasHome/stairsDownSecondary",
 			PresetColour.BASE_RED_LIGHT,
 			LilayaHomeGeneric.STAIRCASE_DOWN_SECONDARY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
@@ -2055,6 +2159,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			ZaranixHomeGroundFloor.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2074,6 +2179,7 @@ public class PlaceType {
 			"dominion/zaranixHome/stairsDown",
 			PresetColour.BASE_GREEN_LIGHT,
 			ZaranixHomeGroundFloor.STAIRS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2093,6 +2199,7 @@ public class PlaceType {
 			"dominion/zaranixHome/entranceHall",
 			PresetColour.BASE_RED,
 			ZaranixHomeGroundFloor.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2112,6 +2219,7 @@ public class PlaceType {
 			"dominion/zaranixHome/lounge",
 			PresetColour.BASE_ORANGE,
 			ZaranixHomeGroundFloor.LOUNGE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2131,6 +2239,7 @@ public class PlaceType {
 			"dominion/zaranixHome/room",
 			PresetColour.BASE_GREY,
 			ZaranixHomeGroundFloor.ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in a room in Zaranix's home"){
 		@Override
@@ -2150,6 +2259,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			ZaranixHomeGroundFloor.CORRIDOR_MAID,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's Home"){
 		@Override
@@ -2180,6 +2290,7 @@ public class PlaceType {
 			"dominion/zaranixHome/room",
 			PresetColour.BASE_GREY,
 			ZaranixHomeGroundFloor.GARDEN_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in a room in Zaranix's home"){
 		@Override
@@ -2199,6 +2310,7 @@ public class PlaceType {
 			"dominion/zaranixHome/garden",
 			PresetColour.BASE_GREEN,
 			ZaranixHomeGroundFloor.GARDEN,
+			Darkness.DAYLIGHT,
 			null,
 			"in Zaranix's garden"){
 		@Override
@@ -2218,6 +2330,7 @@ public class PlaceType {
 			"dominion/zaranixHome/entranceHall",
 			PresetColour.BASE_GREEN,
 			ZaranixHomeGroundFloor.GARDEN_ENTRY,
+			Darkness.DAYLIGHT,
 			null,
 			"in Zaranix's garden"){
 		@Override
@@ -2241,6 +2354,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			ZaranixHomeFirstFloor.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2260,6 +2374,7 @@ public class PlaceType {
 			"dominion/zaranixHome/stairsDown",
 			PresetColour.BASE_RED,
 			ZaranixHomeFirstFloor.STAIRS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2279,6 +2394,7 @@ public class PlaceType {
 			"dominion/zaranixHome/roomZaranix",
 			PresetColour.BASE_GREEN_LIME,
 			ZaranixHomeFirstFloor.ZARANIX_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's home"){
 		@Override
@@ -2302,6 +2418,7 @@ public class PlaceType {
 			"dominion/zaranixHome/room",
 			PresetColour.BASE_GREY,
 			ZaranixHomeFirstFloor.ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in a room in Zaranix's home"){
 		@Override
@@ -2321,6 +2438,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_RED,
 			ZaranixHomeFirstFloor.CORRIDOR_MAID,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Zaranix's Home"){
 		@Override
@@ -2357,6 +2475,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			RedLightDistrict.ANGELS_KISS_CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Kiss"
 			).initWeatherImmune();
@@ -2367,6 +2486,7 @@ public class PlaceType {
 			"dominion/angelsKiss/entrance",
 			PresetColour.BASE_RED,
 			RedLightDistrict.ANGELS_KISS_ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Kiss"
 			).initWeatherImmune();
@@ -2377,6 +2497,7 @@ public class PlaceType {
 			"dominion/angelsKiss/stairsUp",
 			PresetColour.BASE_GREEN_LIGHT,
 			RedLightDistrict.ANGELS_KISS_STAIRS_UP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Kiss"
 		).initWeatherImmune();
@@ -2387,6 +2508,7 @@ public class PlaceType {
 			"dominion/angelsKiss/stairsDown",
 			PresetColour.BASE_RED,
 			RedLightDistrict.ANGELS_KISS_STAIRS_DOWN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Kiss"
 			).initWeatherImmune();
@@ -2397,6 +2519,7 @@ public class PlaceType {
 			"dominion/angelsKiss/bedroom",
 			PresetColour.BASE_PINK,
 			RedLightDistrict.ANGELS_KISS_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Kiss"
 			).initWeatherImmune();
@@ -2407,6 +2530,7 @@ public class PlaceType {
 			"dominion/angelsKiss/bedroomBunny",
 			PresetColour.BASE_PINK_LIGHT,
 			RedLightDistrict.ANGELS_KISS_BEDROOM_BUNNY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Bunny's Bedroom"
 			).initWeatherImmune();
@@ -2417,6 +2541,7 @@ public class PlaceType {
 			"dominion/angelsKiss/bedroomLoppy",
 			PresetColour.BASE_PURPLE,
 			RedLightDistrict.ANGELS_KISS_BEDROOM_LOPPY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Loppy's Bedroom"
 			).initWeatherImmune();
@@ -2427,6 +2552,7 @@ public class PlaceType {
 			"dominion/angelsKiss/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			RedLightDistrict.ANGELS_KISS_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Angel's Office"
 			).initWeatherImmune();
@@ -2442,6 +2568,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			ShoppingArcadeDialogue.ARCADE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Shopping Arcade") {
 		@Override
@@ -2463,6 +2590,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/genericShop",
 			PresetColour.BASE_BLACK,
 			ShoppingArcadeDialogue.GENERIC_SHOP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Shopping Arcade") {
 		@Override
@@ -2481,6 +2609,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/ralphShop",
 			PresetColour.BASE_TEAL,
 			RalphsSnacks.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in his store"
 			).initWeatherImmune();
@@ -2491,6 +2620,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/nyanShop",
 			PresetColour.BASE_ROSE,
 			ClothingEmporium.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in her store"
 			).initWeatherImmune();
@@ -2501,6 +2631,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/vickyShop",
 			PresetColour.BASE_MAGENTA,
 			ArcaneArts.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in her store"
 			).initWeatherImmune();
@@ -2511,6 +2642,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/kateShop",
 			PresetColour.BASE_PINK,
 			SuccubisSecrets.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in her beauty salon"
 			).initWeatherImmune();
@@ -2521,6 +2653,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/ashleyShop",
 			PresetColour.BASE_LILAC_LIGHT,
 			DreamLover.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in their store"
 			).initWeatherImmune();
@@ -2531,6 +2664,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/antiques",
 			PresetColour.BASE_BROWN,
 			ShoppingArcadeDialogue.ANTIQUES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in an antique shop"
 			).initWeatherImmune();
@@ -2541,6 +2675,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/supplierDepot",
 			PresetColour.BASE_CRIMSON,
 			SupplierDepot.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the supplier depot") {
 		@Override
@@ -2575,6 +2710,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/gym",
 			PresetColour.BASE_GOLD,
 			PixsPlayground.GYM_EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in her gym"
 			).initWeatherImmune();
@@ -2585,6 +2721,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/exit",
 			PresetColour.BASE_RED,
 			ShoppingArcadeDialogue.ENTRY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Shopping Arcade"
 			).initWeatherImmune();
@@ -2600,6 +2737,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			SupplierDepot.SUPPLIER_DEPOT_CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the supplier depot"
 			) {
@@ -2619,6 +2757,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/exit",
 			PresetColour.BASE_GREY,
 			SupplierDepot.SUPPLIER_DEPOT_RECEPTION,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the supplier depot") {
 		@Override
@@ -2649,6 +2788,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/supplierStorageRoom",
 			PresetColour.BASE_ORANGE,
 			SupplierDepot.SUPPLIER_DEPOT_STORAGE_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the supplier depot"
 			).initItemsPersistInTile()
@@ -2660,6 +2800,7 @@ public class PlaceType {
 			"dominion/shoppingArcade/supplierOffice",
 			PresetColour.BASE_CRIMSON,
 			SupplierDepot.SUPPLIER_DEPOT_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the supplier depot") {
 		@Override
@@ -2695,6 +2836,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			SlaverAlleyDialogue.ALLEYWAY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2716,6 +2858,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallFemale",
 			PresetColour.BASE_PINK_LIGHT,
 			SlaverAlleyDialogue.MARKET_STALL_FEMALE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2730,6 +2873,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallMale",
 			PresetColour.BASE_BLUE_STEEL,
 			SlaverAlleyDialogue.MARKET_STALL_MALE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2744,6 +2888,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallAnal",
 			PresetColour.BASE_ORANGE,
 			SlaverAlleyDialogue.MARKET_STALL_ANAL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2758,6 +2903,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallVaginal",
 			PresetColour.BASE_PINK,
 			SlaverAlleyDialogue.MARKET_STALL_VAGINAL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2772,6 +2918,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallOral",
 			PresetColour.BASE_BLUE_LIGHT,
 			SlaverAlleyDialogue.MARKET_STALL_ORAL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2786,6 +2933,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallStatue",
 			PresetColour.BASE_BLACK,
 			SlaverAlleyDialogue.MARKET_STALL_STATUE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2800,6 +2948,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallExclusive",
 			PresetColour.BASE_GREY,
 			SlaverAlleyDialogue.MARKET_STALL_EXCLUSIVE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2814,6 +2963,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallBulk",
 			PresetColour.BASE_BLUE,
 			SlaverAlleyDialogue.MARKET_STALL_BULK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2828,6 +2978,7 @@ public class PlaceType {
 			"dominion/slaverAlley/marketStallCafe",
 			PresetColour.BASE_BROWN,
 			SlaverAlleyDialogue.MARKET_STALL_CAFE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2848,6 +2999,7 @@ public class PlaceType {
 			"dominion/slaverAlley/auctionBlock",
 			PresetColour.BASE_GOLD,
 			SlaverAlleyDialogue.AUCTION_BLOCK,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -2862,6 +3014,7 @@ public class PlaceType {
 			"dominion/slaverAlley/stocks",
 			PresetColour.BASE_TAN,
 			SlaverAlleyDialogue.PUBLIC_STOCKS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the stocks at Slaver Alley") {
 		@Override
@@ -2876,6 +3029,7 @@ public class PlaceType {
 			"dominion/slaverAlley/bountyHunters",
 			PresetColour.BASE_RED_DARK,
 			SlaverAlleyDialogue.BOUNTY_HUNTERS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley"){
 		@Override
@@ -2890,6 +3044,7 @@ public class PlaceType {
 			"dominion/slaverAlley/slaveryAdministration",
 			PresetColour.BASE_PURPLE,
 			SlaveryAdministration.SLAVERY_ADMINISTRATION_EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley"){
 		@Override
@@ -2904,6 +3059,7 @@ public class PlaceType {
 			"dominion/slaverAlley/scarlettsStall",
 			PresetColour.BASE_CRIMSON,
 			ScarlettsShop.SCARLETTS_SHOP_EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley"){
 		@Override
@@ -2988,6 +3144,7 @@ public class PlaceType {
 			"dominion/slaverAlley/exit",
 			PresetColour.BASE_RED,
 			SlaverAlleyDialogue.GATEWAY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Slaver Alley") {
 		@Override
@@ -3004,6 +3161,7 @@ public class PlaceType {
 			"dominion/slaverAlley/desertedAlleyway",
 			PresetColour.BASE_BLACK,
 			SlaverAlleyDialogue.DESERTED_ALLEYWAY,
+			Darkness.DAYLIGHT,
 			null,
 			"in Slaver Alley").initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3016,6 +3174,7 @@ public class PlaceType {
 			"dominion/nightLife/exit",
 			PresetColour.BASE_RED,
 			NightlifeDistrict.WATERING_HOLE_ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3030,6 +3189,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLUE_LIGHT,
 			NightlifeDistrict.WATERING_HOLE_MAIN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3044,6 +3204,7 @@ public class PlaceType {
 			"dominion/nightLife/seatingArea",
 			PresetColour.BASE_BLUE,
 			NightlifeDistrict.WATERING_HOLE_SEATING,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3058,6 +3219,7 @@ public class PlaceType {
 			"dominion/nightLife/vipArea",
 			PresetColour.BASE_PURPLE,
 			NightlifeDistrict.WATERING_HOLE_VIP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3075,6 +3237,7 @@ public class PlaceType {
 			"dominion/nightLife/bar",
 			PresetColour.BASE_ORANGE,
 			NightlifeDistrict.WATERING_HOLE_BAR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3089,6 +3252,7 @@ public class PlaceType {
 			"dominion/nightLife/danceFloor",
 			PresetColour.BASE_PINK_DEEP,
 			NightlifeDistrict.WATERING_HOLE_DANCE_FLOOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in 'The Watering Hole'") {
 		@Override
@@ -3103,6 +3267,7 @@ public class PlaceType {
 			"dominion/nightLife/toilets",
 			PresetColour.BASE_GREEN_DARK,
 			NightlifeDistrict.WATERING_HOLE_TOILETS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the toilets of 'The Watering Hole'") {
 		@Override
@@ -3120,6 +3285,7 @@ public class PlaceType {
 			"dominion/daddy/entranceHall",
 			PresetColour.BASE_GREEN,
 			DaddyDialogue.PLACE_ENTRANCE_HALL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the entrance hall of Daddy's apartment"
 		).initWeatherImmune();
@@ -3130,6 +3296,7 @@ public class PlaceType {
 			"dominion/daddy/lounge",
 			PresetColour.BASE_ORANGE,
 			DaddyDialogue.PLACE_LOUNGE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the lounge of Daddy's apartment"
 		).initWeatherImmune();
@@ -3140,6 +3307,7 @@ public class PlaceType {
 			"dominion/daddy/kitchen",
 			PresetColour.BASE_TAN,
 			DaddyDialogue.PLACE_KITCHEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the kitchen of Daddy's apartment"
 		).initWeatherImmune();
@@ -3150,6 +3318,7 @@ public class PlaceType {
 			"dominion/daddy/bedroom",
 			PresetColour.BASE_CRIMSON,
 			DaddyDialogue.PLACE_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Daddy's bedroom"
 		).initWeatherImmune();
@@ -3163,6 +3332,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			HelenaApartment.PLACE_HALLWAY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the hallway of Helena's apartment"
 		) {
@@ -3178,6 +3348,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLUE_LIGHT,
 			HelenaApartment.PLACE_BALCONY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"on the balcony at Helena's apartment"
 		).initMapBackgroundColour(PresetColour.MAP_BACKGROUND_BLUE)
@@ -3189,6 +3360,7 @@ public class PlaceType {
 			"dominion/helenaApartment/entranceHall",
 			PresetColour.BASE_GREEN,
 			HelenaApartment.PLACE_ENTRANCE_HALL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the entrance hall of Helena's apartment"
 		) {
@@ -3204,6 +3376,7 @@ public class PlaceType {
 			"dominion/helenaApartment/bedroomHelena",
 			PresetColour.BASE_GOLD,
 			HelenaApartment.PLACE_HELENA_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Helena's bedroom"
 		).initWeatherImmune();
@@ -3214,6 +3387,7 @@ public class PlaceType {
 			"dominion/helenaApartment/bedroomScarlett",
 			PresetColour.BASE_CRIMSON,
 			HelenaApartment.PLACE_SCARLETT_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Scarlett's bedroom"
 		).initWeatherImmune();
@@ -3224,6 +3398,7 @@ public class PlaceType {
 			"dominion/helenaApartment/bedroom",
 			PresetColour.BASE_YELLOW,
 			HelenaApartment.PLACE_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in one of the guest bedrooms in Helena's apartment"
 		).initWeatherImmune();
@@ -3234,6 +3409,7 @@ public class PlaceType {
 			"dominion/helenaApartment/bathroom",
 			PresetColour.BASE_BLUE_LIGHT,
 			HelenaApartment.PLACE_BATHROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in one of the bathrooms in Helena's apartment"
 		).initWeatherImmune();
@@ -3244,6 +3420,7 @@ public class PlaceType {
 			"dominion/helenaApartment/office",
 			PresetColour.BASE_BROWN,
 			HelenaApartment.PLACE_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the study room in Helena's apartment"
 		).initWeatherImmune();
@@ -3254,6 +3431,7 @@ public class PlaceType {
 			"dominion/helenaApartment/kitchen",
 			PresetColour.BASE_ORANGE,
 			HelenaApartment.PLACE_KITCHEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the kitchen in Helena's apartment"
 		) {
@@ -3269,6 +3447,7 @@ public class PlaceType {
 			"dominion/helenaApartment/diningRoom",
 			PresetColour.BASE_BLUE_STEEL,
 			HelenaApartment.PLACE_DINING_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the dining room in Helena's apartment"
 		) {
@@ -3284,6 +3463,7 @@ public class PlaceType {
 			"dominion/helenaApartment/lounge",
 			PresetColour.BASE_INDIGO,
 			HelenaApartment.PLACE_LOUNGE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the lounge in Helena's apartment"
 		) {
@@ -3299,6 +3479,7 @@ public class PlaceType {
 			"dominion/helenaApartment/hotTub",
 			PresetColour.BASE_RED_LIGHT,
 			HelenaApartment.PLACE_HOT_TUB,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the hot tub on the balcony of Helena's apartment"
 		).initMapBackgroundColour(PresetColour.MAP_BACKGROUND_BLUE)
@@ -3313,6 +3494,7 @@ public class PlaceType {
 			"submission/submissionExit",
 			PresetColour.BASE_BROWN,
 			SubmissionGenericPlaces.SEWER_ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3336,6 +3518,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			SubmissionGenericPlaces.WALKWAYS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3357,8 +3540,8 @@ public class PlaceType {
 			"submission/tunnelsIcon",
 			PresetColour.BASE_BLACK,
 			SubmissionGenericPlaces.TUNNEL,
-			Encounter.SUBMISSION_TUNNELS,
-			"in Submission"
+			Darkness.ALWAYS_DARK,
+			Encounter.SUBMISSION_TUNNELS, "in Submission"
 			).initDangerous()
 			.initWeatherImmune();
 
@@ -3368,6 +3551,7 @@ public class PlaceType {
 			"submission/batCaverns",
 			PresetColour.BASE_BLUE,
 			SubmissionGenericPlaces.BAT_CAVERNS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission"
 			).initWeatherImmune();
@@ -3378,6 +3562,7 @@ public class PlaceType {
 			"submission/ratWarren",
 			PresetColour.BASE_BROWN_DARK,
 			SubmissionGenericPlaces.RAT_WARREN,
+			Darkness.ALWAYS_DARK,
 			null,
 			"in Submission"
 			).initWeatherImmune();
@@ -3388,6 +3573,7 @@ public class PlaceType {
 			"submission/gamblingDen",
 			PresetColour.BASE_GOLD,
 			SubmissionGenericPlaces.GAMBLING_DEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission"
 			) {
@@ -3403,6 +3589,7 @@ public class PlaceType {
 			"submission/lilinPalace",
 			PresetColour.BASE_PURPLE,
 			SubmissionGenericPlaces.LILIN_PALACE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission"
 			).initMapBackgroundColour(PresetColour.MAP_BACKGROUND_DARK)
@@ -3415,6 +3602,7 @@ public class PlaceType {
 			"submission/gate",
 			PresetColour.BASE_PURPLE_LIGHT,
 			SubmissionGenericPlaces.LILIN_PALACE_GATE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3432,6 +3620,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			SubmissionGenericPlaces.LILIN_PALACE_CAVERN,
+			Darkness.ALWAYS_DARK,
 			null,
 			"in Submission"
 			).initMapBackgroundColour(PresetColour.MAP_BACKGROUND_DARK)
@@ -3448,6 +3637,7 @@ public class PlaceType {
 			"submission/impFortress1",
 			PresetColour.BASE_CRIMSON,
 			SubmissionGenericPlaces.IMP_FORTRESS_ALPHA,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3466,8 +3656,8 @@ public class PlaceType {
 			"submission/impTunnels1Icon",
 			PresetColour.BASE_RED,
 			SubmissionGenericPlaces.TUNNEL,
-			Encounter.SUBMISSION_TUNNELS,
-			"in Submission") {
+			Darkness.ALWAYS_DARK,
+			Encounter.SUBMISSION_TUNNELS, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
@@ -3484,6 +3674,7 @@ public class PlaceType {
 			"submission/impFortress/entrance",
 			PresetColour.BASE_RED,
 			ImpFortressDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Alpha Imp Fortress"
 			).initWeatherImmune();
@@ -3494,6 +3685,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			ImpFortressDialogue.COURTYARD,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Alpha Imp Fortress"
 			).initWeatherImmune();
@@ -3504,6 +3696,7 @@ public class PlaceType {
 			"submission/impFortress/keep",
 			PresetColour.BASE_CRIMSON,
 			ImpFortressDialogue.KEEP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Alpha Imp Fortress"
 			).initDangerous()
@@ -3519,6 +3712,7 @@ public class PlaceType {
 			"submission/impFortress2",
 			PresetColour.BASE_PURPLE,
 			SubmissionGenericPlaces.IMP_FORTRESS_DEMON,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3537,8 +3731,8 @@ public class PlaceType {
 			"submission/impTunnels2Icon",
 			PresetColour.BASE_PURPLE,
 			SubmissionGenericPlaces.TUNNEL,
-			Encounter.SUBMISSION_TUNNELS,
-			"in Submission") {
+			Darkness.ALWAYS_DARK,
+			Encounter.SUBMISSION_TUNNELS, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated)) {
@@ -3555,6 +3749,7 @@ public class PlaceType {
 			"submission/impFortress/entrance",
 			PresetColour.BASE_RED,
 			ImpCitadelDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
@@ -3567,6 +3762,13 @@ public class PlaceType {
 							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
 							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
+		@Override
+		public Darkness getDarkness() {
+			if(ImpCitadelDialogue.isDefeated()) {
+				return Darkness.ALWAYS_DARK;
+			}
+			return Darkness.ALWAYS_LIGHT;
+		}
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType FORTRESS_DEMON_COURTYARD = new AbstractPlaceType(
@@ -3575,11 +3777,16 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			ImpCitadelDialogue.COURTYARD,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
 		public List<Population> getPopulation() {
 			return FORTRESS_DEMON_ENTRANCE.getPopulation();
+		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
 		}
 	}.initWeatherImmune();
 	
@@ -3589,11 +3796,16 @@ public class PlaceType {
 			"submission/impFortress/well",
 			PresetColour.BASE_BLUE_LIGHT,
 			ImpCitadelDialogue.WELL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
 		public List<Population> getPopulation() {
 			return FORTRESS_DEMON_ENTRANCE.getPopulation();
+		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
 		}
 	}.initWeatherImmune();
 	
@@ -3603,11 +3815,16 @@ public class PlaceType {
 			"submission/impFortress/keep",
 			PresetColour.BASE_PURPLE,
 			ImpCitadelDialogue.KEEP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL);
+		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
 		}
 	}.initDangerous()
 	.initWeatherImmune();
@@ -3618,6 +3835,7 @@ public class PlaceType {
 			"submission/impFortress/cells",
 			PresetColour.BASE_TEAL,
 			ImpCitadelDialogue.CELLS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
@@ -3630,6 +3848,10 @@ public class PlaceType {
 							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
 							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
+		}
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType FORTRESS_LAB = new AbstractPlaceType(
@@ -3638,11 +3860,16 @@ public class PlaceType {
 			"submission/impFortress/laboratory",
 			PresetColour.BASE_GREEN_LIME,
 			ImpCitadelDialogue.LABORATORY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
 		public List<Population> getPopulation() {
 			return FORTRESS_DEMON_CELLS.getPopulation();
+		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
 		}
 	}.initWeatherImmune();
 	
@@ -3652,11 +3879,16 @@ public class PlaceType {
 			"submission/impFortress/treasury",
 			PresetColour.BASE_GOLD,
 			ImpCitadelDialogue.TREASURY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Dark Siren's citadel") {
 		@Override
 		public List<Population> getPopulation() {
 			return FORTRESS_DEMON_CELLS.getPopulation();
+		}
+		@Override
+		public Darkness getDarkness() {
+			return FORTRESS_DEMON_ENTRANCE.getDarkness();
 		}
 	}.initWeatherImmune();
 	
@@ -3670,6 +3902,7 @@ public class PlaceType {
 			"submission/impFortress3",
 			PresetColour.BASE_PINK,
 			SubmissionGenericPlaces.IMP_FORTRESS_FEMALES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3688,8 +3921,8 @@ public class PlaceType {
 			"submission/impTunnels3Icon",
 			PresetColour.BASE_PINK_LIGHT,
 			SubmissionGenericPlaces.TUNNEL,
-			Encounter.SUBMISSION_TUNNELS,
-			"in Submission") {
+			Darkness.ALWAYS_DARK,
+			Encounter.SUBMISSION_TUNNELS, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
@@ -3706,6 +3939,7 @@ public class PlaceType {
 			"submission/impFortress/entrance",
 			PresetColour.BASE_RED,
 			ImpFortressDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Female Imp Fortress"
 			).initWeatherImmune();
@@ -3716,6 +3950,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			ImpFortressDialogue.COURTYARD,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Female Imp Fortress"
 			).initWeatherImmune();
@@ -3726,6 +3961,7 @@ public class PlaceType {
 			"submission/impFortress/keep",
 			PresetColour.BASE_PINK,
 			ImpFortressDialogue.KEEP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Female Imp Fortress"
 			).initDangerous()
@@ -3741,6 +3977,7 @@ public class PlaceType {
 			"submission/impFortress4",
 			PresetColour.BASE_BLUE,
 			SubmissionGenericPlaces.IMP_FORTRESS_MALES,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Submission") {
 		@Override
@@ -3759,8 +3996,8 @@ public class PlaceType {
 			"submission/impTunnels4Icon",
 			PresetColour.BASE_BLUE_LIGHT,
 			SubmissionGenericPlaces.TUNNEL,
-			Encounter.SUBMISSION_TUNNELS,
-			"in Submission") {
+			Darkness.ALWAYS_DARK,
+			Encounter.SUBMISSION_TUNNELS, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
@@ -3777,6 +4014,7 @@ public class PlaceType {
 			"submission/impFortress/entrance",
 			PresetColour.BASE_RED,
 			ImpFortressDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Male Imp Fortress"
 			).initWeatherImmune();
@@ -3787,6 +4025,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			ImpFortressDialogue.COURTYARD,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Male Imp Fortress"
 			).initWeatherImmune();
@@ -3797,6 +4036,7 @@ public class PlaceType {
 			"submission/impFortress/keep",
 			PresetColour.BASE_BLUE,
 			ImpFortressDialogue.KEEP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Male Imp Fortress"
 			).initDangerous()
@@ -3813,6 +4053,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			LyssiethPalaceDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace") {
 		@Override
@@ -3830,6 +4071,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY_DARK,
 			LyssiethPalaceDialogue.WINDOWS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace") {
 		@Override
@@ -3845,6 +4087,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/entrance",
 			PresetColour.BASE_RED,
 			LyssiethPalaceDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace") {
 		@Override
@@ -3859,6 +4102,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/lounge",
 			PresetColour.BASE_PINK,
 			LyssiethPalaceDialogue.ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace"
 			) {
@@ -3874,6 +4118,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/throneRoom",
 			PresetColour.BASE_ORANGE,
 			LyssiethPalaceDialogue.HALL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace"
 			) {
@@ -3889,6 +4134,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/office",
 			PresetColour.BASE_GOLD,
 			LyssiethPalaceDialogue.LYSSIETH_OFFICE_ENTER,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace"
 			).initWeatherImmune();
@@ -3899,6 +4145,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/officeSiren",
 			PresetColour.BASE_CRIMSON,
 			LyssiethPalaceDialogue.SIREN_OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace"
 			).initWeatherImmune();
@@ -3909,6 +4156,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/staircase",
 			PresetColour.BASE_GREEN,
 			LyssiethPalaceDialogue.STAIRCASE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace") {
 		@Override
@@ -3923,6 +4171,7 @@ public class PlaceType {
 			"submission/lyssiethsPalace/staircase",
 			PresetColour.BASE_GREEN,
 			LyssiethPalaceDialogue.STAIRCASE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in Lyssieth's Palace") {
 		@Override
@@ -3941,6 +4190,7 @@ public class PlaceType {
 			"submission/batCaverns/cavernStaircase",
 			PresetColour.BASE_GREEN,
 			BatCaverns.STAIRCASE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Bat Caverns"
 			).initWeatherImmune();
@@ -3951,8 +4201,8 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			BatCaverns.CAVERN_DARK,
-			Encounter.BAT_CAVERN,
-			"in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN, "in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -3962,8 +4212,8 @@ public class PlaceType {
 			"submission/batCaverns/cavernBioluminescent",
 			PresetColour.BASE_AQUA,
 			BatCaverns.CAVERN_LIGHT,
-			Encounter.BAT_CAVERN,
-			"in the Bat Caverns"
+			Darkness.ALWAYS_LIGHT,
+			Encounter.BAT_CAVERN, "in the Bat Caverns"
 			) {
 		@Override
 		public List<Population> getPopulation() {
@@ -3984,8 +4234,8 @@ public class PlaceType {
 			"submission/batCaverns/cavernRiver",
 			PresetColour.BASE_BLUE,
 			BatCaverns.RIVER,
-			Encounter.BAT_CAVERN,
-			"in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN, "in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -3995,8 +4245,8 @@ public class PlaceType {
 			"submission/batCaverns/cavernBridge",
 			PresetColour.BASE_TEAL,
 			BatCaverns.RIVER_BRIDGE,
-			Encounter.BAT_CAVERN,
-			"in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN, "in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4006,8 +4256,8 @@ public class PlaceType {
 			"submission/batCaverns/cavernRiverEnd",
 			PresetColour.BASE_BLUE_DARK,
 			BatCaverns.RIVER_END,
-			Encounter.BAT_CAVERN,
-			"in the Bat Caverns"
+			Darkness.ALWAYS_DARK,
+			Encounter.BAT_CAVERN, "in the Bat Caverns"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4017,8 +4267,8 @@ public class PlaceType {
 			"submission/batCaverns/cavernLake",
 			PresetColour.BASE_PINK_LIGHT,
 			BatCaverns.SLIME_LAKE,
-			Encounter.BAT_CAVERN,
-			"beside Slime Lake"
+			Darkness.ALWAYS_LIGHT,
+			Encounter.BAT_CAVERN, "beside Slime Lake"
 			).initDangerous()
 			.initWeatherImmune();
 	
@@ -4032,6 +4282,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			SlimeQueensLair.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4042,6 +4293,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/entranceHall",
 			PresetColour.BASE_RED,
 			SlimeQueensLair.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4052,6 +4304,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/staircase",
 			PresetColour.BASE_GREEN,
 			SlimeQueensLair.STAIRCASE_UP,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4062,6 +4315,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/staircase",
 			PresetColour.BASE_RED,
 			SlimeQueensLair.STAIRCASE_DOWN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4072,6 +4326,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/room",
 			PresetColour.BASE_BLUE_LIGHT,
 			SlimeQueensLair.ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4082,6 +4337,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/storageVats",
 			PresetColour.BASE_ORANGE,
 			SlimeQueensLair.STORAGE_VATS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower") {
 		@Override
@@ -4102,6 +4358,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/guards",
 			PresetColour.BASE_RED,
 			SlimeQueensLair.GUARD_POST,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			) {
@@ -4118,6 +4375,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/royalGuards",
 			PresetColour.BASE_PURPLE,
 			SlimeQueensLair.ROYAL_GUARD_POST,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			) {
@@ -4134,6 +4392,7 @@ public class PlaceType {
 			"submission/slimeQueensLair/bedChamber",
 			PresetColour.BASE_PINK,
 			SlimeQueensLair.BED_CHAMBER,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Slime Queen's tower"
 			).initWeatherImmune();
@@ -4149,6 +4408,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			GamblingDenDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den") {
 		@Override
@@ -4167,6 +4427,7 @@ public class PlaceType {
 			"submission/gamblingDen/entrance",
 			PresetColour.BASE_GREEN,
 			GamblingDenDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den") {
 		@Override
@@ -4181,6 +4442,7 @@ public class PlaceType {
 			"submission/gamblingDen/office",
 			PresetColour.BASE_ORANGE,
 			GamblingDenDialogue.OFFICE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den") {
 	}.initWeatherImmune();
@@ -4191,6 +4453,7 @@ public class PlaceType {
 			"submission/gamblingDen/trader",
 			PresetColour.BASE_TEAL,
 			RoxysShop.TRADER_EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den"
 			).initWeatherImmune();
@@ -4201,6 +4464,7 @@ public class PlaceType {
 			"submission/gamblingDen/gambling",
 			PresetColour.BASE_GOLD,
 			GamblingDenDialogue.GAMBLING,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den") {
 		@Override
@@ -4215,6 +4479,7 @@ public class PlaceType {
 			"submission/gamblingDen/referee",
 			PresetColour.BASE_PINK,
 			PregnancyRoulette.PREGNANCY_ROULETTE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den") {
 		@Override
@@ -4229,6 +4494,7 @@ public class PlaceType {
 			"submission/gamblingDen/normalPregnancy",
 			PresetColour.BASE_BLUE_LIGHT,
 			GamblingDenDialogue.PREGNANCY_ROULETTE_MALE_STALLS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den"
 			).initWeatherImmune();
@@ -4239,6 +4505,7 @@ public class PlaceType {
 			"submission/gamblingDen/futaPregnancy",
 			PresetColour.BASE_PINK_LIGHT,
 			GamblingDenDialogue.PREGNANCY_ROULETTE_FUTA_STALLS,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Gambling Den"
 			).initWeatherImmune();
@@ -4254,6 +4521,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			RatWarrensDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4268,6 +4536,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			RatWarrensDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4283,6 +4552,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			RatWarrensDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4297,6 +4567,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			RatWarrensDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4318,6 +4589,7 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			RatWarrensDialogue.CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4333,6 +4605,7 @@ public class PlaceType {
 			"submission/ratWarrens/entrance",
 			PresetColour.BASE_GREEN,
 			RatWarrensDialogue.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4347,6 +4620,7 @@ public class PlaceType {
 			"submission/ratWarrens/dormitory",
 			PresetColour.BASE_BROWN,
 			RatWarrensDialogue.DORMITORY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4372,6 +4646,7 @@ public class PlaceType {
 			"submission/ratWarrens/dormitory",
 			PresetColour.BASE_BROWN,
 			RatWarrensDialogue.DORMITORY,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4397,6 +4672,7 @@ public class PlaceType {
 			"submission/ratWarrens/diceDen",
 			PresetColour.BASE_COPPER,
 			RatWarrensDialogue.DICE_DEN,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4422,6 +4698,7 @@ public class PlaceType {
 			"submission/ratWarrens/stocks",
 			PresetColour.BASE_MAGENTA,
 			RatWarrensDialogue.MILKING_ROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4445,6 +4722,7 @@ public class PlaceType {
 			"submission/ratWarrens/milkingRoom",
 			PresetColour.BASE_YELLOW_LIGHT,
 			RatWarrensDialogue.MILKING_STORAGE,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4459,6 +4737,7 @@ public class PlaceType {
 			"submission/ratWarrens/vengarsHall",
 			PresetColour.BASE_PURPLE,
 			RatWarrensDialogue.VENGARS_HALL,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4496,6 +4775,7 @@ public class PlaceType {
 			"submission/ratWarrens/bedroom",
 			PresetColour.BASE_PURPLE_LIGHT,
 			RatWarrensDialogue.VENGARS_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
 			null,
 			"in the Rat Warrens") {
 		@Override
@@ -4735,7 +5015,8 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_SEA = new AbstractGlobalPlaceType(
 			"endless sea",
-			null, "The aquatic races inhabiting Lilith's realm do not like to stray too far from shore, and so to them, the sea is considered to be endless.",
+			null,
+			"The aquatic races inhabiting Lilith's realm do not like to stray too far from shore, and so to them, the sea is considered to be endless.",
 			PresetColour.BASE_BLUE_DARK,
 			null, null, "") {
 				@Override

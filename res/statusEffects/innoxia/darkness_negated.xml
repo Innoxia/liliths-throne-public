@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>90</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<beneficial>NEUTRAL</beneficial>
+	
+	<combatEffect>false</combatEffect>
+	
+	<sexEffect>false</sexEffect>
+	
+	<name><![CDATA[Darkness (Negated)]]></name>
+	
+	<description><![CDATA[
+		The area which [npc.name] [npc.verb(find)] [npc.herself] travelling through is very dark, but despite this, [npc.she] [npc.is] able to see [#npc.getDescriptionInDarkness()].
+	]]></description>
+	
+	<imageName>darkness_negated.svg</imageName>
+	
+	<colourPrimary>BASE_BLACK</colourPrimary>
+	<colourSecondary>BASE_GREEN</colourSecondary>
+	<colourTertiary>BASE_GREY_LIGHT</colourTertiary>
+	
+	<attributeModifiers/>
+	
+	<combatMoves/>
+	
+	<spells/>
+	
+	<extraEffects/>
+	
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[
+		[#npc.getCell().isDark() && !npc.isInDarkness()]
+	]]></applicationCondition>
+	
+	<applyEffect/>
+	
+	<applyRemovalEffect/>
+	
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

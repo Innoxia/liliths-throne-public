@@ -58,7 +58,18 @@ public enum ItemTag {
 			false),
 	
 	//-------------- WEAPONS & CLOTHING --------------//
-
+	
+	
+	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
+			Util.newArrayListOfValues(
+					"[style.colourGood(Negates 'Darkness' effect)]"),
+			false),
+	
+	NIGHT_VISION_AREA( // Makes this clothing or weapon provide immunity to the darkness debuff for all characters in the area in which the wearer is located while equipped
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Negates 'Darkness' effect for all nearby characters)]"),
+			false),
+	
 	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 
 	TRANSPARENT( // This item of clothing does not conceal any areas. Used for chastity cages & condoms (so penis is still visible). Could also be used for sheer clothing material.

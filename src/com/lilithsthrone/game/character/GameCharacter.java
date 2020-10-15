@@ -48,6 +48,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
+import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -80,8 +81,7 @@ import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
-import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -18561,6 +18561,109 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isAtHome() {
 		return this.getLocation().equals(this.getHomeLocation()) && this.getWorldLocation().equals(this.getHomeWorldLocation());
 	}
+
+	public boolean isInDarkness() {
+		return this.getCell().isDark() && getDescriptionInDarkness()==null;
+	}
+	
+	/**
+	 * @return A brief description of how this character is obtaining immunity to darkness.
+	 * <br/>Fits into the sentence structure:
+	 * <br/><i>"[npc.Name] [npc.is] able to see in the dark "+returned String+"."</i>
+	 */
+	public String getDescriptionInDarkness() {
+		if(isSelfImmuneToDarkness()) {
+			return getDescriptionSelfImmuneToDarkness();
+		}
+		List<GameCharacter> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+		if(this.isElementalSummoned()) {
+			charactersPresent.add(getElemental());
+		}
+		for(GameCharacter character : charactersPresent) {
+			if(character.isProvidingAreaImmunityToDarkness()) {
+				return character.getDescriptionProvidingAreaImmunityToDarkness();
+			}
+		}
+		return null;
+	}
+
+	public boolean isSelfImmuneToDarkness() {
+		return getDescriptionSelfImmuneToDarkness()!=null;
+	}
+	
+	/**
+	 * @return A brief description of how this character is obtaining immunity to darkness. Returns null if not immune.
+	 * <br/>Fits into the sentence structure:
+	 * <br/><i>"[npc.Name] [npc.is] able to see in the dark "+returned String+"."</i>
+	 */
+	public String getDescriptionSelfImmuneToDarkness() {
+		if(this.getBodyMaterial()==BodyMaterial.FIRE) {
+			return UtilText.parse(this, "thanks to the fact that [npc.her] body is made out of fire, and is therefore giving off a significant amount of light");
+		}
+		for(BodyPartInterface bpi : this.getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.NIGHT_VISION)) {
+				return UtilText.parse(this, "thanks to the fact that [npc.her] "+bpi.getType().getRace().getName(true)+" "+bpi.getName(this)+" "+(bpi.getType().isDefaultPlural()?"grant":"grants")+" [npc.herHim] excellent night vision");
+			}
+			if(bpi.getType().getTags().contains(BodyPartTag.ECHO_LOCATION)) {
+				return UtilText.parse(this, "thanks to the echo-location ability which [npc.her] "+bpi.getType().getRace().getName(false)+" "+bpi.getName(this)+" grant [npc.herHim]");
+			}
+		}
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			if(clothing.getClothingType().getItemTags(clothing.getSlotEquippedTo()).contains(ItemTag.NIGHT_VISION_SELF)
+					|| clothing.getClothingType().getItemTags(clothing.getSlotEquippedTo()).contains(ItemTag.NIGHT_VISION_AREA)) {
+				return UtilText.parse(this, "thanks to the "+clothing.getName()+" [npc.sheIsFull] wearing");
+			}
+		}
+		for(int i=0; i<Arm.MAXIMUM_ROWS; i++) {
+			AbstractWeapon weapon = this.getMainWeapon(i);
+			if(weapon!=null
+					&& (weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_SELF)
+							|| weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_AREA))) {
+				return UtilText.parse(this, "thanks to the "+weapon.getName()+" [npc.sheHasFull] equipped");
+			}
+			weapon = this.getOffhandWeapon(i);
+			if(weapon!=null
+					&& (weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_SELF)
+							|| weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_AREA))) {
+				return UtilText.parse(this, "thanks to the "+weapon.getName()+" [npc.sheHasFull] equipped");
+			}
+		}
+		if(this.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)) {
+			return UtilText.parse(this, "thanks to the fact that [npc.she] [npc.has] mastered the arcane school of fire, and [npc.is] therefore able to indefinitely maintain an illuminating flame");
+		}
+		return null;
+	}
+
+	public boolean isProvidingAreaImmunityToDarkness() {
+		return getDescriptionProvidingAreaImmunityToDarkness()!=null;
+	}
+
+	/**
+	 * @return A brief description of how this character is providing immunity to darkness to any nearby characters. Returns null if not providing immunity.
+	 * <br/>Fits into the sentence structure:
+	 * <br/><i>"[npc2.Name] [npc2.is] able to see in the dark "+returned String+"."</i>
+	 */
+	public String getDescriptionProvidingAreaImmunityToDarkness() {
+		if(this.getBodyMaterial()==BodyMaterial.FIRE) {
+			return UtilText.parse(this, "thanks to the fact that [npc.namePos] body is made out of fire, and is therefore giving off a significant amount of light");
+		}
+		for(int i=0; i<Arm.MAXIMUM_ROWS; i++) {
+			AbstractWeapon weapon = this.getMainWeapon(i);
+			if(weapon!=null
+					&& weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_AREA)) {
+				return UtilText.parse(this, "thanks to the "+weapon.getName()+" which [npc.name] [npc.has] equipped");
+			}
+			weapon = this.getOffhandWeapon(i);
+			if(weapon!=null
+					&& weapon.getWeaponType().getItemTags().contains(ItemTag.NIGHT_VISION_AREA)) {
+				return UtilText.parse(this, "thanks to the "+weapon.getName()+" which [npc.name] [npc.has] equipped");
+			}
+		}
+		if(this.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)) {
+			return UtilText.parse(this, "thanks to the fact that [npc.name] [npc.has] mastered the arcane school of fire, and [npc.is] therefore able to indefinitely maintain an illuminating flame");
+		}
+		return null;
+	}
 	
 	public int getTrueLevel() {
 		return level;
@@ -22727,7 +22830,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setArmType(AbstractArmType type) {
 		return body.getArm().setType(this, type);
 	}
-	public List<ArmTypeTag> getArmTypeTags() {
+	public List<BodyPartTag> getArmTypeTags() {
 		return body.getArm().getType().getTags();
 	}
 	public AbstractBodyCoveringType getArmCovering() {
@@ -24456,7 +24559,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setFaceType(AbstractFaceType type) {
 		return body.getFace().setType(this, type);
 	}
-	public List<FaceTypeTag> getFaceTypeTags() {
+	public List<BodyPartTag> getFaceTypeTags() {
 		return body.getFace().getType().getTags();
 	}
 	public AbstractBodyCoveringType getFaceCovering() {

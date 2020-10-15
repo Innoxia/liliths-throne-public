@@ -16,7 +16,7 @@
 		Having recently taken the time to relax in [npc.her] bath, [npc.name] [npc.verb(feel)] refreshed and rejuvenated.
 	]]></description>
 	
-	<imageName>cleaned_bath.svg</imageName>
+	<imageName>bath.svg</imageName>
 	
 	<colourPrimary>ATTRIBUTE_HEALTH</colourPrimary>
 	<colourSecondary>BASE_AQUA</colourSecondary>

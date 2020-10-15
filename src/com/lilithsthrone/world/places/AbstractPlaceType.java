@@ -43,6 +43,8 @@ public class AbstractPlaceType {
 	protected boolean dangerous;
 	protected boolean itemsDisappear;
 	
+	protected Aquatic aquatic;
+	protected Darkness darkness;
 	protected TeleportPermissions teleportPermissions;
 	
 	protected List<Weather> weatherImmunities;
@@ -59,6 +61,7 @@ public class AbstractPlaceType {
 			String SVGPath,
 			Colour colour,
 			DialogueNode dialogue,
+			Darkness darkness,
 			Encounter encounterType,
 			String virginityLossDescription) {
 		
@@ -76,6 +79,9 @@ public class AbstractPlaceType {
 		this.dangerous = false;
 		this.itemsDisappear = true;
 		this.globalMapTile = false;
+		
+		this.aquatic = Aquatic.LAND;
+		this.darkness = darkness;
 		this.teleportPermissions = TeleportPermissions.BOTH;
 		
 		if(SVGPath!=null) {
@@ -219,6 +225,14 @@ public class AbstractPlaceType {
 	
 	public boolean isItemsDisappear() {
 		return itemsDisappear;
+	}
+
+	public Aquatic getAquatic() {
+		return aquatic;
+	}
+
+	public Darkness getDarkness() {
+		return darkness;
 	}
 	
 	public static String getSVGOverride(String pathName, Colour colour) {

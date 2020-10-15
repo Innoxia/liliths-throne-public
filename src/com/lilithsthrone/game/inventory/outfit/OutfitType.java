@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -97,81 +96,49 @@ public enum OutfitType {
 		
 		allOutfits = new ArrayList<>();
 		
-		// Load in modded outfits:
+		// Modded outfit types:
+
 		moddedOutfits = new ArrayList<>();
-		File dir = new File("res/mods");
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorOutfitDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/outfits");
-					
-					File[] outfitsDirectoriesListing = modAuthorOutfitDirectory.listFiles();
-					if (outfitsDirectoriesListing != null) {
-						for (File outfitsDirectory : outfitsDirectoriesListing) {
-							if (outfitsDirectory.isDirectory()){
-								File[] innerDirectoryListing = outfitsDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try{
-											AbstractOutfit ct = new AbstractOutfit(innerChild) {};
-											moddedOutfits.add(ct);
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//											System.out.println(id);
-											outfitsToIdMap.put(ct, id);
-											idToOutfitMap.put(id, ct);
-											
-										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
-											System.err.println(ex);
-											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
-										}
-									}
-								}
-							}
-						}
-					}
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/outfits");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractOutfit ct = new AbstractOutfit(innerEntry.getValue()) {};
+					moddedOutfits.add(ct);
+					String id = innerEntry.getKey();
+					outfitsToIdMap.put(ct, id);
+					idToOutfitMap.put(id, ct);
+				} catch(Exception ex) {
+					System.err.println("Loading modded outfit failed at 'OutfitType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
-		
+
 		allOutfits.addAll(moddedOutfits);
 		
-		
-		// Add in external res outfits:
-		
-		dir = new File("res/outfits");
+		// External res outfit types:
 
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File[] outfitsDirectoriesListing = modAuthorDirectory.listFiles();
-					if (outfitsDirectoriesListing != null) {
-						for (File outfitsDirectory : outfitsDirectoriesListing) {
-							if (outfitsDirectory.isDirectory()){
-								File[] innerDirectoryListing = outfitsDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try{
-											AbstractOutfit ct = new AbstractOutfit(innerChild) {};
-											allOutfits.add(ct);
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//											System.out.println(id);
-											outfitsToIdMap.put(ct, id);
-											idToOutfitMap.put(id, ct);
-											
-										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
-											System.err.println(ex);
-											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
-										}
-									}
-								}
-							}
-						}
-					}
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/outfits");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractOutfit ct = new AbstractOutfit(innerEntry.getValue()) {};
+					allOutfits.add(ct);
+					String id = innerEntry.getKey();
+					outfitsToIdMap.put(ct, id);
+					idToOutfitMap.put(id, ct);
+					System.out.println("OT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading outfit failed at 'OutfitType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
+		
 	}
+	
 }

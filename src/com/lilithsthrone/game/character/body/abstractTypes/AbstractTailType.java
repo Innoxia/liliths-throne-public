@@ -6,7 +6,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.TailTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -47,7 +47,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	private String tailTransformationDescription;
 	private String tailBodyDescription;
 
-	private List<TailTypeTag> tags;
+	private List<BodyPartTag> tags;
 	
 	/**
 	 * @param skinType What covers this tail type (i.e skin/fur/feather type).
@@ -87,7 +87,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			List<String> tipDescriptorsFeminine,
 			String tailTransformationDescription,
 			String tailBodyDescription,
-			List<TailTypeTag> tags) {
+			List<BodyPartTag> tags) {
 		
 		this.skinType = skinType;
 		this.race = race;
@@ -124,7 +124,8 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		return defaultLengthAsPercentageOfHeight;
 	}
 	
-	public List<TailTypeTag> getTags() {
+	@Override
+	public List<BodyPartTag> getTags() {
 		return tags;
 	}
 
@@ -220,7 +221,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public String getGirthDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.getTags().contains(TailTypeTag.TYPE_SKIN)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
 			} else {
@@ -250,7 +251,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
 			} else {
@@ -280,7 +281,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_TUFT)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] tufted tails are"));
 			} else {
@@ -310,7 +311,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_HAIR)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] horse tails are"));
 			} else {
@@ -340,7 +341,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_FEATHER)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FEATHER)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] plumes of feathers are"));
 			} else {
@@ -370,7 +371,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] bat tails are"));
 			} else {
@@ -408,7 +409,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthDescriptor(PenetrationGirth girth) {
-		if(this.getTags().contains(TailTypeTag.TYPE_SKIN)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -426,7 +427,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "extremely-thick";
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -444,7 +445,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "extremely-fluffy";
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_TUFT)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "tiny";
@@ -462,7 +463,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "extremely-fluffy";
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_HAIR)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -481,7 +482,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			}
 		}
 
-		if(this.getTags().contains(TailTypeTag.TYPE_FEATHER)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FEATHER)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -499,7 +500,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "extremely-voluminous";
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "tiny";
@@ -522,7 +523,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthTransformationDescription(GameCharacter owner, boolean positive) {
-		if(this.getTags().contains(TailTypeTag.TYPE_SKIN) || this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -548,7 +549,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_TUFT)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -574,7 +575,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_HAIR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -600,7 +601,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_FEATHER)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FEATHER)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -626,7 +627,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -657,7 +658,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	public String getLengthTransformationDescription(GameCharacter owner, boolean positive) {
 		String heightPercentageDescription = " (length is "+((int)(owner.getTailLengthAsPercentageOfHeight()*100))+"% of [npc.namePos] height)";
-		if(this.getTags().contains(TailTypeTag.TYPE_SKIN) || this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -683,7 +684,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_TUFT)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -709,7 +710,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_HAIR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -735,7 +736,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_FEATHER)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FEATHER)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -761,7 +762,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 						+ "</p>");
 			}
 		}
-		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -791,18 +792,18 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	public boolean isPrehensile() {
-		return tags.contains(TailTypeTag.PREHENSILE);
+		return tags.contains(BodyPartTag.TAIL_PREHENSILE);
 	}
 
 	/**
 	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
 	 */
 	public boolean isSuitableForPenetration() {
-		return this.isPrehensile() && (tags.contains(TailTypeTag.SUTABLE_FOR_PENETRATION) || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
+		return this.isPrehensile() && (tags.contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION) || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
 	}
 	
 	public boolean isSuitableForSleepHugging() {
-		return tags.contains(TailTypeTag.SLEEP_HUGGING);
+		return tags.contains(BodyPartTag.TAIL_SLEEP_HUGGING);
 	}
 
 	@Override

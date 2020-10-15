@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.race;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.0
  * @author Innoxia
  */
 public enum RacialClass {

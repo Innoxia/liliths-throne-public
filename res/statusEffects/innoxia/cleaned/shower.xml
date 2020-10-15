@@ -10,22 +10,22 @@
 	
 	<sexEffect>false</sexEffect>
 	
-	<name><![CDATA[Recently bathed (spa)]]></name>
+	<name><![CDATA[Recently showered]]></name>
 	
 	<description><![CDATA[
-		Having recently taken the time to relax in the spa, [npc.name] [npc.verb(feel)] like [npc.sheHas] been born anew!
+		Having recently taken the time to have a shower, [npc.name] [npc.verb(feel)] refreshed.
 	]]></description>
 	
-	<imageName>cleaned_spa.svg</imageName>
+	<imageName>shower.svg</imageName>
 	
 	<colourPrimary>ATTRIBUTE_HEALTH</colourPrimary>
 	<colourSecondary>BASE_AQUA</colourSecondary>
-	<colourTertiary>ATTRIBUTE_MANA</colourTertiary>
+	<colourTertiary/>
 	
 	<attributeModifiers>
-		<modifier value="25">HEALTH_MAXIMUM</modifier>
-		<modifier value="25">MANA_MAXIMUM</modifier>
-		<modifier value="15">DAMAGE_LUST</modifier>
+		<modifier value="5">HEALTH_MAXIMUM</modifier>
+		<modifier value="5">MANA_MAXIMUM</modifier>
+		<modifier value="5">DAMAGE_LUST</modifier>
 	</attributeModifiers>
 	
 	<combatMoves/>
@@ -33,7 +33,7 @@
 	<spells/>
 	
 	<extraEffects>
-		<effect><![CDATA[[style.boldExcellent(Quadruples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate]]></effect>
+		<effect><![CDATA[[style.boldMinorGood(Doubles)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate]]></effect>
 	</extraEffects>
 	
 	

@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.2.8
- * @version 0.4
+ * @version 0.4.0
  * @author Pimgd, Innoxia
  */
 public class BodyCoveringSkinToneColorHelper {

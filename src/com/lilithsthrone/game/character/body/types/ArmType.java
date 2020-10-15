@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -379,8 +379,8 @@ public class ArmType {
 			return clothingBlock;
 		}
 		@Override
-		public List<ArmTypeTag> getTags() {
-			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_LEATHERY);
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.ARM_WINGS, BodyPartTag.ARM_WINGS_LEATHERY);
 		}
 	};
 
@@ -432,8 +432,8 @@ public class ArmType {
 			return clothingBlock;
 		}
 		@Override
-		public List<ArmTypeTag> getTags() {
-			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_FEATHERED);
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.ARM_WINGS, BodyPartTag.ARM_WINGS_FEATHERED);
 		}
 	};
 	

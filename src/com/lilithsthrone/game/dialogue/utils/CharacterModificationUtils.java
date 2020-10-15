@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -1765,13 +1766,21 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getEarType().equals(ear)) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+ear.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(ear.getTransformName())+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")+"</span>"
+								+ "<span style='color:"+ear.getRace().getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(ear.getTransformName())
+									+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")
+									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"+":"")
+								+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_EAR_"+EarType.getIdFromEarType(ear)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+ear.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(ear.getTransformName())+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")+"</span>"
+								+ "<span style='color:"+ear.getRace().getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(ear.getTransformName())
+									+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")
+									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"+":"")
+								+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1779,7 +1788,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Ears",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] ear type."
-						+ "<br/><i>This is mostly used for cosmetics and subspecies identification, but some ear types are long enough to be pulled in some sex actions (marked by an asterisk where available).</i>"),
+						+ "<br/><i>Ear type helps to determine subspecies identification. Some are long enough to be pulled during sex (marked by an asterisk), or can grant echo-location (marked by a plus).</i>"),
 				"EAR_TYPE",
 				contentSB.toString(),
 				false);
@@ -1793,13 +1802,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getEyeType() == eye) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+eye.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(eye.getTransformName())+"</span>"
+								+ "<span style='color:"+eye.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(eye.getTransformName())+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_EYE_"+EyeType.getIdFromEyeType(eye)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(eye.getTransformName())+"</span>"
+								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(eye.getTransformName())+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1807,7 +1816,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Eyes",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] eye type."
-						+ "<br/><i>Eye type determines what iris and pupil shape characters spawn with, and is also used for subspecies identification.</i>"),
+						+ "<br/><i>Eye type determines what iris and pupil shape characters spawn with, is used for subspecies identification, and can grant night vision capabilities (marked by an asterisk).</i>"),
 				"EYE_TYPE",
 				contentSB.toString(),
 				true);

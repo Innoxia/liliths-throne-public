@@ -5235,7 +5235,7 @@ public class MainControllerInitMethod {
 				}
 
 				// Clothing pattern selection:
-				for(Pattern pattern : Pattern.getAllPatterns().values()) {
+				for(Pattern pattern : Pattern.getAllPatterns()) {
 					id = "ITEM_PATTERN_"+pattern.getName();
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {

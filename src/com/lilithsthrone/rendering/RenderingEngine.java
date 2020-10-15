@@ -1948,6 +1948,12 @@ public enum RenderingEngine {
 				background = PresetColour.BACKGROUND_NIGHT;
 				break;
 		}
+		if(mapCornerGlow.isEmpty() && !Main.game.getPlayer().getCell().isLight()) {
+			mapCornerGlow = SVGImages.SVG_IMAGE_PROVIDER.getCornerGlowNight();
+			
+		} else if(!mapCornerGlow.isEmpty() && Main.game.getPlayer().getCell().isLight()) {
+			mapCornerGlow = SVGImages.SVG_IMAGE_PROVIDER.getCornerGlowAlwaysLight();
+		}
 		
 		mapSB.append("<div class='map-container' style='background-color:"+background.toWebHexString()+";'>");
 		

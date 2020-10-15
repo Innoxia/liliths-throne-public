@@ -11401,60 +11401,44 @@ public class StatusEffect {
 	static {
 		allStatusEffects = new ArrayList<>();
 		
-		//Add modded status effects:
-		File dir = new File("res/mods");
+		// Modded status effects:
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/statusEffects");
-					File[] innerDirectoryListing = modAuthorClothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-					if (innerDirectoryListing != null) {
-						for (File innerChild : innerDirectoryListing) {
-							try {
-								String id = modAuthorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-								AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerChild, modAuthorDirectory.getName(), true) {};
-								allStatusEffects.add(statusEffect);
-								statusEffectToIdMap.put(statusEffect, id);
-								idToStatusEffectMap.put(id, statusEffect);
-							} catch(Exception ex) {
-								System.err.println("Loading modded set bonus failed at 'StatusEffect' Code 1. File path: "+innerChild.getAbsolutePath());
-							}
-						}
-					}
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/statusEffects");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerEntry.getValue(), entry.getKey(), true) {};
+					allStatusEffects.add(statusEffect);
+					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
+					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
+				} catch(Exception ex) {
+					System.err.println("Loading modded status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
-		// Add in external res status effects:
-		
-		dir = new File("res/statusEffects");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						File[] innerDirectoryListing = authorDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-						if (innerDirectoryListing != null) {
-							for (File innerChild : innerDirectoryListing) {
-								try {
-									String id = authorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-									AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerChild, authorDirectory.getName(), true) {};
-									allStatusEffects.add(statusEffect);
-									statusEffectToIdMap.put(statusEffect, id);
-									idToStatusEffectMap.put(id, statusEffect);
-								} catch(Exception ex) {
-									System.err.println("Loading modded set bonus failed at 'StatusEffect' Code 2. File path: "+innerChild.getAbsolutePath());
-								}
-							}
-						}
-					}
+		// External res status effects:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/statusEffects");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerEntry.getValue(), entry.getKey(), false) {};
+					allStatusEffects.add(statusEffect);
+					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
+					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
+//					System.out.println("SE: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
+		// Hard-coded status effects (all those up above):
 		
 		Field[] fields = StatusEffect.class.getFields();
 		

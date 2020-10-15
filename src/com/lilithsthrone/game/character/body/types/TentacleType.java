@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
-import com.lilithsthrone.game.character.body.tags.TentacleTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -95,10 +95,10 @@ public class TentacleType {
 					+ " [npc.tentacleCount] spaded, [npc.tentacleColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tentacles, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TentacleTypeTag.PREHENSILE,
-					TentacleTypeTag.SUTABLE_FOR_PENETRATION,
-					TentacleTypeTag.SLEEP_HUGGING,
-					TentacleTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TAPERING_NONE)) {
 	};
 
 	private static List<AbstractTentacleType> allTentacleTypes;

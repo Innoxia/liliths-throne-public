@@ -42,7 +42,7 @@ public enum SVGImages {
 			essence, essenceUncoloured,
 			itemsOnFloorIcon,
 			
-			cornerGlowNight, cornerGlowTwilight,
+			cornerGlowNight, cornerGlowTwilight, cornerGlowAlwaysLight,
 			
 			drinkSmall, drink,
 			
@@ -202,7 +202,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowLight.svg");
 			cornerGlowTwilight = Util.inputStreamToString(is);
 			cornerGlowTwilight = setColour(cornerGlowTwilight, PresetColour.BASE_PITCH_BLACK);
-			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowAlwaysLight.svg");
+			cornerGlowAlwaysLight = Util.inputStreamToString(is);
+			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK, PresetColour.BASE_YELLOW_PALE, null);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
 			drinkSmall = Util.inputStreamToString(is);
@@ -981,6 +984,10 @@ public enum SVGImages {
 
 	public String getCornerGlowTwilight() {
 		return cornerGlowTwilight;
+	}
+	
+	public String getCornerGlowAlwaysLight() {
+		return cornerGlowAlwaysLight;
 	}
 	
 	public String getPlayerMapIconMasculine() {

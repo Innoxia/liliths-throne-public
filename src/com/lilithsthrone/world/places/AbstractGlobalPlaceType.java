@@ -36,7 +36,7 @@ public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 			DialogueNode dialogue,
 			Encounter encounterType,
 			String virginityLossDescription) {
-		super(name, tooltipDescription, null, null, dialogue, encounterType, virginityLossDescription);
+		super(name, tooltipDescription, null, null, dialogue, Darkness.DAYLIGHT, encounterType, virginityLossDescription);
 		
 		this.name = name;
 		

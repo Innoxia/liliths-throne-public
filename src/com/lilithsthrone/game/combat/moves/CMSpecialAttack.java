@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
@@ -549,10 +549,10 @@ public class CMSpecialAttack {
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
 				!Collections.disjoint(source.getFaceTypeTags(), Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.SHARK_TEETH,
-					FaceTypeTag.BEAK
+						BodyPartTag.FACE_MUZZLE,
+						BodyPartTag.FACE_FANGS,
+						BodyPartTag.FACE_SHARK_TEETH,
+						BodyPartTag.FACE_BEAK
 				)),
 				"Available to characters with an anthropomorphic face.");
         }
