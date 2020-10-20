@@ -3268,7 +3268,8 @@ public class StatusEffect {
 							+ "<p>"
 								+ (target.getBodyMaterial()==BodyMaterial.SLIME
 									?"Taking a closer look at your swollen, slimy stomach, you suddenly realise that you can see "
-											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "
+											+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
 										+ " You can't help but let out a delighted squeal of happiness as you see your "
 											+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")+" growing inside of you, and spend the next few minutes stroking and rubbing your wonderfully-swollen abdomen in a state of absolute bliss."
 										+ " Eventually, however, you decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
@@ -3307,7 +3308,8 @@ public class StatusEffect {
 								+ "<p>"
 									+ (target.getBodyMaterial()==BodyMaterial.SLIME
 										?"As you take one last look at your swollen, slimy stomach, you suddenly realise that you can see "
-												+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+												+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "
+												+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
 											+ " You can't help but let out a shocked cry as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
 												+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of panic."
 											+ " Eventually, however, you start to calm down a little, and decide that you should probably go and see Lilaya as soon as possible."
@@ -3329,7 +3331,7 @@ public class StatusEffect {
 								?"</p>"
 								+ "<p>"
 									+ "Looking a little closer at your swollen, slimy stomach, you see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
-										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
 									+ " You can't help but let out a happy little sigh as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
 									+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of motherly bliss."
 								:"")
