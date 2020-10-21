@@ -522,24 +522,24 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return UtilText.parse(character, unequipText);
 	}
 	
-	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit, boolean critical) {
+	public String getAttackDescription(GameCharacter character, GameCharacter target, AbstractWeapon weapon, boolean isHit, boolean critical) {
 		if(isHit) {
-			return UtilText.parse(character, target, getHitText(character, target, critical));
+			return UtilText.parse(character, target, getHitText(character, target, weapon, critical));
 		} else {
-			return UtilText.parse(character, target, getMissText(character, target));
+			return UtilText.parse(character, target, getMissText(character, target, weapon));
 		}
 	}
 
-	public String getHitText(GameCharacter character, GameCharacter target, boolean critical) {
+	public String getHitText(GameCharacter character, GameCharacter target, AbstractWeapon weapon, boolean critical) {
 		if(critical && !hitCriticalDescriptions.isEmpty()) {
-			return UtilText.parse(character, target, Util.randomItemFrom(hitCriticalDescriptions));
+			return UtilText.parse(Util.newArrayListOfValues(character, target), weapon, Util.randomItemFrom(hitCriticalDescriptions));
 		} else {
-			return UtilText.parse(character, target, Util.randomItemFrom(hitDescriptions));
+			return UtilText.parse(Util.newArrayListOfValues(character, target), weapon, Util.randomItemFrom(hitDescriptions));
 		}
 	}
 
-	public String getMissText(GameCharacter character, GameCharacter target) {
-		return UtilText.parse(character, target, Util.randomItemFrom(missDescriptions));
+	public String getMissText(GameCharacter character, GameCharacter target, AbstractWeapon weapon) {
+		return UtilText.parse(Util.newArrayListOfValues(character, target), weapon, Util.randomItemFrom(missDescriptions));
 	}
 
 	protected static String getDescriptions(GameCharacter character, GameCharacter target, boolean isHit,

@@ -325,7 +325,7 @@ public abstract class AbstractStatusEffect {
 				
 			} else {
 				try {
-					UtilText.evaluateConditional(Util.newArrayListOfValues(target), applicationCondition, true);
+					UtilText.evaluateConditional(Util.newArrayListOfValues(target), null, applicationCondition, true);
 				} catch (ScriptException e) {
 					System.err.println("Conditional parsing (from status effect) error: "+applicationCondition);
 					e.printStackTrace();
