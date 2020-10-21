@@ -8944,7 +8944,7 @@ public class UtilText {
 		
 		// Parser targets:
 		for(ParserTarget target : ParserTarget.values()) {
-			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
+			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.ITEM && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
 				for(String tag : target.getTags()) {
 					engine.put(tag, target.getCharacter(tag, null));
 				}
