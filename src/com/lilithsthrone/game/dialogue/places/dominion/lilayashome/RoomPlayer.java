@@ -135,7 +135,7 @@ public class RoomPlayer {
 						applySleep(sleepTimeInMinutes);
 					}
 				};
-	
+
 			} else if (index == 2) {
 				return new Response("Rest (4 hours)",
 						"Rest for four hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
@@ -146,8 +146,19 @@ public class RoomPlayer {
 						applySleep(sleepTimeInMinutes);
 					}
 				};
-	
-			} else if (index == 3) {
+
+            } else if (index == 3) {
+                return new Response("Rest (8 hours)",
+                        "Rest for eight hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+                        AUNT_HOME_PLAYERS_ROOM_SLEEP){
+                    @Override
+                    public void effects() {
+                        sleepTimeInMinutes = 60 * 8;
+                        applySleep(sleepTimeInMinutes);
+                    }
+                };
+
+            } else if (index == 4) {
 				return new Response("Rest (12 hours)",
 						"Rest for twelve hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 						AUNT_HOME_PLAYERS_ROOM_SLEEP){
@@ -158,7 +169,7 @@ public class RoomPlayer {
 					}
 				};
 	
-			} else if (index == 4) {
+			} else if (index == 5) {
 				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 				return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
@@ -176,14 +187,14 @@ public class RoomPlayer {
 					}
 				};
 				
-			} else if (index == 5) {
+			} else if (index == 6) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 					return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				} else {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				}
 				
-			} else if (index == 6) {
+			} else if (index == 7) {
 				return new Response("Manage room", "Enter the management screen for this particular room.", OccupantManagementDialogue.ROOM_UPGRADES) {
 					@Override
 					public void effects() {
@@ -191,7 +202,7 @@ public class RoomPlayer {
 					}
 				};
 				
-			}  else if (index == 7) {
+			}  else if (index == 8) {
 				if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
 					return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", ROOM) {
 						@Override
@@ -211,7 +222,7 @@ public class RoomPlayer {
 			
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 			
-			int indexPresentStart = 8;
+			int indexPresentStart = 9;
 			if(index-indexPresentStart<charactersPresent.size() && index-indexPresentStart>=0) {
 				NPC character = charactersPresent.get(index-indexPresentStart);
 				return new Response(
