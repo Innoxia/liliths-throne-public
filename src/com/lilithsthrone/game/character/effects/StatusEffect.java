@@ -74,6 +74,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -1422,7 +1423,7 @@ public class StatusEffect {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
-					&& ((!target.isVulnerableToArcaneStorm() && !(target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune())
+					&& ((!target.isVulnerableToArcaneStorm() && !(getTargetPlace(target)).isStormImmune())
 							|| !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
 		}
 		@Override
@@ -1491,9 +1492,10 @@ public class StatusEffect {
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
-					&& !(target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
+					&& !(getTargetPlace(target)).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
+
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			if(Main.game.isDayTime()) {
@@ -1561,7 +1563,7 @@ public class StatusEffect {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
-					&& (target.isElemental()?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
+					&& (getTargetPlace(target)).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
 		@Override
@@ -11479,5 +11481,15 @@ public class StatusEffect {
 	
 	public static List<AbstractStatusEffect> getAllStatusEffects() {
 		return allStatusEffects;
+	}
+
+	private static GenericPlace getTargetPlace(GameCharacter target){
+		if(target.isElemental()) {
+			Elemental elemental = (Elemental)target;
+			if(elemental.getSummoner() != null)	{
+				return elemental.getSummoner().getLocationPlace();
+			}
+		}
+		return target.getLocationPlace();
 	}
 }
