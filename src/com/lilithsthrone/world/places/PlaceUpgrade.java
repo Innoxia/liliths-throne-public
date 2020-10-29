@@ -477,7 +477,7 @@ public class PlaceUpgrade {
 						+ " Providing this room's occupants with such uncomfortable places to sleep will definitely help them to accept the fact that they're slaves, but at the same time, they're bound to dislike you more...";
 				
 			} else {
-				return "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, sits against one side of the room."
+				return "The small, single size bed in this room has been replaced with a basic, steel-framed one, and is equipped with an uncomfortable mattress, a hard pillow, and a thin blanket."
 						+ " Providing this room's occupant with such an uncomfortable place to sleep will definitely help them to accept the fact that they're a slave, but at the same time, they're bound to dislike you more...";
 			}
 		}
