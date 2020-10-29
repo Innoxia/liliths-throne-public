@@ -18,10 +18,10 @@
 		<determiner><![CDATA[an]]></determiner>
 		
 		<!-- The name of this clothing. -->
-		<name><![CDATA[stab proof vest]]></name>
+		<name><![CDATA[stabproof vest]]></name>
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
-		<namePlural pluralByDefault="false"><![CDATA[stab proof vests]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[stabproof vests]]></namePlural>
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A low-profile pocketed vest made from ballistic fibres, it tips the scale towards mobility and discreetness against protection.]]></description>

@@ -2409,7 +2409,7 @@ public class SlaverAlleyDialogue {
 
 						NPC sean = Main.game.getNpc(Sean.class);
 						sean.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
-						// Sean takes his stab proof vest, utility belt, and beret off:
+						// Sean takes his stabproof vest, utility belt, and beret off:
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.TORSO_OVER), true, sean);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HIPS), true, sean);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HEAD), true, sean);
