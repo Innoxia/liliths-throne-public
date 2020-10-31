@@ -3072,7 +3072,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
 					@Override
 					public void effects() {
-						Loiter(15);
+						loiter(15);
 					}
 				};
 				
@@ -3080,7 +3080,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
 					@Override
 					public void effects() {
-						Loiter(60);
+						loiter(60);
 					}
 				};
 				
@@ -3088,7 +3088,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
 					@Override
 					public void effects() {
-						Loiter(60*4);
+						loiter(60*4);
 					}
 				};
 				
@@ -3096,7 +3096,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
 					@Override
 					public void effects() {
-						Loiter(60*8);
+						loiter(60*8);
 					}
 				};
 				
@@ -3104,28 +3104,28 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
-						Loiter(60*12);
+						loiter(60*12);
 					}
 				};
 			}
 			return null;
 		}
 
-		private void Loiter(int minutes) {
-			String period = "period";
-			if (minutes == 15) {
-				period = "fifteen minutes";
-			} else if (minutes == 60) {
-				period = "hour";
-			} else if (minutes == 60 * 4) {
-				period = "four hours";
-			} else if (minutes == 60 * 8) {
-				period = "eight hours";
-			} else if (minutes == 60 * 12) {
-				period = "twelve hours";
+		private void loiter(int minutes) {
+			String period = "";
+			int hours = minutes / 60;
+			int partialMinutes = minutes % 60;
+			if (hours != 0) {
+				period += (hours==1?"":Util.intToString(hours)) + " hour"+(hours==1?" ":"s ");
+			}
+			if (partialMinutes != 0) {
+				period += Util.intToString(partialMinutes) + " minutes ";
+			}
+			if (minutes == 0) {
+				period = "period ";
 			}
 			Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" +
-					"<i>You spend the next ").append(period).append(" loitering about, doing nothing in particular...</i>").append("</p>");
+					"<i>You spend the next ").append(period).append("loitering about, doing nothing in particular...</i>").append("</p>");
 			Main.game.getPlayer().setActive(false);
 			Main.game.endTurn(60*minutes);
 			Main.game.getPlayer().setActive(true);
