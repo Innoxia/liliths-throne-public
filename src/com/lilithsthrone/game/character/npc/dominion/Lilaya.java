@@ -445,7 +445,7 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
-		if(user.isPlayer() && !target.isPlayer() && item.isFertilityPill()) {
+		if(user.isPlayer() && !target.isPlayer() && item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 			if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
 				itemOwner.removeItem(item);
 				return new Value<>(false,

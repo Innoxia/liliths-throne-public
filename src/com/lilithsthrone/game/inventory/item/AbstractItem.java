@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -283,9 +283,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType.isGift();
 	}
 
-	public boolean isFertilityPill() {
-		return this.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))
-				|| this.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_broodmother"));
+	public boolean isTypeOneOf(String ... itemType) {
+		return Stream.of(itemType).anyMatch(it -> (this.getItemType().equals(ItemType.getItemTypeFromId(it))));
 	}
 
 	@Override

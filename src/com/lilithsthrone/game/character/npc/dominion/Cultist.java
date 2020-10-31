@@ -307,7 +307,7 @@ public class Cultist extends NPC {
 							+ "</p>");
 				}
 					
-			} else if(item.isFertilityPill()) {
+			} else if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				Main.game.getPlayer().useItem(item, target, false);
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Value<>(true,
