@@ -4012,7 +4012,7 @@ public class Game implements XMLSaving {
 		}
 		
 		// TODO Actually delete them
-		if(Main.game.getPlayer().hasSexCountWith(npc)
+		if(Main.game.getPlayer().getTotalTimesHadSex(npc) > 0
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null

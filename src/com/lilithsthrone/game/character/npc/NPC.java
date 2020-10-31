@@ -461,7 +461,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		// Sex:
-		if(this.hasSexCountWith(Main.game.getPlayer())) {
+		if(this.getTotalTimesHadSex(Main.game.getPlayer()) > 0) {
 			
 			if(this.getSexAsDomCount(Main.game.getPlayer())>0) {
 				tileSB.append("<br/>");
