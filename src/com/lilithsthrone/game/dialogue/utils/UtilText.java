@@ -18,11 +18,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import jdk.nashorn.api.scripting.NashornScriptEngine;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -8172,10 +8174,10 @@ public class UtilText {
 			
 			try {
 				if(suppressOutput) {
-					engine.eval(command);
+					evaluate(command);
 					return "";
 				}
-				return String.valueOf(engine.eval(command));
+				return String.valueOf(evaluate(command));
 				
 			} catch (ScriptException e) {
 				System.err.println("Scripting parsing error: "+command);
@@ -8594,7 +8596,7 @@ public class UtilText {
 		
 		// static methods don't work unless initialised like so:
 //		try {
-//			engine.eval("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
+//			evaluate("var sex = Java.type('com.lilithsthrone.game.sex.Sex');");
 //		} catch (ScriptException e) {
 //			e.printStackTrace();
 //		}
@@ -8657,7 +8659,7 @@ public class UtilText {
 			String conditionalStatement = sb.toString();
 			
 			try {
-				if((boolean) engine.eval(conditionalStatement)){
+				if((boolean) evaluate(conditionalStatement)){
 					return UtilText.parse(specialNPCs, entry.getValue(), false);
 				}
 				
@@ -9221,4 +9223,48 @@ public class UtilText {
 		engine.put("clothing", getClothingTypeForParsing());
 	}
 	
+	private static Map<String, CompiledScript> memo = new HashMap<>();
+	private static final int memo_limit = 500;
+	//private static double averageDelta = 0.0;
+	//private static int count = 0;
+	private static Object evaluate(String command) throws ScriptException {
+		Object result = null;
+		ScriptException exc = null;
+		
+		//long startTime = System.nanoTime();
+		
+		
+		CompiledScript script;
+		if (!memo.containsKey(command)) {
+			script = ((NashornScriptEngine)engine).compile(command);
+			if (memo.size() < memo_limit) {
+				memo.put(command, script);
+				if (memo.size() == memo_limit) {
+					System.err.println("Memo has reached capacity! Additional script commands will not be memoized.");
+				}
+			}
+		} else {
+			script = memo.get(command);
+		}
+		try {
+			result = script.eval();
+		} catch (ScriptException e) {
+			exc = e;
+		}
+		
+		
+		//long endTime = System.nanoTime();
+		//double duration = (endTime - startTime)/1000000.0;
+		//System.out.println("Execution in " + duration + "ms:\t" + command);
+		//averageDelta *= 0.9999;
+		//averageDelta += 0.0001 * duration;
+		//count++;
+		//System.out.println("Average of last 10000 of " + count + " executions is " + averageDelta + "ms.");
+		//System.out.println("Memo size is " + memo.size() + ".");
+		
+		if (exc != null) {
+			throw exc;
+		}
+		return result;
+	}
 }
