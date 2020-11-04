@@ -9223,17 +9223,9 @@ public class UtilText {
 		engine.put("clothing", getClothingTypeForParsing());
 	}
 	
-	private static Map<String, CompiledScript> memo = new HashMap<>();
+	private static final Map<String, CompiledScript> memo = new HashMap<>();
 	private static final int memo_limit = 500;
-	//private static double averageDelta = 0.0;
-	//private static int count = 0;
 	private static Object evaluate(String command) throws ScriptException {
-		Object result = null;
-		ScriptException exc = null;
-		
-		//long startTime = System.nanoTime();
-		
-		
 		CompiledScript script;
 		if (!memo.containsKey(command)) {
 			script = ((NashornScriptEngine)engine).compile(command);
@@ -9246,25 +9238,6 @@ public class UtilText {
 		} else {
 			script = memo.get(command);
 		}
-		try {
-			result = script.eval();
-		} catch (ScriptException e) {
-			exc = e;
-		}
-		
-		
-		//long endTime = System.nanoTime();
-		//double duration = (endTime - startTime)/1000000.0;
-		//System.out.println("Execution in " + duration + "ms:\t" + command);
-		//averageDelta *= 0.9999;
-		//averageDelta += 0.0001 * duration;
-		//count++;
-		//System.out.println("Average of last 10000 of " + count + " executions is " + averageDelta + "ms.");
-		//System.out.println("Memo size is " + memo.size() + ".");
-		
-		if (exc != null) {
-			throw exc;
-		}
-		return result;
+		return script.eval();
 	}
 }
