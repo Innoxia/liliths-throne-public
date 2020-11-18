@@ -179,7 +179,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 /**
  * @since 0.1.0
  * @version 0.3.9.9
- * @author Innoxia, Pimvgd, AlacoGit
+ * @author Innoxia, Pimvgd, AlacoGit, Tad Unlikely
  */
 public class UtilText {
 
@@ -203,14 +203,14 @@ public class UtilText {
 	private static Map<String, String> americanEnglishConversions = Util.newHashMapOfValues(
 			// -our to -or:
 			new Value<>("armour", "armor"),
-			new Value<>("armoury", "armoury"),
+			new Value<>("armoury", "armory"),
 			new Value<>("behaviour", "behavior"),
 			new Value<>("candour", "candor"),
 			new Value<>("clamour", "clamor"),
 			new Value<>("colour", "color"),
 			new Value<>("demeanour", "demeanor"),
 			new Value<>("endeavour", "endeavor"),
-			new Value<>("favourite", "favourite"),
+			new Value<>("favourite", "favorite"),
 			new Value<>("flavour", "flavor"),
 			new Value<>("glamour", "glamor"),
 			new Value<>("harbour", "harbor"),
@@ -219,12 +219,13 @@ public class UtilText {
 			new Value<>("labour", "labor"),
 			new Value<>("neighbour", "neighbor"),
 			new Value<>("odour", "odor"),
+			new Value<>("parlour", "parlor"),
 			new Value<>("rancour", "rancor"),
 			new Value<>("rigour", "rigor"),
 			new Value<>("rumour", "rumor"),
 			new Value<>("saviour", "savior"),
 			new Value<>("savour", "savor"),
-			new Value<>("savoury", "savoury"),
+			new Value<>("savoury", "savory"),
 			new Value<>("splendour", "splendor"),
 			new Value<>("valour", "valor"),
 			new Value<>("vapour", "vapor"),
@@ -240,7 +241,7 @@ public class UtilText {
 			new Value<>("litre", "liter"),
 			new Value<>("louvre", "louver"),
 			new Value<>("lustre", "luster"),
-			new Value<>("manoeuvre", "manoeuver"),
+			new Value<>("manoeuvre", "maneuver"),
 			new Value<>("meagre", "meager"),
 			new Value<>("metre", "meter"),
 			new Value<>("millimetre", "millimeter"),
@@ -289,10 +290,10 @@ public class UtilText {
 
 			// -ae and -oe words change to -e:
 			new Value<>("diarrhoea", "diarrhea"),
-			new Value<>("oestrogen", "oestrgen"),
+			new Value<>("oestrogen", "estrogen"),
 			new Value<>("foetus", "fetus"),
-			new Value<>("manoeuvre", "maneuvre"),
-			new Value<>("mementoes", "mementes"),
+			//new Value<>("manoeuvre", "maneuver"),
+			new Value<>("mementoes", "mementos"),
 			new Value<>("anaemia", "anemia"),
 			new Value<>("caesarean", "cesarean"),
 			new Value<>("gynaecology", "gynecology"),
@@ -302,6 +303,7 @@ public class UtilText {
 			new Value<>("paediatric", "pediatric"),
 
 			// -ise words change to -ize:
+			new Value<>("apologise", "apologize"),
 			new Value<>("appetiser", "appetizer"),
 			new Value<>("authorise", "authorize"),
 			new Value<>("capitalise", "capitalize"),
@@ -360,7 +362,8 @@ public class UtilText {
 			new Value<>("pyjamas", "pajamas"),
 			new Value<>("sceptic", "skeptic"),
 			new Value<>("phial", "vial"),
-			new Value<>("whisky", "whiskey")
+			new Value<>("whisky", "whiskey"),
+			new Value<>("queue", "line")
 			);
 	
 	/**
