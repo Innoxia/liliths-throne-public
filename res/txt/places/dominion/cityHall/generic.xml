@@ -3,7 +3,12 @@
 
 	<htmlContent tag="OUTSIDE"><![CDATA[
 	<p>
-		This particular street is dominated by the huge structure of Dominion's city hall. The architecture of this seat of local government is distinctly classical, with the frontage consisting of a series of huge marble pillars and polished stone steps. A sign near the entrance of this impressive building informs you that it's <b>open to the public from nine in the morning to four in the afternoon</b>.
+		This particular street is dominated by the huge structure of Dominion's city hall. The architecture of this seat of local government is distinctly classical, with the frontage consisting of a series of huge marble pillars and polished stone steps. A sign near the entrance of this impressive building informs you that it's open to the public from
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=16)
+			 [style.colourMinorGood([units.time(9)]-[units.time(16)])].
+		#ELSE
+			 [style.colourMinorBad([units.time(9)]-[units.time(16)])].
+		#ENDIF
 	</p>
 	<p>
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)

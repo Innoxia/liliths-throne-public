@@ -6,11 +6,9 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -92,8 +90,8 @@ public class SMVengarDominantSex extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Sex.isDom(character)) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(Main.sex.isDom(character)) {
 			if(targetedCharacter.hasVagina() && targetedCharacter.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 				
@@ -105,8 +103,8 @@ public class SMVengarDominantSex extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Sex.isDom(character)) {
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(Main.sex.isDom(character)) {
 			return character.getForeplayPreference(targetedCharacter);
 		}
 		return character.getMainSexPreference(targetedCharacter);
@@ -114,7 +112,7 @@ public class SMVengarDominantSex extends SexManagerDefault {
 	
 	@Override
 	public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
-		if(Sex.isDom(character)) {
+		if(Main.sex.isDom(character)) {
 			return OrgasmBehaviour.CREAMPIE;
 		}
 		return OrgasmBehaviour.DEFAULT;

@@ -1,46 +1,68 @@
 package com.lilithsthrone.game.inventory.item;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public abstract class AbstractItemType extends AbstractCoreType {
 	
-	private String determiner, name, namePlural, description, pathName;
-	private boolean plural;
-	private Colour colourPrimary;
-	private Colour colourSecondary;
-	private Colour colourTertiary;
-	private int value;
+	private String determiner;
+	private String name;
+	private String namePlural;
+	private String description;
+	private String useDescriptor;
+	private String authorDescription;
+
+	private boolean sexUse;
+	private boolean combatUseAllies;
+	private boolean combatUseEnemies;
+	private boolean consumedOnUse;
+	
 	private Rarity rarity;
+	
+	private int value;
+	
+	private boolean plural;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private String pathName;
+	private List<Colour> colourShades;
+	
 	protected String SVGString;
-	private TFEssence relatedEssence;
+	protected List<String> effectTooltipLines;
+	protected String specialEffect;
+
+	protected List<String> useDescriptionsSelf;
+	protected List<String> useDescriptionsOther;
+	
 	protected List<ItemEffect> effects;
 	protected Set<ItemTag> itemTags;
 
@@ -56,68 +78,174 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			Colour colourSecondary,
 			Colour colourTertiary,
 			Rarity rarity,
-			TFEssence relatedEssence,
 			List<ItemEffect> effects,
 			List<ItemTag> itemTags) {
-
 		this.determiner = determiner;
 		this.plural = plural;
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.name = name;
 		this.namePlural = namePlural;
 		this.description = description;
-		this.pathName = pathName;
+		this.useDescriptor = "use";
+		this.pathName = pathName==null?"":pathName;
+		this.authorDescription = "";
 
+		this.sexUse = true;
+		this.combatUseAllies = true;
+		this.combatUseEnemies = false;
+		this.consumedOnUse = true;
+		
 		this.value = value;
 		this.rarity = rarity;
-		
-		this.relatedEssence = relatedEssence;
 		
 		this.itemTags = new HashSet<>();
 		if(itemTags!=null) {
 			this.itemTags.addAll(itemTags);
 		}
 		
+		this.effectTooltipLines = new ArrayList<>();
+		
+		this.useDescriptionsSelf = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item.");
+		this.useDescriptionsOther = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item on [npc2.name].");
+		
+		specialEffect = "";
+		
 		if(effects==null) {
 			this.effects = new ArrayList<>();
 		} else {
 			this.effects=effects;
 		}
-
+		
+		this.colourShades = new ArrayList<>();
+		
 		if (colourPrimary == null) {
-			this.colourPrimary = Colour.CLOTHING_BLACK;
+			this.colourShades.add(PresetColour.CLOTHING_BLACK);
 		} else {
-			this.colourPrimary = colourPrimary;
+			this.colourShades.add(colourPrimary);
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = Colour.CLOTHING_BLACK;
+			this.colourShades.add(PresetColour.CLOTHING_BLACK);
 		} else {
-			this.colourSecondary = colourSecondary;
+			this.colourShades.add(colourSecondary);
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = Colour.CLOTHING_BLACK;
+			this.colourShades.add(PresetColour.CLOTHING_BLACK);
 		} else {
-			this.colourTertiary = colourTertiary;
+			this.colourShades.add(colourTertiary);
 		}
 		
-		// Set this item's file image:
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
-			if(is==null) {
-				System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
-			}
-			String s = Util.inputStreamToString(is);
-
-			SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
-			
-			is.close();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		SVGString = null;
 	}
-	
-	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		return SvgUtil.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
+
+	public AbstractItemType(File itemXMLFile, String author, boolean mod) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
+		boolean debug = false;
+		
+		try{
+			Element itemElement = Element.getDocumentRootElement(itemXMLFile); // Loads the document and returns the root element - in item mods it's <item>
+			Element coreAttributes = null;
+			try {
+				coreAttributes = itemElement.getMandatoryFirstOf("coreAtributes");
+			} catch (XMLMissingTagException ex) {
+				coreAttributes = itemElement.getMandatoryFirstOf("coreAttributes");
+			}
+
+			if(debug) {
+				System.out.println("1");
+			}
+			
+			this.mod = mod;
+			this.fromExternalFile = true;
+
+			if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
+			} else if(!author.equalsIgnoreCase("innoxia")){
+				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
+			} else {
+				this.authorDescription = "";
+			}
+			
+			this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
+			this.namePlural = coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
+			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
+			this.useDescriptor = coreAttributes.getMandatoryFirstOf("useDescriptor").getTextContent();
+			this.plural = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
+			this.value = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
+			this.rarity = Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+			
+			this.sexUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("sexUse").getTextContent());
+			this.combatUseAllies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseAllies").getTextContent());
+			this.combatUseEnemies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseEnemies").getTextContent());
+			this.consumedOnUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("consumedOnUse").getTextContent());
+			
+			this.pathName = itemXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+			SVGString = null;
+			
+			Colour colourShade = PresetColour.getColourFromId(coreAttributes.getMandatoryFirstOf("colourPrimary").getTextContent());
+			Colour colourShadeSecondary = null;
+			if(coreAttributes.getOptionalFirstOf("colourSecondary").isPresent() && !coreAttributes.getMandatoryFirstOf("colourSecondary").getTextContent().isEmpty()) {
+				colourShadeSecondary = PresetColour.getColourFromId(coreAttributes.getMandatoryFirstOf("colourSecondary").getTextContent());
+			}
+			Colour colourShadeTertiary = null;
+			if(coreAttributes.getOptionalFirstOf("colourTertiary").isPresent() && !coreAttributes.getMandatoryFirstOf("colourTertiary").getTextContent().isEmpty()) {
+				colourShadeTertiary = PresetColour.getColourFromId(coreAttributes.getMandatoryFirstOf("colourTertiary").getTextContent());
+			}
+			this.colourShades = Util.newArrayListOfValues(colourShade, colourShadeSecondary, colourShadeTertiary);
+			
+			
+			if(debug) {
+				System.out.println("2");
+			}
+
+			this.effects = new ArrayList<>();
+
+			this.specialEffect = coreAttributes.getMandatoryFirstOf("applyEffects").getTextContent();
+			
+			this.effectTooltipLines = new ArrayList<>();
+			if(coreAttributes.getOptionalFirstOf("effectTooltipLines").isPresent()) {
+				for(Element e : coreAttributes.getMandatoryFirstOf("effectTooltipLines").getAllOf("line")) {
+					effectTooltipLines.add(e.getTextContent());
+				}
+			}
+			
+			this.itemTags = new HashSet<>(Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class));
+			
+			if(debug) {
+				System.out.println("3");
+			}
+			
+			if(itemElement.getOptionalFirstOf("useDescriptions").isPresent()) {
+				this.useDescriptionsSelf = itemElement
+						.getMandatoryFirstOf("useDescriptions")
+						.getAllOf("selfUse").stream()
+						.map(o -> o.getTextContent())
+						.collect(Collectors.toList());
+				if(useDescriptionsSelf.isEmpty()) {
+					this.useDescriptionsSelf = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item.");
+				}
+				
+				this.useDescriptionsOther = itemElement
+						.getMandatoryFirstOf("useDescriptions")
+						.getAllOf("otherUse").stream()
+						.map(o -> o.getTextContent())
+						.collect(Collectors.toList());
+				if(useDescriptionsOther.isEmpty()) {
+					this.useDescriptionsOther = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item on [npc2.name].");
+				}
+				
+			} else {
+				this.useDescriptionsSelf = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item.");
+				this.useDescriptionsOther = Util.newArrayListOfValues("[npc.Name] [npc.verb(use)] the item on [npc2.name].");
+			}
+			
+		}
+		catch(XMLMissingTagException ex){
+			throw new XMLLoadException(ex, itemXMLFile);
+		}
+		catch(Exception e){
+			System.out.println(e);
+			throw new XMLLoadException(e, itemXMLFile);
+		}
 	}
 	
 	@Override
@@ -127,7 +255,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 				if(((AbstractItemType)o).getName(false).equals(getName(false))
 						&& ((AbstractItemType)o).getPathName().equals(getPathName())
 						&& ((AbstractItemType)o).getRarity() == getRarity()
-						&& ((AbstractItemType)o).getRelatedEssence() == getRelatedEssence()
 						&& ((AbstractItemType)o).getEffects().equals(getEffects())
 						){
 					return true;
@@ -143,32 +270,34 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		result = 31 * result + getName(false).hashCode();
 		result = 31 * result + getPathName().hashCode();
 		result = 31 * result + getRarity().hashCode();
-		if(getRelatedEssence() != null)
-			result = 31 * result + getRelatedEssence().hashCode();
 		result = 31 * result + getEffects().hashCode();
 		return result;
-	}
-
-	public static AbstractItem generateItem(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {};
-	}
-	
-	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
-	}
-
-	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
-		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
 	public String getId() {
 		return ItemType.getItemToIdMap().get(this);
+	}
+
+	public boolean isMod() {
+		return mod;
+	}
+	
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
+	public String getAuthorDescription() {
+		return authorDescription;
 	}
 	
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
 	
+	public String getSpecialEffect() {
+		return specialEffect;
+	}
+
 	public boolean isAbleToBeSold() {
 		return getRarity()!=Rarity.QUEST;
 	}
@@ -187,10 +316,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return null;
 	}
 	
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
-	}
-	
 	public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
 		return null;
 	}
@@ -206,23 +331,53 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 
 	public String getName(boolean displayName) {
+		// by default, the display name is capitalised, and the bare name is not
+		return this.getName(displayName, displayName);
+	}
+	
+	public String getName(boolean displayName, boolean capitalise) {
+		String out;
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?namePlural:name) + "</span>");
+			out = (determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?namePlural:name) + "</span>";
 		} else {
-			return (this.isPlural()?namePlural:name);
+			out = (this.isPlural()?namePlural:name);
+		}
+		if(capitalise) {
+			return Util.capitaliseSentence(out);
+		} else {
+			return out;
 		}
 	}
 	
 	public String getNamePlural(boolean displayName) {
+		// by default, the display name is capitalised, and the bare name is not
+		return getNamePlural(displayName, displayName);
+	}
+	
+	public String getNamePlural(boolean displayName, boolean capitalise) {
+		String out;
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>");
+			out = (determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>";
 		} else {
-			return namePlural;
+			out = namePlural;
+		}
+		if(capitalise) {
+			return Util.capitaliseSentence(out);
+		} else {
+			return out;
 		}
 	}
 
 	public String getDescription() {
 		return description;
+	}
+
+	public List<String> getEffectTooltipLines() {
+		List<String> parsed = new ArrayList<>();
+		for(String s : effectTooltipLines) {
+			parsed.add(UtilText.parse(s));
+		}
+		return parsed;
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
@@ -235,16 +390,12 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return pathName;
 	}
 
-	public Colour getColourPrimary() {
-		return colourPrimary;
+	public Colour getColour() {
+		return colourShades.get(0);
 	}
-	
-	public Colour getColourSecondary() {
-		return colourSecondary;
-	}
-	
-	public Colour getColourTertiary() {
-		return colourTertiary;
+
+	public List<Colour> getColourShades() {
+		return colourShades;
 	}
 
 	public int getValue(List<ItemEffect> effects) {
@@ -252,6 +403,35 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 
 	public String getSVGString() {
+		if(SVGString==null) {
+			if(pathName!=null && !pathName.isEmpty()) {
+				try {
+					if(isFromExternalFile()) {
+						List<String> lines = Files.readAllLines(Paths.get(pathName));
+						StringBuilder sb = new StringBuilder();
+						for(String line : lines) {
+							sb.append(line);
+						}
+						SVGString = sb.toString();
+						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
+						
+					} else {
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
+						if(is==null) {
+							System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+						}
+						String s = Util.inputStreamToString(is);
+						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, s);
+						is.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			} else {
+				SVGString = "";
+			}
+		}
 		return SVGString;
 	}
 
@@ -260,11 +440,11 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 
 	public String getUseName() {
-		return "use";
+		return useDescriptor;
 	}
 	
 	public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
-		if(user.equals(target)) {
+		if(user==null || target==null || user.equals(target)) {
 			return Util.capitaliseSentence(getUseName()) + " the " + getName(false) + ".";
 		} else {
 			return UtilText.parse(target, "Get [npc.name] to " + getUseName() + " the " + getName(false) + ".");
@@ -272,29 +452,47 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 	
 	public String getUseDescription(GameCharacter user, GameCharacter target) {
-		return "<p>"
-					+ "You use the item."
+		if(user.equals(target)) {
+			return "<p>"
+						+ UtilText.parse(user, target, Util.randomItemFrom(useDescriptionsSelf))
+					+ "</p>";
+		} else {
+			return "<p>"
+					+ UtilText.parse(user, target, Util.randomItemFrom(useDescriptionsOther))
 				+ "</p>";
+		}
 	}
 
 	public boolean isAbleToBeUsedFromInventory() {
 		return true;
 	}
 	
+	public String getUnableToBeUsedFromInventoryDescription() {
+		return "This item cannot be used in this way!";
+	}
+	
 	public boolean isAbleToBeUsed(GameCharacter target) {
-		return !Main.game.isInCombat() || target.isPlayer();
+		return true;
+	}
+	
+	public String getUnableToBeUsedDescription(GameCharacter target) {
+		return "This item cannot be used in this way!";
 	}
 	
 	public boolean isAbleToBeUsedInSex() {
-		return true;
+		return sexUse;
 	}
 	
-	public boolean isAbleToBeUsedInCombat() {
-		return true;
+	public boolean isAbleToBeUsedInCombatAllies() {
+		return combatUseAllies;
+	}
+	
+	public boolean isAbleToBeUsedInCombatEnemies() {
+		return combatUseEnemies;
 	}
 	
 	public boolean isConsumedOnUse() {
-		return true;
+		return consumedOnUse;
 	}
 	
 	public boolean isTransformative() {
@@ -308,43 +506,9 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	public boolean isFetishGiving() {
 		return false;
 	}
-	
-	public String getUnableToBeUsedFromInventoryDescription() {
-		return "This item cannot be used in this way!";
-	}
-	
-	public String getUnableToBeUsedDescription(GameCharacter target) {
-		return "This item cannot be used in this way!";
-	}
-	
-	public String getDyeBrushEffects(AbstractClothing clothing, Colour colour) {
-		return "<p>"
-					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
-					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
-					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
-					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
-				+ "</p>";
-	}
-	
-	public String getDyeBrushEffects(AbstractWeapon weapon, Colour colour) {
-		return "<p>"
-					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
-					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
-					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
-					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
-				+ "</p>";
-	}
-	
-	public String getReforgeHammerEffects(AbstractWeapon weapon, DamageType damageType) {
-		return "<p>"
-					+ "As you take hold of the reforging hammer, you see the metal head start to emit a deep purple glow."
-					+ " The closer you move it to your " + weapon.getName() + ", the brighter this glow becomes, until suddenly, images of different damage types start flashing through your mind."
-					+ " As you touch the metal head  to the " + weapon.getName() + ", the reforge hammer instantly evaporates!"
-					+ " You see that the arcane enchantment has reforged the " + weapon.getName() + " so that it now deals " + damageType.getName() + " damage."
-				+ "</p>";
-	}
 
 	public Set<ItemTag> getItemTags() {
 		return itemTags;
 	}
+
 }

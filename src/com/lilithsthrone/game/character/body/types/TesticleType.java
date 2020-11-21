@@ -1,116 +1,142 @@
 package com.lilithsthrone.game.character.body.types;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.3.8.8
  * @author Innoxia
  */
-public enum TesticleType implements BodyPartTypeInterface {
+public class TesticleType {
 	
-	NONE(null, FluidType.CUM_HUMAN, null, false),
+	public static AbstractTesticleType NONE = new AbstractTesticleType(null, Race.NONE, FluidType.CUM_HUMAN, false) {
+	};
 
-	DILDO(BodyCoveringType.RUBBER, FluidType.CUM_HUMAN, Race.HUMAN, false),
+	public static AbstractTesticleType DILDO = new AbstractTesticleType(BodyCoveringType.RUBBER, Race.NONE, FluidType.CUM_HUMAN, false) {
+	};
 	
-	HUMAN(BodyCoveringType.PENIS, FluidType.CUM_HUMAN, Race.HUMAN, false),
+	public static AbstractTesticleType HUMAN = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HUMAN, FluidType.CUM_HUMAN, false) {
+	};
 
-	ANGEL(BodyCoveringType.PENIS, FluidType.CUM_ANGEL, Race.ANGEL, false),
+	public static AbstractTesticleType ANGEL = new AbstractTesticleType(BodyCoveringType.PENIS, Race.ANGEL, FluidType.CUM_ANGEL, false) {
+	};
 
-	DEMON_COMMON(BodyCoveringType.PENIS, FluidType.CUM_DEMON, Race.DEMON, false),
+	public static AbstractTesticleType DEMON_COMMON = new AbstractTesticleType(BodyCoveringType.PENIS, Race.DEMON, FluidType.CUM_DEMON, false) {
+	};
 
-	BOVINE(BodyCoveringType.BOVINE_FUR, FluidType.CUM_COW_MORPH, Race.COW_MORPH, false),
+	public static AbstractTesticleType BOVINE = new AbstractTesticleType(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, FluidType.CUM_COW_MORPH, false) {
+	};
 	
-	CANINE(BodyCoveringType.CANINE_FUR, FluidType.CUM_DOG_MORPH, Race.DOG_MORPH, false),
+	public static AbstractTesticleType CANINE = new AbstractTesticleType(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, FluidType.CUM_DOG_MORPH, false) {
+	};
 	
-	LUPINE(BodyCoveringType.LYCAN_FUR, FluidType.CUM_WOLF_MORPH, Race.WOLF_MORPH, false),
+	public static AbstractTesticleType LUPINE = new AbstractTesticleType(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, FluidType.CUM_WOLF_MORPH, false) {
+	};
 	
-	FOX_MORPH(BodyCoveringType.FOX_FUR, FluidType.CUM_FOX_MORPH, Race.FOX_MORPH, false),
+	public static AbstractTesticleType FOX_MORPH = new AbstractTesticleType(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, FluidType.CUM_FOX_MORPH, false) {
+	};
 
-	FELINE(BodyCoveringType.FELINE_FUR, FluidType.CUM_CAT_MORPH, Race.CAT_MORPH, false),
+	public static AbstractTesticleType FELINE = new AbstractTesticleType(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, FluidType.CUM_CAT_MORPH, false) {
+	};
 
-	ALLIGATOR_MORPH(BodyCoveringType.PENIS, FluidType.CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, true),
+	public static AbstractTesticleType ALLIGATOR_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.ALLIGATOR_MORPH, FluidType.CUM_ALLIGATOR_MORPH, true) {
+	};
 
-	EQUINE(BodyCoveringType.PENIS, FluidType.CUM_HORSE_MORPH, Race.HORSE_MORPH, false),
+	public static AbstractTesticleType EQUINE = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HORSE_MORPH, FluidType.CUM_HORSE_MORPH, false) {
+	};
 
-	REINDEER_MORPH(BodyCoveringType.PENIS, FluidType.CUM_REINDEER_MORPH, Race.REINDEER_MORPH, false),
+	public static AbstractTesticleType REINDEER_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.REINDEER_MORPH, FluidType.CUM_REINDEER_MORPH, false) {
+	};
 
-	AVIAN(BodyCoveringType.PENIS, FluidType.CUM_HARPY, Race.HARPY, true),
+	public static AbstractTesticleType AVIAN = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HARPY, FluidType.CUM_HARPY, true) {
+	};
 	
-	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false),
+	public static AbstractTesticleType SQUIRREL = new AbstractTesticleType(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, FluidType.CUM_SQUIRREL_MORPH, false) {
+	};
 
-	RAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RAT_MORPH, Race.RAT_MORPH, false),
+	public static AbstractTesticleType RAT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.RAT_MORPH, FluidType.CUM_RAT_MORPH, false) {
+	};
 	
-	RABBIT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RABBIT_MORPH, Race.RABBIT_MORPH, false),
+	public static AbstractTesticleType RABBIT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.RABBIT_MORPH, FluidType.CUM_RABBIT_MORPH, false) {
+	};
 
-	BAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_BAT_MORPH, Race.BAT_MORPH, false);
+	public static AbstractTesticleType BAT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.BAT_MORPH, FluidType.CUM_BAT_MORPH, false) {
+	};
 
+
+	private static List<AbstractTesticleType> allTesticleTypes;
+	private static Map<AbstractTesticleType, String> testicleToIdMap = new HashMap<>();
+	private static Map<String, AbstractTesticleType> idToTesticleMap = new HashMap<>();
 	
-	private BodyCoveringType skinType;
-	private FluidType fluidType;
-	private Race race;
-	private boolean internal;
+	static {
+		allTesticleTypes = new ArrayList<>();
+		
+		// Add in hard-coded testicle types:
+		Field[] fields = TesticleType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractTesticleType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractTesticleType ct;
+				try {
+					ct = ((AbstractTesticleType) f.get(null));
 
-	private TesticleType(BodyCoveringType skinType, FluidType fluidType, Race race, boolean internal) {
-		this.skinType = skinType;
-		this.fluidType = fluidType;
-		this.race = race;
-		this.internal = internal;
-	}
-
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static TesticleType getTypeFromString(String value) {
-		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
+					testicleToIdMap.put(ct, f.getName());
+					idToTesticleMap.put(f.getName(), ct);
+					
+					allTesticleTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return valueOf(value);
-	}
-
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "";
-	}
-
-	@Override
-	public boolean isDefaultPlural() {
-		return true;
+		
+		Collections.sort(allTesticleTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("ball", "testicle");
+	public static AbstractTesticleType getTesticleTypeFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToTesticleMap.keySet());
+		return idToTesticleMap.get(id);
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		return UtilText.returnStringAtRandom("balls", "testicles");
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) {
-		return gc.getTesticleSize().getDescriptor();
-	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+	public static String getIdFromTesticleType(AbstractTesticleType testicleType) {
+		return testicleToIdMap.get(testicleType);
 	}
 	
-	@Override
-	public Race getRace() {
-		return race;
+	public static List<AbstractTesticleType> getAllTesticleTypes() {
+		return allTesticleTypes;
 	}
-
-	public FluidType getFluidType() {
-		return fluidType;
+	
+	private static Map<AbstractRace, List<AbstractTesticleType>> typesMap = new HashMap<>();
+	public static List<AbstractTesticleType> getTesticleTypes(AbstractRace r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<AbstractTesticleType> types = new ArrayList<>();
+		for(AbstractTesticleType type : TesticleType.getAllTesticleTypes()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
-
-	public boolean isInternal() {
-		return internal;
-	}
+	
 }

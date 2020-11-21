@@ -4,11 +4,11 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
@@ -26,12 +26,12 @@ public class SMAltarMissionarySealed extends SexManagerDefault {
 	
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-		return !Sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterSealed(character);
 	}
 
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		return !Sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterSealed(character);
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public class SMAltarMissionarySealed extends SexManagerDefault {
 
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(!Sex.isDom(character) && character.isPlayer()) {
+		if(!Main.sex.isDom(character) && character.isPlayer()) {
 			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);

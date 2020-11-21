@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the SITTING position.
@@ -68,7 +68,8 @@ public class SexSlotSitting {
 			"Between legs",
 			"between legs",
 			"Leaning down into [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.SITTING_BETWEEN_LEGS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(SITTING);
@@ -79,7 +80,8 @@ public class SexSlotSitting {
 			"Between legs",
 			"between legs (2nd)",
 			"Leaning down into [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.SITTING_BETWEEN_LEGS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(SITTING_TWO);
@@ -90,7 +92,8 @@ public class SexSlotSitting {
 			"Between legs",
 			"between legs (3rd)",
 			"Leaning down into [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.SITTING_BETWEEN_LEGS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(SITTING_THREE);
@@ -101,7 +104,8 @@ public class SexSlotSitting {
 			"Between legs",
 			"between legs (4th)",
 			"Leaning down into [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.SITTING_BETWEEN_LEGS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(SITTING_FOUR);
@@ -113,43 +117,43 @@ public class SexSlotSitting {
 			"Performing oral",
 			"performing oral",
 			"[npc.Name] [npc.verb(reach)] up and [npc.verb(place)] a [npc.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,SexSlotTag.SITTING_PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
-	
 	public static final SexSlot PERFORMING_ORAL_TWO = new SexSlot(
 			"Performing oral",
 			"performing oral (2nd)",
 			null,
-			false) {
+			false,
+			SexSlotTag.SITTING_PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
-
 	public static final SexSlot PERFORMING_ORAL_THREE = new SexSlot(
 			"Performing oral",
 			"performing oral (3rd)",
 			null,
-			false) {
+			false,
+			SexSlotTag.SITTING_PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
-
 	public static final SexSlot PERFORMING_ORAL_FOUR = new SexSlot(
 			"Performing oral",
 			"performing oral (4th)",
 			null,
-			false) {
+			false,
+			SexSlotTag.SITTING_PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	
@@ -157,7 +161,8 @@ public class SexSlotSitting {
 			"Presenting for oral",
 			"presenting for oral",
 			"With trembling [npc.legs], [npc.name] [npc.verb(push)] [npc.her] groin back against [npc2.namePos] face, and with [npc.a_moan+], [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.SITTING_TAUR_PRESENTING_ORAL);
 	public static final SexSlot SITTING_TAUR_PRESENTING_ORAL_TWO = new SexSlot(SITTING_TAUR_PRESENTING_ORAL){
 		@Override
 		public String getDescription() {

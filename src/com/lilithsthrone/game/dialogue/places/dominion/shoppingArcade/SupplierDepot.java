@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
@@ -13,7 +12,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -67,7 +65,7 @@ public class SupplierDepot {
 					return new Response("Enter", "Push open the door and enter the Depot.", SUPPLIER_DEPOT_RECEPTION) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.SUPPLIER_DEN, PlaceType.SUPPLIER_DEPOT_ENTRANCE, true);
+							Main.game.getPlayer().setLocation(WorldType.SUPPLIER_DEN, PlaceType.SUPPLIER_DEPOT_ENTRANCE, false);
 						}
 					};
 				}
@@ -113,10 +111,10 @@ public class SupplierDepot {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				if (index == 1) {
-					return new ResponseEffectsOnly("Exit", "Decide to leave the Depot for now. You can always come back at another time.") {
+					return new Response("Exit", "Decide to leave the Depot for now. You can always come back at another time.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+							Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 						}
 					};
 					
@@ -134,10 +132,10 @@ public class SupplierDepot {
 				
 			} else {
 				if (index == 1) {
-					return new ResponseEffectsOnly("Exit", "Decide to leave the Depot for now. You can always come back at another time.") {
+					return new Response("Exit", "Decide to leave the Depot for now. You can always come back at another time.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+							Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 						}
 					};
 					
@@ -242,10 +240,10 @@ public class SupplierDepot {
 							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
 						}
 					};
 				}
@@ -283,7 +281,7 @@ public class SupplierDepot {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+			if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_ENFORCER_REACTION");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE");
@@ -293,7 +291,7 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Convince", "It'd be better to try and play on the fact that Wolfgang has mistaken you for an Enforcer...", null);
 				} else {
 					return new Response("Convince", "Try and convince Wolfgang and Karl to let the other suppliers return.", SUPPLIER_DEPOT_OFFICE_CONVINCE) {
@@ -305,7 +303,7 @@ public class SupplierDepot {
 				}
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Enforcer Bluff", "Use this opportunity to convince Wolfgang and Karl to let the other suppliers return.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {
@@ -349,7 +347,7 @@ public class SupplierDepot {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED");
 			}
 			
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+			if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_REPEAT_ENFORCER_REACTION");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_REPEAT");
@@ -386,11 +384,11 @@ public class SupplierDepot {
 									ResponseTag.PREFER_DOGGY), AFTER_SEX_WILLING, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_SUB_FUCKED"));
 					
 				} else if (index == 0) {
-					return new ResponseEffectsOnly("Leave", "Let the pair know that you were just checking up on them, before heading back outside into the Shopping Arcade once again.") {
+					return new Response("Leave", "Let the pair know that you were just checking up on them, before heading back outside into the Shopping Arcade once again.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED_LEAVE"));
-							Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+							Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 						}
 					};
 				} else {
@@ -424,7 +422,7 @@ public class SupplierDepot {
 				return new Response("Convince", "You are already trying to convince them!", null);
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
+				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
 					return new Response("Enforcer Bluff", "Convince the suppliers that you're an Enforcer, and that they should do as you say.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {
@@ -494,11 +492,11 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Arcade", "You find yourself back outside in the Shopping Arcade once again.") {
+				return new Response("Arcade", "You find yourself back outside in the Shopping Arcade once again.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 					}
 				};
 			} else {
@@ -522,14 +520,14 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Tidy yourself up and leave the Depot.") {
+				return new Response("Exit", "Tidy yourself up and leave the Depot.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-									+ "Exit."
+									+ "Having successfully dealt with the dobermanns, you swiftly exit their den and head back out into the Shopping Arcade.."
 								+ "</p>");
 					}
 				};
@@ -567,11 +565,11 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Tidy yourself up and leave the supplier's den.") {
+				return new Response("Exit", "Tidy yourself up and leave the supplier's den.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_VICTORY_LEAVE"));
 					}
 				};
@@ -656,11 +654,11 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Head back out into the Shopping Arcade.") {
+				return new Response("Exit", "Head back out into the Shopping Arcade.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 					}
 				};
 			} else {
@@ -683,11 +681,11 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Head back out into the Shopping Arcade.") {
+				return new Response("Exit", "Head back out into the Shopping Arcade.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 					}
 				};
 			} else {
@@ -706,11 +704,11 @@ public class SupplierDepot {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Head back out into the Shopping Arcade.") {
+				return new Response("Exit", "Head back out into the Shopping Arcade.", PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT, false);
 					}
 				};
 			} else {

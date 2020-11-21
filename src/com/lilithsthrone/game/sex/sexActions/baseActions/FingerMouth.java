@@ -7,13 +7,13 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -82,15 +82,15 @@ public class FingerMouth {
 
 		@Override
 		public void applyEffects(){
-			Sex.setPrimaryOngoingCharacter(Sex.getCharacterTargetedForSexAction(this), getBlowjobReceiver(), SexAreaPenetration.PENIS);
+			Main.sex.setPrimaryOngoingCharacter(Main.sex.getCharacterTargetedForSexAction(this), getBlowjobReceiver(), SexAreaPenetration.PENIS);
 		}
 		
 		private GameCharacter getBlowjobReceiver() {
-			List<GameCharacter> characters = Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH);
+			List<GameCharacter> characters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH);
 			if(characters.isEmpty()) {
 				return null;
 			}
-			return Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH).get(0);
+			return Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH).get(0);
 		}
 		
 		@Override
@@ -98,25 +98,25 @@ public class FingerMouth {
 			boolean mouthFinger = false;
 			boolean mouthFingerReversed = false;
 			try {
-				mouthFinger = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+				mouthFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
 			} catch(Exception ex) {
 				// No available finger-mouth actions, so can't reach face
 			}
 			try {
-				mouthFingerReversed = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))).get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()))
+				mouthFingerReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
 						.getInteractions().get(SexAreaOrifice.MOUTH).contains(SexAreaPenetration.FINGER);
 			} catch(Exception ex) {
 				// No available finger-mouth actions, so can't reach face
 			}
 			
 			boolean available = getBlowjobReceiver()!=null
-					&& getBlowjobReceiver()!=Sex.getCharacterPerformingAction()
+					&& getBlowjobReceiver()!=Main.sex.getCharacterPerformingAction()
 					&& (mouthFinger || mouthFingerReversed)
-					&& Sex.getFirstContactingSexAreaPenetration(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS
-					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
+					&& Main.sex.getFirstOngoingSexAreaPenetration(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS
+					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 			
-//			System.out.println(Sex.getCharacterPerformingAction().getName()+" "+Sex.getCharacterTargetedForSexAction(this).getName()+" "+available);
+//			System.out.println(Main.sex.getCharacterPerformingAction().getName()+" "+Main.sex.getCharacterTargetedForSexAction(this).getName()+" "+available);
 			
 			return available;
 		}
@@ -133,14 +133,14 @@ public class FingerMouth {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.DOM_ROUGH) {
+			if(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.DOM_ROUGH) {
 				return UtilText.parse(
 						Util.newArrayListOfValues(
-								Sex.getCharacterPerformingAction(),
-								Sex.getCharacterTargetedForSexAction(this),
+								Main.sex.getCharacterPerformingAction(),
+								Main.sex.getCharacterTargetedForSexAction(this),
 								getBlowjobReceiver()),
 						UtilText.returnStringAtRandom(
-								(Sex.getCharacterTargetedForSexAction(this).hasHair() && Sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
+								(Main.sex.getCharacterTargetedForSexAction(this).hasHair() && Main.sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
 									?"Reaching up and roughly taking a fistful of [npc2.namePos] [npc2.hair+], [npc.name] [npc.verb(force)] [npc2.her] head down into [npc3.namePos] groin while ordering [npc2.herHim] to choke on [npc3.her] [npc3.cock+]."
 									:""),
 								"Roughly grabbing hold of the sides of [npc2.namePos] head, [npc.name] violently [npc.verb(slam)] [npc2.namePos] head up and down, forcing [npc2.herHim] to [npc2.verb(continue)] sucking [npc3.namePos] [npc3.cock+].",
@@ -150,13 +150,13 @@ public class FingerMouth {
 			} else {
 				return UtilText.parse(
 						Util.newArrayListOfValues(
-								Sex.getCharacterPerformingAction(),
-								Sex.getCharacterTargetedForSexAction(this),
+								Main.sex.getCharacterPerformingAction(),
+								Main.sex.getCharacterTargetedForSexAction(this),
 								getBlowjobReceiver()),
 						UtilText.returnStringAtRandom(
-								(Sex.getCharacterTargetedForSexAction(this).hasHair() && Sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
+								(Main.sex.getCharacterTargetedForSexAction(this).hasHair() && Main.sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
 									?"Reaching up and running [npc.her] [npc.fingers+] through [npc2.namePos] [npc2.hair+],"
-											+ " [npc.name] [npc.verb(gather)] it up and [npc.verb(hold)] "+(Sex.getCharacterTargetedForSexAction(this).getHairType().isDefaultPlural()?"them":"it")
+											+ " [npc.name] [npc.verb(gather)] it up and [npc.verb(hold)] "+(Main.sex.getCharacterTargetedForSexAction(this).getHairType().isDefaultPlural()?"them":"it")
 											+" out of the way as [npc2.name] [npc2.verb(continue)] to give [npc3.name] a blowjob."
 									:""),
 								"Taking hold of the sides of [npc2.namePos] head, [npc.name] [npc.verb(help)] to lift and push [npc2.her] head up and down, helping [npc2.herHim] to continue sucking on [npc3.namePos] [npc3.cock+].",

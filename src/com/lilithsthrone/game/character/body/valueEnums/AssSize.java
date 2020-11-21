@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
@@ -11,21 +12,21 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum AssSize {
 	
-	ZERO_FLAT("flat", 0, Colour.GENERIC_SIZE_ONE),
+	ZERO_FLAT("flat", 0, PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_TINY("tiny", 1, Colour.GENERIC_SIZE_TWO),
+	ONE_TINY("tiny", 1, PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_SMALL("small", 2, Colour.GENERIC_SIZE_THREE),
+	TWO_SMALL("small", 2, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_NORMAL("round", 3, Colour.GENERIC_SIZE_FOUR),
+	THREE_NORMAL("round", 3, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_LARGE("large", 4, Colour.GENERIC_SIZE_FIVE),
+	FOUR_LARGE("large", 4, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_HUGE("huge", 5, Colour.GENERIC_SIZE_SIX),
+	FIVE_HUGE("huge", 5, PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_MASSIVE("massive", 6, Colour.GENERIC_SIZE_SEVEN),
+	SIX_MASSIVE("massive", 6, PresetColour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_GIGANTIC("gigantic", 7, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_GIGANTIC("gigantic", 7, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private String descriptor;
 	private int size;

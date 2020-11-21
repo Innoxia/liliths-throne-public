@@ -12,15 +12,17 @@ import java.util.Set;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Bearing;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.3.1
@@ -32,9 +34,7 @@ public class AbstractPlaceType {
 	protected String name;
 	protected String tooltipDescription;
 	protected String SVGString;
-	protected String colourString;
-	protected String backgroundColourString;
-	protected BaseColour colour;
+	protected Colour colour;
 	protected Colour backgroundColour;
 	protected DialogueNode dialogue;
 	protected Encounter encounterType;
@@ -57,7 +57,7 @@ public class AbstractPlaceType {
 	public AbstractPlaceType(String name,
 			String tooltipDescription,
 			String SVGPath,
-			BaseColour colour,
+			Colour colour,
 			DialogueNode dialogue,
 			Encounter encounterType,
 			String virginityLossDescription) {
@@ -65,11 +65,8 @@ public class AbstractPlaceType {
 		this.name = name;
 		this.tooltipDescription = tooltipDescription;
 		this.colour = colour;
-		if(colour != null) {
-			this.colourString = colour.toWebHexString();
-		}
 
-		this.backgroundColour = Colour.MAP_BACKGROUND;
+		this.backgroundColour = PresetColour.MAP_BACKGROUND;
 		
 		this.dialogue = dialogue;
 		this.encounterType = encounterType;
@@ -110,9 +107,6 @@ public class AbstractPlaceType {
 	
 	public AbstractPlaceType initDangerous() {
 		this.dangerous = true;
-		if(backgroundColour==Colour.MAP_BACKGROUND) {
-			backgroundColour = Colour.MAP_BACKGROUND_DANGEROUS;
-		}
 		return this;
 	}
 	
@@ -159,55 +153,56 @@ public class AbstractPlaceType {
 		return tooltipDescription;
 	}
 
-	public String getColourString() {
-		if(colour!=null) {
-			return colour.toWebHexString();
-		} else if(colourString!=null) {
-			return colourString;
-		}
-		return "";
+	public Colour getColour() {
+		return colour;
 	}
 
-
-	public Colour getBackgroundColour() throws Exception {
-		if(backgroundColourString!=null) { // background colour string is overriding any background set.
-			throw new NullPointerException();
+	public Colour getBackgroundColour() {
+		if(backgroundColour==PresetColour.MAP_BACKGROUND && this.isDangerous()) {
+			return PresetColour.MAP_BACKGROUND_DANGEROUS;
 		}
 		return backgroundColour;
-	}
-	
-	public String getBackgroundColourString() {
-		if(backgroundColourString!=null) {
-			return backgroundColourString;
-		}
-		return backgroundColour.toWebHexString();
 	}
 
 	public Encounter getEncounterType() {
 		return encounterType;
 	}
+	
+	protected DialogueNode getBaseDialogue(Cell cell) {
+		return dialogue;
+	}
 
 	public DialogueNode getDialogue(boolean withRandomEncounter) {
-		return getDialogue(withRandomEncounter, false);
+		return getDialogue(null, withRandomEncounter, false);
 	}
 	
-	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter) {
+		return getDialogue(cell, withRandomEncounter, false);
+	}
+	
+	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
 		if(getEncounterType()!=null && withRandomEncounter) {
 			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
 			if (dn != null) {
 				return dn;
 			}
 		}
-
-		return dialogue;
+		return getBaseDialogue(cell);
 	}
 	
-	public Population getPopulation() {
-		return null;
+	public List<Population> getPopulation() {
+		return new ArrayList<>();
 	}
 	
 	public boolean isPopulated() {
-		return getPopulation()!=null && !getPopulation().getSpecies().isEmpty();
+		if(getPopulation()!=null) {
+			for(Population pop : getPopulation()) {
+				if(!pop.getSpecies().isEmpty()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean isLand() {
@@ -226,8 +221,8 @@ public class AbstractPlaceType {
 		return itemsDisappear;
 	}
 	
-	protected static String getSVGOverride(String pathName, Colour colour) {
-		if(!SVGOverrides.keySet().contains(pathName+colour)) {
+	public static String getSVGOverride(String pathName, Colour colour) {
+		if(!SVGOverrides.keySet().contains(pathName+colour.getId())) {
 			try {
 				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
 				if(is==null) {
@@ -243,21 +238,27 @@ public class AbstractPlaceType {
 					System.err.println(pathName+" error!");
 				}
 				
-				SVGOverrides.put(pathName+colour, s);
+				SVGOverrides.put(pathName+colour.getId(), s);
 	
 				is.close();
 	
 			} catch (Exception e1) {
-				System.err.println("Eeeeeek! PlaceType.getSVGOverride()");
+				System.err.println("Error! AbstractPlaceType: PlaceType.getSVGOverride()");
 				e1.printStackTrace();
 				return "";
 			}
 		}
 		
-		return SVGOverrides.get(pathName+colour);
+		return SVGOverrides.get(pathName+colour.getId());
 	}
 	
-	public String getSVGString(Set<PlaceUpgrade> upgrades) {
+	public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
+		for(AbstractPlaceUpgrade upgrade : upgrades) {
+			String s = upgrade.getSVGOverride();
+			if(s!=null) {
+				return s;
+			}
+		}
 		return SVGString;
 	}
 	
@@ -291,59 +292,12 @@ public class AbstractPlaceType {
 		return false;
 	}
 	
-	public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+	public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 		return new ArrayList<>();
 	}
 	
-	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+	public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
 		return new ArrayList<>();
-	}
-
-	public static ArrayList<PlaceUpgrade> getAvailableLilayaRoomPlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
-			return PlaceUpgrade.getGuestRoomUpgrades();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesQuadruple();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return PlaceUpgrade.getMilkingUpgrades();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
-			return PlaceUpgrade.getOfficeUpgrades();
-		}
-		
-		return PlaceUpgrade.getCoreRoomUpgrades();
-	}
-	
-	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
-		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomGuest", Colour.BASE_GREEN_LIGHT);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_YELLOW_LIGHT);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
-			return getSVGOverride("dominion/lilayasHome/roomOffice", Colour.BASE_LILAC);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlaveQuadruple", Colour.BASE_MAGENTA);
-			
-		} else {
-			return SVGString;
-		}
 	}
 
 	public String getVirginityLossDescription() {

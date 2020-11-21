@@ -22,9 +22,8 @@ import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -98,7 +97,7 @@ public class SlimeCavernAttacker extends NPC {
 			this.setStartingCombatMoves();
 			loadImages();
 			
-			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
+			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 
 			initHealthAndManaToMax();
 		}
@@ -128,7 +127,7 @@ public class SlimeCavernAttacker extends NPC {
 	@Override
 	public void hourlyUpdate() {
 		if(!this.isSlave()) {
-			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
+			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 		}
 	}
 	

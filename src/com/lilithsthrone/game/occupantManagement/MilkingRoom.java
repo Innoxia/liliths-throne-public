@@ -19,19 +19,24 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
-import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -43,10 +48,12 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public class MilkingRoom implements XMLSaving {
 	
-	private WorldType worldType;
+	private AbstractWorldType worldType;
 	private Vector2i location;
 	
 	private List<FluidStored> fluidsStored;
+	
+	private Map<String, List<AbstractClothing>> clothingRemovedForMilking = new HashMap<>();
 	
 	private static GameCharacter targetedCharacter = Main.game.getPlayer();
 	
@@ -64,7 +71,7 @@ public class MilkingRoom implements XMLSaving {
 	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 50;
 	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
 	
-	public MilkingRoom(WorldType worldType, Vector2i location) {
+	public MilkingRoom(AbstractWorldType worldType, Vector2i location) {
 		this.worldType = worldType;
 		this.location = new Vector2i(location.getX(), location.getY());
 		
@@ -75,12 +82,26 @@ public class MilkingRoom implements XMLSaving {
 		Element element = doc.createElement("milkingRoom");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", this.getWorldType().toString());
+		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
 		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
 		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
 
 		for(FluidStored fluid : fluidsStored) {
 			fluid.saveAsXML(element, doc);
+		}
+		
+		if(!clothingRemovedForMilking.isEmpty()) {
+			Element clothingSaved = doc.createElement("clothingRemovedForMilking");
+			element.appendChild(clothingSaved);
+			for(Entry<String, List<AbstractClothing>> entry : clothingRemovedForMilking.entrySet()) {
+				Element clothingCharacter = doc.createElement("clothingCharacter");
+				clothingSaved.appendChild(clothingCharacter);
+				CharacterUtils.addAttribute(doc, clothingCharacter, "id", entry.getKey());
+				for(AbstractClothing clothing : entry.getValue()) {
+					Element e = clothing.saveAsXML(clothingSaved, doc);
+					clothingCharacter.appendChild(e);
+				}
+			}
 		}
 		
 		return element;
@@ -89,7 +110,7 @@ public class MilkingRoom implements XMLSaving {
 	public static MilkingRoom loadFromXML(Element parentElement, Document doc) {
 		try {
 			MilkingRoom room = new MilkingRoom(
-					WorldType.valueOf(parentElement.getAttribute("worldType")),
+					WorldType.getWorldTypeFromId(parentElement.getAttribute("worldType")),
 					new Vector2i(
 							Integer.valueOf(parentElement.getAttribute("x")),
 							Integer.valueOf(parentElement.getAttribute("y"))));
@@ -117,6 +138,27 @@ public class MilkingRoom implements XMLSaving {
 			for(Entry<FluidStored, Float> entry : uniqueFluids.entrySet()) {
 				entry.getKey().setMillilitres(entry.getValue());
 				room.fluidsStored.add(entry.getKey());
+			}
+			
+			
+			room.clothingRemovedForMilking = new HashMap<>();
+
+			NodeList clothingStoredElements = parentElement.getElementsByTagName("clothingRemovedForMilking");
+			if(clothingStoredElements.item(0)!=null) {
+				Element clothingStoredElement = (Element)clothingStoredElements.item(0);
+
+				NodeList savedCharacters = clothingStoredElement.getElementsByTagName("clothingCharacter");
+				for(int i=0; i<savedCharacters.getLength(); i++){
+					Element characterElement = (Element)savedCharacters.item(i);
+					String id = characterElement.getAttribute("id");
+					List<AbstractClothing> clothingLoaded = new ArrayList<>();
+
+					NodeList clothingElement = characterElement.getElementsByTagName("clothing");
+					for(int j=0; j<clothingElement.getLength(); j++){
+						clothingLoaded.add(AbstractClothing.loadFromXML((Element) clothingElement.item(j), doc));
+					}
+					room.clothingRemovedForMilking.put(id, clothingLoaded);
+				}
 			}
 			
 			return room;
@@ -185,10 +227,16 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public static int getActualMilkPerHour(GameCharacter character) {
+		if(character.getBreastRawMilkStorageValue()==0) {
+			return 0;
+		}
 		return (int) Math.min(getMaximumMilkPerHour(character), (character.getLactationRegenerationPerSecond(true) * 60 * 60));
 	}
 	
 	public static int getActualCrotchMilkPerHour(GameCharacter character) {
+		if(!character.hasBreastsCrotch() || character.getBreastCrotchRawMilkStorageValue()==0) {
+			return 0;
+		}
 		return (int) Math.min(getMaximumMilkPerHour(character), (character.getCrotchLactationRegenerationPerSecond(true) * 60 * 60));
 	}
 	
@@ -247,10 +295,11 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasVagina()) {
 			return 0;
 		}
-		return Math.min(getMaximumGirlcumPerHour(character), character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?2:1));
+		int orgasmsPerHour = 10;
+		return Math.min(getMaximumGirlcumPerHour(character), orgasmsPerHour * character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?5:1));
 	}
 
-	public WorldType getWorldType() {
+	public AbstractWorldType getWorldType() {
 		return worldType;
 	}
 
@@ -298,12 +347,25 @@ public class MilkingRoom implements XMLSaving {
 		getFluidsStored().removeIf((fs) -> fs.getMillilitres()<=0);
 	}
 	
+	public Map<String, List<AbstractClothing>> getClothingRemovedForMilking() {
+		return clothingRemovedForMilking;
+	}
+	
+	public void addClothingRemovedForMilking(GameCharacter character, AbstractClothing clothing) {
+		clothingRemovedForMilking.putIfAbsent(character.getId(), new ArrayList<>());
+		clothingRemovedForMilking.get(character.getId()).add(clothing);
+	}
+
+	public void clearClothingRemovedForMilking(GameCharacter character) {
+		clothingRemovedForMilking.remove(character.getId());
+	}
+
 	public String getRoomDescription() {
 		StringBuilder milkyMilknessSB = new StringBuilder();
 		
-		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), Colour.MILK, "Milk Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), Colour.CUM, "Cum Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), Colour.GIRLCUM, "Girlcum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), PresetColour.MILK, "Milk Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), PresetColour.CUM, "Cum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), PresetColour.GIRLCUM, "Girlcum Stored"));
 		
 		return milkyMilknessSB.toString();
 	}
@@ -317,9 +379,8 @@ public class MilkingRoom implements XMLSaving {
 		milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center;'><b style='color:"+colour.toWebHexString()+";'>"+title+"</b>");
 		
 			for(FluidStored fluid : fluids) {
-				
 				String idModifier = "";
-				FluidType type = null;
+				AbstractFluidType type = null;
 				
 				if(fluid.isMilk()) {
 					idModifier = "MILK";
@@ -336,7 +397,7 @@ public class MilkingRoom implements XMLSaving {
 				
 				fluidsFound = true;
 				
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
@@ -357,7 +418,7 @@ public class MilkingRoom implements XMLSaving {
 					}
 					milkyMilknessSB.append("<br/>"
 								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
-									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getName(fluidOwner)
+									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
 								+"</span>"
 							+ "</div>");
 	
@@ -413,7 +474,7 @@ public class MilkingRoom implements XMLSaving {
 			}
 			
 			if(!fluidsFound) {
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
 			}
 
 		milkyMilknessSB.append("</div>");

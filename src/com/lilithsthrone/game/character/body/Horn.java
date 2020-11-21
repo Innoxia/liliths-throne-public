@@ -1,8 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
-
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -79,7 +78,7 @@ public class Horn implements BodyPartInterface {
 			}
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if (type == HornType.HORSE_STRAIGHT) {
 			this.setHornsPerRow(owner, 1);
@@ -87,32 +86,32 @@ public class Horn implements BodyPartInterface {
 		}
 
 		if(this.type.equals(HornType.NONE)) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
 						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
 		} else {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] "+(owner.getTotalHorns()==1?"[npc.horn]":"[npc.horns]")+"."
 						+ " Before [npc.she] [npc.has] any time in which to react, "+(owner.getTotalHorns()==1?"it rapidly crumbles away, and within moments it's":"they rapidly crumble away, and within moments they've")+" completely disappeared. "));
 		}
 
 		if(type!=HornType.NONE) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, (owner.getTotalHorns()==1
+			sb.append(UtilText.parse(owner, (owner.getTotalHorns()==1
 					?" A hard nub suddenly pushes out from the middle of [npc.her] forehead, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] it quickly grow out into a "
 					:" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into ")));
 		}
 		
 		this.type = type;
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 		
 		if(this.length==0) {
 			length = HornLength.ONE_SMALL.getMinimumValue();
 		}
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -214,6 +213,10 @@ public class Horn implements BodyPartInterface {
 		int oldLength = this.length;
 		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
+		
+		if (owner==null) {
+			return "";
+		}
 		
 		if(owner.getHornType().equals(HornType.NONE)) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] [npc.do]n't have any horns, so nothing seems to happen...)]</p>");

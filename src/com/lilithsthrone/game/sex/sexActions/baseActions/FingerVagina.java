@@ -4,13 +4,13 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -41,16 +41,16 @@ public class FingerVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
+			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.VAGINA)){
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.VAGINA)){
 
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(trace)] [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.topClothing(VAGINA)],"
@@ -109,7 +109,7 @@ public class FingerVagina {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+], and with a gentle bucking of [npc2.her] [npc2.hips],"
@@ -186,7 +186,7 @@ public class FingerVagina {
 				
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(trace)] [npc.her] [npc.fingers+] over [npc2.her] [npc2.pussy+],"
@@ -245,7 +245,7 @@ public class FingerVagina {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+], and with a gentle bucking of [npc2.her] [npc2.hips],"
@@ -323,8 +323,8 @@ public class FingerVagina {
 
 		@Override
 		public void applyEffects() {
-			if(Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA);
+			if(Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.VAGINA)) {
+				Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA);
 			}
 		}
 	};
@@ -339,8 +339,8 @@ public class FingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
+			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
 		}
 		
 		@Override
@@ -357,7 +357,7 @@ public class FingerVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently pushing the palm of [npc.her] [npc.hand] in against [npc2.namePos] [npc2.labia+],"
@@ -396,7 +396,7 @@ public class FingerVagina {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Upon feeling this sudden stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before gently pushing [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand].",
@@ -457,7 +457,7 @@ public class FingerVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Slowly teasing [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.labia+], [npc.name] [npc.verb(let)] out a little [npc.moan] before slowly sinking [npc.her] digits into [npc2.her] [npc2.pussy+].",
@@ -495,7 +495,7 @@ public class FingerVagina {
 				default:
 					break;
 			}
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
@@ -554,7 +554,7 @@ public class FingerVagina {
 	};
 	
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -840,7 +840,7 @@ public class FingerVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
@@ -905,7 +905,7 @@ public class FingerVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.pussy+],"
@@ -922,7 +922,7 @@ public class FingerVagina {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(gasp)] as [npc.name] withdraws from [npc2.her] [npc2.pussy], before letting out [npc2.a_sob+] as [npc2.she] [npc2.verb(continue)] to struggle against [npc.herHim].",
@@ -965,7 +965,7 @@ public class FingerVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking a gentle, but firm, grip on [npc2.namePos] [npc2.hand], [npc.name] slowly [npc.verb(guide)] [npc2.her] [npc2.fingers] over [npc.her] [npc.labia+],"
@@ -1010,7 +1010,7 @@ public class FingerVagina {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(enter)] [npc.name], curling [npc2.her] [npc2.fingers] up before gently starting to finger [npc.her] [npc.pussy+].",
@@ -1278,7 +1278,7 @@ public class FingerVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.her] [npc.eyes],"
@@ -1344,7 +1344,7 @@ public class FingerVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Yanking [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.pussy+], [npc.name] [npc.verb(growl)] as [npc.she] [npc.verb(command)] [npc2.herHim] to stop fingering [npc.herHim].",
@@ -1359,7 +1359,7 @@ public class FingerVagina {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] realises that [npc.nameIsFull]n't finished with [npc2.herHim] yet.",

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractLegType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -149,41 +149,30 @@ public class Leg implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.legs] of [pc.a_legRace], so nothing happens...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.legs] of [npc.a_legRace], so nothing happens...)]</p>");
-			}
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "Your [pc.legs] start to wobble and feel weak, and as you look down to see what's wrong, they start to transform. ");
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.Name] almost loses [npc.her] balance as [npc.her] [npc.legs] start to transform. ");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.legs] of [npc.a_legRace], so nothing happens...)]</p>");
 		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(
+				"<p>"
+					+ "[npc.NamePos] [npc.legs] start to wobble and feel weak, and [npc.she] almost [npc.verb(lose)] [npc.her] balance as they start to transform. ");
 
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		this.footStructure = type.getDefaultFootStructure();
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
+		sb.append(type.getTransformationDescription(owner)+"</p>");
 		
-		UtilText.transformationContentSB.append(
+		sb.append(
 				"<p>"
 					+ "The transformation has left the structure of [npc.her] [npc.feet] as [style.boldTFGeneric("+this.footStructure.getName()+")]! "+this.footStructure.getDescription()
 				+ "</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";

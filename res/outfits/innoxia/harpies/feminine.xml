@@ -86,8 +86,8 @@
 			<tertiaryColours/>
 		</clothingType>
 		
-		<clothingType> <!-- If have penis and self-denial fetish is positive, or 20% random chance, have locked chastity cage. -->
-			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && (npc.getFetishDesire(FETISH_DENIAL_SELF).isPositive() || RND.nextInt(100)<=20)]]></conditional>
+		<clothingType> <!-- If have penis and self-denial fetish, or 5% random chance, have locked chastity cage. -->
+			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && (npc.hasFetish(FETISH_DENIAL_SELF) || RND.nextInt(100)<=5)]]></conditional>
 			<types>
 				<type>innoxia_bdsm_chastity_cage</type>
 			</types>

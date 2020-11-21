@@ -22,11 +22,10 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -81,6 +80,7 @@ public class SlaveInStocks extends NPC {
 						&& s.getRace()!=Race.ANGEL
 						&& s.getRace()!=Race.ELEMENTAL
 						&& s!=Subspecies.FOX_ASCENDANT
+						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
 					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
@@ -91,7 +91,7 @@ public class SlaveInStocks extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -103,19 +103,6 @@ public class SlaveInStocks extends NPC {
 			// PERSONALITY & BACKGROUND:
 
 			this.setHistory(Occupation.NPC_SLAVE);
-//			if(this.isFeminine()) {
-//				if(Math.random()>0.5f) {
-//					this.setHistory(Occupation.NPC_PROSTITUTE);
-//					setSexualOrientation(SexualOrientation.AMBIPHILIC);
-//					setName(Name.getRandomProstituteTriplet());
-//					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
-//				} else {
-//					this.setHistory(Occupation.NPC_MUGGER);
-//				}
-//				
-//			} else {
-//				this.setHistory(Occupation.NPC_MUGGER);
-//			}
 			
 			// ADDING FETISHES:
 			
@@ -175,7 +162,7 @@ public class SlaveInStocks extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, this);
 	}
 	
 	@Override

@@ -28,9 +28,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
@@ -513,7 +511,7 @@ public class ZaranixHomeGroundFloorRepeat {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKatherine.class)) == 0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKatherine.class)) == 0) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "AFTER_KATHERINE_SEX_NO_ORGASM"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "AFTER_KATHERINE_SEX"));
@@ -825,7 +823,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					|| Main.game.getCurrentWeather()==Weather.RAIN) {
 				if(index==1) {
 					return new Response("Submit", "Do as Amber says and get down on all fours, ready to act as a foot stall for her.", LOUNGE_AMBER_FOOT_STALL,
-							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.THREE_DIRTY, null, null, null) {
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.TWO_HORNY, null, null, null) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 2.5f));
@@ -877,8 +875,8 @@ public class ZaranixHomeGroundFloorRepeat {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null) {
 						@Override
 						public void effects() {
-							if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)==null || Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()!=ClothingType.AMBERS_BITCH_CHOKER) {
-								AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.AMBERS_BITCH_CHOKER);
+							if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)==null || !Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType().getId().equals("innoxia_neck_ambers_bitch_collar")) {
+								AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_neck_ambers_bitch_collar", false);
 								
 								if(Main.game.getPlayer().isAbleToEquip(collar, true, Main.game.getNpc(Amber.class))) {
 									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_WALKIES_ATTACHES_COLLAR"));
@@ -887,7 +885,7 @@ public class ZaranixHomeGroundFloorRepeat {
 									UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_WALKIES_WITHOUT_COLLAR"));
 								}
 								
-							} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)!=null && Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER) {
+							} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)!=null && !Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType().getId().equals("innoxia_neck_ambers_bitch_collar")) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_WALKIES_WITH_COLLAR"));
 								
 							} else {
@@ -941,43 +939,46 @@ public class ZaranixHomeGroundFloorRepeat {
 	};
 	
 	public static final DialogueNode LOUNGE_AMBER_FOOT_STALL = new DialogueNode("", "", true, true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-
+		@Override
+		public boolean isTravelDisabled() {
+			return Main.game.isFootContentEnabled();
+		}
 		@Override
 		public String getLabel() {
 			return "Lounge";
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_FOOT_STALL");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Massage feet", "Do as Amber says and take off her shoes and stockings to massage her feet.", LOUNGE_AMBER_FOOT_MASSAGE,
-						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.THREE_DIRTY, null, null, null) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 2.5f));
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Decline", "Stay still and refuse to massage Amber's feet.", LOUNGE_AMBER_FOOT_MASSAGE_REFUSED) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -5));
-					}
-				};
+			if(Main.game.isFootContentEnabled()) {
+				if(index==1) {
+					return new Response("Massage feet", "Do as Amber says and take off her shoes and stockings to massage her feet.", LOUNGE_AMBER_FOOT_MASSAGE,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.THREE_DIRTY, null, null, null) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 2.5f));
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Decline", "Stay still and refuse to massage Amber's feet.", LOUNGE_AMBER_FOOT_MASSAGE_REFUSED) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -5));
+						}
+					};
+				}
+				return null;
 				
 			} else {
-				return null;
+				return LOUNGE.getResponse(responseTab, index);
 			}
 		}
 	};
@@ -1202,7 +1203,6 @@ public class ZaranixHomeGroundFloorRepeat {
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_FURIOUS_NO_APOLOGY"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -25));
 					}
 				};
@@ -1777,9 +1777,9 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Gender petGender = Gender.getGenderFromUserPreferences(false, false);
-						
 						pet = new GenericSexualPartner(
 								petGender.getGenderName().isHasPenis()?petGender:(petGender.isFeminine()?Gender.F_P_V_B_FUTANARI:Gender.M_P_MALE), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+						pet.setName(Util.randomItemFrom(Name.petNames));
 						pet.setPlayerKnowsName(true);
 						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER, false);
@@ -1817,9 +1817,9 @@ public class ZaranixHomeGroundFloorRepeat {
 								pet.addFetish(Fetish.FETISH_ANAL_GIVING);
 							}
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-							pet.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
+							pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
-								pet.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
+								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
 							}
 							owner.setAffection(pet, (float) (10 + Math.random()*90));
 							owner.setPlayerKnowsName(true);

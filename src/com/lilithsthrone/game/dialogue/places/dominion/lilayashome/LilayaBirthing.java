@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -48,7 +47,7 @@ public class LilayaBirthing {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_PREGNANCY_START"));
 			
 			// Player has had sex with Lilaya before:
-			if(player.getSexPartnerStats(lilaya) != null) {
+			if(player.hasSexCountWith(lilaya)) {
 				if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == lilaya)) {
 					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != lilaya)) {
 						// Lilaya might be the 'father':
@@ -267,7 +266,7 @@ public class LilayaBirthing {
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)
 					&& Main.game.getPlayer().getNippleShape()==NippleShape.NORMAL
-					&& Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+					&& Main.game.isLactationContentEnabled()) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
 			} else {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");
@@ -506,9 +505,10 @@ public class LilayaBirthing {
 				try {
 					GameCharacter offspring = Main.game.getNPCById(id);
 					String descriptor = getOffspringDescriptor(offspring);
-					UtilText.nodeContentSB.append("<br/><i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"
-							+ UtilText.parse(offspring, Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor+" [npc.race]")
-							+ "</i>");
+					UtilText.nodeContentSB.append("<br/>"
+							+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
+							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
+							+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
 				} catch(Exception ex) {
 				}
 			}

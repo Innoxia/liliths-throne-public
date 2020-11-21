@@ -1,9 +1,8 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -11,11 +10,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -25,17 +21,12 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -45,30 +36,27 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class TunnelImpsDialogue {
 
-	private static List<GameCharacter> impGroup = new ArrayList<>();
-
-	private static Value<AbstractItemType, Map<ItemEffect,String>> potion = null;
-	private static Value<AbstractItemType, Map<ItemEffect,String>> companionPotion = null;
-	
-	public static void setImpGroup(List<GameCharacter> impGroup) {
-		TunnelImpsDialogue.impGroup = impGroup;
-	}
+	private static TransformativePotion potion = null;
+	private static TransformativePotion companionPotion = null;
 	
 	public static List<GameCharacter> getImpGroup() {
-		return impGroup;
+		List<GameCharacter> guards = new ArrayList<>();
+		guards.addAll(Main.game.getCharactersPresent());
+		guards.removeIf(npc -> Main.game.getPlayer().getParty().contains(npc) || !(npc instanceof ImpAttacker));
+		Collections.sort(guards, (a, b)->b.getLevel()-a.getLevel());
+		return guards;
 	}
 	
 	public static ImpAttacker getImpLeader() {
-		return (ImpAttacker) impGroup.get(0);
+		return (ImpAttacker) getImpGroup().get(0);
 	}
 
 	public static void banishImpGroup() {
-		for(GameCharacter imp : impGroup) {
+		for(GameCharacter imp : getImpGroup()) {
 			if(!imp.isSlave()) {
 				Main.game.banishNPC(imp.getId());
 			}
 		}
-		impGroup.clear();
 	}
 	
 	private static GameCharacter getMainCompanion() {
@@ -176,9 +164,9 @@ public class TunnelImpsDialogue {
 				} else if (index == 4) {
 					GameCharacter companion = getMainCompanion();
 					
-					if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer threesome"),
-								UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do it..."),
+								UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and you can't force [npc.herHim] to do it..."),
 								null);
 						
 					} else {
@@ -200,9 +188,9 @@ public class TunnelImpsDialogue {
 				} else if (index == 5 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 					GameCharacter companion = getMainCompanion();
 
-					if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-								UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do it..."),
+								UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and you can't force [npc.herHim] to do it..."),
 								null);
 						
 					} else {
@@ -254,7 +242,7 @@ public class TunnelImpsDialogue {
 					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -293,15 +281,7 @@ public class TunnelImpsDialogue {
 							Main.game.getTextStartStringBuilder().append(
 									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()) // Re-use TF refuse dialogue
 									);
-							for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-								Main.game.getTextStartStringBuilder().append(
-										(e.getValue()!=null && !e.getValue().isEmpty()
-											?"<p>"
-												+ "[npc.speech("+e.getValue()+")]"
-											+ "</p>"
-											:"")
-										+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-							}
+							Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
 						}
 					};
 				}
@@ -355,15 +335,7 @@ public class TunnelImpsDialogue {
 								
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SPIT_COMPANION_SWALLOWS", getAllCharacters()));
-								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-									Main.game.getTextStartStringBuilder().append(
-											(e.getValue()!=null && !e.getValue().isEmpty()
-												?"<p>"
-													+ "[npc.speech("+e.getValue()+")]"
-												+ "</p>"
-												:"")
-											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-								}
+								Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SPIT", getAllCharacters()));
@@ -402,16 +374,7 @@ public class TunnelImpsDialogue {
 	
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SWALLOW", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-									}
-									
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								} else {
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SWALLOW_COMPANION_SPITS", getAllCharacters()));
@@ -458,7 +421,7 @@ public class TunnelImpsDialogue {
 					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-									"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+									"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 										+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -479,16 +442,7 @@ public class TunnelImpsDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_REFUSED", getAllCharacters()) // Re-use description
 											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-									}
-									
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								} else {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT", getAllCharacters()));
 								}
@@ -532,39 +486,16 @@ public class TunnelImpsDialogue {
 
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
-								for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-									Main.game.getTextStartStringBuilder().append(
-											(e.getValue()!=null && !e.getValue().isEmpty()
-												?"<p>"
-													+ "[npc.speech("+e.getValue()+")]"
-												+ "</p>"
-												:"")
-											+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-								}
+								Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
+
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
-								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-									Main.game.getTextStartStringBuilder().append(
-											(e.getValue()!=null && !e.getValue().isEmpty()
-												?"<p>"
-													+ "[npc.speech("+e.getValue()+")]"
-												+ "</p>"
-												:"")
-											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-								}
-								
+								Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 							} else {
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
-								for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-									Main.game.getTextStartStringBuilder().append(
-											(e.getValue()!=null && !e.getValue().isEmpty()
-												?"<p>"
-													+ "[npc.speech("+e.getValue()+")]"
-												+ "</p>"
-												:"")
-											+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-								}
+								Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
+
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SPITS", getAllCharacters()));
 							}
@@ -578,7 +509,7 @@ public class TunnelImpsDialogue {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit (both)",
 								UtilText.parse(getMainCompanion(),
-									"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+									"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 										+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid, or to tell [npc.name] to do the same!"),
 								null);
 						
@@ -604,16 +535,7 @@ public class TunnelImpsDialogue {
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_REFUSED", getAllCharacters())
 											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SPIT", getAllCharacters())
 											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-									}
-									
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								} else {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT_WITH_ORDER", getAllCharacters()));
 								}
@@ -660,40 +582,17 @@ public class TunnelImpsDialogue {
 
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-									}
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
+
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters())
 											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-									}
-									
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								} else {
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-									}
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
+
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
 								}
@@ -711,7 +610,7 @@ public class TunnelImpsDialogue {
 					};
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -749,15 +648,7 @@ public class TunnelImpsDialogue {
 							
 							Main.game.getTextStartStringBuilder().append(
 									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
-							for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-								Main.game.getTextStartStringBuilder().append(
-										(e.getValue()!=null && !e.getValue().isEmpty()
-											?"<p>"
-												+ "[npc.speech("+e.getValue()+")]"
-											+ "</p>"
-											:"")
-										+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
-							}
+							Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(potion, Main.game.getPlayer()));
 						}
 					};
 					
@@ -805,15 +696,7 @@ public class TunnelImpsDialogue {
 								
 								Main.game.getTextStartStringBuilder().append(
 										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
-								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-									Main.game.getTextStartStringBuilder().append(
-											(e.getValue()!=null && !e.getValue().isEmpty()
-												?"<p>"
-													+ "[npc.speech("+e.getValue()+")]"
-												+ "</p>"
-												:"")
-											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-								}
+								Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_SPIT_WITH_ORDER", getAllCharacters()));
 							}
@@ -851,16 +734,7 @@ public class TunnelImpsDialogue {
 	
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters()));
-									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
-										Main.game.getTextStartStringBuilder().append(
-												(e.getValue()!=null && !e.getValue().isEmpty()
-													?"<p>"
-														+ "[npc.speech("+e.getValue()+")]"
-													+ "</p>"
-													:"")
-												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
-									}
-									
+									Main.game.getTextStartStringBuilder().append(getImpLeader().applyPotion(companionPotion, getMainCompanion()));
 								} else {
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
@@ -883,32 +757,50 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY", getAllCharacters());
+			if(getImpGroup().isEmpty()) {
+				return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_ALL_ENSLAVED", getImpGroup());
+				
+			} else if(getImpGroup().size()==1) {
+				return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED_ONE", getImpGroup());
+				
+			} else if(getImpGroup().size()<4) {
+				return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED", getImpGroup());
+			}
+			return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY", getImpGroup());
 		}
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==0) {
-				return "Standard";
-				
-			} else if(index==1) {
-				return "Inventories";
-				
-			} else if(index==2) {
-				return "Transformations";
-				
+			if(!getImpGroup().isEmpty()) {
+				if(index==0) {
+					return "Interactions";
+					
+				} else if(index==1) {
+					return "Inventories";
+					
+				} else if(index==2) {
+					return "Transformations";
+					
+				}
 			}
  			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getImpGroup().isEmpty()) {
+				if(index==1) {
+					return new Response("Continue", "As you've enslaved all of the imps, there's nothing left to do but continue on your way...", Main.game.getDefaultDialogue(false));
+				}
+				return null;
+			}
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {
 						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_CONTINUE", getImpGroup()));
 								banishImpGroup();
 							}
 						};
@@ -919,10 +811,10 @@ public class TunnelImpsDialogue {
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
-								impGroup,
+								getImpGroup(),
 								null,
 								null,
-								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
+								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
@@ -930,11 +822,11 @@ public class TunnelImpsDialogue {
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
-								impGroup,
+								getImpGroup(),
 								null,
 								null,
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
@@ -942,11 +834,11 @@ public class TunnelImpsDialogue {
 								true,
 								false,
 								Main.game.getPlayer().getParty(),
-								impGroup,
+								getImpGroup(),
 								null,
 								null,
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Submit",
@@ -959,12 +851,12 @@ public class TunnelImpsDialogue {
 								null,
 								true,
 								false,
-								impGroup,
+								getImpGroup(),
 								Main.game.getPlayer().getParty(),
 								null,
 								null,
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -1020,11 +912,11 @@ public class TunnelImpsDialogue {
 								getImpGroup(),
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
-								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX", getAllCharacters()));
+								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
-								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the gentle pace.)"),
+								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps."),
 								true,
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1032,11 +924,11 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
-								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps. (Start sex in the rough pace.)"),
+								UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the imps."),
 								true,
 								false,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1044,7 +936,7 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -1061,12 +953,12 @@ public class TunnelImpsDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group sex",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1079,13 +971,13 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									null,
 									null,
-									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX", getImpGroup()));
 						}
 						
 					} else if (index == 7) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group submission",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1098,13 +990,13 @@ public class TunnelImpsDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									null,
-									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getImpGroup()));
 						}
 						
 					} else if (index == 8) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Give to [npc.name]"),
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1117,15 +1009,15 @@ public class TunnelImpsDialogue {
 									getImpGroup(),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION", getImpGroup()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 						GameCharacter companion = getMainCompanion();
 						
-						if(!companion.isAttractedTo(getImpLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and you can't force [npc.herHim] to do so..."),
 									null);
 							
 						} else {
@@ -1137,7 +1029,7 @@ public class TunnelImpsDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION", getImpGroup())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpLeader()) && Main.game.isNonConEnabled()) {
@@ -1265,7 +1157,7 @@ public class TunnelImpsDialogue {
 						"Allow the gang of imps to move you into position...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
@@ -1277,7 +1169,7 @@ public class TunnelImpsDialogue {
 						"Eagerly allow yourself to be moved into position by the gang of imps...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
@@ -1290,7 +1182,7 @@ public class TunnelImpsDialogue {
 						"Try to resist as the gang of imps move you into position...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						isCompanionDialogue()?Util.newArrayListOfValues(getMainCompanion()):null,
@@ -1317,7 +1209,7 @@ public class TunnelImpsDialogue {
 						"Allow the gang of imps to move you into position...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Main.game.getPlayer().getParty(),
 						null,
 						null,
@@ -1328,7 +1220,7 @@ public class TunnelImpsDialogue {
 						"Eagerly allow yourself to be moved into position by the gang of imps...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Main.game.getPlayer().getParty(),
 						null,
 						null,
@@ -1340,7 +1232,7 @@ public class TunnelImpsDialogue {
 						"Try to resist as the gang of imps move you into position...",
 						false,
 						false,
-						impGroup,
+						getImpGroup(),
 						Main.game.getPlayer().getParty(),
 						null,
 						null,
@@ -1361,7 +1253,7 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_VICTORY_SEX", getAllCharacters()); //TODO
+			return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "AFTER_VICTORY_SEX", getImpGroup());
 		}
 
 		@Override
@@ -1406,7 +1298,7 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_DEFEAT_SEX_WITH_COMPANION", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_DEFEAT_SEX", getAllCharacters());
@@ -1470,140 +1362,4 @@ public class TunnelImpsDialogue {
 		}
 	};
 	
-	public static final DialogueNode CONTINUE_ENSLAVEMENT = new DialogueNode("Imps", "", true) {
-		
-		@Override
-		public String getContent() {
-			return "";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			if(getImpLeader().getTotalTimesHadSex(Main.game.getPlayer())>0) {
-				return AFTER_SEX_VICTORY.getResponseTabTitle(index);
-			} else {
-				return AFTER_COMBAT_VICTORY.getResponseTabTitle(index);
-			}
-		}
-		
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(getImpLeader().getTotalTimesHadSex(Main.game.getPlayer())>0) {
-				return AFTER_SEX_VICTORY.getResponse(responseTab, index);
-			} else {
-				return AFTER_COMBAT_VICTORY.getResponse(responseTab, index);
-			}
-		}
-	};
-	
-	public static final DialogueNode IMP_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {
-			GameCharacter target = SlaveDialogue.getEnslavementTarget();
-			AbstractClothing enslavementClothing = target.getEnslavementClothing();
-			
-			if(!target.isSlave()) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-							+ " [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance."
-						+ "</p>"
-						+ "<p>"
-							+ "Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear."
-							+ " The "+enslavementClothing.getName()+"'s arcane enchantment recognises [npc.name] as being a criminal, and, with a purple flash,"
-								+ " <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>."
-						+ "</p>"
-						+ "<p>"
-							+ "Just before they disappear, glowing purple lettering is projected into the air, which reads:<br/>"
-							+ "<i>Slave identification: [style.boldArcane("+target.getNameIgnoresPlayerKnowledge()+")]</i>"
-						+ "</p>");
-				
-			} else {
-				if(target.isSlave()) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a sigh as [npc.she] sees what you're about to do, and says,"
-								+ " [npc.speech(If you're trying to enslave me, it won't work... I'm already a slave...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment recognises [npc.name] as already being a slave,"
-										+ " evidenced by glowing green lettering that's projected into the air, which reads:<br/>"
-								+ "<i>[style.boldGreen(Target already enslaved!)]</i>"
-							+ "</p>");
-					
-				} else if(target.getSubspecies()==Subspecies.DEMON) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers,"
-								+ " [npc.speech(If you're trying to enslave me, it's no use! Demons aren't allowed to be enslaved without their written consent! Everyone knows that!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing pink lettering that's projected into the air, which reads:<br/>"
-								+ "<i>[style.boldPink(Demonic target! Cannot enslave!)]</i>"
-							+ "</p>");
-					
-				} else {
-					return UtilText.parse(target,
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! I haven't been targeted by the Enforcers for anything!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing red lettering that's projected into the air, which reads:<br/>"
-								+ "<i>[style.boldRed(Invalid target! Cannot enslave!)]</i>"
-							+ "</p>");
-				}
-			}
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(getImpGroup().size()>1) {
-					return new Response("Continue", "Continue dealing with the other imps.", CONTINUE_ENSLAVEMENT){
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(IMP_ENSLAVEMENT_DIALOGUE.getContent());
-							GameCharacter target = SlaveDialogue.getEnslavementTarget();
-							
-							target.applyEnslavementEffects(Main.game.getPlayer());
-							Main.game.getPlayer().addSlave((NPC) target);
-							target.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-							getImpGroup().remove(target);
-						}
-					};
-					
-				} else {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
-						@Override
-						public void effects() {
-							GameCharacter target = SlaveDialogue.getEnslavementTarget();
-							
-							target.applyEnslavementEffects(Main.game.getPlayer());
-							Main.game.getPlayer().addSlave((NPC) target);
-							target.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-							getImpGroup().remove(target);
-						}
-					};
-				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
 }

@@ -4,15 +4,12 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -21,15 +18,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -477,7 +473,7 @@ public class GenericOffspringDialogue {
 						return new Response("Give Present", UtilText.parse(offspring(), "Give [npc.name] the present that you're carrying."), OFFSPRING_PRESENT) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+								Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.PRESENT));
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 15));
 								
@@ -1103,8 +1099,13 @@ public class GenericOffspringDialogue {
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(offspring(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
@@ -1292,8 +1293,13 @@ public class GenericOffspringDialogue {
 			} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(offspring(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
@@ -1345,145 +1351,4 @@ public class GenericOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNode ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {
-			AbstractClothing enslavementClothing = offspring().getEnslavementClothing();
-			
-			if(!offspring().isSlave() && offspring().isAbleToBeEnslaved()) {
-				if(enslavementClothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"))) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
-								+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.namePos] neck."
-							+ "</p>"
-							+ "<p>"
-								+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsArcane(Slave Registered."
-									+ "<br/>Identification: [npc.nameFull(true)]"
-									+ "<br/>Race: [npc.race])]"
-							+ "</p>"
-							+ "<p>"
-								+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes]."
-								+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-								+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-							+ "</p>"
-							+ "<p>"
-								+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-							+ "</p>");
-				} else {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "As you bring the "+enslavementClothing.getName()+" closer to [npc.name], you feel "+(enslavementClothing.getClothingType().isPlural()?"them":"it")
-									+" start to steadily hum; a clear indication that your [npc.daughter] is being detected as a potential enslavement target."
-								+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
-							+ "</p>"
-							+ "<p>"
-								+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsArcane(Slave Registered."
-									+ "<br/>Identification: [npc.nameFull(true)]"
-									+ "<br/>Race: [npc.race])]"
-							+ "</p>"
-							+ "<p>"
-								+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes]."
-								+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't enslaving me, is it?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Grinning at your [npc.daughter], you don't have any time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-								+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-							+ "</p>"
-							+ "<p>"
-								+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-							+ "</p>");
-				}
-				
-			} else {
-				if(offspring().isSlave()) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a sigh as [npc.she] sees what you're about to do, and says,"
-								+ " [npc.speech(If you're trying to enslave me, it won't work, [pc.name]... I'm already a slave...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment recognises [npc.name] as already being a slave,"
-										+ " evidenced by glowing green lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.boldGreen(Slave already registered!)]"
-							+ "</p>");
-					
-				} else if(offspring().getSubspecies()==Subspecies.DEMON) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers,"
-								+ " [npc.speech(If you're trying to enslave me, [pc.name], it's no use! No Enforcer would ever sign off on a demon's enslavement warrant!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.herHim], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing pink lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsBad(Target not wanted for enslavement!)]"
-							+ "</p>");
-					
-				} else {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! I haven't been targeted by the Enforcers for anything!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing red lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsBad(Target not wanted for enslavement!)]"
-							+ "</p>");
-				}
-			}
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(offspring().isAbleToBeEnslaved()) {
-					return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
-						@Override
-						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogue(false);
-						}
-						@Override
-						public void effects() {
-							offspring().applyEnslavementEffects(Main.game.getPlayer());
-							Main.game.getPlayer().addSlave((NPC) Main.game.getActiveNPC());
-							offspring().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-						}
-					};
-				} else {
-					return new Response("Continue", UtilText.parse(offspring(), "That didn't work, but it doesn't mean you're finished with [npc.name] yet!"), SlaveDialogue.getFollowupEnslavementDialogue());
-				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
 }

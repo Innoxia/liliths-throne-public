@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -65,25 +65,27 @@ public class Ear implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.ears] of [npc.a_earRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
-		
-		UtilText.transformationContentSB.append(
-				"<p>"
-					+ "[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and, feeling them start to transform, [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(reach)] up to rub at them. ");
-		
+		StringBuilder sb = new StringBuilder();
 
+		sb.append("<p>");
+		if(owner.isArmMovementHindered()) {
+			sb.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] them start to transform. ");
+		} else {
+			sb.append("[npc.NamePos] [npc.ears] start to involuntarily twitch and itch, and, letting out a gasp, [npc.she] [npc.verb(reach)] up to rub at them as [npc.she] [npc.verb(feel)] them start to transform. ");
+		}
+		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 		
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";

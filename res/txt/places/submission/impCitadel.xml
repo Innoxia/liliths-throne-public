@@ -118,15 +118,42 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- IMP_FIGHT_AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ALL_ENSLAVED"><![CDATA[
+	<p>
+		Having enslaved all of the imps, there's nothing left for you to do except continue on your way through the citadel...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED"><![CDATA[
+	<p>
+		[npc.speech(What are you doing?!)] [npc.name] screeches in alarm, [npc.speech(You can't enslave us! Stop it!)]
+	</p>
+	<p>
+		Grinning at the remaining imps before you, you wonder whether you should continue with your task of enslaving them, or leave them be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED_ONE"><![CDATA[
+	<p>
+		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
+	</p>
+	<p>
+		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY"><![CDATA[
 	<p>
-		As the very last imp collapses to the floor, you can't help but let out a jubilant yell, [pc.speech(Hah! I am victorious!)]
+		As the very last imp collapses to the floor, you can't help but let out a jubilant, victorious cry.
 	</p>
 	<p>
-		Scanning your surroundings to double-check that there aren't any more threats, you notice that all of the other defeated imps have already made good their escape, and have crawled or staggered off out of the citadel's main gates. You let out a disapproving tut at how quick the other imps were to abandon their comrades and use them as a distraction to escape.
-	</p>
-	<p>
-		Focusing your attention back down towards the four defeated imps at your [pc.feet], you wonder what you should do with them...
+		Scanning your surroundings to double-check that there aren't any more threats, you notice that all of the other defeated imps have already made good their escape, and have either crawled or staggered off out of the citadel's main gates. You let out a disapproving tut at how quick those imps were to abandon their comrades, before focusing your attention back on the four at your [pc.feet], wondering what you should do with them...
 	</p>
 	]]>
 	</htmlContent>
@@ -139,59 +166,100 @@
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
-	<p>
-		You aren't interested in doing anything more to the imps, and, standing to one side, you command, [pc.speech(Go on, get out of here, all of you! And don't come back!)]
-	</p>
-	<p>
-		Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
-	</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		<p>
+			You aren't interested in doing anything more to this last defeated [npc.race], and, standing to one side, you command, [pc.speech(Go on, get out of here, and don't come back!)]
+		</p>
+		<p>
+			Groaning as [npc.she] pushes [npc.herself] to [npc.her] feet, the [npc.race] does as you say, and staggers off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
+		</p>
+	#ELSE
+		<p>
+			You aren't interested in doing anything more to the imps, and, standing to one side, you command, [pc.speech(Go on, get out of here, all of you! And don't come back!)]
+		</p>
+		<p>
+			Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
-		Deciding to have some fun with these imps, you step forwards, and, bending down to push them into position, you get ready to fuck them...
+		#IF(game.getNonCompanionCharactersPresent().size()==1)
+			Deciding to have some fun with this last [npc.imp], you step forwards and bend down to push [npc.herHim] into position, letting out [pc.a_moan+] as you get ready to fuck [npc.herHim]...
+		#ELSE
+			Deciding to have some fun with these imps, you step forwards and bend down to push them into position, letting out [pc.a_moan+] as you get ready to fuck them...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	<p>
-		Deciding to have some fun with these imps, you step forwards, and, bending down to gently push them into position, you get ready to fuck them...
+		#IF(game.getNonCompanionCharactersPresent().size()==1)
+			Deciding to have some fun with this last [npc.imp], you step forwards and bend down to gently push [npc.herHim] into position, letting out a soft [pc.moan] as you get ready to fuck [npc.herHim]...
+		#ELSE
+			Deciding to have some fun with these imps, you step forwards and bend down to gently push them into position, letting out a soft [pc.moan] as you get ready to fuck them...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	<p>
-		Deciding to take advantage of these imps, you step forwards, and, bending down to roughly force them into position, you get ready to give them a good, hard fuck...
+		#IF(game.getNonCompanionCharactersPresent().size()==1)
+			Deciding to have some fun with this last [npc.imp], you step forwards and bend down to roughly push [npc.herHim] into position, letting out [pc.a_moan+] as you get ready to give [npc.herHim] a good, hard fuck...
+		#ELSE
+			Deciding to have some fun with these imps, you step forwards and bend down to roughly push them into position, letting out [pc.a_moan+] as you get ready to give them a good, hard fuck...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
-	<p>
-		As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
-	</p>
-	<p>
-		Kneeling down beside [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think I went a little too far. Are you ok?)]
-	</p>
-	<p>
-		[npc.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
-	</p>
-	<p>
-		The commanding tone in [npc.namePos] voice makes you let out an excited little whimper. [pc.speech(Well, how about you and your friends use me however you want!)]
-	</p>
-	<p>
-		[npc.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc.name] spits, pushing you down into position. [npc.speech(I don't mind sharin' yer with them, though. Plenty o' holes to go around!)]
-	</p>
-	<p>
-		Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
-	</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		<p>
+			As you look down at this last defeated [npc.race], you can't help but feel sorry for [npc.herHim]. After all, [npc.sheHas] not only been abandoned by the other imps in the citadel, but [npc.sheHas] also just witnessed all of [npc.her] comrades being enslaved. Kneeling down beside [npc.herHim], you offer your apologies, [pc.speech(I'm sorry, I think I went a little too far. Are you ok?)]
+		</p>
+		<p>
+			[npc.speech(Yer a real [pc.insult], ain't ya?! Course I ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
+		</p>
+		<p>
+			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(How about you use me however you want?!)]
+		</p>
+		<p>
+			[npc.speech(Ya want me ta fuck ya senseless?!)] [npc.name] spits, stepping forwards and pushing you down into position. [npc.speech(I don't mind doin' that, [pc.insult]!)]
+		</p>
+		<p>
+			Letting out a burst of cackling laughter, the [npc.race] prepares to fuck you...
+		</p>
+	#ELSE
+		<p>
+			As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
+		</p>
+		<p>
+			Kneeling down beside [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think I went a little too far. Are you ok?)]
+		</p>
+		<p>
+			[npc.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
+		</p>
+		<p>
+			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(Well, how about you and your friends use me however you want?!)]
+		</p>
+		<p>
+			[npc.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc.name] spits, pushing you down into position. [npc.speech(I don't mind sharin' yer with them, though. Plenty o' holes to go around!)]
+		</p>
+		<p>
+			Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
+	
 	<!--Defeat elsewhere:-->
+	
 	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT"><![CDATA[
 	<p>
 		The imps prove to be too much for you to handle, and with an exhausted sigh, you collapse to the ground, defeated.
@@ -833,7 +901,7 @@
 		 Looking up at the raised dais, you see the leader of these demons standing up, and as she steps forwards into the light, you find yourself looking upon a rather surprising figure.
 	</p>
 	<p>
-		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive five feet tall. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
+		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive [units.sizes(152)] in height. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
 	</p>
 	<p>
 		As well as her diminutive physical qualities, the siren's choice of outfit is also not quite what you'd expected. She's wearing a Witch's dress, boots, and wide-brimmed hat, with a black, purple-trimmed cape to finish it off. An impressive pentagram-themed amulet is hanging around her neck, and, most curiously of all, she's got a square, white eyepatch over her right eye.

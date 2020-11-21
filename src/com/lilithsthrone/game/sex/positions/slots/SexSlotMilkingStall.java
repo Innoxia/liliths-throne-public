@@ -1,13 +1,13 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the MILKING_STALL position.
  * 
  * @since 0.3.4
- * @version 0.3.4
+ * @version 0.3.9
  * @author Innoxia
  */
 public class SexSlotMilkingStall {
@@ -62,6 +62,58 @@ public class SexSlotMilkingStall {
 			return "behind stall (4th)";
 		}
 	};
+	
+	
+	public static final SexSlot HUMPING = new SexSlot(
+			"Humping",
+			"humping",
+			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips forwards, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.HUMPING_STOCKS);
+	public static final SexSlot HUMPING_TWO = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (2nd)";
+		}
+	};
+	public static final SexSlot HUMPING_THREE = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (3rd)";
+		}
+	};
+	public static final SexSlot HUMPING_FOUR = new SexSlot(HUMPING) {
+		@Override
+		public String getDescription() {
+			return "humping (4th)";
+		}
+	};
+	
+	
+	public static final SexSlot BENEATH_MILKING_STALL = new SexSlot(
+			"All fours",
+			"all fours",
+			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips back, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.ALL_FOURS);
+	public static final SexSlot BENEATH_MILKING_STALL_TWO = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (2nd)";
+		}
+	};
+	public static final SexSlot BENEATH_MILKING_STALL_THREE = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (3rd)";
+		}
+	};
+	public static final SexSlot BENEATH_MILKING_STALL_FOUR = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (4th)";
+		}
+	};
 
 	
 	public static final SexSlot PERFORMING_ORAL = new SexSlot(
@@ -72,7 +124,7 @@ public class SexSlotMilkingStall {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_TWO = new SexSlot(
@@ -83,7 +135,7 @@ public class SexSlotMilkingStall {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_THREE = new SexSlot(
@@ -94,7 +146,7 @@ public class SexSlotMilkingStall {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_FOUR = new SexSlot(
@@ -105,7 +157,7 @@ public class SexSlotMilkingStall {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	

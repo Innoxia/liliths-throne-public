@@ -4,24 +4,30 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.3.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class QuestTree {
 
 	public static TreeNode<Quest> mainQuestTree = new TreeNode<Quest>(Quest.MAIN_PROLOGUE);
+	
 	public static TreeNode<Quest> enchantmentTree = new TreeNode<Quest>(Quest.SIDE_ENCHANTMENTS_LILAYA_HELP);
 	public static TreeNode<Quest> pregnancyTree = new TreeNode<Quest>(Quest.SIDE_PREGNANCY_CONSULT_LILAYA);
 	public static TreeNode<Quest> slaveryTree = new TreeNode<Quest>(Quest.SIDE_SLAVER_NEED_RECOMMENDATION);
 	public static TreeNode<Quest> accommodationTree = new TreeNode<Quest>(Quest.SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION);
 	public static TreeNode<Quest> hypnoWatchTree = new TreeNode<Quest>(Quest.SIDE_HYPNO_WATCH_VICKY);
-	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
 	public static TreeNode<Quest> angryHarpyTree = new TreeNode<Quest>(Quest.HARPY_PACIFICATION_ONE);
 	public static TreeNode<Quest> slimeQueenTree = new TreeNode<Quest>(Quest.SLIME_QUEEN_ONE);
 	public static TreeNode<Quest> teleportingTree = new TreeNode<Quest>(Quest.TELEPORTING_START);
 	public static TreeNode<Quest> daddyTree = new TreeNode<Quest>(Quest.DADDY_START);
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
+	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
+	
+	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
+	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
+	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
+	
 	
 	
 	static {
@@ -76,13 +82,6 @@ public class QuestTree {
 		hypnoWatchTree.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
-		
-		node1 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP);
-		nyanTree.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN);
-		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-		node2.addChild(node1);
 		
 		node1 = new TreeNode<Quest>(Quest.HARPY_PACIFICATION_TWO);
 		angryHarpyTree.addChild(node1);
@@ -190,5 +189,68 @@ public class QuestTree {
 		node2 = new TreeNode<Quest>(Quest.VENGAR_THREE_END);
 		nodeBranchC.addChild(node2);
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		
+		// Wes quest:
+
+		node1 = new TreeNode<Quest>(Quest.WES_1);
+		wesTree.addChild(node1);
+
+		node2 = new TreeNode<Quest>(Quest.WES_2);
+		node1.addChild(node2);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_WES);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_ELLE);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		
+		// Romance quests:
+
+		
+		node1 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP);
+		nyanTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
+		
+		
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_2_PURCHASE_PAINT);
+		helenaTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_5_SCARLETT_TRAINER);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_6_ADVERTISING);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_8_FINISH);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
+		
+
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_2_CONTRACT_SIGNED);
+		natalyaTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_3_TRAINING_1);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_4_TRAINING_2);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_5_TRAINING_3);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
+		
 	}
 }

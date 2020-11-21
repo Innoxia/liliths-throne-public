@@ -3,7 +3,7 @@
 	<coreAttributes>
 	
 		<!-- How much this weapon is worth. -->
-		<value>10</value> 
+		<value>50</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>
@@ -53,7 +53,7 @@
 		<imageEquippedName>pipe.svg</imageEquippedName>
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>8</damage> 
+		<damage>15</damage> 
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 
@@ -111,7 +111,7 @@
 			
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_STEEL"/> 
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours/> 
@@ -120,6 +120,7 @@
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
 			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 		</itemTags>
 		
 	</coreAttributes>

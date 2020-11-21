@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>1000</value> 
+		<value>1500</value> 
 		<melee>true</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
@@ -25,7 +25,7 @@
 		
 		<physicalResistance>0</physicalResistance> 
 		
-		<damage>14</damage> 
+		<damage>20</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -63,7 +63,7 @@
 
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Making a downwards slashing motion with with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc.her] energy!
+		Making a downwards slashing motion with with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to strike [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
 		Swiftly striking at [npc2.name] with [npc.her] kerambit, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!

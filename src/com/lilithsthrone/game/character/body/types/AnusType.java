@@ -1,133 +1,237 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.10
+ * @version 0.3.7
  * @author Innoxia
  */
-public enum AnusType implements BodyPartTypeInterface {
+public class AnusType {
 	
-	HUMAN(BodyCoveringType.ANUS, Race.HUMAN),
+	public static AbstractAnusType HUMAN = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.HUMAN,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	ANGEL(BodyCoveringType.ANUS, Race.ANGEL),
+	public static AbstractAnusType ANGEL = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.ANGEL,
+			null,
+			null,
+			Util.newArrayListOfValues("angelic", "perfect"),
+			Util.newArrayListOfValues("angelic", "perfect"),
+			Util.newArrayListOfValues()){
+	};
 	
-	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.MUSCLE_CONTROL),
+	public static AbstractAnusType DEMON_COMMON = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.DEMON,
+			null,
+			null,
+			Util.newArrayListOfValues("demonic", "irresistible"),
+			Util.newArrayListOfValues("demonic", "irresistible"),
+			Util.newArrayListOfValues(OrificeModifier.MUSCLE_CONTROL)){
+	};
 	
-	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
+	public static AbstractAnusType COW_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.COW_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues("cow-like", "bovine"),
+			Util.newArrayListOfValues("cow-like", "bovine"),
+			Util.newArrayListOfValues(OrificeModifier.PUFFY)){
+	};
 	
-	DOG_MORPH(BodyCoveringType.ANUS, Race.DOG_MORPH),
+	public static AbstractAnusType DOG_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.DOG_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	FOX_MORPH(BodyCoveringType.ANUS, Race.FOX_MORPH),
+	public static AbstractAnusType FOX_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.FOX_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	SQUIRREL_MORPH(BodyCoveringType.ANUS, Race.SQUIRREL_MORPH),
+	public static AbstractAnusType SQUIRREL_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.SQUIRREL_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	RAT_MORPH(BodyCoveringType.ANUS, Race.RAT_MORPH),
+	public static AbstractAnusType RAT_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.RAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	RABBIT_MORPH(BodyCoveringType.ANUS, Race.RABBIT_MORPH),
+	public static AbstractAnusType RABBIT_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.RABBIT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	BAT_MORPH(BodyCoveringType.ANUS, Race.BAT_MORPH),
+	public static AbstractAnusType BAT_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.BAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	WOLF_MORPH(BodyCoveringType.ANUS, Race.WOLF_MORPH),
+	public static AbstractAnusType WOLF_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.BAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	CAT_MORPH(BodyCoveringType.ANUS, Race.CAT_MORPH),
+	public static AbstractAnusType CAT_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.CAT_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	HORSE_MORPH(BodyCoveringType.ANUS, Race.HORSE_MORPH, OrificeModifier.PUFFY),
+	public static AbstractAnusType HORSE_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.HORSE_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues("horse-like", "equine"),
+			Util.newArrayListOfValues("horse-like", "equine"),
+			Util.newArrayListOfValues(OrificeModifier.PUFFY)){
+	};
 	
-	REINDEER_MORPH(BodyCoveringType.ANUS, Race.REINDEER_MORPH, OrificeModifier.PUFFY),
+	public static AbstractAnusType REINDEER_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.REINDEER_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(OrificeModifier.PUFFY)){
+	};
 	
-	ALLIGATOR_MORPH(BodyCoveringType.ANUS, Race.ALLIGATOR_MORPH),
+	public static AbstractAnusType ALLIGATOR_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.ALLIGATOR_MORPH,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
 	
-	HARPY(BodyCoveringType.ANUS, Race.HARPY);
+	public static AbstractAnusType HARPY = new AbstractAnusType(BodyCoveringType.ANUS,
+			Race.HARPY,
+			null,
+			null,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues()){
+	};
+	
+	
+	private static List<AbstractAnusType> allAnusTypes;
+	private static Map<AbstractAnusType, String> anusToIdMap = new HashMap<>();
+	private static Map<String, AbstractAnusType> idToAnusMap = new HashMap<>();
+	
+	static {
+		allAnusTypes = new ArrayList<>();
+		
+		// Add in hard-coded anus types:
+		Field[] fields = AnusType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractAnusType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractAnusType ct;
+				try {
+					ct = ((AbstractAnusType) f.get(null));
 
-	private BodyCoveringType skinType;
-	private Race race;
-	private List<OrificeModifier> defaultRacialOrificeModifiers;
-
-	private AnusType(BodyCoveringType skinType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
-		this.skinType = skinType;
-		this.race = race;
-		this.defaultRacialOrificeModifiers = new ArrayList<>();
-		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
-	}
-
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static AnusType getTypeFromString(String value) {
-		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
+					anusToIdMap.put(ct, f.getName());
+					idToAnusMap.put(f.getName(), ct);
+					
+					allAnusTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return valueOf(value);
+		
+		Collections.sort(allAnusTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
-	@Override
-	public boolean isDefaultPlural() {
-		return false;
-	}
-
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "";
+	public static AbstractAnusType getAnusTypeFromId(String id) {
+		if(id.equals("IMP")) {
+			return AnusType.DEMON_COMMON;
+		}
+		
+		id = Util.getClosestStringMatch(id, idToAnusMap.keySet());
+		return idToAnusMap.get(id);
 	}
 	
-	@Override
-	public String getName(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("asshole", "back door", "rear entrance");
-		}
-	}
-
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		return getName(gc);
+	public static String getIdFromAnusType(AbstractAnusType anusType) {
+		return anusToIdMap.get(anusType);
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("assholes", "back doors", "rear entrances");
+	public static List<AbstractAnusType> getAllAnusTypes() {
+		return allAnusTypes;
+	}
+	
+	private static Map<AbstractRace, List<AbstractAnusType>> typesMap = new HashMap<>();
+	public static List<AbstractAnusType> getAnusTypes(AbstractRace r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
 		}
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) {
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic", "perfect");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic", "irresistible");
-			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("horse-like", "equine");
-			case COW_MORPH:
-				return UtilText.returnStringAtRandom("cow-like", "bovine");
-			default:
-				return UtilText.returnStringAtRandom("");
+		
+		List<AbstractAnusType> types = new ArrayList<>();
+		for(AbstractAnusType type : AnusType.getAllAnusTypes()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
 		}
+		typesMap.put(r, types);
+		return types;
 	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
-	}
-
-	@Override
-	public Race getRace() {
-		return race;
-	}
-
-	public List<OrificeModifier> getDefaultRacialOrificeModifiers() {
-		return defaultRacialOrificeModifiers;
-	}
+	
 }

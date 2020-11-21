@@ -661,7 +661,7 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your troubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group is [npc.race(a)], while the other three look to be [npc2.race(a)], [npc3.race(a)], and [npc4.race(a)].
+		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your troubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group is [npc.a_race], while the other three look to be [npc2.a_race], [npc3.a_race], and [npc4.a_race].
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
@@ -892,11 +892,31 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SENT_TO_STOCKS"><![CDATA[
 	<p>
-		After about a twenty-minute walk, during which time you've received all sorts of strange looks and comments from members of the public, you and the [npc.race] Enforcer finally reach your destination, which turns out to be none other than slaver alley. Leading you up to the public stocks which are prominently positioned just a short way in from the entrance, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've a soon-to-be slave here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		After about a twenty-minute walk, during which time you've received all sorts of strange looks and comments from members of the public, you and the [npc.race] Enforcer finally reach your destination, which turns out to be none other than Slaver Alley.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_seanIntroduced))
+			 Leading you up to the public stocks which are prominently positioned just a short way in from the entrance, your captor calls out to [sean.name], who, as ever, is standing guard in this area, [npc.speech(Hey, Constable, I've a soon-to-be slave here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		#ELSE
+			 Leading you up to the public stocks which are prominently positioned just a short way in from the entrance, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, Constable, I've a soon-to-be slave here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		#ENDIF
 	</p>
-	<p>
-		[genericMale.speech(Sure, let me help you lock [pc.herHim] into this one,)] the Enforcer replies, before stepping forwards and leading you over to a nearby set of stocks, where both he and [npc.name] set about stripping you naked. Pushing your head and [pc.arms] through its open holes, the Enforcer then closes the wooden device, before locking it shut with a big iron padlock, trapping you in place. Walking off back to his station, he calls out, [genericMale.speech(There you go, [npc.sheIs] all yours. Have fun.)]
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_seanIntroduced))
+		<p>
+			[sean.speech([pc.Name]?! What have you gotten yourself into?)] [sean.name] exclaims as he sees that it's you.
+		</p>
+		<p>
+			Before any answer can be given, the [npc.race] snaps, [npc.speech(I hope you aren't on friendly terms with this criminal, Constable! If you are, I'll have to report it!)]
+		</p>
+		<p>
+			[sean.speech(Hey, there's no need for that!)] [sean.name] replies, before stepping forwards and starting to lead you over to a nearby set of stocks, [sean.speech(Come on, let me help you lock [pc.herHim] into this one over here.)]
+		</p>
+		<p>
+			Clearly having no choice but to cooperate with the SWORD Enforcer, [sean.name] helps [npc.name] strip you naked, before pushing your head and [pc.arms] through the stocks' open holes. Closing the wooden device, he locks it shut with a big iron padlock, trapping you in place. Walking off back to his station, he calls out, [sean.speech(There you go, [npc.sheIs] all yours. Have fun...)]
+		</p>
+	#ELSE
+		<p>
+			[sean.speech(Sure, let me help you lock [pc.herHim] into this one,)] the Enforcer replies, before stepping forwards and leading you over to a nearby set of stocks, where both he and [npc.name] set about stripping you naked. Pushing your head and [pc.arms] through its open holes, the Enforcer then closes the wooden device, before locking it shut with a big iron padlock, trapping you in place. Walking off back to his station, he calls out, [sean.speech(There you go, [npc.sheIs] all yours. Have fun.)]
+		</p>
+	#ENDIF
 	<p>
 		[npc.speech(Oh, I intend to,)] [npc.name] replies, before leaning down to growl in your ear, [npc.speech(Time for me to get some payback!)]
 	</p>
@@ -928,12 +948,21 @@
 	<p>
 		After [npc.sheHas] sorted [npc.her] uniform out, the [npc.race] lets an evil grin settle on [npc.her] face, and in a voice loud enough for the crowd to hear, [npc.she] says, [npc.speech(That was a good fuck, bitch. I'll be back tomorrow to get you registered as a slave. Until then, I'll leave you marked as being fully available for public use, just like I promised.)]
 	</p>
-	<p>
-		With one last evil laugh, [npc.she] heads off to exchange words with the Enforcer who locked you into the stocks, before heading off back to her post at the SWORD warehouse. As [npc.she] departs, the Enforcer on duty walks up to you, before making some marks on your set of stocks with a white chalk. Turning towards the crowd, he says, [genericMale.speech(Right, [pc.sheIs] all yours.)]
-	</p>
-	<p>
-		As the Enforcer heads off back to his post, the first members of the public wanting to use you step forwards...
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_seanIntroduced))
+		<p>
+			With one last evil laugh, [npc.she] walks over to [sean.name], and after exchanging a few brief words with him, heads off back to her post at the SWORD warehouse. As [npc.she] departs, [sean.name] walks up to you, before making some marks on your set of stocks with a white chalk. Letting out a sigh, he says, [sean.speech(I don't know exactly what it is you've done, but if I don't do as I'm told and mark you up as being free for public use, then I'll end up in the stocks as well. Sorry about this...)]
+		</p>
+		<p>
+			With that, [sean.name] heads off back to his post, and just a few moments later, the first members of the public wanting to use you step forwards...
+		</p>
+	#ELSE
+		<p>
+			With one last evil laugh, [npc.she] walks over to the Enforcer who locked you into the stocks, and after exchanging a few brief words with him, heads off back to her post at the SWORD warehouse. As [npc.she] departs, the Enforcer on duty walks up to you, before making some marks on your set of stocks with a white chalk. Turning towards the crowd, he says, [sean.speech(Right, [pc.sheIs] all yours.)]
+		</p>
+		<p>
+			As the Enforcer heads off back to his post, the first members of the public wanting to use you step forwards...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -980,7 +1009,11 @@
 		Having had their fun with you, [npc.name] and [npc2.name] put their clothes back on, and without even a backwards glance, they walk off together, speculating on the sorts of slaves that'll be available for them to fuck tomorrow.
 	</p>
 	<p>
-		Just as you're wondering what will happen next, another pair step up before you, and, to your amazement, you look up to see that it's none other than Claire and the Enforcer overseer. With a deep sigh, your busty cat-girl friend places her hands on her hips and states, [claire.speech(Yes, that's [pc.herHim]. Please release [pc.herHim] at once.)]
+		#IF(game.getDialogueFlags().hasFlag(FLAG_seanIntroduced))
+			Just as you're wondering what will happen next, another pair step up before you, and, to your amazement, you look up to see that it's none other than Claire and [sean.name]. With a deep sigh, your busty cat-girl friend places her hands on her hips and states, [claire.speech(Yes, that's [pc.herHim]. Please release [pc.herHim] at once.)]
+		#ELSE
+			Just as you're wondering what will happen next, another pair step up before you, and, to your amazement, you look up to see that it's none other than Claire and the Enforcer overseer. With a deep sigh, your busty cat-girl friend places her hands on her hips and states, [claire.speech(Yes, that's [pc.herHim]. Please release [pc.herHim] at once.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -989,12 +1022,22 @@
 	<!-- STOCKS_SET_FREE -->
 	
 	<htmlContent tag="STOCKS_SET_FREE"><![CDATA[
-	<p>
-		Doing as he's told, the Enforcer wipes the chalk markings off your stocks, before unlocking and removing the heavy padlock. Pulling up the wooden device, he frees your head and [pc.hands], before turning to Claire and saying, [genericMale.speech(Right, there you go. As I said, it was SWORD who told me to do it. I'm not exactly going to say no to them.)]
-	</p>
-	<p>
-		[claire.speech(Yes, yes, I know,)] the cat-girl impatiently says, before moving forwards and helping you to your [pc.feet]. As the Enforcer overseer walks off, Claire asks, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_seanIntroduced))
+		<p>
+			Doing as he's told, [sean.name] wipes the chalk markings off your stocks, before unlocking and removing the heavy padlock. Pulling up the wooden device, he frees your head and [pc.hands], before turning to Claire and saying, [sean.speech(Right, there you go. As I said, it was SWORD who told me to do it. I'm not exactly going to say no to them.)]
+		</p>
+		<p>
+			[claire.speech(Yes, yes, I know,)] the cat-girl impatiently says, before moving forwards and helping you to your [pc.feet]. As [sean.name] walks off back to his post, Claire asks, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
+		</p>
+	#ELSE
+		<p>
+			Doing as he's told, the Enforcer wipes the chalk markings off your stocks, before unlocking and removing the heavy padlock. Pulling up the wooden device, he frees your head and [pc.hands], before turning to Claire and saying, [genericMale.speech(Right, there you go. As I said, it was SWORD who told me to do it. I'm not exactly going to say no to them.)]
+		</p>
+		<p>
+			[claire.speech(Yes, yes, I know,)] the cat-girl impatiently says, before moving forwards and helping you to your [pc.feet]. As the Enforcer overseer walks off, Claire asks, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
+		</p>
+
+	#ENDIF
 	<p>
 		#IF(pc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
 			After telling Claire that you actually quite enjoyed the experience, you thank her for giving you enough time to get a good fuck, before asking how she managed to escape.
@@ -1019,10 +1062,10 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SENT_TO_CELLS"><![CDATA[
 	<p>
-		After just five minutes since leaving the warehouse, you and the [npc.race] Enforcer finally reach your destination, which, as you suspected, turns out to be the cells in the Enforcer Headquarters. Leading you into a small office situated at the end of the cells' corridor, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've got a prisoner here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		Just five minutes after leaving the warehouse, you and the [npc.race] Enforcer finally reach your destination, which, as you suspected, turns out to be the cells in the Enforcer Headquarters. Leading you into a small office situated at the end of the cells' corridor, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, Constable, I've got a prisoner here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
 	</p>
 	<p>
-		[genericMale.speech(Sure, let me help you lock [pc.herHim] up,)] the Enforcer replies, before leading you over to an unoccupied cell. Pushing you inside, he then shuts and locks the iron-barred door behind you, before turning to the [npc.race] and saying, [genericMale.speech(There you go, [npc.she]'ll be safe and sound in there until you come back to process [pc.herHim].)]
+		[genericMale.speech(Sure, let me help you lock [pc.herHim] up,)] the Enforcer replies, before leading you over to an unoccupied cell. Pushing you inside, he then shuts and locks the iron-barred door behind you, before turning to the [npc.race] and saying, [genericMale.speech(There you go, [pc.she]'ll be safe and sound in there until you come back to process [pc.herHim].)]
 	</p>
 	<p>
 		[npc.speech(Right, my Inspector should call in tomorrow to sort [pc.herHim] out,)] [npc.name] replies, before turning and exiting via the way the two of you arrived, leaving you alone in your cell.

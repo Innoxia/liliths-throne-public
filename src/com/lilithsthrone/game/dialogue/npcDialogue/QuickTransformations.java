@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -145,7 +145,7 @@ public class QuickTransformations {
 					public void effects() {
 						targetedNpc.setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						targetedNpc.setPenisType(RacialBody.valueOfRace(targetedNpc.getBody().getRaceFromPartWeighting()).getPenisType());
-						targetedNpc.setPenisGirth(PenisGirth.ONE_SLENDER);
+						targetedNpc.setPenisGirth(PenetrationGirth.TWO_NARROW);
 						targetedNpc.setPenisSize(3);
 						targetedNpc.setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						targetedNpc.setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
@@ -166,7 +166,7 @@ public class QuickTransformations {
 					public void effects() {
 						targetedNpc.setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						targetedNpc.setPenisType(RacialBody.valueOfRace(targetedNpc.getBody().getRaceFromPartWeighting()).getPenisType());
-						targetedNpc.setPenisGirth(PenisGirth.TWO_AVERAGE);
+						targetedNpc.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 						targetedNpc.setPenisSize(15);
 						targetedNpc.setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						targetedNpc.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
@@ -187,7 +187,7 @@ public class QuickTransformations {
 					public void effects() {
 						targetedNpc.setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						targetedNpc.setPenisType(RacialBody.valueOfRace(targetedNpc.getBody().getRaceFromPartWeighting()).getPenisType());
-						targetedNpc.setPenisGirth(PenisGirth.THREE_THICK);
+						targetedNpc.setPenisGirth(PenetrationGirth.FOUR_THICK);
 						targetedNpc.setPenisSize(30);
 						targetedNpc.setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						targetedNpc.setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
@@ -208,7 +208,7 @@ public class QuickTransformations {
 					public void effects() {
 						targetedNpc.setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						targetedNpc.setPenisType(RacialBody.valueOfRace(targetedNpc.getBody().getRaceFromPartWeighting()).getPenisType());
-						targetedNpc.setPenisGirth(PenisGirth.FOUR_FAT);
+						targetedNpc.setPenisGirth(PenetrationGirth.FIVE_FAT);
 						targetedNpc.setPenisSize(50);
 						targetedNpc.setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						targetedNpc.setPenisCumStorage(CumProduction.FIVE_HUGE.getMaximumValue());

@@ -3,6 +3,8 @@ package com.lilithsthrone.game.sex;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
@@ -13,7 +15,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			2/60f, 15/60f,
 			true) {
 		@Override
@@ -25,13 +27,31 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
+			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.MOUTH;
 		}
-
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.MOUTH;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getFaceStretchedCapacity();
+			}
+			return owner.getFaceRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getFaceMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getFaceMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -180,7 +200,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -196,11 +216,30 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.NIPPLE;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getNippleStretchedCapacity();
+			}
+			return owner.getNippleRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getNippleMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getNippleMaximumPenetrationDepthUncomfortable();
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -379,7 +418,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -399,11 +438,27 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.BREASTS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.CHEST;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -451,7 +506,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 					case FOOT:
 						break;
 					case PENIS:
-						boolean paizuri = target.isBreastFuckablePaizuri();
+						boolean paizuri = performer.isBreastFuckablePaizuri();
 						if(pastTense) {
 							switch(performerPace) {
 								case DOM_GENTLE:
@@ -545,7 +600,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	NIPPLE_CROTCH(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -561,11 +616,30 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES_CROTCH;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.STOMACH;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getNippleCrotchStretchedCapacity();
+			}
+			return owner.getNippleCrotchRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getNippleCrotchMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getNippleCrotchMaximumPenetrationDepthUncomfortable();
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -744,7 +818,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	BREAST_CROTCH(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -760,11 +834,27 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.BREASTS_CROTCH;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.STOMACH;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -812,7 +902,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 					case FOOT:
 						break;
 					case PENIS:
-						boolean paizuri = target.isBreastFuckablePaizuri();
+						boolean paizuri = performer.isBreastFuckablePaizuri();
 						if(pastTense) {
 							switch(performerPace) {
 								case DOM_GENTLE:
@@ -908,7 +998,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	ASS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -921,11 +1011,27 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ASS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.LEG;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -1046,7 +1152,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 4/60f,
 			true) {
 		@Override
@@ -1058,13 +1164,31 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ANUS;
 		}
-
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.ANUS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getAssStretchedCapacity();
+			}
+			return owner.getAssRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1078,6 +1202,35 @@ public enum SexAreaOrifice implements SexAreaInterface {
 					case CLIT:
 						break;
 					case FINGER:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Grabbing [npc2.namePos] [npc2.hand], [npc.name] [npc.sexPaceVerb] pushed [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole] and made [npc2.herHim] anally finger [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole+] and start anally fingering [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] pushing [npc2.her] [npc2.fingers] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.namePos] [npc.asshole+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] was forced to finger [npc.namePos] [npc.asshole+].");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] anally fingered by [npc2.name].");
+						}
 						break;
 					case FOOT:
 						break;
@@ -1109,7 +1262,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 							}
 							
 						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being anally fucked by [npc2.name].");
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] fucked in the ass by [npc2.name].");
 						}
 						break;
 					case TAIL:
@@ -1215,7 +1368,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1227,13 +1380,31 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
-
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.VAGINA;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getVaginaStretchedCapacity();
+			}
+			return owner.getVaginaRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1416,7 +1587,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -1428,7 +1599,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public boolean isPlural() {
@@ -1437,6 +1608,22 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.THIGHS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.LEG;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -1499,7 +1686,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1511,13 +1698,31 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
-
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.VAGINA;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getVaginaUrethraStretchedCapacity();
+			}
+			return owner.getVaginaUrethraRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getVaginaUrethraMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getVaginaUrethraMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1639,7 +1844,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1651,13 +1856,31 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
+			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
 		}
-
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.PENIS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getPenisStretchedCapacity();
+			}
+			return owner.getPenisRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getUrethraMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getUrethraMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1862,9 +2085,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	}
 	
 	public float getCumAbsorptionPerSecond() {
-		return cumAbsorptionPerSecond/60f;
+		return cumAbsorptionPerSecond;
 	}
-
+	
 	/**
 	 * @return true If this orifice is a fully internal orifice, capable of taking penile virginity.<br/>
 	 * Mouth, vagina, anus, urethras, and nipple are considered internal orifices.<br/>
@@ -1873,6 +2096,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public boolean isInternalOrifice() {
 		return takesPenisVirginity;
 	}
+	
+	public abstract float getCapacity(GameCharacter owner, boolean currentlyStretchedValue);
 	
 	public float getCharactersCumLossPerSecond(GameCharacter target) {
 		float cumLost = this.getCumAbsorptionPerSecond();
@@ -1885,5 +2110,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		return cumLost;
 	}
+	
+	public abstract int getMaximumPenetrationDepthComfortable(GameCharacter target);
+	
+	public abstract int getMaximumPenetrationDepthUncomfortable(GameCharacter target);
 	
 }

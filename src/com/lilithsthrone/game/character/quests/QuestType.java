@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.quests;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.1
@@ -8,9 +9,9 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum QuestType {
-	MAIN(Colour.QUEST_MAIN),
-	SIDE(Colour.QUEST_SIDE),
-	RELATIONSHIP(Colour.QUEST_RELATIONSHIP);
+	MAIN(PresetColour.QUEST_MAIN),
+	SIDE(PresetColour.QUEST_SIDE),
+	RELATIONSHIP(PresetColour.QUEST_RELATIONSHIP);
 
 	private Colour colour;
 

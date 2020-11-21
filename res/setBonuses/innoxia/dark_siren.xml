@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Dark Siren]]></name>
+	
+	<statusEffect>SET_DARK_SIREN</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>EYES</slot>
+		<slot>NECK</slot>
+		<slot>TORSO_OVER</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

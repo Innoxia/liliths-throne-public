@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="officeGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#officeGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.156" d="M10.549 1034.886h14.664"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" stroke-width="1.1" d="M11.541 1032.953l-.137-12.857H53.41v12.857l-13.048-.02-.069-9.213-15.896.157.069 9.075z"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.235" d="M10.554 1017.998H54.25"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.375" d="M16.25 1015.87h4.752"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.063" d="M18.73 1015.12l-.041-7.098"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.205" d="M15.246 1009.248l6.856-.042-2.079-4.115-2.613-.034z"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M50.97 1016.143c.169 0 1.092-1.97 1.092-1.97l-9.068-.024.858 1.965z"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width=".55" d="M43.723 1013.163h7.365M43.76 1012.434h7.364M43.783 1011.729h7.365"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.156" d="M39.69 1034.906h14.665"/>
+    </g>
+</svg>

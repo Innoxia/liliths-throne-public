@@ -46,10 +46,10 @@
 		Cowed by the imps' cruel insults and aggressive posturing, you decide that the best course of action would be to just give the gang what they want. Not wanting [npc.name] to have to endure this as well, you tell [npc.herHim] to step back, before holding up your [pc.hands] as you submit to the imps. [pc.speech(Please, there's no need for violence. You just want sex with me, right?)]
 	</p>
 	<p>
-		[npc.speech(So, the [pc.insult] knows [pc.her] place!)] [npc.name] snarls, before turning [npc.her] head and ordering [npc.her] subordinates to subdue you, [npc.speech(Get [pc.herHim] down, quick!)]
+		[npc2.speech(So, the [pc.insult] knows [pc.her] place!)] [npc2.name] snarls, before turning [npc2.her] head and ordering [npc2.her] subordinates to subdue you, [npc2.speech(Get [pc.herHim] down, quick!)]
 	</p>
 	<p>
-		Two of the smaller imps immediately dart forwards, and, flying up to each side of you, they grab your [pc.arms], before folding their wings behind their backs and using their weight to pull you down onto your knees. As you hit the floor, you look up to see [npc.name] and [npc2.name] stepping forwards, grinning in delight as they see that you're not going to put up a fight.
+		Two of the smaller imps immediately dart forwards, and, flying up to each side of you, they grab your [pc.arms], before folding their wings behind their backs and using their weight to pull you down onto your knees. As you hit the floor, you look up to see [npc2.name] and [npc3.name] stepping forwards, grinning in delight as they see that you're not going to put up a fight.
 	</p>
 	<p>
 		[npc.speech([npc.PcName]... Are you sure about this?!)] [npc.Name] calls out from somewhere behind you, but you turn and reassure [npc.herHim] that this is the for the best, before focusing your attention on the imps.
@@ -57,23 +57,23 @@
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
 		<p>
-			[npc.speech(Give me the potion,)] [npc.name] commands [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
+			[npc2.speech(Give me the potion,)] [npc2.name] commands [npc2.her] partner. Quickly producing a bottle of strange liquid, [npc3.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
-				 [npc2.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into our manly stud, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
 			#ELSE
-				 [npc2.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
+				 [npc3.speech(Open wide, [pc.insult]! This'll turn you into one sexy bitch, before giving you a nice big cock and sopping wet cunt, so whoever gets between your legs can have some extra fun!)]
 			#ENDIF
 		</p>
 		<p>
-			With no further warning, and not even giving you time to do as [npc.she] commands, [npc.name] shoves the bottle past your [pc.lips], and you feel the warm, sickly-sweet liquid entering your mouth...
+			With no further warning, and not even giving you time to do as [npc2.she] commands, [npc2.name] shoves the bottle past your [pc.lips], and you feel the warm, sickly-sweet liquid entering your mouth...
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc.name] spits in disgust. Turning to [npc.her] subordinate, [npc.she] snaps, [npc.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
+			[npc2.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] spits in disgust. Turning to [npc2.her] subordinate, [npc2.she] snaps, [npc2.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
 		</p>
 		<p>
-			With no further warning, [npc.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]
+			With no further warning, [npc2.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc2.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]
 		</p>
 	#ENDIF
 	]]>
@@ -353,10 +353,10 @@
 	
 	<htmlContent tag="IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT"><![CDATA[
 	<p>
-		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insultPlural]!)]
+		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insultPlural]!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -379,10 +379,10 @@
 		Much to your relief, [npc.name] seems willing to do as you say, and as you glance across at [npc.herHim], you see [npc.herHim] turn [npc.her] head to one side, before spitting [npc3.namePos] potion onto the floor.
 	</p>
 	<p>
-		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insultPlural]!)]
+		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insultPlural]!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -423,254 +423,6 @@
 	]]>
 	</htmlContent>
 	
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY"><![CDATA[
-	<p>
-		Your last opponent collapses to the ground at your feet, and you and [npc.name] breathe a sigh of relief as you look down at the gang of defeated imps before you. Despite their superior numbers, they proved to be no match your combined might, and now that you've proven yourself in battle, you wonder what you should do about these trouble-makers.
-	</p>
-	<p>
-		Considering how many imps there are infesting these tunnels, you know that the chances of encountering these particular foes again are slim-to-none, so if you wanted to do anything with them, now's the time. If nothing else, perhaps you could appropriate the transformation potions that these imps were planning to use on you an your companion?
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. Telling [npc.name] to stand back and watch, you step forwards and prepare to have some fun for yourself.
-	</p>
-	<p>
-		[pc.speech(Hurry up and present yourselves!)] You command as you move the imps into position and force each one of them down onto the floor before you.
-	</p>
-	<p>
-		[npc2.speech(Y-You [pc.insult]...)] [npc2.name] [npc2.moans], the tone of [npc2.her] voice revealing how desperately turned-on [npc2.she] is right now. As you reach forwards and give [npc2.her] [npc2.ass] a quick slap, [npc2.she] lets out a desperate, shuddering [npc2.moan], and turns [npc2.her] head to look back at you as [npc2.she] raises [npc2.her] [npc2.ass]. [npc2.speech(C-Come on then! I'm the leader, so you have to fuck me first!)]
-	</p>
-	<p>
-		The other three imps let out protesting groans, and, submissively presenting themselves to you, they start raising their asses into the air as they compete with one another to see who's going to be the first to get fucked by you...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. Telling [npc.name] to stand back and watch, you step forwards and prepare to have some fun for yourself.
-	</p>
-	<p>
-		[pc.speech(Come on, if you present yourselves nicely now, I'll make sure each one of you gets to orgasm.)] You softly purr as you gently move the imps into position and force each one of them down onto the floor before you.
-	</p>
-	<p>
-		[npc2.speech(Y-You [pc.insult]...)] [npc2.name] [npc2.moans], the tone of [npc2.her] voice revealing how desperately turned-on [npc2.she] is right now. As you reach forwards and give [npc2.her] [npc2.ass] a playful slap, [npc2.she] lets out a desperate, shuddering [npc2.moan], and turns [npc2.her] head to look back at you as [npc2.she] raises [npc2.her] [npc2.ass]. [npc2.speech(C-Come on then! I'm the leader, so you have to fuck me first!)]
-	</p>
-	<p>
-		The other three imps let out protesting groans, and, submissively presenting themselves to you, they start raising their asses into the air as they compete with one another to see who's going to be the first to get fucked by you...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. Telling [npc.name] to stand back and watch, you step forwards and prepare to have some fun for yourself.
-	</p>
-	<p>
-		[pc.speech(Hurry up and present yourselves, you fucking sluts!)] You growl in your most menacing tone as you start grabbing the imps and roughly yanking them down onto the floor before you.
-	</p>
-	<p>
-		[npc2.speech(Y-You [pc.insult]...)] [npc2.name] [npc2.moans], the tone of [npc2.her] voice revealing how desperately turned-on [npc2.she] is right now. As you reach forwards and give [npc2.her] [npc2.ass] a sharp, forceful slap, [npc2.she] lets out a desperate, shuddering [npc2.moan], and turns [npc2.her] head to look back at you as [npc2.she] raises [npc2.her] [npc2.ass]. [npc2.speech(C-Come on then! I'm the leader, so you have to fuck me first!)]
-	</p>
-	<p>
-		The other three imps let out protesting groans, and, submissively presenting themselves to you, they start raising their asses into the air as they compete with one another to see who's going to be the first to get fucked by you...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
-	<p>
-		The pile of defeated imps before you is truly a saddening sight to see, and as you catch the eye of [npc2.name], you think that it almost looks like [npc2.sheIs] crying. Feeling immensely guilty, and wanting to put things right, you drop down to your knees before them, and ask, [pc.speech(Are you all ok? I didn't mean to go so far...)]
-	</p>
-	<p>
-		[npc2.speech(What does it look like, [pc.insult]?!)] [npc2.Name] snaps. [npc2.speech(Of course we're not ok!)]
-	</p>
-	<p>
-		[pc.speech(Well, what can I do to make things better?)] You ask, desperate to do anything in order to earn the gang's forgiveness.
-	</p>
-	<p>
-		Sensing your momentary weakness, [npc2.name] pushes [npc2.herself] to [npc2.her] feet and steps forwards, before snapping [npc2.her] fingers and pointing to the floor. [npc2.speech(For starters, you can get down on all fours and apologise properly!)]
-	</p>
-	<p>
-		Being ordered to do something in such a dominant fashion appeals to your submissive nature, and, quickly doing as you're told, you drop down on all fours before [npc2.name]. Lowering your head, you cry out, [pc.speech(I'm so sorry! Please forgive me, I didn't mean to be so rough!)]
-	</p>
-	<p>
-		[npc.speech([npc.PcName]... Are you sure about this?)] [npc.NamePos] asks from somewhere behind you.
-	</p>
-	<p>
-		[pc.speech(Don't worry, [npc.name]. Just stand back... This will be over soon...)] You respond.
-	</p>
-	<p>
-		As you grovel on the floor in front of [npc2.name], you start to hear sounds of movement all around you, before an imp-sized hand suddenly starts squeezing your ass. You instinctively raise your [pc.hips] to offer yourself to the imp, who then suddenly lets go, before swishing back down to deliver a sharp slap to your left buttock. From behind, you hear [npc4.name] let out a mocking laugh as you cry out in surprise. [npc4.speech(Hah! Looks like we got another slut who can't wait to spread [pc.her] [pc.legs] for us imps!)]
-	</p>
-	<p>
-		As you try to look up and glance behind you, [npc2.name] steps forwards and grabs you by the chin, before sneering, [npc2.speech(Is that so? Are you just desperate to be an imp's sex-toy?)]
-	</p>
-	<p>
-		Being as submissive as you are, you find yourself unable to argue back, and as you feel [npc4.name] start groping and squeezing your ass, you mutter, [pc.speech(Y-Yes... That's right...)]
-	</p>
-	<p>
-		[npc3.speech(So go on, say it!)] [npc3.Name] commands, stepping up beside [npc3.her] partner to smirk down at your subservient form.
-	</p>
-	<p>
-		[pc.speech(I want to be an imp's sex-toy...)] You offer, knowing that your words are about to be put to the test.
-	</p>
-	<p>
-		[npc5.speech(That's what we like to hear!)] [npc5.Name] laughs from somewhere off to one side, and you can't help but let out a small [pc.moan] as the imps start moving into position, ready to fuck you...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you and [npc.name] from having sex with them. Telling [npc.name] that it's time to get some revenge, you step forwards and prepare to have some fun.
-	</p>
-	<p>
-		[pc.speech(Hurry up and present yourselves!)] You command as you and [npc.name] move the imps into position, forcing each one of them down onto the floor before the two of you.
-	</p>
-	<p>
-		[npc2.speech(Y-You [pc.insultPlural]...)] [npc2.name] [npc2.moans], the tone of [npc2.her] voice revealing how desperately turned-on [npc2.she] is right now. As you reach forwards and give [npc2.her] [npc2.ass] a quick slap, [npc2.she] lets out a desperate, shuddering [npc2.moan], and turns [npc2.her] head to look back at you as [npc2.she] raises [npc2.her] [npc2.ass]. [npc2.speech(C-Come on then! I'm the leader, so you have to fuck me first!)]
-	</p>
-	<p>
-		[npc3.speech(D-Don't forget about me!)] [npc3.name] cries out, raising [npc3.her] [npc3.hips+] and shaking [npc3.her] [npc3.ass+] in your direction.
-	</p>
-	<p>
-		The other two smaller imps let out protesting groans, and as they submissively present themselves to you and [npc.name], all four of the imps start jostling against one another they compete to see who's going to be the first to get fucked...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_GROUP_SEX_SUBMISSION"><![CDATA[
-	<p>
-		The pile of defeated imps before you is truly a saddening sight to see, and as you catch the eye of [npc2.name], you think that it almost looks like [npc2.sheIs] crying. Feeling immensely guilty, and wanting to put things right, you drop down to your knees before them, and ask, [pc.speech(Are you all ok? I didn't mean to go so far...)]
-	</p>
-	<p>
-		[npc2.speech(What does it look like, [pc.insult]?!)] [npc2.Name] snaps. [npc2.speech(Of course we're not ok!)]
-	</p>
-	<p>
-		[pc.speech(Well, what can I do to make things better?)] You ask, desperate to do anything in order to earn the gang's forgiveness.
-	</p>
-	<p>
-		Sensing your momentary weakness, [npc2.name] pushes [npc2.herself] to [npc2.her] feet and steps forwards, before snapping [npc2.her] fingers and pointing to the floor. [npc2.speech(For starters, you can get down on your knees and apologise properly!)]
-	</p>
-	<p>
-		Being ordered to do something in such a dominant fashion appeals to your submissive nature, and, grabbing [npc.namePos] [npc.arm], you quickly do as you're told, dragging you companion down with you as you drop down onto your knees before [npc2.name]. Lowering your head, you cry out, [pc.speech(I'm so sorry! Please forgive us, we didn't mean to be so rough!)]
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN
-			[npc.speech(That's right,)] [npc.name] replies, eager to go along with this. [npc.speech(We're so sorry!)]
-		#ELSE
-			[npc.speech([pc.Name]! W-What the hell?!)] [npc2.name] calls in alarm. [npc.speech(T-There's going to take advantage of us!)]
-		#ENDIF
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN
-			[pc.speech(Come on, [npc.name],)] you say. [npc.speech(Get down on all fours! We need to really show that we're sorry!)]
-		#ELSE
-			[pc.speech(Just do as you're told, [npc.name]!)] you call out, reaching over and pushing your companion down onto all fours. [pc.speech(We need to really show that we're sorry!)]
-		#ENDIF
-	</p>
-	<p>
-		As the two of you grovel on the floor before [npc2.name], you start to hear sounds of movement all around you, before an imp-sized hand suddenly starts squeezing your ass. You instinctively raise your [pc.hips] to offer yourself to the imp, who then suddenly lets go, before swishing back down to deliver a sharp slap to your left buttock. From behind, you hear [npc4.name] let out a mocking laugh as you cry out in surprise. [npc4.speech(Hah! Looks like we got a pair of sluts who're just desperate to spread their legs for us imps!)]
-	</p>
-	<p>
-		As you try to look up and glance behind you, [npc2.name] steps forwards and grabs both you and [npc.name] by the chin, before sneering at the two of you, [npc2.speech(Is that so? Are you two just nothing more than sex-toys for us imps?)]
-	</p>
-	<p>
-		Being as submissive as you are, you find yourself unable to argue back, and as you feel [npc4.name] start groping and squeezing your ass, you mutter, [pc.speech(Y-Yes... That's right...)]
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN
-			Similarly happy to show [npc.her] submission, [npc.name] [npc.moans], [npc.speech(Yes... We're sluts for imps...)]
-		#ELSE
-			Unwilling to play along, [npc.name] starts to struggle, and calls out, [npc.speech(No! [pc.Name], why are you doing this?!)]
-		#ENDIF
-	</p>
-	<p>
-		[npc3.speech(I want to hear this one say it!)] [npc3.Name] commands, stepping up beside [npc3.her] partner to smirk down at your subservient form. [npc3.speech(Say you want to be my sex-toy!)]
-	</p>
-	<p>
-		[pc.speech(I want to be your sex-toy! Please, fuck me!)] You reply, knowing that your words are about to be put to the test.
-	</p>
-	<p>
-		[npc5.speech(That's what we like to hear!)] [npc5.Name] laughs from somewhere behind [npc.name], and you can't help but let out a small [pc.moan] as you turn to see [npc5.herHim] groping your companion's [npc.ass+].
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN
-			[npc.speech(Come on, give us what we want!)] [npc.Name] enthusiastically calls out, and, with a chorus of mocking laughter, the imps start moving into position, ready to fuck the two of you...
-		#ELSE
-			[npc.speech(Stop it!)] [npc.Name] frantically calls out, but, with a chorus of mocking laughter, the imps ignore [npc.her] pleas, and start moving into position, ready to fuck the two of you...
-		#ENDIF
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_GIVE_TO_COMPANION"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from telling [npc.name] to have sex with them. With that in mind, you turn towards your companion, and say, [pc.speech(Go on, [npc.name]. Put these imps into their place.)]
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN
-			[npc.speech(Now that sounds fun!)] [npc.Name] enthusiastically replies, and, not needing any more encouragement, starts moving the imps into position, forcing each one of them down onto the floor before [npc.herHim]. [npc.speech(Hurry up and present yourselves!)]
-		#ELSE
-			[npc.speech(I-I don't really want to...)] [npc.Name] nervously replies, but, after telling [npc.herHim] that it's an order, [npc.she] reluctantly does as you command, and starts moving the imps into position. As [npc.she] forces each one of them down onto the floor before [npc.herHim], [npc.she] snaps, [npc.speech(Hurry up and present yourselves! If I've got to do this, I want to get it over with as quickly as possible!)]
-		#ENDIF
-	</p>
-	<p>
-		[npc2.speech(Y-You [npc.insultPlural]...)] [npc2.name] [npc2.moans], the tone of [npc2.her] voice revealing how desperately turned-on [npc2.she] is right now. As [npc.name] reaches forwards and gives [npc2.her] [npc2.ass] a firm slap, [npc2.she] lets out a desperate, shuddering [npc2.moan], and turns [npc2.her] head to look back at your companion as [npc2.she] raises [npc2.her] [npc2.ass]. [npc2.speech(C-Come on then! I'm the leader, so you have to fuck me first!)]
-	</p>
-	<p>
-		[npc3.speech(D-Don't forget about me!)] [npc3.name] cries out, raising [npc3.her] [npc3.hips+] and shaking [npc3.her] [npc3.ass+] in [npc.namePos] direction.
-	</p>
-	<p>
-		The other two smaller imps let out protesting groans, and as they submissively present themselves to [npc.name], all four of the imps start jostling against one another they compete to see who's going to be the first to get fucked...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
-	<p>
-		As you look down at the pile of defeated imps, you think that it would be fun to watch them get their revenge on your companion, and so you turn towards [npc.name] and say, [pc.speech(I think you were too rough with them, [npc.name]. You'd better apologise by letting them fuck you.)]
-	</p>
-	<p>
-		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-		#THEN[npc.speech(Sure thing, [pc.name],)] [npc.name] replies. [npc.speech(If that's really what you want me to do...)]
-		#ELSE[npc.speech([pc.Name]! W-What the hell?!)] [npc.name] replies in alarm. [npc.speech(I-I really don't want to do that!)]
-		#ENDIF
-	</p>
-	<p>
-		Having overheard your conversation, [npc2.name] pushes [npc2.herself] to [npc2.her] feet, before stepping forwards and sneering, [npc2.speech(Sounds like your boss wants to watch us imps give you a real good fucking! So go on, [npc.insult], get down and get ready for it! I bet you love getting used by gangs of imps, don't you, [npc.insult]?)]
-	</p>
-	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
-	#THEN
-		<p>
-			[npc.Name] steps forwards, smiling at the imps as [npc.she] does as [npc.sheIs] told. [npc.speech(All four of you want me at once, huh? Well, come on then...)]
-		</p>
-		<p>
-			[npc2.speech(This [npc.insult] knows [npc.her] place!)] [npc2.name] snarls, before turning [npc2.her] head and ordering [npc2.her] subordinates to subdue [npc.name], [npc2.speech(Get [npc.herHim] down, quick!)]
-		</p>
-	#ELSE
-		<p>
-			[npc.Name] steps back, clearly nervous about what's about to happen. [npc.speech(A-All four of you? At once? I-I don't know...)]
-		</p>
-		<p>
-			[npc2.speech(So, this [npc.insult] still needs to be shown [npc.her] place, huh?!)] [npc2.name] snarls, before turning [npc2.her] head and ordering [npc2.her] subordinates to subdue [npc.name], [npc2.speech(Get [npc.herHim] down, quick, before [npc.she] tries to run!)]
-		</p>
-	#ENDIF
-	<p>
-		Two of the smaller imps immediately dart forwards, and, flying up to each side of [npc.name], they grab [npc.her] [npc.arms], before folding their wings behind their backs and using their weight to pull [npc.herHim] down onto [npc.her] knees, before forcing [npc.herHim] down onto the floor. As [npc.she] hits the ground, [npc.she] looks up to see the other two imps stepping forwards, grinning in anticipation of what's about to happen...
-	</p>
-	]]>
-	</htmlContent>
 	
 	<htmlContent tag="COMBAT_DEFEAT_TF"><![CDATA[
 	<p>
@@ -825,10 +577,10 @@
 	
 	<htmlContent tag="COMBAT_DEFEAT_TF_REFUSED"><![CDATA[
 	<p>
-		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc.name] hurls the bottle to one side. [npc.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insult]!)]
+		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc2.name] hurls the bottle to one side. [npc2.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?! Fucking stupid [pc.insult]!)]
 	</p>
 	<p>
-		[npc.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc.herHim] to calm down. As you do this, however, [npc.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
+		[npc2.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, [npc2.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc2.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -839,16 +591,6 @@
 	</p>
 	<p>
 		[pc.speech(Yes...)] You absent-mindedly reply, concentrating more on the strange feeling that's started to bubble up inside your body than whatever it is that the imp just asked of you. As you feel the curious sensation start to change into a steady warmth that permeates through your entire body, you realise that the potion's transformative effects are about to make themselves known... 
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="AFTER_VICTORY_SEX"><![CDATA[
-	<p>
-		[npc2.speech(Ah... Y-You're done...)] [npc2.Name] sighs, with more than a little disappointment in [npc2.her] voice. The other imps let out pleading moans of their own, obviously still eager to continue having sex.
-	</p>
-	<p>
-		Having already had your fun with the imps, both you and [npc.name] ignore their pathetic whining and set about getting your things in order. After just a moment, the two of you are ready to continue on your way, but as you take one last glance at your defeated foes, you wonder if you should take another look at their inventories. Then again, that might be more trouble than it's worth, and it might be best to simply leave them be and head off into the tunnels once again...
 	</p>
 	]]>
 	</htmlContent>

@@ -4,73 +4,125 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum FluidFlavour {
 	
-	CUM("cum", Colour.BASE_WHITE,
+	CUM("cum", PresetColour.CUM,
 			Util.newArrayListOfValues(
 					"salty")),
 	
-	MILK("milk", Colour.BASE_WHITE,
+	MILK("milk", PresetColour.MILK,
 			Util.newArrayListOfValues(
 					"creamy")),
 	
-	GIRL_CUM("girl-cum", Colour.BASE_WHITE,
+	GIRL_CUM("girlcum", PresetColour.GIRLCUM,
 			Util.newArrayListOfValues(
 					"sweet")),
 
-	BUBBLEGUM("bubblegum", Colour.BASE_PINK_LIGHT,
+	BUBBLEGUM("bubblegum", PresetColour.BASE_PINK_LIGHT,
 			Util.newArrayListOfValues(
 					"sweet")),
 	
-	
-	BEER("beer", Colour.BASE_TAN,
+	BEER("beer", PresetColour.BASE_TAN,
 			Util.newArrayListOfValues(
 					"yeasty",
 					"beer-flavoured")),
 	
-	VANILLA("vanilla", Colour.BASE_YELLOW_LIGHT,
+	VANILLA("vanilla", PresetColour.BASE_YELLOW_PALE,
 			Util.newArrayListOfValues(
 					"sweet",
 					"vanilla-flavoured")),
 	
-	STRAWBERRY("strawberries", Colour.BASE_RED,
+	STRAWBERRY("strawberry", PresetColour.BASE_CRIMSON,
 			Util.newArrayListOfValues(
 					"sweet",
 					"strawberry-flavoured")),
 	
-	CHOCOLATE("chocolate", Colour.BASE_BROWN,
+	CHOCOLATE("chocolate", PresetColour.BASE_BROWN,
 			Util.newArrayListOfValues(
 					"chocolatey",
 					"chocolate-flavoured")),
 	
-	PINEAPPLE("pineapple", Colour.BASE_YELLOW_LIGHT,
+	PINEAPPLE("pineapple", PresetColour.BASE_YELLOW_LIGHT,
 			Util.newArrayListOfValues(
 					"tart",
 					"sour",
 					"tangy",
 					"pineapple-flavoured")),
 	
-	HONEY("honey", Colour.BASE_YELLOW,
+	HONEY("honey", PresetColour.BASE_YELLOW,
 			Util.newArrayListOfValues(
 					"sweet",
 					"honey-flavoured")),
 	
-	MINT("mint", Colour.BASE_GREEN_LIME,
+	MINT("mint", PresetColour.BASE_GREEN_LIME,
 			Util.newArrayListOfValues(
 					"minty")),
 	
-	CHERRY("cherry", Colour.BASE_CRIMSON,
+	CHERRY("cherry", PresetColour.BASE_RED_DARK,
 			Util.newArrayListOfValues(
 					"sweet",
-					"cherry-flavoured"))
+					"cherry-flavoured")),
+	
+	// ------ Icons for these made by 'Charisma is my Stat Dump': ------ //
+	
+	COFFEE("coffee", PresetColour.BASE_BROWN_DARK,
+			Util.newArrayListOfValues(
+					"bitter",
+					"coffee-flavoured")),
+	
+	TEA("tea", PresetColour.BASE_GREEN,
+			Util.newArrayListOfValues(
+					"tea-flavoured")),
+	
+	MAPLE("maple", PresetColour.BASE_RED,
+			Util.newArrayListOfValues(
+					"sweet",
+					"maple-flavoured")),
+	
+	CINNAMON("cinnamon", PresetColour.BASE_BROWN,
+			Util.newArrayListOfValues(
+					"cinnamon-flavoured")),
+
+	LEMON("lemon", PresetColour.BASE_YELLOW,
+			Util.newArrayListOfValues(
+					"sour",
+					"lemon-flavoured")),
+	
+	// ------------ //
+	
+	// ------ Icons for these made by 'DSG': ------ //
+	
+	ORANGE("orange", PresetColour.BASE_ORANGE,
+			Util.newArrayListOfValues(
+					"orange-flavoured")),
+	
+	GRAPE("grape", PresetColour.BASE_PURPLE,
+			Util.newArrayListOfValues(
+					"grape-flavoured")),
+	
+	MELON("melon", PresetColour.BASE_GREEN_LIGHT,
+			Util.newArrayListOfValues(
+					"melon-flavoured")),
+	
+	COCONUT("coconut", PresetColour.BASE_BROWN_DARK,
+			Util.newArrayListOfValues(
+					"coconut-flavoured")),
+	
+	BLUEBERRY("blueberry", PresetColour.BASE_BLUE_DARK,
+			Util.newArrayListOfValues(
+					"blueberry-flavoured"))
+	
+	// ------------ //
+	
 	;
 	
 	private String name;

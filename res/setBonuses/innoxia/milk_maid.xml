@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Milk Maid]]></name>
+	
+	<statusEffect>SET_MILK_MAID</statusEffect>
+	
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>TORSO_UNDER</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

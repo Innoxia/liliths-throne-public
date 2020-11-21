@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- For a version with comments, see "rental_mommy.xml". -->
+<!-- For a version with comments, see "res/mods/innoxia/items/clothing/template/socks.xml". -->
 <clothing>
 	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[Rental-Daddy T-shirt]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Rental-Daddy T-shirts]]></namePlural>
-		<description><![CDATA[A T-shirt that bears the words 'Rental Daddy', with the price of fifty flames displayed below that.]]></description>
+		<name><![CDATA[T-shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[T-shirts]]></namePlural>
+		<description><![CDATA[A masculine-cut T-shirt. It bears the words: ]]></description> 
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>TORSO_UNDER</slot>
@@ -14,6 +14,84 @@
 		<clothingSet/>
 		<imageName>rental_daddy.svg</imageName>
 		<imageEquippedName/>
+		
+		<stickers>
+			<category id="top_txt" priority="1">
+				<categoryName><![CDATA[Top Text]]></categoryName>
+				<sticker id="rental" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Rental]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Rental]]></namePrefix>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Rental </i>]]></descriptionModification>
+					<imageName slot="TORSO_UNDER">text_rental.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="dommy" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Dommy]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Dommy]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>Dommy </i>]]></descriptionModification>
+					<imageName>text_dommy.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+			<category id="btm_txt" priority="2">
+				<categoryName><![CDATA[Bottom Text]]></categoryName>
+				<sticker id="daddy" priority="1" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[Daddy]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Daddy]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Daddy</i>]]></descriptionModification>
+					<imageName>text_daddy.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="mommy" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Mommy]]></stickerName>
+					<namePrefix priority="2"><![CDATA[Mommy]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i>Mommy</i>]]></descriptionModification>
+					<imageName>text_mommy.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+			<category id="price" priority="3">
+				<categoryName><![CDATA[Price]]></categoryName>
+				<sticker id="50" priority="1" defaultSticker="true" zLayer="1">
+					<stickerName><![CDATA[50]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="3"><![CDATA[, <i>[style.moneyFormatNoColour(50, span)]</i>]]></descriptionModification>
+					<imageName>text_flames_50.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="none" priority="0" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
 		<enchantmentLimit/>
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
@@ -64,6 +142,7 @@
 		<tertiaryColoursDye values="ALL"/>
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 

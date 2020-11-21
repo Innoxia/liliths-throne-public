@@ -13,12 +13,12 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class World implements XMLSaving {
@@ -28,9 +28,9 @@ public class World implements XMLSaving {
 	public static final int CELL_SIZE = 64;
 	
 	private Cell[][] grid;
-	private WorldType worldType;
+	private AbstractWorldType worldType;
 
-	public World(int worldWidth, int worldHeight, Cell[][] grid, WorldType worldType) {
+	public World(int worldWidth, int worldHeight, Cell[][] grid, AbstractWorldType worldType) {
 		WORLD_WIDTH = worldWidth;
 		WORLD_HEIGHT = worldHeight;
 
@@ -43,7 +43,7 @@ public class World implements XMLSaving {
 		Element element = doc.createElement("world");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", this.getWorldType().toString());
+		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
 		CharacterUtils.addAttribute(doc, element, "width", String.valueOf(this.WORLD_WIDTH));
 		CharacterUtils.addAttribute(doc, element, "height", String.valueOf(this.WORLD_HEIGHT));
 		
@@ -61,13 +61,9 @@ public class World implements XMLSaving {
 	}
 	
 	public static World loadFromXML(Element parentElement, Document doc) {
-		WorldType type = WorldType.EMPTY;
+		AbstractWorldType type = WorldType.EMPTY;
 		String worldType = parentElement.getAttribute("worldType");
-		if(worldType.equals("SEWERS")) {
-			type = WorldType.SUBMISSION;
-		} else {
-			type = WorldType.valueOf(worldType);
-		}
+		type = WorldType.getWorldTypeFromId(worldType);
 		
 		int width = Integer.valueOf(parentElement.getAttribute("width"));
 		int height = Integer.valueOf(parentElement.getAttribute("height"));
@@ -140,10 +136,10 @@ public class World implements XMLSaving {
 	}
 
 	/**
-	 * @param place The PlaceUpgrade to find all Cells of.
+	 * @param place The AbstractPlaceUpgrade to find all Cells of.
 	 * @return A List of Cells which have the specified upgrade.
 	 */
-	public List<Cell> getCells(PlaceUpgrade placeUpgrade) {
+	public List<Cell> getCells(AbstractPlaceUpgrade placeUpgrade) {
 		List<Cell> cellsFound = new ArrayList<>();
 		
 		for(int i=0; i<grid.length; i++) {
@@ -240,12 +236,12 @@ public class World implements XMLSaving {
 		return grid;
 	}
 
-	public WorldType getWorldType() {
+	public AbstractWorldType getWorldType() {
 		return worldType;
 	}
 
-	public void setCellType(WorldType cellType) {
-		this.worldType = cellType;
+	public void setCellType(AbstractWorldType worldType) {
+		this.worldType = worldType;
 	}
 
 	public Cell[][] getGrid() {

@@ -1,14 +1,19 @@
 package com.lilithsthrone.game.character.body.types;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -19,12 +24,14 @@ public enum BodyCoveringType {
 
 	// Skin shades go light->dark
 
-	HUMAN(BodyCoveringTemplateFactory.createTopSkin(
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.FRECKLED,
-					CoveringPattern.FRECKLED_FACE),
-			Colour.humanSkinColours)),
+	HUMAN(BodyCoveringTemplateFactory.createSkin(
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 30),
+					new Value<>(CoveringPattern.FRECKLED_FACE, 2),
+					new Value<>(CoveringPattern.FRECKLED, 1)),
+			PresetColour.humanSkinColours,
+			PresetColour.humanSkinColours,
+			PresetColour.allSkinColours)),
 	
 	FOX_FUR("a layer of",
 			false,
@@ -34,18 +41,21 @@ public enum BodyCoveringType {
 					CoveringModifier.FLUFFY,
 					CoveringModifier.SMOOTH),
 			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MARKED),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.MARKED, 1)), // Foxes always have white markings on their undersides
 			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalFurColours,
-			Colour.allCoveringColours,
-			Colour.naturalFurColours,
-			Colour.allCoveringColours),
+			Util.newArrayListOfValues(
+					PresetColour.COVERING_ORANGE,
+					PresetColour.COVERING_TAN,
+					PresetColour.COVERING_GREY,
+					PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours,
+			Util.newArrayListOfValues(
+					PresetColour.COVERING_WHITE), // Fox markings are always naturally white
+			PresetColour.allCoveringColours),
 	
 	ANGEL(BodyCoveringTemplateFactory.createTopSkin(
-			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Colour.humanSkinColours)),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			PresetColour.humanSkinColours)),
 
 	ANGEL_FEATHER("a layer of",
 			true,
@@ -53,16 +63,16 @@ public enum BodyCoveringType {
 			"feather",
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			CoveringPattern.allHairCoveringPatterns,
-			Util.newArrayListOfValues(Colour.COVERING_WHITE),
-			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours),
-			Util.newArrayListOfValues(Colour.COVERING_WHITE),
-			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours)),
+			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
+			Util.mergeLists(PresetColour.dyeFeatherColours, PresetColour.naturalFeatherColours),
+			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
+			Util.mergeLists(PresetColour.dyeFeatherColours, PresetColour.naturalFeatherColours)),
 	
 	DEMON_COMMON(BodyCoveringTemplateFactory.createTopSkin(
-			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Colour.demonSkinColours)),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			PresetColour.demonSkinColours)),
 
 	DEMON_FEATHER("a layer of",
 			true,
@@ -70,28 +80,45 @@ public enum BodyCoveringType {
 			"feather",
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			CoveringPattern.allHairCoveringPatterns,
-			Util.newArrayListOfValues(Colour.COVERING_BLACK),
-			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours),
-			Util.newArrayListOfValues(Colour.COVERING_BLACK),
-			Util.mergeLists(Colour.dyeFeatherColours, Colour.naturalFeatherColours)),
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			Util.mergeLists(PresetColour.dyeFeatherColours, PresetColour.naturalFeatherColours),
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			Util.mergeLists(PresetColour.dyeFeatherColours, PresetColour.naturalFeatherColours)),
+
+	DEMON_HORSE_HAIR("a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(CoveringModifier.SHORT),
+			null,
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 30),
+					new Value<>(CoveringPattern.MOTTLED, 5),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MARKED, 5)),
+			CoveringPattern.allHairCoveringPatterns,
+			PresetColour.naturalFurColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalFurColours,
+			PresetColour.allCoveringColours),
 	
-	BAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(Colour.humanSkinColours)),
+	BAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(PresetColour.humanSkinColours)),
 	
 	BAT_FUR(BodyCoveringTemplateFactory.createFurSkin(
 			Util.newArrayListOfValues(CoveringModifier.SHORT),
-			Util.newArrayListOfValues(CoveringPattern.NONE))),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)))),
 	
 	CANINE_FUR(BodyCoveringTemplateFactory.createFurSkin(
 			Util.newArrayListOfValues(
 					CoveringModifier.FLUFFY,
 					CoveringModifier.SHORT,
 					CoveringModifier.SHAGGY),
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MARKED,
-					CoveringPattern.SPOTTED))),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 30),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MARKED, 5)))),
 	
 	LYCAN_FUR(BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SHAGGY), null)),
 
@@ -100,17 +127,17 @@ public enum BodyCoveringType {
 					CoveringModifier.SMOOTH,
 					CoveringModifier.SHORT,
 					CoveringModifier.FLUFFY),
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MOTTLED,
-					CoveringPattern.SPOTTED,
-					CoveringPattern.MARKED,
-					CoveringPattern.STRIPED,
-					CoveringPattern.HIGHLIGHTS))),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 50),
+					new Value<>(CoveringPattern.MOTTLED, 5),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MARKED, 5),
+					new Value<>(CoveringPattern.STRIPED, 5),
+					new Value<>(CoveringPattern.HIGHLIGHTS, 5)))),
 
 	SQUIRREL_FUR(BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH), null)),
 	
-	RAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(Colour.ratSkinColours)),
+	RAT_SKIN(BodyCoveringTemplateFactory.createBottomSkin(PresetColour.ratSkinColours)),
 	
 	RAT_FUR(BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH), null)),
 
@@ -122,31 +149,30 @@ public enum BodyCoveringType {
 			"hair",
 			Util.newArrayListOfValues(CoveringModifier.SHORT),
 			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MOTTLED,
-					CoveringPattern.SPOTTED,
-					CoveringPattern.MARKED,
-					CoveringPattern.STRIPED),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 30),
+					new Value<>(CoveringPattern.MOTTLED, 5),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MARKED, 5)),
 			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalFurColours,
-			Colour.allCoveringColours,
-			Colour.naturalFurColours,
-			Colour.allCoveringColours),
+			PresetColour.naturalFurColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalFurColours,
+			PresetColour.allCoveringColours),
 	
 	REINDEER_FUR(BodyCoveringTemplateFactory.createFurSkin(
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
-			Util.newArrayListOfValues(CoveringPattern.NONE))),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)))),
 	
 	BOVINE_FUR(BodyCoveringTemplateFactory.createFurSkin(
 			Util.newArrayListOfValues(
 					CoveringModifier.SHORT,
 					CoveringModifier.SMOOTH),
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MOTTLED,
-					CoveringPattern.SPOTTED,
-					CoveringPattern.MARKED))),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 10),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MOTTLED, 1),
+					new Value<>(CoveringPattern.MARKED, 1)))),
 	
 	DILDO("a layer of", // This colour is set in GameCharacter's getCovering method, based on the colour of the dildo equipped.
 			false,
@@ -169,58 +195,58 @@ public enum BodyCoveringType {
 	
 	NIPPLES(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_NIPPLE)),
 	
-	NIPPLES_CROTCH(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_NIPPLE)),
+	NIPPLES_CROTCH(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_NIPPLE_CROTCH)),
 	
 	VAGINA(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_VAGINA)),
 	
 
 	FIRE(BodyCoveringTemplateFactory.createElemental("flames", CoveringModifier.BLAZING, 
-					Colour.COVERING_ORANGE,
-					Colour.COVERING_BLUE_LIGHT)),
+					PresetColour.COVERING_ORANGE,
+					PresetColour.COVERING_BLUE_LIGHT)),
 	
 	FIRE_HAIR(BodyCoveringTemplateFactory.createElemental("flames", CoveringModifier.BLAZING, 
-			Colour.COVERING_ORANGE,
-			Colour.COVERING_BLUE_LIGHT)),
+			PresetColour.COVERING_ORANGE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 	
 	WATER(BodyCoveringTemplateFactory.createElemental("water", CoveringModifier.SHIMMERING, 
-			Colour.COVERING_BLUE,
-			Colour.COVERING_BLUE_LIGHT)),
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 	
 	WATER_HAIR(BodyCoveringTemplateFactory.createElemental("water", CoveringModifier.SHIMMERING, 
-			Colour.COVERING_BLUE,
-			Colour.COVERING_BLUE_LIGHT)),
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_LIGHT)),
 
-	ICE(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, Colour.COVERING_BLUE_LIGHT)),
+	ICE(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, PresetColour.COVERING_BLUE_LIGHT)),
 	
-	ICE_HAIR(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, Colour.COVERING_BLUE_LIGHT)),
+	ICE_HAIR(BodyCoveringTemplateFactory.createElemental("ice", CoveringModifier.SHIMMERING, PresetColour.COVERING_BLUE_LIGHT)),
 
-	AIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, Colour.COVERING_BLUE_LIGHT)),
+	AIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, PresetColour.COVERING_BLUE_LIGHT)),
 	
-	AIR_HAIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, Colour.COVERING_BLUE_LIGHT)),
+	AIR_HAIR(BodyCoveringTemplateFactory.createElemental("vapours", CoveringModifier.SWIRLING, PresetColour.COVERING_BLUE_LIGHT)),
 
-	STONE(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, Colour.COVERING_GREY)),
+	STONE(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, PresetColour.COVERING_GREY)),
 	
-	STONE_HAIR(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, Colour.COVERING_GREY)),
+	STONE_HAIR(BodyCoveringTemplateFactory.createElemental("stone", CoveringModifier.MATTE, PresetColour.COVERING_GREY)),
 
-	RUBBER(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, Colour.COVERING_BLACK)),
+	RUBBER(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, PresetColour.COVERING_BLACK)),
 	
-	RUBBER_HAIR(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, Colour.COVERING_BLACK)),
+	RUBBER_HAIR(BodyCoveringTemplateFactory.createElemental("rubber", CoveringModifier.GLOSSY, PresetColour.COVERING_BLACK)),
 
-	ARCANE(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, Colour.COVERING_PINK)),
+	ARCANE(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, PresetColour.COVERING_PINK)),
 	
-	ARCANE_HAIR(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, Colour.COVERING_PINK)),
+	ARCANE_HAIR(BodyCoveringTemplateFactory.createElemental("energy", CoveringModifier.SWIRLING, PresetColour.COVERING_PINK)),
 	
 	
 	SLIME(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allStandardCoveringPatterns)),
 
 	SLIME_EYE(BodyCoveringTemplateFactory.createSlime(CoveringPattern.EYE_IRISES,
-			Util.newArrayListOfValues(CoveringPattern.EYE_IRISES_HETEROCHROMATIC))),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))),
 	
 	SLIME_PUPILS(BodyCoveringTemplateFactory.createSlime(CoveringPattern.EYE_PUPILS,
-			Util.newArrayListOfValues(CoveringPattern.EYE_PUPILS_HETEROCHROMATIC))),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_PUPILS_HETEROCHROMATIC, 1)))),
 	
 	SLIME_SCLERA(BodyCoveringTemplateFactory.createSlime(CoveringPattern.EYE_SCLERA,
-			Util.newArrayListOfValues(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC))),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC, 1)))),
 	
 	SLIME_HAIR(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allHairCoveringPatterns)),
 
@@ -230,31 +256,16 @@ public enum BodyCoveringType {
 	
 	SLIME_MOUTH(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_MOUTH, null)),
 	
+	SLIME_TONGUE(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allStandardCoveringPatterns)),
+	
 	SLIME_NIPPLES(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_NIPPLE, null)),
 	
-	SLIME_NIPPLES_CROTCH(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_NIPPLE, null)),
+	SLIME_NIPPLES_CROTCH(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_NIPPLE_CROTCH, null)),
 	
 	SLIME_VAGINA(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_VAGINA, null)),
 	
 	SLIME_PENIS(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allStandardCoveringPatterns)),
 
-	FEATHERS("a layer of",
-			true,
-			"feathers",
-			"feather",
-			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
-			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.MOTTLED,
-					CoveringPattern.SPOTTED,
-					CoveringPattern.MARKED,
-					CoveringPattern.STRIPED),
-			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours),
 
 	ALLIGATOR_SCALES("a layer of",
 			true,
@@ -262,12 +273,12 @@ public enum BodyCoveringType {
 			"scale",
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			CoveringPattern.allScalesCoveringPatterns,
-			Colour.naturalScaleColours,
-			Colour.allCoveringColours,
-			Colour.naturalScaleColours,
-			Colour.allCoveringColours),
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours),
 
 	// MISC:
 	
@@ -279,10 +290,10 @@ public enum BodyCoveringType {
 			null,
 			null,
 			CoveringPattern.allScalesCoveringPatterns,
-			Colour.hornColours,
-			Colour.dyeHornColours,
-			Colour.hornColours,
-			Colour.dyeHornColours),
+			PresetColour.hornColours,
+			PresetColour.allCoveringColours,
+			PresetColour.hornColours,
+			PresetColour.allCoveringColours),
 
 	ANTLER_REINDEER("a layer of",
 			false,
@@ -292,10 +303,10 @@ public enum BodyCoveringType {
 			null,
 			null,
 			CoveringPattern.allScalesCoveringPatterns,
-			Colour.antlerColours,
-			Colour.dyeAntlerColours,
-			Colour.antlerColours,
-			Colour.dyeAntlerColours),
+			PresetColour.antlerColours,
+			PresetColour.allCoveringColours,
+			PresetColour.antlerColours,
+			PresetColour.allCoveringColours),
 
 	TONGUE("a layer of",
 			false,
@@ -304,18 +315,49 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
 			null,
 			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE,
-					CoveringPattern.HIGHLIGHTS,
-					CoveringPattern.STRIPED,
-					CoveringPattern.SPOTTED,
-					CoveringPattern.MOTTLED,
-					CoveringPattern.MARKED),
-			Util.newArrayListOfValues(Colour.ORIFICE_INTERIOR),
-			Colour.allSkinColours,
-			Util.newArrayListOfValues(Colour.ORIFICE_INTERIOR),
-			Colour.allSkinColours),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 1),
+					new Value<>(CoveringPattern.HIGHLIGHTS, 1),
+					new Value<>(CoveringPattern.STRIPED, 1),
+					new Value<>(CoveringPattern.SPOTTED, 1),
+					new Value<>(CoveringPattern.MOTTLED, 1),
+					new Value<>(CoveringPattern.MARKED, 1)),
+			Util.newArrayListOfValues(PresetColour.ORIFICE_INTERIOR),
+			PresetColour.allSkinColours,
+			Util.newArrayListOfValues(PresetColour.ORIFICE_INTERIOR),
+			PresetColour.allSkinColours),
 
+	FEATHERS("a layer of",
+			true,
+			"feathers",
+			"feather",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 10),
+					new Value<>(CoveringPattern.MARKED, 10),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MOTTLED, 2),
+					new Value<>(CoveringPattern.STRIPED, 1)),
+			CoveringPattern.allHairCoveringPatterns,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours),
+
+	WING_LEATHER("a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(CoveringModifier.LEATHERY),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours),
+	
 	// HAIR:
 
 	HAIR_HUMAN(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SMOOTH)),
@@ -329,13 +371,12 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(
 					CoveringModifier.FURRY),
 			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalHairColours,
-			Colour.allCoveringColours,
-			Colour.naturalHairColours,
-			Colour.allCoveringColours),
+			PresetColour.naturalHairColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalHairColours,
+			PresetColour.allCoveringColours),
 
 	HAIR_DEMON(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SILKEN)),
 
@@ -367,12 +408,12 @@ public enum BodyCoveringType {
 			null,
 			CoveringPattern.allHairCoveringPatterns,
 			null,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours),
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours),
 	
-	HAIR_SCALES_ALLIGATOR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.COARSE)), //Why do alligators have hair?!
+	HAIR_SCALES_ALLIGATOR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.COARSE)),
 	
 	
 	// BODY HAIR:
@@ -397,10 +438,10 @@ public enum BodyCoveringType {
 			null,
 			null,
 			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalHairColours,
-			Colour.allCoveringColours,
-			Colour.naturalHairColours,
-			Colour.allCoveringColours),
+			PresetColour.naturalHairColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalHairColours,
+			PresetColour.allCoveringColours),
 
 	BODY_HAIR_FELINE_FUR(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.FURRY)),
 
@@ -426,10 +467,10 @@ public enum BodyCoveringType {
 			null,
 			null,
 			CoveringPattern.allHairCoveringPatterns,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours,
-			Colour.naturalFeatherColours,
-			Colour.dyeFeatherColours),
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours),
 
 	BODY_HAIR_SCALES_ALLIGATOR("a crest of",
 			false,
@@ -439,10 +480,10 @@ public enum BodyCoveringType {
 			null,
 			null,
 			CoveringPattern.allStandardCoveringPatterns,
-			Colour.naturalScaleColours,
-			Colour.allCoveringColours,
-			Colour.naturalScaleColours,
-			Colour.allCoveringColours),
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours),
 
 
 	
@@ -453,12 +494,12 @@ public enum BodyCoveringType {
 	EYE_ANGEL(BodyCoveringTemplateFactory.createEyeIrises()),
 
 	EYE_DEMON_COMMON(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalDemonIrisColours, Colour.dyeDemonIrisColours, true)),
+			PresetColour.naturalDemonIrisColours, PresetColour.dyeDemonIrisColours, true)),
 
 	EYE_DOG_MORPH(BodyCoveringTemplateFactory.createEyeIrisesHeterochromiaNaturallyOccurring()),
 
 	EYE_LYCAN(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours, true)),
+			PresetColour.naturalPredatorIrisColours, PresetColour.dyePredatorIrisColours, true)),
 
 	
 	EYE_FOX_MORPH("a pair of",
@@ -468,17 +509,15 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(
 					CoveringModifier.EYE),
 			null,
-			Util.newArrayListOfValues(
-					CoveringPattern.EYE_IRISES),
-			Util.newArrayListOfValues(
-					CoveringPattern.EYE_IRISES_HETEROCHROMATIC),
-			Colour.naturalPredatorIrisColours,
-			Colour.dyePredatorIrisColours,
-			Colour.naturalPredatorIrisColours,
-			Colour.dyePredatorIrisColours),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES, 1)),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)),
+			PresetColour.naturalPredatorIrisColours,
+			PresetColour.dyePredatorIrisColours,
+			PresetColour.naturalPredatorIrisColours,
+			PresetColour.dyePredatorIrisColours),
 
 	EYE_FELINE(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
-			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours, true)),
+			PresetColour.naturalPredatorIrisColours, PresetColour.dyePredatorIrisColours, true)),
 
 	EYE_SQUIRREL(BodyCoveringTemplateFactory.createEyeIrises()),
 
@@ -504,12 +543,12 @@ public enum BodyCoveringType {
 			"pupil",
 			Util.newArrayListOfValues(CoveringModifier.EYE),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.EYE_PUPILS),
-			Util.newArrayListOfValues(CoveringPattern.EYE_PUPILS_HETEROCHROMATIC),
-			Colour.naturalPupilColours,
-			Colour.dyePupilColours,
-			Colour.naturalPupilColours,
-			Colour.dyePupilColours),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_PUPILS, 1)),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_PUPILS_HETEROCHROMATIC, 1)),
+			PresetColour.naturalPupilColours,
+			PresetColour.dyePupilColours,
+			PresetColour.naturalPupilColours,
+			PresetColour.dyePupilColours),
 
 	EYE_SCLERA("a pair of",
 			true,
@@ -517,12 +556,12 @@ public enum BodyCoveringType {
 			"sclera",
 			Util.newArrayListOfValues(CoveringModifier.EYE),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.EYE_SCLERA),
-			Util.newArrayListOfValues(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC),
-			Colour.naturalScleraColours,
-			Colour.dyeScleraColours,
-			Colour.naturalScleraColours,
-			Colour.dyeScleraColours),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_SCLERA, 1)),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC, 1)),
+			PresetColour.naturalScleraColours,
+			PresetColour.dyeScleraColours,
+			PresetColour.naturalScleraColours,
+			PresetColour.dyeScleraColours),
 	
 	// Fluids:
 	
@@ -532,17 +571,17 @@ public enum BodyCoveringType {
 			"cum",
 			Util.newArrayListOfValues(CoveringModifier.FLUID),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.FLUID),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_WHITE),
+			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
 			Util.newArrayListOfValues(
-					Colour.COVERING_CLEAR,
-					Colour.COVERING_BROWN,
-					Colour.COVERING_BLACK,
-					Colour.COVERING_RED,
-					Colour.COVERING_BLUE,
-					Colour.COVERING_PURPLE,
-					Colour.COVERING_GREEN),
+					PresetColour.COVERING_CLEAR,
+					PresetColour.COVERING_BROWN,
+					PresetColour.COVERING_BLACK,
+					PresetColour.COVERING_RED,
+					PresetColour.COVERING_BLUE,
+					PresetColour.COVERING_PURPLE,
+					PresetColour.COVERING_GREEN),
 			null,
 			null),
 	
@@ -552,17 +591,17 @@ public enum BodyCoveringType {
 			"girlcum",
 			Util.newArrayListOfValues(CoveringModifier.FLUID),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.FLUID),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_CLEAR),
+			Util.newArrayListOfValues(PresetColour.COVERING_CLEAR),
 			Util.newArrayListOfValues(
-					Colour.COVERING_WHITE,
-					Colour.COVERING_BROWN,
-					Colour.COVERING_BLACK,
-					Colour.COVERING_RED,
-					Colour.COVERING_BLUE,
-					Colour.COVERING_PURPLE,
-					Colour.COVERING_GREEN),
+					PresetColour.COVERING_WHITE,
+					PresetColour.COVERING_BROWN,
+					PresetColour.COVERING_BLACK,
+					PresetColour.COVERING_RED,
+					PresetColour.COVERING_BLUE,
+					PresetColour.COVERING_PURPLE,
+					PresetColour.COVERING_GREEN),
 			null,
 			null),
 	
@@ -572,17 +611,17 @@ public enum BodyCoveringType {
 			"milk",
 			Util.newArrayListOfValues(CoveringModifier.FLUID),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.FLUID),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_WHITE),
+			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
 			Util.newArrayListOfValues(
-					Colour.COVERING_CLEAR,
-					Colour.COVERING_BROWN,
-					Colour.COVERING_BLACK,
-					Colour.COVERING_RED,
-					Colour.COVERING_BLUE,
-					Colour.COVERING_PURPLE,
-					Colour.COVERING_GREEN),
+					PresetColour.COVERING_CLEAR,
+					PresetColour.COVERING_BROWN,
+					PresetColour.COVERING_BLACK,
+					PresetColour.COVERING_RED,
+					PresetColour.COVERING_BLUE,
+					PresetColour.COVERING_PURPLE,
+					PresetColour.COVERING_GREEN),
 			null,
 			null),
 	
@@ -594,10 +633,10 @@ public enum BodyCoveringType {
 			"blusher",
 			Util.newArrayListOfValues(CoveringModifier.MAKEUP),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
 			null),
 	
@@ -607,10 +646,10 @@ public enum BodyCoveringType {
 			"eye liner",
 			Util.newArrayListOfValues(CoveringModifier.MAKEUP),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
 			null),
 	
@@ -623,10 +662,10 @@ public enum BodyCoveringType {
 					CoveringModifier.SPARKLY,
 					CoveringModifier.METALLIC),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
 			null,
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
 			null),
 
@@ -640,14 +679,14 @@ public enum BodyCoveringType {
 					CoveringModifier.SPARKLY,
 					CoveringModifier.METALLIC),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Util.newArrayListOfValues(
-					CoveringPattern.SPOTTED,
-					CoveringPattern.STRIPED),
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.SPOTTED, 1),
+					new Value<>(CoveringPattern.STRIPED, 1)),
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
-			Colour.allMakeupColours),
+			PresetColour.allMakeupColours),
 	
 	MAKEUP_NAIL_POLISH_HANDS("a layer of",
 			false,
@@ -658,14 +697,14 @@ public enum BodyCoveringType {
 					CoveringModifier.SPARKLY,
 					CoveringModifier.METALLIC),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Util.newArrayListOfValues(
-					CoveringPattern.SPOTTED,
-					CoveringPattern.STRIPED),
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.SPOTTED, 1),
+					new Value<>(CoveringPattern.STRIPED, 1)),
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
-			Colour.allMakeupColours),
+			PresetColour.allMakeupColours),
 	
 	MAKEUP_NAIL_POLISH_FEET("a layer of",
 			false,
@@ -676,14 +715,14 @@ public enum BodyCoveringType {
 					CoveringModifier.SPARKLY,
 					CoveringModifier.METALLIC),
 			null,
-			Util.newArrayListOfValues(CoveringPattern.NONE),
-			Util.newArrayListOfValues(
-					CoveringPattern.SPOTTED,
-					CoveringPattern.STRIPED),
-			Util.newArrayListOfValues(Colour.COVERING_NONE),
-			Colour.allMakeupColours,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.SPOTTED, 1),
+					new Value<>(CoveringPattern.STRIPED, 1)),
+			Util.newArrayListOfValues(PresetColour.COVERING_NONE),
+			PresetColour.allMakeupColours,
 			null,
-			Colour.allMakeupColours);
+			PresetColour.allMakeupColours);
 	
 	private String determiner; 
 	private String namePlural;
@@ -697,9 +736,9 @@ public enum BodyCoveringType {
 	private List<Colour> allColours;
 	private List<Colour> allPrimaryColours;
 	private List<Colour> allSecondaryColours;
-	private List<CoveringPattern> naturalPatterns;
-	private List<CoveringPattern> dyePatterns;
-	private List<CoveringPattern> allPatterns;
+	private Map<CoveringPattern, Integer> naturalPatterns;
+	private Map<CoveringPattern, Integer> dyePatterns;
+	private Map<CoveringPattern, Integer> allPatterns;
 	private boolean isDefaultPlural;
 	
 	private BodyCoveringType(BodyCoveringTemplate template) {
@@ -716,9 +755,15 @@ public enum BodyCoveringType {
 		dyePatterns = template.dyePatterns;
 		isDefaultPlural = template.isDefaultPlural;
 		
-		allPatterns = new ArrayList<>();
-		allPatterns.addAll(naturalPatterns);
-		allPatterns.addAll(dyePatterns);
+		allPatterns = new HashMap<>();
+		for(Entry<CoveringPattern, Integer> entry : this.naturalPatterns.entrySet()) {
+			this.allPatterns.put(entry.getKey(), entry.getValue());
+		}
+		if(dyePatterns!=null) {
+			for(Entry<CoveringPattern, Integer> entry : this.dyePatterns.entrySet()) {
+				this.allPatterns.put(entry.getKey(), entry.getValue());
+			}
+		}
 		
 //		allColours = new ArrayList<>();
 //		allColours.addAll(naturalColoursPrimary);
@@ -737,6 +782,7 @@ public enum BodyCoveringType {
 		allColours = new ArrayList<>();
 		allPrimaryColours = new ArrayList<>();
 		allSecondaryColours = new ArrayList<>();
+		
 		for(Colour c : this.naturalColoursPrimary) {
 			allColours.add(c);
 			allPrimaryColours.add(c);
@@ -770,8 +816,8 @@ public enum BodyCoveringType {
 			String nameSingular,
 			List<CoveringModifier> naturalModifiers,
 			List<CoveringModifier> extraModifiers,
-			List<CoveringPattern> naturalPatterns,
-			List<CoveringPattern> dyePatterns,
+			Map<CoveringPattern, Integer> naturalPatterns,
+			Map<CoveringPattern, Integer> dyePatterns,
 			List<Colour> naturalColoursPrimary,
 			List<Colour> dyeColoursPrimary,
 			List<Colour> naturalColoursSecondary,
@@ -795,27 +841,37 @@ public enum BodyCoveringType {
 		}
 		
 		if(naturalPatterns == null) {
-			this.naturalPatterns = new ArrayList<>();
-			this.naturalPatterns.add(CoveringPattern.NONE);
+			this.naturalPatterns = new HashMap<>();
+			this.naturalPatterns.put(CoveringPattern.NONE, 1);
 		} else {
 			this.naturalPatterns = naturalPatterns;
 		}
 
-		this.dyePatterns = new ArrayList<>();
+		this.dyePatterns = new HashMap<>();
 		if(dyePatterns != null) {
-			this.dyePatterns.addAll(dyePatterns);
-			this.dyePatterns.removeAll(this.naturalPatterns);
+			this.dyePatterns = new HashMap<>();
+			for(Entry<CoveringPattern, Integer> entry : dyePatterns.entrySet()) {
+				if(!this.naturalPatterns.containsKey(entry.getKey())) {
+					this.dyePatterns.put(entry.getKey(), entry.getValue());
+				}
+			}
 		}
 		
-		allPatterns = new ArrayList<>();
+		allPatterns = new HashMap<>();
 		if(naturalPatterns == null) {
-			allPatterns.add(CoveringPattern.NONE);
+			allPatterns.put(CoveringPattern.NONE, 1);
 		} else {
-			allPatterns.addAll(this.naturalPatterns);
+			for(Entry<CoveringPattern, Integer> entry : this.naturalPatterns.entrySet()) {
+				this.allPatterns.put(entry.getKey(), entry.getValue());
+			}
 		}
 		
 		if(dyePatterns != null) {
-			allPatterns.addAll(this.dyePatterns);
+			for(Entry<CoveringPattern, Integer> entry : this.dyePatterns.entrySet()) {
+				if(!this.allPatterns.containsKey(entry.getKey())) {
+					this.allPatterns.put(entry.getKey(), entry.getValue());
+				}
+			}
 		}
 		
 		
@@ -913,15 +969,15 @@ public enum BodyCoveringType {
 		}
 	}
 	
-	public List<CoveringPattern> getNaturalPatterns() {
+	public Map<CoveringPattern, Integer> getNaturalPatterns() {
 		return naturalPatterns;
 	}
 
-	public List<CoveringPattern> getDyePatterns() {
+	public Map<CoveringPattern, Integer> getDyePatterns() {
 		return dyePatterns;
 	}
 
-	public List<CoveringPattern> getAllPatterns() {
+	public Map<CoveringPattern, Integer> getAllPatterns() {
 		return allPatterns;
 	}
 	

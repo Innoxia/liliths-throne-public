@@ -40,13 +40,17 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -57,31 +61,47 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.4
- * @version 0.3.4
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public class Elemental extends NPC {
 	private String summonerID;
+	private Subspecies passiveForm;
 
 	public Elemental(boolean isImported) {
 		this(Gender.F_V_B_FEMALE, null, isImported);
 	}
 	
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
-		super(isImported, null, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		super(isImported, null, null, "",
+				summoner==null
+					?18
+					:summoner.getAgeValue(),
+				summoner==null
+					?Month.JANUARY
+					:summoner.getBirthMonth(),
+				summoner==null
+					?1
+					:summoner.getDayOfBirth(),
+				20,
+				gender,
+				Subspecies.DEMON, RaceStage.GREATER,
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 
 		if(!isImported) {
-			this.setLocation(summoner, false);
+//			this.setLocation(summoner, false);
 			
 			setLevel(summoner.getLevel());
 			
 			this.setSummoner(summoner);
+			this.setSurname(this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
 			this.setStartingBody(true);
+			setPassiveForm(null);
+			this.setAffection(getSummoner(), 100);
 			
 			this.setLegType(LegType.DEMON_COMMON);
 			
-			this.setHistory(Occupation.ELEMENTAL_ARCANE);
+			this.setHistory(Occupation.ELEMENTAL);
 			
 			// RACE & NAME:
 			
@@ -99,7 +119,11 @@ public class Elemental extends NPC {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-
+			
+			this.setElementalSchool(SpellSchool.ARCANE);
+			
+			this.removePersonalityTraits(PersonalityCategory.SPEECH);
+			
 			initHealthAndManaToMax();
 		}
 	}
@@ -112,7 +136,9 @@ public class Elemental extends NPC {
 		properties.appendChild(npcSpecific);
 
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "summoner", this.getSummoner().getId());
-		
+		if(passiveForm!=null) {
+			CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "passiveForm", passiveForm.toString());
+		}
 		return properties;
 	}
 	
@@ -122,15 +148,24 @@ public class Elemental extends NPC {
 
 		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("elementalSpecial").item(0);
 		this.setSummoner(((Element)npcSpecificElement.getElementsByTagName("summoner").item(0)).getAttribute("value"));
+		if(npcSpecificElement.getElementsByTagName("passiveForm").item(0)!=null) {
+			this.setPassiveForm(Subspecies.valueOf(((Element)npcSpecificElement.getElementsByTagName("passiveForm").item(0)).getAttribute("value")));
+		}
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.6")) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setElementalSchool(this.getCurrentSchool());
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6")) {
+			this.resetPerksMap(false);
+			this.setHistory(Occupation.ELEMENTAL);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.3")) {
+			this.setAffection(getSummoner(), 100);
 		}
 	}
 
@@ -162,27 +197,27 @@ public class Elemental extends NPC {
 		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
 			
 		// Coverings:
-//		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_RED));
-//		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PALE), true);
+//		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_RED));
+//		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_PALE), true);
 //		
-//		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_WHITE), false);
+//		this.setSkinCovering(new Covering(BodyCoveringType.HORN, PresetColour.HORN_WHITE), false);
 //
-//		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BROWN_DARK), true);
+//		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_BROWN_DARK), true);
 //		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 //		this.setHairStyle(HairStyle.LOOSE);
 //		
-//		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+//		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, PresetColour.COVERING_BLACK), false);
 //		this.setUnderarmHair(BodyHair.ZERO_NONE);
 //		this.setAssHair(BodyHair.ZERO_NONE);
 //		this.setPubicHair(BodyHair.ZERO_NONE);
 //		this.setFacialHair(BodyHair.ZERO_NONE);
 //
-//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PURPLE));
-//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PURPLE));
-//				this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
-//				this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//				this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+//			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_PURPLE));
+//			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_PURPLE));
+//				this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLACK));
+//				this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//				this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_BLACK));
 			
 			// Face:
 			this.setFaceVirgin(true);
@@ -240,14 +275,10 @@ public class Elemental extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
-	
+
 	@Override
-	public String getSurname() {
-		if(this.getSummoner()!=null) {
-			return this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"; // Akkadian for bind
-		} else {
-			return "kamu";
-		}
+	public boolean isElemental() {
+		return true;
 	}
 	
 	@Override
@@ -256,7 +287,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	protected int getTrueLevel() {
+	public int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}
@@ -266,6 +297,17 @@ public class Elemental extends NPC {
 	@Override
 	public int getLevel() {
 		return getTrueLevel();
+	}
+	
+	@Override
+	public void turnUpdate() {
+		if(!this.isActive()) {
+			this.returnToHome(); // Make sure that the Elemental is returned to the holding tile if their summoner somehow leaves them behind
+		}
+		if(!this.hasFlag(NPCFlagValue.elementalStayDirty)) {
+			this.cleanAllDirtySlots(true);
+			this.cleanAllClothing(true, false);
+		}
 	}
 	
 	@Override
@@ -280,7 +322,9 @@ public class Elemental extends NPC {
 	@Override
 	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
-				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
+				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]"
+//				+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]"
+				+ "</p>";
 	}
 
 	@Override
@@ -306,6 +350,16 @@ public class Elemental extends NPC {
 		
 		return true;
 	}
+
+	@Override
+	public Subspecies getSubspeciesOverride() {
+		return getSubspecies();
+	}
+
+	@Override
+	public AbstractRace getSubspeciesOverrideRace() {
+		return Race.ELEMENTAL;
+	}
 	
 	private void calculateSpells(SpellSchool school) {
 		this.resetSpells();
@@ -318,7 +372,6 @@ public class Elemental extends NPC {
 						this.addSpellUpgrade(p.getSpellUpgrade());
 					} else {
 						this.addSpell(p.getSpell());
-						
 					}
 				}
 			}
@@ -351,16 +404,13 @@ public class Elemental extends NPC {
 	}
 	
 	public void setElementalSchool(SpellSchool school, BodyMaterial preferredMaterial) {
-		
 		switch(school) {
 			case AIR:
 				this.setBodyMaterial(BodyMaterial.AIR);
-				this.setHistory(Occupation.ELEMENTAL_AIR);
 				break;
 				
 			case ARCANE:
 				this.setBodyMaterial(BodyMaterial.ARCANE);
-				this.setHistory(Occupation.ELEMENTAL_ARCANE);
 				break;
 				
 			case EARTH:
@@ -369,12 +419,10 @@ public class Elemental extends NPC {
 				} else {
 					this.setBodyMaterial(BodyMaterial.STONE);
 				}
-				this.setHistory(Occupation.ELEMENTAL_EARTH);
 				break;
 				
 			case FIRE:
 				this.setBodyMaterial(BodyMaterial.FIRE);
-				this.setHistory(Occupation.ELEMENTAL_FIRE);
 				break;
 				
 			case WATER:
@@ -383,7 +431,6 @@ public class Elemental extends NPC {
 				} else {
 					this.setBodyMaterial(BodyMaterial.WATER);
 				}
-				this.setHistory(Occupation.ELEMENTAL_WATER);
 				break;
 		}
 		calculateSpells(school);
@@ -406,6 +453,55 @@ public class Elemental extends NPC {
 	public void setSummoner(GameCharacter summoner) {
 		this.summonerID = summoner.getId();
 	}
-	
 
+	public boolean isActive() {
+		return this.getSummoner().isElementalActive();
+	}
+
+	public boolean isSummonerServant() {
+		switch(this.getCurrentSchool()) {
+			case AIR:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
+			case ARCANE:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A);
+			case EARTH:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A);
+			case FIRE:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A);
+			case WATER:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A);
+		}
+		return false;
+	}
+
+	public boolean isServant() {
+		switch(this.getCurrentSchool()) {
+			case AIR:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);
+			case ARCANE:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3B);
+			case EARTH:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B);
+			case FIRE:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B);
+			case WATER:
+				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B);
+		}
+		return false;
+	}
+	
+	/**
+	 * @return The passive, ethereal form which this elemental spends most of their time as. <b>Returns null</b> when the form should be the default 'wisp'.
+	 */
+	public Subspecies getPassiveForm() {
+		return passiveForm;
+	}
+
+	/**
+	 * @param passiveForm The passive, ethereal form which this elemental spends most of their time as. Pass in null for a default 'wisp' form.
+	 */
+	public void setPassiveForm(Subspecies passiveForm) {
+		this.passiveForm = passiveForm;
+	}
+	
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -76,37 +76,32 @@ public class Arm implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.arms] of [pc.a_armRace], so nothing happens...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.arms] of [npc.a_armRace], so nothing happens...)]</p>");
-			}
-			
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.arms] of [npc.a_armRace], so nothing happens...)]</p>");
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if (owner.isPlayer()) {
+			sb.append(
+					"<p>"
+						+ "Your [pc.arms+] suddenly feel hot and itchy, and you gasp as you realise that they're starting to transform."
+						+ " You let out a painful cry as your upper limbs twist and transform, leaving you powerless to do anything other than look on as they reshape themselves into a new form.");
 		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "Your [pc.arms+] suddenly feel hot and itchy, and you gasp as you realise that they're starting to transform."
-							+ " You let out a painful cry as your upper limbs twist and transform, leaving you powerless to do anything other than look on as they reshape themselves into a new form.");
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.Name] fidgets about as [npc.she] feels [npc.her] [npc.arms+] growing hot and itchy, and [npc.she] gasps as [npc.she] realises that they're starting to transform."
-							+ " [npc.She] lets out a painful cry as [npc.her] upper limbs twist and transform, leaving [npc.her] powerless to do anything other than look on as they reshape themselves into a new form.");
-			}
+			sb.append(
+					"<p>"
+						+ "[npc.Name] fidgets about as [npc.she] feels [npc.her] [npc.arms+] growing hot and itchy, and [npc.she] gasps as [npc.she] realises that they're starting to transform."
+						+ " [npc.She] lets out a painful cry as [npc.her] upper limbs twist and transform, leaving [npc.her] powerless to do anything other than look on as they reshape themselves into a new form.");
 		}
 
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
+		sb.append(type.getTransformationDescription(owner)+"</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -123,12 +118,12 @@ public class Arm implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if (armRows < currentArmRows) {
 			boolean losesTwoPairs = (armRows + 2) == currentArmRows;
 			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
+				sb.append(
 						"<p>"
 							+ "You feel a strange pressure building up around the base of "
 							+ (losesTwoPairs
@@ -137,10 +132,10 @@ public class Arm implements BodyPartInterface {
 									? "the lowest of your extra pairs" 
 									: "your extra pair"))
 							+ " of [pc.arms], and before you can react, they rapidly shrink away into the [pc.skin] of your torso.<br/>" 
-							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
+							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], [pc.materialDescriptor] [pc.armFullDescriptionColour]."
 						+ "</p>");
 			} else {
-				UtilText.transformationContentSB.append(UtilText.parse(owner,
+				sb.append(UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] glances worriedly down at "
 							+ (losesTwoPairs
@@ -149,43 +144,43 @@ public class Arm implements BodyPartInterface {
 									? "the lowest of [npc.her] extra pairs" 
 									: "[npc.her] extra pair"))
 							+ " of [npc.arms], and before [npc.she] can react, they rapidly shrink away into the [npc.skin] of [npc.her] torso.<br/>" 
-							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
+							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], [npc.materialDescriptor] [npc.armFullDescriptionColour]."
 						+ "</p>"));
 			}
 			
 		} else {
 			boolean gainsTwoPairs = (armRows - 2) == currentArmRows;
 			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
+				sb.append(
 						"<p>"
 							+ "You feel a strange pressure building up down the sides of your torso, and before you have time to react, "
 								+ (gainsTwoPairs
 									? "two extra pairs"
 									: "an extra pair")
 							+ " of [pc.arms] rapidly grow out of the [pc.skin] of your lower torso.<br/>"
-							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
+							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], [pc.materialDescriptor] [pc.armFullDescriptionColour]."
 						+ "</p>");
 			} else {
-				UtilText.transformationContentSB.append(UtilText.parse(owner,
+				sb.append(UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] glances worriedly down at [npc.her] torso, and before [npc.she] can react, "
 								+ (gainsTwoPairs
 									? "two extra pairs"
 									: "an extra pair")
 							+ " of [npc.arms] rapidly grow out of the [npc.skin] of [npc.her] lower torso.<br/>"
-							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
+							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], [npc.materialDescriptor] [npc.armFullDescriptionColour]."
 						+ "</p>"));
 			}
 		}
 		
 		this.armRows = armRows;
 		
-		UtilText.transformationContentSB.append(UtilText.parse(owner,
+		sb.append(UtilText.parse(owner,
 				"<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>"));
 		
-		return UtilText.transformationContentSB.toString();
+		return sb.toString();
 	}
 
 	public BodyHair getUnderarmHair() {
@@ -204,41 +199,40 @@ public class Arm implements BodyPartInterface {
 		
 		if(getUnderarmHair() == underarmHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			switch(underarmHair) {
-				case ZERO_NONE:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case ONE_STUBBLE:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case TWO_MANICURED:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a well-manicured patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case THREE_TRIMMED:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case FOUR_NATURAL:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case FIVE_UNKEMPT:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case SIX_BUSHY:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-				case SEVEN_WILD:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] wild, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
-					break;
-			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		switch(underarmHair) {
+			case ZERO_NONE:
+				sb.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case ONE_STUBBLE:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case TWO_MANICURED:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a well-manicured patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case THREE_TRIMMED:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case FOUR_NATURAL:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case FIVE_UNKEMPT:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case SIX_BUSHY:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
+			case SEVEN_WILD:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] wild, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+				break;
 		}
 		
 		this.underarmHair = underarmHair;
 
-		return UtilText.transformationContentSB.toString();
+		return sb.toString();
 	}
 
 	@Override

@@ -28,9 +28,9 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -161,7 +161,7 @@ public class ReindeerOverseer extends NPC {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
 				if(this.getLocation()!=Main.game.getPlayer().getLocation()) {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 				}
 			}
 			
@@ -173,13 +173,13 @@ public class ReindeerOverseer extends NPC {
 			}
 			
 			for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
-				this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
+				this.addItem(Main.game.getItemGen().generateItem(ItemType.PRESENT), false);
 			}
 			
 			for (AbstractItemType item : ItemType.getAllItems()) {
 				if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-						this.addItem(AbstractItemType.generateItem(item), false);
+						this.addItem(Main.game.getItemGen().generateItem(item), false);
 					}
 				}
 			}
@@ -187,7 +187,7 @@ public class ReindeerOverseer extends NPC {
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
 				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
-						this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+						this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
 					}
 				}
 			}

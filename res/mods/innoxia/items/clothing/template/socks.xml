@@ -25,7 +25,7 @@
 		
 		<!-- The *singular* name of this clothing.
 			- Example: I've named this "template sock", as the singular for "template socks" is of course "sock"... -->
-		<name><![CDATA[template sock]]></name>
+		<name appendColourName="true"><![CDATA[template sock]]></name> <!-- You can leave out the 'appendColourName' attribute, but if you never want this clothing to be described by its colour, then set it as false. (i.e. If set to false, this clothing would always be called 'template socks' instead of, for example, 'white template socks')-->
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whether this item is naturally referred to as a plural (use true for things like socks or gloves).
 			- Example: I've named the plural as "template socks", and defined pluralByDefault as true, so that this item will be referred to by this plural name in all but extremely exceptional circumstances.-->
@@ -56,7 +56,7 @@
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java
 			- Example: These socks have no set. If you want to define one, just use the name of the set like: <clothingSet>BUTLER</clothingSet> -->
-		<clothingSet/> 
+		<clothingSet>innoxia_template</clothingSet>
 		
 		<!-- The file paths for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images. .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).
 			- Example: I've defined this as "sock.svg", which should be placed in the same folder location alongside this xml file. -->
@@ -66,6 +66,9 @@
 			- Example: When equipped to the "SOCK" slot, the sock will be displayed using the "sock.svg" file. When equipped to the "HAND" slot, it will instead use the "sock_hand.svg" file. Again, this file must be placed in the same folder location alongside this xml file. -->
 		<imageEquippedName slot="SOCK">socks.svg</imageEquippedName>
 		<imageEquippedName slot="HAND">socks_hand.svg</imageEquippedName>
+		
+		<!-- For an annotated example on how stickers are defined, please see the 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' file -->
+		<stickers/>
 		
 		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 100.
 			- Example: I have not defined this, as I'll let the game keep the 100 enchantments default value.-->
@@ -153,15 +156,15 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-		<primaryColours values="JUST_WHITE"/> 
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+		<primaryColours recolouringAllowed="true" values="JUST_WHITE"/> <!-- You can leave the attribute 'recolouringAllowed' out of colour definitions. If you want the player to be unable to change this colour, then set it as false. This is only used in very niche situations (such as for the filly choker).-->
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_WHITE"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		<tertiaryColoursDye>
 			<colour>CLOTHING_WHITE</colour>
@@ -190,6 +193,25 @@
 			<colour>CLOTHING_PINK_LIGHT</colour>
 		</tertiaryColoursDye>
 		
+		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
+		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.
+		(i.e. If you've defined a primaryColours element, do not use #ff2a2a, #ff5555, #ff8080, #ffaaaa, or #ffd5d5 in the customColour attributes.)
+		
+		You should also NOT use any of the following, as they are reserved for pattern colours:
+		"#f4d7d7", "#e9afaf", "#de8787", "#d35f5f", "#c83737"
+		"#f4e3d7", "#e9c6af", "#deaa87", "#d38d5f", "#c87137"
+		"#f4eed7", "#e9ddaf", "#decd87", "#d3bc5f", "#c8ab37"
+		-->
+		<customColours>
+			<!-- The 'copyColourIndex' attribute defines which colour index should be copied into this colour slot on weapon generation. This particular colour, having an index of 0, will always be coloured the same as the primary colour when generated. Indexes go from 0->X, where X is the number of defined colours. i.e. If you only define primary and secondary, the first custom colour will have an index of 2. -->
+			<customColour copyColourIndex="0" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB"> <!-- These are the colours which you've used in your svg and would like replaced with the colours you define below. c0 is the darkest shade. Shades can go up to any number, but setting just 5 shades should work best. -->
+				<defaultColours>
+					<colour>CLOTHING_GREY</colour> <!-- The colours which this clothing should spawn in with. -->
+				</defaultColours> 
+				<extraColours values="ALL"/> <!-- The colours which this clothing can be dyed to. -->
+			</customColour>
+		</customColours>
+		
 		<!--This section details how to define patterns. If your svg file does not have a 'patternLayer' defined, you can safely delete this whole section:-->
 		
 		<!-- "defaultPatterns" lists the patterns that this clothing can spawn with. -->
@@ -206,7 +228,9 @@
 		</patternPrimaryColours>
 		<patternSecondaryColours values="ALL"/>
 		<patternTertiaryColours/>
-
+		
+		<!-- Custom pattern colours can be defined just like the customColours up above. -->
+		<customPatternColours/>
 		
 		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. SHould only be used for generic tags like those related to which vendors sell it. -->
@@ -216,7 +240,39 @@
 			<tag>HINDERS_ARM_MOVEMENT</tag>
 		</itemTags>
 	</coreAttributes>
-
+	
+	
+	<!-- See the 'res/clothing/innoxia/buttPLugs/butt_plug.xml' file for a working example of this: -->
+	<sexAttributesSelf> <!-- These are the sex attributes applicable to the wearer (i.e. when inserted in the wearer's orifices or when the wearer is penetrating this clothing type. Mainly used for insertable dildos.) -->
+		<penetration/> <!-- This item has no penetration stats -->
+		<!-- If you want an item to be able to be used as a self-insertable sex-toy, use this format:
+		<penetration>
+			<length>15</length> cm value
+			<girth>5</girth> 0-6 corresponding to PenetrationGirth Enum values
+			<modifiers> For adding modifiers, use this format below:
+				<mod>VEINY</mod> Drawn from PenetrationModifier Enum values
+			</modifiers>
+		</penetration>
+		-->
+		<orifice/> <!-- This item has no orifice stats -->
+		<!-- Warning! As of v0.3.7, orifice sex toy support is not fully implemented into the game! -->
+		<!--
+		<orifice>
+			<depth>0</depth> cm value
+			<capacity>0</capacity> cm value corresponding to diameter of orifice
+			<elasticity>3</elasticity> 0-7 corresponding to OrificeElasticity Enum values
+			<plasticity>3</plasticity> 0-7 corresponding to OrificePlasticity Enum values
+			<wetness>0</wetness> 0-7 corresponding to Wetness Enum values
+			<modifiers>
+				<mod>PUFFY</mod> Drawn from OrificeModifier Enum values
+			</modifiers>
+		</orifice>
+		-->
+	</sexAttributesSelf>
+	
+	<!-- See the 'res/clothing/norin/strapless_dildo/strapless_dildo.xml' file for a working example of this: -->
+	<sexAttributesOther/> <!-- These are the sex attributes applicable to someone who is interacting with the wearer (i.e. the penetration/orifice which is available for people other than the wearer. Mainly used for strap-on dildos.) -->
+	
 	
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	<!-- - Example: This is the equip text for when socks are equipped to the "SOCK" slot:-->

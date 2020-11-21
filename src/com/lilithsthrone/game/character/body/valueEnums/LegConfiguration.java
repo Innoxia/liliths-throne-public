@@ -19,14 +19,71 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum LegConfiguration {
+	
+//	/**
+//	 * An entirely feral form of an animal.
+//	 */
+//	FERAL("feral",
+//			0,
+//			0,
+//			false,
+//			false,
+//			WingSize.THREE_LARGE,
+//			false,
+//			2,
+//			0,
+//			"A configuration in which the character has the feral body of their associated animal-morph, making them no difference in appearance to a regular animal",
+//			"Down beneath the groin on [npc.her] feral body.",
+//			null) {
+//		@Override
+//		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
+//			return new BodyPartClothingBlock(
+//					InventorySlot.getClothingSlots(),
+//					character.getLegType().getRace(),
+//					"Due to the fact that [npc.nameHasFull] a feral body, [npc.she] cannot equip any clothing!",
+//					Util.newArrayListOfValues());
+//		}
+//		@Override
+//		public void setLegsToDemon(GameCharacter character) {
+//			character.setLegType(LegType.DEMON_HORSE_HOOFED);
+//		}
+//		@Override
+//		public List<Class<? extends BodyPartInterface>> getBestialParts() {
+//			return Util.newArrayListOfValues(
+//					Antenna.class,
+//					Anus.class,
+//					Arm.class,
+//					Ass.class,
+//					Breast.class,
+//					BreastCrotch.class,
+//					Clitoris.class,
+//					Ear.class,
+//					Eye.class,
+//					Face.class,
+//					Hair.class,
+//					Horn.class,
+//					Leg.class,
+//					Mouth.class,
+//					Nipples.class,
+//					Penis.class,
+//					Tail.class,
+//					Tentacle.class,
+//					Testicle.class,
+//					Tongue.class,
+//					Torso.class,
+//					Vagina.class,
+//					Wing.class);
+//		}
+//	},
 	
 	/**
 	 * This LegConfiguration is the standard for humans, demons, angels, and the vast majority of animal-morphs.
@@ -41,7 +98,8 @@ public enum LegConfiguration {
 			2,
 			0,
 			"The most common type of lower body; the character's legs and groin are in the same configuration as that of a regular human.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,") {
+			"Above [npc.her] groin, occupying the lower region of [npc.her] abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL) {
 		@Override
 		public boolean isGenitalConfigurationTransformable() {
 			return true;
@@ -59,7 +117,8 @@ public enum LegConfiguration {
 			character.setLegType(LegType.DEMON_COMMON);
 		}
 	},
-
+	
+	//TODO rename to QUADRUPED
 	/**
 	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
 	 */
@@ -74,7 +133,8 @@ public enum LegConfiguration {
 			0,
 			"A configuration in which the character's legs and groin are replaced by the quadrupedal, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 				+ " The most common example of this is the 'centaur', in which the character's legs and groin are replaced by the body and genitals of a horse.",
-			"Down beneath the groin on [npc.her] animal body,") {
+			"Down beneath the groin on [npc.her] animal body,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAUR) {
 
 			@Override
 			public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -90,34 +150,9 @@ public enum LegConfiguration {
 			}
 			@Override
 			public void setLegsToDemon(GameCharacter character) {
-				character.setLegType(LegType.DEMON_HOOFED);
+				character.setLegType(LegType.DEMON_HORSE_HOOFED);
 			}
 	},
-
-//	/**
-//	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
-//	 */
-//	TAUR_WINGED("winged taur",
-//			true,
-//			true,
-//			false,
-//			"A configuration in which the character's legs and groin are replaced by the quadrupedal, winged, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-//				+ " The most common example of this is the 'pegatuar', in which the character's legs and groin are replaced by the body and genitals of a winged horse.",
-//			"Down beneath the groin on [npc.her] animal body,") {
-//
-//		@Override
-//		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-//			return new BodyPartClothingBlock(
-//					Util.newArrayListOfValues(
-//							InventorySlot.LEG,
-//							InventorySlot.GROIN),
-//					character.getLegType().getRace(),
-//					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only taur-suitable clothing can be worn in this slot.",
-//					Util.newArrayListOfValues(
-//							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-//							ItemTag.FITS_TAUR_BODY));
-//		}
-//	},
 
 	/**
 	 * This LegConfiguration is available for snakes and eels.
@@ -133,7 +168,8 @@ public enum LegConfiguration {
 			0,
 			"A configuration in which the character's legs and groin are replaced by an extremely long tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG) {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -146,6 +182,38 @@ public enum LegConfiguration {
 					Util.newArrayListOfValues(
 							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 							ItemTag.FITS_LONG_TAIL_BODY));
+		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "slither";
+		}
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "slithers";
+		}
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "slithering";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "slithered";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
+		@Override
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
 		}
 	},
 
@@ -163,7 +231,8 @@ public enum LegConfiguration {
 			0,
 			"A configuration in which the character's legs and groin are replaced by a tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 					+ " The most common example of this is the 'mermaid', in which the character's legs and groin are replaced by the body and genitals of a fish.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_TAIL) {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -193,7 +262,8 @@ public enum LegConfiguration {
 			0,
 			"A configuration in which the character's legs and groin are replaced by the eight-legged, bestial body of the associated arachnid-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'arachne', in which the character's legs and groin are replaced by the body and genitals of a spider.",
-			"Occupying the lower region of [npc.her] humanoid abdomen,") {
+			"Occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_ARACHNID) {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -245,7 +315,8 @@ public enum LegConfiguration {
 			// I believe that "tentacled" is technically incorrect as a catch-all term for cephalopods, as octopuses have eight 'arms', while squids have eight arms plus two tentacles. Oh well.
 			"A configuration in which the character's legs and groin are replaced by the tentacled, bestial body of the associated cephalopod-morph, with their genitals shifting to be found in the same place as their animal equivalent."
 					+ " The most common example of this is the 'kraken', in which the character's legs and groin are replaced by the body and genitals of a squid.",
-			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD) {
 
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
@@ -280,6 +351,8 @@ public enum LegConfiguration {
 	
 	private String genericDescription;
 	private String crotchBoobLocationDescription;
+
+	private TFModifier tfModifier;
 	
 	private LegConfiguration(
 			String name,
@@ -292,7 +365,8 @@ public enum LegConfiguration {
 			int numberOfLegs,
 			int numberOfTentacles,
 			String genericDescription,
-			String crotchBoobLocationDescription) {
+			String crotchBoobLocationDescription,
+			TFModifier tfModifier) {
 		
 		this.name = name;
 		
@@ -310,17 +384,9 @@ public enum LegConfiguration {
 		
 		this.genericDescription = genericDescription;
 		this.crotchBoobLocationDescription = crotchBoobLocationDescription;
-	}
 
-	// I didn't implement this in the end, as upon further reflection, I came to the conclusion that blocking the player's choices for the sake of more 'realistic' taur bodies is a bad idea.
-	// All of the pre-generated ones will be accurate anyway, so all this would do is limit the player unnecessarily.
-//	/**
-//	 * @return A list of BodyPartInterface classes of whose <b>type</b> cannot be transformed outside of the LegType's Race while the character has this LegConfiguration.
-//	 *  Their other modifiers can still be freely transformed. Penis and Vagina can still be set to NONE.
-//	 */
-//	public List<Class<? extends BodyPartInterface>> getBlockedTransformations() {
-//		return getBestialParts();
-//	}
+		this.tfModifier = tfModifier;
+	}
 
 	/**
 	 * @return A list of BodyPartInterface classes which are considered to be fully animalistic as part of this LegConfiguration. e.g. A taur's Tail, Ass, BreastCrotch, Penis, and Vagina are all animalistic.
@@ -333,6 +399,38 @@ public enum LegConfiguration {
 		return name;
 	}
 
+	public String getMovementVerbPresentFirstPersonSingular() {
+		return "walk";
+	}
+
+	public String getMovementVerbPresentThirdPersonSingular() {
+		return "walks";
+	}
+
+	public String getMovementVerbPresentParticiple() {
+		return "walking";
+	}
+
+	public String getMovementVerbPastParticiple() {
+		return "walked";
+	}
+
+	public String getIndividualMovementVerbPresentFirstPersonSingular() {
+		return "step";
+	}
+
+	public String getIndividualMovementVerbPresentThirdPersonSingular() {
+		return "steps";
+	}
+
+	public String getIndividualMovementVerbPresentParticiple() {
+		return "stepping";
+	}
+
+	public String getIndividualMovementVerbPastParticiple() {
+		return "stepped";
+	}
+	
 	public int getLandSpeedModifier() {
 		return landSpeedModifier;
 	}
@@ -388,6 +486,10 @@ public enum LegConfiguration {
 
 	public String getCrotchBoobLocationDescription() {
 		return crotchBoobLocationDescription;
+	}
+
+	public TFModifier getTFModifier() {
+		return tfModifier;
 	}
 	
 	public void setLegsToDemon(GameCharacter character) {

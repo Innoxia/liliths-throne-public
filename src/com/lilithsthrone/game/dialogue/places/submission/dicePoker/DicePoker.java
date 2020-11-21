@@ -12,8 +12,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -107,7 +107,7 @@ public class DicePoker {
 		
 		UtilText.nodeContentSB.append("<div class='container-half-width'>");
 			for(int i=0; i<playerDice.size(); i++) {
-				UtilText.nodeContentSB.append("<div class='modifier-icon' style='width:18%; margin:0 1%; border:3px solid "+(diceToReroll.contains(playerDice.get(i))?Colour.GENERIC_MINOR_GOOD.toWebHexString():"")+";'>"
+				UtilText.nodeContentSB.append("<div class='modifier-icon' style='width:18%; margin:0 1%; border:3px solid "+(diceToReroll.contains(playerDice.get(i))?PresetColour.GENERIC_MINOR_GOOD.toWebHexString():"")+";'>"
 													+(Hand.getDiceInHand(playerDice).contains(playerDice.get(i))
 															?"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"
 																	+SVGImages.SVG_IMAGE_PROVIDER.getDiceGlow()
@@ -130,7 +130,7 @@ public class DicePoker {
 		
 		UtilText.nodeContentSB.append("<div class='container-half-width'>");
 			for(int i=0; i<gamblerDice.size(); i++) {
-				UtilText.nodeContentSB.append("<div class='modifier-icon' style='width:18%; margin:0 1%; border:3px solid "+(diceToReroll.contains(gamblerDice.get(i))?Colour.GENERIC_MINOR_GOOD.toWebHexString():"")+";'>"
+				UtilText.nodeContentSB.append("<div class='modifier-icon' style='width:18%; margin:0 1%; border:3px solid "+(diceToReroll.contains(gamblerDice.get(i))?PresetColour.GENERIC_MINOR_GOOD.toWebHexString():"")+";'>"
 													+(Hand.getDiceInHand(gamblerDice).contains(gamblerDice.get(i))
 															?"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"
 																	+SVGImages.SVG_IMAGE_PROVIDER.getDiceGlow()
@@ -381,8 +381,8 @@ public class DicePoker {
 						rollRice();
 						
 						if(Hand.compareHands(playerDice, gamblerDice)==0) {
-							String moneyChange = Main.game.getPlayer().incrementMoney(moneyPool/2);
-							UtilText.addSpecialParsingString(moneyChange, true);
+							UtilText.addSpecialParsingString(UtilText.formatAsMoney(moneyPool), true);
+							UtilText.addSpecialParsingString(Main.game.getPlayer().incrementMoney(moneyPool/2), false);
 							if(diceRerolled) {
 								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_DRAW_WITH_ROLL", gambler);
 							} else {

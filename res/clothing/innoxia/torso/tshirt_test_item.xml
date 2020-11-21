@@ -62,14 +62,17 @@
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL"/>
+		<primaryColours values="DEBUG_ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CHEAT_ITEM</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
 	</coreAttributes>
 
   <replacementText type="REMOVE_OR_EQUIP">

@@ -24,10 +24,10 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's long-sleeved shirts]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A long sleeve dress shirt with reinforced stiching. The rank slides on the epaulets and the nameplate make it clear as to what occupation the wearer is supposed to have.]]></description> 
+		<description><![CDATA[A long sleeve dress shirt with reinforced stitching. The rank slides on the epaulets and the nameplate make it clear as to what occupation the wearer is supposed to have.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>MASCULINE</femininity> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -127,7 +127,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours>
 			<colour>CLOTHING_BLUE</colour>
 			<colour>CLOTHING_PURPLE_DARK</colour>
@@ -141,120 +141,62 @@
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s shirt and roughly pull it off over [npc.her] head.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] shirt off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your shirt off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your shirt and roughly pulls it off over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s shirt off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s shirt and roughly pulls it off over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.arms] through the shirt's sleeves as you pull it on [npc.herHim].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the shirt down over [npc.her] head, before pulling it down over [npc.her] torso.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the T-shirt.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.arms] through the shirt's sleeves, before pulling it down over your torso.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the shirt down over your head, before pushing your [pc.arms] through the sleeves.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.arms] through the shirt's sleeves before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the shirt down over [npc2.her] head, before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the shirt's sleeves and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the shirt's sleeves and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the shirt's sleeves and hastily [npc.verb(button)] up the front.]]>
+		</otherRough>
 	</replacementText>
-
-	<displacementText type="UNBUTTONS">
-		<playerSelf><![CDATA[
-			You unbutton your shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You unbutton [npc.name]'s shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You pop open the buttons on [npc.name]'s shirt.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] unbuttons [npc.her] shirt.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] unbuttons your shirt.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] pops open the buttons on your shirt.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] unbuttons [npc2.name]'s shirt.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] pops open the buttons on [npc2.name]'s shirt.
-		]]></NPCOtherNPCRough>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc.her] shirt and [npc.verb(pull)] [npc.her] arms out of the sleeves.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc2.namePos] shirt and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on the front of [npc2.namePos] shirt and roughly [npc.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</otherRough>
 	</displacementText>
 	
+	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="UNBUTTONS">
-		<playerSelf><![CDATA[
-			You button up your shirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You button up [npc.name]'s shirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You roughly button up [npc.name]'s shirt.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] buttons up [npc.her] shirt to cover [npc.her] torso.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] buttons up your shirt.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] roughly buttons up your shirt.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] buttons up [npc2.name]'s shirt.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] roughly buttons up [npc2.name]'s shirt.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] shirt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] shirt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] shirt.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] shirt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] shirt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] shirt.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

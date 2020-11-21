@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Printed on the inside, a small tag reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
+		<value>400</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[kitty bra]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[kitty bras]]></namePlural>
+		<description><![CDATA[A crop-top style bra with tie-up spaghetti straps and a cutout in the shape of a stylized cat.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>CHEST</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_kitty</clothingSet>
+		<imageName>ckls_bra.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/> 
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="BLACK_OR_WHITE"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slip)] the bra over [npc.her] head and down onto [npc.her] torso before tying up the shoulder straps over each of [npc.her] shoulders.]]>
+    </self>
+    <other>
+	  <![CDATA[[npc.Name] [npc.verb(slip)] the bra over [npc2.namePos] head and down onto [npc2.her] torso before tying up the shoulder straps over each of [npc2.her] shoulders.]]>
+    </other>
+    <otherRough>
+	  <![CDATA[[npc.Name] [npc.verb(shove)] the bra over [npc2.namePos] head and down onto [npc.her] torso before hastily tying up the shoulder straps over each of [npc2.her] shoulders.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+	  <![CDATA[[npc.Name] [npc.verb(untie)] the shoulder straps on [npc.her] bra before pulling it up over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the shoulder straps on [npc2.namePos] bra before pulling it up over [npc2.her] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(rip)] off [npc2.namePos] bra.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] bra back down, covering [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] bra back down, covering [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(yank)] [npc2.namePos] bra back down, covering [npc2.her] torso.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="PULLS_UP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] bra up to just below [npc.her] chin, fully exposing [npc.her] torso.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] bra up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] bra to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

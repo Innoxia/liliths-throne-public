@@ -24,10 +24,10 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's combat helmets]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A helmet comprised of a ballistic outer shell concealed with a tough fabric cover and a shock-absorbing foam liner. The attached suspension system has plenty of adjustment to fit a variety of head shapes but the faint Dominion star on the forehead gives you little doubt as to the intended wearer.]]></description> 
+		<description><![CDATA[A ballistic helmet covered with tough fabric cover lined with shock-absorbing foam. The attached suspension system has plenty of adjustment to fit a variety of head shapes but the faint star on the forehead gives you little doubt as to the intended wearer.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>4</physicalResistance> 
+		<physicalResistance>6</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -54,7 +54,12 @@
 		<enchantmentLimit/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/> 
+		<effects>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>	
+		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
 		<blockedPartsList> 
@@ -116,7 +121,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/> 
@@ -125,72 +130,42 @@
 		<tertiaryColoursDye values="ALL_METAL"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			
 			<tag>RIGID_MATERIAL</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You undo the chinstrap on your helmet it and ease it off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You undo the chinstrap on [npc.name]'s helmet and ease it off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the chinstrap on [npc.name]'s helmet and yank it off [npc.her] head.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] undoes the chinstrap on [npc.her] helmet and eases it off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] undoes the chinstrap on your helmet and eases it off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the chinstrap on your helmet and yanks it off your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] undoes the chinstrap on [npc2.name]'s helmet and eases it off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the chinstrap on [npc2.name]'s helmet and yanks it off [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the combat helmet and securely [npc.verb(fasten)] the chinstrap.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the combat helmet on [npc2.namePos] head and securely [npc.verb(fasten)] the chinstrap.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the combat helmet down on [npc2.namePos] head and practically [npc.verb(gag)] [npc2.her] with the chinstrap.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You put on the helmet and securely fasten the chinstrap.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You put the helmet on [npc.name]'s head and help [npc.her] securely fasten the chinstrap.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force the helmet down on [npc.name]'s head and practically gag [npc.her] with the chinstrap.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] puts on the helmet and securely fastens the chinstrap.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] puts the helmet on your head and helps you securely fasten the chinstrap.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces the helmet down on your head, before practically gagging you with the chinstrap.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] puts the helmet on [npc2.name]'s head and helps [npc2.her] securely fasten the chinstrap.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces the helmet down on [npc2.name]'s head and practically gags [npc2.her] with the chinstrap.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] un[npc.do] the chinstrap on [npc.her] combat helmet and [npc.verb(ease)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] un[npc.do] the chinstrap on [npc2.namePos] combat helmet and [npc.verb(ease)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(rip)] open the chinstrap on [npc2.namePos] combat helmet and [npc.verb(yank)] it off [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

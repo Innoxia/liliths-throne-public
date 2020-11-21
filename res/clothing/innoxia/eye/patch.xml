@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>200</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[eye-patch]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[eye-patches]]></namePlural>
+		<description><![CDATA[A small patch, made from cloth, which is attached to an elastic band and designed to be worn around the head.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>patch.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(fasten)] the eye patch around [npc.her] head, before moving it into place to cover [npc.her] [npc.eye].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(fasten)] the eye patch around [npc2.namePos] head, before moving it into place to cover [npc2.her] [npc2.eye].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(fasten)] the eye patch around [npc2.namePos] head, before moving it into place to cover [npc2.her] [npc2.eye].]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] eye patch.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] eye patch.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] eye patch and roughly [npc.verb(pull)] it off.]]>
+		</otherRough>
+	</displacementText>
+  
+</clothing>

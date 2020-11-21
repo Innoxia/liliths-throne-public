@@ -7,7 +7,7 @@
 		<name><![CDATA[hard hat]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[hard hats]]></namePlural>
 		<description><![CDATA[A protective piece of equipment, typically worn by construction workers while on a building site. It's made out of a hard plastic, and is designed to shield the wearer's head from falling debris and other such hazards.]]></description>
-		<physicalResistance>0.3</physicalResistance>
+		<physicalResistance>3</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>HEAD</slot>
 		<rarity>COMMON</rarity>

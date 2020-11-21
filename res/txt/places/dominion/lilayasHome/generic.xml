@@ -62,6 +62,23 @@
 	</htmlContent>
 	
 	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Immaculately-clean red carpet runs down the centre of the wide corridor which you're currently [pc.walking] down, while the walls are decorated in a pale, light-blue wallpaper that sports a series of delicate white floral patterns. Fine landscape paintings and portraits of beautiful demons are hung up on the walls at regular intervals, while all manner of antique curiosities are perched upon the many wooden cabinets which line the sides of these hallways.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			Large glass windows flood the corridor with an impressive amount of natural daylight, and you notice that Rose seems to be taking care to leave some of them open every now and again, making sure that the air in the house always feels fresh.
+		#ELSE
+			As it's currently night time, heavy fabric curtains have been drawn over the corridor's large glass windows, leaving the area to be illuminated by the many arcane-powered wall-lights.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- ROOM_ROSE -->
 	
 	<htmlContent tag="ROOM_ROSE"><![CDATA[
@@ -273,6 +290,16 @@
 	</htmlContent>
 	
 	
+	<!-- STAIRCASE_UP_SECONDARY -->
+	
+	<htmlContent tag="STAIRCASE_UP_SECONDARY"><![CDATA[
+	<p>
+		In this particular section of the corridor, there's a large recess set into the wall which is home to a series of carpeted stairs. While not as grand as the one positioned in front of the mansion's main entrance, this wide, sweeping staircase is nevertheless far more impressive than any you'd find in a regular house, and you wonder whether you should make use of it to travel up to the first floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- STAIRCASE_DOWN -->
 	
 	<htmlContent tag="STAIRCASE_DOWN"><![CDATA[
@@ -285,6 +312,15 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- STAIRCASE_DOWN_SECONDARY -->
+	
+	<htmlContent tag="STAIRCASE_DOWN_SECONDARY"><![CDATA[
+	<p>
+		In this particular section of the corridor, there's a large recess set into the wall which is home to a series of carpeted stairs. While not as grand as the one positioned in front of the mansion's main entrance, this wide, sweeping staircase is nevertheless far more impressive than any you'd find in a regular house, and you wonder whether you should make use of it to travel down to the ground floor...
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 </dialogue>

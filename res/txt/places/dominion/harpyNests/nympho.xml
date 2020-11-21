@@ -22,7 +22,7 @@
 		#IF(game.getDialogueFlags().hasFlag(FLAG_nymphoEncountered))
 			<p>
 				You find yourself standing on the outskirts of [harpyNympho.namePos] nest; one of the most populous of all the nests in Dominion. Despite the importance of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests, and comprises of a single, large platform built into the rooftops of several houses below.
-				#IF(Main.game.isDayTime())
+				#IF(game.isDayTime())
 					 What her nest lacks in size, it more than makes up for in population, and you see what must be well over a hundred harpies loitering about on the nest's platform.
 				#ELSE
 					 What her nest lacks in size, it more than makes up for in population, and under the illumination of bright, arcane-powered lights, you see what must be well over a hundred harpies loitering about on the nest's platform.
@@ -37,7 +37,7 @@
 		#ELSE
 			<p>
 				You find yourself standing on the outskirts of one of the most populous, and most important, of all the nests in Dominion. Despite the high social standing of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests, and comprises of a single, large platform built into the rooftops of several houses below.
-				#IF(Main.game.isDayTime())
+				#IF(game.isDayTime())
 					 What her nest lacks in size, it more than makes up for in population, and you see what must be well over a hundred harpies loitering about on the nest's platform.
 				#ELSE
 					 What her nest lacks in size, it more than makes up for in population, and under the illumination of bright, arcane-powered lights, you see what must be well over a hundred harpies loitering about on the nest's platform.

@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.3.5.5
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -12,6 +12,7 @@ public enum PropertyValue {
 	concealedSlotsReveal(false),
 	
 	enchantmentLimits(true),
+	levelDrain(true),
 	
 	artwork(true),
 	thumbnail(true),
@@ -22,6 +23,7 @@ public enum PropertyValue {
 	calendarDisplay(true),
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
+	weatherInterruptions(true),
 
 	autoLocale(true),
 	metricSizes(true),
@@ -30,52 +32,73 @@ public enum PropertyValue {
 	twentyFourHourTime(true),
 	internationalDate(true),
 
+	autoSexStrip(false),
 	autoSexClothingManagement(true),
-	
+
+	companionContent(false),
+
+	badEndContent(true),
 	ageContent(true),
 	furryTailPenetrationContent(false),
-	nonConContent(false),
 	sadisticSexContent(false),
-	incestContent(false),
 	inflationContent(true),
-	
-	facialHairContent(false),
-	pubicHairContent(false),
+
+	lipstickMarkingContent(true),
+	facialHairContent(true),
+	pubicHairContent(true),
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
+	furryHairContent(true),
+	scalyHairContent(false),
 	
-	lactationContent(true),
+	nonConContent(false, true),
+	incestContent(false, true),
+	lactationContent(true, true),
+	urethralContent(false, true),
+	analContent(true, true),
+	footContent(true, true),
+	nipplePenContent(true, true),
+	gapeContent(true, true),
+	
 	cumRegenerationContent(true),
-	urethralContent(false),
-	nipplePenContent(true),
-	analContent(true),
-	footContent(true),
-	gapeContent(true),
+	penetrationLimitations(true),
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
-	voluntaryNTR(false),
+	
+	// I know a lot of people hate NTR, but this 'voluntary NTR' setting is just giving the player the option to give their companion to other people, rather than having their companion taken against their will.
+	// For this reason, it's on by default (to give the player more options), but involutary NTR will always be off by default.
+	voluntaryNTR(true),
 	involuntaryNTR(false),
 
 	spittingEnabled(true),
 	opportunisticAttackers(false),
-	bypassSexActions(true),
 
 	levelUpHightlight(false),
+	sharedEncyclopedia(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),
 	newRaceDiscovered(false);
 
-	
 	private boolean defaultValue;
+	private boolean fetishRelated;
 
 	private PropertyValue(boolean defaultValue) {
+		this(defaultValue, false);
+	}
+	
+	private PropertyValue(boolean defaultValue, boolean fetishRelated) {
 		this.defaultValue = defaultValue;
+		this.fetishRelated = fetishRelated;
 	}
 	
 	public boolean getDefaultValue() {
 		return defaultValue;
+	}
+	
+	public boolean isFetishRelated() {
+		return fetishRelated;
 	}
 }

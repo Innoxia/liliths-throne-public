@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>600</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[plunge-neck clubbing dress]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[plunge-neck clubbing dresses]]></namePlural>
+		<description><![CDATA[A short-skirted dress with a deep, revealing plunge neck. The skimpy fabric leaves the wearer's stomach and breasts completely on display...]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>plunge_club_dress.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED_BURGUNDY</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_TURQUOISE</colour>
+			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
+			<colour>CLOTHING_PURPLE_ROYAL</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PINK_DARK</colour>
+			<colour>CLOTHING_PINK_HOT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_GOLD"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.steps] into the clubbing dress, before pulling it up around [npc.her] [npc.hips+] and [npc.breasts+] and then tying the straps into a loose bow behind [npc.her] neck.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to [npc2.step] into the clubbing dress, before pulling it up around [npc2.her] [npc2.hips+] and [npc2.breasts+] and then tying the straps into a loose bow behind [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.name] to [npc2.step] into the clubbing dress, before yanking it up around [npc2.her] [npc2.hips+] and [npc2.breasts+] and then tying the straps into a loose bow behind [npc2.her] neck.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the straps [npc.steps] out of [npc.her] clubbing dress.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the straps of [npc2.namePos] clubbing dress and [npc.verb(get)] [npc2.herHim] to [npc2.step] out of it.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(untie)] the straps of [npc2.namePos] clubbing dress and [npc.verb(force)] [npc2.herHim] to [npc2.step] out of it.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the skirt of [npc.her] clubbing dress back down into the proper position.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the skirt [npc2.namePos] clubbing dress back down into the proper position.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the skirt [npc2.namePos] clubbing dress back down into the proper position.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] clubbing dress.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] clubbing dress.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(grab)] hold of the skirt of [npc2.namePos] clubbing dress, before roughly pulling it up.]]>
+		</otherRough>
+	</displacementText>
+
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the straps of [npc.her] clubbing dress and [npc.verb(allow)] the top half to fall down around [npc.her] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the straps of [npc2.namePos] clubbing dress and [npc.verb(allow)] the top half to fall down around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(untie)] the straps of [npc2.namePos] clubbing dress and [npc.verb(yank)] the top half down around [npc2.her] waist.]]>
+	  </otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc.her] clubbing dress and [npc.verb(tie)] the straps into a loose bow behind [npc.her] neck.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc2.namePos] clubbing dress and [npc.verb(tie)] the straps into a loose bow behind [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] up the top half of [npc2.namePos] clubbing dress and [npc.verb(tie)] the straps into a loose bow behind [npc2.her] neck.]]>
+		</otherRough>
+	</replacementText>
+
+	
+</clothing>

@@ -1,14 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
-    <defs>
-        <linearGradient id="guardedDoorGradient">
-            <stop offset="0" stop-color="#f55"/>
-            <stop offset="1" stop-color="#ff8080"/>
-        </linearGradient>
-        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#guardedDoorGradient"/>
-    </defs>
-    <g transform="translate(0 -988.362)">
-        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
-        <path fill="none" stroke="#fff" stroke-width="3.761" d="M19.775 1039.179l-.007-38.275 24.959.022.063 38.303z"/>
-        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.6" d="M40.41 1020.277l-6.076.056"/>
-    </g>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+ <path d="m19.775 50.817-7e-3 -38.275 24.959 0.022 0.063 38.303z" fill="none" stroke="#fff" stroke-width="3.761"/>
+ <path d="m40.41 31.915-6.076 0.056" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.6"/>
 </svg>

@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -23,9 +23,10 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.75
@@ -39,7 +40,7 @@ public class EnchantingUtils {
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		AbstractItem craftedItem = null;
 		
-		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
+		craftedItem = Main.game.getItemGen().generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
@@ -47,7 +48,7 @@ public class EnchantingUtils {
 		craftedItem.setItemEffects(effectsToBeAdded);
 		
 		craftedItem.setName(EnchantmentDialogue.getOutputName());
-		craftedItem.setColour(ingredient.getEnchantmentEffect().getColour());
+		craftedItem.setColour(0, ingredient.getEnchantmentEffect().getColour());
 		craftedItem.setSVGString(getSVGString(ingredient, effectsToBeAdded));
 		
 		return craftedItem;
@@ -58,17 +59,13 @@ public class EnchantingUtils {
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		
-		craftedClothing = AbstractClothingType.generateClothing(
+		craftedClothing = Main.game.getItemGen().generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
-				((AbstractClothing)ingredient).getColour(),
-				((AbstractClothing)ingredient).getSecondaryColour(),
-				((AbstractClothing)ingredient).getTertiaryColour(),
+				((AbstractClothing)ingredient).getColours(),
 				effectsToBeAdded);
 		
 		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
-		craftedClothing.setPatternColour(((AbstractClothing)ingredient).getPatternColour());
-		craftedClothing.setPatternSecondaryColour(((AbstractClothing)ingredient).getPatternSecondaryColour());
-		craftedClothing.setPatternTertiaryColour(((AbstractClothing)ingredient).getPatternTertiaryColour());
+		craftedClothing.setPatternColours(((AbstractClothing)ingredient).getPatternColours());
 		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
@@ -84,9 +81,20 @@ public class EnchantingUtils {
 	
 	public static Tattoo craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
-		((Tattoo)ingredient).setEffects(effectsToBeAdded);
-		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
-		return (Tattoo) ingredient;
+		
+		Tattoo newTattoo = new Tattoo(((Tattoo)ingredient).getType(),
+				((Tattoo)ingredient).getPrimaryColour(),
+				((Tattoo)ingredient).getSecondaryColour(),
+				((Tattoo)ingredient).getTertiaryColour(),
+				((Tattoo)ingredient).isGlowing(),
+				((Tattoo)ingredient).getWriting(),
+				((Tattoo)ingredient).getCounter());
+		
+		newTattoo.setEffects(effectsToBeAdded);
+		
+		newTattoo.setName(EnchantmentDialogue.getOutputName());
+		
+		return newTattoo;
 	}
 	
 	public static AbstractWeapon craftWeapon(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -95,11 +103,10 @@ public class EnchantingUtils {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
 		
-		craftedWeapon = AbstractWeaponType.generateWeapon(
+		craftedWeapon = Main.game.getItemGen().generateWeapon(
 				(AbstractWeaponType) ingredient.getEnchantmentItemType(effects),
 				((AbstractWeapon) ingredient).getDamageType(),
-				((AbstractWeapon)ingredient).getPrimaryColour(),
-				((AbstractWeapon)ingredient).getSecondaryColour());
+				((AbstractWeapon)ingredient).getColours());
 		
 		craftedWeapon.setEffects(effectsToBeAdded);
 		
@@ -122,10 +129,15 @@ public class EnchantingUtils {
 			}
 			if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_GYNEPHILIC) {
 				return "Gynephilic Hypno-Watch";
+				
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return "Ambiphilic Hypno-Watch";
-			} else {
+				
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return "Androphilic Hypno-Watch";
+				
+			} else {
+				return "Speech-modifying Hypno-Watch";
 			}
 		}
 		
@@ -187,6 +199,9 @@ public class EnchantingUtils {
 	private static boolean isEffectFreeForRemovingPositiveAttribute(ItemEffect effect) {
 		if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE || effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 			return !effect.getPotency().isNegative();
+		}
+		if(TFModifier.getTFRacialBodyPartsList().contains(effect.getPrimaryModifier())) {
+			return true;
 		}
 		return false;
 	}
@@ -271,7 +286,9 @@ public class EnchantingUtils {
 		}
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
-			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
+			if(effects.isEmpty()
+					|| effects.get(0).getPrimaryModifier()==null
+					|| effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchBase();
 			}
 			
@@ -281,9 +298,19 @@ public class EnchantingUtils {
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAmbiphilic();
 				
-			} else {
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
+
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				if(effects.get(0).getPotency().isNegative()) {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
+				} else {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
+				}
 			}
+			
 		}
 		
 		StringBuilder SVGImageSB = new StringBuilder();
@@ -292,7 +319,7 @@ public class EnchantingUtils {
 		
 		String s = ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getSVGString();
 		
-		Colour colour = Colour.CLOTHING_BLUE_LIGHT;
+		Colour colour = PresetColour.CLOTHING_BLUE_LIGHT;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {
@@ -320,7 +347,9 @@ public class EnchantingUtils {
 	public static String getImportedSVGString(AbstractCoreItem item, Colour importedColour, List<ItemEffect> effects) {
 
 		if(((AbstractItem)item).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
-			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
+			if(effects.isEmpty()
+					|| effects.get(0).getPrimaryModifier()==null
+					|| effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchBase();
 			}
 			
@@ -330,8 +359,17 @@ public class EnchantingUtils {
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAmbiphilic();
 				
-			} else {
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
+				
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				if(effects.get(0).getPotency().isNegative()) {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
+				} else {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
+				}
 			}
 		}
 		
@@ -346,7 +384,7 @@ public class EnchantingUtils {
 		
 		String s = item.getSVGString();
 		
-		Colour colour = Colour.CLOTHING_BLUE_LIGHT;
+		Colour colour = PresetColour.CLOTHING_BLUE_LIGHT;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {

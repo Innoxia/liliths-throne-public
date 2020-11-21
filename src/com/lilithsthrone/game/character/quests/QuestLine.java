@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.2.10
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public enum QuestLine {
@@ -25,7 +25,7 @@ public enum QuestLine {
 //			QuestType.SIDE,
 //			Quest.SIDE_DISCOVER_ALL_RACES),
 
-	SIDE_ENCHANTMENT_DISCOVERY("Enchantments, Essences, and Jinxes", "You now know how to create enchanted items and remove jinxes!",
+	SIDE_ENCHANTMENT_DISCOVERY("Essences and Enchantments", "You now know how to use essences in order to create and modify enchanted items!",
 			QuestType.SIDE,
 			QuestTree.enchantmentTree),
 
@@ -33,7 +33,7 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
 
-	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted Slaver License!",
+	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted slaver license!",
 			QuestType.SIDE,
 			QuestTree.slaveryTree),
 
@@ -44,10 +44,6 @@ public enum QuestLine {
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
-	
-	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
-			QuestType.RELATIONSHIP,
-			QuestTree.nyanTree),
 
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
 			QuestType.SIDE,
@@ -71,8 +67,25 @@ public enum QuestLine {
 
 	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
 			QuestType.SIDE,
-			QuestTree.vengarTree)
+			QuestTree.vengarTree),
+
+	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
+			QuestType.SIDE,
+			QuestTree.wesTree),
 	
+	// Romance quests:
+	
+	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
+			QuestType.RELATIONSHIP,
+			QuestTree.nyanTree),
+
+	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her an take her on a date each Friday evening.",
+			QuestType.RELATIONSHIP,
+			QuestTree.helenaTree),
+
+	ROMANCE_NATALYA("Filly Training", "Having completed Mistress Natalya's training, you are now a qualified filly and are expected to sexually service Dominion Express's centaur slaves.",
+			QuestType.RELATIONSHIP,
+			QuestTree.natalyaTree),
 	;
 
 	private String name, completedDescription;

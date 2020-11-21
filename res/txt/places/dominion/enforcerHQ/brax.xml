@@ -27,15 +27,21 @@
 	<!-- INTERIOR_BRAX_REPEAT -->
 
 	<htmlContent tag="INTERIOR_BRAX_REPEAT"><![CDATA[
-	<p>
-		As he sees that it's you who's entering his office once again, [brax.namePos] jaw drops and he exclaims, [brax.speech(What the hell are you doing back here?! Did that braindead bimbo give you <i>another</i> pass?!)]
-	</p>
-	<p>
-		As you enter his office, ready for another fight, [brax.name] stands up, and you see the familiar sight of arcane fire being summoned around his right hand, while with the other he grabs his pistol.
-	</p>
-	<p>
-		[brax.speech(I guess you've just got a craving for wolf dick!)] [brax.name] laughs, and you realise that if you lose again, you're going to be getting another taste of his cock...
-	</p>
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			As he sees that it's you who's entering his office once again, [brax.namePos] jaw drops and he exclaims, [brax.speech(What the hell are you doing back here?! Did that braindead bimbo give you <i>another</i> pass?!)]
+		</p>
+		<p>
+			As you enter his office, ready for another fight, [brax.name] stands up, and you see the familiar sight of arcane fire being summoned around his right hand, while with the other he grabs his pistol.
+		</p>
+		<p>
+			[brax.speech(I guess you've just got a craving for wolf dick!)] [brax.name] laughs, and you realise that if you lose again, you're going to be getting another taste of his cock...
+		</p>
+	#ELSE
+		<p>
+			The door to the office which used to be [brax.namePos] is securely shut and locked. There's really nothing more for you to do here except turn around and leave...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -144,7 +150,7 @@
 		Contact address: <i>Scarlett's shop, Slaver Alley</i>
 	</p>
 	<p>
-		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare Enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform, and add it to your inventory</b>.
+		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare Enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform and add it to your inventory</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -160,7 +166,7 @@
 	</p>
 	<p>
 		You can't help but laugh at [brax.namePos] stuttering denial of his all-too-apparent weakness,
-		#IF(pc.getRace()==RACE_WOLF_MORPH && Main.game.getPlayer().isFeminine())
+		#IF(pc.getRace()==RACE_WOLF_MORPH && pc.isFeminine())
 			 [pc.speech(Oh, please! I see the way you keep glancing at my body! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]
 		#ELSE
 			 [pc.speech(Oh, please! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]
@@ -302,7 +308,7 @@
 		Making more vague promises, you step back out into the corridor, breathing a sigh of relief as you pull the door firmly shut behind you. Turning to leave by the same route as which you arrived, you quickly set off towards the exit.
 	</p>
 	<p>
-		As you pass an empty office, you look in and notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you need a little compensation after being forcefully kissed by [brax.name], <b>you take the spare uniform, and add it to your inventory on your way out</b>.
+		As you pass an empty office, you look in and notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you need a little compensation after being forcefully kissed by [brax.name], <b>you take the spare uniform and add it to your inventory on your way out</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -420,7 +426,7 @@
 		You really don't feel like having sex with the guy who just tried to beat you up. Instead, you push Brax back into his chair, tutting in disapproval as he lets out a desperate whine.
 	</p>
 	<p>
-		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform, and add it to your inventory</b>.
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform and add it to your inventory</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -592,7 +598,7 @@
 			Although you've been thrown out without so much as a goodbye, you feel a big smile spreading across your face. You found out where Arthur is, and what's more, you got to have a good fuck with that hunk of a wolf-boy.
 		</p>
 		<p>
-			As you walk out from behind the Enforcer HQ, you see that an open crate, full of spare uniforms, is sitting outside a side door. The crate is too big to fit through the doorway, and the person in charge of bringing them inside isn't anywhere to be seen. Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform, and add it to your inventory as you continue on your way</b>.
+			As you walk out from behind the Enforcer HQ, you see that an open crate, full of spare uniforms, is sitting outside a side door. The crate is too big to fit through the doorway, and the person in charge of bringing them inside isn't anywhere to be seen. Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform and add it to your inventory as you continue on your way</b>.
 		</p>
 	#ELSE
 		<p>
@@ -609,7 +615,7 @@
 		Brax is completely exhausted, and collapses harmlessly to the floor as he passes out. Letting out a triumphant laugh, you look down at your latest sexual conquest, smirking in satisfaction as you see the happy smile covering his unconscious face.
 	</p>
 	<p>
-		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you want a little memento of your time with Brax, <b>you take the spare uniform, and add it to your inventory</b>, before heading downstairs and back outside.
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Deciding that you want a little memento of your time with Brax, <b>you take the spare uniform and add it to your inventory</b>, before heading downstairs and back outside.
 	</p>
 	]]>
 	</htmlContent>

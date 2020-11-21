@@ -2,12 +2,12 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>250</value>
+		<value>600</value>
 		<melee>true</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[wooden bat]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[wooden bat]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[wooden bats]]></namePlural>
 		<description><![CDATA[A smooth wooden club used to strike a ball as a form of sport. This particular bat has been enchanted for use as a weapon.]]></description> 
 		
 		<attackDescriptor>whack</attackDescriptor>
@@ -26,7 +26,7 @@
 		
 		<imageEquippedName/> 
 		
-		<damage>8</damage> 
+		<damage>15</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -59,6 +59,7 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 		</itemTags>
 		
 	</coreAttributes>

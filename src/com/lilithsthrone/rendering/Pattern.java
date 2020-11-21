@@ -12,13 +12,14 @@ import java.util.TreeMap;
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.utils.SvgUtil;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
- * @author Irbynx
+ * @version 0.3.9.8
+ * @author Irbynx, Innoxia, AceXp
  */
 public class Pattern {
 	
@@ -28,62 +29,76 @@ public class Pattern {
 	private String name;
 	private String displayName;
 	
-	private boolean primaryRecolourAvailable;
-	private boolean secondaryRecolourAvailable;
-	private boolean tertiaryRecolourAvailable;
-	
 	private String baseSVGString;
-	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
+	private Map<String, String> SVGStringMap;
 	
 	static {
 		allPatterns = new TreeMap<>();
 		defaultPatterns = new TreeMap<>();
-		
-		File dir = new File("res/patterns");
-		
-		allPatterns.put("none", new Pattern("none")); // Adding empty pattern
-		defaultPatterns.put("none", new Pattern("none"));
+
+		allPatterns.put("none", new Pattern("none", null)); // Adding empty pattern
+		defaultPatterns.put("none", new Pattern("none", null));
+
+		File dir = new File("res/mods");
+
+		if (dir.exists() && dir.isDirectory()) {
+			File[] modDirectoryListing = dir.listFiles();
+			if (modDirectoryListing != null) {
+				for (File modAuthorDirectory : modDirectoryListing) {
+					File modAuthorPatternDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/patterns");
+					FilenameFilter textFilter = (dir1, name) -> {
+						String lowercaseName = name.toLowerCase();
+						if (lowercaseName.endsWith(".xml")) {
+							return true;
+						} else {
+							return false;
+						}
+					};
+					File[] patternFilesListing = modAuthorPatternDirectory.listFiles(textFilter);
+					if (patternFilesListing != null) {
+						for (File patternFile : patternFilesListing) {
+							try {
+								if(patternFile.exists()) {
+									loadFromFile(patternFile);
+								}
+							} catch(Exception ex) {
+								System.err.println("Loading modded pattern failed in 'mod folder patterns'. File path: "+patternFile.getAbsolutePath());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		dir = new File("res/patterns");
 		
 		if(dir.exists()) {
-			FilenameFilter textFilter = new FilenameFilter() {
-				public boolean accept(File dir, String name) {
-					String lowercaseName = name.toLowerCase();
-					if (lowercaseName.endsWith(".xml")) {
-						return true;
-					} else {
-						return false;
-					}
+			FilenameFilter textFilter = (dir1, name) -> {
+				String lowercaseName = name.toLowerCase();
+				if (lowercaseName.endsWith(".xml")) {
+					return true;
+				} else {
+					return false;
 				}
 			};
 			
 			for(File subFile : dir.listFiles(textFilter)) {
 				if(subFile.exists()) {
 					loadFromFile(subFile);
-					
-					
-//					try {
-//						String newPatternName = subFile.getName().substring(0, subFile.getName().indexOf(".svg"));
-//						allPatterns.put(newPatternName, new Pattern(newPatternName));
-//						if(!newPatternName.equalsIgnoreCase("rainbow")) {
-//							defaultPatterns.put(newPatternName, new Pattern(newPatternName));
-//						}
-//						//System.out.println("Added Pattern: " + newPatternName);
-//						
-//					} catch(Exception ex) {
-//					}
 				}
 			}
 		}
 	}
 	
-	public Pattern(String name) {
+	public Pattern(String name, File xmlFile) {
 		this.name = name;
 		SVGStringMap = new HashMap<>();
 		
 		baseSVGString = "";
 		if(!name.equals("none")) {
 			try {
-				File patternFile = new File(System.getProperty("user.dir")+"/res/patterns/" + this.getName().toLowerCase() + ".svg");
+				String fileName = xmlFile.getPath().replaceAll("xml","svg");
+				File patternFile = new File(fileName);
 				List<String> lines = Files.readAllLines(patternFile.toPath());
 				StringBuilder sb = new StringBuilder();
 				for(String line : lines) {
@@ -93,27 +108,6 @@ public class Pattern {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			primaryRecolourAvailable = 
-					baseSVGString.contains("#f4d7d7")
-					|| baseSVGString.contains("#e9afaf")
-					|| baseSVGString.contains("#de8787")
-					|| baseSVGString.contains("#d35f5f")
-					|| baseSVGString.contains("#c83737");
-			
-			secondaryRecolourAvailable = 
-					baseSVGString.contains("#f4e3d7")
-					|| baseSVGString.contains("#e9c6af")
-					|| baseSVGString.contains("#deaa87")
-					|| baseSVGString.contains("#d38d5f")
-					|| baseSVGString.contains("#c87137");
-			
-			tertiaryRecolourAvailable = 
-					baseSVGString.contains("#f4eed7")
-					|| baseSVGString.contains("#e9ddaf")
-					|| baseSVGString.contains("#decd87")
-					|| baseSVGString.contains("#d3bc5f")
-					|| baseSVGString.contains("#c8ab37");
 		}
 		
 	}
@@ -125,7 +119,7 @@ public class Pattern {
 			boolean loadedDefaultPattern = Boolean.valueOf(patternElement.getMandatoryFirstOf("defaultPattern").getTextContent());
 			String loadedPatternName = patternElement.getMandatoryFirstOf("patternName").getTextContent().replace(".svg", "");
 
-			Pattern pattern = new Pattern(loadedPatternName);
+			Pattern pattern = new Pattern(loadedPatternName, clothingXMLFile);
 			pattern.displayName = loadedDisplayName;
 			
 			allPatterns.put(loadedPatternName, pattern);
@@ -183,39 +177,32 @@ public class Pattern {
 		return this.name.replace('_', ' ');
 	}
 	
-	public boolean isPrimaryRecolourAvailable() {
-		return primaryRecolourAvailable;
-	}
-
-	public boolean isSecondaryRecolourAvailable() {
-		return secondaryRecolourAvailable;
-	}
-
-	public boolean isTertiaryRecolourAvailable() {
-		return tertiaryRecolourAvailable;
-	}
-
-	public String getSVGString(Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		if(!SVGStringMap.containsKey(colour) || !SVGStringMap.get(colour).containsKey(colourSecondary) || !SVGStringMap.get(colour).get(colourSecondary).containsKey(colourTertiary)) {
-			generateSVGImage(colour, colourSecondary, colourTertiary);
+	public boolean isRecolourAvailable(ColourReplacement colourReplacement) {
+		for(String s : colourReplacement.getColourReplacements()) {
+			if(baseSVGString.contains(s)) {
+				return true;
+			}
 		}
-		return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary);
+		return false;
+	}
+
+	private String generateIdentifier(List<Colour> colours) {
+		StringBuilder sb = new StringBuilder(this.getName());
+		for(Colour c : colours) {
+			sb.append(c.getId());
+		}
+		return sb.toString();
 	}
 	
-	private void generateSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		addSVGStringMapping(colour, colourSecondary, colourTertiary, SvgUtil.colourReplacementPattern(this.getName(), colour, colourSecondary, colourTertiary, baseSVGString));
+	public String getSVGString(List<Colour> patternColours, List<ColourReplacement> patternColourReplacements) {
+		if(!SVGStringMap.containsKey(generateIdentifier(patternColours))) {
+			generateSVGImage(patternColours, patternColourReplacements);
+		}
+		return SVGStringMap.get(generateIdentifier(patternColours));
 	}
 	
-	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
-		if(SVGStringMap.get(colour)==null) {
-			SVGStringMap.put(colour, new HashMap<>());
-			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
-			
-		} else if(SVGStringMap.get(colour).get(colourSecondary)==null) {
-			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
-		}
-		
-		SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+	private void generateSVGImage(List<Colour> patternColours, List<ColourReplacement> patternColourReplacements) {
+		SVGStringMap.put(generateIdentifier(patternColours), SvgUtil.colourReplacementPattern(this.getName(), patternColours, patternColourReplacements, baseSVGString));
 	}
 }
 

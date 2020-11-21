@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -109,7 +109,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/> 
@@ -118,68 +118,38 @@
 		<tertiaryColoursDye values="ALL"/>
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> 
-			
+		<itemTags> 	
 			<tag>RIGID_MATERIAL</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You loosen the straps on your tactical knee pads and slide them off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You loosen the straps on [npc.name]'s tactical knee pads and slide them off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the straps on [npc.name]'s tactical knee pads and yank them off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] loosens the straps on [npc.her] tactical knee pads and slides them off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] loosens the straps on your tactical knee pads and slides them off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the straps on your tactical knee pads and yanks them off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] loosens the straps on [npc2.name]'s tactical knee pads and slides them off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the straps on [npc2.name]'s tactical knee pads and yanks them off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the tactical kneepads over [npc.her] knees and [npc.verb(tighten)] the straps.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the tactical kneepads over [npc2.namePos] knees and [npc.verb(tighten)] the straps.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] legs through the tactical kneepads and hastily [npc.verb(tighten)] the straps.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slide the tactical knee pads up your [pc.legs] and tighten the straps.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.legs] through the tactical knee pads and tighten the straps.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You stuff [npc.name]'s [npc.legs] through the tactical knee pads and tighten the straps as much as possible.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slides the tactical knee pads up [npc.her] [npc.legs] and tightens the straps.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.legs] through the tactical knee pads and tightens the straps.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] stuffs your [pc.legs] through the tactical knee pads and tightens the straps as much as possible.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.legs] through the tactical knee pads and tightens the straps.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] stuffs [npc2.name]'s [npc2.legs] through the tactical knee pads and tightens the straps as much as possible.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc.her] tactical kneepads and [npc.verb(slip)] them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc2.namePos] tactical kneepads and [npc.verb(slip)] them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] at the straps on [npc2.namePos] tactical kneepads until they're loose enough and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

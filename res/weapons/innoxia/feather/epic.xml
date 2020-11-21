@@ -18,7 +18,7 @@
 		<imageName>epic.svg</imageName> 
 		<imageEquippedName/>
 		
-		<damage>14</damage> 
+		<damage>25</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -31,7 +31,13 @@
 			<damageType>POISON</damageType>
 		</availableDamageTypes>
 		
-		<spells/>
+		<spells changeOnReforge="true">
+			<spell damageType="FIRE">FLASH</spell>
+			<spell damageType="ICE">RAIN_CLOUD</spell>
+			<spell damageType="LUST">TELEPATHIC_COMMUNICATION</spell>
+			<spell damageType="PHYSICAL">TELEKENETIC_SHOWER</spell>
+			<spell damageType="POISON">VACUUM</spell>
+		</spells>
 		
 		<enchantmentLimit>10</enchantmentLimit>
 		

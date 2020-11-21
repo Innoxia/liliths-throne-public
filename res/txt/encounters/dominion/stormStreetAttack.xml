@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- STORM_ATTACK -->
+	
+	<htmlContent tag="STORM_ATTACK"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BACK_ALLEYS_SAFE)
+				With [com.name] by your side, you find yourself [pc.walking] down the wide alleyway, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+			#ELSE
+				With [com.name] by your side, you find yourself [pc.walking] down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+			#ENDIF
+		</p>
+		<p>
+			[com.speech(Hey!)] [com.name] calls out, stepping forwards to stand by your side and confront this unknown assailant.
+		</p>
+		<p>
+			As the two of you get a better look at the mysterious figure, you see that [npc.sheIs] [npc.a_fullRace(true)]. Looking up at [npc.her] [npc.face+], you see a desperately hungry look in [npc.her] [npc.eyes], and you know that the arcane thunder has driven [npc.herHim] into a state of uncontrollable lust. [npc.She] looks determined to claim both you and [com.name] as [npc.her] prizes, and is ready to fight the two of you in order to claim your bodies.
+		</p>
+		<p>
+			[npc.speech(Come on now, there's no need for any violence!)] [npc.she] teases, [npc.her] voice dripping with lustful desperation as [npc.she] takes a step forwards. [npc.speech(Just surrender! Come on! I <i>need</i> a good fuck right now!)]
+		</p>
+		<p>
+			The arcane storm, combined with your powerful aura, has filled [npc.herHim] with a wild lust, and,
+			#IF(game.isNonConEnabled())
+				 knowing that defeat will result in the two of you being raped by this horny [npc.race], both you and [com.name] ready yourselves for a fight.
+			#ELSE
+				 knowing that defeat will result in this horny [npc.race] wanting to have sex with the two of you, both you and [com.name] ready yourselves for a fight.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BACK_ALLEYS_SAFE)
+				You find yourself [pc.walking] down the wide alleyway, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+			#ELSE
+				You find yourself [pc.walking] down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+			#ENDIF
+		</p>
+		<p>
+			Turning to face the assailant, you see [npc.a_fullRace(true)] grinning devilishly at you. There's no mistaking that hungry look in [npc.her] [npc.eyes], and you know that the arcane thunder has driven [npc.herHim] into a state of uncontrollable lust. [npc.She] looks determined to claim you as [npc.her] prize, and is ready to fight you in order to claim your body.
+		</p>
+		<p>
+			[npc.speech(Aww, there's no need for that!)] [npc.she] teases, the desperation clearly audible in [npc.her] voice as [npc.she] sees that you're ready to fight [npc.herHim]. [npc.speech(Just give up! Come on! I <i>need</i> a good fuck right now!)]
+		</p>
+		<p>
+			The arcane storm, combined with your powerful aura, has filled [npc.herHim] with a wild lust, and you have a good idea of what [npc.she] wants to do with you.
+			#IF(game.isNonConEnabled())
+				 Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight.
+			#ELSE
+				 Knowing that defeat will result in this horny [npc.race] wanting to have sex with you, you ready yourself for a fight.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORM_ATTACK_OFFER_BODY"><![CDATA[
+	<p>
+		Wanting to avoid a fight, you decide to give [npc.name] what [npc.she] wants. Flashing a seductive smile [npc.her] way, you [pc.moan], [pc.speech(Come on then, I'm all yours!)]
+	</p>
+	<p>
+		A delighted, lust-filled smile breaks out across [npc.namePos] face, and [npc.she] instantly rushes forwards, reaching up to grab you by the [pc.arms] before pulling you forwards into a tight embrace. Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling, [npc.speech(Oh yes... Fuck, I'm just so horny!)]
+	</p>
+	<p>
+		Feeling very much the same way, you surrender yourself to [npc.namePos] dominant touch, allowing [npc.herHim] to use you for some sexual relief...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORM_ATTACK_OFFER_THREESOME"><![CDATA[
+	<p>
+		Wanting to avoid a fight, you decide to give [npc.name] what [npc.she] wants, and offer, [pc.speech(If you're looking for a bit of fun, [com.name] and I are more than happy to play along...)]
+	</p>
+	<p>
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			[com.speech(That's right,)] [com.name] teases, [com.speech(We can satisfy your desires...)]
+		#ELSE
+			[com.speech([pc.Name]!)] [com.name] interjects, [com.speech(I-I really don't want to do this!)]
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(Yes! Let's get strated and fuck already!)] [npc.name] desperately whines, before stepping forwards and placing [npc.a_hand] on each of your waists. With a hungry growl, [npc.she] dominantly pulls the two of you up against [npc.herHim], before leaning in to plant a passionate kiss on your [pc.lips+].
+	</p>
+	<p>
+		As you press yourself up against [npc.name], [npc.she] suddenly breaks off the kiss, before turning to [com.name] and thrusting [npc.her] [npc.tongue+] down [com.her] throat.
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			 Your [com.companion] lets out a delighted, muffled [com.moan] as [com.she] eagerly returns the kiss, [com.speech(~Mmm!~ Yes!)]
+		#ELSE
+			 Your [com.companion] lets lets out a flustered, muffled yelp, before pushing [npc.name] away from [com.herHim] and shouting, [com.speech(Get away from me!)]
+		#ENDIF
+	</p>
+	<p>
+		Before either of you can make another move, [npc.name] suddenly reaches up to grab you both by the shoulders, and with a determined push, forces the two of you down onto all fours. Dropping down behind you, [npc.she] growls, [npc.speech(You dirty sluts! I'll put the two of you in your place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORM_ATTACK_OFFER_COMPANION"><![CDATA[
+	<p>
+		Wanting to avoid a fight, you decide to do the only other thing you can think of, and turn towards [com.name] to ask, [pc.speech(You'll take one for the team, won't you, [com.name]? I don't really want to get into a fight; all you need to do is spread your legs...)]
+	</p>
+	<p>
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			[com.speech(Sure thing, [pc.name],)] [com.name] replies, [com.speech(If that's really what you want me to do...)]
+		#ELSE
+			[com.speech([pc.Name]?! What the hell?!)] [com.name] replies in alarm, [com.speech(I really don't want to do that!)]
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(Come on, let's fuck already! I <i>need</i> it!)] [npc.name] desperately whines as [npc.she] steps forwards and prepares to get what [npc.she] wants by use of force. 
+	</p>
+	<p>
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			[com.speech(There's no need for violence,)] [com.name] says, before turning to face [npc.name] and teasing, [com.speech(You can fuck me all you want!)]
+		#ELSE
+			[pc.speech(There's no need for violence!)] you exclaim, before spinning [com.name] around and pushing [com.herHim] towards [npc.name]. [pc.speech(You can fuck [com.name] all you want!)]
+		#ENDIF
+	</p>
+	<p>
+		Before your [com.companion] can make a move, [npc.name] lets out a hungry [npc.moan] and quickly reaches up to grab [com.her] [com.arm+]. With a dominant pull, [npc.she] forces your [com.companion] into [npc.her] embrace, before planting a passionate kiss on [com.her] [com.lips+]. After a moment, [npc.she] breaks away, before growling, [npc.speech(You're going to be a good [com.girl] now, aren't you bitch? Your little friend over there can watch me fuck you senseless!)]
+	</p>
+	<p>
+		You let out a sigh of relief, happy that you had [com.name] to use as a bargaining chip. Leaning back against a nearby wall, you decide to keep a lookout for any other horny citizens while [npc.name] has [npc.her] fun with your [com.companion]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_VICTORY -->
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_ATTRACTION"><![CDATA[
+	<p>
+		[npc.Name] collapses to the floor, completely defeated. As [npc.she] gazes up at you, desperately whimpering and biting [npc.her] [npc.lip], you see that [npc.she] still has a hungry, lustful look in [npc.her] [npc.eyes]. In defeat, [npc.namePos] arcane aura is completely overwhelmed by the power of your own, and, unable to control [npc.her] burning desire, [npc.she] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
+	</p>
+	<p>
+		[npc.speech(~Aah!~ What are you waiting for?! Please! Come fuck me!)] [npc.she] pleads, bucking [npc.her] [npc.hips+] against [npc.her] [npc.hand] as [npc.she] continues touching [npc.herself].
+	</p>
+	<p>
+		You wonder if you should indulge [npc.her] request. After all, [npc.she] <i>was</i> planning on doing the same to you, and [npc.she] quite clearly wants it. Then again, maybe it's best to just turn around and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_NO_ATTRACTION"><![CDATA[
+	<p>
+		[npc.Name] collapses to the floor, completely defeated. [npc.She] glances up at you for a moment, before casting [npc.her] gaze to the floor, and in that brief moment, you see that there's a desperate look of regret in [npc.her] [npc.eyes]. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are.
+	</p>
+	<p>
+		[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her]
+		#IF(npc.isFeminine())
+			 purse
+		#ELSE
+			 wallet
+		#ENDIF
+		 at your feet.
+	</p>
+	#IF(game.isNonConEnabled())
+		<p>
+			You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to take hold of [npc.her] [npc.arm] and pulling [npc.herHim] to [npc.her] [npc.feet]. The moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
+	</p>
+	<p>
+		Without any further warning, [npc.she] suddenly presses [npc.her] [npc.lips] against yours, and, eager to return [npc.her] display of affection, you pull [npc.herHim] into your embrace, passionately returning [npc.her] kiss.
+	</p>
+	<p>
+		After a moment, you push [npc.name] away a little, grinning as you see [npc.her] lust-filled gaze roam up and down your body. Preparing to make your next move, you take a firm grip on [npc.her] [npc.hips+], before [pc.moaning], [pc.speech(This is going to be good...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE"><![CDATA[
+	<p>
+		Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to take hold of [npc.her] [npc.hand]. WIth a disarming smile, you help to pull [npc.herHim] to [npc.her] [npc.feet], and the moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
+	</p>
+	<p>
+		Without any further warning, [npc.she] suddenly presses [npc.her] [npc.lips] against yours, and, happy to return [npc.her] display of affection, you gently pull [npc.herHim] into your embrace, before starting to return [npc.her] passionate kiss.
+	</p>
+	<p>
+		After a moment, you pull back from [npc.name], grinning as you see [npc.her] lust-filled gaze roam up and down your body. Preparing to make your next move, you place your [pc.hands] [npc.her] [npc.hips+], before softly [pc.moaning], [pc.speech(I'll take good care of you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_GENTLE"><![CDATA[
+	<p>
+		Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to grab hold of [npc.her] [npc.arm] and yank [npc.herHim] to [npc.her] [npc.feet]. The moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
+	</p>
+	<p>
+		Without any further warning, [npc.she] tries to press [npc.her] [npc.lips] against yours, but, seeing it coming, and wanting to leave no doubt in [npc.namePos] mind as to who's in charge, you quickly reach up and grab hold of [npc.her] neck, smirking in response to the sound of [npc.her] startled cry.
+	</p>
+	<p>
+		[pc.speech(Don't you <i>dare</i> try to do anything without my permission, bitch!)] you snarl, using your commanding grip to tilt [npc.namePos] head to one side, before leaning in to give [npc.herHim] a forceful kiss. Roughly thrusting your [pc.tongue+] into [npc.her] mouth, you use your free [pc.hand] to reach around and give [npc.her] [npc.ass+] a dominant squeeze.
+	</p>
+	<p>
+		After a moment, you push [npc.name] away, grinning as you see [npc.her] lust-filled gaze roam up and down your body. Preparing to make your next move, you take a dominant grip on [npc.her] [npc.hips+], before growling, [pc.speech(Good bitch. Now submit to your conqueror!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_ROUGH"><![CDATA[
+	<p>
+		Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]. Leaning down, you do the first thing that comes into your mind, and start apologising, [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]
+	</p>
+	<p>
+		For a moment, a look of confusion crosses over [npc.namePos] face, but, as [npc.she] sees that you're genuinely troubled by what you've just done, an evil grin crosses [npc.her] face. [npc.She] stands up, and, grabbing you by the [pc.arm], roughly pulls you into [npc.her] as [npc.she] growls, [npc.speech(How about you start by apologising properly?!)]
+	</p>
+	<p>
+		[npc.NamePos] strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks. [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]
+	</p>
+	<p>
+		[npc.Name] roughly yanks you forwards, and with a menacing growl, [npc.she] forces [npc.her] tongue into your mouth. You let out a muffled yelp as your opponent takes charge, but as you feel [npc.her] [npc.hands] reaching down to start roughly groping your ass, you realise that you couldn't be happier with how things have turned out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_THREESOME"><![CDATA[
+	<p>
+		With [npc.name] collapsed to the floor in defeat, you can't help but let out a triumphant laugh as you turn towards [com.name], [pc.speech(I think we should have some fun before we carry on! You take [npc.her] face, I'll get [npc.her] rear!)]
+	</p>
+	<p>
+		With that, you and [com.name] move into position around [npc.name]. As [npc.she] pushes [npc.herself] up onto all fours, you drop down onto your knees behind [npc.herHim], before shuffling forwards and bumping your groin against [npc.her] [npc.ass+].
+	</p>
+	<p>
+		[com.speech(You'd better be good at using your mouth,)] [com.name] says, dropping down to [com.her] knees in front of the defeated [npc.race].
+	</p>
+	<p>
+		Completely exhausted from losing the fight against the two of you, [npc.name] is powerless to do anything other than prepare to get fucked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION"><![CDATA[
+	<p>
+		With [npc.name] collapsed to the floor in defeat, you can't help but let out a triumphant laugh as you turn towards [com.name], [pc.speech(I think you should have some fun with this one!)]
+	</p>
+	<p>
+		[com.speech(Sure, that sounds good to me,)] [com.name] replies, smirking as [com.she] steps up to [npc.name], before reaching down to take hold of [npc.her] [npc.arm] and pulling [npc.herHim] to [npc.her] [npc.feet]. The moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against [com.name], [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
+	</p>
+	<p>
+		Without any further warning, [npc.she] suddenly presses [npc.her] [npc.lips] against [com.nameHers], and, eager to return [npc.her] display of affection, [npc.she] pulls [npc.name] into [com.her] embrace, passionately returning [npc.her] kiss.
+	</p>
+	<p>
+		After a moment, [com.name] pushes [npc.name] away a little, grinning as [com.she] sees [npc.her] lust-filled gaze roam up and down [com.her] body. Preparing to make [com.her] next move, [com.name] takes a firm grip on [npc.her] [npc.hips+], before [com.moaning], [com.speech(This is going to be good...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
+	<p>
+		Feeling a little sorry for [npc.name] as you see [npc.her] collapsed down on the floor, you turn towards [com.name], and ask, [pc.speech(You'll make [npc.herHim] feel better, won't you, [com.name]? All you need to do is spread your legs...)]
+	</p>
+	<p>
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			[com.speech(Sure thing, [pc.name],)] [com.name] replies. [com.speech(If that's really what you want me to do...)]
+		#ELSE
+			[com.speech([pc.Name]! W-What the hell?!)] [com.name] replies in alarm. [com.speech(I-I really don't want to do that!)]
+		#ENDIF
+	</p>
+	<p>
+		[npc.speech(W-What's going on?)] [npc.name] stutters, pushing [npc.herself] up onto [npc.her] [npc.feet] as [npc.she] realises that you aren't planning on assaulting [npc.herHim]. 
+	</p>
+	<p>
+		#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
+			[com.speech(We were just deciding who's going to be the lucky one you get to fuck!)] [com.name] replies, turning around and stepping up to [npc.name]. [com.speech(And it turns out it's me!)]
+		#ELSE
+			[pc.speech(We were just deciding who's going to be the lucky one you get to fuck!)] you reply, spinning [com.name] around and pushing [com.herHim] towards [npc.name]. [pc.speech(And it turns out it's [com.name]!)]
+		#ENDIF
+	</p>
+	<p>
+		Before either of you can make another move, [npc.name] lets out a hungry [npc.moan], before reaching up to grab [com.namePos] [com.arm]. With a dominant pull, [npc.she] forces [com.name] into [npc.her] embrace, before planting a passionate kiss on [com.her] [com.lips]. After a moment, [npc.she] breaks away, before growling, [npc.speech(You're going to be a good [com.girl] now, aren't you bitch? Your little friend over there can watch me fuck you senseless!)]
+	</p>
+	<p>
+		You let out a sigh of relief, happy that [com.name] is going to give [npc.name] some relief. Leaning back against a nearby wall, you decide to keep watch for any other aggressors while [npc.name] has [npc.her] fun with your companion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="AFTER_COMBAT_DEFEAT_GENERIC_START"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			Neither you nor [com.name] can carry on fighting any more, and you both collapse to the ground, defeated. A mocking laugh causes the two of you to look up, and you see [npc.name] grinning down at you.
+		#ELSE
+			You simply don't have the energy to continue fighting any more, and with a defeated sigh, you collapse to the ground. A mocking laugh causes you to wearily look up, and you see [npc.name] triumphantly grinning down at you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAPE_BOTH"><![CDATA[
+	<p>
+		[npc.speech(I hope the two of you are looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust, [npc.speech(And if not, then too bad! I'm going to have my fun fucking both of you at once, and that's all that matters!)]
+	</p>
+	<p>
+		With that, [npc.name] steps forwards and prepares to move you and [com.name] into position...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_SEX_BOTH"><![CDATA[
+	<p>
+		[npc.speech(You two want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust, [npc.speech(I mean, I'm not going to force you or anything, but a threesome sure would be hot!)]
+	</p>
+	<p>
+		With that, [npc.name] steps forwards and awaits your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAPE_PLAYER"><![CDATA[
+	<p>
+		[npc.speech(I hope you're looking forwards to this as much as I am!)] [npc.name] exclaims, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(And if not, then too bad! I'm going to have my fun fucking you, and that's all that matters!)]
+	</p>
+	<p>
+		With that, [npc.name] steps forwards and prepares to move you into position...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_SEX"><![CDATA[
+	<p>
+		[npc.speech(You want to have some fun with me now, right?)] [npc.name] asks, the tone of [npc.her] voice dripping with lust as [npc.she] steps towards you and continues, [npc.speech(I mean, I'm not going to force you or anything, but some sex sure would be hot right now!)]
+	</p>
+	<p>
+		With that, [npc.name] steps forwards and awaits your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Responses -->
+	
+	<htmlContent tag="START_DEFEATED_SEX_THREESOME"><![CDATA[
+	#IF(npc.isWillingToRape())
+		<p>
+			[npc.speech(Time to fuck the two of you at once!)] [npc.name] laughs, grabbing your [pc.arm] and pulling you up against [npc.herHim]. With a hungry growl, [npc.she] dominantly grabs hold of [com.name] and similarly pulls [com.herHim] in beside you, before lustfully planting a wet kiss on each of your lips. 
+		</p>
+		<p>
+			Obviously being very happy with how things have turned out, [npc.name] growls, [npc.speech(I hope you're ready for this, you dirty sluts! I know I am!)]
+		</p>
+	#ELSEIF(com.isAttractedTo(npc) || com.isAttractedTo(pc))
+		<p>
+			[pc.speech(You like the sound of that, [com.name]?)] you ask your companion.
+		</p>
+		<p>
+			[com.speech(It would be nice to have some fun, yeah,)] [com.she] replies, stepping up beside you before turning to face [npc.name].
+		</p>
+		<p>
+			[npc.speech(That's what I like to hear!)] [npc.name] laughs, dominantly grabbing hold of both you and [com.name] before pulling the two of you in against [npc.herHim]. Leaning forwards, [npc.she] then lustfully plants a wet kiss on each of your lips, before pulling back and happily exclaiming, [npc.speech(Now let's get this started!)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You like the sound of that, [com.name]?)] you ask your companion.
+		</p>
+		<p>
+			[com.speech(You know, I think I'd rather sit this one out,)] [com.she] replies, stepping back and shaking [com.her] head.
+		</p>
+		<p>
+			[npc.speech(Well, at least you're still up for it, right?)] [npc.name] turns towards you and asks, smiling in delight as you reply in the affirmative. Encouraged by your answer, [npc.she] dominantly grabs hold of your [pc.arms] and pulls you in against [npc.herHim]. Leaning forwards, [npc.she] then lustfully plants a wet kiss on your [pc.lips], before pulling back and happily exclaiming, [npc.speech(Now let's get this started!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DEFEATED_SEX_THREESOME_RESIST"><![CDATA[
+	<p>
+		[npc.speech(Time to fuck the two of you at once!)] [npc.name] laughs, grabbing your [pc.arm] and pulling you up against [npc.herHim]. Ignoring your protests and struggles, [npc.she] dominantly grabs hold of [com.name] and similarly pulls [com.herHim] in beside you, before lustfully forcing a wet kiss onto each of your lips. 
+	</p>
+	<p>
+		With your struggles doing nothing to dissuade [npc.name] from [npc.her] chosen course of action, [npc.she] growls, [npc.speech(Scream and cry all you want, you dirty sluts! You're not going to stop me from having my way with you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEATED_REFUSE_THREESOME"><![CDATA[
+	<p>
+		Not wanting to have sex with [npc.name], and seeing that [npc.she] is clearly unwilling to force [npc.herself] on you and [com.name], you grab your companion's hand and pull [com.herHim] to [com.her] feet beside you, before telling [npc.herHim] in no uncertain terms that you don't want to get intimate with [npc.herHim].
+	</p>
+	<p>
+		[npc.speech(Just count yourself lucky that I gave you the choice,)] [npc.name] growls, clearly annoyed by the fact that you're refusing [npc.her] advances. With one last snarl, [npc.she] then turns around and walks off, leaving you and [com.name] to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DEFEATED_SEX"><![CDATA[
+	#IF(npc.isWillingToRape())
+		<p>
+			[npc.speech(It's time for a good fuck!)] [npc.name] laughs, grabbing your [pc.arm] and pulling you up against [npc.herHim]. Before you can react, [npc.she] lustfully plants a wet kiss on your [pc.lips], before moving [npc.her] [npc.hands] all over your body and starting to dominantly grope you. 
+		</p>
+		<p>
+			Obviously being very happy with how things have turned out, [npc.name] pulls back and growls, [npc.speech(I hope you're ready for this, you dirty slut!!)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I could do with taking a break,)] you say to [npc.name], smiling seductively at [npc.herHim].
+		</p>
+		<p>
+			[npc.speech(That's what I like to hear!)] [npc.name] exclaims, before eagerly stepping forwards and dominantly pulling you in against [npc.herHim]. Leaning forwards, [npc.she] then lustfully plants a wet kiss on your [pc.lips], before pulling back and happily exclaiming, [npc.speech(Now let's get this started!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DEFEATED_SEX_RESIST"><![CDATA[
+	<p>
+		[npc.speech(It's time for a good fuck!)] [npc.name] laughs, grabbing your [pc.arm] and pulling you up against [npc.herHim]. Ignoring your cries and protestations, [npc.she] lustfully plants a wet kiss on your [pc.lips], before moving [npc.her] [npc.hands] all over your body and starting to dominantly grope you. 
+	</p>
+	<p>
+		With your struggles doing nothing to dissuade [npc.name] from [npc.her] chosen course of action, [npc.she] growls, [npc.speech(I hope you're ready for this, you dirty slut!!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEATED_REFUSE_SEX"><![CDATA[
+	<p>
+		Not wanting to have sex with [npc.name], and seeing that [npc.she] is clearly unwilling to force [npc.herself] on you, you step back and tell [npc.herHim] in no uncertain terms that you don't want to get intimate with [npc.herHim].
+	</p>
+	<p>
+		[npc.speech(Just count yourself lucky that I gave you the choice,)] [npc.name] growls, clearly annoyed by the fact that you're refusing [npc.her] advances. With one last snarl, [npc.she] then turns around and walks off, leaving you to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_VICTORY -->
+	
+	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
+	<p>
+		As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm. Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
+	</p>
+	<p>
+		Getting your things in order, you [pc.step] forwards and smirk down at the panting [npc.race], wondering what you should do with [npc.herHim] now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_VICTORY_NO_ORGASM"><![CDATA[
+	<p>
+		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_DEFEAT -->
+	
+	<htmlContent tag="AFTER_SEX_DEFEAT"><![CDATA[
+	<p>
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. Looking up at [npc.herHim], you see that [npc.sheHas] still got a wild, hungry look in [npc.her] [npc.eyes], but instead of taking advantage of you, [npc.she] exclaims, [npc.speech(I'm off to go and find someone else to fuck! You weren't half-bad, slut!)]
+	</p>
+	<p>
+		With that, [npc.she] runs off in search of new prey, leaving you panting on the ground as you try to catch your breath. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -1,32 +1,12 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
 
+import java.util.stream.Collectors;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
@@ -38,19 +18,21 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -69,40 +51,60 @@ public class BraxOffice {
 		Main.game.getNpc(CandiReceptionist.class).addSlave(Main.game.getNpc(Brax.class));
 		Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory(true);
 		
-		Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
+		Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
 	}
 	
 	private static void givePlayerEnforcerUniform(StringBuilder sb) {
 		if(Main.game.getPlayer().isFeminine()) {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", Colour.CLOTHING_PINK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK, Colour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfpumps", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_bwhat", Colour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
+			
+			AbstractClothing jacket = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_GOLD, false);
+			jacket.setSticker("collar", "tab_pc");
+			jacket.setSticker("name", "name_pc");
+			sb.append(Main.game.getPlayer().addClothing(jacket, false));
+			
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), false));
+
+			AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_bwhat", PresetColour.CLOTHING_BLACK, false);
+			hat.setSticker("badge", "badge_dominion");
+			sb.append(Main.game.getPlayer().addClothing(hat, false));
 			
 		} else {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_lsldshirt", Colour.CLOTHING_BLUE, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", Colour.CLOTHING_BLACK, Colour.CLOTHING_BLUE, Colour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_lsldshirt", PresetColour.CLOTHING_BLUE, false), false));
+			
+			AbstractClothing jacket = Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdjacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, PresetColour.CLOTHING_GOLD, false);
+			jacket.setSticker("collar", "tab_pc");
+			jacket.setSticker("name", "name_pc");
+			sb.append(Main.game.getPlayer().addClothing(jacket, false));
+			
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), false));
+			
+			AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false);
+			hat.setSticker("badge", "badge_dominion");
+			sb.append(Main.game.getPlayer().addClothing(hat, false));
 		}
+
+		TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
+		AbstractItem potion = EnchantingUtils.craftItem(
+			Main.game.getItemGen().generateItem(tfPotion.getItemType()),
+			tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+		potion.setName("Brax's Surprise");
+		sb.append(Main.game.getPlayer().addItem(potion, false));
 	}
 	
 	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX");
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -139,20 +141,20 @@ public class BraxOffice {
 	};
 	
 	public static final DialogueNode INTERIOR_BRAX_REPEAT = new DialogueNode("[brax.namePos] Office", "-", true) {
-
+		@Override
+		public boolean isTravelDisabled() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_REPEAT");
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if (index == 1 && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", Main.game.getNpc(Brax.class));
-					
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 
@@ -255,12 +257,13 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
+				return new Response("Exit", "Leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -340,7 +343,6 @@ public class BraxOffice {
 						null,
 						AFTER_SUBMISSIVE_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_GET_FUCKED"));
-//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else if (index == 3) {
 				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(Fetish.FETISH_DOMINANT),
@@ -353,7 +355,6 @@ public class BraxOffice {
 								null),
 						AFTER_DOMINANT_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_TAKE_CONTROL"));
-//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else {
 				return null;
@@ -371,12 +372,13 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
+				return new Response("Exit", "Leave the Enforcer HQ.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -420,12 +422,7 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_DOMINANT_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE")) {
-					@Override
-					public void effects() {
-//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
-					}
-				};
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE"));
 				
 			} else if (index == 3) {
 				return new ResponseSex("Submit to Brax",
@@ -438,12 +435,7 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_SUBMISSIVE_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT")) {
-					@Override
-					public void effects() {
-//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
-					}
-				};
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT"));
 				
 			} else {
 				return null;
@@ -461,12 +453,13 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
+				return new Response("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -493,7 +486,7 @@ public class BraxOffice {
 				}
 				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 					return new Response("Spit",
-							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+							"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 							null);
 				} else {
@@ -513,101 +506,23 @@ public class BraxOffice {
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxTransformedPlayer);
 						
-						if(Main.getProperties().forcedFetishPercentage != 0) {
-							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
-						}
+						TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							Main.game.getItemGen().generateItem(tfPotion.getItemType()),
+							tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+						potion.setName("Brax's Surprise");
 						
-						switch(Main.getProperties().getForcedTFPreference()) {
-							case HUMAN:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								if(!Main.game.getPlayer().hasVagina()) {
-									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
-								}
-								break;
-								
-							case MINIMUM: // ears, eyes, tails, horns, antenna, and wings
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								if(!Main.game.getPlayer().hasVagina()) {
-									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
-								}
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								break;
-								
-							case REDUCED:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								
-								Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
-								Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
-								Main.game.getPlayer().setArmType(ArmType.WOLF_MORPH);
-								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setBreastRows(3);
-								break;
-								
-							case NORMAL: case MAXIMUM:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								
-								Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
-								Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
-								Main.game.getPlayer().setArmType(ArmType.WOLF_MORPH);
-								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setSkinType(SkinType.LYCAN);
-								Main.game.getPlayer().setFaceType(FaceType.LYCAN);
-								
-								Main.game.getPlayer().setBreastRows(3);
-								break;
-						}
+						Main.game.getNpc(Brax.class).useItem(potion, Main.game.getPlayer(), false);
 						
-						Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMinimumFemininity());
-						Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-						if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue()) {
-							Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
-						}
+						Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
+						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, PresetColour.COVERING_BLACK), true);
+						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, PresetColour.COVERING_WHITE), true);
 						
-						Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
-						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
-						
-						if(Main.game.getPlayer().getBreastRawSizeValue()<CupSize.E.getMeasurement()) {
-							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						if(Main.getProperties().forcedFetishPercentage!=0 && !Main.game.getPlayer().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE));
 						}
-						if(Main.game.getPlayer().getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
-							Main.game.getPlayer().setHipSize(HipSize.FOUR_WOMANLY.getValue());
-						}
-						if(Main.game.getPlayer().getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
-							Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE.getValue());
-						}
-						Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-						
-						
 						if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
-							Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue()));
 						}
 					}
 				};
@@ -691,13 +606,14 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
+				return new Response("Carry on", "Get up and carry on your way.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 							setBraxsPostQuestStatus();
+							
 						} else {
-							Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
+							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
 						}
 					}
 				};
@@ -722,10 +638,9 @@ public class BraxOffice {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
+				return new Response("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.", PlaceType.DOMINION_ENFORCER_HQ.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						setBraxsPostQuestStatus();
 					}
 				};

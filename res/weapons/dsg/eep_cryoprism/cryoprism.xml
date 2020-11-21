@@ -54,15 +54,26 @@
 			<colour>CLOTHING_GREY_DARK</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. A bright blue beam of light smashes into [npc2.namePos] aura, leaving behind a trail of snowflakes in the air as it fades.
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. A bright blue beam of light smashes into [npc2.her]
+		#IF !npc2.hasStatusEffect(SE_FREEZING_FOG)
+		#THEN [##npc2.addStatusEffect(SE_FREEZING_FOG, 4)]aura, creating a <span style='color:#85C6FF;'><b>freezing fog</b></span> around [npc2.herHim]!
+		#ELSEIF npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN)
+		#THEN [##npc2.addStatusEffect(SE_FROZEN, 2)]aura, turning the fog around [npc2.herHim] into a <span style='color:#85C6FF;'><b>thin layer of ice</b></span>!
+		#ELSE aura.
+		#ENDIF
+		A faint trail of snowflakes flutters delicately in the air as the light fades.
 		]]></hitText>
 	</hitDescriptions>
 

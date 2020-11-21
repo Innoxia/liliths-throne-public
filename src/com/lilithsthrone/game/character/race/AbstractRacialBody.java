@@ -6,22 +6,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
-import com.lilithsthrone.game.character.body.types.AbstractEarType;
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
-import com.lilithsthrone.game.character.body.types.AbstractLegType;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -39,9 +41,10 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
@@ -55,12 +58,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.5
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
 	// Antenna:
-	private AntennaType antennaType;
+	private AbstractAntennaType antennaType;
 	
 	// Arms:
 	private AbstractArmType armType;
@@ -68,7 +71,8 @@ public abstract class AbstractRacialBody {
 
 	// Ass:
 	private AbstractAssType assType;
-	private int anusCapacity;
+	private float anusCapacity;
+	private int anusDepth;
 	private int anusWetness;
 	private int maleAssSize;
 	private int femaleAssSize;
@@ -84,8 +88,10 @@ public abstract class AbstractRacialBody {
 	private int breastSize;
 	private int maleLactationRate;
 	private int femaleLactationRate;
-	private int femaleBreastCapacity;
-	private int maleBreastCapacity;
+	private float femaleBreastCapacity;
+	private float maleBreastCapacity;
+	private int femaleBreastDepth;
+	private int maleBreastDepth;
 	private int femaleBreastElasticity;
 	private int maleBreastElasticity;
 	private int femaleBreastPlasticity;
@@ -105,7 +111,8 @@ public abstract class AbstractRacialBody {
 	private NippleShape breastCrotchNippleShape;
 	private int breastCrotchSize;
 	private int breastCrotchLactationRate;
-	private int breastCrotchCapacity;
+	private float breastCrotchCapacity;
+	private int breastCrotchDepth;
 	private int breastCrotchElasticity;
 	private int breastCrotchPlasticity;
 	private int nippleCountPerBreastCrotch;
@@ -114,7 +121,7 @@ public abstract class AbstractRacialBody {
 	private int breastCrotchCount;
 
 	// Core:
-	private SkinType skinType;
+	private AbstractTorsoType skinType;
 	private BodyMaterial bodyMaterial;
 	private GenitalArrangement genitalArrangement;
 	private int maleHeight;
@@ -127,7 +134,7 @@ public abstract class AbstractRacialBody {
 	private int femaleMuscle;
 	
 	// Hair:
-	private HairType hairType;
+	private AbstractHairType hairType;
 	private int maleHairLength;
 	private int femaleHairLength;
 
@@ -137,8 +144,8 @@ public abstract class AbstractRacialBody {
 	private int femaleHornLength;
 
 	// Face:
-	private FaceType faceType;
-	private EyeType eyeType;
+	private AbstractFaceType faceType;
+	private AbstractEyeType eyeType;
 	private AbstractEarType earType;
 	private int maleLipSize;
 	private int femaleLipSize;
@@ -148,21 +155,22 @@ public abstract class AbstractRacialBody {
 	private LegConfiguration legConfiguration;
 
 	// Penis:
-	private PenisType penisType;
+	private AbstractPenisType penisType;
 	private int penisSize;
 	private int penisGirth;
 	private int testicleSize;
 	private int cumProduction;
 
 	// Tail:
-	private List<TailType> tailTypes;
+	private List<AbstractTailType> tailTypes;
 	
 	// Tentacle:
-	private TentacleType tentacleType;
+	private AbstractTentacleType tentacleType;
 	
 	// Vagina:
-	private VaginaType vaginaType;
-	private int vaginaCapacity;
+	private AbstractVaginaType vaginaType;
+	private float vaginaCapacity;
+	private int vaginaDepth;
 	private int vaginaWetness;
 	private int clitSize;
 	private int vaginaElasticity;
@@ -170,38 +178,37 @@ public abstract class AbstractRacialBody {
 	private int testicleQuantity;
 
 	// Wings:
-	private List<WingType> wingTypes;
+	private List<AbstractWingType> wingTypes;
 	private int maleWingSize;
 	private int femaleWingSize;
 
-	public AbstractRacialBody(AntennaType antennaType,
-			AbstractArmType armType,
-			int armRows, AbstractAssType assType,
-			AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity, AbstractBreastType breastType,
-			List<BreastShape> breastShapes, CupSize noBreastSize,
-			int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity, NippleSize maleNippleSize,
-				NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast, CupSize breastSize,
-			int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity, NippleSize femaleNippleSize,
-				NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast, AbstractBreastType breastCrotchType,
-			List<BreastShape> breastCrotchShapes, CupSize breastCrotchSize,
-			int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity, NippleSize breastCrotchNippleSize,
+	public AbstractRacialBody(AbstractAntennaType antennaType,
+			AbstractArmType armType, int armRows,
+			AbstractAssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeDepth anusDepth, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
+			AbstractBreastType breastType, List<BreastShape> breastShapes,
+			CupSize noBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeDepth maleBreastDepth, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity, NippleSize maleNippleSize,
+				NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
+			CupSize breastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeDepth femaleBreastDepth, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity, NippleSize femaleNippleSize,
+				NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast,
+			AbstractBreastType breastCrotchType, List<BreastShape> breastCrotchShapes,
+			CupSize breastCrotchSize, int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeDepth breastCrotchDepth, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity, NippleSize breastCrotchNippleSize,
 				NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch,
 			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle,
-			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle, AbstractEarType earType,
-			EyeType eyeType,
-			FaceType faceType,
-			LipSize maleLipSize, LipSize femaleLipSize, HairType hairType,
-			HairLength maleHairLength, HairLength femaleHairLength, AbstractLegType legType,
-			LegConfiguration legConfiguration, SkinType skinType,
+			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle,
+			AbstractEarType earType,
+			AbstractEyeType eyeType,
+			AbstractFaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
+			AbstractHairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
+			AbstractLegType legType, LegConfiguration legConfiguration,
+			AbstractTorsoType skinType,
 			BodyMaterial bodyMaterial,
-			HornLength maleHornLength,
-			HornLength femaleHornLength, List<AbstractHornType> hornTypes,
-			PenisType penisType,
-			int penisSize, PenisGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
-			TentacleType tentacleType,
-			VaginaType vaginaType,
-			Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity, List<WingType> wingTypes,
-			WingSize maleWingSize, WingSize femaleWingSize, GenitalArrangement genitalArrangement) {
+			HornLength maleHornLength, HornLength femaleHornLength, List<AbstractHornType> hornTypes,
+			AbstractPenisType penisType, int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
+			List<AbstractTailType> tailTypes,
+			AbstractTentacleType tentacleType,
+			AbstractVaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, OrificeDepth vaginaDepth, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
+			List<AbstractWingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
+			GenitalArrangement genitalArrangement) {
 
 		// Antenna:
 		this.antennaType = antennaType;
@@ -213,6 +220,7 @@ public abstract class AbstractRacialBody {
 		// Ass:
 		this.assType = assType;
 		this.anusCapacity = anusCapacity.getMedianValue();
+		this.anusDepth = anusDepth.getValue();
 		this.anusWetness = anusWetness.getValue();
 		this.maleAssSize = maleAssSize.getValue();
 		this.femaleAssSize = femaleAssSize.getValue();
@@ -226,6 +234,7 @@ public abstract class AbstractRacialBody {
 		this.breastCountMale = breastCountMale;
 		this.maleLactationRate = maleLactationRate.getMedianValue();
 		this.maleBreastCapacity = maleBreastCapacity.getMedianValue();
+		this.maleBreastDepth = maleBreastDepth.getValue();
 		this.maleBreastElasticity = maleBreastElasticity.getValue();
 		this.maleBreastPlasticity = maleBreastPlasticity.getValue();
 		this.maleNippleSize = maleNippleSize.getValue();
@@ -237,6 +246,7 @@ public abstract class AbstractRacialBody {
 		this.breastCountFemale = breastCountFemale;
 		this.femaleLactationRate = femaleLactationRate.getMedianValue();
 		this.femaleBreastCapacity = femaleBreastCapacity.getMedianValue();
+		this.femaleBreastDepth = femaleBreastDepth.getValue();
 		this.femaleBreastElasticity = femaleBreastElasticity.getValue();
 		this.femaleBreastPlasticity = femaleBreastPlasticity.getValue();
 		this.femaleNippleSize = femaleNippleSize.getValue();
@@ -251,6 +261,7 @@ public abstract class AbstractRacialBody {
 		this.breastCrotchCount = breastCrotchCount;
 		this.breastCrotchLactationRate = breastCrotchLactationRate.getMedianValue();
 		this.breastCrotchCapacity = breastCrotchCapacity.getMedianValue();
+		this.breastCrotchDepth = breastCrotchDepth.getValue();
 		this.breastCrotchElasticity = breastCrotchElasticity.getValue();
 		this.breastCrotchPlasticity = breastCrotchPlasticity.getValue();
 		this.breastCrotchNippleSize = breastCrotchNippleSize.getValue();
@@ -310,6 +321,7 @@ public abstract class AbstractRacialBody {
 		this.vaginaType = vaginaType;
 		this.clitSize = clitSize.getMedianValue();
 		this.vaginaCapacity = vaginaCapacity.getMedianValue();
+		this.vaginaDepth = vaginaDepth.getValue();
 		this.vaginaWetness = vaginaWetness.getValue();
 		this.vaginaElasticity = vaginaElasticity.getValue();
 		this.vaginaPlasticity = vaginaPlasticity.getValue();
@@ -329,8 +341,8 @@ public abstract class AbstractRacialBody {
 	 */
 	public static AbstractRacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
 		
-		List<Race> availableRaces = new ArrayList<>();
-		for(Race r : Race.values()) {
+		List<AbstractRace> availableRaces = new ArrayList<>();
+		for(AbstractRace r : Race.getAllRaces()) {
 			if(r != Race.ANGEL) {
 				availableRaces.add(r);
 			}
@@ -372,7 +384,7 @@ public abstract class AbstractRacialBody {
 				}
 				
 			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
-				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.
+				map.put(trait, 0.025f); // Smaller chance for people to be prude or innocent.
 					
 			} else {
 				map.put(trait, 0.05f); // With each category having two values, it's a ~10% chance to have a special trait in each category.
@@ -390,7 +402,7 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public AntennaType getAntennaType() {
+	public AbstractAntennaType getAntennaType() {
 		return antennaType;
 	}
 
@@ -410,11 +422,11 @@ public abstract class AbstractRacialBody {
 		return breastShapes;
 	}
 
-	public FaceType getFaceType() {
+	public AbstractFaceType getFaceType() {
 		return faceType;
 	}
 
-	public EyeType getEyeType() {
+	public AbstractEyeType getEyeType() {
 		return eyeType;
 	}
 
@@ -422,26 +434,26 @@ public abstract class AbstractRacialBody {
 		return earType;
 	}
 
-	public HairType getHairType() {
+	public AbstractHairType getHairType() {
 		return hairType;
-	}
-	
-	/**
-	 * @return true if this RacialBody requires FaceType to not be human in order to apply hair settings.
-	 */
-	public boolean isHairTypeLinkedToFaceType() {
-		return false;
 	}
 
 	public AbstractLegType getLegType() {
+		return getLegType(getLegConfiguration());
+	}
+	
+	/**
+	 * @return The default legType for this body when its LegConfiguration is the passed in configuration argument.
+	 */
+	public AbstractLegType getLegType(LegConfiguration configuration) {
 		return legType;
 	}
-
+	
 	public LegConfiguration getLegConfiguration() {
 		return legConfiguration;
 	}
 
-	public SkinType getSkinType() {
+	public AbstractTorsoType getSkinType() {
 		return skinType;
 	}
 	
@@ -473,7 +485,7 @@ public abstract class AbstractRacialBody {
 		return hornTypes;
 	}
 	
-	public PenisType getPenisType() {
+	public AbstractPenisType getPenisType() {
 		return penisType;
 	}
 	
@@ -481,8 +493,8 @@ public abstract class AbstractRacialBody {
 	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random TailType from this race's possible tailTypes.
 	 */
-	public TailType getRandomTailType(boolean includeTypeNONE) {
-		List<TailType> tailList = new ArrayList<>(tailTypes);
+	public AbstractTailType getRandomTailType(boolean includeTypeNONE) {
+		List<AbstractTailType> tailList = new ArrayList<>(tailTypes);
 		
 		if(includeTypeNONE || tailTypes.size()==1) {
 			return tailTypes.get(Util.random.nextInt(tailTypes.size()));
@@ -492,15 +504,15 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public List<TailType> getTailType() {
+	public List<AbstractTailType> getTailType() {
 		return tailTypes;
 	}
 
-	public TentacleType getTentacleType() {
+	public AbstractTentacleType getTentacleType() {
 		return tentacleType;
 	}
 	
-	public VaginaType getVaginaType() {
+	public AbstractVaginaType getVaginaType() {
 		return vaginaType;
 	}
 
@@ -508,8 +520,8 @@ public abstract class AbstractRacialBody {
 	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random TailType from this race's possible tailTypes.
 	 */
-	public WingType getRandomWingType(boolean includeTypeNONE) {
-		List<WingType> wingList = new ArrayList<>(wingTypes);
+	public AbstractWingType getRandomWingType(boolean includeTypeNONE) {
+		List<AbstractWingType> wingList = new ArrayList<>(wingTypes);
 		
 		if(includeTypeNONE || wingTypes.size()==1) {
 			return wingTypes.get(Util.random.nextInt(wingTypes.size()));
@@ -519,19 +531,22 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public List<WingType> getWingTypes() {
+	public List<AbstractWingType> getWingTypes() {
 		return wingTypes;
 	}
-
-
+	
 	public int getArmRows() {
 		return armRows;
 	}
 	
-	public int getAnusCapacity() {
+	public float getAnusCapacity() {
 		return anusCapacity;
 	}
 
+	public int getAnusDepth() {
+		return anusDepth;
+	}
+	
 	public int getAnusWetness() {
 		return anusWetness;
 	}
@@ -632,14 +647,22 @@ public abstract class AbstractRacialBody {
 		return maleBreastPlasticity;
 	}
 
-	public int getFemaleBreastCapacity() {
+	public float getFemaleBreastCapacity() {
 		return femaleBreastCapacity;
 	}
 
-	public int getMaleBreastCapacity() {
+	public float getMaleBreastCapacity() {
 		return maleBreastCapacity;
 	}
 
+	public int getFemaleBreastDepth() {
+		return femaleBreastDepth;
+	}
+	
+	public int getMaleBreastDepth() {
+		return maleBreastDepth;
+	}
+	
 	public int getMaleNippleSize() {
 		return maleNippleSize;
 	}
@@ -693,10 +716,14 @@ public abstract class AbstractRacialBody {
 		return breastCrotchLactationRate;
 	}
 
-	public int getBreastCrotchCapacity() {
+	public float getBreastCrotchCapacity() {
 		return breastCrotchCapacity;
 	}
 
+	public int getBreastCrotchDepth() {
+		return breastCrotchDepth;
+	}
+	
 	public int getBreastCrotchElasticity() {
 		return breastCrotchElasticity;
 	}
@@ -741,8 +768,12 @@ public abstract class AbstractRacialBody {
 		return cumProduction;
 	}
 
-	public int getVaginaCapacity() {
+	public float getVaginaCapacity() {
 		return vaginaCapacity;
+	}
+	
+	public int getVaginaDepth() {
+		return vaginaDepth;
 	}
 
 	public int getVaginaWetness() {

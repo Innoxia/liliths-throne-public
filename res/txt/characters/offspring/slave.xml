@@ -338,9 +338,9 @@
 			</p>
 			<p>
 				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
-					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.her] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.herHim] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
 				#ELSE
-					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.her] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.herHim] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
 				#ENDIF
 			</p>
 			<p>
@@ -370,9 +370,9 @@
 			</p>
 			<p>
 				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
-					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.her] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.herHim] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
 				#ELSE
-					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.her] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.herHim] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
 				#ENDIF
 			</p>
 			<p>
@@ -395,9 +395,9 @@
 			</p>
 			<p>
 				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
-					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before roughly slamming [npc2.her] to the floor. Smiling in delight as [npc2.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before roughly slamming [npc2.herHim] to the floor. Smiling in delight as [npc2.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
 				#ELSE
-					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before forcing [npc2.her] to the floor. Tutting in disapproval as [npc2.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc2.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before forcing [npc2.herHim] to the floor. Tutting in disapproval as [npc2.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc2.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
 				#ENDIF
 			</p>
 			<p>
@@ -598,18 +598,12 @@
 		<p>
 			[npc.speech([pc.She] just can't resist us,)] [npc.name] states, following [npc2.namePos] lead as [npc.she] moves up beside you, before planting a wet kiss on your [pc.lips+].
 		</p>
-		<p>
-			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
-		</p>
-		<p>
-			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
-		</p>
 	#ENDIF
 	<p>
 		[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
 	</p>
 	<p>
-		Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine!)]
+		Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 	</p>
 	<p>
 		#IF(!npc2.isTaur())
@@ -688,9 +682,9 @@
 		</p>
 		<p>
 			#IF(pc.isFeminine())
-				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
+				[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
 			#ELSE
-				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
+				[pc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
 			#ENDIF
 		</p>
 		<p>

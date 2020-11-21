@@ -24,14 +24,18 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -40,8 +44,8 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3.1
- * @author Innoxia
+ * @version 0.3.9.2
+ * @author Innoxia, CognitiveMist
  */
 public class Util {
 	
@@ -135,6 +139,15 @@ public class Util {
 		String c = colour.toString().substring(2, 8);
 //		System.out.println(c);
 		return "#"+c;
+	}
+
+	public static Color newColour(String colourString) {
+		int hex = Integer.valueOf(colourString.substring(1), 16);
+		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
+//		return Color.color(
+//				Integer.valueOf(colourString.substring(1, 3), 16) / 255,
+//				Integer.valueOf(colourString.substring(3, 5), 16) / 255,
+//				Integer.valueOf(colourString.substring(5, 7), 16) / 255);
 	}
 	
 	public static Color newColour(double r, double g, double b) {
@@ -303,11 +316,22 @@ public class Util {
 		
 		return mergedMap;
 	}
-
+	
+	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		T top = null;
+		int high = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			if(entry.getValue()>high) {
+				high = entry.getValue();
+				top = entry.getKey();
+			}
+		}
+		return top;
+	}
+	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
 		return getRandomObjectFromWeightedMap(map, Util.random);
 	}
-	
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
 		int total = 0;
@@ -461,6 +485,27 @@ public class Util {
 		
 		return intToString;
 	}
+	
+	private static String[] primarySequence = {
+			"primary",
+			"secondary",
+			"tertiary",
+			"quaternary",
+			"quinary",
+			"senary",
+			"septenary",
+			"octonary",
+			"nonary",
+			"denary"
+	};
+	
+	public static String intToPrimarySequence(int integer) {
+		if(integer>0 && integer<=primarySequence.length) {
+			return primarySequence[integer-1];
+		}
+		return intToString(integer);
+	}
+	
 
 	public static String intToDate(int integer) {
 		int remainderHundred = integer%100;
@@ -489,7 +534,11 @@ public class Util {
 		
 		return intToString(integer)+" times";
 	}
-		
+
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'first', 'second', etc.
+	 */
 	public static String intToPosition(int integer) {
 		String intToString = "";
 		
@@ -588,9 +637,39 @@ public class Util {
 		return name != null? name : code.getName();
 	}
 
+	/**
+	 * @return A capitalised version of the sentence. This method ignores spaces and html formatting, so it should be safe to use on formatted inputs.
+	 */
 	public static String capitaliseSentence(String sentence) {
 		if(sentence==null || sentence.isEmpty()) {
 			return sentence;
+		}
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = 0; i<sentence.length(); i++) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare && sentence.charAt(i)!=' ') {
+				return (i>0?sentence.substring(0, i):"") + Character.toUpperCase(sentence.charAt(i)) + sentence.substring(i+1);
+			}
+			
+			if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
 		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
@@ -674,7 +753,6 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-
 		StringBuilder modifiedSentence = new StringBuilder();
 		int openingCurly = 0;
 		int closingCurly = 0;
@@ -761,7 +839,7 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 	
-	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like,", ", um,", ", uh,", ", ah," };
+	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like, bro,", ", like,", ", um,", ", uh,", ", ah," };
 	public static String addBro(String sentence, int frequency) {
 		sentence = insertIntoSentences(sentence, frequency, broWords);
 		utilitiesStringBuilder.setLength(0);
@@ -778,13 +856,15 @@ public class Util {
 					break;
 				case 1:
 					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.append(", y'know, dude?");
+					utilitiesStringBuilder.append(UtilText.returnStringAtRandom(", y'know, bro?", ", y'know, dude?"));
 					break;
 				default:
 					break;
 			}
 		}
-
+		
+		
+		
 		return utilitiesStringBuilder.toString();
 	}
 
@@ -838,7 +918,7 @@ public class Util {
 		return muffleSB.toString();
 	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -897,6 +977,178 @@ public class Util {
 //			.replaceAll("So", "Sho")
 //			.replaceAll("so", "sho");
 	}
+
+	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
+	static {
+		slovenlySpeechReplacementMap.put("What are", "Wot's");
+		slovenlySpeechReplacementMap.put("what are", "wot's");
+		
+		slovenlySpeechReplacementMap.put("Are", "Is");
+		slovenlySpeechReplacementMap.put("are", "is");
+
+		slovenlySpeechReplacementMap.put("You're", "You's");
+		slovenlySpeechReplacementMap.put("you're", "you's");
+		
+		slovenlySpeechReplacementMap.put("Your", "Yer");
+		slovenlySpeechReplacementMap.put("your", "yer");
+		
+		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("you", "ya");
+		
+		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
+		slovenlySpeechReplacementMap.put("yourself", "yerself");
+
+		slovenlySpeechReplacementMap.put("You'd", "You's");
+		slovenlySpeechReplacementMap.put("you'd", "you's");
+
+		slovenlySpeechReplacementMap.put("Her", "'Er");
+		slovenlySpeechReplacementMap.put("her", "'er");
+
+		slovenlySpeechReplacementMap.put("His", "'Is");
+		slovenlySpeechReplacementMap.put("his", "'is");
+		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
+		slovenlySpeechReplacementMap.put("To", "Ta");
+		slovenlySpeechReplacementMap.put("to", "ta");
+		slovenlySpeechReplacementMap.put("Into", "Inta");
+		slovenlySpeechReplacementMap.put("into", "inta");
+
+		slovenlySpeechReplacementMap.put("The", "Da");
+		slovenlySpeechReplacementMap.put("the", "da");
+
+		slovenlySpeechReplacementMap.put("Them", "Dem");
+		slovenlySpeechReplacementMap.put("them", "dem");
+
+		slovenlySpeechReplacementMap.put("They", "Dey");
+		slovenlySpeechReplacementMap.put("they", "dey");
+		
+		slovenlySpeechReplacementMap.put("And", "'An");
+		slovenlySpeechReplacementMap.put("and", "an'");
+		
+		slovenlySpeechReplacementMap.put("Of", "O'");
+		slovenlySpeechReplacementMap.put("of", "o'");
+		slovenlySpeechReplacementMap.put("Who", "'O");
+		slovenlySpeechReplacementMap.put("who", "'o");
+		slovenlySpeechReplacementMap.put("Whoever", "'Oever");
+		slovenlySpeechReplacementMap.put("whoever", "'oever");
+		
+		slovenlySpeechReplacementMap.put("Was", "Were");
+		slovenlySpeechReplacementMap.put("was", "were");
+		
+		slovenlySpeechReplacementMap.put("What", "Wot");
+		slovenlySpeechReplacementMap.put("what", "wot");
+		
+		slovenlySpeechReplacementMap.put("Isn't", "Ain't");
+		slovenlySpeechReplacementMap.put("isn't", "ain't");
+		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
+		slovenlySpeechReplacementMap.put("aren't", "ain't");
+		
+		slovenlySpeechReplacementMap.put("This one", "This 'un");
+		slovenlySpeechReplacementMap.put("this one", "this 'un");
+		slovenlySpeechReplacementMap.put("That one", "That 'un");
+		slovenlySpeechReplacementMap.put("that one", "that 'un");
+		
+		slovenlySpeechReplacementMap.put("Before", "'Afore");
+		slovenlySpeechReplacementMap.put("before", "'afore");
+		
+		slovenlySpeechReplacementMap.put("Give me", "Gimme");
+		slovenlySpeechReplacementMap.put("give me", "gimme");
+		
+		slovenlySpeechReplacementMap.put("We're", "We's");
+		slovenlySpeechReplacementMap.put("we're", "we's");
+		
+		slovenlySpeechReplacementMap.put("So that", "So's");
+		slovenlySpeechReplacementMap.put("so that", "so's");
+
+		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
+		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Haven't", "'Aven't");
+		slovenlySpeechReplacementMap.put("haven't", "'aven't");
+		slovenlySpeechReplacementMap.put("Have", "'Ave");
+		slovenlySpeechReplacementMap.put("have", "'ave");
+
+		slovenlySpeechReplacementMap.put("Here", "'Ere");
+		slovenlySpeechReplacementMap.put("here", "'ere");
+		
+		slovenlySpeechReplacementMap.put("My", "Me");
+		slovenlySpeechReplacementMap.put("my", "me");
+
+		slovenlySpeechReplacementMap.put("That", "Dat");
+		slovenlySpeechReplacementMap.put("that", "dat");
+
+		slovenlySpeechReplacementMap.put("Some", "Sum");
+		slovenlySpeechReplacementMap.put("some", "sum");
+
+		slovenlySpeechReplacementMap.put("This", "Dis");
+		slovenlySpeechReplacementMap.put("this", "dis");
+		
+		slovenlySpeechReplacementMap.put("For", "Fer");
+		slovenlySpeechReplacementMap.put("for", "fer");
+		
+		slovenlySpeechReplacementMap.put("Very", "Real");
+		slovenlySpeechReplacementMap.put("very", "real");
+		
+		slovenlySpeechReplacementMap.put("Yes", "Yeah");
+		slovenlySpeechReplacementMap.put("yes", "yeah");
+		
+		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
+		slovenlySpeechReplacementMap.put("hurry", "'urry");
+	}
+	/**
+	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
+			<br/>Are -> Is
+			<br/>You're -> You's
+			<br/>Your -> Yer
+			<br/>You -> Ya
+			<br/>Yourself - Yerself
+			<br/>You'd -> You's
+			<br/>Her -> 'Er
+			<br/>His -> 'Is
+			<br/>To -> Ta
+			<br/>Into -> inta
+			<br/>The -> Da
+			<br/>Them -> Dem
+			<br/>And -> An'
+			<br/>Of -> 'O
+			<br/>Who -> 'O
+			<br/>Who -> 'O
+			<br/>Was -> Were
+			<br/>Isn't -> ain't
+			<br/>Aren't -> ain't
+			<br/>This one -> This 'un
+			<br/>That one -> That 'un
+			<br/>Before -> 'afore
+			<br/>Give me -> Gimme
+			<br/>Going to -> gonna
+			<br/><i>X</i>ing -> <i>X</i>in'
+			<br/>We're -> We's
+			<br/>So that -> so's
+			<br/>Have not -> 'aven't
+			<br/>Haven't -> 'aven't
+			<br/>Have -> 'ave
+			<br/>My -> Me
+			<br/>That -> Dat
+			<br/>Some -> Sum
+			<br/>For -> Fer
+			<br/>Here -> 'ere
+			<br/>Very -> Real
+			<br/>Yes -> Yeah
+			<br/>Hurry -> 'Urry
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applySlovenlySpeech(String sentence) {
+		//Use non-letter regex replacement ([^A-Za-z0-9]) 
+		String modifiedSentence = sentence;
+		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9\\.]|^)"+entry.getKey()+"([^A-Za-z0-9\\]])", "$1"+entry.getValue()+"$2");
+		}
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9\\]])", "in'$1");
+		return modifiedSentence;
+	}
 	
 	/**
 	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
@@ -933,7 +1185,7 @@ public class Util {
 			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
 				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
 					modifiedSentence.append(">i/<ht>i<");
-				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+				} else if((sentence.charAt(i)=='S' && (i-1>=0 && sentence.charAt(i-1)!='L')) || sentence.charAt(i)=='Z') {
 					modifiedSentence.append(">i/<hT>i<");
 				} else {
 					modifiedSentence.append(sentence.charAt(i));
@@ -946,23 +1198,6 @@ public class Util {
 		
 		modifiedSentence.reverse();
 		return modifiedSentence.toString();
-	
-		
-//		String [] split = sentence.split("\\[(.*?)\\]");
-//		for(String s : split) {
-//			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
-//			for(String s2 : splitConditional) {
-//				String sReplace = s2
-//						.replaceAll("s", "<i>th</i>")
-//						.replaceAll("z", "<i>th</i>")
-//						.replaceAll("S", "<i>Th</i>")
-//						.replaceAll("Z", "<i>Th</i>");
-//					
-//					sentence = sentence.replace(s2, sReplace);
-//			}
-//		}
-//		
-//		return sentence;
 	}
 	
 	
@@ -1031,7 +1266,7 @@ public class Util {
 		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "or");
 	}
 
-	public static String colourSetToStringList(Set<Colour> colourSet) {
+	public static String coloursToStringList(Collection<Colour> colourSet) {
 		return Util.toStringList(colourSet, Colour::getName, "and");
 	}
 
@@ -1074,9 +1309,20 @@ public class Util {
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
-	
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
-		if (choices.contains(input)) {
+		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (input.isEmpty() || choices.contains(input)) {
 			return input;
 		}
 		int distance = Integer.MAX_VALUE;
@@ -1088,6 +1334,104 @@ public class Util {
 				distance = newDistance;
 			}
 		}
+		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+//		throw new IllegalArgumentException();
+		return closestString;
+	}
+
+	private static String unordered(String input, int prefix) {
+		// TODO This could be improved if, by some method, the non-prefix words were left as an
+		//      unordered set, rather than rejoining them in alphabetical order, since typos can
+		//      occur in the first letter, too. However, this would require
+		//      com.lilithsthrone.utils.Util.getLevenshteinDistance to handle java.util.Set<E>.
+		//      A harder problem is how to handle the omission or addition of an underscore, for
+		//      which two words should match with one, or vice-versa.
+		String p = "";
+		String r = input;
+		int prefixLen = 0;
+		for (int i = 0; i < prefix; i++) {
+			int idx = input.indexOf('_', prefixLen);
+			if (idx < 0) {
+				// we've ran out of words, the whole thing is prefix
+				p = input;
+				r = "";
+				break;
+			}
+			prefixLen = idx+1;
+			p = input.substring(0, prefixLen);
+			r = input.substring(prefixLen);
+			//System.out.println("len: "+prefixLen+", "+p+"|"+r);
+		}
+		return p + Arrays.stream(r.split("_")).sorted().collect(Collectors.joining("_"));
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * All strings will be treated as underscore-delimited words that have no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String input, Collection<String> choices) {
+		return getClosestStringMatchUnordered(input, 0, choices);
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The first {@code prefix} underscore-delimited words of each string will be preserved, but
+	 * all words after that will be treated as having no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param prefix Number of underscore-delimited words for which the ordering should be
+	 *               preserved. If zero or less, the whole string is considered unordered. If it
+	 *               is the number of words or more, the whole string is considered ordered.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String inputRaw, int prefix, Collection<String> choices) {
+		// If inputRaw is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (inputRaw.isEmpty() || choices.contains(inputRaw)) {
+			return inputRaw;
+		}
+
+		// Util.unordered expects words to be underscore-delimited. However, some misbehaving
+		// mods uses spaces or hyphens instead. We'll fix that for them here, to try to get more
+		// accurate matches. We assume all values in choices are well-behaved.
+		String input = inputRaw.replaceAll("[ -]", "_");
+
+		if (choices.contains(input)) {
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+input+"' instead. (Invalid word delimiter)");
+			return input;
+		}
+
+		Map<String,String> unorderedChoices = choices.stream().collect(Collectors
+				.toMap(s -> Util.unordered(s, prefix), Function.identity(), (a,b) -> {
+					System.err.println("Warning: keeping " + a + " and discarding " + b + "!");
+					return a;
+				}));
+		String unorderedInput = unordered(input, prefix);
+		if (unorderedChoices.containsKey(unorderedInput)) {
+			String unorderedMatch = unorderedChoices.get(unorderedInput);
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+unorderedMatch+"' instead. (Reordered words)");
+			return unorderedMatch;
+		}
+		int distance = Integer.MAX_VALUE;
+		String closestString = input;
+		for(String unorderedChoice : unorderedChoices.keySet()) {
+			int newDistance = getLevenshteinDistance(unorderedInput, unorderedChoice);
+			if(newDistance < distance) {
+				closestString = unorderedChoices.get(unorderedChoice);
+				distance = newDistance;
+			}
+		}
+		System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+//		throw new IllegalArgumentException();
 		return closestString;
 	}
 	
@@ -1144,5 +1488,15 @@ public class Util {
 	
 	public static String getFileIdentifier(String filePath) {
 		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }

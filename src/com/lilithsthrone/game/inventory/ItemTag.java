@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.main.Main;
@@ -7,49 +8,75 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.4
+ * @version 0.3.9.5
  * @author Innoxia
  */
 public enum ItemTag {
 
-	HIDDEN_IN_DEBUG_SPAWNER(false),
+	CHEAT_ITEM, // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
+	SILLY_MODE, // Silly mode items only appear in shopkeepers inventories when silly mode is on.
 	
-	REMOVE_FROM_DEBUG_SPAWNER(false),
-
-	NOT_FOR_SALE(false),
+	REMOVE_FROM_DEBUG_SPAWNER,
+	NOT_FOR_SALE,
 	
-	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
-	SOLD_BY_RALPH(false), // Will also be used for any future consumable and miscellaneous item vendors.
-	SOLD_BY_NYAN(false), // Clothing
-	SOLD_BY_KATE(false), // Jewellery
-	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
-	SOLD_BY_VICKY(false), // Weapons
-
-	SPELL_BOOK(false),
-	SPELL_SCROLL(false),
-	ESSENCE(false),
-	ATTRIBUTE_TF_ITEM(false),
-	RACIAL_TF_ITEM(false),
-	MISC_TF_ITEM(false), // Fetish or non-racial body part transformations
-	BOOK(false), 
-	GIFT(false),
-	DOMINION_ALLEYWAY_SPAWN(false),
-	SUBMISSION_TUNNEL_SPAWN(false),
-	BAT_CAVERNS_SPAWN(false),
+	REINDEER_GIFT, // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).
+	SOLD_BY_RALPH, // Will also be used for any future consumable and miscellaneous item vendors.
+	SOLD_BY_NYAN, // Clothing
+	SOLD_BY_KATE, // Jewellery
+	SOLD_BY_FINCH, // BDSM and sex-related stuff
+	SOLD_BY_VICKY, // Weapons
+	
+	SPELL_BOOK,
+	SPELL_SCROLL,
+	ESSENCE,
+	ATTRIBUTE_TF_ITEM,
+	RACIAL_TF_ITEM,
+	MISC_TF_ITEM, // Fetish or non-racial body part transformations
+	BOOK, 
+	GIFT,
+	DOMINION_ALLEYWAY_SPAWN,
+	SUBMISSION_TUNNEL_SPAWN,
+	BAT_CAVERNS_SPAWN,
+	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
+	
+	CONTRABAND_LIGHT(// 'Restricted' items will not be bought by honest shopkeepers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Restricted)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]"),
+			false),
+	CONTRABAND_MEDIUM(// 'Illegal' items will not be bought by honest shopkeepers and will be confiscated by Enforcers
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourBad(Enforcers will confiscate this)]"),
+			false),
+	CONTRABAND_HEAVY(// 'Highly Illegal' items will not be bought by honest shopkeepers and Enforcers will arrest anyone possessing them
+			Util.newArrayListOfValues(
+					"[style.colourDarkBlue(Highly Illegal)]",
+					"[style.colourMinorBad(Honest traders will not buy this)]",
+					"[style.colourTerrible(Enforcers will arrest people possessing this)]"),
+			false),
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 
-	REVEALS_CONCEALABLE_SLOT(false), // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
+	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 
 	TRANSPARENT( // This item of clothing does not conceal any areas. Used for chastity cages & condoms (so penis is still visible). Could also be used for sheer clothing material.
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
 			false),
 	
-	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
+	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
 	
-	DRESS(false), // For helping to generate clothing in CharacterUtils
+	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	
+	DRESS, // For helping to generate clothing in CharacterUtils
 
+	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
+			Util.newArrayListOfValues(
+					"[style.colourGood(Provides equipper with key)]"),
+			false),
+	
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Restricts sex actions)]"),
@@ -123,11 +150,27 @@ public enum ItemTag {
 					"[style.colourBestial(Fits talons)]"),
 			false),
 	
-	FITS_HARPY_WINGS_EXCLUSIVE(
+	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits feathered arm-wings)]"),
+			false),
+	FITS_FEATHERED_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits feathered arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits leathery arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits leathery arm-wings)]"),
+			false),
+	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Only fits arm-wings)]"),
 			false),
-	FITS_HARPY_WINGS(
+	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Fits arm-wings)]"),
 			false),
@@ -172,6 +215,10 @@ public enum ItemTag {
 	/**<b>IMPORTANT</b> This tag should only ever be given to clothing going into the PENIS InventorySlot, as otherwise it will throw errors.*/
 	CONDOM(true), // Gives this clothing condom behaviour
 	
+	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
 	
 	// To detect whether creampies should leak out or not:
 	
@@ -179,7 +226,7 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Plugs asshole (does not get dirty from creampies))]"),
 			true),
-	SEALS_ANUS( // Counts as sealing(false), but not inserted into(false), the wearer's anus. E.g. Tape
+	SEALS_ANUS( // Counts as sealing, but not inserted into, the wearer's anus. E.g. Tape
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals asshole (does not get dirty from creampies))]"),
 			true),
@@ -210,35 +257,34 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
-
 	
-	DILDO_TINY( // 3 inches
+	MILKING_EQUIPMENT(
 			Util.newArrayListOfValues(
-					"[style.colourSex(3-inch dildo)]"),
+					"[style.colourMilk(Milking equipment (drains creampies))]"),
 			true),
-	DILDO_AVERAGE( // 6 inches
+	
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(6-inch dildo)]"),
+					"[style.colourSub(Insertable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_LARGE( // 10 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(10-inch dildo)]"),
+					"[style.colourDom(Wearable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_HUGE( // 14 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(14-inch dildo)]"),
+					"[style.colourSex(Fuckable onahole)]"),
 			true),
-	DILDO_ENORMOUS( // 18 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(18-inch dildo)]"),
-			true),
-	DILDO_GIGANTIC( // 22 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(22-inch dildo)]"),
-			true),
-	DILDO_STALLION( // 32 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(32-inch dildo)]"),
+					"[style.colourSex(Wearable onahole)]"),
 			true),
 	;
 
@@ -260,8 +306,16 @@ public enum ItemTag {
 		this.clothingTooltipAdditions = null;
 		this.sexToy = sexToy;
 	}
+	
+	private ItemTag() {
+		this.clothingTooltipAdditions = null;
+		this.sexToy = false;
+	}
 
 	public List<String> getClothingTooltipAdditions() {
+		if(clothingTooltipAdditions==null) {
+			return new ArrayList<>();
+		}
 		return clothingTooltipAdditions;
 	}
 

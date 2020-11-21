@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -43,13 +44,12 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
@@ -57,17 +57,16 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -96,8 +95,15 @@ public class Shadow extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.7")) { // Reset character
 			setupPerks(true);
 			setStartingBody(true);
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			setStartingCombatMoves();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
+				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
+			this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
 		}
 	}
 
@@ -136,7 +142,8 @@ public class Shadow extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.LEWD);
+					PersonalityTrait.LEWD,
+					PersonalityTrait.SLOVENLY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -160,27 +167,27 @@ public class Shadow extends NPC {
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_GREEN));
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_JET_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_EBONY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREEN));
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_JET_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_EBONY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_JET_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_JET_BLACK), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue()+5);
 		this.setHairStyle(HairStyle.PIXIE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_JET_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_JET_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_GREEN_DARK));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_GREEN_DARK));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_PINK_LIGHT));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK), true);
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK), true);
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_GREEN_DARK));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_GREEN_DARK));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_PINK_LIGHT));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK), true);
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK), true);
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -231,24 +238,24 @@ public class Shadow extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL));
-			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
 		}
 		
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, true, null, null));
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), PresetColour.CLOTHING_GREEN, PresetColour.CLOTHING_GREEN, PresetColour.CLOTHING_GREEN, true, null, null));
 		}
 
 		this.setPiercedEar(true);
 		this.setPiercedNose(true);
 		this.setPiercedVagina(true);
 		this.setPiercedNavel(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
 		
-		AbstractClothing ring = AbstractClothingType.generateClothing("innoxia_finger_gemstone_ring", Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_GREEN_DARK, null, false);
+		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DARK, null, false);
 		
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0));
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0));
@@ -267,12 +274,16 @@ public class Shadow extends NPC {
 		
 		this.equipClothingFromNowhere(ring, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
+
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
 		
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
 		
 	}
 
@@ -316,9 +327,13 @@ public class Shadow extends NPC {
 	}
 
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
+	}
+	
+	@Override
 	public void turnUpdate() {
-		if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
-				&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_COOPERATION_END)) {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 			if(!Main.game.getCharactersPresent().contains(this)
 					&& Main.game.getPlayer().isCaptive()
 					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
@@ -330,13 +345,13 @@ public class Shadow extends NPC {
 			}
 			
 		} else {
-			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS);
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		}
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated(){
-		return true;
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR);
 	}
 
 	@Override
@@ -348,10 +363,10 @@ public class Shadow extends NPC {
 
 	@Override
 	public Response interruptCombatSpecialCase() {
-		if(Combat.getAllCombatants(false).contains(this)
-				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
-				&& Combat.isCombatantDefeated(this)
-				&& !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		if(Main.combat.getAllCombatants(false).contains(this)
+				&& Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& Main.combat.isCombatantDefeated(this)
+				&& !Main.combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Silence",
 					"As she sees Shadow fall to the floor, Silence stumbles back, looking as though she's about to faint.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SHADOW_DEFEATED){
@@ -361,10 +376,10 @@ public class Shadow extends NPC {
 				}
 			};
 			
-		} else if(Combat.getAllCombatants(false).contains(this)
-				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
-				&& !Combat.isCombatantDefeated(this)
-				&& Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		} else if(Main.combat.getAllCombatants(false).contains(this)
+				&& Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& !Main.combat.isCombatantDefeated(this)
+				&& Main.combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Shadow",
 					"As she sees Silence fall to the floor, Shadow lets out a furious scream, looking as though she's about to completely lose her mind.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SILENCE_DEFEATED){
@@ -385,6 +400,15 @@ public class Shadow extends NPC {
 	@Override
 	public CombatBehaviour getCombatBehaviour() {
 		return CombatBehaviour.ATTACK;
+	}
+	
+	@Override
+	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if((move ==CombatMove.getMove("block") || move ==CombatMove.getMove("avert"))
+				&& !Main.combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))) { // Shadow does not block when beserk
+			return 0;
+		}
+		return super.getMoveWeight(move, enemies, allies);
 	}
 
 	@Override

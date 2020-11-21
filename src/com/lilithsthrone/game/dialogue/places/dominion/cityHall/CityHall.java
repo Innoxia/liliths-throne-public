@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.cityHall;
 
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -10,7 +10,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.9.3
  * @author Innoxia
  */
 public class CityHall {
@@ -19,7 +19,7 @@ public class CityHall {
 
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -34,7 +34,7 @@ public class CityHall {
 					return new Response("Enter", "Dominion's city hall is currently open to the public, so you could head inside if you wanted to.", CITY_HALL_FOYER) {
 						@Override
 						public void effects() {
-							Main.mainController.moveGameWorld(WorldType.CITY_HALL, PlaceType.CITY_HALL_ENTRANCE, true);
+							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ENTRANCE, false);
 							
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/generic", "ENTRY"));
 						}
@@ -43,10 +43,8 @@ public class CityHall {
 				} else {
 					return new Response("Enter", "Dominion's city hall is currently closed to the public, so if you had any business to conduct, you'll have to return between the hours of nine in the morning, and four in the afternoon.", null);
 				}
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -68,13 +66,11 @@ public class CityHall {
 				return new Response("Exit", "Head out through the revolving glass doors back into Dominion.", OUTSIDE) {
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_CITY_HALL, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_CITY_HALL, false);
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

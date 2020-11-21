@@ -12,29 +12,29 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.9
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements XMLSaving {
 
-
 	protected String name;
 	protected String namePlural;
 	protected String SVGString;
-	protected Colour colourShade;
 	protected Rarity rarity;
 
+	protected List<Colour> colours;
+	
 	protected Map<Attribute, Integer> attributeModifiers;
-	protected TFEssence relatedEssence;
 	
 	protected Set<ItemTag> itemTags;
 
@@ -63,15 +63,13 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		super();
 		this.name = name;
 		this.namePlural = namePlural;
-		this.colourShade = colour;
+		this.colours = Util.newArrayListOfValues(colour);
 		this.rarity = rarity;
 		this.SVGString = SVGString;
 
 		this.attributeModifiers = new EnumMap<>(Attribute.class);
 		this.itemTags = new HashSet<>();
 		
-		relatedEssence = null;
-
 		if (attributeModifiers != null) {
 			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
 				this.attributeModifiers.put(e.getKey(), e.getValue());
@@ -84,12 +82,12 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
-		System.err.print("Eek! Tried to export an abstract item!");
+		System.err.print("Error: Tried to export an abstract item!");
 		return null;
 	}
 	
 	public static AbstractCoreItem loadFromXML(Element parentElement, Document doc) {
-		System.err.print("Eek! Tried to import an abstract item!");
+		System.err.print("Error: Tried to import an abstract item!");
 		return null;
 	}
 	
@@ -112,29 +110,21 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return null;
 	}
 	
-	public AbstractCoreItem enchant(TFEssence essence, TFModifier primaryModifier, TFModifier secondaryModifier) {
+	public AbstractCoreItem enchant(TFModifier primaryModifier, TFModifier secondaryModifier) {
 		return this;
 	}
-
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
-	}
-	public void setRelatedEssence(TFEssence relatedEssence) {
-		this.relatedEssence = relatedEssence;
-	}
-
+	
 	// Other:
 	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof AbstractCoreItem){
 			if(((AbstractCoreItem)o).getName().equals(this.getName())
-				&& ((AbstractCoreItem)o).getColour() == this.getColour()
+				&& ((AbstractCoreItem)o).getColours().equals(this.getColours())
 				&& ((AbstractCoreItem)o).getRarity() == this.getRarity()
 				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(this.getAttributeModifiers())
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
 				&& ((AbstractCoreItem)o).getEnchantmentItemType(null) == getEnchantmentItemType(null)
-				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()
 				&& ((AbstractCoreItem)o).getItemTags().equals(getItemTags())){
 					return true;
 			}
@@ -146,7 +136,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public int hashCode() {
 		int result = 17;
 		result = 31 * result + this.getName().hashCode();
-		result = 31 * result + this.getColour().hashCode();
+		result = 31 * result + this.getColours().hashCode();
 		result = 31 * result + this.getRarity().hashCode();
 		result = 31 * result + this.getAttributeModifiers().hashCode();
 		if(getEnchantmentEffect()!=null) {
@@ -154,9 +144,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		}
 		if(getEnchantmentItemType(null)!=null) {
 			result = 31 * result + getEnchantmentItemType(null).hashCode();
-		}
-		if(getRelatedEssence()!=null) {
-			result = 31 * result + getRelatedEssence().hashCode();
 		}
 		if(getItemTags()!=null) {
 			result = 31 * result + getItemTags().hashCode();
@@ -168,12 +155,20 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getNamePlural() {
 		return namePlural;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getDisplayName(boolean withRarityColour) {
+		return Util.capitaliseSentence(UtilText.generateSingularDeterminer(name))+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+	}
+	
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}
 	
 	public String getSVGString() {
@@ -200,12 +195,27 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return rarity;
 	}
 
-	public Colour getColour() {
-		return colourShade;
+	public Colour getColour(int index) {
+		try {
+			return colours.get(index);
+		} catch(Exception ex) {
+			return null;
+		}
+	}
+	
+	public List<Colour> getColours() {
+		return colours;
 	}
 
-	public void setColour(Colour Colour) {
-		this.colourShade = Colour;
+	public void setColours(List<Colour> colours) {
+		this.colours = new ArrayList<>(colours);
+	}
+	
+	public void setColour(int index, Colour colour) {
+		if(colours.size()>index) {
+			colours.remove(index);
+		}
+		colours.add(index, colour);
 	}
 
 	public Map<Attribute, Integer> getAttributeModifiers() {
