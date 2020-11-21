@@ -101,7 +101,7 @@ public class Artwork {
 
 		// Add all images to their respective lists
 		for (File f : folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".gif"))) {
-			if (f.getName().startsWith("partial"))
+			if (f.getName().startsWith("partial")) {
 				partialImages.add(f.getAbsolutePath());
 				
 			} else if (f.getName().startsWith("naked")) {
