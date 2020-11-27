@@ -335,7 +335,7 @@ public class ItemEffectType {
 //			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
 //			return UtilText.parse(target,
 //					"<p style='margin-bottom:0; padding-bottom:0;'>"
-//						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
+//						+ "The little purple pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
 //						+ ( target.hasVagina()
 //								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
 //									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
