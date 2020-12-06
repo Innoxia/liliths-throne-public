@@ -2329,6 +2329,9 @@ public class MainController implements Initializable {
 	}
 	
 	public void setTooltipContent(String content) {
+		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
+			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
+		}
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {
