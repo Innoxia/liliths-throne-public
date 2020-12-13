@@ -626,12 +626,11 @@ public class DebugDialogue {
 	private static NPC activeOffspring = null;
 	
 	public static final DialogueNode OFFSPRING = new DialogueNode("", "", false) {
-
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring(true)) {
+			for(NPC npc : Main.game.getOffspring(true, true)) {
 				boolean isBorn = true;
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
@@ -657,11 +656,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring(true).size()) {
-				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true, true).size()) {
+				return new Response(Main.game.getOffspring(true, true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring(true).get(index-1);
+						activeOffspring = Main.game.getOffspring(true, true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}

@@ -1,20 +1,19 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -359,25 +358,6 @@ public class ArmType {
 		public boolean allowsFlight() {
 			return true;
 		}
-
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.HAND,
-						InventorySlot.WRIST,
-						InventorySlot.TORSO_OVER,
-						InventorySlot.TORSO_UNDER),
-				Race.BAT_MORPH,
-				"Due to the fact that [npc.nameHasFull] leathery wings instead of arms, only specialist clothing can be worn in this slot.",
-				Util.newArrayListOfValues(
-					ItemTag.FITS_LEATHERY_ARM_WINGS,
-					ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE,
-					ItemTag.FITS_ARM_WINGS,
-					ItemTag.FITS_ARM_WINGS_EXCLUSIVE
-				));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
 		@Override
 		public List<BodyPartTag> getTags() {
 			return Util.newArrayListOfValues(BodyPartTag.ARM_WINGS, BodyPartTag.ARM_WINGS_LEATHERY);
@@ -412,25 +392,6 @@ public class ArmType {
 		public boolean allowsFlight() {
 			return true;
 		}
-
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.HAND,
-						InventorySlot.WRIST,
-						InventorySlot.TORSO_OVER,
-						InventorySlot.TORSO_UNDER),
-				Race.HARPY,
-				"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
-				Util.newArrayListOfValues(
-					ItemTag.FITS_FEATHERED_ARM_WINGS,
-					ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE,
-					ItemTag.FITS_ARM_WINGS,
-					ItemTag.FITS_ARM_WINGS_EXCLUSIVE
-				));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
 		@Override
 		public List<BodyPartTag> getTags() {
 			return Util.newArrayListOfValues(BodyPartTag.ARM_WINGS, BodyPartTag.ARM_WINGS_FEATHERED);
@@ -444,8 +405,47 @@ public class ArmType {
 	
 	static {
 		allArmTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("arm")) {
+					try {
+						AbstractArmType type = new AbstractArmType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allArmTypes.add(type);
+						armToIdMap.put(type, id);
+						idToArmMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("arm")) {
+					try {
+						AbstractArmType type = new AbstractArmType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allArmTypes.add(type);
+						armToIdMap.put(type, id);
+						idToArmMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded arm types:
+		
 		Field[] fields = ArmType.class.getFields();
 		
 		for(Field f : fields){

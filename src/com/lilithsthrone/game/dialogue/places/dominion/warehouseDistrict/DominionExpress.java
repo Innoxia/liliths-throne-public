@@ -1437,6 +1437,7 @@ public class DominionExpress {
 	private static boolean isOfficeEntryDenied() {
 		return (Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) && (!isPlayerBodyCorrect() || !wearingFillyCollar()))
 				|| Main.game.getPlayer().isPregnant()
+				|| Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)
 				|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaBusy);
 	}
 	

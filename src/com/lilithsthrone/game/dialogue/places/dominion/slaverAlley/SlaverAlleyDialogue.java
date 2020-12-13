@@ -449,7 +449,8 @@ public class SlaverAlleyDialogue {
 		return target.isFeminine()
 				&& target.hasVagina()
 				&& target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
-				&& !target.isPregnant();
+				&& !target.isPregnant()
+				&& !target.hasIncubationLitter(SexAreaOrifice.VAGINA);
 	}
 	
 	private static void applyLockedUpEffects(boolean includeCompanion, boolean willingCompanion) {
@@ -1933,6 +1934,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Stocks breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Stocks breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				return new ResponseSex("Stocks breeding",
 						"Ask [sean.name] if he'd like to lock you in the stocks and breed you in front of members of the public.",
 						Util.newArrayListOfValues(Fetish.FETISH_EXHIBITIONIST, Fetish.FETISH_PREGNANCY, Fetish.FETISH_SUBMISSIVE),
@@ -2066,6 +2070,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Double breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				if(!getMainCompanion().hasVagina()) {
 					return new Response("Double breeding", "[com.Name] does not have a vagina, so cannot be bred by [sean.name] in the stocks.", null);
 				}
@@ -2074,6 +2081,9 @@ public class SlaverAlleyDialogue {
 				}
 				if(getMainCompanion().isPregnant()) {
 					return new Response("Double breeding", "[com.Name] is already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
+				}
+				if(getMainCompanion().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "[com.NamePos] womb is full of eggs, so [com.she] cannot be bred by [sean.name] in the stocks.", null);
 				}
 				if(!Main.game.getNpc(Sean.class).isAttractedTo(getMainCompanion())) {
 					return new Response("Double breeding", "[sean.Name] is not attracted to [com.name], so is unwilling to breed [com.herHim].", null);

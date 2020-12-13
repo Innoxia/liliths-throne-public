@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.9
+ * @version 0.3.10
  * @author Innoxia
  */
 public class Main extends Application {
@@ -70,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4";
+	public static final String VERSION_NUMBER = "0.3.10";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -91,9 +91,13 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "This update just fixes bugs and makes some other minor changes."
-			+ " I'm sorry that I wasn't able to get race modding or the Fields added for this update."
-			+ " I'll continue working on v0.4 and get it out as soon as I possibly can!"
+			+ "I'm very sorry about the length of time from the last update to this one."
+			+ " The refactoring and expansion of the race code which was required in order to enable race modding was far more expansive and time-consuming than I expected."
+			+ " Thankfully, it's all completely done now, so I shouldn't have to do anything more than bug fixing and minor adjustments to the race code all the way to the game's completion."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I'll now get to work on getting Foloi Fields content added, and will release v0.4 as soon as I possibly can!"
 		+ "</p>"
 		
 		+ "<br/>"
@@ -105,6 +109,76 @@ public class Main extends Application {
 
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.10</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issue where NPC speech would sometimes have errors in it. (PR#1415 by AceXP)</ul>"
+			+"<ul>Added a unique icon for the 'dazed' combat status effect. (by DSG)</ul>"
+			
+			+"<li>Engine:</li>"
+			+"<ul>Added modding support for items to be defined as being able to be enchanted into new items, and support for a background to be added to item images, as well as size and rotation definitions. (See 'res/items/innoxia/race/horse_equine_cider.xml' for an example.)</ul>"
+			+"<ul>Added support for nesting folders inside mod folders (so mod makers can more easily categorise mod files within their directories).</ul>"
+			+"<ul>Improved performance of status effect conditional checks, which should have considerably improved the time it takes to end a turn in games with many saved NPCs.</ul>"
+			+"<ul>Added 'tags' field to status effect modding, allowing (some) ItemTags and their effects to be applied to modded status effects. (See the 'res/mods/innoxia/statusEffects/set_template.xml' file for an example.)</ul>"
+			+"<ul>Added parsing commands for clitoris diameter and circumference.</ul>"
+			+"<ul>Improved handling of body covering types in the code.</ul>"
+			+"<ul>Added full mechanics support for all other leg configuration types (serpent-tail, fish-tail, arachnid, cephalopod, avian). You can test these lower body types by using the debug TF menu to give yourself the demonic leg types which support this.</ul>"
+			+"<ul>Added 'aquatic' race definition and land/water tile definitions, so that aquatic races have beneficial/detrimental status effects applied when they are in a water/land tile respectively. Tile land/water status and danger status is now displayed at the top-right of the UI.</ul>"
+			+"<ul>Added full support for spinnerets, which will be granted by spider tails and spider 'arachnid' leg configurations. Spinnerets can be used as sexual orifices, and also grant several web-spinning sex actions, along with a special combat move.</ul>"
+			+"<ul>Added full support for penises and clitorises to be ovipositors, by means of giving them a modifier (via TF potion or self-TF menu). Characters with an egg-laying vagina which has been impregnated can use an ovipositor penis/clit to lay the fertilised eggs in vaginas, anuses, nipples, and mouths.</ul>"
+			+"<ul>Cephalopod lower bodies now support tentacles as penetrative objects (like tails) and grant a special combat move.</ul>"
+			+"<ul>Added support for combat move modding. (See 'res/mods/innoxia/combatMove' and 'res/combatMove' for examples.)</ul>"
+			+"<ul>Added support for fully-feral bodies. (There is currently no way to obtain a feral body, but the underlying code is ready for future content.)</ul>"
+			+"<ul>Added full support for race modding. (See 'res/mods/innoxia/race' for an example.)</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'darkness' mechanic. Darkness status effect gets applied when a character is located in a map tile which is not illuminated. This status effect can be negated by having animal morph eyes which grant night vision, bat ears (which grant echo location), a body made of fire, mastery of fire spells, or an equipped piece of clothing/weapon which counteracts darkness (night vision goggles or the flashlight).</ul>"
+			+"<ul>Increased upper cap of base unarmed damage from 20 to 50.</ul>"
+			+"<ul>Added 'hyena' race with 'spotted hyena' and 'striped hyena' as its two subspecies. Added related 'Bone Crushers' food item and 'Workout Power' drink item.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added weapon: 'Flashlight'. Sold by Ralph, illuminates dark areas when equipped.</ul>"
+			+"<ul>Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.</ul>"
+			+"<ul>Moved all racial food items out from the code into the external 'res/items/innoxia/race' folder.</ul>"
+			+"<ul>The 'Angel's Tears' item has been considerably buffed and can no longer be naturally found in-game (it will be added back into the game later on).</ul>"
+			+"<ul>Made 'tabi socks' unisex.</ul>"
+			+"<ul>Most racial transformative food items now additionally restore 10% health when consumed.</ul>"
+			
+			+"<li>Body:</li>"
+			+"<ul>Added a transformable value for tail length, expressed as a percentage of the tail owner's height (minimum value is 5%, maximum is 250%). It can be modified via the self-transformation menu (for demons or slimes), or via a new potion enchantment option.</ul>"
+			+"<ul>If a tail's girth is the same as the default value for its type, then changing the tail type will reset the girth to the new tail's default girth. The same happens with tail length.</ul>"
+			+"<ul>Alligator-morph body hair is now coarse hair (the same as their head hair). It is always absent on alligator-morphs by default if you have your 'Scaly Hair' option off.</ul>"
+			+"<ul>Added more options to change the colour of your elemental's body coverings.</ul>"
+			+"<ul>Fixed issue where face type would always use the same covering as torso type.</ul>"
+			+"<ul>Increased maximum breast and crotch-boob row counts from 5 to 6.</ul>"
+			+"<ul>Slightly adjusted clitoris size category values to make them mroe in-line with penis size values, and reduced maximum length from 125cm to 100cm (so that it's the same as penis length).</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Fixed several parsing errors and incorrect descriptions of several sex actions (mainly tail-asshole and tail-vagina actions).</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Ralph now sells modded weapons which have been given the tag 'SOLD_BY_RALPH'.</ul>"
+			+"<ul>Slaves now enjoy the prostitute job if they have the 'nymphomanic' trait active, instead of if they have the cum addict fetish.</ul>"
+			+"<ul>The cum-inflation status effects for a character's breasts are now triggered by either breasts or crotch-boobs being inflated by cum.</ul>"
+			+"<ul>Horn adn wing types will no longer have random ordering in the self-TF menu's options.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.</ul>"
+			+"<ul>Fixed bug where summoning your elemental for the first time in a new game wouldn't work.</ul>"
+			+"<ul>Taking a thorough shower in your room's bathroom now correctly applies the 'Recently showered' status effect.</ul>"
+			+"<ul>Fixed bug in conditional parser where identical if statements that each return 'true' would return the last encountered block instead of the first.</ul>"
+			+"<ul>Elementals now correctly return to their passive form after successfully escaping from combat.</ul>"
+			+"<ul>Hair clothing is now correctly unequipped when hair length is set to 0.</ul>"
+			+"<ul>In the 'Witch's Seal' sex scene with cultists, the character who is sealed can no longer use orgasm-locking actions (i.e. 'leg-lock', 'hug-lock', etc.).</ul>"
+			+"<ul>Fixed issue with some NPCs spawning with metallic-coloured shirts.</ul>"
+			+"<ul>Fixed issue where tail length decrease button would continue to work when greyed-out.</ul>"
+			+"<ul>Orgasm actions which direct cum onto a partner's groin will now correctly dirty their vagina/penis inventory slots.</ul>"
+			+"<ul>Fixed issue with 'hoof-kick' attack's critical hit logic not working correctly.</ul>"
+			+"<ul>'Martial artist' perk now correctly increases base unarmed damage, instead of modifying the damage in the same manner as the 'unarmed damage' attribute's calculation.</ul>"
+		+"</list>"
+		
+		+ "<br/>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.9.9</h6>"
 			+"<li>Gameplay:</li>"
@@ -729,12 +803,14 @@ public class Main extends Application {
 	protected static void CheckForDataDirectory() {
 		File dir = new File("data/");
 		if(!dir.exists()) {
+			
 			Alert a = new Alert(AlertType.ERROR,
-					"Unable to find the 'data' folder. Saving and error logging is disabled."
+					"Unable to find the 'data' folder ("+dir.getAbsolutePath()+"). Saving and error logging is disabled."
 							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
 							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
 							+ "\nContinue?",
 					ButtonType.YES, ButtonType.NO);
+			System.err.println("Unable to find the 'data' folder ("+dir.getAbsolutePath()+").");
 			a.showAndWait().ifPresent(response -> {
 			     if (response == ButtonType.NO) {
 			         System.exit(1);
@@ -747,11 +823,12 @@ public class Main extends Application {
 		File dir = new File("res/");
 		if(!dir.exists()) {
 			Alert a = new Alert(AlertType.WARNING,
-					"Could not find the 'res' folder. This WILL cause errors and present sections of missing text."
+					"Could not find the 'res' folder ("+dir.getAbsolutePath()+"). This WILL cause errors and present sections of missing text."
 							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
 							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
 							+ "\nContinue?",
 					ButtonType.YES, ButtonType.NO);
+			System.err.println("Unable to find the 'res' folder ("+dir.getAbsolutePath()+").");
 			a.showAndWait().ifPresent(response -> {
 				if(response == ButtonType.NO) {
 					System.exit(1);

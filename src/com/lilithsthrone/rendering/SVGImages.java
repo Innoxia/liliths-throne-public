@@ -105,11 +105,14 @@ public enum SVGImages {
 			coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple,
 			coverableAreaBreastsCrotch, coverableAreaUdders, coverableAreaNippleCrotch,
 			coverableAreaVagina, coverableAreaUrethraVagina,
+			coverableAreaSpinneret,
 			coverableAreaMound,
 			coverableAreaThighs,
 			coverableAreaUrethraPenis,
+
+			eggIncubation1, eggIncubation2, eggIncubation3,
 			
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationStretchRecoveryPrevented, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
@@ -716,6 +719,9 @@ public enum SVGImages {
 			coverableAreaVagina = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMound.svg");
 			coverableAreaMound = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaSpinneret.svg");
+			coverableAreaSpinneret = Util.inputStreamToString(is);
 			
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreastsCrotch.svg");
@@ -739,6 +745,8 @@ public enum SVGImages {
 			penetrationTypePenis = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTail.svg");
 			penetrationTypeTail = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTentacle.svg");
+			penetrationTypeTentacle = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTongue.svg");
 			penetrationTypeTongue = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFoot.svg");
@@ -746,6 +754,14 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeClit.svg");
 			penetrationTypeClit = Util.inputStreamToString(is);
 			
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation1.svg");
+			eggIncubation1 = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation2.svg");
+			eggIncubation2 = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation3.svg");
+			eggIncubation3 = Util.inputStreamToString(is);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
@@ -1205,6 +1221,10 @@ public enum SVGImages {
 	public String getCoverableAreaVagina() {
 		return coverableAreaVagina;
 	}
+	
+	public String getCoverableAreaSpinneret() {
+		return coverableAreaSpinneret;
+	}
 
 	public String getCoverableAreaMound() {
 		return coverableAreaMound;
@@ -1228,6 +1248,10 @@ public enum SVGImages {
 	
 	public String getPenetrationTypeTail() {
 		return penetrationTypeTail;
+	}
+	
+	public String getPenetrationTypeTentacle() {
+		return penetrationTypeTentacle;
 	}
 	
 	public String getPenetrationTypeTongue() {
@@ -1273,7 +1297,17 @@ public enum SVGImages {
 	public String getCombinationDepthMaximum() {
 		return combinationDepthMaximum;
 	}
-
+	
+	public String getEggIncubation(int stage) {
+		if(stage<=1) {
+			return eggIncubation1;
+		} else if(stage==2) {
+			return eggIncubation2;
+		} else {
+			return eggIncubation3;
+		}
+	}
+	
 	public String getStretching() {
 		return stretching;
 	}

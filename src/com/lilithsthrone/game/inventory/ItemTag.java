@@ -76,6 +76,11 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
 			false),
+
+	WEAPON_FERAL_EQUIPPABLE( // Allows ferals to equip this weapon (as they cannot equip weapons by default)
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Can be equipped by ferals)]"),
+			false),
 	
 	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
 	
@@ -110,6 +115,11 @@ public enum ItemTag {
 					"[style.colourTerrible(Blocks non-flight combat escape)]"),
 			false),
 
+	PREVENTS_COMBAT_ESCAPE(  // Prevents the character from escaping from combat
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Prevents combat escape)]"),
+			false),
+	
 	DISCARDED_WHEN_UNEQUIPPED( //  Makes the clothing be thrown away when unequipped. E.g. Condoms
 			Util.newArrayListOfValues(
 					"[style.colourMinorBad(Discarded when unequipped)]"),
@@ -145,45 +155,45 @@ public enum ItemTag {
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
 	FITS_HOOFS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits hoofs)]"),
+					"[style.colourFeral(Only fits hoofs)]"),
 			false),
 	FITS_HOOFS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits hoofs)]"),
+					"[style.colourFeral(Fits hoofs)]"),
 			false),
 	
 	FITS_TALONS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits talons)]"),
+					"[style.colourFeral(Only fits talons)]"),
 			false),
 	FITS_TALONS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits talons)]"),
+					"[style.colourFeral(Fits talons)]"),
 			false),
 	
 	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Only fits feathered arm-wings)]"),
 			false),
 	FITS_FEATHERED_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Fits feathered arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Only fits leathery arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Fits leathery arm-wings)]"),
 			false),
 	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arm-wings)]"),
+					"[style.colourTfGeneric(Only fits arm-wings)]"),
 			false),
 	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits arm-wings)]"),
+					"[style.colourTfGeneric(Fits arm-wings)]"),
 			false),
 	
 	FITS_NON_BIPED_BODY_HUMANOID(
@@ -192,21 +202,70 @@ public enum ItemTag {
 			false),
 	FITS_TAUR_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits taur bodies)]"),
+					"[style.colourTfGeneric(Only fits quadrupedal bodies)]"),
 			false),
 	FITS_LONG_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits long-tailed bodies)]"),false), //lamia, eels
+					"[style.colourTfGeneric(Only fits long-tailed bodies)]"),false), //lamia, eels
 	FITS_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits tailed bodies)]"),false), //mermaids
+					"[style.colourTfGeneric(Only fits tailed bodies)]"),false), //mermaids
 	FITS_ARACHNID_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arachnid bodies)]"),false), //spiders and scorpions
+					"[style.colourTfGeneric(Only fits arachnid bodies)]"),false), //spiders and scorpions
 	FITS_CEPHALOPOD_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits cephalopod bodies)]"),false), //octopuses and squids
-
+					"[style.colourTfGeneric(Only fits cephalopod bodies)]"),false), //octopuses and squids
+	FITS_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourTfGeneric(Only fits avian bodies)]"),false), //bird-taurs
+	
+	// These tags are non-exclusive, so clothing with them can additionally be equipped by non-ferals:
+	FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits all feral bodies)]"),false), //All feral bodies can equip clothing marked with this tag.
+	FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits quadrupedal feral bodies)]"),false), //Quadrupedal feral bodies can equip clothing marked with this tag
+	FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits long-tailed feral bodies)]"),false), //Long-tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits tailed feral bodies)]"),false), //Tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits arachnid feral bodies)]"),false), //Arachnid feral bodies can equip clothing marked with this tag
+	FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits cephalopod feral bodies)]"),false), //Cephalopod feral bodies can equip clothing marked with this tag
+	FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits avian feral bodies)]"),false), //Avian feral bodies can equip clothing marked with this tag
+	// These tags are exclusive, so clothing with them can ONLY be equipped by the corresponding body type (unless the clothing additionally has other permissive tags):
+	ONLY_FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits feral bodies)]"),false),
+	ONLY_FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits quadrupedal feral bodies)]"),false),
+	ONLY_FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits long-tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits arachnid feral bodies)]"),false),
+	ONLY_FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits cephalopod feral bodies)]"),false),
+	ONLY_FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits avian feral bodies)]"),false),
+	
+	
 	RIGID_MATERIAL( // The clothing is made out of a rigid material, and as such, groping actions cannot be performed on it. Used for chastity cages/belts.
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Blocks groping actions)]"),

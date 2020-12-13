@@ -27,7 +27,7 @@ import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
@@ -180,7 +180,7 @@ public class EnforcerPatrol extends NPC {
 
 			this.setLocation(Main.game.getPlayer(), false); // Move to player location
 			
-			for(CombatMove move : new ArrayList<>(this.getEquippedMoves())) {
+			for(AbstractCombatMove move : new ArrayList<>(this.getEquippedMoves())) {
 				if(move.getType()==CombatMoveType.TEASE) {
 					this.unequipMove(move.getIdentifier());
 				}

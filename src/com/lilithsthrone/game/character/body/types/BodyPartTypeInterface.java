@@ -18,11 +18,15 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
  */
 public interface BodyPartTypeInterface {
 	
-	public boolean isDefaultPlural();
+	public default boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+		return true;
+	}
+	
+	public boolean isDefaultPlural(GameCharacter gc);
 
 	/** @return Pronoun for this body part. (They, it) */
-	public default String getPronoun(){
-		if(isDefaultPlural()) {
+	public default String getPronoun(GameCharacter gc){
+		if(isDefaultPlural(gc)) {
 			return "they";
 		} else {
 			return "it";
@@ -36,7 +40,7 @@ public interface BodyPartTypeInterface {
 
 	/** @return The default name of this body part. */
 	public default String getName(GameCharacter gc){
-		if(isDefaultPlural()) {
+		if(isDefaultPlural(gc)) {
 			return getNamePlural(gc);
 		} else {
 			return getNameSingular(gc);
@@ -89,6 +93,11 @@ public interface BodyPartTypeInterface {
 			case 2: return TFModifier.TF_TYPE_3;
 			case 3: return TFModifier.TF_TYPE_4;
 			case 4: return TFModifier.TF_TYPE_5;
+			case 5: return TFModifier.TF_TYPE_6;
+			case 6: return TFModifier.TF_TYPE_7;
+			case 7: return TFModifier.TF_TYPE_8;
+			case 8: return TFModifier.TF_TYPE_9;
+			case 9: return TFModifier.TF_TYPE_10;
 			default: return TFModifier.NONE;
 		}
 	}
@@ -101,8 +110,15 @@ public interface BodyPartTypeInterface {
 //	/** @return The description of this body part being changed. */
 //	public String getTransformationDescription(GameCharacter owner);
 
+	public default String getTransformationNameOverride() {
+		return null;
+	}
+	
 	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
+		if(getTransformationNameOverride()!=null) {
+			return getTransformationNameOverride();
+		}
 		if(getRace()==null) {
 			return "";
 		}

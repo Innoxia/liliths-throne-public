@@ -235,17 +235,18 @@ public class Face implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Face.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Face.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 	public boolean isBaldnessNatural() {
 		return this.getTypeTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_AVIAN)
 				|| this.getTypeTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_FURRY)
-				|| this.getTypeTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY);
+				|| this.getTypeTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SCALY)
+				|| this.getTypeTags().contains(BodyPartTag.FACE_NATURAL_BALDNESS_SKIN);
 	}
 	
 	public boolean isMuzzle() {

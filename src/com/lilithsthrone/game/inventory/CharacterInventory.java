@@ -1160,30 +1160,32 @@ public class CharacterInventory implements XMLSaving {
 	public String calculateClothingAndWeaponsPostTransformation(GameCharacter character) {
 		tempSB = new StringBuilder();
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
-		for (AbstractClothing c : new ArrayList<>(clothingCurrentlyEquipped)){
-			// Race:
+		for(AbstractClothing c : new ArrayList<>(clothingCurrentlyEquipped)) {
 			BodyPartClothingBlock block = c.getSlotEquippedTo().getBodyPartClothingBlock(character);
-			if (block != null && Collections.disjoint(block.getRequiredTags(), c.getItemTags())) {
+			if (block != null && Collections.disjoint(block.getRequiredTags(), c.getItemTags())) { // Race:
 				transformationIncompatible(character, c, clothingToRemove, UtilText.parse(character, block.getDescription()));
 				
-			// Clothing specials:
-			} else if (!c.isCanBeEquipped(character, c.getSlotEquippedTo())) {
+			} else if (!c.isCanBeEquipped(character, c.getSlotEquippedTo())) { // Clothing specials:
 				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character, c.getSlotEquippedTo()));
 			}
 		}
 		
+		InventorySlot[] slots = InventorySlot.mainWeaponSlots;
 		for(int i=0; i<character.getMainWeaponArray().length; i++) {
-			if(character.getArmRows()-1<i) {
-				AbstractWeapon weapon = character.getMainWeaponArray()[i];
-				if(weapon!=null) {
+			AbstractWeapon weapon = character.getMainWeaponArray()[i];
+			BodyPartClothingBlock block = slots[i].getBodyPartClothingBlock(character);
+			if(weapon!=null) {
+				if(character.getArmRows()-1<i || (block!=null && Collections.disjoint(block.getRequiredTags(), weapon.getItemTags()))) {
 					transformationIncompatibleWeapon(character, weapon, character.unequipMainWeapon(i, false, true));
 				}
 			}
 		}
+		slots = InventorySlot.offhandWeaponSlots;
 		for(int i=0; i<character.getOffhandWeaponArray().length; i++) {
-			if(character.getArmRows()-1<i) {
-				AbstractWeapon weapon = character.getOffhandWeaponArray()[i];
-				if(weapon!=null) {
+			AbstractWeapon weapon = character.getOffhandWeaponArray()[i];
+			BodyPartClothingBlock block = slots[i].getBodyPartClothingBlock(character);
+			if(weapon!=null) {
+				if(character.getArmRows()-1<i || (block!=null && Collections.disjoint(block.getRequiredTags(), weapon.getItemTags()))) {
 					transformationIncompatibleWeapon(character, weapon, character.unequipOffhandWeapon(i, false, true));
 				}
 			}
@@ -1253,8 +1255,8 @@ public class CharacterInventory implements XMLSaving {
 			return false;
 		}
 		
-		if (!newClothing.isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getKey()) {
-			equipTextSB.append("[style.colourBad(" + newClothing.isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getValue() + ")]");
+		if (!newClothing.isAbleToBeEquipped(characterClothingOwner, slotToEquipInto).getKey()) {
+			equipTextSB.append("[style.colourBad(" + newClothing.isAbleToBeEquipped(characterClothingOwner, slotToEquipInto).getValue() + ")]");
 			return false;
 		}
 
@@ -2165,13 +2167,15 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		
-		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) { //TODO centaur check
+		if(area==CoverableArea.BREASTS_CROTCH || area==CoverableArea.NIPPLES_CROTCH) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
 				case BIPEDAL:
 				case CEPHALOPOD:
 				case TAIL:
-				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+				case TAIL_LONG:
+				case AVIAN:
+					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 //					return isAbleToAccessCoverableArea(character, CoverableArea.STOMACH, false);
 					return isCoverableAreaExposed(character, CoverableArea.STOMACH, justVisible);
 				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
@@ -2231,7 +2235,9 @@ public class CharacterInventory implements XMLSaving {
 				case BIPEDAL:
 				case CEPHALOPOD:
 				case TAIL:
-				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+				case TAIL_LONG:
+				case AVIAN:
+					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;
 				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:
@@ -2270,7 +2276,9 @@ public class CharacterInventory implements XMLSaving {
 				case BIPEDAL:
 				case CEPHALOPOD:
 				case TAIL:
-				case TAIL_LONG: // Crotch-boobs are concealed by stomach clothing for all but taurs:
+				case TAIL_LONG:
+				case AVIAN:
+					// Crotch-boobs are concealed by stomach clothing for all but taurs:
 					clothingBlocking = getBlockingCoverableAreaClothingList(character, CoverableArea.STOMACH, false);
 					break;
 				case QUADRUPEDAL:// Crotch-boobs are concealed by thigh-concealing clothing for taurs:

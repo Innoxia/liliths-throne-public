@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.body.coverings;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
@@ -103,25 +105,25 @@ public class BodyCoveringType {
 			Util.mergeLists(PresetColour.dyeFeatherColours, PresetColour.naturalFeatherColours)) {
 	};
 
-	public static AbstractBodyCoveringType DEMON_HORSE_HAIR = new AbstractBodyCoveringType(
-			BodyCoveringCategory.MAIN_HAIR,
-			"a layer of",
-			false,
-			"hair",
-			"hair",
-			Util.newArrayListOfValues(CoveringModifier.SHORT),
-			null,
-			Util.newHashMapOfValues(
-					new Value<>(CoveringPattern.NONE, 30),
-					new Value<>(CoveringPattern.MOTTLED, 5),
-					new Value<>(CoveringPattern.SPOTTED, 5),
-					new Value<>(CoveringPattern.MARKED, 5)),
-			CoveringPattern.allHairCoveringPatterns,
-			PresetColour.naturalFurColours,
-			PresetColour.allCoveringColours,
-			PresetColour.naturalFurColours,
-			PresetColour.allCoveringColours) {
-	};
+//	public static AbstractBodyCoveringType DEMON_HORSE_HAIR = new AbstractBodyCoveringType(
+//			BodyCoveringCategory.MAIN_HAIR,
+//			"a layer of",
+//			false,
+//			"hair",
+//			"hair",
+//			Util.newArrayListOfValues(CoveringModifier.SHORT),
+//			null,
+//			Util.newHashMapOfValues(
+//					new Value<>(CoveringPattern.NONE, 30),
+//					new Value<>(CoveringPattern.MOTTLED, 5),
+//					new Value<>(CoveringPattern.SPOTTED, 5),
+//					new Value<>(CoveringPattern.MARKED, 5)),
+//			CoveringPattern.allHairCoveringPatterns,
+//			PresetColour.naturalFurColours,
+//			PresetColour.allCoveringColours,
+//			PresetColour.naturalFurColours,
+//			PresetColour.allCoveringColours) {
+//	};
 	
 	public static AbstractBodyCoveringType BAT_SKIN = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_SKIN,
@@ -275,6 +277,11 @@ public class BodyCoveringType {
 			BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_VAGINA)) {
 	};
 	
+	public static AbstractBodyCoveringType SPINNERET = new AbstractBodyCoveringType(
+			BodyCoveringCategory.SPINNERET,
+			BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_SPINNERET)) {
+	};
+	
 	
 	public static AbstractBodyCoveringType ALLIGATOR_SCALES = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_SCALES,
@@ -292,7 +299,89 @@ public class BodyCoveringType {
 			PresetColour.allCoveringColours) {
 	};
 
+	public static AbstractBodyCoveringType SNAKE_SCALES = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_SCALES,
+			"a layer of",
+			true,
+			"scales",
+			"scale",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allScalesCoveringPatterns,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours) {
+	};
+	
+	public static AbstractBodyCoveringType SPIDER_CHITIN = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_CHITIN,
+			"a layer of",
+			false,
+			"chitin",
+			"chitin",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allScalesCoveringPatterns,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours) {
+	};
+	
+	public static AbstractBodyCoveringType OCTOPUS_SKIN = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_SKIN,
+			"a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 5),
+					new Value<>(CoveringPattern.SPOTTED, 1)),
+			PresetColour.allSkinColours,
+			PresetColour.allCoveringColours,
+			PresetColour.allSkinColours,
+			PresetColour.allCoveringColours) {
+	};
+
+	public static AbstractBodyCoveringType FISH_SCALES = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_SCALES,
+			"a layer of",
+			true,
+			"scales",
+			"scale",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allScalesCoveringPatterns,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours) {
+	};
+	
 	// MISC:
+
+	public static AbstractBodyCoveringType ANTENNA = new AbstractBodyCoveringType(
+			BodyCoveringCategory.ANTENNAE,
+			"a layer of",
+			false,
+			"chitin",
+			"chitin",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			null,
+			CoveringPattern.allScalesCoveringPatterns,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours,
+			PresetColour.naturalScaleColours,
+			PresetColour.allCoveringColours) {
+	};
 	
 	public static AbstractBodyCoveringType HORN = new AbstractBodyCoveringType(
 			BodyCoveringCategory.HORN,
@@ -310,7 +399,7 @@ public class BodyCoveringType {
 			PresetColour.allCoveringColours) {
 	};
 
-	public static AbstractBodyCoveringType ANTLER_REINDEER = new AbstractBodyCoveringType(
+	public static AbstractBodyCoveringType ANTLER = new AbstractBodyCoveringType(
 			BodyCoveringCategory.ANTLER,
 			"a layer of",
 			false,
@@ -382,6 +471,22 @@ public class BodyCoveringType {
 			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
 			PresetColour.allCoveringColours,
 			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours) {
+	};
+	
+	public static AbstractBodyCoveringType WING_CHITIN = new AbstractBodyCoveringType(
+			BodyCoveringCategory.MAIN_CHITIN,
+			"a layer of",
+			false,
+			"chitin",
+			"chitin",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allScalesCoveringPatterns,
+			Util.newArrayListOfValues(PresetColour.COVERING_CLEAR),
+			PresetColour.allCoveringColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_CLEAR),
 			PresetColour.allCoveringColours) {
 	};
 	
@@ -582,7 +687,6 @@ public class BodyCoveringType {
 			BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
 			PresetColour.naturalPredatorIrisColours, PresetColour.dyePredatorIrisColours, true)) {
 	};
-
 	
 	public static AbstractBodyCoveringType EYE_FOX_MORPH = new AbstractBodyCoveringType(
 			BodyCoveringCategory.EYE_IRIS,
@@ -876,6 +980,7 @@ public class BodyCoveringType {
 	
 	public static AbstractBodyCoveringType getBodyCoveringTypeFromId(String id) {
 		
+		// Imp changes:
 		if(id.equals("IMP")) {
 			id = "DEMON_COMMON";
 		} else if(id.equals("HAIR_IMP")) {
@@ -884,8 +989,9 @@ public class BodyCoveringType {
 			id = "BODY_HAIR_DEMON";
 		} else if(id.equals("EYE_IMP")) {
 			id = "EYE_DEMON_COMMON";
-			
-		} else if(id.equals("SLIME")) { // Material updates in v0.4:
+		}
+		// Material updates in v0.4:
+		if(id.equals("SLIME")) {
 			id = "SLIME_MAIN_SKIN";
 		} else if(id.equals("SLIME_EYE")) {
 			id = "SLIME_EYE_IRIS";
@@ -912,6 +1018,12 @@ public class BodyCoveringType {
 		} else if(id.equals("ARCANE")) {
 			id = "ARCANE_MAIN_SKIN";
 		}
+		// Other changes:
+		if(id.equals("DEMON_HORSE_HAIR")) {
+			id = "HORSE_HAIR";
+		} else if(id.equals("ANTLER_REINDEER")) {
+			id = "ANTLER";
+		}
 		
 		id = Util.getClosestStringMatch(id, idToBodyCoveringTypesMap.keySet());
 		return idToBodyCoveringTypesMap.get(id);
@@ -933,6 +1045,44 @@ public class BodyCoveringType {
 	static {
 		allBodyCoveringTypes = new ArrayList<>();
 		allMakeupTypes = new ArrayList<>();
+		
+		// Modded covering types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "coveringTypes", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractBodyCoveringType coveringType = new AbstractBodyCoveringType(innerEntry.getValue(), entry.getKey(), true) {};
+					String id = innerEntry.getKey().replaceAll("coveringTypes_", "");
+					allBodyCoveringTypes.add(coveringType);
+					bodyCoveringTypesToIdMap.put(coveringType, id);
+					idToBodyCoveringTypesMap.put(id, coveringType);
+				} catch(Exception ex) {
+					System.err.println("Loading modded bodyCoveringType failed at 'BodyCoveringType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res covering types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "coveringTypes", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractBodyCoveringType coveringType = new AbstractBodyCoveringType(innerEntry.getValue(), entry.getKey(), false) {};
+					String id = innerEntry.getKey().replaceAll("coveringTypes_", "");
+					allBodyCoveringTypes.add(coveringType);
+					bodyCoveringTypesToIdMap.put(coveringType, id);
+					idToBodyCoveringTypesMap.put(id, coveringType);
+				} catch(Exception ex) {
+					System.err.println("Loading bodyCoveringType failed at 'BodyCoveringType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
 		
 		Field[] fields = BodyCoveringType.class.getFields();
 		
@@ -966,6 +1116,7 @@ public class BodyCoveringType {
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						AbstractBodyCoveringType bct = null;
 						switch(cat) {
+							case ANTENNAE:
 							case ANTLER:
 							case HORN:
 							case BODY_HAIR:
@@ -974,6 +1125,7 @@ public class BodyCoveringType {
 							case MAIN_FUR:
 							case MAIN_HAIR:
 							case MAIN_SCALES:
+							case MAIN_CHITIN:
 							case MAIN_SKIN:
 							case PENIS:
 							case TONGUE:
@@ -1009,6 +1161,9 @@ public class BodyCoveringType {
 								break;
 							case VAGINA:
 								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_VAGINA, null)) {};
+								break;
+							case SPINNERET:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_SPINNERET, null)) {};
 								break;
 								
 							case ARTIFICIAL:

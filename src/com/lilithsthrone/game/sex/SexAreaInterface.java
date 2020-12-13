@@ -6,16 +6,16 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 
 /**
  * @since 0.2.7
- * @version 0.3.5.5
+ * @version 0.4
  * @author Innoxia
  */
 public interface SexAreaInterface {
 	
 	public boolean isOrifice();
 	
-	public CoverableArea getRelatedCoverableArea();
+	public CoverableArea getRelatedCoverableArea(GameCharacter owner);
 	
-	public InventorySlot getRelatedInventorySlot();
+	public InventorySlot getRelatedInventorySlot(GameCharacter owner);
 
 	public default String getName(GameCharacter owner) {
 		return getName(owner, false);

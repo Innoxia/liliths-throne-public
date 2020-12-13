@@ -39,15 +39,30 @@ public enum BodyPartTag {
 	
 	/** Pointy, triangular shark teeth (Currently NYI, but planned for the (far?) future) */
 	FACE_SHARK_TEETH,
-	
+
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for mammalian races. */
 	FACE_NATURAL_BALDNESS_FURRY,
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for avian races. */
 	FACE_NATURAL_BALDNESS_AVIAN,
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for reptilian or amphibious races. */
 	FACE_NATURAL_BALDNESS_SCALY,
+	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for races which have human-like skin. */
+	FACE_NATURAL_BALDNESS_SKIN,
 	
+	
+	// Ears:
 
+	/** Tags the ears as being large enough to be able to be grabbed and used as handles during sex scenes. */
+	EAR_HANDLES_IN_SEX,
+	
+	
+	// Hair:
+
+	/** Tags the hair as being suitable for being grabbed and used as a handle during sex scenes.
+	 * Should probably be added to every hair type unless it would be impossible to comfortably grab (e.g. if the hair type was sharp, pointy scales or something). */
+	HAIR_HANDLES_IN_SEX,
+	
+	
 	// Tail (these are also used for tentacles):
 
 	TAIL_PREHENSILE,

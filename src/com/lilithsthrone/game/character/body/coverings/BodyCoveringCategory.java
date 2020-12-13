@@ -13,13 +13,15 @@ public enum BodyCoveringCategory {
 	MAIN_FUR("fur"),
 	MAIN_SCALES("scales"),
 	MAIN_FEATHER("feathers"),
-
+	MAIN_CHITIN("chitin"),
+	
 	// Eyes
 	EYE_IRIS("irises"),
 	EYE_PUPIL("pupils"),
 	EYE_SCLERA("sclerae"),
 
 	// Head
+	ANTENNAE("antennae"),
 	HORN("horns"),
 	ANTLER("antlers"),
 	HAIR("hair"),
@@ -32,6 +34,7 @@ public enum BodyCoveringCategory {
 	NIPPLE_CROTCH("crotch-nipples"),
 	VAGINA("vagina"),
 	PENIS("penis"),
+	SPINNERET("spinneret"),
 
 	// Other
 	BODY_HAIR("body hair"),

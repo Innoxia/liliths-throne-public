@@ -1236,9 +1236,9 @@ public class LilayaSpa {
 		@Override
 		public void applyPreParsingEffects() {
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 		}
 		@Override
 		public String getDescription() {
@@ -1274,9 +1274,9 @@ public class LilayaSpa {
 		@Override
 		public void applyPreParsingEffects() {
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 		}
 		@Override
 		public String getContent() {
@@ -1400,9 +1400,9 @@ public class LilayaSpa {
 						bathingStripped = new ArrayList<>();
 						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60);
+							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
 					}
 				};
 				
@@ -1421,9 +1421,9 @@ public class LilayaSpa {
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getPlayer(), false, false);
 						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60);
+							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
 					}
 				};
 				
@@ -1712,9 +1712,9 @@ public class LilayaSpa {
 //				character.equipAllClothingFromHoldingInventory();
 //			}
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 		}
 		@Override
 		public String getDescription() {
@@ -1750,9 +1750,9 @@ public class LilayaSpa {
 				character.equipAllClothingFromHoldingInventory();
 			}
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 		}
 		@Override
 		public String getContent() {
@@ -1837,7 +1837,7 @@ public class LilayaSpa {
 	public static final DialogueNode SPA_MASSAGE = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().addStatusEffect(StatusEffect.getStatusEffectFromId("innoxia_massaged"), (240+30)*60);
+			Main.game.getPlayer().addStatusEffect(StatusEffect.CLEANED_MASSAGED, (240+30)*60);
 		}
 		@Override
 		public int getSecondsPassed() {

@@ -218,6 +218,8 @@ public class Covering implements XMLSaving {
 									:", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised));
 				case ORIFICE_VAGINA:
 					return getFormattedColour(primaryColour, "-lipped", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
+				case ORIFICE_SPINNERET:
+					return getFormattedColour(primaryColour, "-rimmed", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
 				case ORIFICE_MOUTH:
 					return getFormattedColour(primaryColour, "-lipped", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
 				case EYE_IRISES:
@@ -265,6 +267,8 @@ public class Covering implements XMLSaving {
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+"-lipped";
 				case ORIFICE_MOUTH:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+" lips";
+				case ORIFICE_SPINNERET:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+"-rimmed";
 				case EYE_IRISES:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
 				case EYE_IRISES_HETEROCHROMATIC:
@@ -367,6 +371,9 @@ public class Covering implements XMLSaving {
 				case ORIFICE_VAGINA:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"-lipped pussy</span>, with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>";
+				case ORIFICE_SPINNERET:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"-rimmed spinneret</span>, with "
+							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>";
 				case ORIFICE_MOUTH:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+" lips</span>, with a "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" throat</span>";
@@ -432,6 +439,8 @@ public class Covering implements XMLSaving {
 								:", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls");
 				case ORIFICE_VAGINA:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+"-lipped pussy, with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls";
+				case ORIFICE_SPINNERET:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+"-rimmed spinneret, with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls";
 				case ORIFICE_MOUTH:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" lips, with a "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" throat";
 				case EYE_IRISES:

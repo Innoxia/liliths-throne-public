@@ -1386,8 +1386,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if(clothing.isCondom(slotToEquipInto) && applyEffects) {
-			if(InventoryDialogue.getInventoryNPC()!=null) {
-				return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingEquipper, clothingOwner, rough);
+			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
+			if(interactingTarget==null) {
+				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
+					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
+				}
+			}
+			if(interactingTarget!=null) {
+				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+				if(condomEquip!=null) {
+					return condomEquip;
+				}
 			}
 		}
 		

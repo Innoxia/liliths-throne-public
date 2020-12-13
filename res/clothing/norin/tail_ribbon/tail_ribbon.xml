@@ -95,13 +95,19 @@
   </replacementText>
   <displacementText slot="HAIR" type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from into [npc.her] [npc.hair+].]]>
+      <![CDATA[
+	  #IF(npc.hasHair())
+		[npc.Name] [npc.verb(untie)] the ribbon from [npc.her] [npc.hair+].
+	  #ELSE
+		As [npc.name] no longer [npc.has] any [npc.hair], [npc.her] ribbon [npc.verb(falls)] off of [npc.her] head.
+	  #ENDIF
+	  ]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from into [npc2.namePos] [npc2.hair+].]]>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from [npc2.namePos] [npc2.hair+].]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ribbon from into [npc2.namePos] [npc2.hair+].]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ribbon from [npc2.namePos] [npc2.hair+].]]>
     </otherRough>
   </displacementText>
   

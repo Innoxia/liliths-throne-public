@@ -23,14 +23,29 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed issue where NPC speech would sometimes have errors in it. (PR#1415 by AceXP)
+		Added a unique icon for the 'dazed' combat status effect. (by DSG)
 	
 	Engine:
 		Added modding support for items to be defined as being able to be enchanted into new items, and support for a background to be added to item images, as well as size and rotation definitions. (See 'res/items/innoxia/race/horse_equine_cider.xml' for an example.)
 		Added support for nesting folders inside mod folders (so mod makers can more easily categorise mod files within their directories).
-	
+		Improved performance of status effect conditional checks, which should have considerably improved the time it takes to end a turn in games with many saved NPCs.
+		Added 'tags' field to status effect modding, allowing (some) ItemTags and their effects to be applied to modded status effects. (See the 'res/mods/innoxia/statusEffects/set_template.xml' file for an example.)
+		Added parsing commands for clitoris diameter and circumference.
+		Improved handling of body covering types in the code.
+		Added full mechanics support for all other leg configuration types (serpent-tail, fish-tail, arachnid, cephalopod, avian). You can test these lower body types by using the debug TF menu to give yourself the demonic leg types which support this.
+		Added 'aquatic' race definition and land/water tile definitions, so that aquatic races have beneficial/detrimental status effects applied when they are in a water/land tile respectively. Tile land/water status and danger status is now displayed at the top-right of the UI.
+		Added full support for spinnerets, which will be granted by spider tails and spider 'arachnid' leg configurations. Spinnerets can be used as sexual orifices, and also grant several web-spinning sex actions, along with a special combat move.
+		Added full support for penises and clitorises to be ovipositors, by means of giving them a modifier (via TF potion or self-TF menu). Characters with an egg-laying vagina which has been impregnated can use an ovipositor penis/clit to lay the fertilised eggs in vaginas, anuses, nipples, and mouths.
+		Cephalopod lower bodies now support tentacles as penetrative objects (like tails) and grant a special combat move.
+		Added support for combat move modding. (See 'res/mods/innoxia/combatMove' and 'res/combatMove' for examples.)
+		Added support for fully-feral bodies. (There is currently no way to obtain a feral body, but the underlying code is ready for future content.)
+		Added full support for race modding. (See 'res/mods/innoxia/race' for an example.)
+		
 	Gameplay:
-		Added a 'darkness' status effect, which gets applied when a character is located in a map tile which should realistically suffer from it. This status effect can be negated by having animal morph eyes which grant night vision, bat ears (which grant echo location), a body made of fire, mastery of fire spells, or an equipped piece of clothing/weapon which counteracts darkness (night vision goggles or the flashlight).
-	
+		Added 'darkness' mechanic. Darkness status effect gets applied when a character is located in a map tile which is not illuminated. This status effect can be negated by having animal morph eyes which grant night vision, bat ears (which grant echo location), a body made of fire, mastery of fire spells, or an equipped piece of clothing/weapon which counteracts darkness (night vision goggles or the flashlight).
+		Increased upper cap of base unarmed damage from 20 to 50.
+		Added 'hyena' race with 'spotted hyena' and 'striped hyena' as its two subspecies. Added related 'Bone Crushers' food item and 'Workout Power' drink item.
+		
 	Items:
 		Added weapon: 'Flashlight'. Sold by Ralph, illuminates dark areas when equipped.
 		Improved icons for all racial attribute drinks (such as Equine Cider, Canine Crush, Wolf Whiskey, etc.), and moved all of them out from the code into the external 'res/items/innoxia/race' folder.
@@ -45,22 +60,36 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Alligator-morph body hair is now coarse hair (the same as their head hair). It is always absent on alligator-morphs by default if you have your 'Scaly Hair' option off.
 		Added more options to change the colour of your elemental's body coverings.
 		Fixed issue where face type would always use the same covering as torso type.
+		Increased maximum breast and crotch-boob row counts from 5 to 6.
+		Slightly adjusted clitoris size category values to make them mroe in-line with penis size values, and reduced maximum length from 125cm to 100cm (so that it's the same as penis length).
+	
+	Sex:
+		Fixed several parsing errors and incorrect descriptions of several sex actions (mainly tail-asshole and tail-vagina actions).
 	
 	Other:
 		Ralph now sells modded weapons which have been given the tag 'SOLD_BY_RALPH'.
 		Slaves now enjoy the prostitute job if they have the 'nymphomanic' trait active, instead of if they have the cum addict fetish.
+		The cum-inflation status effects for a character's breasts are now triggered by either breasts or crotch-boobs being inflated by cum.
+		Horn adn wing types will no longer have random ordering in the self-TF menu's options.
 	
 	Bugs:
 		Fixed issue where using the 'Quit' button in the main menu would sometimes fail to close the game's background java process.
 		Fixed bug where summoning your elemental for the first time in a new game wouldn't work.
 		Taking a thorough shower in your room's bathroom now correctly applies the 'Recently showered' status effect.
+		Fixed bug in conditional parser where identical if statements that each return 'true' would return the last encountered block instead of the first.
+		Elementals now correctly return to their passive form after successfully escaping from combat.
+		Hair clothing is now correctly unequipped when hair length is set to 0.
+		In the 'Witch's Seal' sex scene with cultists, the character who is sealed can no longer use orgasm-locking actions (i.e. 'leg-lock', 'hug-lock', etc.).
+		Fixed issue with some NPCs spawning with metallic-coloured shirts.
+		Fixed issue where tail length decrease button would continue to work when greyed-out.
+		Orgasm actions which direct cum onto a partner's groin will now correctly dirty their vagina/penis inventory slots.
+		Fixed issue with 'hoof-kick' attack's critical hit logic not working correctly.
+		'Martial artist' perk now correctly increases base unarmed damage, instead of modifying the damage in the same manner as the 'unarmed damage' attribute's calculation.
 	
 	
 	
-	After escaping combat, elemental is not desummoned?
-	
-	[] Race modding
-		[] Final improvements
+	[x] Race modding
+		[x] Final improvements
 			[x] Add tail length modifier TFs
 				[x] mechanics
 				[x] saving/loading
@@ -76,7 +105,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] Draw from base race icon for consistent background rendering
 					[x] Improve all elixir items and move out into items folder
 			
-			[] Subspecies
+			[x] Subspecies
 				[x] Convert to abstract classes
 					[x] All AbstractSubspecies toString() instances need to be caught (Subspecies.getSubspeciesFromId might be a good search term) (subspecies.toString)
 					[x] Test all books
@@ -138,48 +167,530 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Make nested folder structure possible in status effect
 					[x] For all abstract classes that use xml loading
 				
-				[] Add support for other leg types
+				[x] Add support for other leg types
 					[x] Race icons (background modifications)
-					[] Water limitation
+						[x] Still a TODO in AbstractSubspecies
+					[x] Water limitation
 						[x] Subspecies boolean for aquatic subspecies
 							[x] tiles need Aquatic variable
-							[] Massive negative status effect when on land
-							[] Positive status effect when in water (+AP)
-						[] Body descriptions (tooltip & character appearance screen)
-							[] Need body part limitations (no tail or legs for long-tail, cephalopod, short-tail, and arachnid?)
-							[] Short-tail needs to grow legs when exposed to air (Otherwise land limitations will dead-end the player)
-								[] Make as a status effect (need some kind of boolean for tail legs active?)
-					[] Need spinneret for arachnids
-					[] In body description (height?), long tail should be ratio of 5:1 tail:body
-					[] Sex availability
-						[] need isAbleToAccessGenitaliaFromBehind()
-						[] Search for all .isTaur()
+							[x] Massive negative status effect when on land
+							[x] Positive status effect when in water (+AP)
+					[x] Add demon leg configurations
+						[x] Make normal hoofed only bipedal
+						[x] Remove DEMON_HORSE_HAIR (just use horse hair)
+						[x] Add leg types for each configuration
+							[x] long-tail
+								[x] "Zero non legs"
+									[x] Legs should be described as "lower-body tail" instead (so no need to remove)
+								[x] Race names
+								[x] Body description
+								[x] Crotch boobs feral snake???
+								[x] In body description (height?), long tail should be ratio of 5:1 tail:body
+								[x] Need body part limitations (no tail)
+									[x] In self-TF menu
+									[x] Test potion
+								[x] Test:
+									[x] movement descriptions
+									[x] clothing
+									[x] icon changes
+							[x] arachnid
+								[x] Need body part limitations (no tail)
+								[x] Spinneret orifice type
+									[x] Add OrificeSpinneret
+										[x] Save/load xml variables in Body
+										 	[x] test
+									[x] Full code support
+										[x] status effects of fluid storage (abdomen/tail)
+										[x] test sex status effect and inflation effect
+									[x] Add spinneret TF options
+										[x] potion
+										[x] Self-TF
+										[x] Slave ordering
+									[x] Covering type (orifice)
+										 [x] TFs
+										 [x] body description
+										 [x] Colour not saving?
+									[x] Add to quick-list tooltip
+									[x] Sex actions
+										[x] penis-spinneret actions
+										[x] Add to positioning
+										[x] Spin web-condom
+											[x] icon
+											[x] action (self/other)
+												[x] Make sure they appear in the correct categories and have disabled versions
+											[x] condom equip text handling
+										[x] Spin web-seals
+											[x] 1 icon for (orifice seal)
+											[x] seal clothing type
+												[x] vagina
+												[x] anus
+												[x] nipples
+												[x] mouth
+											[x] All destroy when unequipped
+											[x] handle for NPCs who cannot have clothing equipped
+										[x] Web binding status effect
+											[x] combat move for application
+												[x] tiers
+													[x] 1 (-25 physique)
+													[x] 2 (+arm/leg hindered?)
+													[x] 3 (+ -1AP)
+											[x] sex action "bind"
+												[x] sets tier 3
+												[x] sets target as 'stunned'
+												[x] gain option to unbind
+											[x] SE not working
+											[x] 'cocooned' needs handling for generic sex scenes
+										[x] NPC webbing behaviour
+										[x] test player cocooned
+											[x] prevent leg-locking (all locking)
+								[x] Ovipositor penis/clit type
+									[x] PenetrationModifier
+										[x] Potion TF
+									[x] Incubation stats
+										[x] Save/load
+											[x] test
+											[] test birthed stats
+										[x] Litter stats
+										[x] Stats display to player
+											[x] Phone
+											[x] Body description
+											[x] Status effects
+												[x] Status effect update bug when resting
+									[x] When implanting in womb, instantly displays womb completed SE and stage 1 stomach SE???
+									[x] All pregnancy removal SE text fires when implanting
+									[x] Egg insertions (only available if also have egg-laying vagina)
+										[x] Orgasm option to lay eggs or just cum
+											[x] Checks
+												[x] Eggs need to be fertilised before cumming
+												[x] Add egg laying orgasm action with tooltip saying why blocked if internal orifice creampie available
+												[x] Vagina
+													[x] Cannot lay in already-pregnant
+													[x] Removal block
+													[x] Self-TF menu tooltip
+												[x] Non-vagina orifice pregnancy (block others)
+													[x] Stomach
+														[x] Mouth
+														[x] Anus
+													[x] Nipples
+														[x] Required breast size
+														[x] Prevent breast size reduction
+														[x] Self-TF menu tooltip
+													[x] Crotch-nipples
+														[x] Required size
+														[x] Prevent removal/size-reduction
+														[x] Self-TF menu tooltip
+													[x] Spinneret
+														[x] Block (removal of leg type or tail is too hard to handle)
+													[x] condom breaking
+														[x] test
+													[x] Prevent if target is unable to be impregnated
+													[x] egg count in SE
+													[x] test clit egg-laying
+														[x] add clit penetration actions
+											[x] Description in orgasm
+												[x] clit egg-laying description
+											[x] Clit name/descriptors when penetration object
+											[x] SE change references of external appearance
+											[x] Quest
+												[x] Framework
+												[x] Writing
+												[x] Test removal of pregnancy quest when implanting
+													[x] Test second stage removal
+													[x] Empty status effect update displays
+												[x] Test quest (repeated incubation test)
+											[x] Mother's milk to advance incubation
+											[x] Clit-vagina actions needed in face-to-wall
+											[x] Clit anal
+											[x] Tail oral
+											[x] Clit oral
+											[x] Remove pregnancy, transfer to target
+												[x] Handle pregnancy tracking
+												[x] Add Incubation-mother
+								[x] Check body descriptions
+								[x] Check clothing limitations
+								[x] Check all .isPregnant() calls
+									[x] Ralph
+									[x] Sean
+									[x] Natalya
+									[x] Epona
+									[x] Murk
+										[x] egg incubation SE text
+									[x] Test all
+									[x] Check others
+								[x] Add .isValidIncubationTarget(), set to no for unique NPCs
+								[x] Better clit length self-TF options
+									[x] Underneath penis/clit size say descriptor
+									[x] Clit tooltip say anything above average allows it to be used as a penetrative object
+							[x] cephalapod
+								[x] Need body part limitations (no tail)
+									[x] Self-TF
+									[x] leg config. TF
+									[x] potion TF text checks for letting the player know about this
+								[x] Land/water movement speed
+								[x] Tentacles
+									[x] Change tentacle type to be linked to leg type
+										[x] GameCharacter methods and linking
+										[x] Self-TF options
+											[x] length/girth
+											[x] show actual length beneath percentage (for tail as well)
+										[x] TF potion
+											[x] length/girth
+											[x] TF plurality bug
+									[x] Save/load not working
+									[x] Tail/tentacle length buttons work when greyed-out
+									[x] Body description
+										[x] Handle BodypartTags (TAIL_PREHENSILE, SLEEP_HUGGING, etc.)
+										[x] Girth/length like tail needs to be shown
+									[x] Sex actions
+										[x] Tentacle start actions are using the swap icon and acting like only 1 is available
+										[x] Add ongoing sex action tentacle icon
+										[x] Stretching effects (check all tail effects and copy)
+											[x] test
+										[x] Vagina
+										[x] Anal
+										[x] Mouth
+										[x] Restriction action (uses 4 tentacles to immobilise)
+											[x] Add to long tail as well (as a 'constrict' position)
+												[x] Refactor immobilisation types
+												[x] Check sex SEs
+												[x] Check Seal in-sex SE
+													[x] Seal combat effects tooltip (block escape etc.)
+									[x] Handle footjobs when have tentacles
+										[x] Check naming and action availability
+									[x] Handle intercrural
+										[x] LegConfiguration should have available or not (pass in GC so tail can change based on legs or not?)
+									[x] Handle leg count somewhere
+										[x] Plurality test
+								[x] Check clothing limitations
+									[x] Check tag for clothing equip for all leg types
+							[x] Provide override for water/land speed for leg type (so eels can have long tail but water movement buffs)
+							[x] short tail
+								[x] Add demon example
+									[x] Self-TF check
+									[x] TF potion check
+										[x] "The transformation has left the structure of your none as none! You do not have feet."
+								[x] On land status effect
+								[x] Need body part limitations (no tail)
+								[x] Prevent foot sex actions when FootStructure or FootType is NONE
+									[x] Test
+								[x] Land/water movement speeds
+									[x] Add land/water speed mods to LegConfig TF description
+									[x] Top-right dangerous and land/water
+									[x] Make tiles hybrid water/land
+								[x] Short-tail needs to enable self-TF leg configuration (Otherwise land limitations will dead-end the player)
+									[x] Auto-change legs/tail
+										[x] Tooltip info
+											[x] Use Subspecies extra effects method to display to player
+										[x] TailType handling
+											[x] Should tails be blocked? (Perhaps just remove when initial TF happens, don't completely block the player from doing what they want)
+										[x] Thigh sex
+										[x] Inventory slots to be disabled when in tail form (long tail check)
+											[x] Test clothing removal text
+										[x] tooltip tail/legs
+									[x] Handle legs/tail mechanics
+										[x] Leg count
+										[x] intercrural
+											[x] FootType/Structure for legs when not tail
+										[x] Status effect to trigger change and return description
+											[x] Add description of auto-change to leg configuration change
+											[x] Needs to do a clothing desc.
+										[x] Check parsing of legs with different SEs
+									[x] Body tooltip
+									[x] Body description
+										[x] Tail
+										[x] Legs
+								[x] Check clothing limitations
+								[x] Prevent intercrural sex for tails (and long tails)
+								[x] Delete horse tail test type
+							[x] Check isGenitalsExposed() for cephalopod SE
+							[x] Avian
+								[x] Add LegConfiguration
+								[x] Add for harpy
+									[x] Leg type
+									[x] Potion TF
+									[x] Race SE corners
+								[x] Harpy avian-leg name
+								[x] Cloaca behind
+									[x] Test:
+										[x] Penis/Vagina exposed
+											[x] Transparent clothing works ok for Exposed (check penetration start)?
+										[x] Cum on groin/ass
+									[x] TF support
+										[x] Self
+										[x] Potion
+									[x] Support in sex as cloaca is supported
+						[x] Lock Demon leg types behind something
+							[x] Elder lilin powers
+						[x] Test parsing plurality for snake tail
+						[x] Add checks for leg configuration race names
+					[x] Add lower body types to demon debug potion
+						[x] Test all leg configuration TF options
+						
+				[x] Combat move modding & unlocks
+					[x] Refactor to abstract
+						[x] Handle combat move lists
+						[x] Automatically generate identifier
+					[x] xml format
+					[x] Add block definition
+					[x] Mod loading
+						[x] Test quadruped kick
+					[x] Combat Move modding
+						[x] Quadruped kick (High damage)
+						[x] Arachnid web-spin (-AP)
+							[x] Handle status effect severity
+							[x] Fix 0 damage saying damage was taken
+							[x] Check combat escape cocoon (and seal?)
+							[x] Add instant-defeat for web-spin on cocoon stage 3
+						[x] Handle tags
+							[x] Description in effects list
+							[x] Effects to be applied
+							[x] Apply to relevant effects
+							[x] Patch notes change
+						[x] NPCs to recalculate combat moves
+							[x] Shuffle before selecting?
+								[x] Make sure reselection is only done at start of combat
+							[x] Require equip weighting
+							[x] Test
+						[x] Similar effects for:
+							[x] Cephalopod tentacle embrace
+							[x] Long tail constrict
+						[x] Test both
+						[x] Losing via cocoon, tentacle, or tail should start sex scene in related constriction
+							[x] Too many messy checks and variables to track for it to be smoothly transitioned for the player, so just leave it as-is
+					[x] Test Hoof kick crit
+					[x] Check masochist damage reduction in damageTarget
 				
-				[] Combat move unlocks
-					[] Combat Move modding
-						[] Quadruped kick (High damage)
-						[] Arachnid web-spin (-AP)
-						[] Cephalopod tentacle embrace (when enemy is below 15% health, can instantly defeat them)
-						[] Long tail constrict (when enemy is below 15% health, can instantly defeat them)
+				[x] Ferals
+					[x] Subspecies definition of feral support
+						[x] Required feral attributes
+							[x] Return null for no ferals supported.
+							[x] Leg configuration
+							[x] Measured in Length or Height
+							[x] Genital size proportionally shrink on application
+								[] test
+					[x] Detection of feral parts
+					[x] Naming
+						[x] Detection and return correct name
+						[x] test
+					[x] Subspecies bonus
+						[x] Icon
+					[x] Removal of arms/breasts mechanics
+						[x] tooltip description
+						[x] body description
+						[x] Sex actions blocking
+					[x] Crotch boobs handling
+						[x] Crotch-boob properties setting override
+						[x] Add breast count to crotch boob count and set breast count to 0 upon TF
+					[x] Increase max rows to 6
+					[x] Handle method in body with all extra features handled
+					[x] null error when TF????
+					[x] 'Greater' should be 'Feral'
+					[x] Change bestial to feral?
+					[x] Save feral boolean in Body
+						[x] test
+					[x] Inventory slot handling
+						[x] Clothing
+							[x] Tags
+						[x] Weapons
+							[x] Tags
+						[x] Test both
+							[x] clothing
+							[x] weapons are not being blocked from re-equipping
+							[x] weapons are not handled by the rendering engine
+								[x] Add tooltip 'Restricted' description
+						[x] Disable nipple slot when no breasts
+					[x] Multiply unarmed damage for ferals
+						[x] Add effect to subspecies tooltip
+					[x] Clothing check after setting feral
+					[x] Add relevant tags
+						[x] demonstones/feather for weapons
+						[x] Check through clothing categories
+					[x] Unarmed attack text needs changing
+					[x] Link TALONS tag to FootType, not LegType
+						[x] Same with hoofs
+					[x] Add boolean for setting feral hair to none
+						[x] If hair, set to natural
+					[x] Full body description
+					[x] Height check
+					[x] Remove makeup on feral TF
+					[x] When feral, block racial TFs
 				
-				[] Ferals
-					[] Subspecies definition of feral support
-						[] LegConfiguration define what form they take
-					[] Sex positions
-						[] All fours
+		[x] Structure plan
+			[x] Hyena
+				[x] Race
+					[x] XML template
+						[x] Auto-generate race damage attributes
+							[x] Convert Attribute to classes
+								[x] Check for .valueOf and .toString methods
+								[x] Handle old IDs
+					[x] getPreferredCombatBehaviour() does nothing?
+					[x] Abstract method Strings
+						[x] Make targetedBody work as a target
+							[x] test
+					[x] Loading and mod folder support
+				[x] RacialBody
+					[x] XML template
+					[x] Need clit girth
+					[x] Loading and mod folder support
+				[x] Covering types
+					[x] XML template
+						[x] Test colours
+					[x] Loading and mod folder support
+				[x] Create covering types
+					[x] fur
+					[x] hair
+					[x] body hair
+					[x] eyes
+				[x] Parts
+					[x] Loading and mod folder support
+						[x] Antenna
+							[x] Improve to have the same attributes as horns
+								[x] Save/loading
+								[x] parsing commands
+								[x] Use in sex
+							[x] Self-TF
+							[x] Potion TF
+								[x] test
+							[x] Handle previous version loading
+							[x] Methods used in Body description correctly
+								[x] Reference new values
+					[x] Warning: getClosestStringMatch() did not find an exact match for 'innoxia_hyena'; returning 'innoxia_hyena_race' instead. (Distance: 5)
+					[x] Warning: AbstractAttribute's toString() method is being called!
+						[x] Anus
+						[x] Arm
+							[x] Need to be able to define custom colours
+								[x] Add hyena colour
+						[x] Ass
+						[x] Breast
+							[x] Nipple
+							[x] Fluids
+								[x] milk
+								[x] cum
+								[x] girlcum
+						[x] Face
+							[x] Mouth
+								[x] Tongue
+						[x] Ear
+						[x] Eye
+						[x] Hair
+					[x] Make sure getTags() is Override
+					[x] All need transformation name
+					[x] Rename variable skinType to coveringType for all
+						[x] Horn
+							[x] Horn not being added...
+							[x] Remember to remove from racial body xml
+						[x] Leg
+						[x] Penis
+							[x] Testicle
+						[x] Tail
+						[x] Tentacle
+						[x] Torso
+						[x] Vagina
+						[x] Wing
+						[x] Change antennae, horns, tentacle, wings to template somewhere
+				[x] Handle null pointers when giving feral a demonic part
+				[x] Sort horn types by name or race in self-TF menu
+					[x] Wings
+				[x] Subspecies
+					[x] Account for overrides:
+						[x] getSubspeciesOverridePriority
+						[x] isNonBiped
+						[x] shortStature
+						[x] applySpeciesChanges
+						[x] getHalfDemonName
+						[x] getSubspeciesWeighting
+					[x] Add parsing hooks for covering pattern/modifiers
+					[x] Add region spawn chances
+						[x] Add region to all world types
+						[x] Implement chance of spawn in code
+					[x] Check integer parsing needing trim or not
+					[x] Spotted
+						[x] Bugs:
+							[x] Subspecies not being detected
+							[x] 16 eyes
+							[x] Icon too big
+					[x] Striped
+					[x] Loading and mod folder support
+				[x] Add secondary/tertiary icon colour support
+				[x] Make sure multiple TF types are supported for every body part
+					[x] torso
+					[x] penis
+					[x] vagina
+						[x] test all
+				[x] Race icons to not shrink when internal res on subspecies icon
+				[x] Add encyclopedia descriptions
+				[x] Need better large clit body description
+					[x] girth
+					[x] modifiers
+					[x] tooltip improvement
+						 [x] Not being detected correctly
+				[x] Clit diameter not used for stretching in sex
+				[x] Cum not being linked correctly
+					[x] Check other fluids
+				[x] TF items
+					[x] Food innoxia_race_hyena_meat_chews (bone crunchers)
+						[x] Icon
+						[x] xml
+					[x] Drink innoxia_race_hyena_power_workout_juice
+						[x] Icon
+						[x] xml
+					[x] Handle none in subspecies xml definition
+					[x] Update race.xml with ids
+					[x] getConsumableAttributeItem() and tf method are not used????
+						[x] Used in subspecies, so add some kind of default from race
+						[x] Add override in abstract subspecies file
+				[x] Make the spotted females bigger
+				[x] Improve race modding readme
+					[x] Add modding folders for colour and race
+					[x] combat move mods
+				[x] Move Body hair to racial body
+				[x] Add patch notes for all of this
+					
+		[] Sex availability
+			[x] Check for actions blocked
+				[x] Nipples/breasts actions still available when have no breasts
+				[x] Choke/slap face
+			[] Handle legs or not
+				[] Search for all .isTaur() and check for other leg configurations
+				[] need: isAbleToAccessGenitaliaFromBehind(), isAbleToAccessGenitaliaFromFront()
+					[] Use this for sex position (slot) checks
+			[] Check all leg actions (Spread legs), and search for leg parsing to make sure actions are accounting for tail lower bodies
+			[] Glory hole positioning for cloaca behind
+		[] Sex positioning
+			[] LegConfigurations/Feral allowances
+				[x] Ferals all fours
 				
-		[] Structure plan
-			[] Required covering types
-			[] Race
-			[] Parts
-			[] Subspecies
-			[] TF items
-			
-		[] Add races
-			[] Panther
-			[] Hyena
+		[] References
+			[] Arms in combat when receiving an attack
+		[] TF Breast/crotch-boob count should be limited
 	
 	
+	Need to check nipple egg pregnancy when feral TF applied
+	
+	Add panther race & refactor old NPCs
+	
+	Fix combat move tooltip image alignment
+	
+	Tiger mode
+	
+	color modifiable cum when
+	
+	Add crotch-nipple & piercing slots
+	
+	Ralph should let you sell illegal items to him for a day if you let him fuck you
+	
+	we need an option to have Lilaya keep her skin tone when she becomes a full demon
+	
+	Adding images to characters not working if png image is PNG
+	
+	Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
+	
+	you have to get a tattoo that shows unique sex partners because @Innoxia never added that to the phone stats
+	
+	a weird milking room bug where auto selling milk doesn't add to the funding you get from the room, and my upkeep is in negative because of it
+		collecting the milk gives you the upkeep value
+	
+	Improve "desperate for sex" icon
 	
 	item generation in equipClothingFromOutfit is applying sticker prefixes twice and stripping the color prefix
 	

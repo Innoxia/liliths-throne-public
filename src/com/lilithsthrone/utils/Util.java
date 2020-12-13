@@ -26,6 +26,11 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -191,6 +196,16 @@ public class Util {
 	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
 	 */
 	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId) {
+		return getExternalModFilesById(containingFolderId, null, null);
+	}
+	
+	/**
+	 * @param containingFolderId To be in the format: <b>"/statusEffects"</b>
+	 * @param filterFolderName If a non-null String is passed in, only files within folders with that String as their name will be added to the returned map.
+	 * @param filterPathName If a non-null String is passed in, only files with that String as their name will be added to the returned map.
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId, String filterFolderName, String filterPathName) {
 		File dir = new File("res/mods");
 		Map<String, Map<String, File>> returnMap = new HashMap<>();
 		
@@ -202,7 +217,7 @@ public class Util {
 					returnMap.putIfAbsent(modAuthorName, new HashMap<>());
 					File modAuthorDirectory = new File(directory.getAbsolutePath()+containingFolderId);
 					
-					populateMapFiles(modAuthorName, directory.getName()+"_", modAuthorDirectory, returnMap);
+					populateMapFiles(modAuthorName, directory.getName()+"_", modAuthorDirectory, returnMap, filterFolderName, filterPathName);
 				}
 			}
 		}
@@ -215,6 +230,16 @@ public class Util {
 	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
 	 */
 	public static Map<String, Map<String, File>> getExternalFilesById(String containingFolderId) {
+		return getExternalFilesById(containingFolderId, null, null);
+	}
+	
+	/**
+	 * @param containingFolderId To be in the format: <b>"res/statusEffects"</b>
+	 * @param filterFolderName If a non-null String is passed in, only files within folders with that String as their name will be added to the returned map.
+	 * @param filterPathName If a non-null String is passed in, only files with that String as their name will be added to the returned map.
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalFilesById(String containingFolderId, String filterFolderName, String filterPathName) {
 		File dir = new File(containingFolderId);
 		Map<String, Map<String, File>> returnMap = new HashMap<>();
 		
@@ -226,7 +251,7 @@ public class Util {
 						String authorName = authorDirectory.getName();
 						returnMap.putIfAbsent(authorName, new HashMap<>());
 						
-						populateMapFiles(authorName, authorDirectory.getName()+"_", authorDirectory, returnMap);
+						populateMapFiles(authorName, authorDirectory.getName()+"_", authorDirectory, returnMap, filterFolderName, filterPathName);
 					}
 				}
 			}
@@ -235,18 +260,22 @@ public class Util {
 		return returnMap;
 	}
 	
-	private static Map<String, Map<String, File>> populateMapFiles(String modAuthorName, String idPrefix, File directory, Map<String, Map<String, File>> returnMap) {
-		File[] innerDirectoryListing = directory.listFiles((path, filename) -> filename.toLowerCase().endsWith(".xml"));
-		
-		if(innerDirectoryListing != null) {
-			for(File innerChild : innerDirectoryListing) {
-				try {
-					String id = (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0];
-					returnMap.get(modAuthorName).put(id, innerChild);
-				} catch(Exception ex) {
-					System.err.println("Loading external mod files failed at Util.getExternalModFilesById()");
-					System.err.println("File path: "+innerChild.getAbsolutePath());
-					ex.printStackTrace();
+	private static Map<String, Map<String, File>> populateMapFiles(String modAuthorName, String idPrefix, File directory, Map<String, Map<String, File>> returnMap, String filterFolderName, String filterPathName) {
+		if(filterFolderName==null || filterFolderName.equalsIgnoreCase(directory.getName())) {
+			File[] innerDirectoryListing = directory.listFiles((path, filename) -> filename.toLowerCase().endsWith(".xml"));
+			
+			if(innerDirectoryListing != null) {
+				for(File innerChild : innerDirectoryListing) {
+					if(filterPathName==null || filterPathName.equalsIgnoreCase(innerChild.getName().split("\\.")[0])) {
+						try {
+							String id = (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0];
+							returnMap.get(modAuthorName).put(id, innerChild);
+						} catch(Exception ex) {
+							System.err.println("Loading external mod files failed at Util.getExternalModFilesById()");
+							System.err.println("File path: "+innerChild.getAbsolutePath());
+							ex.printStackTrace();
+						}
+					}
 				}
 			}
 		}
@@ -256,12 +285,31 @@ public class Util {
 		if(additionalDirectories != null) {
 			for(File f : additionalDirectories) {
 				if(f.isDirectory()) {
-					populateMapFiles(modAuthorName, (idPrefix!=null?idPrefix:"")+f.getName()+"_", f, returnMap);
+					populateMapFiles(modAuthorName, (idPrefix!=null?idPrefix:"")+f.getName()+"_", f, returnMap, filterFolderName, filterPathName);
 				}
 			}
 		}
 		
 		return returnMap;
+	}
+	
+	public static String getXmlRootElementName(File XMLFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLFile);
+			
+			// Cast magic:
+			doc.getDocumentElement().normalize();
+			
+			Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+			
+			return coreElement.getTagName();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace(System.err);
+			return "";
+		}
 	}
 	
 	public static class Value<T, S> {
@@ -1413,7 +1461,7 @@ public class Util {
 			}
 		}
 		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
-//		throw new IllegalArgumentException();
+//		new IllegalArgumentException().printStackTrace(System.err);
 		return closestString;
 	}
 

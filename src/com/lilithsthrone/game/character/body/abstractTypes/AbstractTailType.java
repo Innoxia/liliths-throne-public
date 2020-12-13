@@ -1,16 +1,26 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
@@ -18,19 +28,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractTailType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
+
+	private String transformationName;
 	
 	private int defaultGirth;
 	private float defaultLengthAsPercentageOfHeight;
 
-	private String transformationName;
-	
 	private String determiner;
 	private String determinerPlural;
 	
@@ -49,8 +62,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 
 	private List<BodyPartTag> tags;
 	
+	private boolean spinneret;
+	
 	/**
-	 * @param skinType What covers this tail type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this tail type (i.e skin/fur/feather type).
 	 * @param race What race has this tail type.
 	 * @param defaultGirth The girth which this TailType spawns with.
 	 * @param defaultLengthAsPercentageOfHeight The percentage, as a float from 0->1, of this tail's length as a proportion of the owner's body height.
@@ -68,9 +83,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	 * @param tailTransformationDescription A paragraph describing a character's tails transforming into this tail type. Parsing assumes that the character already has this tail type and associated skin covering.
 	 * @param tailBodyDescription A sentence or two to describe this tail type, as seen in the character view screen. It should follow the same format as all of the other entries in the TailType class.
 	 * @param tags The tags which define this tail's properties.
+	 * @param spinneret true if this tail type has a spinneret.
 	 */
 	public AbstractTailType(
-			AbstractBodyCoveringType skinType,
+			AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			PenetrationGirth defaultGirth,
 			float defaultLengthAsPercentageOfHeight,
@@ -87,9 +103,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 			List<String> tipDescriptorsFeminine,
 			String tailTransformationDescription,
 			String tailBodyDescription,
-			List<BodyPartTag> tags) {
+			List<BodyPartTag> tags,
+			boolean spinneret) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 
 		this.defaultGirth = defaultGirth.getValue();
@@ -114,6 +131,95 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		this.tailBodyDescription = tailBodyDescription;
 		
 		this.tags = tags;
+		
+		this.spinneret = spinneret;
+	}
+	
+	public AbstractTailType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.spinneret = Boolean.valueOf(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
+
+				this.defaultGirth = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultGirth").getTextContent());
+				this.defaultLengthAsPercentageOfHeight = Float.valueOf(coreElement.getMandatoryFirstOf("defaultLengthAsPercentageOfHeight").getTextContent());
+
+				this.tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
+				if(tags.isEmpty()) {
+					tags.add(BodyPartTag.TAIL_TYPE_GENERIC);
+					tags.add(BodyPartTag.TAIL_TAPERING_NONE);
+				}
+				
+				this.determiner = coreElement.getMandatoryFirstOf("determiner").getTextContent();
+				this.determinerPlural = coreElement.getMandatoryFirstOf("determinerPlural").getTextContent();
+				
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.tipName = coreElement.getMandatoryFirstOf("tipName").getTextContent();
+				this.tipNamePlural = coreElement.getMandatoryFirstOf("tipNamePlural").getTextContent();
+				this.tipDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tipDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tipDescriptorsMasculine").getAllOf("descriptor")) {
+						tipDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.tipDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tipDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tipDescriptorsFeminine").getAllOf("descriptor")) {
+						tipDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.tailTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.tailBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractTailType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
 	}
 
 	public int getDefaultGirth() {
@@ -139,20 +245,20 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		}
 		return Util.intToString(gc.getTailCount())+" "+determinerPlural;
 	}
-
+	
 	@Override
-	public String getTransformName() {
+	public String getTransformationNameOverride() {
 		return transformationName;
 	}
 	
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
 	}
 	
 	@Override
 	public String getName(GameCharacter gc){
-		if(isDefaultPlural() || (gc!=null && gc.getTailCount()!=1)) {
+		if(isDefaultPlural(gc) || (gc!=null && gc.getTailCount()!=1)) {
 			return getNamePlural(gc);
 		} else {
 			return getNameSingular(gc);
@@ -196,7 +302,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	@Override
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+		return coveringType;
 	}
 
 	@Override
@@ -523,6 +629,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthTransformationDescription(GameCharacter owner, boolean positive) {
+		String tailText = "[npc.a_tailGirth] [npc.tail]";
+		if(owner.getTailCount()>1) {
+			tailText = "[npc.tailGirth] [npc.tails]";
+		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(positive) {
 				return UtilText.parse(owner,
@@ -533,7 +643,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow thicker)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows thicker)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 					
 			} else {
@@ -545,7 +655,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 			}
 		}
@@ -559,7 +669,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fluff up and grow bigger)]."
 									:" [npc.tail] suddenly [style.boldGrow(fluffs up and grows bigger)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 					
 			} else {
@@ -571,7 +681,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 			}
 		}
@@ -585,7 +695,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 					
 			} else {
@@ -597,7 +707,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 			}
 		}
@@ -611,7 +721,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 					
 			} else {
@@ -623,7 +733,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 			}
 		}
@@ -637,7 +747,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow larger)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows larger)].")
 							+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 					
 			} else {
@@ -649,7 +759,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldTfGeneric("+tailText+")]!"
 						+ "</p>");
 			}
 		}
@@ -809,5 +919,9 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	@Override
 	public TFModifier getTFModifier() {
 		return this == TailType.NONE ? TFModifier.REMOVAL : getTFTypeModifier(TailType.getTailTypes(race));
+	}
+	
+	public boolean hasSpinneret() {
+		return spinneret;
 	}
 }

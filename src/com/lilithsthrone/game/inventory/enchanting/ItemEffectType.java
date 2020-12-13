@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -60,9 +62,11 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
@@ -453,64 +457,97 @@ public class ItemEffectType {
 	
 	
 	public static AbstractItemEffectType MOTHERS_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Advances pregnancy."),
+			"Advances pregnancy and incubations."),
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			StringBuilder sb = new StringBuilder();
+			boolean effectsObserved = false;
+			
+			sb.append("<p>");
+			sb.append("[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle.");
+
+			Map<SexAreaOrifice, List<AbstractStatusEffect>> incubationEffectMap = Util.newHashMapOfValues(
+					new Value<>(SexAreaOrifice.VAGINA, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_WOMB_1, StatusEffect.INCUBATING_EGGS_WOMB_2, StatusEffect.INCUBATING_EGGS_WOMB_3)),
+					new Value<>(SexAreaOrifice.ANUS, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_STOMACH_1, StatusEffect.INCUBATING_EGGS_STOMACH_2, StatusEffect.INCUBATING_EGGS_STOMACH_3)),
+					new Value<>(SexAreaOrifice.NIPPLE, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_1, StatusEffect.INCUBATING_EGGS_NIPPLES_2, StatusEffect.INCUBATING_EGGS_NIPPLES_3)),
+					new Value<>(SexAreaOrifice.NIPPLE_CROTCH, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_1, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_3)),
+					new Value<>(SexAreaOrifice.SPINNERET, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_SPINNERET_1, StatusEffect.INCUBATING_EGGS_SPINNERET_2, StatusEffect.INCUBATING_EGGS_SPINNERET_3)));
+			
+			for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> entry : incubationEffectMap.entrySet()) {
+				Litter litter = target.getIncubationLitter(entry.getKey());
+				if(litter!=null) {
+					boolean advanced = false;
+					if(target.hasStatusEffect(entry.getValue().get(0))) {
+						target.removeStatusEffect(entry.getValue().get(0));
+						advanced = true;
+					} else if(target.hasStatusEffect(entry.getValue().get(1))){
+						target.removeStatusEffect(entry.getValue().get(1));
+						advanced = true;
+					}
+					if(advanced) {
+						effectsObserved = true;
+						int eggs = litter.getTotalLitterCount();
+						String areaName = entry.getKey().getName(target, true);
+						if(entry.getKey()==SexAreaOrifice.VAGINA) {
+							areaName = "womb";
+						} else if(entry.getKey()==SexAreaOrifice.ANUS) {
+							areaName = "stomach";
+						}
+						sb.append("</br>");
+						if(eggs>1) {
+							sb.append("The eggs being incubated in [npc.namePos] <b>"+areaName+"</b> rapidly mature and get noticeably heavier, letting [npc.herHim] know that they're ");
+						} else {
+							sb.append("The egg being incubated in [npc.namePos] <b>"+areaName+"</b> rapidly matures and gets noticeably heavier, letting [npc.herHim] know that it's ");
+						}
+						if(target.hasStatusEffect(entry.getValue().get(1))) {
+							sb.append("[style.boldYellowLight(advanced to the next stage of incubation)]!");
+						} else {
+							sb.append("now [style.boldYellowLight(ready to be laid)]!");
+						}
+					}
+				}
+			}
+			
 			if(target.isVisiblyPregnant()) {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
-							+ "</p>");
-					
-				} else {
+				if(!target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+					effectsObserved = true;
 					if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
 						target.removeStatusEffect(StatusEffect.PREGNANT_1);
 						
 					} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
 						target.removeStatusEffect(StatusEffect.PREGNANT_2);
 					}
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
+					sb.append("</br>");
+					sb.append("Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
 								+ " After just a moment, the effects come a halt, and [npc.name] [npc.verb(smile)] happily to [npc.herself] as"
-									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy..."
-							+ "</p>");
+									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy...");
 				}
 				
-			} else {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					target.removeStatusEffect(StatusEffect.PREGNANT_0);
-					
-					if(target.isPregnant()) {
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-									+ " A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
-										+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!"
-								+ "</p>");
-						
-					} else {
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-									+ " Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
-									+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all..."
-								+ "</p>");
-					}
+			} else if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				effectsObserved = true;
+				target.removeStatusEffect(StatusEffect.PREGNANT_0);
+				
+				if(target.isPregnant()) {
+					sb.append("</br>");
+					sb.append("A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
+									+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!");
 					
 				} else {
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
-							+ "</p>");
+					sb.append("</br>");
+					sb.append("Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
+								+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all...");
 				}
 			}
+			
+			if(!effectsObserved) {
+				sb.append("Aside from quenching [npc.her] thirst, the liquid doesn't have any effect on [npc.name]...");
+			}
+			
+			sb.append("</p>");
+			
+			return UtilText.parse(target, sb.toString());
 		}
 	};
 	
@@ -550,7 +587,7 @@ public class ItemEffectType {
 				target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 			}
 			if (target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				areasTightened.add("crotch-nipples");
 				target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
@@ -621,7 +658,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.RECENTLY_SMOKED;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1337,7 +1374,7 @@ public class ItemEffectType {
 //			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 //			AbstractStatusEffect se = StatusEffect.LOLLIPOP_SUCKING;
 //			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-//			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+//			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 //				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 //			}
 //			return list;
@@ -1428,7 +1465,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_CAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1449,7 +1486,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_COW_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1470,7 +1507,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1491,7 +1528,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_RAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1512,7 +1549,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_RABBIT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1533,7 +1570,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_BAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1554,7 +1591,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_ALLIGATOR_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1575,7 +1612,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_DEMON;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1596,7 +1633,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_IMP;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1617,7 +1654,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_DOG_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1638,7 +1675,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HARPY;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1659,7 +1696,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HORSE_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1680,7 +1717,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_REINDEER_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1701,7 +1738,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HUMAN;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1722,7 +1759,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_WOLF_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1743,7 +1780,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_FOX_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1764,7 +1801,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_SLIME;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2874,6 +2911,10 @@ public class ItemEffectType {
 					race,
 					new AbstractItemEffectType(null,
 							race.getColour()) {
+						@Override
+						public AbstractRace getAssociatedRace() {
+							return race;
+						}
 						@Override
 						public List<TFModifier> getPrimaryModifiers() {
 							return TFModifier.getTFRacialBodyPartsList();

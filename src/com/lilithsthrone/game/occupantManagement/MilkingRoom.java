@@ -418,7 +418,7 @@ public class MilkingRoom implements XMLSaving {
 					}
 					milkyMilknessSB.append("<br/>"
 								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
-									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
+									+Util.capitaliseSentence(type.getRace().getName(fluid.isFeral()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
 								+"</span>"
 							+ "</div>");
 	

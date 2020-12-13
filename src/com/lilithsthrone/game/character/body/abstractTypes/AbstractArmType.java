@@ -1,14 +1,27 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -18,11 +31,20 @@ import com.lilithsthrone.utils.Util;
  */
 public abstract class AbstractArmType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private String transformationName;
+	
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
+	
+	private boolean allowsFlight;
 	
 	private String name;
 	private String namePlural;
+	private List<String> descriptorsMasculine;
+	private List<String> descriptorsFeminine;
 	
 	private String handName;
 	private String handNamePlural;
@@ -34,14 +56,13 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	private List<String> fingerDescriptorsMasculine;
 	private List<String> fingerDescriptorsFeminine;
 
-	private List<String> descriptorsMasculine;
-	private List<String> descriptorsFeminine;
-	
 	private String armTransformationDescription;
 	private String armBodyDescription;
 	
+	private List<BodyPartTag> armTags;
+	
 	/**
-	 * @param skinType What covers this arm type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this arm type (i.e skin/fur/feather type).
 	 * @param race What race has this arm type.
 	 * @param name The singular name of the arm. This will usually just be "arm" or "wing".
 	 * @param namePlural The plural name of the arm. This will usually just be "arms" or "wings".
@@ -58,7 +79,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	 * @param armTransformationDescription A paragraph describing a character's arms transforming into this arm type. Parsing assumes that the character already has this arm type and associated skin covering.
 	 * @param armBodyDescription A sentence or two to describe this arm type, as seen in the character view screen. It should follow the same format as all of the other entries in the ArmType class.
 	 */
-	public AbstractArmType(AbstractBodyCoveringType skinType,
+	public AbstractArmType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			String name,
 			String namePlural,
@@ -75,11 +96,17 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 			String armTransformationDescription,
 			String armBodyDescription) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
+
+		this.transformationName = null; // Use default race transformation name
+		
+		this.allowsFlight = false;
 		
 		this.name = name;
 		this.namePlural = namePlural;
+		this.descriptorsMasculine = descriptorsMasculine;
+		this.descriptorsFeminine = descriptorsFeminine;
 		
 		this.handName = handName;
 		this.handNamePlural = handNamePlural;
@@ -91,15 +118,114 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		this.fingerDescriptorsMasculine = fingerDescriptorsMasculine;
 		this.fingerDescriptorsFeminine = fingerDescriptorsFeminine;
 		
-		this.descriptorsMasculine = descriptorsMasculine;
-		this.descriptorsFeminine = descriptorsFeminine;
-		
 		this.armTransformationDescription = armTransformationDescription;
 		this.armBodyDescription = armBodyDescription;
+		
+		this.armTags = Util.newArrayListOfValues(BodyPartTag.ARM_STANDARD);
+	}
+	
+	public AbstractArmType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.allowsFlight = Boolean.valueOf(coreElement.getMandatoryFirstOf("allowsFlight").getTextContent());
+
+				this.armTags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						armTags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
+				if(armTags.isEmpty()) {
+					armTags.add(BodyPartTag.ARM_STANDARD);
+				}
+				
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+
+				this.handName = coreElement.getMandatoryFirstOf("handName").getTextContent();
+				this.handNamePlural = coreElement.getMandatoryFirstOf("handNamePlural").getTextContent();
+				this.handDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("handDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("handDescriptorsMasculine").getAllOf("descriptor")) {
+						handDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.handDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("handDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("handDescriptorsFeminine").getAllOf("descriptor")) {
+						handDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+
+				this.fingerName = coreElement.getMandatoryFirstOf("fingerName").getTextContent();
+				this.fingerNamePlural = coreElement.getMandatoryFirstOf("fingerNamePlural").getTextContent();
+				this.fingerDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("fingerDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("fingerDescriptorsMasculine").getAllOf("descriptor")) {
+						fingerDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.fingerDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("fingerDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("fingerDescriptorsFeminine").getAllOf("descriptor")) {
+						fingerDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.armTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.armBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractArmType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
 	}
 	
 	public boolean allowsFlight() {
-		return false;
+		return allowsFlight;
+	}
+
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
 	}
 
 	@Override
@@ -112,7 +238,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return true;
 	}
 
@@ -137,7 +263,7 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 
 	@Override
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+		return coveringType;
 	}
 
 	@Override
@@ -176,7 +302,44 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 			return Util.randomItemFrom(fingerDescriptorsMasculine);
 		}
 	}
-
+	
+	@Override
+	public BodyPartClothingBlock getBodyPartClothingBlock() {
+		if(this.getTags().contains(BodyPartTag.ARM_WINGS_FEATHERED)) {
+			return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(
+							InventorySlot.HAND,
+							InventorySlot.WRIST,
+							InventorySlot.TORSO_OVER,
+							InventorySlot.TORSO_UNDER),
+					Race.HARPY,
+					"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
+					Util.newArrayListOfValues(
+						ItemTag.FITS_FEATHERED_ARM_WINGS,
+						ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE,
+						ItemTag.FITS_ARM_WINGS,
+						ItemTag.FITS_ARM_WINGS_EXCLUSIVE
+					));
+		}
+		if(this.getTags().contains(BodyPartTag.ARM_WINGS_LEATHERY)) {
+			return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(
+							InventorySlot.HAND,
+							InventorySlot.WRIST,
+							InventorySlot.TORSO_OVER,
+							InventorySlot.TORSO_UNDER),
+					Race.BAT_MORPH,
+					"Due to the fact that [npc.nameHasFull] leathery wings instead of arms, only specialist clothing can be worn in this slot.",
+					Util.newArrayListOfValues(
+						ItemTag.FITS_LEATHERY_ARM_WINGS,
+						ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE,
+						ItemTag.FITS_ARM_WINGS,
+						ItemTag.FITS_ARM_WINGS_EXCLUSIVE
+					));
+		}
+		return null;
+	}
+	
 //	@Override
 	public String getBodyDescription(GameCharacter owner) {
 		return UtilText.parse(owner, armBodyDescription);
@@ -190,6 +353,6 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 
 	@Override
 	public List<BodyPartTag> getTags() {
-		return Util.newArrayListOfValues(BodyPartTag.ARM_STANDARD);
+		return armTags;
 	}
 }

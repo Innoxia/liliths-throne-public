@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.race;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -27,10 +37,13 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.WorldRegion;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.4
@@ -39,10 +52,21 @@ import com.lilithsthrone.world.Season;
  */
 public abstract class AbstractSubspecies {
 
+	private boolean mod;
+	private boolean fromExternalFile;
+
 	private boolean mainSubspecies;
 	
 	private int baseSlaveValue;
-
+	private int subspeciesOverridePriority;
+	
+	private boolean shortStature;
+	private boolean bipedalSubspecies;
+	private boolean aquatic;
+	
+	private String applySubspeciesChanges;
+	private String subspeciesWeighting;
+	
 	private String attributeItemId;
 	private String transformativeItemId;
 	
@@ -52,28 +76,37 @@ public abstract class AbstractSubspecies {
 	private String singularFemaleName;
 	private String pluralMaleName;
 	private String pluralFemaleName;
-	private String feralName;
+
+	private String nameHalfDemon;
+	private String namePluralHalfDemon;
+	private String singularMaleNameHalfDemon;
+	private String singularFemaleNameHalfDemon;
+	private String pluralMaleNameHalfDemon;
+	private String pluralFemaleNameHalfDemon;
+	
+	private FeralAttributes feralAttributes;
 	
 	private String statusEffectDescription;
 	private Map<PerkCategory, Integer> perkWeightingFeminine;
 	private Map<PerkCategory, Integer> perkWeightingMasculine;
-	private Map<Attribute, Float> statusEffectAttributeModifiers;
+	private Map<AbstractAttribute, Float> statusEffectAttributeModifiers;
 	private List<String> extraEffects;
 
 	private String bookName;
 	private String bookNamePlural;
+	private String bookIdFolderPath;
 	private String basicDescriptionId;
 	private String advancedDescriptionId;
 	
 	private AbstractRace race;
-	private Colour colour;
 	private SubspeciesPreference subspeciesPreferenceDefault;
 	private String description;
 
-	private boolean aquatic;
-	private LegConfiguration feralConfiguration;
-	
 	// SVGs:
+	private Colour colour;
+	private Colour secondaryColour;
+	private Colour tertiaryColour;
+	
 	protected String pathName;
 	protected String backgroundPathName;
 	
@@ -85,7 +118,10 @@ public abstract class AbstractSubspecies {
 	protected String halfDemonSVGString;
 	protected String demonSVGString;
 	
-	
+	protected String bookPathName;
+	protected String bookSVGString;
+
+	private Map<WorldRegion, SubspeciesSpawnRarity> regionLocations;
 	private Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations;
 	
 	private List<SubspeciesFlag> flags;
@@ -93,7 +129,64 @@ public abstract class AbstractSubspecies {
 	protected static Map<Integer, String> youkoIconMap;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
-	
+
+	public static Map<LegConfiguration, String[]> demonLegConfigurationNames = Util.newHashMapOfValues(
+			new Value<>(LegConfiguration.ARACHNID,
+					new String[] {
+						"demonid",
+						"demonids",
+						"incunid",
+						"succunid",
+						"incunids",
+						"succunids"}),
+			new Value<>(LegConfiguration.BIPEDAL,
+					new String[] {
+						"demon",
+						"demons",
+						"incubus",
+						"succubus",
+						"incubi",
+						"succubi"}),
+			new Value<>(LegConfiguration.CEPHALOPOD,
+					new String[] {
+						"demopus",
+						"demopuses",
+						"incupus",
+						"succupus",
+						"incupuses",
+						"succupuses"}),
+			new Value<>(LegConfiguration.QUADRUPEDAL,
+					new String[] {
+						"demotaur",
+						"demotaurs",
+						"incutaur",
+						"succutaur",
+						"incutaurs",
+						"succutaurs"}),
+			new Value<>(LegConfiguration.TAIL,
+					new String[] {
+						"demomer",
+						"demomers",
+						"incumer",
+						"succumer",
+						"incumers",
+						"succumers"}),
+			new Value<>(LegConfiguration.TAIL_LONG,
+					new String[] {
+						"demomia",
+						"demomias",
+						"incumia",
+						"succumia",
+						"incumias",
+						"succumias"}),
+			new Value<>(LegConfiguration.AVIAN,
+					new String[] {
+						"demoa",
+						"demoas",
+						"incumoa",
+						"succumoa",
+						"incumoas",
+						"succumoas"}));
 	
 	static {
 		youkoIconMap = new HashMap<>();
@@ -165,9 +258,9 @@ public abstract class AbstractSubspecies {
 			String singularFemaleName,
 			String pluralMaleName,
 			String pluralFemaleName,
-			String feralName,
+			FeralAttributes feralAttributes,
 			String statusEffectDescription,
-			Map<Attribute, Float> statusEffectAttributeModifiers,
+			Map<AbstractAttribute, Float> statusEffectAttributeModifiers,
 			List<String> extraEffects,
 			String bookName,
 			String bookNamePlural,
@@ -179,12 +272,18 @@ public abstract class AbstractSubspecies {
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
 			String description,
+			Map<WorldRegion, SubspeciesSpawnRarity> regionLocations,
 			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations,
 			List<SubspeciesFlag> flags) {
 		
 		this.mainSubspecies = mainSubspecies;
 		
 		this.baseSlaveValue = baseSlaveValue;
+		this.subspeciesOverridePriority = 0;
+		
+		this.aquatic = false;
+		this.shortStature = false;
+		this.bipedalSubspecies = true;
 		
 		this.attributeItemId = attributeItemId;
 		this.transformativeItemId = transformativeItemId;
@@ -198,8 +297,8 @@ public abstract class AbstractSubspecies {
 		this.pluralMaleName = pluralMaleName;
 		this.pluralFemaleName = pluralFemaleName;
 		
-		this.feralName = feralName;
-
+		this.feralAttributes = feralAttributes;
+		
 		this.statusEffectDescription = statusEffectDescription;
 		
 		this.statusEffectAttributeModifiers = statusEffectAttributeModifiers;
@@ -227,14 +326,24 @@ public abstract class AbstractSubspecies {
 		this.bookName = bookName;
 		this.bookNamePlural = bookNamePlural;
 		
+		this.bookIdFolderPath = "";
 		this.basicDescriptionId = basicDescription;
 		this.advancedDescriptionId = advancedDescription;
+
+		this.colour = colour;
+		this.secondaryColour = colour;
+		this.tertiaryColour = colour;
 		
 		this.race = race;
-		this.colour = colour;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;
 		this.description = description;
-
+		
+		if(regionLocations == null) {
+			this.regionLocations = new HashMap<>();
+		} else {
+			this.regionLocations = regionLocations;
+		}
+		
 		if(worldLocations == null) {
 			this.worldLocations = new HashMap<>();
 		} else {
@@ -247,13 +356,170 @@ public abstract class AbstractSubspecies {
 			this.flags = flags;
 		}
 		
-		this.aquatic = false;
-		this.feralConfiguration = null;
-		
-		this.pathName = pathName;
-		this.backgroundPathName = backgroundPathName;
+		this.pathName = "/com/lilithsthrone/res/" + pathName;
+		this.bookPathName = "/com/lilithsthrone/res/" + pathName;
+		this.backgroundPathName = "/com/lilithsthrone/res/" + backgroundPathName;
 		this.SVGString = null;
 	}
+	
+	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+				
+				this.mod = mod;
+				this.fromExternalFile = true;
+
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				
+				this.colour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("colour").getTextContent());
+				this.secondaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("secondaryColour").getTextContent());
+				this.tertiaryColour = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent());
+				
+				this.mainSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("mainSubspecies").getTextContent());
+				this.baseSlaveValue = Integer.valueOf(coreElement.getMandatoryFirstOf("baseSlaveValue").getTextContent());
+
+				this.attributeItemId = coreElement.getMandatoryFirstOf("attributeItemId").getTextContent();
+				if(this.attributeItemId.isEmpty()) {
+					this.attributeItemId = "innoxia_race_human_vanilla_water";
+				}
+				
+				this.transformativeItemId = coreElement.getMandatoryFirstOf("transformativeItemId").getTextContent();
+				if(this.transformativeItemId.isEmpty()) {
+					this.transformativeItemId = "innoxia_race_human_bread_roll";
+				}
+				
+				this.subspeciesOverridePriority = Integer.valueOf(coreElement.getMandatoryFirstOf("subspeciesOverridePriority").getTextContent());
+				
+				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
+				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
+				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
+				
+				this.applySubspeciesChanges = coreElement.getMandatoryFirstOf("applySubspeciesChanges").getTextContent();
+				this.subspeciesWeighting = coreElement.getMandatoryFirstOf("subspeciesWeighting").getTextContent();
+				
+				this.pathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("iconName").getTextContent();
+				this.backgroundPathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("backgroundName").getTextContent();
+				if(this.backgroundPathName.isEmpty()) {
+					this.backgroundPathName = "/com/lilithsthrone/res/statusEffects/race/raceBackground";
+				}
+				this.SVGString = null;
+				
+				this.bookPathName = XMLFile.getParentFile().getAbsolutePath() + "/" + coreElement.getMandatoryFirstOf("bookIconName").getTextContent();
+				
+				this.bookName = coreElement.getMandatoryFirstOf("bookName").getTextContent();
+				this.bookNamePlural = bookName; // There is no need for a plural
+				
+				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath() + "/";
+				this.basicDescriptionId = coreElement.getMandatoryFirstOf("basicDescriptionId").getTextContent();
+				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();
+				
+				this.subspeciesPreferenceDefault = SubspeciesPreference.valueOf(coreElement.getMandatoryFirstOf("defaultPreference").getTextContent());
+				
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				this.singularMaleName = coreElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+				this.singularFemaleName = coreElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+				this.pluralMaleName = coreElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+				this.pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+
+				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
+				
+				this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
+				this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
+				this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
+				this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
+				this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
+				this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+				
+				this.feralAttributes = null;
+				if(coreElement.getOptionalFirstOf("feralAttributes").isPresent()
+						&& coreElement.getMandatoryFirstOf("feralAttributes").getOptionalFirstOf("feralName").isPresent()) {
+					try {
+						Element feralElement = coreElement.getMandatoryFirstOf("feralAttributes");
+						this.feralAttributes = new FeralAttributes(
+								feralElement.getMandatoryFirstOf("feralName").getTextContent(),
+								feralElement.getMandatoryFirstOf("feralNamePlural").getTextContent(),
+								feralElement.getMandatoryFirstOf("feralSingularMaleName").getTextContent(),
+								feralElement.getMandatoryFirstOf("feralSingularFemaleName").getTextContent(),
+								feralElement.getMandatoryFirstOf("feralPluralMaleName").getTextContent(),
+								feralElement.getMandatoryFirstOf("feralPluralFemaleName").getTextContent(),
+
+								LegConfiguration.valueOf(feralElement.getMandatoryFirstOf("legConfiguration").getTextContent()),
+								Boolean.valueOf(coreElement.getMandatoryFirstOf("sizeHeight").getTextContent()),
+								Integer.valueOf(coreElement.getMandatoryFirstOf("size").getTextContent()),
+
+								Integer.valueOf(coreElement.getMandatoryFirstOf("breastRowCount").getTextContent()),
+								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerBreastCount").getTextContent()),
+								Integer.valueOf(coreElement.getMandatoryFirstOf("crotchBreastRowCount").getTextContent()),
+								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerCrotchBreastCount").getTextContent()),
+
+								Boolean.valueOf(coreElement.getMandatoryFirstOf("armsOrWingsPresent").getTextContent()),
+								Boolean.valueOf(coreElement.getMandatoryFirstOf("fingerActionsAvailable").getTextContent()),
+								Boolean.valueOf(coreElement.getMandatoryFirstOf("hairPresent").getTextContent()));
+					} catch(Exception ex) {
+						System.err.println("Error in AbstractSubspecies loading: feralAttributes failed to initialise!<br/>"+ex.getMessage());
+					}
+				}
+
+				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
+				
+				this.statusEffectAttributeModifiers = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("statusEffectAttributeModifiers").getAllOf("attribute")) {
+					statusEffectAttributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
+				}
+				this.statusEffectAttributeModifiers.entrySet().removeIf((entry) -> entry.getValue()==0);
+				
+				this.perkWeightingFeminine = new HashMap<>();
+				this.perkWeightingMasculine = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("perkWeightings").getAllOf("category")) {
+					PerkCategory cat = PerkCategory.valueOf(e.getTextContent());
+					perkWeightingFeminine.put(cat, Integer.valueOf(e.getAttribute("feminineWeighting")));
+					perkWeightingMasculine.put(cat, Integer.valueOf(e.getAttribute("masculineWeighting")));
+				}
+				
+				this.extraEffects = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("extraEffects").getAllOf("effect")) {
+					extraEffects.add(e.getTextContent());
+				}
+
+				this.regionLocations = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("regionLocations").getAllOf("region")) {
+					regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+				}
+				
+				this.worldLocations = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("worldLocations").getAllOf("world")) {
+					worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+				}
+				
+				this.flags = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("flags").getAllOf("flag")) {
+					flags.add(SubspeciesFlag.valueOf(e.getTextContent()));
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractSubspecies was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
 	
 	@Override
 	public String toString() {
@@ -265,6 +531,10 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
+		if(this.isFromExternalFile() && Main.game.isStarted()) {
+			UtilText.setBodyForParsing("targetedBody", body);
+			UtilText.parse(applySubspeciesChanges);
+		}
 	}
 
 	/**
@@ -300,14 +570,25 @@ public abstract class AbstractSubspecies {
 	 * @param race The race of the body being checked.
 	 * @return 0 if this Subspecies' requirements are not met by the supplied body/race. Typically return 100 if they are met, or something higher if the Subspecies should have a higher priority.
 	 */
-	public abstract int getSubspeciesWeighting(Body body, AbstractRace race);
+	public int getSubspeciesWeighting(Body body, AbstractRace race) {
+		if(this.isFromExternalFile() && Main.game.isStarted()) {
+			UtilText.setBodyForParsing("targetedBody", body);
+			UtilText.setRaceForParsing("targetedRace", race);
+//			if(race==Race.HUMAN) {
+//				new IllegalArgumentException().printStackTrace();
+//			}
+			return Integer.valueOf(UtilText.parse(subspeciesWeighting.trim()));
+		}
+		return 0;
+	}
 	
 	public static AbstractSubspecies getSubspeciesFromBody(Body body, AbstractRace race) {
 		AbstractSubspecies subspecies = null;
 		
 		int highestWeighting = 0;
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-			if(sub.getSubspeciesWeighting(body, race)>highestWeighting) {
+			if(sub.getSubspeciesWeighting(body, race)>highestWeighting
+					&& (!body.isFeral() || sub.isFeralConfigurationAvailable())) {
 				subspecies = sub;
 				highestWeighting = sub.getSubspeciesWeighting(body, race);
 			}
@@ -507,15 +788,15 @@ public abstract class AbstractSubspecies {
 	}
 	
 	public boolean isShortStature() {
-		return false;
+		return shortStature;
 	}
 	
 	public boolean isNonBiped() {
-		return false;
+		return !bipedalSubspecies;
 	}
 	
 	/**
-	 * @return true if this SUbspecies is able to self-transform. Race.isAbleToSelfTransform() is factored into this.
+	 * @return true if this Subspecies is able to self-transform. Race.isAbleToSelfTransform() is factored into this.
 	 */
 	public boolean isAbleToSelfTransform() {
 		return this.getRace().isAbleToSelfTransform();
@@ -532,6 +813,7 @@ public abstract class AbstractSubspecies {
 	 */
 	public AbstractItemType getAttributeItem(GameCharacter owner) {
 		if(getAttributeItemId()==null || getAttributeItemId().isEmpty()) {
+//			System.err.println("Warning: AbstractSubspecies is calling getAttributeItem() where attributeItemId does not exist!");
 			return null;	
 		}
 		return ItemType.getItemTypeFromId(getAttributeItemId());
@@ -546,6 +828,7 @@ public abstract class AbstractSubspecies {
 	 */
 	public AbstractItemType getTransformativeItem(GameCharacter owner) {
 		if(getTransformativeItemId()==null || getTransformativeItemId().isEmpty()) {
+//			System.err.println("Warning: AbstractSubspecies is calling getTransformativeItem() where transformativeItemId does not exist!");
 			return null;	
 		}
 		return ItemType.getItemTypeFromId(getTransformativeItemId());
@@ -565,17 +848,19 @@ public abstract class AbstractSubspecies {
 	 *  <br/>A Subspecies which has a higher value than a character's current Subspecies Override will replace the current Override with this one.
 	 */
 	public int getSubspeciesOverridePriority() {
-		return 0;
+		return subspeciesOverridePriority;
 	}
 	
 	private String getTaurEnding() {
-		return feralName.charAt(feralName.length()-1)=='t'?"-taur":"taur";
+		return getFeralName(null).charAt(getFeralName(null).length()-1)=='t'?"-taur":"taur";
 	}
 	
 	protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
 		switch(character.getLegConfiguration()) {
 			case ARACHNID:
 				return baseName+"-arachne"+(plural?"s":"");
+			case AVIAN:
+				return baseName+"-moa"+(plural?"s":"");
 			case BIPEDAL:
 				break;
 			case CEPHALOPOD:
@@ -595,8 +880,13 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), false, false);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralName();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+			}
 		}
 		return name;
 	}
@@ -606,8 +896,13 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), false, true);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralNamePlural();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			}
 		}
 		return namePlural;
 	}
@@ -617,8 +912,13 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), false, false);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralSingularMaleName();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
+			}
 		}
 
 		if(Main.game.isSillyModeEnabled() && character!=null) {
@@ -638,8 +938,13 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), true, false);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralSingularFemaleName();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, false);
+			}
 		}
 		
 		if(Main.game.isSillyModeEnabled() && character!=null) {
@@ -660,8 +965,13 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), false, true);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralPluralMaleName();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			}
 		}
 		return pluralMaleName;
 	}
@@ -671,21 +981,41 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(GameCharacter character) {
-		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-			return applyNonBipedNameChange(character, getFeralName(character), false, true);
+		if(character!=null && this.isFeralConfigurationAvailable()) {
+			if(character.isFeral()) {
+				return getFeralAttributes().getFeralPluralFemaleName();
+			}
+			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+			}
 		}
 		return pluralFemaleName;
 	}
 
+	public String getNonBipedRaceName(GameCharacter character) {
+		return getFeralName(character);
+	}
+	
 	public String getFeralName(GameCharacter character) {
-		return feralName;
+		if(isFeralConfigurationAvailable()) {
+			return getFeralAttributes().getFeralName();
+		}
+		return name;
+	}
+
+	public FeralAttributes getFeralAttributes() {
+		return feralAttributes;
+	}
+	
+	public boolean isFeralConfigurationAvailable() {
+		return getFeralAttributes()!=null;
 	}
 
 	public String getStatusEffectDescription(GameCharacter character) {
 		return UtilText.parse(character, statusEffectDescription);
 	}
 
-	public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+	public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
 		return statusEffectAttributeModifiers;
 	}
 
@@ -700,13 +1030,18 @@ public abstract class AbstractSubspecies {
 		if(character!=null) {
 			List<String> effectsModified = new ArrayList<>(extraEffects);
 			
-			int landSpeed = character.getLegConfiguration().getLandSpeedModifier();
-			int waterSpeed =  character.getLegConfiguration().getWaterSpeedModifier();
+			int landSpeed = character.getLandSpeedModifier();
+			int waterSpeed =  character.getWaterSpeedModifier();
 			if(landSpeed!=0) {
 				effectsModified.add((landSpeed<0?"[style.boldExcellent("+landSpeed+"%)]":"[style.boldTerrible(+"+landSpeed+"%)]")+" travel time on land");
 			}
 			if(waterSpeed!=0) {
 				effectsModified.add((waterSpeed<0?"[style.boldExcellent("+waterSpeed+"%)]":"[style.boldTerrible(+"+waterSpeed+"%)]")+" travel time in water");
+			}
+			
+			if(character.getLegConfiguration()==LegConfiguration.TAIL) {
+				effectsModified.add("[style.boldTan(Grows legs on land)]");
+				effectsModified.add("[style.boldBlueLight(Loses legs in water)]");
 			}
 			
 			return effectsModified;
@@ -723,10 +1058,16 @@ public abstract class AbstractSubspecies {
 	}
 
 	public String getBasicDescription(GameCharacter character) {
+		if(this.isFromExternalFile()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
+		if(this.isFromExternalFile()) {
+			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
 	
@@ -742,7 +1083,7 @@ public abstract class AbstractSubspecies {
 		return race;
 	}
 
-	public Attribute getDamageMultiplier() {
+	public AbstractAttribute getDamageMultiplier() {
 		return getRace().getDefaultDamageMultiplier();
 	}
 	
@@ -758,84 +1099,141 @@ public abstract class AbstractSubspecies {
 		return description;
 	}
 	
-	public boolean isAquatic() {
-		return aquatic;
+	/**
+	 * @param character The character being checked
+	 * @return true if the supplied character has a LegConfiguration of type TAIL, or if the aquatic variable is set to true.
+	 */
+	public boolean isAquatic(GameCharacter character) {
+		if(character==null) {
+			return aquatic;
+		}
+		return aquatic || character.getLegConfiguration()==LegConfiguration.TAIL;
 	}
 
-	public LegConfiguration getFeralConfiguration() {
-		return feralConfiguration;
-	}
-
-	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {//TODO - when support other body types, add different backgrounds
+	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {
 		String returnString = svg;
 		
 		if(character!=null) {
-			String backgroundPath = character.getLegConfiguration().getSubspeciesStatusEffectBackgroundPath();
-			if(!backgroundPath.isEmpty()) {
+			//character.isTorsoFeral() 
+			if(character.isFeral() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive())) {
 				try {
-					String SVGStringLegConfigurationBackground = "";
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"+backgroundPath+".svg");
-					SVGStringLegConfigurationBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+					String feralBackground = "";
+					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFeral.svg");
+					feralBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
-					SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
+					feralBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"FERAL",
 							colour,
 							colour,
 							colour,
-							SVGStringLegConfigurationBackground);
+							feralBackground);
 					
-					returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
+					returnString = returnString + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + feralBackground +"</div>";
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-		}
-		if(character!=null && (character.isTorsoBestial() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive()))) {
-			try {
-				String feralBackground = "";
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFeral.svg");
-				feralBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
-				is.close();
-				feralBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"FERAL",
-						colour,
-						colour,
-						colour,
-						feralBackground);
 				
-				returnString = returnString + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + feralBackground +"</div>";
-			} catch (IOException e) {
-				e.printStackTrace();
+			} else {
+				String backgroundPath = character.getLegConfiguration().getSubspeciesStatusEffectBackgroundPath();
+				if(!backgroundPath.isEmpty()) {
+					try {
+						String SVGStringLegConfigurationBackground = "";
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"+backgroundPath+".svg");
+						SVGStringLegConfigurationBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+						is.close();
+						SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
+								colour,
+								colour,
+								colour,
+								SVGStringLegConfigurationBackground);
+						returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return returnString;
 	}
+
+	protected void initBookSVGString() {
+		try {
+			if(this.isFromExternalFile()) {
+				List<String> lines = Files.readAllLines(Paths.get(bookPathName + ".svg"));
+				StringBuilder sb = new StringBuilder();
+				for(String line : lines) {
+					sb.append(line);
+				}
+				bookSVGString = sb.toString();
+				
+			} else {
+				InputStream is = this.getClass().getResourceAsStream(bookPathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies book icon file does not exist (Trying to read from '"+bookPathName+"')! (Code 1)");
+				}
+				bookSVGString = Util.inputStreamToString(is);
+				is.close();
+			}
+			
+			bookSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
+					colour,
+					secondaryColour,
+					tertiaryColour,
+					"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+bookSVGString+"</div>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	private void initSVGStrings() {
+	protected void initSVGStrings() {
 		if(pathName!=null) {
 			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
-				if(is==null) {
-					System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+pathName+"')! (Code 1)");
-				}
-				SVGStringUncoloured = Util.inputStreamToString(is);
-				
-				is.close();
-				
-				String SVGStringBackground = "";
-				if(!backgroundPathName.isEmpty()) {
-					is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + backgroundPathName + ".svg");
-					if(is==null) {
-						System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
+				if(this.isFromExternalFile()) {
+					List<String> lines = Files.readAllLines(Paths.get(pathName+".svg"));
+					StringBuilder sb = new StringBuilder();
+					for(String line : lines) {
+						sb.append(line);
 					}
-					SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+					SVGStringUncoloured = sb.toString();
+					SVGStringUncoloured = "<div style='width:80%;height:80%;position:absolute;left:10%;bottom:10%;'>"+SVGStringUncoloured+"</div>";
 					
+				} else {
+					InputStream is = this.getClass().getResourceAsStream(pathName + ".svg");
+					if(is==null) {
+						System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+pathName+"')! (Code 1)");
+					}
+					SVGStringUncoloured = Util.inputStreamToString(is);
 					is.close();
 				}
 				
+				
+				String SVGStringBackground = "";
 
+				if(this.isFromExternalFile()) {
+					List<String> lines = Files.readAllLines(Paths.get(backgroundPathName+".svg"));
+					StringBuilder sb = new StringBuilder();
+					for(String line : lines) {
+						sb.append(line);
+					}
+					SVGStringBackground = sb.toString();
+					
+				} else {
+					if(!backgroundPathName.isEmpty()) {
+						InputStream is = this.getClass().getResourceAsStream(backgroundPathName + ".svg");
+						if(is==null) {
+							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
+						}
+						SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+						
+						is.close();
+					}
+				}
+				
+				initBookSVGString();
+				
 				SVGStringNoBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						colour,
-						colour,
+						secondaryColour,
+						tertiaryColour,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringUncoloured = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>";
@@ -869,8 +1267,8 @@ public abstract class AbstractSubspecies {
 				
 				SVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						colour,
-						colour,
+						secondaryColour,
+						tertiaryColour,
 						SVGStringUncoloured);
 				
 			} catch (IOException e) {
@@ -882,6 +1280,13 @@ public abstract class AbstractSubspecies {
 		}
 	}
 	
+	public String getBookSVGString() {
+		if(bookSVGString==null) {
+			initBookSVGString();
+		}
+		return bookSVGString;
+	}
+
 	public String getSVGString(GameCharacter character) {
 		if(SVGString==null) {
 			initSVGStrings();
@@ -921,10 +1326,22 @@ public abstract class AbstractSubspecies {
 		}
 	}
 
+	public Map<WorldRegion, SubspeciesSpawnRarity> getRegionLocations() {
+		return regionLocations;
+	}
+
 	public Map<AbstractWorldType, SubspeciesSpawnRarity> getWorldLocations() {
 		return worldLocations;
 	}
-
+	
+	/**
+	 * @param worldType
+	 * @return true if this subspecies is able to spawn in the worldType, either due to having a spawn chance in that worldType directly, or in the WorldRegion in which that worldType is located.
+	 */
+	public boolean isAbleToNaturallySpawnInLocation(AbstractWorldType worldType) {
+		return getRegionLocations().containsKey(worldType.getWorldRegion()) || getWorldLocations().containsKey(worldType);
+	}
+	
 	public List<SubspeciesFlag> getFlags() {
 		return flags;
 	}
@@ -948,17 +1365,29 @@ public abstract class AbstractSubspecies {
 		if(this.getRace()==Race.DEMON
 				|| this.getRace()==Race.ELEMENTAL
 				|| this.getRace()==Race.HUMAN) {
+			
+			String[] demonNames = demonLegConfigurationNames.get(character.getLegConfiguration());
+			
 			names = new String[] {
-				"half-demon",
-				"half-demons",
-				"half-incubus",
-				"half-succubus",
-				"half-incubi",
-				"half-succubi"};	
+				"half-"+demonNames[0],
+				"half-"+demonNames[1],
+				"half-"+demonNames[2],
+				"half-"+demonNames[3],
+				"half-"+demonNames[4],
+				"half-"+demonNames[5]};	
 		}
 		
 		if(names==null) {
-			if(character==null) {
+			if(this.isFromExternalFile() && this.nameHalfDemon!=null && !this.nameHalfDemon.isEmpty()) {
+				names = new String[] {
+						nameHalfDemon,
+						namePluralHalfDemon,
+						singularMaleNameHalfDemon,
+						singularFemaleNameHalfDemon,
+						pluralMaleNameHalfDemon,
+						pluralFemaleNameHalfDemon};
+				
+			} else if(character==null) {
 				names = new String[] {
 						"demonic-"+name,
 						"demonic-"+namePlural,

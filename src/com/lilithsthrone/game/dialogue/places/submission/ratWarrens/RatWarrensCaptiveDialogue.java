@@ -654,13 +654,19 @@ public class RatWarrensCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().isPregnant()) {
 				if(index==1) {
-					return new Response("Birthing", "Murk notices that you're ready to give birth...", CAPTIVE_GIVE_BIRTH) {
+					return new Response("Wait", "Wait for Murk to return...", CAPTIVE_GIVE_BIRTH) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
 							Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
 							
 							Main.game.getPlayer().endPregnancy(true);
+							boolean eggs = !Main.game.getPlayer().getIncubatingLitters().isEmpty();
+							if(eggs) {
+								for(SexAreaOrifice orifice : new ArrayList<>(Main.game.getPlayer().getIncubatingLitters().keySet())) {
+									Main.game.getPlayer().endIncubationPregnancy(orifice, true);
+								}
+							}
 							Main.game.getPlayer().setMana(0);
 							
 							if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
@@ -672,6 +678,30 @@ public class RatWarrensCaptiveDialogue {
 							
 							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) { // If birthing side quest is not complete, remove it, as otherwise completion (referencing Lily) doesn't make any sense.
 								Main.game.getPlayer().removeQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+							}
+							if(eggs && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+								Main.game.getPlayer().removeQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION);
+							}
+						}
+					};
+				}
+				
+			} else if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+				if(index==1) {
+					return new Response("Wait", "Wait for Murk to return...", CAPTIVE_LAY_EGGS) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
+							Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
+							
+							Main.game.getPlayer().endPregnancy(true);
+							for(SexAreaOrifice orifice : new ArrayList<>(Main.game.getPlayer().getIncubatingLitters().keySet())) {
+								Main.game.getPlayer().endIncubationPregnancy(orifice, true);
+							}
+							Main.game.getPlayer().setMana(0);
+							
+							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) { // If birthing side quest is not complete, remove it, as otherwise completion (referencing Lily) doesn't make any sense.
+								Main.game.getPlayer().removeQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION);
 							}
 						}
 					};
@@ -2684,7 +2714,7 @@ public class RatWarrensCaptiveDialogue {
 			return null;
 		}
 	};
-
+	
 	public static final DialogueNode CAPTIVE_GIVE_BIRTH_FINISHED = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
@@ -2700,6 +2730,63 @@ public class RatWarrensCaptiveDialogue {
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED", getCharacters(false)));
+			sb.append(CAPTIVE_NIGHT.getContent());
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return CAPTIVE_NIGHT.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode CAPTIVE_LAY_EGGS = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
+			Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 1*60*60;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_LAY_EGGS"));
+			
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Rest", "You spend some time recovering from your ordeal...", CAPTIVE_LAY_EGGS_FINISHED) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Silence.class).returnToHome();
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode CAPTIVE_LAY_EGGS_FINISHED = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+			Main.game.getNpc(Silence.class).returnToHome();
+			Main.game.getNpc(Shadow.class).returnToHome();
+		}
+		@Override
+		public int getSecondsPassed() {
+			return Main.game.getMinutesUntilTimeInMinutes(8*60)*60;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_LAY_EGGS_INITIAL_FINISHED", getCharacters(false)));
 			sb.append(CAPTIVE_NIGHT.getContent());
 			return sb.toString();
 		}

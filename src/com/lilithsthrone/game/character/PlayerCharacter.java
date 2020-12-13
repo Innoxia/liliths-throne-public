@@ -485,26 +485,30 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
 								questString = "MAIN_1_E_REPORT_TO_HELENA";
 							}
-							Quest quest = Quest.valueOf(questString);
-							List<Quest> questList = new ArrayList<>();
-							
-							int questIncrement=0;
-							while(!questString.isEmpty()) {
-								quest = Quest.valueOf(questString);
-
-								questList.add(quest);
+							try {
+								Quest quest = Quest.valueOf(questString);
+								List<Quest> questList = new ArrayList<>();
 								
-								questIncrement++;
-								questString = e.getAttribute("q"+questIncrement);
-								if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
-									questString = "MAIN_1_E_REPORT_TO_HELENA";
+								int questIncrement=0;
+								while(!questString.isEmpty()) {
+									quest = Quest.valueOf(questString);
+	
+									questList.add(quest);
+									
+									questIncrement++;
+									questString = e.getAttribute("q"+questIncrement);
+									if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
+										questString = "MAIN_1_E_REPORT_TO_HELENA";
+									}
 								}
+								
+								character.quests.put(
+										questLine,
+										questList);
+							} catch(Exception ex) {
+								System.out.println("Error in PlayerCharacter loading: QuestLine failed to load: "+questString);
+								ex.printStackTrace();
 							}
-							
-							character.quests.put(
-									questLine,
-									questList);
-							
 						}
 					}
 				}
@@ -693,10 +697,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	protected void updateAttributeListeners() {
-		if (playerAttributeChangeEventListeners != null)
-			for (CharacterChangeEventListener eventListener : playerAttributeChangeEventListeners)
+	public void updateAttributeListeners(boolean requiresStatusEffectUpdate) {
+		if (playerAttributeChangeEventListeners != null) {
+			for (CharacterChangeEventListener eventListener : playerAttributeChangeEventListeners) {
 				eventListener.onChange();
+			}
+		}
+		if(requiresStatusEffectUpdate) {
+//			if(Main.game.isStarted() && this.getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP) {
+//				throw new IllegalArgumentException();
+//			}
+			requiresAttributeStatusEffectCheck = true;
+		}
 	}
 
 	@Override
@@ -708,9 +720,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	public void updateInventoryListeners() {
-		if (playerInventoryChangeEventListeners != null)
-			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners)
+		if (playerInventoryChangeEventListeners != null) {
+			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners) {
 				eventListener.onChange();
+			}
+		}
+		requiresInventoryStatusEffectCheck = true;
 	}
 	
 	@Override
@@ -1340,6 +1355,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
+	public boolean isAbleToBeEgged() {
 		return true;
 	}
 	

@@ -356,6 +356,73 @@ public enum RaceStage {
 		public boolean isTentacleFurry() {
 			return true;
 		}
+	},
+	
+	FERAL("feral", PresetColour.RACE_BESTIAL) {
+		@Override
+		public boolean isAntennaFurry() {
+			return true;
+		}
+		@Override
+		public boolean isArmFurry() {
+			return true;
+		}
+		@Override
+		public boolean isAssFurry() {
+			return true;
+		}
+		@Override
+		public boolean isBreastFurry() {
+			return true;
+		}
+		@Override
+		public boolean isEarFurry() {
+			return true;
+		}
+		@Override
+		public boolean isEyeFurry() {
+			return true;
+		}
+		@Override
+		public boolean isFaceFurry() {
+			return true;
+		}
+		@Override
+		public boolean isHairFurry() {
+			return true;
+		}
+		@Override
+		public boolean isHornFurry() {
+			return true;
+		}
+		@Override
+		public boolean isLegFurry() {
+			return true;
+		}
+		@Override
+		public boolean isPenisFurry() {
+			return true;
+		}
+		@Override
+		public boolean isSkinFurry() {
+			return true;
+		}
+		@Override
+		public boolean isTailFurry() {
+			return true;
+		}
+		@Override
+		public boolean isVaginaFurry() {
+			return true;
+		}
+		@Override
+		public boolean isWingFurry() {
+			return true;
+		}
+		@Override
+		public boolean isTentacleFurry() {
+			return true;
+		}
 	};
 
 	private String name;

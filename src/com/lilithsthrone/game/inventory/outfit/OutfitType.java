@@ -130,7 +130,7 @@ public enum OutfitType {
 					String id = innerEntry.getKey();
 					outfitsToIdMap.put(ct, id);
 					idToOutfitMap.put(id, ct);
-					System.out.println("OT: "+innerEntry.getKey());
+//					System.out.println("OT: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading outfit failed at 'OutfitType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");

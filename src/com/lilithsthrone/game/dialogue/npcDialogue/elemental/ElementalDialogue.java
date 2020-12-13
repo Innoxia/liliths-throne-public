@@ -343,7 +343,7 @@ public class ElementalDialogue {
 			List<Response> responses = new ArrayList<>();
 			List<AbstractSubspecies> subspecies = new ArrayList<>();
 			subspecies.addAll(Subspecies.getAllSubspecies());
-			subspecies.removeIf(s -> !s.getRace().isBestialPartsAvailable());
+			subspecies.removeIf(s -> !s.getRace().isFeralPartsAvailable());
 			subspecies.removeIf(s -> s.getRace()==Race.DEMON || s.getRace()==Race.ELEMENTAL || s.getRace()==Race.SLIME);
 			subspecies.removeIf(s -> s.isNonBiped()); // Otherwise centaurs get added as well as horse-morphs
 			

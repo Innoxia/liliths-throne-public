@@ -59,6 +59,6 @@ public interface BodyPartInterface {
 	/**
 	 * @return true if this part is (near enough to) 100% animal-like, with no anthropomorphic qualities at all. This will almost certainly only ever be seen on feral characters or characters who have a non-bipedal body.
 	 */
-	public boolean isBestial(GameCharacter owner);
+	public boolean isFeral(GameCharacter owner);
 	
 }

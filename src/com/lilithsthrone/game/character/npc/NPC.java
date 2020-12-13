@@ -997,6 +997,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public boolean isAbleToBeImpregnated() {
 		return false;
 	}
+	
+	/**
+	 * By default, NPCs can be implanted with eggs if they are a non-unique character, or if the player owns them (as a slave).
+	 */
+	@Override
+	public boolean isAbleToBeEgged() {
+		return !this.isUnique() || (this.isSlave() && this.getOwner().isPlayer());
+	}
 
 	public boolean hasFlag(NPCFlagValue flag) {
 		return NPCFlagValues.contains(flag);
@@ -1057,6 +1065,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return this.getGender()!=this.getGenderIdentity()
 				&& !(this.isElemental())
 				&& !this.isPregnant()
+				&& this.getIncubatingLitters().isEmpty()
 				&& !this.isUnique()
 				&& !this.isSlave()
 				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
@@ -1621,13 +1630,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(target.getHairRawLengthValue() < body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too short!"));
+				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too long!"));
+				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
 
@@ -2567,6 +2576,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return wantingToEquip;
 	}
 
+	public boolean isWantingToEquipCondomOnPartner(GameCharacter partner) {
+		if(!partner.hasPenisIgnoreDildo()) {
+			return false;
+		}
+		return this.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative() || (this.hasVagina() && !this.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive());
+	}
+
 	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
 		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
 			if(this.hasPenisIgnoreDildo()
@@ -2598,6 +2614,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(this.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
 						if((this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() || this.getHistory()==Occupation.NPC_PROSTITUTE)
 								&& !this.isPregnant()
+								&& !this.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.getItemTypeFromId("innoxia_pills_sterility"))) {
@@ -2612,6 +2629,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& this.hasVagina()
 								&& partner.hasPenisIgnoreDildo()
 								&& !this.isPregnant()
+								&& !this.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) // Do not want to get pregnant from rape unless they have the fetish
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_fertility"))
@@ -2629,6 +2647,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(this.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
 								&& !partner.isPregnant()
+								&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
 								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.getItemTypeFromId("innoxia_pills_sterility"))) {
@@ -2643,6 +2662,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& partner.hasVagina()
 								&& this.hasPenisIgnoreDildo()
 								&& !partner.isPregnant()
+								&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) // Do not want to impregnate during rape unless they have the fetish
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_fertility"))
@@ -2663,6 +2683,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if(!Main.sex.getItemUseDenials(this, partner).contains(ItemType.getItemTypeFromId("innoxia_pills_sterility"))) {
 							if((this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() || this.getHistory()==Occupation.NPC_PROSTITUTE)
 									&& !partner.isPregnant()
+									&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 									&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 									&& !partner.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 									&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
@@ -2691,6 +2712,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						}
 						if((this.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive() && this.getHistory()!=Occupation.NPC_PROSTITUTE)
 								&& !partner.isPregnant()
+								&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 								&& !partner.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_fertility"))
@@ -2722,6 +2744,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(partner.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
 								&& !partner.isPregnant()
+								&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 								&& !partner.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_sterility"))
@@ -2749,6 +2772,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						}
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()
 								&& !partner.isPregnant()
+								&& !partner.hasIncubationLitter(SexAreaOrifice.VAGINA)
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 								&& !partner.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
 								&& this.hasItemType(ItemType.getItemTypeFromId("innoxia_pills_fertility"))

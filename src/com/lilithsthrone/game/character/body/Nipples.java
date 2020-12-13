@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.8.2
+ * @version 0.4
  * @author Innoxia
  */
 public class Nipples implements BodyPartInterface {
@@ -36,11 +36,11 @@ public class Nipples implements BodyPartInterface {
 	protected boolean pierced;
 	protected boolean crotchNipples;
 
-	public Nipples(AbstractNippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
+	public Nipples(AbstractNippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, AreolaeShape areolaeShape, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
-		areolaeShape = AreolaeShape.NORMAL;
+		this.areolaeShape = areolaeShape;
 		this.areolaeSize = areolaeSize;
 		orificeNipples = new OrificeNipples(wetness, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
@@ -347,13 +347,13 @@ public class Nipples implements BodyPartInterface {
 	}
 	
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
 		if(this.isCrotchNipples()) {
-			return owner.getLegConfiguration().getBestialParts().contains(BreastCrotch.class) && getType().getRace().isBestialPartsAvailable();
+			return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(BreastCrotch.class) && getType().getRace().isFeralPartsAvailable());
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Breast.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Breast.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

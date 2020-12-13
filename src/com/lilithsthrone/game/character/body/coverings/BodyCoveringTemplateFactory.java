@@ -165,7 +165,7 @@ public class BodyCoveringTemplateFactory {
 		
 		if(heteroIsExtra) {
 			natural = Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES, 1));
-			extra =Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1));
+			extra = Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1));
 		}
 		return new BodyCoveringTemplate("a pair of",
 				true,

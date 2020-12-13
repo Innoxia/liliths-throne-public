@@ -345,7 +345,7 @@ public class ImpAttacker extends NPC {
 	
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = target.getRace().getConsumableTransformativeItem();
+		AbstractItemType itemType = target.getSubspecies().getTransformativeItem(target);
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 //		int numberOfTransformations = (2+Util.random.nextInt(4)) * (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2:1);

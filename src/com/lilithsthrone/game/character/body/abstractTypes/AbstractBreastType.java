@@ -1,24 +1,41 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private String transformationName;
+	
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 	private AbstractNippleType nippleType;
 	private AbstractFluidType fluidType;
@@ -37,7 +54,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	private String breastsCrotchBodyDescription;
 	
 	/**
-	 * @param skinType What covers this breasts type (i.e skin/fur/feather type). This is never used, as skin type covering breasts is determined by torso covering.
+	 * @param coveringType What covers this breasts type (i.e skin/fur/feather type). This is never used, as skin type covering breasts is determined by torso covering.
 	 * @param race What race has this breasts type.
 	 * @param nippleType The type of nipples that these breasts have.
 	 * @param fluidType The type of milk that these breasts produce.
@@ -52,7 +69,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	 * @param breastsCrotchTransformationDescription A paragraph describing a character's crotch-boobs transforming into this breasts type. Parsing assumes that the character already has this breasts type and associated skin covering.
 	 * @param breastsCrotchBodyDescription A sentence or two to describe this crotch-boob type, as seen in the character view screen. It should follow the same format as all of the other entries in the BreastType class.
 	 */
-	public AbstractBreastType(AbstractBodyCoveringType skinType,
+	public AbstractBreastType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			AbstractNippleType nippleType,
 			AbstractFluidType fluidType,
@@ -67,10 +84,12 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 			String breastsCrotchTransformationDescription,
 			String breastsCrotchBodyDescription) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 		this.nippleType = nippleType;
 		this.fluidType = fluidType;
+
+		this.transformationName = null; // Use default race transformation name
 		
 		this.namesFlat = namesFlat;
 		this.namesFlatPlural = namesFlatPlural;
@@ -105,6 +124,80 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 				breastsCrotchTransformationDescription,
 				breastsCrotchBodyDescription);
 	}
+
+	public AbstractBreastType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.nippleType = NippleType.getNippleTypeFromId(coreElement.getMandatoryFirstOf("nippleType").getTextContent());
+				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
+				
+				this.namesBreasts = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					namesBreasts.add(e.getTextContent());
+				}
+				this.namesBreastsPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesBreastsPlural.add(e.getTextContent());
+				}
+				this.descriptorsBreasts = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptors").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptors").getAllOf("descriptor")) {
+						descriptorsBreasts.add(e.getTextContent());
+					}
+				}
+				
+				this.namesFlat = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesFlat").getAllOf("name")) {
+					namesFlat.add(e.getTextContent());
+				}
+				this.namesFlatPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPluralFlat").getAllOf("name")) {
+					namesFlatPlural.add(e.getTextContent());
+				}
+				this.descriptorsFlat = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFlat").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFlat").getAllOf("descriptor")) {
+						descriptorsFlat.add(e.getTextContent());
+					}
+				}
+				
+				this.breastsTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.breastsBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+
+				this.breastsCrotchTransformationDescription = coreElement.getMandatoryFirstOf("crotchBoobsTransformationDescription").getTextContent();
+				this.breastsCrotchBodyDescription = coreElement.getMandatoryFirstOf("crotchBoobsBodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractBreastType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
 	
 	public AbstractNippleType getNippleType() {
 		return nippleType;
@@ -114,6 +207,11 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 		return fluidType;
 	}
 
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
@@ -127,20 +225,20 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return true;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		if (gc.hasBreasts()) {
-			if(namesBreasts==null) {
+			if(namesBreasts==null || namesBreasts.isEmpty()) {
 				return UtilText.returnStringAtRandom("breast", "boob", "tit");
 			}
 			return Util.randomItemFrom(namesBreasts);
 			
 		} else {
-			if(namesFlat==null) {
+			if(namesFlat==null || namesFlat.isEmpty()) {
 				return UtilText.returnStringAtRandom("pec");
 			}
 			return Util.randomItemFrom(namesFlat);
@@ -150,13 +248,13 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		if (gc.hasBreasts()) {
-			if(namesBreastsPlural==null) {
+			if(namesBreastsPlural==null || namesBreastsPlural.isEmpty()) {
 				return UtilText.returnStringAtRandom("breasts", "boobs", "mammaries", "tits");
 			}
 			return Util.randomItemFrom(namesBreastsPlural);
 			
 		} else {
-			if(namesFlatPlural==null) {
+			if(namesFlatPlural==null || namesFlatPlural.isEmpty()) {
 				return UtilText.returnStringAtRandom("pecs");
 			}
 			return Util.randomItemFrom(namesFlatPlural);
@@ -166,12 +264,12 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	@Override
 	public String getDescriptor(GameCharacter gc) {
 		if (gc.hasBreasts()) {
-			if(descriptorsBreasts==null) {
+			if(descriptorsBreasts==null || descriptorsBreasts.isEmpty()) {
 				return "";
 			}
 			return Util.randomItemFrom(descriptorsBreasts);
 		} else {
-			if(descriptorsFlat==null) {
+			if(descriptorsFlat==null || descriptorsFlat.isEmpty()) {
 				return "";
 			}
 			return Util.randomItemFrom(descriptorsFlat);
@@ -194,7 +292,7 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}
-		return skinType;
+		return coveringType;
 	}
 
 	@Override

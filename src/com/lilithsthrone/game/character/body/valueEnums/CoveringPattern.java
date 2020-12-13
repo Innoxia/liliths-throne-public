@@ -17,6 +17,8 @@ public enum CoveringPattern {
 	
 	ORIFICE_ANUS(true, "anus"),
 	ORIFICE_VAGINA(true, "vagina"),
+	ORIFICE_MOUTH(true, "mouth"),
+	ORIFICE_SPINNERET(true, "spinneret"),
 	ORIFICE_NIPPLE(true, "nipple") {
 		@Override
 		public boolean isNaturalSecondColour(GameCharacter owner) {
@@ -29,7 +31,6 @@ public enum CoveringPattern {
 			return owner.getNippleCrotchCapacity()!=Capacity.ZERO_IMPENETRABLE;
 		}
 	},
-	ORIFICE_MOUTH(true, "mouth"),
 
 	EYE_IRISES(false, "standard"),
 	EYE_IRISES_HETEROCHROMATIC(true, "heterochromatic"),

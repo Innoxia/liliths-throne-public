@@ -45,6 +45,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -181,6 +182,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEvent;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -1488,10 +1490,15 @@ public class Game implements XMLSaving {
 		
 		Main.game.endTurn(0);
 		Main.game.started = true;
+		
 		// Do a zero-time status effect update after declaring that the game has started to make sure that everything is initialised properly (mainly just so external status effects are initialised):
 		for(NPC npc : Main.game.getAllNPCs()) {
+			npc.updateInventoryListeners();
+			npc.updateAttributeListeners(true);
 			npc.calculateStatusEffects(0);
 		}
+		Main.game.getPlayer().updateInventoryListeners();
+		Main.game.getPlayer().updateAttributeListeners(true);
 		Main.game.getPlayer().calculateStatusEffects(0);
 	}
 
@@ -1974,7 +1981,7 @@ public class Game implements XMLSaving {
 		isInNPCUpdateLoop = true;
 		long tLoopStart = System.nanoTime();
 		if(loopDebug) {
-			System.out.println("NPC loop start: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
+			System.out.println("NPC loop start");
 		}
 		for(NPC npc : NPCMap.values()) {
 			boolean inGame = !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE);
@@ -2088,6 +2095,7 @@ public class Game implements XMLSaving {
 				}
 			}
 			
+			// Giving birth:
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3)
 					&& !Main.game.getCharactersPresent().contains(npc)
 					&& !Main.game.getPlayer().getCompanions().contains(npc)
@@ -2115,6 +2123,56 @@ public class Game implements XMLSaving {
 					
 					if(npc instanceof Kate) {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToKatePregnancy);
+					}
+				}
+			}
+			
+			// Laying implanted eggs:
+			if(!npc.getIncubatingLitters().isEmpty()
+					&& !Main.game.getCharactersPresent().contains(npc)
+					&& !Main.game.getPlayer().getCompanions().contains(npc)) {
+				for(Entry<SexAreaOrifice, Litter> entry : new HashMap<>(npc.getIncubatingLitters()).entrySet()) {
+					long finalStageTime = npc.getTimeProgressedToFinalIncubationStage(entry.getKey());
+					if(finalStageTime>0 && (Main.game.getSecondsPassed() - finalStageTime) > (12*60*60)) {
+						npc.endIncubationPregnancy(entry.getKey(), true);
+						
+						if(npc.isSlave() && npc.getOwner().isPlayer()) {
+							String areaEgged = "";
+							switch(entry.getKey()) {
+								case ANUS:
+								case MOUTH:
+									areaEgged = "stomach";
+									break;
+								case NIPPLE:
+									areaEgged = "[npc.breasts]";
+									break;
+								case NIPPLE_CROTCH:
+									areaEgged = "[npc.crotchBoobs]";
+									break;
+								case SPINNERET:
+									areaEgged = "[npc.spinneret]";
+									break;
+								case VAGINA:
+									areaEgged = "womb";
+									break;
+								case ASS:
+								case BREAST:
+								case BREAST_CROTCH:
+								case THIGHS:
+								case URETHRA_PENIS:
+								case URETHRA_VAGINA:
+									break;
+							}
+							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+							SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
+									npc,
+									null,
+									SlaveEvent.GAVE_BIRTH_INCUBATION,
+									null,
+									events,
+									true);
+							Main.game.addSlaveryEvent(getDayNumber(), incubationBirthEntry);
+						}
 					}
 				}
 			}
@@ -2178,7 +2236,7 @@ public class Game implements XMLSaving {
 			npc.turnUpdate();
 		}
 		if(loopDebug) {
-			System.out.println("NPC loop end: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
+			System.out.println("NPC loop end. Time since start: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
@@ -2225,8 +2283,19 @@ public class Game implements XMLSaving {
 		}
 		
 		Main.mainController.getTooltip().hide();
+
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+		}
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
+		}
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) && !Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+		}
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty()
+				&& Main.game.getPlayer().getStatusEffectDescriptions().values().stream().anyMatch(m->!m.isEmpty())
 				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
 				&& !Main.game.getCurrentDialogueNode().isTravelDisabled()
 				&& !Main.game.isInSex()
@@ -2235,20 +2304,32 @@ public class Game implements XMLSaving {
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
+
+//			System.out.println("SE here");
+//			for(Map<AbstractStatusEffect, String> e : Main.game.getPlayer().getStatusEffectDescriptions().values()) {
+//				for(Entry<AbstractStatusEffect, String> entry : e.entrySet()) {
+//					System.out.println(entry.getKey()+": "+entry.getValue());
+//				}
+//			}
 			
 			Main.game.setContent(new Response("", "", MiscDialogue.STATUS_EFFECTS){
 				@Override
 				public void effects() {
-					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
-					}
-					
-					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
-					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+//					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
+//					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) && !Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+//					}
 				}	
 			});
 			
+//			Main.game.getPlayer().getStatusEffectDescriptions().clear();
+		}
+		if(!Main.game.getPlayer().getStatusEffectDescriptions().values().stream().anyMatch(m->!m.isEmpty())) {
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
 		
@@ -3563,8 +3644,8 @@ public class Game implements XMLSaving {
 		
 		for(GameCharacter character : Main.game.getPlayer().getParty()) {
 			int speed = onLand
-						?character.getLegConfiguration().getLandSpeedModifier()
-						:character.getLegConfiguration().getWaterSpeedModifier();
+						?character.getLandSpeedModifier()
+						:character.getWaterSpeedModifier();
 			
 			int travelTime = time;
 			travelTime = (int) (travelTime*((100+speed)/100f));
@@ -3851,11 +3932,13 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public List<NPC> getOffspring(boolean includeNotBorn) {
+	public List<NPC> getOffspring(boolean includeNotBorn, boolean includeEggIncubations) {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
-			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
+			if((npc.getMother()!=null && npc.getMother().isPlayer())
+					|| (npc.getFather()!=null && npc.getFather().isPlayer())
+					|| (includeEggIncubations && npc.getIncubator()!=null && npc.getIncubator().isPlayer())) {
 				if(npc.getMother()!=null) {
 					if(includeNotBorn || npc.getMother().getPregnantLitter()==null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 						offspring.add(npc);
@@ -3869,16 +3952,16 @@ public class Game implements XMLSaving {
 		return offspring;
 	}
 	
-	public List<NPC> getOffspringSpawned() {
-		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false));
+	public List<NPC> getOffspringSpawned(boolean includeEggIncubations) {
+		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false, includeEggIncubations));
 		
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		
 		return offspringSpawned;
 	}
 
-	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher) {
-		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream().filter(npc -> !npc.isSlave())
+	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher, boolean includeEggIncubations) {
+		List<NPC> offspringAvailable = Main.game.getOffspring(false, includeEggIncubations).stream().filter(npc -> !npc.isSlave())
 										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
 										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
 										.filter(matcher).collect(Collectors.toList());
@@ -4065,6 +4148,12 @@ public class Game implements XMLSaving {
 			
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
+		}
+
+		if(!npc.getIncubatingLitters().isEmpty()) {
+			for(SexAreaOrifice orifice : new ArrayList<>(npc.getIncubatingLitters().keySet())) {
+				npc.endIncubationPregnancy(orifice, false);
+			}
 		}
 		
 		if(isInNPCUpdateLoop) {
@@ -4292,6 +4381,10 @@ public class Game implements XMLSaving {
 	public boolean isNonConEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.nonConContent);
 	}
+
+	public boolean isInflationContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.inflationContent);
+	}
 	
 	public boolean isNipplePenEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.nipplePenContent);
@@ -4390,7 +4483,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public boolean isCrotchBoobContentEnabled() {
-		return Main.getProperties().udders>0;
+		return Main.getProperties().getUddersLevel()>0;
 	}
 	
 	public boolean isPlotDiscovered() {

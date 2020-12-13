@@ -357,12 +357,13 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getSubspecies()==Subspecies.ANGEL
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
+										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)),
+						true);
 					
 					if(!offspringAvailable.isEmpty()) {
 //						for(NPC npc : offspringAvailable) {
@@ -507,14 +508,15 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
 										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
 										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getSubspecies()==Subspecies.SLIME
 										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+										|| npc.getSubspecies()==Subspecies.RAT_MORPH)),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -625,8 +627,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -685,8 +688,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -934,8 +938,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -1183,7 +1188,7 @@ public enum Encounter {
 	
 	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-		Main.game.getOffspringSpawned().add(offspring);
+		Main.game.getOffspringSpawned(true).add(offspring);
 
 		offspring.setLocation(Main.game.getPlayer(), true);
 		

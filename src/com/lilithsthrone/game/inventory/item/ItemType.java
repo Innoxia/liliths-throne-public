@@ -1219,6 +1219,47 @@ public class ItemType {
 			return false;
 		}
 	};
+	
+	public static AbstractItemType CONDOM_USED_WEBBING = new AbstractItemType(1,
+			"a",
+			false,
+			"used condom-webbing",
+			"used condom-webbings",
+			"A used condom-like sheath of spider's webbing, tied at the top and filled with someone's cum. While most people would simply throw this away, those with a particularly dirty mind might find a use for it...",
+			"condomUsedWebbing",
+			PresetColour.CLOTHING_WHITE,
+			null,
+			null,
+			Rarity.COMMON,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK)),
+			Util.newArrayListOfValues(
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Untying the top of the used condom-webbing, you bring it up to your lips and swallow the slimy contents.",
+					"Untying the top of the used condom-webbing, you bring it up to [npc.namePos] [npc.lips], and force [npc.herHim] to swallow the slimy contents.",
+					"Untying the top of the used condom-webbing, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.",
+					"Untying the top of the used condom-webbing, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
+		}
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You can't think of a use for this. Maybe it's best to throw it away...<br/>"
+					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
+		}
+		@Override
+		public boolean isAbleToBeUsedInCombatAllies() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+	};
 
 	public static AbstractItemType CONDOM_USED = new AbstractItemType(1,
 			"a",
@@ -1532,7 +1573,7 @@ public class ItemType {
 			"Mother's Milk",
 			"Mother's Milks",
 			"A baby bottle filled with a rich, creamy milk."
-			+ " On the side, a little sticker declares that this drink is able to speed up your pregnancy.",
+					+ " On the side, a little sticker declares that this drink is able to rapidly advance pregnancies and egg incubations.",
 			"mothers_milk",
 			PresetColour.CLOTHING_WHITE,
 			null,
@@ -3445,7 +3486,7 @@ public class ItemType {
 					left /=100;
 					return super.getSVGString()
 							+"<div style='width:40%;height:40%;position:absolute;left:"+left+"%;top:"+(30-offset)+"%; opacity:0.75; -webkit-transform: rotate(30deg);'>"
-								+ mainSubspecies.getSVGStringNoBackground()
+								+ mainSubspecies.getBookSVGString()
 							+ "</div>";
 				}
 				@Override

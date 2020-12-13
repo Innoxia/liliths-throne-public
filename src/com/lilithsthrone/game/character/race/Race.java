@@ -1,34 +1,33 @@
 package com.lilithsthrone.game.character.race;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
-import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public class Race {
@@ -41,29 +40,16 @@ public class Race {
 			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
 			RacialClass.MAMMAL,
-			Util.newArrayListOfValues(Attack.MAIN),
+			CombatBehaviour.BALANCED,
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HUMAN;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_HUMAN;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 	
@@ -76,33 +62,20 @@ public class Race {
 			PresetColour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			RacialClass.MAMMAL,
-			Util.newArrayListOfValues(Attack.MAIN),
+			CombatBehaviour.BALANCED,
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
 		@Override
-		public boolean isBestialPartsAvailable() {
+		public boolean isFeralPartsAvailable() {
 			return false;
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HUMAN;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_HUMAN;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -115,13 +88,10 @@ public class Race {
 			PresetColour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			RacialClass.MAMMAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
+			CombatBehaviour.SPELLS,
 			0.25f,
 			1,
 			1,
-			Attribute.DAMAGE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
@@ -130,44 +100,40 @@ public class Race {
 			return true;
 		}
 		@Override
-		public boolean isBestialPartsAvailable() {
+		public boolean isFeralPartsAvailable() {
 			return false;
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.ANGEL;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_ANGEL;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_angel_angels_tears");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
-		}
 	};
 
 	// DEMON:
 	public static AbstractRace DEMON = new AbstractRace("demon",
 			"demons",
-			"demonic-horse",
-			"demonic-horses",
+			Util.newHashMapOfValues(
+					new Value<>(LegConfiguration.BIPEDAL, "demon"),
+					new Value<>(LegConfiguration.ARACHNID, "demonic-spider"),
+					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopus"),
+					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horse"),
+					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
+					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snake")),
+			Util.newHashMapOfValues(
+					new Value<>(LegConfiguration.BIPEDAL, "demons"),
+					new Value<>(LegConfiguration.ARACHNID, "demonic-spiders"),
+					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopuses"),
+					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horses"),
+					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
+					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snakes")),
 			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			RacialClass.MAMMAL,
-			Util.newArrayListOfValues(
-					Attack.SPECIAL_ATTACK,
-					Attack.SEDUCTION,
-					Attack.SPELL),
+			CombatBehaviour.SEDUCE,
 			0.75f,
 			2,
 			3,
-			Attribute.DAMAGE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false) {
@@ -175,53 +141,88 @@ public class Race {
 		public boolean isAbleToSelfTransform() {
 			return true;
 		}
-		@Override
-		public String getName(GameCharacter character, boolean bestial) {
-			if(bestial) {
-				if(character!=null) {
-					AbstractRace r = character.getLegType().getRace();
-					return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
-							?r==Race.DEMON
-								?"demonic-horse"
-								:"demonic-"+r.getName(bestial)
-							:"demon";
-				} else {
-					return "demonic-horse";
-				}
-			}
-			return "demon";
-		}
-		@Override
-		public String getNamePlural(GameCharacter character, boolean bestial) {
-			if(bestial) {
-				if(character!=null) {
-					AbstractRace r = character.getLegType().getRace();
-					return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
-							?r==Race.DEMON
-								?"demonic-horses"
-								:"demonic-"+r.getNamePlural(bestial)
-							:"demons";
-				} else {
-					return "demonic-horses";
-				}
-			}
-			return "demon";
-		}
+		
+//		// This is the same as what's found in Subspecies.DEMON
+//		@Override
+//		private String getFeralName(LegConfiguration legConfiguration, boolean plural) {
+//			AbstractRace r = character.getLegType().getRace();
+//			
+//			if(plural) {
+//				switch(character.getLegConfiguration()) {
+//					case ARACHNID:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-spiders"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case BIPEDAL:
+//						return "demon";
+//					case CEPHALOPOD:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-octopuses"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case QUADRUPEDAL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-horses"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case TAIL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-fish"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case TAIL_LONG:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-snakes"
+//								:"demonic-"+r.getNamePlural(character, true);
+//				}
+//				
+//			} else {
+//				switch(character.getLegConfiguration()) {
+//					case ARACHNID:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-spider"
+//								:"demonic-"+r.getName(character, true);
+//					case BIPEDAL:
+//						return "demon";
+//					case CEPHALOPOD:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-octopus"
+//								:"demonic-"+r.getName(character, true);
+//					case QUADRUPEDAL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-horse"
+//								:"demonic-"+r.getName(character, true);
+//					case TAIL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-fish"
+//								:"demonic-"+r.getName(character, true);
+//					case TAIL_LONG:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-snake"
+//								:"demonic-"+r.getName(character, true);
+//				}
+//			}
+//			return "demon";
+//		}
+		
+//		@Override
+//		public String getName(GameCharacter character, boolean feral) {
+//			if(feral) {
+//				if(character!=null) {
+//					return getFeralName(character, false);
+//				}
+//			}
+//			return "demon";
+//		}
+//		@Override
+//		public String getNamePlural(GameCharacter character, boolean feral) {
+//			if(feral) {
+//				if(character!=null) {
+//					return getFeralName(character, true);
+//				}
+//			}
+//			return "demon";
+//		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.DEMON;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_DEMON;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -234,33 +235,16 @@ public class Race {
 				PresetColour.RACE_COW_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				1,
-				Attribute.DAMAGE_COW_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.COW_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_cow_bubble_milk");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_cow_bubble_cream");
 		}
 	};
 
@@ -273,11 +257,10 @@ public class Race {
 				PresetColour.RACE_DOG_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(Attack.MAIN),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_DOG_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
@@ -291,18 +274,6 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.DOG_MORPH;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_CANINE_FUR;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_dog_canine_crunch");
-		}
 	};
 
 	public static AbstractRace WOLF_MORPH = new AbstractRace("wolf-morph",
@@ -313,13 +284,10 @@ public class Race {
 				PresetColour.RACE_WOLF_MORPH,
 				Disposition.SAVAGE,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.ATTACK,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_WOLF_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
@@ -333,18 +301,6 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.WOLF_MORPH;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
-		}
 	};
 	
 	public static AbstractRace FOX_MORPH = new AbstractRace("fox-morph",
@@ -355,14 +311,10 @@ public class Race {
 				PresetColour.RACE_FOX_MORPH,
 				Disposition.UNPREDICTABLE,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SEDUCTION,
-						Attack.SPELL),
+				CombatBehaviour.SUPPORT,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_FOX_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
@@ -376,18 +328,6 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.FOX_MORPH;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_FOX_FUR;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_fox_vulpines_vineyard");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_fox_chicken_pot_pie");
-		}
 	};
 	
 
@@ -400,33 +340,16 @@ public class Race {
 				PresetColour.RACE_CAT_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.SEDUCTION,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_CAT_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.CAT_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_FELINE_FUR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_cat_kittys_reward");
 		}
 	};
 	
@@ -454,13 +377,10 @@ public class Race {
 				PresetColour.RACE_HORSE_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				1,
-				Attribute.DAMAGE_HORSE_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
@@ -493,18 +413,6 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HORSE_MORPH;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_HORSE_HAIR;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
-		}
 	};
 
 	
@@ -516,33 +424,16 @@ public class Race {
 				PresetColour.RACE_REINDEER_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_REINDEER_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.REINDEER_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_REINDEER_HAIR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie");
 		}
 	};
 			
@@ -555,32 +446,16 @@ public class Race {
 				PresetColour.RACE_SQUIRREL_MORPH,
 				Disposition.CIVILIZED,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN),
+				CombatBehaviour.SUPPORT,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_SQUIRREL_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.SQUIRREL_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_squirrel_round_nuts");
 		}
 	};
 
@@ -592,33 +467,16 @@ public class Race {
 				PresetColour.RACE_RAT_MORPH,
 				Disposition.NEUTRAL,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				4,
-				Attribute.DAMAGE_RAT_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.RAT_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_RAT_FUR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger");
 		}
 	};
 
@@ -630,33 +488,16 @@ public class Race {
 				PresetColour.RACE_RABBIT_MORPH,
 				Disposition.NEUTRAL,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.SEDUCTION,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.DEFEND,
 				0.5f,
 				2,
 				8,
-				Attribute.DAMAGE_RABBIT_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.RABBIT_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake");
 		}
 	};
 	
@@ -668,13 +509,10 @@ public class Race {
 				PresetColour.RACE_BAT_MORPH,
 				Disposition.NEUTRAL,
 				RacialClass.MAMMAL,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				2,
-				Attribute.DAMAGE_BAT_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
@@ -686,18 +524,6 @@ public class Race {
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.BAT_MORPH;
 		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_BAT_FUR;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad");
-		}
 	};
 	
 	public static AbstractRace ALLIGATOR_MORPH = new AbstractRace("alligator-morph",
@@ -708,33 +534,16 @@ public class Race {
 				PresetColour.RACE_ALLIGATOR_MORPH,
 				Disposition.NEUTRAL,
 				RacialClass.REPTILE,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SPECIAL_ATTACK),
+				CombatBehaviour.DEFEND,
 				0.5f,
 				1,
 				4,
-				Attribute.DAMAGE_ALLIGATOR_MORPH,
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.ALLIGATOR_MORPH;
-		}
-
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
-		}
-
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_alligator_swamp_water");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_alligator_gators_gumbo");
 		}
 	};
 
@@ -747,11 +556,10 @@ public class Race {
 			PresetColour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			RacialClass.OTHER,
-			Util.newArrayListOfValues(Attack.SEDUCTION),
+			CombatBehaviour.BALANCED,
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_SLIME,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false) {
@@ -762,18 +570,6 @@ public class Race {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HUMAN;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.BODY_HAIR);
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_slime_slime_quencher");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_slime_biojuice_canister");
 		}
 	};
 
@@ -786,13 +582,10 @@ public class Race {
 			PresetColour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			RacialClass.BIRD,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
+			CombatBehaviour.SEDUCE,
 			0.5f,
 			3,
 			4,
-			Attribute.DAMAGE_HARPY,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
@@ -803,18 +596,6 @@ public class Race {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.HARPY;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_HARPY;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_harpy_harpy_perfume");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop");
 		}
 	};
 	
@@ -829,14 +610,10 @@ public class Race {
 				PresetColour.SPELL_SCHOOL_ARCANE,
 				Disposition.NEUTRAL,
 				RacialClass.OTHER,
-				Util.newArrayListOfValues(
-						Attack.MAIN,
-						Attack.SEDUCTION,
-						Attack.SPELL),
+				CombatBehaviour.BALANCED,
 				0.5f,
 				1,
 				1,
-				Attribute.DAMAGE_ELEMENTAL,
 				FurryPreference.MAXIMUM,
 				FurryPreference.MAXIMUM,
 				false) {
@@ -847,18 +624,6 @@ public class Race {
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.DEMON;
-		}
-		@Override
-		public AbstractBodyCoveringType getBodyHairType() {
-			return BodyCoveringType.BODY_HAIR_DEMON;
-		}
-		@Override
-		public AbstractItemType getConsumableAttributeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift");
-		}
-		@Override
-		public AbstractItemType getConsumableTransformativeItem() {
-			return ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
 		}
 	};
 
@@ -1540,17 +1305,59 @@ public class Race {
 	public static String getIdFromRace(AbstractRace race) {
 		return raceToIdMap.get(race);
 	}
-
+	
 	static {
 		allRaces = new ArrayList<>();
+		
+		// Modded races:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", null, "race");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("race")) {
+					try {
+						AbstractRace race = new AbstractRace(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("_race", "");
+						allRaces.add(race);
+						raceToIdMap.put(race, id);
+						idToRaceMap.put(id, race);
+					} catch(Exception ex) {
+						System.err.println("Loading modded race failed at 'Race'. File path: "+innerEntry.getValue().getAbsolutePath());
+						System.err.println("Actual exception: ");
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res races:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", null, "race");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("race")) {
+					try {
+						AbstractRace race = new AbstractRace(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("_race", "");
+						allRaces.add(race);
+						raceToIdMap.put(race, id);
+						idToRaceMap.put(id, race);
+					} catch(Exception ex) {
+						System.err.println("Loading race failed at 'Race'. File path: "+innerEntry.getValue().getAbsolutePath());
+						System.err.println("Actual exception: ");
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// Hard-coded:
 		
 		Field[] fields = Race.class.getFields();
 		
 		for(Field f : fields){
 			if (AbstractRace.class.isAssignableFrom(f.getType())) {
-				
 				AbstractRace race;
-				
 				try {
 					race = ((AbstractRace) f.get(null));
 
@@ -1561,6 +1368,25 @@ public class Race {
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+		
+		for(AbstractRace race : Race.getAllRaces()) {
+			if(race!=Race.NONE) {
+				String name = race.getName(true);
+				AbstractAttribute racialAttribute = new AbstractAttribute(true, 0, -100, 100, name+" damage", Util.capitaliseSentence(name)+" damage", "swordIcon", race.getColour(), name+"-obliteration", name+"-mercy", null) {
+					@Override
+					public String getDescription(GameCharacter owner) {
+						return "Increases damage vs "+race.getNamePlural(true)+".";
+					}
+				};
+				String id = "DAMAGE_"+Race.getIdFromRace(race);
+//				System.out.println(name+", "+id);
+				
+				Attribute.racialAttributes.put(race, racialAttribute);
+				Attribute.attributeToIdMap.put(racialAttribute, id);
+				Attribute.idToAttributeMap.put(id, racialAttribute);
+				Attribute.allAttributes.add(racialAttribute);
 			}
 		}
 	}

@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -75,8 +76,8 @@ public interface SexManagerInterface {
 		return null;
 	}
 	
-	public default Set<GameCharacter> getCharactersSealed() {
-		return new HashSet<>();
+	public default Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+		return new HashMap<>();
 	}
 	
 	public default boolean isPlayerDom() {
@@ -127,6 +128,9 @@ public interface SexManagerInterface {
 	public default SexControl getSexControl(GameCharacter character) {
 		if(isHidden(character)) {
 			return SexControl.SELF;
+		}
+		if(Main.sex.isCharacterImmobilised(character)) {
+			return SexControl.NONE;
 		}
 		if(Main.sex.isDom(character)) {
 			return SexControl.FULL;
@@ -346,7 +350,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
-		if((performer.equals(target) || Main.sex.isConsensual()) && (target.hasBreasts() || target.isFeminine())) {
+		if((performer.equals(target) || Main.sex.isConsensual())
+				&& (target.hasBreasts() || target.isFeminine())
+				&& (!target.isFeral() || target.getFeralAttributes().isBreastsPresent())) {
 			return Util.newArrayListOfValues(CoverableArea.NIPPLES);
 		}
 		

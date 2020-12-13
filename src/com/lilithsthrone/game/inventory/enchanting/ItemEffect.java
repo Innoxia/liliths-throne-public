@@ -127,9 +127,9 @@ public class ItemEffect implements XMLSaving {
 			secondaryMod = parentElement.getAttribute("secondaryModifier"); // Support for effects prior to 0.3.1.5
 		}
 		
-		if(itemEffectType.equals("RACE_DEMON")) {
-			throw new NullPointerException();
-		}
+//		if(itemEffectType.equals("RACE_DEMON")) {
+//			throw new NullPointerException();
+//		}
 		
 		switch(itemEffectType) {
 			case "ATTRIBUTE_STRENGTH":
@@ -245,16 +245,25 @@ public class ItemEffect implements XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
-		if(target!=null && getItemEffectType()!=ItemEffectType.CLOTHING && getItemEffectType()!=ItemEffectType.TATTOO) {
+		if(target!=null
+				&& getItemEffectType()!=ItemEffectType.CLOTHING
+				&& getItemEffectType()!=ItemEffectType.TATTOO
+				&& getItemEffectType().getAssociatedRace()!=Race.DEMON) { // For debug demon TF options
 			if((target.getSubspeciesOverrideRace()==Race.DEMON || (!target.isAbleToHaveRaceTransformed() && target.getRace()!=Race.SLIME))
 					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_3
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_4
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_5
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_6
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_7
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_8
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_9
+							|| getSecondaryModifier()==TFModifier.TF_TYPE_10
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD
+							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_AVIAN
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
@@ -267,6 +276,9 @@ public class ItemEffect implements XMLSaving {
 					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
 				}
 				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.CEPHALOPOD) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_AVIAN && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.AVIAN) || target.getLegType().getRace()==Race.DEMON)) {
 					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
 				}
 				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL) || target.getLegType().getRace()==Race.DEMON)) {
@@ -282,7 +294,12 @@ public class ItemEffect implements XMLSaving {
 				if(secondaryMod==TFModifier.TF_TYPE_2
 						|| secondaryMod==TFModifier.TF_TYPE_3
 						|| secondaryMod==TFModifier.TF_TYPE_4
-						|| secondaryMod==TFModifier.TF_TYPE_5) {
+						|| secondaryMod==TFModifier.TF_TYPE_5
+						|| secondaryMod==TFModifier.TF_TYPE_6
+						|| secondaryMod==TFModifier.TF_TYPE_7
+						|| secondaryMod==TFModifier.TF_TYPE_8
+						|| secondaryMod==TFModifier.TF_TYPE_9
+						|| secondaryMod==TFModifier.TF_TYPE_10) {
 					secondaryMod = TFModifier.TF_TYPE_1;
 				}
 				if(target.getSubspeciesOverride()==Subspecies.HALF_DEMON) {
@@ -318,6 +335,7 @@ public class ItemEffect implements XMLSaving {
 						case TF_PENIS:
 						case TF_VAGINA:
 						case TF_WINGS:
+						case TF_TENTACLE:
 			 				return AbstractItemEffectType.getRacialEffect(Race.DEMON, getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
 						default:
 							break;

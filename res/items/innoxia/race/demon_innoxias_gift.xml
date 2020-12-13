@@ -17,7 +17,7 @@
 		<rarity>LEGENDARY</rarity> 
 		
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
-		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/demon/icon.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/demon/icon.svg</imageName>
 		<imageName zLayer="2" imageRotation="-15" imageSize="80">demon_innoxias_gift.svg</imageName>
 		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
 		
@@ -25,8 +25,10 @@
 		<colourSecondary/>
 		<colourTertiary/>
 		
-		<enchantmentItemTypeId/>
-		<enchantmentEffectId/>
+		<potionDescriptor><![CDATA[demonic]]></potionDescriptor>
+		<associatedRace>DEMON</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldBad(Does not affect unique characters)]]]></line>

@@ -2208,8 +2208,8 @@ public class OptionsDialogue {
 				
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
 				for(int i=2; i>=0; i--) {
-					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-							+(Main.getProperties().udders==i
+					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel()==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().getUddersLevel()==i
 								?(i==0?"[style.boldBad(":"[style.boldGood(")
 								:"[style.colourDisabled(")
 							+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");

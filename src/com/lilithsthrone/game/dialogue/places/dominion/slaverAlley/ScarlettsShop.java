@@ -3034,33 +3034,44 @@ public class ScarlettsShop {
 				}
 				return new Response("Penis", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS);
 				
-			} else if(index==10 && Main.getProperties().udders!=0) {
+			} else if(index==10) {
+				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET) {
+					return new Response("Spinneret", "You are already customising the aspects of your slave's spinneret!", null);
+				}
+				if(!BodyChanging.getTarget().hasSpinneret()) {
+					return new Response("Spinneret",
+							"Your slave does not have a spinneret!<br/><i>Spinnerets are gained via certain tail or leg types.</i>",
+							null);
+				}
+				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
+				
+			} else if(index==11 && Main.getProperties().getUddersLevel()!=0) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
 					return new Response("Crotch-boobs", "You are already customising the aspects of your slave's crotch-boobs!", null);
 				}
 				
-				if(Main.getProperties().udders==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
+				if(Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
 					return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
 				}
 				
 				return new Response(
 						BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs",
-						UtilText.parse(BodyChanging.getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
+						UtilText.parse(BodyChanging.getTarget(), "Change aspects of your slave's [npc.crotchBoobs]."),
 						HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH);
 				
-			} else if(index==11) {
+			} else if(index==12) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP) {
 					return new Response("Makeup", "You are already customising your slave's makeup!", null);
 				}
 				return new Response("Makeup", "Customise your slave's makeup.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP);
 				
-			} else if(index==12) {
+			} else if(index==13) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS) {
 					return new Response("Piercings", "You are already customising your slave's piercings!", null);
 				}
 				return new Response("Piercings", "Customise your slave's piercings.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS);
 				
-			} else if(index==13) {
+			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
 						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
@@ -3273,6 +3284,30 @@ public class ScarlettsShop {
 			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH"));
 			sb.append(BodyChanging.BODY_CHANGING_BREASTS_CROTCH.getHeaderContent());
+					
+			return sb.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET = new DialogueNode("Customise Slave", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+		@Override
+		public String getHeaderContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET"));
+			sb.append(BodyChanging.BODY_CHANGING_SPINNERET.getHeaderContent());
 					
 			return sb.toString();
 		}

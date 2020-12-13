@@ -1,23 +1,39 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractAssType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private String transformationName;
+	
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 	private AbstractAnusType anusType;
 	
@@ -31,7 +47,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	private String assBodyDescription;
 	
 	/**
-	 * @param skinType What covers this ass type (i.e skin/fur/feather type). This is never used, as skin type covering ass is determined by torso covering.
+	 * @param coveringType What covers this ass type (i.e skin/fur/feather type). This is never used, as skin type covering ass is determined by torso covering.
 	 * @param race What race has this ass type.
 	 * @param anusType The type of anus that this ass type has.
 	 * @param names A list of singular names for this ass type. Pass in null to use generic names.
@@ -41,7 +57,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	 * @param assTransformationDescription A paragraph describing a character's ass transforming into this ass type. Parsing assumes that the character already has this ass type and associated skin covering.
 	 * @param assBodyDescription A sentence or two to describe this ass type, as seen in the character view screen. It should follow the same format as all of the other entries in the AssType class.
 	 */
-	public AbstractAssType(AbstractBodyCoveringType skinType,
+	public AbstractAssType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			AbstractAnusType anusType,
 			List<String> names,
@@ -51,9 +67,11 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 			String assTransformationDescription,
 			String assBodyDescription) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 		this.anusType = anusType;
+
+		this.transformationName = null; // Use default race transformation name
 		
 		this.names = names;
 		this.namesPlural = namesPlural;
@@ -65,23 +83,92 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 		this.assBodyDescription = assBodyDescription;
 	}
 	
+	public AbstractAssType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.anusType = AnusType.getAnusTypeFromId(coreElement.getMandatoryFirstOf("anusType").getTextContent());
+				
+				this.names = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					names.add(e.getTextContent());
+				}
+				
+				this.namesPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesPlural.add(e.getTextContent());
+				}
+
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.assTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.assBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractAssType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+	
 	public AbstractAnusType getAnusType() {
 		return anusType;
 	}
-
+	
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "";
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(names==null) {
+		if(names==null || names.isEmpty()) {
 			return UtilText.returnStringAtRandom("ass", "rear end", "butt", "rump");
 		}
 		return Util.randomItemFrom(names);
@@ -89,7 +176,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(namesPlural==null) {
+		if(namesPlural==null || namesPlural.isEmpty()) {
 			return UtilText.returnStringAtRandom("asses", "rear ends", "butts", "rumps");
 		}
 		return Util.randomItemFrom(namesPlural);
@@ -112,7 +199,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}
-		return skinType;
+		return coveringType;
 	}
 
 	@Override

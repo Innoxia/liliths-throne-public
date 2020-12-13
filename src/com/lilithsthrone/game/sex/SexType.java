@@ -252,6 +252,8 @@ public class SexType implements XMLSaving {
 					}
 					fetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
+				case SPINNERET:
+					break;
 			}
 		}
 		
@@ -349,6 +351,11 @@ public class SexType implements XMLSaving {
 					}
 					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
 					if(getPerformingSexArea()!=null && isPenetration && getPerformingSexArea().isPenetration() && ((SexAreaPenetration)getPerformingSexArea()).isTakesVirginity() &&  characterTargeted.isVaginaVirgin()) {
+						fetishes.add(Fetish.FETISH_DEFLOWERING);
+					}
+					break;
+				case SPINNERET:
+					if(getPerformingSexArea()!=null && isPenetration && getPerformingSexArea().isPenetration() && ((SexAreaPenetration)getPerformingSexArea()).isTakesVirginity() &&  characterTargeted.isSpinneretVirgin()) {
 						fetishes.add(Fetish.FETISH_DEFLOWERING);
 					}
 					break;

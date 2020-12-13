@@ -21,16 +21,19 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class AbstractPlaceType {
 
+	protected WorldRegion worldRegion;
+	
 	protected String name;
 	protected String tooltipDescription;
 	protected String SVGString;
@@ -56,7 +59,8 @@ public class AbstractPlaceType {
 	
 	protected static int colourReplacementId = 0;
 	
-	public AbstractPlaceType(String name,
+	public AbstractPlaceType(WorldRegion worldRegion,
+			String name,
 			String tooltipDescription,
 			String SVGPath,
 			Colour colour,
@@ -64,6 +68,7 @@ public class AbstractPlaceType {
 			Darkness darkness,
 			Encounter encounterType,
 			String virginityLossDescription) {
+		this.worldRegion = worldRegion;
 		
 		this.name = name;
 		this.tooltipDescription = tooltipDescription;
@@ -141,6 +146,11 @@ public class AbstractPlaceType {
 		this.weatherImmunities = new ArrayList<>(Arrays.asList(weatherImmunities));
 		return this;
 	}
+	
+	public AbstractPlaceType initAquatic(Aquatic aquatic) {
+		this.aquatic = aquatic;
+		return this;
+	}
 
 	/**
 	 * Define teleport permissions for this tile.
@@ -151,6 +161,10 @@ public class AbstractPlaceType {
 		return this;
 	}
 	
+	public WorldRegion getWorldRegion() {
+		return worldRegion;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -212,7 +226,11 @@ public class AbstractPlaceType {
 	}
 
 	public boolean isLand() {
-		return true;
+		return getAquatic().isLand();
+	}
+
+	public boolean isWater() {
+		return getAquatic().isWater();
 	}
 	
 	public boolean isDangerous() {

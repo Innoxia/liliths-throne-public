@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -51,9 +52,9 @@ public class Perk {
 			"perks/jobs/npc_harpy_matriarch",
 			PresetColour.RACE_HARPY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -68,9 +69,9 @@ public class Perk {
 			"perks/jobs/npc_harpy_flock_member",
 			PresetColour.RACE_HARPY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -88,11 +89,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_inspector",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -116,10 +117,10 @@ public class Perk {
 			"perks/jobs/npc_enforcer_sergeant",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -143,10 +144,10 @@ public class Perk {
 			"perks/jobs/npc_enforcer_constable",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 1),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -170,11 +171,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_superintendent",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 35),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 35),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 35)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_UNARMED, 35),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 35),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 35)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -198,11 +199,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_chief_inspector",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 20),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 30),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 30),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 30)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 20),
+					new Value<>(Attribute.MAJOR_ARCANE, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 30),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 30),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 30)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -226,11 +227,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_inspector",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_UNARMED, 25),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -254,11 +255,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_sergeant",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 20)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.DAMAGE_UNARMED, 20),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 20),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 20)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -282,11 +283,11 @@ public class Perk {
 			"perks/jobs/npc_enforcer_constable",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 5),
+					new Value<>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -310,13 +311,13 @@ public class Perk {
 			"perks/jobs/npc_enforcer_inspector",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -340,13 +341,13 @@ public class Perk {
 			"perks/jobs/npc_enforcer_sergeant",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.MAJOR_ARCANE, 20),
+					new Value<>(Attribute.DAMAGE_POISON, 20),
+					new Value<>(Attribute.DAMAGE_LUST, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -370,13 +371,13 @@ public class Perk {
 			"perks/jobs/npc_enforcer_constable",
 			PresetColour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_POISON, 15),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -400,9 +401,9 @@ public class Perk {
 			"perks/jobs/npc_cultist",
 			PresetColour.CLOTHING_BLACK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -418,9 +419,9 @@ public class Perk {
 			"perks/jobs/npc_slave_admin",
 			PresetColour.CLOTHING_BLACK_STEEL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_LUST, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -436,9 +437,9 @@ public class Perk {
 			"perks/jobs/npc_bouncer",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -454,8 +455,8 @@ public class Perk {
 			"perks/jobs/npc_barmaid",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -481,8 +482,8 @@ public class Perk {
 			"perks/jobs/npc_beautician",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -498,7 +499,7 @@ public class Perk {
 			"perks/jobs/npc_nightclub_owner",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -514,9 +515,9 @@ public class Perk {
 			"perks/jobs/npc_arcane_researcher",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 50),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_SPELLS, 50),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -532,8 +533,8 @@ public class Perk {
 			"perks/jobs/npc_shop_manager",
 			PresetColour.CURRENCY_GOLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 1)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.ENERGY_SHIELDING, 1)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -548,7 +549,7 @@ public class Perk {
 			PerkCategory.JOB,
 			"perks/jobs/npc_office_worker",
 			PresetColour.CURRENCY_GOLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -563,8 +564,8 @@ public class Perk {
 			"perks/jobs/npc_reindeer_overseer",
 			PresetColour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.RESISTANCE_ICE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -580,22 +581,22 @@ public class Perk {
 			"perks/jobs/elder_lilin",
 			PresetColour.RACE_LILIN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 100),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 100),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 100),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 250),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 250),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 250),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 250),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 250),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 250)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 100),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 100),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 100),
+					new Value<>(Attribute.DAMAGE_SPELLS, 100),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 100),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 100),
+					new Value<>(Attribute.DAMAGE_FIRE, 100),
+					new Value<>(Attribute.DAMAGE_ICE, 100),
+					new Value<>(Attribute.DAMAGE_POISON, 100),
+					new Value<>(Attribute.DAMAGE_LUST, 100),
+					new Value<>(Attribute.ENERGY_SHIELDING, 250),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 250),
+					new Value<>(Attribute.RESISTANCE_FIRE, 250),
+					new Value<>(Attribute.RESISTANCE_ICE, 250),
+					new Value<>(Attribute.RESISTANCE_POISON, 250),
+					new Value<>(Attribute.RESISTANCE_LUST, 250)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -611,7 +612,7 @@ public class Perk {
 			"perks/jobs/npc_slime_queen",
 			Util.newArrayListOfValues(PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 50)),
 			null,
 			null,
 			null,
@@ -630,8 +631,8 @@ public class Perk {
 			"perks/jobs/npc_slime_queen_guard",
 			PresetColour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -647,8 +648,8 @@ public class Perk {
 			"perks/jobs/npc_epona",
 			PresetColour.BASE_PINK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FERTILITY, 100),
-					new Value<Attribute, Integer>(Attribute.VIRILITY, 100)),
+					new Value<>(Attribute.FERTILITY, 100),
+					new Value<>(Attribute.VIRILITY, 100)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -667,10 +668,10 @@ public class Perk {
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 50),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 50),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null,
 			null, null, null) {
 		@Override
@@ -690,10 +691,10 @@ public class Perk {
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_SILVER),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null,
 			null, null, null) {
 		@Override
@@ -713,10 +714,10 @@ public class Perk {
 					PresetColour.CLOTHING_BLACK,
 					PresetColour.CLOTHING_COPPER),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 5)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.RESISTANCE_POISON, 5)),
 			null,
 			null, null, null) {
 		@Override
@@ -734,10 +735,10 @@ public class Perk {
 			Util.newArrayListOfValues(
 					PresetColour.RACE_HORSE_MORPH),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)),
 			null,
 			null, null, null) {
 		@Override
@@ -757,10 +758,10 @@ public class Perk {
 					PresetColour.CLOTHING_STEEL,
 					PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null,
 			null, null, null) {
 		@Override
@@ -780,9 +781,9 @@ public class Perk {
 			"perks/jobs/slave",
 			PresetColour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -797,8 +798,8 @@ public class Perk {
 			"perks/jobs/npc_captive",
 			PresetColour.BASE_RED,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, -25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -813,9 +814,9 @@ public class Perk {
 			"perks/jobs/prostitute",
 			PresetColour.BASE_PINK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 50),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -830,8 +831,8 @@ public class Perk {
 			"perks/jobs/mugger",
 			PresetColour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -846,8 +847,8 @@ public class Perk {
 			"perks/jobs/npc_construction",
 			Util.newArrayListOfValues(PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
 			null,
 			null, null, null) {
 		@Override
@@ -863,8 +864,8 @@ public class Perk {
 			"perks/jobs/npc_construction",
 			Util.newArrayListOfValues(PresetColour.CLOTHING_PURPLE, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 25)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MANA_MAXIMUM, 25)),
 			null,
 			null, null, null) {
 		@Override
@@ -885,9 +886,9 @@ public class Perk {
 			"perks/jobs/unemployed",
 			PresetColour.BASE_RED,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 2),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Boosts)] 'Well Rested' bonus")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -903,7 +904,7 @@ public class Perk {
 			"perks/jobs/officeWorker",
 			PresetColour.BASE_BROWN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] all slave income")) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -927,7 +928,7 @@ public class Perk {
 			"perks/jobs/student",
 			PresetColour.BASE_YELLOW,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10)),
 			Util.newArrayListOfValues("[style.boldExcellent(25%)] discount in all stores")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -943,7 +944,7 @@ public class Perk {
 			"perks/jobs/musician",
 			PresetColour.BASE_GREY,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
+					new Value<>(Attribute.DAMAGE_LUST, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] length of all spell effects")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -959,7 +960,7 @@ public class Perk {
 			"perks/jobs/teacher",
 			PresetColour.BASE_BLUE_LIGHT,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triple)] all slave obedience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -975,7 +976,7 @@ public class Perk {
 			"perks/jobs/writer",
 			PresetColour.BASE_PURPLE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] to all experience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -991,7 +992,7 @@ public class Perk {
 			"perks/jobs/chef",
 			PresetColour.BASE_ORANGE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25)),
+					new Value<>(Attribute.RESISTANCE_POISON, 25)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Double)] duration of all potion effects",
 					"[style.boldExcellent(Doubles)] potion effect limit")) {
@@ -1008,9 +1009,9 @@ public class Perk {
 			"perks/jobs/construction",
 			Util.newArrayListOfValues(PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_BLACK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Halves)] cost of all room upgrades"),
 			null, null, null) {
 		@Override
@@ -1028,10 +1029,10 @@ public class Perk {
 			"perks/jobs/soldier",
 			PresetColour.BASE_GREEN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10)),
 			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1047,7 +1048,7 @@ public class Perk {
 			"perks/jobs/athlete",
 			PresetColour.BASE_TEAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
 			Util.newArrayListOfValues("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1062,8 +1063,8 @@ public class Perk {
 			"perks/jobs/maid",
 			PresetColour.BASE_PINK_LIGHT,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.DAMAGE_LUST, 5),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Boosted)] Maid's set bonuses",
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
@@ -1081,8 +1082,8 @@ public class Perk {
 			"perks/jobs/butler",
 			PresetColour.BASE_BLUE_STEEL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.RESISTANCE_LUST, 25)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Boosted)] Butler's set bonuses",
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
@@ -1100,7 +1101,7 @@ public class Perk {
 			"perks/jobs/tourist",
 			PresetColour.BASE_BLUE_DARK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25)),
 			Util.newArrayListOfValues(
 					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]",
 					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>")) {
@@ -1118,7 +1119,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
@@ -1133,7 +1134,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
 			PresetColour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1147,7 +1148,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
 			PresetColour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1161,7 +1162,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/critical_power",
 			PresetColour.BASE_ORANGE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1175,7 +1176,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
@@ -1190,7 +1191,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
@@ -1205,7 +1206,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
@@ -1220,7 +1221,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/strike",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -1235,7 +1236,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_damage",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_UNARMED, 5)),
 			null) {
 
 		@Override
@@ -1250,7 +1251,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/melee_damage",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5)),
 			null) {
 
 		@Override
@@ -1265,7 +1266,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/ranged_damage",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
 			null) {
 
 		@Override
@@ -1281,11 +1282,11 @@ public class Perk {
 			"perks/beserk",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, -2),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, -15)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 20),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 20),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -2),
+					new Value<>(Attribute.DAMAGE_SPELLS, -15),
+					new Value<>(Attribute.DAMAGE_LUST, -15)),
 			null) {
 
 		@Override
@@ -1300,7 +1301,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/shield",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -1315,7 +1316,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcane_power_1",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1329,7 +1330,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcane_power_3",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1343,7 +1344,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/spell_efficiency",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1357,7 +1358,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/resource_boost",
 			PresetColour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 5)),
 			null) {
 
 		@Override
@@ -1372,7 +1373,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/resource_boost",
 			PresetColour.ATTRIBUTE_HEALTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5)),
 			null) {
 
 		@Override
@@ -1388,8 +1389,8 @@ public class Perk {
 			"perks/resource_boost_drain_aura",
 			PresetColour.ATTRIBUTE_HEALTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 20),
+					new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			null) {
 
 		@Override
@@ -1405,9 +1406,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1423,9 +1424,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1441,9 +1442,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 5),
+					new Value<>(Attribute.DAMAGE_ICE, 5),
+					new Value<>(Attribute.DAMAGE_POISON, 5)),
 			null) {
 
 		@Override
@@ -1459,9 +1460,9 @@ public class Perk {
 			"perks/elemental_defence",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -1477,13 +1478,13 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 		
 		@Override
-		public HashMap<Attribute, Integer> getAttributeModifiers(GameCharacter character) {
+		public HashMap<AbstractAttribute, Integer> getAttributeModifiers(GameCharacter character) {
 			if(character!=null && character.isPlayer()) {
-				return Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20));
+				return Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 20));
 			} else {
 				return super.getAttributeModifiers(character);
 			}
@@ -1505,7 +1506,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence1",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 
 		@Override
@@ -1520,7 +1521,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 
 		@Override
@@ -1535,7 +1536,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
 			PresetColour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5)),
 			null) {
 
 		@Override
@@ -1552,8 +1553,8 @@ public class Perk {
 			"perks/lewd_knowledge",
 			PresetColour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
+					new Value<>(Attribute.RESISTANCE_LUST, 1),
+					new Value<>(Attribute.DAMAGE_LUST, 5)),
 			null) {
 
 		@Override
@@ -1568,7 +1569,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/attSeduction1",
 			PresetColour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1582,7 +1583,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/attSeduction1",
 			PresetColour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1596,7 +1597,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/attSeduction1",
 			PresetColour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1610,7 +1611,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/attSeduction5",
 			PresetColour.BASE_PINK_DEEP,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1624,7 +1625,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/shield",
 			PresetColour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1638,7 +1639,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/virile",
 			PresetColour.BASE_BLUE_LIGHT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 15)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1652,7 +1653,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/virile",
 			PresetColour.GENERIC_EXCELLENT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 25)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 25)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1666,7 +1667,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/fertile",
 			PresetColour.BASE_PINK_LIGHT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 15)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1680,7 +1681,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/fertile",
 			PresetColour.GENERIC_EXCELLENT,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 25)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 25)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1696,8 +1697,8 @@ public class Perk {
 			"perks/physical_brawler",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 10),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10)),
 			null) {
 
 		@Override
@@ -1713,8 +1714,8 @@ public class Perk {
 			"perks/sacrificial_shielding",
 			PresetColour.ATTRIBUTE_MANA,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, -10),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 2)),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -10),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2)),
 			null) {
 
 		@Override
@@ -1730,7 +1731,7 @@ public class Perk {
 			"perks/arcane_vampyrism",
 			PresetColour.ATTRIBUTE_MANA,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+					new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			Util.newArrayListOfValues(
 					"[style.colourExcellent(Absorb 50%)] of any combatant's remaining [style.colourMana("+Attribute.MANA_MAXIMUM.getName()+")] when they are defeated")) {
 
@@ -1748,11 +1749,11 @@ public class Perk {
 			"perks/physical_brawler",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
+					new Value<>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			null) {
 
 		@Override
@@ -1768,7 +1769,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/misc_observant",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
 					"<span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>")) {
 		@Override
@@ -1800,7 +1801,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/physical_accurate",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+PresetColour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -1826,7 +1827,7 @@ public class Perk {
 //			PerkCategory.ARCANE,
 //			"perks/misc_observant",
 //			PresetColour.GENERIC_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5)),
 //			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>")) {
 //		@Override
 //		public String applyPerkGained(GameCharacter character) {
@@ -1854,7 +1855,7 @@ public class Perk {
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_1",
 //			PresetColour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 5)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1870,7 +1871,7 @@ public class Perk {
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_2",
 //			PresetColour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)), null) {
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 10)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1886,7 +1887,7 @@ public class Perk {
 //			PerkCategory.ARCANE,
 //			"perks/arcane_power_3",
 //			PresetColour.ATTRIBUTE_ARCANE,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)), null) {
+//			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 15)), null) {
 //
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -1903,7 +1904,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
 			PresetColour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1921,8 +1922,8 @@ public class Perk {
 			"perks/arcane_fire_1",
 			PresetColour.DAMAGE_TYPE_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1)), null) {
+					new Value<>(Attribute.DAMAGE_FIRE, 10),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1939,7 +1940,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
 			PresetColour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1957,8 +1958,8 @@ public class Perk {
 			"perks/arcane_ice_1",
 			PresetColour.DAMAGE_TYPE_COLD,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
+					new Value<>(Attribute.DAMAGE_ICE, 10),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override
@@ -1976,7 +1977,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/attIntelligence3",
 			PresetColour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)), null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1994,8 +1995,8 @@ public class Perk {
 			"perks/arcane_poison_1",
 			PresetColour.DAMAGE_TYPE_POISON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.DAMAGE_POISON, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -2014,7 +2015,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 3)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 
 		@Override
@@ -2032,7 +2033,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 		@Override
 		public String getName(GameCharacter character) {
@@ -2055,7 +2056,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/regeneration",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Regenerate 5%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2070,8 +2071,8 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/unarmed_training",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 25)),
-			Util.newArrayListOfValues("Base unarmed damage value is [style.boldExcellent(doubled)]")) {
+			Util.newHashMapOfValues(new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
+			Util.newArrayListOfValues("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(doubled)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
@@ -2134,7 +2135,7 @@ public class Perk {
 			"perks/convincing_requests",
 			Util.newArrayListOfValues(PresetColour.GENERIC_SEX, PresetColour.BASE_GOLD),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 1)),
 			Util.newArrayListOfValues(
 					"Requests made during normal sex scenes are always granted",
 					"Unlocks positioning actions in all normal sex scenes"),
@@ -2152,7 +2153,7 @@ public class Perk {
 			"perks/object_of_desire",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 1)),
 			Util.newArrayListOfValues("All partners in sex require [style.colourSex(+1 orgasm)] before being satisfied")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2192,7 +2193,7 @@ public class Perk {
 			"perks/fitness_nymphomaniac",
 			PresetColour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -2)),
+					new Value<>(Attribute.RESISTANCE_LUST, -2)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
@@ -2210,7 +2211,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/lustful_leech",
 			PresetColour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 2)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Absorb 2%)] of target's maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack which deals [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
 		
 		@Override
@@ -2225,7 +2226,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"perks/pure_mind",
 			PresetColour.DAMAGE_TYPE_LUST,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Regain 2%)] of your maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack in which you take [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
 		
 		@Override
@@ -2242,7 +2243,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 15)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
 
 		@Override
@@ -2257,7 +2258,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/arcaneSmith",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 15)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all weapon enchantments</span>")) {
 
 		@Override
@@ -2272,7 +2273,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/enchantment_stability",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 5)),
 			null) {
 
 		@Override
@@ -2287,7 +2288,7 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/enchantment_stability",
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENCHANTMENT_LIMIT, 5)),
 			null) {
 
 		@Override
@@ -2302,7 +2303,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/barren",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -200)),
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -200)),
 			Util.newArrayListOfValues("While "+Attribute.FERTILITY.getName()+" value is 0 or less, pregnancy is [style.colourTerrible(impossible)]")) {
 
 		@Override
@@ -2317,7 +2318,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/firing_blanks",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -200)),
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, -200)),
 			Util.newArrayListOfValues("While "+Attribute.VIRILITY.getName()+" value is 0 or less, impregnation is [style.colourTerrible(impossible)]")) {
 
 		@Override
@@ -2334,7 +2335,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"fetishes/fetish_broodmother",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 20)),
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 20)),
 			Util.newArrayListOfValues("2x <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")) {
 
 		@Override
@@ -2360,7 +2361,7 @@ public class Perk {
 			PerkCategory.LUST,
 			"fetishes/fetish_seeder",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 20)),
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 20)),
 			Util.newArrayListOfValues("2x <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")) {
 
 		@Override
@@ -2385,8 +2386,8 @@ public class Perk {
 			"perks/misc_chuuni",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 20),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 20)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 20),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 20)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Embarrassing spell dialogue</span>")) {
 
 		@Override
@@ -2403,10 +2404,10 @@ public class Perk {
 			"perks/dark_siren",
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 100)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 100),
+					new Value<>(Attribute.MANA_MAXIMUM, 100),
+					new Value<>(Attribute.ENCHANTMENT_LIMIT, 100)),
 			null) {
 
 		@Override
@@ -2426,8 +2427,8 @@ public class Perk {
 			"perks/tattoo",
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
-					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.ENCHANTMENT_LIMIT, 50)),
 			null) {
 
 		@Override
@@ -2489,7 +2490,7 @@ public class Perk {
 			"statusEffects/attCorruption5",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 25)),
 			null) {
 
 		@Override
@@ -2513,8 +2514,8 @@ public class Perk {
 			"perks/attSeduction3",
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 40)),
+					new Value<>(Attribute.DAMAGE_LUST, 15),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 40)),
 			null) {
 
 		@Override
@@ -2538,8 +2539,8 @@ public class Perk {
 			"perks/attSeduction3",
 			PresetColour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 75)),
+					new Value<>(Attribute.DAMAGE_LUST, 25),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 75)),
 			null) {
 
 		@Override
@@ -2563,8 +2564,8 @@ public class Perk {
 			"perks/attIntelligence3",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 20)),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.DAMAGE_SPELLS, 20)),
 			null) {
 
 		@Override
@@ -2588,10 +2589,10 @@ public class Perk {
 			"perks/special_arcane_lightning",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 50)),
+					new Value<>(Attribute.MAJOR_ARCANE, 25),
+					new Value<>(Attribute.MANA_MAXIMUM, 100),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 25),
+					new Value<>(Attribute.DAMAGE_SPELLS, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2614,7 +2615,7 @@ public class Perk {
 			"perks/arcane_allergy",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, -50)),
+					new Value<>(Attribute.MAJOR_ARCANE, -50)),
 			null) {
 
 		@Override
@@ -2638,7 +2639,7 @@ public class Perk {
 			"perks/attStrength3",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 25)),
 			null) {
 
 		@Override
@@ -2662,7 +2663,7 @@ public class Perk {
 			"perks/attStrength3",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10)),
 			null) {
 
 		@Override
@@ -2686,7 +2687,7 @@ public class Perk {
 			"perks/melee_damage",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -2710,7 +2711,7 @@ public class Perk {
 			"perks/ranged_damage",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -2734,7 +2735,7 @@ public class Perk {
 			"perks/imp_slayer",
 			PresetColour.RACE_IMP,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_IMP, 100)),
+					new Value<>(Attribute.DAMAGE_IMP, 100)),
 			null) {
 
 		@Override
@@ -2764,7 +2765,7 @@ public class Perk {
 			"perks/lilin1",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
 
 		@Override
@@ -2789,7 +2790,7 @@ public class Perk {
 			"perks/lilin2",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2814,7 +2815,7 @@ public class Perk {
 			"perks/lilin3",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2839,7 +2840,7 @@ public class Perk {
 			"perks/lilin4",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]",
 					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
@@ -2866,7 +2867,7 @@ public class Perk {
 			"perks/lilin5",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2891,7 +2892,7 @@ public class Perk {
 			"perks/lilin6",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2916,7 +2917,7 @@ public class Perk {
 			"perks/lilin7",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
 
 		@Override
@@ -2945,9 +2946,9 @@ public class Perk {
 //			"combat/spell/elemental_earth",
 //			PresetColour.SPELL_SCHOOL_EARTH,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 50),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
-//					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 50)),
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 50),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 50),
+//					new Value<>(Attribute.RESISTANCE_PHYSICAL, 50)),
 //			null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -2963,9 +2964,9 @@ public class Perk {
 //			"combat/spell/elemental_fire",
 //			PresetColour.SPELL_SCHOOL_FIRE,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 50),
-//					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 50)),
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+//					new Value<>(Attribute.DAMAGE_FIRE, 50),
+//					new Value<>(Attribute.RESISTANCE_FIRE, 50)),
 //			null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -2981,9 +2982,9 @@ public class Perk {
 //			"combat/spell/elemental_water",
 //			PresetColour.SPELL_SCHOOL_WATER,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 20),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 50),
-//					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 20),
+//					new Value<>(Attribute.DAMAGE_ICE, 50),
+//					new Value<>(Attribute.RESISTANCE_ICE, 50)),
 //			null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -2999,9 +3000,9 @@ public class Perk {
 //			"combat/spell/elemental_air",
 //			PresetColour.SPELL_SCHOOL_AIR,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 50),
-//					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<>(Attribute.DAMAGE_POISON, 50),
+//					new Value<>(Attribute.RESISTANCE_POISON, 50)),
 //			null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -3017,11 +3018,11 @@ public class Perk {
 //			"combat/spell/elemental_arcane",
 //			PresetColour.SPELL_SCHOOL_AIR,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
-//					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-//					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
-//					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -50)),
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<>(Attribute.DAMAGE_LUST, 50),
+//					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+//					new Value<>(Attribute.SPELL_COST_MODIFIER, 25),
+//					new Value<>(Attribute.RESISTANCE_LUST, -50)),
 //			null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {
@@ -3037,10 +3038,10 @@ public class Perk {
 			"perks/elemental/coreOccupation",
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100)
+					new Value<>(Attribute.MAJOR_ARCANE, 50),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 100),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100)
 					), null) {
 
 		@Override
@@ -3058,7 +3059,7 @@ public class Perk {
 //			"perks/elemental/coreCorruption",
 //			PresetColour.GENERIC_ARCANE,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100)
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 100)
 //					), null) {
 //
 //		@Override
@@ -3485,8 +3486,8 @@ public class Perk {
 			"perks/elemental/fire1",
 			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1)),
+					new Value<>(Attribute.DAMAGE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1)),
 			null) {
 
 		@Override
@@ -3502,8 +3503,8 @@ public class Perk {
 			"perks/elemental/fire2",
 			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 3)),
+					new Value<>(Attribute.DAMAGE_FIRE, 3),
+					new Value<>(Attribute.RESISTANCE_FIRE, 3)),
 			null) {
 
 		@Override
@@ -3520,8 +3521,8 @@ public class Perk {
 			"perks/elemental/fire3",
 			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 6)),
+					new Value<>(Attribute.DAMAGE_FIRE, 6),
+					new Value<>(Attribute.RESISTANCE_FIRE, 6)),
 			null) {
 
 		@Override
@@ -3537,9 +3538,9 @@ public class Perk {
 			"perks/elemental/fire4",
 			PresetColour.SPELL_SCHOOL_FIRE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 20),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
+					new Value<>(Attribute.DAMAGE_FIRE, 20),
+					new Value<>(Attribute.RESISTANCE_FIRE, 20),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50)),
 			null) {
 
 		@Override
@@ -3965,8 +3966,8 @@ public class Perk {
 			"perks/elemental/earth1",
 			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 1),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			null) {
 
 		@Override
@@ -3982,8 +3983,8 @@ public class Perk {
 			"perks/elemental/earth2",
 			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 3),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 3)),
 			null) {
 
 		@Override
@@ -4000,8 +4001,8 @@ public class Perk {
 			"perks/elemental/earth3",
 			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 6)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 6),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 6)),
 			null) {
 
 		@Override
@@ -4017,9 +4018,9 @@ public class Perk {
 			"perks/elemental/earth4",
 			PresetColour.SPELL_SCHOOL_EARTH,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 50)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 20),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 20),
+					new Value<>(Attribute.DAMAGE_UNARMED, 50)),
 			null) {
 
 		@Override
@@ -4445,8 +4446,8 @@ public class Perk {
 			"perks/elemental/water1",
 			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
+					new Value<>(Attribute.DAMAGE_ICE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
 			null) {
 
 		@Override
@@ -4462,8 +4463,8 @@ public class Perk {
 			"perks/elemental/water2",
 			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 3)),
+					new Value<>(Attribute.DAMAGE_ICE, 3),
+					new Value<>(Attribute.RESISTANCE_ICE, 3)),
 			null) {
 
 		@Override
@@ -4480,8 +4481,8 @@ public class Perk {
 			"perks/elemental/water3",
 			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 6)),
+					new Value<>(Attribute.DAMAGE_ICE, 6),
+					new Value<>(Attribute.RESISTANCE_ICE, 6)),
 			null) {
 
 		@Override
@@ -4497,9 +4498,9 @@ public class Perk {
 			"perks/elemental/water4",
 			PresetColour.SPELL_SCHOOL_WATER,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_ICE, 20),
+					new Value<>(Attribute.RESISTANCE_ICE, 20),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -4925,8 +4926,8 @@ public class Perk {
 			"perks/elemental/air1",
 			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.DAMAGE_POISON, 1),
+					new Value<>(Attribute.RESISTANCE_POISON, 1)),
 			null) {
 
 		@Override
@@ -4942,8 +4943,8 @@ public class Perk {
 			"perks/elemental/air2",
 			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 3)),
+					new Value<>(Attribute.DAMAGE_POISON, 3),
+					new Value<>(Attribute.RESISTANCE_POISON, 3)),
 			null) {
 
 		@Override
@@ -4960,8 +4961,8 @@ public class Perk {
 			"perks/elemental/air3",
 			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 6)),
+					new Value<>(Attribute.DAMAGE_POISON, 6),
+					new Value<>(Attribute.RESISTANCE_POISON, 6)),
 			null) {
 
 		@Override
@@ -4977,9 +4978,9 @@ public class Perk {
 			"perks/elemental/air4",
 			PresetColour.SPELL_SCHOOL_AIR,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
+					new Value<>(Attribute.DAMAGE_POISON, 20),
+					new Value<>(Attribute.RESISTANCE_POISON, 20),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 50)),
 			null) {
 
 		@Override
@@ -5406,8 +5407,8 @@ public class Perk {
 			"perks/elemental/arcane1",
 			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1)),
+					new Value<>(Attribute.DAMAGE_LUST, 1),
+					new Value<>(Attribute.RESISTANCE_LUST, 1)),
 			null) {
 
 		@Override
@@ -5423,8 +5424,8 @@ public class Perk {
 			"perks/elemental/arcane2",
 			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 3)),
+					new Value<>(Attribute.DAMAGE_LUST, 3),
+					new Value<>(Attribute.RESISTANCE_LUST, 3)),
 			null) {
 
 		@Override
@@ -5441,8 +5442,8 @@ public class Perk {
 			"perks/elemental/arcane3",
 			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 6),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 6)),
+					new Value<>(Attribute.DAMAGE_LUST, 6),
+					new Value<>(Attribute.RESISTANCE_LUST, 6)),
 			null) {
 
 		@Override
@@ -5458,9 +5459,9 @@ public class Perk {
 			"perks/elemental/arcane4",
 			PresetColour.SPELL_SCHOOL_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+					new Value<>(Attribute.DAMAGE_LUST, 20),
+					new Value<>(Attribute.RESISTANCE_LUST, 20),
+					new Value<>(Attribute.MANA_MAXIMUM, 50)),
 			null) {
 
 		@Override
@@ -5540,7 +5541,7 @@ public class Perk {
 	}
 	
 	private static void generateSubspeciesPerks() {
-		List<Attribute> resistancesAdded = new ArrayList<>();
+		List<AbstractAttribute> resistancesAdded = new ArrayList<>();
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
 			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
 				resistancesAdded.add(sub.getDamageMultiplier());
@@ -5556,7 +5557,7 @@ public class Perk {
 						null,
 						PresetColour.BASE_WHITE,
 						Util.newHashMapOfValues(
-								new Value<Attribute, Integer>(subToUse.getDamageMultiplier(), 10)),
+								new Value<>(subToUse.getDamageMultiplier(), 10)),
 						null) {
 					@Override
 					public String getDescription(GameCharacter owner) {

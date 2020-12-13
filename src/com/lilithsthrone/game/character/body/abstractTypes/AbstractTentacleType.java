@@ -1,34 +1,47 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
-	private AbstractRace race;
+	private boolean mod;
+	private boolean fromExternalFile;
 	
-	private int defaultGirth;
-	private float lengthAsPercentageOfHeight;
+	private AbstractBodyCoveringType coveringType;
+	private AbstractRace race;
 
 	private String transformationName;
 	
+	private int defaultGirth;
+	private float defaultLengthAsPercentageOfHeight;
+
 	private String determiner;
 	private String determinerPlural;
 	
@@ -48,7 +61,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	private List<BodyPartTag> tags;
 	
 	/**
-	 * @param skinType What covers this tentacle type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this tentacle type (i.e skin/fur/feather type).
 	 * @param race What race has this tentacle type.
 	 * @param defaultGirth The girth which this TentacleType spawns with.
 	 * @param lengthAsPercentageOfHeight The percentage, as a float from 0->1, of this tentacle's length as a proportion of the owner's body height.
@@ -68,10 +81,10 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	 * @param tags The tags which define this tentacle's properties.
 	 */
 	public AbstractTentacleType(
-			AbstractBodyCoveringType skinType,
+			AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			PenetrationGirth defaultGirth,
-			float lengthAsPercentageOfHeight,
+			float defaultLengthAsPercentageOfHeight,
 			String transformationName,
 			String determiner,
 			String determinerPlural,
@@ -87,11 +100,11 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 			String tentacleBodyDescription,
 			List<BodyPartTag> tags) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 
 		this.defaultGirth = defaultGirth.getValue();
-		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
+		this.defaultLengthAsPercentageOfHeight = defaultLengthAsPercentageOfHeight;
 		
 		this.transformationName = transformationName;
 		
@@ -114,12 +127,97 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 		this.tags = tags;
 	}
 
+	public AbstractTentacleType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.defaultGirth = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultGirth").getTextContent());
+				this.defaultLengthAsPercentageOfHeight = Float.valueOf(coreElement.getMandatoryFirstOf("defaultLengthAsPercentageOfHeight").getTextContent());
+
+				this.tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
+				if(tags.isEmpty()) {
+					tags.add(BodyPartTag.TAIL_TYPE_GENERIC);
+					tags.add(BodyPartTag.TAIL_TAPERING_NONE);
+				}
+				
+				this.determiner = coreElement.getMandatoryFirstOf("determiner").getTextContent();
+				this.determinerPlural = coreElement.getMandatoryFirstOf("determinerPlural").getTextContent();
+				
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.tipName = coreElement.getMandatoryFirstOf("tipName").getTextContent();
+				this.tipNamePlural = coreElement.getMandatoryFirstOf("tipNamePlural").getTextContent();
+				this.tipDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tipDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tipDescriptorsMasculine").getAllOf("descriptor")) {
+						tipDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.tipDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tipDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tipDescriptorsFeminine").getAllOf("descriptor")) {
+						tipDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.tentacleTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.tentacleBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractTentacleType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
 	public int getDefaultGirth() {
 		return defaultGirth;
 	}
-	
-	public float getLengthAsPercentageOfHeight() {
-		return lengthAsPercentageOfHeight;
+
+	public float getDefaultLengthAsPercentageOfHeight() {
+		return defaultLengthAsPercentageOfHeight;
 	}
 	
 	@Override
@@ -137,15 +235,24 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 		}
 		return Util.intToString(gc.getTentacleCount())+" "+determinerPlural;
 	}
-
+	
 	@Override
-	public String getTransformName() {
+	public String getTransformationNameOverride() {
 		return transformationName;
 	}
 	
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
+	}
+	
+	@Override
+	public String getName(GameCharacter gc){
+		if(isDefaultPlural(gc) || (gc!=null && gc.getTentacleCount()!=1)) {
+			return getNamePlural(gc);
+		} else {
+			return getNameSingular(gc);
+		}
 	}
 	
 	@Override
@@ -185,7 +292,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	
 	@Override
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+		return coveringType;
 	}
 
 	@Override
@@ -319,6 +426,11 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthTransformationDescription(GameCharacter owner, boolean positive) {
+		String tentacleText = "[npc.a_tentacleGirth] [npc.tentacle]";
+		if(owner.getTentacleCount()>1) {
+			tentacleText = "[npc.tentacleGirth] [npc.tentacles]";
+		}
+		
 		if(positive) {
 			return UtilText.parse(owner,
 					"<p>"
@@ -328,7 +440,7 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 								?" [npc.tentacles] suddenly [style.boldGrow(grow thicker)]."
 								:" [npc.tentacle] suddenly [style.boldGrow(grows thicker)].")
 						+ "<br/>"
-						+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tentacleGirth] [npc.tentacle])]!"
+						+ "[npc.She] now [npc.has] [style.boldSex("+tentacleText+")]!"
 					+ "</p>");
 				
 		} else {
@@ -340,7 +452,29 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 									?" [npc.tentacles] suddenly [style.boldShrink(shrink down)]."
 									:" [npc.tentacle] suddenly [style.boldShrink(shrinks down)].")
 							+ "<br/>"
-						+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tentacleGirth] [npc.tentacle])]!"
+						+ "[npc.She] now [npc.has] [style.boldSex("+tentacleText+")]!"
+					+ "</p>");
+		}
+	}
+	
+	public String getLengthTransformationDescription(GameCharacter owner, boolean positive) {
+		String heightPercentageDescription = " (length is "+((int)(owner.getTentacleLengthAsPercentageOfHeight()*100))+"% of [npc.namePos] height)";
+		if(positive) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the [npc.tentacleTip] of each of [npc.her] [npc.tentacles]."
+						+ " Without any further warning of what's to come, [npc.her] [npc.tentacles] suddenly [style.boldGrow(grow longer)]."
+						+ "<br/>"
+						+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.tentacleLength] [npc.tentacles])]"+heightPercentageDescription+"!"
+					+ "</p>");
+				
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the [npc.tentacleTip] of each of [npc.her] [npc.tentacles]."
+						+ " Without any further warning of what's to come, [npc.her] [npc.tentacles] suddenly [style.boldShrink(shorten)]."
+						+ "<br/>"
+						+ "[npc.She] now [npc.has] [style.boldTfGeneric([npc.tentacleLength] [npc.tentacles])]"+heightPercentageDescription+"!"
 					+ "</p>");
 		}
 	}

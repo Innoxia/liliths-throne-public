@@ -77,6 +77,9 @@ public class Tail implements BodyPartInterface {
 
 	public String setType(GameCharacter owner, AbstractTailType type) {
 		if(!Main.game.isStarted() || owner==null) {
+//			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
+//				type = TailType.NONE;
+//			}
 			if(this.getLengthAsPercentageOfHeight()==this.getType().getDefaultLengthAsPercentageOfHeight()) {
 				this.setLengthAsPercentageOfHeight(owner, type.getDefaultLengthAsPercentageOfHeight());
 			}
@@ -86,22 +89,28 @@ public class Tail implements BodyPartInterface {
 			}
 			return "";
 		}
+
+		StringBuilder sb = new StringBuilder();
 		
-		if (type == getType()) {
+//		if(!owner.getLegConfiguration().isAbleToGrowTail() && type!=TailType.NONE) {
+//			type = TailType.NONE;
+//			sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Due to the fact that [npc.name] [npc.has] the '"+owner.getLegConfiguration().getName()+"' leg configuration, [npc.she] cannot grow a tail!)]</p>"));
+//		}
+		
+		if(type == getType()) {
 			if(type == TailType.NONE) {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] a tail, so nothing happens...)]</p>");
+				sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] a tail, so nothing happens...)]</p>"));
 				
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.tail] of [npc.a_tailRace], so nothing happens...)]</p>");
+				sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.tail] of [npc.a_tailRace], so nothing happens...)]</p>"));
 			}
+			return UtilText.parse(owner, sb.toString());
 		}
-		
-		StringBuilder sb = new StringBuilder();
 		
 		if(this.type == TailType.NONE) {
 			sb.append(
 					"<p>"
-						+ "[npc.Name] rubs at [npc.her] lower back as [npc.she] [npc.verb(feel)] it growing hot and sensitive, and as [npc.she] [npc.do] so, something starts pushing out from under [npc.her] [npc.skin].");
+						+ "[npc.Name] [npc.verb(rub)] at [npc.her] lower back as [npc.she] [npc.verb(feel)] it growing hot and sensitive, and as [npc.she] [npc.do] so, something starts pushing out from under [npc.her] [npc.skin].");
 		} else {
 			sb.append(
 					"<p>"
@@ -119,16 +128,15 @@ public class Tail implements BodyPartInterface {
 		
 		// If NONE, apply type change after. All else, before:
 		if(type == TailType.NONE) {
-			sb.append(type.getTransformationDescription(owner));
+			sb.append(" "+type.getTransformationDescription(owner));
 			this.type = type;
 			
 		} else {
 			this.type = type;
-			sb.append(type.getTransformationDescription(owner));
+			sb.append(" "+type.getTransformationDescription(owner));
 		}
 		
 		sb.append("</p>");
-		
 		
 		
 		return UtilText.parse(owner, sb.toString())
@@ -251,7 +259,7 @@ public class Tail implements BodyPartInterface {
 	}
 
 	/**
-	 * Sets the tails' length as a percentage of the owner's height. Value is bound to >=0.1f && <=2.0f
+	 * Sets the tails' length as a percentage of the owner's height. Value is bound to >=0.05f && <=2.5f
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
 		if(owner==null) {
@@ -261,16 +269,17 @@ public class Tail implements BodyPartInterface {
 		
 		float lengthChange = 0;
 		
-		if (lengthAsPercentageOfHeight <= 0) {
-			if (this.lengthAsPercentageOfHeight != 0) {
-				lengthChange = 0 - this.lengthAsPercentageOfHeight;
-				this.lengthAsPercentageOfHeight = 0;
+		if (lengthAsPercentageOfHeight <= LENGTH_PERCENTAGE_MIN) {
+			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MIN) {
+				lengthChange = LENGTH_PERCENTAGE_MIN - this.lengthAsPercentageOfHeight;
+				this.lengthAsPercentageOfHeight = LENGTH_PERCENTAGE_MIN;
 			}
 		} else if (lengthAsPercentageOfHeight >= LENGTH_PERCENTAGE_MAX) {
 			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MAX) {
 				lengthChange = LENGTH_PERCENTAGE_MAX - this.lengthAsPercentageOfHeight;
 				this.lengthAsPercentageOfHeight = LENGTH_PERCENTAGE_MAX;
 			}
+			
 		} else {
 			if (this.lengthAsPercentageOfHeight != lengthAsPercentageOfHeight) {
 				lengthChange = lengthAsPercentageOfHeight - this.lengthAsPercentageOfHeight;
@@ -331,10 +340,10 @@ public class Tail implements BodyPartInterface {
 	}
 	
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Tail.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tail.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

@@ -1,16 +1,26 @@
 package com.lilithsthrone.game.character.body.coverings;
 
+import java.io.File;
 import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.4
@@ -19,6 +29,9 @@ import com.lilithsthrone.utils.colours.Colour;
  */
 public abstract class AbstractBodyCoveringType {
 
+	private boolean mod;
+	private boolean fromExternalFile;
+	
 	private BodyCoveringCategory category; 
 	private String determiner; 
 	private String namePlural;
@@ -38,6 +51,9 @@ public abstract class AbstractBodyCoveringType {
 	private boolean isDefaultPlural;
 	
 	public AbstractBodyCoveringType(BodyCoveringCategory category, BodyCoveringTemplate template) {
+		this.mod = false;
+		this.fromExternalFile = false;
+		
 		this.category = category;
 		
 		determiner = template.determiner;
@@ -106,6 +122,9 @@ public abstract class AbstractBodyCoveringType {
 			List<Colour> dyeColoursPrimary,
 			List<Colour> naturalColoursSecondary,
 			List<Colour> dyeColoursSecondary) {
+		this.mod = false;
+		this.fromExternalFile = false;
+		
 		this.category = category;
 		
 		this.determiner = determiner;
@@ -159,7 +178,6 @@ public abstract class AbstractBodyCoveringType {
 			}
 		}
 		
-		
 		if(naturalColoursPrimary == null) {
 			this.naturalColoursPrimary = new ArrayList<>();
 		} else {
@@ -182,6 +200,111 @@ public abstract class AbstractBodyCoveringType {
 			this.dyeColoursSecondary = dyeColoursSecondary;
 		}
 		
+		setupColourLists();
+	}
+
+	public AbstractBodyCoveringType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.category = BodyCoveringCategory.valueOf(coreElement.getMandatoryFirstOf("category").getTextContent());
+				
+				this.determiner = coreElement.getMandatoryFirstOf("determiner").getTextContent();
+				this.nameSingular = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				this.isDefaultPlural = Boolean.valueOf(coreElement.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
+				
+				this.naturalModifiers = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("naturalCoveringModifiers").getAllOf("modifier")) {
+					this.naturalModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+				}
+
+				this.extraModifiers = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("extraCoveringModifiers").getAllOf("modifier")) {
+					this.extraModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+				}
+
+				this.naturalPatterns = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("naturalPatterns").getAllOf("pattern")) {
+					this.naturalPatterns.put(CoveringPattern.valueOf(e.getTextContent()), Integer.valueOf(e.getAttribute("weighting")));
+				}
+
+				this.dyePatterns = new HashMap<>();
+				for(Element e : coreElement.getMandatoryFirstOf("extraPatterns").getAllOf("pattern")) {
+					CoveringPattern pattern = CoveringPattern.valueOf(e.getTextContent());
+					if(!this.naturalPatterns.containsKey(pattern)) {
+						this.dyePatterns.put(pattern, Integer.valueOf(e.getAttribute("weighting")));
+					}
+				}
+				
+
+				Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+					String values = colorsElement.getAttribute("values");
+					try {
+						if(values.isEmpty()) {
+							List<Colour> colours = new ArrayList<>();
+							for(Element element : colorsElement.getAllOf("colour")) {
+								colours.add(PresetColour.getColourFromId(element.getTextContent()));
+							}
+							return colours;
+						} else {
+							return ColourListPresets.getColourListFromId(values);
+						}
+						
+					} catch (Exception e) {
+						throw new IllegalStateException("AbstractBodyCoveringType: Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
+					}
+				};
+
+				this.naturalColoursPrimary = coreElement.getOptionalFirstOf("naturalColoursPrimary")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				
+				this.dyeColoursPrimary = coreElement.getOptionalFirstOf("extraColoursPrimary")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+
+				this.naturalColoursSecondary = coreElement.getOptionalFirstOf("naturalColoursSecondary")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				
+				this.dyeColoursSecondary = coreElement.getOptionalFirstOf("extraColoursSecondary")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				
+				
+				// Set up 'all' lists:
+				
+				allPatterns = new HashMap<>();
+				for(Entry<CoveringPattern, Integer> entry : this.naturalPatterns.entrySet()) {
+					this.allPatterns.put(entry.getKey(), entry.getValue());
+				}
+				for(Entry<CoveringPattern, Integer> entry : this.dyePatterns.entrySet()) {
+					if(!this.allPatterns.containsKey(entry.getKey())) {
+						this.allPatterns.put(entry.getKey(), entry.getValue());
+					}
+				}
+				setupColourLists();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractBodyCoveringType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	private void setupColourLists() {
 		allColours = new ArrayList<>();
 		allPrimaryColours = new ArrayList<>();
 		allSecondaryColours = new ArrayList<>();
@@ -210,13 +333,21 @@ public abstract class AbstractBodyCoveringType {
 			}
 		}
 	}
-
+	
 	@Override
 	public String toString() {
 		new AccessException("WARNING: AbstractBodyCoveringType is calling toString()!").printStackTrace(System.err);
 		return BodyCoveringType.getIdFromBodyCoveringType(this);
 	}
 	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
 	public BodyCoveringCategory getCategory() {
 		return category;
 	}

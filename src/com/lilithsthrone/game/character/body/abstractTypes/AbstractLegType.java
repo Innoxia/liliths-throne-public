@@ -1,8 +1,15 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
@@ -12,12 +19,15 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -31,6 +41,9 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
@@ -38,17 +51,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractLegType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+	
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 
+	private String transformationName;
+	
 	private FootStructure defaultFootStructure;
 	private AbstractFootType footType;
-
+	
 	private String determiner;
 	
 	private String name;
@@ -68,8 +86,13 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	
 	private List<LegConfiguration> allowedLegConfigurations;
 	
+	private boolean spinneret;
+
+	private AbstractTentacleType tentacleType;
+	private int tentacleCount;
+	
 	/**
-	 * @param skinType What covers this leg type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this leg type (i.e skin/fur/feather type).
 	 * @param race What race has this leg type.
 	 * @param defaultFootStructure The default foot structure for this leg type.
 	 * @param footType The type of foot attached to this leg type.
@@ -85,8 +108,9 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * @param legTransformationDescription A paragraph describing a character's legs transforming into this leg type. Parsing assumes that the character already has this leg type and associated skin covering.
 	 * @param legBodyDescription A sentence or two to describe this leg type, as seen in the character view screen. It should follow the same format as all of the other entries in the LegType class.
 	 * @param allowedLegConfigurations A list of LegConfigurations that are allowed for this LegType.
+	 * @param spinneret true if this leg type has a spinneret.
 	 */
-	public AbstractLegType(AbstractBodyCoveringType skinType,
+	public AbstractLegType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			FootStructure defaultFootStructure,
 			AbstractFootType footType,
@@ -101,13 +125,18 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			List<String> toeDescriptorsFeminine,
 			String legTransformationDescription,
 			String legBodyDescription,
-			List<LegConfiguration> allowedLegConfigurations) {
+			List<LegConfiguration> allowedLegConfigurations,
+			boolean spinneret) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
+
+		this.transformationName = null; // Use default race transformation name
 		
 		this.defaultFootStructure = defaultFootStructure;
 		this.footType = footType;
+		
+		this.allowedLegConfigurations = allowedLegConfigurations;
 		
 		this.determiner = determiner;
 		
@@ -126,16 +155,122 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		this.legTransformationDescription = legTransformationDescription;
 		this.legBodyDescription = legBodyDescription;
 		
-		this.allowedLegConfigurations = allowedLegConfigurations;
+		this.spinneret = spinneret;
+		
+		this.tentacleType = TentacleType.NONE;
+		this.tentacleCount = 0;
+	}
+	
+	public AbstractLegType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.defaultFootStructure = FootStructure.valueOf(coreElement.getMandatoryFirstOf("defaultFootStructure").getTextContent());
+				this.footType = FootType.getFootTypeFromId(coreElement.getMandatoryFirstOf("footType").getTextContent());
+				this.spinneret = Boolean.valueOf(coreElement.getMandatoryFirstOf("spinneret").getTextContent());
+				
+				this.tentacleType = TentacleType.getTentacleTypeFromId(coreElement.getMandatoryFirstOf("tentacleType").getTextContent());
+				this.tentacleCount = Integer.valueOf(coreElement.getMandatoryFirstOf("tentacleCount").getTextContent());
+				
+				this.allowedLegConfigurations = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("allowedLegConfigurations").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("allowedLegConfigurations").getAllOf("configuration")) {
+						allowedLegConfigurations.add(LegConfiguration.valueOf(e.getTextContent()));
+					}
+				}
+				if(allowedLegConfigurations.isEmpty()) {
+					allowedLegConfigurations.add(LegConfiguration.BIPEDAL);
+				}
+				
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+
+				this.footDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("footDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("footDescriptorsMasculine").getAllOf("descriptor")) {
+						footDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.footDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("footDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("footDescriptorsFeminine").getAllOf("descriptor")) {
+						footDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+
+				this.toeDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("toeDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("toeDescriptorsMasculine").getAllOf("descriptor")) {
+						toeDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.toeDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("toeDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("toeDescriptorsFeminine").getAllOf("descriptor")) {
+						toeDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.legTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.legBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractLegType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
 	}
 
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
+
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return determiner;
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return true;
 	}
 
@@ -160,7 +295,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	@Override
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+		return coveringType;
 	}
 
 	@Override
@@ -247,7 +382,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * @return A description of the transformation.
 	 */
 	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
-		StringBuilder bestialStringBuilder = new StringBuilder();
+		StringBuilder feralStringBuilder = new StringBuilder();
 		
 		if(character.getLegConfiguration()==legConfiguration && character.getLegType().equals(this)) {
 			return "<p>"
@@ -255,33 +390,45 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					+ "</p>";
 		}
 		
-		bestialStringBuilder.append(handleLegConfigurationChanges(character.getBody(), legConfiguration, applyEffects, applyFullEffects));
-
-		bestialStringBuilder.append("<p>");
-		if(character.hasWings()) {
-			if(legConfiguration.isWingsOnLegConfiguration()) {
-				bestialStringBuilder.append("[style.italicsBestial([npc.Her] [npc.wingSize], [npc.wings+] are now located on the sides of [npc.her] "+legConfiguration.getName()+" body!)]");
-			} else {
-				bestialStringBuilder.append("[style.italicsBestial([npc.Her] [npc.wingSize], [npc.wings+] are now located on the back of [npc.her] upper body.)]");
-			}
-		} else {
-			if(legConfiguration.isWingsOnLegConfiguration()) {
-				bestialStringBuilder.append("[style.italicsBestial(If [npc.she] [npc.verb(grow)] any wings, they will be located on the sides of [npc.her] "+legConfiguration.getName()+" body!)]");
-			} else {
-				bestialStringBuilder.append("[style.italicsBestial(If [npc.she] [npc.verb(grow)] any wings, they will be located on the back of [npc.her] upper body.)]");
-			}
+		if(!character.getLegType().isLegConfigurationAvailable(legConfiguration)) {
+			return "<p>"
+					+ "[style.italicsDisabled(Nothing happens, as [npc.namePos] current lower body cannot be transformed into the '"+legConfiguration.getName()+"' configuration...)]"
+				+ "</p>";
 		}
-		bestialStringBuilder.append("</p>");
+		
+		feralStringBuilder.append(handleLegConfigurationChanges(character.getBody(), legConfiguration, applyEffects, applyFullEffects));
 
+		feralStringBuilder.append("<p style='text-align:center;'>");
+			if(character.hasWings()) {
+				if(legConfiguration.isWingsOnLegConfiguration()) {
+					feralStringBuilder.append("[style.italicsFeral([npc.Her] [npc.wingSize], [npc.wings+] are now located on the sides of [npc.her] "+legConfiguration.getName()+" body!)]");
+				} else {
+					feralStringBuilder.append("[style.italicsFeral([npc.Her] [npc.wingSize], [npc.wings+] are now located on the back of [npc.her] upper body.)]");
+				}
+			} else {
+				if(legConfiguration.isWingsOnLegConfiguration()) {
+					feralStringBuilder.append("[style.italicsFeral(If [npc.she] [npc.verb(grow)] any wings, they will be located on the sides of [npc.her] "+legConfiguration.getName()+" body!)]");
+				} else {
+					feralStringBuilder.append("[style.italicsFeral(If [npc.she] [npc.verb(grow)] any wings, they will be located on the back of [npc.her] upper body.)]");
+				}
+			}
+//			if(!legConfiguration.isAbleToGrowTail()) {
+//				feralStringBuilder.append("<br/>");
+//				feralStringBuilder.append("[style.italicsFeral(This leg configuration will prevent [npc.name] from growing a tail!)]");
+//			}
+		feralStringBuilder.append("</p>");
+		
 		if(applyEffects) {
 			character.getBody().getLeg().setLegConfigurationForced(this, legConfiguration);
 		}
 		
-		bestialStringBuilder.append("<p>"
+		character.calculateStatusEffects(0);
+		
+		feralStringBuilder.append("<p>"
 									+ character.postTransformationCalculation()
 								+ "</p>");
 		
-		return UtilText.parse(character, bestialStringBuilder.toString());
+		return UtilText.parse(character, feralStringBuilder.toString());
 	}
 	
 	/**
@@ -301,10 +448,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 */
 	private String handleLegConfigurationChanges(Body body, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		
-		String bestialRaceName = this.getRace().getName(true);
-		String bestialRaceNameDeterminer = UtilText.generateSingularDeterminer(bestialRaceName);
-		StringBuilder bestialStringBuilder = new StringBuilder();
-		String bestialRaceNameWithDeterminer = bestialRaceNameDeterminer+" "+bestialRaceName;
+		String feralRaceName = this.getRace().getFeralName(legConfiguration, false);
+		String feralRaceNameDeterminer = UtilText.generateSingularDeterminer(feralRaceName);
+		StringBuilder feralStringBuilder = new StringBuilder();
+		String feralRaceNameWithDeterminer = feralRaceNameDeterminer+" "+feralRaceName;
 		String raceColorString = this.getRace().getColour().toWebHexString();
 		boolean feral = true;
 		
@@ -315,7 +462,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					applyExtraLegConfigurationTransformations(body, body.getLeg().getLegConfiguration(), false, applyFullEffects); // revert feral parts based on current configuration
 					// Changing back to bipedal reverts crotch-boobs based on preferences:
 					AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
-					if(body.getRaceStage()!=RaceStage.GREATER || Main.getProperties().udders<2 || !body.getGender().isFeminine()) {
+					if(body.getRaceStage()!=RaceStage.GREATER || Main.getProperties().getUddersLevel()<2 || !body.getGender().isFeminine()) {
 						body.setBreastCrotch(
 								new BreastCrotch(
 									BreastType.NONE,
@@ -326,6 +473,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 									startingBodyType.getBreastCrotchNippleSize(),
 									startingBodyType.getBreastCrotchNippleShape(),
 									startingBodyType.getBreastCrotchAreolaeSize(),
+									startingBodyType.getBreastCrotchAreolaeShape(),
 									startingBodyType.getNippleCountPerBreastCrotch(),
 									startingBodyType.getBreastCrotchCapacity(),
 									startingBodyType.getBreastCrotchDepth(),
@@ -335,7 +483,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					}
 					body.setGenitalArrangement(startingBodyType.getGenitalArrangement());
 				}
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
 							+ "[npc.NamePos] lower body transforms back into a regular, bipedal configuration, with [npc.her] genitals shifting back to their normal position between [npc.her] [npc.legs].<br/>"
 							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(bipedal)] <b style='color:"+raceColorString+";'>"+this.getTransformName()+" legs</b>, which are covered in [npc.legFullDescription]."
@@ -344,13 +492,41 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			case ARACHNID:
 				if(applyEffects) {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, true, applyFullEffects);
-					body.setGenitalArrangement(GenitalArrangement.CLOACA);
+					if(!legConfiguration.getAvailableGenitalConfigurations().contains(body.getGenitalArrangement())) {
+						body.setGenitalArrangement(legConfiguration.getAvailableGenitalConfigurations().get(0));
+					}
 				}
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
-							+ "[npc.NamePos] lower body transforms into that of a huge, eight-legged "+bestialRaceName+", with [npc.her] genitals and asshole shifting to sit within a cloaca on the underside of [npc.her] massive arachnid abdomen."
-									+ " [style.italicsSex(As [npc.her] cloaca is only visible from below, [npc.she] [npc.do]n't feel embarrassed to have no clothing covering [npc.her] arachnid body.)]<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(arachnid body)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+							+ "Without warning, [npc.name] suddenly [npc.verb(lose)] all of the strength in [npc.her] [npc.legs], and [npc.she] [npc.verb(collapse)] to the ground with a startled cry."
+							+ " Before [npc.sheIs] able to react to this alarming development, [npc.her] lower body starts to rapidly transform..."
+						+ "</p>"
+						+ "<p>"
+							+ "Looking down, [npc.name] [npc.verb(watch)] in disbelief as [npc.her] [npc.legs] split and transform into eight long, segmented legs."
+							+ " The changes don't stop there, however, as [npc.her] lower body continues to rapidly morph into into that of a huge, eight-legged "+feralRaceName+"."
+							+ " A horny [npc.moan] bursts out of [npc.her] mouth as [npc.her] genitals shift to be on the underside of [npc.her] massive arachnid body,"
+									+ " while [npc.her] anus "+(body.getLeg().getType().hasSpinneret()?"and spinneret are":"is")+" positioned near the tip of [npc.her] abdomen."
+							+ " [style.italicsSex(As [npc.her] genitals are only visible from below, [npc.she] [npc.do]n't feel embarrassed to have no clothing covering [npc.her] arachnid body.)]<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(arachnid body)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+						+ "</p>");
+				break;
+			case AVIAN:
+				if(applyEffects) {
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true, applyFullEffects);
+					if(!legConfiguration.getAvailableGenitalConfigurations().contains(body.getGenitalArrangement())) {
+						body.setGenitalArrangement(legConfiguration.getAvailableGenitalConfigurations().get(0));
+					}
+				}
+				feralStringBuilder.append(
+						"<p>"
+							+ "Without warning, [npc.name] suddenly [npc.verb(lose)] all of the strength in [npc.her] [npc.legs], and [npc.she] [npc.verb(collapse)] to the ground with a startled cry."
+							+ " Before [npc.sheIs] able to react to this alarming development, [npc.her] lower body starts to rapidly transform..."
+						+ "</p>"
+						+ "<p>"
+							+ "Looking down, [npc.name] [npc.verb(watch)] in disbelief as the entire of [npc.her] lower body rapidly morphs into into that of a huge "+feralRaceName+"."
+							+ " A horny [npc.moan] bursts out of [npc.her] mouth as [npc.her] genitals and asshole shift to be located within a cloaca that's found on the rear-facing underside of [npc.her] massive avian body."
+							+ " [style.italicsSex(As [npc.her] genitals are only visible from below, [npc.she] [npc.do]n't feel embarrassed to have no clothing covering [npc.her] avian body.)]<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(avian body)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
 						+ "</p>");
 				break;
 			case CEPHALOPOD:
@@ -358,11 +534,17 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
-							+ "[npc.NamePos] lower body transforms into that of a huge, eight-legged "+bestialRaceName+", with [npc.her] genitals and asshole shifting to sit within a cloaca located in the central underside of [npc.her] tentacles."
-									+ " [style.italicsSex(As [npc.her] cloaca is only visible from below, [npc.she] [npc.do]n't feel embarrassed to have no clothing covering [npc.her] tentacled body.)]<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(tentacled body)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+							+ "Without warning, [npc.name] suddenly [npc.verb(lose)] all of the strength in [npc.her] [npc.legs], and [npc.she] [npc.verb(collapse)] to the ground with a startled cry."
+							+ " Before [npc.sheIs] able to react to this alarming development, [npc.her] lower body starts to rapidly transform..."
+						+ "</p>"
+						+ "<p>"
+							+ "Looking down, [npc.name] [npc.verb(watch)] in disbelief as [npc.her] [npc.legs] split and transform into eight long, strong tentacles."
+							+ " The changes don't stop there, however, as [npc.her] lower body continues to rapidly morph into into that of a huge, eight-legged "+feralRaceName+"."
+							+ " A horny [npc.moan] bursts out of [npc.her] mouth as [npc.her] genitals and asshole shift to sit within a cloaca located in the central underside of [npc.her] new tentacles."
+							+ " [style.italicsSex(As [npc.her] cloaca is only visible from below, [npc.she] [npc.do]n't feel embarrassed to have no clothing covering [npc.her] tentacled body.)]<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(tentacled body)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
 						+ "</p>");
 				break;
 			case TAIL:
@@ -370,11 +552,11 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
-							+ "[npc.NamePos] lower body transforms into that of "+bestialRaceNameWithDeterminer+"'s tail, with [npc.her] genitals and asshole shifting to sit within a front-facing cloaca,"
-									+ " located in the equivalent place as where [npc.her] regular intercrural genitalia would be.<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(tail)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+							+ "[npc.NamePos] lower body transforms into that of "+feralRaceNameWithDeterminer+"'s tail, with [npc.her] genitals and asshole shifting to sit within a front-facing cloaca,"
+									+ " located in the equivalent place to where [npc.her] regular intercrural genitalia would be.<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(tail)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
 						+ "</p>");
 				break;
 			case TAIL_LONG:
@@ -382,15 +564,15 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
-							+ "[npc.NamePos] lower body transforms into that of a huge "+bestialRaceName+"'s tail, with [npc.her] genitals and asshole shifting to sit within a front-facing cloaca,"
-									+ " located in the equivalent place as where [npc.her] regular intercrural genitalia would be.<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(huge tail)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
+							+ "[npc.NamePos] lower body transforms into that of a huge "+feralRaceName+"'s tail, with [npc.her] genitals and asshole shifting to sit within a front-facing cloaca,"
+									+ " located in the equivalent place to where [npc.her] regular intercrural genitalia would be.<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(huge tail)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription]."
 						+ "</p>");
 				break;
 			case QUADRUPEDAL:
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						"<p>"
 							+ "An extremely unsettling, tingling feeling starts to spread down into [npc.namePos] [npc.legs+],");
 				
@@ -399,7 +581,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					body.setGenitalArrangement(GenitalArrangement.NORMAL);
 				}
 				
-				bestialStringBuilder.append(
+				feralStringBuilder.append(
 						" and [npc.she] [npc.verb(let)] out an alarmed cry as [npc.she] [npc.verb(lose)] [npc.her] balance and [npc.verb(tumble)] to the floor."
 							+ " Right before [npc.her] [npc.eyes], [npc.her] lower body shifts and transforms, with [npc.her] limbs pulling back into an intermediary mass of [npc.bodyMaterial],"
 								+ " before almost immediately pushing back out in a quadrupedal configuration."
@@ -409,14 +591,25 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							+ " Although it could be described as nothing less than extreme, the transformation is surprisingly pain-free, and the gasps and [npc.moans] that burst out from [npc.namePos] mouth are purely from shock and exertion."
 						+ "</p>"
 						+ "<p>"
-							+ "After just a few moments more, [npc.namePos] lower body has completely transformed into that of "+bestialRaceNameWithDeterminer
-								+", with [npc.her] genitals and asshole shifting to sit in the same place as that of a feral "+bestialRaceName+".<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(lower body)] of <b style='color:"+raceColorString+";'>"+bestialRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription(true)]."
+							+ "After just a few moments more, [npc.namePos] lower body has completely transformed into that of "+feralRaceNameWithDeterminer
+								+", with [npc.her] genitals and asshole shifting to sit in the same place as that of a feral "+feralRaceName+".<br/>"
+							+ "[npc.Name] now [npc.has] the [style.boldTfGeneric(lower body)] of <b style='color:"+raceColorString+";'>"+feralRaceNameWithDeterminer+"</b>, which is covered in [npc.legFullDescription(true)]."
 						+ "</p>");
 				break;
 		}
-
-		if(Main.getProperties().udders==0) {
+		
+		if(legConfiguration.isTailLostOnInitialTF()) {
+			if(body.getTail().getType()!=TailType.NONE) {
+				body.getTail().setType(null, TailType.NONE);
+				// Tail description is handled below
+//				feralStringBuilder.append(
+//						"<p style='text-align:center;'>"
+//								+ "[style.italicsFeral(As part of the transformation, [npc.name] [nc.has] lost [npc.her] tail!)]"
+//						+ "</p>");
+			}
+		}
+		
+		if(Main.getProperties().getUddersLevel()==0 && !body.isFeral()) {
 			AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
 			body.setBreastCrotch(
 					new BreastCrotch(
@@ -428,6 +621,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						startingBodyType.getBreastCrotchNippleSize(),
 						startingBodyType.getBreastCrotchNippleShape(),
 						startingBodyType.getBreastCrotchAreolaeSize(),
+						startingBodyType.getBreastCrotchAreolaeShape(),
 						startingBodyType.getNippleCountPerBreastCrotch(),
 						startingBodyType.getBreastCrotchCapacity(),
 						startingBodyType.getBreastCrotchDepth(),
@@ -436,8 +630,8 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						true));
 		}
 		
-		bestialStringBuilder.append("<p><i>"
-				+ "[style.boldTfGeneric(Every part)] of [npc.her] lower body has transformed into that of a "+(feral?"feral "+bestialRaceName:"regular "+this.getRace().getName(false))+", meaning that [npc.she] now [npc.has]");
+		feralStringBuilder.append("<p><i>"
+				+ "[style.boldTfGeneric(Every part)] of [npc.her] lower body has transformed into that of a "+(feral?"feral "+feralRaceName:"regular "+this.getRace().getName(false))+", meaning that [npc.she] now [npc.has]");
 		
 		List<String> partsList = new ArrayList<>();
 		// Tail:
@@ -451,66 +645,94 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					+body.getTail().getName(null)+")]");
 		}
 		// Ass:
-		partsList.add(bestialRaceNameWithDeterminer+"'s ass");
+		partsList.add(feralRaceNameWithDeterminer+"'s ass");
 		// Crotch boobs:
-		if((Main.getProperties().udders==1 && legConfiguration!=LegConfiguration.BIPEDAL) || (Main.getProperties().udders==2 && body.getRaceStage()==RaceStage.GREATER)) {
+		if((Main.getProperties().getUddersLevel()==1 && legConfiguration!=LegConfiguration.BIPEDAL)
+				|| (Main.getProperties().getUddersLevel()==2 && body.getRaceStage()==RaceStage.GREATER)
+				|| body.isFeral()) {
 			if(body.getBreastCrotch().getType()!=BreastType.NONE && !legConfiguration.isBipedalPositionedCrotchBoobs()) {
 				partsList.add("animal-like "+body.getBreastCrotch().getName(null));
 			}
 		}
-		bestialStringBuilder.append(Util.stringsToStringList(partsList, false)+".");
+		feralStringBuilder.append(Util.stringsToStringList(partsList, false)+".");
 		
 		Penis penis = body.getPenis();
 		if(penis.getType()!=PenisType.NONE) {
 			if(feral) {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+bestialRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+Units.size(penis.getRawLengthValue())+" long.");
+				feralStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+feralRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+Units.size(penis.getRawLengthValue())+" long.");
 			} else {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawLengthValue())+" long.");
+				feralStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawLengthValue())+" long.");
 			}
 		}
 		
 		Vagina vagina = body.getVagina();
 		if(vagina.getType()!=VaginaType.NONE) {
 			if(feral) {
-				bestialStringBuilder.append(" [npc.Her] now-musky pussy is now also identical to that of "+bestialRaceNameWithDeterminer
-						+", and has expanded to be "+vagina.getOrificeVagina().getCapacity().getDescriptor()+" in order to accommodate a matching feral cock.");
+				feralStringBuilder.append(" [npc.Her] now-musky pussy is now also identical to that of "+feralRaceNameWithDeterminer
+						+", and has shifted into being "+vagina.getOrificeVagina().getCapacity().getDescriptor()+" in order to accommodate a matching feral cock.");
 			} else {
-				bestialStringBuilder.append(" [npc.Her] now-"+vagina.getOrificeVagina().getCapacity().getDescriptor()+" pussy has similarly transformed into that of a regular.");
+				feralStringBuilder.append(" [npc.Her] now-"+vagina.getOrificeVagina().getCapacity().getDescriptor()+" pussy has similarly transformed into that of a regular.");
 			}
 		}
-		bestialStringBuilder.append("</i></p>");
+		feralStringBuilder.append("</i></p>");
 		
 		if(feral) {
-			bestialStringBuilder.append("<p><i>Feeling as though it's only natural, [npc.she] [style.colourGood(no longer [npc.verb(get)] embarrassed)] about having [npc.her] [style.italicsBestial(animalistic genitals"
+			feralStringBuilder.append("<p><i>Feeling as though it's only natural, [npc.she] [style.colourGood(no longer [npc.verb(get)] embarrassed)] about having [npc.her] [style.italicsFeral(animalistic genitals"
 					+(legConfiguration.isBipedalPositionedCrotchBoobs()?(body.getBreastCrotch().getShape()==BreastShape.UDDERS?" or udders":" or crotch-boobs"):"")
 					+ ")] on display!</i></p>");
 		}
-		
-		
-		if(legConfiguration.getLandSpeedModifier()>0) {
-			bestialStringBuilder.append("<p><i>"
-										+ "[npc.Her] new lower body is not as well-adapted to movement on land as a usual biped,"
-											+ " and as a result, [style.colourTerrible([npc.she] [npc.verb(move)] slower than usual)] [style.colourEarth(while on land)]!"
-									+ "</i></p>");
-		} else if(legConfiguration.getLandSpeedModifier()<0) {
-			bestialStringBuilder.append("<p><i>"
-										+ "[npc.Her] new lower body is capable of speeds greater than that attainable by a usual biped,"
-											+ " and as a result, [style.colourExcellent([npc.she] [npc.verb(move)] faster than usual)] [style.colourEarth(while on land)]!"
-									+ "</i></p>");
+
+		if(body.getLeg().getType().hasSpinneret()) {
+			feralStringBuilder.append("<p>[npc.Her] abdomen has [style.italicsFeral(a spinneret)], which, along with creating webbing, [style.italicsSex(can be penetrated and used as a sexual orifice)]!</p>");
+		} else if(body.getTail().getType().hasSpinneret()) {
+			feralStringBuilder.append("<p>[npc.Her] tail has [style.italicsFeral(a spinneret)], which, along with creating webbing, [style.italicsSex(can be penetrated and used as a sexual orifice)]!</p>");
 		}
 		
-		if(legConfiguration.getWaterSpeedModifier()>0) {
-			bestialStringBuilder.append("<p><i>"
-										+ "[npc.SheIsFull] now a lot less capable at moving in water than a usual biped,"
-											+ " and as a result, [style.colourTerrible([npc.she] [npc.verb(move)] slower than usual)] [style.colourWater(while in water)]!"
-									+ "</i></p>");
-		} else if(legConfiguration.getWaterSpeedModifier()<0) {
-			bestialStringBuilder.append("<p><i>"
-										+ "[npc.SheIsFull] now in possession of a body that's well-suited to moving in water,"
-											+ " and as a result, [style.colourExcellent([npc.she] [npc.verb(move)] faster than usual)] [style.colourWater(while in water)]!"
-									+ "</i></p>");
+		int landSpeed = body.getLeg().getType().getLandSpeedModifier() + legConfiguration.getLandSpeedModifier();
+		if(landSpeed>0) {
+			feralStringBuilder.append("<p style='text-align:center;'><i>"
+											+ "[npc.Her] new lower body is not as well-adapted to movement on land as a usual biped,"
+												+ " and as a result, [style.colourTerrible([npc.she] [npc.verb(move)] slower than usual)] [style.colourEarth(while on land)]!"
+											+ "<br/>"
+											+ "[style.colourTerrible(+"+landSpeed+"%)] travel time while on land!"
+										+ "</i></p>");
+		} else if(landSpeed<0) {
+			feralStringBuilder.append("<p style='text-align:center;'><i>"
+											+ "[npc.Her] new lower body is capable of speeds greater than that attainable by a usual biped,"
+												+ " and as a result, [style.colourExcellent([npc.she] [npc.verb(move)] faster than usual)] [style.colourEarth(while on land)]!"
+											+ "<br/>"
+											+ "[style.colourExcellent("+landSpeed+"%)] travel time while on land!"
+										+ "</i></p>");
 		}
-		return bestialStringBuilder.toString();
+
+		int waterSpeed = body.getLeg().getType().getWaterSpeedModifier() + legConfiguration.getWaterSpeedModifier();
+		if(waterSpeed>0) {
+			feralStringBuilder.append("<p style='text-align:center;'><i>"
+											+ "[npc.SheIsFull] now a lot less capable at moving in water than a usual biped,"
+												+ " and as a result, [style.colourTerrible([npc.she] [npc.verb(move)] slower than usual)] [style.colourWater(while in water)]!"
+											+ "<br/>"
+											+ "[style.colourTerrible(+"+waterSpeed+"%)] travel time while in water!"
+										+ "</i></p>");
+		} else if(waterSpeed<0) {
+			feralStringBuilder.append("<p style='text-align:center;'><i>"
+											+ "[npc.SheIsFull] now in possession of a body that's well-suited to moving in water,"
+												+ " and as a result, [style.colourExcellent([npc.she] [npc.verb(move)] faster than usual)] [style.colourWater(while in water)]!"
+											+ "<br/>"
+											+ "[style.colourExcellent("+waterSpeed+"%)] travel time while in water!"
+										+ "</i></p>");
+		}
+		
+		if(legConfiguration==LegConfiguration.TAIL) {
+			feralStringBuilder.append("<p style='text-align:center;'><i>"
+											+ "While [style.colourTan(on land)], [npc.namePos] lower body will now [style.colourTfGeneric(automatically transform into a bipedal configuration)]!"
+											+ " While in this form, [npc.she] will suffer some negative side-effects."
+											+ "<br/>"
+											+ "Conversely, while [style.colourBlueLight(in water)], [npc.namePos] lower body will [style.colourTfGeneric(automatically transform back into its true tail-like form)]!"
+											+ " While in this form, [npc.she] will benefit from some positive side-effects."
+										+ "</i></p>");
+		}
+		
+		return feralStringBuilder.toString();
 	}
 	
 	// Setting parts is applied directly through body to circumvent transformation blocks
@@ -522,7 +744,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		
 		boolean demon = body.getRace()==Race.DEMON;
 		
-		if(legConfiguration.getBestialParts().contains(Ass.class)) { // Ass (includes Anus):
+		if(legConfiguration.getFeralParts().contains(Ass.class)) { // Ass (includes Anus):
 			if(!applyFullEffects) {
 				body.getAss().setType(null, (demon
 						?AssType.DEMON_COMMON
@@ -544,7 +766,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							true));
 			}
 		}
-		if(legConfiguration.getBestialParts().contains(BreastCrotch.class)) { // Crotch-boobs:
+		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:
 			if(!applyFullEffects) {
 				body.getBreastCrotch().setType(null,
 						(body.isFeminine()
@@ -568,6 +790,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						startingBodyType.getBreastCrotchNippleSize(),
 						startingBodyType.getBreastCrotchNippleShape(),
 						startingBodyType.getBreastCrotchAreolaeSize(),
+						startingBodyType.getBreastCrotchAreolaeShape(),
 						startingBodyType.getNippleCountPerBreastCrotch(),
 						startingBodyType.getBreastCrotchCapacity(),
 						startingBodyType.getBreastCrotchDepth(),
@@ -576,7 +799,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						true));
 			}
 		}
-		if(legConfiguration.getBestialParts().contains(Tail.class)) { // Tail:
+		if(legConfiguration.getFeralParts().contains(Tail.class)) { // Tail:
 			if(body.getLeg().getType().getRace()==Race.DEMON) {
 				body.setTail(new Tail(TailType.DEMON_HORSE));
 			} else {
@@ -585,10 +808,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				}
 			}
 		}
-		if(legConfiguration.getBestialParts().contains(Tentacle.class)) { // Tentacle:
+		if(legConfiguration.getFeralParts().contains(Tentacle.class)) { // Tentacle:
 			body.setTentacle(new Tentacle(startingBodyType.getTentacleType()));
 		}
-		if(legConfiguration.getBestialParts().contains(Penis.class)) { // Penis (includes Testicle):
+		if(legConfiguration.getFeralParts().contains(Penis.class)) { // Penis (includes Testicle):
 			if(!applyFullEffects) {
 				if(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO) {
 					body.getPenis().setType(null,
@@ -615,7 +838,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				body.getPenis().setVirgin(virgin);
 			}
 		}
-		if(legConfiguration.getBestialParts().contains(Vagina.class)) { // Vagina (includes Clitoris):
+		if(legConfiguration.getFeralParts().contains(Vagina.class)) { // Vagina (includes Clitoris):
 			if(!applyFullEffects) {
 				if(body.getVagina().getType()!=VaginaType.NONE) {
 					body.getVagina().setType(null,
@@ -634,24 +857,83 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 										:startingBodyType.getVaginaType()),
 									LabiaSize.getRandomLabiaSize().getValue(),
 									startingBodyType.getClitSize(),
+									startingBodyType.getClitGirth(),
 									startingBodyType.getVaginaWetness(),
 									(float) (startingBodyType.getVaginaCapacity()*(largeGenitals?2.5:1)),
 									startingBodyType.getVaginaDepth()+(largeGenitals?2:0),
 									startingBodyType.getVaginaElasticity(),
 									startingBodyType.getVaginaPlasticity(),
 									true)
-							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 2, 3, 3, true));
+							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true));
 				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getVagina().getOrificeVagina().setVirgin(virgin);
 			}
 		}
  	}
 	
+	public List<LegConfiguration> getAllowedLegConfigurations() {
+		return allowedLegConfigurations;
+	}
+
 	/**
 	 * @param legConfiguration The configuration to check transformation availability of.
 	 * @return True if this configuration is allowed for this LegType.
 	 */
 	public boolean isLegConfigurationAvailable(LegConfiguration legConfiguration) {
 		return allowedLegConfigurations.contains(legConfiguration);
+	}
+	
+	public boolean hasSpinneret() {
+		return spinneret;
+	}
+
+	/**
+	 * @return Usually TentacleType.NONE. If it returns an actual TentacleType, then that means this LegType has tentacles in place of legs.
+	 */
+	public AbstractTentacleType getTentacleType() {
+		return tentacleType;
+	}
+	
+	public boolean isLegsReplacedByTentacles() {
+		return getTentacleType()!=TentacleType.NONE;
+	}
+	
+	public int getTentacleCount() {
+		return tentacleCount;
+	}
+	
+	/**
+	 * @return By default, LegTypes return a modification of 0, but if a LegType requires a modifier, then this can be overridden and its effects will be handled alongside LegConfiguration's getLandSpeedModifier().
+	 */
+	public int getLandSpeedModifier() {
+		return 0;
+	}
+
+	/**
+	 * @return By default, LegTypes return a modification of 0, but if a LegType requires a modifier, then this can be overridden and its effects will be handled alongside LegConfiguration's getWaterSpeedModifier().
+	 */
+	public int getWaterSpeedModifier() {
+		return 0;
+	}
+	
+	@Override
+	public BodyPartClothingBlock getBodyPartClothingBlock() {
+		if(this.getFootType()==FootType.HOOFS) {
+			return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(
+							InventorySlot.FOOT),
+					this.getRace(),
+					"Due to the shape of [npc.namePos] hoofs, only hoof-compatible clothing can be worn in this slot.",
+					Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
+		}
+		if(this.getFootType()==FootType.TALONS) {
+			return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(
+							InventorySlot.FOOT),
+					this.getRace(),
+					"Due to the shape of [npc.namePos] talons, only talon-compatible clothing can be worn in this slot.",
+					Util.newArrayListOfValues(ItemTag.FITS_TALONS, ItemTag.FITS_TALONS_EXCLUSIVE));
+		}
+		return null;
 	}
 }

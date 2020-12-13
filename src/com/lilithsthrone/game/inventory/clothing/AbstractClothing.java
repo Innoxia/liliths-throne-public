@@ -17,6 +17,7 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Penis;
@@ -722,7 +723,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					for(int i = 0; i < modifierElements.getLength(); i++){
 						Element e = ((Element)modifierElements.item(i));
 						try {
-							Attribute att = Attribute.getAttributeFromId(e.getAttribute("attribute"));
+							AbstractAttribute att = Attribute.getAttributeFromId(e.getAttribute("attribute"));
 							int value = Integer.valueOf(e.getAttribute("value"));
 							
 							TFPotency pot = TFPotency.BOOST;
@@ -950,7 +951,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						}
 					}
 				}
-				for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+				for(Entry<AbstractAttribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
 					descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				}
 				descriptionSB.append("</p>");
@@ -978,11 +979,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isCanBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
-		return this.isAbleToBeBeEquipped(clothingOwner, slot).getKey();
+		return this.isAbleToBeEquipped(clothingOwner, slot).getKey();
 	}
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner, InventorySlot slot) {
-		return UtilText.parse(clothingOwner, this.isAbleToBeBeEquipped(clothingOwner, slot).getValue());
+		return UtilText.parse(clothingOwner, this.isAbleToBeEquipped(clothingOwner, slot).getValue());
 	}
 	
 	@Override
@@ -1243,7 +1244,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment Revealed:</b><br/>"+getDisplayName(true));
 			}
 
-			for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+			for(Entry<AbstractAttribute, Integer> att : attributeModifiers.entrySet()) {
 				sb.append("<br/>"+att.getKey().getFormattedValue(att.getValue()));
 			}
 			
@@ -2089,10 +2090,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return sb.toString();
 	}
 
-	public Attribute getCoreEnchantment() {
-		Attribute att = null;
+	public AbstractAttribute getCoreEnchantment() {
+		AbstractAttribute att = null;
 		int max = 0;
-		for(Entry<Attribute, Integer> entry : getAttributeModifiers().entrySet()) {
+		for(Entry<AbstractAttribute, Integer> entry : getAttributeModifiers().entrySet()) {
 			att = entry.getKey();
 			if(Math.abs(entry.getValue()) > max) {
 				att = entry.getKey();
@@ -2196,7 +2197,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	@Override
-	public Map<Attribute, Integer> getAttributeModifiers() {
+	public Map<AbstractAttribute, Integer> getAttributeModifiers() {
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
@@ -2212,7 +2213,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 * @return An integer value of the 'enchantment capacity cost' for this particular piece of clothing. Does not count negative attribute values, and values of Corruption are reversed (so reducing corruption costs enchantment stability).
 	 */
 	public int getEnchantmentCapacityCost() {
-		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
 		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
@@ -2322,7 +2323,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return getItemTags(slotEquippedTo).contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
 	}
 	
-	public Value<Boolean, String> isAbleToBeBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
+	public Value<Boolean, String> isAbleToBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
 		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
 		Set<ItemTag> tags = this.getItemTags(slot);
 		
@@ -2331,8 +2332,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(!this.getClothingType().getEquipSlots().contains(slot)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(The "+this.getName()+" cannot be equipped into this slot!)]"));
 		}
-		if (block != null && Collections.disjoint(block.getRequiredTags(), tags)) {
+		if(block!=null && Collections.disjoint(block.getRequiredTags(), tags)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
+		}
+		
+		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
 		if(tags.contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
@@ -2340,6 +2351,32 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(tags.contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
+		if(tags.contains(ItemTag.FITS_AVIAN_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.AVIAN) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for avian bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_ALL_BODY) && !clothingOwner.isFeral()) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_QUADRUPED_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral quadrupedal bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_ARACHNID_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral arachnid bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_AVIAN_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.AVIAN)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral avian bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_CEPHALOPOD_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral cephalopod bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_TAIL_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.ONLY_FITS_FERAL_LONG_TAIL_BODY) && (!clothingOwner.isFeral() || clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for feral long-tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		
 		if(tags.contains(ItemTag.FITS_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(BodyPartTag.ARM_WINGS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
@@ -2352,17 +2389,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(tags.contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
-		if(tags.contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
-		}
 		if(tags.contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
-		}
-		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
 		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
@@ -2440,6 +2468,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case ARACHNID:
 					if(!tags.contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
 						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case AVIAN:
+					if(!tags.contains(ItemTag.FITS_AVIAN_BODY)) { // Avian-specific clothing is configured to be correct.
+						// Avian crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
 						replaceGroinAccess = true;
 					}
 					break;
@@ -2537,6 +2571,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						replace = true;
 					}
 					break;
+				case AVIAN:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_AVIAN_BODY)) { // Avian-specific clothing is configured to be correct.
+						replace = true;
+					}
+					break;
 				case QUADRUPEDAL:
 					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replace = true;
@@ -2572,6 +2611,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				case ARACHNID:
 					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
 						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case AVIAN:
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_AVIAN_BODY)) { // Avian-specific clothing is configured to be correct.
+						// Avian crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
 						replaceGroinAccess = true;
 					}
 					break;

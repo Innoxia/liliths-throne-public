@@ -1500,6 +1500,13 @@ public class Properties {
 	
 	public float getRandomRacePercentage() {
 		return randomRacePercentage;
-		
+	}
+
+	public int getUddersLevel() {
+		return udders;
+	}
+	
+	public void setUddersLevel(int udders) {
+		this.udders = udders;
 	}
 }

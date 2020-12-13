@@ -1,26 +1,42 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
-	private AbstractBodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private String transformationName;
+
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 	private AbstractMouthType mouthType;
 	
@@ -40,7 +56,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	private List<BodyPartTag> tags;
 	
 	/**
-	 * @param skinType What covers this face type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this face type (i.e skin/fur/feather type).
 	 * @param race What race has this face type.
 	 * @param faceType The type of face that this face type has.
 	 * @param names A list of singular names for this face type. Pass in null to use generic names.
@@ -51,7 +67,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	 * @param faceBodyDescription A sentence or two to describe this face type, as seen in the character view screen. It should follow the same format as all of the other entries in the AssType class.
 	 * @param tags A list of tags which help to define the features of this face type.
 	 */
-	public AbstractFaceType(AbstractBodyCoveringType skinType,
+	public AbstractFaceType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			AbstractMouthType mouthType,
 			List<String> names,
@@ -66,9 +82,11 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 			String faceBodyDescription,
 			List<BodyPartTag> tags) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 		this.mouthType = mouthType;
+
+		this.transformationName = null; // Use default race transformation name
 		
 		this.names = names;
 		this.namesPlural = namesPlural;
@@ -85,9 +103,97 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		
 		this.tags = tags;
 	}
+
+	public AbstractFaceType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+				
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.mouthType = MouthType.getMouthTypeFromId(coreElement.getMandatoryFirstOf("mouthType").getTextContent());
+
+				this.tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
+				
+				this.names = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					names.add(e.getTextContent());
+				}
+				this.namesPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesPlural.add(e.getTextContent());
+				}
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.noseName = coreElement.getMandatoryFirstOf("noseName").getTextContent();
+				this.noseNamePlural = coreElement.getMandatoryFirstOf("noseNamePlural").getTextContent();
+				this.noseDescriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("noseDescriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("noseDescriptorsMasculine").getAllOf("descriptor")) {
+						noseDescriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				this.noseDescriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("noseDescriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("noseDescriptorsFeminine").getAllOf("descriptor")) {
+						noseDescriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.faceTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.faceBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractFaceType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
 	
 	public AbstractMouthType getMouthType() {
 		return mouthType;
+	}
+
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
 	}
 
 	@Override
@@ -96,13 +202,13 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
 	}
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(names==null) {
+		if(names==null || names.isEmpty()) {
 			if(this.getTags().contains(BodyPartTag.FACE_MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			}
@@ -113,7 +219,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(namesPlural==null) {
+		if(namesPlural==null || namesPlural.isEmpty()) {
 			if(this.getTags().contains(BodyPartTag.FACE_MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			}
@@ -139,7 +245,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 //		if(body!=null) {
 //			return body.getTorso().getBodyCoveringType(body);
 //		}
-		return skinType;
+		return coveringType;
 	}
 
 	@Override
@@ -178,6 +284,7 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		return getTFTypeModifier(FaceType.getFaceTypes(race));
 	}
 
+	@Override
 	public List<BodyPartTag> getTags() {
 		return tags;
 	}

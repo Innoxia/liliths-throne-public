@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -51,7 +52,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
 	protected List<ItemEffect> effects;
 	
-	protected Map<Attribute, Integer> attributeModifiers;
+	protected Map<AbstractAttribute, Integer> attributeModifiers;
 	
 	private static Map<Colour, String> SVGGlowMap = new HashMap<>();
 
@@ -310,10 +311,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return "";
 	}
 
-	public Attribute getCoreEnchantment() {
-		Attribute att = Attribute.MAJOR_PHYSIQUE;
+	public AbstractAttribute getCoreEnchantment() {
+		AbstractAttribute att = Attribute.MAJOR_PHYSIQUE;
 		int max = 0;
-		for(Entry<Attribute, Integer> entry : getAttributeModifiers().entrySet()) {
+		for(Entry<AbstractAttribute, Integer> entry : getAttributeModifiers().entrySet()) {
 			if(entry.getValue() > max) {
 				att = entry.getKey();
 				max = entry.getValue();
@@ -342,7 +343,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
 	}
 	
-	public Map<Attribute, Integer> getAttributeModifiers() {
+	public Map<AbstractAttribute, Integer> getAttributeModifiers() {
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
@@ -362,7 +363,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	 * @return An integer value of the 'enchantment capacity cost' for this particular tattoo. Does not count negative attribute values, nor values of Corruption.
 	 */
 	public int getEnchantmentCapacityCost() {
-		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
 		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}

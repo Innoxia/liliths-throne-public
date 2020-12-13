@@ -130,8 +130,10 @@ public class SMGloryHole extends SexManagerDefault {
 			if(!characterBeingExposed.isTaur()) {
 				concealedSlots.remove(InventorySlot.PENIS);
 			}
-			if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA) {
+			if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA
+					|| characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 				concealedSlots.remove(InventorySlot.ANUS);
+				concealedSlots.remove(InventorySlot.PENIS);
 			}
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.GROIN);

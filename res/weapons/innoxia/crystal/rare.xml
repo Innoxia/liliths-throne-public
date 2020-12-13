@@ -57,6 +57,7 @@
 			<tag>SOLD_BY_VICKY</tag>
 			<tag>WEAPON_UNARMED</tag>
 			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>WEAPON_FERAL_EQUIPPABLE</tag>
 		</itemTags>
 		
 	</coreAttributes>
@@ -64,13 +65,25 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Darting forwards, [npc.name] [npc.verb(deliver)] a solid punch to [npc2.namePos] [npc2.arm].
+		#IF(npc.isFeral())
+			Darting forwards, [npc.name] [npc.verb(rear)] up [npc.verb(deliver)] a solid kick to [npc2.namePos] torso.
+		#ELSE
+			Darting forwards, [npc.name] [npc.verb(deliver)] a solid punch to [npc2.namePos] [npc2.arm].
+		#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-		Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid punch on [npc2.her] [npc2.arm]!
+		#IF(npc.isFeral())
+			Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid kick on [npc2.her] [npc2.leg]!
+		#ELSE
+			Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid punch on [npc2.her] [npc2.arm]!
+		#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid hit on [npc2.her] torso.
+		#IF(npc.isFeral())
+			[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid kick on [npc2.her] torso.
+		#ELSE
+			[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid hit on [npc2.her] torso.
+		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 
