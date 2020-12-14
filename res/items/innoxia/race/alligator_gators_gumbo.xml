@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>100</value> 
+		<determiner><![CDATA[a bowl of]]></determiner>
+		<name><![CDATA[Gator's Gumbo]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Gator's Gumbo]]></namePlural>
+		<description><![CDATA[A novelty, individual-sized cast iron bowl, complete with a resealable lid. The contents take the form of a delicious-smelling variety of gumbo, which contains meat, okra, and a variety of other mysterious vegetables.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/alligator/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">alligator_gators_gumbo.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_ALLIGATOR_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[alligator]]></potionDescriptor>
+		<associatedRace>ALLIGATOR_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the lid from the bowl of Gator's Gumbo and [npc.verb(start)] eating the rich meal contained within. The delicious, slightly spicy taste of seafood instantly fills [npc.her] mouth, but [npc.she] [npc.do]n't take any time to really relish the flavour, as [npc.she] can't help but keep on greedily moving on to [npc.her] next mouthful until [npc.sheHas] gulped down all of the tangy mess.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the lid from the bowl of Gator's Gumbo and [npc.verb(offer)] the rich meal contained within to [npc2.name]. Tucking in, the delicious, slightly spicy taste of seafood instantly fills [npc2.namePos] mouth, but [npc2.she] [npc2.do]n't take any time to really relish the flavour, as [npc2.she] can't help but keep on greedily moving on to [npc2.her] next mouthful until [npc2.sheHas] gulped down all of the tangy mess.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

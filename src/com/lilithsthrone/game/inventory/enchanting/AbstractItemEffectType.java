@@ -10,6 +10,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
@@ -25,6 +26,7 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
@@ -69,8 +71,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -85,7 +87,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.4
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractItemEffectType {
@@ -110,7 +112,14 @@ public abstract class AbstractItemEffectType {
 	public Colour getColour() {
 		return colour;
 	}
-
+	
+	/**
+	 * @return Usually null, but if this ItemEffectType has an associated Race, this is how to access it.
+	 */
+	public AbstractRace getAssociatedRace() {
+		return null;
+	}
+	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
 	public String getPotionDescriptor() {
@@ -167,7 +176,7 @@ public abstract class AbstractItemEffectType {
 		return getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
 	}
 	
-	public static String getBookEffect(GameCharacter reader, Subspecies subspecies, boolean withDescription) {
+	public static String getBookEffect(GameCharacter reader, AbstractSubspecies subspecies, boolean withDescription) {
 		Main.getProperties().addRaceDiscovered(subspecies);
 		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
@@ -245,7 +254,7 @@ public abstract class AbstractItemEffectType {
 							?TFModifier.TF_MOD_BODY_HAIR
 							:null
 						);
-			case TF_FACE: //TODO
+			case TF_FACE:
 				return Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE, // lip size
 						TFModifier.TF_MOD_SIZE_SECONDARY, // tongue size
@@ -1365,7 +1374,7 @@ public abstract class AbstractItemEffectType {
 							break;
 					}
 					break;
-				case TF_FACE: //TODO
+				case TF_FACE:
 					switch(secondaryModifier) {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(lipSizeIncrement, target.getLipSizeValue(), limit)) {
@@ -2145,15 +2154,18 @@ public abstract class AbstractItemEffectType {
 		}
 	}
 	
-	private static void populateGrid(AbstractRace race, TFModifier primaryModifier){ //TODO Please make this better -.-
+	private static void populateGrid(AbstractRace race, TFModifier primaryModifier) {
 		LinkedHashMap<TFModifier, List<TFPotency>> secondaryModPotencyMap = new LinkedHashMap<>();
 		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
-				for(int i=0; i< AntennaType.getAntennaTypes(race).size();i++) {
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				for(int i=0; i< RacialBody.valueOfRace(race).getAntennaTypes(true).size();i++) {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT_SECONDARY, TFPotency.getAllPotencies());
 				break;
 			
 			case TF_ARMS:
@@ -2249,7 +2261,7 @@ public abstract class AbstractItemEffectType {
 				if(Main.game.isPubicHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
 				}
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST, TFPotency.BOOST));
 				break;
 				
 			case TF_EARS:
@@ -2330,32 +2342,49 @@ public abstract class AbstractItemEffectType {
 				for(int i=0; i< LegType.getLegTypes(race).size();i++) {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.BIPEDAL)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.BIPEDAL))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.TAUR)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAUR, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL_LONG)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.TAIL_LONG))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.TAIL))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAIL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.ARACHNID)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.ARACHNID))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_ARACHNID, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().isLegConfigurationAvailable(LegConfiguration.CEPHALOPOD)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.CEPHALOPOD))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().getFootType().getPermittedFootStructures().contains(FootStructure.PLANTIGRADE)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.AVIAN))) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_AVIAN, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.getFootType().getPermittedFootStructures().contains(FootStructure.PLANTIGRADE))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_FOOT_STRUCTURE_PLANTIGRADE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().getFootType().getPermittedFootStructures().contains(FootStructure.DIGITIGRADE)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.getFootType().getPermittedFootStructures().contains(FootStructure.DIGITIGRADE))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_FOOT_STRUCTURE_DIGITIGRADE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
-				if(RacialBody.valueOfRace(race).getLegType().getFootType().getPermittedFootStructures().contains(FootStructure.UNGULIGRADE)) {
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.getFootType().getPermittedFootStructures().contains(FootStructure.UNGULIGRADE))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_FOOT_STRUCTURE_UNGULIGRADE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
+				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.hasSpinneret())) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						secondaryModPotencyMap.put(TFModifier.TF_MOD_DEPTH, TFPotency.getAllPotencies());
+					}
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				}
 				break;
 				
@@ -2376,6 +2405,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TAPERED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_VEINY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_OVIPOSITOR, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
@@ -2414,7 +2444,28 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+
+				if(RacialBody.valueOfRace(race).getTailType().stream().anyMatch(tt->tt.hasSpinneret())) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						secondaryModPotencyMap.put(TFModifier.TF_MOD_DEPTH, TFPotency.getAllPotencies());
+					}
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+				}
+				break;
+				
+			case TF_TENTACLE:
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				break;
 				
 			case TF_VAGINA:
@@ -2435,6 +2486,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TAPERED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_VEINY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_OVIPOSITOR, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				if(Main.game.isPenetrationLimitationsEnabled()) {
@@ -2560,73 +2612,97 @@ public abstract class AbstractItemEffectType {
 	private static int singleDrain = -1;
 	private static int singleBoost = 1;
 	
+	private static int modifierTypeToInt(TFModifier modifier) {
+		List<TFModifier> modifierList = Util.newArrayListOfValues(
+				TFModifier.TF_TYPE_1,
+				TFModifier.TF_TYPE_2,
+				TFModifier.TF_TYPE_3,
+				TFModifier.TF_TYPE_4,
+				TFModifier.TF_TYPE_5,
+				TFModifier.TF_TYPE_6,
+				TFModifier.TF_TYPE_7,
+				TFModifier.TF_TYPE_8,
+				TFModifier.TF_TYPE_9,
+				TFModifier.TF_TYPE_10);
+		
+		if(modifierList.contains(modifier)) {
+			return modifierList.indexOf(modifier);
+		}
+		return 0;
+	}
+	
 	protected static RacialEffectUtil getRacialEffect(AbstractRace race, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, GameCharacter user, GameCharacter target) {
 		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(AntennaType.getAntennaTypes(race).get(0)==AntennaType.NONE?"Removes antennae.":Util.capitaliseSentence(AntennaType.getAntennaTypes(race).get(0).getTransformName())+" antenna transformation.") {
-							@Override public String applyEffect() { return target.setAntennaType(AntennaType.getAntennaTypes(race).get(0)); } };
-	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(AntennaType.getAntennaTypes(race).get(1)==AntennaType.NONE?"Removes antennae.":Util.capitaliseSentence(AntennaType.getAntennaTypes(race).get(1).getTransformName())+" antenna transformation.") {
-							@Override public String applyEffect() { return target.setAntennaType(AntennaType.getAntennaTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(AntennaType.getAntennaTypes(race).get(2)==AntennaType.NONE?"Removes antennae.":Util.capitaliseSentence(AntennaType.getAntennaTypes(race).get(2).getTransformName())+" antenna transformation.") {
-							@Override public String applyEffect() { return target.setAntennaType(AntennaType.getAntennaTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(AntennaType.getAntennaTypes(race).get(3)==AntennaType.NONE?"Removes antennae.":Util.capitaliseSentence(AntennaType.getAntennaTypes(race).get(3).getTransformName())+" antenna transformation.") {
-							@Override public String applyEffect() { return target.setAntennaType(AntennaType.getAntennaTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(AntennaType.getAntennaTypes(race).get(4)==AntennaType.NONE?"Removes antennae.":Util.capitaliseSentence(AntennaType.getAntennaTypes(race).get(4).getTransformName())+" antenna transformation.") {
-							@Override public String applyEffect() { return target.setAntennaType(AntennaType.getAntennaTypes(race).get(4)); } };
-						
+					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in antenna length. (" + Units.size(mediumChangeMajorDrain) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in antenna length. (" + Units.size(mediumChangeDrain) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in antenna length. (" + Units.size(mediumChangeMinorDrain) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in antenna length. (+" + Units.size(mediumChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in antenna length. (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in antenna length. (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementAntennaLength(mediumChangeMajorBoost); } };
+						}
+				
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra pair of antennae.") { @Override public String applyEffect() { return target.incrementAntennaRows(singleDrain); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra pair of antennae.") { @Override public String applyEffect() {
-									if(target.getAntennaType()==AntennaType.NONE && RacialBody.valueOfRace(race).getAntennaType()!=AntennaType.NONE) {
-										return target.setAntennaType(RacialBody.valueOfRace(race).getAntennaType());
+									List<AbstractAntennaType> antennaTypesSuitableForTransformation = RacialBody.valueOfRace(race).getAntennaTypes(true);
+									if(target.getAntennaType().equals(AntennaType.NONE) && !antennaTypesSuitableForTransformation.isEmpty()) {
+										return target.setAntennaType(antennaTypesSuitableForTransformation.get(0));
 									} else {
 										return target.incrementAntennaRows(singleBoost);
 									} } };
 						}
-					default:
-						if(RacialBody.valueOfRace(race).getAntennaType() == AntennaType.NONE) {
-							return new RacialEffectUtil("Removes antennae.") { @Override public String applyEffect() { return target.setAntennaType(RacialBody.valueOfRace(race).getAntennaType()); } };
-						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" antennae transformation.") { @Override public String applyEffect() { return target.setAntennaType(RacialBody.valueOfRace(race).getAntennaType()); } };
+						
+					case TF_MOD_COUNT_SECONDARY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in antennae per row. (" + smallChangeMajorDrain + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in antennae per row. (" + smallChangeDrain + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in antennae per row. (" + smallChangeMinorDrain + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in antennae per row. (+" + smallChangeMinorBoost + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in antennae per row. (+" + smallChangeBoost + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in antennae per row. (+" + smallChangeMajorBoost + " antennae per row)") { @Override public String applyEffect() { return target.incrementAntennaePerRow(smallChangeMajorBoost); } };
 						}
+						
+					case REMOVAL:
+						return new RacialEffectUtil("Removes antennae.") { @Override public String applyEffect() { return target.setAntennaType(AntennaType.NONE); } };
+	
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return getAntennaTypeRacialEffectUtil(race, target, index);
+							
+					default:
+						List<AbstractAntennaType> antennaTypes = RacialBody.valueOfRace(race).getAntennaTypes(true);
+						AbstractAntennaType antennaType = antennaTypes.isEmpty()?AntennaType.NONE:Util.randomItemFrom(antennaTypes);
+						return new RacialEffectUtil(antennaType.equals(AntennaType.NONE)?"Removes antennae.":Util.capitaliseSentence(race.getName(false))+" antenna transformation.") {
+							@Override public String applyEffect() { return target.setAntennaType(antennaType); } };
 				}
 			
 			case TF_ARMS:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(0).getTransformName())+" arm transformation.") {
-							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(0)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(index).getTransformName())+" arm transformation.") {
+							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(index)); } };
 	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(1).getTransformName())+" arm transformation.") {
-							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(2).getTransformName())+" arm transformation.") {
-							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(3).getTransformName())+" arm transformation.") {
-							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(ArmType.getArmTypes(race).get(4).getTransformName())+" arm transformation.") {
-							@Override public String applyEffect() { return target.setArmType(ArmType.getArmTypes(race).get(4)); } };
-						
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -2655,26 +2731,11 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_ASS:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(0).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(0)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(index).getTransformName())+" ass transformation.") {
+							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(index)); } };
 	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(1).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(2).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(3).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(AssType.getAssTypes(race).get(4).getTransformName())+" ass transformation.") {
-							@Override public String applyEffect() { return target.setAssType(AssType.getAssTypes(race).get(4)); } };
-						
 					case TF_MOD_SIZE:
 						switch(potency) {
 							case MAJOR_DRAIN:
@@ -2832,26 +2893,11 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_BREASTS:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(0).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(0)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(index).getTransformName())+" breast transformation.") {
+							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(index)); } };
 	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(1).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(2).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(3).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(4).getTransformName())+" breast transformation.") {
-							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(4)); } };
-
 					case REMOVAL:
 						return new RacialEffectUtil("Completely flattens breasts.") {
 							@Override public String applyEffect() { return target.setBreastSize(0); } };
@@ -3072,26 +3118,11 @@ public abstract class AbstractItemEffectType {
 
 			case TF_BREASTS_CROTCH:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(0).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(0)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(index).getTransformName())+" crotch-boob transformation.") {
+							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(index)); } };
 	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(1).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(2).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(3).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(4).getTransformName())+" crotch-boob transformation.") {
-							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.getBreastTypes(race).get(4)); } };
-
 					case REMOVAL:
 						return new RacialEffectUtil("Removes crotch-boobs.") {
 							@Override public String applyEffect() { return target.setBreastCrotchType(BreastType.NONE); } };
@@ -3397,8 +3428,15 @@ public abstract class AbstractItemEffectType {
 						switch(potency) {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes cloaca, making genitals and asshole external.") { @Override public String applyEffect() { return target.setGenitalArrangement(GenitalArrangement.NORMAL); } };
-							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Moves genitals and asshole into internal slit-like cloaca.") { @Override public String applyEffect() { return target.setGenitalArrangement(GenitalArrangement.CLOACA); } };
+							case BOOST:
+								return new RacialEffectUtil("Moves genitals and asshole into cloaca (at asshole location).") {
+									@Override public String applyEffect() { return target.setGenitalArrangement(GenitalArrangement.CLOACA_BEHIND); }
+								};
+							case MINOR_BOOST:
+								default:
+								return new RacialEffectUtil("Moves genitals and asshole into cloaca (at genital location).") {
+									@Override public String applyEffect() { return target.setGenitalArrangement(GenitalArrangement.CLOACA); }
+								};
 						}
 						
 					default:
@@ -3414,51 +3452,21 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_EARS:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(0).getTransformName())+" ears transformation.") {
-							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(0)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(index).getTransformName())+" ears transformation.") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(index)); } };
 	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(1).getTransformName())+" ears transformation.") {
-							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(2).getTransformName())+" ears transformation.") {
-							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(3).getTransformName())+" ears transformation.") {
-							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(4).getTransformName())+" ears transformation.") {
-							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(4)); } };
-							
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" ears transformation.") { @Override public String applyEffect() { return target.setEarType(RacialBody.valueOfRace(race).getEarType()); } };
 				}
 				
 			case TF_EYES:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(0).getTransformName())+" eyes transformation.") {
-							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(0)); } };
-	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(1).getTransformName())+" eyes transformation.") {
-							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(2).getTransformName())+" eyes transformation.") {
-							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(3).getTransformName())+" eyes transformation.") {
-							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(4).getTransformName())+" eyes transformation.") {
-							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(4)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(EyeType.getEyeTypes(race).get(index).getTransformName())+" eyes transformation.") {
+							@Override public String applyEffect() { return target.setEyeType(EyeType.getEyeTypes(race).get(index)); } };
 						
 					case TF_MOD_COUNT:
 						switch(potency) {
@@ -3496,25 +3504,10 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_FACE:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(0).getTransformName())+" face transformation.") {
-							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(0)); } };
-	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(1).getTransformName())+" face transformation.") {
-							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(2).getTransformName())+" face transformation.") {
-							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(3).getTransformName())+" face transformation.") {
-							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(4).getTransformName())+" face transformation.") {
-							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(4)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(FaceType.getFaceTypes(race).get(index).getTransformName())+" face transformation.") {
+							@Override public String applyEffect() { return target.setFaceType(FaceType.getFaceTypes(race).get(index)); } };
 						
 					case TF_MOD_SIZE:
 						switch(potency) {
@@ -3715,25 +3708,10 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_HAIR:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(0).getTransformName())+" hair transformation.") {
-							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(0)); } };
-	
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(1).getTransformName())+" hair transformation.") {
-							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(2).getTransformName())+" hair transformation.") {
-							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(3).getTransformName())+" hair transformation.") {
-							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(4).getTransformName())+" hair transformation.") {
-							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(4)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(HairType.getHairTypes(race).get(index).getTransformName())+" hair transformation.") {
+							@Override public String applyEffect() { return target.setHairType(HairType.getHairTypes(race).get(index)); } };
 						
 					case TF_MOD_SIZE:
 						switch(potency) {
@@ -3777,7 +3755,7 @@ public abstract class AbstractItemEffectType {
 						switch(potency) {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra pair of horns.") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
-							case MINOR_BOOST: default://TODO
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra pair of horns.") { @Override public String applyEffect() {
 									List<AbstractHornType> hornTypesSuitableForTransformation = RacialBody.valueOfRace(race).getHornTypes(true);
 									if(target.getHornType().equals(HornType.NONE) && !hornTypesSuitableForTransformation.isEmpty()) {
@@ -3805,21 +3783,10 @@ public abstract class AbstractItemEffectType {
 						
 					case REMOVAL:
 						return new RacialEffectUtil("Removes horns.") { @Override public String applyEffect() { return target.setHornType(HornType.NONE); } };
-						
-					case TF_TYPE_1:
-						return getHornTypeRacialEffectUtil(race, target, 0);
 
-					case TF_TYPE_2:
-						return getHornTypeRacialEffectUtil(race, target, 1);
-
-					case TF_TYPE_3:
-						return getHornTypeRacialEffectUtil(race, target, 2);
-
-					case TF_TYPE_4:
-						return getHornTypeRacialEffectUtil(race, target, 3);
-
-					case TF_TYPE_5:
-						return getHornTypeRacialEffectUtil(race, target, 4);
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return getHornTypeRacialEffectUtil(race, target, index);
 							
 					default:
 						List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
@@ -3830,45 +3797,38 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_LEGS:
 				switch(secondaryModifier) {
-					case TF_TYPE_1:
-						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(0).getTransformName())+" legs transformation.") {
-							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(0)); } };
-					case TF_TYPE_2:
-						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(1).getTransformName())+" legs transformation.") {
-							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(1)); } };
-					case TF_TYPE_3:
-						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(2).getTransformName())+" legs transformation.") {
-							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(2)); } };
-					case TF_TYPE_4:
-						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(3).getTransformName())+" legs transformation.") {
-							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(3)); } };
-					case TF_TYPE_5:
-						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(4).getTransformName())+" legs transformation.") {
-							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(4)); } };
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(LegType.getLegTypes(race).get(index).getTransformName())+" legs transformation.") {
+							@Override public String applyEffect() { return target.setLegType(LegType.getLegTypes(race).get(index)); } };
 
 					case TF_MOD_LEG_CONFIG_BIPEDAL:
-						return new RacialEffectUtil(" Transforms legs to bipedal "+race.getName(false)+"'s.") {
+						return new RacialEffectUtil(" Transforms lower body into a pair of bipedal legs.") {
 							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.BIPEDAL).applyLegConfigurationTransformation(target, LegConfiguration.BIPEDAL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAUR:
-						return new RacialEffectUtil(" Transforms lower body to a quadrupedal, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAUR).applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true, true); } };
+						return new RacialEffectUtil(" Transforms lower body into a quadrupedal form.") {
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.QUADRUPEDAL).applyLegConfigurationTransformation(target, LegConfiguration.QUADRUPEDAL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL_LONG:
-						return new RacialEffectUtil(" Transforms lower body to a long-tailed, feral "+race.getName(true)+"'s.") {
+						return new RacialEffectUtil(" Transforms lower body into a long, snake-like tail.") {
 							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL_LONG).applyLegConfigurationTransformation(target, LegConfiguration.TAIL_LONG, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL:
-						return new RacialEffectUtil(" Transforms lower body to a tailed, feral "+race.getName(true)+"'s.") {
+						return new RacialEffectUtil(" Transforms lower body into a fish-like tail.") {
 							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.TAIL).applyLegConfigurationTransformation(target, LegConfiguration.TAIL, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_ARACHNID:
-						return new RacialEffectUtil(" Transforms lower body to an eight-legged, feral "+race.getName(true)+"'s.") {
+						return new RacialEffectUtil(" Transforms lower body into the form of an eight-legged arachnid.") {
 							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.ARACHNID).applyLegConfigurationTransformation(target, LegConfiguration.ARACHNID, true, true); } };
 
 					case TF_MOD_LEG_CONFIG_CEPHALOPOD:
-						return new RacialEffectUtil(" Transforms lower body to an eight-tentacled, feral "+race.getName(true)+"'s.") {
+						return new RacialEffectUtil(" Transforms lower body into the form of an eight-tentacled cephalopod.") {
 							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.CEPHALOPOD).applyLegConfigurationTransformation(target, LegConfiguration.CEPHALOPOD, true, true); } };
+
+					case TF_MOD_LEG_CONFIG_AVIAN:
+						return new RacialEffectUtil(" Transforms lower body into the form of a feral bird.") {
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType(LegConfiguration.AVIAN).applyLegConfigurationTransformation(target, LegConfiguration.AVIAN, true, true); } };
 							
 
 					case TF_MOD_FOOT_STRUCTURE_PLANTIGRADE:
@@ -3882,6 +3842,110 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_FOOT_STRUCTURE_UNGULIGRADE:
 						return new RacialEffectUtil(" Transforms foot structure to be unguligrade.") {
 							@Override public String applyEffect() { return target.setFootStructure(FootStructure.UNGULIGRADE); } };
+
+					case TF_MOD_ORIFICE_PUFFY:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes puffiness from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.PUFFY); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes spinneret extra puffy.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.PUFFY); } };
+						}
+					case TF_MOD_ORIFICE_RIBBED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal ribbing from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.RIBBED); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal ribbing to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.RIBBED); } };
+						}
+					case TF_MOD_ORIFICE_MUSCLED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal muscles from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.MUSCLE_CONTROL); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal muscles to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.MUSCLE_CONTROL); } };
+						}
+					case TF_MOD_ORIFICE_TENTACLED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal tentacles from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.TENTACLED); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal tentacles to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_CAPACITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret capacity. (" + Units.size(mediumChangeMajorDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMajorDrain, true); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret capacity. (" + Units.size(mediumChangeDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeDrain, true); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret capacity. (" + Units.size(mediumChangeMinorDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMinorDrain, true); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret capacity. (+" + Units.size(mediumChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMinorBoost, true); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret capacity. (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeBoost, true); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret capacity. (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMajorBoost, true); } };
+						}
+					case TF_MOD_DEPTH:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret depth. (" + smallChangeMajorDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret depth. (" + smallChangeDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret depth. (" + smallChangeMinorDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret depth. (+" + smallChangeMinorBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret depth. (+" + smallChangeBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret depth. (+" + smallChangeMajorBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_ELASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret elasticity. (" + smallChangeMajorDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret elasticity. (" + smallChangeDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret elasticity. (" + smallChangeMinorDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret elasticity. (+" + smallChangeMinorBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret elasticity. (+" + smallChangeBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret elasticity. (+" + smallChangeMajorBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_PLASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret plasticity. (" + smallChangeMajorDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret plasticity. (" + smallChangeDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret plasticity. (" + smallChangeMinorDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret plasticity. (+" + smallChangeMinorBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret plasticity. (+" + smallChangeBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret plasticity. (+" + smallChangeMajorBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_WETNESS:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret wetness. (" + smallChangeMajorDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret wetness. (" + smallChangeDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret wetness. (" + smallChangeMinorDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret wetness. (+" + smallChangeMinorBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret wetness. (+" + smallChangeBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret wetness. (+" + smallChangeMajorBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMajorBoost); } };
+						}
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" legs transformation.") { @Override public String applyEffect() { return target.setLegType(RacialBody.valueOfRace(race).getLegType()); } };
 				}
@@ -4006,6 +4070,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes bulging veins from penis.") { @Override public String applyEffect() { return target.removePenisModifier(PenetrationModifier.VEINY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds bulging veins to penis.") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.VEINY); } };
+						}
+					case TF_MOD_PENIS_OVIPOSITOR:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes ovipositor functionality from penis.") { @Override public String applyEffect() { return target.removePenisModifier(PenetrationModifier.OVIPOSITOR); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds ovipositor functionality to penis.") { @Override public String applyEffect() { return target.addPenisModifier(PenetrationModifier.OVIPOSITOR); } };
 						}
 
 					case TF_MOD_SIZE_TERTIARY:
@@ -4190,13 +4261,28 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to urethra.") { @Override public String applyEffect() { return target.addUrethraOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
-						
+
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(
+								PenisType.getPenisTypes(race).get(index)==PenisType.NONE
+									?"Removes penis."
+									:Util.capitaliseSentence(PenisType.getPenisTypes(race).get(index).getTransformName())+" penis transformation.") {
+							@Override public String applyEffect() { return target.setPenisType(PenisType.getPenisTypes(race).get(index)); } };
+							
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" penis transformation.") { @Override public String applyEffect() { return target.setPenisType(RacialBody.valueOfRace(race).getPenisType()); } };
 				}
 				
 			case TF_SKIN:
-				return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" skin transformation.") { @Override public String applyEffect() { return target.setTorsoType(RacialBody.valueOfRace(race).getSkinType()); } };
+				switch(secondaryModifier) {
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(Util.capitaliseSentence(TorsoType.getTorsoTypes(race).get(index).getTransformName())+" torso transformation.") {
+							@Override public String applyEffect() { return target.setTorsoType(TorsoType.getTorsoTypes(race).get(index)); } };
+					default:
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" torso transformation.") { @Override public String applyEffect() { return target.setTorsoType(RacialBody.valueOfRace(race).getTorsoType()); } };
+				}
 				
 			case TF_TAIL:
 				switch(secondaryModifier) {
@@ -4213,13 +4299,41 @@ public abstract class AbstractItemEffectType {
 										return target.incrementTailCount(singleBoost, false);
 									} } };
 						}
-						
+
 					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in tail length. (" + mediumChangeMajorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMajorDrain/100f); }
+									};
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in tail length. (" + mediumChangeDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeDrain/100f); }
+									};
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in tail length. (" + mediumChangeMinorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMinorDrain/100f); }
+									};
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in tail length. (+" + mediumChangeMinorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMinorBoost/100f); }
+									};
+							case BOOST:
+								return new RacialEffectUtil("Increase in tail length. (+" + mediumChangeBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeBoost/100f); }
+									};
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in tail length. (+" + mediumChangeMajorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTailLengthAsPercentageOfHeight(mediumChangeMajorBoost/100f); }
+									};
+						}
+						
+					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {
 							case MAJOR_DRAIN:
 								return new RacialEffectUtil("Huge decrease in tail girth. (" + smallChangeMajorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in tail girth. (" + smallChangeDrain + " size)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeDrain); } };
+								return new RacialEffectUtil("Decrease in tail girth. (" + smallChangeDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeDrain); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in tail girth. (" + smallChangeMinorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTailGirth(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:
@@ -4232,43 +4346,170 @@ public abstract class AbstractItemEffectType {
 						
 					case REMOVAL:
 						return new RacialEffectUtil("Removes tail.") { @Override public String applyEffect() { return target.setTailType(TailType.NONE); } };
-						
-					case TF_TYPE_1:
-						return new RacialEffectUtil(TailType.getTailTypes(race).get(0)==TailType.NONE?"Removes tail.":Util.capitaliseSentence(TailType.getTailTypes(race).get(0).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(0)); } };
-						
-					case TF_TYPE_2:
+
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
 						return new RacialEffectUtil(
-								TailType.getTailTypes(race).size()<2 || TailType.getTailTypes(race).get(1)==TailType.NONE
+								TailType.getTailTypes(race).get(index)==TailType.NONE
 									?"Removes tail."
-									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<2) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(1));} } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(
-								TailType.getTailTypes(race).size()<3 || TailType.getTailTypes(race).get(2)==TailType.NONE
-									?"Removes tail."
-									:Util.capitaliseSentence(TailType.getTailTypes(race).get(2).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<3) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(2));} } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(
-								TailType.getTailTypes(race).size()<4 || TailType.getTailTypes(race).get(3)==TailType.NONE
-									?"Removes tail."
-									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<4) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(3));} } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(
-								TailType.getTailTypes(race).size()<5 || TailType.getTailTypes(race).get(4)==TailType.NONE
-									?"Removes tail."
-									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<5) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(4));} } };
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(index).getTransformName())+" tail transformation.") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(index)); } };
+
+					case TF_MOD_ORIFICE_PUFFY:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes puffiness from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.PUFFY); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes spinneret extra puffy.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.PUFFY); } };
+						}
+					case TF_MOD_ORIFICE_RIBBED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal ribbing from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.RIBBED); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal ribbing to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.RIBBED); } };
+						}
+					case TF_MOD_ORIFICE_MUSCLED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal muscles from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.MUSCLE_CONTROL); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal muscles to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.MUSCLE_CONTROL); } };
+						}
+					case TF_MOD_ORIFICE_TENTACLED:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes internal tentacles from spinneret.") { @Override public String applyEffect() { return target.removeSpinneretOrificeModifier(OrificeModifier.TENTACLED); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds internal tentacles to spinneret.") { @Override public String applyEffect() { return target.addSpinneretOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_CAPACITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret capacity. (" + Units.size(mediumChangeMajorDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMajorDrain, true); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret capacity. (" + Units.size(mediumChangeDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeDrain, true); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret capacity. (" + Units.size(mediumChangeMinorDrain) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMinorDrain, true); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret capacity. (+" + Units.size(mediumChangeMinorBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMinorBoost, true); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret capacity. (+" + Units.size(mediumChangeBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeBoost, true); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret capacity. (+" + Units.size(mediumChangeMajorBoost) + ")") { @Override public String applyEffect() { return target.incrementSpinneretCapacity(mediumChangeMajorBoost, true); } };
+						}
+					case TF_MOD_DEPTH:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret depth. (" + smallChangeMajorDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret depth. (" + smallChangeDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret depth. (" + smallChangeMinorDrain + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret depth. (+" + smallChangeMinorBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret depth. (+" + smallChangeBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret depth. (+" + smallChangeMajorBoost + " depth)") { @Override public String applyEffect() { return target.incrementSpinneretDepth(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_ELASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret elasticity. (" + smallChangeMajorDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret elasticity. (" + smallChangeDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret elasticity. (" + smallChangeMinorDrain + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret elasticity. (+" + smallChangeMinorBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret elasticity. (+" + smallChangeBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret elasticity. (+" + smallChangeMajorBoost + " elasticity)") { @Override public String applyEffect() { return target.incrementSpinneretElasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_PLASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret plasticity. (" + smallChangeMajorDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret plasticity. (" + smallChangeDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret plasticity. (" + smallChangeMinorDrain + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret plasticity. (+" + smallChangeMinorBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret plasticity. (+" + smallChangeBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret plasticity. (+" + smallChangeMajorBoost + " plasticity)") { @Override public String applyEffect() { return target.incrementSpinneretPlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_WETNESS:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in spinneret wetness. (" + smallChangeMajorDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in spinneret wetness. (" + smallChangeDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in spinneret wetness. (" + smallChangeMinorDrain + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in spinneret wetness. (+" + smallChangeMinorBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in spinneret wetness. (+" + smallChangeBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in spinneret wetness. (+" + smallChangeMajorBoost + " wetness)") { @Override public String applyEffect() { return target.incrementSpinneretWetness(smallChangeMajorBoost); } };
+						}
 							
 					default:
 						AbstractTailType tailType = RacialBody.valueOfRace(race).getRandomTailType(false);
 						return new RacialEffectUtil(tailType==TailType.NONE?"Removes tail.":Util.capitaliseSentence(race.getName(false))+" tail transformation.") {
 							@Override public String applyEffect() { return target.setTailType(tailType); } };
+				}
+				
+			case TF_TENTACLE:
+				switch(secondaryModifier) {
+					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in tentacle length. (" + mediumChangeMajorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeMajorDrain/100f); }
+									};
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in tentacle length. (" + mediumChangeDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeDrain/100f); }
+									};
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in tentacle length. (" + mediumChangeMinorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeMinorDrain/100f); }
+									};
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in tentacle length. (+" + mediumChangeMinorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeMinorBoost/100f); }
+									};
+							case BOOST:
+								return new RacialEffectUtil("Increase in tentacle length. (+" + mediumChangeBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeBoost/100f); }
+									};
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in tentacle length. (+" + mediumChangeMajorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementTentacleLengthAsPercentageOfHeight(mediumChangeMajorBoost/100f); }
+									};
+						}
+						
+					default://case TF_MOD_SIZE_SECONDARY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in tentacle girth. (" + smallChangeMajorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in tentacle girth. (" + smallChangeDrain + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in tentacle girth. (" + smallChangeMinorDrain + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in tentacle girth. (+" + smallChangeMinorBoost + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in tentacle girth. (+" + smallChangeBoost + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in tentacle girth. (+" + smallChangeMajorBoost + " girth)") { @Override public String applyEffect() { return target.incrementTentacleGirth(smallChangeMajorBoost); } };
+						}
 				}
 				
 			case TF_VAGINA:
@@ -4406,6 +4647,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes bulging veins from clitoris.") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.VEINY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds bulging veins to clitoris.") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.VEINY); } };
+						}
+					case TF_MOD_PENIS_OVIPOSITOR:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes ovipositor functionality from clitoris.") { @Override public String applyEffect() { return target.removeClitorisModifier(PenetrationModifier.OVIPOSITOR); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Adds ovipositor functionality to clitoris.") { @Override public String applyEffect() { return target.addClitorisModifier(PenetrationModifier.OVIPOSITOR); } };
 						}
 							
 					case TF_MOD_CAPACITY:
@@ -4611,7 +4859,15 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to urethra.") { @Override public String applyEffect() { return target.addVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
-						
+
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(
+								VaginaType.getVaginaTypes(race).get(index)==VaginaType.NONE
+									?"Removes penis."
+									:Util.capitaliseSentence(VaginaType.getVaginaTypes(race).get(index).getTransformName())+" vagina transformation.") {
+							@Override public String applyEffect() { return target.setVaginaType(VaginaType.getVaginaTypes(race).get(index)); } };
+							
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" vagina transformation.") { @Override public String applyEffect() { return target.setVaginaType(RacialBody.valueOfRace(race).getVaginaType()); } };
 				}
@@ -4620,26 +4876,11 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case REMOVAL:
 						return new RacialEffectUtil("Removes wings.") { @Override public String applyEffect() { return target.setWingType(WingType.NONE); } };
-						
-					case TF_TYPE_1:
-						return new RacialEffectUtil(WingType.getWingTypes(race).get(0)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(0).getTransformName())+" wings transformation.") {
-							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(0)); } };
-						
-					case TF_TYPE_2:
-						return new RacialEffectUtil(WingType.getWingTypes(race).get(1)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(1).getTransformName())+" wings transformation.") {
-							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(1)); } };
-	
-					case TF_TYPE_3:
-						return new RacialEffectUtil(WingType.getWingTypes(race).get(2)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(2).getTransformName())+" wings transformation.") {
-							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(2)); } };
-	
-					case TF_TYPE_4:
-						return new RacialEffectUtil(WingType.getWingTypes(race).get(3)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(3).getTransformName())+" wings transformation.") {
-							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(3)); } };
-	
-					case TF_TYPE_5:
-						return new RacialEffectUtil(WingType.getWingTypes(race).get(4)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(4).getTransformName())+" wings transformation.") {
-							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(4)); } };
+
+					case TF_TYPE_1: case TF_TYPE_2: case TF_TYPE_3: case TF_TYPE_4: case TF_TYPE_5: case TF_TYPE_6: case TF_TYPE_7: case TF_TYPE_8: case TF_TYPE_9: case TF_TYPE_10:
+						int index = modifierTypeToInt(secondaryModifier);
+						return new RacialEffectUtil(WingType.getWingTypes(race).get(index)==WingType.NONE?"Removes wings.":Util.capitaliseSentence(WingType.getWingTypes(race).get(index).getTransformName())+" wings transformation.") {
+							@Override public String applyEffect() { return target.setWingType(WingType.getWingTypes(race).get(index)); } };
 							
 					case TF_MOD_SIZE:
 						switch(potency) {
@@ -5160,6 +5401,14 @@ public abstract class AbstractItemEffectType {
 				return getRacialEffect(race, mod, modSecondary, pot, user, target).applyEffect();
 			}
 		};
+	}
+
+	private static RacialEffectUtil getAntennaTypeRacialEffectUtil(AbstractRace race, GameCharacter target, int index) {
+		List<AbstractAntennaType> antennaTypes = RacialBody.valueOfRace(race).getAntennaTypes(true);
+		AbstractAntennaType selectedAntennaType = index >= antennaTypes.size() ? AntennaType.NONE : antennaTypes.get(index);
+		
+		return new RacialEffectUtil("Grows "+selectedAntennaType.getTransformName()+" horns.") {
+			@Override public String applyEffect() { return target.setAntennaType(selectedAntennaType); } };
 	}
 
 	private static RacialEffectUtil getHornTypeRacialEffectUtil(AbstractRace race, GameCharacter target, int index) {

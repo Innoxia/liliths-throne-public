@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -12,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -24,7 +26,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class Breast implements BodyPartInterface {
 	
-	public static final int MAXIMUM_BREAST_ROWS = 5;
+	public static final int MAXIMUM_BREAST_ROWS = 6;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
 	
 	protected AbstractBreastType type;
@@ -44,8 +46,8 @@ public class Breast implements BodyPartInterface {
 	 * @param size in inches from bust to underbust using the UK system.
 	 * @param lactation in mL.
 	 */
-	public Breast(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize,
-			NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
+	public Breast(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows,
+			int nippleSize, NippleShape nippleShape, int areolaeSize, AreolaeShape areolaeShape, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -55,7 +57,7 @@ public class Breast implements BodyPartInterface {
 		this.rows = rows;
 		this.nippleCountPerBreast = nippleCountPerBreast;
 		
-		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, false);
+		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, areolaeShape, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, false);
 		
 		milk = new FluidMilk(type.getFluidType(), false);
 	}
@@ -217,6 +219,12 @@ public class Breast implements BodyPartInterface {
 		if(owner==null) {
 			this.size = size;
 			return "";
+		}
+		
+		if(!isAbleToIncubateEggs() && owner.getIncubationLitter(SexAreaOrifice.NIPPLE)!=null) {
+			this.size = CupSize.getMinimumCupSizeForEggIncubation().getMeasurement();
+			return UtilText.parse(owner, "<p style='text-align:center;'>Due to the fact that [npc.namePos] breasts are incubating eggs,"
+					+ " [style.colourMinorBad(their size cannot be reduced past "+CupSize.getMinimumCupSizeForEggIncubation().getCupSizeName()+"-cups)]!</p>");
 		}
 		
 		if (sizeChange == 0) {
@@ -427,9 +435,12 @@ public class Breast implements BodyPartInterface {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.C.getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.getMinimumCupSizeForPenetration().getMeasurement();
 	}
-
+	
+	public boolean isAbleToIncubateEggs() {
+		return this.size>=CupSize.getMinimumCupSizeForEggIncubation().getMeasurement();
+	}
 
 	public int getNippleCountPerBreast() {
 		return nippleCountPerBreast;
@@ -478,11 +489,11 @@ public class Breast implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Breast.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Breast.class) && getType().getRace().isFeralPartsAvailable());
 	}
 
 }

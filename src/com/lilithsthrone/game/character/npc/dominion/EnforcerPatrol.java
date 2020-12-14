@@ -12,7 +12,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -24,10 +23,11 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
@@ -78,52 +78,62 @@ public class EnforcerPatrol extends NPC {
 		if(!isImported) {
 			setLevel(Util.random.nextInt(5)+3);
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case BAT_MORPH:
-					case DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HUMAN:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_ARCTIC:
-					case FOX_ASCENDANT_FENNEC:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-					case HALF_DEMON:
-					case SLIME:
-					case REINDEER_MORPH:
-						break;
-					// Regular spawns:
-					default:
-						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						}
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+					continue;
 				}
+				if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
+					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				}
+				
+//				switch(s) {
+//					// No spawn chance:
+//					case ANGEL:
+//					case BAT_MORPH:
+//					case DEMON:
+//					case LILIN:
+//					case ELDER_LILIN:
+//					case HARPY:
+//					case HARPY_RAVEN:
+//					case HARPY_BALD_EAGLE:
+//					case HUMAN:
+//					case IMP:
+//					case IMP_ALPHA:
+//					case FOX_ASCENDANT:
+//					case FOX_ASCENDANT_ARCTIC:
+//					case FOX_ASCENDANT_FENNEC:
+//					case ELEMENTAL_AIR:
+//					case ELEMENTAL_ARCANE:
+//					case ELEMENTAL_EARTH:
+//					case ELEMENTAL_FIRE:
+//					case ELEMENTAL_WATER:
+//					case HALF_DEMON:
+//					case SLIME:
+//					case REINDEER_MORPH:
+//						break;
+//					// Regular spawns:
+//					default:
+//						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+//							Subspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+//						} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
+//							Subspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+//						}
+//				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
-				CharacterUtils.applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
+				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -134,7 +144,7 @@ public class EnforcerPatrol extends NPC {
 			
 			this.setHistory(occupation);
 			
-			CharacterUtils.addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
+			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
 			List<Fetish> fetishesForNonNegative = Util.newArrayListOfValues(
 					Fetish.FETISH_ANAL_GIVING,
@@ -150,17 +160,17 @@ public class EnforcerPatrol extends NPC {
 				}
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			this.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), 5, false, false);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
 			
@@ -170,7 +180,7 @@ public class EnforcerPatrol extends NPC {
 
 			this.setLocation(Main.game.getPlayer(), false); // Move to player location
 			
-			for(CombatMove move : new ArrayList<>(this.getEquippedMoves())) {
+			for(AbstractCombatMove move : new ArrayList<>(this.getEquippedMoves())) {
 				if(move.getType()==CombatMoveType.TEASE) {
 					this.unequipMove(move.getIdentifier());
 				}
@@ -203,7 +213,7 @@ public class EnforcerPatrol extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
 		
 		// Do not wear gas masks:
 		AbstractClothing mouthClothing = this.getClothingInSlot(InventorySlot.MOUTH);

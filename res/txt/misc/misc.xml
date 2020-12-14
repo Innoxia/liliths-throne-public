@@ -85,5 +85,338 @@
 	</htmlContent>
 	
 	
+	<!-- INCUBATION_EGG_LAYING -->
+
+	<!-- Womb incubation: -->
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_VAGINA"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thinking that it would be fun to put on a show for passing strangers, you decide to stop and lay the [#SPECIAL_PARSE_1] you've incubated in your womb right here in public. Getting excited at the prospect of performing such an act, you quickly find a suitable spot and squat down on the ground. Quietly [pc.moaning] in delight, you expose your [pc.pussy+] and tease your [pc.fingers] over your [pc.labia+], which proves to be more than enough to attract a couple of curious passersby.
+		</p>
+	#ELSE
+		<p>
+			Desperate to lay the [#SPECIAL_PARSE_1] you've incubated in your womb, you find a suitably private spot nearby, and after making sure that nobody's watching, you squat down on the ground. Unable to suppress a quiet [pc.moan], you expose your [pc.pussy+] and tease your [pc.fingers] over your [pc.labia+].
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_VAGINA_SINGLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.legs] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you.
+		</p>
+		<p>
+			After releasing a chorus of crass remarks and low whistles, the crowd of strangers starts to depart, leaving you panting for breath as you collapse down next to the egg. Suddenly, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.legs] and start to push.
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Before you can react, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you collapse down next to the egg and try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_VAGINA_MULTIPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.legs] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling cunt.
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your pussy starts spasming and contracting, pushing the next egg out from your womb and leaving you desperately gasping for breath as it stretches out your labia and slides free from your slimy pussy to join the first on the floor beneath you.
+		</p>
+		<p>
+			A chorus of crass remarks and low whistles break out from the crowd at the sight of your lewd display, and before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched pussy. As the crowd senses that the show is over and begins to wander off, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your womb, your pussy instantly responds to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.legs] and start to push.
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed pussy. A desperate cry bursts out from between your [pc.lips] as your labia lewdly stretch apart, and before you have time to think about what's happening, the egg has escaped from your slimy cunt and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your pussy starts spasming and contracting, pushing the next egg out from your womb and leaving you desperately gasping for breath as it stretches out your labia and slides free from your slimy pussy to join the first on the floor beneath you.
+		</p>
+		<p>
+			Before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched pussy. As your cunt finally stops quivering, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Stomach incubation: -->
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_ANUS"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thinking that it would be fun to put on a show for passing strangers, you decide to stop and lay the [#SPECIAL_PARSE_1] you've incubated in your stomach right here in public. Getting excited at the prospect of performing such an act, you quickly find a suitable spot and squat down on the ground. Quietly [pc.moaning] in delight, you expose your [pc.assCloaca] and tease your [pc.fingers] over your [pc.asshole+], which proves to be more than enough to attract a couple of curious passersby.
+		</p>
+	#ELSE
+		<p>
+			Desperate to lay the [#SPECIAL_PARSE_1] you've incubated in your stomach, you find a suitably private spot nearby, and after making sure that nobody's watching, you squat down on the ground. Unable to suppress a quiet [pc.moan], you expose your [pc.assCloaca] and tease your [pc.fingers] over your [pc.asshole+].
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_ANUS_SINGLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your asshole instantly responds to your touch by secreting a thick, slimy stream of natural, odourless lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.assCloaca] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.asshole].
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed [pc.assCloaca]. A desperate cry bursts out from between your [pc.lips] as your [pc.asshole] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and has been safely deposited onto the floor beneath you.
+		</p>
+		<p>
+			After releasing a chorus of crass remarks and low whistles, the crowd of strangers starts to depart, leaving you panting for breath as you collapse down next to the egg. Suddenly, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your asshole instantly responds to your touch by secreting a thick, slimy stream of natural, odourless lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.assCloaca] and start to push.
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way down and out of your exposed [pc.assCloaca]. A desperate cry bursts out from between your [pc.lips] as your [pc.asshole] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and has been safely deposited onto the floor beneath you. Before you can react, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you collapse down next to the egg and try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_ANUS_MULTIPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your asshole instantly responds to your touch by secreting a thick, slimy stream of natural, odourless lubricant. Panting and [pc.moaning] in excitement, you spread your [pc.assCloaca] and start to push, smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.asshole].
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed [pc.assCloaca]. A desperate cry bursts out from between your [pc.lips] as your [pc.asshole] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.asshole] starts spasming and contracting, pushing the next egg out from your [pc.assCloaca] and leaving you desperately gasping for breath as it stretches out your [pc.asshole] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			A chorus of crass remarks and low whistles break out from the crowd at the sight of your lewd display, and before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.asshole]. As the crowd senses that the show is over and begins to wander off, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your asshole instantly responds to your touch by secreting a thick, slimy stream of natural, odourless lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you spread your [pc.assCloaca] and start to push.
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of your exposed [pc.assCloaca]. A desperate cry bursts out from between your [pc.lips] as your [pc.asshole] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and has been safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.asshole] starts spasming and contracting, pushing the next egg out from your [pc.assCloaca] and leaving you desperately gasping for breath as it stretches out your [pc.asshole] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			Before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.asshole]. Having safely laid all of your eggs, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Breasts incubation: -->
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thinking that it would be fun to put on a show for passing strangers, you decide to stop and lay the [#SPECIAL_PARSE_1] you've incubated in your [pc.breasts] right here in public. Getting excited at the prospect of performing such an act, you quickly find a suitable spot and squat down on the ground. Quietly [pc.moaning] in delight, you expose your chest and tease your [pc.fingers] over your [pc.nipples+], which proves to be more than enough to attract a couple of curious passersby.
+		</p>
+	#ELSE
+		<p>
+			Desperate to lay the [#SPECIAL_PARSE_1] you've incubated in your [pc.breasts], you find a suitably private spot nearby, and after making sure that nobody's watching, you squat down on the ground. Unable to suppress a quiet [pc.moan], you expose your chest and tease your [pc.fingers] over your [pc.nipples+].
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE_SINGLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your [pc.nipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you begin to massage your [pc.breasts], smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.nipples].
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way forwards and out of your exposed [pc.breast(true)]. A desperate cry bursts out from between your [pc.lips] as your [pc.nipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited it onto the floor beneath you.
+		</p>
+		<p>
+			After releasing a chorus of crass remarks and low whistles, the crowd of strangers starts to depart, leaving you panting for breath as you collapse down next to the egg. Suddenly, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your [pc.nipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you begin to massage your [pc.breasts].
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way forwards and out of your exposed [pc.breast(true)]. A desperate cry bursts out from between your [pc.lips] as your [pc.nipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Before you can make another move, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you collapse down next to the egg and try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE_MULTIPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your [pc.nipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you begin to massage your [pc.breasts], smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.nipples].
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of one of your exposed [pc.breasts]. A desperate cry bursts out from between your [pc.lips] as your [pc.nipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.nipples] start spasming and contracting, pushing the next egg out from your other [pc.breast(true)]. A few moments later, and you're left desperately gasping for breath as this next egg stretches out your [pc.nipple(true)] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			A chorus of crass remarks and low whistles break out from the crowd at the sight of your lewd display, and before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.nipples]. As the crowd senses that the show is over and begins to wander off, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your [pc.nipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you begin to massage your [pc.breasts].
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of one of your exposed [pc.breasts]. A desperate cry bursts out from between your [pc.lips] as your [pc.nipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.nipples] start spasming and contracting, pushing the next egg out from your other [pc.breast(true)]. A few moments later, and you're left desperately gasping for breath as this next egg stretches out your [pc.nipple(true)] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			Before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.nipples]. Having safely laid all of your eggs, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Crotch-boobs incubation: -->
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE_CROTCH"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thinking that it would be fun to put on a show for passing strangers, you decide to stop and lay the [#SPECIAL_PARSE_1] you've incubated in your [pc.crotchBoobs] right here in public. Getting excited at the prospect of performing such an act, you quickly find a suitable spot and squat down on the ground. Quietly [pc.moaning] in delight, you expose your [pc.crotchBoobs] and tease your [pc.fingers] over your [pc.crotchNipples+], which proves to be more than enough to attract a couple of curious passersby.
+		</p>
+	#ELSE
+		<p>
+			Desperate to lay the [#SPECIAL_PARSE_1] you've incubated in your [pc.crotchBoobs], you find a suitably private spot nearby, and after making sure that nobody's watching, you squat down on the ground. Unable to suppress a quiet [pc.moan], you expose your [pc.crotchBoobs] and tease your [pc.fingers] over your [pc.crotchNipples+].
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE_CROTCH_SINGLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your [pc.crotchNipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you begin to massage your [pc.crotchBoobs], smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.crotchNipples].
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way forwards and out of your exposed [pc.crotchBoob(true)]. A desperate cry bursts out from between your [pc.lips] as your [pc.crotchNipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited it onto the floor beneath you.
+		</p>
+		<p>
+			After releasing a chorus of crass remarks and low whistles, the crowd of strangers starts to depart, leaving you panting for breath as you collapse down next to the egg. Suddenly, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the egg that's been maturing in your body, your [pc.crotchNipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you begin to massage your [pc.crotchBoobs].
+		</p>
+		<p>
+			Almost immediately, you feel the huge, bulbous egg pushing its way forwards and out of your exposed [pc.crotchBoob(true)]. A desperate cry bursts out from between your [pc.lips] as your [pc.crotchNipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Before you can make another move, a huge wave of exhaustion washes over you, and it takes all of your effort to stop yourself from fainting as you collapse down next to the egg and try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_NIPPLE_CROTCH_MULTIPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your [pc.crotchNipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] in excitement, you begin to massage your [pc.crotchBoobs], smiling to yourself as the strangers gathered around you lustfully stare at your drooling [pc.crotchNipples].
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of one of your exposed [pc.crotchBoobs]. A desperate cry bursts out from between your [pc.lips] as your [pc.crotchNipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.crotchNipples] start spasming and contracting, pushing the next egg out from your other [pc.crotchBoob(true)]. A few moments later, and you're left desperately gasping for breath as this next egg stretches out your [pc.crotchNipple(true)] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			A chorus of crass remarks and low whistles break out from the crowd at the sight of your lewd display, and before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.crotchNipples]. As the crowd senses that the show is over and begins to wander off, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ELSE
+		<p>
+			Thanks to the hormones released into your system by the eggs that have been maturing in your body, your [pc.crotchNipples] instantly respond to your touch by secreting a thick, slimy stream of natural lubricant. Panting and [pc.moaning] as a sudden wave of excitement washes over you, you begin to massage your [pc.crotchBoobs].
+		</p>
+		<p>
+			Almost immediately, you feel the first huge, bulbous egg pushing its way down and out of one of your exposed [pc.crotchBoobs]. A desperate cry bursts out from between your [pc.lips] as your [pc.crotchNipple(true)] lewdly stretches out, and before you have time to think about what's happening, the egg has escaped from your slimy hole and you've safely deposited onto the floor beneath you. Seemingly with a mind of its own, your [pc.crotchNipples] start spasming and contracting, pushing the next egg out from your other [pc.crotchBoob(true)]. A few moments later, and you're left desperately gasping for breath as this next egg stretches out your [pc.crotchNipple(true)] and slides free from your slimy hole to join the first on the floor beneath you.
+		</p>
+		<p>
+			Before you know it, you're collapsing down next to the [#SPECIAL_PARSE_0] eggs you've managed to squeeze out from your slimy, stretched [pc.crotchNipples]. Having safely laid all of your eggs, a huge wave of exhaustion suddenly washes over you, and it takes all of your effort to stop yourself from fainting as you try to rest and recover your strength...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Spinneret incubation: -->
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_SPINNERET"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Public laying.
+		</p>
+		<p>
+			Gain access to spinneret and squat down to lay. Members of public stop to watch.
+		</p>
+	#ELSE
+		<p>
+			Private laying.
+		</p>
+		<p>
+			Gain access to spinneret and squat down to lay.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_SPINNERET_SINGLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Lay a single egg. Members of public comment and leave.
+		</p>
+	#ELSE
+		<p>
+			Lay a single egg.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_SPINNERET_MULTIPLE"><![CDATA[
+	#IF(game.getPlayerCell().getPlace().isPopulated())
+		<p>
+			Lay [#SPECIAL_PARSE_0] eggs. Members of public comment and leave.
+		</p>
+	#ELSE
+		<p>
+			Lay [#SPECIAL_PARSE_0] eggs.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INCUBATION_EGG_LAYING_FINISHED -->
+
+	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_SINGLE"><![CDATA[
+	<p>
+		The process of laying the egg has really taken its toll on you, and you're unable to summon the energy to do anything other than try to keep your eyes open and watch as it hatches. As the shell breaks, you feel the arcane using you as a source of energy, rapidly maturing your offspring into a young adult right before your eyes. Finding yourself completely depleted of energy, you manage to take one good look at your offspring before you fall unconscious:
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_MULTIPLE"><![CDATA[
+	<p>
+		The process of laying the [#SPECIAL_PARSE_0] eggs has really taken its toll on you, and you're unable to summon the energy to do anything other than try to keep your eyes open and watch as they hatch. As their shells break, you feel the arcane using you as a source of energy, rapidly maturing your offspring into young adults right before your eyes. Finding yourself completely depleted of energy, you manage to take one good look at your offspring before you fall unconscious:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_END_SINGLE"><![CDATA[
+	<p>
+		...
+	</p>
+	<p>
+		A short time later, you awake to discover that the [npc.race] has departed, leaving you to labouriously stand back up and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INCUBATION_EGG_LAYING_FINISHED_END_MULTIPLE"><![CDATA[
+	<p>
+		...
+	</p>
+	<p>
+		A short time later, you awake to discover that your offspring have departed, leaving you to labouriously stand back up and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

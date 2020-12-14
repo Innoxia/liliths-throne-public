@@ -1,14 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -102,9 +105,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldAlligatorMorph(strong, alligator-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, alligator-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, flat muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_SCALY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_SCALY
 				)){
 	};
 
@@ -130,9 +133,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldBatMorph(thin, bat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, bat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -158,9 +161,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, cat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a cute little feline muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -186,9 +189,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, panther-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -214,8 +217,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCowMorph(strong, cow-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, cow-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a bovine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -241,9 +244,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldDogMorph(flat, dog-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, dog-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a canine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -269,9 +272,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldFoxMorph(flat, fox-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, fox-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a slender, vulpine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -286,8 +289,6 @@ public class FaceType {
 			"noses",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			
-			
 			"[npc.Her] nose and mouth twitch and transform as they fuse together and push out into a short beak, and [npc.her] tongue thins down, turning into a bird-like one."
 				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
 					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
@@ -301,8 +302,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHarpy(thin, bird-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, bird-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a beak.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.BEAK,
-					FaceTypeTag.NATURAL_BALDNESS_AVIAN
+					BodyPartTag.FACE_BEAK,
+					BodyPartTag.FACE_NATURAL_BALDNESS_AVIAN
 				)){
 	};
 
@@ -328,8 +329,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHorseMorph(strong, horse-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, horse-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, equine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY // Note: Some horse races only have hair on the neck aka a mane so its not totally unnatural to have a bald face
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY // Note: Some horse races only have hair on the neck aka a mane so its not totally unnatural to have a bald face
 				)){
 	};
 
@@ -355,8 +356,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldRabbitMorph(thin, rabbit-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, rabbit-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -382,8 +383,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldRatMorph(thin, rat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, rat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, rodent muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -409,8 +410,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, reindeer-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -436,8 +437,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldSquirrelMorph(thin, squirrel-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, squirrel-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -463,9 +464,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldWolfMorph(flat, wolf-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, wolf-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 	
@@ -476,8 +477,47 @@ public class FaceType {
 	
 	static {
 		allFaceTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
+					try {
+						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allFaceTypes.add(type);
+						faceToIdMap.put(type, id);
+						idToFaceMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
+					try {
+						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allFaceTypes.add(type);
+						faceToIdMap.put(type, id);
+						idToFaceMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded face types:
+		
 		Field[] fields = FaceType.class.getFields();
 		
 		for(Field f : fields){

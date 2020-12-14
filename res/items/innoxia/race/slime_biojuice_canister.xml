@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>2500</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Biojuice Canister]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Biojuice Canister]]></namePlural>
+		<description><![CDATA[A canister of glowing pink liquid, which has a thick, slimy consistency. The warning sign on the front makes it quite clear that drinking this would be a bad idea...]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/slime/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="-15" imageSize="75">slime_biojuice_canister.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_SLIME</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[slime]]></potionDescriptor>
+		<associatedRace>SLIME</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(25)]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(25)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldSlime(Transforms body into slime!)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[#npc.incrementAttribute(ATTRIBUTE_MAJOR_CORRUPTION, 25)]
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_CORRUPTION, 25)]
+			
+			#IF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_SLIME)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] already a slime, so nothing happens...)]
+				</p>
+			#ELSE
+				[#npc.setBodyMaterial(BODY_MATERIAL_SLIME)]
+			#ENDIF
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>CONTRABAND_LIGHT</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>NOT_FOR_SALE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Ignoring the warning on the front, [npc.name] [npc.verb(unseal)] one end of the Biojuice Canister and [npc.verb(bring)] it up to [npc.her] [npc.lips]. The glowing pink liquid within gives off a faintly sweet smell, which encourages [npc.herHim] to tilt [npc.her] head back and gulp it all down...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Ignoring the warning on the front, [npc.name] [npc.verb(unseal)] one end of the Biojuice Canister and [npc.verb(bring)] it up to [npc2.namePos] [npc2.lips]. The glowing pink liquid within gives off a faintly sweet smell, which encourages [npc2.name] to tilt [npc2.her] head back and gulp it all down...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

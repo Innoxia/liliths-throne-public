@@ -17,7 +17,8 @@ public enum BodySize {
 	FOUR_HUGE("huge", 80, 100, PresetColour.BODY_SIZE_FOUR);
 
 	private String name;
-	private int minimumBodySize, maximumBodySize;
+	private int minimumBodySize;
+	private int maximumBodySize;
 	private Colour colour;
 
 	private BodySize(String name, int minimumBodySize, int maximumBodySize, Colour colour) {

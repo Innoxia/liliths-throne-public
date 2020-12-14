@@ -1,12 +1,13 @@
 package com.lilithsthrone.rendering;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -14,9 +15,36 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.utils.SvgUtil;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 
 /**
+ * 
+ * Can't find a good place to put the list for the future, so I'll put it here:<br/>
+ * Items supporting patterns as of the creation of the system:<br/>
+ * <i>
+ * Bikini Bottoms<br/>
+ * Backless Panties<br/>
+ * Boxers<br/>
+ * Boyshorts<br/>
+ * Thigh highs<br/>
+ * Work boots<br/>
+ * Swimsuit<br/>
+ * Bikini<br/>
+ * Briefs<br/>
+ * Crotchless briefs<br/>
+ * Crotchless panties<br/>
+ * Crotchless thong<br/>
+ * Panties<br/>
+ * Vstring<br/>
+ * Elbow Length gloves<br/>
+ * Fingerless gloves<br/>
+ * Gloves<br/>
+ * Cargo trousers<br/>
+ * Thigh high socks<br/>
+ * Knee high socks<br/>
+ * Tshirt<br/>
+ * </i>
  * @since 0.2.6
  * @version 0.3.9.8
  * @author Irbynx, Innoxia, AceXp
@@ -38,56 +66,38 @@ public class Pattern {
 
 		allPatterns.put("none", new Pattern("none", null)); // Adding empty pattern
 		defaultPatterns.put("none", new Pattern("none", null));
-
-		File dir = new File("res/mods");
-
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorPatternDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/patterns");
-					FilenameFilter textFilter = (dir1, name) -> {
-						String lowercaseName = name.toLowerCase();
-						if (lowercaseName.endsWith(".xml")) {
-							return true;
-						} else {
-							return false;
-						}
-					};
-					File[] patternFilesListing = modAuthorPatternDirectory.listFiles(textFilter);
-					if (patternFilesListing != null) {
-						for (File patternFile : patternFilesListing) {
-							try {
-								if(patternFile.exists()) {
-									loadFromFile(patternFile);
-								}
-							} catch(Exception ex) {
-								System.err.println("Loading modded pattern failed in 'mod folder patterns'. File path: "+patternFile.getAbsolutePath());
-							}
-						}
-					}
-				}
-			}
-		}
-
-		dir = new File("res/patterns");
 		
-		if(dir.exists()) {
-			FilenameFilter textFilter = (dir1, name) -> {
-				String lowercaseName = name.toLowerCase();
-				if (lowercaseName.endsWith(".xml")) {
-					return true;
-				} else {
-					return false;
-				}
-			};
-			
-			for(File subFile : dir.listFiles(textFilter)) {
-				if(subFile.exists()) {
-					loadFromFile(subFile);
+		// Modded patterns:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/items/patterns");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					loadFromFile(innerEntry.getKey(), innerEntry.getValue());
+				} catch(Exception ex) {
+					System.err.println("Loading modded pattern failed at 'Pattern'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
+		
+		// External res patterns:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/patterns");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					loadFromFile(innerEntry.getKey(), innerEntry.getValue());
+//					System.out.println("P: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading pattern failed at 'Pattern'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 	
 	public Pattern(String name, File xmlFile) {
@@ -112,7 +122,7 @@ public class Pattern {
 		
 	}
 	
-	private static Pattern loadFromFile(File clothingXMLFile) {
+	private static Pattern loadFromFile(String id, File clothingXMLFile) {
 		try {
 			Element patternElement = Element.getDocumentRootElement(clothingXMLFile);
 			String loadedDisplayName = patternElement.getMandatoryFirstOf("name").getTextContent();
@@ -122,10 +132,15 @@ public class Pattern {
 			Pattern pattern = new Pattern(loadedPatternName, clothingXMLFile);
 			pattern.displayName = loadedDisplayName;
 			
-			allPatterns.put(loadedPatternName, pattern);
+			allPatterns.put(id, pattern);
 			if(loadedDefaultPattern) {
-				defaultPatterns.put(loadedPatternName, pattern);
+				defaultPatterns.put(id, pattern);
 			}
+			
+//			allPatterns.put(loadedPatternName, pattern);
+//			if(loadedDefaultPattern) {
+//				defaultPatterns.put(loadedPatternName, pattern);
+//			}
 			
 			return pattern;
 			
@@ -135,6 +150,7 @@ public class Pattern {
 			e.printStackTrace();
 		}
 		
+		
 		return null;
 	}
 	
@@ -142,21 +158,37 @@ public class Pattern {
 	 * Checks all found patterns and returns one if available.
 	 */
 	public static Pattern getPattern(String name) {
+		if(name.equals("cow_patterned")
+				|| name.equals("tiger_striped")
+				|| name.equals("horizontally_tiger_striped")
+				|| name.equals("leopard_printed")
+				|| name.equals("multi_camo")
+				|| name.equals("rainbow")
+				|| name.equals("polka_dots_big")
+				|| name.equals("camo")
+				|| name.equals("polka_dots_small")
+				|| name.equals("polka_dots_tiny")) {
+			name = "irbynx_"+name;
+			
+		} else if(name.equals("urban_splinter_camo")) {
+			name = "dsg_"+name;
+		}
+		
 		return allPatterns.get(name);
 	}
-	
+
 	/**
 	 * Returns all available patterns
 	 */
-	public static Map<String, Pattern> getAllPatterns() {
-		return allPatterns;
+	public static List<Pattern> getAllPatterns() {
+		return new ArrayList<>(allPatterns.values());
 	}
 
 	/**
 	 * Returns all default patterns which clothing can spawn with
 	 */
-	public static Map<String, Pattern> getAllDefaultPatterns() {
-		return defaultPatterns;
+	public static List<Pattern> getAllDefaultPatterns() {
+		return new ArrayList<>(defaultPatterns.values());
 	}
 	
 	/**
@@ -205,31 +237,5 @@ public class Pattern {
 		SVGStringMap.put(generateIdentifier(patternColours), SvgUtil.colourReplacementPattern(this.getName(), patternColours, patternColourReplacements, baseSVGString));
 	}
 }
-
-
-// Can't find a good place to put the list for the future, so I'll put it here:
-// Items supporting patterns as of the creation of the system:
-//
-// Bikini Bottoms
-// Backless Panties
-// Boxers
-// Boyshorts
-// Thigh highs
-// Work boots
-// Swimsuit
-// Bikini
-// Briefs
-// Crotchless briefs
-// Crotchless panties
-// Crotchless thong
-// Panties
-// Vstring
-// Elbow Length gloves
-// Fingerless gloves
-// Gloves
-// Cargo trousers
-// Thigh high socks
-// Knee high socks
-// Tshirt
 
 

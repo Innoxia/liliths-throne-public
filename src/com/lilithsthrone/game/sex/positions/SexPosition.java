@@ -2707,7 +2707,7 @@ public class SexPosition {
 				}
 			}
 			if(!suitablePosition) {
-				return new Value<Boolean, String>(false, "At least one character needs to be down on all fours for this position to work.");
+				return new Value<Boolean, String>(false, "At least one character needs to be lying down for this position to work.");
 			}
 			return new Value<Boolean, String>(true, "");
 		}

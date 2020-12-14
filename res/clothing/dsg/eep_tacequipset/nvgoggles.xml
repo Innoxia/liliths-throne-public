@@ -125,6 +125,7 @@
 		<itemTags> 
 			<tag>RIGID_MATERIAL</tag>
 			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>NIGHT_VISION_SELF</tag>
 		</itemTags>
 	</coreAtributes>
 

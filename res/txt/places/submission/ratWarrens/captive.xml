@@ -81,19 +81,21 @@
 			#ELSE
 				 [murk.speechNoEffects(While ya were servicin' that rat with ya mouth, I ran one o' those pregnancy detectors over ya belly, an' congratulations, yer fuckin' pregnant! I ain't gonna be able ta 'ave me fun with ya 'til we've got that sorted out, so you's wait 'ere while I go an' get that slut Silence ta come an' 'elp ya give birth.)]
 			#ENDIF
+		#ELSEIF(!pc.getIncubatingLitters().isEmpty())
+			 [murk.speechNoEffects(I ain't gonna be able ta 'ave me fun with ya 'til we've got ya ta lay dem eggs you's got stuffed inside o' ya! You's wait 'ere while I go an' get that slut Silence ta come an' oversee yer layin'.)]
 		#ELSE
 			 [murk.speechNoEffects(I ain't gonna keep ya locked up while yer in this fuckin' state! Get some rest on yer straw beddin'; I's gonna want yer fully awake fer all the fun I's got planned fer ya tomorrow!)]
 		#ENDIF
 	</p>
-	#IF(!pc.isPregnant())
-		<p>
-			With no strength left in your body, you do as the rat-boy says, and after clambering out of the stocks, you sink down onto the nearby pile of straw. Despite the discomfort of your new bed, your exhaustion gets the better of you, and you soon fall asleep on the floor of Murk's milking room...
-		</p>
-	#ELSE
-		<p>
+	<p>
+		#IF(pc.isPregnant())
 			With no strength left in your body, you clamber out of the stocks and sink down onto a nearby pile of straw. Stroking your [pc.hands] over your pregnant belly, you're left with nothing to do except wait for Murk's return...
-		</p>
-	#ENDIF
+		#ELSEIF(!pc.getIncubatingLitters().isEmpty())
+			With no strength left in your body, you clamber out of the stocks and sink down onto a nearby pile of straw. After letting out a deep sigh, you realise that you're left with nothing to do except wait for Murk's return...
+		#ELSE
+			With no strength left in your body, you do as the rat-boy says, and after clambering out of the stocks, you sink down onto the nearby pile of straw. Despite the discomfort of your new bed, your exhaustion gets the better of you, and you soon fall asleep on the floor of Murk's milking room...
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -2610,6 +2612,51 @@
 	</p>
 	<p>
 		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable whine as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_LAY_EGGS -->
+	
+	<htmlContent tag="CAPTIVE_LAY_EGGS"><![CDATA[
+	<p>
+		Thankfully, you're not left waiting for too long, as just five minutes after leaving the milking room, Murk returns with
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+			 the familiar figure of the white-furred rat-girl, Silence, trailing behind him.
+		#ELSE
+			 a beautiful, white-furred rat-girl, who you assume to be 'Silence', trailing behind him.
+		#ENDIF
+		 Upon seeing you chained up on the floor, the rat-girl angrily scowls at Murk, before delivering a sharp, forceful smack to the back of his head.
+	</p>
+	<p>
+		[murk.speechNoEffects('Ey! Wot da fuck were dat for, ya dumb bitch?!)] Murk shouts, but he instantly backs off and apologises as he sees the furious look in Silence's glowing pink eyes, [murk.speechNoEffects(Sorry! I weren't meanin' ta treat this bitch poorly, but if I don't chain 'em up, dey could escape an' cause all sorts o' trouble! Anyway, go on then, take 'er away an' do yer thing!)]
+	</p>
+	<p>
+		Sweeping past the foul-mouthed rat-boy, Silence lives up to her name by not uttering a single sound as she unlocks your chain and helps you to stand up. Thankful for her kindness, you allow the rat-girl to help support you as she leads you out of the milking room and into the rat-warrens.
+	</p>
+	<p>
+		[shadow.speech(Don't ya worry, hun, Silence 'ere will take good car o' ya,)] a feminine voice suddenly calls out from somewhere behind you. Turning to look back, you see
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+			 the black-furred rat-girl, Shadow, stepping out from a dark recess. Flashing you a wicked grin, she continues, [shadow.speech(We's got a room near 'ere where ya can lay yer eggs in peace. Don't ya worry 'bout yer kids; I's gonna make sure they's shown safely up inta Dominion.)]
+		#ELSE
+			 a black-furred rat-girl stepping out from a dark recess. Flashing you a wicked grin, she continues, [shadow.speech(We's got a room near 'ere where ya can lay yer eggs in peace. Don't ya worry 'bout yer kids; I's gonna make sure they's shown safely up inta Dominion. Oh, an' the name's Shadow, by the way..)]
+		#ENDIF
+	</p>
+	<p>
+		Sure enough, after turning the next corner, you're shown into a surprisingly spacious and well-furnished room, with a clean bed sitting in the middle of it. With the rat-girls by your side, you're led over to this bed, and after getting you to lie back on it, Shadow makes you drink several bottles of 'Mother's Milk' to make sure that your eggs are sufficiently matured enough for you to lay them. Smirking down at you, she says, [shadow.speech(Silence 'ere is more skilled with arcane shit than a fuckin' demon, so ya in good hands. Just lie back an' relax as she channels 'er arcane power inta yer body, an' before ya know it, ya gonna be layin' dem eggs!)]
+	</p>
+	<p>
+		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your body. Reassured by Silence's gentle nature, you allow yourself to relax, and as you feel the eggs start to move inside of you, the power of the arcane energy being transferred into your body very quickly drains your energy, and you find yourself losing consciousness... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- CAPTIVE_LAY_EGGS_FINISHED -->
+	
+	<htmlContent tag="CAPTIVE_LAY_EGGS_INITIAL_FINISHED"><![CDATA[
+	<p>
+		You wake up some time later to discover that you've been carried back to Murk's milking room, and with a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you realise that you must have laid all of your eggs while unconscious.
 	</p>
 	]]>
 	</htmlContent>

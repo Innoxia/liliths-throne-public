@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
  * @since 0.1.84
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public enum GenitalArrangement {
@@ -11,7 +11,6 @@ public enum GenitalArrangement {
 	
 	CLOACA("cloaca", "[npc.NamePos] genitals and asshole are all located within a slit-like cloaca, which is located in the place where [npc.her] genitals would normally be."),
 	
-	/** Probably won't ever be used, and does not have complete support*/
 	CLOACA_BEHIND("rear-facing cloaca", "[npc.NamePos] genitals and asshole are all located within a slit-like cloaca, which is located in the place where [npc.her] asshole would normally be.");
 	
 	

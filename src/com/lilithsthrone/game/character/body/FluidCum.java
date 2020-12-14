@@ -6,7 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
@@ -43,14 +43,14 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		Element element = doc.createElement("cum");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
-		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
+		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
 		
 		
 		Element cumModifiers = doc.createElement("cumModifiers");
 		element.appendChild(cumModifiers);
 		for(FluidModifier fm : this.getFluidModifiers()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), "true");
+			XMLUtil.addAttribute(doc, cumModifiers, fm.toString(), "true");
 		}
 		
 		return element;
@@ -363,10 +363,10 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(FluidCum.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(FluidCum.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

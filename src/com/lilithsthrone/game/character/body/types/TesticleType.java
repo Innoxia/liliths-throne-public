@@ -1,13 +1,16 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -22,7 +25,7 @@ public class TesticleType {
 	public static AbstractTesticleType NONE = new AbstractTesticleType(null, Race.NONE, FluidType.CUM_HUMAN, false) {
 	};
 
-	public static AbstractTesticleType DILDO = new AbstractTesticleType(BodyCoveringType.RUBBER, Race.NONE, FluidType.CUM_HUMAN, false) {
+	public static AbstractTesticleType DILDO = new AbstractTesticleType(BodyCoveringType.getBodyCoveringTypeFromId("RUBBER_MAIN_SKIN"), Race.NONE, FluidType.CUM_HUMAN, false) {
 	};
 	
 	public static AbstractTesticleType HUMAN = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HUMAN, FluidType.CUM_HUMAN, false) {
@@ -80,8 +83,47 @@ public class TesticleType {
 	
 	static {
 		allTesticleTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("testicle")) {
+					try {
+						AbstractTesticleType type = new AbstractTesticleType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTesticleTypes.add(type);
+						testicleToIdMap.put(type, id);
+						idToTesticleMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("testicle")) {
+					try {
+						AbstractTesticleType type = new AbstractTesticleType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTesticleTypes.add(type);
+						testicleToIdMap.put(type, id);
+						idToTesticleMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded testicle types:
+		
 		Field[] fields = TesticleType.class.getFields();
 		
 		for(Field f : fields){

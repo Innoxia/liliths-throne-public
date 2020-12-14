@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>40</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Bunny Carrot-Cake]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Bunny Carrot-Cakes]]></namePlural>
+		<description><![CDATA[An individually-wrapped slice of frosted carrot cake, complete with a decorative icing carrot on the top. On the wrapper, there's a very lewd image of a rabbit-girl being bred by a muscular rabbit-boy.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/rabbit/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">rabbit_bunny_carrot_cake.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_RABBIT_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[rabbit]]></potionDescriptor>
+		<associatedRace>RABBIT_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(15)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(15)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_LUST.getFormattedValue(-25)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel like [npc.she] [npc.verb(need)] to breed...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_FERTILITY, 15)]
+			[#npc.addPotionEffect(ATTRIBUTE_VIRILITY, 15)]
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_LUST, -25)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Tearing off the Bunny Carrot-Cake's plastic wrapper, [npc.name] [npc.verb(pop)] the small slice of cake into [npc.her] mouth. It turns out to be absolutely delicious, and after [npc.sheHas] swallowed down the sweet mess, a delightful carroty aftertaste lingers on [npc.her] [npc.tongue].
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Tearing off the Bunny Carrot-Cake's plastic wrapper, [npc.name] [npc.verb(pop)] the small slice of cake into [npc2.namePos] mouth. It turns out to be absolutely delicious, and after [npc2.sheHas] swallowed down the sweet mess, a delightful carroty aftertaste lingers on [npc2.namePos] [npc2.tongue].
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
