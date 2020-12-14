@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -22,6 +21,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -77,20 +77,20 @@ public class SubmissionAttacker extends NPC {
 			
 			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 200 : 80;
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.SLIME) {
-					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
 				} else if(s==Subspecies.IMP || s==Subspecies.IMP_ALPHA) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
 				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 
-			Subspecies randomSpecies = Util.getRandomObjectFromWeightedMap(availableRaces);
+			AbstractSubspecies randomSpecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 			if(randomSpecies==Subspecies.SLIME || randomSpecies==Subspecies.IMP || randomSpecies==Subspecies.IMP_ALPHA) {
 				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
 				
@@ -99,13 +99,13 @@ public class SubmissionAttacker extends NPC {
 			}
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { // Half-demon spawn rate
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.TAUR // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-					&& this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
-				CharacterUtils.applyTaurConversion(this);
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
+				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -117,7 +117,7 @@ public class SubmissionAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			if((this.getSubspecies()==Subspecies.IMP || this.getSubspecies()==Subspecies.IMP_ALPHA)
 					&& !this.hasPersonalityTrait(PersonalityTrait.MUTE)
 					&& Math.random()<0.9f) {
@@ -126,7 +126,7 @@ public class SubmissionAttacker extends NPC {
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN) == Quest.SLIME_QUEEN_ONE) {
 					this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
@@ -136,16 +136,16 @@ public class SubmissionAttacker extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -172,9 +172,9 @@ public class SubmissionAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override

@@ -17,7 +17,7 @@ public enum DialogueNodeType {
 	
 	CHARACTERS_PRESENT("characters present"),
 
-	OCCUPANT_MANAGEMENT("slavery management"),
+	OCCUPANT_MANAGEMENT("character management"),
 	
 	OPTIONS("options"),
 	

@@ -18,13 +18,13 @@
 		<determiner><![CDATA[an]]></determiner>
 		
 		<!-- The name of this clothing. -->
-		<name><![CDATA[Enforcer's stabproof vest]]></name>
+		<name><![CDATA[stabproof vest]]></name>
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
-		<namePlural pluralByDefault="false"><![CDATA[Enforcer's stabproof vests]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[stabproof vests]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A low-profile pocketed vest made from ballistic fibres. Ubiquitous among Enforcers on patrol duty, it tips the scale towards mobility and discreetness against protection.]]></description>
+		<description><![CDATA[A low-profile pocketed vest made from ballistic fibres, it tips the scale towards mobility and discreetness against protection.]]></description>
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>10</physicalResistance> 
@@ -47,6 +47,133 @@
 		
 		<!-- The file path for this clothing's image while equipped. It's only used by condoms in the base game at the moment (so an unequipped condom in your inventory has a different image than while being worn). -->
 		<imageEquippedName/> 
+		
+		<!-- 'Stickers' are additional svgs which can be overlaid on top of (or beneath the) base svg image.
+		Definitions are all within the 'stickers' element. -->
+		<stickers>
+			<!-- Note: All of the 'id' attributes are used in-game as category titles and sticker names in the sticker application menu. As such, please try to make your id human-readable. -->
+			<category id="name_plate" priority="1"> <!-- All stickers defined within this category are *mutually exclusive with one another, but not with stickers defined in other 'category' elements*.
+			The 'id' should be unique to each category, and can be defined as whatever you want.
+			The 'priority' variable determines the position of this category in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the top of the category list.-->
+				<categoryName><![CDATA[Name Plate]]></categoryName>
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected="TEXT_GREY"> <!-- This has a priority of 0, so even though I've put it last in this sticker element list, it will be rendered first in the game's button UI. -->
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Contractor ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="enforcer" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> <!-- A sticker element.
+				The 'id' element should be unique to stickers within this category element.
+				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
+				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
+				'zLayer' defines the rendering z-layer priority. These 'zLayer' values are compared against one another when rendering, with higher values being drawn on top of stickers with lower values. *The base svg has a zLayer value of 0*, meaning that negative values will be drawn beneath the base svg. Defining zLayer as 0 is not advised (although it is handled by always being drawn on top of the base layer).
+				'colourDisabled' and 'colourSelected' are optional variables which you can use to define the colour of the text within the button used to select this sticker in the clothing dye UI. (You can leave these blank or delete them entirely to use default button colours. The default values, if you were to define them using these variables, would look like: colourDisabled="TEXT_GREY" colourSelected="GENERIC_GOOD") Available colours can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->			
+					<stickerName><![CDATA[Enforcer]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Enforcer ]]></namePrefix> <!-- Define a 'namePrefix' to add a prefix to the base clothing's name when this sticker is applied.
+					The 'priority' variable defines the order in which multiple sticker 'namePrefix's are displayed. A *lower value* means they will be *displayed first*. This can be left undefined. -->
+					<namePostfix/> <!-- Exactly the same as 'namePrefix', but the text is appended after the base clothing name. -->
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one is clearly labeled for Enforcer use.</i>]]></descriptionModification> <!-- You can set whether this sticker should define a new description for the clothing.
+					If 'fullReplacement' is true, then the clothing's description is completely replaced with 'descriptionModification' while this sticker is applied. If 'fullReplacement' is false, then it is appended to the base clothing description (so long as another sticker has not applied a 'fullReplacement').
+					The 'priority' element defines in what order the description appending is performed, or, if 'fullReplacement' is true for multiple active stickers, which sticker's description has priority. -->
+					<imageName>stpvest_st_enf.svg</imageName> <!-- The path name for this sticker, which should be in the same folder location as this xml file.
+					The 'slot' variable can be omitted, in which case the default slot for the clothing item is used.
+					If the clothing can be equipped into multiple slots, you don't *need* to define an 'imageName' element for every slot, but if you don't, the game will end up using any of your defined 'imageName's at random (which is not a problem if you only define one 'imageName' that's suitable for any of the clothing's base imageName).-->
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded> <!-- If this sticker should add any ItemTags to the clothing, then you can define them in here. Use <tag> elements within the 'itemTagsAdded' element (e.g. <tag>SOLD_BY_NYAN</tag>)using ItemTag names as defined here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved> <!-- If this sticker should remove any ItemTags to the clothing, then you can define them in here. Use <tag> elements in the same manner as 'itemTagsAdded'. (Warning: If you define either a single sticker or multiple stickers to have conflicting tag behaviour (i.e. both adding and removing identical tags), then behaviour is undefined and you will end up with the ItemTag applied or removed at random.) -->
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_PATROL) ||
+							!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_SWORD) ||
+							!pc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_ORICL))
+							Only Enforcers can use an Enforcer nameplate!
+						#ENDIF
+					]]></unavailabilityText> <!-- Sticker are available to be used by the player by default, but if you want there to be requirements for using this sticker, then define this element as a CDATA text element, with any non-whitespace text returned signalling to the game that this sticker is unavailable. The returned text will be displayed to the player in the button's tooltip, so it should describe why this sticker is unavailable.
+					You can define a 'showDisabledButton' attribute, which by default is set to true, and which defines whether or not this sticker's selection button is shown to the player when disabled.
+					Please note that no 'npc' tag can be used, as this clothing might not belong to anyone.
+					
+					An example where the player could only use the sticker while being feminine would be:
+					<unavailabilityText showDisabledButton="true"><![CDATA[
+						#IF(!pc.isFeminine())
+							Only feminine characters can apply this sticker!
+						#ENDIF
+					]]></unavailabilityText>
+					
+					And for this example, the disabled button is not shown to the player, so there's no need for an elaborate description, as the player will never see it:
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getSubspeciesOverrideRace()!=RACE_DEMON && !pc.isFeminine())
+							unavailable
+						#ENDIF
+					]]></unavailabilityText>
+					-->
+					<availabilityText><![CDATA[
+						As an Enforcer, you can freely use Enforcer name plates.
+					]]></availabilityText> <!-- The counterpart to 'unavailabilityText', this text is shown when 'unavailabilityText' is returning an empty String, and therefore this sticker is available. Use a CDATA text element.
+					Counterpart examples to the two above:
+					<availabilityText><![CDATA[
+						You have unlocked this sticker due to being feminine!
+					]]></availabilityText>
+					
+					<availabilityText><![CDATA[
+						#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON)
+							You have unlocked this sticker due to being a demon!
+						#ELSE
+							You have unlocked this sticker due to being feminine!
+						#ENDIF
+					]]></availabilityText>
+					-->
+				</sticker>
+				<sticker id="claire" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS"> <!-- This sticker is mutually exclusive with the one above, as it is defined within the same 'category' element. -->
+					<stickerName><![CDATA[Claire]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Claire's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one belongs to Claire.</i>]]></descriptionModification>
+					<imageName>stpvest_st_claire.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getId() != claire.getId())
+							You can't use Claire's name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText><![CDATA[
+						I don't know what kind of hax you used to unlock this, but apparently you are Claire.
+					]]></availabilityText>
+				</sticker>
+				<sticker id="sean" priority="2" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="FEMININE_PLUS"> <!-- This sticker is mutually exclusive with the one above, as it is defined within the same 'category' element. -->
+					<stickerName><![CDATA[Sean]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Sean's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i> This one belongs to Sean.</i>]]></descriptionModification>
+					<imageName>stpvest_st_sean.svg</imageName>
+					<itemTagsAdded>
+						<tag>CONTRABAND_HEAVY</tag>
+					</itemTagsAdded>
+					<itemTagsRemoved>
+						<tag>CONTRABAND_MEDIUM</tag>
+					</itemTagsRemoved>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(pc.getId() != sean.getId())
+							You can't use Sean's name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText><![CDATA[
+						Beware of flying CRT monitors.
+					]]></availabilityText>
+				</sticker>
+			</category>
+		</stickers>
 		
 		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 5, and is calculated as:
 			int base = (getClothingSet()==null?5:10);
@@ -121,7 +248,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_GREY"/> 
@@ -130,12 +257,13 @@
 		<tertiaryColoursDye values="ALL"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
 			<tag>FITS_ARM_WINGS</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 

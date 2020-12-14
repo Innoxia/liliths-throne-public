@@ -13,10 +13,9 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -401,17 +400,17 @@ public class Nyan extends NPC {
 		}
 		
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-			commonFemaleClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleClothing, 3, 1));
-			commonFemaleUnderwear.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleUnderwear, 3, 1));
-			commonFemaleAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleAccessories, 3, 1));
+			commonFemaleClothing.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonFemaleClothing, 3, 1));
+			commonFemaleUnderwear.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonFemaleUnderwear, 3, 1));
+			commonFemaleAccessories.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonFemaleAccessories, 3, 1));
 
-			commonMaleClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleClothing, 3, 1));
-			commonMaleLingerie.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleLingerie, 3, 1));
-			commonMaleAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleAccessories, 3, 1));
+			commonMaleClothing.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonMaleClothing, 3, 1));
+			commonMaleLingerie.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonMaleLingerie, 3, 1));
+			commonMaleAccessories.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonMaleAccessories, 3, 1));
 
-			commonAndrogynousClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousClothing, 3, 1));
-			commonAndrogynousLingerie.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousLingerie, 3, 1));
-			commonAndrogynousAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousAccessories, 3, 1));
+			commonAndrogynousClothing.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonAndrogynousClothing, 3, 1));
+			commonAndrogynousLingerie.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonAndrogynousLingerie, 3, 1));
+			commonAndrogynousAccessories.addAll(Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, commonAndrogynousAccessories, 3, 1));
 		}
 	}
 	
@@ -518,7 +517,10 @@ public class Nyan extends NPC {
 	
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		return item instanceof AbstractClothing;
+		return (item instanceof AbstractClothing)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY);
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {

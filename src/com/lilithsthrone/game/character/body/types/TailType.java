@@ -1,13 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
-import com.lilithsthrone.game.character.body.tags.TailTypeTag;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -44,7 +48,7 @@ public class TailType {
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(no tail)].",
 			"[style.colourDisabled([npc.She] [npc.do] not have a tail.)]",
-			Util.newArrayListOfValues()) {
+			Util.newArrayListOfValues(), false) {
 	};
 	
 	public static final AbstractTailType DEMON_COMMON = new AbstractTailType(
@@ -93,11 +97,11 @@ public class TailType {
 					+ " [npc.tailCount] spaded, [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tails, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SUTABLE_FOR_PENETRATION,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_EXPONENTIAL)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TAPERING_EXPONENTIAL), false) {
 	};
 
 	public static final AbstractTailType DEMON_HAIR_TIP = new AbstractTailType(
@@ -148,10 +152,10 @@ public class TailType {
 						+ " over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 
 	public static final AbstractTailType DEMON_TAPERED = new AbstractTailType(
@@ -200,15 +204,15 @@ public class TailType {
 					+ " [npc.tailCount] tapered, [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tails, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SUTABLE_FOR_PENETRATION,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_LINEAR)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
 	};
 	
 	public static final AbstractTailType DEMON_HORSE = new AbstractTailType(
-			BodyCoveringType.DEMON_HORSE_HAIR,
+			BodyCoveringType.HORSE_HAIR,
 			Race.DEMON,
 			PenetrationGirth.THREE_AVERAGE,
 			0.3f,
@@ -248,15 +252,15 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tail,"
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tail,"
 						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tails,"
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF-horse tails,"
 						+ " which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_HAIR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_HAIR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType ALLIGATOR_MORPH = new AbstractTailType(
@@ -288,16 +292,16 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] alligator tail, which [npc.she] can swipe from side to side with considerable force."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] alligator tail, which [npc.she] can swipe from side to side with considerable force."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] alligator tails, which [npc.she] can swipe from side to side with considerable force."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] alligator tails, which [npc.she] can swipe from side to side with considerable force."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SUTABLE_FOR_PENETRATION,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_LINEAR)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
 	};
 	
 	public static final AbstractTailType BAT_MORPH = new AbstractTailType(
@@ -329,15 +333,15 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] bat tail,"
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] bat tail,"
 						+ " which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] bat tails,"
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] bat tails,"
 						+ " which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_GENERIC,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_GENERIC,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType CAT_MORPH = new AbstractTailType(
@@ -369,15 +373,15 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] cat tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cat tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] cat tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cat tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType CAT_MORPH_SHORT = new AbstractTailType(
@@ -409,14 +413,14 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], short cat tail."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], short cat tail."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], short cat tails."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], short cat tails."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType CAT_MORPH_TUFTED = new AbstractTailType(
@@ -448,16 +452,16 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] cat tail, which has a tuft of fur on the end."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cat tail, which has a tuft of fur on the end."
 					+ " [npc.She] can control it well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] cat tails, which each have a tuft of fur on the end."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cat tails, which each have a tuft of fur on the end."
 					+ " [npc.She] can control them well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType COW_MORPH = new AbstractTailType(
@@ -489,13 +493,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], cow tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], cow tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] cow tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] cow tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType DOG_MORPH = new AbstractTailType(
@@ -527,13 +531,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] dog tail, which wags uncontrollably when [npc.she] [npc.verb(get)] excited."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] dog tail, which wags uncontrollably when [npc.she] [npc.verb(get)] excited."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] dog tails, which wag uncontrollably when [npc.she] [npc.verb(get)] excited."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] dog tails, which wag uncontrollably when [npc.she] [npc.verb(get)] excited."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType DOG_MORPH_STUBBY = new AbstractTailType(
@@ -565,13 +569,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF stubby, [npc.tailColour(true)] dog tail, which wags uncontrollably when [npc.she] [npc.verb(get)] excited."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF stubby, [npc.tailColour(true)] dog tail, which wags uncontrollably when [npc.she] [npc.verb(get)] excited."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF stubby, [npc.tailColour(true)] dog tails, which wag uncontrollably when [npc.she] [npc.verb(get)] excited."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF stubby, [npc.tailColour(true)] dog tails, which wag uncontrollably when [npc.she] [npc.verb(get)] excited."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType FOX_MORPH = new AbstractTailType(
@@ -603,14 +607,14 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] fox tail, which [npc.she] can freely swish this way and that."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] fox tail, which [npc.she] can freely swish this way and that."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] fox tails, which [npc.she] can freely swish this way and that."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] fox tails, which [npc.she] can freely swish this way and that."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType FOX_MORPH_MAGIC = new AbstractTailType(
@@ -648,20 +652,20 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tail, which is granting [npc.herHim] [style.italicsArcane(arcane powers)]!"
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tail, which is granting [npc.herHim] [style.italicsArcane(arcane powers)]!"
 				+ "#ELSE"
 					+ "#IF(npc.getTailCount()==9)"
-						+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tails,"
+						+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tails,"
 							+ " which are granting [npc.herHim] [style.italicsExcellent(immense)] [style.italicsArcane(arcane powers)]!"
 					+ "#ELSE"
-						+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tails, which are granting [npc.herHim] [style.italicsArcane(arcane powers)]!"
+						+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] [style.boldArcane(arcane)] fox tails, which are granting [npc.herHim] [style.italicsArcane(arcane powers)]!"
 					+ "#ENDIF"
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType HARPY = new AbstractTailType(
@@ -670,7 +674,7 @@ public class TailType {
 			PenetrationGirth.FOUR_THICK,
 			0.5f,
 			"harpy plume",
-			"a plume of",
+			"plume of",
 			"plumes of",
 			"tail feathers",
 			"tail feathers",
@@ -693,16 +697,16 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF plume of beautiful, [npc.tailColour(true)] tail-feathers,"
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF plume of beautiful, [npc.tailColour(true)] tail-feathers,"
 						+ " which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF plumes of beautiful, [npc.tailColour(true)] tail-feathers,"
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF plumes of beautiful, [npc.tailColour(true)] tail-feathers,"
 						+ " which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FEATHER,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FEATHER,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType HORSE_MORPH = new AbstractTailType(
@@ -734,13 +738,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], horse tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], horse tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] horse tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] horse tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_HAIR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_HAIR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType HORSE_MORPH_ZEBRA = new AbstractTailType(
@@ -772,13 +776,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)], zebra tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)], zebra tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] zebra tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] zebra tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_HAIR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_HAIR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType RAT_MORPH = new AbstractTailType(
@@ -810,16 +814,16 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] rat tail, over which [npc.she] [npc.has] complete control, allowing [npc.herHim] to use it to grip and hold objects."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] rat tail, over which [npc.she] [npc.has] complete control, allowing [npc.herHim] to use it to grip and hold objects."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] rat tails, over which [npc.she] [npc.has] complete control, allowing [npc.herHim] to use them to grip and hold objects."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] rat tails, over which [npc.she] [npc.has] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.PREHENSILE,
-					TailTypeTag.SUTABLE_FOR_PENETRATION,
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_LINEAR)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
 	};
 	
 	public static final AbstractTailType RABBIT_MORPH = new AbstractTailType(
@@ -851,13 +855,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] rabbit tail, which really is no more than a large ball of downy fluff."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] rabbit tail, which really is no more than a large ball of downy fluff."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] rabbit tails, which really are no more than large balls of downy fluff."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] rabbit tails, which really are no more than large balls of downy fluff."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(
@@ -889,13 +893,13 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] reindeer tail, which [npc.she] can twitch up and down."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] reindeer tail, which [npc.she] can twitch up and down."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] reindeer tails, which [npc.she] can twitch up and down."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] reindeer tails, which [npc.she] can twitch up and down."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType SQUIRREL_MORPH = new AbstractTailType(
@@ -927,14 +931,14 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] squirrel tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] squirrel tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] squirrel tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] squirrel tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	public static final AbstractTailType WOLF_MORPH = new AbstractTailType(
@@ -966,14 +970,14 @@ public class TailType {
 			+ "#ENDIF",
 			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
 				+ "#IF(npc.getTailCount()==1)"
-					+ " a #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] wolf tail, which swishes from side to side when [npc.she] [npc.verb(get)] excited."
+					+ " a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] wolf tail, which swishes from side to side when [npc.she] [npc.verb(get)] excited."
 				+ "#ELSE"
-					+ " [npc.tailCount] #IF(npc.isTailBestial()) [style.colourBestial(feral)],#ENDIF [npc.tailColour(true)] wolf tails, which swish from side to side when [npc.she] [npc.verb(get)] excited."
+					+ " [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] wolf tails, which swish from side to side when [npc.she] [npc.verb(get)] excited."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TailTypeTag.SLEEP_HUGGING,
-					TailTypeTag.TYPE_FUR,
-					TailTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TYPE_FUR,
+					BodyPartTag.TAIL_TAPERING_NONE), false) {
 	};
 	
 	
@@ -983,8 +987,47 @@ public class TailType {
 	
 	static {
 		allTailTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tail")) {
+					try {
+						AbstractTailType type = new AbstractTailType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTailTypes.add(type);
+						tailToIdMap.put(type, id);
+						idToTailMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tail")) {
+					try {
+						AbstractTailType type = new AbstractTailType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTailTypes.add(type);
+						tailToIdMap.put(type, id);
+						idToTailMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded tail types:
+		
 		Field[] fields = TailType.class.getFields();
 		
 		for(Field f : fields){
@@ -1004,6 +1047,13 @@ public class TailType {
 				}
 			}
 		}
+		
+		Collections.sort(allTailTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTailType getTailTypeFromId(String id) {

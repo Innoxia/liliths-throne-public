@@ -9,8 +9,8 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
@@ -132,33 +132,33 @@ public class DialogueFlags implements XMLSaving {
 		Element element = doc.createElement("dialogueFlags");
 		parentElement.appendChild(element);
 		
-//		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
+//		XMLUtil.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
 //		
-//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
+//		XMLUtil.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
-		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
-		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
-		CharacterUtils.createXMLElementWithValue(doc, element, "helenaSlaveOrderDay", String.valueOf(helenaSlaveOrderDay));
+		XMLUtil.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
+		XMLUtil.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
+		XMLUtil.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
+		XMLUtil.createXMLElementWithValue(doc, element, "helenaSlaveOrderDay", String.valueOf(helenaSlaveOrderDay));
 
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
+		XMLUtil.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "murkPlayerTfStage", String.valueOf(murkPlayerTfStage));
-		CharacterUtils.createXMLElementWithValue(doc, element, "murkCompanionTfStage", String.valueOf(murkCompanionTfStage));
+		XMLUtil.createXMLElementWithValue(doc, element, "murkPlayerTfStage", String.valueOf(murkPlayerTfStage));
+		XMLUtil.createXMLElementWithValue(doc, element, "murkCompanionTfStage", String.valueOf(murkCompanionTfStage));
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
-		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
-		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
+		XMLUtil.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
+		XMLUtil.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
+		XMLUtil.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
-		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
-		CharacterUtils.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
+		XMLUtil.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
+		XMLUtil.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
+		XMLUtil.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
 		
 		Element savedLongsElement = doc.createElement("savedLongs");
 		element.appendChild(savedLongsElement);
@@ -172,7 +172,7 @@ public class DialogueFlags implements XMLSaving {
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
 		for(DialogueFlagValue value : values) {
-			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
+			XMLUtil.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
 		}
 		
 		
@@ -189,8 +189,8 @@ public class DialogueFlags implements XMLSaving {
 		for(Vector2i value : supplierStorageRoomsChecked) {
 			Element location = doc.createElement("location");
 			supplierStorageRoomsCheckedElement.appendChild(location);
-			CharacterUtils.addAttribute(doc, location, "x", String.valueOf(value.getX()));
-			CharacterUtils.addAttribute(doc, location, "y", String.valueOf(value.getY()));
+			XMLUtil.addAttribute(doc, location, "x", String.valueOf(value.getX()));
+			XMLUtil.addAttribute(doc, location, "y", String.valueOf(value.getY()));
 		}
 		
 		
@@ -325,7 +325,7 @@ public class DialogueFlags implements XMLSaving {
 		Element valuesElement = doc.createElement(title);
 		parentElement.appendChild(valuesElement);
 		for(String value : set) {
-			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "value", value.toString());
+			XMLUtil.createXMLElementWithValue(doc, valuesElement, "value", value.toString());
 		}
 	}
 	
@@ -360,6 +360,13 @@ public class DialogueFlags implements XMLSaving {
 	
 	public void setSavedLong(String id, long value) {
 		savedLongs.put(id, value);
+	}
+
+	/**
+	 * @return Increments the long saved to this id. Sets to -1 before incrementing if there was no entry found.
+	 */
+	public void incrementSavedLong(String id, long increment) {
+		savedLongs.put(id, getSavedLong(id)+increment);
 	}
 
 	public boolean hasSavedLong(String id) {

@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -363,7 +363,7 @@ public enum CaptiveTransformation {
 						target.setLipSize(LipSize.THREE_PLUMP));
 			}
 			
-			if((target.isTaur() && Main.getProperties().udders>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().udders==2)
+			if((target.isTaur() && Main.getProperties().getUddersLevel()>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().getUddersLevel()==2)
 //					&& Main.game.isLactationContentEnabled()
 					&& RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()!=BreastType.NONE) {
 				map.put("Let's give yer some fuckin' udders with nice big teats! We's gotta get yer milk production up as 'igh as we can!",

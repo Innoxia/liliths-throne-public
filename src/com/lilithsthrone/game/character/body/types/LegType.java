@@ -1,21 +1,25 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -42,7 +46,7 @@ public class LegType {
 				+ "[npc.She] now [npc.has] [style.boldHuman(human legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
 			"[npc.Her] legs and feet are human, and are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
 			Util.newArrayListOfValues(
-					LegConfiguration.BIPEDAL)) {
+					LegConfiguration.BIPEDAL), false) {
 	};
 	
 	public static AbstractLegType ANGEL = new AbstractLegType(BodyCoveringType.ANGEL,
@@ -64,7 +68,7 @@ public class LegType {
 				+ "[npc.Name] now [npc.has] [style.boldAngel(angelic legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
 			"[npc.Her] legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
 			Util.newArrayListOfValues(
-					LegConfiguration.BIPEDAL)) {
+					LegConfiguration.BIPEDAL), false) {
 	};
 
 	public static AbstractLegType DEMON_COMMON = new AbstractLegType(BodyCoveringType.DEMON_COMMON,
@@ -83,7 +87,7 @@ public class LegType {
 			"-",
 			"[npc.Her] legs and feet are human in shape, but are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
 			Util.newArrayListOfValues(
-					LegConfiguration.BIPEDAL)) {
+					LegConfiguration.BIPEDAL), false) {
 		@Override
 		public String getTransformationDescription(GameCharacter owner) {
 			if (!owner.isShortStature()) {
@@ -120,8 +124,7 @@ public class LegType {
 			"-",
 			"[npc.Her] demonic legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.",
 			Util.newArrayListOfValues(
-					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.BIPEDAL), false) {
 		@Override
 		public String getTransformationDescription(GameCharacter owner) {
 			if (!owner.isShortStature()) {
@@ -146,19 +149,9 @@ public class LegType {
 		public String getTransformName() {
 			return "demonic-hoofed";
 		}
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT),
-				Race.DEMON,
-				"Due to the shape of [npc.namePos] demonic hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
 	};
 
-	public static AbstractLegType DEMON_HORSE_HOOFED = new AbstractLegType(BodyCoveringType.DEMON_HORSE_HAIR,
+	public static AbstractLegType DEMON_HORSE_HOOFED = new AbstractLegType(BodyCoveringType.HORSE_HAIR,
 			Race.DEMON,
 			FootStructure.UNGULIGRADE,
 			FootType.HOOFS,
@@ -175,7 +168,7 @@ public class LegType {
 			"[npc.Her] demonic, horse-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 		@Override
 		public String getTransformationDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
@@ -192,15 +185,226 @@ public class LegType {
 		public String getTransformName() {
 			return "demonic-horse";
 		}
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT),
-				Race.DEMON,
-				"Due to the shape of [npc.namePos] demonic hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
+	};
+
+	public static AbstractLegType DEMON_SNAKE = new AbstractLegType(BodyCoveringType.SNAKE_SCALES,
+			Race.DEMON,
+			FootStructure.NONE,
+			FootType.NONE,
+			"a",
+			"tail",
+			"tails",
+			Util.newArrayListOfValues("masculine", "scaly", "demonic-snake"),
+			Util.newArrayListOfValues("feminine", "scaly", "demonic-snake"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, snake-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+			Util.newArrayListOfValues(
+					LegConfiguration.TAIL_LONG),
+			false) {
 		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
+		public boolean isDefaultPlural(GameCharacter gc) {
+			return false;
+		}
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of smooth scales quickly grow over [npc.her] demonic legs as they take on a snake-like appearance."
+					+ " Quickly coming to an end, the transformation leaves [npc.name] with [npc.her] new scales smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(demonic, snake-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."
+							:"[style.boldImp(impish, snake-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-snake";
+		}
+		@Override
+		public boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+			return gc.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6); //TODO?
+		}
+	};
+
+	public static AbstractLegType DEMON_SPIDER = new AbstractLegType(BodyCoveringType.SPIDER_CHITIN,
+			Race.DEMON,
+			FootStructure.DIGITIGRADE,
+			FootType.ARACHNID,
+			"a",
+			"leg",
+			"legs",
+			Util.newArrayListOfValues("masculine", "arachnid", "demonic-spider"),
+			Util.newArrayListOfValues("feminine", "arachnid", "demonic-spider"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, spider-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+			Util.newArrayListOfValues(
+					LegConfiguration.ARACHNID),
+			true) {
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of smooth chitin quickly grows over [npc.her] demonic [npc.legs] as they take on a spider-like appearance."
+					+ " Quickly coming to an end, the transformation leaves [npc.name] with [npc.her] new chitin smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(demonic, spider-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."
+							:"[style.boldImp(impish, spider-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-spider";
+		}
+		@Override
+		public boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+			return gc.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5); //TODO?
+		}
+	};
+
+	public static AbstractLegType DEMON_OCTOPUS = new AbstractLegType(BodyCoveringType.OCTOPUS_SKIN,
+			Race.DEMON,
+			FootStructure.TENTACLED,
+			FootType.TENTACLE,
+			"a",
+			"tentacle",
+			"tentacles",
+			Util.newArrayListOfValues("masculine", "cephalopod", "demonic-octopus"),
+			Util.newArrayListOfValues("feminine", "cephalopod", "demonic-octopus"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, octopus-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+			Util.newArrayListOfValues(
+					LegConfiguration.CEPHALOPOD),
+			false) {
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of smooth skin quickly grows over [npc.her] demonic [npc.legs] as they alarmingly take on a tentacle-like appearance."
+					+ " Quickly coming to an end, the powerful transformation leaves [npc.name] with [npc.her] new skin smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(demonic, octopus-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."
+							:"[style.boldImp(impish, octopus-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-octopus";
+		}
+		@Override
+		public AbstractTentacleType getTentacleType() {
+			return TentacleType.LEG_DEMON_OCTOPUS;
+		}
+		public int getTentacleCount() {
+			return 8;
+		}
+		@Override
+		public boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+			return gc.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1); //TODO?
+		}
+	};
+
+	public static AbstractLegType DEMON_FISH = new AbstractLegType(BodyCoveringType.FISH_SCALES,
+			Race.DEMON,
+			FootStructure.NONE,
+			FootType.NONE,
+			"a",
+			"tail",
+			"tails",
+			Util.newArrayListOfValues("masculine", "scaly", "demonic-fish"),
+			Util.newArrayListOfValues("feminine", "scaly", "demonic-fish"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, fish-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+			Util.newArrayListOfValues(
+					LegConfiguration.TAIL),
+			false) {
+		@Override
+		public boolean isDefaultPlural(GameCharacter gc) {
+			return gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE);
+		}
+		@Override
+		public String getNameSingular(GameCharacter gc) {
+			if(gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) {
+				return "leg";
+			} else {
+				return "tail";
+			}
+		}
+		@Override
+		public String getNamePlural(GameCharacter gc) {
+			if(gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) {
+				return "legs";
+			} else {
+				return "tails";
+			}
+		}
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of smooth scales quickly grow over [npc.her] demonic legs as they take on a fish-like appearance."
+					+ " Quickly coming to an end, the transformation leaves [npc.name] with [npc.her] new scales smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(demonic, fish-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."
+							:"[style.boldImp(impish, fish-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-fish";
+		}
+		@Override
+		public boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+			return gc.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1); //TODO?
+		}
+	};
+
+	public static AbstractLegType DEMON_EAGLE = new AbstractLegType(BodyCoveringType.FEATHERS,
+			Race.DEMON,
+			FootStructure.DIGITIGRADE,
+			FootType.TALONS,
+			"a",
+			"leg",
+			"legs",
+			Util.newArrayListOfValues("masculine", "clawed", "anthropomorphic, bird-like"),
+			Util.newArrayListOfValues("feminine", "clawed", "anthropomorphic, bird-like"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, bird-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+			Util.newArrayListOfValues(
+					LegConfiguration.AVIAN),
+			false) {
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of feathers quickly grows over [npc.her] demonic [npc.legs] as they take on a bird-like appearance."
+					+ " Quickly coming to an end, the transformation leaves [npc.name] with [npc.her] new feathers smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(demonic, bird-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."
+							:"[style.boldImp(impish, bird-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-eagle";
+		}
+		@Override
+		public boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+			return gc.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7); //TODO?
 		}
 	};
 	
@@ -225,18 +429,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic cow-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
-
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT),
-				Race.COW_MORPH,
-				"Due to the shape of [npc.namePos] bovine hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType DOG_MORPH = new AbstractLegType(BodyCoveringType.CANINE_FUR,
@@ -259,7 +452,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType WOLF_MORPH = new AbstractLegType(BodyCoveringType.LYCAN_FUR,
@@ -282,7 +475,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType FOX_MORPH = new AbstractLegType(BodyCoveringType.FOX_FUR,
@@ -305,7 +498,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic fox-like paws, complete with sharp claws and tough leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType SQUIRREL_MORPH = new AbstractLegType(BodyCoveringType.SQUIRREL_FUR,
@@ -328,7 +521,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType RAT_MORPH = new AbstractLegType(BodyCoveringType.RAT_FUR,
@@ -351,7 +544,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic rat-like paws, complete with claws and leathery pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType RABBIT_MORPH = new AbstractLegType(BodyCoveringType.RABBIT_FUR,
@@ -374,7 +567,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into long, anthropomorphic, rabbit-like paws, complete with blunt claws and soft pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType BAT_MORPH = new AbstractLegType(BodyCoveringType.BAT_FUR,
@@ -396,7 +589,7 @@ public class LegType {
 				+ "[npc.Name] now [npc.has] anthropomorphic, [style.boldBatMorph(bat-like legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic bat-like paws, complete with claws and leathery pads.",
 			Util.newArrayListOfValues(
-					LegConfiguration.BIPEDAL)) {
+					LegConfiguration.BIPEDAL), false) {
 	};
 	
 	public static AbstractLegType CAT_MORPH = new AbstractLegType(BodyCoveringType.FELINE_FUR,
@@ -419,7 +612,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType ALLIGATOR_MORPH = new AbstractLegType(BodyCoveringType.ALLIGATOR_SCALES,
@@ -442,7 +635,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType HORSE_MORPH = new AbstractLegType(BodyCoveringType.HORSE_HAIR,
@@ -466,19 +659,59 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic horse-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
-		
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT),
-				Race.HORSE_MORPH,
-				"Due to the shape of [npc.namePos] equine hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
+
+//	public static AbstractLegType HORSE_FISH = new AbstractLegType(BodyCoveringType.FISH_SCALES,
+//			Race.HORSE_MORPH,
+//			FootStructure.PLANTIGRADE, // FootStructure and Type is for when legs are grown on land.
+//			FootType.HUMANOID,
+//			"a",
+//			"tail",
+//			"tails",
+//			Util.newArrayListOfValues("masculine", "scaly", "fish"),
+//			Util.newArrayListOfValues("feminine", "scaly", "fish"),
+//			Util.newArrayListOfValues("horse"),
+//			Util.newArrayListOfValues("horse"),
+//			Util.newArrayListOfValues("horse"),
+//			Util.newArrayListOfValues("horse"),
+//			"-",
+//			"[npc.Her] fish-like lower body is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].",
+//			Util.newArrayListOfValues(
+//					LegConfiguration.TAIL),
+//			false) {
+//		@Override
+//		public boolean isDefaultPlural(GameCharacter gc) {
+//			return gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE);
+//		}
+//		@Override
+//		public String getNameSingular(GameCharacter gc) {
+//			if(gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) {
+//				return "leg";
+//			} else {
+//				return "tail";
+//			}
+//		}
+//		@Override
+//		public String getNamePlural(GameCharacter gc) {
+//			if(gc.hasStatusEffect(StatusEffect.AQUATIC_NEGATIVE)) {
+//				return "legs";
+//			} else {
+//				return "tails";
+//			}
+//		}
+//		@Override
+//		public String getTransformationDescription(GameCharacter owner) {
+//			return UtilText.parse(owner,
+//					"A layer of smooth scales quickly grow over [npc.her] legs as they take on a fish-like appearance."
+//					+ " Quickly coming to an end, the transformation leaves [npc.name] with [npc.her] new scales smoothly transitioning into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+//					+ "<br/>[npc.Name] now [npc.has] [style.boldHorseMorph(fish-like legs)], which are [npc.materialDescriptor] [npc.legFullDescription].");
+//		}
+//		@Override
+//		public String getTransformName() {
+//			return "hippocampus";
+//		}
+//	};
 	
 	public static AbstractLegType REINDEER_MORPH = new AbstractLegType(BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
@@ -501,18 +734,7 @@ public class LegType {
 			"[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic reindeer-like hoofs.",
 			Util.newArrayListOfValues(
 					LegConfiguration.BIPEDAL,
-					LegConfiguration.TAUR)) {
-		
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT),
-				Race.REINDEER_MORPH,
-				"Due to the shape of [npc.namePos] reindeer-like hoofs, only hoof-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
+					LegConfiguration.QUADRUPEDAL), false) {
 	};
 	
 	public static AbstractLegType HARPY = new AbstractLegType(BodyCoveringType.FEATHERS,
@@ -534,21 +756,10 @@ public class LegType {
 				+ " As the transformation ends, a layer of attractive feathers grow around [npc.her] upper-thigh, smoothly transitioning into the leathery skin which now covers [npc.her] lower-legs.<br/>"
 				+ "[npc.Name] now [npc.has] anthropomorphic, [style.boldHarpy(bird-like legs and talons in place of feet)], which are [npc.materialDescriptor] [npc.legFullDescription].",
 			"[npc.Her] upper thighs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], which transition into leathery, bird-like skin just above [npc.her] knee."
-				+ " While [npc.her] legs still retain a human-like shape, [npc.her] feet have transformed into bird-like talons.",
+				+ " At the end of each of [npc.her] [npc.legs], [npc.she] [npc.has] sharp, bird-like talons.",
 				Util.newArrayListOfValues(
-						LegConfiguration.BIPEDAL)) {
-		
-		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
-				Util.newArrayListOfValues(
-						InventorySlot.FOOT,
-						InventorySlot.SOCK),
-				Race.HARPY,
-				"Due to the shape of [npc.namePos] bird-like talons, only claw-compatible clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_TALONS_EXCLUSIVE, ItemTag.FITS_TALONS));
-		@Override
-		public BodyPartClothingBlock getBodyPartClothingBlock() {
-			return clothingBlock;
-		}
+						LegConfiguration.BIPEDAL,
+						LegConfiguration.AVIAN), false) {
 	};
 	
 	private static List<AbstractLegType> allLegTypes;
@@ -557,8 +768,47 @@ public class LegType {
 	
 	static {
 		allLegTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("leg")) {
+					try {
+						AbstractLegType type = new AbstractLegType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allLegTypes.add(type);
+						legToIdMap.put(type, id);
+						idToLegMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("leg")) {
+					try {
+						AbstractLegType type = new AbstractLegType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allLegTypes.add(type);
+						legToIdMap.put(type, id);
+						idToLegMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded leg types:
+		
 		Field[] fields = LegType.class.getFields();
 		
 		for(Field f : fields){
@@ -578,6 +828,13 @@ public class LegType {
 				}
 			}
 		}
+		
+		Collections.sort(allLegTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractLegType getLegTypeFromId(String id) {

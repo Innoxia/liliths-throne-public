@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -224,16 +225,16 @@ public class DominionPlaces {
 					+ " Underneath, the words 'Applications opening soon!' are displayed in bold red lettering.</i></p>");
 		} else if (extraText == 10) {
 			return ("<p><i>A greater cat-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.INT_INGREDIENT_FELINE_FANCY.getName(false)+ "'.</i></p>");
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy").getName(false)+ "'.</i></p>");
 		} else if (extraText == 11) {
 			return ("<p><i>A greater wolf-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_WOLF_WHISKEY.getName(false)+ "'.</i></p>");
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey").getName(false)+ "'.</i></p>");
 		} else if (extraText == 12) {
 			return ("<p><i>A greater dog-girl is handing out leaflets just in front of you, and as you pass, she shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.FIT_INGREDIENT_CANINE_CRUSH.getName(false)+ "'.</i></p>");
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush").getName(false)+ "'.</i></p>");
 		} else if (extraText == 13) {
 			return ("<p><i>A greater horse-boy is handing out leaflets just in front of you, and as you pass, he shoves one into your hands."
-					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.STR_INGREDIENT_EQUINE_CIDER.getName(false)+ "'.</i></p>");
+					+ " You look down to see that it's just an advertisement for the drink '"+ ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider").getName(false)+ "'.</i></p>");
 		} else if (extraText == 14) {
 			return ("<p><i>A cheering crowd has gathered to one side of the street, and as you glance across, a momentary gap in the crowd allows you to catch a glimpse of what's happening."
 					+ " A greater dog-girl is on all fours, and is being double penetrated by a greater horse-boy's pair of massive horse-cocks."
@@ -573,7 +574,7 @@ public class DominionPlaces {
 							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
 								@Override
 								public void effects() {
-									List<Subspecies> possibleSubspecies = new ArrayList<>();
+									List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
 									possibleSubspecies.add(Subspecies.CAT_MORPH);
 									possibleSubspecies.add(Subspecies.DOG_MORPH);
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
@@ -892,11 +893,8 @@ public class DominionPlaces {
 					public void effects() {
 						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
-							Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
-							
-						} else {
-							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 						}
+						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 						
 						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}

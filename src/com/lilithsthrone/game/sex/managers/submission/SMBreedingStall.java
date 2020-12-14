@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.7
- * @version 0.3.5.5
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class SMBreedingStall extends SexManagerDefault {
@@ -40,6 +40,16 @@ public class SMBreedingStall extends SexManagerDefault {
 			getAreasBannedMap().get(character).add(SexAreaOrifice.ANUS);
 			getAreasBannedMap().get(character).add(SexAreaOrifice.MOUTH);
 		}
+	}
+
+	@Override
+	public boolean isPublicSex() {
+		return false;
+	}
+	
+	@Override
+	public boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return false;
 	}
 
 	@Override
@@ -78,7 +88,10 @@ public class SMBreedingStall extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(partner)>=1;
+//		if(Main.sex.isDom(partner)) {
+//			return Main.sex.getNumberOfOrgasms(partner)>=1;
+//		}
+		return Main.sex.getNumberOfOrgasms(Main.sex.getDominantParticipants(false).keySet().iterator().next())>=1;
 	}
 	
 	@Override

@@ -17,10 +17,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -29,16 +31,18 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.62
- * @version 0.3.5.5
+ * @version 0.4
  * @author Innoxia, orvail
  */
 public class Litter implements XMLSaving {
 
 	private LocalDateTime conceptionDate;
 	private LocalDateTime birthDate;
+	private LocalDateTime incubationStartDate;
 	
 	private String motherId;
 	private String fatherId;
+	private String incubatorId; // For if this litter was eggs incubated in a third party
 	
 	private int sonsMother;
 	private int daughtersMother;
@@ -49,12 +53,13 @@ public class Litter implements XMLSaving {
 	
 	private String birthedDescription;
 	
-	private Subspecies motherRace;
-	private Subspecies fatherRace;
+	private AbstractSubspecies motherRace;
+	private AbstractSubspecies fatherRace;
 
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
+		this.incubationStartDate = null;
 		
 		motherId = mother.getId();
 		motherRace = mother.getSubspecies();
@@ -65,6 +70,7 @@ public class Litter implements XMLSaving {
 			fatherId = "";
 			fatherRace = null;
 		}
+		incubatorId = "";
 
 		sonsMother = 0;
 		daughtersMother = 0;
@@ -92,17 +98,22 @@ public class Litter implements XMLSaving {
 		generateBirthedDescription();
 	}
 	
-	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate,
+	public Litter(LocalDateTime conceptionDate,
+			LocalDateTime birthDate,
 			String motherId, String fatherId,
-			int sonsMother, int daughtersMother, int sonsFather, int daughtersFather,
+			int sonsMother, int daughtersMother,
+			int sonsFather, int daughtersFather,
 			List<String> offspring,
-			Subspecies motherRace, Subspecies fatherRace, String birthedDescription) {
+			AbstractSubspecies motherRace, AbstractSubspecies fatherRace,
+			String birthedDescription) {
 
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
+		this.incubationStartDate = null;
 		
 		this.motherId = motherId;
 		this.fatherId = fatherId;
+		incubatorId = "";
 		
 		this.sonsMother = sonsMother;
 		this.daughtersMother = daughtersMother;
@@ -120,31 +131,37 @@ public class Litter implements XMLSaving {
 		Element element = doc.createElement("litter");
 		parentElement.appendChild(element);
 
-//		CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
-//		CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+//		XMLUtil.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
+//		XMLUtil.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfBirth", String.valueOf(this.getBirthDate().getDayOfMonth()));
+		XMLUtil.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, element, "dayOfBirth", String.valueOf(this.getBirthDate().getDayOfMonth()));
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
-		CharacterUtils.createXMLElementWithValue(doc, element, "monthOfConception", this.getConceptionDate().getMonth().toString());
-		CharacterUtils.createXMLElementWithValue(doc, element, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		XMLUtil.createXMLElementWithValue(doc, element, "yearOfConception", String.valueOf(this.getConceptionDate().getYear()));
+		XMLUtil.createXMLElementWithValue(doc, element, "monthOfConception", this.getConceptionDate().getMonth().toString());
+		XMLUtil.createXMLElementWithValue(doc, element, "dayOfConception", String.valueOf(this.getConceptionDate().getDayOfMonth()));
+		
+		if(this.getIncubationStartDate()!=null) {
+			XMLUtil.createXMLElementWithValue(doc, element, "yearOfIncubationStart", String.valueOf(this.getIncubationStartDate().getYear()));
+			XMLUtil.createXMLElementWithValue(doc, element, "monthOfIncubationStart", this.getIncubationStartDate().getMonth().toString());
+			XMLUtil.createXMLElementWithValue(doc, element, "dayOfIncubationStart", String.valueOf(this.getIncubationStartDate().getDayOfMonth()));
+		}
+		
+		XMLUtil.addAttribute(doc, element, "motherId", this.getMotherId());
+		XMLUtil.addAttribute(doc, element, "fatherId", this.getFatherId());
+		XMLUtil.addAttribute(doc, element, "incubatorId", this.getIncubatorId());
 		
 		
+		XMLUtil.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
+		XMLUtil.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
+		XMLUtil.addAttribute(doc, element, "sonsFather", String.valueOf(this.getSonsFromFather()));
+		XMLUtil.addAttribute(doc, element, "daughtersFather", String.valueOf(this.getDaughtersFromFather()));
 		
-		CharacterUtils.addAttribute(doc, element, "motherId", this.getMotherId());
-		CharacterUtils.addAttribute(doc, element, "fatherId", this.getFatherId());
-		
-		CharacterUtils.addAttribute(doc, element, "sonsMother", String.valueOf(this.getSonsFromMother()));
-		CharacterUtils.addAttribute(doc, element, "daughtersMother", String.valueOf(this.getDaughtersFromMother()));
-		CharacterUtils.addAttribute(doc, element, "sonsFather", String.valueOf(this.getSonsFromFather()));
-		CharacterUtils.addAttribute(doc, element, "daughtersFather", String.valueOf(this.getDaughtersFromFather()));
-		
-		CharacterUtils.addAttribute(doc, element, "motherRace", String.valueOf(this.getMotherRace()));
-		CharacterUtils.addAttribute(doc, element, "fatherRace", String.valueOf(this.getFatherRace()));
+		XMLUtil.addAttribute(doc, element, "motherRace", Subspecies.getIdFromSubspecies(this.getMotherRace()));
+		XMLUtil.addAttribute(doc, element, "fatherRace", Subspecies.getIdFromSubspecies(this.getFatherRace()));
 
-		CharacterUtils.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
+		XMLUtil.addAttribute(doc, element, "birthedDescription", this.getBirthedDescription());
 		
 		
 		Element innerElement = doc.createElement("offspringList");
@@ -155,7 +172,7 @@ public class Litter implements XMLSaving {
 			element = doc.createElement("offspring");
 			innerElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", offspring);
+			XMLUtil.addAttribute(doc, element, "id", offspring);
 		}
 		
 		return element;
@@ -172,16 +189,17 @@ public class Litter implements XMLSaving {
 			offspring.add(e.getAttribute("id"));
 		}
 		
-		Subspecies motherRace = Subspecies.HUMAN;
-		Subspecies fatherRace = Subspecies.HUMAN;
+		AbstractSubspecies motherRace = Subspecies.HUMAN;
+		AbstractSubspecies fatherRace = Subspecies.HUMAN;
 		try {
-			motherRace = Subspecies.valueOf(parentElement.getAttribute("motherRace"));
-			fatherRace = Subspecies.valueOf(parentElement.getAttribute("fatherRace"));
+			motherRace = Subspecies.getSubspeciesFromId(parentElement.getAttribute("motherRace"));
+			fatherRace = Subspecies.getSubspeciesFromId(parentElement.getAttribute("fatherRace"));
 		} catch(Exception ex) {
 		}
 		
 		LocalDateTime loadedConceptionDate;
 		LocalDateTime loadedBirthDate;
+		LocalDateTime loadedIncubationStartDate = null;
 		
 		if(parentElement.getElementsByTagName("dayOfConception").getLength()>0) {
 
@@ -205,6 +223,15 @@ public class Litter implements XMLSaving {
 			int birthDay = Integer.valueOf(parentElement.getAttribute("dayOfBirth"));
 			loadedBirthDate = Main.game.getStartingDate().plusDays(birthDay);
 		}
+
+		if(parentElement.getElementsByTagName("dayOfIncubationStart").getLength()>0) {
+			int day = Integer.valueOf(((Element)parentElement.getElementsByTagName("dayOfIncubationStart").item(0)).getAttribute("value"));
+			Month month = Month.valueOf(((Element)parentElement.getElementsByTagName("monthOfIncubationStart").item(0)).getAttribute("value"));
+			int year = Integer.valueOf(((Element)parentElement.getElementsByTagName("yearOfIncubationStart").item(0)).getAttribute("value"));
+			
+			loadedIncubationStartDate = LocalDateTime.of(year, month, day, 12, 0);
+		}
+		
 		
 		String birthedDescription = "";
 		try {
@@ -226,9 +253,13 @@ public class Litter implements XMLSaving {
 				fatherRace,
 				birthedDescription);
 		
-//		if(birthedDescription.isEmpty()) {
-//			litter.generateBirthedDescription();
-//		}
+		if(parentElement.hasAttribute("incubatorId")) {
+			litter.setIncubatorId(parentElement.getAttribute("incubatorId"));
+		}
+		
+		if(loadedIncubationStartDate!=null) {
+			litter.setIncubationStartDate(loadedIncubationStartDate);
+		}
 		
 		return litter;
 	}
@@ -239,6 +270,14 @@ public class Litter implements XMLSaving {
 	
 	public LocalDateTime getConceptionDate() {
 		return conceptionDate;
+	}
+
+	public LocalDateTime getIncubationStartDate() {
+		return incubationStartDate;
+	}
+	
+	public void setIncubationStartDate(LocalDateTime incubationStartDate) {
+		this.incubationStartDate = incubationStartDate;
 	}
 
 	public LocalDateTime getBirthDate() {
@@ -257,6 +296,25 @@ public class Litter implements XMLSaving {
 		return fatherId;
 	}
 
+	public String getIncubatorId() {
+		return incubatorId;
+	}
+
+	public void setIncubatorId(String incubatorId) {
+		this.incubatorId = incubatorId;
+	}
+	
+	public GameCharacter getIncubator() {
+		try {
+			return Main.game.getNPCById(incubatorId);
+		} catch (Exception e) {
+			if(!incubatorId.equals("NOT_SET")) {
+				Util.logGetNpcByIdError("Litter.incubatorId()", incubatorId);
+			}
+			return Main.game.getNpc(GenericFemaleNPC.class);
+		}
+	}
+	
 	public GameCharacter getMother() {
 		try {
 			return Main.game.getNPCById(motherId);
@@ -328,15 +386,15 @@ public class Litter implements XMLSaving {
 		return sonsMother + daughtersMother + sonsFather + daughtersFather;
 	}
 
-	public Subspecies getMotherRace() {
+	public AbstractSubspecies getMotherRace() {
 		return motherRace;
 	}
 
-	public Subspecies getFatherRace() {
+	public AbstractSubspecies getFatherRace() {
 		return fatherRace;
 	}
 
-	public void setFatherRace(Subspecies fatherSubspecies) {
+	public void setFatherRace(AbstractSubspecies fatherSubspecies) {
 		fatherRace = fatherSubspecies;
 	}
 	
@@ -347,7 +405,7 @@ public class Litter implements XMLSaving {
 		for(String id : this.getOffspring()) {
 			try {
 				GameCharacter character = Main.game.getNPCById(id);
-				Subspecies subspecies = character.getSubspecies();
+				AbstractSubspecies subspecies = character.getSubspecies();
 				if(Main.game.getNPCById(id).isFeminine()) {
 					String nameId = subspecies.getSingularFemaleName(character)+"|"+subspecies.getPluralFemaleName(character);
 					daughters.putIfAbsent(nameId, 0);

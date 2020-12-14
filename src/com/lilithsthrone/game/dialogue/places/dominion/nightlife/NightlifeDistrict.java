@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
@@ -23,7 +22,7 @@ import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
@@ -35,8 +34,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SMJulesCockSucking;
@@ -64,12 +62,14 @@ import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class NightlifeDistrict {
 	
 	private static boolean isSearchingForASub = true;
+	private static Gender clubberGender;
+	private static AbstractSubspecies clubberSubspecies;
 	
 	private static boolean isClubOpen(int minutesPassedForNextScene) {
 		return !((Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) >= (60 * 5) && (Main.game.getMinutesPassed()+minutesPassedForNextScene) % (24 * 60) < (60 * 19));
@@ -96,8 +96,8 @@ public class NightlifeDistrict {
 		
 		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC)
 				|| (submissiveClubbers
-					?npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)
-					:!npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
+						?npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)
+						:!npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
 		
 		return clubbers;
 	}
@@ -112,6 +112,66 @@ public class NightlifeDistrict {
 	
 	public static boolean isPartnerSub() {
 		return !getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT);
+	}
+
+	private static void spawnClubbers(boolean submissiveClubbers) {
+		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, false);
+				
+		if(Math.random()<0.4f) {
+			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		} else {
+			if(Main.game.getPlayer().isFeminine()) {
+				clubber.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			} else {
+				clubber.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+			}
+		}
+		
+		if(submissiveClubbers) {
+			clubber.removePersonalityTrait(PersonalityTrait.SELFISH);
+			clubber.removePersonalityTrait(PersonalityTrait.BRAVE);
+			clubber.removePersonalityTrait(PersonalityTrait.CONFIDENT);
+			if(Math.random()<0.5) {
+				clubber.addPersonalityTrait(PersonalityTrait.SHY);
+			}
+			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isNegative()) {
+				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
+			}
+			clubber.removeFetish(Fetish.FETISH_DOMINANT);
+			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()) {
+				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+			}
+			
+		} else {
+			double rnd = Math.random();
+			clubber.removePersonalityTrait(PersonalityTrait.SHY);
+			clubber.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+			if(rnd<0.33f) {
+				clubber.addPersonalityTrait(PersonalityTrait.KIND);
+			} else if(rnd<0.66f) {
+				clubber.addPersonalityTrait(PersonalityTrait.SELFISH);
+			}
+			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
+				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+			}
+			clubber.removeFetish(Fetish.FETISH_SUBMISSIVE);
+			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()) {
+				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
+			}
+		}
+		
+		try {
+			Main.game.addNPC(clubber, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+//		if(Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
+//			// spawn 1 or 2
+//		} else {
+//			// spawn 2
+//			// spawn second one with companion's preferences
+//		}
 	}
 	
 	public static void saveClubbers() {
@@ -984,12 +1044,12 @@ public class NightlifeDistrict {
 			}
 			int count = 1;
 			
-			Set<Subspecies> subspeciesSet = new HashSet<>();
+			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
 				subspeciesSet.addAll(pop.getSpecies().keySet());
 			}
 			if(!subspeciesSet.isEmpty()) {
-				for(Subspecies subspecies : subspeciesSet) {
+				for(AbstractSubspecies subspecies : subspeciesSet) {
 					if(count==index) {
 						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
@@ -1055,8 +1115,18 @@ public class NightlifeDistrict {
 			int count = 1;
 			for(GameCharacter character : getSavedClubbers(true)) {
 				if(count==index) {
+					if(!character.isAttractedTo(Main.game.getPlayer())) {
+						return new Response(character.getName(true),
+								UtilText.parse(character, "[npc.Name] is [style.colourBad(no longer attracted to you)], and so would be unwilling to spend time with you in the club.<br/>([npc.She] is [npc.a_fullRace(true)].)"),
+								null);
+					}
+					if(Main.game.getMinutesPassed()-((NPC)character).getLastTimeEncountered()<12*60) {
+						return new Response(character.getName(true),
+								UtilText.parse(character, "You have already met [npc.name] in the club tonight, and as such, [style.colourBad(you will not be able to encounter [npc.herHim] again until tomorrow)]."),
+								null);
+					}
 					return new Response(character.getName(true),
-							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers. ([npc.She] is [npc.a_fullRace(true)].)"),
+							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers.<br/>([npc.She] is [npc.a_fullRace(true)].)"),
 							WATERING_HOLE_FIND_CONTACT) {
 						@Override
 						public void effects() {
@@ -1122,61 +1192,6 @@ public class NightlifeDistrict {
 			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
-	
-	private static Gender clubberGender;
-	private static Subspecies clubberSubspecies;
-	
-	private static void spawnClubbers(boolean submissiveClubbers) {
-		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, false);
-				
-		if(Math.random()<0.4f) {
-			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		} else {
-			if(Main.game.getPlayer().isFeminine()) {
-				clubber.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			} else {
-				clubber.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-			}
-		}
-		
-		if(submissiveClubbers) {
-			clubber.removePersonalityTrait(PersonalityTrait.SELFISH);
-			clubber.removePersonalityTrait(PersonalityTrait.BRAVE);
-			clubber.removePersonalityTrait(PersonalityTrait.CONFIDENT);
-			if(Math.random()<0.5) {
-				clubber.addPersonalityTrait(PersonalityTrait.SHY);
-			}
-			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isNegative()) {
-				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
-			}
-			
-		} else {
-			double rnd = Math.random();
-			clubber.removePersonalityTrait(PersonalityTrait.SHY);
-			clubber.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-			if(rnd<0.33f) {
-				clubber.addPersonalityTrait(PersonalityTrait.KIND);
-			} else if(rnd<0.66f) {
-				clubber.addPersonalityTrait(PersonalityTrait.SELFISH);
-			}
-			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
-				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
-			}
-		}
-		
-		try {
-			Main.game.addNPC(clubber, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-//		if(Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
-//			// spawn 1 or 2
-//		} else {
-//			// spawn 2
-//			// spawn second one with companion's preferences
-//		}
-	}
 
 	public static final DialogueNode WATERING_HOLE_SEATING = new DialogueNode("The Watering Hole", "", false) {
 		
@@ -1257,6 +1272,11 @@ public class NightlifeDistrict {
 					};
 
 				} else if(index==4) {
+					if(!getPartner().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Sex (dom)",
+								UtilText.parse(getClubbersPresent(), "[npc.Name] is [style.colourBad(not attracted to you)], and so is unwilling to have sex with you..."),
+								null);
+					}
 					if(likesSex(getPartner())) {
 						SexManagerDefault sm = new SMSitting(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
@@ -1286,7 +1306,6 @@ public class NightlifeDistrict {
 								}
 							};
 						}
-						
 						return new ResponseSex("Sex (dom)",
 								UtilText.parse(getClubbersPresent(), "You can't resist [npc.name] any longer! Make a move to start having dominant sex with [npc.herHim]."),
 								true, true,
@@ -1313,6 +1332,11 @@ public class NightlifeDistrict {
 					}
 					
 				} else if(index==5) {
+					if(!getPartner().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Sex (sub)",
+								UtilText.parse(getClubbersPresent(), "[npc.Name] is [style.colourBad(not attracted to you)], and so is unwilling to have sex with you..."),
+								null);
+					}
 					if(likesSex(getPartner())) {
 						SexManagerDefault sm = new SMSitting(
 								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING)),
@@ -1534,8 +1558,11 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNode("The Watering Hole", "", true) {
-		
+	public static final DialogueNode WATERING_HOLE_SEATING_AFTER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(getClubbersPresent(), "[npc.Name] has had enough for now...");
+		}
 		@Override
 		public String getContent() {
 			if(Main.sex.getNumberOfOrgasms(getPartner())>=getPartner().getOrgasmsBeforeSatisfied()) {
@@ -1711,12 +1738,13 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	private static String getDrinkEffects(AbstractItemType item) {
+	private static String getDrinkEffects(AbstractItem drink) {
 		StringBuilder sb = new StringBuilder();
 		
-		ItemEffect ie = item.getEffects().get(0);
-		for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
-			sb.append("</br>"+ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
+		for(ItemEffect ie : drink.getEffects()) {
+			for(String desc : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+				sb.append("</br>"+desc);
+			}
 		}
 		
 		return sb.toString();
@@ -1762,24 +1790,24 @@ public class NightlifeDistrict {
 			
 			if(!hasPartner() || responseTab==0) {
 				if(index==1) {
-					AbstractItemType drink = ItemType.INT_INGREDIENT_VANILLA_WATER;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
+						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response("Water ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a bottle of "+drink.getName(false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
+						return new Response("Water ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a bottle of "+drink.getName(false, false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(
 										"<p>"
-											+ "[pc.speech(Can I get a bottle of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a bottle of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she sets the cold beverage down in front of you."
 											+ " [kalahari.speech(Enjoy!)]"
 										+ "</p>"
@@ -1789,31 +1817,31 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+										drink.applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
 						};
 					}
 				
 				} else if(index==2) {
-					AbstractItemType drink = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crush");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
+						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response("Beer ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a bottle of "+drink.getName(false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
+						return new Response("Beer ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a bottle of "+drink.getName(false, false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(
 										"<p>"
-											+ "[pc.speech(Can I get a bottle of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a bottle of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she sets the cold beer down in front of you."
 											+ " Grabbing a nearby bottle-opener, Kalahari pops the cap off, before pushing the bottle towards you over the bar top."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -1825,31 +1853,33 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+										drink.applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
 						};
 					}
 				
 				} else if(index==3) {
-					AbstractItemType drink = ItemType.INT_INGREDIENT_FELINE_FANCY;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a glass of "+drink.getName(false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								"Ask Kalahari for a glass of "+drink.getName(false, false)+"."+getDrinkEffects(drink),
+								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the creamy alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -1861,31 +1891,33 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+										drink.applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
 						};
 					}
 				
 				} else if(index==4) {
-					AbstractItemType drink = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a glass of "+drink.getName(false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								"Ask Kalahari for a glass of "+drink.getName(false, false)+"."+getDrinkEffects(drink),
+								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the shelves behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the shelves behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the strong alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -1896,31 +1928,33 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+										drink.applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
 						};
 					}
 				
 				} else if(index==5) {
-					AbstractItemType drink = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")", "Ask Kalahari for a glass of "+drink.getName(false)+"."+getDrinkEffects(drink), WATERING_HOLE_BAR_DRINK) {
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								"Ask Kalahari for a glass of "+drink.getName(false, false)+"."+getDrinkEffects(drink),
+								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the shelves behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the shelves behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the strong alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -1932,7 +1966,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+										drink.applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
 						};
@@ -2007,26 +2041,26 @@ public class NightlifeDistrict {
 				GameCharacter clubber = getClubbersPresent().get(0);
 				
 				if(index==1) {
-					AbstractItemType drink = ItemType.INT_INGREDIENT_VANILLA_WATER;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
+						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false, false)+"!", null);
 						
 					} else {
 						return new Response("Water ("+UtilText.formatAsMoney(price, "span")+")",
-								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a bottle of "+drink.getName(false)+" for [npc.name]."+getDrinkEffects(drink)),
+								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a bottle of "+drink.getName(false, false)+" for [npc.name]."+getDrinkEffects(drink)),
 								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(getClubbersPresent(), 
 										"<p>"
-											+ "[pc.speech(Can I get a bottle of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a bottle of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she sets the cold beverage down in front of you."
 											+ " [kalahari.speech(Enjoy!)]"
 										+ "</p>"
@@ -2039,7 +2073,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(clubber, clubber, 1)
+										drink.applyEffect(clubber, clubber)
 										+ clubber.incrementAffection(Main.game.getPlayer(), 1)
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
@@ -2047,26 +2081,26 @@ public class NightlifeDistrict {
 					}
 				
 				} else if(index==2) {
-					AbstractItemType drink = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crush");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
+						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false, false)+"!", null);
 						
 					} else {
 						return new Response("Beer ("+UtilText.formatAsMoney(price, "span")+")",
-								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a bottle of "+drink.getName(false)+" for [npc.name]."+getDrinkEffects(drink)),
+								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a bottle of "+drink.getName(false, false)+" for [npc.name]."+getDrinkEffects(drink)),
 								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(getClubbersPresent(), 
 										"<p>"
-											+ "[pc.speech(Can I get a bottle of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a bottle of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she sets the cold beer down in front of you."
 											+ " Grabbing a nearby bottle-opener, Kalahari pops the cap off, before pushing the bottle towards you over the bar top."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -2080,7 +2114,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(clubber, clubber, 1)
+										drink.applyEffect(clubber, clubber)
 										+ clubber.incrementAffection(Main.game.getPlayer(), 2)
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
@@ -2088,26 +2122,26 @@ public class NightlifeDistrict {
 					}
 				
 				} else if(index==3) {
-					AbstractItemType drink = ItemType.INT_INGREDIENT_FELINE_FANCY;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")",
-								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false)+" for [npc.name]."+getDrinkEffects(drink)),
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false, false)+" for [npc.name]."+getDrinkEffects(drink)),
 								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(getClubbersPresent(), 
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the fridges behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the fridges behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the creamy alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -2121,7 +2155,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(clubber, clubber, 1)
+										drink.applyEffect(clubber, clubber)
 										+ clubber.incrementAffection(Main.game.getPlayer(), 3)
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
@@ -2129,26 +2163,26 @@ public class NightlifeDistrict {
 					}
 				
 				} else if(index==4) {
-					AbstractItemType drink = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")",
-								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false)+" for [npc.name]."+getDrinkEffects(drink)),
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false, false)+" for [npc.name]."+getDrinkEffects(drink)),
 								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(getClubbersPresent(), 
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the shelves behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the shelves behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the strong alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -2162,7 +2196,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(clubber, clubber, 1)
+										drink.applyEffect(clubber, clubber)
 										+ clubber.incrementAffection(Main.game.getPlayer(), 4)
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
@@ -2170,26 +2204,26 @@ public class NightlifeDistrict {
 					}
 				
 				} else if(index==5) {
-					AbstractItemType drink = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
-					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
+					AbstractItem drink = Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum");
+					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false, false)+"!", null);
 						
 					} else {
-						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoney(price, "span")+")",
-								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false)+" for [npc.name]."+getDrinkEffects(drink)),
+						return new Response(Util.capitaliseSentence(drink.getName(false, false))+" ("+UtilText.formatAsMoney(price, "span")+")",
+								UtilText.parse(getClubbersPresent(), "Ask Kalahari for a glass of "+drink.getName(false, false)+" for [npc.name]."+getDrinkEffects(drink)),
 								WATERING_HOLE_BAR_DRINK) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parse(getClubbersPresent(), 
 										"<p>"
-											+ "[pc.speech(Can I get a glass of "+drink.getName(false)+"?)] you call out over the noise of the club to Kalahari."
+											+ "[pc.speech(Can I get a glass of "+drink.getName(false, false)+"?)] you call out over the noise of the club to Kalahari."
 										+ "</p>"
 										+ "<p>"
 											+ "[kalahari.speech(Sure thing hun!)] the lioness responds. [kalahari.speech(That'll be "+Util.intToString(price)+" flames.)]"
 										+ "</p>"
 										+ "<p>"
-											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false)+" from one of the shelves behind the bar."
+											+ "Handing over the money to Kalahari, you watch as she turns around and grabs a bottle of "+drink.getName(false, false)+" from one of the shelves behind the bar."
 											+ " Stepping back towards you, she leans forwards, flashing her cleavage and throwing you a playful wink as she grabs a clean glass from under the bar top."
 											+ " Placing the glass before you, the lioness pours out a serving of the strong alcoholic beverage, before sliding it over the bar towards you."
 											+ " [kalahari.speech(Enjoy!)]"
@@ -2203,7 +2237,7 @@ public class NightlifeDistrict {
 										+ "</p>"));
 								
 								Main.game.getTextStartStringBuilder().append(
-										drink.getEffects().get(0).applyEffect(clubber, clubber, 1)
+										drink.applyEffect(clubber, clubber)
 										+ clubber.incrementAffection(Main.game.getPlayer(), 5)
 										+ Main.game.getPlayer().incrementMoney(-price));
 							}
@@ -3042,7 +3076,7 @@ public class NightlifeDistrict {
 					return new Response("Sex (sub)", "Kruger doesn't seem to be interested in having sex with you at the moment.", null);
 					
 				} else {
-					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
+					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with him.",
 							true, true,
 							new SMKrugerChair(
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotSitting.SITTING)),
@@ -3132,15 +3166,11 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNode("The Watering Hole",
-			"Kruger is finished with you, and, being exhausted from the sex, you readily allow him to push you off of him.",
-			false) {
-		
+	public static final DialogueNode WATERING_HOLE_VIP_KRUGER_AFTER_SEX = new DialogueNode("Finished", "Kruger is finished with you, and, being exhausted from the sex, you readily allow him to push you off of him.", false) {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_VIP_KRUGER_AFTER_SEX");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return WATERING_HOLE_VIP.getResponse(responseTab, index);
@@ -3402,6 +3432,11 @@ public class NightlifeDistrict {
 					return new Response("Toilet", "Use the toilet.", WATERING_HOLE_TOILETS_USE);
 					
 				} else if(index==2) {
+					if(!getPartner().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Stall sex",
+								UtilText.parse(getClubbersPresent(), "[npc.Name] is [style.colourBad(not attracted to you)], and so is unwilling to have sex with you..."),
+								null);
+					}
 					if(likesSex(getPartner())) {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls."),
 								true, true,
@@ -3688,7 +3723,7 @@ public class NightlifeDistrict {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
 			@Override
 			public void turnUpdate() {
-				if(this.getGenitalArrangement()!=GenitalArrangement.CLOACA) {
+				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
 					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
 					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
 				}
@@ -3699,24 +3734,24 @@ public class NightlifeDistrict {
 		
 		double rnd = Math.random();
 		if(rnd<0.1f && !gloryholeNpcNameDescriptor.equals("wasted")) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"), npc, false);
 			gloryholeNpcNameDescriptor ="wasted";
 			npc.setGenericName("wasted "+genericName);
 			
 		} else if(Math.random()<0.3f && !gloryholeNpcNameDescriptor.equals("drunk")) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), npc, false);
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey"), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_horse_equine_cider"), npc, false);
 			gloryholeNpcNameDescriptor ="drunk";
 			npc.setGenericName("drunk "+genericName);
 			
 		} else if(Math.random()<0.4f && !gloryholeNpcNameDescriptor.equals("tipsy")) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_horse_equine_cider"), npc, false);
 			gloryholeNpcNameDescriptor ="tipsy";
 			npc.setGenericName("tipsy "+genericName);
 			
 		} else {
-			gloryholeNpcNameDescriptor = CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues(gloryholeNpcNameDescriptor));
+			gloryholeNpcNameDescriptor = Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues(gloryholeNpcNameDescriptor));
 		}
 		
 		npc.setDescription("[npc.Name] is one of the Water Hole's patrons, who, seeking to take a break from the club floor, has wandered into the toilets to find you servicing the glory holes...");
@@ -3765,17 +3800,17 @@ public class NightlifeDistrict {
 		List<String> descriptors;
 		double rnd = Math.random();
 		if(rnd<0.1f) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"), npc, false);
 			descriptors = Util.newArrayListOfValues("wasted", "intoxicated");
 			
 		} else if(Math.random()<0.3f) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), npc, false);
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey"), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_horse_equine_cider"), npc, false);
 			descriptors = Util.newArrayListOfValues("drunk");
 			
 		} else if(Math.random()<0.4f) {
-			npc.useItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER), npc, false);
+			npc.useItem(Main.game.getItemGen().generateItem("innoxia_race_horse_equine_cider"), npc, false);
 			descriptors = Util.newArrayListOfValues("tipsy");
 			
 		} else {
@@ -3824,8 +3859,11 @@ public class NightlifeDistrict {
 		}
 	}
 	
-	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
-		
+	public static final DialogueNode WATERING_HOLE_TOILETS_AFTER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(getClubbersPresent(), "[npc.Name] has had enough for now...");
+		}
 		@Override
 		public String getContent() {
 			if(Main.sex.getNumberOfOrgasms(getPartner())>=getPartner().getOrgasmsBeforeSatisfied()) {
@@ -4014,8 +4052,18 @@ public class NightlifeDistrict {
 			int count = 1;
 			for(GameCharacter character : getSavedClubbers(false)) {
 				if(count==index) {
+					if(!character.isAttractedTo(Main.game.getPlayer())) {
+						return new Response(character.getName(true),
+								UtilText.parse(character, "[npc.Name] is [style.colourBad(no longer attracted to you)], and so would be unwilling to spend time with you in the club.<br/>([npc.She] is [npc.a_fullRace(true)].)"),
+								null);
+					}
+					if(Main.game.getMinutesPassed()-((NPC)character).getLastTimeEncountered()<12*60) {
+						return new Response(character.getName(true),
+								UtilText.parse(character, "You have already met [npc.name] in the club tonight, and as such, [style.colourBad(you will not be able to encounter [npc.herHim] again until tomorrow)]."),
+								null);
+					}
 					return new Response(character.getName(true),
-							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers. ([npc.She] is [npc.a_fullRace(true)].)"),
+							UtilText.parse(character, "Look for [npc.name] in amongst the crowds of revellers.<br/>([npc.She] is [npc.a_fullRace(true)].)"),
 							WATERING_HOLE_FIND_CONTACT_DOM) {
 						@Override
 						public void effects() {
@@ -4352,14 +4400,15 @@ public class NightlifeDistrict {
 						if(index==1) {
 							// Accept rum
 							return new Response("Accept rum",
-									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Black Rat's Rum that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)),
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Black Rat's Rum that [npc.name] has offered you.<br/>"
+											+getDrinkEffects(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"))),
 									WATERING_HOLE_DOM_PARTNER_REACT) {
 								@Override
 								public void effects() {
 									getPartner().incrementAlcoholLevel(-0.05f); // TO stop them from drinking to collapse
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM", getClubbersPresent()));
-									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum").applyEffect(getPartner(), getPartner()));
 									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 								}
 							};
@@ -4385,22 +4434,24 @@ public class NightlifeDistrict {
 										?"Accept Feline's Fancy"
 										:"Accept Canine Crush"),
 									(Main.game.getPlayer().isFeminine()
-										?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Feline's Fancy that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.INT_INGREDIENT_FELINE_FANCY))
-										:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the bottle of Canine Crush that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.FIT_INGREDIENT_CANINE_CRUSH))),
+										?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Feline's Fancy that [npc.name] has offered you.<br/>"
+												+getDrinkEffects(Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy")))
+										:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the bottle of Canine Crush that [npc.name] has offered you.<br/>"
+												+getDrinkEffects(Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crush")))),
 									WATERING_HOLE_DOM_PARTNER_REACT) {
 								@Override
 								public void effects() {
 									if(Main.game.getPlayer().isFeminine()) {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_FELINES_FANCY", getClubbersPresent()));
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
 									} else {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER", getClubbersPresent()));
-										Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+										Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crush").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
 									}
 									if(getPartner().isFeminine()) {
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+										Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy").applyEffect(getPartner(), getPartner()));
 									} else {
-										Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+										Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_dog_canine_crush").applyEffect(getPartner(), getPartner()));
 									}
 									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 								}
@@ -4421,8 +4472,8 @@ public class NightlifeDistrict {
 									} else {
 										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_BEER", getClubbersPresent()));
 									}
-									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water").applyEffect(getPartner(), getPartner()));
 									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -5));
 									buyingDrinks = false;
 								}
@@ -4433,13 +4484,14 @@ public class NightlifeDistrict {
 						if(index==1) {
 							// Accept whiskey
 							return new Response("Accept whiskey",
-									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Wolf Whiskey that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_WOLF_WHISKEY)),
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Wolf Whiskey that [npc.name] has offered you.<br/>"
+										+getDrinkEffects(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey"))),
 									WATERING_HOLE_DOM_PARTNER_REACT) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY", getClubbersPresent()));
-									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey").applyEffect(getPartner(), getPartner()));
 									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
 								}
 							};
@@ -4452,8 +4504,8 @@ public class NightlifeDistrict {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY", getClubbersPresent()));
-									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water").applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+									Main.game.getTextStartStringBuilder().append(Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water").applyEffect(getPartner(), getPartner()));
 									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
 									buyingDrinks = false;
 								}
@@ -5168,18 +5220,11 @@ public class NightlifeDistrict {
 
 
 	
-	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNode("Toilets", "", true) {
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
+	public static final DialogueNode WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX = new DialogueNode("Finished", "", true) {
 		@Override
 		public String getDescription() {
-			return UtilText.parse(getPartner(), "You and [npc.name] stop having sex with one another...");
+			return UtilText.parse(getClubbersPresent(), "[npc.Name] has had enough for now...");
 		}
-		
 		@Override
 		public String getContent() {
 			if(Main.sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {

@@ -18,8 +18,8 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -101,16 +101,16 @@ public class Vicky extends NPC {
 	private Map<AbstractClothing, Integer> clothingForSale;
 	
 	private AbstractItemType[] availableIngredients = new AbstractItemType[] {
-			ItemType.RACE_INGREDIENT_CAT_MORPH,
-			ItemType.RACE_INGREDIENT_DOG_MORPH,
-			ItemType.RACE_INGREDIENT_HARPY,
-			ItemType.RACE_INGREDIENT_HORSE_MORPH,
-			ItemType.RACE_INGREDIENT_WOLF_MORPH,
-			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
-			ItemType.RACE_INGREDIENT_COW_MORPH,
-			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
-			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN};
+			ItemType.getItemTypeFromId("innoxia_race_cat_kittys_reward"),
+			ItemType.getItemTypeFromId("innoxia_race_dog_canine_crunch"),
+			ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop"),
+			ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube"),
+			ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow"),
+			ItemType.getItemTypeFromId("innoxia_race_squirrel_round_nuts"),
+			ItemType.getItemTypeFromId("innoxia_race_cow_bubble_cream"),
+			ItemType.getItemTypeFromId("innoxia_race_alligator_gators_gumbo"),
+			ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie"),
+			ItemType.getItemTypeFromId("innoxia_race_human_bread_roll")};
 	
 	private static List<AbstractItemType> availableSpellBooks = new ArrayList<>();
 	
@@ -617,8 +617,15 @@ public class Vicky extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		if(item instanceof AbstractWeapon)
+		if(item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				|| item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY)) {
+			return false;
+		}
+		
+		if(item instanceof AbstractWeapon) {
 			return true;
+		}
 		
 		if(item instanceof AbstractItem) {
 			if(((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.ESSENCE)

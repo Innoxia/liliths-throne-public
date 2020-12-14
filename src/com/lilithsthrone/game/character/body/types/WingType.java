@@ -1,12 +1,16 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -147,6 +151,25 @@ public class WingType {
 			"[npc.sheHasFull] a pair of [npc.wingSize], feathered wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 
+	public static final AbstractWingType INSECT = new AbstractWingType(
+			BodyCoveringType.WING_CHITIN,
+			Race.NONE,
+			true,
+			"insect",
+			"wing",
+			"wings",
+			Util.newArrayListOfValues("chitinous"),
+			Util.newArrayListOfValues("chitinous"),
+			"#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())"
+				+ "[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], insect-like wings push out from the sides of [npc.her] [npc.legConfiguration] body."
+			+ "#ELSE"
+				+ "[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], insect-like wings push out from [npc.her] shoulder blades."
+			+ "#ENDIF"
+			+ "<br/>"
+			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(chitinous, insect-like wings)].",
+			"[npc.sheHasFull] a pair of [npc.wingSize], insect-like wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
+	};
+
 
 	private static List<AbstractWingType> allWingTypes;
 	private static Map<AbstractWingType, String> wingToIdMap = new HashMap<>();
@@ -154,8 +177,47 @@ public class WingType {
 	
 	static {
 		allWingTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("wing")) {
+					try {
+						AbstractWingType type = new AbstractWingType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allWingTypes.add(type);
+						wingToIdMap.put(type, id);
+						idToWingMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("wing")) {
+					try {
+						AbstractWingType type = new AbstractWingType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allWingTypes.add(type);
+						wingToIdMap.put(type, id);
+						idToWingMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded wing types:
+		
 		Field[] fields = WingType.class.getFields();
 		
 		for(Field f : fields){
@@ -175,6 +237,13 @@ public class WingType {
 				}
 			}
 		}
+		
+		Collections.sort(allWingTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractWingType getWingTypeFromId(String id) {
@@ -197,6 +266,7 @@ public class WingType {
 	}
 	
 	private static Map<AbstractRace, List<AbstractWingType>> typesMap = new HashMap<>();
+	
 	public static List<AbstractWingType> getWingTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);

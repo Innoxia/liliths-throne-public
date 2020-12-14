@@ -15,6 +15,7 @@ import java.util.Set;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -28,7 +29,6 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -41,12 +41,13 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -58,6 +59,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -85,7 +87,8 @@ public class StatusEffect {
 
 	// Attribute-related status effects:
 	// Strength:
-	public static AbstractStatusEffect PHYSIQUE_PERK_0 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_0 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"sissy",
 			"attStrength0",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
@@ -93,8 +96,8 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f)),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -15f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -15f)),
 			Util.newArrayListOfValues(
 					"Base [style.colourUnarmed(unarmed damage)] equals [style.colourMinorGood(20% of physique)]")) {
 		@Override
@@ -115,7 +118,8 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect PHYSIQUE_PERK_1 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_1 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"average",
 			"attStrength1",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
@@ -143,15 +147,16 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect PHYSIQUE_PERK_2 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_2 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"strong",
 			"attStrength2",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 10f)),
 			Util.newArrayListOfValues(
 					"Base [style.colourUnarmed(unarmed damage)] equals [style.colourMinorGood(20% of physique)]")) {
 		@Override
@@ -172,15 +177,16 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect PHYSIQUE_PERK_3 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_3 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"powerful",
 			"attStrength3",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 20f)),
 			Util.newArrayListOfValues(
 					"Base [style.colourUnarmed(unarmed damage)] equals [style.colourMinorGood(20% of physique)]")) {
 		@Override
@@ -201,15 +207,16 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect PHYSIQUE_PERK_4 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_4 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"mighty",
 			"attStrength4",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 15f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 30f)),
 			Util.newArrayListOfValues(
 					"Base [style.colourUnarmed(unarmed damage)] equals [style.colourMinorGood(20% of physique)]")) {
 		@Override
@@ -230,15 +237,16 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect PHYSIQUE_PERK_5 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect PHYSIQUE_PERK_5 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Herculean",
 			"attStrength5",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 20f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50f)),
 			Util.newArrayListOfValues(
 					"Base [style.colourUnarmed(unarmed damage)] equals [style.colourMinorGood(20% of physique)]")) {
 		@Override
@@ -260,7 +268,8 @@ public class StatusEffect {
 	};
 
 	// Intelligence:
-	public static AbstractStatusEffect INTELLIGENCE_PERK_0_OLD_WORLD = new AbstractStatusEffect(80,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_0_OLD_WORLD = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"No Arcane Power",
 			"attIntelligence0",
 			PresetColour.ATTRIBUTE_ARCANE,
@@ -283,15 +292,16 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_0 = new AbstractStatusEffect(80,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_0 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane impotence",
 			"attIntelligence0",
 			PresetColour.ATTRIBUTE_ARCANE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, -75f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
 					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldBad(limited to 5)]",
 					"[style.boldBad(Vulnerable)] to [style.boldArcane(arcane storms)]")) {
@@ -317,7 +327,8 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_1 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_1 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane potential",
 			"attIntelligence1",
 			PresetColour.ATTRIBUTE_ARCANE,
@@ -325,8 +336,8 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -351,7 +362,8 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_2 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_2 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane proficiency",
 			"attIntelligence2",
 			PresetColour.ATTRIBUTE_ARCANE,
@@ -359,8 +371,8 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+					new Value<>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -381,18 +393,19 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_3 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_3 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane prowess",
 			"attIntelligence3",
 			PresetColour.ATTRIBUTE_ARCANE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 15f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 15f),
+					new Value<>(Attribute.DAMAGE_FIRE, 5f),
+					new Value<>(Attribute.DAMAGE_ICE, 5f),
+					new Value<>(Attribute.DAMAGE_POISON, 5f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -417,18 +430,19 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_4 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_4 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane mastery",
 			"attIntelligence4",
 			PresetColour.ATTRIBUTE_ARCANE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 20f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<>(Attribute.DAMAGE_FIRE, 10f),
+					new Value<>(Attribute.DAMAGE_ICE, 10f),
+					new Value<>(Attribute.DAMAGE_POISON, 10f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -454,18 +468,19 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect INTELLIGENCE_PERK_5 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect INTELLIGENCE_PERK_5 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"arcane brilliance",
 			"attIntelligence5",
 			PresetColour.ATTRIBUTE_ARCANE,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 25f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 25f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+					new Value<>(Attribute.DAMAGE_FIRE, 15f),
+					new Value<>(Attribute.DAMAGE_ICE, 15f),
+					new Value<>(Attribute.DAMAGE_POISON, 15f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
@@ -491,14 +506,15 @@ public class StatusEffect {
 	};
 
 	// Corruption:
-	public static AbstractStatusEffect CORRUPTION_PERK_0 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_0 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Pure",
 			"attCorruption0",
 			PresetColour.CORRUPTION_STAGE_ZERO,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -522,14 +538,15 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect CORRUPTION_PERK_1 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_1 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Vanilla",
 			"attCorruption1",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -553,14 +570,15 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect CORRUPTION_PERK_2 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_2 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"dirty",
 			"attCorruption2",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -584,17 +602,18 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect CORRUPTION_PERK_3 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_3 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Lewd",
 			"attCorruption3",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f),
-					new Value<Attribute, Float>(Attribute.FERTILITY, 25f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -5f),
+					new Value<>(Attribute.DAMAGE_LUST, 30f),
+					new Value<>(Attribute.FERTILITY, 25f),
+					new Value<>(Attribute.VIRILITY, 25f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -636,17 +655,18 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect CORRUPTION_PERK_4 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_4 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Lustful",
 			"attCorruption4",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 40f),
-					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -15f),
+					new Value<>(Attribute.DAMAGE_LUST, 40f),
+					new Value<>(Attribute.FERTILITY, 50f),
+					new Value<>(Attribute.VIRILITY, 50f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -692,15 +712,18 @@ public class StatusEffect {
 		}
 	};
 			
-	public static AbstractStatusEffect CORRUPTION_PERK_5 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect CORRUPTION_PERK_5 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"Corrupt",
 			"attCorruption5",
 			PresetColour.ATTRIBUTE_CORRUPTION,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
-					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f),
+					new Value<>(Attribute.DAMAGE_LUST, 50f),
+					new Value<>(Attribute.FERTILITY, 75f),
+					new Value<>(Attribute.VIRILITY, 75f)),
 			Util.newArrayListOfValues("<b style='color: "+ PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Demonic mindset</b>")) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -726,10 +749,13 @@ public class StatusEffect {
 	};
 	
 	// Arousal:
-	public static AbstractStatusEffect AROUSAL_PERK_0 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_0 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"none",
 			"attArousal0",
 			PresetColour.AROUSAL_STAGE_ZERO,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -754,10 +780,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect AROUSAL_PERK_1 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_1 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"turned on",
 			"attArousal1",
 			PresetColour.AROUSAL_STAGE_ONE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -782,10 +811,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect AROUSAL_PERK_2 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_2 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"excited",
 			"attArousal2",
 			PresetColour.AROUSAL_STAGE_TWO,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -810,10 +842,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect AROUSAL_PERK_3 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_3 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"heated",
 			"attArousal3",
 			PresetColour.AROUSAL_STAGE_THREE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -838,10 +873,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect AROUSAL_PERK_4 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_4 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"passionate",
 			"attArousal4",
 			PresetColour.AROUSAL_STAGE_FOUR,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -866,10 +904,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect AROUSAL_PERK_5 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect AROUSAL_PERK_5 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"imminent orgasm",
 			"attArousal5",
 			PresetColour.AROUSAL_STAGE_FIVE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -896,10 +937,13 @@ public class StatusEffect {
 	
 	
 	// Lust:
-	public static AbstractStatusEffect LUST_PERK_0 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_0 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"none",
 			"attLust0",
 			PresetColour.LUST_STAGE_ZERO,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -927,10 +971,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect LUST_PERK_1 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_1 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"turned on",
 			"attLust1",
 			PresetColour.LUST_STAGE_ONE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -958,10 +1005,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect LUST_PERK_2 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_2 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"excited",
 			"attLust2",
 			PresetColour.LUST_STAGE_TWO,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -989,10 +1039,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect LUST_PERK_3 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_3 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"heated",
 			"attLust3",
 			PresetColour.LUST_STAGE_THREE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -1020,10 +1073,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect LUST_PERK_4 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_4 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"passionate",
 			"attLust4",
 			PresetColour.LUST_STAGE_FOUR,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -1051,10 +1107,13 @@ public class StatusEffect {
 		}
 	};
 	
-	public static AbstractStatusEffect LUST_PERK_5 = new AbstractStatusEffect(100,
+	public static AbstractStatusEffect LUST_PERK_5 = new AbstractStatusEffect(StatusEffectCategory.ATTRIBUTE,
+			100,
 			"passionate",
 			"attLust5",
-			PresetColour.LUST_STAGE_FOUR,
+			PresetColour.LUST_STAGE_FIVE,
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			false,
 			null,
 			null) {
@@ -1085,7 +1144,7 @@ public class StatusEffect {
 	
 	
 	
-	// STANDARD EFFECTS:
+	// WEATHER & LOCATION EFFECTS:
 	
 	public static AbstractStatusEffect WEATHER_PROLOGUE = new AbstractStatusEffect(100,
 			"Strange Atmosphere",
@@ -1340,7 +1399,7 @@ public class StatusEffect {
 			"weatherDayStorm",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -5f)),
 			Util.newArrayListOfValues("<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
 					"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 		@Override
@@ -1421,7 +1480,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
-					&& ((!target.isVulnerableToArcaneStorm() && !target.getLocationPlace().isStormImmune()) || !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
+					&& Main.game.isStarted()
+					&& ((!target.isVulnerableToArcaneStorm() && !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune())
+							|| !target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION));
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1451,7 +1512,7 @@ public class StatusEffect {
 			"weatherDayStorm",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -100f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -100f)),
 			Util.newArrayListOfValues("<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
 					"[style.boldLust(+75)] Resting lust",
 					"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
@@ -1487,8 +1548,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
+					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
-					&& !target.getLocationPlace().isStormImmune()
+					&& !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
 		@Override
@@ -1555,9 +1617,10 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getLocationPlace().isStormImmune()
-					&& Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
+					&& Main.game.isStarted()
+					&& (target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
 					&& target.getGlobalLocationPlace().getPlaceType().equals(PlaceType.WORLD_MAP_DOMINION);
 		}
 		@Override
@@ -1580,6 +1643,61 @@ public class StatusEffect {
 			}
 		}
 	};
+
+	public static AbstractStatusEffect DARKNESS = new AbstractStatusEffect(90,
+			"Darkness",
+			"darkness",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_RED,
+			PresetColour.BASE_GREY_LIGHT,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_UNARMED, -25f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -25f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -25f),
+					new Value<>(Attribute.DAMAGE_SPELLS, -25f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"The area which [npc.name] [npc.verb(find)] [npc.herself] travelling through is very dark, and as [npc.she] [npc.verb(lack)] any means of illuminating the area, [npc.she] [npc.is] struggling to see where [npc.sheIs] going!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isInDarkness();
+		}
+	};
+
+	public static AbstractStatusEffect DARKNESS_NEGATED = new AbstractStatusEffect(90,
+			"Darkness (Negated)",
+			"darkness_negated",
+			PresetColour.BASE_BLACK,
+			PresetColour.BASE_GREEN,
+			PresetColour.BASE_GREY_LIGHT,
+			true,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues()) {
+		@Override
+		public EffectBenefit getBeneficialStatus() {
+			return EffectBenefit.NEUTRAL;
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"The area which [npc.name] [npc.verb(find)] [npc.herself] travelling through is very dark, but despite this, [npc.she] [npc.is] able to see [#npc.getDescriptionInDarkness()].");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getCell().isDark() && !target.isInDarkness();
+		}
+	};
+	
 	
 	// RACES:
 	// HUMAN:
@@ -1589,7 +1707,7 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1625,7 +1743,7 @@ public class StatusEffect {
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
 				return target.getSubspeciesOverride().getName(null)+" ("+target.getSubspecies().getName(target)+")";
 			}
-			return target.getSubspecies().getName(target);
+			return (target.isFeral()?"[style.colourFeral(Feral)] ":"")+target.getSubspecies().getName(target);
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1682,8 +1800,8 @@ public class StatusEffect {
 			return Main.game.isInNewWorld();
 		}
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
-			LinkedHashMap<Attribute, Float> attMods;
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			LinkedHashMap<AbstractAttribute, Float> attMods;
 			
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
 				attMods = new LinkedHashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
@@ -1693,7 +1811,7 @@ public class StatusEffect {
 			
 			BodyMaterial material = target.getBodyMaterial();
 			if(material.getAttributeModifiers(target)!=null) {
-				for(Entry<Attribute, Float> entry : material.getAttributeModifiers(target).entrySet()) {
+				for(Entry<AbstractAttribute, Float> entry : material.getAttributeModifiers(target).entrySet()) {
 					attMods.putIfAbsent(entry.getKey(), 0f);
 					attMods.put(entry.getKey(), attMods.get(entry.getKey())+entry.getValue());
 				}
@@ -1710,7 +1828,7 @@ public class StatusEffect {
 		}
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			LinkedHashMap<Attribute, Float> attMods;
+			LinkedHashMap<AbstractAttribute, Float> attMods;
 
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
 				attMods = new LinkedHashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
@@ -1720,6 +1838,11 @@ public class StatusEffect {
 			
 			ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(attMods));
 			fullModList.addAll(getExtraEffects(target));
+
+			if(target.isFeral()) {
+				fullModList.add("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(tripled)]");
+				fullModList.add("[style.colourExcellent(Immune)] to [style.colourGenericTf(racial transformations)]");
+			}
 			return fullModList;
 		}
 		@Override
@@ -1728,6 +1851,82 @@ public class StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
 			}
 			return owner.getSubspecies().getSVGString(owner);
+		}
+	};
+
+	public static AbstractStatusEffect AQUATIC_POSITIVE = new AbstractStatusEffect(90,
+			"Aquatic harmony",
+			"aquatic_positive",
+			PresetColour.GENERIC_GOOD,
+			PresetColour.BASE_BLUE_LIGHT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.ACTION_POINTS, 1f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f)),
+			Util.newArrayListOfValues(
+					"[style.boldBlueLight(Lost legs)]")) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			if(!target.isPlayer()) {
+				return "";
+			}
+			return "As you increase your proximity to the nearby body of water, you feel an intense tingling start to run up the length of your legs."
+					+ " Without any further warning of what's about to happen, your muscles involuntarily clench, pressing your legs together and causing you to let out a startled cry."
+					+ " Before you're able to react, your legs rapidly fuse together and transform, and within moments your lower body has assumed its true, tailed form!"
+					+ "<p style='text-align:center;'>"
+						+ "[style.italicsMinorBad(You can no longer equip clothing in your leg and foot slots!)]"
+					+ "</p>"
+					+ target.postTransformationCalculation(); // To handle clothing removals
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"As [npc.nameIsFull] [npc.a_race], and [npc.she] [npc.has] access to a nearby body of water, [npc.her] lower body has transformed into its true, tail-like form, making [npc.herHim] feel very comfortable!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getCell().getAquatic().isWater() && target.getSubspecies().isAquatic(target);
+		}
+	};
+
+	public static AbstractStatusEffect AQUATIC_NEGATIVE = new AbstractStatusEffect(90,
+			"Fish out of water",
+			"aquatic_negative",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_TAN,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.ACTION_POINTS, -1f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f)),
+			Util.newArrayListOfValues(
+					"[style.boldTan(Grown two legs)]")) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			if(!target.isPlayer()) {
+				return "";
+			}
+			return "Finding yourself in an area with no large body of water nearby, you suddenly feel your tailed lower body starting to tingle."
+					+ " Without any further warning of what's about to happen, your muscles involuntarily clench, causing you to let out a startled cry."
+					+ " Before you're able to react, your tail rapidly splits and transforms into a pair of legs, which, while granting you the ability to walk and run on land, feel very alien to you."
+					+ "<p style='text-align:center;'>"
+						+ "[style.italicsMinorGood(You can now equip clothing in your leg and foot slots!)]"
+					+ "</p>"
+					+ target.postTransformationCalculation(); // To handle clothing checks
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"As [npc.nameIsFull] [npc.a_race], and there is no body of water nearby, [npc.her] lower body has transformed into a pair of legs, making [npc.herHim] [npc.verb(feel)] very uncomfortable!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.getCell().getAquatic().isWater() && target.getSubspecies().isAquatic(target);
 		}
 	};
 	
@@ -1816,7 +2015,7 @@ public class StatusEffect {
 			"clothingFemininity",
 			PresetColour.CLOTHING_PINK_LIGHT,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1843,7 +2042,7 @@ public class StatusEffect {
 			"clothingMasculinity",
 			PresetColour.CLOTHING_BLUE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1870,7 +2069,7 @@ public class StatusEffect {
 			"clothingCummedIn",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_CORRUPTION, 5f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -1895,7 +2094,7 @@ public class StatusEffect {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
 							&& Collections.disjoint(
-									c.getClothingType().getItemTags(c.getSlotEquippedTo()),
+									c.getItemTags(),
 									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
@@ -1910,7 +2109,7 @@ public class StatusEffect {
 			"clothingCummedInMasochist",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -1939,7 +2138,7 @@ public class StatusEffect {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
 							&& Collections.disjoint(
-									c.getClothingType().getItemTags(c.getSlotEquippedTo()),
+									c.getItemTags(),
 									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
@@ -1954,7 +2153,7 @@ public class StatusEffect {
 			"dirtyBody",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_CORRUPTION, 5f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -1963,13 +2162,12 @@ public class StatusEffect {
 			for(AbstractClothing clothing : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 				if(target.getDirtySlots().contains(clothing.getSlotEquippedTo())) {
 					InventorySlot slotEquippedTo = clothing.getSlotEquippedTo();
-					List<ItemTag> tags = clothing.getClothingType().getItemTags(slotEquippedTo);
+					Set<ItemTag> tags = clothing.getItemTags();
 					slotsToClean.add(slotEquippedTo);
 					
-					boolean seals =
-							tags.contains(ItemTag.SEALS_ANUS)
-							|| tags.contains(ItemTag.SEALS_VAGINA)
-							|| tags.contains(ItemTag.SEALS_NIPPLES);
+					boolean seals = tags.contains(ItemTag.SEALS_ANUS)
+										|| tags.contains(ItemTag.SEALS_VAGINA)
+										|| tags.contains(ItemTag.SEALS_NIPPLES);
 					
 					if(clothing.getSlotEquippedTo()==InventorySlot.ANUS && (tags.contains(ItemTag.SEALS_ANUS) || tags.contains(ItemTag.PLUGS_ANUS))
 							|| clothing.getSlotEquippedTo()==InventorySlot.VAGINA && (tags.contains(ItemTag.SEALS_VAGINA) || tags.contains(ItemTag.PLUGS_VAGINA))
@@ -1992,7 +2190,7 @@ public class StatusEffect {
 					}
 					
 				} else {
-					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots(target, clothing.getSlotEquippedTo())) {
+					for(InventorySlot blockedSlot : clothing.getIncompatibleSlots(target, clothing.getSlotEquippedTo())) {
 						if(target.getDirtySlots().contains(blockedSlot)) {
 							slotsToClean.add(blockedSlot);
 							if(!clothing.isDirty()) {
@@ -2045,7 +2243,7 @@ public class StatusEffect {
 			"dirtyBodyMasochist",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2080,7 +2278,7 @@ public class StatusEffect {
 			"unstable_enchantment_1",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_CORRUPTION, 25f)),
 			Util.newArrayListOfValues("[style.boldMinorBad(-10%)] [style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]",
 					"[style.boldMinorBad(-10%)] [style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")]")) {
 		@Override
@@ -2105,7 +2303,7 @@ public class StatusEffect {
 			"unstable_enchantment_2",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_CORRUPTION, 50f)),
 			Util.newArrayListOfValues("[style.boldBad(-50%)] [style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]",
 					"[style.boldBad(-50%)] [style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")]")) {
 		@Override
@@ -2130,7 +2328,7 @@ public class StatusEffect {
 			"unstable_enchantment_3",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_CORRUPTION, 100f)),
 			Util.newArrayListOfValues("[style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]",
 					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]",
 					"[style.boldTerrible(All shielding set to 0)]")) {
@@ -2155,7 +2353,7 @@ public class StatusEffect {
 			"jinxed_clothing",
 			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2248,8 +2446,8 @@ public class StatusEffect {
 			PresetColour.ATTRIBUTE_HEALTH,
 			PresetColour.ATTRIBUTE_MANA,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 10f),
+					new Value<>(Attribute.MANA_MAXIMUM, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2267,8 +2465,8 @@ public class StatusEffect {
 			PresetColour.ATTRIBUTE_HEALTH,
 			PresetColour.ATTRIBUTE_MANA,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 30f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 30f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 30f),
+					new Value<>(Attribute.MANA_MAXIMUM, 30f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2291,8 +2489,8 @@ public class StatusEffect {
 			PresetColour.ATTRIBUTE_MANA,
 			PresetColour.GENERIC_EXCELLENT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 60f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 60f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 60f),
+					new Value<>(Attribute.MANA_MAXIMUM, 60f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2313,9 +2511,9 @@ public class StatusEffect {
 //			PresetColour.BASE_AQUA,
 //			true,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
-//					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 5f),
-//					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
+//					new Value<>(Attribute.HEALTH_MAXIMUM, 5f),
+//					new Value<>(Attribute.MANA_MAXIMUM, 5f),
+//					new Value<>(Attribute.DAMAGE_LUST, 5f)),
 //			Util.newArrayListOfValues("[style.boldMinorGood(Doubles)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
 //		@Override
 //		public String getDescription(GameCharacter target) {
@@ -2334,9 +2532,9 @@ public class StatusEffect {
 //			PresetColour.BASE_AQUA,
 //			true,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f),
-//					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f),
-//					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+//					new Value<>(Attribute.HEALTH_MAXIMUM, 10f),
+//					new Value<>(Attribute.MANA_MAXIMUM, 10f),
+//					new Value<>(Attribute.DAMAGE_LUST, 10f)),
 //			Util.newArrayListOfValues("[style.boldGood(Triples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
 //		@Override
 //		public String getDescription(GameCharacter target) {
@@ -2356,9 +2554,9 @@ public class StatusEffect {
 //			PresetColour.GENERIC_EXCELLENT,
 //			true,
 //			Util.newHashMapOfValues(
-//					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f),
-//					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 25f),
-//					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+//					new Value<>(Attribute.HEALTH_MAXIMUM, 25f),
+//					new Value<>(Attribute.MANA_MAXIMUM, 25f),
+//					new Value<>(Attribute.DAMAGE_LUST, 15f)),
 //			Util.newArrayListOfValues("[style.boldExcellent(Quadruples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
 //		@Override
 //		public String getDescription(GameCharacter target) {
@@ -2375,8 +2573,8 @@ public class StatusEffect {
 			"overworked1",
 			PresetColour.BASE_RED,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -10f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -10f),
+					new Value<>(Attribute.MANA_MAXIMUM, -10f)),
 			Util.newArrayListOfValues("While working:",
 					"[style.boldBad(-0.05)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-25%)] [style.colourExperience(experience)] gain chance")) {
@@ -2403,8 +2601,8 @@ public class StatusEffect {
 			"overworked2",
 			PresetColour.BASE_RED,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -25f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -25f),
+					new Value<>(Attribute.MANA_MAXIMUM, -25f)),
 			Util.newArrayListOfValues("[style.boldBad(-0.1)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-50%)] [style.colourExperience(experience)] gain chance")) {
 		@Override
@@ -2430,8 +2628,8 @@ public class StatusEffect {
 			"overworked3",
 			PresetColour.BASE_RED,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -50f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -50f),
+					new Value<>(Attribute.MANA_MAXIMUM, -50f)),
 			Util.newArrayListOfValues("[style.boldBad(-0.15)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-75%)] [style.colourExperience(experience)] gain chance")) {
 		@Override
@@ -2478,9 +2676,9 @@ public class StatusEffect {
 			"psychoactive",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			Util.newArrayListOfValues("Open to <b style='color: " + PresetColour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2601,16 +2799,92 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect CLEANED_MASSAGED = new AbstractStatusEffect(80,
+			"Recently massaged",
+			"cleaned_massage",
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.GENERIC_EXCELLENT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Having recently received a full-body massage, [npc.nameIsFull] feeling extremely relaxed and limber!");
+		}
+	};
+	
+	public static AbstractStatusEffect CLEANED_SHOWER = new AbstractStatusEffect(80,
+			"Recently showered",
+			"cleaned_shower",
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.BASE_AQUA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 5f),
+					new Value<>(Attribute.MANA_MAXIMUM, 5f),
+					new Value<>(Attribute.DAMAGE_LUST, 5f)),
+			Util.newArrayListOfValues(
+					"[style.boldMinorGood(Doubles)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Having recently taken the time to have a shower, [npc.name] [npc.verb(feel)] refreshed!");
+		}
+	};
+	
+	public static AbstractStatusEffect CLEANED_BATH = new AbstractStatusEffect(80,
+			"Recently bathed",
+			"cleaned_bath",
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.BASE_AQUA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 10f),
+					new Value<>(Attribute.MANA_MAXIMUM, 10f),
+					new Value<>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newArrayListOfValues(
+					"[style.boldGood(Triples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Having recently taken the time to relax in [npc.her] bath, [npc.name] [npc.verb(feel)] refreshed and rejuvenated.");
+		}
+	};
+	
+	public static AbstractStatusEffect CLEANED_SPA = new AbstractStatusEffect(80,
+			"Spa soak",
+			"cleaned_spa",
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.BASE_AQUA,
+			PresetColour.ATTRIBUTE_MANA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, 25f),
+					new Value<>(Attribute.MANA_MAXIMUM, 25f),
+					new Value<>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Quadruples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Having recently taken the time to relax in the spa, [npc.name] [npc.verb(feel)] like [npc.sheHas] been born anew!");
+		}
+	};
+	
 	public static AbstractStatusEffect LOLLIPOP_SUCKING = new AbstractStatusEffect(80,
 			"sucking lollipop",
 			"lollipop",
 			PresetColour.CLOTHING_PINK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NameIsFull] playfully sucking on a lollipop, and every time someone looks at [npc.herHim], [npc.she] purses [npc.her] [npc.lips] and [npc.verb(make)] a show of kissing it.");
+			return UtilText.parse(target, "[npc.NameIsFull] playfully sucking on a lollipop, and every time someone looks at [npc.herHim], [npc.she] [npc.verb(purse)] [npc.her] [npc.lips] and [npc.verb(make)] a show of kissing it.");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -2625,8 +2899,8 @@ public class StatusEffect {
 			PresetColour.CLOTHING_BRASS,
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 10f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2651,8 +2925,8 @@ public class StatusEffect {
 			PresetColour.CLOTHING_BRASS,
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 10f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2666,10 +2940,10 @@ public class StatusEffect {
 			"drunk1",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.MAJOR_ARCANE, -2f),
+					new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -1f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2696,10 +2970,10 @@ public class StatusEffect {
 			"drunk2",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.DAMAGE_LUST, 10f),
+					new Value<>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2725,9 +2999,9 @@ public class StatusEffect {
 			"drunk3",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -10f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2760,10 +3034,10 @@ public class StatusEffect {
 			"drunk4",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<>(Attribute.MAJOR_ARCANE, -10f),
+					new Value<>(Attribute.DAMAGE_LUST, -5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -15f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2796,10 +3070,10 @@ public class StatusEffect {
 			"drunk5",
 			PresetColour.BASE_YELLOW,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
+					new Value<>(Attribute.MAJOR_ARCANE, -15f),
+					new Value<>(Attribute.DAMAGE_LUST, -10f),
+					new Value<>(Attribute.RESISTANCE_LUST, -20f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -2844,7 +3118,8 @@ public class StatusEffect {
 				long timeLeft = oneDayLater - now;
 				long hoursLeft = timeLeft / 60;
 				long minutesLeft = timeLeft % 60;
-				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+				AbstractRace fluidRace = addiction.getFluid().getRace();
+				extraEffects.add("<b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 						+ (timeLeft > 0
 								?" [style.colourGood("+hoursLeft+":"+String.format("%02d", minutesLeft)+")]"
 								:" [style.boldArcane(Withdrawal!)]"));
@@ -2884,10 +3159,10 @@ public class StatusEffect {
 			"withdrawal1",
 			PresetColour.CORRUPTION_STAGE_ONE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -2f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -2f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -2f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -2f),
+					new Value<>(Attribute.MANA_MAXIMUM, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2909,8 +3184,10 @@ public class StatusEffect {
 						long timeLeft = twoDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
+						AbstractRace fluidRace = addiction.getFluid().getRace();
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+								+ "[style.boldArcane(Addictive)]"
+								+ " <b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -2945,10 +3222,10 @@ public class StatusEffect {
 			"withdrawal2",
 			PresetColour.CORRUPTION_STAGE_TWO,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -5f),
+					new Value<>(Attribute.MANA_MAXIMUM, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2970,8 +3247,10 @@ public class StatusEffect {
 						long timeLeft = threeDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
+						AbstractRace fluidRace = addiction.getFluid().getRace();
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+								+ "[style.boldArcane(Addictive)]"
+								+ " <b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -3006,10 +3285,10 @@ public class StatusEffect {
 			"withdrawal3",
 			PresetColour.CORRUPTION_STAGE_THREE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -10f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -10f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -10f),
+					new Value<>(Attribute.MANA_MAXIMUM, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3031,8 +3310,10 @@ public class StatusEffect {
 						long timeLeft = fourDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
+						AbstractRace fluidRace = addiction.getFluid().getRace();
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+								+ "[style.boldArcane(Addictive)]"
+								+ " <b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -3067,10 +3348,10 @@ public class StatusEffect {
 			"withdrawal4",
 			PresetColour.CORRUPTION_STAGE_FOUR,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -25f),
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -25f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -25f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -25f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -25f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -25f),
+					new Value<>(Attribute.MANA_MAXIMUM, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3092,8 +3373,10 @@ public class StatusEffect {
 						long timeLeft = fiveDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
+						AbstractRace fluidRace = addiction.getFluid().getRace();
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
+								+ "[style.boldArcane(Addictive)]"
+								+ " <b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -3128,10 +3411,10 @@ public class StatusEffect {
 			"withdrawal5",
 			PresetColour.CORRUPTION_STAGE_FIVE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -50f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -50f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -50f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, -50f),
+					new Value<>(Attribute.MANA_MAXIMUM, -50f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3149,8 +3432,10 @@ public class StatusEffect {
 					long now = Main.game.getMinutesPassed();
 					
 					if (fiveDaysLater <= now) {
+						AbstractRace fluidRace = addiction.getFluid().getRace();
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>.");
+								+ "[style.boldArcane(Addictive)]"
+								+ " <b style='color:"+fluidRace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(fluidRace.getName(fluidRace!=Race.DEMON))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>.");
 					}
 				}
 				
@@ -3404,7 +3689,7 @@ public class StatusEffect {
 			"pregnancy1",
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
 			Util.newArrayListOfValues("-5% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3519,7 +3804,7 @@ public class StatusEffect {
 			"pregnancy2",
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
 			Util.newArrayListOfValues("-10% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3642,7 +3927,7 @@ public class StatusEffect {
 			"pregnancy3",
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
 			Util.newArrayListOfValues("-15% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3674,18 +3959,741 @@ public class StatusEffect {
 			return true;
 		}
 	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_STOMACH_1 = new AbstractStatusEffect(80,
+			"Egg Incubation (Stomach)",
+			"incubation1",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.ANUS).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] stomach filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the next stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.addStatusEffect(INCUBATING_EGGS_STOMACH_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			if(!target.isPlayer()) {
+				return "";
+			}
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p>"
+						+ "The weight in your stomach has gotten noticeably heavier, and you can't help but wonder how long it will be before you're ready to lay the eggs which are incubating in your belly..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.boldSex(The eggs in your stomach have grown in size!)]"
+					+ "</p>");
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.ASS, 1);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_STOMACH_2 = new AbstractStatusEffect(80,
+			"Advanced Egg Incubation (Stomach)",
+			"incubation2",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.ANUS).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] stomach filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the final stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.setTimeProgressedToFinalIncubationStage(SexAreaOrifice.ANUS, Main.game.getSecondsPassed());
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p>"
+						+ "From their significant weight, you're sure that the eggs in your stomach have by now reached full maturity, and could be laid and hatched at any time of your choosing."
+					+ "</p>");
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya...)]"
+						+ "</p>");
+			} else {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
+						+ "</p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your stomach!)]"
+					+ "</p>");
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+			}
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.ASS, 2);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_STOMACH_3 = new AbstractStatusEffect(80,
+			"Completed Egg Incubation (Stomach)",
+			"incubation3",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.ANUS).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] stomach filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
+					+ (target.isPlayer()
+							?" It might be a good idea to visit Lilaya..."
+							:"");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getIncubationLitter(SexAreaOrifice.ANUS)!=null
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_1)
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_2);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.ASS, 3);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_1 = new AbstractStatusEffect(80,
+			"Egg Incubation (Breasts)",
+			"incubation1",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.breasts] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the next stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.addStatusEffect(INCUBATING_EGGS_NIPPLES_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
 
+			sb.append("<p>"
+						+ "The weight in your chest has gotten noticeably heavier, and you can't help but wonder how long it will be before you're ready to lay the eggs which are incubating in them..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.boldSex(The eggs in your breasts have grown in size!)]"
+					+ "</p>");
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST, 1);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_2 = new AbstractStatusEffect(80,
+			"Advanced Egg Incubation (Breasts)",
+			"incubation2",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.breasts] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the final stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.setTimeProgressedToFinalIncubationStage(SexAreaOrifice.NIPPLE, Main.game.getSecondsPassed());
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "From their significant weight, you're sure that the eggs in your [npc.breasts] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
+					+ "</p>");
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya...)]"
+						+ "</p>");
+			} else {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
+						+ "</p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.breasts]!)]"
+					+ "</p>");
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+			}
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST, 2);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_3 = new AbstractStatusEffect(80,
+			"Completed Egg Incubation (Breasts)",
+			"incubation3",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.breasts] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
+					+ (target.isPlayer()
+							?" It might be a good idea to visit Lilaya..."
+							:"");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getIncubationLitter(SexAreaOrifice.NIPPLE)!=null
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_1)
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_2);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST, 3);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_CROTCH_1 = new AbstractStatusEffect(80,
+			"Egg Incubation (Crotch-boobs)",
+			"incubation1",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getName(GameCharacter target) {
+			if(target!=null && target.getBreastCrotchShape()==BreastShape.UDDERS) {
+				return "Egg Incubation (Udders)";
+			}
+			return "Egg Incubation (Crotch-boobs)";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.crotchBoobs] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the next stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.addStatusEffect(INCUBATING_EGGS_NIPPLES_CROTCH_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "The weight in your [npc.crotchBoobs] has gotten noticeably heavier, and you can't help but wonder how long it will be before you're ready to lay the eggs which are incubating in there..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.boldSex(The eggs in your [npc.crotchBoobs] have grown in size!)]"
+					+ "</p>");
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST_CROTCH, 1);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_CROTCH_2 = new AbstractStatusEffect(80,
+			"Advanced Egg Incubation (Crotch-boobs)",
+			"incubation2",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getName(GameCharacter target) {
+			if(target!=null && target.getBreastCrotchShape()==BreastShape.UDDERS) {
+				return "Advanced Egg Incubation (Udders)";
+			}
+			return "Advanced Egg Incubation (Crotch-boobs)";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.crotchBoobs] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the final stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.setTimeProgressedToFinalIncubationStage(SexAreaOrifice.NIPPLE_CROTCH, Main.game.getSecondsPassed());
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "From their significant weight, you're sure that the eggs in your [npc.crotchBoobs] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
+					+ "</p>");
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya...)]"
+						+ "</p>");
+			} else {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
+						+ "</p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.crotchBoobs]!)]"
+					+ "</p>");
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+			}
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST_CROTCH, 2);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_NIPPLES_CROTCH_3 = new AbstractStatusEffect(80,
+			"Completed Egg Incubation (Crotch-boobs)",
+			"incubation3",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getName(GameCharacter target) {
+			if(target!=null && target.getBreastCrotchShape()==BreastShape.UDDERS) {
+				return "Completed Egg Incubation (Udders)";
+			}
+			return "Completed Egg Incubation (Crotch-boobs)";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.crotchBoobs] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
+					+ (target.isPlayer()
+							?" It might be a good idea to visit Lilaya..."
+							:"");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getIncubationLitter(SexAreaOrifice.NIPPLE_CROTCH)!=null
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_1)
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.BREAST_CROTCH, 3);
+		}
+	};
+
+	public static AbstractStatusEffect INCUBATING_EGGS_SPINNERET_1 = new AbstractStatusEffect(80,
+			"Egg Incubation (Spinneret)",
+			"incubation1",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.SPINNERET).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.spinneret] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the next stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.addStatusEffect(INCUBATING_EGGS_SPINNERET_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "The weight in your [npc.spinneret] has gotten noticeably heavier, and you can't help but wonder how long it will be before you're ready to lay the eggs which are incubating in there..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.boldSex(The eggs in your [npc.spinneret] have grown in size!)]"
+					+ "</p>");
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.SPINNERET, 1);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_SPINNERET_2 = new AbstractStatusEffect(80,
+			"Advanced Egg Incubation (Spinneret)",
+			"incubation2",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.SPINNERET).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] [npc.spinneret] filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the final stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.setTimeProgressedToFinalIncubationStage(SexAreaOrifice.SPINNERET, Main.game.getSecondsPassed());
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "From their significant weight, you're sure that the eggs in your [npc.spinneret] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
+					+ "</p>");
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya...)]"
+						+ "</p>");
+			} else {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
+						+ "</p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.spinneret]!)]"
+					+ "</p>");
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+			}
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.SPINNERET, 2);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_SPINNERET_3 = new AbstractStatusEffect(80,
+			"Completed Egg Incubation (Spinneret)",
+			"incubation3",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.SPINNERET).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.spinneret] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
+					+ (target.isPlayer()
+							?" It might be a good idea to visit Lilaya..."
+							:"");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getIncubationLitter(SexAreaOrifice.SPINNERET)!=null
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_1)
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_2);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.SPINNERET, 3);
+		}
+	};
+
+	public static AbstractStatusEffect INCUBATING_EGGS_WOMB_1 = new AbstractStatusEffect(80,
+			"Egg Incubation (Womb)",
+			"incubation1",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.VAGINA).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] womb filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the next stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.addStatusEffect(INCUBATING_EGGS_WOMB_2, 60 * 60 * (72 + Util.random.nextInt(13)));
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "The weight in your womb has gotten noticeably heavier, and you can't help but wonder how long it will be before you're ready to lay the eggs which are incubating in there..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.boldSex(The eggs in your womb have grown in size!)]"
+					+ "</p>");
+			
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.VAGINA, 1);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_WOMB_2 = new AbstractStatusEffect(80,
+			"Advanced Egg Incubation (Womb)",
+			"incubation2",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 4f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.VAGINA).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] had [npc.her] womb filled with eggs!"
+							+ " Thanks to the effects of the arcane, these eggs are sure to rapidly mature and advance to the final stage of incubation in a matter of days.");
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.setTimeProgressedToFinalIncubationStage(SexAreaOrifice.VAGINA, Main.game.getSecondsPassed());
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>"
+						+ "From their significant weight, you're sure that the eggs in your womb have by now reached full maturity, and could be laid and hatched at any time of your choosing."
+					+ "</p>");
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya...)]"
+						+ "</p>");
+			} else {
+				sb.append("<p>"
+							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
+						+ "</p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your womb!)]"
+					+ "</p>");
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+				sb.append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+			}
+			return UtilText.parse(target, sb.toString());
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.VAGINA, 2);
+		}
+	};
+	
+	public static AbstractStatusEffect INCUBATING_EGGS_WOMB_3 = new AbstractStatusEffect(80,
+			"Completed Egg Incubation (Womb)",
+			"incubation3",
+			PresetColour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 6f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			int count = target.getIncubationLitter(SexAreaOrifice.VAGINA).getTotalLitterCount();
+			return Util.newArrayListOfValues("[style.colourYellowLight(Incubating)] [style.colourGood("+Util.intToString(count)+")] [style.colourYellowLight(egg"+(count>1?"s":"")+")]");
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] womb filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
+					+ (target.isPlayer()
+							?" It might be a good idea to visit Lilaya..."
+							:"");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getIncubationLitter(SexAreaOrifice.VAGINA)!=null
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_1)
+					 && !target.hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_2);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getIncubationSVGString(owner, SexAreaOrifice.VAGINA, 3);
+		}
+	};
+	
 	public static AbstractStatusEffect VIXENS_VIRILITY = new AbstractStatusEffect(80,
 			"Breeder pill's effects",
 			"vixensVirility",
 			PresetColour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 50f),
+					new Value<>(Attribute.VIRILITY, 50f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "After consuming a '[#ITEM_VIXENS_VIRILITY.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted.");
+			return UtilText.parse(target, "After consuming a '[#ITEM_innoxia_pills_fertility.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted.");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -3698,13 +4706,35 @@ public class StatusEffect {
 			"promiscuityPill",
 			PresetColour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FERTILITY, -100f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, -100f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -100f),
+					new Value<>(Attribute.VIRILITY, -100f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "After consuming a '[#ITEM_PROMISCUITY_PILL.getName(false)]', [npc.namePos] fertility and virility have been greatly reduced."
+			return UtilText.parse(target, "After consuming a '[#ITEM_innoxia_pills_sterility.getName(false)]', [npc.namePos] fertility and virility have been greatly reduced."
 							+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex [npc.she] had before taking the pill!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect BROODMOTHER_PILL = new AbstractStatusEffect(80,
+			"Broodmother pill's effects",
+			"broodmother_pill",
+			PresetColour.CLOTHING_PINK,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.FERTILITY, 100f),
+					new Value<>(Attribute.VIRILITY, 100f)),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Doubles)] offspring conceived")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"After consuming a '[#ITEM_innoxia_pills_broodmother.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted,"
+							+ " and if [npc.she] impregnates someone or becomes impregnated [npc.herself], [npc.she] will conceive far more offspring than usual!");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -3750,7 +4780,7 @@ public class StatusEffect {
 			"cumFull",
 			PresetColour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -3871,7 +4901,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()!=target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -3911,7 +4941,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getBreastCrotchRawMilkStorageValue()>0
 					&& target.getBreastCrotchRawStoredMilkValue()==target.getBreastCrotchRawMilkStorageValue();
 		}
@@ -4130,7 +5160,7 @@ public class StatusEffect {
 			"recoveringOrifice",
 			PresetColour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f), new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -2f), new Value<>(Attribute.HEALTH_MAXIMUM, -5f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -4156,7 +5186,7 @@ public class StatusEffect {
 				i++;
 			}
 			if (target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				sb.append(" Crotch Nipples");
 				i++;
@@ -4378,7 +5408,7 @@ public class StatusEffect {
 					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
 					|| (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity())
 					|| (target.hasBreastsCrotch()
-							&& Main.getProperties().udders>0
+							&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 							&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
 					|| (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity())
 					|| (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()));
@@ -4400,15 +5430,15 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -4520,15 +5550,15 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -4635,15 +5665,15 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -4745,15 +5775,15 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -4850,15 +5880,15 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -4966,7 +5996,7 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -4977,12 +6007,12 @@ public class StatusEffect {
 			}
 		}
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -5084,7 +6114,7 @@ public class StatusEffect {
 			"creampie",
 			PresetColour.CUM,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -5093,12 +6123,12 @@ public class StatusEffect {
 					:"Yummy meal";
 		}
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, 1f));
 				
 			} else {
-				return Util.newHashMapOfValues(	new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f));
+				return Util.newHashMapOfValues(	new Value<>(Attribute.MAJOR_PHYSIQUE, -1f));
 			}
 		}
 		@Override
@@ -5157,10 +6187,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect CUM_INFLATION_1 = new AbstractStatusEffect(80,
 			"swollen belly",
-			"cumInflation1",
+			"inflation_stomach_1",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5191,10 +6221,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect CUM_INFLATION_2 = new AbstractStatusEffect(80,
 			"inflated belly",
-			"cumInflation2",
+			"inflation_stomach_2",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5226,10 +6256,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect CUM_INFLATION_3 = new AbstractStatusEffect(80,
 			"over-inflated belly",
-			"cumInflation3",
+			"inflation_stomach_3",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5261,10 +6291,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect BREAST_CUM_INFLATION_1 = new AbstractStatusEffect(80,
 			"swollen breasts",
-			"cumInflationBreasts1",
+			"inflation_breasts_1",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5295,10 +6325,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect BREAST_CUM_INFLATION_2 = new AbstractStatusEffect(80,
 			"inflated breasts",
-			"cumInflationBreasts2",
+			"inflation_breasts_2",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5330,10 +6360,10 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect BREAST_CUM_INFLATION_3 = new AbstractStatusEffect(80,
 			"over-inflated breasts",
-			"cumInflationBreasts3",
+			"inflation_breasts_3",
 			PresetColour.GENERIC_ARCANE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5362,13 +6392,128 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect SPINNERET_CUM_INFLATION_1 = new AbstractStatusEffect(80,
+			"swollen spinneret",
+			"inflation_spinneret_1",
+			PresetColour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -2f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.hasTailSpinneret()) {
+					return UtilText.parse(target,
+							"After being filled with a considerable amount of cum, [npc.namePos] [npc.tail] "+(target.getTailCount()>1?"are":"is")+"now a little swollen."
+							+ " The extra weight is making it a little difficult for [npc.herHim] to move around.");
+				} else {
+					return UtilText.parse(target,
+							"After being filled with a considerable amount of cum, [npc.namePos] abdomen is now a little swollen."
+							+ " The extra weight is making it a little difficult for [npc.herHim] to move around.");
+				}
+			}
+			return "";
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.SPINNERET);
+			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
+					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+	
+	public static AbstractStatusEffect SPINNERET_CUM_INFLATION_2 = new AbstractStatusEffect(80,
+			"inflated spinneret",
+			"inflation_spinneret_2",
+			PresetColour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.hasTailSpinneret()) {
+					return UtilText.parse(target,
+							"After being filled with a huge amount of cum, [npc.namePos] [npc.tail] "+(target.getTailCount()>1?"are":"is")+"now noticeably inflated."
+							+ " The extra weight is hindering [npc.her] ability to move.");
+				} else {
+					return UtilText.parse(target,
+							"After being filled with a huge amount of cum, [npc.namePos] abdomen is now noticeably inflated."
+							+ " The extra weight is hindering [npc.her] ability to move.");
+				}
+			}
+			return "";
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.SPINNERET);
+			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
+					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+	
+	public static AbstractStatusEffect SPINNERET_CUM_INFLATION_3 = new AbstractStatusEffect(80,
+			"over-inflated spinneret",
+			"inflation_spinneret_3",
+			PresetColour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -10f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.hasTailSpinneret()) {
+					return UtilText.parse(target,
+							"After being filled with a colossal amount of cum, [npc.namePos] [npc.tail] "+(target.getTailCount()>1?"are":"is")+"now massively over-inflated."
+							+ " The huge amount of extra weight is making it extremely difficult for [npc.herHim] to move around.");
+				} else {
+					return UtilText.parse(target,
+							"After being filled with a colossal amount of cum, [npc.namePos] abdomen is now massively over-inflated."
+							+ " The huge amount of extra weight is making it extremely difficult for [npc.herHim] to move around.");
+				}
+			}
+			return "";
+		}
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.SPINNERET);
+			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
 	
 	public static AbstractStatusEffect FRUSTRATED_NO_ORGASM = new AbstractStatusEffect(80,
 			"Frustrated",
 			"frustrated",
 			PresetColour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5390,7 +6535,7 @@ public class StatusEffect {
 			"frustrated",
 			PresetColour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5414,7 +6559,7 @@ public class StatusEffect {
 			"recoveringAura",
 			PresetColour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5443,8 +6588,8 @@ public class StatusEffect {
 			PresetColour.GENERIC_BAD,
 			PresetColour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5464,6 +6609,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()==LegConfiguration.BIPEDAL
+					&& !target.isFeral()
 					&& isExposedParts(target, false, true);
 		}
 		@Override
@@ -5486,15 +6632,19 @@ public class StatusEffect {
 			if(target==null) {
 				return "";
 			}
-			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", but as [npc.her] lower body is feral in nature, [npc.she] [npc.verb(feel)] as though it's natural to be so exposed.");
+			if(target.getLegConfiguration().isGenitalsExposed(target)) {
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", but as [npc.she] [npc.has] a feral body, [npc.she] [npc.verb(feel)] as though it's natural to be so exposed.");
+			} else {
+				return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", but [npc.her] feral body is shaped in such a way that they aren't on public display.");
+			}
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
-					&& target.getLegConfiguration()!=LegConfiguration.BIPEDAL
+					&& (target.getLegConfiguration()!=LegConfiguration.BIPEDAL || target.isFeral())
 					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES))
 					&& ((target.hasBreastsCrotch()
-							&& Main.getProperties().udders>0
+							&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 							&& target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
 						|| target.isCoverableAreaVisible(CoverableArea.ANUS)
 						|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
@@ -5513,8 +6663,8 @@ public class StatusEffect {
 			PresetColour.GENERIC_BAD,
 			PresetColour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -2f)),
 			null) {
 		@Override
 		public String getName(GameCharacter target) {
@@ -5542,6 +6692,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.getLegConfiguration()==LegConfiguration.BIPEDAL || ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES)))
+					&& !target.isFeral()
 					&& isExposedParts(target, true, false);
 		}
 		@Override
@@ -5557,8 +6708,8 @@ public class StatusEffect {
 			PresetColour.GENERIC_BAD,
 			PresetColour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 20f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5578,6 +6729,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()==LegConfiguration.BIPEDAL
+					&& !target.isFeral()
 					&& isExposedParts(target, true, true);
 		}
 		@Override
@@ -5593,7 +6745,7 @@ public class StatusEffect {
 			PresetColour.BASE_PINK_DEEP,
 			PresetColour.BASE_PINK_DEEP,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5627,7 +6779,7 @@ public class StatusEffect {
 			PresetColour.BASE_PINK_DEEP,
 			PresetColour.BASE_PINK_DEEP,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5661,7 +6813,7 @@ public class StatusEffect {
 			PresetColour.BASE_PINK_DEEP,
 			PresetColour.BASE_PINK_DEEP,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 30f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5693,8 +6845,8 @@ public class StatusEffect {
 			"virginPure",
 			PresetColour.GENERIC_EXCELLENT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 15f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5720,8 +6872,8 @@ public class StatusEffect {
 			"virginPureNoHymen",
 			PresetColour.GENERIC_GOOD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5747,7 +6899,7 @@ public class StatusEffect {
 			"virginPureRepaired",
 			PresetColour.GENERIC_GOOD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5773,8 +6925,8 @@ public class StatusEffect {
 			"virginBroken",
 			PresetColour.GENERIC_TERRIBLE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 50f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5801,8 +6953,8 @@ public class StatusEffect {
 			"virginLustyMaidenPure",
 			PresetColour.GENERIC_EXCELLENT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f),
+					new Value<>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5828,8 +6980,8 @@ public class StatusEffect {
 			"virginLustyMaidenNoHymen",
 			PresetColour.GENERIC_GOOD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5855,7 +7007,7 @@ public class StatusEffect {
 			"virginLustyMaidenRepaired",
 			PresetColour.GENERIC_GOOD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5881,9 +7033,9 @@ public class StatusEffect {
 			"virginLustyMaidenBroken",
 			PresetColour.GENERIC_TERRIBLE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, -25f),
+					new Value<>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 50f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5912,9 +7064,13 @@ public class StatusEffect {
 			"clothingSets/maid",
 			PresetColour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -5936,11 +7092,15 @@ public class StatusEffect {
 			PresetColour.CLOTHING_BLACK,
 			PresetColour.BASE_GOLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.DAMAGE_LUST, 25f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -5961,9 +7121,13 @@ public class StatusEffect {
 			"clothingSets/milk_maid",
 			PresetColour.BASE_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -5985,11 +7149,15 @@ public class StatusEffect {
 			PresetColour.BASE_WHITE,
 			PresetColour.BASE_GOLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.DAMAGE_LUST, 25f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6010,9 +7178,13 @@ public class StatusEffect {
 			"clothingSets/butler",
 			PresetColour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6034,11 +7206,15 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			PresetColour.BASE_GOLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6059,10 +7235,14 @@ public class StatusEffect {
 			"clothingSets/witch",
 			PresetColour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6088,11 +7268,15 @@ public class StatusEffect {
 			"clothingSets/scientist",
 			PresetColour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<>(Attribute.RESISTANCE_FIRE, 2f),
+					new Value<>(Attribute.RESISTANCE_POISON, 2f),
+					new Value<>(Attribute.RESISTANCE_ICE, 2f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6118,9 +7302,13 @@ public class StatusEffect {
 			"clothingSets/slutty_enforcer",
 			PresetColour.BASE_PINK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6141,8 +7329,12 @@ public class StatusEffect {
 			"clothingSets/rainbow",
 			PresetColour.CLOTHING_RED,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			return "Double rainbow... What does it mean?!";
@@ -6160,9 +7352,13 @@ public class StatusEffect {
 			PresetColour.CLOTHING_BLACK_STEEL,
 			PresetColour.CLOTHING_RED_DARK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			return "<i>Darkness and chaos, let the boundaries of the eternal void be shattered! Intangible manifestation of divine will, now let my sealed power be unleashed!</i>";
@@ -6180,9 +7376,13 @@ public class StatusEffect {
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_OLIVE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 25f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {//British Auxiliary Territorial Service
 			return UtilText.parse(target, "While wearing the uniform of Lyssieth's guard, [npc.name] [npc.verb(feel)] as though [npc.sheIs] more easily able to keep [npc.her] composure.");
@@ -6198,8 +7398,12 @@ public class StatusEffect {
 			"clothingSets/bdsm",
 			PresetColour.CLOTHING_BLACK,
 			false,
-			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
+			Util.newHashMapOfValues( new Value<>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6225,8 +7429,12 @@ public class StatusEffect {
 			"clothingSets/cattle",
 			PresetColour.BASE_TAN,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6252,9 +7460,13 @@ public class StatusEffect {
 			"clothingSets/snowflake",
 			PresetColour.BASE_BLUE_LIGHT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<>(Attribute.DAMAGE_ICE, 15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target==null) {
@@ -6273,9 +7485,13 @@ public class StatusEffect {
 			"clothingSets/sun",
 			PresetColour.BASE_ORANGE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<>(Attribute.DAMAGE_FIRE, 15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target==null) {
@@ -6294,8 +7510,12 @@ public class StatusEffect {
 			"clothingSets/geisha",
 			PresetColour.BASE_ROSE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6315,9 +7535,13 @@ public class StatusEffect {
 			"clothingSets/ronin",
 			PresetColour.BASE_ROSE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6344,9 +7568,13 @@ public class StatusEffect {
 			"clothingSets/daisho",
 			PresetColour.BASE_ROSE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MELEE_WEAPON, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6367,10 +7595,14 @@ public class StatusEffect {
 			"clothingSets/jolnir",
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 15f),
+					new Value<>(Attribute.DAMAGE_ICE, 15f),
+					new Value<>(Attribute.RESISTANCE_ICE, 5f)),
 			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
@@ -6388,6 +7620,32 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return SetBonus.getSetBonusFromId("innoxia_jolnir").isCharacterWearingCompleteSet(target);
+		}
+	};
+	
+	public static AbstractStatusEffect SET_KITTY = new AbstractStatusEffect(70,
+			"Playful Kitty",
+			"clothingSets/kitty",
+			PresetColour.CLOTHING_PINK_LIGHT,
+			PresetColour.CLOTHING_BLACK,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10f)),
+			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "By wearing the entire set of kitty lingerie, [npc.name] [npc.verb(find)] [npc.herself] wanting to tease everyone [npc.she] [npc.verb(meet)]!");
+			} else {
+				return "";
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return SetBonus.getSetBonusFromId("innoxia_kitty").isCharacterWearingCompleteSet(target);
 		}
 	};
 	
@@ -6429,7 +7687,7 @@ public class StatusEffect {
 			return UtilText.parse(target, "Arcane-infused consumables are very common in this world, and as [npc.nameHasFull] found out, they can have some rather curious effects...");
 		}
 		@Override
-		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			return target.getPotionAttributes();
 		}
 		@Override
@@ -6439,7 +7697,7 @@ public class StatusEffect {
 			modifiersList.addAll(getExtraEffects(target));
 			
 			if (getAttributeModifiers(target) != null) {
-				for (Entry<Attribute, Float> e : getAttributeModifiers(target).entrySet()) {
+				for (Entry<AbstractAttribute, Float> e : getAttributeModifiers(target).entrySet()) {
 					modifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b>" + " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
 				}
 			}
@@ -6465,8 +7723,8 @@ public class StatusEffect {
 			"happinessFox",
 			PresetColour.CLOTHING_SILVER,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5f),
+					new Value<>(Attribute.MANA_MAXIMUM, 5f)),
 			Util.newArrayListOfValues("[style.italicsGood(Happiness!)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6486,8 +7744,8 @@ public class StatusEffect {
 			"combatBonusAngel",
 			PresetColour.RACE_ANGEL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.ANGEL), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6502,8 +7760,8 @@ public class StatusEffect {
 			"combatBonusCatMorph",
 			PresetColour.RACE_CAT_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.CAT_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6519,8 +7777,8 @@ public class StatusEffect {
 			"combatBonusCowMorph",
 			PresetColour.RACE_COW_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.COW_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6536,8 +7794,8 @@ public class StatusEffect {
 			"combatBonusDemon",
 			PresetColour.RACE_DEMON,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_ARCANE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.DEMON), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6553,8 +7811,8 @@ public class StatusEffect {
 			"combatBonusImp",
 			PresetColour.RACE_DEMON,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.DAMAGE_IMP, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6570,8 +7828,8 @@ public class StatusEffect {
 			"combatBonusDogMorph",
 			PresetColour.RACE_DOG_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.DOG_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6587,8 +7845,8 @@ public class StatusEffect {
 			"combatBonusHarpy",
 			PresetColour.RACE_HARPY,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.HARPY), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6604,8 +7862,8 @@ public class StatusEffect {
 			"combatBonusHorseMorph",
 			PresetColour.RACE_HORSE_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.HORSE_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6621,8 +7879,8 @@ public class StatusEffect {
 			"combatBonusReindeerMorph",
 			PresetColour.RACE_REINDEER_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.REINDEER_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6638,8 +7896,8 @@ public class StatusEffect {
 			"combatBonusHuman",
 			PresetColour.RACE_HUMAN,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.HUMAN), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6655,8 +7913,8 @@ public class StatusEffect {
 			"combatBonusSquirrelMorph",
 			PresetColour.RACE_SQUIRREL_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.SQUIRREL_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6672,8 +7930,8 @@ public class StatusEffect {
 			"combatBonusRatMorph",
 			PresetColour.RACE_RAT_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.RAT_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6689,8 +7947,8 @@ public class StatusEffect {
 			"combatBonusRabbitMorph",
 			PresetColour.RACE_RAT_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_RABBIT_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.RABBIT_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6706,8 +7964,8 @@ public class StatusEffect {
 			"combatBonusBatMorph",
 			PresetColour.RACE_BAT_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_BAT_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.BAT_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6723,8 +7981,8 @@ public class StatusEffect {
 			"combatBonusAlligatorMorph",
 			PresetColour.RACE_ALLIGATOR_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.ALLIGATOR_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6740,8 +7998,8 @@ public class StatusEffect {
 			"combatBonusWolfMorph",
 			PresetColour.RACE_WOLF_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.WOLF_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6756,8 +8014,8 @@ public class StatusEffect {
 			"combatBonusFoxMorph",
 			PresetColour.RACE_FOX_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FOX_MORPH, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.FOX_MORPH), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6772,8 +8030,8 @@ public class StatusEffect {
 			"combatBonusSlime",
 			PresetColour.RACE_SLIME,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 5f),
+					new Value<>(Attribute.getRacialDamageAttribute(Race.SLIME), 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
@@ -6794,10 +8052,10 @@ public class StatusEffect {
 			"glowingEyes",
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, 1f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 50f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, 1f),
+					new Value<>(Attribute.MANA_MAXIMUM, 100f),
+					new Value<>(Attribute.DAMAGE_SPELLS, 50f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6807,7 +8065,11 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInCombat()
 					&& target.equals(Main.game.getNpc(Silence.class))
-					&& !Combat.getEnemies(Main.game.getPlayer()).contains(Main.game.getNpc(Shadow.class));
+					&& !Main.combat.getEnemies(Main.game.getPlayer()).contains(Main.game.getNpc(Shadow.class));
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	};
 
@@ -6816,10 +8078,10 @@ public class StatusEffect {
 			"glowingEyes",
 			PresetColour.BASE_CRIMSON,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, 3f),
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 150f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MELEE_WEAPON, 50f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, 3f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 150f),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 50f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6829,7 +8091,39 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInCombat()
 					&& target.equals(Main.game.getNpc(Shadow.class))
-					&& Combat.getEnemies(Main.game.getPlayer()).size()==1;
+					&& Main.combat.getEnemies(Main.game.getPlayer()).size()==1;
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect SPECIAL_AMERICAN_FREEDOM = new AbstractStatusEffect(70,
+			"Blinded by Freedom",
+			"american_freedom",
+			PresetColour.BASE_RED,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "[npc.Name] is struggling to fight against your manifest destiny!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isStarted()
+					&& Main.game.getPlayer().getOccupation()==Occupation.TOURIST
+					&& !target.isPlayer()
+					&& Main.game.isInCombat()
+					&& Main.combat.getEnemies(Main.game.getPlayer()).contains(target);
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	};
 	
@@ -6875,18 +8169,18 @@ public class StatusEffect {
 		}
 	};
 
-	// From spells (still in combat):
+	// From spells or combat moves (still in combat):
 	
 	public static AbstractStatusEffect ARCANE_WEAKNESS = new AbstractStatusEffect(10,
 			"arcane weakness",
 			"negativeCombatEffect",
 			PresetColour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -2f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -2f),
+					new Value<>(Attribute.RESISTANCE_LUST, -2f),
+					new Value<>(Attribute.RESISTANCE_FIRE, -2f),
+					new Value<>(Attribute.RESISTANCE_ICE, -2f),
+					new Value<>(Attribute.RESISTANCE_POISON, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6900,11 +8194,11 @@ public class StatusEffect {
 	
 	public static AbstractStatusEffect DAZED = new AbstractStatusEffect(10,
 			"dazed",
-			"negativeCombatEffect",
+			"dazed",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6921,7 +8215,7 @@ public class StatusEffect {
 			"negativeCombatEffect",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6938,7 +8232,7 @@ public class StatusEffect {
 			"negativeCombatEffect",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6955,8 +8249,8 @@ public class StatusEffect {
 			"combat_witch_seal",
 			PresetColour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -3f)),
-			null) {
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, -3f)),
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot attempt to escape!)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
@@ -6965,6 +8259,13 @@ public class StatusEffect {
 		public boolean isCombatEffect() {
 			return true;
 		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT,
+					ItemTag.PREVENTS_COMBAT_ESCAPE);
+		}
 	};
 	
 	public static AbstractStatusEffect WITCH_CHARM = new AbstractStatusEffect(10,
@@ -6972,45 +8273,400 @@ public class StatusEffect {
 			"combat_witch_charm",
 			PresetColour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
-			@Override
-			public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-				if (target.isPlayer()) {
-					return "The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
-					
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			if (target.isPlayer()) {
+				return "The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
+				
+			} else {
+				return UtilText.parse(target,
+						"The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making [npc.name] appear irresistibly attractive!");
+			}
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				if(target.isFeminine()) {
+					return "An arcane enchantment is bewitching anyone who looks upon you, causing them to view you as the most beautiful person they've ever seen.";
 				} else {
-					return UtilText.parse(target,
-							"The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making [npc.name] appear irresistibly attractive!");
+					return "An arcane enchantment is bewitching anyone who looks upon you, causing them to view you as the most handsome person they've ever seen.";
+				}
+				
+			} else {
+				if(target.isFeminine()) {
+					return UtilText.parse(target, "An arcane enchantment is bewitching you into viewing [npc.name] as the most beautiful person you've ever seen.");
+				} else {
+					return UtilText.parse(target, "An arcane enchantment is bewitching you into viewing [npc.name] as the most handsome person you've ever seen.");
 				}
 			}
-			@Override
-			public String getDescription(GameCharacter target) {
-				if (target.isPlayer()) {
-					if(target.isFeminine()) {
-						return "An arcane enchantment is bewitching anyone who looks upon you, causing them to view you as the most beautiful person they've ever seen.";
-					} else {
-						return "An arcane enchantment is bewitching anyone who looks upon you, causing them to view you as the most handsome person they've ever seen.";
-					}
-					
-				} else {
-					if(target.isFeminine()) {
-						return UtilText.parse(target, "An arcane enchantment is bewitching you into viewing [npc.name] as the most beautiful person you've ever seen.");
-					} else {
-						return UtilText.parse(target, "An arcane enchantment is bewitching you into viewing [npc.name] as the most handsome person you've ever seen.");
-					}
-				}
-			}
-			@Override
-			public boolean isConditionsMet(GameCharacter target) {
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect WEBBED_1 = new AbstractStatusEffect(10,
+			"Webbed",
+			"restrain_webbed_1",
+			PresetColour.GENERIC_BAD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "Thick, sticky webbing is clinging to [npc.namePos] body, which is causing [npc.her] movements to be somewhat hindered!"
+						+ "<br/>[style.italicsMinorBad(If [npc.she] [npc.verb(get)] webbed again, this effect will become more serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect WEBBED_2 = new AbstractStatusEffect(10,
+			"Seriously webbed",
+			"restrain_webbed_2",
+			PresetColour.GENERIC_BAD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -50f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<>(Attribute.ACTION_POINTS, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "A large amount of thick, sticky webbing is clinging to [npc.namePos] body, which is causing [npc.her] movements to be significantly hindered!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] webbed again, this effect will become extremely serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT);
+		}
+	};
+
+	public static AbstractStatusEffect WEBBED_3 = new AbstractStatusEffect(10,
+			"Cocooned",
+			"restrain_webbed_3",
+			PresetColour.GENERIC_BAD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -75f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -15f),
+					new Value<>(Attribute.ACTION_POINTS, -2f)),
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot attempt to escape!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "A huge amount of thick, sticky webbing is clinging to [npc.namePos] body, making it all but impossible for [npc.herHim] to move [npc.her] [npc.arms] and [npc.legs]!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] webbed again, [npc.she] will be instantly defeated!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT,
+					ItemTag.PREVENTS_COMBAT_ESCAPE);
+		}
+	};
+
+	public static AbstractStatusEffect WEBBED_SEX = new AbstractStatusEffect(10,
+			"Cocooned",
+			"immobilised_cocoon",
+			PresetColour.GENERIC_BAD,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "A huge amount of thick, sticky webbing is clinging to [npc.namePos] body, making it all but impossible for [npc.herHim] to move!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
 				return false;
 			}
-			@Override
-			public boolean isCombatEffect() {
-				return true;
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.COCOON;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect WITCH_SEAL_SEX = new AbstractStatusEffect(10,
+			"Witch's Seal",
+			"immobilised_seal",
+			PresetColour.GENERIC_ARCANE,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
+				return false;
 			}
-		};
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.WITCH_SEAL;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect TENTACLE_RESTRAIN_1 = new AbstractStatusEffect(10,
+			"Tentacle-grabbed",
+			"restrain_tentacles_1",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_ORANGE,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "Coils of strong tentacles are grabbing at [npc.namePos] body, which is causing [npc.her] movements to be somewhat hindered!"
+						+ "<br/>[style.italicsMinorBad(If [npc.she] [npc.verb(get)] tentacle-grabbed again, this effect will become more serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect TENTACLE_RESTRAIN_2 = new AbstractStatusEffect(10,
+			"Tentacle-embraced",
+			"restrain_tentacles_2",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_ORANGE,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -50f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<>(Attribute.ACTION_POINTS, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "Strong tentacles have firmly coiled themselves around [npc.namePos] [npc.arms] and [npc.legs], which is causing [npc.her] movements to be significantly hindered!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] tentacle-grabbed again, this effect will become extremely serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT);
+		}
+	};
+
+	public static AbstractStatusEffect TENTACLE_RESTRAIN_3 = new AbstractStatusEffect(10,
+			"Tentacle-constricted",
+			"restrain_tentacles_3",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_ORANGE,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -75f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -15f),
+					new Value<>(Attribute.ACTION_POINTS, -2f)),
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot attempt to escape!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "Strong tentacles have constricted [npc.namePos] in a vice-like grip, making it all but impossible for [npc.herHim] to move [npc.her] [npc.arms] and [npc.legs]!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] tentacle-grabbed again, [npc.she] will be instantly defeated!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT,
+					ItemTag.PREVENTS_COMBAT_ESCAPE);
+		}
+	};
+
+	public static AbstractStatusEffect TENTACLE_RESTRICTION_SEX = new AbstractStatusEffect(10,
+			"Tentacle-bound",
+			"immobilised_tentacles",
+			PresetColour.BASE_ORANGE,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return UtilText.parse(target, type.getValue(), "[npc2.NameIsFull] using four of [npc2.her] [npc2.tentacles] to hold [npc.name] down and firmly prevent [npc.herHim] from moving!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
+				return false;
+			}
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.TENTACLE_RESTRICTION;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect TAIL_RESTRAIN_1 = new AbstractStatusEffect(10,
+			"Tail-grabbed",
+			"restrain_tail_1",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_GREEN_DARK,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "A strong, snake-like tail is wrapping itself around [npc.namePos] body, which is causing [npc.her] movements to be somewhat hindered!"
+						+ "<br/>[style.italicsMinorBad(If [npc.she] [npc.verb(get)] tail-constricted again, this effect will become more serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect TAIL_RESTRAIN_2 = new AbstractStatusEffect(10,
+			"Tail-embraced",
+			"restrain_tail_2",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_GREEN_DARK,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -50f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<>(Attribute.ACTION_POINTS, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "A strong, snake-like tail has firmly coiled itself around [npc.namePos] [npc.arms] and [npc.legs], which is causing [npc.her] movements to be significantly hindered!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] tail-constricted again, this effect will become extremely serious!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT);
+		}
+	};
+
+	public static AbstractStatusEffect TAIL_RESTRAIN_3 = new AbstractStatusEffect(10,
+			"Tail-constricted",
+			"restrain_tail_3",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_GREEN_DARK,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -75f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -15f),
+					new Value<>(Attribute.ACTION_POINTS, -2f)),
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot attempt to escape!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+				return UtilText.parse(target, "A strong, snake-like tail has constricted [npc.namePos] in a vice-like grip, making it all but impossible for [npc.herHim] to move [npc.her] [npc.arms] and [npc.legs]!"
+						+ "<br/>[style.italicsBad(If [npc.she] [npc.verb(get)] tail-constricted again, [npc.she] will be instantly defeated!)]");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public ArrayList<ItemTag> getTags() {
+			return Util.newArrayListOfValues(
+					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.HINDERS_LEG_MOVEMENT,
+					ItemTag.PREVENTS_COMBAT_ESCAPE);
+		}
+	};
 	
+	public static AbstractStatusEffect TAIL_CONSTRICTION_SEX = new AbstractStatusEffect(10,
+			"Constricted",
+			"immobilised_tail",
+			PresetColour.BASE_GREEN_DARK,
+			false,
+			null,
+			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return UtilText.parse(target, type.getValue(), "[npc2.NameIsFull] using [npc2.her] long, strong tail to constrict [npc.name] and firmly prevent [npc.herHim] from moving!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(!Main.game.isInSex()) {
+				return false;
+			}
+			Value<ImmobilisationType, GameCharacter> type = Main.sex.getImmobilisationType(target);
+			return type!=null && type.getKey()==ImmobilisationType.TAIL_CONSTRICTION;
+		}
+		@Override
+		public boolean isRemoveAtEndOfSex() {
+			return true;
+		}
+	};
+
 	public static AbstractStatusEffect BANEFUL_FISSURE = new AbstractStatusEffect(10,
 			"Fissure's Fumes",
 			null,
@@ -7099,7 +8755,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, -1f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7121,7 +8777,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, -2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7142,8 +8798,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7165,8 +8821,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<>(Attribute.RESISTANCE_ICE, 10f)),
 			Util.newArrayListOfValues("Unarmed attacks deal +1 damage per caster level",
 					"Unarmed attacks deal [style.boldFire(Fire Damage)]")) {
 		@Override
@@ -7189,9 +8845,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<>(Attribute.RESISTANCE_ICE, 10f)),
 			Util.newArrayListOfValues("Unarmed attacks deal +1 damage per caster level",
 					"Unarmed attacks deal [style.boldFire(Fire Damage)]")) {
 		@Override
@@ -7214,9 +8870,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<>(Attribute.RESISTANCE_ICE, 20f)),
 			Util.newArrayListOfValues("Unarmed attacks deal +1 damage per caster level",
 					"Unarmed attacks deal [style.boldFire(Fire Damage)]",
 					"Attackers take <b>5</b> [style.colourFire(Fire Damage)]")) {
@@ -7241,7 +8897,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 20f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7273,7 +8929,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7286,7 +8942,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -7357,8 +9013,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<>(Attribute.RESISTANCE_FIRE, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7382,7 +9038,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -20f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7404,7 +9060,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ACTION_POINTS, -1f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7425,7 +9081,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7447,8 +9103,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<>(Attribute.RESISTANCE_ICE, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7470,9 +9126,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7495,9 +9151,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7520,9 +9176,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.SPELL_COST_MODIFIER, -50f),
+					new Value<>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7545,7 +9201,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 20f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7578,7 +9234,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7662,8 +9318,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 25f),
+					new Value<>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7716,7 +9372,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_POISON,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -7743,7 +9399,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_POISON,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				@Override
@@ -7776,9 +9432,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_POISON,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, -15f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				@Override
@@ -7811,7 +9467,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7832,8 +9488,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7856,8 +9512,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -20f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues("<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -7902,8 +9558,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -20f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues("<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -7948,8 +9604,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 1f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7971,9 +9627,9 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7996,10 +9652,10 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 3f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 3f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8022,7 +9678,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8036,7 +9692,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -8059,8 +9715,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 5f),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8141,8 +9797,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 25f),
+					new Value<>(Attribute.RESISTANCE_POISON, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8166,7 +9822,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8188,7 +9844,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8245,7 +9901,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -20f)),
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -8273,7 +9929,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -20f)),
 			Util.newArrayListOfValues("<b>50</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -8301,7 +9957,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8323,8 +9979,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8347,8 +10003,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8371,8 +10027,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 2f)),
 			Util.newArrayListOfValues("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8385,7 +10041,7 @@ public class StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			boolean first=true;
-			for(GameCharacter combatant : Combat.getEnemies(target)) {
+			for(GameCharacter combatant : Main.combat.getEnemies(target)) {
 				Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(target, combatant, 10);
 				sb.append(UtilText.parse(combatant,
 						target, (first?"":"<br/>")+"<br/>[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as [npc2.namePos] Stone Shell explodes!")
@@ -8411,8 +10067,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 15f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8445,7 +10101,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8526,8 +10182,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8552,7 +10208,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8574,8 +10230,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -15f),
+					new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8598,7 +10254,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8620,7 +10276,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 30f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8643,7 +10299,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 30f)),
 			Util.newArrayListOfValues("[style.boldLust(Tease)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8666,7 +10322,7 @@ public class StatusEffect {
 			"telepathic_communication_power_of_suggestion_targeted",
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8685,7 +10341,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8707,7 +10363,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -8735,7 +10391,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			Util.newArrayListOfValues("<b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -8763,15 +10419,19 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
 			Util.newArrayListOfValues("[style.boldTerrible(All party members)] take <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			StringBuilder sb = new StringBuilder();
 			
-			for(GameCharacter combatant : Combat.getAllies(target)) {
+			List<GameCharacter> affectedCombatants = new ArrayList<>();
+			affectedCombatants.add(target);
+			affectedCombatants.addAll(Main.combat.getAllies(target));
+			
+			for(GameCharacter combatant : affectedCombatants) {
 				Value<String, Integer> damageValue = DamageType.LUST.damageTarget(null, combatant, 15);
-
+				
 				sb.append(UtilText.parse(combatant, "<br/>[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> [style.boldLust(lust damage)]!")+damageValue.getKey());
 			}
 			
@@ -8797,7 +10457,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8830,7 +10490,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -15f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8844,7 +10504,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(Main.game.isInCombat()) {
-				List<GameCharacter> enemies = Combat.getEnemies(target);
+				List<GameCharacter> enemies = Main.combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
 					if(combatant.isElemental()
@@ -8915,8 +10575,8 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_LUST,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 25f),
+					new Value<>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8940,11 +10600,11 @@ public class StatusEffect {
 			"cleanse_positive",
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<>(Attribute.RESISTANCE_ICE, 5f),
+					new Value<>(Attribute.RESISTANCE_POISON, 5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8962,11 +10622,11 @@ public class StatusEffect {
 			"cleanse_negative",
 			PresetColour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -5f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -5f),
+					new Value<>(Attribute.RESISTANCE_FIRE, -5f),
+					new Value<>(Attribute.RESISTANCE_ICE, -5f),
+					new Value<>(Attribute.RESISTANCE_POISON, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8984,7 +10644,7 @@ public class StatusEffect {
 			null,
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 100f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9006,11 +10666,11 @@ public class StatusEffect {
 			null,
 			PresetColour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, 100f)),
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			GameCharacter randomEnemy = Combat.getEnemies(target).get(Util.random.nextInt(Combat.getEnemies(target).size()));
+			GameCharacter randomEnemy = Main.combat.getEnemies(target).get(Util.random.nextInt(Main.combat.getEnemies(target).size()));
 			
 			Value<String, Integer> damageValue = DamageType.LUST.damageTarget(null, randomEnemy, 15);
 
@@ -9064,6 +10724,35 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.isWearingCondom();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect FLOWING_WATER = new AbstractStatusEffect(80,
+			"Flowing Water",
+			"sexEffects/flowing_water",
+			PresetColour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_AQUA,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					"[style.colourDirty(Dirty body parts)] are [style.colourAqua(quickly cleaned)]")) {
+		public EffectBenefit getBeneficialStatus() {
+			return EffectBenefit.NEUTRAL;
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "The water flowing over [npc.namePos] body is preventing [npc.herHim] from getting dirty!");
+			}
+			return null;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex() && Main.sex.getInitialSexManager().isWashingScene();
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -9649,6 +11338,8 @@ public class StatusEffect {
 							break;
 						case VAGINA:
 							break;
+						case SPINNERET:
+							break;
 					}
 				}
 			}
@@ -9796,6 +11487,8 @@ public class StatusEffect {
 							case URETHRA_VAGINA:
 								break;
 							case VAGINA:
+								break;
+							case SPINNERET:
 								break;
 						}
 					}
@@ -10004,6 +11697,13 @@ public class StatusEffect {
 									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(cunnilingus)] on [npc.name]!"));
 								}
 								break;
+							case SPINNERET:
+								if(selfAction) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(oral)] on [npc.her] own spinneret!"));
+								} else {
+									descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing [style.boldSex(oral)] on [npc.namePos] spinneret!"));
+								}
+								break;
 						}
 					}
 				}
@@ -10160,6 +11860,8 @@ public class StatusEffect {
 								break;
 							case VAGINA:
 								break;
+							case SPINNERET:
+								break;
 						}
 					}
 				}
@@ -10194,6 +11896,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
+					&& (!target.isFeral() || target.getFeralAttributes().isBreastsPresent())
 					&& Main.sex.getAllParticipants(true).contains(target);
 		}
 		@Override
@@ -10320,6 +12023,8 @@ public class StatusEffect {
 							case URETHRA_VAGINA:
 								break;
 							case VAGINA:
+								break;
+							case SPINNERET:
 								break;
 						}
 					}
@@ -10481,6 +12186,8 @@ public class StatusEffect {
 								break;
 							case VAGINA:
 								break;
+							case SPINNERET:
+								break;
 						}
 					}
 				}
@@ -10517,7 +12224,7 @@ public class StatusEffect {
 			return Main.game.isInSex()
 					&& Main.sex.getAllParticipants(true).contains(target)
 					&& target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0;
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral());
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -10655,6 +12362,8 @@ public class StatusEffect {
 								break;
 							case VAGINA:
 								break;
+							case SPINNERET:
+								break;
 						}
 					}
 				}
@@ -10679,7 +12388,7 @@ public class StatusEffect {
 			return Main.game.isInSex()
 					&& Main.sex.getAllParticipants(true).contains(target)
 					&& target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.isBreastCrotchFuckableNipplePenetration()
 					&& Main.getProperties().hasValue(PropertyValue.nipplePenContent);
 		}
@@ -10807,6 +12516,8 @@ public class StatusEffect {
 							case URETHRA_VAGINA:
 								break;
 							case VAGINA:
+								break;
+							case SPINNERET:
 								break;
 						}
 					}
@@ -10958,6 +12669,8 @@ public class StatusEffect {
 								break;
 							case VAGINA:
 								break;
+							case SPINNERET:
+								break;
 						}
 					}
 				}
@@ -11008,7 +12721,7 @@ public class StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.VAGINA);
 		}
-				@Override
+		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, SexAreaOrifice.VAGINA);
 		}
@@ -11079,13 +12792,13 @@ public class StatusEffect {
 							break;
 						case CLIT:
 							if(selfAction) {
-								if(main.getVaginaClitorisSize()!=ClitorisSize.ZERO_AVERAGE) {
+								if(main.isClitorisPseudoPenis()) {
 									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(clit-fucking)] [npc.her] own [npc.pussy]!"));
 								} else {
 									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tribbing)] [npc.her] own [npc.pussy]!"));
 								}
 							} else {
-								if(main.getVaginaClitorisSize()!=ClitorisSize.ZERO_AVERAGE) {
+								if(main.isClitorisPseudoPenis()) {
 									descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
 											+" [style.boldSex(clit-fucking)] [npc.namePos] [npc.pussy]!"));
 								} else {
@@ -11158,11 +12871,13 @@ public class StatusEffect {
 							break;
 						case VAGINA:
 							if(selfAction) {
-								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tribbing)] [npc.her] own [npc.pussy]!"));
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tribbing)] [npc.her] own [npc.pussy]!")); //???
 							} else {
 								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
 										+" [style.boldSex(tribbing)] with [npc2.name]!"));
 							}
+							break;
+						case SPINNERET:
 							break;
 					}
 				}
@@ -11197,6 +12912,214 @@ public class StatusEffect {
 			return getOrificeSVGString(owner, SexAreaOrifice.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
 		}
 	};
+	
+	public static AbstractStatusEffect SPINNERET_STATUS = new AbstractStatusEffect(95,
+			"Spinneret status",
+			null,
+			PresetColour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.SPINNERET);
+		}
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.SPINNERET);
+		}
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.SPINNERET);
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			StringBuilder descriptionSB = new StringBuilder();
+			SexAreaOrifice type = SexAreaOrifice.SPINNERET;
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
+			
+			boolean descriptionAdded = false;
+			for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Main.sex.getOngoingCharactersUsingAreas(target, type, pen)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					boolean selfAction = target.equals(main);
+					switch(pen) {
+						case FINGER:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(fingering)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(fingering)] [npc.namePos] spinneret!"));
+							}
+							break;
+						case PENIS:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(fucking)] [npc.namePos] spinneret!"));
+							}
+							break;
+						case TAIL:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tail-fucking)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(tail-fucking)] [npc.namePos] spinneret!"));
+							}
+							break;
+						case TENTACLE:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tentacle-fucking)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(tentacle-fucking)] [npc.namePos] spinneret!"));
+							}
+							break;
+						case TONGUE:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(oral)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" performing [style.boldSex(oral)] on [npc.namePos] spinneret!"));
+							}
+							break;
+						case CLIT:
+							if(selfAction) {
+								if(main.isClitorisPseudoPenis()) {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(clit-fucking)] [npc.her] own spinneret!"));
+								} else {
+									descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tribbing)] [npc.her] own spinneret!"));
+								}
+							} else {
+								if(main.isClitorisPseudoPenis()) {
+									descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+											+" [style.boldSex(clit-fucking)] [npc.namePos] spinneret!"));
+								} else {
+									descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+											+" [style.boldSex(tribbing)] with [npc2.namePos] spinneret!"));
+								}
+							}
+							break;
+						case FOOT:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(pushing [npc.her] [npc.toes])] into [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))
+										+(names.size()==1?UtilText.parse(main, " [npc.is] [style.boldSex(pushing [npc.her] [npc.toes])]"):" are [style.boldSex(pushing their toes)]")
+										+"  into [npc.namePos] spinneret!"));
+							}
+							break;
+					}
+				}
+			}
+
+			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Main.sex.getOngoingCharactersUsingAreas(target, type, orifice)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					boolean selfAction = target.equals(main);
+					switch(orifice) {
+						case ANUS:
+							break;
+						case ASS:
+							break;
+						case BREAST:
+							break;
+						case NIPPLE:
+							break;
+						case BREAST_CROTCH:
+							break;
+						case NIPPLE_CROTCH:
+							break;
+						case MOUTH:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] performing [style.boldSex(oral)] on [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" performing [style.boldSex(oral)] on [npc2.namePos] spinneret!"));
+							}
+							break;
+						case THIGHS:
+							break;
+						case URETHRA_PENIS:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(fucking)] [npc.her] own spinneret!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(fucking)] [npc.namePos] spinneret!"));
+							}
+							break;
+						case URETHRA_VAGINA:
+							break;
+						case VAGINA:
+							if(selfAction) {
+								descriptionSB.append(UtilText.parse(target, "[npc.NameIsFull] [style.boldSex(tribbing)] [npc.her] own spinneret!")); //???
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(tribbing)] with [npc2.namePos] spinneret!"));
+							}
+							break;
+						case SPINNERET:
+							break;
+					}
+				}
+			}
+			
+			if(!descriptionAdded) {
+				descriptionSB.append("[style.boldDisabled(No ongoing actions.)]");
+			}
+			
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] spinneret"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
+			return descriptionSB.toString();
+		}
+		@Override
+		public List<Value<Integer, String>> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.SPINNERET);
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex()
+					&& Main.sex.getAllParticipants(true).contains(target)
+					&& target.hasSpinneret();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, SexAreaOrifice.SPINNERET, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaSpinneret());
+		}
+	};
+	
 	
 	public static AbstractStatusEffect THIGH_STATUS = new AbstractStatusEffect(95,
 			"Thigh status",
@@ -11313,6 +13236,8 @@ public class StatusEffect {
 								break;
 							case VAGINA:
 								break;
+							case SPINNERET:
+								break;
 						}
 					}
 				}
@@ -11369,15 +13294,22 @@ public class StatusEffect {
 	 * @param id Will be in the format of: 'innoxia_maid'.
 	 */
 	public static AbstractStatusEffect getStatusEffectFromId(String id) {
-		if(id.equals("BATH_BOOSTED")) {
-			id = "innoxia_cleaned_spa";
-		} else if(id.equals("BATH")) {
-			id = "innoxia_cleaned_bath";
-		} else if(id.equals("SHOWER")) {
-			id = "innoxia_cleaned_shower";
-		} else {
-			id = Util.getClosestStringMatch(id, idToStatusEffectMap.keySet());
+		if(id.equals("innoxia_massaged")) {
+			return CLEANED_MASSAGED;
+		} else if(id.equals("BATH_BOOSTED") || id.equals("innoxia_cleaned_spa")) {
+			return CLEANED_SPA;
+		} else if(id.equals("BATH") || id.equals("innoxia_cleaned_bath")) {
+			return CLEANED_BATH;
+		} else if(id.equals("SHOWER") || id.equals("innoxia_cleaned_shower")) {
+			return CLEANED_SHOWER;
 		}
+		
+		if(id.equals("innoxia_item_broodmother_pill")) {
+			return BROODMOTHER_PILL;
+		}
+		
+		id = Util.getClosestStringMatch(id, idToStatusEffectMap.keySet());
+		
 		return idToStatusEffectMap.get(id);
 	}
 	
@@ -11388,60 +13320,44 @@ public class StatusEffect {
 	static {
 		allStatusEffects = new ArrayList<>();
 		
-		//Add modded status effects:
-		File dir = new File("res/mods");
+		// Modded status effects:
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/statusEffects");
-					File[] innerDirectoryListing = modAuthorClothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-					if (innerDirectoryListing != null) {
-						for (File innerChild : innerDirectoryListing) {
-							try {
-								String id = modAuthorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-								AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerChild, modAuthorDirectory.getName(), true) {};
-								allStatusEffects.add(statusEffect);
-								statusEffectToIdMap.put(statusEffect, id);
-								idToStatusEffectMap.put(id, statusEffect);
-							} catch(Exception ex) {
-								System.err.println("Loading modded set bonus failed at 'StatusEffect' Code 1. File path: "+innerChild.getAbsolutePath());
-							}
-						}
-					}
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/statusEffects");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerEntry.getValue(), entry.getKey(), true) {};
+					allStatusEffects.add(statusEffect);
+					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
+					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
+				} catch(Exception ex) {
+					System.err.println("Loading modded status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
-		// Add in external res status effects:
-		
-		dir = new File("res/statusEffects");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						File[] innerDirectoryListing = authorDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-						if (innerDirectoryListing != null) {
-							for (File innerChild : innerDirectoryListing) {
-								try {
-									String id = authorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-									AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerChild, authorDirectory.getName(), true) {};
-									allStatusEffects.add(statusEffect);
-									statusEffectToIdMap.put(statusEffect, id);
-									idToStatusEffectMap.put(id, statusEffect);
-								} catch(Exception ex) {
-									System.err.println("Loading modded set bonus failed at 'StatusEffect' Code 2. File path: "+innerChild.getAbsolutePath());
-								}
-							}
-						}
-					}
+		// External res status effects:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/statusEffects");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					AbstractStatusEffect statusEffect = new AbstractStatusEffect(innerEntry.getValue(), entry.getKey(), false) {};
+					allStatusEffects.add(statusEffect);
+					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
+					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
+//					System.out.println("SE: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
+		// Hard-coded status effects (all those up above):
 		
 		Field[] fields = StatusEffect.class.getFields();
 		

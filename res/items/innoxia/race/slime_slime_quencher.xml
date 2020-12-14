@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Slime Quencher]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Slime Quenchers]]></namePlural>
+		<description><![CDATA[A small glass bottle of luminescent, fizzy pop. The label on the front reads 'Slime Quencher', and beneath this, there's a picture of a completely naked slime-girl pressing her breasts together and smiling at you.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">slime_slime_quencher.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>GENERIC_SEX</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_SEXUAL</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldSex(+1)] [style.boldWetness(Vagina Wetness)]]]></line>
+			<line><![CDATA[[style.boldSex(+1)] [style.boldWetness(Anal Wetness)]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A warm wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.incrementVaginaWetness(1)]
+			[#npc.incrementAssWetness(1)]
+			[#npc.addPotionEffect(ATTRIBUTE_DAMAGE_LUST, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>BAT_CAVERNS_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Slime Quencher and [npc.verb(start)] drinking the liquid contained within. The recognisable taste of a sugary energy drink fills [npc.namePos] mouth, and [npc.she] greedily [npc.verb(gulp)] down the all of the glowing beverage in a matter of seconds.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Slime Quencher and [npc.verb(get)] [npc2.name] to drink the liquid contained within. The recognisable taste of a sugary energy drink fills [npc2.namePos] mouth, and [npc2.she] greedily [npc2.verb(gulp)] down the all of the glowing beverage in a matter of seconds.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

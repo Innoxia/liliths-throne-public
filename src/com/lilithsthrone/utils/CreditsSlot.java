@@ -1,6 +1,6 @@
 package com.lilithsthrone.utils;
 
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 
 /**
  * @since 0.1.82
@@ -17,7 +17,7 @@ public class CreditsSlot {
 	private int epicCount;
 	private int legendaryCount;
 	
-	private Subspecies subspeciesTier;
+	private AbstractSubspecies subspeciesTier;
 	
 	public CreditsSlot(String name, String tagLine, int uncommonCount, int rareCount, int epicCount, int legendaryCount) {
 		this.name = name;
@@ -28,7 +28,7 @@ public class CreditsSlot {
 		this.legendaryCount = legendaryCount;
 	}
 	
-	public CreditsSlot(String name, String tagLine, int uncommonCount, int rareCount, int epicCount, int legendaryCount, Subspecies subspeciesTier) {
+	public CreditsSlot(String name, String tagLine, int uncommonCount, int rareCount, int epicCount, int legendaryCount, AbstractSubspecies subspeciesTier) {
 		this(name, tagLine, uncommonCount, rareCount, epicCount, legendaryCount);
 		this.subspeciesTier = subspeciesTier;
 	}
@@ -57,7 +57,7 @@ public class CreditsSlot {
 		return legendaryCount;
 	}
 
-	public Subspecies getSubspeciesTier() {
+	public AbstractSubspecies getSubspeciesTier() {
 		return subspeciesTier;
 	}
 	

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -445,7 +446,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
@@ -463,7 +464,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
@@ -810,9 +811,18 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(5000);
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
-						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
-						Main.game.getPlayerCell().getInventory().addItem(spellBook);
+						
+						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
+						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
+							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.SLAM));
+						} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
+						} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
+							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						}
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>[style.boldExcellent("+spellBook.getName()+")] added to your room's storage!</p>");
+						
 					}
 				};
 				

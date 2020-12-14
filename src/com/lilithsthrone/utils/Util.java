@@ -26,10 +26,15 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -44,7 +49,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3.9.2
+ * @version 0.4.0
  * @author Innoxia, CognitiveMist
  */
 public class Util {
@@ -186,6 +191,127 @@ public class Util {
 		}
 	}
 
+	/**
+	 * @param containingFolderId To be in the format: <b>"/statusEffects"</b>
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId) {
+		return getExternalModFilesById(containingFolderId, null, null);
+	}
+	
+	/**
+	 * @param containingFolderId To be in the format: <b>"/statusEffects"</b>
+	 * @param filterFolderName If a non-null String is passed in, only files within folders with that String as their name will be added to the returned map.
+	 * @param filterPathName If a non-null String is passed in, only files with that String as their name will be added to the returned map.
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId, String filterFolderName, String filterPathName) {
+		File dir = new File("res/mods");
+		Map<String, Map<String, File>> returnMap = new HashMap<>();
+		
+		if(dir.exists() && dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles();
+			if(directoryListing != null) {
+				for(File directory : directoryListing) {
+					String modAuthorName = directory.getName();
+					returnMap.putIfAbsent(modAuthorName, new HashMap<>());
+					File modAuthorDirectory = new File(directory.getAbsolutePath()+containingFolderId);
+					
+					populateMapFiles(modAuthorName, directory.getName()+"_", modAuthorDirectory, returnMap, filterFolderName, filterPathName);
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+
+	/**
+	 * @param containingFolderId To be in the format: <b>"res/statusEffects"</b>
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalFilesById(String containingFolderId) {
+		return getExternalFilesById(containingFolderId, null, null);
+	}
+	
+	/**
+	 * @param containingFolderId To be in the format: <b>"res/statusEffects"</b>
+	 * @param filterFolderName If a non-null String is passed in, only files within folders with that String as their name will be added to the returned map.
+	 * @param filterPathName If a non-null String is passed in, only files with that String as their name will be added to the returned map.
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalFilesById(String containingFolderId, String filterFolderName, String filterPathName) {
+		File dir = new File(containingFolderId);
+		Map<String, Map<String, File>> returnMap = new HashMap<>();
+		
+		if(dir.exists() && dir.isDirectory()) {
+			File[] authorDirectoriesListing = dir.listFiles();
+			if(authorDirectoriesListing != null) {
+				for(File authorDirectory : authorDirectoriesListing) {
+					if(authorDirectory.isDirectory()){
+						String authorName = authorDirectory.getName();
+						returnMap.putIfAbsent(authorName, new HashMap<>());
+						
+						populateMapFiles(authorName, authorDirectory.getName()+"_", authorDirectory, returnMap, filterFolderName, filterPathName);
+					}
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+	
+	private static Map<String, Map<String, File>> populateMapFiles(String modAuthorName, String idPrefix, File directory, Map<String, Map<String, File>> returnMap, String filterFolderName, String filterPathName) {
+		if(filterFolderName==null || filterFolderName.equalsIgnoreCase(directory.getName())) {
+			File[] innerDirectoryListing = directory.listFiles((path, filename) -> filename.toLowerCase().endsWith(".xml"));
+			
+			if(innerDirectoryListing != null) {
+				for(File innerChild : innerDirectoryListing) {
+					if(filterPathName==null || filterPathName.equalsIgnoreCase(innerChild.getName().split("\\.")[0])) {
+						try {
+							String id = (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0];
+							returnMap.get(modAuthorName).put(id, innerChild);
+						} catch(Exception ex) {
+							System.err.println("Loading external mod files failed at Util.getExternalModFilesById()");
+							System.err.println("File path: "+innerChild.getAbsolutePath());
+							ex.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+		
+		File[] additionalDirectories =  directory.listFiles();
+
+		if(additionalDirectories != null) {
+			for(File f : additionalDirectories) {
+				if(f.isDirectory()) {
+					populateMapFiles(modAuthorName, (idPrefix!=null?idPrefix:"")+f.getName()+"_", f, returnMap, filterFolderName, filterPathName);
+				}
+			}
+		}
+		
+		return returnMap;
+	}
+	
+	public static String getXmlRootElementName(File XMLFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(XMLFile);
+			
+			// Cast magic:
+			doc.getDocumentElement().normalize();
+			
+			Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+			
+			return coreElement.getTagName();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace(System.err);
+			return "";
+		}
+	}
+	
 	public static class Value<T, S> {
 		private T key;
 		private S value;
@@ -753,7 +879,6 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-
 		StringBuilder modifiedSentence = new StringBuilder();
 		int openingCurly = 0;
 		int closingCurly = 0;
@@ -1001,6 +1126,12 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("You'd", "You's");
 		slovenlySpeechReplacementMap.put("you'd", "you's");
+
+		slovenlySpeechReplacementMap.put("Her", "'Er");
+		slovenlySpeechReplacementMap.put("her", "'er");
+
+		slovenlySpeechReplacementMap.put("His", "'Is");
+		slovenlySpeechReplacementMap.put("his", "'is");
 		
 		slovenlySpeechReplacementMap.put("Going to", "Gonna");
 		slovenlySpeechReplacementMap.put("going to", "gonna");
@@ -1087,6 +1218,9 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Yes", "Yeah");
 		slovenlySpeechReplacementMap.put("yes", "yeah");
+		
+		slovenlySpeechReplacementMap.put("Hurry", "'Urry");
+		slovenlySpeechReplacementMap.put("hurry", "'urry");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1096,6 +1230,8 @@ public class Util {
 			<br/>You -> Ya
 			<br/>Yourself - Yerself
 			<br/>You'd -> You's
+			<br/>Her -> 'Er
+			<br/>His -> 'Is
 			<br/>To -> Ta
 			<br/>Into -> inta
 			<br/>The -> Da
@@ -1125,6 +1261,7 @@ public class Util {
 			<br/>Here -> 'ere
 			<br/>Very -> Real
 			<br/>Yes -> Yeah
+			<br/>Hurry -> 'Urry
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.
@@ -1133,9 +1270,9 @@ public class Util {
 		//Use non-letter regex replacement ([^A-Za-z0-9]) 
 		String modifiedSentence = sentence;
 		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
-			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9\\.]|^)"+entry.getKey()+"([^A-Za-z0-9\\]])", "$1"+entry.getValue()+"$2");
 		}
-		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9\\]])", "in'$1");
 		return modifiedSentence;
 	}
 	
@@ -1228,9 +1365,9 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
-	public static String subspeciesToStringList(Collection<Subspecies> subspecies, boolean capitalise) {
+	public static String subspeciesToStringList(Collection<AbstractSubspecies> subspecies, boolean capitalise) {
 		return Util.toStringList(subspecies,
-				(Subspecies o) -> 
+				(AbstractSubspecies o) -> 
 				"<span style='color:"+o.getColour(null).toWebHexString()+";'>"
 					+(capitalise
 							?Util.capitaliseSentence(o.getNamePlural(null))
@@ -1324,7 +1461,7 @@ public class Util {
 			}
 		}
 		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
-//		throw new IllegalArgumentException();
+//		new IllegalArgumentException().printStackTrace(System.err);
 		return closestString;
 	}
 

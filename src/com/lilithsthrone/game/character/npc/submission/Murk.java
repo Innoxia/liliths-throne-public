@@ -13,8 +13,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -68,7 +68,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.submission.SAMurkSpecials;
 import com.lilithsthrone.main.Main;
@@ -90,7 +89,7 @@ public class Murk extends NPC {
 	}
 	
 	public Murk(boolean isImported) {
-		super(isImported, new NameTriplet("Murk", "Missy", "Missy"), "Triche",
+		super(isImported, new NameTriplet("Murk"), "Triche",
 				"",
 				36, Month.JANUARY, 12,
 				10, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
@@ -134,6 +133,9 @@ public class Murk extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREY_GREEN), false);
 			this.setPenisSize(38);
 			this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.4")) {
+			this.setName(new NameTriplet("Murk"));
 		}
 	}
 
@@ -290,13 +292,15 @@ public class Murk extends NPC {
 		return sb.toString();
 	}
 	
-	public void applyFeminisation() {
+	public String applyFeminisation() {
+		StringBuilder sb = new StringBuilder();
+		
 		this.clearFetishes();
 		this.clearFetishDesires();
 		
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+		sb.append(this.addFetish(Fetish.FETISH_SUBMISSIVE));
+		sb.append(this.addFetish(Fetish.FETISH_MASOCHIST));
+		sb.append(this.addFetish(Fetish.FETISH_EXHIBITIONIST));
 		
 		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
@@ -308,7 +312,7 @@ public class Murk extends NPC {
 		// Body:
 		// Core:
 		this.setHeight(146);
-		this.setFemininity(75);
+		sb.append(this.setFemininity(75));
 		this.setMuscle(Muscle.ZERO_SOFT.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
@@ -320,7 +324,7 @@ public class Murk extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_PINK_PALE), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
-		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH);
+		sb.append(this.setHairLength(HairLength.THREE_SHOULDER_LENGTH));
 		this.setHairStyle(HairStyle.LOOSE);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
@@ -330,19 +334,19 @@ public class Murk extends NPC {
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
 		// Face:
-		this.setLipSize(LipSize.TWO_FULL);
+		sb.append(this.setLipSize(LipSize.TWO_FULL));
 		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		
 		// Chest:
-		this.setBreastSize(CupSize.DD.getMeasurement());
+		sb.append(this.setBreastSize(CupSize.DD.getMeasurement()));
 		this.setBreastShape(BreastShape.POINTY);
-		this.setNippleSize(NippleSize.THREE_LARGE);
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		sb.append(this.setNippleSize(NippleSize.THREE_LARGE));
+		sb.append(this.setAreolaeSize(AreolaeSize.THREE_LARGE));
 		
 		// Ass:
-		this.setAssSize(AssSize.FOUR_LARGE);
-		this.setHipSize(HipSize.FOUR_WOMANLY);
+		sb.append(this.setAssSize(AssSize.FOUR_LARGE));
+		sb.append(this.setHipSize(HipSize.FOUR_WOMANLY));
 		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setAssWetness(Wetness.ONE_SLIGHTLY_MOIST);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
@@ -350,20 +354,22 @@ public class Murk extends NPC {
 		// Anus modifiers
 		
 		// Penis:
-		this.setPenisType(PenisType.NONE);
+		sb.append(this.setPenisType(PenisType.NONE));
 		
 		// Vagina:
-		this.setVaginaType(VaginaType.RAT_MORPH);
+		sb.append(this.setVaginaType(VaginaType.RAT_MORPH));
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
-		this.setVaginaSquirter(true);
+		sb.append(this.setVaginaLabiaSize(LabiaSize.THREE_LARGE));
+		sb.append(this.setVaginaSquirter(true));
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
-		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		sb.append(this.setVaginaWetness(Wetness.FOUR_SLIMY));
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
 		
 		// Feet:
 		// Foot shape
+		
+		return sb.toString();
 	}
 	
 	@Override
@@ -373,6 +379,9 @@ public class Murk extends NPC {
 
 	@Override
 	public String getSpeechColour() {
+		if(this.isFeminine()) {
+			return PresetColour.BASE_TAN.toWebHexString();
+		}
 		return PresetColour.BASE_BROWN.toWebHexString();
 	}
 	
@@ -429,10 +438,10 @@ public class Murk extends NPC {
 		return super.getOrgasmsBeforeSatisfied();
 	}
 	
-	@Override
-	public SexPace getSexPaceDomPreference(){
-		return SexPace.DOM_NORMAL;
-	}
+//	@Override
+//	public SexPace getSexPaceDomPreference(){
+//		return SexPace.DOM_NORMAL;
+//	}
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
@@ -517,7 +526,8 @@ public class Murk extends NPC {
 		}
 
 		if(!availableLines.isEmpty()) {
-			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
+			String returnedLine = Util.randomItemFrom(availableLines);
+			return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 		}
 		return super.getDirtyTalkPenisPenetrating(target, isPlayerDom);
 	}

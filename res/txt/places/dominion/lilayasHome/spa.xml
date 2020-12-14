@@ -476,7 +476,7 @@
 				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
 					 Acting in a very professional manner, [npc.she] starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this is to your satisfaction, [pc.name]...)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
-					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical content once I've finished...)]
+					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical contact once I've finished...)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
 					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] works [npc.her] way down the rest of your body while crudely exclaiming, [npc.speech(I hope you're planning on having a good fuck after this!)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))
@@ -578,7 +578,7 @@
 				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
 					 Acting in a very professional manner, [npc.she] starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this is to your satisfaction, [pc.name]...)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
-					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical content once I've finished...)]
+					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical contact once I've finished...)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
 					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] works [npc.her] way down the rest of your body while crudely exclaiming, [npc.speech(I hope you're planning on having a good fuck after this!)]
 				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))

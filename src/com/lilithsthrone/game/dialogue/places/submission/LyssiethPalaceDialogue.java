@@ -54,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class LyssiethPalaceDialogue {
@@ -74,15 +74,31 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", PlaceType.SUBMISSION_LILIN_PALACE_GATE.getDialogue(false)) {
+				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", ENTRANCE_LEAVING) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+						Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN, false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING"));
 					}
 				};
 			}
 			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_LEAVING = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PlaceType.SUBMISSION_LILIN_PALACE_CAVERN.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	

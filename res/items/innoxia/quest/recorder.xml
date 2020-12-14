@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>50000</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[arcane recorder]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[arcane recorders]]></namePlural>
+		<description><![CDATA[An arcane recorder given to you by Wes. Resembling an old-fashioned camcorder, this device functions in much the same way as any old video recorder from your old reality.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>recorder.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_TAN</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Capable of creating up to 30 minutes of film footage]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			Resembling an old-fashioned camcorder, this device functions in much the same way as any old video recorder from your old reality. The model code 'C4M-1L' is printed in bold letters on one side of it, while on the rear, there's a sticker proclaiming that it is the 'Property of Dominion Enforcers'.
+		</p>
+		<p style='text-align:center;'>
+			<i>You decide not to activate the recorder at the present moment, as you need to save the film for recording Elle's criminal activity...</i>
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the arcane recorder...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] arcane recorder to [npc2.name], who is duly impressed by [npc.her] possession of such a rare device...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -20,12 +20,13 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
-import com.lilithsthrone.game.sex.sexActions.dominion.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.dominion.PetMounting;
 import com.lilithsthrone.game.sex.sexActions.dominion.PetOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.PixShower;
 import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
+import com.lilithsthrone.game.sex.sexActions.universal.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.universal.HandHolding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -274,6 +275,24 @@ public class SexPositionUnique {
 			true,
 			null, Util.newArrayListOfValues(GloryHole.class)) {
 		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			List<SexActionInterface> blockedActions = Util.newArrayListOfValues(
+					GenericOrgasms.GENERIC_PREPARATION_DENIAL,
+					PlayerTalk.PLAYER_OFFER_ANAL,
+					PlayerTalk.PLAYER_OFFER_NAIZURI,
+					PlayerTalk.PLAYER_OFFER_NIPPLE,
+					PlayerTalk.PLAYER_OFFER_ORAL,
+					PlayerTalk.PLAYER_OFFER_PAIZURI,
+					PlayerTalk.PLAYER_OFFER_VAGINAL,
+					PlayerTalk.PLAYER_REQUEST_ANAL,
+					PlayerTalk.PLAYER_REQUEST_ORAL,
+					PlayerTalk.PLAYER_REQUEST_VAGINAL);
+			if(blockedActions.contains(action)) {
+				return true;
+			}
+			return super.isActionBlocked(performer, target, action);
+		}
+		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
 			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_KNEELING));
@@ -381,7 +400,7 @@ public class SexPositionUnique {
 
 			if(Main.sex.getTotalParticipantCount(false)==3) {
 				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
-				sb.append(" On the other side of the stall, [npc.namePos] leaning down to continue pleasuring [npc3.namePos] gloryhole with [npc.her] mouth.");
+				sb.append(" On the other side of the stall, [npc.name] [npc.is] leaning down to continue pleasuring [npc3.namePos] gloryhole with [npc.her] mouth.");
 			}
 			
 			return UtilText.parse(characters, sb.toString());

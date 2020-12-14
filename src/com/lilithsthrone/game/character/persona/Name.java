@@ -720,7 +720,7 @@ public class Name {
 			name = getDemonName();
 		} else if(r==Race.REINDEER_MORPH) {
 			name = Util.randomItemFrom(reindeer);
-		} else if(r==Race.REINDEER_MORPH) {
+		} else if(r==Race.HORSE_MORPH) {
 			name = Util.randomItemFrom(equine);
 		}
 		

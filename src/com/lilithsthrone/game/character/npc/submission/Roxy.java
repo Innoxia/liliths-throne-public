@@ -11,8 +11,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -57,7 +57,6 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
@@ -81,8 +80,8 @@ public class Roxy extends NPC {
 			ItemType.CIGARETTE_PACK,
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,
-			ItemType.VIXENS_VIRILITY,
-			ItemType.PROMISCUITY_PILL,
+			ItemType.getItemTypeFromId("innoxia_pills_fertility"),
+			ItemType.getItemTypeFromId("innoxia_pills_sterility"),
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
 
@@ -110,7 +109,7 @@ public class Roxy extends NPC {
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 
-		buyModifier=0.4f;
+		buyModifier=0.3f;
 		sellModifier=2.5f;
 		
 		if(!isImported) {
@@ -143,6 +142,10 @@ public class Roxy extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.5")) {
+			buyModifier=0.3f;
+			sellModifier=2.5f;
 		}
 	}
 
@@ -340,11 +343,11 @@ public class Roxy extends NPC {
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing!=null
-					&& (clothing.getRarity()==Rarity.COMMON || clothing.isCondom(clothing.getEquipSlots().get(0)))
+					&& (clothing.getRarity()==Rarity.COMMON || clothing.isDefaultSlotCondom())
 					&& (clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)
 							|| clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
 							|| clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH))) {
-				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
+				if(clothing.isDefaultSlotCondom()) {
 					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
 					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
 					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
@@ -397,11 +400,7 @@ public class Roxy extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		if(item instanceof AbstractItem) {
-			return true;
-		}
-		
-		return item instanceof AbstractClothing;
+		return true;
 	}
 
 	@Override

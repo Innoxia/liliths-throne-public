@@ -14,10 +14,10 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaOfficeDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomArthur;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
@@ -912,6 +912,7 @@ public class PlaceUpgrade {
 			null) {
 		@Override
 		public DialogueNode getInstallationDialogue(Cell c) {
+			LilayaSpa.setCellInstallation(c);
 			return LilayaSpa.SPA_INSTALLATION;
 		}
 		@Override

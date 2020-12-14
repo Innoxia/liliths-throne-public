@@ -14,8 +14,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -124,9 +124,6 @@ public class Brax extends NPC {
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
@@ -143,6 +140,9 @@ public class Brax extends NPC {
 				tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 			potion.setName("Brax's Surprise");
 			this.addItem(potion, false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.7") && !this.isSlave()) {
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -296,11 +296,6 @@ public class Brax extends NPC {
 			}
 			
 		} else {
-			// These are hanging up in his office:
-//			this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false), true, this);
-//			this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
-//			this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), true, this);
-			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_STEEL, false), true, this);
 
@@ -487,7 +482,7 @@ public class Brax extends NPC {
 	@SuppressWarnings("fallthrough")
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_wolf_meat_and_marrow");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 		

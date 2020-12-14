@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -17,7 +18,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class CMWeaponSpecials {
 	
-	public static CombatMove MKAR_MAG_DUMP = new CombatMove("MKAR_MAG_DUMP",
+	public static AbstractCombatMove MKAR_MAG_DUMP = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "mag dump",
             2,
             2,
@@ -32,6 +33,10 @@ public class CMWeaponSpecials {
 		private int getBulletDamage() {
 			return 21_000;
 		}
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(source.hasWeaponEquipped(WeaponType.getWeaponTypeFromId("innoxia_gun_mkar")), "Available to characters who have an equipped MKAR.");
+        }
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
@@ -100,7 +105,7 @@ public class CMWeaponSpecials {
     };
     
 
-	public static CombatMove BR14_MAG_DUMP = new CombatMove("BR14_MAG_DUMP",
+	public static AbstractCombatMove BR14_MAG_DUMP = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "mag dump",
             2,
             2,
@@ -115,6 +120,10 @@ public class CMWeaponSpecials {
 		private int getBulletDamage() {
 			return 26_000;
 		}
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(source.hasWeaponEquipped(WeaponType.getWeaponTypeFromId("innoxia_gun_br14")), "Available to characters who have an equipped BR14.");
+        }
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
