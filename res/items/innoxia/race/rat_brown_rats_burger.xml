@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>80</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Brown Rat's Burger]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Brown Rat's Burgers]]></namePlural>
+		<description><![CDATA[A double-cheeseburger, wrapped up in greaseproof paper. On the wrapper, there's a picture of a brown-furred rat-boy greedily shoving one of these burgers into his mouth.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/rat/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">rat_brown_rats_burger.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_RAT_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[rat]]></potionDescriptor>
+		<associatedRace>RAT_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot more energetic...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Unwrapping the Brown Rat's Burger's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within. Bringing it up to [npc.her] mouth, [npc.she] [npc.verb(take)] a big bite, and [npc.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc.herHim] a few moments to wolf down the meal.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Unwrapping the Brown Rat's Burger's paper covering, [npc.name] quickly [npc.verb(reveal)] the greasy cheeseburger contained within, before offering it to [npc2.name]. Bringing it up to [npc2.her] mouth, [npc2.name] [npc2.verb(take)] a big bite, and [npc2.verb(discover)] that it's absolutely delicious. Encouraged by the taste, it only takes [npc2.herHim] a few moments to wolf down the meal.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

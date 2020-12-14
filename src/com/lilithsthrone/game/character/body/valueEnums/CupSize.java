@@ -148,6 +148,18 @@ public enum CupSize {
 	public static CupSize getMinimumCupSizeForBreasts() {
 		return CupSize.AA;
 	}
+	
+	public static CupSize getMinimumCupSizeForEggIncubation() {
+		return CupSize.C;
+	}
+	
+	public static CupSize getMinimumCupSizeForPaizuri() {
+		return CupSize.C;
+	}
+	
+	public static CupSize getMinimumCupSizeForPenetration() {
+		return CupSize.C;
+	}
 
 	/**
 	 * @param size Measurement in inches from bust to underbust.

@@ -1,0 +1,64 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <radialGradient id="radialGradient4459" cx="112.38" cy="31.701" r="25.025" gradientTransform="matrix(1.2468 0 0 .55392 -107.98 15.646)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#decd87" offset="0"/>
+   <stop stop-color="#f4eed7" offset="1"/>
+  </radialGradient>
+  <radialGradient id="radialGradient4469" cx="111.79" cy="24.404" r="22.416" gradientTransform="matrix(1.4107 -.0024937 .0010598 .60205 -126.33 9.1984)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f790e2" offset="0"/>
+   <stop stop-color="#fa9be7" offset=".598"/>
+   <stop stop-color="#ffcffe" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path d="m7.0236 24.68c-4.3664 1.6957-5.1756 5.5534-5.5896 9.2104-0.33914 3.0024 1.1197 5.1993 3.1483 8.1867 3.0423 4.4774 8.3251 6.0409 12.91 7.2416 6.8289 1.788 13.46 1.6857 20.074 1.2593 8.6443-0.55734 14.21-2.6171 18.814-5.4312 3.4163-2.0885 5.2043-4.637 5.9038-7.7142 1.4239-6.2591-3.3889-10.823-5.6681-13.067z" fill="url(#radialGradient4459)" fill-rule="evenodd" stroke="#000" stroke-width=".4"/>
+ <path d="m4.9763 29.955c1.6209 5.5235 9.0296 6.7628 15.901 8.5807 6.5696 1.7368 13.029 3.9275 21.57 1.6533 6.9274-1.8466 13.891-3.753 16.294-8.8962 0.93513-2.0037 0.56108-4.551-0.47255-6.4549-1.7219-3.172-5.3814-5.7192-10.47-7.5558-4.1956-1.5162-8.5034-2.0473-15.901-1.8117-4.6208 0.14837-11.334 0.13342-18.892 3.7779-4.7417 2.2879-9.7789 4.7392-8.0296 10.707z" fill="url(#radialGradient4469)" fill-rule="evenodd" stroke="#000" stroke-width=".4"/>
+ <g fill="#d5f" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="23.963" cy="32.741" rx=".97378" ry=".94635" stroke-width=".31171"/>
+  <ellipse cx="46.535" cy="30.848" rx=".97378" ry=".94635" stroke-width=".31171"/>
+  <ellipse cx="33.899" cy="26.229" rx=".83413" ry=".7506" stroke-width=".25685"/>
+  <circle cx="25.939" cy="17.908" r=".63713" stroke-width=".20697"/>
+  <ellipse cx="41.943" cy="18.297" rx=".61843" ry=".53614" stroke-width=".18703"/>
+  <ellipse cx="10.548" cy="23.39" rx=".66456" ry=".6097" stroke-width=".20697"/>
+ </g>
+ <g fill="#f06" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke-width=".31171">
+   <ellipse cx="14.083" cy="30.848" rx=".97378" ry=".94635"/>
+   <ellipse cx="34.177" cy="37.028" rx=".97378" ry=".94635"/>
+   <ellipse cx="56.219" cy="28.066" rx=".97378" ry=".94635"/>
+  </g>
+  <ellipse cx="25.911" cy="23.473" rx=".81044" ry=".72691" stroke-width=".24937"/>
+  <ellipse cx="48.204" cy="21.497" rx=".69075" ry=".60721" stroke-width=".21072"/>
+  <ellipse cx="34.483" cy="16.767" rx=".61718" ry=".56108" stroke-width=".19077"/>
+ </g>
+ <g fill="#0cf" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="41.135" cy="34.467" rx=".97378" ry=".94635" stroke-width=".31171"/>
+  <ellipse cx="20.289" cy="28.483" rx=".76306" ry=".67953" stroke-width=".23316"/>
+  <ellipse cx="44.252" cy="25.059" rx=".68327" ry=".7107" stroke-width=".22568"/>
+  <ellipse cx="18.953" cy="20.162" rx=".66456" ry=".6097" stroke-width=".20697"/>
+  <ellipse cx="34.205" cy="21.359" rx=".66706" ry=".58352" stroke-width=".20199"/>
+  <ellipse cx="55.218" cy="24.086" rx=".68825" ry=".63339" stroke-width=".21446"/>
+ </g>
+ <g fill="#37c871" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="34.344" cy="31.099" r=".8279" stroke-width=".26932"/>
+  <circle cx="15.586" cy="26.34" r=".8279" stroke-width=".26932"/>
+  <ellipse cx="40.244" cy="22.945" rx=".78925" ry=".67703" stroke-width=".2369"/>
+  <ellipse cx="30.225" cy="19.744" rx=".591" ry=".56357" stroke-width=".18703"/>
+  <ellipse cx="20.484" cy="18.102" rx=".54487" ry=".49001" stroke-width=".16832"/>
+  <ellipse cx="47.563" cy="19.605" rx=".61843" ry=".53614" stroke-width=".18703"/>
+ </g>
+ <g fill="#ffd42a" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="29.724" cy="37.028" r=".8279" stroke-width=".26932"/>
+  <ellipse cx="10.576" cy="28.344" rx=".68825" ry=".63339" stroke-width=".21446"/>
+  <ellipse cx="29.167" cy="27.37" rx=".63464" ry=".66332" stroke-width=".21072"/>
+  <ellipse cx="38.268" cy="19.105" rx=".56731" ry=".53863" stroke-width=".17954"/>
+  <ellipse cx="51.21" cy="26.451" rx=".78426" ry=".7294" stroke-width=".24563"/>
+  <ellipse cx="15.335" cy="21.831" rx=".76681" ry=".62716" stroke-width=".22568"/>
+ </g>
+ <g fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="28.499" cy="31.072" r=".8279" stroke-width=".26932"/>
+  <ellipse cx="40.411" cy="28.4" rx=".68825" ry=".63339" stroke-width=".21446"/>
+  <ellipse cx="44.809" cy="20.941" rx=".59349" ry=".53739" stroke-width=".18329"/>
+  <ellipse cx="21.625" cy="22.805" rx=".71319" ry=".65708" stroke-width=".22194"/>
+  <ellipse cx="7.4313" cy="26.034" rx=".66955" ry=".55734" stroke-width=".19825"/>
+ </g>
+</svg>

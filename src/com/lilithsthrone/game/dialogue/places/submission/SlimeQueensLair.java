@@ -1237,7 +1237,7 @@ public class SlimeQueensLair {
 	public static final DialogueNode SLIME_QUEEN_BATH = new DialogueNode("Bed Chamber", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_bath"), 240+30));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_BATH, 240+30));
 		}
 		@Override
 		public String getContent() {

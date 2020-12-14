@@ -32,7 +32,7 @@
 		
 		<applyEffects><![CDATA[
 			[##npc.removeStatusEffect(SE_PROMISCUITY_PILL)]
-			[##npc.addStatusEffect(SE_innoxia_item_broodmother_pill, 60*24*60)]
+			[##npc.addStatusEffect(SE_BROODMOTHER_PILL, 60*24*60)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				As the pill slides down [npc.namePos] throat, [npc.she] [npc.verb(assume)] there's little effect to be felt, but suddenly a powerful cramp takes hold of [npc.her] stomach!
 			</p>
@@ -65,7 +65,7 @@
 				#ENDIF
 			</p>
 			<p style='text-align:center; margin-top:0; padding-top:0;'>
-				[style.colourPink([npc.Name] [npc.is] now experiencing <i>'[#SE_innoxia_item_broodmother_pill.getName(npc)]'</i> for the next 24 hours!)]
+				[style.colourPink([npc.Name] [npc.is] now experiencing <i>'[#SE_BROODMOTHER_PILL.getName(npc)]'</i> for the next 24 hours!)]
 			</p>
 		]]></applyEffects>
 		

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bag of]]></determiner>
+		<name><![CDATA[Bone Crunchers]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Bone Crunchers]]></namePlural>
+		<description><![CDATA[A brown paper bag, containing half a dozen pieces of roasted bone. Although the juicy marrow is all that most normal people would eat, an image on the back of the bag shows a buff hyena-girl using her strong jaws to crunch and swallow every last piece of them.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/mods/innoxia/race/hyena/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">hyena_bone_crunchers.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_hyena</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[hyena]]></potionDescriptor>
+		<associatedRace>innoxia_hyena</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the top of the brown paper bag and [npc.verb(breathe)] in the rich, meaty smell of its contents. Unable to resist the delicious-looking pieces of roasted bone found inside, [npc.she]
+		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena)
+			 [npc.verb(start)] using [npc.her] powerful hyena jaws to crunch each of them into pieces, and in a matter of moments [npc.has] completely devoured the entire bag.
+		#ELSE
+			 [npc.verb(start)] eagerly sucking the delicious marrow out of each of them, and in a matter of moments [npc.has] completely devoured the entire bag.
+		#ENDIF
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the top of the brown paper bag and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to breathe in the rich, meaty smell of its contents. Unable to resist the delicious-looking pieces of roasted bone found inside, [npc2.she]
+		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena)
+			 [npc2.verb(start)] using [npc2.her] powerful hyena jaws to crunch each of them into pieces, and in a matter of moments [npc2.has] completely devoured the entire bag.
+		#ELSE
+			 [npc2.verb(start)] eagerly sucking the delicious marrow out of each of them, and in a matter of moments [npc2.has] completely devoured the entire bag.
+		#ENDIF
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

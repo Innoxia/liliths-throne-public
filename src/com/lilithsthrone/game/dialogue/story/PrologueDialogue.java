@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -445,7 +446,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
@@ -463,7 +464,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);

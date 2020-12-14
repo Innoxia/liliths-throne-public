@@ -350,6 +350,14 @@ public class GenericPositioning {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_RECEIVING = new SexAction(
@@ -695,6 +703,14 @@ public class GenericPositioning {
 				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 			}
 			return new ArrayList<>(fetishes);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 	
@@ -2040,7 +2056,8 @@ public class GenericPositioning {
 				return false;
 			case BIPEDAL:
 			case CEPHALOPOD:
-			case TAUR:
+			case QUADRUPEDAL:
+			case AVIAN:
 				return true;
 		}
 		return true;

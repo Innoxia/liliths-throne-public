@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
@@ -44,7 +43,7 @@ public class HomeImprovements {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
 			@Override
 			public void turnUpdate() {
-				if(this.getGenitalArrangement()!=GenitalArrangement.CLOACA) {
+				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
 					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
 					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
 				}
@@ -52,7 +51,7 @@ public class HomeImprovements {
 		};
 		
 		npc.setRaceConcealed(true);
-		CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues());
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
 		
 		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, found you offering to service [npc.her] cock at a gloryhole...");
 		
@@ -97,7 +96,7 @@ public class HomeImprovements {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
 
 		npc.setRaceConcealed(true);
-		CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues());
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
 		
 		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, decided to spend some time servicing the gloryhole [npc.she] found there...");
 		

@@ -2,7 +2,7 @@ package com.lilithsthrone.world.population;
 
 import java.util.Map;
 
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 
 /**
@@ -15,9 +15,9 @@ public class Population {
 	private boolean pluralPopulation;
 	private AbstractPopulationType type;
 	private PopulationDensity density;
-	private Map<Subspecies, SubspeciesSpawnRarity> species;
+	private Map<AbstractSubspecies, SubspeciesSpawnRarity> species;
 	
-	public Population(boolean pluralPopulation, AbstractPopulationType type, PopulationDensity density, Map<Subspecies, SubspeciesSpawnRarity> species) {
+	public Population(boolean pluralPopulation, AbstractPopulationType type, PopulationDensity density, Map<AbstractSubspecies, SubspeciesSpawnRarity> species) {
 		this.pluralPopulation = pluralPopulation;
 		this.type = type;
 		this.density = density;
@@ -36,7 +36,7 @@ public class Population {
 		return density;
 	}
 
-	public Map<Subspecies, SubspeciesSpawnRarity> getSpecies() {
+	public Map<AbstractSubspecies, SubspeciesSpawnRarity> getSpecies() {
 		return species;
 	}
 

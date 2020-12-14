@@ -397,6 +397,20 @@
 	</htmlContent>
 	
 	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Spinneret', and as you start reading through it, Helena's flashes you a dirty grin and teases, [helena.speech(I've heard that some spider-girls prefer to have their spinneret used even more than their pussy...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Spinneret', and as you start reading through it, Helena says, [helena.speech(We'll have your slave's spinneret altered to fit whatever form you desire...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH -->
 	
 	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH"><![CDATA[

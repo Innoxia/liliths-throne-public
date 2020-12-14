@@ -199,6 +199,9 @@ public class PregnancyRoulette {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
+					} else if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "Your womb is full of eggs, so you can't sign up to be the mother!", null);
+						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);
 						
@@ -241,6 +244,9 @@ public class PregnancyRoulette {
 				} else if(index==3) {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
+						
+					} else if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "Your womb is full of eggs, so you can't sign up to be the mother!", null);
 						
 					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is full of cum!", null);

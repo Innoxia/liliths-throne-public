@@ -16,6 +16,8 @@
 	<!-- 'true' if you want this status effect to be displayed in the affected character's status effect panel. This should pretty much always be 'true'. -->
 	<renderInEffectsPanel>true</renderInEffectsPanel>
 	
+	<category>INVENTORY</category>
+	
 	<!-- 'BENEFICIAL' if this is a good status effect for a character to have, 'NEUTRAL' if it's neither, or 'DETRIMENTAL' if it's a bad one. -->
 	<beneficial>BENEFICIAL</beneficial>
 	

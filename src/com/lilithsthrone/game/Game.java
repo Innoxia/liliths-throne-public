@@ -40,16 +40,18 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -180,6 +182,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEvent;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -228,6 +231,7 @@ public class Game implements XMLSaving {
 	
 	private PlayerCharacter player;
 	private ItemGeneration itemGeneration;
+	private CharacterUtils characterUtils;
 	
 	// NPCs:
 	private NPC activeNPC;
@@ -299,6 +303,7 @@ public class Game implements XMLSaving {
 		}
 		
 		itemGeneration = new ItemGeneration();
+		characterUtils = new CharacterUtils();
 		OccupantManagementDialogue.resetImportantCells();
 		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00);
 		secondsPassed = TIME_START_SECONDS;
@@ -496,19 +501,19 @@ public class Game implements XMLSaving {
 			try {
 				Element informationNode = doc.createElement("coreInfo");
 				game.appendChild(informationNode);
-				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
-				CharacterUtils.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
-				CharacterUtils.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
-				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
-				CharacterUtils.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
-				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
-				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+				XMLUtil.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
+				XMLUtil.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
+				XMLUtil.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
+				XMLUtil.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
+				XMLUtil.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
 
 				Element inventoryNode = doc.createElement("savedInventories");
 				game.appendChild(inventoryNode);
 				for(Entry<String, CharacterInventory> entry : savedInventories.entrySet()) {
 					Element element = doc.createElement("savedInventory");
-					CharacterUtils.addAttribute(doc, element, "character", entry.getKey());
+					XMLUtil.addAttribute(doc, element, "character", entry.getKey());
 					inventoryNode.appendChild(element);
 					entry.getValue().saveAsXML(element, doc);
 				}
@@ -518,7 +523,7 @@ public class Game implements XMLSaving {
 				for(Entry<AbstractWorldType, List<List<String>>> entrySet : Main.game.savedEnforcers.entrySet()) {
 					Element element = doc.createElement("world");
 					savedEnforcersNode.appendChild(element);
-					CharacterUtils.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
+					XMLUtil.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
 					for(List<String> ids : entrySet.getValue()) {
 						Element enforcersElement = doc.createElement("enforcers");
 						element.appendChild(enforcersElement);
@@ -539,11 +544,11 @@ public class Game implements XMLSaving {
 				
 				Element dateNode = doc.createElement("date");
 				informationNode.appendChild(dateNode);
-				CharacterUtils.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
-				CharacterUtils.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
-				CharacterUtils.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
-				CharacterUtils.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
-				CharacterUtils.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
+				XMLUtil.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
+				XMLUtil.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
+				XMLUtil.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
+				XMLUtil.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
+				XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
 			} catch(Exception ex) {
 				System.err.println("coreInfo saving failed!");
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
@@ -568,7 +573,7 @@ public class Game implements XMLSaving {
 				for(Value<Integer, List<SlaveryEventLogEntry>> entry : Main.game.getSlaveryEventLog()) {
 					Element element = doc.createElement("day");
 					slaveryEventLogNode.appendChild(element);
-					CharacterUtils.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
+					XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
 					for(SlaveryEventLogEntry event : entry.getValue()) {
 						event.saveAsXML(element, doc);
 					}
@@ -1015,12 +1020,12 @@ public class Game implements XMLSaving {
 										}
 										// Generate desires in non-unique NPCs:
 										if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-											CharacterUtils.generateDesires(npc);
+											Main.game.getCharacterUtils().generateDesires(npc);
 										}
 	
 										if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
 											npc.clearFetishDesires();
-											CharacterUtils.generateDesires(npc);
+											Main.game.getCharacterUtils().generateDesires(npc);
 										}
 										if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4") && npc.getWorldLocation()==WorldType.GAMBLING_DEN) {
 											if(npc instanceof Roxy) {
@@ -1485,10 +1490,15 @@ public class Game implements XMLSaving {
 		
 		Main.game.endTurn(0);
 		Main.game.started = true;
+		
 		// Do a zero-time status effect update after declaring that the game has started to make sure that everything is initialised properly (mainly just so external status effects are initialised):
 		for(NPC npc : Main.game.getAllNPCs()) {
+			npc.updateInventoryListeners();
+			npc.updateAttributeListeners(true);
 			npc.calculateStatusEffects(0);
 		}
+		Main.game.getPlayer().updateInventoryListeners();
+		Main.game.getPlayer().updateAttributeListeners(true);
 		Main.game.getPlayer().calculateStatusEffects(0);
 	}
 
@@ -1971,7 +1981,7 @@ public class Game implements XMLSaving {
 		isInNPCUpdateLoop = true;
 		long tLoopStart = System.nanoTime();
 		if(loopDebug) {
-			System.out.println("NPC loop start: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
+			System.out.println("NPC loop start");
 		}
 		for(NPC npc : NPCMap.values()) {
 			boolean inGame = !npc.getLocationPlace().getPlaceType().equals(PlaceType.GENERIC_EMPTY_TILE);
@@ -2085,6 +2095,7 @@ public class Game implements XMLSaving {
 				}
 			}
 			
+			// Giving birth:
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3)
 					&& !Main.game.getCharactersPresent().contains(npc)
 					&& !Main.game.getPlayer().getCompanions().contains(npc)
@@ -2112,6 +2123,56 @@ public class Game implements XMLSaving {
 					
 					if(npc instanceof Kate) {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToKatePregnancy);
+					}
+				}
+			}
+			
+			// Laying implanted eggs:
+			if(!npc.getIncubatingLitters().isEmpty()
+					&& !Main.game.getCharactersPresent().contains(npc)
+					&& !Main.game.getPlayer().getCompanions().contains(npc)) {
+				for(Entry<SexAreaOrifice, Litter> entry : new HashMap<>(npc.getIncubatingLitters()).entrySet()) {
+					long finalStageTime = npc.getTimeProgressedToFinalIncubationStage(entry.getKey());
+					if(finalStageTime>0 && (Main.game.getSecondsPassed() - finalStageTime) > (12*60*60)) {
+						npc.endIncubationPregnancy(entry.getKey(), true);
+						
+						if(npc.isSlave() && npc.getOwner().isPlayer()) {
+							String areaEgged = "";
+							switch(entry.getKey()) {
+								case ANUS:
+								case MOUTH:
+									areaEgged = "stomach";
+									break;
+								case NIPPLE:
+									areaEgged = "[npc.breasts]";
+									break;
+								case NIPPLE_CROTCH:
+									areaEgged = "[npc.crotchBoobs]";
+									break;
+								case SPINNERET:
+									areaEgged = "[npc.spinneret]";
+									break;
+								case VAGINA:
+									areaEgged = "womb";
+									break;
+								case ASS:
+								case BREAST:
+								case BREAST_CROTCH:
+								case THIGHS:
+								case URETHRA_PENIS:
+								case URETHRA_VAGINA:
+									break;
+							}
+							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+							SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
+									npc,
+									null,
+									SlaveEvent.GAVE_BIRTH_INCUBATION,
+									null,
+									events,
+									true);
+							Main.game.addSlaveryEvent(getDayNumber(), incubationBirthEntry);
+						}
 					}
 				}
 			}
@@ -2149,7 +2210,7 @@ public class Game implements XMLSaving {
 						&& !npc.isAllowingPlayerToManageInventory()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayerCell().getDialogue(false)) || !(getCharactersPresent().contains(npc)))) {
 					npc.clearNonEquippedInventory(false);
-					CharacterUtils.generateItemsInInventory(npc);
+					Main.game.getCharacterUtils().generateItemsInInventory(npc);
 				}
 				try {
 					npc.dailyUpdate();
@@ -2175,7 +2236,7 @@ public class Game implements XMLSaving {
 			npc.turnUpdate();
 		}
 		if(loopDebug) {
-			System.out.println("NPC loop end: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
+			System.out.println("NPC loop end. Time since start: "+(System.nanoTime()-tLoopStart)/1000000000f+"s");
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
@@ -2222,8 +2283,19 @@ public class Game implements XMLSaving {
 		}
 		
 		Main.mainController.getTooltip().hide();
+
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+		}
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
+		}
+		if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) && !Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+			Main.game.getPlayer().addStatusEffectDescription(null, Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+		}
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty()
+				&& Main.game.getPlayer().getStatusEffectDescriptions().values().stream().anyMatch(m->!m.isEmpty())
 				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
 				&& !Main.game.getCurrentDialogueNode().isTravelDisabled()
 				&& !Main.game.isInSex()
@@ -2232,20 +2304,32 @@ public class Game implements XMLSaving {
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
+
+//			System.out.println("SE here");
+//			for(Map<AbstractStatusEffect, String> e : Main.game.getPlayer().getStatusEffectDescriptions().values()) {
+//				for(Entry<AbstractStatusEffect, String> entry : e.entrySet()) {
+//					System.out.println(entry.getKey()+": "+entry.getValue());
+//				}
+//			}
 			
 			Main.game.setContent(new Response("", "", MiscDialogue.STATUS_EFFECTS){
 				@Override
 				public void effects() {
-					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
-					}
-					
-					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
-					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+//					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
+//					}
+//					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) && !Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION));
+//					}
 				}	
 			});
 			
+//			Main.game.getPlayer().getStatusEffectDescriptions().clear();
+		}
+		if(!Main.game.getPlayer().getStatusEffectDescriptions().values().stream().anyMatch(m->!m.isEmpty())) {
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
 		
@@ -3560,8 +3644,8 @@ public class Game implements XMLSaving {
 		
 		for(GameCharacter character : Main.game.getPlayer().getParty()) {
 			int speed = onLand
-						?character.getLegConfiguration().getLandSpeedModifier()
-						:character.getLegConfiguration().getWaterSpeedModifier();
+						?character.getLandSpeedModifier()
+						:character.getWaterSpeedModifier();
 			
 			int travelTime = time;
 			travelTime = (int) (travelTime*((100+speed)/100f));
@@ -3649,6 +3733,10 @@ public class Game implements XMLSaving {
 		return itemGeneration;
 	}
 
+	public CharacterUtils getCharacterUtils() {
+		return characterUtils;
+	}
+	
 	public long getSecondsPassed() {
 		return secondsPassed;
 	}
@@ -3844,11 +3932,13 @@ public class Game implements XMLSaving {
 		}
 	}
 
-	public List<NPC> getOffspring(boolean includeNotBorn) {
+	public List<NPC> getOffspring(boolean includeNotBorn, boolean includeEggIncubations) {
 		List<NPC> offspring = new ArrayList<>();
 		
 		for(NPC npc : NPCMap.values()) {
-			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
+			if((npc.getMother()!=null && npc.getMother().isPlayer())
+					|| (npc.getFather()!=null && npc.getFather().isPlayer())
+					|| (includeEggIncubations && npc.getIncubator()!=null && npc.getIncubator().isPlayer())) {
 				if(npc.getMother()!=null) {
 					if(includeNotBorn || npc.getMother().getPregnantLitter()==null || !npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 						offspring.add(npc);
@@ -3862,16 +3952,16 @@ public class Game implements XMLSaving {
 		return offspring;
 	}
 	
-	public List<NPC> getOffspringSpawned() {
-		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false));
+	public List<NPC> getOffspringSpawned(boolean includeEggIncubations) {
+		List<NPC> offspringSpawned = new ArrayList<>(getOffspring(false, includeEggIncubations));
 		
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		
 		return offspringSpawned;
 	}
 
-	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher) {
-		List<NPC> offspringAvailable = Main.game.getOffspring(false).stream().filter(npc -> !npc.isSlave())
+	public List<NPC> getOffspringNotSpawned(Predicate<NPC> matcher, boolean includeEggIncubations) {
+		List<NPC> offspringAvailable = Main.game.getOffspring(false, includeEggIncubations).stream().filter(npc -> !npc.isSlave())
 										.filter(npc -> npc.getWorldLocation()==WorldType.EMPTY)
 										.filter(npc -> npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE)
 										.filter(matcher).collect(Collectors.toList());
@@ -4058,6 +4148,12 @@ public class Game implements XMLSaving {
 			
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
 			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
+		}
+
+		if(!npc.getIncubatingLitters().isEmpty()) {
+			for(SexAreaOrifice orifice : new ArrayList<>(npc.getIncubatingLitters().keySet())) {
+				npc.endIncubationPregnancy(orifice, false);
+			}
 		}
 		
 		if(isInNPCUpdateLoop) {
@@ -4285,6 +4381,10 @@ public class Game implements XMLSaving {
 	public boolean isNonConEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.nonConContent);
 	}
+
+	public boolean isInflationContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.inflationContent);
+	}
 	
 	public boolean isNipplePenEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.nipplePenContent);
@@ -4383,7 +4483,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public boolean isCrotchBoobContentEnabled() {
-		return Main.getProperties().udders>0;
+		return Main.getProperties().getUddersLevel()>0;
 	}
 	
 	public boolean isPlotDiscovered() {
