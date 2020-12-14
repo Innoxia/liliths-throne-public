@@ -21681,9 +21681,6 @@ public abstract class GameCharacter implements XMLSaving {
         clonedClothing.onEquipApplyEffects(this, this, false);
 		
 		applyEquipClothingEffects(clonedClothing, slotToEquipInto, null, false);
-		
-		updateInventoryListeners();
-		applyEquipClothingEffects(newClothing, slotToEquipInto, null, false);
 	}
 
 	/**
