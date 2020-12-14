@@ -1,14 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.AbstractRace;
@@ -128,6 +131,41 @@ public class VaginaType {
 			"[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced,#ELSEa#ENDIF demonic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.",
 			Util.newArrayListOfValues(
 				OrificeModifier.MUSCLE_CONTROL)) {
+	};
+
+	public static AbstractVaginaType DEMON_EGGS = new AbstractVaginaType(BodyCoveringType.VAGINA,
+			FluidType.GIRL_CUM_DEMON,
+			Race.DEMON,
+			true,
+			Util.newArrayListOfValues("succubus-"),
+			Util.newArrayListOfValues("succubus-"),
+			Util.newArrayListOfValues("irresistible", "perfect"),
+			"[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting."
+					+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"
+						+ " and [npc.she] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] a new set of muscles forming all along the inner-walls of [npc.her] pussy."
+					+ " With an experimental squeeze, [npc.she] quickly [npc.verb(discover)] that [npc.she] [npc.has] an incredible amount of control over [npc.her] pussy's new muscles."
+					+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
+				+ "</p>"
+				+ "<p>"
+					+ "Just as [npc.she] [npc.verb(start)] think that the transformation [npc.has] come to an end, [npc.her] pussy's new muscles involuntarily clench down,"
+						+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+					+ " Images of fat demonic cocks slamming deep into [npc.her] new cunt flash before [npc.her] eyes,"
+						+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their hot, virile seed deep into [npc.her] demonic womb."
+					+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+						+ " [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation."
+					+ "<br/>"
+					+ "#IF(npc.isShortStature())"
+						+ "[npc.Name] now [npc.has] an [style.boldImp(impish, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+					+ "#ELSE"
+						+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+					+"#ENDIF",
+			"[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced,#ELSEa#ENDIF demonic, egg-laying pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.",
+			Util.newArrayListOfValues(
+				OrificeModifier.MUSCLE_CONTROL)) {
+		@Override
+		public String getTransformName() {
+			return "demonic (egg-laying)";
+		}
 	};
 
 	public static AbstractVaginaType DOG_MORPH = new AbstractVaginaType(BodyCoveringType.VAGINA,
@@ -432,8 +470,47 @@ public class VaginaType {
 	
 	static {
 		allVaginaTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("vagina")) {
+					try {
+						AbstractVaginaType type = new AbstractVaginaType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allVaginaTypes.add(type);
+						vaginaToIdMap.put(type, id);
+						idToVaginaMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("vagina")) {
+					try {
+						AbstractVaginaType type = new AbstractVaginaType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allVaginaTypes.add(type);
+						vaginaToIdMap.put(type, id);
+						idToVaginaMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded vagina types:
+		
 		Field[] fields = VaginaType.class.getFields();
 		
 		for(Field f : fields){

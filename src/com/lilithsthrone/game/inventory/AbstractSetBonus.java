@@ -27,6 +27,7 @@ public abstract class AbstractSetBonus {
 	private String name;
 	private int numberRequiredForCompleteSet;
 	private List<InventorySlot> blockedSlotsCountingTowardsFullSet;
+	private String statusEffectId;
 	private AbstractStatusEffect associatedStatusEffect;
 
 	public AbstractSetBonus(String name, AbstractStatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet) {
@@ -60,7 +61,7 @@ public abstract class AbstractSetBonus {
 				
 				this.numberRequiredForCompleteSet = Integer.valueOf(coreElement.getMandatoryFirstOf("numberRequiredForCompleteSet").getTextContent());
 				
-				this.associatedStatusEffect = StatusEffect.getStatusEffectFromId(coreElement.getMandatoryFirstOf("statusEffect").getTextContent());
+				this.statusEffectId = coreElement.getMandatoryFirstOf("statusEffect").getTextContent();
 
 				this.blockedSlotsCountingTowardsFullSet = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("blockedSlotsCountingTowardsFullSet").isPresent()) {
@@ -126,6 +127,9 @@ public abstract class AbstractSetBonus {
 	}
 
 	public AbstractStatusEffect getAssociatedStatusEffect() {
+		if(associatedStatusEffect==null) {
+			associatedStatusEffect = StatusEffect.getStatusEffectFromId(statusEffectId);
+		}
 		return associatedStatusEffect;
 	}
 

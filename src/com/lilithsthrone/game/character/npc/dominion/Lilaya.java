@@ -13,10 +13,11 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -471,7 +472,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getAttributeChangeText(Attribute att, float value) {
+	public String getAttributeChangeText(AbstractAttribute att, float value) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.getAttributeChangeText(att, value));
@@ -499,7 +500,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getPotionAttributeChangeText(Attribute att, float value) {
+	public String getPotionAttributeChangeText(AbstractAttribute att, float value) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.getPotionAttributeChangeText(att, value));

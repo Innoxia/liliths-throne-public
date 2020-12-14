@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.utils.Util;
 
@@ -100,97 +101,50 @@ public class WeaponType {
 	}
 
 	static {
-		// Load in modded weapons:
-		moddedWeapons = new ArrayList<>();
-		File dir = new File("res/mods");
+
+		// Modded weapon types:
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/weapons");
-					
-					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
-					if (clothingDirectoriesListing != null) {
-						for (File clothingDirectory : clothingDirectoriesListing) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName(), true) {};
-											moddedWeapons.add(ct);
-											weaponToIdMap.put(ct, id);
-											idToWeaponMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded weapon failed at 'WeaponType' Code 1. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
+		moddedWeapons = new ArrayList<>();
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/items/weapons");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractWeaponType ct = new AbstractWeaponType(innerEntry.getValue(), entry.getKey(), true) {};
+					moddedWeapons.add(ct);
+					weaponToIdMap.put(ct, id);
+					idToWeaponMap.put(id, ct);
+				} catch(Exception ex) {
+					System.err.println("Loading modded weapon failed at 'WeaponType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
 		allWeapons.addAll(moddedWeapons);
 		
-		
-		// Add in external res weapons:
-		
-		dir = new File("res/weapons");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						for (File clothingDirectory : authorDirectory.listFiles()) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName(), false) {};
-											allWeapons.add(ct);
-											weaponToIdMap.put(ct, id);
-											idToWeaponMap.put(id, ct);
-										} catch(Exception ex) {
-											System.err.println("Loading modded weapon failed at 'WeaponType' Code 2. File path: "+innerChild.getAbsolutePath());
-										}
-									}
-								}
-							}
-						}
-					}
+		// External res weapon types:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/weapons");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractWeaponType ct = new AbstractWeaponType(innerEntry.getValue(), entry.getKey(), false) {};
+					allWeapons.add(ct);
+					weaponToIdMap.put(ct, id);
+					idToWeaponMap.put(id, ct);
+//					System.out.println("WT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading weapon failed at 'WeaponType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
 		
-//		Field[] fields = WeaponType.class.getFields();
-//		
-//		for(Field f : fields){
-//			if (AbstractWeaponType.class.isAssignableFrom(f.getType())) {
-//				
-//				AbstractWeaponType weapon;
-//				
-//				try {
-//					weapon = ((AbstractWeaponType) f.get(null));
-//
-//					// I feel like this is stupid :thinking:
-//					weaponToIdMap.put(weapon, f.getName());
-//					idToWeaponMap.put(f.getName(), weapon);
-//					
-//					allWeapons.add(weapon);
-//					
-//				} catch (IllegalArgumentException | IllegalAccessException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
 	}
 
 	public static List<AbstractWeaponType> getAllWeapons() {

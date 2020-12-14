@@ -15,10 +15,11 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.AbstractRace;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -75,8 +76,8 @@ public interface SexManagerInterface {
 		return null;
 	}
 	
-	public default Set<GameCharacter> getCharactersSealed() {
-		return new HashSet<>();
+	public default Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+		return new HashMap<>();
 	}
 	
 	public default boolean isPlayerDom() {
@@ -127,6 +128,9 @@ public interface SexManagerInterface {
 	public default SexControl getSexControl(GameCharacter character) {
 		if(isHidden(character)) {
 			return SexControl.SELF;
+		}
+		if(Main.sex.isCharacterImmobilised(character)) {
+			return SexControl.NONE;
 		}
 		if(Main.sex.isDom(character)) {
 			return SexControl.FULL;
@@ -346,7 +350,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
-		if((performer.equals(target) || Main.sex.isConsensual()) && (target.hasBreasts() || target.isFeminine())) {
+		if((performer.equals(target) || Main.sex.isConsensual())
+				&& (target.hasBreasts() || target.isFeminine())
+				&& (!target.isFeral() || target.getFeralAttributes().isBreastsPresent())) {
 			return Util.newArrayListOfValues(CoverableArea.NIPPLES);
 		}
 		
@@ -390,13 +396,13 @@ public interface SexManagerInterface {
 	}
 
 	public default String getPublicSexStartingDescription() {
-		Set<Subspecies> subspeciesSet = new HashSet<>();
+		Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
 			subspeciesSet.addAll(pop.getSpecies().keySet());
 		}
 		if(!subspeciesSet.isEmpty()) {
 			List<AbstractRace> racesPresent = new ArrayList<>();
-			for(Subspecies species : subspeciesSet) {
+			for(AbstractSubspecies species : subspeciesSet) {
 				if(!racesPresent.contains(species.getRace())) {
 					racesPresent.add(species.getRace());
 				}
@@ -404,7 +410,7 @@ public interface SexManagerInterface {
 			Collections.shuffle(racesPresent);
 			List<String> raceNames = new ArrayList<>();
 			for(int i=0; i<racesPresent.size() && i<3;i++) {
-				raceNames.add(Subspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural(null));
+				raceNames.add(AbstractSubspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural(null));
 			}
 			if(raceNames.size() < racesPresent.size()) {
 				raceNames.add("many other races");

@@ -58,19 +58,32 @@
 		
 		<itemTags>
 			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_FERAL_EQUIPPABLE</tag>
 		</itemTags>
 		
 	</coreAttributes>
 
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Thrusting [npc.her] [npc.arm] out in front of [npc.herHim], a bolt of arcane energy materialises around [npc.namePos] [npc.arm], before shooting out to strike [npc2.name]!
+		#IF(npc.isFeral())
+			Harnessing the power of the arcane feather, [npc.name] materialises a bolt of arcane energy around [npc.her] body, before shooting it out to strike [npc2.name]!
+		#ELSE
+			Thrusting [npc.her] [npc.arm] out in front of [npc.herHim], a bolt of arcane energy materialises around [npc.namePos] [npc.arm], before shooting out to strike [npc2.name]!
+		#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-		Making a quick forwards thrust with [npc.her] [npc.arm], a bolt of arcane energy shoots out of [npc.namePos] [npc.hand] to strike [npc2.name]!
+		#IF(npc.isFeral())
+			Making a quick forwards movement, [npc.name] shoots a bolt of arcane energy to strike [npc2.name]!
+		#ELSE
+			Making a quick forwards thrust with [npc.her] [npc.arm], a bolt of arcane energy shoots out of [npc.namePos] [npc.hand] to strike [npc2.name]!
+		#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(thrust)] [npc.her] [npc.arm] at [npc2.name], causing a bolt of arcane energy to fly out and hit [npc2.herHim] right in the chest!
+		#IF(npc.isFeral())
+			[npc.Name] [npc.verb(make)] an aggressive movement towards [npc2.name], causing a bolt of arcane energy to fly out and hit [npc2.herHim] right in the chest!
+		#ELSE
+			[npc.Name] [npc.verb(thrust)] [npc.her] [npc.arm] at [npc2.name], causing a bolt of arcane energy to fly out and hit [npc2.herHim] right in the chest!
+		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 

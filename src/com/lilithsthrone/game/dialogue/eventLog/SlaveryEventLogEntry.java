@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -85,9 +85,9 @@ public class SlaveryEventLogEntry implements XMLSaving {
 		Element element = doc.createElement("eventLogEntry");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "time", String.valueOf(time));
-		CharacterUtils.addAttribute(doc, element, "slaveID", slaveID);
-		CharacterUtils.addAttribute(doc, element, "event", event.toString());
+		XMLUtil.addAttribute(doc, element, "time", String.valueOf(time));
+		XMLUtil.addAttribute(doc, element, "slaveID", slaveID);
+		XMLUtil.addAttribute(doc, element, "event", event.toString());
 		
 		if(this.involvedSlaveIDs!=null) {
 			Element slavesNode = doc.createElement("involvedSlaves");
@@ -105,7 +105,7 @@ public class SlaveryEventLogEntry implements XMLSaving {
 			for(SlaveEventTag tag : tags) {
 				Element tagDataNode = doc.createElement("tag");
 				tagsNode.appendChild(tagDataNode);
-				CharacterUtils.addAttribute(doc, tagDataNode, "value", String.valueOf(tag));
+				XMLUtil.addAttribute(doc, tagDataNode, "value", String.valueOf(tag));
 			}
 		}
 
@@ -115,7 +115,7 @@ public class SlaveryEventLogEntry implements XMLSaving {
 			for(String s : extraEffects) {
 				Element extraEffectsDataNode = doc.createElement("entry");
 				extraEffectsNode.appendChild(extraEffectsDataNode);
-				CharacterUtils.addAttribute(doc, extraEffectsDataNode, "value", s);
+				XMLUtil.addAttribute(doc, extraEffectsDataNode, "value", s);
 			}
 		}
 		

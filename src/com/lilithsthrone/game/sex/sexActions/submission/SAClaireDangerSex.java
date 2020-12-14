@@ -148,6 +148,8 @@ public class SAClaireDangerSex {
 							sb.append("throbbing deep inside Claire's [claire.pussy+]."
 									+ " Obviously madly turned-on by the situation which the two of you find yourselves in, the horny cat-girl slowly pushes her [claire.hips+] out into you, driving your cock even deeper into her [claire.pussy+].");
 							break;
+						case SPINNERET:
+							break;
 					}
 					sb.append("<br/><br/>"
 							+ "Just as you feel as though you can't take it any more, the Enforcer finds what they're looking for, and, without spotting the two of you locked in coitus, they leave just as quickly as they entered.");
@@ -251,6 +253,8 @@ public class SAClaireDangerSex {
 					case VAGINA:
 						sb.append(" thrust your [pc.cock+] in and out of Claire's [claire.pussy+]."
 								+ " Not wanting to be discovered, the horny cat-girl covers her mouth with both hands and does her best to remain quiet as you continue to relentlessly fuck her [claire.pussy].");
+						break;
+					case SPINNERET:
 						break;
 				}
 				sb.append("<br/><br/>"

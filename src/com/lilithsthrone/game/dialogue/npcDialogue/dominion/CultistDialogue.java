@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -15,6 +17,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
@@ -309,8 +312,10 @@ public class CultistDialogue {
 								return false;
 							}
 							@Override
-							public Set<GameCharacter> getCharactersSealed() {
-								return Util.newHashSetOfValues(getCultist());
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> map = new HashMap<>();
+								map.put(ImmobilisationType.WITCH_SEAL, Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newHashSetOfValues(getCultist()))));
+								return map;
 							}
 						},
 						null,
@@ -356,8 +361,10 @@ public class CultistDialogue {
 								return false;
 							}
 							@Override
-							public Set<GameCharacter> getCharactersSealed() {
-								return Util.newHashSetOfValues(Main.game.getPlayer());
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> map = new HashMap<>();
+								map.put(ImmobilisationType.WITCH_SEAL, Util.newHashMapOfValues(new Value<>(getCultist(), Util.newHashSetOfValues(Main.game.getPlayer()))));
+								return map;
 							}
 						},
 						null,

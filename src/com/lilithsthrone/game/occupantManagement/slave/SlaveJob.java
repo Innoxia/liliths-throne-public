@@ -293,7 +293,7 @@ public enum SlaveJob {
 		
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
-			if(slave.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+			if(slave.hasTraitActivated(Perk.NYMPHOMANIAC)) {
 				return 1f;
 			} else {
 				return -0.25f;

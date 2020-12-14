@@ -18,7 +18,8 @@ public enum Muscle {
 	FOUR_RIPPED("ripped", 80, 100, PresetColour.MUSCLE_FOUR);
 
 	private String name;
-	private int minimumMuscle, maximumMuscle;
+	private int minimumMuscle;
+	private int maximumMuscle;
 	private Colour colour;
 
 	private Muscle(String name, int minimumMuscle, int maximumMuscle, Colour colour) {

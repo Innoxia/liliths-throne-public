@@ -99,7 +99,7 @@ public abstract class AbstractOutfit {
 						.getMandatoryFirstOf("acceptableLegConfigurations") 
 						.getAllOf("legConfiguration")
 						.stream()
-						.map( e -> LegConfiguration.valueOf(e.getTextContent()))
+						.map( e -> LegConfiguration.getValueFromString(e.getTextContent()))
 						.filter(Objects::nonNull)
 						.collect(Collectors.toList());
 			} catch(Exception ex) {
@@ -493,7 +493,7 @@ public abstract class AbstractOutfit {
 						if(!anyConditionalsFound) {
 							break;
 						}
-						if(defaultClothingExample.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
+						if(defaultClothingExample.isAbleToBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 							ctList.add(ct);
 						}
 					}
@@ -516,7 +516,7 @@ public abstract class AbstractOutfit {
 							.map( e -> {
 								AbstractClothingType ct = ClothingType.getClothingTypeFromId(e.getTextContent());
 								AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct);
-								if(!defaultClothingExample.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
+								if(!defaultClothingExample.isAbleToBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 									return null;
 								}
 								return ct;

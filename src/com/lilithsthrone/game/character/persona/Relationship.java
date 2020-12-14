@@ -6,11 +6,15 @@ import com.lilithsthrone.game.character.gender.PronounType;
 // TODO: needs plural forms
 /**
  * @since 0.2.0
- * @version 0.3.2
+ * @version 0.4
  * @author Innoxia, orvail
  */
 public enum Relationship {
-	
+
+	/** For ovipositor egg incubation */
+    IncubatorParent("incubator-mother", "incubator-father", "incubator-parent", 0),
+    IncubatorChild("incubated-daughter", "incubated-son", "incubated-child", 0),
+    
     Parent("mother", "father", "parent", 0),
     GrandParent("grand-mother", "grand-father", "grand-parent", 1),
     GrandGrandParent("grand-grand-mother", "grand-grand-father", "grand-grand-parent", 2),

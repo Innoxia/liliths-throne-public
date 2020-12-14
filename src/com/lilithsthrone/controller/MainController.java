@@ -39,6 +39,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
@@ -50,8 +51,8 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -489,7 +490,10 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							System.out.println(Main.sex.isSexStarted());
+//							Main.game.getPlayer().setFeral(Subspecies.HORSE_MORPH);
+//							UtilText.addSpecialParsingString("true", true);
+//							System.out.println(UtilText.parse("#IF([#SPECIAL_PARSE_0]):3#ELSE:(#ENDIF"));
+//							System.out.println(Main.sex.isSexStarted());
 						}
 						 
 
@@ -1370,6 +1374,26 @@ public class MainController implements Initializable {
 		}
 	}
 	
+	static void setAntennaCountListener(int i) {
+		String id = "ANTENNA_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setAntennaRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setAntennaePerRowCountListener(int i) {
+		String id = "ANTENNA_COUNT_PER_ROW_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setAntennaePerRow(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
 	static void setHornCountListener(int i) {
 		String id = "HORN_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
@@ -1705,7 +1729,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
-		Attribute[] attributes = {
+		AbstractAttribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
@@ -1732,7 +1756,7 @@ public class MainController implements Initializable {
 		for(GameCharacter character : charactersBeingRendered) {
 			String idModifier = (character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_");
 			
-			for (Attribute a : attributes) {
+			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentAttributes.getElementById(idModifier+a.getName())) != null) {
 					if(a == Attribute.EXPERIENCE) {
 						((EventTarget) documentAttributes.getElementById(idModifier+a.getName())).addEventListener("click", e -> {
@@ -1925,7 +1949,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (CombatMove combatMove : character.getAvailableMoves()) {
+			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
 				id = "CM_"+idModifier + combatMove.getIdentifier();
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -2090,7 +2114,7 @@ public class MainController implements Initializable {
 			}
 		}
 		
-		Attribute[] attributes = {
+		AbstractAttribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
@@ -2100,7 +2124,7 @@ public class MainController implements Initializable {
 				Attribute.AROUSAL,
 				Attribute.LUST };
 		if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
-			attributes = new Attribute[] {Attribute.EXPERIENCE};
+			attributes = new AbstractAttribute[] {Attribute.EXPERIENCE};
 		}
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
@@ -2125,7 +2149,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 						
-						Set<Subspecies> subspecies = new HashSet<>();
+						Set<AbstractSubspecies> subspecies = new HashSet<>();
 						subspecies.addAll(pop.getSpecies().keySet());
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								"Races Present",
@@ -2143,7 +2167,7 @@ public class MainController implements Initializable {
 		for(GameCharacter character : charactersBeingRendered) {
 			String idModifier = character.getId()+"_";
 			
-			for (Attribute a : attributes) {
+			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
 					if(a == Attribute.EXPERIENCE) {
 						((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
@@ -2278,7 +2302,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (CombatMove combatMove : character.getAvailableMoves()) {
+				for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
 					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
 					if (((EventTarget) documentRight.getElementById(id)) != null) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);

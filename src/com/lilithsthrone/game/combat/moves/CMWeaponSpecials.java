@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class CMWeaponSpecials {
 	
-	public static CombatMove MKAR_MAG_DUMP = new CombatMove("MKAR_MAG_DUMP",
+	public static AbstractCombatMove MKAR_MAG_DUMP = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "mag dump",
             2,
             2,
@@ -105,7 +105,7 @@ public class CMWeaponSpecials {
     };
     
 
-	public static CombatMove BR14_MAG_DUMP = new CombatMove("BR14_MAG_DUMP",
+	public static AbstractCombatMove BR14_MAG_DUMP = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "mag dump",
             2,
             2,

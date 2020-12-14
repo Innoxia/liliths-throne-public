@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -744,7 +745,7 @@ public class Library {
 	
 	};
 	
-	private static Response bookResponse(Subspecies subspecies) {
+	private static Response bookResponse(AbstractSubspecies subspecies) {
 		AbstractItemType book = ItemType.getLoreBook(subspecies);
 		
 		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(subspecies)) {
