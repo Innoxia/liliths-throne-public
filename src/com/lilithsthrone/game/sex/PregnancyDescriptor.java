@@ -7,7 +7,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.65
- * @version 0.3.4
+ * @version 0.4
  * @author Innoxia
  */
 public enum PregnancyDescriptor {
@@ -58,6 +58,78 @@ public enum PregnancyDescriptor {
 					
 				} else {
 					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
+					if(directSexInsemination) {
+						if(selfcest) {
+							sb.append("[npc.she] has knocked [npc.herself] up");
+						} else {
+							sb.append("[npc2.nameHas] knocked [npc.herHim] up");
+						}
+					} else {
+						if(selfcest) {
+							sb.append("[npc.she] has impregnated [npc.herself]");
+						} else {
+							sb.append("[npc2.nameHas] impregnated [npc.herHim]");
+						}
+					}
+					sb.append(")]!");
+				}
+			}
+			sb.append("</p>");
+			
+			if(characterProvidingCum!=null) {
+				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
+			} else {
+				return UtilText.parse(characterBeingImpregnated, sb.toString());
+			}
+		}
+	},
+
+	ALREADY_PREGNANT_EGGS {
+		@Override
+		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p class='centre noPad'>");
+			if(characterBeingImpregnated.isPlayer()){
+				if(characterProvidingCum==null) {
+					sb.append("You feel cum ");
+					if(isSlime) {
+						sb.append("dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append("deep in your [pc.pussy+]");
+					}
+					sb.append(", but because [style.boldSex(your womb is already filled with eggs, you don't have to worry about it)]!");
+					
+				} else {
+					sb.append("You feel ");
+					if(selfcest) {
+						sb.append("your own [npc.cum+]");
+					} else {
+						sb.append("[npc2.namePos] [npc2.cum+]");
+					}
+					if(isSlime) {
+						sb.append(" dispersing through your slimy body, seeking to impregnate your core");
+					} else {
+						sb.append(" deep in your [pc.pussy+]");
+					}
+					sb.append(", but because [style.boldSex(your womb is already filled with eggs, you don't have to worry about it)]!");
+				}
+				
+			} else {
+				if(characterProvidingCum==null) {
+					sb.append("[npc.NamePos] womb is already filled with eggs, [style.boldSex(so there's no chance that ");
+					if(selfcest) {
+						sb.append("[npc.she] has knocked [npc.herself] up");
+					} else {
+						sb.append("[npc.she] has been impregnated");
+					}
+					sb.append(")]!");
+					
+				} else {
+					sb.append("[npc.NamePos] womb is already filled with eggs, [style.boldSex(so there's no chance that ");
 					if(directSexInsemination) {
 						if(selfcest) {
 							sb.append("[npc.she] has knocked [npc.herself] up");

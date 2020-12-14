@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.abstractTypes;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 
 /**
@@ -42,6 +43,7 @@ public abstract class AbstractFootType {
 	 * @param toesDescriptorsFeminine The descriptors that can be used to describe a feminine form of the related toes.
 	 * @param footjobName The name of the action when using this foot type to give a footjob.
 	 * @param footBodyDescription A sentence or two to describe this foot type, as seen in the character view screen. It should follow the same format as all of the other entries in the FootType class.
+	 * @param permittedFootStructures The permitted types of FootStructure this FootType can have.
 	 */
 	public AbstractFootType(String typeName,
 			String footName,
@@ -119,6 +121,8 @@ public abstract class AbstractFootType {
 		return footBodyDescription;
 	}
 
+	public abstract String getFootNailPolishDescription(GameCharacter owner);
+	
 	public List<FootStructure> getPermittedFootStructures() {
 		return permittedFootStructures;
 	}

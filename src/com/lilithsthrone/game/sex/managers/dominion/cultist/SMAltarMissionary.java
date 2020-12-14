@@ -6,17 +6,19 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.3.4
+ * @version 0.4
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
@@ -34,8 +36,9 @@ public class SMAltarMissionary extends SexManagerDefault {
 			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 		
-		if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())) {
-			return CultistSexActions.SEALED;
+		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+		if(value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL) {
+			return GenericActions.WITCH_SEALED;
 			
 		} else {
 			return super.getPartnerSexAction(partner, sexActionPlayer);
@@ -44,12 +47,12 @@ public class SMAltarMissionary extends SexManagerDefault {
 	
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-		return !Main.sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterImmobilised(character);
 	}
 
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		return !Main.sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterImmobilised(character);
 	}
 	
 	@Override

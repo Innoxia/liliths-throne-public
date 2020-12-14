@@ -445,6 +445,38 @@ public enum Quest {
 		}
 	},
 	
+	// When getting eggs implanted in you for the first time:
+	
+	SIDE_INCUBATION_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Living Incubator";
+		}
+		@Override
+		public String getDescription() {
+			return "There's no doubt about it; you've had a clutch of eggs implanted inside of your body! There's nothing else for you to do except wait for them to mature and then lay them...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You waited for the eggs implanted inside of your body to mature, and then successfully laid and hatched them!";
+		}
+	},
+	
+//	SIDE_INCUBATION_LILAYA_HELP(QuestType.SIDE, 1, 20) {
+//		@Override
+//		public String getName() {
+//			return "Egg-laying assistance";
+//		}
+//		@Override
+//		public String getDescription() {
+//			return "Lilaya said that she'd be able to help you lay your eggs whenever you're ready. You're going to need to wait until they're ready to be hatched, then you can go and see Lilaya to lay them.";
+//		}
+//		@Override
+//		public String getCompletedDescription() {
+//			return "Lilaya helped you to lay your eggs. She said that if ever you get implanted with eggs again, she can always help out.";
+//		}
+//	},
+	
 	// Getting a slaver license:
 	
 	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {

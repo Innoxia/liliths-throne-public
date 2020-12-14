@@ -14,13 +14,13 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -1128,6 +1128,12 @@ public class Lyssieth extends NPC {
 								"Good [npc2.girl]! Take mommy's cock deep in your little pussy!",
 								"Oh yes! Let mommy fill your pussy with her cock! Good [npc2.girl]!"));
 						break;
+					case SPINNERET:
+						availableLines.add(UtilText.returnStringAtRandom(
+								"Yes! Take mommy's cock! Your spinneret belongs to me!",
+								"Good [npc2.girl]! Take mommy's cock deep in your little spinneret!",
+								"Oh yes! Let mommy fill your spinneret with her cock! Good [npc2.girl]!"));
+						break;
 				}
 			}
 		}
@@ -1191,6 +1197,12 @@ public class Lyssieth extends NPC {
 								"Yes! Mommy loves servicing your pussy! Good [npc2.girl]!",
 								"Oh yes! Let mommy eat you out! Yes, yes, yes!",
 								"Oh yes! Mommy loves the taste of your pussy! Feel her [npc1.tongue] getting in nice and deep!"));
+						break;
+					case SPINNERET:
+						availableLines.add(UtilText.returnStringAtRandom(
+								"Yes! Mommy loves servicing your spinneret! Good [npc2.girl]!",
+								"Oh yes! Let mommy eat out your spinneret! Yes, yes, yes!",
+								"Oh yes! Mommy loves the taste of your spinneret! Feel her [npc1.tongue] getting in nice and deep!"));
 						break;
 				}
 			}
