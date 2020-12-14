@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Util;
 
@@ -201,6 +202,23 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"If Rain Cloud's target is hit by a critical attack, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
 
+	SOOTHING_WATERS_1_CLEAN(true,
+			2,
+			SpellSchool.WATER,
+			"soothing_waters_clean",
+			"Cleansing Waters",
+			"The power of Soothing Waters now spreads over the target's body and into their clothes, cleaning them of any dirty fluids.",
+			null, Util.newArrayListOfValues(
+					"Soothing Waters [style.boldAqua(cleans all worn clothing)]",
+					"Soothing Waters [style.boldAqua(cleans all fluids from body)]")),
+	SOOTHING_WATERS_2_CLEAN(true,
+			5,
+			SpellSchool.WATER,
+			"soothing_waters_clean_orifices",
+			"Deep Clean",
+			"Soothing Waters now washes deep into the target's body, cleaning out all of their dirty orifices.",
+			null, Util.newArrayListOfValues(
+					"Soothing Waters [style.boldAqua(drains [style.fluid(250)] of fluid from all orifices)]")),
 	SOOTHING_WATERS_1(true,
 			5,
 			SpellSchool.WATER,
@@ -800,7 +818,7 @@ public enum SpellUpgrade {
 	private String name;
 	private String description;
 
-	private HashMap<Attribute, Integer> attributeModifiers;
+	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 	private List<String> extraEffects;
 	private List<String> modifiersList;
 	
@@ -811,7 +829,8 @@ public enum SpellUpgrade {
 			String pathName,
 			String name,
 			String description,
-			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects) {
 		this(false, pointCost, spellSchool, pathName, name, description, attributeModifiers, extraEffects);
 	}
 	
@@ -821,7 +840,8 @@ public enum SpellUpgrade {
 			String pathName,
 			String name,
 			String description,
-			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects) {
 		
 		this.isAlwaysAvailable = isAlwaysAvailable;
 		this.pointCost = pointCost;
@@ -835,7 +855,7 @@ public enum SpellUpgrade {
 		modifiersList = new ArrayList<>();
 		
 		if (attributeModifiers != null) {
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet())
+			for (Entry<AbstractAttribute, Integer> e : attributeModifiers.entrySet())
 				modifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b>"
 						+ " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
 		}
@@ -890,7 +910,7 @@ public enum SpellUpgrade {
 		return modifiersList;
 	}
 
-	public HashMap<Attribute, Integer> getAttributeModifiers() {
+	public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 

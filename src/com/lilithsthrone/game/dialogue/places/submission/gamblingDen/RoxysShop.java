@@ -19,6 +19,8 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -34,10 +36,12 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.5.5
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class RoxysShop {
@@ -47,14 +51,24 @@ public class RoxysShop {
 		return ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getNpc(Roxy.class).getId());
 	}
 	
-	public static final DialogueNode TRADER = new DialogueNode("Roxy's Fun Box", "", false) {
+	public static final DialogueNode TRADER_EXTERIOR = new DialogueNode("Roxy's Fun Box", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_EXTERIOR");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Enter", "[pc.Step] inside 'Roxy's Fun Box' and take a look around...", TRADER);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode TRADER = new DialogueNode("Roxy's Fun Box", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			ItemEffectType.CIGARETTE.applyEffect(null, null, null, 0, Main.game.getNpc(Roxy.class), Main.game.getNpc(Roxy.class), null);
-		}
-		@Override
-		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyIntroduced);
 		}
 		@Override
 		public String getContent() {
@@ -88,7 +102,16 @@ public class RoxysShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if(index==0) {
+				return new Response("Exit", "Head out of Roxy's shop...", PlaceType.GAMBLING_DEN_CORRIDOR.getDialogue(false)){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
+						Main.game.getPlayer().setNearestLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_CORRIDOR, false);
+					}
+				};
+				
+			} else if (index == 1) {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyIntroduced)) {
 					return new Response("Refuse", "Tell Roxy that you're only interested in having a look around her shop.", TRADER_REPLY_NO){
 						@Override
@@ -216,17 +239,17 @@ public class RoxysShop {
 						
 						int dTotal = d1 + d2;
 						if(dTotal<=3) {
-							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER);
+							item = Main.game.getItemGen().generateItem("innoxia_race_human_vanilla_water");
 						} else if(dTotal<=5) {
-							item = Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH);
+							item = Main.game.getItemGen().generateItem("innoxia_race_bat_fruit_bats_juice_box");
 						} else if(dTotal<=7) {
 							item = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
 						} else if(dTotal<=9) {
-							item = Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM);
+							item = Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum");
 						} else if(dTotal<=11) {
-							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH);
+							item = Main.game.getItemGen().generateItem("innoxia_race_rat_brown_rats_burger");
 						} else {
-							item = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HUMAN);
+							item = Main.game.getItemGen().generateItem("innoxia_race_human_bread_roll");
 						}
 						
 						UtilText.addSpecialParsingString(Util.intToString(d1), true);
@@ -325,7 +348,7 @@ public class RoxysShop {
 							}
 						},
 						AFTER_VENGAR_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_SEX_DOM")) {
+						UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "VENGAR_SEX_DOM")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-VENGAR_SUB_DOM_COST));
@@ -366,19 +389,43 @@ public class RoxysShop {
 							}
 						},
 						AFTER_VENGAR_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_SEX_SUB")) {
+						UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "VENGAR_SEX_SUB")) {
 					@Override
 					public void effects() {
+						AbstractClothing cage = Main.game.getNpc(Vengar.class).getClothingInSlot(InventorySlot.PENIS);
+						if(cage!=null) {
+							Main.game.getNpc(Vengar.class).unequipClothingIntoVoid(cage, true, Main.game.getNpc(Roxy.class));
+						}
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-VENGAR_SUB_SEX_COST));
 						Main.game.getNpc(Roxy.class).incrementMoney(VENGAR_SUB_SEX_COST);
 					}
 				};
 				
 			} else if(index==3 && !Main.game.getNpc(Vengar.class).isFeminine()) {
-				return new Response("Sissify", "Tell Roxy that Vengar would behave a lot better if she were to turn him into a sissy.", VENGAR_SISSIFY) {
+				if(Main.game.getPlayer().getEssenceCount()<100 || !Main.game.getPlayer().hasItemType(ItemType.FETISH_UNREFINED)) {
+					return new Response("Sissify",
+							"Tell Roxy that Vengar would behave a lot better if she were to turn him into a sissy."
+							+ "<br/>Requires: "
+							+ (Main.game.getPlayer().getEssenceCount()<100?"[style.italicsBad(":"[style.italicsGood(")
+							+"At least 100 essences)] and "
+							+ (Main.game.getPlayer().hasItemType(ItemType.FETISH_UNREFINED)
+									?"[style.italicsBad("
+									:"[style.italicsGood(")
+								+"[#ITEM_FETISH_UNREFINED.getDeterminer()] [#ITEM_FETISH_UNREFINED.getName(false)])].",
+							null);
+				}
+				return new Response("Sissify",
+						"Tell Roxy that Vengar would behave a lot better if she were to turn him into a sissy."
+						+ "<br/>Will consume: [style.italicsArcane(100 essences)] and [style.italicsMinorGood(one [#ITEM_FETISH_UNREFINED.getName(false)])].",
+						VENGAR_SISSIFY) {
 					@Override
 					public void effects() {
-						((Vengar)Main.game.getNpc(Vengar.class)).applySissification();
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "VENGAR_SISSIFY"));
+						Main.game.getTextStartStringBuilder().append(((Vengar)Main.game.getNpc(Vengar.class)).applySissification());
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "VENGAR_SISSIFY_END"));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(-100, false));
+						Main.game.getPlayer().removeItemByType(ItemType.FETISH_UNREFINED);
+						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>[style.italicsMinorBad(You lost <b>1</b> [#ITEM_FETISH_UNREFINED.getName(false)]!)]</p>");
 					}
 				};
 				
@@ -389,7 +436,11 @@ public class RoxysShop {
 		}
 	};
 	
-	public static final DialogueNode AFTER_VENGAR_SEX = new DialogueNode("Finished", "You and Vengar are finished...", false) {
+	public static final DialogueNode AFTER_VENGAR_SEX = new DialogueNode("Finished", "You and Vengar are finished...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Vengar.class).equipClothing();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -407,18 +458,18 @@ public class RoxysShop {
 		}
 	};
 	
-	public static final DialogueNode VENGAR_SISSIFY = new DialogueNode("", "", false) {
+	public static final DialogueNode VENGAR_SISSIFY = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "VENGAR_SISSIFY");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return TRADER.getResponse(responseTab, index);
+			return VENGAR.getResponse(responseTab, index);
 		}
 	};
 }

@@ -156,7 +156,7 @@ public class FingerMouth {
 						UtilText.returnStringAtRandom(
 								(Main.sex.getCharacterTargetedForSexAction(this).hasHair() && Main.sex.getCharacterTargetedForSexAction(this).getHairRawLengthValue()>HairLength.THREE_SHOULDER_LENGTH.getMaximumValue()
 									?"Reaching up and running [npc.her] [npc.fingers+] through [npc2.namePos] [npc2.hair+],"
-											+ " [npc.name] [npc.verb(gather)] it up and [npc.verb(hold)] "+(Main.sex.getCharacterTargetedForSexAction(this).getHairType().isDefaultPlural()?"them":"it")
+											+ " [npc.name] [npc.verb(gather)] it up and [npc.verb(hold)] "+(Main.sex.getCharacterTargetedForSexAction(this).getHairType().isDefaultPlural(Main.sex.getCharacterTargetedForSexAction(this))?"them":"it")
 											+" out of the way as [npc2.name] [npc2.verb(continue)] to give [npc3.name] a blowjob."
 									:""),
 								"Taking hold of the sides of [npc2.namePos] head, [npc.name] [npc.verb(help)] to lift and push [npc2.her] head up and down, helping [npc2.herHim] to continue sucking on [npc3.namePos] [npc3.cock+].",

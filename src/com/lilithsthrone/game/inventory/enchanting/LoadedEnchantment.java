@@ -65,8 +65,6 @@ public class LoadedEnchantment {
 		this.effects = effects;
 	}
 	
-	
-
 	public String getName() {
 		return name;
 	}

@@ -48,7 +48,7 @@ public enum HornLength {
 		return minimumValue + Util.random.nextInt(maximumValue - minimumValue);
 	}
 
-	public static HornLength getHornLengthFromInt(int cm) {
+	public static HornLength getLengthFromInt(int cm) {
 		for(HornLength ps : HornLength.values()) {
 			if(cm>=ps.getMinimumValue() && cm<ps.getMaximumValue()) {
 				return ps;

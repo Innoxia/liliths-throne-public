@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.inventory.item;
 
-import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-
 import java.util.List;
+
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 
 /**
  * Container class for fetish potions

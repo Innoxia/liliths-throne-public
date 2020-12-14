@@ -1,21 +1,32 @@
 package com.lilithsthrone.utils.colours;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 import javafx.scene.paint.Color;
 
 /**
  * @since 0.3.7
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public class Colour {
 
+	private boolean mod;
+	private boolean fromExternalFile;
+	
 	private boolean metallic;
 	
 	private Color colour;
@@ -23,7 +34,7 @@ public class Colour {
 	
 	private String name;
 	private List<String> formattingNames;
-
+	
 	private Colour colourLinkLighter = null;
 	private Colour colourLinkDarker = null;
 	
@@ -35,6 +46,8 @@ public class Colour {
 	}
 	
 	public Colour(boolean metallic, Color colour, Color lightColour, String name) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
@@ -42,6 +55,8 @@ public class Colour {
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
@@ -50,6 +65,8 @@ public class Colour {
 	
 	// Constructors with formatting names:
 	public Colour(boolean metallic, Color colour, Color lightColour, String name, List<String> formattingNames) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
@@ -58,6 +75,8 @@ public class Colour {
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name, List<String> formattingNames) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
@@ -65,6 +84,50 @@ public class Colour {
 		this.formattingNames=formattingNames;
 	}
 	
+	public Colour(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in Colour files it's <colour>
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.metallic = Boolean.valueOf(coreElement.getMandatoryFirstOf("metallic").getTextContent());
+				
+				this.colour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("colour").getTextContent(), 16));
+				this.lightColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("lightColour").getTextContent(), 16));
+
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				
+				this.formattingNames = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("formattingNames").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("formattingNames").getAllOf("name")) {
+						formattingNames.add(e.getTextContent());
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("Colour was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
 	/**
 	 * @return A String in the format RRGGBB
 	 */

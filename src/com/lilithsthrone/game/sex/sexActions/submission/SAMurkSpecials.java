@@ -58,7 +58,7 @@ public class SAMurkSpecials {
 						+ UtilText.returnStringAtRandom(
 								"That's it, slut! ~Mmm!~ Cum from the feelin' of me fat, stinkin' cock fuckin' yer throat!",
 								"Go on, ya 'orny slut! ~Aah!~ Let the taste o' me fat, stinkin' cock give yer an' orgasm!",
-								"You's gonna cum just from suckin me fat, stinkin' cock?! ~Mmm!~ Go on then, slut! Cum fer me!")
+								"You's gonna cum just from suckin' me fat, stinkin' cock?! ~Mmm!~ Go on then, slut! Cum fer me!")
 						+")]";
 				
 			} else if(Main.sex.getOrificesBeingPenetratedBy(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Main.sex.getCharacterOrgasming()).contains(SexAreaOrifice.VAGINA)) {

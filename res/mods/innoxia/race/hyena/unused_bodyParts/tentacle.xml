@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tentacle>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractTentacleType.java -->
+	
+	<!-- The id of the race which this tentacle belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>innoxia_hyena</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[hyena]]></transformationName>
+	
+	<!-- The id of the material covering this tentacle.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>innoxia_hyena_fur</coveringType>
+	
+	<!-- The girth which this tentacle has when first created (such as when a new hyena-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
+	<defaultGirth>4</defaultGirth>
+	
+	<!-- The length of this tentacle in relation to the owner's height, defined as a percentage from 1.0 (100%) to 5.0 (500%).
+	Limits are defined in here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/Tentacle.java -->
+	<defaultLengthAsPercentageOfHeight>2.5</defaultLengthAsPercentageOfHeight>
+	
+	<!-- Tags which are associated with this tentacle type.
+	You should most likely only be using the 'tail' tags for your tentacle type (the game re-uses tail tags for tentacles as the two body parts are very similar to one another).
+	You should define NONE of the 'TAIL_TYPE_X' tags.
+	You should define ONE of the 'TAIL_TAPERING_X' tags.
+	The other tags are optional, but will most likely always include all three of 'TAIL_PREHENSILE', 'TAIL_SUTABLE_FOR_PENETRATION', and 'TAIL_SLEEP_HUGGING'.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_SUTABLE_FOR_PENETRATION</tag>
+		<tag>TAIL_PREHENSILE</tag>
+		<tag>TAIL_SLEEP_HUGGING</tag>
+	</tags>
+	
+	<!-- The singular and plural determiners of this tentacle type.
+	These are used in the format 'Lilaya has one X tentacle.', where X is the determiner.
+	As such the determiner should almost always be left blank.
+	For an example of where determiners need to be defined, harpy tentacles are called 'tentacle feathers', so the determiner should be 'plume of'/'plumes of', to fit into: 'Helena has one X tentacle feathers.' -->
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	
+	<!-- The singular and plural name of this tentacle type.
+	These should be left as 'tentacle' and 'tentacles' for standard tentacle types, but could be something like 'tentacle feathers'/'tentacle feathers' (both as plural) for bird tentacles. -->
+	<name><![CDATA[tentacle]]></name>
+	<namePlural><![CDATA[tentacles]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's tentacle of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>strong</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>strong</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the tentacle type above, but these describe the tentacle's tip: -->
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>rounded</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>rounded</descriptor>
+	</tipDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this tentacle type.
+	As tentacles are limited to taking the place of legs, there is no need to fill out this section, as it is never used in-game... -->
+	<transformationDescription><![CDATA[
+	]]></transformationDescription>
+	
+	<!-- How this tentacle is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		In place of legs, [npc.sheHasFull] [npc.tentacleCount] [npc.tentacleColour(true)] tentacles, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects.
+	]]></bodyDescription>
+	
+</tentacle>

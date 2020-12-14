@@ -50,6 +50,35 @@ public class ChairSex {
 		return !gettingFucked.isTaur();
 	}
 	
+	private static void applyChangeSlotEffects(GameCharacter mover, SexSlot moverSlot, GameCharacter partner, SexSlot partnerSlot) {
+		if(Main.sex.getCharacterInPosition(moverSlot)!=null) {
+			Main.sex.swapSexPositionSlots(mover, Main.sex.getCharacterInPosition(moverSlot));
+		}
+		if(Main.sex.getCharacterInPosition(partnerSlot)!=null && !Main.sex.getCharacterInPosition(partnerSlot).equals(partner)) {
+			Main.sex.swapSexPositionSlots(partner, Main.sex.getCharacterInPosition(partnerSlot));
+		}
+		
+		Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+		Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
+		
+		if(Main.sex.isDom(mover)) {
+			dominants.put(mover, moverSlot);
+		} else {
+			submissives.put(mover, moverSlot);
+		}
+		if(Main.sex.isDom(partner)) {
+			dominants.put(partner, partnerSlot);
+		} else {
+			submissives.put(partner, partnerSlot);
+		}
+
+		Main.sex.setSexManager(new SexManagerDefault(
+				SexPosition.SITTING,
+				dominants,
+				submissives){
+		});
+	}
+	
 	public static final SexAction SWITCH_TO_STANDING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -94,35 +123,6 @@ public class ChairSex {
 			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
-	
-	private static void applyChangeSlotEffects(GameCharacter mover, SexSlot moverSlot, GameCharacter partner, SexSlot partnerSlot) {
-		if(Main.sex.getCharacterInPosition(moverSlot)!=null) {
-			Main.sex.swapSexPositionSlots(mover, Main.sex.getCharacterInPosition(moverSlot));
-		}
-		if(Main.sex.getCharacterInPosition(partnerSlot)!=null && !Main.sex.getCharacterInPosition(partnerSlot).equals(partner)) {
-			Main.sex.swapSexPositionSlots(partner, Main.sex.getCharacterInPosition(partnerSlot));
-		}
-		
-		Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
-		Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
-		
-		if(Main.sex.isDom(mover)) {
-			dominants.put(mover, moverSlot);
-		} else {
-			submissives.put(mover, moverSlot);
-		}
-		if(Main.sex.isDom(partner)) {
-			dominants.put(partner, partnerSlot);
-		} else {
-			submissives.put(partner, partnerSlot);
-		}
-
-		Main.sex.setSexManager(new SexManagerDefault(
-				SexPosition.SITTING,
-				dominants,
-				submissives){
-		});
-	}
 	
 	public static final SexAction SWITCH_TO_GIVING_ORAL = new SexAction(
 			SexActionType.POSITIONING,

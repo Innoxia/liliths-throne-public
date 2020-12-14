@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -86,7 +85,7 @@ public class DominionExpressCentaur extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, false);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			this.setHistory(Occupation.NPC_SLAVE);
 			
@@ -120,7 +119,7 @@ public class DominionExpressCentaur extends NPC {
 			
 			// BODY RANDOMISATION:
 
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -147,7 +146,7 @@ public class DominionExpressCentaur extends NPC {
 			}
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), collarColour, false), true, this);
 			
-//			CharacterUtils.applyMakeup(this, true);
+//			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();

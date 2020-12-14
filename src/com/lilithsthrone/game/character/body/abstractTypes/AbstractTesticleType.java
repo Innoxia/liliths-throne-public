@@ -1,23 +1,37 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.8.8
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
+	private boolean mod;
+	private boolean fromExternalFile;
+
+	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
 	private AbstractFluidType fluidType;
 	private boolean internal;
@@ -27,7 +41,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	private List<String> descriptors;
 	
 	/**
-	 * @param skinType What covers this testicle type (i.e skin/fur/feather type).
+	 * @param coveringType What covers this testicle type (i.e skin/fur/feather type).
 	 * @param race What race has this testicle type.
 	 * @param fluidType The type of cum that these testicles produce.
 	 * @param internal If these testicles are internal by default.
@@ -35,7 +49,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	 * @param namesPlural A list of plural names for this testicle type. Pass in null to use generic names.
 	 * @param descriptors The descriptors that can be used for this testicle type.
 	 */
-	public AbstractTesticleType(BodyCoveringType skinType,
+	public AbstractTesticleType(AbstractBodyCoveringType coveringType,
 			AbstractRace race,
 			AbstractFluidType fluidType,
 			boolean internal,
@@ -43,7 +57,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 			List<String> namesPlural,
 			List<String> descriptors) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 		this.fluidType = fluidType;
 		this.internal = internal;
@@ -53,7 +67,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 		this.descriptors = descriptors;
 	}
 	
-	public AbstractTesticleType(BodyCoveringType skinType,
+	public AbstractTesticleType(AbstractBodyCoveringType skinType,
 			AbstractRace race,
 			AbstractFluidType fluidType,
 			boolean internal) {
@@ -62,6 +76,60 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 				fluidType,
 				internal,
 				null, null, null);
+	}
+	
+	public AbstractTesticleType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+				
+				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
+
+				this.internal = Boolean.valueOf(coreElement.getMandatoryFirstOf("internal").getTextContent());
+				
+				this.names = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					names.add(e.getTextContent());
+				}
+				
+				this.namesPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesPlural.add(e.getTextContent());
+				}
+
+				this.descriptors = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptors").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptors").getAllOf("descriptor")) {
+						descriptors.add(e.getTextContent());
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractTesticleType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
 	}
 	
 	public AbstractFluidType getFluidType() {
@@ -84,13 +152,13 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return true;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(names==null) {
+		if(names==null || names.isEmpty()) {
 			return UtilText.returnStringAtRandom("ball", "testicle");
 		}
 		return Util.randomItemFrom(names);
@@ -98,7 +166,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(namesPlural==null) {
+		if(namesPlural==null || namesPlural.isEmpty()) {
 			return UtilText.returnStringAtRandom("balls", "testicles");
 		}
 		return Util.randomItemFrom(namesPlural);
@@ -106,7 +174,7 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		if(descriptors==null) {
+		if(descriptors==null || descriptors.isEmpty()) {
 			return "";
 		}
 		return Util.randomItemFrom(descriptors);
@@ -114,13 +182,13 @@ public abstract class AbstractTesticleType implements BodyPartTypeInterface {
 
 	@Override
 	/**
-	 * <b>This should never be used - the covering of breasts is determined by the torso's covering!</b>
+	 * <b>This should never be used - the covering of testicles is determined by the torso's covering!</b>
 	 */
-	public BodyCoveringType getBodyCoveringType(Body body) {
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
 			return body.getTorso().getBodyCoveringType(body);
 		}
-		return skinType;
+		return coveringType;
 	}
 
 	@Override

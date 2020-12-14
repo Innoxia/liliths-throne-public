@@ -3,7 +3,7 @@ package com.lilithsthrone.game.character.markings;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -44,8 +44,8 @@ public class Scar implements XMLSaving {
 		Element element = doc.createElement("scar");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "type", this.getType().toString());
-		CharacterUtils.addAttribute(doc, element, "plural", String.valueOf(this.isPlural()));
+		XMLUtil.addAttribute(doc, element, "type", this.getType().toString());
+		XMLUtil.addAttribute(doc, element, "plural", String.valueOf(this.isPlural()));
 		
 		return element;
 	}

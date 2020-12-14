@@ -86,7 +86,7 @@
 		With an exasperated sigh, Axel turns back towards you and reveals what by now was obvious, [axel.speech(Yes, that 'compensation' the Enforcers gave me was a slaver license and the recently-enslaved Vengar, as well as another of his thugs; some nasty piece of work called 'Murk'. I have neither the time nor inclination for dealing with those two, so I agreed to give Vengar to Roxy, while Murk is being watched over by Epona.)]
 	</p>
 	<p>
-		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have places selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
+		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have placed selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
@@ -704,9 +704,6 @@
 	<p>
 		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar without their assistance...
 	</p>
-	<p style='text-align:center;'>
-		[style.italicsBad(Please be aware that are some rough edges to this quest! It will be finished as soon as possible!)]
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -783,7 +780,7 @@
 		Accompanying the albino [axel.race], you head out of the Gambling Den, but instead of going directly to the Rat Warrens, Axel insists on first reporting your intended movements to the Enforcers. One short detour later, and you find yourself standing outside the nearest Enforcer Post, waiting for the [axel.race]'s return. Thankfully, he's not in there for too long, and a few minutes later, the two of you are on your way to the Rat Warrens.
 	</p>
 	<p>
-		[axel.speech(That was weird,)] Axel says as the two of you make your way through Submission's tunnels, [axel.speech(It was almost as though the Enforcer I spoke to already knew that I was going to see Vengar. When I started to explain it, she asked, 'Oh, you're the one who's doing it, than?'. This whole business seems really weird... Are you sure this is the only way to stop his gang?)]
+		[axel.speech(That was weird,)] Axel says as the two of you make your way through Submission's tunnels, [axel.speech(It was almost as though the Enforcer I spoke to already knew that I was going to see Vengar. When I started to explain it, she asked, 'Oh, you're the one who's doing it, then?'. This whole business seems really weird... Are you sure this is the only way to stop his gang?)]
 	</p>
 	<p>
 		Reassuring Axel that this is his best chance at stopping Vengar's criminal activities, you tell him that the rat-boy mentioned something about his plan involving a way to get the Enforcers off his back. Speculating that this might be the reason for the Enforcers already being aware of what's going on, you convince the nervous [axel.race] that everything is going to be fine. As you approach the entrance to the dark tunnels which lead to the Rat Warren's entrance, however, Axel stops in his tracks and asks, [axel.speech(Do we really have to go in there? I heard that all sorts of muggers and other bad people roam these tunnels, what if we run into one of them?)]
@@ -804,7 +801,7 @@
 		[shadow.speech(Suit yerself,)] Shadow shrugs, before motioning to her white-furred companion, [shadow.speech(Silence 'ere will lead the way; it's only fittin' fer the two albinos ta be together! Hah!)]
 	</p>
 	<p>
-		As Axel sets off beside Silence, you follow on beside Shadow, who leans in to whisper a warning into your ear, [shadow.speech(The boss 'as got some potion he's plannin' on trickin' yer 'gator friend inta drinkin'. If ya dno't want 'im turned inta some sissy 'gator slut, then ya better stop 'im from drinkin' it.)]
+		As Axel sets off beside Silence, you follow on beside Shadow, who leans in to whisper a warning into your ear, [shadow.speech(The boss 'as got some potion he's plannin' on trickin' yer 'gator friend inta drinkin'. If ya don't want 'im turned inta some sissy 'gator slut, then ya better stop 'im from drinkin' it.)]
 	</p>
 	<p>
 		Asking the rat-girl why she doesn't just tell Axel this, she replies, [shadow.speech(It's more fun this way, ain't it? I wanna see what ya gonna do. Hah!)]

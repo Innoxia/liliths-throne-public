@@ -191,7 +191,7 @@ public class DaddyDialogue {
 						
 						((Daddy)Main.game.getNpc(Daddy.class)).sendToNewHome();
 						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 					}
 				};
 				
@@ -206,7 +206,7 @@ public class DaddyDialogue {
 
 						((Daddy)Main.game.getNpc(Daddy.class)).sendToNewHome();
 						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, true);
 					}
 				};

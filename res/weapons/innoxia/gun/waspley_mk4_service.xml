@@ -42,6 +42,7 @@
 		
 		<itemTags>
 			<tag>CHEAT_ITEM</tag>
+			<tag>CONTRABAND_HEAVY</tag>
 		</itemTags>
 		
 	</coreAttributes>

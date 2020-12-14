@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -427,6 +428,13 @@ public enum TFModifier {
 			"modifier_circle_tf_tail",
 			PresetColour.TRANSFORMATION_PARTIAL,
 			Rarity.UNCOMMON),
+
+	TF_TENTACLE("tentacle",
+			"Applies a transformative effect to your tentacles.",
+			"tentacles",
+			"modifier_circle_tf_tentacle",
+			PresetColour.TRANSFORMATION_PARTIAL,
+			Rarity.UNCOMMON),
 	
 	TF_VAGINA("vagina",
 			"Applies a transformative effect to your vagina.",
@@ -505,6 +513,41 @@ public enum TFModifier {
 			"Transforms the related body part into that of a different race.",
 			"transformative",
 			"modifier_circle_tf_5",
+			PresetColour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+
+	TF_TYPE_6("transformative VI",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_6",
+			PresetColour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_7("transformative VII",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_7",
+			PresetColour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_8("transformative VIII",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_8",
+			PresetColour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_9("transformative IX",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_9",
+			PresetColour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_10("transformative X",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_10",
 			PresetColour.TRANSFORMATION_GENERIC,
 			Rarity.COMMON),
 	
@@ -597,6 +640,13 @@ public enum TFModifier {
 			"cephalopod body",
 			"modifier_circle_tf_legConfig_cephalopod",
 			PresetColour.BASE_RED,
+			Rarity.LEGENDARY),
+
+	TF_MOD_LEG_CONFIG_AVIAN("avian body",
+			"Applies an effect to give the user an avian body.",
+			"avian body",
+			"modifier_circle_tf_legConfig_avian",
+			PresetColour.BASE_YELLOW,
 			Rarity.LEGENDARY),
 	
 	TF_MOD_INTERNAL("internal",
@@ -1051,6 +1101,13 @@ public enum TFModifier {
 			"modifier_circle_penis_prehensile",
 			PresetColour.BASE_TEAL,
 			Rarity.COMMON),
+	
+	TF_MOD_PENIS_OVIPOSITOR("ovipositor",
+			"Applies an effect related to making a body part act as an ovipositor.",
+			"oviposition",
+			"modifier_circle_penis_ovipositor",
+			PresetColour.BASE_WHITE,
+			Rarity.COMMON),
 
 	
 	TF_MOD_CUM_EXPULSION("cum expulsion",
@@ -1361,6 +1418,7 @@ public enum TFModifier {
 		TFRacialBodyPartsList.add(TF_ANTENNA);
 		TFRacialBodyPartsList.add(TF_HORNS);
 		TFRacialBodyPartsList.add(TF_TAIL);
+		TFRacialBodyPartsList.add(TF_TENTACLE);
 		TFRacialBodyPartsList.add(TF_WINGS);
 		
 		TFRacialBodyPartsList.add(TF_ASS);
@@ -1516,7 +1574,7 @@ public enum TFModifier {
 	}
 	
 	private AttributeCategory attributeCategory;
-	private Attribute associatedAttribute;
+	private AbstractAttribute associatedAttribute;
 	
 	private String name;
 	private String description;
@@ -1528,7 +1586,7 @@ public enum TFModifier {
 	private Rarity rarity;
 	private Fetish fetish;
 	
-	private TFModifier(AttributeCategory attributeCategory, Attribute associatedAttribute, String description, String SVGString, Rarity rarity) {
+	private TFModifier(AttributeCategory attributeCategory, AbstractAttribute associatedAttribute, String description, String SVGString, Rarity rarity) {
 		this.attributeCategory=attributeCategory;
 		this.associatedAttribute=associatedAttribute;
 		this.name = associatedAttribute.getName();
@@ -1605,7 +1663,7 @@ public enum TFModifier {
 		return attributeCategory;
 	}
 
-	public Attribute getAssociatedAttribute() {
+	public AbstractAttribute getAssociatedAttribute() {
 		return associatedAttribute;
 	}
 
@@ -1687,7 +1745,7 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
-		if(Main.getProperties().udders==0) {
+		if(Main.getProperties().getUddersLevel()==0) {
 			return TFRacialBodyPartsList.stream().filter(mod -> mod!=TFModifier.TF_BREASTS_CROTCH && mod!=TFModifier.TF_MILK_CROTCH).collect(Collectors.toList());
 		}
 		return TFRacialBodyPartsList;
@@ -1716,6 +1774,10 @@ public enum TFModifier {
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
 		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
+		if(!Main.game.isNonConEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_DOM);
+			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_SUB);
+		}
 		if(!Main.game.isIncestEnabled()) {
 			returnList.remove(TFModifier.TF_MOD_FETISH_INCEST);
 		}

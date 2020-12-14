@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.3.7.5
+ * @version 0.4
  * @author Innoxia
  */
 public enum QuestLine {
@@ -32,6 +32,10 @@ public enum QuestLine {
 	SIDE_FIRST_TIME_PREGNANCY("Knocked Up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...",
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
+
+	SIDE_FIRST_TIME_INCUBATION("Egged", "You successfully incubated, laid, and hatched the eggs which were planted inside of you!",
+			QuestType.SIDE,
+			QuestTree.incubationTree),
 
 	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted slaver license!",
 			QuestType.SIDE,
@@ -68,6 +72,10 @@ public enum QuestLine {
 	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
 			QuestType.SIDE,
 			QuestTree.vengarTree),
+
+	SIDE_WES("The Rogue Enforcer", "You were able to successfully deal with the Enforcer Quartermaster.",
+			QuestType.SIDE,
+			QuestTree.wesTree),
 	
 	// Romance quests:
 	

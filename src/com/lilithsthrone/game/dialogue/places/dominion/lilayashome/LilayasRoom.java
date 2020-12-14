@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -19,6 +20,8 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
@@ -358,6 +361,16 @@ public class LilayasRoom {
 							@Override
 							public  boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
 								return !character.isPlayer();
+							}
+							@Override
+							public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
+								return Util.newHashMapOfValues(
+										new Value<>(
+												Main.game.getNpc(Rose.class),
+												Util.newArrayListOfValues(
+														SexAreaOrifice.VAGINA,
+														SexAreaOrifice.ANUS,
+														SexAreaOrifice.MOUTH)));
 							}
 						},
 						null,

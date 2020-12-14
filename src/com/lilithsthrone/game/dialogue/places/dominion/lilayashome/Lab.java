@@ -171,6 +171,31 @@ public class Lab {
 				}
 			}
 		}
+
+//		if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+//			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+//				generatedResponses.add(new Response("Incubation", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with the eggs you're currently incubating.", null));
+//				
+//			} else {
+//				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) == Quest.SIDE_INCUBATION_CONSULT_LILAYA) {
+//					generatedResponses.add(new Response("Incubation", "Speak to Lilaya about the eggs you're currently incubating.", LilayaBirthing.LILAYA_ASSISTS_INCUBATION){
+//						@Override
+//						public void effects() {
+//							setEntryFlags();
+//							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_INCUBATION, Quest.SIDE_INCUBATION_LILAYA_HELP));
+//						}
+//					});
+//					
+//				} else {
+//					generatedResponses.add(new Response("Incubation", "Speak to Lilaya about the eggs you're currently incubating.", LilayaBirthing.LILAYA_ASSISTS_INCUBATION_REPEAT){
+//						@Override
+//						public void effects() {
+//							setEntryFlags();
+//						}
+//					});
+//				}
+//			}
+//		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
@@ -356,6 +381,30 @@ public class Lab {
 					}
 				}
 			});
+		}
+		
+		if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_1) {
+			if(Main.game.getCurrentDialogueNode()==LILAYA_ELLE_HELP) {
+				generatedResponses.add(new Response("Elle's location", "You are already asking Lilaya about where Elle could be!", null));
+				
+			} else {
+				generatedResponses.add(new Response("Elle's location",
+						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestLilayaHelp)
+							?"Ask Lilaya if she can remind you where Elle is teleporting to."
+							:"Ask Lilaya for some help in figuring out where Elle is teleporting to.",
+						LILAYA_ELLE_HELP){
+					@Override
+					public void effects() {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.wesQuestLilayaHelp)) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_ELLE_HELP_REPEAT"));
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_ELLE_HELP"));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.wesQuestLilayaHelp, true);
+						}
+						setEntryFlags();
+					}
+				});
+			}
 		}
 		
 		return generatedResponses;
@@ -897,6 +946,17 @@ public class Lab {
 			return LAB_ENTRY.getResponse(0, index);
 		}
 	};
+
+	public static final DialogueNode LILAYA_ELLE_HELP = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(0, index);
+		}
+	};
 	
 	public static final DialogueNode LAB_LILAYA_HUG = new DialogueNode("", "", true) {
 		@Override
@@ -922,10 +982,8 @@ public class Lab {
 				UtilText.addSpecialParsingString(getJinxedClothingExample().getName(), true);
 				UtilText.addSpecialParsingString((getJinxedClothingExample().getClothingType().isPlural()?"them":"it"), false);
 				UtilText.addSpecialParsingString((getJinxedClothingExample().getClothingType().isPlural()?"these":"this"), false);
-			} else {
-				UtilText.addSpecialParsingString("false", true);
 			}
-
+			
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_EXPLAINS_ESSENCES");
 		}
 

@@ -8,12 +8,14 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -614,6 +616,23 @@ public class AlleywayProstituteDialogue {
 					}
 				};
 				
+			} else if (index == 8 && getProstitute().isAbleToSelfTransform()) {
+				return new Response("Transform [npc.herHim]",
+						"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(getProstitute());
+					}
+				};
+				
+			} else if (index == 9 && getProstitute().isAbleToSelfTransform()) {
+				return new Response("Quick transformations",
+						"As [npc.she] is able to transform [npc.herself], you have a few quick ideas in mind..."
+								+ "(You'll return to these options once finished transforming [npc.herHim].)",
+						QuickTransformations.initQuickTransformations("misc/quickTransformations", getProstitute(), AFTER_COMBAT_VICTORY));
+			
 			} else if (index == 11 && Main.game.getPlayer().hasCompanions()) {
 				GameCharacter companion = Main.game.getPlayer().getMainCompanion();
 				

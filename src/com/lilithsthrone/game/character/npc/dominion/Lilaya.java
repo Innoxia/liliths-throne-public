@@ -13,10 +13,11 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -445,12 +446,12 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
-		if(user.isPlayer() && !target.isPlayer() && item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+		if(user.isPlayer() && !target.isPlayer() && item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
 			if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
-				itemOwner.removeItemByType(ItemType.VIXENS_VIRILITY);
+				itemOwner.removeItemByType(ItemType.getItemTypeFromId("innoxia_pills_fertility"));
 				return new Value<>(false,
 						"<p>"
-							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
+							+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
 							+ " Seeing what it is you're trying to get her to swallow, she furrows her eyebrows and smacks the pill out of your [pc.hand], sending it flying off under one of the lab tables."
 							+ " In a sharp tone, she admonishes you, "
 							+ (this.hasPenis()
@@ -462,7 +463,7 @@ public class Lilaya extends NPC {
 				itemOwner.useItem(item, this, false);
 				return new Value<>(true,
 						"<p>"
-							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
+							+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
 							+ " She lets out a delighted moan as she happily swallows the little pink pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
 						+ "</p>");
 			}
@@ -471,7 +472,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getAttributeChangeText(Attribute att, float value) {
+	public String getAttributeChangeText(AbstractAttribute att, float value) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.getAttributeChangeText(att, value));
@@ -499,7 +500,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getPotionAttributeChangeText(Attribute att, float value) {
+	public String getPotionAttributeChangeText(AbstractAttribute att, float value) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(super.getPotionAttributeChangeText(att, value));

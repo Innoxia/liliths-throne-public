@@ -1,8 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import java.time.DayOfWeek;
+
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -12,56 +15,69 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.6
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class BatCaverns {
-
+	
+	private static Response getElleSearchResponse() {
+		if(Main.game.getPlayer().getQuest(QuestLine.SIDE_WES)==Quest.WES_1) {
+			if(Main.game.getDayOfWeek()!=DayOfWeek.WEDNESDAY || Main.game.getHourOfDay()<12 || Main.game.getHourOfDay()>=15) {
+				return new Response("Search for Elle",
+						"You're only going to be able to find Elle on a "
+						+ (Main.game.getDayOfWeek()!=DayOfWeek.WEDNESDAY
+							?"[style.italicsBad(Wednesday)]"
+							:"[style.italicsGood(Wednesday)]")
+						+ " between "
+						+ ((Main.game.getHourOfDay()<12 || Main.game.getHourOfDay()>=15)
+								?"[style.italicsBad([units.time(12)]-[units.time(15)])]"
+								:"[style.italicsGood([units.time(12)]-[units.time(15)])]")
+						+ "!",
+						null);
+				
+			} else {
+				return new Response("Search for Elle", "Start searching for any sign of Elle down here in the Bat Caverns...", WesQuest.ELLE_SEARCH);
+			}
+		}
+		return null;
+	}
+	
 	public static final DialogueNode STAIRCASE = new DialogueNode("Winding Staircase", "", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "STAIRCASE");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Submission", "Head back up to Submission."){
+				return new Response("Submission", "Head back up to Submission.", PlaceType.SUBMISSION_BAT_CAVERNS.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_BAT_CAVERNS, true);
+						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_BAT_CAVERNS, false);
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode CAVERN_DARK = new DialogueNode("Dark Cavern", "", false) {
-		
 		@Override
 		public String getAuthor() {
 			return "Duner & Innoxia";
 		}
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -75,29 +91,26 @@ public class BatCaverns {
 							}
 						};
 						
-			} else {
-				return null;
+			} else if(index==2) {
+				return getElleSearchResponse();
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode CAVERN_LIGHT = new DialogueNode("Bioluminescent Cavern", "", false) {
-		
 		@Override
 		public String getAuthor() {
 			return "Duner & Innoxia";
 		}
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_LIGHT");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -111,24 +124,22 @@ public class BatCaverns {
 							}
 						};
 						
-			} else {
-				return null;
+			} else if(index==2) {
+				return getElleSearchResponse();
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode RIVER = new DialogueNode("Underground River", "", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -142,24 +153,22 @@ public class BatCaverns {
 							}
 						};
 						
-			} else {
-				return null;
+			} else if(index==2) {
+				return getElleSearchResponse();
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode RIVER_BRIDGE = new DialogueNode("Mushroom Bridge", "", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_BRIDGE");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -173,24 +182,22 @@ public class BatCaverns {
 							}
 						};
 						
-			} else {
-				return null;
+			} else if(index==2) {
+				return getElleSearchResponse();
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode RIVER_END = new DialogueNode("Underground River", "", false) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_END");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -204,9 +211,10 @@ public class BatCaverns {
 							}
 						};
 						
-			} else {
-				return null;
+			} else if(index==2) {
+				return getElleSearchResponse();
 			}
+			return null;
 		}
 	};
 	
@@ -279,10 +287,8 @@ public class BatCaverns {
 				} else {
 					return new Response("Fly to island", "You aren't able to fly. It looks like you'll have to use the boat...", null);
 				}
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -341,10 +347,8 @@ public class BatCaverns {
 								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 							}
 						};
-						
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 }

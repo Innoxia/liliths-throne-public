@@ -9,10 +9,9 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -261,7 +260,7 @@ public class Finch extends NPC {
 			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
 		}
 		
-		for(AbstractClothing c : CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
+		for(AbstractClothing c : Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
 			this.addClothing(c, false);
 		}
 	}
@@ -290,7 +289,10 @@ public class Finch extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		return item instanceof AbstractClothing;
+		return (item instanceof AbstractClothing)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_LIGHT)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_MEDIUM)
+				&& !item.getItemTags().contains(ItemTag.CONTRABAND_HEAVY);
 	}
 
 }
