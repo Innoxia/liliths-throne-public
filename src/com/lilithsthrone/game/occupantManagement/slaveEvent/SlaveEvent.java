@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.3.9.2
+ * @version 0.4
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -32,6 +32,9 @@ public enum SlaveEvent {
 	SLAVE_BONDING(SlaveEventType.BONDING, "[style.boldAffection(Bonding)]", "[npc.Name] spent some time bonding with another slave..."),
 	
 	GAVE_BIRTH(SlaveEventType.SEX, "[style.boldExcellent(Gave birth)]", "Lilaya helped [npc.name] to give birth."),
+
+	GAVE_BIRTH_INCUBATION(SlaveEventType.SEX, "[style.boldExcellent(Laid eggs)]", "Lilaya helped [npc.name] to lay the eggs [npc.she] was incubating."),
+	
 	
 	// Jobs:
 

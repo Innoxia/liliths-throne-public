@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -65,8 +65,8 @@ public class Outfit implements XMLSaving {
 		Element element = doc.createElement("outfit");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "name", name);
-		CharacterUtils.addAttribute(doc, element, "outfitType", outfitType.toString());
+		XMLUtil.addAttribute(doc, element, "name", name);
+		XMLUtil.addAttribute(doc, element, "outfitType", outfitType.toString());
 		
 		if(!this.getWeapons().isEmpty()) {
 			Element innerElement = doc.createElement("weapons");
@@ -74,8 +74,8 @@ public class Outfit implements XMLSaving {
 			for(Entry<String, String> e : this.getWeapons().entrySet()) {
 				Element weaponElement = doc.createElement("w");
 				innerElement.appendChild(weaponElement);
-				CharacterUtils.addAttribute(doc, weaponElement, "id", e.getKey());
-				CharacterUtils.addAttribute(doc, weaponElement, "typeId", e.getValue());
+				XMLUtil.addAttribute(doc, weaponElement, "id", e.getKey());
+				XMLUtil.addAttribute(doc, weaponElement, "typeId", e.getValue());
 			}
 		}
 
@@ -85,8 +85,8 @@ public class Outfit implements XMLSaving {
 			for(Entry<String, String> e : this.getWeapons().entrySet()) {
 				Element clothingElement = doc.createElement("c");
 				innerElement.appendChild(clothingElement);
-				CharacterUtils.addAttribute(doc, clothingElement, "id", e.getKey());
-				CharacterUtils.addAttribute(doc, clothingElement, "typeId", e.getValue());
+				XMLUtil.addAttribute(doc, clothingElement, "id", e.getKey());
+				XMLUtil.addAttribute(doc, clothingElement, "typeId", e.getValue());
 			}
 		}
 		

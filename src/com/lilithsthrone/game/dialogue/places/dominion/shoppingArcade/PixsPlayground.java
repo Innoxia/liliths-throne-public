@@ -529,8 +529,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240+30));
 						}
 					};
 				} else {
@@ -541,8 +541,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT_CONSENSUAL) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240+30));
 						}
 					};
 				}

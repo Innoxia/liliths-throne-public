@@ -4,8 +4,8 @@ import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;

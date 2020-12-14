@@ -1,14 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
-import com.lilithsthrone.game.character.body.tags.TentacleTypeTag;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -94,11 +97,37 @@ public class TentacleType {
 					+ " [npc.tentacleCount] spaded, [npc.tentacleColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tentacles, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
 				+ "#ENDIF",
 			Util.newArrayListOfValues(
-					TentacleTypeTag.PREHENSILE,
-					TentacleTypeTag.SUTABLE_FOR_PENETRATION,
-					TentacleTypeTag.SLEEP_HUGGING,
-					TentacleTypeTag.TAPERING_NONE)) {
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TAPERING_NONE)) {
 	};
+	
+	public static final AbstractTentacleType LEG_DEMON_OCTOPUS = new AbstractTentacleType(
+			BodyCoveringType.OCTOPUS_SKIN,
+			Race.DEMON,
+			PenetrationGirth.FOUR_THICK,
+			2.5f,
+			"demonic-octopus",
+			"",
+			"",
+			"tentacle",
+			"tentacles",
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"tip",
+			"tips",
+			Util.newArrayListOfValues("rounded"),
+			Util.newArrayListOfValues("rounded"),
+			"",
+			"In place of legs, [npc.sheHasFull] [npc.tentacleCount] [npc.tentacleColour(true)], octopus-like tentacles, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects.",
+			Util.newArrayListOfValues(
+					BodyPartTag.TAIL_PREHENSILE,
+					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
+					BodyPartTag.TAIL_SLEEP_HUGGING,
+					BodyPartTag.TAIL_TAPERING_NONE)) {
+	};
+	
 
 	private static List<AbstractTentacleType> allTentacleTypes;
 	private static Map<AbstractTentacleType, String> tentacleToIdMap = new HashMap<>();
@@ -106,8 +135,47 @@ public class TentacleType {
 	
 	static {
 		allTentacleTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tentacle")) {
+					try {
+						AbstractTentacleType type = new AbstractTentacleType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTentacleTypes.add(type);
+						tentacleToIdMap.put(type, id);
+						idToTentacleMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tentacle")) {
+					try {
+						AbstractTentacleType type = new AbstractTentacleType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTentacleTypes.add(type);
+						tentacleToIdMap.put(type, id);
+						idToTentacleMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded tentacle types:
+		
 		Field[] fields = TentacleType.class.getFields();
 		
 		for(Field f : fields){

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>30</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Bunny Juice]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Bunny Juices]]></namePlural>
+		<description><![CDATA[A small plastic bottle of what appears to be some sort of carrot juice, labelled as 'Bunny Juice'.  On the label, there's a rather obscene image of a rabbit-girl stuffing a carrot-shaped dildo into her pussy.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">rabbit_bunny_juice.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>GENERIC_SEX</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_SEXUAL</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(5)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(5)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_LUST.getFormattedValue(-10)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A warm wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_FERTILITY, 5)]
+			[#npc.addPotionEffect(ATTRIBUTE_VIRILITY, 5)]
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_LUST, -10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the Bunny Juice's cap and [npc.verb(start)] drinking the liquid contained within. An intense taste of carrots instantly fills [npc.her] mouth, and after greedily gulping down the entire beverage, [npc.she] [npc.verb(discover)] that it has an unusually sweet aftertaste.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the Bunny Juice's cap and [npc.verb(get)] [npc2.name] to drink the liquid contained within. An intense taste of carrots instantly fills [npc2.her] mouth, and after greedily gulping down the entire beverage, [npc2.she] [npc2.verb(discover)] that it has an unusually sweet aftertaste.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

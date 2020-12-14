@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.EffectBenefit;
@@ -21,7 +22,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
@@ -85,7 +86,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+CombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
 		}
 		
 		@Override
@@ -281,8 +282,8 @@ public enum Spell {
 					SpellUpgrade.CLOAK_OF_FLAMES_2,
 					SpellUpgrade.CLOAK_OF_FLAMES_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)),
+					new Value<>(Attribute.RESISTANCE_FIRE, 5),
+					new Value<>(Attribute.RESISTANCE_ICE, 10)),
 			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 
 		@Override
@@ -493,7 +494,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+CombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
 		}
 		
 		@Override
@@ -571,7 +572,7 @@ public enum Spell {
 					SpellUpgrade.RAIN_CLOUD_2,
 					SpellUpgrade.RAIN_CLOUD_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.SPELL_COST_MODIFIER, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1012,7 +1013,7 @@ public enum Spell {
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+					new Value<>(Attribute.ENERGY_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1093,8 +1094,8 @@ public enum Spell {
 					SpellUpgrade.PROTECTIVE_GUSTS_2,
 					SpellUpgrade.PROTECTIVE_GUSTS_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 5),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 1)),
+					new Value<>(Attribute.RESISTANCE_POISON, 5),
+					new Value<>(Attribute.ENERGY_SHIELDING, 1)),
 			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
@@ -1295,7 +1296,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+CombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
 		}
 		
 		@Override
@@ -1445,7 +1446,7 @@ public enum Spell {
 					SpellUpgrade.STONE_SHELL_2,
 					SpellUpgrade.STONE_SHELL_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1652,7 +1653,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+CombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
 		}
 		
 		@Override
@@ -1713,7 +1714,7 @@ public enum Spell {
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_2,
 					SpellUpgrade.TELEPATHIC_COMMUNICATION_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<>(Attribute.DAMAGE_LUST, 15)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1789,7 +1790,7 @@ public enum Spell {
 					SpellUpgrade.ARCANE_CLOUD_2,
 					SpellUpgrade.ARCANE_CLOUD_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -2199,7 +2200,7 @@ public enum Spell {
 					SpellUpgrade.TELEPORT_2,
 					SpellUpgrade.TELEPORT_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 100)), Util.newArrayListOfValues(
+					new Value<>(Attribute.ENERGY_SHIELDING, 100)), Util.newArrayListOfValues(
 					"Lasts for [style.colourGood(1 turn)]",
 					"[style.colourExcellent(Unlocks)] map teleport",
 					"Map teleport [style.colourTerrible(blocked)] by companions")) {
@@ -2548,7 +2549,7 @@ public enum Spell {
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5)),
 			null,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
+					new Value<>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
 		public boolean isSpellBook() {
@@ -2615,7 +2616,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+CombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
 		}
 		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
@@ -2908,7 +2909,7 @@ public enum Spell {
 	private List<SpellUpgrade> upgradeList;
 	private Map<Integer, List<TreeEntry<SpellSchool, SpellUpgrade>>> spellUpgradeTree;
 	
-	private HashMap<Attribute, Integer> attributeModifiers;
+	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 	private List<String> extraEffects;
 	private List<String> modifiersList;
 
@@ -2928,7 +2929,7 @@ public enum Spell {
 			int spellCost,
 			Map<AbstractStatusEffect, Integer> statusEffects,
 			List<SpellUpgrade> upgradeList,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects) {
 		
 		this.forbiddenSpell = forbiddenSpell;
@@ -2962,7 +2963,7 @@ public enum Spell {
 		modifiersList = new ArrayList<>();
 		
 		if (attributeModifiers != null) {
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet())
+			for (Entry<AbstractAttribute, Integer> e : attributeModifiers.entrySet())
 				modifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b>"
 						+ " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
 		}
@@ -3096,7 +3097,7 @@ public enum Spell {
 		return spellUpgradeTree;
 	}
 
-	public HashMap<Attribute, Integer> getAttributeModifiers() {
+	public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 
@@ -3567,7 +3568,7 @@ public enum Spell {
 						for(AbstractStatusEffect se : statusEffects) {
 							if(!enemy.hasStatusEffect(se)) {
 								boolean alreadyTargetedWithThisSpell = false;
-								for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+								for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
 									if(move.getKey()==enemy && move.getValue().getAssociatedSpell()==this) {
 										alreadyTargetedWithThisSpell = true;
 										break;
@@ -3594,7 +3595,7 @@ public enum Spell {
 						for(AbstractStatusEffect se : statusEffects) {
 							if(!ally.hasStatusEffect(se)) {
 								boolean alreadyTargetedWithThisSpell = false;
-								for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+								for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
 									if(move.getKey()==ally && move.getValue().getAssociatedSpell()==this) {
 										alreadyTargetedWithThisSpell = true;
 										break;
@@ -3632,7 +3633,7 @@ public enum Spell {
 			return Main.combat.getTargetedCombatant();
 		}
 		if(isCanTargetEnemies()) {
-			if(CombatMove.shouldBlunder()) {
+			if(AbstractCombatMove.shouldBlunder()) {
 				return enemies.get(Util.random.nextInt(enemies.size()));
 				
 			} else {
@@ -3649,7 +3650,7 @@ public enum Spell {
 							for(AbstractStatusEffect se : statusEffects) {
 								if(!enemy.hasStatusEffect(se)) {
 									boolean alreadyTargetedWithThisSpell = false;
-									for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+									for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
 										if(move.getKey()==enemy && move.getValue().getAssociatedSpell()==this) {
 											alreadyTargetedWithThisSpell = true;
 											break;
@@ -3677,7 +3678,7 @@ public enum Spell {
 			}
 		}
 		if(isCanTargetAllies() && !allies.isEmpty()) {
-			if(CombatMove.shouldBlunder()) {
+			if(AbstractCombatMove.shouldBlunder()) {
 				return allies.get(Util.random.nextInt(allies.size()));
 				
 			} else {
@@ -3695,7 +3696,7 @@ public enum Spell {
 							for(AbstractStatusEffect se : statusEffects) {
 								if(!ally.hasStatusEffect(se)) {
 									boolean alreadyTargetedWithThisSpell = false;
-									for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+									for(Value<GameCharacter, AbstractCombatMove> move : source.getSelectedMoves()) {
 										if(move.getKey()==ally && move.getValue().getAssociatedSpell()==this) {
 											alreadyTargetedWithThisSpell = true;
 											break;

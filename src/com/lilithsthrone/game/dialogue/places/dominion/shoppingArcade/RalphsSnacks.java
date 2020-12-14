@@ -19,6 +19,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -412,6 +413,9 @@ public class RalphsSnacks {
 					
 				} else if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Accept breeding", "As you're already pregnant, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
+					
+				} else if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Accept breeding", "As your womb is full of eggs, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					return new Response("Accept breeding", "As you're unable to get access to your vagina, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);

@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -38,9 +39,9 @@ public class SexCount implements XMLSaving {
 		Element element = doc.createElement("sexCount");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "consensual", String.valueOf(this.sexConsensualCount));
-		CharacterUtils.addAttribute(doc, element, "asSub", String.valueOf(this.sexAsSubCount));
-		CharacterUtils.addAttribute(doc, element, "asDom",String.valueOf(this.sexAsDomCount));
+		XMLUtil.addAttribute(doc, element, "consensual", String.valueOf(this.sexConsensualCount));
+		XMLUtil.addAttribute(doc, element, "asSub", String.valueOf(this.sexAsSubCount));
+		XMLUtil.addAttribute(doc, element, "asDom",String.valueOf(this.sexAsDomCount));
 		
 		Map<SexType, Element> typesAssigned = new HashMap<>();
 		

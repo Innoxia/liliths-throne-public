@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>150</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Feline's Fancy]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Feline's Fancies]]></namePlural>
+		<description><![CDATA[A delicate glass bottle filled with a thick, cream-like liquid. A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's legs.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">cat_felines_fancy.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(1)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A cool wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 1)]
+			[#npc.incrementAlcoholLevel(0.1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Feline's Fancy, before tilting [npc.her] head back and bringing it up to [npc.her] waiting [npc.lips]. A rich, creamy smell rises from the opening, and as [npc.she] greedily [npc.verb(gulp)] down the cool liquid, [npc.sheIs] delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Wolf Whiskey, before bringing it up to [npc2.namePos] waiting [npc2.lips]. A rich, creamy smell rises from the opening, and as [npc2.she] greedily [npc2.verb(gulp)] down the cool liquid, [npc2.sheIs] delighted to discover that it tastes every bit as good as its delicious aroma suggested it would.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

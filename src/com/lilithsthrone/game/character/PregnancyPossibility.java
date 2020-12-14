@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -46,9 +47,9 @@ public class PregnancyPossibility implements XMLSaving {
 		Element element = doc.createElement("pregnancyPossibility");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "motherId", this.getMotherId());
-		CharacterUtils.addAttribute(doc, element, "fatherId", this.getFatherId());
-		CharacterUtils.addAttribute(doc, element, "probability", String.valueOf(this.getProbability()));
+		XMLUtil.addAttribute(doc, element, "motherId", this.getMotherId());
+		XMLUtil.addAttribute(doc, element, "fatherId", this.getFatherId());
+		XMLUtil.addAttribute(doc, element, "probability", String.valueOf(this.getProbability()));
 		
 		return element;
 	}

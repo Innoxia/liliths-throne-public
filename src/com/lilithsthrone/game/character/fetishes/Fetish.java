@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -829,7 +830,7 @@ public enum Fetish {
 			"fetish_pregnancy",
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, 5)),
 			Util.newArrayListOfValues("<span style='color:"
 					+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>fertility tease</span> (Requires vagina)",
 					"<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>virility tease</span>"),
@@ -865,7 +866,7 @@ public enum Fetish {
 			"fetish_impregnation",
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.VIRILITY, 5)),
 			Util.newArrayListOfValues("<span style='color:"
 					+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>virility tease</span> (Requires penis)",
 					"<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>fertility tease</span>"),
@@ -1084,8 +1085,8 @@ public enum Fetish {
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 1),
+					new Value<>(Attribute.RESISTANCE_LUST, 2)),
 			null,
 			null) {
 
@@ -1119,7 +1120,7 @@ public enum Fetish {
 			"fetish_dominant",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 5)),
 			Util.newArrayListOfValues(
 					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>submissive tease</span>"),
@@ -1154,7 +1155,7 @@ public enum Fetish {
 			"fetish_submissive",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, 2)),
 			Util.newArrayListOfValues(
 					"<span style='color:"+ PresetColour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>submissive tease</span>",
 					"<span style='color:"+ PresetColour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>"),
@@ -1227,7 +1228,7 @@ public enum Fetish {
 			"fetish_masochist",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues(
 					"[style.boldSex(Enjoys)] [style.boldTerrible(painful sex actions)]",
 					"25% of all incoming",
@@ -1265,7 +1266,7 @@ public enum Fetish {
 			"fetish_sadist",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(+5%)] to all [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)]",
 					"10% of all inflicted",
@@ -1453,7 +1454,7 @@ public enum Fetish {
 			null,
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_LUST, 10)),
 			Util.newArrayListOfValues("<span style='color:"+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Talk like a bimbo</span>"),
 			null) {
 		
@@ -1562,7 +1563,7 @@ public enum Fetish {
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Util.newArrayListOfValues(PresetColour.BASE_YELLOW, PresetColour.BASE_PINK),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			Util.newArrayListOfValues(
 					"[style.colourGood(Enjoys)] [style.colourSex(being stretched)]",
 					"Treats [style.colourSex('uncomfortably deep')] insertions as being [style.colourGood('comfortable')]"),
@@ -1598,7 +1599,7 @@ public enum Fetish {
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null,
 			Util.newArrayListOfValues(
 					Fetish.FETISH_DOMINANT,
@@ -1635,8 +1636,8 @@ public enum Fetish {
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FERTILITY, 25),
-					new Value<Attribute, Integer>(Attribute.VIRILITY, 25)),
+					new Value<>(Attribute.FERTILITY, 25),
+					new Value<>(Attribute.VIRILITY, 25)),
 			null,
 			Util.newArrayListOfValues(
 					Fetish.FETISH_PREGNANCY,
@@ -1673,8 +1674,8 @@ public enum Fetish {
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 3),
+					new Value<>(Attribute.DAMAGE_PHYSICAL, 10)),
 			null,
 			Util.newArrayListOfValues(
 					Fetish.FETISH_SADIST,
@@ -1752,7 +1753,7 @@ public enum Fetish {
 	protected String name;
 	protected String shortDescriptor;
 	private int experienceGainFromSexAction;
-	private HashMap<Attribute, Integer> attributeModifiers;
+	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 
 	private String SVGString;
 
@@ -1794,7 +1795,7 @@ public enum Fetish {
 			String pathName,
 			FetishExperience experienceGainFromSexAction,
 			Colour colourShade,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<Fetish> fetishesForAutomaticUnlock) {
 		this(renderingPriority,
@@ -1815,7 +1816,7 @@ public enum Fetish {
 			String pathName,
 			FetishExperience experienceGainFromSexAction,
 			List<Colour> colourShade,
-			HashMap<Attribute, Integer> attributeModifiers,
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<Fetish> fetishesForAutomaticUnlock) {
 
@@ -1853,7 +1854,7 @@ public enum Fetish {
 		modifiersList = new ArrayList<>();
 
 		if(attributeModifiers != null) {
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
+			for (Entry<AbstractAttribute, Integer> e : attributeModifiers.entrySet()) {
 				modifiersList.add("<b>"+(e.getValue() > 0 ? "+" : "") + e.getValue() + "</b> <b style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</b>");
 			}
 		}
@@ -1918,7 +1919,7 @@ public enum Fetish {
 		return modList;
 	}
 
-	public HashMap<Attribute, Integer> getAttributeModifiers() {
+	public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 
