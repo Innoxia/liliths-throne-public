@@ -93,12 +93,12 @@ public class GenericPositioning {
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		for(SexSlot slot : data.getPartnerSlots()) {
-			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), slot)) {
 				return false;
 			}
 		}
 		for(SexSlot slot : data.getPerformerSlots()) {
-			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterPerformingAction(), slot)) {
 				return false;
 			}
 		}
@@ -267,7 +267,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -350,13 +350,21 @@ public class GenericPositioning {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_RECEIVING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -419,7 +427,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -513,7 +521,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -613,7 +621,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -696,13 +704,21 @@ public class GenericPositioning {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).isFeral()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_PERFORMING = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -792,7 +808,7 @@ public class GenericPositioning {
 //			SexActionType.POSITIONING,
 //			ArousalIncrease.ONE_MINIMUM,
 //			ArousalIncrease.ONE_MINIMUM,
-//			CorruptionLevel.TWO_HORNY,
+//			CorruptionLevel.ONE_VANILLA,
 //			null,
 //			SexParticipantType.NORMAL) {
 //		
@@ -881,7 +897,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -979,7 +995,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2040,7 +2056,8 @@ public class GenericPositioning {
 				return false;
 			case BIPEDAL:
 			case CEPHALOPOD:
-			case TAUR:
+			case QUADRUPEDAL:
+			case AVIAN:
 				return true;
 		}
 		return true;
@@ -2050,7 +2067,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2152,7 +2169,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2229,7 +2246,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		
@@ -2330,7 +2347,7 @@ public class GenericPositioning {
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
 		

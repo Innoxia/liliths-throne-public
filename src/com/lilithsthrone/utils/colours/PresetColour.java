@@ -1,10 +1,12 @@
 package com.lilithsthrone.utils.colours;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
@@ -191,12 +193,11 @@ public class PresetColour {
 
 	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
 	public static Colour ATTRIBUTE_ARCANE = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("intelligence", "int")) {};
-	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, Util.newColour(0xff1a8c), Util.newColour(0xff1a8c), "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
+	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
 
 	public static Colour ATTRIBUTE_AROUSAL = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")) {};
 	public static Colour ATTRIBUTE_LUST = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")) {};
 
-	//TODO
 	public static Colour PHYSIQUE_STAGE_ZERO = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_ONE = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_TWO = new Colour(false, BaseColour.MAGENTA, "magenta") {};
@@ -204,7 +205,6 @@ public class PresetColour {
 	public static Colour PHYSIQUE_STAGE_FOUR = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_FIVE = new Colour(false, BaseColour.GOLD, "gold") {};
 	
-	//TODO
 	public static Colour INTELLIGENCE_STAGE_ZERO = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_ONE = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_TWO = new Colour(false, BaseColour.PURPLE, "purple") {};
@@ -212,7 +212,6 @@ public class PresetColour {
 	public static Colour INTELLIGENCE_STAGE_FOUR = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_FIVE = new Colour(false, BaseColour.GOLD, "gold") {};
 	
-	//TODO
 	public static Colour FITNESS_STAGE_ZERO = new Colour(false, BaseColour.LILAC, "light purple") {};
 	public static Colour FITNESS_STAGE_ONE = new Colour(false, BaseColour.LILAC, "light purple") {};
 	public static Colour FITNESS_STAGE_TWO = new Colour(false, BaseColour.LILAC, "light purple") {};
@@ -381,7 +380,7 @@ public class PresetColour {
 	public static Colour RARITY_QUEST_BACKGROUND = new Colour(false, Util.newColour(0x344C4B), Util.newColour(0xBEE4E4), "teal") {};
 
 	// Inventory colours:
-	public static Colour CURRENCY_GOLD = new Colour(true, BaseColour.GOLD, "gold", Util.newArrayListOfValues("currency", "currencyGold")) {};
+	public static Colour CURRENCY_GOLD = new Colour(true, BaseColour.GOLD, "gold", Util.newArrayListOfValues("money", "currency", "currencyGold")) {};
 	public static Colour CURRENCY_SILVER = new Colour(true, BaseColour.SILVER, "silver", Util.newArrayListOfValues("currencySilver")) {};
 	public static Colour CURRENCY_COPPER = new Colour(true, BaseColour.COPPER, "copper", Util.newArrayListOfValues("currencyCopper")) {};
 
@@ -1127,17 +1126,53 @@ public class PresetColour {
 			PresetColour.COVERING_RAINBOW_PASTEL);
 	
 	
-	
-	
-
 	private static List<Colour> allPresetColours;
 	private static Map<Colour, String> colourToIdMap = new HashMap<>();
 	private static Map<String, Colour> idToColourMap = new HashMap<>();
 	
 	static {
 		allPresetColours = new ArrayList<>();
+
+		// Modded colours:
 		
-		// Add in hard-coded leg types:
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/colours");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					Colour colour = new Colour(innerEntry.getValue(), entry.getKey(), true) {};
+					String id = innerEntry.getKey();
+					allPresetColours.add(colour);
+					colourToIdMap.put(colour, id);
+					idToColourMap.put(id, colour);
+				} catch(Exception ex) {
+					System.err.println("Loading modded colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res colours:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/colours");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					Colour colour = new Colour(innerEntry.getValue(), entry.getKey(), false) {};
+					String id = innerEntry.getKey();
+					allPresetColours.add(colour);
+					colourToIdMap.put(colour, id);
+					idToColourMap.put(id, colour);
+				} catch(Exception ex) {
+					System.err.println("Loading colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// Hard-coded colours:
+		
 		Field[] fields = PresetColour.class.getFields();
 		
 		for(Field f : fields){
@@ -1157,6 +1192,10 @@ public class PresetColour {
 				}
 			}
 		}
+	}
+	
+	public static List<String> getAllColourIds() {
+		return new ArrayList<>(idToColourMap.keySet());
 	}
 	
 	public static Colour getColourFromId(String id) {

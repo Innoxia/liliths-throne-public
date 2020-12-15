@@ -9,12 +9,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -69,12 +69,12 @@ public class SlaveInStocks extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					
 				} else if(s.getRace()!=Race.DEMON
 						&& s.getRace()!=Race.ANGEL
@@ -83,10 +83,10 @@ public class SlaveInStocks extends NPC {
 						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
-					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					if(AbstractSubspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+						AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					} else {
-						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap(3, gender, s, availableRaces);
 					}
 				}
 			}
@@ -106,11 +106,11 @@ public class SlaveInStocks extends NPC {
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
@@ -119,7 +119,7 @@ public class SlaveInStocks extends NPC {
 
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 
 			if(Math.random()<0.8f) {
 				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
@@ -221,10 +221,10 @@ public class SlaveInStocks extends NPC {
 				if(!Main.game.getCharactersPresent().contains(this)) {
 					Gender gender = Gender.getGenderFromUserPreferences(false, true);
 					
-					Map<Subspecies, Integer> availableRaces = Subspecies.getGenericSexPartnerSubspeciesMap(gender);
+					Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
 					
-					Subspecies subspecies = Subspecies.HUMAN;
-					Subspecies halfDemonSubspecies = null;
+					AbstractSubspecies subspecies = Subspecies.HUMAN;
+					AbstractSubspecies halfDemonSubspecies = null;
 					if(!availableRaces.isEmpty()) {
 						subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 					}

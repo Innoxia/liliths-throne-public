@@ -51,7 +51,7 @@
 		<condShoesAndSocks constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()!=FOOT_STRUCTURE_UNGULIGRADE]]></condShoesAndSocks>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
-		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 		<presetColourGroup1> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
 			<randomColour>CLOTHING_GOLD</randomColour>
 			<randomColour>CLOTHING_SILVER</randomColour>
@@ -107,29 +107,48 @@
 			<!-- Vest always-->
 			<uniqueClothing>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_GREY" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_ptrlequipset_stpvest" isDirty="false">
+					<stickers>
+						<sticker category="name_plate">enforcer</sticker>
+					</stickers>
 				</clothing>
 			</uniqueClothing>
 			
 			<!--Hat or beret, 33% chance of beret when weather is not SNOW-->
 			<uniqueClothing>
 				<conditional><![CDATA[(condChance66 || condSnow) && condFeminine]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PINK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_bwhat" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_PINK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_bwhat" isDirty="false">
+					<stickers>
+						<sticker category="badge">badge_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[(!condChance66) && (!condSnow) && condFeminine]]></conditional>
-				<clothing colour="CLOTHING_PINK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false"></clothing>
+				<conditional><![CDATA[(!condChance66) && condFeminine]]></conditional>
+				<clothing colour="CLOTHING_PINK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">					
+					<stickers>
+						<sticker category="flash">flash_patrol_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<!--Cap or beret, 33% chance of beret when weather is not SNOW-->
 			<uniqueClothing>
 				<conditional><![CDATA[(condChance66 || condSnow) && (!condFeminine)]]></conditional>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLUE" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_pcap" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLUE" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_pcap" isDirty="false">
+					<stickers>
+						<sticker category="badge">badge_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[(!condChance66) && (!condSnow) && (!condFeminine)]]></conditional>
-				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false"></clothing>
+				<conditional><![CDATA[(!condChance66) && (!condFeminine)]]></conditional>
+				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">
+					<stickers>
+						<sticker category="flash">flash_patrol_dominion</sticker>
+					</stickers>
+				</clothing>
 			</uniqueClothing>
 			
 			<!--A tie always-->

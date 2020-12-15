@@ -45,7 +45,7 @@
 		<cond2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></cond2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
-		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 		<presetColourGroup1 singleColour="true"> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
 			<randomColour>CLOTHING_PINK</randomColour>
 			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
@@ -124,7 +124,7 @@
 			</acceptableFemininities>
 			<slot/>
 			<rarity>COMMON</rarity>
-			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are automatically not added if the character doesn't have the related slot pierced. -->
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are skipped over if the the related slot is not pierced. -->
 			<primaryColours>
 				<colour>presetColourGroup2</colour>
 			</primaryColours>
@@ -140,7 +140,7 @@
 				<type>CHEST_LACY_PLUNGE_BRA</type>
 				<type>CHEST_FULLCUP_BRA</type>
 			</types>
-			<primaryColours values="LINGERIE"/> <!-- The optional attribute "values" can be used as a pre-set colour list instead of defining individual colours. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+			<primaryColours values="LINGERIE"/> <!-- The optional attribute "values" can be used as a pre-set colour list instead of defining individual colours. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
@@ -227,6 +227,4 @@
 		
 	</generationAttributes>
 	
-	<!-- As a final note, I will add support for allowing the automatic generation of piercings in the next update. -->
-
 </outfit>

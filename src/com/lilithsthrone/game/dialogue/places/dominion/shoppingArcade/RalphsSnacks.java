@@ -19,6 +19,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -215,7 +216,7 @@ public class RalphsSnacks {
 				
 			}else{
 				return "<p>"
-							+ "You get the feeling that some of these items may be out of your price range."
+							+ "You get the feeling that the price of many of these items is inflated past what would be considered a fair markup."
 							+ " Glancing over to the other side of the shop, you see Ralph giving you a cheerful wave from behind the counter."
 							+ " Encouraged by his disarming smile and friendly face, you decide to ask him if there's any way you can get a discount on some of these transformative items, and start to walk over to him."
 						+ "</p>"
@@ -413,6 +414,9 @@ public class RalphsSnacks {
 				} else if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Accept breeding", "As you're already pregnant, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
 					
+				} else if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Accept breeding", "As your womb is full of eggs, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
+					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					return new Response("Accept breeding", "As you're unable to get access to your vagina, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
 				}
@@ -462,8 +466,8 @@ public class RalphsSnacks {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getNpc(Ralph.class), false);
-						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getNpc(Ralph.class), false);
+						Main.game.getNpc(Ralph.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getPlayer(), false);
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ralphDailyBred, true);
 					}

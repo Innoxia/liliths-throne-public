@@ -38,11 +38,11 @@ public class HarpyNestsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Harpy Nests", "Travel up to the Harpy Nests."){
+				return new Response("Harpy Nests", "Travel up to the Harpy Nests.", PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST.getDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "OUTSIDE_ENTRY"));
-						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, true);
+						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, false);
 					}
 				};
 
@@ -71,7 +71,7 @@ public class HarpyNestsDialogue {
 				return null;
 			}
 			if (index == 1) {
-				return new ResponseEffectsOnly("To street level", "Travel back down to Dominion's streets."){
+				return new Response("To street level", "Travel back down to Dominion's streets.", PlaceType.DOMINION_HARPY_NESTS_ENTRANCE.getDialogue(false)){
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().isAbleToFly()) {
@@ -87,7 +87,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, false);
 					}
 				};
 			}
@@ -122,6 +122,7 @@ public class HarpyNestsDialogue {
 									public void effects() {
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
+										Main.game.getDialogueFlags().setSavedLong("angry_harpies_completed", Main.game.getMinutesPassed());
 									}
 								});
 						
@@ -252,7 +253,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));
@@ -308,7 +309,7 @@ public class HarpyNestsDialogue {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_BRIDGE"));
 			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "WALKWAY_CORE", new ArrayList<>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				sb.append(((NPC) npc).getPresentInTileDescription(false));

@@ -7,14 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -23,8 +25,8 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -42,6 +44,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -58,9 +62,11 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
@@ -322,61 +328,61 @@ public class ItemEffectType {
 		}
 	};
 	
-	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(50)+" for 24 hours",
-			Attribute.VIRILITY.getFormattedValue(50)+" for 24 hours",
-			"[style.boldBad(Removes status effect:)]",
-			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
-			return UtilText.parse(target,
-					"<p style='margin-bottom:0; padding-bottom:0;'>"
-						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
-						+ ( target.hasVagina()
-								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
-									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
-									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
-									+ (target.hasPenisIgnoreDildo()
-											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
-											:"") 
-								:"")
-						+ (target.hasPenisIgnoreDildo()
-								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
-								: "")
-						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
-								?"a desperate heat in [npc.her] genderless mound."
-								:"")
-					+"</p>"
-					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
-						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
-					+ "</p>");
-		}
-	};
-	
-	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(-100)+" for 24 hours",
-			Attribute.VIRILITY.getFormattedValue(-100)+" for 24 hours",
-			"[style.boldBad(Removes status effect:)]",
-			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
-			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
-			return UtilText.parse(target,
-					"<p>"
-						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
-					+ "</p>"
-					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
-						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
-					+ "</p>");
-		}
-	};
+//	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.FERTILITY.getFormattedValue(50)+" for 24 hours",
+//			Attribute.VIRILITY.getFormattedValue(50)+" for 24 hours",
+//			"[style.boldBad(Removes status effect:)]",
+//			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
+//			PresetColour.GENERIC_SEX) {
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+//			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
+//			return UtilText.parse(target,
+//					"<p style='margin-bottom:0; padding-bottom:0;'>"
+//						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
+//						+ ( target.hasVagina()
+//								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
+//									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
+//									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
+//									+ (target.hasPenisIgnoreDildo()
+//											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
+//											:"") 
+//								:"")
+//						+ (target.hasPenisIgnoreDildo()
+//								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
+//								: "")
+//						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
+//								?"a desperate heat in [npc.her] genderless mound."
+//								:"")
+//					+"</p>"
+//					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+//						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
+//					+ "</p>");
+//		}
+//	};
+//	
+//	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.FERTILITY.getFormattedValue(-100)+" for 24 hours",
+//			Attribute.VIRILITY.getFormattedValue(-100)+" for 24 hours",
+//			"[style.boldBad(Removes status effect:)]",
+//			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
+//			PresetColour.GENERIC_SEX) {
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
+//			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
+//			return UtilText.parse(target,
+//					"<p>"
+//						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
+//					+ "</p>"
+//					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+//						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
+//					+ "</p>");
+//		}
+//	};
 	
 
 	public static AbstractItemEffectType MOO_MILKER = new AbstractItemEffectType(Util.newArrayListOfValues(
@@ -391,14 +397,14 @@ public class ItemEffectType {
 				return "<p>"
 							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped, Units.UnitType.LONG)+" of your [pc.milk]."
 						+ "</p>"
-						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourShades().get(0), target, target.getMilk(), milkPumped), false, true);
 			
 			} else {
 				return UtilText.parse(target,
 						"<p>"
 							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped, Units.UnitType.LONG)+" of [npc.her] [npc.milk]."
 						+ "</p>"
-						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourShades().get(0), target, target.getMilk(), milkPumped), false, true));
 			}
 		}
 	};
@@ -451,64 +457,97 @@ public class ItemEffectType {
 	
 	
 	public static AbstractItemEffectType MOTHERS_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Advances pregnancy."),
+			"Advances pregnancy and incubations."),
 			PresetColour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			StringBuilder sb = new StringBuilder();
+			boolean effectsObserved = false;
+			
+			sb.append("<p>");
+			sb.append("[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; its delicious taste spurs [npc.herHim] on into quickly draining the entire bottle.");
+
+			Map<SexAreaOrifice, List<AbstractStatusEffect>> incubationEffectMap = Util.newHashMapOfValues(
+					new Value<>(SexAreaOrifice.VAGINA, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_WOMB_1, StatusEffect.INCUBATING_EGGS_WOMB_2, StatusEffect.INCUBATING_EGGS_WOMB_3)),
+					new Value<>(SexAreaOrifice.ANUS, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_STOMACH_1, StatusEffect.INCUBATING_EGGS_STOMACH_2, StatusEffect.INCUBATING_EGGS_STOMACH_3)),
+					new Value<>(SexAreaOrifice.NIPPLE, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_1, StatusEffect.INCUBATING_EGGS_NIPPLES_2, StatusEffect.INCUBATING_EGGS_NIPPLES_3)),
+					new Value<>(SexAreaOrifice.NIPPLE_CROTCH, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_1, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_3)),
+					new Value<>(SexAreaOrifice.SPINNERET, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_SPINNERET_1, StatusEffect.INCUBATING_EGGS_SPINNERET_2, StatusEffect.INCUBATING_EGGS_SPINNERET_3)));
+			
+			for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> entry : incubationEffectMap.entrySet()) {
+				Litter litter = target.getIncubationLitter(entry.getKey());
+				if(litter!=null) {
+					boolean advanced = false;
+					if(target.hasStatusEffect(entry.getValue().get(0))) {
+						target.removeStatusEffect(entry.getValue().get(0));
+						advanced = true;
+					} else if(target.hasStatusEffect(entry.getValue().get(1))){
+						target.removeStatusEffect(entry.getValue().get(1));
+						advanced = true;
+					}
+					if(advanced) {
+						effectsObserved = true;
+						int eggs = litter.getTotalLitterCount();
+						String areaName = entry.getKey().getName(target, true);
+						if(entry.getKey()==SexAreaOrifice.VAGINA) {
+							areaName = "womb";
+						} else if(entry.getKey()==SexAreaOrifice.ANUS) {
+							areaName = "stomach";
+						}
+						sb.append("</br>");
+						if(eggs>1) {
+							sb.append("The eggs being incubated in [npc.namePos] <b>"+areaName+"</b> rapidly mature and get noticeably heavier, letting [npc.herHim] know that they're ");
+						} else {
+							sb.append("The egg being incubated in [npc.namePos] <b>"+areaName+"</b> rapidly matures and gets noticeably heavier, letting [npc.herHim] know that it's ");
+						}
+						if(target.hasStatusEffect(entry.getValue().get(1))) {
+							sb.append("[style.boldYellowLight(advanced to the next stage of incubation)]!");
+						} else {
+							sb.append("now [style.boldYellowLight(ready to be laid)]!");
+						}
+					}
+				}
+			}
+			
 			if(target.isVisiblyPregnant()) {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
-							+ "</p>");
-					
-				} else {
+				if(!target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+					effectsObserved = true;
 					if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
 						target.removeStatusEffect(StatusEffect.PREGNANT_1);
 						
 					} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
 						target.removeStatusEffect(StatusEffect.PREGNANT_2);
 					}
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
+					sb.append("</br>");
+					sb.append("Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
 								+ " After just a moment, the effects come a halt, and [npc.name] [npc.verb(smile)] happily to [npc.herself] as"
-									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy..."
-							+ "</p>");
+									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy...");
 				}
 				
-			} else {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					target.removeStatusEffect(StatusEffect.PREGNANT_0);
-					
-					if(target.isPregnant()) {
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-									+ " A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
-										+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!"
-								+ "</p>");
-						
-					} else {
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-									+ " Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
-									+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all..."
-								+ "</p>");
-					}
+			} else if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				effectsObserved = true;
+				target.removeStatusEffect(StatusEffect.PREGNANT_0);
+				
+				if(target.isPregnant()) {
+					sb.append("</br>");
+					sb.append("A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
+									+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!");
 					
 				} else {
-					return UtilText.parse(target,
-							"<p>"
-								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
-								+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
-							+ "</p>");
+					sb.append("</br>");
+					sb.append("Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
+								+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all...");
 				}
 			}
+			
+			if(!effectsObserved) {
+				sb.append("Aside from quenching [npc.her] thirst, the liquid doesn't have any effect on [npc.name]...");
+			}
+			
+			sb.append("</p>");
+			
+			return UtilText.parse(target, sb.toString());
 		}
 	};
 	
@@ -548,7 +587,7 @@ public class ItemEffectType {
 				target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 			}
 			if (target.hasBreastsCrotch()
-					&& Main.getProperties().udders>0
+					&& (Main.getProperties().getUddersLevel()>0 || target.isFeral())
 					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				areasTightened.add("crotch-nipples");
 				target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
@@ -619,7 +658,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.RECENTLY_SMOKED;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -658,383 +697,6 @@ public class ItemEffectType {
 	};
 	
 	// Ingredients and potions:
-	
-	// Strength:
-	
-	public static AbstractItemEffectType STR_EQUINE_CIDER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-			
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A powerful wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.15f);
-		}
-	};
-
-	public static AbstractItemEffectType STR_BUBBLE_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return null;
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return null;
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A powerful wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+"</p>";
-		}
-	};
-
-	public static AbstractItemEffectType STR_WOLF_WHISKEY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A powerful wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.4f);
-		}
-	};
-	
-	public static AbstractItemEffectType STR_SWAMP_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-							?"A powerful wave of arcane energy washes over you..."
-							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.75f);
-		}
-	};
-	
-	public static AbstractItemEffectType STR_BLACK_RATS_RUM = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-							?"A powerful wave of arcane energy washes over you..."
-							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.5f);
-		}
-	};
-	
-	// Intelligence:
-	
-	public static AbstractItemEffectType INT_FELINE_FANCY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			Attribute.MAJOR_ARCANE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_ARCANE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-			
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A cool wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
-					+ target.incrementAlcoholLevel(0.1f);
-		}
-	};
-	
-	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			Attribute.CRITICAL_DAMAGE.getFormattedValue(10)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-			
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"Your senses are heightened..."
-						:UtilText.parse(target, "[npc.NamePos] senses are heightened..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
-					+ target.incrementAlcoholLevel(0.1f);
-		}
-	};
-	
-	public static AbstractItemEffectType INT_VANILLA_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			Attribute.MAJOR_ARCANE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_ARCANE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-			
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-							?"A cool wave of arcane energy washes over you..."
-							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
-		}
-	};
-	
-	// Fitness:
-	
-	public static AbstractItemEffectType FIT_CANINE_CRUSH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'",
-			"[style.boldMinorBad(Adds)] 5% to [style.boldAlcohol(intoxication level)]"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.incrementAlcoholLevel(0.05f);
-		}
-	};
-	
-	public static AbstractItemEffectType FIT_SQUIRREL_JAVA = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
-		}
-	};
-	
-	public static AbstractItemEffectType INT_FRUIT_BAT_SQUASH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			Attribute.MAJOR_ARCANE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_ARCANE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
-		}
-	};
-	
-	public static AbstractItemEffectType FIT_EGG_NOG = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_PHYSIQUE) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
-		}
-	};
-	
-	public static AbstractItemEffectType SEX_HARPY_PERFUME = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldSex(+1)] [style.boldFeminine(femininity)]",
-			Attribute.DAMAGE_LUST.getFormattedValue(5)+" to 'potion effects'"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A soothing wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "<br/>"
-					+ target.incrementFemininity(1)
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
-		}
-	};
-	
-	public static AbstractItemEffectType SEX_SLIME_DRINK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldSex(+1)] [style.boldWetness(Vagina Wetness)]",
-			"[style.boldSex(+1)] [style.boldWetness(Anal Wetness)]",
-			Attribute.DAMAGE_LUST.getFormattedValue(5)+" to 'potion effects'"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.incrementVaginaWetness(1)
-					+ target.incrementAssWetness(1)
-					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
-		}
-	};
-	
-	public static AbstractItemEffectType SEX_RABBIT_MORPH_DRINK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(5)+" to 'potion effects'",
-			Attribute.VIRILITY.getFormattedValue(5)+" to 'potion effects'",
-			Attribute.RESISTANCE_LUST.getFormattedValue(-10)+" to 'potion effects'"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.FERTILITY, 5)
-					+ target.addPotionEffect(Attribute.VIRILITY, 5)
-					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, -10);
-		}
-	};
-	
-	public static AbstractItemEffectType SEX_MINCE_PIE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.DAMAGE_LUST.getFormattedValue(1)+" to 'potion effects'",
-			Attribute.DAMAGE_FIRE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A warm wave of arcane energy washes over you..."
-						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 1)
-					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1);
-		}
-	};
-	
-	// Corruption:
-
-	public static AbstractItemEffectType COR_ANGELS_TEARS = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 25% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			"[style.boldExcellent(Lowers)] [style.boldLust(lust)] to resting level",
-			Attribute.RESISTANCE_LUST.getFormattedValue(5)+" to 'potion effects'"),
-			PresetColour.RACE_HUMAN) {
-		@Override
-		public String getPotionDescriptor() {
-			return "angelic";
-		}
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/4);
-			
-			return "<p style='text-align:center;'>"
-						+UtilText.parse(target, "A soothing wave of pure energy washes over [npc.name]...")
-					+ "</p>"
-					+ (target.getLust()>target.getRestingLust()?target.setLust(target.getRestingLust()):"")
-					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, 5);
-		}
-	};
-	
-	public static AbstractItemEffectType COR_LILITHS_GIFT = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
-			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			Attribute.MAJOR_CORRUPTION.getFormattedValue(25)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_CORRUPTION) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-
-			return "<p style='text-align:center;'>"
-						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 25);
-		}
-	};
-
-	public static AbstractItemEffectType COR_IMPISH_BREW = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 10% [style.boldAura(aura)]",
-			Attribute.MAJOR_CORRUPTION.getFormattedValue(50)+" to 'potion effects'"),
-			PresetColour.ATTRIBUTE_CORRUPTION) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/10);
-
-			return "<p style='text-align:center;'>"
-						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50);
-		}
-	};
 	
 	public static AbstractItemEffectType MYSTERY_KINK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldFetish(Random fetish addition or removal)]"),
@@ -1077,6 +739,12 @@ public class ItemEffectType {
 			if(!Main.game.isIncestEnabled()) {
 				fetishesToAdd.remove(Fetish.FETISH_INCEST);
 				fetishesToRemove.remove(Fetish.FETISH_INCEST);
+			}
+			if(!Main.game.isNonConEnabled()) {
+				fetishesToAdd.remove(Fetish.FETISH_NON_CON_DOM);
+				fetishesToRemove.remove(Fetish.FETISH_NON_CON_DOM);
+				fetishesToAdd.remove(Fetish.FETISH_NON_CON_SUB);
+				fetishesToRemove.remove(Fetish.FETISH_NON_CON_SUB);
 			}
 
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
@@ -1162,38 +830,10 @@ public class ItemEffectType {
 						sb.append(UtilText.parse(target, "[npc.NamePos] slimy body starts [style.boldTfGeneric(glowing)]!"));
 					}
 					
-					target.getCovering(BodyCoveringType.SLIME).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_ANUS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_ANUS).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_EYE).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_EYE).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_HAIR).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_HAIR).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_MOUTH).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_MOUTH).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_TONGUE).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_TONGUE).setSecondaryGlowing(true);
-					
-					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_PUPILS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_PUPILS).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_SCLERA).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_SCLERA).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_VAGINA).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_VAGINA).setSecondaryGlowing(true);
-
-					target.getCovering(BodyCoveringType.SLIME_PENIS).setPrimaryGlowing(true);
-					target.getCovering(BodyCoveringType.SLIME_PENIS).setSecondaryGlowing(true);
+					for(AbstractBodyCoveringType bct : BodyCoveringType.getAllSlimeTypes()) {
+						target.getCovering(bct).setPrimaryGlowing(true);
+						target.getCovering(bct).setSecondaryGlowing(true);
+					}
 					
 				} else {
 					if(target.isPlayer()) {
@@ -1270,20 +910,6 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType FEMININE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldSex(+10)] [style.boldFeminine(femininity)]"),
-			PresetColour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-					+UtilText.parse(target, "[npc.Name] feels the burger's side effects kicking in almost immediately...")
-					+ "<br/>"
-					+ target.incrementFemininity(10)
-					+ "</p>";
 		}
 	};
 	
@@ -1421,9 +1047,9 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			List<AbstractItemType> items = new ArrayList<>();
-			items.add(ItemType.FIT_INGREDIENT_EGG_NOG);
-			items.add(ItemType.SEX_INGREDIENT_MINCE_PIE);
-			items.add(ItemType.RACE_INGREDIENT_REINDEER_MORPH);
+			items.add(ItemType.getItemTypeFromId("innoxia_race_reindeer_rudolphs_egg_nog"));
+			items.add(ItemType.getItemTypeFromId("innoxia_race_none_mince_pie"));
+			items.add(ItemType.getItemTypeFromId("innoxia_race_reindeer_sugar_cookie"));
 			
 			Map<AbstractClothingType, Integer> clothingMap = new HashMap<>();
 			// Common clothing (55%):
@@ -1503,299 +1129,299 @@ public class ItemEffectType {
 		}
 	};
 	
-	public static AbstractItemEffectType RACE_BREAD_ROLL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
-			PresetColour.RACE_HUMAN) {
-		@Override
-		public String getPotionDescriptor() {
-			return "human";
-		}
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot healthier...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
-		}
-	};
+//	public static AbstractItemEffectType RACE_BREAD_ROLL = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
+//			PresetColour.RACE_HUMAN) {
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "human";
+//		}
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot healthier...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_CANINE_CRUNCH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
-			PresetColour.RACE_DOG_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "canine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
-		}
-	};
+//	public static AbstractItemEffectType RACE_CANINE_CRUNCH = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
+//			PresetColour.RACE_DOG_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "canine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_FOX_PIE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
-			PresetColour.RACE_FOX_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "vulpine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
-		}
-	};
+//	public static AbstractItemEffectType RACE_FOX_PIE = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
+//			PresetColour.RACE_FOX_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "vulpine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
-			PresetColour.RACE_RAT_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "rat";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
-		}
-	};
+//	public static AbstractItemEffectType RACE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(2)+" to 'potion effects'"),
+//			PresetColour.RACE_RAT_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "rat";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot more energetic...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_CARROT_CAKE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.FERTILITY.getFormattedValue(15)+" to 'potion effects'",
-			Attribute.VIRILITY.getFormattedValue(15)+" to 'potion effects'",
-			Attribute.RESISTANCE_LUST.getFormattedValue(-25)+" to 'potion effects'"),
-			PresetColour.RACE_RABBIT_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "lagomorphic";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel like [npc.she] needs to breed...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.FERTILITY, 15)
-					+ target.addPotionEffect(Attribute.VIRILITY, 15)
-					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, -25);
-		}
-	};
+//	public static AbstractItemEffectType RACE_CARROT_CAKE = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.FERTILITY.getFormattedValue(15)+" to 'potion effects'",
+//			Attribute.VIRILITY.getFormattedValue(15)+" to 'potion effects'",
+//			Attribute.RESISTANCE_LUST.getFormattedValue(-25)+" to 'potion effects'"),
+//			PresetColour.RACE_RABBIT_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "lagomorphic";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel like [npc.she] needs to breed...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.FERTILITY, 15)
+//					+ target.addPotionEffect(Attribute.VIRILITY, 15)
+//					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, -25);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_KITTYS_REWARD = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_ARCANE.getFormattedValue(3)+" to 'potion effects'"),
-			PresetColour.RACE_CAT_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "feline";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 3);
-		}
-	};
+//	public static AbstractItemEffectType RACE_KITTYS_REWARD = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_ARCANE.getFormattedValue(3)+" to 'potion effects'"),
+//			PresetColour.RACE_CAT_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "feline";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 3);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_ROUND_NUTS = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_ARCANE.getFormattedValue(2)+" to 'potion effects'"),
-			PresetColour.RACE_SQUIRREL_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "sciuridine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
-		}
-	};
+//	public static AbstractItemEffectType RACE_ROUND_NUTS = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_ARCANE.getFormattedValue(2)+" to 'potion effects'"),
+//			PresetColour.RACE_SQUIRREL_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "sciuridine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_FRUIT_SALAD = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_ARCANE.getFormattedValue(2)+" to 'potion effects'"),
-			PresetColour.RACE_BAT_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "chiropterine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
-		}
-	};
+//	public static AbstractItemEffectType RACE_FRUIT_SALAD = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_ARCANE.getFormattedValue(2)+" to 'potion effects'"),
+//			PresetColour.RACE_BAT_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "chiropterine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel [npc.her] arcane power increasing...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_SUGAR_CARROT_CUBE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
-			PresetColour.RACE_HORSE_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "equine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
-		}
-	};
+//	public static AbstractItemEffectType RACE_SUGAR_CARROT_CUBE = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
+//			PresetColour.RACE_HORSE_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "equine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_SUGAR_COOKIE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
-			PresetColour.RACE_REINDEER_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "reindeer";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
-		}
-	};
+//	public static AbstractItemEffectType RACE_SUGAR_COOKIE = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
+//			PresetColour.RACE_REINDEER_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "reindeer";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
+//		}
+//	};
+//	
+//	public static AbstractItemEffectType RACE_ALLIGATORS_GUMBO = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
+//			PresetColour.RACE_ALLIGATOR_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "alligator";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
+//		}
+//	};
+//	
+//	public static AbstractItemEffectType RACE_BUBBLE_CREAM = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
+//			PresetColour.RACE_COW_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "bovine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_ALLIGATORS_GUMBO = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
-			PresetColour.RACE_ALLIGATOR_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "alligator";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
-		}
-	};
+//	public static AbstractItemEffectType RACE_MEAT_AND_MARROW = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_PHYSIQUE.getFormattedValue(5)+" to 'potion effects'"),
+//			PresetColour.RACE_WOLF_MORPH) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "lupine";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
+//					+ "</p>"
+//					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5);
+//		}
+//	};
 	
-	public static AbstractItemEffectType RACE_BUBBLE_CREAM = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(3)+" to 'potion effects'"),
-			PresetColour.RACE_COW_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "bovine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_MEAT_AND_MARROW = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_PHYSIQUE.getFormattedValue(5)+" to 'potion effects'"),
-			PresetColour.RACE_WOLF_MORPH) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "lupine";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot stronger...")
-					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5);
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_LOLLIPOP = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.DAMAGE_LUST.getFormattedValue(10)+" to 'potion effects'",
-			"[style.boldSex(+3)] [style.boldFeminine(femininity)]"),
-			PresetColour.RACE_HARPY) {
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
-			AbstractStatusEffect se = StatusEffect.LOLLIPOP_SUCKING;
-			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
-				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
-			}
-			return list;
-		}
-		@Override
-		public String getPotionDescriptor() {
-			return "harpy";
-		}
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
-			return "<p style='text-align:center;'>"
-						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel more feminine...")
-					+ "</p>"
-					+ target.incrementFemininity(3)
-					+ "<br/>"
-					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 10);
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_BIOJUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
-			Attribute.MAJOR_CORRUPTION.getFormattedValue(25),
-			Attribute.MAJOR_CORRUPTION.getFormattedValue(50)+" to 'potion effects'",
-			"[style.boldSlime(Transforms body into slime!)]"),
-			PresetColour.RACE_SLIME) {
-
-		@Override
-		public String getPotionDescriptor() {
-			return "slime";
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			if(target.getBody().getBodyMaterial()==BodyMaterial.SLIME) {
-				return "<p style='text-align:center;'>"
-							+ UtilText.parse(target, "[style.colourDisabled([npc.NameIsFull] already a slime, so nothing happens...)]")
-						+ "</p>";
-				
-			} else {
-				return target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 25)
-						+ "<br/>"
-						+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
-						+ "<br/>"
-						+ target.setBodyMaterial(BodyMaterial.SLIME);
-			}
-		}
-	};
+//	public static AbstractItemEffectType RACE_LOLLIPOP = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.DAMAGE_LUST.getFormattedValue(10)+" to 'potion effects'",
+//			"[style.boldSex(+3)] [style.boldFeminine(femininity)]"),
+//			PresetColour.RACE_HARPY) {
+//		@Override
+//		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
+//			AbstractStatusEffect se = StatusEffect.LOLLIPOP_SUCKING;
+//			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
+//			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+//				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+//			}
+//			return list;
+//		}
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "harpy";
+//		}
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
+//			return "<p style='text-align:center;'>"
+//						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel more feminine...")
+//					+ "</p>"
+//					+ target.incrementFemininity(3)
+//					+ "<br/>"
+//					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 10);
+//		}
+//	};
+//	
+//	public static AbstractItemEffectType RACE_BIOJUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
+//			Attribute.MAJOR_CORRUPTION.getFormattedValue(25),
+//			Attribute.MAJOR_CORRUPTION.getFormattedValue(50)+" to 'potion effects'",
+//			"[style.boldSlime(Transforms body into slime!)]"),
+//			PresetColour.RACE_SLIME) {
+//
+//		@Override
+//		public String getPotionDescriptor() {
+//			return "slime";
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+//			if(target.getBody().getBodyMaterial()==BodyMaterial.SLIME) {
+//				return "<p style='text-align:center;'>"
+//							+ UtilText.parse(target, "[style.colourDisabled([npc.NameIsFull] already a slime, so nothing happens...)]")
+//						+ "</p>";
+//				
+//			} else {
+//				return target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 25)
+//						+ "<br/>"
+//						+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
+//						+ "<br/>"
+//						+ target.setBodyMaterial(BodyMaterial.SLIME);
+//			}
+//		}
+//	};
 	
 	// Essences:
 	
@@ -1839,7 +1465,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_CAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1860,7 +1486,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_COW_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1881,7 +1507,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1902,7 +1528,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_RAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1923,7 +1549,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_RABBIT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1944,7 +1570,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_BAT_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1965,7 +1591,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_ALLIGATOR_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -1986,7 +1612,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_DEMON;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2007,7 +1633,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_IMP;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2028,7 +1654,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_DOG_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2049,7 +1675,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HARPY;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2070,7 +1696,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HORSE_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2091,7 +1717,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_REINDEER_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2112,7 +1738,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_HUMAN;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2133,7 +1759,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_WOLF_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2154,7 +1780,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_FOX_MORPH;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2175,7 +1801,7 @@ public class ItemEffectType {
 			List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
 			AbstractStatusEffect se = StatusEffect.COMBAT_BONUS_SLIME;
 			list.add("Applies <i style='color:"+se.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(se.getName(target))+"'</i>:");
-			for(Entry<Attribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
+			for(Entry<AbstractAttribute, Float> entry : se.getAttributeModifiers(target).entrySet()) {
 				list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
 			}
 			return list;
@@ -2870,485 +2496,15 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			Subspecies sub = Subspecies.getFleshSubspecies(target);
+			AbstractSubspecies sub = AbstractSubspecies.getFleshSubspecies(target);
 			if(sub.getRace()!=Race.DEMON) {
-				target.setBody(CharacterUtils.generateHalfDemonBody(target, target.getGender(), sub, true), false);
+				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
 			} else {
 				target.setBody(target.getGender(), Subspecies.DEMON, RaceStage.GREATER, false);
 				target.setSubspeciesOverride(Subspecies.DEMON);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
 			}
-		}
-	};
-	
-	public static AbstractItemEffectType DEBUG_YOUKO_POTION_EFFECT = new AbstractItemEffectType(null,
-			PresetColour.RACE_FOX_MORPH) {
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			List<String> effectsDescription = new ArrayList<>();
-			
-			effectsDescription.add("[style.boldBad(Does not affect unique characters)]");
-			
-			effectsDescription.add("[style.boldTfGeneric(Transforms)] non-youko into [style.boldFox(youko)]");
-
-			effectsDescription.add("[style.boldTfGeneric(Grants)] youko an extra tail");
-			
-			return effectsDescription;
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-//			if(target.isPlayer()) {
-//				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
-//			}
-			if(!target.isPlayer() && target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
-				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
-			}
-			
-			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_ARCTIC && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
-				CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, true);
-				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_FOX_MORPH.toWebHexString()+";'><i>[npc.NameIsFull] now [npc.a_race]!</i></p>");
-				
-			} else {
-				return UtilText.parse(target, target.incrementTailCount(1, true));
-			}
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_HUMAN = new AbstractItemEffectType(null,
-			PresetColour.RACE_HUMAN) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.HUMAN, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.HUMAN, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_CAT_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_CAT_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.CAT_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.CAT_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_COW_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_COW_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.COW_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.COW_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_SQUIRREL_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_SQUIRREL_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.SQUIRREL_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-
-	public static AbstractItemEffectType RACE_RAT_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_RAT_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.RAT_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.RAT_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.RAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.RAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-
-	public static AbstractItemEffectType RACE_RABBIT_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_RABBIT_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.RABBIT_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.RABBIT_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.RABBIT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.RABBIT_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-
-	public static AbstractItemEffectType RACE_BAT_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_BAT_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.BAT_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.BAT_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.BAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.BAT_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_DOG_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_DOG_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.DOG_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.DOG_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_FOX_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_FOX_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.FOX_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.FOX_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_ALLIGATOR_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_ALLIGATOR_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.ALLIGATOR_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_HORSE_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_HORSE_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.HORSE_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.HORSE_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HORSE_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.HORSE_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_REINDEER_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_REINDEER_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.REINDEER_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.REINDEER_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_WOLF_MORPH = new AbstractItemEffectType(null,
-			PresetColour.RACE_WOLF_MORPH) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.WOLF_MORPH, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.WOLF_MORPH, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.WOLF_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.WOLF_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-	
-	public static AbstractItemEffectType RACE_HARPY = new AbstractItemEffectType(null,
-			PresetColour.RACE_HARPY) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.HARPY, primaryModifier);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.HARPY, primaryModifier, secondaryModifier);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-		}
-	};
-
-	public static AbstractItemEffectType RACE_SLIME = new AbstractItemEffectType(null,
-			PresetColour.RACE_SLIME) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return Util.newArrayListOfValues(TFModifier.TF_MATERIAL_FLESH);
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues("Changes the target's body material to flesh.");
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return target.setBodyMaterial(BodyMaterial.FLESH);
 		}
 	};
 	
@@ -3379,11 +2535,17 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
 				List<TFModifier> mods =  Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
 				if(targetItem instanceof AbstractClothing) {
-					for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
-						List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
-						if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) { //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
-							mods.add(TFModifier.CLOTHING_VIBRATION);
-							break;
+					 //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
+					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP) || ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN) {
+						mods.add(TFModifier.CLOTHING_VIBRATION);
+						
+					} else {
+						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
+							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
+							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) {
+								mods.add(TFModifier.CLOTHING_VIBRATION);
+								break;
+							}
 						}
 					}
 				}
@@ -3402,19 +2564,21 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
-					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
-					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
-					|| primaryModifier == TFModifier.CLOTHING_CONDOM
-					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
-				return TFPotency.getAllPotencies();
-				
-			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
+			 if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
 				
-			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION) {
+			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION
+					|| secondaryModifier == TFModifier.REMOVAL
+					|| secondaryModifier == TFModifier.TF_TYPE_1) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
+				
+			} else if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+				|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
+				|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+				|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+				|| primaryModifier == TFModifier.CLOTHING_CONDOM
+				|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
+			return TFPotency.getAllPotencies();
 				
 			} else {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
@@ -3558,7 +2722,12 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+			 if(secondaryModifier == TFModifier.CLOTHING_VIBRATION
+					|| secondaryModifier == TFModifier.REMOVAL
+					|| secondaryModifier == TFModifier.TF_TYPE_1) {
+				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
+				
+			} else if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
@@ -3679,11 +2848,15 @@ public class ItemEffectType {
 			return "";
 		}
 	};
-	
+
+	public static AbstractItemEffectType getRacialEffectType(AbstractRace race) {
+		return racialEffectTypes.get(race);
+	}
 	
 	public static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();
 	public static Map<String, AbstractItemEffectType> idToItemEffectTypeMap = new HashMap<>();
 	public static List<AbstractItemEffectType> allEffectTypes = new ArrayList<>();
+	public static Map<AbstractRace, AbstractItemEffectType> racialEffectTypes = new HashMap<>();
 	
 	public static void addAbstractItemEffectToIds(String id, AbstractItemEffectType itemEffectType) {
 		allEffectTypes.add(itemEffectType);
@@ -3693,8 +2866,8 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
-		if(id.equalsIgnoreCase("RACE_ANGELS_TEARS")) {
-			return RACE_BREAD_ROLL;
+		if(id.startsWith("RACE_")) {
+			return getRacialEffectType(Race.getRaceFromId(id.substring(5)));
 		}
 		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);
@@ -3705,15 +2878,15 @@ public class ItemEffectType {
 	}
 	
 	// set in ItemType
-	public static AbstractItemEffectType getBookEffectFromSubspecies(Subspecies subspecies) {
-		String id = Util.getClosestStringMatch("BOOK_READ_"+subspecies.toString(), idToItemEffectTypeMap.keySet());
+	public static AbstractItemEffectType getBookEffectFromSubspecies(AbstractSubspecies subspecies) {
+		String id = Util.getClosestStringMatch("BOOK_READ_"+Subspecies.getIdFromSubspecies(subspecies), idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);
 	}
 	
 	public static List<AbstractItemEffectType> getAllEffectTypes() {
 		return allEffectTypes;
 	}
-
+	
 	static {
 		Field[] fields = ItemEffectType.class.getFields();
 		for(Field f : fields){
@@ -3731,6 +2904,47 @@ public class ItemEffectType {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		for(AbstractRace race : Race.getAllRaces()) {
+			racialEffectTypes.put(
+					race,
+					new AbstractItemEffectType(null,
+							race.getColour()) {
+						@Override
+						public AbstractRace getAssociatedRace() {
+							return race;
+						}
+						@Override
+						public List<TFModifier> getPrimaryModifiers() {
+							return TFModifier.getTFRacialBodyPartsList();
+						}
+						@Override
+						public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
+							return getRacialSecondaryModifiers(race, primaryModifier);
+						}
+						@Override
+						public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+							return getRacialPotencyModifiers(race, primaryModifier, secondaryModifier);
+						}
+						@Override
+						public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+							return Util.newArrayListOfValues(getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).getDescription());
+						}
+						@Override
+						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+							return getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+						}
+					});
+		}
+		
+		for(Entry<AbstractRace, AbstractItemEffectType> entry : racialEffectTypes.entrySet()) {
+
+			allEffectTypes.add(entry.getValue());
+			
+			String id = "RACE_"+Race.getIdFromRace(entry.getKey());
+			itemEffectTypeToIdMap.put(entry.getValue(), id);
+			idToItemEffectTypeMap.put(id, entry.getValue());
 		}
 	}
 	

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -135,7 +134,7 @@ public class VengarCaptiveDialogue {
 			rat.setLevel(4+Util.random.nextInt(5));
 			rat.setLocation(Main.game.getPlayer(), true);
 			String[] names = new String[] {"thug", "gangster", "gang-member", "mobster"};
-			CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), null);
+			Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), null);
 			return rat;
 
 		} catch (Exception e) {

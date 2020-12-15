@@ -31,19 +31,23 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.3.9
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public class ItemGeneration {
 	
 	// Item generation:
 
+	public AbstractItem generateItem(String id) {
+		return new AbstractItem(ItemType.getItemTypeFromId(id)) {};
+	}
+	
 	public AbstractItem generateItem(AbstractItemType itemType) {
 		return new AbstractItem(itemType) {};
 	}
 	
-	public AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
+	public AbstractItem generateFilledCondom(AbstractItemType filledCondomType, Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
+		return new AbstractFilledCondom(filledCondomType, colour, character, cum, millilitres) {};
 	}
 
 	public AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {

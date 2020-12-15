@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -29,14 +28,16 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.SlaveEncountersDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -62,22 +63,25 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.2
- * @author Innoxia
+ * @version 0.3.9.4
+ * @author Innoxia, DSG
  */
 public enum Encounter {
 
-	LILAYAS_HOME_CORRIDOR(null) {
+	LILAYAS_HOME_CORRIDOR() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCharactersPresent().isEmpty()
+					(Main.game.getCharactersPresent().isEmpty()
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
-						:null);
+						:null),
+					(getSlaveUsingOtherSlaveInLilayaCorridor()!=null && Main.game.getCharactersPresent().isEmpty()
+						?new Value<EncounterType, Float>(EncounterType.SLAVE_USING_OTHER_SLAVE, 5f)
+						:null));
 		}
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
-			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+			if(node == EncounterType.SLAVE_USES_YOU) {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
 				
@@ -104,14 +108,21 @@ public enum Encounter {
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
-					return SlaveDialogue.getSlaveUsesYou(hornySlaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYou(hornySlaves.get(0));
 					
 				} else if(!slaves.isEmpty()) {
 					Collections.shuffle(slaves);
-					return SlaveDialogue.getSlaveUsesYou(slaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYou(slaves.get(0));
 				}
 				
 				return null;
+				
+			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
+				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInLilayaCorridor();
+				if(slaves.getKey()==null || slaves.getValue()==null) {
+					return null;
+				}
+				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveLilayaCorridor(slaves);
 				
 			} else {
 				return null;
@@ -120,17 +131,54 @@ public enum Encounter {
 	},
 	
 	
-	DOMINION_STREET(null) {
+	DOMINION_STREET() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
+			boolean cultistAvailable = 
+					Main.game.getCurrentWeather() != Weather.MAGIC_STORM
+						&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
+						&& Main.game.getNumberOfWitches()<4
+						&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET);
+
+			
+			boolean wesQuestAvailable = false;
+			
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_WES)) {
+				boolean harpyQuestTimePassed = false;
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+					if(!Main.game.getDialogueFlags().hasSavedLong("angry_harpies_completed")) {
+						Main.game.getDialogueFlags().setSavedLong("angry_harpies_completed", Main.game.getMinutesPassed());
+						
+					} else {
+						harpyQuestTimePassed = Main.game.getMinutesPassed()-Main.game.getDialogueFlags().getSavedLong("angry_harpies_completed") > (60*24*5);
+					}
+				}
+				wesQuestAvailable = harpyQuestTimePassed
+										&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+										&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)
+										&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+										&& Main.game.getHourOfDay()>=17 && Main.game.getHourOfDay()<=21;
+			}
+			
 			return Util.newHashMapOfValues(
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
-					new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
+					Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f)
+						:null,
+					cultistAvailable
+						?new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f)
+						:null,
+					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f)
+						:null,
 					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null,
-					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
+					wesQuestAvailable
+						?new Value<EncounterType, Float>(EncounterType.WES_QUEST_START, 50f)
+						:null,
+					Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu") && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)
+						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f)
+						:null);
 		}
 		
 		@Override
@@ -146,12 +194,7 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
-					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
-					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
-					&& Main.game.getNumberOfWitches()<4
-					&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET)) {
-				
+			if(node == EncounterType.SPECIAL_DOMINION_CULTIST) {
 				boolean suitableTile = true;
 				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
 					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
@@ -172,18 +215,15 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 			}
-
-			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR
-					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
 				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
 					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
 				}
 			}
 			
-			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
-					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
-					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
+			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
@@ -194,14 +234,18 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouStreet(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
+			}
+			
+			if(node == EncounterType.WES_QUEST_START) {
+				return WesQuest.WES_QUEST_START;
 			}
 			
 			return null;
 		}
 	},
 	
-	DOMINION_BOULEVARD(null) {
+	DOMINION_BOULEVARD() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -234,7 +278,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
 				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -242,7 +286,7 @@ public enum Encounter {
 			
 			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -260,14 +304,14 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouStreet(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
 		}
 	},
 
-	DOMINION_ALLEY(null) {
+	DOMINION_ALLEY() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = Util.newHashMapOfValues(
@@ -283,12 +327,14 @@ public enum Encounter {
 			
 			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
-				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())) {
 					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
 				}
 			} else {
 				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
-				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+						&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())) {
 					map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
 				}
 			}
@@ -311,12 +357,13 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getSubspecies()==Subspecies.ANGEL
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
+										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)),
+						true);
 					
 					if(!offspringAvailable.isEmpty()) {
 //						for(NPC npc : offspringAvailable) {
@@ -343,7 +390,7 @@ public enum Encounter {
 					if(Math.random()<0.5f) {
 						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem("innoxia_cheat_unlikely_whammer");
 					}
 				}
 				
@@ -385,24 +432,30 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 				
 			} else if(node==EncounterType.SLAVE_USING_OTHER_SLAVE) {
 				Value<NPC, NPC> slaves = getSlaveUsingOtherSlaveInDominion();
 				if(slaves.getKey()==null || slaves.getValue()==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
+				return SlaveEncountersDialogue.getSlaveUsingOtherSlaveAlleyway(slaves);
 			}
 			
 			return null;
 		}
 	},
 	
-	DOMINION_DARK_ALLEY(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f))) {
-
+	DOMINION_DARK_ALLEY() {
 		@Override
+		public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
 			// Prioritise re-encountering the NPC on this tile:
@@ -424,7 +477,7 @@ public enum Encounter {
 		}
 	},
 	
-	DOMINION_CANAL(null) {
+	DOMINION_CANAL() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -433,6 +486,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
 					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+							&& (!Main.game.getDialogueFlags().hasSavedLong("enforcer_encounter_minutes") || Main.game.getDialogueFlags().getSavedLong("enforcer_encounter_minutes")+(4*60)<Main.game.getMinutesPassed())
 						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f)
 						:null,
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
@@ -454,14 +508,15 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
 										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
 										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
 										|| npc.getSubspecies()==Subspecies.SLIME
 										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-										|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+										|| npc.getSubspecies()==Subspecies.RAT_MORPH)),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -484,7 +539,7 @@ public enum Encounter {
 					if(Math.random()<0.5f) {
 						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem("innoxia_cheat_unlikely_whammer");
 					}
 				}
 				
@@ -526,14 +581,14 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
+				return SlaveEncountersDialogue.getSlaveUsesYouAlleyway(slave);
 			}
 			
 			return null;
 		}
 	},
 	
-	DOMINION_EXPRESS(null) {
+	DOMINION_EXPRESS() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 10f));
@@ -550,7 +605,7 @@ public enum Encounter {
 		}
 	},
 	
-	HARPY_NEST_WALKWAYS(null) {
+	HARPY_NEST_WALKWAYS() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -572,8 +627,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -595,10 +651,10 @@ public enum Encounter {
 			
 			if(node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem("innoxia_race_harpy_harpy_perfume");
 					
 				} else {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop"));
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -610,7 +666,7 @@ public enum Encounter {
 		}
 	},
 	
-	HARPY_NEST_LOOK_FOR_TROUBLE(null) {
+	HARPY_NEST_LOOK_FOR_TROUBLE() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
@@ -632,8 +688,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -655,10 +712,10 @@ public enum Encounter {
 			
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem("innoxia_race_harpy_harpy_perfume");
 					
 				} else {
-					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getItemTypeFromId("innoxia_race_harpy_bubblegum_lollipop"));
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -670,11 +727,17 @@ public enum Encounter {
 		}
 	},
 	
-	SUBMISSION_TUNNELS(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f),
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 10f))) {
-		
+	SUBMISSION_TUNNELS() {		
 		@Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+			
+                    map.put(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f);
+                    map.put(EncounterType.SUBMISSION_FIND_ITEM, 10f);
+                    
+                    return map;
+                }
+                @Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			
 			if(node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
@@ -702,14 +765,14 @@ public enum Encounter {
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
@@ -744,21 +807,21 @@ public enum Encounter {
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(4)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
@@ -789,21 +852,21 @@ public enum Encounter {
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
@@ -833,21 +896,21 @@ public enum Encounter {
 						
 						// Alpha imp:
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
-						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
+						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
@@ -875,8 +938,9 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))
-								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))),
+							true);
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -904,10 +968,17 @@ public enum Encounter {
 		}
 	},
 	
-	BAT_CAVERN(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
+	BAT_CAVERN() {           
+                @Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+
+                    map.put(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f);
+                    map.put(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f);
+                    map.put(EncounterType.BAT_CAVERN_FIND_ITEM, 6f);
+
+                    return map;
+                }
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
@@ -974,7 +1045,7 @@ public enum Encounter {
 	//  A rat fucks you
 	// 	Rats fuck you
 	// 	Rat gets you to perform oral under table
-	VENGAR_CAPTIVE_HALL(null) {
+	VENGAR_CAPTIVE_HALL() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = new HashMap<>();// Silence delivers if pregnant
@@ -1032,7 +1103,7 @@ public enum Encounter {
 	//  SS make you clean room
 	// 	Shadow & Silence use you
 	//  SS forbid you from sulking in room (if already cleaned)
-	VENGAR_CAPTIVE_BEDROOM(null) {
+	VENGAR_CAPTIVE_BEDROOM() {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			Map<EncounterType, Float> map = new HashMap<>();
@@ -1078,6 +1149,8 @@ public enum Encounter {
 	private static void spawnEnforcers() {
 		List<List<String>> savedEnforcerIds = Main.game.getSavedEnforcers(WorldType.DOMINION);
 		
+		Main.game.getDialogueFlags().setSavedLong("enforcer_encounter_minutes", Main.game.getMinutesPassed());
+		
 		// Keep 4 sets of Enforcers saved
 		float chanceOfNewEnforcers = 1f - (0.25f * savedEnforcerIds.size());
 		if(Math.random()<chanceOfNewEnforcers) {
@@ -1115,7 +1188,7 @@ public enum Encounter {
 	
 	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
-		Main.game.getOffspringSpawned().add(offspring);
+		Main.game.getOffspringSpawned(true).add(offspring);
 
 		offspring.setLocation(Main.game.getPlayer(), true);
 		
@@ -1150,6 +1223,8 @@ public enum Encounter {
 				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveWantingToUseYouInDominion()");
 			}
 		}
+		
+//		System.out.println(hornySlaves.size() +" | " + slaves.size());
 		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(hornySlaves);
@@ -1213,6 +1288,8 @@ public enum Encounter {
 		}
 		
 //		System.out.println(hornySlaves.size());
+
+		keys = new ArrayList<>(hornySlaves.keySet());
 		
 		if(!hornySlaves.isEmpty()) {
 			Collections.shuffle(keys);
@@ -1221,6 +1298,64 @@ public enum Encounter {
 		
 		return null;
 	}
+
+	/**
+	 * @return A Value, with the key being the dominant slave and the value being the submissive slave.
+	 */
+	private static Value<NPC, NPC> getSlaveUsingOtherSlaveInLilayaCorridor() {
+		Map<NPC, List<NPC>> hornySlaves = new HashMap<>();
+		
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+						hornySlaves.put(slave, new ArrayList<>());
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInLilayaCorridor() 1");
+			}
+		}
+
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			try {
+				NPC slave = (NPC) Main.game.getNPCById(id);
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
+						&& ((slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE && slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) || slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
+						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+					for(NPC horny : hornySlaves.keySet()) {
+						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
+							hornySlaves.get(horny).add(slave);
+						}
+					}
+				}
+				
+			} catch (Exception e) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in getSlaveUsingOtherSlaveInLilayaCorridor() 2");
+			}
+		}
+
+		List<NPC> keys = new ArrayList<>(hornySlaves.keySet());
+		for(NPC key : keys) {
+			if(hornySlaves.get(key).isEmpty()) {
+				hornySlaves.remove(key);
+			}
+		}
+		
+		keys = new ArrayList<>(hornySlaves.keySet());
+		
+		if(!hornySlaves.isEmpty()) {
+			Collections.shuffle(keys);
+			return new Value<>(keys.get(0), Util.randomItemFrom(hornySlaves.get(keys.get(0))));
+		}
+		
+		return null;
+	}
+	
 	
 	private static AbstractCoreItem randomItem;
 
@@ -1233,10 +1368,7 @@ public enum Encounter {
 		return INCEST_ENCOUNTER_RATE;
 	}
 
-	private Map<EncounterType, Float> dialogues;
-
-	private Encounter(Map<EncounterType, Float> dialogues) {
-		this.dialogues = dialogues;
+	private Encounter() {
 	}
 
 	protected abstract DialogueNode initialiseEncounter(EncounterType node);
@@ -1251,9 +1383,7 @@ public enum Encounter {
 		return getBaseRandomEncounter(forceEncounter);
 	}
 	
-	public Map<EncounterType, Float> getDialogues() {
-		return dialogues;
-	}
+	public abstract Map<EncounterType, Float> getDialogues();
 
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 		float opportunisticMultiplier = 1;

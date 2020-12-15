@@ -5,7 +5,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
@@ -61,10 +61,10 @@ public class TattooCounter implements XMLSaving {
 		Element element = doc.createElement("tattooCounter");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "type", this.getType().toString());
-		CharacterUtils.addAttribute(doc, element, "countType", this.getCountType().toString());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
-		CharacterUtils.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
+		XMLUtil.addAttribute(doc, element, "type", this.getType().toString());
+		XMLUtil.addAttribute(doc, element, "countType", this.getCountType().toString());
+		XMLUtil.addAttribute(doc, element, "colour", this.getColour().getId());
+		XMLUtil.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
 		
 		return element;
 	}

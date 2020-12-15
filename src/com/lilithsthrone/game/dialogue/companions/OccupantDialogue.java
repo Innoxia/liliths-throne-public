@@ -51,9 +51,14 @@ public class OccupantDialogue {
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 			Main.game.saveDialogueNode();
 		}
-		if(!isApartment || targetedOccupant.isAtHome()) {
+		
+		if(isApartment) {
+			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
+			
+		} else if(targetedOccupant.isAtHome()) {
 			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		}
+		
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
 
@@ -1196,6 +1201,7 @@ public class OccupantDialogue {
 						occupant().setRandomUnoccupiedLocation(WorldType.DOMINION, true, PlaceType.DOMINION_STREET, PlaceType.DOMINION_STREET_HARPY_NESTS, PlaceType.DOMINION_BOULEVARD);
 						occupant().setHomeLocation();
 						OccupantDialogue.isApartment = true;
+						Main.game.getDialogueFlags().setManagementCompanion(occupant());
 						Main.game.getPlayer().setLocation(occupant().getWorldLocation(), occupant().getLocation(), false);
 					}
 				};

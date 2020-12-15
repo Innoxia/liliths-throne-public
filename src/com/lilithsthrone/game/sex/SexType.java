@@ -6,8 +6,8 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -61,9 +61,9 @@ public class SexType implements XMLSaving {
 		Element sexTypeElement = doc.createElement("sexType");
 		parentElement.appendChild(sexTypeElement);
 		
-		CharacterUtils.addAttribute(doc, sexTypeElement, "participant", asParticipant.toString());
-		CharacterUtils.addAttribute(doc, sexTypeElement, "self", performingSexArea.toString());
-		CharacterUtils.addAttribute(doc, sexTypeElement, "other", targetedSexArea.toString());
+		XMLUtil.addAttribute(doc, sexTypeElement, "participant", asParticipant.toString());
+		XMLUtil.addAttribute(doc, sexTypeElement, "self", performingSexArea.toString());
+		XMLUtil.addAttribute(doc, sexTypeElement, "other", targetedSexArea.toString());
 		
 		return sexTypeElement;
 	}
@@ -122,16 +122,20 @@ public class SexType implements XMLSaving {
 		
 		if(areaPerforming.isPenetration()) {
 			if(areaTargeted.isPenetration()) {
-				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			} else {
-				return UtilText.parse(performer, target, "[npc.Name] used [npc.her] "+areaPerforming.getName(performer)+" to fuck [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] used [npc.her] "+areaPerforming.getName(performer)+" "+(((SexAreaPenetration)areaPerforming).isTakesVirginity()?"to fuck":"on")+" [npc2.namePos] "+areaTargeted.getName(target)+".");
 			}
 			
 		} else {
 			if(areaTargeted.isPenetration()) {
-				return UtilText.parse(performer, target, "[npc.Name] had [npc.her] "+areaPerforming.getName(performer)+" fucked by [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] had [npc.her] "+areaPerforming.getName(performer)+" "+(((SexAreaPenetration)areaTargeted).isTakesVirginity()?"fucked by":"used by")+" [npc2.namePos] "+areaTargeted.getName(target)+".");
 			} else {
-				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
+				return UtilText.parse(performer, target,
+						"[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			}
 		}
 	}
@@ -248,6 +252,8 @@ public class SexType implements XMLSaving {
 					}
 					fetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
+				case SPINNERET:
+					break;
 			}
 		}
 		
@@ -345,6 +351,11 @@ public class SexType implements XMLSaving {
 					}
 					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
 					if(getPerformingSexArea()!=null && isPenetration && getPerformingSexArea().isPenetration() && ((SexAreaPenetration)getPerformingSexArea()).isTakesVirginity() &&  characterTargeted.isVaginaVirgin()) {
+						fetishes.add(Fetish.FETISH_DEFLOWERING);
+					}
+					break;
+				case SPINNERET:
+					if(getPerformingSexArea()!=null && isPenetration && getPerformingSexArea().isPenetration() && ((SexAreaPenetration)getPerformingSexArea()).isTakesVirginity() &&  characterTargeted.isSpinneretVirgin()) {
 						fetishes.add(Fetish.FETISH_DEFLOWERING);
 					}
 					break;

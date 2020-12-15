@@ -1,9 +1,9 @@
 package com.lilithsthrone.game.inventory.item;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-
-import java.util.List;
 
 /**
  * Container class for TF potions

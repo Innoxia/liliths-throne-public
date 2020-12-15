@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.types;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public enum BodyPartType {
@@ -50,7 +50,11 @@ public enum BodyPartType {
 	// Vagina:
 	CLIT("clitoris"),
 	VAGINA("vagina"),
-	GIRL_CUM("girl cum");
+	GIRL_CUM("girl cum"),
+	
+	// Spinneret:
+
+	SPINNERET("spinneret");
 	
 	private String name;
 	private BodyPartType(String name){

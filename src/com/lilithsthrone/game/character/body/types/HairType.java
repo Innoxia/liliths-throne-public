@@ -1,12 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
@@ -20,7 +25,6 @@ public class HairType {
 
 	public static AbstractHairType HUMAN = new AbstractHairType(BodyCoveringType.HAIR_HUMAN,
 			Race.HUMAN,
-			true,
 			"human",
 			"hair",
 			"hairs",
@@ -33,7 +37,6 @@ public class HairType {
 
 	public static AbstractHairType ANGEL = new AbstractHairType(BodyCoveringType.HAIR_ANGEL,
 			Race.ANGEL,
-			true,
 			"angelic",
 			"hair",
 			"hairs",
@@ -46,7 +49,6 @@ public class HairType {
 	
 	public static AbstractHairType DEMON = new AbstractHairType(BodyCoveringType.HAIR_DEMON,
 			Race.DEMON,
-			true,
 			"demonic",
 			"hair",
 			"hairs",
@@ -64,7 +66,6 @@ public class HairType {
 
 	public static AbstractHairType DOG_MORPH = new AbstractHairType(BodyCoveringType.HAIR_CANINE_FUR,
 			Race.DOG_MORPH,
-			true,
 			"dog",
 			"hair",
 			"hairs",
@@ -77,7 +78,6 @@ public class HairType {
 	
 	public static AbstractHairType WOLF_MORPH = new AbstractHairType(BodyCoveringType.HAIR_LYCAN_FUR, //TODO rename
 			Race.WOLF_MORPH,
-			true,
 			"wolf",
 			"hair",
 			"hairs",
@@ -90,7 +90,6 @@ public class HairType {
 
 	public static AbstractHairType FOX_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FOX_FUR,
 			Race.FOX_MORPH,
-			true,
 			"fox",
 			"hair",
 			"hairs",
@@ -103,7 +102,6 @@ public class HairType {
 
 	public static AbstractHairType CAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FELINE_FUR, //TODO change to cat
 			Race.CAT_MORPH,
-			true,
 			"cat",
 			"hair",
 			"hairs",
@@ -117,7 +115,6 @@ public class HairType {
 	//TODO should be PANTHER
 	public static AbstractHairType CAT_MORPH_SIDEFLUFF = new AbstractHairType(BodyCoveringType.HAIR_FELINE_FUR,
 			Race.CAT_MORPH,
-			true,
 			"cat (sidefluff)",
 			"hair",
 			"hairs",
@@ -130,7 +127,6 @@ public class HairType {
 
 	public static AbstractHairType COW_MORPH = new AbstractHairType(BodyCoveringType.HAIR_BOVINE_FUR, //TODO change to cow
 			Race.COW_MORPH,
-			true,
 			"cow",
 			"hair",
 			"hairs",
@@ -143,7 +139,6 @@ public class HairType {
 
 	public static AbstractHairType ALLIGATOR_MORPH = new AbstractHairType(BodyCoveringType.HAIR_SCALES_ALLIGATOR, //TODO change to hair
 			Race.ALLIGATOR_MORPH,
-			true,
 			"alligator",
 			"hair",
 			"hairs",
@@ -156,7 +151,6 @@ public class HairType {
 
 	public static AbstractHairType SQUIRREL_MORPH = new AbstractHairType(BodyCoveringType.HAIR_SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			true,
 			"squirrel",
 			"hair",
 			"hairs",
@@ -169,7 +163,6 @@ public class HairType {
 
 	public static AbstractHairType RAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_RAT_FUR,
 			Race.RAT_MORPH,
-			true,
 			"rat",
 			"hair",
 			"hairs",
@@ -182,7 +175,6 @@ public class HairType {
 
 	public static AbstractHairType RABBIT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			true,
 			"rabbit",
 			"hair",
 			"hairs",
@@ -195,7 +187,6 @@ public class HairType {
 
 	public static AbstractHairType BAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_BAT_FUR,
 			Race.BAT_MORPH,
-			true,
 			"bat",
 			"hair",
 			"hairs",
@@ -208,7 +199,6 @@ public class HairType {
 
 	public static AbstractHairType HORSE_MORPH = new AbstractHairType(BodyCoveringType.HAIR_HORSE_HAIR,
 			Race.HORSE_MORPH,
-			true,
 			"horse",
 			"hair",
 			"hairs",
@@ -221,7 +211,6 @@ public class HairType {
 
 	public static AbstractHairType REINDEER_MORPH = new AbstractHairType(BodyCoveringType.HAIR_REINDEER_FUR,
 			Race.REINDEER_MORPH,
-			true,
 			"reindeer",
 			"hair",
 			"hairs",
@@ -234,7 +223,6 @@ public class HairType {
 
 	public static AbstractHairType HARPY = new AbstractHairType(BodyCoveringType.HAIR_HARPY,
 			Race.HARPY,
-			true,
 			"harpy",
 			"head-feather",
 			"head-feathers",
@@ -244,8 +232,12 @@ public class HairType {
 				+ "[npc.Name] now [npc.has] [npc.hairColour], bird-like [style.boldHarpy(harpy feathers)].",
 			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], bird-like harpy feathers") {
 		@Override
-		public boolean isDefaultPlural() {
+		public boolean isDefaultPlural(GameCharacter gc) {
 			return true;
+		}
+		@Override
+		public String getDeterminer(GameCharacter gc) {
+			return "a plume of";
 		}
 	};
 
@@ -255,8 +247,46 @@ public class HairType {
 	
 	static {
 		allHairTypes = new ArrayList<>();
+
+		// Modded types:
 		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
+					try {
+						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allHairTypes.add(type);
+						hairToIdMap.put(type, id);
+						idToHairMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
+					try {
+						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allHairTypes.add(type);
+						hairToIdMap.put(type, id);
+						idToHairMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		// Add in hard-coded hair types:
+		
 		Field[] fields = HairType.class.getFields();
 		
 		for(Field f : fields){
@@ -276,6 +306,13 @@ public class HairType {
 				}
 			}
 		}
+
+		Collections.sort(allHairTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractHairType getHairTypeFromId(String id) {

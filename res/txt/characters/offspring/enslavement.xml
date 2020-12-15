@@ -98,10 +98,7 @@
 
 	<htmlContent tag="ENSLAVEMENT_FAIL_NO_LICENSE"><![CDATA[
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards [npc.name]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards [npc.name]. Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsBad(Invalid owner! Slaver license required!<br/>

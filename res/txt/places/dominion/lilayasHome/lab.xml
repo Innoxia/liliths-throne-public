@@ -329,7 +329,7 @@
 		[lilaya.speech(Hmm... Well, if you find yourself feeling like that, there's no need to sneak off into my room. J-Just come back here and I-I can run some tests on you! O-Ok?)] Lilaya responds, trying her best to sound stern and in control, but ultimately failing as her thoughts shift to wanting to do lewd things with you.
 	</p>
 	<p>
-		[pc.speech(Yes, Lilaya,)] you respond, much in the same way you always used to with your [lilaya.relation(pc)] Lily.
+		[pc.speech(Yes, Lilaya,)] you respond, much in the same way you always used to with your aunt Lily.
 	</p>
 	<p>
 		[lilaya.speech(So, now that that's out of the way, what is it you need?)]
@@ -434,6 +434,51 @@
 	</p>
 	<p>
 		Finding yourself in an increasingly awkward position, you realise that your only real option is to agree to do as she asks...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_ELLE_HELP_REPEAT"><![CDATA[
+	<p>
+		Having forgotten what it was that Lilaya deduced about Elle's location, you ask your [lilaya.relation(pc)] if she can remind you of where you should be looking for her. Letting out an exasperated sigh, Lilaya pushes her glasses up onto the bridge of her nose and sharply states, [lilaya.speech(She's going down into the Bat Caverns, remember?! Just travel down to the west side of Submission to get there!)]
+	</p>
+	<p>
+		#IF(game.isSillyMode())
+			As you start to thank Lilaya for her help, she steps forwards and bonks you over the head with a rolled-up stack of papers. Frowning at you in disapproval, she states, [lilaya.speech(Please do try to remember what I've said this time!)]
+		#ELSE
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_ELLE_HELP"><![CDATA[
+	<p>
+		Struggling to figure out for yourself where Elle could be teleporting to during her long Wednesday lunch breaks, you ask Lilaya if she can help you to figure out where to go. Telling her that the Superintendent apparently takes a pair of night vision goggles with her, and that she returns with wet shoes often coated in some kind of glowing residue, you ask your [lilaya.relation(pc)] if she can figure out what location Elle is visiting.
+	</p>
+	<p>
+		[lilaya.speech(Hmm, well, if she's taking night vision goggles with her, then she's going somewhere that's dark even in the middle of the day,)] Lilaya muses, before stepping over to a nearby pile of books and retrieving one that appears to be a reference guide on local flora. Flicking through the pages, she quickly finds what she was looking for, and reads out loud, [lilaya.speech(<i>'Bioluminescent fungi are found all throughout Lilith's Realm...'</i> Now where's the section on Dominion... Ah, here it is; <i>'One may be surprised to discover that the subterranean Bat Caverns are home to one of the most diverse fungal ecosystems currently known to exist. In places, vast carpets of bioluminescent fungi can be observed, and it is impossible to take a step without disturbing their vividly-glowing spores...'</i>)]
+	</p>
+	<p>
+		Closing her book and looking up at you with a triumphant look on her face, your [lilaya.relation(pc)] proudly declares, [lilaya.speech(Mystery solved! Your elusive Enforcer must be teleporting down into the Bat Caverns. If you've never been there before, then you should know that you have to travel down to the west side of Submission to get there. Please do be careful if you do decide to follow this 'Elle' character though; the last I heard, the Bat Caverns are quite a dangerous place...)]
+	</p>
+	#IF(game.isSillyMode())
+		<p>
+			You start to thank Lilaya for her help, but before you're able to articulate your thoughts, she steps forwards and bonks you on the head with the book that she's still holding. Frowning at you in disapproval, she tuts, [lilaya.speech(You really should have been able to solve this by yourself...)]
+		</p>
+		<p>
+			Rubbing your head and feeling more than a little ashamed from your [lilaya.relation(pc)]'s words, you wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -782,7 +827,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
+	<htmlContent tag="END_SEX_GEISHA_NO_ORGASM"><![CDATA[
 	<p>
 		Lilaya collapses face-first onto her bed, giving her demonic wings an impatient flutter as she sighs in annoyance, [lilaya.speech(As grateful as I am for this outfit, I <i>really</i> don't appreciate being treated like that! You didn't even get me to cum once!)]
 	</p>
@@ -857,7 +902,7 @@
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered))
-		#IF(SPECIAL_PARSE_0=="false")
+		#IF(!pc.isAnyEquippedClothingSealed())
 			<p>
 				[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)] you explain. [pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]
 			</p>
@@ -1098,7 +1143,7 @@
 	<p>
 		[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)] Lilaya picks up the little potion and places it off to one side. [lilaya.speech(And that's all there is to it!)]
 	</p>
-	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false")
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && pc.isAnyEquippedClothingSealed())
 		<p>
 			Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
 		</p>

@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -49,7 +49,7 @@ public class CombatMovesSetup {
                             + "<h6 style='text-align:center;'>[style.colourMinorGood(Core Combat Moves)]</h6>");
 
             for(int i=0;i<GameCharacter.MAX_COMBAT_MOVES;i++) {
-                CombatMove mv = null;
+                AbstractCombatMove mv = null;
                 if(i<target.getEquippedMoves().size()) {
                     mv = target.getEquippedMoves().get(i);
                 }
@@ -70,7 +70,7 @@ public class CombatMovesSetup {
                             + "<h6 style='text-align:center;'>[style.colourMinorBad(Non-Core Combat Moves)]</h6>");
 
             for(int i=0;i<target.getAvailableMoves().size();i++) {
-                CombatMove mv = target.getAvailableMoves().get(i);
+                AbstractCombatMove mv = target.getAvailableMoves().get(i);
                 if(!target.getEquippedMoves().contains(target.getAvailableMoves().get(i))) {
                     UtilText.nodeContentSB.append("<div id='MOVE_" + mv.getIdentifier() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + mv.getType().getColour().toWebHexString() + ";'>"
                             + "<div class='square-button-content'>" + mv.getSVGString() + "</div>"

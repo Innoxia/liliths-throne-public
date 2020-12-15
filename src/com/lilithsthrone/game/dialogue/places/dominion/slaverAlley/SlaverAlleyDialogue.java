@@ -46,7 +46,6 @@ import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -450,7 +449,8 @@ public class SlaverAlleyDialogue {
 		return target.isFeminine()
 				&& target.hasVagina()
 				&& target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
-				&& !target.isPregnant();
+				&& !target.isPregnant()
+				&& !target.hasIncubationLitter(SexAreaOrifice.VAGINA);
 	}
 	
 	private static void applyLockedUpEffects(boolean includeCompanion, boolean willingCompanion) {
@@ -464,7 +464,7 @@ public class SlaverAlleyDialogue {
 			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyCompanionAcceptedDeal)) {
 				getMainCompanion().clearFluidsStored(SexAreaOrifice.VAGINA);
-				Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), getMainCompanion(), false);
+				Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), getMainCompanion(), false);
 			}
 			
 			getMainCompanion().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
@@ -640,10 +640,10 @@ public class SlaverAlleyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Slaver Alley", "Step through the gate and enter Slaver Alley."){
+				return new Response("Slaver Alley", "Step through the gate and enter Slaver Alley.", PlaceType.SLAVER_ALLEY_ENTRANCE.getDialogue(false)){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_ENTRANCE, true);
+						Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_ENTRANCE, false);
 					}
 				};
 			}
@@ -670,10 +670,10 @@ public class SlaverAlleyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways.") {
+				return new Response("Leave", "Step back out into Dominion's alleyways.", PlaceType.DOMINION_SLAVER_ALLEY.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_SLAVER_ALLEY, true);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_SLAVER_ALLEY, false);
 					}
 				};
 				
@@ -1121,13 +1121,13 @@ public class SlaverAlleyDialogue {
 
 	private static List<AbstractItemType> getCafeItems() {
 		return Util.newArrayListOfValues(
-				ItemType.INT_INGREDIENT_VANILLA_WATER,
-				ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH,
-				ItemType.SEX_INGREDIENT_BUNNY_JUICE,
-				ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
-				ItemType.RACE_INGREDIENT_RABBIT_MORPH,
-				ItemType.RACE_INGREDIENT_RAT_MORPH,
-				ItemType.RACE_INGREDIENT_BAT_MORPH);
+				ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice"),
+				ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java"),
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake"),
+				ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad"));
 	}
 	
 	public static final DialogueNode MARKET_STALL_CAFE_INTERIOR = new DialogueNode("", "", true) {
@@ -1934,6 +1934,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Stocks breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Stocks breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				return new ResponseSex("Stocks breeding",
 						"Ask [sean.name] if he'd like to lock you in the stocks and breed you in front of members of the public.",
 						Util.newArrayListOfValues(Fetish.FETISH_EXHIBITIONIST, Fetish.FETISH_PREGNANCY, Fetish.FETISH_SUBMISSIVE),
@@ -2000,7 +2003,7 @@ public class SlaverAlleyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().clearFluidsStored(SexAreaOrifice.VAGINA);
-						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getPlayer(), false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCompanionAcceptedDeal, false);
 						Main.game.getPlayer().setCaptive(true);
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
@@ -2067,6 +2070,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Double breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				if(!getMainCompanion().hasVagina()) {
 					return new Response("Double breeding", "[com.Name] does not have a vagina, so cannot be bred by [sean.name] in the stocks.", null);
 				}
@@ -2075,6 +2081,9 @@ public class SlaverAlleyDialogue {
 				}
 				if(getMainCompanion().isPregnant()) {
 					return new Response("Double breeding", "[com.Name] is already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
+				}
+				if(getMainCompanion().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "[com.NamePos] womb is full of eggs, so [com.she] cannot be bred by [sean.name] in the stocks.", null);
 				}
 				if(!Main.game.getNpc(Sean.class).isAttractedTo(getMainCompanion())) {
 					return new Response("Double breeding", "[sean.Name] is not attracted to [com.name], so is unwilling to breed [com.herHim].", null);
@@ -2165,9 +2174,9 @@ public class SlaverAlleyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().clearFluidsStored(SexAreaOrifice.VAGINA);
-						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getPlayer(), false);
 						getMainCompanion().clearFluidsStored(SexAreaOrifice.VAGINA);
-						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), getMainCompanion(), false);
+						Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), getMainCompanion(), false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCompanionAcceptedDeal, true);
 						Main.game.getPlayer().setCaptive(true);
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
@@ -2409,11 +2418,10 @@ public class SlaverAlleyDialogue {
 						Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
 						Main.game.getNpc(Sean.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
 						
-						// Sean takes jacket, belt, tie, and hat off:
+						// Sean takes jacket, belt, and hat off:
 						NPC sean = Main.game.getNpc(Sean.class);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.TORSO_OVER), true, sean);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HEAD), true, sean);
-						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.NECK), true, sean);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HIPS), true, sean);
 						
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyComplained, true);
@@ -2810,7 +2818,7 @@ public class SlaverAlleyDialogue {
 			if(isSeanOfferingDeal(Main.game.getPlayer())) {
 				if(index==1) {
 					return new Response("Accept",
-							"Swallow the "+ItemType.VIXENS_VIRILITY.getName(false)+" that [sean.name] is offering you, thereby accepting his deal of protection in exchange for letting him try to impregnate you...",
+							"Swallow the "+ItemType.getItemTypeFromId("innoxia_pills_fertility").getName(false)+" that [sean.name] is offering you, thereby accepting his deal of protection in exchange for letting him try to impregnate you...",
 							PUBLIC_STOCKS_LOCKED_UP_FIRST_SEX) {
 						@Override
 						public void effects() {
@@ -2818,13 +2826,13 @@ public class SlaverAlleyDialogue {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyAcceptedDeal, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyTookPlace, true);
 							Main.game.getPlayer().clearFluidsStored(SexAreaOrifice.VAGINA);
-							Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+							Main.game.getNpc(Sean.class).useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), Main.game.getPlayer(), false);
 						}
 					};
 					
 				} else if(index==2) {
 					return new Response("Refuse",
-							"Refuse to swallow the "+ItemType.VIXENS_VIRILITY.getName(false)+" and instead accept the fact that you're going to be used by members of the public.",
+							"Refuse to swallow the "+ItemType.getItemTypeFromId("innoxia_pills_fertility").getName(false)+" and instead accept the fact that you're going to be used by members of the public.",
 							PUBLIC_STOCKS_LOCKED_UP_FIRST_SEX) {
 						@Override
 						public int getSecondsPassed() {

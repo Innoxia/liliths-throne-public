@@ -1,12 +1,16 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -22,7 +26,6 @@ public class TongueType {
 	public static AbstractTongueType HUMAN = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.HUMAN,
 			3,
-			"human",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues(""),
@@ -34,7 +37,6 @@ public class TongueType {
 	public static AbstractTongueType ANGEL = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.ANGEL,
 			3,
-			"angel",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("angelic"),
@@ -46,7 +48,6 @@ public class TongueType {
 	public static AbstractTongueType DEMON_COMMON = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.DEMON,
 			6,
-			"demon",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("demonic"),
@@ -58,7 +59,6 @@ public class TongueType {
 	public static AbstractTongueType DOG_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.DOG_MORPH,
 			8,
-			"dog",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("dog-like"),
@@ -72,7 +72,6 @@ public class TongueType {
 	public static AbstractTongueType WOLF_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.WOLF_MORPH,
 			8,
-			"wolf",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("wolf-like"),
@@ -86,7 +85,6 @@ public class TongueType {
 	public static AbstractTongueType FOX_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.FOX_MORPH,
 			6,
-			"fox",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("fox-like"),
@@ -99,7 +97,6 @@ public class TongueType {
 	public static AbstractTongueType CAT_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.CAT_MORPH,
 			6,
-			"cat",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("cat-like"),
@@ -112,7 +109,6 @@ public class TongueType {
 	public static AbstractTongueType COW_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.COW_MORPH,
 			12,
-			"cow",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("cow-like"),
@@ -125,7 +121,6 @@ public class TongueType {
 	public static AbstractTongueType ALLIGATOR_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.ALLIGATOR_MORPH,
 			6,
-			"alligator",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("alligator-like"),
@@ -138,7 +133,6 @@ public class TongueType {
 	public static AbstractTongueType HORSE_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.HORSE_MORPH,
 			8,
-			"horse",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("horse-like"),
@@ -151,7 +145,6 @@ public class TongueType {
 	public static AbstractTongueType REINDEER_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.REINDEER_MORPH,
 			8,
-			"horse",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("reindeer-like"),
@@ -164,7 +157,6 @@ public class TongueType {
 	public static AbstractTongueType HARPY = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.HARPY,
 			6,
-			"harpy",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("bird-like"),
@@ -177,7 +169,6 @@ public class TongueType {
 	public static AbstractTongueType SQUIRREL_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.SQUIRREL_MORPH,
 			6,
-			"squirrel",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("squirrel-like"),
@@ -189,7 +180,6 @@ public class TongueType {
 	public static AbstractTongueType RAT_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.RAT_MORPH,
 			6,
-			"rat",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("rat-like"),
@@ -201,7 +191,6 @@ public class TongueType {
 	public static AbstractTongueType RABBIT_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.RABBIT_MORPH,
 			6,
-			"rabbit",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("rabbit-like"),
@@ -213,7 +202,6 @@ public class TongueType {
 	public static AbstractTongueType BAT_MORPH = new AbstractTongueType(BodyCoveringType.TONGUE,
 			Race.BAT_MORPH,
 			6,
-			"bat",
 			"tongue",
 			"tongues",
 			Util.newArrayListOfValues("bat-like"),
@@ -229,7 +217,46 @@ public class TongueType {
 	static {
 		allTongueTypes = new ArrayList<>();
 		
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tongue")) {
+					try {
+						AbstractTongueType type = new AbstractTongueType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTongueTypes.add(type);
+						tongueToIdMap.put(type, id);
+						idToTongueMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("tongue")) {
+					try {
+						AbstractTongueType type = new AbstractTongueType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allTongueTypes.add(type);
+						tongueToIdMap.put(type, id);
+						idToTongueMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
 		// Add in hard-coded tongue types:
+		
 		Field[] fields = TongueType.class.getFields();
 		
 		for(Field f : fields){
@@ -249,6 +276,13 @@ public class TongueType {
 				}
 			}
 		}
+		
+		Collections.sort(allTongueTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractTongueType getTongueTypeFromId(String id) {

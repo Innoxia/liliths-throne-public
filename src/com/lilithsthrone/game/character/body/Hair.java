@@ -111,7 +111,7 @@ public class Hair implements BodyPartInterface {
 		String styleChange = "";
 		if(this.length < owner.getHairStyle().getMinimumLengthRequired()) {
 			styleChange = "<p>"
-							+ "[npc.Her] [npc.hair(true)] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for [npc.her] current hair style!"
+							+ "[npc.Her] [npc.hair(true)] "+(owner.getHairType().isDefaultPlural(owner)?"are":"is")+" too short for [npc.her] current hair style!"
 						+ "</p>"
 						+ owner.setHairStyle(HairStyle.NONE);
 		}
@@ -155,70 +155,96 @@ public class Hair implements BodyPartInterface {
 		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("<p>");
-			sb.append("[npc.NamePos] [npc.hair(true)] "+(type.isDefaultPlural()?"are":"is")+" now ");
-			switch(style) {
+			sb.append("[npc.NamePos] [npc.hair(true)] "+(type.isDefaultPlural(owner)?"are":"is")+" now ");
+			switch(style) { //TODO This should be handled in the style itself
 				case BRAIDED:
-					return "styled into braids.";
+					sb.append("styled into braids.");
+					break;
 				case CURLY:
-					return "curled.";
+					sb.append("curled.");
+					break;
 				case LOOSE:
-					return "loose.";
+					sb.append("loose.");
+					break;
 				case NONE:
-					return "unstyled, and will take on "+(type.isDefaultPlural()?"their":"its")+" natural shape.";
+					sb.append("unstyled, and will take on "+(type.isDefaultPlural(owner)?"their":"its")+" natural shape.");
+					break;
 				case PONYTAIL:
-					return "styled into a ponytail.";
+					sb.append("styled into a ponytail.");
+					break;
 				case STRAIGHT:
-					return "straightened.";
+					sb.append("straightened.");
+					break;
 				case TWIN_TAILS:
-					return "styled into twin-tails.";
+					sb.append("styled into twin-tails.");
+					break;
 				case WAVY:
-					return "wavy.";
+					sb.append("wavy.");
+					break;
 				case MOHAWK:
-					return "styled into a mohawk.";
+					sb.append("styled into a mohawk.");
+					break;
 				case AFRO:
-					return "styled into an afro.";
+					sb.append("styled into an afro.");
+					break;
 				case SIDECUT:
-					return "styled into a sidecut.";
+					sb.append("styled into a sidecut.");
+					break;
 				case BOB_CUT:
-					return "styled into a bob cut.";
+					sb.append("styled into a bob cut.");
+					break;
 				case PIXIE:
-					return "styled into a pixie cut.";
+					sb.append("styled into a pixie cut.");
+					break;
 				case SLICKED_BACK:
-					return "slicked back.";
+					sb.append("slicked back.");
+					break;
 				case MESSY:
-					return "unstyled, and particularly messy.";
+					sb.append("unstyled, and particularly messy.");
+					break;
 				case HIME_CUT:
-					return "straightened, and styled into a hime-cut.";
+					sb.append("straightened, and styled into a hime-cut.");
+					break;
 				case CHONMAGE:
-					return "straightened, oiled, and styled into a chonmage.";
+					sb.append("straightened, oiled, and styled into a chonmage.");
+					break;
 				case DREADLOCKS:
-					return "styled into dreadlocks.";
+					sb.append("styled into dreadlocks.");
+					break;
 				case TOPKNOT:
-					return "gathered up into a topknot.";
+					sb.append("gathered up into a topknot.");
+					break;
 				case BIRD_CAGE:
-					return "styled into an elaborate bird cage.";
+					sb.append("styled into an elaborate bird cage.");
+					break;
 				case TWIN_BRAIDS:
-					return "styled into twin braids.";
+					sb.append("styled into twin braids.");
+					break;
 				case DRILLS:
-					return "styled into drills.";
+					sb.append("styled into drills.");
+					break;
 				case LOW_PONYTAIL:
-					return "styled into a low ponytail.";
+					sb.append("styled into a low ponytail.");
+					break;
 				case CROWN_BRAID:
-					return "styled into a crown braid.";
+					sb.append("styled into a crown braid.");
+					break;
 				case BUN:
-					return "styled into a bun.";
+					sb.append("styled into a bun.");
+					break;
 				case CHIGNON:
-					return "tied up and styled into a chignon.";
+					sb.append("tied up and styled into a chignon.");
+					break;
 			}
 		sb.append("</p>");
 		return UtilText.parse(owner, sb.toString());
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Hair.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Hair.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

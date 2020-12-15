@@ -10,12 +10,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -67,12 +68,12 @@ public class HarpyNestsAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<Subspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
 				if(entry.getKey().getRace()==Race.HARPY) {
 
 					if(entry.getKey().getRace()==Race.HARPY && Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).containsKey(entry.getKey())) {
-						Subspecies.addToSubspeciesMap((int) (100*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
+						AbstractSubspecies.addToSubspeciesMap((int) (100*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
 					}
 				}
 			}
@@ -80,30 +81,28 @@ public class HarpyNestsAttacker extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, this.getGender(), Subspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), AbstractSubspecies.getFleshSubspecies(this), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.sheIs] prepared to fight you in order to teach you a lesson..."));
 
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
 			
 			// Add fetishes:
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 
 			initHealthAndManaToMax();
 		}
@@ -113,15 +112,15 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	@Override
-	public void setBodyFromSubspeciesPreference(Gender gender, Map<Subspecies, Integer> subspeciesMap, boolean additionalSetups, boolean includeHumanChance) {
+	public void setBodyFromSubspeciesPreference(Gender gender, Map<AbstractSubspecies, Integer> subspeciesMap, boolean additionalSetups, boolean includeHumanChance) {
 		if(gender.isFeminine()) {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
 		} else {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
@@ -133,7 +132,7 @@ public class HarpyNestsAttacker extends NPC {
 			total += i;
 		}
 
-		Subspecies species = Subspecies.HARPY;
+		AbstractSubspecies species = Subspecies.HARPY;
 		if(!subspeciesMap.isEmpty() && total>0) {
 			species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 		}
@@ -156,6 +155,17 @@ public class HarpyNestsAttacker extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
+	
+	@Override
+	public String getDescription() {
+		if(this.isSlave()) {
+			return UtilText.parse(this, "Having run afoul of the law, [npc.nameIsFull] now a slave, and is no more than [npc.her] owner's property.");
+		} else if(this.getAffectionLevel(Main.game.getPlayer()).isLessThan(AffectionLevel.POSITIVE_ONE_FRIENDLY)) {
+			return UtilText.parse(this, "[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.sheIs] prepared to fight you in order to teach you a lesson...");
+		} else {
+			return UtilText.parse(this, "While your first encounter with [npc.name] was a hostile one, you've since managed to become friends with the aggressive [npc.race], and you're sure to always receive a warm welcome from [npc.herHim].");
+		}
+	}
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
@@ -166,9 +176,9 @@ public class HarpyNestsAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
 	}
 	
 	@Override
