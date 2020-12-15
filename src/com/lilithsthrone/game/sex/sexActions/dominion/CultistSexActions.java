@@ -1,8 +1,9 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
@@ -19,41 +20,6 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class CultistSexActions {
-
-	public static final SexAction SEALED = new SexAction(
-			SexActionType.SPECIAL,
-			ArousalIncrease.ZERO_NONE,
-			ArousalIncrease.ZERO_NONE,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			SexParticipantType.NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "[style.boldArcane(Sealed!)]";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "The Witch's Seal that [npc2.name] cast on you is preventing you from making a move!";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction());
-		}
-
-		@Override
-		public String getDescription() {
-			return UtilText.returnStringAtRandom(
-					"[npc.Name] [npc.verb(try)] to make a move, but the Witch's Seal is too strong, and [npc.she] [npc.verb(collapse)] back onto the altar, stunned.",
-					"The purple glow of a pentagram materialises beneath [npc.namePos] body as [npc.she] [npc.verb(try)] to make a move; proof that the Witch's Seal is still keeping [npc.herHim] bound in place.",
-					"[npc.Name] [npc.verb(try)] to sit up on the altar, but [npc.sheIs] only able to squirm about a little under the immobilising effects of the Witch's Seal.",
-					"The soft purple glow of the Witch's Seal can be seen all around [npc.name] as [npc.she] [npc.verb(struggle)] to make a move.",
-					"[npc.speech(~Mmm!~)] [npc.name] [npc.verb(moan)], struggling in vain against the Witch's Seal.",
-					"[npc.speech(~Aah!~)] [npc.name] [npc.verb(whimper)], squirming about on the altar as the With's Seal keeps [npc.herHim] locked in place.");
-		}
-	};
 	
 	public static final SexAction FORCE_POSITION_MISSIONARY = new SexAction(
 			SexActionType.POSITIONING,
@@ -90,8 +56,11 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())
-					|| Main.sex.isCharacterSealed(Main.sex.getCharacterTargetedForSexAction(this))) {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			Value<ImmobilisationType, GameCharacter> value2 = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			
+			if((value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL)
+					|| (value2!=null && value2.getKey()==ImmobilisationType.WITCH_SEAL)) {
 				Main.sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
@@ -140,8 +109,11 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())
-					|| Main.sex.isCharacterSealed(Main.sex.getCharacterTargetedForSexAction(this))) {
+			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
+			Value<ImmobilisationType, GameCharacter> value2 = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			
+			if((value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL)
+					|| (value2!=null && value2.getKey()==ImmobilisationType.WITCH_SEAL)) {
 				Main.sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));

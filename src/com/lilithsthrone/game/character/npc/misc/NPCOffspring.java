@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -19,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -57,7 +57,7 @@ public class NPCOffspring extends NPC {
 		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
 	
-	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
+	public NPCOffspring(GameCharacter mother, GameCharacter father, AbstractSubspecies fatherSubspecies, AbstractSubspecies fatherHalfDemonSubspecies) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3,
@@ -82,9 +82,9 @@ public class NPCOffspring extends NPC {
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
 		Body preGeneratedBody = null;
 		if(father!=null) {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
 		}
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody, true);
@@ -106,15 +106,15 @@ public class NPCOffspring extends NPC {
 		
 		// PERSONALITY & BACKGROUND:
 		
-		CharacterUtils.setHistoryAndPersonality(this, true);
+		Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 		
 		// ADDING FETISHES:
 		
-		CharacterUtils.addFetishes(this);
+		Main.game.getCharacterUtils().addFetishes(this);
 
 		// BODY RANDOMISATION:
 		
-		CharacterUtils.randomiseBody(this, true);
+		Main.game.getCharacterUtils().randomiseBody(this, true);
 		
 		// INVENTORY:
 		
@@ -123,7 +123,7 @@ public class NPCOffspring extends NPC {
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.applyMakeup(this, true);
+		Main.game.getCharacterUtils().applyMakeup(this, true);
 
 		initHealthAndManaToMax();
 
@@ -154,12 +154,12 @@ public class NPCOffspring extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {
-			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+			Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 		}
 	}
 	

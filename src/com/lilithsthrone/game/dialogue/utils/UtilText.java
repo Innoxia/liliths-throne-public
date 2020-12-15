@@ -30,15 +30,16 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
@@ -63,11 +64,13 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -93,7 +96,9 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
@@ -130,11 +135,13 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
@@ -180,7 +187,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.9
+ * @version 0.4
  * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
@@ -192,6 +199,8 @@ public class UtilText {
 	private static List<String> parserVariableCalls = new ArrayList<>();
 	
 	private static AbstractClothingType clothingTypeForParsing;
+	private static Body body;
+	private static AbstractRace race;
 	
 //	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise;
@@ -739,42 +748,42 @@ public class UtilText {
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(String pathName, String tag) {
-		return parseFromXMLFile(new ArrayList<>(), pathName, tag, new ArrayList<>());
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, new ArrayList<>());
 	}
 
 	/**
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(List<ParserTag> parserTags, String pathName, String tag) {
-		return parseFromXMLFile(parserTags, pathName, tag, new ArrayList<>());
+		return parseFromXMLFile(parserTags, "res/txt/", pathName, tag, new ArrayList<>());
 	}
 	
 	/**
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(String pathName, String tag, GameCharacter... specialNPCs) {
-		return parseFromXMLFile(new ArrayList<>(), pathName, tag, Util.newArrayListOfValues(specialNPCs));
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, Util.newArrayListOfValues(specialNPCs));
 	}
 	
 	/**
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(List<ParserTag> parserTags, String pathName, String tag, GameCharacter... specialNPCs) {
-		return parseFromXMLFile(parserTags, pathName, tag, Util.newArrayListOfValues(specialNPCs));
+		return parseFromXMLFile(parserTags, "res/txt/", pathName, tag, Util.newArrayListOfValues(specialNPCs));
 	}
 	
 	/**
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(String pathName, String tag, List<GameCharacter> specialNPC) {
-		return parseFromXMLFile(new ArrayList<>(), pathName, tag, specialNPC);
+		return parseFromXMLFile(new ArrayList<>(), "res/txt/", pathName, tag, specialNPC);
 	}
 	
 	/**
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
-	public static String parseFromXMLFile(List<ParserTag> parserTags, String pathName, String tag, List<GameCharacter> specialNPC) {
-		File file = new File("res/txt/"+pathName+".xml");
+	public static String parseFromXMLFile(List<ParserTag> parserTags, String folderPath, String pathName, String tag, List<GameCharacter> specialNPC) {
+		File file = new File(folderPath+pathName+".xml");
 
 		List<String> strings = new ArrayList<>();
 		
@@ -999,7 +1008,7 @@ public class UtilText {
 								sb.setLength(0);
 								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
-								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
 								
 								for(int j=i+1;j<input.length();j++) {
 									if(!Character.isWhitespace(input.charAt(j))) {
@@ -1015,7 +1024,7 @@ public class UtilText {
 									&& openBrackets-1==closeBrackets
 									&& conditionalStatement!=null) {
 								conditionalElseFound = true;
-								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
 								sb.setLength(0);
 								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
@@ -1023,9 +1032,9 @@ public class UtilText {
 								
 								if (openBrackets == closeBrackets) {
 									if (conditionalElseFound) {
-										conditionals.put("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+										conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
 									} else {
-										conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+										conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
 									}
 				
 									endIndex = i;
@@ -1048,7 +1057,7 @@ public class UtilText {
 								}
 								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets) {
-								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
 
 								for(int j=i+1;j<input.length();j++) {
 									if(!Character.isWhitespace(input.charAt(j))) {
@@ -1064,7 +1073,7 @@ public class UtilText {
 									&& openBrackets-1==closeBrackets) {
 								conditionalElseFound = true;
 	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
-								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
 								sb.setLength(0);
 								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
@@ -1075,11 +1084,11 @@ public class UtilText {
 									if (conditionalElseFound) {
 										// conditionalTrue has already been set in the #ELSE catch
 	//									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
-										conditionals.put("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+										conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
 									} else {
 	//									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
 	//									conditionalFalse = "";
-										conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+										conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
 									}
 				
 									endIndex = i;
@@ -2290,7 +2299,7 @@ public class UtilText {
 									?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
 									:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+"</span>"
 							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
-							+ " <span style='color:"+character.getSubspecies().getColour(character).toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies(),character) + "</span>";
+							+ " <span style='color:"+character.getSubspecies().getColour(character).toWebHexString()+";'>" + getSubspeciesName(character.getSubspecies(),character) + "</span>";
 				}
 				return (parseCapitalise
 						?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
@@ -5063,6 +5072,71 @@ public class UtilText {
 		
 		// Special body parts:
 		
+		// Antennae:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"antennaSize",
+						"antennaLength",
+						"antennaeSize",
+						"antennaeLength"),
+				true,
+				true,
+				"",
+				"Returns the descriptor of the length of this cahracter's antennae.",
+				BodyPartType.ANTENNA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return HornLength.getLengthFromInt(character.getAntennaLength()).getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"antennaRows",
+						"antennaeRows"),
+				true,
+				true,
+				"",
+				"Returns the number of rows of antennae this character has, in the form of a word ('one', 'three' instead of '1', '3' etc.)",
+				BodyPartType.ANTENNA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getAntennaRows());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"antennaPerRow",
+						"antennaePerRow"),
+				true,
+				true,
+				"",
+				"Returns the number of antennae this character has in each antenna row, in the form of a word ('one', 'two' instead of '1', '2' etc.)",
+				BodyPartType.ANTENNA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getAntennaePerRow());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"antennaDeterminer",
+						"antennaeDeterminer"),
+				true,
+				true,
+				"",
+				"Returns the determiner of the antennae this character has. Will be in the format of 'a pair of'.",
+				BodyPartType.ANTENNA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getAntennaDeterminer();
+			}
+		});
+		
+		
 		// Arm:
 		
 		commandsList.add(new ParserCommand(
@@ -5302,7 +5376,8 @@ public class UtilText {
 				BodyPartType.ASS){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getGenitalArrangement()==GenitalArrangement.CLOACA) {
+				if(character.getGenitalArrangement()==GenitalArrangement.CLOACA
+						|| character.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					return "cloaca";
 				} else {
 					return character.getBody().getAss().getNameSingular(character);
@@ -5320,7 +5395,8 @@ public class UtilText {
 				BodyPartType.ASS){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getGenitalArrangement()==GenitalArrangement.CLOACA) {
+				if(character.getGenitalArrangement()==GenitalArrangement.CLOACA
+						|| character.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					return "slit-like cloaca";
 				} else {
 					return applyDescriptor(character.getBody().getAss().getDescriptor(character), character.getBody().getAss().getNameSingular(character));
@@ -6273,11 +6349,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.HORN){//TODO
+				"Returns the descriptor of the length of this cahracter's horns.",
+				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return HornLength.getHornLengthFromInt(character.getHornLength()).getDescriptor();
+				return HornLength.getLengthFromInt(character.getHornLength()).getDescriptor();
 			}
 		});
 		
@@ -6287,8 +6363,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.HORN){//TODO
+				"Returns the number of rows of horns this character has, in the form of a word ('one', 'three' instead of '1', '3' etc.)",
+				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Util.intToString(character.getHornRows());
@@ -6301,8 +6377,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.HORN){//TODO
+				"Returns the number of horns this character has in each horn row, in the form of a word ('one', 'two' instead of '1', '2' etc.)",
+				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Util.intToString(character.getHornsPerRow());
@@ -6315,13 +6391,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.HORN){//TODO
+				"Returns the determiner of the horns this character has. Will be in the format of 'a pair of'.",
+				BodyPartType.HORN){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getHornDeterminer();
 			}
 		});
+		
 		
 		// Leg:
 		
@@ -7050,7 +7127,291 @@ public class UtilText {
 			}
 		});
 		
+		// Tentacle:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleHead",
+						"tentacleTip"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTentacleType().getTentacleTipNameSingular(character);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleHeads",
+						"tentacleTips"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTentacleType().getTentacleTipNamePlural(character);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleHead+",
+						"tentacleHeadD",
+						"tentacleTip+",
+						"tentacleTipD"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getTentacleType().getTentacleTipDescriptor(character), character.getTentacleType().getTentacleTipNameSingular(character));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleHeads+",
+						"tentacleHeadsD",
+						"tentacleTips+",
+						"tentacleTipsD"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getTentacleType().getTentacleTipDescriptor(character), character.getTentacleType().getTentacleTipNamePlural(character));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleCount",
+						"tentaclesCount"),
+				true,
+				false,
+				"",
+				"Description of method",
+				BodyPartType.TENTACLE){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTentacleDeterminer();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleGirth",
+						"tentaclesGirth"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TENTACLE){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTentacleGirthDescriptor();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleBaseCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the character's tentacle, as measured at the base, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleTipCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the character's tentacle, as measured at the very tip, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleCircumference(character.getTentacleLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleCircumference(character.getTentacleLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleBaseDiameter",
+						"tentacleBaseDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the character's tentacle, as measured at the base, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleTipDiameter",
+						"tentacleTipDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the character's tentacle, as measured at the very tip, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleDiameter(character.getTentacleLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleDiameter(character.getTentacleLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentacleLength",
+						"tentacleSize"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the length of the character's tentacle, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tentaclePenetrationLength",
+						"tentaclePenetrationSize"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the length of the character's tentacle which is used in penetrations (80% of total length), in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TENTACLE){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTentacleLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTentacleLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+		
 		// Tail:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailHead",
+						"tailTip"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTailType().getTailTipNameSingular(character);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailHeads",
+						"tailTips"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTailType().getTailTipNamePlural(character);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailHead+",
+						"tailHeadD",
+						"tailTip+",
+						"tailTipD"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNameSingular(character));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailHeads+",
+						"tailHeadsD",
+						"tailTips+",
+						"tailTipsD"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -7460,6 +7821,50 @@ public class UtilText {
 				return Util.randomItemFrom(descriptors)+" labia";
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitCircumference",
+						"clitorisCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the character's clitoris, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getClitorisCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getClitorisCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitDiameter",
+						"clitorisDiameter",
+						"clitDiametre",
+						"clitorisDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the character's clitoris, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getClitorisDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getClitorisDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -7469,7 +7874,7 @@ public class UtilText {
 				true,
 				"",
 				"Returns a desriptor of the size of the character's clitoris.",
-				BodyPartType.VAGINA){
+				BodyPartType.CLIT){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getVaginaClitorisSize().getDescriptor();
@@ -7484,7 +7889,7 @@ public class UtilText {
 				true,
 				"",
 				"Returns the localised, formatted size of the clitoris with long units.",
-				BodyPartType.VAGINA){
+				BodyPartType.CLIT){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
@@ -7499,13 +7904,76 @@ public class UtilText {
 				true,
 				"",
 				"Returns a descriptor of the character's clitoris girth.",
-				BodyPartType.VAGINA){
+				BodyPartType.CLIT){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getClitorisGirth().getName();
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitHead",
+						"clitTip"),
+				true,
+				true,
+				"",
+				"Returns a name of the character's clitoris tip.",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getBody().getVagina().getClitoris().getClitTipNameSingular(character);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitHeads",
+						"clitTips"),
+				true,
+				true,
+				"",
+				"Returns a plural of the character's clitoris tip.",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getBody().getVagina().getClitoris().getClitTipNamePlural(character);
+			}
+		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitHead+",
+						"clitHeadD",
+						"clitTip+",
+						"clitTipD"),
+				true,
+				true,
+				"",
+				"Returns a name of the character's clitoris tip, with a random descriptor appended to the front.",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getBody().getVagina().getClitoris().getClitTipDescriptor(character), character.getBody().getVagina().getClitoris().getClitTipNameSingular(character));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitHeads+",
+						"clitHeadsD",
+						"clitTips+",
+						"clitTipsD"),
+				true,
+				true,
+				"",
+				"Returns a plural name of the character's clitoris tip, with a random descriptor appended to the front.",
+				BodyPartType.CLIT){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return applyDescriptor(character.getBody().getVagina().getClitoris().getClitTipDescriptor(character), character.getBody().getVagina().getClitoris().getClitTipNamePlural(character));
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -7765,6 +8233,175 @@ public class UtilText {
 		});
 		
 		
+		// Spinneret:
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneret"),
+				true,
+				true,
+				"",
+				"Returns the name of this character's spinneret. (Always returns 'spinneret'...)",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return "spinneret";
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneret+",
+						"spinneretD"),
+				true,
+				true,
+				"",
+				"Returns the name + descriptor of this character's spinneret. (Returns a descriptor + ' spinneret')",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getSpinneretDescriptor() + " spinneret";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretCapacity"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of this character's spinneret capacity.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Capacity.getCapacityFromValue(character.getSpinneretStretchedCapacity()).getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretDepth"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of this character's spinneret depth.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getSpinneretDepth().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretElasticity"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of this character's spinneret elasticity.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getSpinneretElasticity().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretPlasticity"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of this character's spinneret plasticity.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getSpinneretPlasticity().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretWetness"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of this character's spinneret wetness.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getSpinneretWetness().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretFullDescription"),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Returns the Covering.getFullDescription() method for BodyCoveringType.SPINNERET.",
+				BodyPartType.SPINNERET) {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCovering(BodyCoveringType.SPINNERET)
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretColor",
+						"spinneretColour"),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Returns the Covering.getColourDescriptor() method for BodyCoveringType.SPINNERET.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCovering(BodyCoveringType.SPINNERET)
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretColourPrimary",
+						"spinneretColorPrimary",
+						"spinneretPrimaryColour",
+						"spinneretPrimaryColor"),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Returns the Covering.getPrimaryColourDescriptor() method for BodyCoveringType.SPINNERET.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCovering(BodyCoveringType.SPINNERET)
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"spinneretColourSecondary",
+						"spinneretColorSecondary",
+						"spinneretSecondaryColour",
+						"spinneretSecondaryColor"),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Returns the Covering.getSecondaryColourDescriptor() method for BodyCoveringType.SPINNERET.",
+				BodyPartType.SPINNERET){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCovering(BodyCoveringType.SPINNERET)
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
+			}
+		});
+		
+		
 		// Wings:
 		
 		commandsList.add(new ParserCommand(
@@ -7791,11 +8428,25 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"Returns the name of the character's leg configuration.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegConfiguration().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"legCount"),
+				true,
+				false,
+				"",
+				"Returns the number of legs this character has.",
+				BodyPartType.LEG){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Util.intToString(character.getLegCount());
 			}
 		});
 		
@@ -8065,71 +8716,6 @@ public class UtilText {
 			}
 		});
 		
-		// Tail:
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"tailHead",
-						"tailTip"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getTailType().getTailTipNameSingular(character);
-			}
-		});
-
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"tailHeads",
-						"tailTips"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getTailType().getTailTipNamePlural(character);
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"tailHead+",
-						"tailHeadD",
-						"tailTip+",
-						"tailTipD"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNameSingular(character));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"tailHeads+",
-						"tailHeadsD",
-						"tailTips+",
-						"tailTipsD"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
-			}
-		});
 		
 		commandsList.sort(Comparator.nullsLast(Comparator.comparing(ParserCommand::getRelatedBodyPart)));
 		
@@ -8173,11 +8759,18 @@ public class UtilText {
 			}
 			
 			try {
+				StringBuilder commandWithVariableCalls = new StringBuilder();
+				
+				for(String s : parserVariableCalls) {
+					commandWithVariableCalls.append(s+";");
+				}
+				commandWithVariableCalls.append(command);
+				
 				if(suppressOutput) {
-					evaluate(command);
+					evaluate(commandWithVariableCalls.toString());
 					return "";
 				}
-				return String.valueOf(evaluate(command));
+				return String.valueOf(evaluate(commandWithVariableCalls.toString()));
 				
 			} catch (ScriptException e) {
 				System.err.println("Scripting parsing error: "+command);
@@ -8383,8 +8976,8 @@ public class UtilText {
 		for(RaceStage raceStage : RaceStage.values()) {
 			engine.put("RACE_STAGE_"+raceStage.toString(), raceStage);
 		}
-		for(Subspecies subspecies : Subspecies.values()) {
-			engine.put("SUBSPECIES_"+subspecies.toString(), subspecies);
+		for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+			engine.put("SUBSPECIES_"+Subspecies.getIdFromSubspecies(subspecies), subspecies);
 		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
@@ -8398,11 +8991,20 @@ public class UtilText {
 		for(BodyMaterial material : BodyMaterial.values()) {
 			engine.put("BODY_MATERIAL_"+material.toString(), material);
 		}
-		for(BodyCoveringType bct : BodyCoveringType.values()) {
-			engine.put("BODY_COVERING_TYPE_"+bct.toString(), bct);
+		for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
+			engine.put("BODY_COVERING_TYPE_"+BodyCoveringType.getIdFromBodyCoveringType(bct), bct);
+		}
+		for(CoveringPattern pattern : CoveringPattern.values()) {
+			engine.put("COVERING_PATTERN_"+pattern.toString(), pattern);
+		}
+		for(CoveringModifier modifier : CoveringModifier.values()) {
+			engine.put("COVERING_MODIFIER_"+modifier.toString(), modifier);
 		}
 		for(NippleShape nippleShape : NippleShape.values()) {
 			engine.put("NIPPLE_SHAPE_"+nippleShape.toString(), nippleShape);
+		}
+		for(CumProduction cumProduction : CumProduction.values()) {
+			engine.put("CUM_PRODUCTION_"+cumProduction.toString(), cumProduction);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
@@ -8498,8 +9100,8 @@ public class UtilText {
 		for(AbstractStatusEffect sa : StatusEffect.getAllStatusEffects()) {
 			engine.put("SE_"+StatusEffect.getIdFromStatusEffect(sa), sa);
 		}
-		for(Attribute att : Attribute.values()) {
-			engine.put("ATTRIBUTE_"+att.toString(), att);
+		for(AbstractAttribute att : Attribute.getAllAttributes()) {
+			engine.put("ATTRIBUTE_"+Attribute.getIdFromAttribute(att), att);
 		}
 		
 		// Combat:
@@ -8514,6 +9116,9 @@ public class UtilText {
 		}
 		for(SpellUpgrade spellUpgrade: SpellUpgrade.values()) {
 			engine.put("SPELL_UPGRADE_"+spellUpgrade.toString(), spellUpgrade);
+		}
+		for(CombatBehaviour behaviour: CombatBehaviour.values()) {
+			engine.put("COMBAT_BEHAVIOUR_"+behaviour.toString(), behaviour);
 		}
 		
 		// Sex:
@@ -8612,6 +9217,25 @@ public class UtilText {
 	}
 	
 	private static String parseConditionalSyntaxNew(List<GameCharacter> specialNPCs, Map<String, String> conditionals, boolean hasXmlVariables) {
+		
+		for(Entry<String, String> entry : conditionals.entrySet()) {
+			try {
+				if(evaluateConditional(specialNPCs, entry.getKey(), hasXmlVariables)){
+					return UtilText.parse(specialNPCs, entry.getValue(), false);
+				}
+				
+			} catch (ScriptException e) {
+				System.err.println("Conditional parsing (from Map) error: "+entry.getKey()+" | Size of variableCalls: "+parserVariableCalls.size());
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+			}
+		}
+		
+		return "";
+	}
+	
+	public static boolean evaluateConditional(List<GameCharacter> specialNPCs, String conditionalStatement, boolean hasXmlVariables) throws ScriptException {
 		if(engine==null) {
 			initScriptEngine();
 		}
@@ -8643,35 +9267,17 @@ public class UtilText {
 				engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
 			}
 		}
+
+		StringBuilder conditionalStatementWithVariables = new StringBuilder();
 		
-		StringBuilder sb = new StringBuilder();
-		
-		for(Entry<String, String> entry : conditionals.entrySet()) {
-			sb.setLength(0);
-			
-			if(hasXmlVariables) {
-				for(String s : parserVariableCalls) {
-					sb.append(s+";");
-				}
-			}
-			sb.append(entry.getKey());
-			
-			String conditionalStatement = sb.toString();
-			
-			try {
-				if((boolean) evaluate(conditionalStatement)){
-					return UtilText.parse(specialNPCs, entry.getValue(), false);
-				}
-				
-			} catch (ScriptException e) {
-				System.err.println("Conditional parsing (from Map) error: "+conditionalStatement+" | Size of variableCalls: "+parserVariableCalls.size());
-				System.err.println(e.getMessage());
-				e.printStackTrace();
-				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+		if(hasXmlVariables) {
+			for(String s : parserVariableCalls) {
+				conditionalStatementWithVariables.append(s+";");
 			}
 		}
+		conditionalStatementWithVariables.append(conditionalStatement);
 		
-		return "";
+		return (boolean)evaluate(conditionalStatementWithVariables.toString());
 	}
 	
 	
@@ -8699,7 +9305,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isBestial(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isFeral(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -9100,6 +9706,7 @@ public class UtilText {
 			case WING:
 				return character.getBody().getWing();
 			case GENERIC:
+			case SPINNERET: //TODO?
 				return null;
 		}
 		return null;
@@ -9129,7 +9736,7 @@ public class UtilText {
 				: UtilText.generateSingularDeterminer(input) + input;
 	}
 
-	private static String getSubspeciesName(Subspecies subspecies, GameCharacter character) {
+	private static String getSubspeciesName(AbstractSubspecies subspecies, GameCharacter character) {
 		if(subspecies==null) {
 			return "";
 		}
@@ -9141,7 +9748,7 @@ public class UtilText {
 		}
 	}
 	
-	private static String getSubspeciesNamePlural(Subspecies race, GameCharacter character) {
+	private static String getSubspeciesNamePlural(AbstractSubspecies race, GameCharacter character) {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
@@ -9220,7 +9827,34 @@ public class UtilText {
 
 	public static void setClothingTypeForParsing(AbstractClothingType clothingTypeForParsing) {
 		UtilText.clothingTypeForParsing = clothingTypeForParsing;
+		if(engine==null) {
+			initScriptEngine();
+		}
 		engine.put("clothing", getClothingTypeForParsing());
+	}
+
+	public static Body getBodyForParsing() {
+		return body;
+	}
+	
+	public static void setBodyForParsing(String tag, Body body) {
+		UtilText.body = body;
+		if(engine==null) {
+			initScriptEngine();
+		}
+		engine.put(tag, getBodyForParsing());
+	}
+
+	public static AbstractRace getRaceForParsing() {
+		return race;
+	}
+	
+	public static void setRaceForParsing(String tag, AbstractRace race) {
+		UtilText.race = race;
+		if(engine==null) {
+			initScriptEngine();
+		}
+		engine.put(tag, getRaceForParsing());
 	}
 	
 	private static final Map<String, CompiledScript> memo = new HashMap<>();

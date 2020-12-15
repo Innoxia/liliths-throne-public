@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -28,6 +27,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
@@ -195,7 +195,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.primaryStage.close();
 						confirmNewGame=false;
-						
+						System.exit(0);
 					}
 				};
 				
@@ -496,7 +496,7 @@ public class OptionsDialogue {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
 						@Override
 						public void effects() {
-							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
+							Main.game.getCharacterUtils().saveCharacterAsXML(Main.game.getPlayer());
 							Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Character exported!");
 						}
 					};
@@ -1692,7 +1692,7 @@ public class OptionsDialogue {
 											+ "</div>");
 
 			int i=0;
-			for(Subspecies subspecies : Subspecies.values()) {
+			for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 				if(subspecies.isDisplayedInFurryPreferences()) {
 					UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 					i++;
@@ -1717,7 +1717,7 @@ public class OptionsDialogue {
 				return new Response("Defaults", "Reset all furry and spawn preferences to their default settings.", FURRY_PREFERENCE) {
 					@Override
 					public void effects() {
-						for(Subspecies subspecies : Subspecies.values()) {
+						for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 							Main.getProperties().setFeminineFurryPreference(subspecies, subspecies.getDefaultFemininePreference());
 							Main.getProperties().setMasculineFurryPreference(subspecies, subspecies.getDefaultMasculinePreference());
 
@@ -1779,7 +1779,7 @@ public class OptionsDialogue {
 		}
 	}
 	
-	private static String getSubspeciesPreferencesPanel(Subspecies s, boolean altColour) {
+	private static String getSubspeciesPreferencesPanel(AbstractSubspecies s, boolean altColour) {
 		StringBuilder sb = new StringBuilder();
 		String baseStyle = "max-width:30px; width:14%; margin:0 1%; padding:0;";
 		
@@ -2208,8 +2208,8 @@ public class OptionsDialogue {
 				
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
 				for(int i=2; i>=0; i--) {
-					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-							+(Main.getProperties().udders==i
+					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel()==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().getUddersLevel()==i
 								?(i==0?"[style.boldBad(":"[style.boldGood(")
 								:"[style.colourDisabled(")
 							+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");

@@ -8,9 +8,9 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -131,7 +131,7 @@ public class DominionExpress {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							return new Value<>(false, "You need to be able to access your mouth to receive this reward!");
 						}
-						if(Main.game.getPlayer().getLegConfiguration()==LegConfiguration.TAUR) {
+						if(Main.game.getPlayer().getLegConfiguration()==LegConfiguration.QUADRUPEDAL) {
 							return new Value<>(false, "You are already a taur, so this reward will do nothing!");
 						}
 						return new Value<>(true, "");
@@ -146,12 +146,12 @@ public class DominionExpress {
 							if(Main.game.getPlayer().getLegType()!=LegType.DEMON_HORSE_HOOFED) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.DEMON_HORSE_HOOFED));
 							}
-							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, true));
+							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
 						} else {
 							if(Main.game.getPlayer().getLegType()!=LegType.HORSE_MORPH) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.HORSE_MORPH));
 							}
-							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, true));
+							sb.append(Main.game.getPlayer().setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
 						}
 						return sb.toString();
 					}
@@ -1437,6 +1437,7 @@ public class DominionExpress {
 	private static boolean isOfficeEntryDenied() {
 		return (Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) && (!isPlayerBodyCorrect() || !wearingFillyCollar()))
 				|| Main.game.getPlayer().isPregnant()
+				|| Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)
 				|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaBusy);
 	}
 	

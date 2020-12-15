@@ -6,10 +6,9 @@ import java.util.AbstractMap.SimpleEntry;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -2063,7 +2062,7 @@ public class CharacterCreation {
 					+ "<br/>"
 					+"<details>"
 						+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>Import Log</summary>"
-						+ CharacterUtils.getCharacterImportLog()
+						+ Main.game.getCharacterUtils().getCharacterImportLog()
 					+ "</details>"
 					+ "<div class='container-full-width'>"
 						+ "<h5 style='text-align:center;'>Appearance</h5>"

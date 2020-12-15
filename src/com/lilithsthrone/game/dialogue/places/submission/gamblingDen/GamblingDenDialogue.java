@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -1334,7 +1335,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							
-							Map<Subspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 5),
 									new Value<>(Subspecies.IMP, 10),
 									new Value<>(Subspecies.DOG_MORPH, 25),
@@ -1343,7 +1344,7 @@ public class GamblingDenDialogue {
 									new Value<>(Subspecies.DEMON, 100),
 									new Value<>(Subspecies.ELEMENTAL_ARCANE, 500));
 							
-							Map<Subspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 16),
 									new Value<>(Subspecies.IMP, 8),
 									new Value<>(Subspecies.DOG_MORPH, 2),
@@ -1367,13 +1368,13 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+ "<p style='width:100%'><b>Slot Machine Results:</b></p>");
 								
-								List<Subspecies> races = new ArrayList<>(slotMachineValues.keySet());
+								List<AbstractSubspecies> races = new ArrayList<>(slotMachineValues.keySet());
 								
-								List<Subspecies> results = new ArrayList<>();
+								List<AbstractSubspecies> results = new ArrayList<>();
 	
 								boolean winner = false;
 								if(Math.random()<0.32f) {
-									Subspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
+									AbstractSubspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
 									for(int i=0; i<3; i++) {
 										results.add(s);
 									}
@@ -1381,7 +1382,7 @@ public class GamblingDenDialogue {
 									
 								} else {
 									for(int i=0; i<3; i++) {
-										Subspecies s = races.get(Util.random.nextInt(races.size()));
+										AbstractSubspecies s = races.get(Util.random.nextInt(races.size()));
 										results.add(s);
 										if(i==0) {
 											races.remove(s);
@@ -1390,7 +1391,7 @@ public class GamblingDenDialogue {
 									Collections.shuffle(results);
 								}
 								
-								for(Subspecies r : results) {
+								for(AbstractSubspecies r : results) {
 									Main.game.getTextEndStringBuilder().append(
 											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?PresetColour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
 													+"<div class='modifier-icon-content'>"+r.getSVGString(null)+"</div>"
@@ -1412,7 +1413,7 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+"<p style='text-align:center;'>");
 							
-									for(Entry<Subspecies, Integer> entry : slotMachineValues.entrySet()) {
+									for(Entry<AbstractSubspecies, Integer> entry : slotMachineValues.entrySet()) {
 										Main.game.getTextEndStringBuilder().append("<span style='color:"+entry.getKey().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getNamePlural(null))+"</span>: "
 												+UtilText.formatAsMoney(entry.getValue(), "span")+"<br/>");
 									}

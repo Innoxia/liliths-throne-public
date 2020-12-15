@@ -6,8 +6,14 @@ Currently supported directories:
 CLOTHING MODS: res/mods/(yourName)/items/clothing
 TATTOO MODS: res/mods/(yourName)/items/tattoos
 WEAPON MODS: res/mods/(yourName)/items/weapons
+OUTFIT MODS: res/mods/(yourname)/outfits/(descriptiveFolderName)
+SET BONUS MODS: res/mods/(yourname)/setBonuses
+STATUS EFFECT MODS: res/mods/(yourname)/statusEffects
+COLOUR MODS: res/mods/(yourname)/colours
+RACE MODS: res/mods/(yourname)/race
+COMBAT MOVE MODS: res/mods/(yourname)/combatMove
 
-Just to clarify, (yourName) should be whatever nickname the mod creator is using.
+Just to clarify, (yourName) should be whatever nickname the mod creator is using, or any unique name which encompasses everything inside your created mod folder (e.g. 'beeModding').
 
 
 Within these mod folders (which you create), place the .xml and .svg files that are needed for each piece of clothing/tattoo.

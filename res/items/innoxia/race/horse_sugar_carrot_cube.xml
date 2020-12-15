@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>15</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Sugar Carrot Cube]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Sugar Carrot Cube]]></namePlural>
+		<description><![CDATA[A bright orange sugar cube, which smells of carrots. From the horse-shoe icon on the wrapper, this is obviously meant as a snack for horse-morphs, but is nevertheless edible for all races.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/horse/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="55">horse_sugar_carrot_cube.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_HORSE_MORPH</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[horse]]></potionDescriptor>
+		<associatedRace>HORSE_MORPH</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(3)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 3)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] off the paper packaging and [npc.verb(pop)] the Sugar Carrot Cube into [npc.her] mouth. The strong taste of carrots instantly hits [npc.her] [npc.tongue], but before [npc.she] [npc.has] any time in which to relish the flavour, it dissolves into a sweet, sugary mess, which [npc.she] quickly [npc.verb(gulp)] down.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] off the paper packaging and [npc.verb(pop)] the Sugar Carrot Cube into [npc2.namePos] mouth. The strong taste of carrots instantly hits [npc2.namePos] [npc2.tongue], but before [npc2.she] [npc2.has] any time in which to relish the flavour, it dissolves into a sweet, sugary mess, which [npc2.she] quickly [npc2.verb(gulp)] down.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

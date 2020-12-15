@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -26,7 +25,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.9
+ * @version 0.4
  * @author Innoxia
  */
 public class Vagina implements BodyPartInterface {
@@ -40,10 +39,10 @@ public class Vagina implements BodyPartInterface {
 	protected FluidGirlCum girlcum;
 	protected OrificeVaginaUrethra orificeUrethra;
 
-	public Vagina(AbstractVaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
+	public Vagina(AbstractVaginaType type, int labiaSize, int clitSize, int clitGirth, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitoris = new Clitoris(clitSize, PenetrationGirth.THREE_AVERAGE.getValue());
+		this.clitoris = new Clitoris(clitSize, clitGirth);
 		pierced = false;
 		
 		orificeVagina = new OrificeVagina(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
@@ -113,7 +112,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
 		}
 		
-		if(owner.isVaginaBestial()) {
+		if(owner.isVaginaFeral()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
 					"bestial",
@@ -173,15 +172,19 @@ public class Vagina implements BodyPartInterface {
 		StringBuilder sb = new StringBuilder();
 		
 		// Cannot transform if pregnant:
-		if (!overridePregnancyPrevention && type==VaginaType.NONE && (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0))) {
+		if (!overridePregnancyPrevention
+				&& type==VaginaType.NONE
+				&& (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0) || owner.getIncubationLitter(SexAreaOrifice.VAGINA)!=null)) {
 			sb.append(UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.pussy+] starting to grow hot and sensitive,"
 							+ " and as a wave of tingling excitement washes through [npc.her] lower abdomen, [npc.her] moan turns into a desperate gasp."
 						+ " Much to [npc.her] surprise, the feeling fades away almost as quickly as it came, and with a sigh, [npc.she] [npc.verb(realise)] that "
-						+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
+						+ (owner.getIncubationLitter(SexAreaOrifice.VAGINA)!=null
+							?"<b>the eggs being incubated in [npc.her] womb have prevented [npc.her] vagina from being removed</b>!"
+							:(owner.hasStatusEffect(StatusEffect.PREGNANT_0)
 								?"<b>the possibility of being pregnant has prevented [npc.her] vagina from being removed</b>!"
-								:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from being removed</b>!")
+								:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from being removed</b>!"))
 						+ "<br/>"
 						+ "[npc.NamePos] pussy remains [style.boldTfSex(unchanged)]."
 					+ "</p>"));
@@ -430,10 +433,10 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Vagina.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Vagina.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

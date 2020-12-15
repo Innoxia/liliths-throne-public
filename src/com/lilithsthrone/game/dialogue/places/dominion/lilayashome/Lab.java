@@ -171,6 +171,31 @@ public class Lab {
 				}
 			}
 		}
+
+//		if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+//			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+//				generatedResponses.add(new Response("Incubation", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with the eggs you're currently incubating.", null));
+//				
+//			} else {
+//				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION) == Quest.SIDE_INCUBATION_CONSULT_LILAYA) {
+//					generatedResponses.add(new Response("Incubation", "Speak to Lilaya about the eggs you're currently incubating.", LilayaBirthing.LILAYA_ASSISTS_INCUBATION){
+//						@Override
+//						public void effects() {
+//							setEntryFlags();
+//							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_INCUBATION, Quest.SIDE_INCUBATION_LILAYA_HELP));
+//						}
+//					});
+//					
+//				} else {
+//					generatedResponses.add(new Response("Incubation", "Speak to Lilaya about the eggs you're currently incubating.", LilayaBirthing.LILAYA_ASSISTS_INCUBATION_REPEAT){
+//						@Override
+//						public void effects() {
+//							setEntryFlags();
+//						}
+//					});
+//				}
+//			}
+//		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {

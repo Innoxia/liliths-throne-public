@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
@@ -62,9 +62,9 @@ public class GenericPlace implements XMLSaving {
 		parentElement.appendChild(element);
 		
 		if(!this.getName().equals(this.getPlaceType().getName())) {
-			CharacterUtils.addAttribute(doc, element, "name", this.getName());
+			XMLUtil.addAttribute(doc, element, "name", this.getName());
 		}
-		CharacterUtils.addAttribute(doc, element, "type", PlaceType.getIdFromPlaceType(this.getPlaceType()));
+		XMLUtil.addAttribute(doc, element, "type", PlaceType.getIdFromPlaceType(this.getPlaceType()));
 		
 		if(!this.getPlaceUpgrades().isEmpty()) {
 			Element innerElement = doc.createElement("placeUpgrades");
@@ -73,7 +73,7 @@ public class GenericPlace implements XMLSaving {
 				Element e = doc.createElement("upgrade");
 				innerElement.appendChild(e);
 				
-				CharacterUtils.addAttribute(doc, e, "type", PlaceUpgrade.getIdFromPlaceUpgrade(upgrade));
+				XMLUtil.addAttribute(doc, e, "type", PlaceUpgrade.getIdFromPlaceUpgrade(upgrade));
 			}
 		}
 		return element;

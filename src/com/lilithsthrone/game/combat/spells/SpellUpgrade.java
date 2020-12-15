@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Util;
 
@@ -817,7 +818,7 @@ public enum SpellUpgrade {
 	private String name;
 	private String description;
 
-	private HashMap<Attribute, Integer> attributeModifiers;
+	private HashMap<AbstractAttribute, Integer> attributeModifiers;
 	private List<String> extraEffects;
 	private List<String> modifiersList;
 	
@@ -828,7 +829,8 @@ public enum SpellUpgrade {
 			String pathName,
 			String name,
 			String description,
-			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects) {
 		this(false, pointCost, spellSchool, pathName, name, description, attributeModifiers, extraEffects);
 	}
 	
@@ -838,7 +840,8 @@ public enum SpellUpgrade {
 			String pathName,
 			String name,
 			String description,
-			HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+			HashMap<AbstractAttribute, Integer> attributeModifiers,
+			List<String> extraEffects) {
 		
 		this.isAlwaysAvailable = isAlwaysAvailable;
 		this.pointCost = pointCost;
@@ -852,7 +855,7 @@ public enum SpellUpgrade {
 		modifiersList = new ArrayList<>();
 		
 		if (attributeModifiers != null) {
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet())
+			for (Entry<AbstractAttribute, Integer> e : attributeModifiers.entrySet())
 				modifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b>"
 						+ " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
 		}
@@ -907,7 +910,7 @@ public enum SpellUpgrade {
 		return modifiersList;
 	}
 
-	public HashMap<Attribute, Integer> getAttributeModifiers() {
+	public HashMap<AbstractAttribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 

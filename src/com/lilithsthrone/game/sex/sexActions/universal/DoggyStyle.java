@@ -34,11 +34,11 @@ import com.lilithsthrone.utils.Util.Value;
 public class DoggyStyle {
 	
 	public static final SexAction PULL_HAIR = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL) {
 		
 		@Override
@@ -181,11 +181,11 @@ public class DoggyStyle {
 	};
 	
 	public static final SexAction PULL_EARS = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL) {
 		
 		@Override
@@ -324,15 +324,14 @@ public class DoggyStyle {
 					}
 			}
 		}
-		
 	};
 	
 	public static final SexAction GRAB_HORNS = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL) {
 		
 		@Override
@@ -467,6 +466,154 @@ public class DoggyStyle {
 								"Taking a firm hold of [npc2.namePos] [npc2.horns+] with both [npc.hands], [npc.name] "+(Main.sex.getCharacterPerformingAction().isFeminine()?" happily [npc.verb(giggle)]":" [npc.verb(chuckle)]")
 									+" in pleasure as [npc.she] [npc.verb(pull)] [npc2.her] head back, causing [npc2.herHim] to let out [npc2.moan+].",
 								"Tracing [npc.her] [npc.fingers+] up the length of [npc2.namePos] back, [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(take)] a firm hold of [npc2.her] [npc2.horns+],"
+										+ " before pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+					}
+			}
+		}
+		
+	};
+	
+
+	public static final SexAction GRAB_ANTENNAE = new SexAction(
+			SexActionType.REQUIRES_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Grab [npc2.antennae]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Grab [npc2.namePos] [npc2.antennae+] and pull [npc2.her] head back.";
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			boolean suitableSlot = false;
+
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS) {
+				suitableSlot = Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING;
+			}
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_TWO) {
+				suitableSlot = Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_TWO
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_TWO;
+			}
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_THREE) {
+				suitableSlot = Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_THREE
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_THREE;
+			}
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_FOUR) {
+				suitableSlot = Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_FOUR
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_FOUR;
+			}
+
+			if(!suitableSlot) {
+				return false;
+			}
+			
+			boolean mouthFinger = false;
+			boolean mouthFingerReversed = false;
+			try {
+				mouthFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
+			} catch(Exception ex) {
+				// No available finger-mouth actions, so can't reach face
+			}
+			try {
+				mouthFingerReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaOrifice.MOUTH).contains(SexAreaPenetration.FINGER);
+			} catch(Exception ex) {
+				// No available finger-mouth actions, so can't reach face
+			}
+			return Main.sex.getPenetrationTypeFreeCount(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
+					&& (mouthFinger || mouthFingerReversed)
+					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Main.sex.getCharacterTargetedForSexAction(this).isAntennaeAbleToBeUsedAsHandlesInSex();
+		}
+
+		@Override
+		public String getDescription() {
+			
+			boolean vaginalSex = false;
+			try {
+				vaginalSex = Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).get(Main.sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.VAGINA);
+			} catch(Exception ex) {
+			}
+			boolean analSex = false;
+			try {
+				analSex = Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(SexAreaPenetration.PENIS).get(Main.sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.ANUS);
+			} catch(Exception ex) {
+			} 
+
+			String tag = "pussy";
+			if(analSex) {
+				tag = "asshole";
+			}
+			
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+					if(vaginalSex || analSex) {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] gently [npc.verb(take)] hold of [npc2.namePos] [npc2.antennae+] in each [npc.hand], and, while continuing to rhythmically slide [npc.her] [npc.cock] in and out of [npc2.her] [npc2."+tag+"+],"
+										+ " [npc.she] slowly [npc.verb(pull)] back, causing [npc2.name] to lift [npc2.her] head and let out [npc2.a_moan+].",
+								"Taking a gentle hold of [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] simultaneously [npc.verb(pull)] [npc2.her] head back while burying [npc.her] [npc.cock+] deep into [npc2.her] [npc2."+tag+"],"
+										+(Main.sex.getCharacterPerformingAction().isFeminine()?" softly giggling":" smirking")+" to [npc.herself] as [npc2.name] [npc2.verb(let)] out [npc2.moan+].",
+								"Continuing to slowly sink [npc.her] [npc.cock+] in and out of [npc2.namePos] [npc2."+tag+"+], [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(take)] a gentle hold of [npc2.her] [npc2.antennae+],"
+										+ " before pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+						
+					} else {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] gently [npc.verb(take)] hold of [npc2.namePos] [npc2.antennae+] in each [npc.hand], before slowly pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].",
+								"Taking a gentle hold of [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] "+(Main.sex.getCharacterPerformingAction().isFeminine()?" softly [npc.verb(giggle)]":" [npc.verb(smirk)]")
+									+" to [npc.herself] as [npc.she] [npc.verb(pull)] [npc2.her] head back, causing [npc2.herHim] to let out [npc2.moan+].",
+								"Tracing [npc.her] [npc.fingers+] up the length of [npc2.namePos] back, [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(take)] a gentle hold of [npc2.her] [npc2.antennae+],"
+										+ " before pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+					}
+				case DOM_ROUGH:
+					if(vaginalSex || analSex) {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] roughly [npc.verb(grab)] hold of [npc2.namePos] [npc2.antennae+], and, while continuing to forcefully slam [npc.her] [npc.cock] in and out of [npc2.her] [npc2."+tag+"+],"
+										+ " [npc.she] sharply [npc.verb(yank)] [npc2.her] head back, causing [npc2.herHim] to let out [npc2.a_moan+].",
+								"Grabbing [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] simultaneously [npc.verb(yank)] [npc2.her] head back while slamming [npc.her] [npc.cock+] deep into [npc2.her] [npc2."+tag+"],"
+										+(Main.sex.getCharacterPerformingAction().isFeminine()?" maniacally giggling":" deeply grunting")+" in pleasure as [npc2.name] [npc2.verb(let)] out [npc2.moan+].",
+								"Continuing to roughly slam [npc.her] [npc.cock+] in and out of [npc2.namePos] [npc2."+tag+"+], [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(grab)] [npc2.her] [npc2.antennae+],"
+										+ " before violently yanking [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+						
+					} else {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] roughly [npc.verb(grab)] hold of [npc2.namePos] [npc2.antennae+] in each [npc.hand], before sharply yanking [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].",
+								"Grabbing [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] "+(Main.sex.getCharacterPerformingAction().isFeminine()?" maniacally [npc.verb(giggle)]":" deeply [npc.verb(grunt)]")
+									+" as [npc.she] violently [npc.verb(yank)] [npc2.her] head back, causing [npc2.herHim] to let out [npc2.moan+].",
+								"Groping and pawing [npc.her] way up the length of [npc2.namePos] back, [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(grab)] [npc2.her] [npc2.antennae+],"
+										+ " before roughly tugging [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+					}
+				default: // For dom normal, sub normal, and sub eager:
+					if(vaginalSex || analSex) {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] firmly [npc.verb(take)] hold of [npc2.namePos] [npc2.antennae+] in each [npc.hand], and, while continuing to rhythmically pump [npc.her] [npc.cock] in and out of [npc2.her] [npc2."+tag+"+],"
+										+ " [npc.she] steadily [npc.verb(pull)] back, causing [npc2.name] to lift [npc2.her] head and let out [npc2.a_moan+].",
+								"Taking a firm hold of [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] simultaneously [npc.verb(pull)] [npc2.her] head back while thrusting [npc.her] [npc.cock+] deep into [npc2.her] [npc2."+tag+"],"
+										+(Main.sex.getCharacterPerformingAction().isFeminine()?" happily giggling":" grunting")+" in pleasure as [npc2.name] [npc2.verb(let)] out [npc2.moan+].",
+								"Continuing to energetically thrust [npc.her] [npc.cock+] in and out of [npc2.namePos] [npc2."+tag+"+], [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(take)] a firm hold of [npc2.her] [npc2.antennae+],"
+										+ " before pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
+						
+					} else {
+						return UtilText.returnStringAtRandom(
+								"Reaching forwards, [npc.name] firmly [npc.verb(take)] hold of [npc2.namePos] [npc2.antennae+] in each [npc.hand], before steadily pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].",
+								"Taking a firm hold of [npc2.namePos] [npc2.antennae+] with both [npc.hands], [npc.name] "+(Main.sex.getCharacterPerformingAction().isFeminine()?" happily [npc.verb(giggle)]":" [npc.verb(chuckle)]")
+									+" in pleasure as [npc.she] [npc.verb(pull)] [npc2.her] head back, causing [npc2.herHim] to let out [npc2.moan+].",
+								"Tracing [npc.her] [npc.fingers+] up the length of [npc2.namePos] back, [npc.name] [npc.verb(reach)] forwards with two [npc.hands] and [npc.verb(take)] a firm hold of [npc2.her] [npc2.antennae+],"
 										+ " before pulling [npc2.her] head back and causing [npc2.herHim] to let out [npc2.a_moan+].");
 					}
 			}

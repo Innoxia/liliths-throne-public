@@ -7,6 +7,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
@@ -761,7 +762,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS, ItemTag.FITS_FERAL_ALL_BODY)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6552,59 +6553,45 @@ public class ClothingType {
 		coreClothingSlots = Util.newArrayListOfValues(InventorySlot.TORSO_UNDER, InventorySlot.LEG);
 		lingerieSlots = Util.newArrayListOfValues(InventorySlot.CHEST, InventorySlot.GROIN, InventorySlot.STOMACH, InventorySlot.SOCK);
 
+		
 		allClothing = new ArrayList<>();
-		
-		// Load in modded clothing:
 		moddedClothingList = new ArrayList<>();
-		File dir = new File("res/mods");
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/items/clothing");
-					
-					File[] clothingDirectoriesListing = modAuthorClothingDirectory.listFiles();
-					if (clothingDirectoriesListing != null) {
-						for (File clothingDirectory : clothingDirectoriesListing) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try{
-											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractClothingType ct = new AbstractClothingType(innerChild, modAuthorDirectory.getName()) {};
-											moddedClothingList.add(ct);
-											clothingToIdMap.put(ct, id);
-											idToClothingMap.put(id, ct);
 
-											if(ct.getRarity()==Rarity.COMMON) {
-												commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
-												
-												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
-													commonClothingMapFemale.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													
-												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
-													commonClothingMapAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													
-												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
-													commonClothingMapMale.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-												}
-											}
-											
-										} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
-											System.err.println(ex);
-											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
-										}
-									}
-								}
-							}
+		// Modded clothing types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/items/clothing");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try{
+					String id = innerEntry.getKey();
+					AbstractClothingType ct = new AbstractClothingType(innerEntry.getValue(), entry.getKey()) {};
+					moddedClothingList.add(ct);
+					clothingToIdMap.put(ct, id);
+					idToClothingMap.put(id, ct);
+
+					if(ct.getRarity()==Rarity.COMMON) {
+						commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
+						
+						if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+							commonClothingMapFemale.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							
+						} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+							commonClothingMapAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							
+						} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+							commonClothingMapMale.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
 						}
 					}
+					
+				} catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
+					System.err.println("Loading modded clothing failed at 'ClothingType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
 				}
 			}
 		}
@@ -6612,59 +6599,43 @@ public class ClothingType {
 		allClothing.addAll(moddedClothingList);
 		
 		
-		// Add in external res clothing:
-		
-		dir = new File("res/clothing");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						for (File clothingDirectory : authorDirectory.listFiles()) {
-							if (clothingDirectory.isDirectory()){
-								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-								if (innerDirectoryListing != null) {
-									for (File innerChild : innerDirectoryListing) {
-										try {
-											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractClothingType ct = new AbstractClothingType(innerChild, authorDirectory.getName()) {};
-											allClothing.add(ct);
-											clothingToIdMap.put(ct, id);
-											idToClothingMap.put(id, ct);
+		// External res clothing types:
 
-											if(ct.getRarity()==Rarity.COMMON) {
-												commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
-												
-												if (ct.getFemininityRestriction() == Femininity.FEMININE) {
-													commonClothingMapFemale.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													
-												} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
-													commonClothingMapAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-													
-												} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
-													commonClothingMapMale.get(ct.getEquipSlots().get(0)).add(ct);
-													commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
-												}
-											}
-											
-										} catch(Exception ex) {
-											System.err.println("Loading modded clothing failed at 'ClothingType' Code 2. File path: "+innerChild.getAbsolutePath());
-											System.err.println("Actual exception: ");
-											ex.printStackTrace(System.err);
-										}
-									}
-								}
-							}
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/clothing");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractClothingType ct = new AbstractClothingType(innerEntry.getValue(), entry.getKey()) {};
+					allClothing.add(ct);
+					clothingToIdMap.put(ct, id);
+					idToClothingMap.put(id, ct);
+
+					if(ct.getRarity()==Rarity.COMMON) {
+						commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
+						
+						if (ct.getFemininityRestriction() == Femininity.FEMININE) {
+							commonClothingMapFemale.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							
+						} else if (ct.getFemininityRestriction() == Femininity.ANDROGYNOUS || ct.getFemininityRestriction() == null) {
+							commonClothingMapAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapFemaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
+							
+						} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
+							commonClothingMapMale.get(ct.getEquipSlots().get(0)).add(ct);
+							commonClothingMapMaleIncludingAndrogynous.get(ct.getEquipSlots().get(0)).add(ct);
 						}
 					}
+					
+				} catch(Exception ex) {
+					System.err.println("Loading clothing failed at 'ClothingType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
-		
 		
 		
 		// Add in hard-coded clothing:
@@ -6710,7 +6681,9 @@ public class ClothingType {
 				}
 			}
 		}
-//  	    System.out.println(allClothing.size());
+		
+//  	System.out.println(allClothing.size());
+		
 		//TODO shouldn't this be handled in outfit files?
 		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
 				Util.newArrayListOfValues(

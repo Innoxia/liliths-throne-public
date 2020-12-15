@@ -9,11 +9,10 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -89,7 +88,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 				this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 			}
@@ -97,7 +96,7 @@ public class Cultist extends NPC {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			this.setHistory(Occupation.NPC_CULTIST);
 			
@@ -407,9 +406,12 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				return UtilText.parse(target,
 						"<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
@@ -420,7 +422,12 @@ public class Cultist extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.isCondom(InventorySlot.PENIS)) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, [npc2.name] [npc2.verb(slap)] it away and [npc2.verb(growl)],"
+							+ " [npc2.speech(I don't think so! You're going to take my seed, and you're going to love it!)]");
 				}
 				return UtilText.parse(target,
 						"<p>"
@@ -429,14 +436,7 @@ public class Cultist extends NPC {
 						+ "</p>");
 			}
 		}
-		
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	//TODO UNique virginity loss/dirty talk needed. Was previously using the same as DominionSuccubusAttacker, which didn't fit the situation.
