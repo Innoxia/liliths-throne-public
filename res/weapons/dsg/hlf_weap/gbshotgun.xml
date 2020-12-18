@@ -68,8 +68,6 @@
 		<aoe chance="80">45</aoe>
 		<aoe chance="50">30</aoe> 
 		<aoe chance="50">30</aoe>
-		<aoe chance="40">15</aoe> 
-		<aoe chance="40">15</aoe>
 		
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
@@ -132,8 +130,25 @@
 		There are two special values for secondaryModifier, which are: RESISTANCE_WEAPON and DAMAGE_WEAPON
 		RESISTANCE_WEAPON applies the related resistance of this weapon's damage type, while DAMAGE_WEAPON applies the related damage type.
 		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
-		<effects> 
-		</effects>
+		<effects/>
+                
+                <extraEffects>
+                    <effect><![CDATA[
+                        [style.boldPoison(Poison Vapours)] for 2 turns on hit.
+                    ]]></effect>
+                </extraEffects>
+                
+                <onHitEffect><![CDATA[
+                    #IF (!npc2.hasStatusEffect(SE_POISON_VAPOURS))
+                        [##npc2.addStatusEffect(SE_POISON_VAPOURS, 2)]
+                    #ENDIF
+                ]]></onHitEffect>
+                
+                <onCriticalHitEffect><![CDATA[
+                    #IF (!npc2.hasStatusEffect(SE_POISON_VAPOURS_CHOKING_HAZE))
+                        [##npc2.addStatusEffect(SE_POISON_VAPOURS_CHOKING_HAZE , 4)] There is now a [style.boldPoison(very thick haze of teargas)] around [npc2.name].
+                    #ENDIF
+                ]]></onCriticalHitEffect>
 		
 		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours and secondaryColours all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
 		Red is used as base colour for changing the DAMAGE TYPE's colour of the graphic in-game, and the game will only recognise and change the following colours:
@@ -184,10 +199,7 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The grenade flies in a gracefull arc and lands by [npc2.namePos] [npc2.feet],
-		#IF !npc2.hasStatusEffect(SE_POISON_VAPOURS)
-		#THEN [##npc2.addStatusEffect(SE_POISON_VAPOURS, 4)] [npc2.Name] <span style='color:#85FF8B;'><b>releasing a choking cloud of tear gas.</b></span> 
-		#ENDIF
+		[npc.Name] [npc.verb(line)] up [npc2.name] in [npc.her] sights and [npc.verb(pull)] the trigger at [npc2.name]. The grenade flies in a gracefull arc and lands by [npc2.namePos] [npc2.feet], [style.boldPoison(releasing a choking cloud of tear gas.)]
 		]]></hitText>
 	</hitDescriptions>
 
