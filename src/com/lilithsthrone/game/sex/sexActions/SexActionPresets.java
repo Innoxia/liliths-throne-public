@@ -7,8 +7,10 @@ import java.util.List;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreastsCrotch;
@@ -27,12 +29,17 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNippleCrotch;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisSpinneret;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TentacleVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueBreastsCrotch;
@@ -121,12 +128,14 @@ public class SexActionPresets {
 			SexAreaOrifice.VAGINA);
 
 	public static List<SexAreaInterface> penisAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.CLIT, // Add clit here as clit actions are related to when the clit is a penetrative object, and should be acting like a penis (position-wise)
 			SexAreaPenetration.PENIS,
 			SexAreaOrifice.URETHRA_PENIS);
 	
 	public static List<SexAreaInterface> assAreas = Util.newArrayListOfValues(
 			SexAreaOrifice.ANUS,
-			SexAreaOrifice.ASS);
+			SexAreaOrifice.ASS,
+			SexAreaOrifice.SPINNERET);
 	
 	public static List<SexAreaInterface> mouthAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.TONGUE,
@@ -144,6 +153,10 @@ public class SexActionPresets {
 	public static List<SexAreaInterface> handAreas = Util.newArrayListOfValues(
 			SexAreaPenetration.FINGER);
 
+	public static List<SexAreaInterface> tailAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.SPINNERET);
+	
 	public static List<SexAreaInterface> tailAndTentacle = Util.newArrayListOfValues(
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
@@ -175,7 +188,6 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToUpperHalf = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToBreasts = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToCrotchBoobs = new HashMap<>();
-
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToTailAndTentacle = new HashMap<>();
@@ -264,18 +276,20 @@ public class SexActionPresets {
 		
 		allAreas = Util.mergeLists(appendageAreas, groinAreas, assAreas, mouthAreas, breastAreas);
 		
-		tailToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, allAreas));
+		for(SexAreaInterface tailArea : tailAreas) {
+			tailToAllAreas = Util.newHashMapOfValues(new Value<>(tailArea, allAreas));
+			tailToUpperTorso = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(mouthAreas, breastAreas)));
+			tailToLowerHalf = Util.newHashMapOfValues(new Value<>(tailArea, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
+		}
+		
 		tentacleToAllAreas = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, allAreas));
+		
+		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
+		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
 		
 		fingerToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, breastAreas)));
 		fingerToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
 		
-		tailToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, Util.mergeLists(mouthAreas, breastAreas)));
-		tailToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-		
-		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
-		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
-
 		feetToGroin = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FOOT, groinAreas));
 		
 		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
@@ -432,7 +446,13 @@ public class SexActionPresets {
 		// Tail actions:
 		sexActions.add(TailAnus.class);
 		sexActions.add(TailVagina.class);
+		sexActions.add(TailMouth.class);
 
+		// Tentacle actions:
+		sexActions.add(TentacleAnus.class);
+		sexActions.add(TentacleVagina.class);
+		sexActions.add(TentacleMouth.class);
+		
 		// Penis actions:
 		sexActions.add(PenisAss.class);
 		sexActions.add(PenisAnus.class);
@@ -446,9 +466,12 @@ public class SexActionPresets {
 		sexActions.add(PenisFeet.class);
 		sexActions.add(PenisUrethraVagina.class);
 		sexActions.add(PenisUrethraPenis.class);
+		sexActions.add(PenisSpinneret.class);
 		
-		// Vagina actions:
+		// Vagina/clit actions:
 		sexActions.add(ClitClit.class);
+		sexActions.add(ClitVagina.class);
+		sexActions.add(ClitAnus.class);
 		
 //		selfActions.add(PlayerMasturbation.class);
 //		selfActions.add(PartnerMasturbation.class);

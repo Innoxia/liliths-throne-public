@@ -14,20 +14,22 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.4
- * @version 0.3.5.8
+ * @version 0.4
  * @author Innoxia
  */
 public class SadisticActions {
 	
 	public static final SexAction SLAP_ASS = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		
@@ -167,11 +169,11 @@ public class SadisticActions {
 	};
 	
 	public static final SexAction SLAP_FACE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.FOUR_LUSTFUL,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		
@@ -360,11 +362,11 @@ public class SadisticActions {
 	};
 	
 	public static final SexAction CHOKE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.FOUR_LUSTFUL,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 		

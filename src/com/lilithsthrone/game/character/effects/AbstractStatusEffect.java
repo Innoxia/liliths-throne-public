@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -21,13 +22,16 @@ import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -43,7 +47,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.8.2
- * @version 0.3.8.2
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractStatusEffect {
@@ -51,11 +55,13 @@ public abstract class AbstractStatusEffect {
 	private boolean mod;
 	private boolean fromExternalFile;
 	private int renderingPriority;
-
+	
+	private StatusEffectCategory category;
 	private EffectBenefit beneficial;
 	private boolean renderInEffectsPanel;
 	private boolean combatEffect;
 	private boolean sexEffect;
+	private boolean removeAtEndOfSex;
 	
 	private String name;
 	private String description;
@@ -64,14 +70,17 @@ public abstract class AbstractStatusEffect {
 
 	private boolean requiresApplicationCheck;
 	private int effectInterval;
+	private boolean shortConditionalCheck;
+	
 	private String applicationCondition;
 	private String applyEffectString;
 	private String applyRemovalString;
 	private String applyPostRemovalString;
 	
-	private Map<Attribute, Float> attributeModifiers;
+	private Map<AbstractAttribute, Float> attributeModifiers;
 	private List<String> combatMoveIds;
 	private List<String> spellIds;
+	private List<ItemTag> tags;
 
 	protected String SVGString;
 
@@ -82,7 +91,7 @@ public abstract class AbstractStatusEffect {
 			String pathName,
 			Colour colourShade,
 			boolean beneficial,
-			Map<Attribute, Float> attributeModifiers,
+			Map<AbstractAttribute, Float> attributeModifiers,
 			List<String> extraEffects) {
 		this(renderingPriority, name, pathName, colourShade, colourShade, colourShade, beneficial, attributeModifiers, extraEffects);
 	}
@@ -93,10 +102,11 @@ public abstract class AbstractStatusEffect {
 			Colour colourShade,
 			Colour colourShadeSecondary,
 			boolean beneficial,
-			Map<Attribute, Float> attributeModifiers,
+			Map<AbstractAttribute, Float> attributeModifiers,
 			List<String> extraEffects) {
 		this(renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
 	}
+
 	
 	public AbstractStatusEffect(int renderingPriority,
 			String name,
@@ -105,11 +115,26 @@ public abstract class AbstractStatusEffect {
 			Colour colourShadeSecondary,
 			Colour colourShadeTertiary,
 			boolean beneficial,
-			Map<Attribute, Float> attributeModifiers,
+			Map<AbstractAttribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		this(StatusEffectCategory.DEFAULT, renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
+	}
+	
+	public AbstractStatusEffect(StatusEffectCategory category,
+			int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			Colour colourShadeSecondary,
+			Colour colourShadeTertiary,
+			boolean beneficial,
+			Map<AbstractAttribute, Float> attributeModifiers,
 			List<String> extraEffects) {
 		
 		this.mod = false;
 		this.fromExternalFile = false;
+		
+		this.category = category;
 		
 		this.renderingPriority = renderingPriority;
 		this.name = name;
@@ -132,6 +157,7 @@ public abstract class AbstractStatusEffect {
 		this.sexEffect = false;
 		
 		this.effectInterval = 0;
+		this.shortConditionalCheck = false;
 		this.applicationCondition = null;
 		
 		if(attributeModifiers==null) {
@@ -142,6 +168,8 @@ public abstract class AbstractStatusEffect {
 		
 		this.spellIds = null;
 		this.combatMoveIds = null;
+		
+		this.tags = new ArrayList<>();
 		
 		if(extraEffects == null) {
 			this.extraEffects = new ArrayList<>();
@@ -161,6 +189,15 @@ public abstract class AbstractStatusEffect {
 				doc.getDocumentElement().normalize();
 				
 				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in statusEffect files it's <statusEffect>
+
+				this.category = StatusEffectCategory.DEFAULT;
+				if(coreElement.getOptionalFirstOf("category").isPresent()) {
+					try {
+						this.category = StatusEffectCategory.valueOf(coreElement.getMandatoryFirstOf("category").getTextContent());
+					} catch(Exception ex) {
+						System.err.println("StatusEffect loading error in '"+XMLFile.getName()+"': category not recognised! (Set to DEFAULT)");
+					}
+				}
 				
 				this.mod = mod;
 				this.fromExternalFile = true;
@@ -171,6 +208,17 @@ public abstract class AbstractStatusEffect {
 				this.renderInEffectsPanel = Boolean.valueOf(coreElement.getMandatoryFirstOf("renderInEffectsPanel").getTextContent());
 				this.combatEffect = Boolean.valueOf(coreElement.getMandatoryFirstOf("combatEffect").getTextContent());
 				this.sexEffect = Boolean.valueOf(coreElement.getMandatoryFirstOf("sexEffect").getTextContent());
+
+				this.tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						try {
+							tags.add(ItemTag.valueOf(e.getTextContent()));
+						} catch(Exception ex) {
+							System.err.println("StatusEffect loading error in '"+XMLFile.getName()+"': ItemTag '"+e.getTextContent()+"' not recognised! (Not added)");
+						}
+					}
+				}
 				
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
@@ -192,7 +240,7 @@ public abstract class AbstractStatusEffect {
 				this.attributeModifiers = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("attributeModifiers").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("attributeModifiers").getAllOf("modifier")) {
-						attributeModifiers.put(Attribute.valueOf(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
+						attributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
 					}
 				}
 
@@ -218,6 +266,7 @@ public abstract class AbstractStatusEffect {
 				}
 				
 				// Logic:
+				this.shortConditionalCheck = Boolean.valueOf(coreElement.getMandatoryFirstOf("applicationCondition").getAttribute("shortConditionalCheck"));
 				
 				this.applicationCondition = coreElement.getMandatoryFirstOf("applicationCondition").getTextContent();
 				if(this.applicationCondition.trim().equals("false")) {
@@ -246,11 +295,11 @@ public abstract class AbstractStatusEffect {
 		return StatusEffect.getIdFromStatusEffect(this);
 	}
 	
-	protected List<String> attributeModifiersToStringList(Map<Attribute, Float> attributeMap) {
+	protected List<String> attributeModifiersToStringList(Map<AbstractAttribute, Float> attributeMap) {
 		List<String> attributeModifiersList = new ArrayList<>();
 		
 		if (attributeMap != null) {
-			for (Entry<Attribute, Float> e : attributeMap.entrySet()) {
+			for (Entry<AbstractAttribute, Float> e : attributeMap.entrySet()) {
 				attributeModifiersList.add(e.getKey().getFormattedValue(e.getValue()));
 			}
 		}
@@ -269,11 +318,21 @@ public abstract class AbstractStatusEffect {
 	 */
 	public boolean isConditionsMet(GameCharacter target) {
 		if(this.isFromExternalFile() && target!=null && Main.game.isStarted()) {
-			String parsedResult = UtilText.parse(target, applicationCondition);
-			parsedResult = parsedResult.replaceAll("\\s", "");
-			return Boolean.valueOf(parsedResult);
+			if(!shortConditionalCheck) {
+				String parsedResult = UtilText.parse(Util.newArrayListOfValues(target), applicationCondition, true, new ArrayList<>());
+				parsedResult = parsedResult.replaceAll("\\s", "");
+				return Boolean.valueOf(parsedResult);
+				
+			} else {
+				try {
+					UtilText.evaluateConditional(Util.newArrayListOfValues(target), applicationCondition, true);
+				} catch (ScriptException e) {
+					System.err.println("Conditional parsing (from status effect) error: "+applicationCondition);
+					e.printStackTrace();
+				}
+			}
 		}
-		if(!this.isFromExternalFile()) { // Easiest way to make sure that this status effect doens't need to be checked on every update is to see whether or not isConditionsMet has been overridden (in which case requiresApplicationCheck remains true)
+		if(!this.isFromExternalFile()) { // Easiest way to make sure that this status effect doesn't need to be checked on every update is to see whether or not isConditionsMet has been overridden (in which case requiresApplicationCheck remains true)
 			requiresApplicationCheck = false;
 		}
 		return false;
@@ -289,6 +348,23 @@ public abstract class AbstractStatusEffect {
 	
 	public boolean isSexEffect() {
 		return sexEffect;
+	}
+	
+	public boolean isRemoveAtEndOfSex() {
+		return removeAtEndOfSex;
+	}
+
+	public List<ItemTag> getTags() {
+		return tags;
+	}
+	
+	/**
+	 * This method id called once when the target initially gains this status effect.
+	 * @param target
+	 * @return A String describing any effects which are applied when the target first gains this StatusEffect.
+	 */
+	public String applyAdditionEffect(GameCharacter target) {
+		return "";
 	}
 	
 	public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
@@ -339,6 +415,10 @@ public abstract class AbstractStatusEffect {
 		return fromExternalFile;
 	}
 
+	public StatusEffectCategory getCategory() {
+		return category;
+	}
+
 	public int getRenderingPriority() {
 		return renderingPriority;
 	}
@@ -380,6 +460,9 @@ public abstract class AbstractStatusEffect {
 	public List<String> getModifiersAsStringList(GameCharacter target) {
 		ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(getAttributeModifiers(target)));
 		fullModList.addAll(getExtraEffects(target));
+		for(ItemTag tag : this.getTags()) {
+			fullModList.addAll(tag.getClothingTooltipAdditions());
+		}
 		return fullModList;
 	}
 	
@@ -387,16 +470,16 @@ public abstract class AbstractStatusEffect {
 		return beneficial;
 	}
 
-	public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+	public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 		return attributeModifiers;
 	}
 	
 	// This has to be overridden, as defining CombatMoves in a status effect's constructor can cause initialisation errors.
-	public List<CombatMove> getCombatMoves() {
+	public List<AbstractCombatMove> getCombatMoves() {
 		if(this.isFromExternalFile()) {
-			List<CombatMove> combatMoves = new ArrayList<>();
+			List<AbstractCombatMove> combatMoves = new ArrayList<>();
 			for(String moveID : combatMoveIds) {
-				combatMoves.add(CombatMove.getMove(moveID));
+				combatMoves.add(CombatMove.getCombatMoveFromId(moveID));
 			}
 			return combatMoves;
 		}
@@ -838,6 +921,9 @@ public abstract class AbstractStatusEffect {
 					case TONGUE:
 						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
 						break;
+					case TENTACLE:
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
+						break;
 					default:
 						break;
 				}
@@ -887,6 +973,7 @@ public abstract class AbstractStatusEffect {
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
 								break;
 							case TENTACLE:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTentacle()+"</div>");
 								break;
 						}
 						rightOffset+=8;
@@ -986,6 +1073,66 @@ public abstract class AbstractStatusEffect {
 			case VAGINA:
 				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
 				break;
+			case SPINNERET:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaSpinneret()+"</div>");
+				break;
+		}
+		
+		return SVGImageSB.toString();
+	}
+	
+	public String getIncubationSVGString(GameCharacter owner, SexAreaOrifice orifice, int stage) {
+		StringBuilder SVGImageSB = new StringBuilder();
+		
+		SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
+							+ SVGImages.SVG_IMAGE_PROVIDER.getEggIncubation(stage)
+						+"</div>");
+		
+		switch(orifice) {
+			case ANUS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss()+"</div>");
+				break;
+			case ASS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss()+"</div>");
+				break;
+			case BREAST:
+				if(owner.hasBreasts()) {
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts()+"</div>");
+				} else {
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat()+"</div>");
+				}
+				break;
+			case NIPPLE:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple()+"</div>");
+				break;
+			case BREAST_CROTCH:
+				if(owner.getBreastCrotchShape()==BreastShape.UDDERS) {
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUdders()+"</div>");
+				} else {
+					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsCrotch()+"</div>");
+				}
+				break;
+			case NIPPLE_CROTCH:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNippleCrotch()+"</div>");
+				break;
+			case MOUTH:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div>");
+				break;
+			case THIGHS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs()+"</div>");
+				break;
+			case URETHRA_PENIS:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis()+"</div>");
+				break;
+			case URETHRA_VAGINA:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina()+"</div>");
+				break;
+			case VAGINA:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
+				break;
+			case SPINNERET:
+				SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaSpinneret()+"</div>");
+				break;
 		}
 		
 		return SVGImageSB.toString();
@@ -1014,7 +1161,7 @@ public abstract class AbstractStatusEffect {
 			names.add("nipples");
 		}
 		if(owner.hasBreastsCrotch()
-				&& Main.getProperties().udders>0
+				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
 				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH)) {
 			names.add(UtilText.parse(owner, "[npc.crotchBoobs]"));
 		}
@@ -1043,7 +1190,7 @@ public abstract class AbstractStatusEffect {
 		boolean breastsExposed = owner.hasBreasts() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
 		boolean nipplesExposed = ! breastsExposed && owner.isFeminine() && owner.isCoverableAreaVisible(CoverableArea.NIPPLES);
 		boolean crotchBoobsExposed = owner.hasBreastsCrotch()
-				&& Main.getProperties().udders>0
+				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
 				&& owner.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH);
 
 		boolean anusExposed = owner.isCoverableAreaVisible(CoverableArea.ANUS);
@@ -1105,7 +1252,7 @@ public abstract class AbstractStatusEffect {
 		boolean throatRecovering = owner.getFaceRawCapacityValue()!=owner.getFaceStretchedCapacity();
 		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
 		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch()
-				&& Main.getProperties().udders>0
+				&& (Main.getProperties().getUddersLevel()>0 || owner.isFeral())
 				&& owner.getNippleCrotchRawCapacityValue()!=owner.getNippleCrotchStretchedCapacity();
 		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
 		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();

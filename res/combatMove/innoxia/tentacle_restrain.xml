@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	
+	<category>SPECIAL</category>
+	
+	<type>ATTACK</type>
+	
+	<equipWeighting>10</equipWeighting>
+	
+	<name><![CDATA[Tentacle-grab]]></name>
+	
+	<description><![CDATA[
+		Use [npc.her] [npc.tentacles] to constrict [npc.her] target.
+	]]></description>
+	
+	<damageType><![CDATA[
+		PHYSICAL
+	]]></damageType>
+	
+	<baseDamage><![CDATA[
+		0
+	]]></baseDamage>
+	
+	<blockAmount><![CDATA[
+		0
+	]]></blockAmount>
+	
+	<cooldown><![CDATA[
+		2
+	]]></cooldown>
+	
+	<APcost><![CDATA[
+		2
+	]]></APcost>
+	
+	<canTargetEnemies>true</canTargetEnemies>
+	<canTargetAllies>false</canTargetAllies>
+	<canTargetSelf>false</canTargetSelf>
+	
+	<imageName>tentacle_restrain.svg</imageName>
+	
+	<colourPrimary>BASE_ORANGE</colourPrimary> 
+	<colourSecondary/> 
+	<colourTertiary/>
+	
+	<statusEffects/>
+	
+	
+	<!-- Effect logic -->
+	
+	<availabilityCondition><![CDATA[
+		[#npc.hasTentacle()]
+	]]>
+	</availabilityCondition>
+	
+	<availabilityDescription><![CDATA[
+		Available to characters who have tentacles.
+	]]></availabilityDescription>
+	
+	<!-- Once started to constrict a target, the AI will become more and more interested in finishing the process off. -->
+	<weighting><![CDATA[
+		#IF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_3))
+			10.0
+		#ELSEIF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_2))
+			5.0
+		#ELSEIF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_1))
+			2.5
+		#ELSE
+			1.0
+		#ENDIF
+	]]></weighting>
+	
+	<criticalCondition><![CDATA[
+		false
+	]]></criticalCondition>
+	
+	<criticalDescription><![CDATA[
+		Cannot critically hit.
+	]]></criticalDescription>
+	
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Use [npc.her] strong tentacles to constrict [npc2.name].
+	]]></movePredictionDescriptionWithTarget>
+	
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Use [npc.her] strong tentacles to constrict [npc.her] target.
+	]]></movePredictionDescriptionNoTarget>
+	
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(lurch)] forwards and [npc.verb(coil)] [npc.her] strong tentacles around [npc2.name]!
+			#IF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_3))
+				[##npc2.setHealth(0)]
+				<br/>[style.italicsTerrible([npc2.NameIsFull] now totally constricted by [npc.namePos] tentacles, and as such [npc2.is] completely defeated!)]
+			#ELSEIF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_2))
+				[##npc2.removeStatusEffectCombat(SE_TENTACLE_RESTRAIN_2)]
+				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_3, 10)]
+				<br/>[style.italicsTerrible([npc2.NameIsFull] almost totally constricted by [npc.namePos] tentacles, and as such [npc2.is] near to being completely defeated!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tentacle-grabbed again, [npc.she] will be instantly defeated!)]
+			#ELSEIF(npc2.hasStatusEffect(SE_TENTACLE_RESTRAIN_1))
+				[##npc2.removeStatusEffectCombat(SE_TENTACLE_RESTRAIN_1)]
+				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_2, 10)]
+				<br/>[style.italicsBad([npc2.NameIsFull] seriously constricted by [npc.namePos] tentacles, and as such [npc2.is] struggling to fight back!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tentacle-grabbed again, this effect will become extremely serious!)]
+			#ELSE
+				[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_1, 10)]
+				<br/>[style.italicsBad([npc2.NameIsFull] partially constricted by [npc.namePos] tentacles, and as such [npc2.her] ability to fight back is impaired!)]
+				<br/>[style.italicsTerrible(If [npc2.name] [npc2.verb(get)] tentacle-grabbed again, this effect will become more serious!)]
+			#ENDIF
+		]]></execute>
+		<critDescription><![CDATA[
+			N/A
+		]]></critDescription>
+		<critEffectDescription><![CDATA[
+			N/A
+		]]></critEffectDescription>
+	</performMove>
+	
+</combatMove>

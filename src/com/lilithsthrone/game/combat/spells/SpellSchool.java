@@ -66,7 +66,8 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "By sacrificing a portion of their health, students of the school of Fire are able to cast Fire spells even when out of aura."
 			+ "</p>",
-			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+".",
+			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+"."
+				+ " The 'darkness' status effect will also be negated.",
 			PresetColour.BASE_ORANGE),
 
 	ARCANE("arcane",

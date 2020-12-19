@@ -115,7 +115,7 @@ public class Penis implements BodyPartInterface {
 			list.add(owner.getCovering(owner.getPenisCovering()).getColourDescriptor(owner, false, false));
 		}
 		
-		if(owner.isPenisBestial()) {
+		if(owner.isPenisFeral()) {
 			list.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
 					"bestial",
@@ -529,7 +529,7 @@ public class Penis implements BodyPartInterface {
 						+ "</p>";
 			case PREHENSILE:
 				return "<p>"
-							+ "A strange tingling sensation work its way up the length of [npc.namePos] [npc.penis], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
+							+ "A strange tingling sensation works its way up the length of [npc.namePos] [npc.penis], and [npc.she] suddenly becomes aware that it's transformed into being [style.boldGrow(prehensile)],"
 								+ " allowing [npc.herHim] to twist and move it around just like a primate's tail."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now prehensile!)]"
 						+ "</p>";
@@ -547,6 +547,12 @@ public class Penis implements BodyPartInterface {
 				return "<p>"
 							+ "An intense warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now veiny!)]"
+						+ "</p>";
+			case OVIPOSITOR:
+				return "<p>"
+							+ "An intense tingling sensation works its up [npc.namePos] [npc.penis], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is now able to lay eggs!)]"
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>"
 						+ "</p>";
 		}
 		
@@ -612,6 +618,12 @@ public class Penis implements BodyPartInterface {
 							+ "An intense warmth builds up within [npc.namePos] [npc.penis], but before [npc.she] [npc.has] a chance to react, [npc.her] prominent veins [style.boldShrink(disappear)]."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is no longer veiny!)]"
 						+ "</p>";
+			case OVIPOSITOR:
+				return "<p>"
+							+ "A strange tingling sensation works its way up the length of [npc.namePos] [npc.penis], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming to"
+								+ " [style.boldShrink(no longer function as an ovipositor)]."
+							+ "<br/>[style.boldSex([npc.NamePos] [npc.penis] is no longer an ovipositor!)]"
+						+ "</p>";
 		}
 		
 		// Catch:
@@ -623,10 +635,10 @@ public class Penis implements BodyPartInterface {
 	}
 
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null || getType()==PenisType.NONE) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Penis.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Penis.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

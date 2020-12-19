@@ -10,7 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -82,9 +82,9 @@ public class MilkingRoom implements XMLSaving {
 		Element element = doc.createElement("milkingRoom");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
-		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
-		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
+		XMLUtil.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
+		XMLUtil.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
+		XMLUtil.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
 
 		for(FluidStored fluid : fluidsStored) {
 			fluid.saveAsXML(element, doc);
@@ -96,7 +96,7 @@ public class MilkingRoom implements XMLSaving {
 			for(Entry<String, List<AbstractClothing>> entry : clothingRemovedForMilking.entrySet()) {
 				Element clothingCharacter = doc.createElement("clothingCharacter");
 				clothingSaved.appendChild(clothingCharacter);
-				CharacterUtils.addAttribute(doc, clothingCharacter, "id", entry.getKey());
+				XMLUtil.addAttribute(doc, clothingCharacter, "id", entry.getKey());
 				for(AbstractClothing clothing : entry.getValue()) {
 					Element e = clothing.saveAsXML(clothingSaved, doc);
 					clothingCharacter.appendChild(e);
@@ -464,7 +464,7 @@ public class MilkingRoom implements XMLSaving {
 					}
 					milkyMilknessSB.append("<br/>"
 								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
-									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
+									+Util.capitaliseSentence(type.getRace().getName(fluid.isFeral()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
 								+"</span>"
 							+ "</div>");
 	

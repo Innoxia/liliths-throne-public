@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <statusEffect>
-	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
-	You can see another annotated example in the 'res/statusEffects/innoxia/set_kitty.xml'-->
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
 	
 	<!-- An integer used for determining the order of rendering status effect icons. A higher value means that it's higher up in the rendering priority (and so will be rendered before others).
 	Typical values go from 0 to 100.
@@ -17,6 +16,10 @@
 	<!-- 'true' if you want this status effect to be displayed in the affected character's status effect panel. This should pretty much always be 'true'. -->
 	<renderInEffectsPanel>true</renderInEffectsPanel>
 	
+	<!-- The category which this status effect falls into. You can omit this field if you want it to be set to DEFAULT (which is the standard category).
+	Categories, along with their meanings, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffectCategory.java -->
+	<category>DEFAULT</category>
+	
 	<!-- 'BENEFICIAL' if this is a good status effect for a character to have, 'NEUTRAL' if it's neither, or 'DETRIMENTAL' if it's a bad one. -->
 	<beneficial>BENEFICIAL</beneficial>
 	
@@ -27,6 +30,22 @@
 	
 	<!-- 'true' if you want this status effect to be rendered during sex. -->
 	<sexEffect>false</sexEffect>
+	
+	<!-- Tags which are applied to the affected character while this effect is active.
+	All tags can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java
+	The only ones which actually do anything at the time of this feature's addition (v0.4) are:
+		NIGHT_VISION_SELF
+		NIGHT_VISION_AREA
+		SPREADS_FEET
+		MUFFLES_SPEECH
+		HINDERS_ARM_MOVEMENT
+		HINDERS_LEG_MOVEMENT
+		PREVENTS_ERECTION_PHYSICAL
+		PREVENTS_ERECTION_OTHER
+	It is unlikely that additional tags will be supported in the future, but if any are added, this section will be updated. -->
+	<tags>
+		<tag>NIGHT_VISION_SELF</tag>
+	</tags>
 	
 	<!-- The name of this set bonus. The character under the effect is passed in as the 'npc' parsing argument, so if you want to, you can include parsing elements such as [npc.name]. -->
 	<name><![CDATA[Socks of Power]]></name>
@@ -85,6 +104,7 @@
 	<applicationCondition><![CDATA[false]]></applicationCondition>
 	If, however, you would like this status effect to be automatically activated once certain conditions are met, then make sure that this element returns a conditional that would result in 'true' (without quotes), as in the example below.
 	You must use the game's parsing engine to get what you want.
+	You should probably define the attribute shortConditionalCheck="true", as it significantly improves performance of the conditional check. If you do this, you can only define one single conditional line to be parsed (such as in the commented-out example below).
 	'npc' is the parser target for the character affected by this status effect.
 	To parse something and return a String, use a '#' character at the start of a command, such as: [#npc.isFeminine()]
 	To parse something without returning a String (which would most likely not be used in this element), use two '#' characters, such as: [##npc.isFeminine()]
@@ -97,7 +117,7 @@
 		#ENDIF
 	]]></applicationCondition>
 	<!--The above example is meant to show that you can use the parser to create more "complex" conditionals, but an alternate, simpler example to achieve the same effect would be to just do:
-	<applicationCondition><![CDATA[
+	<applicationCondition shortConditionalCheck="true"><![CDATA[
 		SET_BONUS_innoxia_kitty.isCharacterWearingCompleteSet(npc)
 	]]></applicationCondition>
 	-->

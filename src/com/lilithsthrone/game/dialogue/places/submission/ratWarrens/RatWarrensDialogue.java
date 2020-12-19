@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -109,7 +108,7 @@ public class RatWarrensDialogue {
 				Main.game.addNPC(rat, false);
 				rat.setLevel(10);
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
-				CharacterUtils.setGenericName(rat, "lieutenant", null);
+				Main.game.getCharacterUtils().setGenericName(rat, "lieutenant", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
 				rat.incrementEssenceCount(8, false);
@@ -118,7 +117,7 @@ public class RatWarrensDialogue {
 				Main.game.addNPC(rat, false);
 				rat.setLevel(9);
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
-				CharacterUtils.setGenericName(rat, "sidekick", null);
+				Main.game.getCharacterUtils().setGenericName(rat, "sidekick", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL)));
 				rat.incrementEssenceCount(3, false);
@@ -181,7 +180,7 @@ public class RatWarrensDialogue {
 					rat.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 				}
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_DICE_DEN, true);
-				CharacterUtils.setGenericName(rat, rat.isFeminine()?"barwoman":"barman", null);
+				Main.game.getCharacterUtils().setGenericName(rat, rat.isFeminine()?"barwoman":"barman", null);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -289,7 +288,7 @@ public class RatWarrensDialogue {
 				Main.game.addNPC(rat, false);
 				rat.setLevel(9);
 				rat.setLocation(Main.game.getPlayer(), true);
-				adjectives.add(CharacterUtils.setGenericName(rat, "sidekick", adjectives));
+				adjectives.add(Main.game.getCharacterUtils().setGenericName(rat, "sidekick", adjectives));
 				
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensEntranceGuardsFight, false);
 				
@@ -308,7 +307,7 @@ public class RatWarrensDialogue {
 				Main.game.addNPC(rat, false);
 				rat.setLevel(8-i);
 				rat.setLocation(Main.game.getPlayer(), true);
-				adjectives.add(CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), adjectives));
+				adjectives.add(Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), adjectives));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -327,7 +326,7 @@ public class RatWarrensDialogue {
 		}
 		try {
 			Main.game.addNPC(gambler, false);
-			CharacterUtils.setGenericName(gambler, "gambler", null);
+			Main.game.getCharacterUtils().setGenericName(gambler, "gambler", null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -367,7 +366,7 @@ public class RatWarrensDialogue {
 	}
 	
 	private static int getRumPrice() {
-		return ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getValue(null)/2;
+		return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum").getValue(null)/2;
 	}
 
 	private static boolean isMouthAccess(GameCharacter target) {
@@ -1523,9 +1522,9 @@ public class RatWarrensDialogue {
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensLootedDiceDen, true);
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1500));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), 5, false, true));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY), 2, false, true));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY), 1, false, true));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum"), 5, false, true));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_race_wolf_wolf_whiskey"), 2, false, true));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem("innoxia_race_cat_felines_fancy"), 1, false, true));
 							}
 						};
 					}
@@ -1591,7 +1590,7 @@ public class RatWarrensDialogue {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_DRINK", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_OFFER", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(
-									ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
+									Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum").applyEffect(Main.game.getPlayer(), Main.game.getPlayer())
 									+ Main.game.getPlayer().incrementMoney(-price));
 						}
 					};
@@ -1616,7 +1615,7 @@ public class RatWarrensDialogue {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_DRINK_COMPANION", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_OFFER", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(
-									ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getMainCompanion(), getMainCompanion(), 1)
+									Main.game.getItemGen().generateItem("innoxia_race_rat_black_rats_rum").applyEffect(getMainCompanion(), getMainCompanion())
 									+ Main.game.getPlayer().incrementMoney(-price));
 						}
 					};

@@ -49,7 +49,7 @@ public class SexSlotAllFours {
 		public String getName(GameCharacter target) {
 			boolean standing = isStanding(target);
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS);
-			return (target.getLegConfiguration()==LegConfiguration.TAUR
+			return (target.getLegConfiguration()==LegConfiguration.QUADRUPEDAL
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");
@@ -71,7 +71,7 @@ public class SexSlotAllFours {
 			boolean standing = isStanding(target);
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_TWO);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (target.getLegConfiguration()==LegConfiguration.TAUR
+			return (target.getLegConfiguration()==LegConfiguration.QUADRUPEDAL
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");
@@ -93,7 +93,7 @@ public class SexSlotAllFours {
 			boolean standing = isStanding(target);
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_THREE);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (target.getLegConfiguration()==LegConfiguration.TAUR
+			return (target.getLegConfiguration()==LegConfiguration.QUADRUPEDAL
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");
@@ -115,7 +115,7 @@ public class SexSlotAllFours {
 			boolean standing = isStanding(target);
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_FOUR);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (target.getLegConfiguration()==LegConfiguration.TAUR
+			return (target.getLegConfiguration()==LegConfiguration.QUADRUPEDAL
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");

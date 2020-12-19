@@ -26,6 +26,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -76,14 +77,14 @@ public class LilayaSpa {
 	
     private static List<AbstractItemType> getDrinks() {
     	return Util.newArrayListOfValues(
-    			ItemType.INT_INGREDIENT_VANILLA_WATER,
-    			ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH,
-    			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
-    			ItemType.STR_INGREDIENT_EQUINE_CIDER,
-    			ItemType.INT_INGREDIENT_FELINE_FANCY,
-    			ItemType.INT_INGREDIENT_GRAPE_JUICE,
-    			ItemType.STR_INGREDIENT_BLACK_RATS_RUM,
-    			ItemType.STR_INGREDIENT_WOLF_WHISKEY);
+    			ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water"),
+    			ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
+    			ItemType.getItemTypeFromId("innoxia_race_dog_canine_crush"),
+    			ItemType.getItemTypeFromId("innoxia_race_horse_equine_cider"),
+    			ItemType.getItemTypeFromId("innoxia_race_cat_felines_fancy"),
+    			ItemType.getItemTypeFromId("innoxia_race_fox_vulpines_vineyard"),
+    			ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum"),
+    			ItemType.getItemTypeFromId("innoxia_race_wolf_wolf_whiskey"));
     }
     
     public static void setCellInstallation(Cell cellInstallation) {
@@ -1235,9 +1236,9 @@ public class LilayaSpa {
 		@Override
 		public void applyPreParsingEffects() {
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 		}
 		@Override
 		public String getDescription() {
@@ -1273,9 +1274,9 @@ public class LilayaSpa {
 		@Override
 		public void applyPreParsingEffects() {
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SHOWER, 240+30);
 		}
 		@Override
 		public String getContent() {
@@ -1361,23 +1362,23 @@ public class LilayaSpa {
 					};
 				}
 				if(index-1<getDrinks().size()) {
-					AbstractItemType drink = getDrinks().get(index-1);
-					return new Response(drink.getName(false),
+					AbstractItem drink = Main.game.getItemGen().generateItem(getDrinks().get(index-1));
+					return new Response(drink.getName(false, false),
 							target.isPlayer()
-								?"Have a glass of "+drink.getName(false)+" from the bar."
-								:UtilText.parse(target, "Give [npc.name] a glass of "+drink.getName(false)+" from the bar."),
+								?"Have a glass of "+drink.getName(false, false)+" from the bar."
+								:UtilText.parse(target, "Give [npc.name] a glass of "+drink.getName(false, false)+" from the bar."),
 							SPA_CORE_BAR_DRINK) {
 						@Override
 						public void effects() {
-							UtilText.addSpecialParsingString(drink.getName(false), true);
+							UtilText.addSpecialParsingString(drink.getName(false, false), true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_CORE_BAR_DRINK", target));
 							if(target instanceof Arthur || target instanceof Rose) { // Arthur and Rose do not get drunk (Lilaya does...)
 								if(!drink.getItemTags().contains(ItemTag.ALCOHOLIC)) {
-									Main.game.getTextStartStringBuilder().append(drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), target, 0));
+									Main.game.getTextStartStringBuilder().append(drink.applyEffect(Main.game.getPlayer(), target));
 								}
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(drink.getEffects().get(0).applyEffect(Main.game.getPlayer(), target, 0));
+								Main.game.getTextStartStringBuilder().append(drink.applyEffect(Main.game.getPlayer(), target));
 							}
 						}
 					};
@@ -1399,9 +1400,9 @@ public class LilayaSpa {
 						bathingStripped = new ArrayList<>();
 						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60);
+							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
 					}
 				};
 				
@@ -1420,9 +1421,9 @@ public class LilayaSpa {
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getPlayer(), false, false);
 						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60);
+							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+60));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
 					}
 				};
 				
@@ -1711,9 +1712,9 @@ public class LilayaSpa {
 //				character.equipAllClothingFromHoldingInventory();
 //			}
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 		}
 		@Override
 		public String getDescription() {
@@ -1749,9 +1750,9 @@ public class LilayaSpa {
 				character.equipAllClothingFromHoldingInventory();
 			}
 			for(GameCharacter npc : slavesWashing) {
-				npc.applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+				npc.applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 			}
-			Main.game.getPlayer().applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_spa"), 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
 		}
 		@Override
 		public String getContent() {
@@ -1836,7 +1837,7 @@ public class LilayaSpa {
 	public static final DialogueNode SPA_MASSAGE = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().addStatusEffect(StatusEffect.getStatusEffectFromId("innoxia_massaged"), (240+30)*60);
+			Main.game.getPlayer().addStatusEffect(StatusEffect.CLEANED_MASSAGED, (240+30)*60);
 		}
 		@Override
 		public int getSecondsPassed() {
