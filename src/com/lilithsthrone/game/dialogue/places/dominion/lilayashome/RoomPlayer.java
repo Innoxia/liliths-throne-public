@@ -88,10 +88,6 @@ public class RoomPlayer {
 		charactersPresent.addAll(Main.game.getPlayer().getCompanions());
 		charactersPresent.add(Main.game.getPlayer());
 
-		Main.game.getPlayer().setActive(false);
-		Main.game.endTurn(sleepTimeInMinutes*60);
-		Main.game.getPlayer().setActive(true);
-
 		for(GameCharacter character : charactersPresent) {
 			character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 			character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
@@ -113,8 +109,12 @@ public class RoomPlayer {
 			} else if(emperorBed) {
 				restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
 			}
-			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + (240*60));
+			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + ((240+sleepTimeInMinutes)*60));
 		}
+
+		Main.game.getPlayer().setActive(false);
+		Main.game.endTurn(sleepTimeInMinutes*60);
+		Main.game.getPlayer().setActive(true);
 	}
 	
 	private static Response getResponseRoom(int responseTab, int index) {
