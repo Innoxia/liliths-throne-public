@@ -2098,11 +2098,7 @@ public class Body implements XMLSaving {
 		// Describe face (ears, eyes & horns):
 		// Femininity:
 		sb.append(getHeader("Face"));
-		if(owner.isFeral()) {
-			sb.append("[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)].");
-		} else {
-			sb.append(face.getType().getBodyDescription(owner));
-		}
+		sb.append(face.getType().getBodyDescription(owner));
 		if(owner.getBlusher().getPrimaryColour()!=PresetColour.COVERING_NONE) {
 			sb.append(" [npc.SheIsFull] wearing "+owner.getBlusher().getColourDescriptor(owner, true, false)+" blusher.");
 		}
