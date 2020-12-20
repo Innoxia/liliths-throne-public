@@ -87,4 +87,9 @@
 		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, hyena-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
 	]]></bodyDescription>
 	
+	<!-- Feral variant of the above. -->
+	<bodyDesriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
+	]]></bodyDesriptionFeral>
+	
 </face>
