@@ -1221,21 +1221,22 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformWingSizeDiv() {
+		GameCharacter target = BodyChanging.getTarget();
 		contentSB.setLength(0);
 		
 		for(WingSize wingSize : WingSize.values()) {
-			if(BodyChanging.getTarget().getWingSize() == wingSize) {
+			if(target.getWingSize() == wingSize) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+								+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
 							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+								+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
 						+ "</div>");
 			}
 		}
