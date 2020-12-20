@@ -27454,7 +27454,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(bodyCoveringType==BodyCoveringType.DILDO) {
 			try {
-				return new Covering(bodyCoveringType, this.getClothingInSlot(InventorySlot.PENIS).getColour(0));
+			    InventorySlot slot = (this.getClothingInSlot(InventorySlot.PENIS)!=null?InventorySlot.PENIS:InventorySlot.GROIN);
+				return new Covering(bodyCoveringType, this.getClothingInSlot(slot).getColour(0));
 			}catch(Exception ex) {
 				System.err.println("Warning! GameCharacter.getCovering(BodyCoveringType bodyCoveringType) is not finding equipped penis clothing for bodyCoveringType 'DILDO'!");
 				return body.getCoverings().get(bodyCoveringType);
