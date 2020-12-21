@@ -1009,6 +1009,7 @@ public class CharacterUtils {
 		
 		body.setAss(new Ass(AssType.DEMON_COMMON,
 				(startingGender.isFeminine() ? demonBody.getFemaleAssSize() : demonBody.getMaleAssSize()),
+				(startingGender.isFeminine() ? demonBody.getFemaleHipSize() : demonBody.getMaleHipSize()),
 				demonBody.getAnusWetness(),
 				demonBody.getAnusCapacity(),
 				demonBody.getAnusDepth(),
@@ -1216,6 +1217,7 @@ public class CharacterUtils {
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
 				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
 						(startingGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleHipSize() : startingBodyType.getMaleHipSize()),
 						startingBodyType.getAnusWetness(),
 						startingBodyType.getAnusCapacity(),
 						startingBodyType.getAnusDepth(),
@@ -1355,6 +1357,7 @@ public class CharacterUtils {
 		
 		body.setAss(new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
 						(startingGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleHipSize() : startingBodyType.getMaleHipSize()),
 						startingBodyType.getAnusWetness(),
 						startingBodyType.getAnusCapacity(),
 						startingBodyType.getAnusDepth(),

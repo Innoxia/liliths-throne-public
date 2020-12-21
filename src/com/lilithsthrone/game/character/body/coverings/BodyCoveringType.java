@@ -793,14 +793,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
-			Util.newArrayListOfValues(
-					PresetColour.COVERING_CLEAR,
-					PresetColour.COVERING_BROWN,
-					PresetColour.COVERING_BLACK,
-					PresetColour.COVERING_RED,
-					PresetColour.COVERING_BLUE,
-					PresetColour.COVERING_PURPLE,
-					PresetColour.COVERING_GREEN),
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};
@@ -816,14 +809,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_CLEAR),
-			Util.newArrayListOfValues(
-					PresetColour.COVERING_WHITE,
-					PresetColour.COVERING_BROWN,
-					PresetColour.COVERING_BLACK,
-					PresetColour.COVERING_RED,
-					PresetColour.COVERING_BLUE,
-					PresetColour.COVERING_PURPLE,
-					PresetColour.COVERING_GREEN),
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};
@@ -839,14 +825,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
-			Util.newArrayListOfValues(
-					PresetColour.COVERING_CLEAR,
-					PresetColour.COVERING_BROWN,
-					PresetColour.COVERING_BLACK,
-					PresetColour.COVERING_RED,
-					PresetColour.COVERING_BLUE,
-					PresetColour.COVERING_PURPLE,
-					PresetColour.COVERING_GREEN),
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};

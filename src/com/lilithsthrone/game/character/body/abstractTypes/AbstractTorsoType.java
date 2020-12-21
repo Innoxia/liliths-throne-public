@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -40,6 +41,8 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 	
 	private String skinTransformationDescription;
 	private String skinBodyDescription;
+	
+	private List<BodyPartTag> torsoTags;
 	
 	/**
 	 * @param coveringType What constitutes this skin covering (i.e skin/fur/feather type).
@@ -68,6 +71,8 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 		
 		this.skinTransformationDescription = skinTransformationDescription;
 		this.skinBodyDescription = skinBodyDescription;
+		
+		this.torsoTags = new ArrayList<>();
 	}
 	
 	public AbstractTorsoType(File XMLFile, String author, boolean mod) {
@@ -105,6 +110,13 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 				
 				this.skinTransformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
 				this.skinBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+				this.torsoTags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						torsoTags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
 				
 			} catch(Exception ex) {
 				ex.printStackTrace();
@@ -174,5 +186,10 @@ public abstract class AbstractTorsoType implements BodyPartTypeInterface {
 //	@Override
 	public String getTransformationDescription(GameCharacter owner) {
 		return UtilText.parse(owner, skinTransformationDescription);
+	}
+
+	@Override
+	public List<BodyPartTag> getTags() {
+		return torsoTags;
 	}
 }

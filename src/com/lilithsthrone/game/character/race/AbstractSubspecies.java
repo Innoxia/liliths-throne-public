@@ -107,8 +107,10 @@ public abstract class AbstractSubspecies {
 	private Colour secondaryColour;
 	private Colour tertiaryColour;
 	
+	protected int iconSize;
 	protected String pathName;
 	protected String backgroundPathName;
+	protected boolean externalFileBackground;
 	
 	protected String SVGString;
 	protected String SVGStringUncoloured;
@@ -356,6 +358,7 @@ public abstract class AbstractSubspecies {
 			this.flags = flags;
 		}
 		
+		this.externalFileBackground = false;
 		this.pathName = "/com/lilithsthrone/res/" + pathName;
 		this.bookPathName = "/com/lilithsthrone/res/" + pathName;
 		this.backgroundPathName = "/com/lilithsthrone/res/" + backgroundPathName;
@@ -406,9 +409,18 @@ public abstract class AbstractSubspecies {
 				this.subspeciesWeighting = coreElement.getMandatoryFirstOf("subspeciesWeighting").getTextContent();
 				
 				this.pathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("iconName").getTextContent();
-				this.backgroundPathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("backgroundName").getTextContent();
-				if(this.backgroundPathName.isEmpty()) {
+				if(!coreElement.getMandatoryFirstOf("iconName").getAttribute("displaySize").isEmpty()) {
+					this.iconSize = Integer.valueOf(coreElement.getMandatoryFirstOf("iconName").getAttribute("displaySize"));
+				} else {
+					this.iconSize = 100;
+				}
+				
+				if(coreElement.getOptionalFirstOf("backgroundName").isPresent() && !coreElement.getMandatoryFirstOf("backgroundName").getTextContent().isEmpty()) {
+					this.backgroundPathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("backgroundName").getTextContent();
+					this.externalFileBackground = true;
+				} else {
 					this.backgroundPathName = "/com/lilithsthrone/res/statusEffects/race/raceBackground";
+					this.externalFileBackground = false;
 				}
 				this.SVGString = null;
 				
@@ -417,7 +429,9 @@ public abstract class AbstractSubspecies {
 				this.bookName = coreElement.getMandatoryFirstOf("bookName").getTextContent();
 				this.bookNamePlural = bookName; // There is no need for a plural
 				
-				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath() + "/";
+				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath();
+				bookIdFolderPath = "res"+bookIdFolderPath.split("res")[1];
+//				System.out.println(bookIdFolderPath);
 				this.basicDescriptionId = coreElement.getMandatoryFirstOf("basicDescriptionId").getTextContent();
 				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();
 				
@@ -431,13 +445,22 @@ public abstract class AbstractSubspecies {
 				this.pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
 
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
-				
-				this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
-				this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
-				this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
-				this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
-				this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
-				this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+
+				if(coreElement.getOptionalFirstOf("nameHalfDemon").isPresent()) {
+					this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
+					this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
+					this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
+					this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
+					this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
+					this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+				} else {
+					this.nameHalfDemon = null;
+					this.namePluralHalfDemon = null;
+					this.singularMaleNameHalfDemon = null;
+					this.singularFemaleNameHalfDemon = null;
+					this.pluralMaleNameHalfDemon = null;
+					this.pluralFemaleNameHalfDemon = null;
+				}
 				
 				this.feralAttributes = null;
 				if(coreElement.getOptionalFirstOf("feralAttributes").isPresent()
@@ -594,7 +617,9 @@ public abstract class AbstractSubspecies {
 			}
 		}
 		if(subspecies==null) {
-			System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+			if(Main.game.isStarted()) { // Races get recalculated after the game starts in Game.handlePostGameInit(), so only show errors if the detection is still failing after that
+				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+			}
 			return Subspecies.HUMAN;
 		}
 		return subspecies;
@@ -1194,7 +1219,8 @@ public abstract class AbstractSubspecies {
 						sb.append(line);
 					}
 					SVGStringUncoloured = sb.toString();
-					SVGStringUncoloured = "<div style='width:80%;height:80%;position:absolute;left:10%;bottom:10%;'>"+SVGStringUncoloured+"</div>";
+					float iconResizeBorder = (100-iconSize)/2f;
+					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
 					InputStream is = this.getClass().getResourceAsStream(pathName + ".svg");
@@ -1208,7 +1234,7 @@ public abstract class AbstractSubspecies {
 				
 				String SVGStringBackground = "";
 
-				if(this.isFromExternalFile()) {
+				if(this.externalFileBackground) {
 					List<String> lines = Files.readAllLines(Paths.get(backgroundPathName+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
@@ -1366,7 +1392,7 @@ public abstract class AbstractSubspecies {
 				|| this.getRace()==Race.ELEMENTAL
 				|| this.getRace()==Race.HUMAN) {
 			
-			String[] demonNames = demonLegConfigurationNames.get(character.getLegConfiguration());
+			String[] demonNames = demonLegConfigurationNames.get(character==null?LegConfiguration.BIPEDAL:character.getLegConfiguration());
 			
 			names = new String[] {
 				"half-"+demonNames[0],

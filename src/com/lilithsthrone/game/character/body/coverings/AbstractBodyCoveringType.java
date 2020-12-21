@@ -226,25 +226,36 @@ public abstract class AbstractBodyCoveringType {
 				this.isDefaultPlural = Boolean.valueOf(coreElement.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
 				
 				this.naturalModifiers = new ArrayList<>();
-				for(Element e : coreElement.getMandatoryFirstOf("naturalCoveringModifiers").getAllOf("modifier")) {
-					this.naturalModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+				if(coreElement.getOptionalFirstOf("naturalCoveringModifiers").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("naturalCoveringModifiers").getAllOf("modifier")) {
+						this.naturalModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+					}
 				}
-
+				
 				this.extraModifiers = new ArrayList<>();
-				for(Element e : coreElement.getMandatoryFirstOf("extraCoveringModifiers").getAllOf("modifier")) {
-					this.extraModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+				if(coreElement.getOptionalFirstOf("extraCoveringModifiers").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("extraCoveringModifiers").getAllOf("modifier")) {
+						this.extraModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
+					}
 				}
-
+				
 				this.naturalPatterns = new HashMap<>();
-				for(Element e : coreElement.getMandatoryFirstOf("naturalPatterns").getAllOf("pattern")) {
-					this.naturalPatterns.put(CoveringPattern.valueOf(e.getTextContent()), Integer.valueOf(e.getAttribute("weighting")));
+				if(coreElement.getOptionalFirstOf("naturalPatterns").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("naturalPatterns").getAllOf("pattern")) {
+						this.naturalPatterns.put(CoveringPattern.valueOf(e.getTextContent()), Integer.valueOf(e.getAttribute("weighting")));
+					}
 				}
-
+				if(this.naturalPatterns.isEmpty()) {
+					this.naturalPatterns.put(CoveringPattern.NONE, 1);
+				}
+				
 				this.dyePatterns = new HashMap<>();
-				for(Element e : coreElement.getMandatoryFirstOf("extraPatterns").getAllOf("pattern")) {
-					CoveringPattern pattern = CoveringPattern.valueOf(e.getTextContent());
-					if(!this.naturalPatterns.containsKey(pattern)) {
-						this.dyePatterns.put(pattern, Integer.valueOf(e.getAttribute("weighting")));
+				if(coreElement.getOptionalFirstOf("extraPatterns").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("extraPatterns").getAllOf("pattern")) {
+						CoveringPattern pattern = CoveringPattern.valueOf(e.getTextContent());
+						if(!this.naturalPatterns.containsKey(pattern)) {
+							this.dyePatterns.put(pattern, Integer.valueOf(e.getAttribute("weighting")));
+						}
 					}
 				}
 				

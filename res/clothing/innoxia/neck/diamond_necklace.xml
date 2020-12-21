@@ -38,6 +38,7 @@
 		<tertiaryColoursDye/>
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
 		</itemTags>
 	</coreAttributes>
 

@@ -114,7 +114,18 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional/>
+			<conditional><![CDATA[!clothingConditional2]]></conditional>
+			<types>
+				<type>innoxia_leg_cargo_trousers</type>
+				<type>innoxia_leg_jeans</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional2]]></conditional>
 			<types>
 				<type>LEG_ASSLESS_CHAPS</type>
 				<type>LEG_CROTCHLESS_CHAPS</type>

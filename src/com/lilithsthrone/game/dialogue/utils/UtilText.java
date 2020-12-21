@@ -65,6 +65,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -781,11 +782,11 @@ public class UtilText {
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(List<ParserTag> parserTags, String folderPath, String pathName, String tag, List<GameCharacter> specialNPC) {
-		File file = new File(folderPath+pathName+".xml");
+		File file = new File(folderPath+System.getProperty("file.separator")+pathName+".xml");
 
 		List<String> strings = new ArrayList<>();
 		
-		if (file.exists()) {
+		if(file.exists()) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -794,8 +795,10 @@ public class UtilText {
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				
-				for(int i=0; i<((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").getLength(); i++){
-					Element e = (Element) ((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").item(i);
+//				String rootElelemnt = doc.getDocumentElement().getTagName();
+				
+				for(int i=0; i<(doc.getDocumentElement()).getElementsByTagName("htmlContent").getLength(); i++){
+					Element e = (Element) (doc.getDocumentElement()).getElementsByTagName("htmlContent").item(i);
 					
 					if(e.getAttribute("tag").equals(tag)) {
 						strings.add(e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
@@ -805,6 +808,8 @@ public class UtilText {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else {
+			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+pathName+".xml")+"' does not exist!");
 		}
 		
 		if(strings.isEmpty()) {
@@ -3270,7 +3275,7 @@ public class UtilText {
 				false,
 				false,
 				"(thought content)",
-				"Parses the supplied text in teh argument as though it's a thought of the character."){
+				"Parses the supplied text in the argument as though it's a thought of the character."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -8911,10 +8916,12 @@ public class UtilText {
 //		engine = manager.getEngineByName("javascript");
 		
 		// Parser targets:
-		for(ParserTarget target : ParserTarget.values()) {
-			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
-				for(String tag : target.getTags()) {
-					engine.put(tag, target.getCharacter(tag, null));
+		if(Main.game.isStarted()) {
+			for(ParserTarget target : ParserTarget.values()) {
+				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
+					for(String tag : target.getTags()) {
+						engine.put(tag, target.getCharacter(tag, null));
+					}
 				}
 			}
 		}
@@ -9003,6 +9010,9 @@ public class UtilText {
 		}
 		for(CumProduction cumProduction : CumProduction.values()) {
 			engine.put("CUM_PRODUCTION_"+cumProduction.toString(), cumProduction);
+		}
+		for(BodyPartTag bpt : BodyPartTag.values()) {
+			engine.put("BODY_PART_TAG_"+bpt.toString(), bpt);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
@@ -9237,35 +9247,37 @@ public class UtilText {
 		if(engine==null) {
 			initScriptEngine();
 		}
-		
-		if(!specialNPCs.isEmpty()) {
-//			System.out.println("List size: "+specialNPCList.size());
-			for(int i = 0; i<specialNPCs.size(); i++) {
-				if(i==0) {
-					engine.put("npc", specialNPCs.get(i));
+
+		if(Main.game.isStarted()) {
+			if(!specialNPCs.isEmpty()) {
+	//			System.out.println("List size: "+specialNPCList.size());
+				for(int i = 0; i<specialNPCs.size(); i++) {
+					if(i==0) {
+						engine.put("npc", specialNPCs.get(i));
+					}
+					engine.put("npc"+(i+1), specialNPCs.get(i));
+	//				System.out.println("Added: npc"+(i+1));
 				}
-				engine.put("npc"+(i+1), specialNPCs.get(i));
-//				System.out.println("Added: npc"+(i+1));
+				
+			} else {
+				try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+					engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
+	//				System.out.println("specialNPCList is empty");
+				} catch(Exception ex) {
+	//				System.err.println("Parsing error 2: Could not initialise npc");
+				}
 			}
 			
-		} else {
-			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
-				engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
-//				System.out.println("specialNPCList is empty");
-			} catch(Exception ex) {
-//				System.err.println("Parsing error 2: Could not initialise npc");
+			if(Main.game.getPlayer().hasCompanions()) {
+				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
+					if(i==0) {
+						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
+					}
+					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+				}
 			}
 		}
 		
-		if(Main.game.getPlayer().hasCompanions()) {
-			for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
-				if(i==0) {
-					engine.put("com", Main.game.getPlayer().getCompanions().get(i));
-				}
-				engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
-			}
-		}
-
 		StringBuilder conditionalStatementWithVariables = new StringBuilder();
 		
 		if(hasXmlVariables) {

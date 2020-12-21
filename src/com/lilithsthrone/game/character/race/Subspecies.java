@@ -37,7 +37,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -187,10 +186,15 @@ public class Subspecies {
 			PresetColour.RACE_HUMAN,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical human.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -242,7 +246,8 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical angel.",
 			null,
-			Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -321,7 +326,8 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"One of the seven elder lilin.",
 			null,
-			Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -378,7 +384,8 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"A lilin.",
 			null,
-			null, Util.newArrayListOfValues(
+			null,
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -435,10 +442,14 @@ public class Subspecies {
 			PresetColour.RACE_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical demon.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -606,12 +617,16 @@ public class Subspecies {
 			PresetColour.RACE_HALF_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"The result of copulation between a demon and a non-demonic partner.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), Util.newArrayListOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -747,9 +762,10 @@ public class Subspecies {
 			PresetColour.RACE_IMP,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical imp.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -819,9 +835,10 @@ public class Subspecies {
 			PresetColour.RACE_IMP,
 			SubspeciesPreference.ONE_LOW,
 			"A more powerful form of imp, standing at over 3'6\" tall.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.TWO_RARE)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -902,10 +919,14 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic cow, known as a 'cow-morph' when bipedal, and a 'cowtaur' when the lower body is that of a feral cow.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+			null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
@@ -976,10 +997,18 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 0)),
 			PresetColour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic dog, known as a 'dog-morph' when bipedal, and a 'dogtaur' when the lower body is that of an oversized feral dog.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
@@ -1064,10 +1093,13 @@ public class Subspecies {
 			SubspeciesPreference.TWO_AVERAGE, "A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
 							+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
 							+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
@@ -1170,10 +1202,12 @@ public class Subspecies {
 			"A dog-morph which resembles an anthropomorphised dobermann."
 				+ " They are known as 'dobermanns' when bipedal, and 'dobermanntaurs' when the lower body is that of an oversized feral dobermann."
 				+ " To be identified as a dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour secondaryColour = PresetColour.COVERING_BROWN;
@@ -1290,10 +1324,14 @@ public class Subspecies {
 			"A strong, intelligent, and loyal subspecies of dog-morph, which resembles an anthropomorphised German-shepherd."
 				+ " They are known as 'German-shepherd-morphs' when bipedal, and 'German-shepherd-taurs' when the lower body is that of an oversized feral German-shepherd."
 				+ " To be identified as a German-shepherd-morph, a character must be a dog-morph that has upright ears, and fluffy, black fur with tan markings.",
-			null,
+				Util.newHashMapOfValues(
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
+						new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+						new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 			new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
@@ -1392,10 +1430,14 @@ public class Subspecies {
 			PresetColour.RACE_WOLF_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic wolf, known as a 'wolf-morph' when bipedal, and a 'wolftaur' when the lower body is that of a typically-oversized feral wolf.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
@@ -1488,10 +1530,14 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT, "An anthropomorphic fox, known as a 'fox-morph' when bipedal, and a 'foxtaur' when the lower body is that of a typically-oversized feral fox.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			AbstractSubspecies.applyFoxColoring(body);
@@ -1557,10 +1603,12 @@ public class Subspecies {
 			PresetColour.RACE_FOX_MORPH_ARCTIC,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
@@ -1633,10 +1681,13 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox with distinctive large ears, and with either tan, dirty blonde, or bleach-blonde fur."
 					+ " They are known as a 'fennec-morph' when bipedal, and a 'fennectaur' when the lower body is that of a typically-oversized feral fennec fox.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.DESERT, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour fennecColour = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN));
@@ -1715,8 +1766,10 @@ public class Subspecies {
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fox-morph, empowered by the gifts of a Lilin.",
-			null,
-			Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -1844,8 +1897,10 @@ public class Subspecies {
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
-			null,
-			Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -1964,8 +2019,10 @@ public class Subspecies {
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fennec-morph, empowered by the gifts of a Lilin.",
-			null,
-			Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -2105,10 +2162,18 @@ public class Subspecies {
 			PresetColour.RACE_CAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic cat, known as a 'cat-morph' when bipedal, and a 'cat-taur' when the lower body is that of a typically-oversized feral cat.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 		}
@@ -2171,10 +2236,14 @@ public class Subspecies {
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic lynx, known as a 'lynx-morph' when bipedal, and a 'lynxtaur' when the lower body is that of a typically-oversized feral lynx."
 				+ " To be identified as a Lynx-morph, a character must be a cat-morph that has fluffy fur, tufted ears, a short tail, and side-fluff hair type.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = PresetColour.COVERING_BROWN;
@@ -2215,396 +2284,7 @@ public class Subspecies {
 			return 0;
 		}
 	};
-	
-	public static AbstractSubspecies CAT_MORPH_LEOPARD_SNOW = new AbstractSubspecies(false,
-			18000,
-			"innoxia_race_cat_felines_fancy",
-			"innoxia_race_cat_kittys_reward",
-			"statusEffects/race/raceCatMorph",
-			"statusEffects/race/raceBackgroundSnowLeopard",
-			"snow leopard-morph",
-			"snow leopard-morphs",
-			"snow leopard-boy",
-			"snow leopard-girl",
-			"snow leopard-boys",
-			"snow leopard-girls",
-			new FeralAttributes(
-					"snow leopard",
-					"snow leopards",
-					"snow leopard",
-					"snow leopardess",
-					"snow leopards",
-					"snow leopardesses",
-					LegConfiguration.QUADRUPEDAL,
-					60,
-					0,
-					1,
-					4,
-					1, false),
-			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike."
-					+ " [npc.She] also [npc.has] a very high resistance to both natural and arcane cold.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 20f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
-					new Value<>(Attribute.DAMAGE_UNARMED, 5f),
-					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<>(Attribute.RESISTANCE_ICE, 5f)),
-			null,
-			"Curious Kitties",
-			"Curious Kitties",
-			"CAT_MORPH_BASIC",
-			"CAT_MORPH_ADVANCED",
-			Race.CAT_MORPH,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
-					new Value<>(PerkCategory.LUST, 2),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.RACE_CAT_MORPH_LEOPARD_SNOW,
-			SubspeciesPreference.TWO_AVERAGE,
-			"An anthropomorphic snow leopard, known as a 'snow leopard-morph' when bipedal, and a 'snow leopardtaur' when the lower body is that of a typically-oversized feral snow leopard."
-				+ " To be identified as a snow leopard-morph, a character must be a cat-morph that has fluffy spotted fur, normal tail and panther face.",
-			null,
-			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			Colour primaryColor = PresetColour.COVERING_WHITE;
-			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			double rand = Math.random();
-			if(rand<0.3f) {
-				primaryColor = PresetColour.COVERING_WHITE;
-			} else if(rand<0.6f) {
-				primaryColor = PresetColour.COVERING_GREY;
-			} else if(rand<0.65f) {
-				primaryColor = PresetColour.COVERING_BLACK;
-			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
-			body.updateCoverings(true, true, true, true);
-			if(body.getFace().getType()==FaceType.CAT_MORPH) {
-				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
-			}
-			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH);
-				body.getTail().setTailGirth(null, PenetrationGirth.FOUR_THICK.getValue());
-			}
-			
-			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		}
 
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.CAT_MORPH) {
-				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
-				
-				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
-					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
-					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.FLUFFY
-					&& body.getTail().getType()==TailType.CAT_MORPH) {
-					return 150;
-				}
-			}
-			return 0;
-		}
-	};
-	
-	public static AbstractSubspecies CAT_MORPH_LEOPARD = new AbstractSubspecies(false,
-			16000,
-			"innoxia_race_cat_felines_fancy",
-			"innoxia_race_cat_kittys_reward",
-			"statusEffects/race/raceCatMorph",
-			"statusEffects/race/raceBackgroundLeopard",
-			"leopard-morph",
-			"leopard-morphs",
-			"leopard-boy",
-			"leopard-girl",
-			"leopard-boys",
-			"leopard-girls",
-			new FeralAttributes(
-					"leopard",
-					"leopards",
-					"leopard",
-					"leopardess",
-					"leopard",
-					"leopardesses",
-					LegConfiguration.QUADRUPEDAL,
-					70,
-					0,
-					1,
-					4,
-					1, false),
-			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike."
-					+ " [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 20f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
-					new Value<>(Attribute.DAMAGE_UNARMED, 5f),
-					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<>(Attribute.RESISTANCE_FIRE, 5f)),
-			null,
-			"Curious Kitties",
-			"Curious Kitties",
-			"CAT_MORPH_BASIC",
-			"CAT_MORPH_ADVANCED",
-			Race.CAT_MORPH,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
-					new Value<>(PerkCategory.LUST, 2),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.RACE_CAT_MORPH_LEOPARD,
-			SubspeciesPreference.TWO_AVERAGE,
-			"An anthropomorphic leopard, known as a 'leopard-morph' when bipedal, and a 'leopardtaur' when the lower body is that of a typically-oversized feral leopard."
-				+ " To be identified as a leopard-morph, a character must be a cat-morph that has short spotted fur, normal tail and panther face.",
-			null,
-			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			Colour primaryColor = PresetColour.COVERING_ORANGE;
-			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			double rand = Math.random();
-			if(rand<0.05f) {
-				primaryColor = PresetColour.COVERING_BLACK;
-			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
-			body.updateCoverings(true, true, true, true);
-			if(body.getFace().getType()==FaceType.CAT_MORPH) {
-				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
-			}
-			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH);
-			}
-			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		}
-
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.CAT_MORPH) {
-				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
-				
-				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
-					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
-					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
-					&& body.getTail().getType()==TailType.CAT_MORPH) {
-					return 150;
-				}
-			}
-			return 0;
-		}
-	};
-	
-	public static AbstractSubspecies CAT_MORPH_LION = new AbstractSubspecies(false,
-			24000,
-			"innoxia_race_cat_felines_fancy",
-			"innoxia_race_cat_kittys_reward",
-			"statusEffects/race/raceCatMorph",
-			"statusEffects/race/raceBackground",
-			"lion-morph",
-			"lion-morphs",
-			"lion-boy",
-			"lion-girl",
-			"lion-boys",
-			"lion-girls",
-			new FeralAttributes(
-					"lion",
-					"lions",
-					"lion",
-					"lioness",
-					"lions",
-					"lionesses",
-					LegConfiguration.QUADRUPEDAL,
-					100,
-					0,
-					1,
-					4,
-					1,
-					true),
-			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength."
-					+ " [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 30f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-					new Value<>(Attribute.DAMAGE_UNARMED, 15f),
-					new Value<>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<>(Attribute.RESISTANCE_FIRE, 5f)),
-			null,
-			"Curious Kitties",
-			"Curious Kitties",
-			"CAT_MORPH_BASIC",
-			"CAT_MORPH_ADVANCED",
-			Race.CAT_MORPH,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 20),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 20),
-					new Value<>(PerkCategory.LUST, 2),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.RACE_CAT_MORPH_LION,
-			SubspeciesPreference.TWO_AVERAGE,
-			"An anthropomorphic lion, known as a 'lion-morph' when bipedal, and a 'liontaur' when the lower body is that of a feral lion."
-				+ " To be identified as a lion-morph, a character must be a cat-morph that has short fur, tufted tail and panther face.",
-			null,
-			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			Colour primaryColor = PresetColour.COVERING_TAN;
-			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			double rand = Math.random();
-			if(rand<0.05f) {
-				primaryColor = PresetColour.COVERING_BLACK;
-			}
-			else if(rand<0.1f) {
-				primaryColor = PresetColour.COVERING_WHITE;
-			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
-			body.updateCoverings(true, true, true, true);
-			if(body.getFace().getType()==FaceType.CAT_MORPH) {
-				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
-			}
-			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH_TUFTED);
-			}
-			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		}
-
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.CAT_MORPH) {
-				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
-				
-				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
-					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
-					&& body.getTail().getType()==TailType.CAT_MORPH_TUFTED) {
-					return 150;
-				}
-			}
-			return 0;
-		}
-	};
-	
-	public static AbstractSubspecies CAT_MORPH_TIGER = new AbstractSubspecies(false,
-			30000,
-			"innoxia_race_cat_felines_fancy",
-			"innoxia_race_cat_kittys_reward",
-			"statusEffects/race/raceCatMorph",
-			"statusEffects/race/raceBackgroundTiger",
-			"tiger-morph",
-			"tiger-morphs",
-			"tiger-boy",
-			"tiger-girl",
-			"tiger-boys",
-			"tiger-girls",
-			new FeralAttributes(
-					"tiger",
-					"tigers",
-					"tiger",
-					"tigress",
-					"tigers",
-					"tigresses",
-					LegConfiguration.QUADRUPEDAL,
-					100,
-					0,
-					1,
-					4,
-					1, false),
-			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength.",
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 30f),
-					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-					new Value<>(Attribute.DAMAGE_UNARMED, 25f),
-					new Value<>(Attribute.DAMAGE_PHYSICAL, 25f)),
-			null,
-			"Curious Kitties",
-			"Curious Kitties",
-			"CAT_MORPH_BASIC",
-			"CAT_MORPH_ADVANCED",
-			Race.CAT_MORPH,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 20),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 20),
-					new Value<>(PerkCategory.LUST, 2),
-					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.RACE_CAT_MORPH_TIGER,
-			SubspeciesPreference.TWO_AVERAGE,
-			"An anthropomorphic tiger, known as a 'tiger-morph' when bipedal, and a 'tigertaur' when the lower body is that of a feral tiger."
-				+ " To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
-			null,
-			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			Colour primaryColor = PresetColour.COVERING_ORANGE;
-			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			double rand = Math.random();
-			if(rand<0.6f) {
-				primaryColor = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_TAN, PresetColour.COVERING_AUBURN, PresetColour.COVERING_AMBER));
-			} else if(rand<0.12f) {
-				primaryColor = PresetColour.COVERING_WHITE;
-			} else if(rand<0.16f) {
-				primaryColor = PresetColour.COVERING_BLACK;
-			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
-			body.updateCoverings(true, true, true, true);
-			if(body.getFace().getType()==FaceType.CAT_MORPH) {
-				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
-			}
-			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
-				body.getTail().setType(null, TailType.CAT_MORPH);
-			}
-			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		}
-
-		@Override
-		public int getSubspeciesWeighting(Body body, AbstractRace race) {
-			if(race==Race.CAT_MORPH) {
-				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
-				
-				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
-					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.STRIPED
-					&& body.getTail().getType()==TailType.CAT_MORPH) {
-					return 150;
-					
-				}
-			}
-			return 0;
-		}
-	};
-	
 	public static AbstractSubspecies CAT_MORPH_CHEETAH = new AbstractSubspecies(false,
 			16000,
 			"innoxia_race_cat_felines_fancy",
@@ -2654,10 +2334,13 @@ public class Subspecies {
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic cheetah, known as a 'cheetah-morph' when bipedal, and a 'cheetahtaur' when the lower body is that of a typically-oversized feral cheetah."
 				+ " To be identified as a cheetah-morph, a character must be a cat-morph that has short, spotted fur and not identified as other feline morphs.",
-			null,
+				Util.newHashMapOfValues(
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = PresetColour.COVERING_ORANGE;
@@ -2759,10 +2442,13 @@ public class Subspecies {
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic caracal, known as a 'caracal-morph' when bipedal, and a 'caracaltaur' when the lower body is that of a typically-oversized feral caracal."
 				+ " To be identified as a caracal-morph, a character must be a cat-morph with tufted ears.",
-			null,
+				Util.newHashMapOfValues(
+						new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+						new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType().getRace()==Race.CAT_MORPH) {
@@ -2780,6 +2466,407 @@ public class Subspecies {
 		}
 	};
 
+//	public static AbstractSubspecies CAT_MORPH_LEOPARD_SNOW = new AbstractSubspecies(false,
+//			18000,
+//			"innoxia_race_cat_felines_fancy",
+//			"innoxia_race_cat_kittys_reward",
+//			"statusEffects/race/raceCatMorph",
+//			"statusEffects/race/raceBackgroundSnowLeopard",
+//			"snow leopard-morph",
+//			"snow leopard-morphs",
+//			"snow leopard-boy",
+//			"snow leopard-girl",
+//			"snow leopard-boys",
+//			"snow leopard-girls",
+//			new FeralAttributes(
+//					"snow leopard",
+//					"snow leopards",
+//					"snow leopard",
+//					"snow leopardess",
+//					"snow leopards",
+//					"snow leopardesses",
+//					LegConfiguration.QUADRUPEDAL,
+//					60,
+//					0,
+//					1,
+//					4,
+//					1, false),
+//			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike."
+//					+ " [npc.She] also [npc.has] a very high resistance to both natural and arcane cold.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 20f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+//					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
+//					new Value<>(Attribute.DAMAGE_UNARMED, 5f),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
+//					new Value<>(Attribute.RESISTANCE_ICE, 5f)),
+//			null,
+//			"Curious Kitties",
+//			"Curious Kitties",
+//			"CAT_MORPH_BASIC",
+//			"CAT_MORPH_ADVANCED",
+//			Race.CAT_MORPH,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 10),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 10),
+//					new Value<>(PerkCategory.LUST, 2),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.RACE_CAT_MORPH_LEOPARD_SNOW,
+//			SubspeciesPreference.TWO_AVERAGE,
+//			"An anthropomorphic snow leopard, known as a 'snow leopard-morph' when bipedal, and a 'snow leopardtaur' when the lower body is that of a typically-oversized feral snow leopard."
+//				+ " To be identified as a snow leopard-morph, a character must be a cat-morph that has fluffy spotted fur, normal tail and panther face.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+//					new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+//					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+//			Util.newHashMapOfValues(
+//				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			Colour primaryColor = PresetColour.COVERING_WHITE;
+//			Colour secondaryColor = PresetColour.COVERING_BLACK;
+//			double rand = Math.random();
+//			if(rand<0.3f) {
+//				primaryColor = PresetColour.COVERING_WHITE;
+//			} else if(rand<0.6f) {
+//				primaryColor = PresetColour.COVERING_GREY;
+//			} else if(rand<0.65f) {
+//				primaryColor = PresetColour.COVERING_BLACK;
+//			}
+//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			body.updateCoverings(true, true, true, true);
+//			if(body.getFace().getType()==FaceType.CAT_MORPH) {
+//				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
+//			}
+//			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
+//				body.getTail().setType(null, TailType.CAT_MORPH);
+//				body.getTail().setTailGirth(null, PenetrationGirth.FOUR_THICK.getValue());
+//			}
+//			
+//			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+//			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+//		}
+//
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.CAT_MORPH) {
+//				AbstractFaceType faceType = body.getFace().getType();
+//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				
+//				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
+//					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
+//					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.FLUFFY
+//					&& body.getTail().getType()==TailType.CAT_MORPH) {
+//					return 150;
+//				}
+//			}
+//			return 0;
+//		}
+//	};
+//	
+//	public static AbstractSubspecies CAT_MORPH_LEOPARD = new AbstractSubspecies(false,
+//			16000,
+//			"innoxia_race_cat_felines_fancy",
+//			"innoxia_race_cat_kittys_reward",
+//			"statusEffects/race/raceCatMorph",
+//			"statusEffects/race/raceBackgroundLeopard",
+//			"leopard-morph",
+//			"leopard-morphs",
+//			"leopard-boy",
+//			"leopard-girl",
+//			"leopard-boys",
+//			"leopard-girls",
+//			new FeralAttributes(
+//					"leopard",
+//					"leopards",
+//					"leopard",
+//					"leopardess",
+//					"leopard",
+//					"leopardesses",
+//					LegConfiguration.QUADRUPEDAL,
+//					70,
+//					0,
+//					1,
+//					4,
+//					1, false),
+//			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike. [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 20f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+//					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
+//					new Value<>(Attribute.DAMAGE_UNARMED, 5f),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
+//					new Value<>(Attribute.RESISTANCE_FIRE, 5f)),
+//			null,
+//			"Curious Kitties",
+//			"Curious Kitties",
+//			"CAT_MORPH_BASIC",
+//			"CAT_MORPH_ADVANCED",
+//			Race.CAT_MORPH,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 10),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 10),
+//					new Value<>(PerkCategory.LUST, 2),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.RACE_CAT_MORPH_LEOPARD,
+//			SubspeciesPreference.TWO_AVERAGE,
+//			"An anthropomorphic leopard, known as a 'leopard-morph' when bipedal, and a 'leopardtaur' when the lower body is that of a typically-oversized feral leopard."
+//			+ " To be identified as a leopard-morph, a character must be a cat-morph that has short spotted fur, normal tail and panther face.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+//					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+//					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE),
+//					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
+//					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+//			Util.newHashMapOfValues(
+//				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			Colour primaryColor = PresetColour.COVERING_SANDY;
+//			Colour secondaryColor = PresetColour.COVERING_BLACK;
+//			double rand = Math.random();
+//			if(rand<0.05f) {
+//				primaryColor = PresetColour.COVERING_BLACK;
+//			}
+//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			body.updateCoverings(true, true, true, true);
+//			if(body.getFace().getType()==FaceType.CAT_MORPH) {
+//				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
+//			}
+//			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
+//				body.getTail().setType(null, TailType.CAT_MORPH);
+//			}
+//			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+//			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+//		}
+//
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.CAT_MORPH) {
+//				AbstractFaceType faceType = body.getFace().getType();
+//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				
+//				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
+//					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
+//					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
+//					&& body.getTail().getType()==TailType.CAT_MORPH) {
+//					return 150;
+//				}
+//			}
+//			return 0;
+//		}
+//	};
+//	
+//	public static AbstractSubspecies CAT_MORPH_LION = new AbstractSubspecies(false,
+//			24000,
+//			"innoxia_race_cat_felines_fancy",
+//			"innoxia_race_cat_kittys_reward",
+//			"statusEffects/race/raceCatMorph",
+//			"statusEffects/race/raceBackground",
+//			"lion-morph",
+//			"lion-morphs",
+//			"lion-boy",
+//			"lion-girl",
+//			"lion-boys",
+//			"lion-girls",
+//			new FeralAttributes(
+//					"lion",
+//					"lions",
+//					"lion",
+//					"lioness",
+//					"lions",
+//					"lionesses",
+//					LegConfiguration.QUADRUPEDAL,
+//					100,
+//					0,
+//					1,
+//					4,
+//					1,
+//					true),
+//			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength. [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 30f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+//					new Value<>(Attribute.DAMAGE_UNARMED, 15f),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 15f),
+//					new Value<>(Attribute.RESISTANCE_FIRE, 5f)),
+//			null,
+//			"Curious Kitties",
+//			"Curious Kitties",
+//			"CAT_MORPH_BASIC",
+//			"CAT_MORPH_ADVANCED",
+//			Race.CAT_MORPH,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 20),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 20),
+//					new Value<>(PerkCategory.LUST, 2),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.RACE_CAT_MORPH_LION,
+//			SubspeciesPreference.TWO_AVERAGE,
+//			"An anthropomorphic lion, known as a 'lion-morph' when bipedal, and a 'liontaur' when the lower body is that of a feral lion."
+//				+ " To be identified as a lion-morph, a character must be a cat-morph that has short fur, tufted tail and panther face.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+//					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+//					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+//			Util.newHashMapOfValues(
+//				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			Colour primaryColor = PresetColour.COVERING_TAN;
+//			Colour secondaryColor = PresetColour.COVERING_BLACK;
+//			double rand = Math.random();
+//			if(rand<0.05f) {
+//				primaryColor = PresetColour.COVERING_BLACK;
+//			}
+//			else if(rand<0.1f) {
+//				primaryColor = PresetColour.COVERING_WHITE;
+//			}
+//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			body.updateCoverings(true, true, true, true);
+//			if(body.getFace().getType()==FaceType.CAT_MORPH) {
+//				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
+//			}
+//			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
+//				body.getTail().setType(null, TailType.CAT_MORPH_TUFTED);
+//			}
+//			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+//			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+//		}
+//
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.CAT_MORPH) {
+//				AbstractFaceType faceType = body.getFace().getType();
+//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				
+//				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
+//					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
+//					&& body.getTail().getType()==TailType.CAT_MORPH_TUFTED) {
+//					return 150;
+//				}
+//			}
+//			return 0;
+//		}
+//	};
+//	
+//	public static AbstractSubspecies CAT_MORPH_TIGER = new AbstractSubspecies(false,
+//			30000,
+//			"innoxia_race_cat_felines_fancy",
+//			"innoxia_race_cat_kittys_reward",
+//			"statusEffects/race/raceCatMorph",
+//			"statusEffects/race/raceBackgroundTiger",
+//			"tiger-morph",
+//			"tiger-morphs",
+//			"tiger-boy",
+//			"tiger-girl",
+//			"tiger-boys",
+//			"tiger-girls",
+//			new FeralAttributes(
+//					"tiger",
+//					"tigers",
+//					"tiger",
+//					"tigress",
+//					"tigers",
+//					"tigresses",
+//					LegConfiguration.QUADRUPEDAL,
+//					100,
+//					0,
+//					1,
+//					4,
+//					1, false),
+//			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength.",
+//			Util.newHashMapOfValues(
+//					new Value<>(Attribute.MAJOR_PHYSIQUE, 30f),
+//					new Value<>(Attribute.MAJOR_ARCANE, 0f),
+//					new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
+//					new Value<>(Attribute.DAMAGE_UNARMED, 25f),
+//					new Value<>(Attribute.DAMAGE_PHYSICAL, 25f)),
+//			null,
+//			"Curious Kitties",
+//			"Curious Kitties",
+//			"CAT_MORPH_BASIC",
+//			"CAT_MORPH_ADVANCED",
+//			Race.CAT_MORPH,
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 20),
+//					new Value<>(PerkCategory.LUST, 5),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			Util.newHashMapOfValues(
+//					new Value<>(PerkCategory.PHYSICAL, 20),
+//					new Value<>(PerkCategory.LUST, 2),
+//					new Value<>(PerkCategory.ARCANE, 0)),
+//			PresetColour.RACE_CAT_MORPH_TIGER,
+//			SubspeciesPreference.TWO_AVERAGE,
+//			"An anthropomorphic tiger, known as a 'tiger-morph' when bipedal, and a 'tigertaur' when the lower body is that of a feral tiger."
+//				+ " To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
+//			Util.newHashMapOfValues(
+//					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+//					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
+//					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+//			Util.newHashMapOfValues(
+//				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+//			null) {
+//		@Override
+//		public void applySpeciesChanges(Body body) {
+//			Colour primaryColor = PresetColour.COVERING_ORANGE;
+//			Colour secondaryColor = PresetColour.COVERING_BLACK;
+//			double rand = Math.random();
+//			if(rand<0.6f) {
+//				primaryColor = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_TAN, PresetColour.COVERING_AUBURN, PresetColour.COVERING_AMBER));
+//			} else if(rand<0.12f) {
+//				primaryColor = PresetColour.COVERING_WHITE;
+//			} else if(rand<0.16f) {
+//				primaryColor = PresetColour.COVERING_BLACK;
+//			}
+//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			body.updateCoverings(true, true, true, true);
+//			if(body.getFace().getType()==FaceType.CAT_MORPH) {
+//				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
+//			}
+//			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
+//				body.getTail().setType(null, TailType.CAT_MORPH);
+//			}
+//			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+//			body.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+//		}
+//
+//		@Override
+//		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+//			if(race==Race.CAT_MORPH) {
+//				AbstractFaceType faceType = body.getFace().getType();
+//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				
+//				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
+//					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.STRIPED
+//					&& body.getTail().getType()==TailType.CAT_MORPH) {
+//					return 150;
+//					
+//				}
+//			}
+//			return 0;
+//		}
+//	};
+	
 	// EQUINES:
 	public static AbstractSubspecies HORSE_MORPH = new AbstractSubspecies(true,
 			18000,
@@ -2832,10 +2919,15 @@ public class Subspecies {
 			PresetColour.RACE_HORSE_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal horse.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -2926,10 +3018,14 @@ public class Subspecies {
 			PresetColour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a single magical horn growing from their forehead.",
-			null,
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) {
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
@@ -3024,10 +3120,13 @@ public class Subspecies {
 			PresetColour.RACE_PEGASUS,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a pair of feathered wings growing from their back.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -3120,10 +3219,12 @@ public class Subspecies {
 			PresetColour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has both a pair of feathered wings growing from their back, as well as a single magical horn growing from their forehead.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
@@ -3194,8 +3295,8 @@ public class Subspecies {
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 25f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null,
-			"Equine Encyclopedia",
-			"Equine Encyclopedias",
+			"Centaurs & More",
+			"Centaurs & More",
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
@@ -3210,10 +3311,15 @@ public class Subspecies {
 			PresetColour.RACE_CENTAUR,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Anyone who has the feral, quadrupedal lower body of a horse is classified as a centaur.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) { //TODO add to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3267,8 +3373,8 @@ public class Subspecies {
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
-			"Equine Encyclopedia",
-			"Equine Encyclopedias",
+			"Centaurs & More",
+			"Centaurs & More",
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
@@ -3283,10 +3389,13 @@ public class Subspecies {
 			PresetColour.RACE_PEGATAUR,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse is classified as a pegataur.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), null) { //TODO add to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3344,8 +3453,8 @@ public class Subspecies {
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 5f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
-			"Equine Encyclopedia",
-			"Equine Encyclopedias",
+			"Centaurs & More",
+			"Centaurs & More",
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
@@ -3360,10 +3469,13 @@ public class Subspecies {
 			PresetColour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as a unitaur.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), null) { //TODO add to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3423,8 +3535,8 @@ public class Subspecies {
 					new Value<>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null,
-			"Equine Encyclopedia",
-			"Equine Encyclopedias",
+			"Centaurs & More",
+			"Centaurs & More",
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
@@ -3439,10 +3551,12 @@ public class Subspecies {
 			PresetColour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as an alitaur.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), null) { //TODO add to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3538,10 +3652,13 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic horse with black-and-white striped fur, known as a 'zebra-morph' when bipedal, and a 'zebrataur' when the lower body is that of a feral zebra."
 					+" To be identified as a zebra-morph, a character must be a horse-morph that has black-and-white striped hair, with a zebra-morph's tail.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -3631,8 +3748,8 @@ public class Subspecies {
 					new Value<>(Attribute.RESISTANCE_PHYSICAL, 2f),
 					new Value<>(Attribute.RESISTANCE_ICE, 5f)),
 			null,
-			"One Who Paws",
-			"One Who Paws'",
+			"Reindeer Migrations",
+			"Reindeer Migrations",
 			"REINDEER_MORPH_BASIC",
 			"REINDEER_MORPH_ADVANCED",
 			Race.REINDEER_MORPH,
@@ -3647,9 +3764,11 @@ public class Subspecies {
 			PresetColour.RACE_REINDEER_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic reindeer, known as a 'reindeer-morph' when bipedal, and a 'reindeertaur' when the lower body is that of a feral reindeer.",
-			null,
 			Util.newHashMapOfValues(
-							new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)), null) {
+					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
+			null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.REINDEER_MORPH) {
@@ -3707,10 +3826,12 @@ public class Subspecies {
 			PresetColour.RACE_ALLIGATOR_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic alligator, known as an 'alligator-morph' when bipedal, and an 'alligatortaur' when the lower body is that of a typically-oversized feral alligator.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) {
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
+			null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.ALLIGATOR_MORPH) {
@@ -3757,10 +3878,11 @@ public class Subspecies {
 			PresetColour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Someone who is made completely of slime, with a sold core suspended in the place where their heart should be.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public AbstractItemType getTransformativeItem(GameCharacter owner) {
@@ -3948,10 +4070,14 @@ public class Subspecies {
 			PresetColour.RACE_SQUIRREL_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic squirrel, known as a 'squirrel-morph' when bipedal, and a 'squirreltaur' when the lower body is that of an oversized feral squirrel.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.SQUIRREL_MORPH) {
@@ -4009,9 +4135,14 @@ public class Subspecies {
 			PresetColour.RACE_RAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rat, known as a 'rat-morph' when bipedal, and a 'rat-taur' when the lower body is that of an oversized feral rat.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4069,10 +4200,14 @@ public class Subspecies {
 			PresetColour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rabbit, known as a 'rabbit-morph' when bipedal, and a 'rabbit-taur' when the lower body is that of an oversized feral rabbit.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) { //TODO move to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
@@ -4154,10 +4289,14 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rabbit which has floppy ears instead of the usual upright ones."
 					+ " Known as a 'lop-rabbit-morph' when bipedal, and a 'lop-rabbit-taur' when the lower body is that of an oversized feral lop-rabbit.",
-			null,
 			Util.newHashMapOfValues(
-				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {  //TODO move to fields
+					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
@@ -4241,10 +4380,18 @@ public class Subspecies {
 			PresetColour.RACE_BAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bat.",
-			null, Util.newHashMapOfValues(
-							new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
-							new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON),
-							new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), null) {
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+				new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.BAT_MORPH) {
@@ -4304,10 +4451,18 @@ public class Subspecies {
 			PresetColour.RACE_HARPY,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bird. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
-			null,
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newArrayListOfValues(
 				SubspeciesFlag.DISBALE_SPAWN_PREFERENCE,
 				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
@@ -4394,10 +4549,14 @@ public class Subspecies {
 			PresetColour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal raven, with dark black feathers. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
-			null,
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
-				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newArrayListOfValues(
 				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4495,10 +4654,14 @@ public class Subspecies {
 			PresetColour.BASE_WHITE,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
-			null,
+			Util.newHashMapOfValues(
+					new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON),
+					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), Util.newArrayListOfValues(
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4597,9 +4760,11 @@ public class Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal, mythological bird, whose feathers are either glowing red, orange, or yellow, or are actually made out of arcane fire."
 					+ " They are extremely rare and typically only possess non-human arms, legs, eyes, ears, and hair.",
-			null,
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)), Util.newArrayListOfValues(
+					new Value<>(WorldRegion.VOLCANO, SubspeciesSpawnRarity.TWO_RARE)),
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
+			Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -5040,6 +5205,15 @@ public class Subspecies {
 	protected static Map<AbstractRace, List<AbstractSubspecies>> subspeciesFromRace;
 	
 	public static AbstractSubspecies getSubspeciesFromId(String id) {
+		if(id.equalsIgnoreCase("CAT_MORPH_LEOPARD_SNOW")) {
+			id = "innoxia_panther_subspecies_snow_leopard";
+		} else if(id.equalsIgnoreCase("CAT_MORPH_LEOPARD")) {
+			id = "innoxia_panther_subspecies_leopard";
+		} else if(id.equalsIgnoreCase("CAT_MORPH_LION")) {
+			id = "innoxia_panther_subspecies_lion";
+		} else if(id.equalsIgnoreCase("CAT_MORPH_TIGER")) {
+			id = "innoxia_panther_subspecies_tiger";
+		} 
 		id = Util.getClosestStringMatch(id, idToSubspeciesMap.keySet());
 		return idToSubspeciesMap.get(id);
 	}
@@ -5063,6 +5237,7 @@ public class Subspecies {
 						allSubspecies.add(subspecies);
 						subspeciesToIdMap.put(subspecies, id);
 						idToSubspeciesMap.put(id, subspecies);
+//						System.out.println("subspecies: "+id);
 					} catch(Exception ex) {
 						System.err.println("Loading modded subspecies failed at 'Subspecies'. File path: "+innerEntry.getValue().getAbsolutePath());
 						System.err.println("Actual exception: ");
@@ -5143,6 +5318,8 @@ public class Subspecies {
 		for(List<AbstractSubspecies> e : subspeciesFromRace.values()) {
 			e.sort((s1, s2) -> s1.getName(null).compareTo(s2.getName(null)));
 		}
+
+		allSubspecies.sort((s1, s2) -> s1.getRace().getName(false).compareTo(s2.getRace().getName(false)));
 	}
 	
 	public static List<AbstractSubspecies> getAllSubspecies() {
