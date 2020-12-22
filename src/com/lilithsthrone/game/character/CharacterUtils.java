@@ -2256,12 +2256,14 @@ public class CharacterUtils {
 				&& character.hasVagina()) {
 			character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 2+Util.random.nextInt(4), false, false);
 			if(Math.random()<0.2f) {
-				character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), 1+Util.random.nextInt(2), false, false);}
+				character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), 1+Util.random.nextInt(2), false, false);
+			}
 		}
 		if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive() && character.hasPenisIgnoreDildo()) {
 			character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), 2+Util.random.nextInt(4), false, false);
 			if(Math.random()<0.2f) {
-				character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), 1+Util.random.nextInt(2), false, false);}
+				character.addItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), 1+Util.random.nextInt(2), false, false);
+			}
 		}
 
 		if(character.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()

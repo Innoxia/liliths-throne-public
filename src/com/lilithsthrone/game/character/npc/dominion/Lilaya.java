@@ -69,7 +69,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.sexActions.dominion.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -464,7 +463,8 @@ public class Lilaya extends NPC {
 				return new Value<>(true,
 						"<p>"
 							+ "Producing a "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
-							+ " She lets out a delighted moan as she happily swallows the little "+ item.getColour(0).getName() +" pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
+							+ " She lets out a delighted moan as she happily swallows the little "+ item.getColour(0).getName() +" pill,"
+								+ " [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
 						+ "</p>");
 			}
 		}
