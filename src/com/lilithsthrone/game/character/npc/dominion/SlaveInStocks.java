@@ -209,6 +209,8 @@ public class SlaveInStocks extends NPC {
 	}
 	
 	public void initSlavePermissions() {
+		this.clearSlaveJobSettings(SlaveJob.PUBLIC_STOCKS);
+		
 		if(Math.random()<0.8f) {
 			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
 			this.setFaceVirgin(false);

@@ -4470,6 +4470,10 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return slaveJobSettings.get(slaveJob).add(setting);
 	}
+
+	public void clearSlaveJobSettings(SlaveJob slaveJob) {
+		 slaveJobSettings.get(slaveJob).clear();
+	}
 	
 	public boolean removeSlaveJobSettings(SlaveJob slaveJob, SlaveJobSetting setting) {
 		return slaveJobSettings.get(slaveJob).remove(setting);
