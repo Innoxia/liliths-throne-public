@@ -31,6 +31,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed parser command 'glow' to work without a defined colour, as well as for rainbow colours. (PR#1439 by CognitiveMist)
 		Typo fix in bread roll description. (PR#1414 by aDrunkLittleDerp)
 		Added the option for a slave to be mute to Helena's custom slave shop and removed tongue recolouring from the Hair options tab. (PR#1416 by AceXP)
+		Characters with the NON_CON_DOM fetish will now gain lust when having sex with someone that is resisting. (PR#1417 by AceXP)
 	
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
@@ -94,7 +95,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
 	
 	
+	
 	PRs
+	
+	Leg description in Body describes foot structure etc. when the character has only a tail
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
