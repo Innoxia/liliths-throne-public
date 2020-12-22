@@ -121,29 +121,6 @@ public class SlaveInStocks extends NPC {
 			
 			Main.game.getCharacterUtils().applyMakeup(this, true);
 
-			if(Math.random()<0.8f) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
-				this.setFaceVirgin(false);
-			}
-			
-			if(Math.random()<0.6f) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
-				this.setAssVirgin(false);
-			}
-			
-			if(!this.hasVagina()) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
-				this.setAssVirgin(false);
-			} else {
-				if(Math.random()<0.6f) {
-					this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL);
-					this.setVaginaVirgin(false);
-				}
-			}
-			
-			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
-			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
-			
 			this.setPlayerKnowsName(true);
 
 			initHealthAndManaToMax();
@@ -229,5 +206,30 @@ public class SlaveInStocks extends NPC {
 				
 			}
 		}
+	}
+	
+	public void initSlavePermissions() {
+		if(Math.random()<0.8f) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
+			this.setFaceVirgin(false);
+		}
+		
+		if(Math.random()<0.6f) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
+			this.setAssVirgin(false);
+		}
+		
+		if(!this.hasVagina()) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
+			this.setAssVirgin(false);
+		} else {
+			if(Math.random()<0.6f) {
+				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL);
+				this.setVaginaVirgin(false);
+			}
+		}
+		
+		this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+		this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 	}
 }
