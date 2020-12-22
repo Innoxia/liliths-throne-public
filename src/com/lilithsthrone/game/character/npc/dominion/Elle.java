@@ -378,10 +378,10 @@ public class Elle extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility")) || item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_broodmother"))) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				return new Value<>(true,
 						"<p>"
-							+ "Producing "+item.getName(true, false)+" from your inventory, you prepare to offer it to Elle, but before you can even get that far, the [elle.race] sees what it is you're holding and declares,"
+							+ "Producing a "+item.getName(false, false)+" from your inventory, you prepare to offer it to Elle, but before you can even get that far, the [elle.race] sees what it is you're holding and declares,"
 							+ " [elle.speechNoEffects(There's no way I'm taking that! I have absolutely zero intention of ever getting pregnant, thank you very much!)]"
 						+ "</p>"
 						+ "<p>"
