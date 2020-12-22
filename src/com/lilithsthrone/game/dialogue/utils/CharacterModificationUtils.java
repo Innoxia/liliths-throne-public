@@ -324,7 +324,7 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static String getPersonalityChoiceDiv() {
+	public static String getPersonalityChoiceDiv(boolean allowSpecials) {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width' style='text-align:center;'>");
@@ -339,7 +339,7 @@ public class CharacterModificationUtils {
 				}
 				
 				for(PersonalityTrait trait : PersonalityTrait.values()) {
-					if(!trait.isSpecialRequirements()) {
+					if(allowSpecials || !trait.isSpecialRequirements()) {
 						if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
 							contentSB.append(
 									"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
