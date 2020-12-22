@@ -1211,6 +1211,8 @@ public abstract class AbstractSubspecies {
 	
 	protected void initSVGStrings() {
 		if(pathName!=null) {
+			String fullDivStyle = "width:100%;height:100%;margin:0;padding:0;position:absolute;left:0;bottom:0;";
+			
 			try {
 				if(this.isFromExternalFile()) {
 					List<String> lines = Files.readAllLines(Paths.get(pathName+".svg"));
@@ -1240,7 +1242,7 @@ public abstract class AbstractSubspecies {
 					for(String line : lines) {
 						sb.append(line);
 					}
-					SVGStringBackground = sb.toString();
+					SVGStringBackground = "<div style='"+fullDivStyle+"'>"+sb.toString()+"</div>";
 					
 				} else {
 					if(!backgroundPathName.isEmpty()) {
@@ -1248,7 +1250,7 @@ public abstract class AbstractSubspecies {
 						if(is==null) {
 							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
 						}
-						SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+						SVGStringBackground = "<div style='"+fullDivStyle+"'>"+Util.inputStreamToString(is)+"</div>";
 						
 						is.close();
 					}
@@ -1260,30 +1262,30 @@ public abstract class AbstractSubspecies {
 						colour,
 						secondaryColour,
 						tertiaryColour,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
-				SVGStringUncoloured = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>";
+				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				
 				slimeSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 
 				halfDemonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 
 				demonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringDesaturated = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.BASE_GREY,

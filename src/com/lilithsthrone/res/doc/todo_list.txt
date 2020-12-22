@@ -86,12 +86,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed image position and alignment in combat move tooltips.
 		Fixed issue where milking pumps and spider webbing seals could spawn as generic clothing on randomly-generated NPCs.
 		Fixed spotted & striped hyenas not having correct plural names for their feral forms.
-	
-	
+		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
 	
 	
 	PRs
-	
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
