@@ -306,14 +306,14 @@ public class Cultist extends NPC {
 							+ "</p>");
 				}
 					
-			} else if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
+			} else if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				Main.game.getPlayer().useItem(item, target, false);
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Value<>(true,
 							"<p>"
 								+ UtilText.parse(user, target,
-									"Holding out a '[#ITEM_innoxia_pills_fertility.getName(false)]' to [npc2.name], you tell [npc2.herHim] to swallow it."
-									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you tell [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
 									+ " [npc2.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 					
@@ -321,8 +321,8 @@ public class Cultist extends NPC {
 					return new Value<>(true,
 							"<p>"
 								+ UtilText.parse(user, target,
-									"Holding out a '[#ITEM_innoxia_pills_fertility.getName(false)]' to [npc2.name], you ask [npc2.herHim] to swallow it."
-									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you ask [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
 									+ " [npc2.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 				}
