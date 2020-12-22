@@ -396,7 +396,6 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			
 			// Picture:
-			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
 
 			// Description:
 			tooltipSB.append("<div class='subTitle-picture'>");
@@ -423,6 +422,8 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 			}
 			tooltipSB.append("</div>");
+			
+			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
 
 			// Description:
 			Value<Boolean, String> availableValue = owner.isMoveAvailable(move.getIdentifier());

@@ -1461,7 +1461,7 @@ public class Util {
 			}
 		}
 		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
-//		new IllegalArgumentException().printStackTrace(System.err);
+		new IllegalArgumentException().printStackTrace(System.err);
 		return closestString;
 	}
 

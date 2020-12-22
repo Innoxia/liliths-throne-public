@@ -79,7 +79,7 @@ public class Kruger extends NPC {
 				42, Month.JUNE, 12,
 				20,
 				Gender.M_P_MALE,
-				Subspecies.CAT_MORPH_LION,
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
 				RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.NIGHTLIFE_CLUB,

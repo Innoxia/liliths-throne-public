@@ -15,6 +15,12 @@ public enum BodyPartTag {
 	ECHO_LOCATION,
 	
 	
+	// Torso:
+	
+	/** Torso types with this tag are considered to have a dorsal fin. */
+	TORSO_DORSAL_FIN,
+	
+	
 	// Arms:
 	
 	ARM_STANDARD,
@@ -72,8 +78,11 @@ public enum BodyPartTag {
 	TAIL_SLEEP_HUGGING,
 	
 	
-	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, alligator, rat.*/
+	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/
 	TAIL_TYPE_SKIN,
+
+	/** Of a type which is covered in scales. Used for girth descriptors and descriptions. Examples would be alligator.*/
+	TAIL_TYPE_SCALES,
 	
 	/** Of a type which is covered in fur. Used for girth descriptors and descriptions. Examples would be cat, dog, fox.*/
 	TAIL_TYPE_FUR,

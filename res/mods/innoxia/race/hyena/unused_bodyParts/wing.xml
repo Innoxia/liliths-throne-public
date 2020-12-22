@@ -4,7 +4,7 @@
 	
 	<!-- IMPORTANT!!!
 	Instead of making a new wing type, you should almost certainly be using the pre-defined wing types FEATHERED or LEATHERY
-	These can be seen here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/yypes/WingType.java -->
+	These can be seen here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/WingType.java -->
 	
 	<!-- If you want to see the part of the code where this type is defined, then please look here:
 	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractWingType.java -->
@@ -23,6 +23,12 @@
 	
 	<!-- Whether this wing type grants the ability to fly. -->
 	<allowsFlight>true</allowsFlight>
+	
+	<!-- The minimum and maximum size that this wing type can be transformed into.
+	Default values are ZERO_TINY and FOUR_HUGE.
+	Values for wing sizes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/WingSize.java -->
+	<minimumSize>ZERO_TINY</minimumSize>
+	<maximumSize>FOUR_HUGE</maximumSize>
 	
 	<!-- The singular and plural names of this wing. -->
 	<name><![CDATA[wing]]></name>

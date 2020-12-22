@@ -863,10 +863,10 @@ public class RoomPlayer {
 					break;
 				case MARCH:
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularMaleName(null)+"."
+						sb.append("a fierce-looking "+Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger").getSingularMaleName(null)+"."
 								+ " Striking a dominant pose, he's flashing you a toothy grin, clearly excited by the fact that his huge feline cock is fully on display.");
 					} else {
-						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularFemaleName(null)+"."
+						sb.append("a fierce-looking "+Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger").getSingularFemaleName(null)+"."
 								+ " Striking a dominant pose, she's flashing you a toothy grin, clearly excited by the fact that her large breasts and tight pussy are fully on display.");
 					}
 					break;
@@ -2407,6 +2407,7 @@ public class RoomPlayer {
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
+						Main.game.setRequestAutosave(true);
 					}
 				};
 				
@@ -2419,6 +2420,7 @@ public class RoomPlayer {
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND_RUDE", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
+						Main.game.setRequestAutosave(true);
 					}
 				};
 				
@@ -2455,6 +2457,7 @@ public class RoomPlayer {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.saveClubbers();
+						Main.game.setRequestAutosave(true);
 					}
 				};
 				
@@ -2466,6 +2469,7 @@ public class RoomPlayer {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
+						Main.game.setRequestAutosave(true);
 					}
 				};
 				
@@ -2477,6 +2481,7 @@ public class RoomPlayer {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE", NightlifeDistrict.getClubbersPresent()));
 						NightlifeDistrict.removeClubbers();
+						Main.game.setRequestAutosave(true);
 					}
 				};
 			}

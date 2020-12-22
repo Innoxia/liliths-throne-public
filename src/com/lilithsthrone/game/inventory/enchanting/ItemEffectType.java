@@ -2907,35 +2907,68 @@ public class ItemEffectType {
 		}
 		
 		for(AbstractRace race : Race.getAllRaces()) {
-			racialEffectTypes.put(
-					race,
-					new AbstractItemEffectType(null,
-							race.getColour()) {
-						@Override
-						public AbstractRace getAssociatedRace() {
-							return race;
-						}
-						@Override
-						public List<TFModifier> getPrimaryModifiers() {
-							return TFModifier.getTFRacialBodyPartsList();
-						}
-						@Override
-						public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
-							return getRacialSecondaryModifiers(race, primaryModifier);
-						}
-						@Override
-						public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-							return getRacialPotencyModifiers(race, primaryModifier, secondaryModifier);
-						}
-						@Override
-						public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-							return Util.newArrayListOfValues(getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).getDescription());
-						}
-						@Override
-						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-							return getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
-						}
-					});
+			if(race==Race.SLIME) { // Special case for slimes:
+				racialEffectTypes.put(
+						race,
+						new AbstractItemEffectType(null,
+								race.getColour()) {
+							@Override
+							public AbstractRace getAssociatedRace() {
+								return race;
+							}
+							@Override
+							public List<TFModifier> getPrimaryModifiers() {
+								return Util.newArrayListOfValues(TFModifier.TF_MATERIAL_FLESH);
+							}
+							@Override
+							public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
+								return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
+							}
+							@Override
+							public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+								return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
+							}
+							@Override
+							public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+								return Util.newArrayListOfValues("Changes the target's body material to flesh.");
+							}
+							@Override
+							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+								return target.setBodyMaterial(BodyMaterial.FLESH);
+							}
+						});
+				
+			} else {
+				racialEffectTypes.put(
+						race,
+						new AbstractItemEffectType(null,
+								race.getColour()) {
+							@Override
+							public AbstractRace getAssociatedRace() {
+								return race;
+							}
+							@Override
+							public List<TFModifier> getPrimaryModifiers() {
+								return TFModifier.getTFRacialBodyPartsList();
+							}
+							@Override
+							public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
+								return getRacialSecondaryModifiers(race, primaryModifier);
+							}
+							@Override
+							public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+								return getRacialPotencyModifiers(race, primaryModifier, secondaryModifier);
+							}
+							@Override
+							public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+								return Util.newArrayListOfValues(getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).getDescription());
+							}
+							@Override
+							public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+								return getRacialEffect(race, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+							}
+						});
+			}
 		}
 		
 		for(Entry<AbstractRace, AbstractItemEffectType> entry : racialEffectTypes.entrySet()) {

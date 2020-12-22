@@ -302,16 +302,17 @@ public class PhoneDialogue {
 					}
 					
 				} else if (index == 13){
+					String title = Main.game.isSillyMode()?"Delay":"Loiter";
 					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Loiter", "You can only loiter to pass the time when in a neutral dialogue scene!", null);
+						return new Response(title, "You can only loiter to pass the time when in a neutral dialogue scene!", null);
 					}
 					if(Main.game.getPlayerCell().getPlace().isDangerous()) {
-						return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
+						return new Response(title, "You can only loiter to pass the time when in a safe area!", null);
 					}
 					if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-						return new Response("Loiter", "This is not a suitable place in which to be loitering about!", null);
+						return new Response(title, "This is not a suitable place in which to be loitering about!", null);
 					}
-					return new Response("Loiter", "THink about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
+					return new Response(title, "Think about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 					
 				} else if (index == 14){
 					if(!Main.game.getPlayer().isElementalSummoned()) {

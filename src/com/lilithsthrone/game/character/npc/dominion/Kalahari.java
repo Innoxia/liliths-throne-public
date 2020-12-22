@@ -74,7 +74,7 @@ public class Kalahari extends NPC {
 				24, Month.JUNE, 12,
 				10,
 				Gender.F_V_B_FEMALE,
-				Subspecies.CAT_MORPH_LION,
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
 				RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.NIGHTLIFE_CLUB,

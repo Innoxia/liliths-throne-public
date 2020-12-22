@@ -16,6 +16,22 @@
 		
 		<rarity>RARE</rarity> 
 		
+		<!-- instead of defining a simple path name for your image, you can use the layering system as shown here.
+		Each of the svg images you define here will be rendered on top of or beneath the others, based on the zLayer attribute defined for it.
+			zLayers of a higher value will be rendered on top of lower zLayers.
+		'imageRotation' and 'imageSize' affect the image's rotation and size, respectively.
+			You should define imageRotation in degrees, from 0 to 360.
+			You should define imageSize as a percentage, from 1 to 100.
+		Text inside of the svg image can be replaced at time of rendering, via the target/replacement attributes.
+			You can define any number of target/replacement pairs, but they must follow the naming convention: 'targetX' 'replacementX', where X is the number of the replacement pair, starting at 1.
+			The contents of the 'targetX' attribute will be searched for in the svg file and replaced with the contents of the corresponding 'replacementX' attribute.
+			In this example, I use the target/replacement pairs to recolour all edge strokes of colour #000 with the colour #ff5555 (which effectively removes the black edges of the icon.svg by recolouring it to the same colour as the interior.)
+			I also replace all instances of the colour '#ff8080' with 'ff5555'. While this isn't necessary for the hyena icon, it's designed to remove the lighter shade from an icon and replace it with the same 'ff5555' colour as the rest of the icon so as to make it a uniform colour for the item's background icon.
+		So, with the 4 imageName elements defined below, I'm:
+			1) Rendering the bottom background.
+			2) Recolouring an rendering the hyena race icon on top of that.
+			3) Rendering the item icon on top of those two.
+			4) Finally, rendering the highlights of the background on top of everything. -->
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
 		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/mods/innoxia/race/hyena/subspecies/icon.svg</imageName>
 		<imageName zLayer="2" imageRotation="0" imageSize="70">hyena_bone_crunchers.svg</imageName>
