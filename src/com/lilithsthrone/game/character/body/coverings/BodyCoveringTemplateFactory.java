@@ -105,14 +105,14 @@ public class BodyCoveringTemplateFactory {
 		return createHairWithoutPatterns("a layer of", "hair", modifier);
 	}
 	
-	public static BodyCoveringTemplate createElemental(String name, CoveringModifier modifier, List<Colour> naturalColours) {
+	public static BodyCoveringTemplate createElemental(String name, CoveringModifier modifier, CoveringPattern pattern, List<Colour> naturalColours) {
 		return new BodyCoveringTemplate("",
 				false,
 				name,
 				name,
 				Util.newArrayListOfValues(modifier),
 				null,
-				Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+				Util.newHashMapOfValues(new Value<>(pattern, 1)),
 				null,
 				naturalColours,
 				PresetColour.allCoveringColours,

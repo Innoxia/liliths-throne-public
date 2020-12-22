@@ -1218,10 +1218,58 @@ public class BodyCoveringType {
 					}
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
-							AbstractBodyCoveringType bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createElemental(name, modifier, naturalColours)) {};
+							CoveringPattern pattern = CoveringPattern.NONE;
+							switch(cat) {
+								case ANTENNAE:
+								case ANTLER:
+								case HORN:
+								case BODY_HAIR:
+								case HAIR:
+								case MAIN_FEATHER:
+								case MAIN_FUR:
+								case MAIN_HAIR:
+								case MAIN_SCALES:
+								case MAIN_CHITIN:
+								case MAIN_SKIN:
+								case PENIS:
+								case TONGUE:
+									break;
+								case EYE_IRIS:
+									pattern = CoveringPattern.EYE_IRISES;
+									break;
+								case EYE_PUPIL:
+									pattern = CoveringPattern.EYE_PUPILS;
+									break;
+								case EYE_SCLERA:
+									pattern = CoveringPattern.EYE_SCLERA;
+									break;
+								case ANUS:
+									pattern = CoveringPattern.ORIFICE_ANUS;
+									break;
+								case MOUTH:
+									pattern = CoveringPattern.ORIFICE_MOUTH;
+									break;
+								case NIPPLE:
+									pattern = CoveringPattern.ORIFICE_NIPPLE;
+									break;
+								case NIPPLE_CROTCH:
+									pattern = CoveringPattern.ORIFICE_NIPPLE_CROTCH;
+									break;
+								case VAGINA:
+									pattern = CoveringPattern.ORIFICE_VAGINA;
+									break;
+								case SPINNERET:
+									pattern = CoveringPattern.ORIFICE_SPINNERET;
+									break;
+								case ARTIFICIAL:
+								case FLUID:
+								case MAKEUP:
+									break;
+							}
+							AbstractBodyCoveringType bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createElemental(name, modifier, pattern, naturalColours)) {};
 							
 							String id =  mat.toString()+"_"+cat.toString();
-							bodyCoveringTypesToIdMap.put(bct,id);
+							bodyCoveringTypesToIdMap.put(bct, id);
 							idToBodyCoveringTypesMap.put(id, bct);
 							allBodyCoveringTypes.add(bct);
 						}

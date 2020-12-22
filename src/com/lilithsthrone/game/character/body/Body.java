@@ -1903,9 +1903,13 @@ public class Body implements XMLSaving {
 				}
 
 				AbstractBodyCoveringType coveringType = BodyCoveringType.getBodyCoveringTypeFromId(type);
+				CoveringPattern loadedPattern = CoveringPattern.valueOf(e.getAttribute("pattern"));
+				if(!coveringType.getAllPatterns().containsKey(loadedPattern)) {
+					loadedPattern = Util.getRandomObjectFromWeightedMap(coveringType.getNaturalPatterns());
+				}
 				if(e.getAttribute("modifier").isEmpty()) {
 					body.setBodyCoveringForXMLImport(coveringType,
-							CoveringPattern.valueOf(e.getAttribute("pattern")),
+							loadedPattern,
 							PresetColour.getColourFromId(colourPrimary),
 							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,
 							PresetColour.getColourFromId(colourSecondary),
@@ -1915,7 +1919,7 @@ public class Body implements XMLSaving {
 					CoveringModifier modifier = CoveringModifier.valueOf(e.getAttribute("modifier"));
 					
 					body.setBodyCoveringForXMLImport(coveringType,
-							CoveringPattern.valueOf(e.getAttribute("pattern")),
+							loadedPattern,
 							coveringType.getNaturalModifiers().contains(modifier) || coveringType.getExtraModifiers().contains(modifier) ? modifier : coveringType.getNaturalModifiers().get(0),
 							PresetColour.getColourFromId(colourPrimary),
 							!e.getAttribute("g1").isEmpty()?Boolean.valueOf(e.getAttribute("g1")):false,

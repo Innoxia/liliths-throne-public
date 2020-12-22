@@ -26,6 +26,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added variations of starting demonstone damage type based on your birth month, and correct some descriptions during the prologue related to this. (PR#1409 by Rfpnj)
 		Fixed bug where the 'Dye & reforge all (stack)' action would not consume reforge hammers. (by AceXP)
 		Fixed bug where 'Unequip all' would inadvertently unequip milking pumps, which would end up with them being added to your inventory. (by AceXP)
+		Editing your character's description in their save file will now display that description in the in-game selfie screen. (PR#1411 by aDrunkLittleDerp)
+		Fixed issue with incorrect anus description for elementals (with help from PR#1412 by AceXP).
 	
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
