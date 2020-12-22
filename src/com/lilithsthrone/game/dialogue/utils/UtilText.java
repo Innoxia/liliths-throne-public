@@ -615,6 +615,10 @@ public class UtilText {
 //		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
 		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
+
+	public static String applyGlow(String input) {
+		return "<span style='text-shadow: 0px 0px 4px;'>"+input+"</span>";
+	}
 	
 	public static String applyGlow(String input, Colour colour) {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
@@ -4489,6 +4493,24 @@ public class UtilText {
 					return "<i>...</i>";
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"glow",
+						"glowing",
+						"g"),
+				false,
+				false,
+				"(text to make glow)",
+				"Description of method"){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null)
+					return applyGlow(arguments);
+				else
+					return applyGlow("...");
+			}
+		});
 		
 
 		List<String> commandNames = new ArrayList<>();
@@ -4659,10 +4681,37 @@ public class UtilText {
 						"Description of method"){//TODO
 					@Override
 					public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-						if(arguments!=null)
-							return applyGlow(arguments, c);
-						else
-							return "<i>...</i>";
+						if(arguments!=null) {
+							if(c.getRainbowColours()!=null) {
+								StringBuilder sb = new StringBuilder();
+
+								int i=0;
+								int openBrackets = 0;
+								char[] characters = arguments.toCharArray();
+								for(char ch : characters) {
+									if(ch=='<') {
+										openBrackets++;
+									}
+									if(openBrackets==0) {
+										Colour col = new Colour(Util.newColour(c.getRainbowColours().get(i%c.getRainbowColours().size())));
+										sb.append(applyGlow(String.valueOf(ch), col));
+										i++;
+									} else {
+										sb.append(ch);
+									}
+									if(ch=='>') {
+										openBrackets--;
+									}
+								}
+
+								return sb.toString();
+
+							} else {
+								return applyGlow(arguments, c);
+							}
+						} else {
+							return applyGlow("...");
+						}
 					}
 				});
 			}
