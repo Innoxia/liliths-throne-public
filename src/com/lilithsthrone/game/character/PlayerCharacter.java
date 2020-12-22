@@ -748,11 +748,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(!Main.game.isInNewWorld()) {
 			return ""; // This isn't displayed anywhere before the game starts for real.
 		} else {
-			if(description=="") {
+			if(description==null || description.isEmpty()) {
 				return "Having been pulled into an enchanted mirror in your aunt Lily's museum, you woke up to find yourself in another world."
 					+ " By a stroke of good fortune, one of the first people you met was Lilaya; this world's version of your aunt."
 					+ " Having convinced her that your story is true, you're now working towards finding a way to get back to your old world.";
-			} else {return UtilText.parse(this, description);}
+			} else {
+				return UtilText.parse(this, description);
+			}
 		}
 	}
 	
