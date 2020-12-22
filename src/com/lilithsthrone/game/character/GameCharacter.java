@@ -647,7 +647,8 @@ public abstract class GameCharacter implements XMLSaving {
 		littersFathered = new ArrayList<>();
 		potentialPartnersAsMother = new ArrayList<>();
 		potentialPartnersAsFather = new ArrayList<>();
-		
+		littersGenerated = 0;
+
 		// Stats:
 		foughtPlayerCount=0;
 		lostCombatCount=0;
@@ -2361,6 +2362,12 @@ public abstract class GameCharacter implements XMLSaving {
 					character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
 				}
 				
+				if(!pregnancyElement.getAttribute("littersGenerated").isEmpty()) {
+					character.setLittersGenerated(Integer.valueOf(pregnancyElement.getAttribute("littersGenerated")));
+				} else {
+					character.setLittersGenerated(0);
+				}
+
 				nodes = pregnancyElement.getElementsByTagName("timeProgressedToFinalIncubationStage");
 				if(nodes.getLength()>0) {
 					element = (Element) nodes.item(0);
@@ -8922,6 +8929,7 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS), target, request, foreplaySexTypes, 1);
 		
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), target, request, mainSexTypes, 3);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaOrifice.ANUS), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TAIL, SexAreaOrifice.ANUS), target, request, mainSexTypes, 0.5f);
 
 		// Self-anal:
@@ -8929,32 +8937,39 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 1);
 		
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), target, request, mainSexTypes, 4);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.CLIT), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TAIL), target, request, mainSexTypes, 1);
 
 		// Vaginal:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 6);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 2);
 
 		// Self-vaginal:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 2);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 2);
 		
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), target, request, mainSexTypes, 6);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.CLIT), target, request, mainSexTypes, 2);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
 		
 		// Receiving Oral:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 3);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), target, request, foreplaySexTypes, 3);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH), target, request, foreplaySexTypes, 2);
 
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), target, request, mainSexTypes, 1);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH), target, request, mainSexTypes, 1);
 
 		// Performing Oral:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), target, request, foreplaySexTypes, 3);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 3);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT), target, request, foreplaySexTypes, 2);
 
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
-		
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT), target, request, mainSexTypes, 1);
+
 		// Legs (weighted quite low as it's probably not as desired as penetrative sex even with relevant fetishes):
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 0.5f);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, mainSexTypes, 0.25f);
@@ -9036,15 +9051,15 @@ public abstract class GameCharacter implements XMLSaving {
 
 		foreplaySexTypes.entrySet().removeIf(e ->
 			!e.getKey().getPerformingSexArea().getRelatedCoverableArea(this).isPhysicallyAvailable(this)
-			|| !this.isAbleToAccessCoverableArea(e.getKey().getPerformingSexArea().getRelatedCoverableArea(this), true)
-			|| !e.getKey().getTargetedSexArea().getRelatedCoverableArea(target).isPhysicallyAvailable(target)
-			|| !target.isAbleToAccessCoverableArea(e.getKey().getTargetedSexArea().getRelatedCoverableArea(target), true));
+				|| !this.isAbleToAccessCoverableArea(e.getKey().getPerformingSexArea().getRelatedCoverableArea(this), true)
+				|| !e.getKey().getTargetedSexArea().getRelatedCoverableArea(target).isPhysicallyAvailable(target)
+				|| !target.isAbleToAccessCoverableArea(e.getKey().getTargetedSexArea().getRelatedCoverableArea(target), true));
 
 		mainSexTypes.entrySet().removeIf(e ->
 			!e.getKey().getPerformingSexArea().getRelatedCoverableArea(this).isPhysicallyAvailable(this)
-			|| !this.isAbleToAccessCoverableArea(e.getKey().getPerformingSexArea().getRelatedCoverableArea(this), true)
-			|| !e.getKey().getTargetedSexArea().getRelatedCoverableArea(target).isPhysicallyAvailable(target)
-			|| !target.isAbleToAccessCoverableArea(e.getKey().getTargetedSexArea().getRelatedCoverableArea(target), true));
+				|| !this.isAbleToAccessCoverableArea(e.getKey().getPerformingSexArea().getRelatedCoverableArea(this), true)
+				|| !e.getKey().getTargetedSexArea().getRelatedCoverableArea(target).isPhysicallyAvailable(target)
+				|| !target.isAbleToAccessCoverableArea(e.getKey().getTargetedSexArea().getRelatedCoverableArea(target), true));
 		
 		// Remove SexTypes that are blocked by the manager:
 		if(Main.game.isInSex()) {
@@ -9109,6 +9124,15 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isBreastCrotchFuckableNipplePenetration()) {
 			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.NIPPLE_CROTCH && sexType.getTargetedSexArea()!=SexAreaPenetration.FINGER);
 			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.NIPPLE_CROTCH && sexType.getTargetedSexArea()!=SexAreaPenetration.FINGER);
+		}
+		// Clit pseudo-penis:
+		if(!target.isClitorisPseudoPenis()) {
+			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.CLIT);
+			mainSexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.CLIT);
+		}
+		if(!this.isClitorisPseudoPenis()) {
+			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.CLIT);
+			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.CLIT);
 		}
 		// Tail:
 		if(!target.getTailType().isSuitableForPenetration() || (target.hasPenis() && CoverableArea.PENIS.isPhysicallyAvailable(target))) {
@@ -19064,7 +19088,18 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPregnant()) {
 			return;
 		}
-		
+
+		pregnantLitter.setBirthDate(Main.game.getDateNow());
+		if(pregnantLitter.getFather()!=null) { // Set birth date for the father's litter copy:
+			for(Litter fatherCopy : pregnantLitter.getFather().getLittersFathered()) {
+				if(!fatherCopy.getId().isEmpty() && fatherCopy.getId().equals(pregnantLitter.getId())) {
+					fatherCopy.setBirthDate(Main.game.getDateNow());
+					continue;
+				}
+			}
+		}
+		Litter birthedLitter = pregnantLitter;
+
 		if(withBirth) {
 			AbstractClothing c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 			while(c!=null) {
@@ -19080,11 +19115,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			this.removeDirtySlot(InventorySlot.VAGINA, true);
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA, true);
-			
-			Litter birthedLitter = pregnantLitter;
 
-			birthedLitter.setBirthDate(Main.game.getDateNow());
-			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
@@ -19111,10 +19142,8 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			if(pregnantLitter!=null) {
-				for(String npc : pregnantLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
-				}
+			for(String npc : pregnantLitter.getOffspring()) {
+				Main.game.removeNPC(npc);
 			}
 		}
 		
@@ -21710,7 +21739,7 @@ public abstract class GameCharacter implements XMLSaving {
         clonedClothing.setSlotEquippedTo(slotToEquipInto);
 
         clonedClothing.onEquipApplyEffects(this, this, false);
-		
+
 		applyEquipClothingEffects(clonedClothing, slotToEquipInto, null, false);
 	}
 
@@ -28075,7 +28104,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getVagina().getClitoris().isFeral(this);
 	}
 	public boolean isClitorisPseudoPenis() {
-		return this.getVaginaClitorisSize()!=ClitorisSize.ZERO_AVERAGE;
+		return this.getVaginaClitorisSize().isPseudoPenisSize();
 	}
 	// Names:
 	public String getClitorisName(boolean withDescriptor) {
