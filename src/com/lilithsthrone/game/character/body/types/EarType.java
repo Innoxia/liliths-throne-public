@@ -1,25 +1,30 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.4
  * @author Innoxia
  */
 public class EarType {
 	
 	public static AbstractEarType HUMAN = new AbstractEarType(BodyCoveringType.HUMAN,
 			Race.HUMAN,
-			false,
 			"human",
 			"ear",
 			"ears",
@@ -32,7 +37,6 @@ public class EarType {
 
 	public static AbstractEarType ANGEL = new AbstractEarType(BodyCoveringType.ANGEL,
 			Race.ANGEL,
-			false,
 			"angel",
 			"ear",
 			"ears",
@@ -45,7 +49,6 @@ public class EarType {
 
 	public static AbstractEarType DEMON_COMMON = new AbstractEarType(BodyCoveringType.DEMON_COMMON,
 			Race.DEMON,
-			false,
 			"demonic",
 			"ear",
 			"ears",
@@ -58,7 +61,6 @@ public class EarType {
 	
 	public static AbstractEarType DOG_MORPH = new AbstractEarType(BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
-			true,
 			"floppy dog",
 			"ear",
 			"ears",
@@ -73,11 +75,14 @@ public class EarType {
 				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new dog-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldDog(floppy, dog-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
 			"[npc.She] [npc.has] a pair of floppy,#IF(npc.isPiercedEar()) pierced,#ENDIF dog-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.EAR_HANDLES_IN_SEX);
+		}
 	};
 
 	public static AbstractEarType DOG_MORPH_POINTED = new AbstractEarType(BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
-			false,
 			"pointed dog",
 			"ear",
 			"ears",
@@ -96,7 +101,6 @@ public class EarType {
 
 	public static AbstractEarType DOG_MORPH_FOLDED = new AbstractEarType(BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
-			false,
 			"folded dog",
 			"ear",
 			"ears",
@@ -115,7 +119,6 @@ public class EarType {
 
 	public static AbstractEarType WOLF_MORPH = new AbstractEarType(BodyCoveringType.LYCAN_FUR,
 			Race.WOLF_MORPH,
-			false,
 			"wolf",
 			"ear",
 			"ears",
@@ -134,7 +137,6 @@ public class EarType {
 
 	public static AbstractEarType FOX_MORPH = new AbstractEarType(BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			false,
 			"fox",
 			"ear",
 			"ears",
@@ -153,7 +155,6 @@ public class EarType {
 
 	public static AbstractEarType FOX_MORPH_BIG = new AbstractEarType(BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			true,
 			"fennec fox",
 			"ear",
 			"ears",
@@ -168,11 +169,14 @@ public class EarType {
 				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new fox-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldFox(massive, fennec-fox-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
 			"[npc.She] [npc.has] a pair of massive,#IF(npc.isPiercedEar()) pierced,#ENDIF fennec-fox-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.EAR_HANDLES_IN_SEX);
+		}
 	};
 
 	public static AbstractEarType COW_MORPH = new AbstractEarType(BodyCoveringType.BOVINE_FUR,
 			Race.COW_MORPH,
-			false,
 			"cow",
 			"ear",
 			"ears",
@@ -191,7 +195,6 @@ public class EarType {
 
 	public static AbstractEarType CAT_MORPH = new AbstractEarType(BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			false,
 			"cat",
 			"ear",
 			"ears",
@@ -210,7 +213,6 @@ public class EarType {
 
 	public static AbstractEarType CAT_MORPH_TUFTED = new AbstractEarType(BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			false,
 			"tufted cat",
 			"ear",
 			"ears",
@@ -229,7 +231,6 @@ public class EarType {
 
 	public static AbstractEarType SQUIRREL_MORPH = new AbstractEarType(BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			false,
 			"squirrel",
 			"ear",
 			"ears",
@@ -248,7 +249,6 @@ public class EarType {
 
 	public static AbstractEarType RAT_MORPH = new AbstractEarType(BodyCoveringType.RAT_FUR,
 			Race.RAT_MORPH,
-			false,
 			"rat",
 			"ear",
 			"ears",
@@ -267,7 +267,6 @@ public class EarType {
 
 	public static AbstractEarType RABBIT_MORPH = new AbstractEarType(BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			true,
 			"upright rabbit",
 			"ear",
 			"ears",
@@ -282,11 +281,14 @@ public class EarType {
 				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new rabbit-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldRabbit(upright, rabbit-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
 			"[npc.She] [npc.has] a pair of upright,#IF(npc.isPiercedEar()) pierced,#ENDIF rabbit-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.EAR_HANDLES_IN_SEX);
+		}
 	};
 
 	public static AbstractEarType RABBIT_MORPH_FLOPPY = new AbstractEarType(BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			true,
 			"floppy rabbit",
 			"ear",
 			"ears",
@@ -301,11 +303,14 @@ public class EarType {
 				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new rabbit-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldRabbit(floppy, rabbit-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
 			"[npc.She] [npc.has] a pair of floppy,#IF(npc.isPiercedEar()) pierced,#ENDIF rabbit-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.EAR_HANDLES_IN_SEX);
+		}
 	};
 
 	public static AbstractEarType BAT_MORPH = new AbstractEarType(BodyCoveringType.BAT_FUR,
 			Race.BAT_MORPH,
-			false,
 			"bat",
 			"ear",
 			"ears",
@@ -320,11 +325,13 @@ public class EarType {
 				+ " and as the transformation finishes, [npc.she] [npc.verb(discover)] that [npc.she] can easily twitch [npc.her] new bat-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldBat(large, bat-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
 			"[npc.She] [npc.has] a pair of large,#IF(npc.isPiercedEar()) pierced,#ENDIF bat-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.ECHO_LOCATION);
+		}
 	};
 
 	public static AbstractEarType HORSE_MORPH = new AbstractEarType(BodyCoveringType.HORSE_HAIR,
 			Race.HORSE_MORPH,
-			false,
 			"horse",
 			"ear",
 			"ears",
@@ -343,7 +350,6 @@ public class EarType {
 
 	public static AbstractEarType REINDEER_MORPH = new AbstractEarType(BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
-			false,
 			"reindeer",
 			"ear",
 			"ears",
@@ -362,7 +368,6 @@ public class EarType {
 
 	public static AbstractEarType ALLIGATOR_MORPH = new AbstractEarType(BodyCoveringType.ALLIGATOR_SCALES,
 			Race.ALLIGATOR_MORPH,
-			false,
 			"alligator",
 			"ear",
 			"ears",
@@ -382,7 +387,6 @@ public class EarType {
 	
 	public static AbstractEarType HARPY = new AbstractEarType(BodyCoveringType.FEATHERS,
 			Race.HARPY,
-			false,
 			"harpy",
 			"ear",
 			"ears",
@@ -406,8 +410,47 @@ public class EarType {
 	
 	static {
 		allEarTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("ear")) {
+					try {
+						AbstractEarType type = new AbstractEarType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allEarTypes.add(type);
+						earToIdMap.put(type, id);
+						idToEarMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("ear")) {
+					try {
+						AbstractEarType type = new AbstractEarType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allEarTypes.add(type);
+						earToIdMap.put(type, id);
+						idToEarMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded ear types:
+		
 		Field[] fields = EarType.class.getFields();
 		
 		for(Field f : fields){
@@ -427,6 +470,13 @@ public class EarType {
 				}
 			}
 		}
+		
+		Collections.sort(allEarTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractEarType getEarTypeFromId(String id) {
@@ -448,9 +498,9 @@ public class EarType {
 		return allEarTypes;
 	}
 	
-	private static Map<Race, List<AbstractEarType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractEarType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractEarType> getEarTypes(Race r) {
+	public static List<AbstractEarType> getEarTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

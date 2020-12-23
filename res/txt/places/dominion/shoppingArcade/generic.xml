@@ -92,6 +92,30 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ARCADE_WES_REMINDER"><![CDATA[
+	<p><i>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestMet))
+			While this is the place where you can meet Wes, you've already refused to help him today, and so you'll be unable to see him again until tomorrow at the earliest...
+		#ELSEIF(game.getHourOfDay()==13)
+			This is both the time and place in which to
+			#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestRefused))
+				 [style.colourMinorGood(meet Wes)],
+			#ELSE
+				 [style.colourMinorGood(meet the mysterious Enforcer)],
+			#ENDIF
+			 so if you were to look around for him for a while, you'd likely be able to get in contact with him...
+		#ELSE
+			While this is the place where 
+			#IF(game.getDialogueFlags().hasFlag(FLAG_wesQuestRefused))
+				 Wes
+			#ELSE
+				 the mysterious Enforcer
+			#ENDIF
+			 told you to meet him, he said that he'd only be here between the hours of [style.colourMinorBad([units.time(13)] and [units.time(14)])], so you'll have to come back then... 
+		#ENDIF
+	</i></p>
+	]]>
+	</htmlContent>
 	
 	<!-- GENERIC_SHOP -->
 	

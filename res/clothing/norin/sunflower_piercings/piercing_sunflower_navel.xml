@@ -39,8 +39,8 @@
     
     <incompatibleSlots/> <!-- slot(s) not compatible -->
 
-    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
     <primaryColours>
       <colour>CLOTHING_ORANGE_BRIGHT</colour>
     </primaryColours>

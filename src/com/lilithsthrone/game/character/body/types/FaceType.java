@@ -1,19 +1,24 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.3.9.1
  * @author Innoxia
  */
 public class FaceType {
@@ -29,7 +34,7 @@ public class FaceType {
 			"noses",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			"Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with a normal human face, covered in [npc.faceSkin+].<br/>"
+			"Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with a normal human face, [npc.materialDescriptor] [npc.faceSkin+].<br/>"
 				+ "[npc.Name] now [npc.has] a [style.boldHuman(human face)], [npc.materialDescriptor] [npc.faceFullDescription]."
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHuman(human tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], human face, [npc.materialDescriptor] [npc.faceFullDescription(true)].",
@@ -47,7 +52,7 @@ public class FaceType {
 			"noses",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			"Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with an angelic, human-looking face, covered in [npc.faceSkin+].<br/>"
+			"Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with an angelic, human-looking face, [npc.materialDescriptor] [npc.faceSkin+].<br/>"
 					+ "[npc.Name] now [npc.has] an [style.boldAngel(angelic face)], [npc.materialDescriptor] [npc.faceFullDescription]."
 					+ " Within [npc.her] [npc.mouth], [npc.she] has an [style.boldAngel(angelic tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], angelic face, [npc.materialDescriptor] [npc.faceFullDescription(true)].",
@@ -66,11 +71,11 @@ public class FaceType {
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
 			"#IF(npc.isShortStature())"
-				+ "Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with an impish, human-looking face, covered in [npc.faceSkin+].<br/>"
+				+ "Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with an impish, human-looking face, [npc.materialDescriptor] [npc.faceSkin+].<br/>"
 				+ "[npc.Name] now [npc.has] a [style.boldImp(impish face)], [npc.materialDescriptor] [npc.faceFullDescription]."
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldImp(impish tongue)]."
 			+ "#ELSE"
-				+ "Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with a demonic, human-looking face, covered in [npc.faceSkin+].<br/>"
+				+ "Thankfully#IF(!npc.isPlayer())for [npc.herHim]#ENDIF, the transformation only lasts a matter of moments, leaving [npc.herHim] with a demonic, human-looking face, [npc.materialDescriptor] [npc.faceSkin+].<br/>"
 				+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic face)], [npc.materialDescriptor] [npc.faceFullDescription]."
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldDemon(demonic tongue)]."
 			+ "#ENDIF",
@@ -100,9 +105,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldAlligatorMorph(strong, alligator-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, alligator-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, flat muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_SCALY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_SCALY
 				)){
 	};
 
@@ -128,9 +133,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldBatMorph(thin, bat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, bat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -156,39 +161,39 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, cat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a cute little feline muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
-	public static AbstractFaceType CAT_MORPH_PANTHER = new AbstractFaceType(BodyCoveringType.FELINE_FUR,
-			Race.CAT_MORPH,
-			MouthType.CAT_MORPH,
-			null,
-			null,
-			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
-			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
-			"nose",
-			"noses",
-			Util.newArrayListOfValues(""),
-			Util.newArrayListOfValues(""),
-			"[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic panther-like muzzle, and [npc.her] tongue flattens and transforms into a cat-like one."
-				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
-					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
-				+ "#ELSE"
-					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+]"
-				+ "#ENDIF"
-					+ ", and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.<br/>"
-				+ "[npc.Name] now [npc.has] an anthropomorphic [style.boldCatMorph(panther-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
-				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
-			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, panther-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
-			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
-				)){
-	};
+//	public static AbstractFaceType CAT_MORPH_PANTHER = new AbstractFaceType(BodyCoveringType.FELINE_FUR,
+//			Race.CAT_MORPH,
+//			MouthType.CAT_MORPH,
+//			null,
+//			null,
+//			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
+//			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
+//			"nose",
+//			"noses",
+//			Util.newArrayListOfValues(""),
+//			Util.newArrayListOfValues(""),
+//			"[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic panther-like muzzle, and [npc.her] tongue flattens and transforms into a cat-like one."
+//				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
+//					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
+//				+ "#ELSE"
+//					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+]"
+//				+ "#ENDIF"
+//					+ ", and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.<br/>"
+//				+ "[npc.Name] now [npc.has] an anthropomorphic [style.boldCatMorph(panther-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
+//				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
+//			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, panther-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
+//			Util.newArrayListOfValues(
+//					BodyPartTag.FACE_MUZZLE,
+//					BodyPartTag.FACE_FANGS,
+//					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
+//				)){
+//	};
 
 	public static AbstractFaceType COW_MORPH = new AbstractFaceType(BodyCoveringType.BOVINE_FUR,
 			Race.COW_MORPH,
@@ -212,8 +217,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCowMorph(strong, cow-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, cow-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a bovine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -239,9 +244,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldDogMorph(flat, dog-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, dog-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a canine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -267,9 +272,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldFoxMorph(flat, fox-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, fox-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a slender, vulpine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -284,8 +289,6 @@ public class FaceType {
 			"noses",
 			Util.newArrayListOfValues(""),
 			Util.newArrayListOfValues(""),
-			
-			
 			"[npc.Her] nose and mouth twitch and transform as they fuse together and push out into a short beak, and [npc.her] tongue thins down, turning into a bird-like one."
 				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
 					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
@@ -299,8 +302,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHarpy(thin, bird-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, bird-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a beak.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.BEAK,
-					FaceTypeTag.NATURAL_BALDNESS_AVIAN
+					BodyPartTag.FACE_BEAK,
+					BodyPartTag.FACE_NATURAL_BALDNESS_AVIAN
 				)){
 	};
 
@@ -326,8 +329,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldHorseMorph(strong, horse-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, horse-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, equine muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY // Note: Some horse races only have hair on the neck aka a mane so its not totally unnatural to have a bald face
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY // Note: Some horse races only have hair on the neck aka a mane so its not totally unnatural to have a bald face
 				)){
 	};
 
@@ -353,8 +356,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldRabbitMorph(thin, rabbit-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, rabbit-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -380,8 +383,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldRatMorph(thin, rat-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, rat-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long, rodent muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -390,8 +393,8 @@ public class FaceType {
 			MouthType.REINDEER_MORPH,
 			null,
 			null,
-			Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "rangiferine"),
-			Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "rangiferine"),
+			Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "reindeer"),
+			Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "reindeer"),
 			"nose",
 			"noses",
 			Util.newArrayListOfValues(""),
@@ -407,8 +410,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, reindeer-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -434,8 +437,8 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldSquirrelMorph(thin, squirrel-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, squirrel-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a short muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 
@@ -461,9 +464,9 @@ public class FaceType {
 				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldWolfMorph(flat, wolf-like tongue)].",
 			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, wolf-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a long muzzle.",
 			Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.NATURAL_BALDNESS_FURRY
+					BodyPartTag.FACE_MUZZLE,
+					BodyPartTag.FACE_FANGS,
+					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
 				)){
 	};
 	
@@ -474,8 +477,47 @@ public class FaceType {
 	
 	static {
 		allFaceTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
+					try {
+						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allFaceTypes.add(type);
+						faceToIdMap.put(type, id);
+						idToFaceMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("face")) {
+					try {
+						AbstractFaceType type = new AbstractFaceType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allFaceTypes.add(type);
+						faceToIdMap.put(type, id);
+						idToFaceMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded face types:
+		
 		Field[] fields = FaceType.class.getFields();
 		
 		for(Field f : fields){
@@ -495,6 +537,13 @@ public class FaceType {
 				}
 			}
 		}
+		
+		Collections.sort(allFaceTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
 	public static AbstractFaceType getFaceTypeFromId(String id) {
@@ -506,6 +555,9 @@ public class FaceType {
 		}
 		if(id.equals("TENGU")) {
 			return FaceType.HARPY;
+		}
+		if(id.equals("CAT_MORPH_PANTHER")) {
+			id = "innoxia_panther_face";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToFaceMap.keySet());
@@ -520,9 +572,9 @@ public class FaceType {
 		return allFaceTypes;
 	}
 	
-	private static Map<Race, List<AbstractFaceType>> typesMap = new HashMap<>();
+	private static Map<AbstractRace, List<AbstractFaceType>> typesMap = new HashMap<>();
 	
-	public static List<AbstractFaceType> getFaceTypes(Race r) {
+	public static List<AbstractFaceType> getFaceTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}

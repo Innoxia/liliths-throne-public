@@ -12,21 +12,31 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum ClitorisSize {
 	
-	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE),
+	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE) {
+		@Override
+		public boolean isPseudoPenisSize() {
+			return false;
+		}
+	},
 	
-	ONE_BIG("big", 1, 8, PresetColour.GENERIC_SIZE_TWO),
+	ONE_BIG("big", 1, 5, PresetColour.GENERIC_SIZE_TWO) {
+		@Override
+		public boolean isPseudoPenisSize() {
+			return false;
+		}
+	},
 	
-	TWO_LARGE("large", 8, 12, PresetColour.GENERIC_SIZE_THREE),
+	TWO_LARGE("large", 5, 10, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_HUGE("huge", 12, 28, PresetColour.GENERIC_SIZE_FOUR),
+	THREE_HUGE("huge", 10, 25, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_MASSIVE("massive", 28, 55, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_MASSIVE("massive", 25, 40, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ENORMOUS("enormous", 55, 75, PresetColour.GENERIC_SIZE_SIX),
+	FIVE_ENORMOUS("enormous", 40, 50, PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_GIGANTIC("gigantic", 75, 100, PresetColour.GENERIC_SIZE_SEVEN),
+	SIX_GIGANTIC("gigantic", 50, 60, PresetColour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_STALLION("absurdly colossal", 100, 125, PresetColour.GENERIC_SIZE_EIGHT);
+	SEVEN_STALLION("absurdly colossal", 60, 100, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
@@ -38,7 +48,11 @@ public enum ClitorisSize {
 		this.maximumValue = maximumValue;
 		this.colour = colour;
 	}
-
+	
+	public boolean isPseudoPenisSize() {
+		return true;
+	}
+	
 	public int getMinimumValue() {
 		return minimumValue;
 	}

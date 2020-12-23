@@ -17,6 +17,8 @@ public enum CoveringPattern {
 	
 	ORIFICE_ANUS(true, "anus"),
 	ORIFICE_VAGINA(true, "vagina"),
+	ORIFICE_MOUTH(true, "mouth"),
+	ORIFICE_SPINNERET(true, "spinneret"),
 	ORIFICE_NIPPLE(true, "nipple") {
 		@Override
 		public boolean isNaturalSecondColour(GameCharacter owner) {
@@ -29,7 +31,6 @@ public enum CoveringPattern {
 			return owner.getNippleCrotchCapacity()!=Capacity.ZERO_IMPENETRABLE;
 		}
 	},
-	ORIFICE_MOUTH(true, "mouth"),
 
 	EYE_IRISES(false, "standard"),
 	EYE_IRISES_HETEROCHROMATIC(true, "heterochromatic"),
@@ -52,6 +53,7 @@ public enum CoveringPattern {
 	public static Map<CoveringPattern, Integer> allStandardCoveringPatterns = new HashMap<>();
 	public static Map<CoveringPattern, Integer> allHairCoveringPatterns = new HashMap<>();
 	public static Map<CoveringPattern, Integer> allScalesCoveringPatterns = new HashMap<>();
+	public static Map<CoveringPattern, Integer> allSlimeCoveringPatterns = new HashMap<>();
 	
 	static {
 		allStandardCoveringPatterns.put(NONE, 1);
@@ -77,6 +79,16 @@ public enum CoveringPattern {
 		allScalesCoveringPatterns.put(SPOTTED, 1);
 		allScalesCoveringPatterns.put(MOTTLED, 1);
 		allScalesCoveringPatterns.put(MARKED, 1);
+		
+		allSlimeCoveringPatterns.put(NONE, 1);
+		allSlimeCoveringPatterns.put(HIGHLIGHTS, 1);
+		allSlimeCoveringPatterns.put(STRIPED, 1);
+		allSlimeCoveringPatterns.put(SPOTTED, 1);
+		allSlimeCoveringPatterns.put(MOTTLED, 1);
+		allSlimeCoveringPatterns.put(MARKED, 1);
+		allStandardCoveringPatterns.put(FRECKLED, 1);
+		allStandardCoveringPatterns.put(FRECKLED_FACE, 1);
+		allSlimeCoveringPatterns.put(OMBRE, 1);
 	}
 	
 	

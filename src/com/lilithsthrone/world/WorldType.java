@@ -1,33 +1,35 @@
 package com.lilithsthrone.world;
 
 import java.awt.Color;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.7.2
  * @author Innoxia
  */
-public enum WorldType {
+public class WorldType {
 	
 	// Dominion:
 	
-	WORLD_MAP("Lilith's Realm",
+	public static AbstractWorldType WORLD_MAP = new AbstractWorldType(WorldRegion.MISC,
+			"Lilith's Realm",
 			PresetColour.BASE_TAN,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/global/world_map.png",
-			null, null, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/global/world_map.png", null, null, Util.newHashMapOfValues(
 					new Value<>(new Color(0x61997e), PlaceType.WORLD_MAP_THICK_JUNGLE), // thick jungle
 					new Value<>(new Color(0x81cca8), PlaceType.WORLD_MAP_JUNGLE), // jungle
 					new Value<>(new Color(0xb377b0), PlaceType.WORLD_MAP_JUNGLE_CITY), // jungle city
@@ -68,17 +70,16 @@ public enum WorldType {
 		public boolean isDiscoveredOnStart() {
 			return true;
 		}
-		
-	},
+	};
 	
 	
-	DOMINION("Dominion",
+	public static AbstractWorldType DOMINION = new AbstractWorldType(WorldRegion.DOMINION,
+			"Dominion",
 			PresetColour.BASE_PURPLE,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/dominion.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_PLAZA, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/dominion.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_PLAZA, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x808080), PlaceType.DOMINION_STREET),
@@ -116,30 +117,29 @@ public enum WorldType {
 					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
 					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT),
 					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
-					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES)
-					)),
+					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
+	};
 	
-
-	// Empty:
-	EMPTY("City",
+	public static AbstractWorldType EMPTY = new AbstractWorldType(WorldRegion.MISC,
+			"Empty (Holding world)",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/empty.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/empty.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
 					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
-					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
+					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))) {
+	};
 
-	MUSEUM("Museum",
+	public static AbstractWorldType MUSEUM = new AbstractWorldType(WorldRegion.OLD_WORLD,
+			"Museum",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/prologue/museum.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/prologue/museum.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.MUSEUM_ENTRANCE),
 					new Value<>(new Color(0x8000ff), PlaceType.MUSEUM_CROWDS),
@@ -152,15 +152,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 
-	MUSEUM_LOST("Museum",
+	public static AbstractWorldType MUSEUM_LOST = new AbstractWorldType(WorldRegion.OLD_WORLD,
+			"Museum",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/prologue/museum_lost.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_MIRROR, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/prologue/museum_lost.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_MIRROR, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
 					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_MIRROR),
@@ -169,15 +173,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home GF",
+	public static AbstractWorldType LILAYAS_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Lilaya's Home GF",
 			PresetColour.BASE_BLUE_LIGHT,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_ENTRANCE_HALL, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_ENTRANCE_HALL, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_ENTRANCE_HALL),
@@ -189,20 +197,25 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
-					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP))){
+					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP),
+					new Value<>(new Color(0x00ff80), PlaceType.LILAYA_HOME_STAIR_UP_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home 1F",
+	public static AbstractWorldType LILAYAS_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Lilaya's Home 1F",
 			PresetColour.BASE_BLUE_LIGHT,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_STAIR_DOWN, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_STAIR_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
@@ -210,34 +223,48 @@ public enum WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN),
+					new Value<>(new Color(0xff8000), PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home 1F",
+	public static AbstractWorldType ZARANIX_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Zaranix's Home 1F",
 			PresetColour.BASE_CRIMSON,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_FF_STAIRS, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_FF_STAIRS, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_FF_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_FF_STAIRS),
 					new Value<>(new Color(0xff80ff), PlaceType.ZARANIX_FF_OFFICE),
 					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_FF_ROOM),
-					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))),
+					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Zaranix's house!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home GF",
+	public static AbstractWorldType ZARANIX_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Zaranix's Home GF",
 			PresetColour.BASE_CRIMSON,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_GF_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_GF_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_GF_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_GF_STAIRS),
@@ -247,15 +274,24 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_GF_MAID),
 					new Value<>(new Color(0x00ffff), PlaceType.ZARANIX_GF_GARDEN_ROOM),
 					new Value<>(new Color(0x008000), PlaceType.ZARANIX_GF_GARDEN),
-					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))),
+					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Zaranix's house!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 
-	HARPY_NEST("Harpy Nests",
+	public static AbstractWorldType HARPY_NEST = new AbstractWorldType(WorldRegion.DOMINION,
+			"Harpy Nests",
 			PresetColour.BASE_CRIMSON,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/harpyNests/harpyNests.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/harpyNests/harpyNests.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x808080), PlaceType.HARPY_NESTS_WALKWAYS),
@@ -265,15 +301,16 @@ public enum WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.HARPY_NESTS_HARPY_NEST_RED),
 					new Value<>(new Color(0xff00ff), PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
 					new Value<>(new Color(0xffff00), PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
-					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))),
+					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))) {
+	};
 	
-	SLAVER_ALLEY("Slaver Alley",
+	public static AbstractWorldType SLAVER_ALLEY = new AbstractWorldType(WorldRegion.DOMINION,
+			"Slaver Alley",
 			PresetColour.BASE_RED,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLAVER_ALLEY_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SLAVER_ALLEY_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
@@ -296,15 +333,16 @@ public enum WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
 					
 					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
-					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
+					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
+	};
 	
-	SHOPPING_ARCADE("Shopping Arcade",
+	public static AbstractWorldType SHOPPING_ARCADE = new AbstractWorldType(WorldRegion.DOMINION,
+			"Shopping Arcade",
 			PresetColour.BASE_YELLOW,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SHOPPING_ARCADE_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SHOPPING_ARCADE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SHOPPING_ARCADE_ENTRANCE),
@@ -322,56 +360,91 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			if((character != null) && !character.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
+				return "This isn't a suitable place in which to be having sex!";
+			}
+			return "";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	SUPPLIER_DEN("Supplier Depot",
+	public static AbstractWorldType SUPPLIER_DEN = new AbstractWorldType(WorldRegion.DOMINION,
+			"Supplier Depot",
 			PresetColour.BASE_CRIMSON,
 			1,
 			false,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SUPPLIER_DEPOT_ENTRANCE, Util.newHashMapOfValues(
+			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SUPPLIER_DEPOT_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.SUPPLIER_DEPOT_ENTRANCE),
 					new Value<>(new Color(0xff00ff), PlaceType.SUPPLIER_DEPOT_STORAGE_ROOM),
-					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))),
+					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	ENFORCER_HQ("Enforcer HQ",
+	public static AbstractWorldType ENFORCER_HQ = new AbstractWorldType(WorldRegion.DOMINION,
+			"Enforcer HQ",
 			PresetColour.BASE_BLUE,
 			1,
 			false,
+			false,
 			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ENFORCER_HQ_ENTRANCE, Util.newHashMapOfValues(
+			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ENFORCER_HQ_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
 					new Value<>(new Color(0xb9b9b9), PlaceType.ENFORCER_HQ_CELLS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ENFORCER_HQ_STAIRS),
 					
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
+					new Value<>(new Color(0x808000), PlaceType.ENFORCER_HQ_REQUISITIONS_DOOR),
 					new Value<>(new Color(0xff0080), PlaceType.ENFORCER_HQ_LOCKED_DOOR),
+					new Value<>(new Color(0x800080), PlaceType.ENFORCER_HQ_LOCKED_DOOR_EDGE),
 					
-
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE),
 					new Value<>(new Color(0x00ffff), PlaceType.ENFORCER_HQ_OFFICE),
 					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_HQ_CELLS_OFFICE),
-					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL)
-					)),
+					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL),
 
-	ENFORCER_WAREHOUSE("SWORD Warehouse",
+					new Value<>(new Color(0xff4000), PlaceType.ENFORCER_HQ_ENFORCER_ENTRANCE),
+					new Value<>(new Color(0x80ff80), PlaceType.ENFORCER_HQ_REQUISITIONS),
+					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER)
+					)) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex in the Enforcer HQ!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
+
+	public static AbstractWorldType ENFORCER_WAREHOUSE = new AbstractWorldType(WorldRegion.DOMINION,
+			"SWORD Warehouse",
 			PresetColour.BASE_BLUE,
 			1,
 			false,
+			false,
 			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/dominion/enforcerWarehouse/enforcerWarehouse.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, Util.newHashMapOfValues(
+			"/com/lilithsthrone/res/map/dominion/enforcerWarehouse/enforcerWarehouse.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_WAREHOUSE_ENTRANCE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_WAREHOUSE_CORRIDOR),
@@ -386,15 +459,24 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_WAREHOUSE_CRATES),
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_WAREHOUSE_CRATES_ARK),
 					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON),
-					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK))),
+					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex in such a dangerous place!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	CITY_HALL("City Hall",
+	public static AbstractWorldType CITY_HALL = new AbstractWorldType(WorldRegion.DOMINION,
+			"City Hall",
 			PresetColour.BASE_PURPLE,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/cityHall/city_hall.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.CITY_HALL_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/dominion/cityHall/city_hall.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.CITY_HALL_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.CITY_HALL_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.CITY_HALL_ENTRANCE),
@@ -404,16 +486,25 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.CITY_HALL_STAIRS),
 					new Value<>(new Color(0xff0080), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS),
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
-					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))),
+					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 
-	HOME_IMPROVEMENTS("Argus's DIY Depot",
+	public static AbstractWorldType HOME_IMPROVEMENTS = new AbstractWorldType(WorldRegion.DOMINION,
+			"Argus's DIY Depot",
 			PresetColour.BASE_ORANGE,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/homeImprovements/homeImprovements.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/dominion/homeImprovements/homeImprovements.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.HOME_IMPROVEMENTS_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.HOME_IMPROVEMENTS_ENTRANCE),
@@ -421,60 +512,85 @@ public enum WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.HOME_IMPROVEMENTS_SHELVING_STANDARD),
 					new Value<>(new Color(0xff8000), PlaceType.HOME_IMPROVEMENTS_BUILDING_SUPPLIES),
 					new Value<>(new Color(0xff0080), PlaceType.HOME_IMPROVEMENTS_OFFICE),
-					new Value<>(new Color(0x00ffff), PlaceType.HOME_IMPROVEMENTS_TOILETS))),
+					new Value<>(new Color(0x00ffff), PlaceType.HOME_IMPROVEMENTS_TOILETS))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
 	
-	DOMINION_EXPRESS("Dominion Express",
+	public static AbstractWorldType DOMINION_EXPRESS = new AbstractWorldType(WorldRegion.DOMINION,
+			"Dominion Express",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/dominionExpress/dominionExpress.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/dominion/dominionExpress/dominionExpress.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.DOMINION_EXPRESS_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_EXPRESS_FILLY_STATION),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
-					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))),
+					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 	
-	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss GF",
+	public static AbstractWorldType ANGELS_KISS_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Angel's Kiss GF",
 			PresetColour.BASE_MAGENTA,
 			1,
 			false,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ANGELS_KISS_ENTRANCE),
 					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_UP),
 					new Value<>(new Color(0x00ffff), PlaceType.ANGELS_KISS_OFFICE),
-					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))),
+					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))) {
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss 1F",
+	public static AbstractWorldType ANGELS_KISS_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
+			"Angel's Kiss 1F",
 			PresetColour.BASE_MAGENTA,
 			1,
 			false,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_STAIRCASE_DOWN, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_STAIRCASE_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_DOWN),
 					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM),
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
-					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
+					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))) {
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	NIGHTLIFE_CLUB("The Watering Hole",
+	public static AbstractWorldType NIGHTLIFE_CLUB = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Watering Hole",
 			PresetColour.BASE_BLUE,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.WATERING_HOLE_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.WATERING_HOLE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
@@ -491,15 +607,15 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+	};
 	
-	DADDYS_APARTMENT("Daddy's apartment",
+	public static AbstractWorldType DADDYS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Daddy's apartment",
 			PresetColour.RACE_DEMON,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/dominion/daddy/apartment.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/daddy/apartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x00ff00), PlaceType.DADDY_APARTMENT_ENTRANCE),
@@ -515,15 +631,23 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in [daddy.namePos] apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	HELENAS_APARTMENT("Helena's apartment",
+	public static AbstractWorldType HELENAS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Helena's apartment",
 			PresetColour.BASE_GOLD,
 			1,
 			false,
-			TeleportPermissions.NONE,
-			"/com/lilithsthrone/res/map/dominion/helenaApartment/apartment.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_HELENA_HOTEL, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/helenaApartment/apartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_HELENA_HOTEL, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x808080), PlaceType.HELENA_APARTMENT_HALLWAY),
@@ -544,17 +668,25 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Helena's apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
 	// Other:
 
-	SUBMISSION("Submission",
+	public static AbstractWorldType SUBMISSION = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Submission",
 			PresetColour.BASE_GREEN,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/submission/submission.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SUBMISSION_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/submission/submission.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SUBMISSION_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808000), PlaceType.SUBMISSION_ENTRANCE),
@@ -580,17 +712,17 @@ public enum WorldType {
 					new Value<>(new Color(0xb065c9), PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES),
 					
 					new Value<>(new Color(0x0096c9), PlaceType.SUBMISSION_IMP_FORTRESS_MALES),
-					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
-					)),
+					new Value<>(new Color(0x65b0c9), PlaceType.SUBMISSION_IMP_TUNNELS_MALES))) {
+	};
 
 
-	LYSSIETH_PALACE("Lyssieth's Palace",
+	public static AbstractWorldType LYSSIETH_PALACE = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Lyssieth's Palace",
 			PresetColour.BASE_PURPLE,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),
 					new Value<>(new Color(0x404040), PlaceType.LYSSIETH_PALACE_WINDOWS),
@@ -602,17 +734,24 @@ public enum WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.LYSSIETH_PALACE_SIREN_OFFICE),
 					
 					new Value<>(new Color(0xff0000), PlaceType.LYSSIETH_PALACE_STAIRS_1),
-					new Value<>(new Color(0x0000ff), PlaceType.LYSSIETH_PALACE_STAIRS_2)
-					
-					)),
+					new Value<>(new Color(0x0000ff), PlaceType.LYSSIETH_PALACE_STAIRS_2))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Lyssieth's Palace!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	IMP_FORTRESS_ALPHA("Imp Fortress A",
+	public static AbstractWorldType IMP_FORTRESS_ALPHA = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress A",
 			PresetColour.BASE_CRIMSON,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
@@ -621,15 +760,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	IMP_FORTRESS_DEMON("Imp Citadel",
+	public static AbstractWorldType IMP_FORTRESS_DEMON = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Citadel",
 			PresetColour.BASE_PURPLE,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_DEMON_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
@@ -644,15 +787,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	IMP_FORTRESS_FEMALES("Imp Fortress F",
+	public static AbstractWorldType IMP_FORTRESS_FEMALES = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress F",
 			PresetColour.BASE_PINK,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
@@ -661,15 +808,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	IMP_FORTRESS_MALES("Imp Fortress M",
+	public static AbstractWorldType IMP_FORTRESS_MALES = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Imp Fortress M",
 			PresetColour.BASE_BLUE,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
@@ -678,15 +829,19 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	BAT_CAVERNS("Bat Caverns",
+	public static AbstractWorldType BAT_CAVERNS = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Bat Caverns",
 			PresetColour.BASE_BLACK,
 			1,
 			true,
-			TeleportPermissions.BOTH,
-			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.BAT_CAVERN_ENTRANCE, Util.newHashMapOfValues(
+			true,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.BAT_CAVERN_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
@@ -698,15 +853,16 @@ public enum WorldType {
 					new Value<>(new Color(0x40b4ff), PlaceType.BAT_CAVERN_RIVER_CROSSING),
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
-					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))) {
+	};
 
-	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower GF",
+	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Slime Queen's Tower GF",
 			PresetColour.BASE_PINK,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
@@ -719,15 +875,20 @@ public enum WorldType {
 					
 					new Value<>(new Color(0xff80ff), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS),
 					
-					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower 1F",
+	public static AbstractWorldType SLIME_QUEENS_LAIR_FIRST_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Slime Queen's Tower 1F",
 			PresetColour.BASE_PINK,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
@@ -737,15 +898,20 @@ public enum WorldType {
 					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
 					
 					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
-					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+	};
 
-	GAMBLING_DEN("Gambling Den",
+	public static AbstractWorldType GAMBLING_DEN = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Gambling Den",
 			PresetColour.BASE_GOLD,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
-			PlaceType.WORLD_MAP_DOMINION, PlaceType.GAMBLING_DEN_ENTRANCE, Util.newHashMapOfValues(
+			false,
+			TeleportPermissions.OUTGOING_ONLY, "/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.GAMBLING_DEN_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
 					
@@ -765,17 +931,25 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	},
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	RAT_WARRENS("Rat Warrens",
+	public static AbstractWorldType RAT_WARRENS = new AbstractWorldType(WorldRegion.SUBMISSION,
+			"Rat Warrens",
 			PresetColour.BASE_BROWN,
 			1,
 			false,
+			false,
 			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/ratWarrens/ratWarrens.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.RAT_WARRENS_ENTRANCE,
-			Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.RAT_WARRENS_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.RAT_WARRENS_CORRIDOR_LEFT),
 					new Value<>(new Color(0xb9b9b9), PlaceType.RAT_WARRENS_CORRIDOR),
@@ -792,180 +966,53 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.RAT_WARRENS_MILKING_ROOM),
 					new Value<>(new Color(0xffbf00), PlaceType.RAT_WARRENS_MILKING_STORAGE),
 					new Value<>(new Color(0x8000ff), PlaceType.RAT_WARRENS_VENGARS_HALL),
-					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS)
-					)),
-	;
+					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS))) {
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "This isn't a suitable place in which to be having sex!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
 	
-	private final String name;
-	private final String fileLocation;
-	private Colour colour;
-	private int worldSize;
-	private int timeToTransition;
 	
-	private boolean loiteringEnabled;
+	private static List<AbstractWorldType> allWorldTypes = new ArrayList<>();
+	private static Map<AbstractWorldType, String> worldToIdMap = new HashMap<>();
+	private static Map<String, AbstractWorldType> idToWorldMap = new HashMap<>();
+
+	public static List<AbstractWorldType> getAllWorldTypes() {
+		return allWorldTypes;
+	}
 	
-	private int tileSetRowNumber;
-	private int moveCost;
-	private AbstractPlaceType standardPlace;
-	private AbstractPlaceType cutOffZone;
-	private List<AbstractPlaceType> places;
-	private List<AbstractPlaceType> dangerousPlaces;
+	public static AbstractWorldType getWorldTypeFromId(String id) {
+		id.replaceAll("SEWERS", "SUBMISSION");
+		id = Util.getClosestStringMatch(id, idToWorldMap.keySet());
+		return idToWorldMap.get(id);
+	}
+
+	public static String getIdFromWorldType(AbstractWorldType placeType) {
+		return worldToIdMap.get(placeType);
+	}
 	
-	private TeleportPermissions teleportPermissions;
-	
-	private boolean usesFile;
-	private AbstractPlaceType globalMapLocation;
-	private AbstractPlaceType entryFromGlobalMapLocation;
-	private Map<Color, AbstractPlaceType> placesMap;
-	
-	// For randomly generating maps:
-	WorldType(int worldSize,
-			String name,
-			Colour colour,
-			int timeToTransition,
-			boolean loiteringEnabled,
-			AbstractPlaceType globalMapLocation,
-			AbstractPlaceType entryFromGlobalMapLocation,
-			AbstractPlaceType standardPlace,
-			AbstractPlaceType cutOffZone,
-			List<AbstractPlaceType> places,
-			List<AbstractPlaceType> dangerousPlaces) {
-		this.worldSize=worldSize;
+	static {
+		Field[] fields = WorldType.class.getFields();
 		
-		this.name = name;
-		this.colour = colour;
-		this.timeToTransition=timeToTransition;
-		this.moveCost = 5;
+		for(Field f : fields) {
+			if(AbstractWorldType.class.isAssignableFrom(f.getType())) {
+				AbstractWorldType worldType;
+				try {
+					worldType = ((AbstractWorldType) f.get(null));
 
-		this.standardPlace = standardPlace;
-		this.cutOffZone = cutOffZone;
-
-		this.globalMapLocation = globalMapLocation;
-		this.entryFromGlobalMapLocation = entryFromGlobalMapLocation;
-		
-		this.places = places;
-		this.dangerousPlaces = dangerousPlaces;
-		
-		this.loiteringEnabled = loiteringEnabled;
-		
-		fileLocation = null;
-		usesFile = false;
-		
-		this.teleportPermissions = TeleportPermissions.NONE;
+					worldToIdMap.put(worldType, f.getName());
+					idToWorldMap.put(f.getName(), worldType);
+					allWorldTypes.add(worldType);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
-	
-	WorldType(String name,
-			Colour colour,
-			int timeToTransition,
-			boolean loiteringEnabled,
-			TeleportPermissions teleportPermissions,
-			String fileLocation,
-			AbstractPlaceType globalMapLocation,
-			AbstractPlaceType entryFromGlobalMapLocation,
-			Map<Color, AbstractPlaceType> placesMap) {
-		this.name = name;
-		this.colour = colour;
-		this.timeToTransition=timeToTransition;
-		moveCost = 5;
-
-		standardPlace = null;
-		cutOffZone = null;
-
-		this.globalMapLocation = globalMapLocation;
-		this.entryFromGlobalMapLocation = entryFromGlobalMapLocation;
-		
-		places = null;
-		dangerousPlaces = null;
-		
-		this.loiteringEnabled = loiteringEnabled;
-		
-		this.teleportPermissions = teleportPermissions;
-		
-		this.fileLocation = fileLocation;
-		usesFile = true;
-		this.placesMap=placesMap;
-	}
-	
-	public int getTileSetRowNumber() {
-		return tileSetRowNumber;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Colour getColour() {
-		return colour;
-	}
-
-	public int getTimeToTransition() {
-		return timeToTransition;
-	}
-
-	public int getMoveCost() {
-		return moveCost;
-	}
-	
-	public boolean isLoiteringEnabled() {
-		return loiteringEnabled;
-	}
-	
-	/**
-	 * Reveals all tiles as though the player knows about them, but has not travelled to them. Behaviour may be overridden by isRevealedOnStart().
-	 */
-	public boolean isDiscoveredOnStart() {
-		return false;
-	}
-	
-	/**
-	 * Reveals all tiles as though the player has already travelled to them.
-	 */
-	public boolean isRevealedOnStart() {
-		return false;
-	}
-
-	public AbstractPlaceType getStandardPlace() {
-		return standardPlace;
-	}
-
-	public AbstractPlaceType getCutOffZone() {
-		return cutOffZone;
-	}
-
-	public List<AbstractPlaceType> getPlaces() {
-		return places;
-	}
-
-	public List<AbstractPlaceType> getDangerousPlaces() {
-		return dangerousPlaces;
-	}
-
-	public AbstractPlaceType getGlobalMapLocation() {
-		return globalMapLocation;
-	}
-
-	public AbstractPlaceType getEntryFromGlobalMapLocation() {
-		return entryFromGlobalMapLocation;
-	}
-
-	public String getFileLocation() {
-		return fileLocation;
-	}
-
-	public boolean isUsesFile() {
-		return usesFile;
-	}
-
-	public Map<Color, AbstractPlaceType> getPlacesMap() {
-		return placesMap;
-	}
-
-	public int getWorldSize() {
-		return worldSize;
-	}
-
-	public TeleportPermissions getTeleportPermissions() {
-		return teleportPermissions;
-	}
-
 }

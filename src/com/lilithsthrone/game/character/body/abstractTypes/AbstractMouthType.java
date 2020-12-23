@@ -1,25 +1,39 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.7
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractMouthType implements BodyPartTypeInterface {
 
-	private BodyCoveringType skinType;
-	private Race race;
+	private boolean mod;
+	private boolean fromExternalFile;
+	
+	private AbstractBodyCoveringType coveringType;
+	private AbstractRace race;
 	private AbstractTongueType tongueType;
 	
 	private List<String> names;
@@ -32,7 +46,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	
 	List<OrificeModifier> defaultRacialOrificeModifiers;
 
-	public AbstractMouthType(Race race, AbstractTongueType tongueType) {
+	public AbstractMouthType(AbstractRace race, AbstractTongueType tongueType) {
 		this(BodyCoveringType.MOUTH,
 				race,
 				tongueType,
@@ -45,7 +59,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	}
 	
 	/**
-	 * @param skinType What covers this mouth type (i.e skin/fur/feather type). This is never used, as skin type covering mouth is determined by torso covering.
+	 * @param coveringType What covers this mouth type (i.e skin/fur/feather type). This is never used, as skin type covering mouth is determined by torso covering.
 	 * @param race What race has this mouth type.
 	 * @param tongueType The type of tongue this mouth contains.
 	 * @param names A list of singular names for this mouth type. Pass in null to use generic names.
@@ -54,8 +68,8 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	 * @param mouthBodyDescription A sentence or two to describe this mouth type, as seen in the character view screen. It should follow the same format as all of the other entries in the MouthType class. Pass in null to use a generic description.
 	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this mouth type.
 	 */
-	public AbstractMouthType(BodyCoveringType skinType,
-			Race race,
+	public AbstractMouthType(AbstractBodyCoveringType coveringType,
+			AbstractRace race,
 			AbstractTongueType tongueType,
 			List<String> names,
 			List<String> namesPlural,
@@ -64,7 +78,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 			String mouthBodyDescription,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
 		
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.race = race;
 		this.tongueType = tongueType;
 		
@@ -75,10 +89,14 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 		this.descriptorsFeminine = descriptorsFeminine;
 		
 		if(mouthBodyDescription==null || mouthBodyDescription.isEmpty()) {
-			this.mouthBodyDescription ="[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips]"
+			this.mouthBodyDescription = "[npc.SheHasFull] [npc.lipSize], [npc.mouthColourPrimary(true)] [npc.lips]"
 						+ "#IF(npc.isWearingLipstick())"
 							+ "#IF(npc.isPiercedLip()), which have been pierced, and#ELSE, which#ENDIF"
-							+ " are currently [npc.materialCompositionDescriptor] [#npc.getLipstick().getFullDescription(npc, true)]."
+							+ " are currently [npc.materialCompositionDescriptor]"
+							+ "#IF(npc.isHeavyMakeup(BODY_COVERING_TYPE_MAKEUP_LIPSTICK) && game.isLipstickMarkingEnabled())"
+								+ " a [style.colourPinkDeep(heavy layer)] of"
+							+ "#ENDIF"
+							+ " [#npc.getLipstick().getFullDescription(npc, true)]."
 						+ "#ELSE"
 							+ "#IF(npc.isPiercedLip()), which have been pierced#ENDIF."
 						+ "#ENDIF"
@@ -86,8 +104,80 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 		} else {
 			this.mouthBodyDescription = mouthBodyDescription;
 		}
-		
-		this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+
+		if(defaultRacialOrificeModifiers==null) {
+			this.defaultRacialOrificeModifiers = new ArrayList<>();
+		} else {
+			this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+		}
+	}
+	
+	public AbstractMouthType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+				
+				this.tongueType = TongueType.getTongueTypeFromId(coreElement.getMandatoryFirstOf("tongueType").getTextContent());
+				
+				this.names = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					names.add(e.getTextContent());
+				}
+				
+				this.namesPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesPlural.add(e.getTextContent());
+				}
+				
+				this.descriptorsMasculine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsMasculine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsMasculine").getAllOf("descriptor")) {
+						descriptorsMasculine.add(e.getTextContent());
+					}
+				}
+				
+				this.descriptorsFeminine = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptorsFeminine").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptorsFeminine").getAllOf("descriptor")) {
+						descriptorsFeminine.add(e.getTextContent());
+					}
+				}
+				
+				this.mouthBodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+				this.defaultRacialOrificeModifiers = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("defaultOrificeModifiers").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("defaultOrificeModifiers").getAllOf("modifier")) {
+						defaultRacialOrificeModifiers.add(OrificeModifier.valueOf(e.getTextContent()));
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractAnusType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
 	}
 	
 	public AbstractTongueType getTongueType() {
@@ -100,13 +190,13 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(names==null) {
+		if(names==null || names.isEmpty()) {
 			return UtilText.returnStringAtRandom("mouth");
 		}
 		return Util.randomItemFrom(names);
@@ -114,7 +204,7 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(namesPlural==null) {
+		if(namesPlural==null || names.isEmpty()) {
 			return UtilText.returnStringAtRandom("mouths");
 		}
 		return Util.randomItemFrom(namesPlural);
@@ -130,12 +220,12 @@ public abstract class AbstractMouthType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
+		return coveringType;
 	}
 
 	@Override
-	public Race getRace() {
+	public AbstractRace getRace() {
 		return race;
 	}
 

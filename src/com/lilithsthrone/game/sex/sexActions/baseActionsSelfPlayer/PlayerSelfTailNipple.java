@@ -49,11 +49,11 @@ public class PlayerSelfTailNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Snaking your [pc.tail] up to your [pc.breasts+], you tease the tip over your [pc.nipples], [pc.moaning] in delight before thrusting deep inside one of your [pc.nipples+].",
 					
-					"You snake your [pc.tail] up to your [pc.breasts+], [pc.moaning] in delight as you force it deep into an inviting [pc.nipple].",
+					"You snake your [pc.tail] up to your [pc.breasts+], [pc.moaning] in delight as you force it deep into an inviting [pc.nipple(true)].",
 					
-					"Sliding the tip of your [pc.tail+] up to your [pc.breasts+], you thrust it deep inside an inviting [pc.nipple], letting out [pc.a_moan+] as you start tail-fucking your own [pc.breasts].",
+					"Sliding the tip of your [pc.tail+] up to your [pc.breasts+], you thrust it deep inside an inviting [pc.nipple(true)], letting out [pc.a_moan+] as you start tail-fucking your own [pc.breasts].",
 					
-					"You eagerly thrust your [pc.tail+] deep into a needy [pc.nipple], letting out a series of [pc.moans+] as you start tail-fucking your own [pc.breasts]."));
+					"You eagerly thrust your [pc.tail+] deep into a needy [pc.nipple(true)], letting out a series of [pc.moans+] as you start tail-fucking your own [pc.breasts]."));
 			
 		
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
@@ -127,7 +127,7 @@ public class PlayerSelfTailNipple {
 					
 					"Gently pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
 					
-					"Slowly driving your [pc.tail] deep inside your [pc.nipple], you let out a little whimper as you start gently sliding it in and out of your [pc.breast+].",
+					"Slowly driving your [pc.tail] deep inside your [pc.nipple(true)], you let out a little whimper as you start gently sliding it in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts], you start gently pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
@@ -169,7 +169,7 @@ public class PlayerSelfTailNipple {
 					
 					"Pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
 					
-					"Driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
+					"Driving your [pc.tail] deep inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
@@ -207,11 +207,11 @@ public class PlayerSelfTailNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.tail] deep inside your [pc.nipple+], before starting to rapidly fuck your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.tail] deep inside your [pc.nipple+], before starting to rapidly fuck your [pc.breast(true)].",
 					
 					"Roughly pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
 					
-					"Forcefully driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start roughly grinding it in and out of your [pc.breast+].",
+					"Forcefully driving your [pc.tail] deep inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start roughly grinding it in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start roughly slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
@@ -253,7 +253,7 @@ public class PlayerSelfTailNipple {
 					
 					"Pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
 					
-					"Driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
+					"Driving your [pc.tail] deep inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
@@ -291,11 +291,11 @@ public class PlayerSelfTailNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.tail] deep inside your [pc.nipple+], before starting to desperately fuck your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.tail] deep inside your [pc.nipple+], before starting to desperately fuck your [pc.breast(true)].",
 					
 					"Enthusiastically pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you frantically fuck your [pc.breast+].",
 					
-					"Desperately driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start eagerly grinding it in and out of your [pc.breast+].",
+					"Desperately driving your [pc.tail] deep inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start eagerly grinding it in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you eagerly start slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}

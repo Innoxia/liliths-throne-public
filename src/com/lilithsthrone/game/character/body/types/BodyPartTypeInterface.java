@@ -1,22 +1,32 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.4.0
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
-
-	public boolean isDefaultPlural();
+	
+	public default boolean isAvailableForSelfTransformMenu(GameCharacter gc) {
+		return true;
+	}
+	
+	public boolean isDefaultPlural(GameCharacter gc);
 
 	/** @return Pronoun for this body part. (They, it) */
-	public default String getPronoun(){
-		if(isDefaultPlural()) {
+	public default String getPronoun(GameCharacter gc){
+		if(isDefaultPlural(gc)) {
 			return "they";
 		} else {
 			return "it";
@@ -30,7 +40,7 @@ public interface BodyPartTypeInterface {
 
 	/** @return The default name of this body part. */
 	public default String getName(GameCharacter gc){
-		if(isDefaultPlural()) {
+		if(isDefaultPlural(gc)) {
 			return getNamePlural(gc);
 		} else {
 			return getNameSingular(gc);
@@ -55,18 +65,43 @@ public interface BodyPartTypeInterface {
 	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
 	 * @param body The body that this covering type is a part of.
 	 * @return The type of skin that is covering this body part. */
-	public BodyCoveringType getBodyCoveringType(Body body);
+	public AbstractBodyCoveringType getBodyCoveringType(Body body);
 	
 	/**
 	 * <b>BodyCoveringType when assigned to a character should be checked through their appropriate methods!</b>
 	 */
-	public default BodyCoveringType getBodyCoveringType(GameCharacter gc) {
+	public default AbstractBodyCoveringType getBodyCoveringType(GameCharacter gc) {
 		return getBodyCoveringType(gc.getBody());
 	}
 
 	/** @return The race of this body part. */
-	public Race getRace();
+	public AbstractRace getRace();
 	
+	/** @return The TFModifier for this body part. */
+	public default TFModifier getTFModifier() {
+		return TFModifier.NONE;
+	}
+	
+	public default List<BodyPartTag> getTags() {
+		return new ArrayList<>();
+	}
+
+	public default TFModifier getTFTypeModifier(List<? extends BodyPartTypeInterface> types) {
+		switch (types.indexOf(this)) {
+			case 0: return TFModifier.TF_TYPE_1;
+			case 1: return TFModifier.TF_TYPE_2;
+			case 2: return TFModifier.TF_TYPE_3;
+			case 3: return TFModifier.TF_TYPE_4;
+			case 4: return TFModifier.TF_TYPE_5;
+			case 5: return TFModifier.TF_TYPE_6;
+			case 6: return TFModifier.TF_TYPE_7;
+			case 7: return TFModifier.TF_TYPE_8;
+			case 8: return TFModifier.TF_TYPE_9;
+			case 9: return TFModifier.TF_TYPE_10;
+			default: return TFModifier.NONE;
+		}
+	}
+
 	//TODO
 //	/** @return The description of this body part as seen in the character view screen. */
 //	public String getBodyDescription(GameCharacter owner);
@@ -75,53 +110,19 @@ public interface BodyPartTypeInterface {
 //	/** @return The description of this body part being changed. */
 //	public String getTransformationDescription(GameCharacter owner);
 
+	public default String getTransformationNameOverride() {
+		return null;
+	}
+	
 	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
+		if(getTransformationNameOverride()!=null) {
+			return getTransformationNameOverride();
+		}
 		if(getRace()==null) {
 			return "";
 		}
-		
-		switch(getRace()){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON:
-				return "demonic";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "harpy";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "reindeer";
-			case HUMAN:
-				return "human";
-			case WOLF_MORPH:
-				return "wolf";
-			case FOX_MORPH:
-				return "fox";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case ELEMENTAL:
-				return "elemental";
-			case NONE:
-				return "none";
-			case SLIME:
-				return "slime";
-		}
-		return "";
+		return getRace().getDefaultTransformName();
 	}
 	
 	/**

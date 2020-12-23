@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -109,7 +109,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
@@ -117,73 +117,43 @@
 		<tertiaryColours values="JUST_STEEL"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		<tertiaryColoursDye values="ALL_METAL"/>
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			
 			<tag>RIGID_MATERIAL</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You untie the laces on your boots and pull them off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You untie the laces on [npc.name]'s boots and pull them off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the laces on [npc.name]'s boots and yank them off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] unties the laces on [npc.her] and takes them off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] unties the laces on your boots and takes them off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the laces on your boots and yanks them off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] unties the laces on [npc2.name]'s boots and pulls them off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the laces on [npc2.name]'s boots and yanks them off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You step into the boots and adjust the laces until they're comfortable. You then wind the laces around the upper a few times, tie a sturdy knot and tuck the excess neatly between the lacing and the tounge.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.feet] into the boots and help [npc.her] adjust the laces until they're comfortable. You then wind the laces around the upper a few times, tie a sturdy knot and tuck the excess neatly between the lacing and the tounge.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You stuff [npc.name]'s [npc.feet] into the boots, pull the laces as tightly as possible, and then tie a hasty knot.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] steps into the boots and adjusts the laces until they're comfortable. [npc.She] then winds the laces around the upper a few times, ties a sturdy knot and tucks the excess neatly between the lacing and the tounge.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.feet] into the boots and helps you adjust the laces until they're comfortable. [npc.She] then winds the laces around the upper a few times, ties a sturdy knot and tucks the excess neatly between the lacing and the tounge.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] stuffs your [npc.feet] into the boots, pulls the laces as tightly as possible, and then ties a hasty knot.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.feet] into the boots and helps [npc2.her] adjust the laces until they're comfortable. [npc1.She] then winds the laces around the upper a few times, ties a sturdy knot and tucks the excess neatly between the lacing and the tounge.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] stuffs [npc2.name] [npc2.feet] into the boots, pulls the laces as tightly as possible, and then ties a hasty knot.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the boots on and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a strudy knot and [npc.verb(tuck)] the excess neatly between the lacing and the toungue.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a strudy knot and [npc.verb(tuck)] the excess neatly between the lacing and the toungue.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(pull)] the laces as tightly as possible before tying a hasty knot.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the laces and pull the boots from [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the laces and pull the boots from [npc2.namePos] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] the lace open and yank the boots from [npc2.namePos] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

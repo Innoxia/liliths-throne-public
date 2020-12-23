@@ -1,0 +1,20 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <circle transform="rotate(-6.004)" cx="28.477" cy="35.172" r="30" fill="#ffe6d5" fill-rule="evenodd" overflow="visible" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal"/>
+ <g fill="#ff7f2a">
+  <ellipse transform="rotate(-10.091)" cx="4.2029" cy="47.25" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="13.594" cy="30.321" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="27.959" cy="60.145" rx="3.5955" ry="3.8352"/>
+  <ellipse transform="rotate(-10.091)" cx="49.546" cy="37.887" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="28.782" cy="28.154" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="27.362" cy="15.339" rx="2.6211" ry="2.7958"/>
+  <ellipse transform="rotate(-10.091)" cx="23.746" cy="50.436" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="41.52" cy="53.988" rx="2.6211" ry="2.7958"/>
+  <ellipse transform="rotate(-10.091)" cx="14.976" cy="58.127" rx="2.6211" ry="2.7958"/>
+  <ellipse transform="rotate(-10.091)" cx="12.929" cy="17.64" rx="2.9123" ry="3.1065"/>
+  <ellipse transform="rotate(-10.091)" cx="1.6725" cy="32.192" rx="3.5955" ry="3.8352"/>
+  <ellipse transform="rotate(-10.091)" cx="40.732" cy="22.295" rx="3.5955" ry="3.8352"/>
+  <ellipse transform="rotate(-10.091)" cx="37.436" cy="39.725" rx="3.5955" ry="3.8352"/>
+  <ellipse transform="rotate(-10.091)" cx="23.008" cy="38.716" rx="2.6211" ry="2.7958"/>
+  <ellipse transform="rotate(-10.091)" cx="13.053" cy="43.761" rx="3.5955" ry="3.8352"/>
+ </g>
+</svg>

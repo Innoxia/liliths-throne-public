@@ -14,8 +14,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.7
@@ -26,11 +24,11 @@ public class SALilayaSpecials {
 	
 	// Demand pull out
 	public static final SexAction PARTNER_DEMAND_PULL_OUT = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			null,
 			SexParticipantType.NORMAL) {
 		
 		@Override
@@ -40,27 +38,24 @@ public class SALilayaSpecials {
 			}
 			return "Pull-out reminder";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getCharacterTargetedForSexAction(this).getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue() || Main.sex.getCharacterPerformingAction().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
+			return Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getCharacterTargetedForSexAction(this).getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
 					&& !Main.sex.getCharactersRequestingPullout().contains(Main.sex.getCharacterPerformingAction())
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
 					&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
 		}
-
 		@Override
 		public SexActionPriority getPriority() {
 			return SexActionPriority.UNIQUE_MAX;
 		}
-
 		@Override
 		public String getDescription() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -77,7 +72,6 @@ public class SALilayaSpecials {
 			}
 				
 		}
-
 		@Override
 		public void applyEffects() {
 			Main.sex.getCharactersRequestingPullout().add(Main.sex.getCharacterPerformingAction());
@@ -94,7 +88,7 @@ public class SALilayaSpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+			return !Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}
@@ -216,8 +210,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
-					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
+			return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}

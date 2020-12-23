@@ -1,67 +1,85 @@
 package com.lilithsthrone.game.inventory.weapon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.8
+ * @version 0.3.7.9
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSaving {
-
-
+	
 	private AbstractWeaponType weaponType;
+	
 	protected List<ItemEffect> effects;
 	
 	private DamageType damageType;
-	private Attribute coreEnchantment;
+	
+	private AbstractAttribute coreEnchantment;
+	
 	private List<Spell> spells;
-	private Colour primaryColour;
-	private Colour secondaryColour;
-	private Colour tertiaryColour;
+	private List<AbstractCombatMove> combatMoves;
 
-	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour) {
-		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), null);
+	
+	public AbstractWeapon(AbstractWeaponType weaponType, DamageType damageType, List<Colour> colours) {
+		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), damageType.getMultiplierAttribute().getColour(), weaponType.getRarity(), null);
 		
 		this.weaponType = weaponType;
-		damageType = dt;
+		this.damageType = damageType;
+
+		this.colours = new ArrayList<>(colours);
+		if(colours.size()<weaponType.getColourReplacements(false).size()) {
+			for(int i=colours.size(); i<weaponType.getColourReplacements(false).size(); i++) {
+				this.setColour(i, weaponType.getColourReplacements(false).get(i).getFirstOfDefaultColours());
+			}
+		}
 		
 		coreEnchantment = null;
 		
 		spells = new ArrayList<>(weaponType.getSpells(damageType));
-
+		combatMoves = new ArrayList<>(weaponType.getCombatMoves(damageType));
+		
 		this.effects = new ArrayList<>();
 		if(weaponType.getEffects()!=null) {
 			for(ItemEffect effect : weaponType.getEffects()) {
@@ -118,33 +136,29 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 		
 		int highestEnchantment = 0;
-		for (Attribute a : getAttributeModifiers().keySet()) {
+		for (AbstractAttribute a : new HashSet<>(getAttributeModifiers().keySet())) {
 			if (getAttributeModifiers().get(a) > highestEnchantment) {
 				coreEnchantment = a;
 				highestEnchantment = getAttributeModifiers().get(a);
 			}
 		}
-
-		this.primaryColour = primaryColour;
-		this.secondaryColour = secondaryColour;
-		this.tertiaryColour = tertiaryColour;
 	}
-
-//	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
-//		this(weaponType, dt, primaryColour, secondaryColour, null);
-//	}
 	
 	public AbstractWeapon(AbstractWeapon weapon) {
-		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour(), weapon.getTertiaryColour());
+		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getColours());
 		
 		if(!weapon.getWeaponType().isSpellRegenOnDamageTypeChange()) {
 			this.spells = new ArrayList<>(weapon.getSpells());
+		}
+
+		if(!weapon.getWeaponType().isCombatMoveRegenOnDamageTypeChange()) {
+			this.combatMoves = new ArrayList<>(weapon.getCombatMoves());
 		}
 		
 		this.setEffects(new ArrayList<>(weapon.getEffects()));
 		
 		int highestEnchantment = 0;
-		for (Attribute a : getAttributeModifiers().keySet()) {
+		for (AbstractAttribute a : new HashSet<>(getAttributeModifiers().keySet())) {
 			if (getAttributeModifiers().get(a) > highestEnchantment) {
 				coreEnchantment = a;
 				highestEnchantment = getAttributeModifiers().get(a);
@@ -161,9 +175,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(WeaponType.getIdFromWeaponType(this.getWeaponType()));
-		sb.append(this.getColour().getId());
-		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().getId():"ns");
-		sb.append(this.getTertiaryColour()!=null?this.getTertiaryColour().getId():"nt");
+		for(Colour colour : this.getColours()) {
+			sb.append(colour.getId());
+		}
+		
 		sb.append(this.getDamageType().toString());
 		sb.append(this.getCoreEnchantment()==null?"ne":this.getCoreEnchantment().toString());
 		
@@ -183,9 +198,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
 				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
-						&& ((AbstractWeapon)o).getPrimaryColour()==this.getPrimaryColour()
-						&& ((AbstractWeapon)o).getSecondaryColour()==this.getSecondaryColour()
-						&& ((AbstractWeapon)o).getTertiaryColour()==this.getTertiaryColour()
+						&& ((AbstractWeapon)o).getColours().equals(getColours())
 						&& ((AbstractWeapon)o).getDamageType()==this.getDamageType()
 						&& ((AbstractWeapon)o).getCoreEnchantment()==this.getCoreEnchantment()
 						&& ((AbstractWeapon)o).getSpells().equals(this.getSpells())
@@ -203,15 +216,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		int result = super.hashCode();
 		result = 31 * result + getWeaponType().hashCode();
 		result = 31 * result + getDamageType().hashCode();
-		if(getPrimaryColour()!=null) {
-			result = 31 * result + getPrimaryColour().hashCode();
-		}
-		if(getSecondaryColour()!=null) {
-			result = 31 * result + getSecondaryColour().hashCode();
-		}
-		if(getTertiaryColour()!=null) {
-			result = 31 * result + getTertiaryColour().hashCode();
-		}
+		result = 31 * result + getColours().hashCode();
 		if(getCoreEnchantment()!=null) {
 			result = 31 * result + getCoreEnchantment().hashCode();
 		}
@@ -224,13 +229,22 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		Element element = doc.createElement("weapon");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
-		CharacterUtils.addAttribute(doc, element, "name", name);
-		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
-		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
-		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().getId());
-		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().getId());
-		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().getId());
+		XMLUtil.addAttribute(doc, element, "id", this.getWeaponType().getId());
+		XMLUtil.addAttribute(doc, element, "name", name);
+		XMLUtil.addAttribute(doc, element, "damageType", this.getDamageType().toString());
+		XMLUtil.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":Attribute.getIdFromAttribute(this.getCoreEnchantment())));
+
+		if(!this.getColours().isEmpty()) {
+			Element innerElement = doc.createElement("colours");
+			element.appendChild(innerElement);
+			
+			for(int i=0; i<this.getColours().size(); i++) {
+				Element colourElement = doc.createElement("colour");
+				innerElement.appendChild(colourElement);
+				colourElement.setAttribute("i", String.valueOf(i));
+				colourElement.setTextContent(this.getColour(i).getId());
+			}
+		}
 		
 		Element innerElement = doc.createElement("effects");
 		element.appendChild(innerElement);
@@ -243,8 +257,17 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		for(Spell s : this.getSpells()) {
 			Element spell = doc.createElement("spell");
 			innerElement.appendChild(spell);
-			CharacterUtils.addAttribute(doc, spell, "value", s.toString());
+			XMLUtil.addAttribute(doc, spell, "value", s.toString());
 		}
+
+		innerElement = doc.createElement("combatMoves");
+		element.appendChild(innerElement);
+		for(AbstractCombatMove cm : this.getCombatMoves()) {
+			Element move = doc.createElement("move");
+			innerElement.appendChild(move);
+			XMLUtil.addAttribute(doc, move, "value", cm.getIdentifier());
+		}
+		
 		
 		return element;
 	}
@@ -254,7 +277,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		try {
 			String id = parentElement.getAttribute("id");
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
@@ -278,11 +301,25 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 		
 		// Try to load colour:
-		try {
-			weapon.setPrimaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
-			weapon.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
-			weapon.setTertiaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
-		} catch(Exception ex) {
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
+			Element colourElement = (Element) parentElement.getElementsByTagName("colours").item(0);
+			if(colourElement!=null) {
+				NodeList nodes = colourElement.getElementsByTagName("colour");
+				for(int i=0; i<nodes.getLength(); i++) {
+					Element cElement = (Element) nodes.item(i);
+					weapon.setColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
+				}
+			}
+			
+		} else {
+			try {
+				if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !weapon.getWeaponType().equals(WeaponType.getWeaponTypeFromId("innoxia_bow_shortbow"))){
+					weapon.setColour(0, PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
+					weapon.setColour(1, PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
+					weapon.setColour(2, PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
+				}
+			} catch(Exception ex) {
+			}
 		}
 
 		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
@@ -316,6 +353,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			} catch(Exception ex) {
 			}
 		}
+
+		weapon.combatMoves = new ArrayList<>();
+		element = (Element)parentElement.getElementsByTagName("combatMoves").item(0);
+		if(element!=null) {
+			NodeList combatMoveElements = element.getElementsByTagName("move");
+			for(int i=0; i<combatMoveElements.getLength(); i++){
+				Element e = ((Element)combatMoveElements.item(i));
+				try {
+					String identifier = e.getAttribute("value");
+					weapon.combatMoves.add(CombatMove.getCombatMoveFromId(identifier));
+				} catch(Exception ex) {
+				}
+			}
+		}
 		
 		return weapon;
 	}
@@ -324,50 +375,53 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	public abstract String onUnequip(GameCharacter character);
 
-	private StringBuilder descriptionSB = new StringBuilder("");
-
-
-	public Colour getPrimaryColour() {
-		return primaryColour;
-	}
-
-	public void setPrimaryColour(Colour primaryColour) {
-		this.primaryColour = primaryColour;
-	}
-	
-	public Colour getSecondaryColour() {
-		return secondaryColour;
-	}
-
-	public void setSecondaryColour(Colour secondaryColour) {
-		this.secondaryColour = secondaryColour;
-	}
-	
-	public Colour getTertiaryColour() {
-		return tertiaryColour;
-	}
-
-	public void setTertiaryColour(Colour tertiaryColour) {
-		this.tertiaryColour = tertiaryColour;
-	}
-	
+	@Override
 	public String getDescription() {
-		descriptionSB = new StringBuilder();
+		return getDescription(null);
+	}
+	
+	public String getDescription(GameCharacter character) {
+		StringBuilder descriptionSB = new StringBuilder();
+		
+		if(character==null || !character.hasWeaponEquipped(this)) {
+			character = Main.game.getPlayer();
+		}
 		
 		int essenceCost = this.getWeaponType().getArcaneCost();
-		descriptionSB.append(
-					"<p>"
-						+ "<b>"+Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)+"</b>"
-						+ " <b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"+ damageType.getName()+ "</b> damage"
-						+ "</br>"
-						+ "<b>"+(this.getWeaponType().isMelee()?"Melee":"Ranged")+" | "+(this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"</b>"
-						+ (essenceCost==0
-							?""
-							:"<br/><b>Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"</b>")
-					+ "</p>"
-					+ "<p>"
-						+ weaponType.getDescription()
-					+ "</p>");
+		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		descriptionSB.append("<p><b>");
+			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
+								+" | "
+								+(this.getWeaponType().isUsingUnarmedCalculation()
+									?"[style.colourUnarmed(Unarmed)]"
+									:(this.getWeaponType().isMelee()
+										?"[style.colourMelee(Melee)]"
+										:"[style.colourRanged(Ranged)]"))
+								+"<br/>");
+			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"<br/>");
+			if(essenceCost>0) {
+				descriptionSB.append("Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
+			}
+			if(this.getWeaponType().isUsingUnarmedCalculation()) {
+				descriptionSB.append("Includes [style.boldUnarmed("+character.getUnarmedDamage()+" unarmed damage)]<br/>");
+			}
+			descriptionSB.append(Attack.getMinimumDamage(character, null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(character, null, Attack.MAIN, this)+" "+ damageName+"<br/>");
+			int targetNumber=2;
+			for(Value<Integer, Integer> aoe : this.getWeaponType().getAoeDamage()) {
+				int aoeChance = aoe.getKey();
+				String position = Util.intToPosition(targetNumber);
+				descriptionSB.append("[style.boldAqua(AoE)]: "
+						+ "<b style='color:"+(aoeChance<=25?PresetColour.GENERIC_BAD:(aoeChance<=50?PresetColour.GENERIC_MINOR_BAD:(aoeChance<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()+";'>"+aoeChance+"%</b>"
+						+ " chance to deal "
+						+ "<b>"+ Attack.getMinimumDamage(character, null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(character, null, Attack.MAIN, this, aoe.getValue())+ "</b> "
+						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
+				targetNumber++;
+			}
+		descriptionSB.append("</b></p>");
+		descriptionSB.append("<p>");
+			descriptionSB.append(weaponType.getDescription());
+			descriptionSB.append("<br/>"+(getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
+		descriptionSB.append("</p>");
 		
 
 		// Physical resistance
@@ -380,25 +434,24 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							+ "</p>");
 		}
 
-		if (!attributeModifiers.isEmpty()) {
-			descriptionSB.append("<p>It provides ");
-			int i = 0;
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
-				if (i != 0) {
-					if (i + 1 == attributeModifiers.size())
-						descriptionSB.append(" and ");
-					else
-						descriptionSB.append(", ");
+		if(!this.getEffects().isEmpty()) {
+			descriptionSB.append("<p>Effects:");
+			for (ItemEffect e : this.getEffects()) {
+				if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE
+						&& e.getPrimaryModifier()!=TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+					for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+						descriptionSB.append("<br/>"+ s);
+					}
 				}
-
-				descriptionSB.append(" <b>" + e.getValue() + "</b> <b style='color: " + e.getKey().getColour().toWebHexString() + ";'> " + e.getKey().getName() + "</b>");
-				i++;
 			}
-			descriptionSB.append(".</p>");
+			for(Entry<AbstractAttribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+				descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
+			}
+			descriptionSB.append("</p>");
 		}
 
 		if (!spells.isEmpty()) {
-			descriptionSB.append("<p>Its arcane power grants you the ability to cast ");
+			descriptionSB.append("<p>"+(getWeaponType().isPlural()?"Their":"Its")+" arcane power grants you the ability to cast ");
 			int i = 0;
 			for (Spell s : spells) {
 				if (i != 0) {
@@ -413,8 +466,18 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			}
 			descriptionSB.append(".</p>");
 		}
-		
-		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
+
+
+		if(!combatMoves.isEmpty()) {
+			descriptionSB.append("<p>When equipped, "+(getWeaponType().isPlural()?"they unlock":"it unlocks")+" the move"+(combatMoves.size()==1?"":"s")+": ");
+			List<String> combatMoveNames = new ArrayList<>();
+			descriptionSB.append("[style.italicsCombat(");
+			for(AbstractCombatMove cm : combatMoves) {
+				combatMoveNames.add(cm.getName(0, character));
+			}
+			descriptionSB.append(Util.stringsToStringList(combatMoveNames, true));
+			descriptionSB.append(")]</p>");
+		}
 
 		if (getWeaponType().getClothingSet() != null) {
 			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
@@ -426,51 +489,64 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	@Override
 	public int getValue() {
-		float runningTotal = this.getWeaponType().getBaseValue();
-
-		if (this.getPrimaryColour() == PresetColour.CLOTHING_PLATINUM) {
-			runningTotal *= 2f;
-			
-		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_GOLD) {
-			runningTotal *= 1.75f;
-			
-		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_ROSE_GOLD) {
-			runningTotal *= 1.5f;
-			
-		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_SILVER) {
-			runningTotal *= 1.25f;
+		float modifier = 1;
+		
+		if(this.getRarity()==Rarity.JINXED) {
+			modifier -= 0.5f;
 		}
 		
-		if(rarity==Rarity.JINXED) {
-			runningTotal *= 0.5;
+		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
+			modifier += 0.2f;
+			
+		} else if(getColour(0)==PresetColour.CLOTHING_GOLD) {
+			modifier += 0.15f;
+			
+		} else if(getColour(0)==PresetColour.CLOTHING_ROSE_GOLD) {
+			modifier += 0.1f;
+			
+		} else if(getColour(0)==PresetColour.CLOTHING_SILVER) {
+			modifier += 0.05f;
 		}
 		
-		float attributeBonuses = 0;//getModifiedDropoffValue
-		if (attributeModifiers != null) {
-			for (Integer i : attributeModifiers.values()) {
-				attributeBonuses += i * 5;
+		for(ItemEffect e : this.getEffects()) {
+			if(e.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
+					|| e.getPrimaryModifier()==TFModifier.DAMAGE_WEAPON
+					|| e.getPrimaryModifier()==TFModifier.RESISTANCE_WEAPON) {
+				modifier += e.getPotency().getClothingBonusValue()*0.05f;
+				
+			} else if(e.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+				modifier += e.getPotency().getClothingBonusValue()*0.1f;
+				
+			} else {
+				modifier += e.getPotency().getValue()*0.025f;
 			}
 		}
 
-		if (getWeaponType().getClothingSet() != null) {
-			if (getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
-				for (Float f : getWeaponType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
-					attributeBonuses += f * 15;
-				}
-			}
+		modifier += this.getSpells().size()*0.2f;
+		
+		if(getWeaponType().getClothingSet()!=null) {
+			modifier += 1;
 		}
 		
-		attributeBonuses = Util.getModifiedDropoffValue(attributeBonuses * 25, 500);
+		modifier = Math.max(0.25f, modifier);
 		
-		runningTotal += attributeBonuses;
-		
-		if (runningTotal < 1) {
-			runningTotal = 1;
-		}
-		
-		return (int) runningTotal;
+		return Math.max(1, (int)(this.getWeaponType().getBaseValue() * modifier));
 	}
 
+	/**
+	 * @param characterOwner The character who owns this item.
+	 * @return A List of Strings describing extra features of this WeaponType.
+	 */
+	public List<String> getExtraDescriptions(GameCharacter characterOwner) {
+		List<String> descriptionsList = new ArrayList<>();
+		
+		for(ItemTag it : this.getWeaponType().getItemTags()) {
+			descriptionsList.addAll(it.getClothingTooltipAdditions());
+		}
+		
+		return descriptionsList;
+	}
+	
 	public DamageType getDamageType() {
 		return damageType;
 	}
@@ -485,32 +561,50 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		return (withDeterminer
-				? (!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
-					? weaponType.getDeterminer()
-					: UtilText.generateSingularDeterminer(damageType.getWeaponDescriptor()))
-				: "")
-				+ " "+damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+					?(!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
+							? weaponType.getDeterminer()
+							: UtilText.generateSingularDeterminer(getWeaponType().isAppendDamageName()?damageType.getWeaponDescriptor():name))
+						+ " "
+					:"")
+				+ (getWeaponType().isAppendDamageName()
+						?damageType.getWeaponDescriptor()
+						:"") + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+	}
+
+	@Override
+	public String getDisplayName(boolean withRarityColour) {
+		return (getWeaponType().isAppendDamageName()
+					?"<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
+					:"")
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
 	}
 	
-	public String getDisplayName(boolean withRarityColour) {
-		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
-				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+	@Override
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return (getWeaponType().isAppendDamageName()
+					?"<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
+					:"")
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural);
 	}
 
 	@Override
 	public String getSVGString() {
-		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour(), this.getTertiaryColour());
+		return weaponType.getSVGImage(damageType, this.getColours());
 	}
 
 	public String getSVGEquippedString(GameCharacter owner) {
-		return weaponType.getSVGEquippedImage(damageType, this.getPrimaryColour(), this.getSecondaryColour(), this.getTertiaryColour());
+		return weaponType.getSVGEquippedImage(damageType, this.getColours());
 	}
 
 	public List<Spell> getSpells() {
 		return spells;
 	}
 
-	public Attribute getCoreEnchantment() {
+	public List<AbstractCombatMove> getCombatMoves() {
+		return combatMoves;
+	}
+
+	public AbstractAttribute getCoreEnchantment() {
 		return coreEnchantment;
 	}
 	
@@ -526,8 +620,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
-		return this.getWeaponType().applyExtraEffects(user, target, isHit);
+	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit, boolean isCritical) {
+		return this.getWeaponType().applyExtraEffects(user, target, isHit, isCritical);
 	}
 	
 
@@ -537,7 +631,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	public void setEffects(List<ItemEffect> effects) {
-		this.effects = effects;
+		this.effects = new ArrayList<>(effects);
 	}
 
 	public void addEffect(ItemEffect effect) {
@@ -545,7 +639,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	@Override
-	public Map<Attribute, Integer> getAttributeModifiers() {
+	public Map<AbstractAttribute, Integer> getAttributeModifiers() {
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
@@ -565,7 +659,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	 * @return An integer value of the 'enchantment capacity cost' for this particular weapon. Does not count negative attribute values, and values of Corruption are reversed (so reducing corruption costs enchantment stability).
 	 */
 	public int getEnchantmentCapacityCost() {
-		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
 		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
@@ -584,10 +678,27 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
 		return weaponType.getEnchantmentItemType(effects);
 	}
-	
+
 	@Override
-	public TFEssence getRelatedEssence() {
-		return weaponType.getRelatedEssence();
+	public Set<ItemTag> getItemTags() {
+		return new HashSet<>(this.getWeaponType().getItemTags());
 	}
 
+	public boolean isCanBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
+		return this.isAbleToBeEquipped(clothingOwner, slot).getKey();
+	}
+
+	public String getCannotBeEquippedText(GameCharacter clothingOwner, InventorySlot slot) {
+		return UtilText.parse(clothingOwner, this.isAbleToBeEquipped(clothingOwner, slot).getValue());
+	}
+	
+	public Value<Boolean, String> isAbleToBeEquipped(GameCharacter clothingOwner, InventorySlot slot) {
+		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
+		Set<ItemTag> tags = this.getItemTags();
+		
+		if(block!=null && Collections.disjoint(block.getRequiredTags(), tags)) {
+			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
+		}
+		return new Value<>(true, "");
+	}
 }

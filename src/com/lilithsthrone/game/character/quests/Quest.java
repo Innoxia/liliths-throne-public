@@ -82,12 +82,14 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ." + " It looks like you'll have to inquire further there and find out a way to save Arthur.";
+			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ."
+					+ " It looks like you'll have to inquire further there and find out a way to save Arthur.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You were forced into a fight with the Enforcer's Chief, Brax." + " Thankfully, you were able to beat him, but you then found out that Arthur has been sold into slavery!";
+			return "You were forced to confront the Enforcer Inspector, Brax."
+					+ " Thankfully, you were able to deal with him, but you then found out that Arthur has been sold into slavery!";
 		}
 	},
 
@@ -443,7 +445,39 @@ public enum Quest {
 		}
 	},
 	
-	// Getting a Slaver License:
+	// When getting eggs implanted in you for the first time:
+	
+	SIDE_INCUBATION_WAITING(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Living Incubator";
+		}
+		@Override
+		public String getDescription() {
+			return "There's no doubt about it; you've had a clutch of eggs implanted inside of your body! There's nothing else for you to do except wait for them to mature and then lay them...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You waited for the eggs implanted inside of your body to mature, and then successfully laid and hatched them!";
+		}
+	},
+	
+//	SIDE_INCUBATION_LILAYA_HELP(QuestType.SIDE, 1, 20) {
+//		@Override
+//		public String getName() {
+//			return "Egg-laying assistance";
+//		}
+//		@Override
+//		public String getDescription() {
+//			return "Lilaya said that she'd be able to help you lay your eggs whenever you're ready. You're going to need to wait until they're ready to be hatched, then you can go and see Lilaya to lay them.";
+//		}
+//		@Override
+//		public String getCompletedDescription() {
+//			return "Lilaya helped you to lay your eggs. She said that if ever you get implanted with eggs again, she can always help out.";
+//		}
+//	},
+	
+	// Getting a slaver license:
 	
 	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
 		@Override
@@ -453,7 +487,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After asking how to obtain a Slaver License at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
+			return "After asking how to obtain a slaver license at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
 		}
 
 		@Override
@@ -1126,16 +1160,15 @@ public enum Quest {
 	VENGAR_THREE_COOPERATION_END(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Turning a new leaf";
+			return "Vengar's End";
 		}
 		@Override
 		public String getDescription() {
-			return "Now that Vengar has sworn to obey the law, and greased the pockets of the Enforcers who were responsible for hunting him down, you've agreed to report his change of ways to the Submission Enforcers."
-					+ " You should go and speak to Claire about this.";
+			return "Now that [axel.name] has shown [axel.her] submission to Vengar, all that's left to do is head back to the Gambling Den...";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You reported all that happened with Vengar to Claire, who said that due to both his bribes and turning over several of his lieutenants, Vengar is no longer wanted.";
+			return "After [axel.name] had shown [axel.her] submission to Vengar, a group of SWORD Enforcers turned up to raid the Rat Warrens and arrest the rat-boy!";
 		}
 	},
 
@@ -1172,6 +1205,114 @@ public enum Quest {
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
 	},
+
+	// Wes:
+
+	WES_FAIL(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Opportunity Missed";
+		}
+		@Override
+		public String getDescription() {
+			return "After you'd told Wesley that you had no intention of helping him with his investigation, the fox-boy disappeared, and you can be sure that he'll never try to seek out your help again...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
+	WES_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Help Needed";
+		}
+		@Override
+		public String getDescription() {
+			return "While travelling through Dominion, you were approached by a mysterious undercover SWORD Enforcer who asked for your help."
+					+ " He'd like you to meet him outside of the Shopping Arcade's antiques shop between [units.time(13)]-[units.time(14)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You agreed to help Wesley investigate his superior officer.";
+		}
+	},
+
+	WES_1(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Finding Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "Wes told you that his superior officer, [elle.name] (or 'Elle' for short), takes night vision goggles with her while taking suspiciously long lunches on Wednesdays, and always comes back with wet shoes."
+					+ " You need to find her and record any incriminating evidence on the arcane recording device Wes gave to you..."
+					+ "<br/>She takes [style.colourOrange(unusually long lunch breaks)]."
+					+ "<br/>She only does this on a [style.colourOrange(Wednesday)]."
+					+ "<br/>She takes a set of [style.colourOrange(night vision goggles)] with her."
+					+ "<br/>Afterwards, her [style.colourOrange(shoes are often wet)] and sometimes have trace amounts of some kind of [style.colourOrange(glowing residue on them)]."
+					+ "<br/>[style.italicsMinorGood(For a hint on where to go, ask Lilaya about it.)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Having deduced that Elle was doing her shady business down in the Bat Caverns, you managed to collect evidence of her selling weapons to a dangerous criminal gang.";
+		}
+	},
+
+	WES_2(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Using the Evidence";
+		}
+		@Override
+		public String getDescription() {
+			return "With your arcane recording device now containing incriminating evidence of Elle's corruption, you're left with two possible choices of what to do with it."
+					+ " You could hand it in as an anonymous tip to either Claire or Candi, or if you wanted to betray Wes and side with Elle,"
+						+ " you could wait outside the Enforcer HQ between [units.time(16)]-[units.time(18)] and reveal everything to the [elle.race] as she leaves work.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You made use of the evidence which you collected in order to bring an end to this whole business with Wes and Elle.";
+		}
+	},
+
+	WES_3_WES(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Wes";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to do as Wes asked and hand in the incriminating evidence as an anonymous tip to the Enforcers."
+					+ " You should wait at least one week for things to be settled, then ask to see Wes up in the Enforcer HQ between [units.time(9)]-[units.time(17)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Wes, and after anonymously handing in the incriminating evidence, you met the fox-boy in the Enforcer HQ to discover that he's been promoted to take Elle's job."
+					+ " With his new authority, he's granted you access to the Enforcer HQ's requisitions area as a reward for your help."
+					+ " You can also now freely visit Wes in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
+
+	WES_3_ELLE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Sided with Elle";
+		}
+		@Override
+		public String getDescription() {
+			return "You decided to betray Wes and reveal everything to Elle."
+					+ " Thankful for your unexpected support, the [elle.race] promised to reward you if you return to the Enforcer HQ after at least a week has passed...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You sided with Elle, and after returning to meet with her at the Enforcer HQ, you discovered that Wes has been enslaved."
+					+ " Thankful for your support, the [elle.race] has granted you access to the Enforcer HQ's requisitions area."
+					+ " You can also now freely visit Elle (and Wes) in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
+		}
+	},
+	
 	
 	
 	// Romance quests:
@@ -1280,7 +1421,7 @@ public enum Quest {
 			return "Helena revealed that the first thing she wants done is to have the entire exterior of her shop repainted."
 					+ " Having provided you with no money for expenses, the harpy is expecting you to travel to 'Argus's DIY Depot' and buy a can of 'Purple-star' branded golden paint."
 					+ " Once you've bought it, you need to return to Helena."
-					+ "<br/><i>('Argus's DIY Depot' can be found a short way to the north of Slaver Alley, next to the canal.)</i>";
+					+ "<br/><i>('Argus's DIY Depot' can be found a fair way to the south of Slaver Alley, next to the canal.)</i>";
 		}
 
 		@Override
@@ -1424,7 +1565,7 @@ public enum Quest {
 	ROMANCE_HELENA_8_FINISH(QuestType.RELATIONSHIP, 1, 100) {
 		@Override
 		public String getName() {
-			return "Preparing drinks";
+			return "Preparing Drinks";
 		}
 
 		@Override
@@ -1439,6 +1580,112 @@ public enum Quest {
 		}
 	},
 	
+	
+
+	ROMANCE_NATALYA_FAILED_INTERVIEW(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Interview Failed";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to do as Natalya asked during her interview, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	ROMANCE_NATALYA_FAILED_CONTRACT(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Contract Refused";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to sign the contract which Natalya offered to you, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
+	ROMANCE_NATALYA_1_INTERVIEW_START(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Interviewed";
+		}
+		@Override
+		public String getDescription() {
+			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of 'filly'.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You accepted Natalya's offer of an interview for the position of 'filly' at Dominion Express.";
+		}
+	},
+
+	ROMANCE_NATALYA_2_CONTRACT_SIGNED(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Natalya's Filly";
+		}
+		@Override
+		public String getDescription() {
+			return "Having accepted the offer of an interview for the position of 'filly', you now need to successfully pass it and sign the contract.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You successfully passed Natalya's interview, and after you'd signed the contract, you were told that you now need to be transformed into [style.a_shemale] taur.";
+		}
+	},
+	
+	ROMANCE_NATALYA_3_TRAINING_1(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Filly Training";
+		}
+		@Override
+		public String getDescription() {
+			return "You were told by Natalya that the first part of your training will involve repeating your oral performance on one of the centaur slaves.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
+		}
+	},
+
+	ROMANCE_NATALYA_4_TRAINING_2(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "More Training";
+		}
+		@Override
+		public String getDescription() {
+			return "Once again, you were told by Natalya to return the following day to continue your training, which will involve learning to love giving rimjobs.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "The second stage of your training involved wearing colourful lipstick and performing anilingus on Mistress Natalya.";
+		}
+	},
+
+	ROMANCE_NATALYA_5_TRAINING_3(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Final Training";
+		}
+		@Override
+		public String getDescription() {
+			return "Natalya instructed you to return the following day to finish your training, which will involve giving a rimjob to a centaur slave, and being mounted and anally fucked by both Natalya and the slave whose ass you service.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
+		}
+	},
 	;
 
 	private int level, experienceReward;

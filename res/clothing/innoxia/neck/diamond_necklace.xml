@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <clothing>
 	<coreAttributes>
 		<value>150000</value>
-		<determiner><![CDATA[a]]></determiner>
+		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[diamond necklace]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[diamond necklaces]]></namePlural>
 		<description><![CDATA[A necklace consisting of a metal chain that's studded with dozens of diamonds.]]></description>
@@ -16,8 +15,7 @@
 		<imageEquippedName/>
 		<enchantmentLimit>5</enchantmentLimit>
 		<effects/>
-		
-		<blockedPartsList slot="NECK">
+		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
@@ -26,28 +24,25 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-			
-		<incompatibleSlots slot="NECK"/>
-		<incompatibleSlots slot="WRIST"/>
-			
+		<incompatibleSlots/>
 		<primaryColours>
 			<colour>CLOTHING_SILVER</colour>
 			<colour>CLOTHING_GOLD</colour>
 		</primaryColours>
-		<primaryColoursDye values="ALL_METALS"/>
+		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours>
 			<colour>CLOTHING_WHITE</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(fasten)] the diamond necklace around [npc.her] neck.]]>
     </self>
@@ -58,7 +53,7 @@
       <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the diamond necklace around [npc2.her] neck.]]>
     </otherRough>
   </replacementText>
-  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] diamond necklace, before taking it off from around [npc.her] neck.]]>
     </self>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>0</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[asshole web-seal]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[asshole web-seals]]></namePlural>
+    <description><![CDATA[A thick layer of sticky spider-webbing has been shot all over [npc.namePos] [npc.asshole+], completely sealing it and preventing it from being penetrated!]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>ANUS</slot>
+    <rarity>COMMON</rarity>
+
+    <imageName>seal.svg</imageName>
+
+    <clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+    <effects/>
+
+    <blockedPartsList>
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired>
+				<clothingAccess>GROIN</clothingAccess>
+				<clothingAccess>ANUS</clothingAccess>
+			</clothingAccessRequired>
+			<blockedBodyParts>
+				<bodyPart>ANUS</bodyPart>
+			</blockedBodyParts>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours>
+		<colour>CLOTHING_WHITE</colour>
+    </primaryColours>
+    <primaryColoursDye/>
+    <secondaryColours/>
+    <secondaryColoursDye/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+
+    <itemTags>
+		<tag>SEALS_ANUS</tag>
+		<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+		<tag>NO_RANDOM_SPAWN</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc.her] [npc.asshole+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc2.namePos] [npc2.asshole+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(use)] [npc.her] spinneret to quickly shoot a thick binding of spider-webbing all over [npc2.namePos] [npc2.asshole+].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was covering [npc.her] [npc.asshole] and [npc.verb(throw)] it away.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tear)] off the webbing which was covering [npc2.namePos] [npc2.asshole] and [npc.verb(throw)] it away.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(tear)] off the webbing which was covering [npc2.namePos] [npc2.asshole] and [npc.verb(throw)] it away.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

@@ -549,14 +549,23 @@
 		 in front of her.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)] Amber says, collapsing down onto the sofa. Lifting her legs up, she then roughly drops her feet down onto your back. [amber.speech(Now stay still while I relax.)]
+		[amber.speech(Good bitch,)] Amber says, collapsing down onto the sofa. Lifting her legs up, she then roughly drops her feet down onto your back, before commanding, [amber.speech(Now stay still while I relax.)]
 	</p>
 	<p>
 		[pc.speech(Yes, Mistress Amber,)] you reply once more, holding yourself steady as the sadistic succubus uses you as her foot rest.
 	</p>
-	<p>
-		After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls, [amber.speech(That's enough easy work for you. Take my shoes off and give me a foot massage, bitch.)]
-	</p>
+	#IF(game.isFootContentEnabled())
+		<p>
+			After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls, [amber.speech(That's enough easy work for you. Take my shoes off and give me a foot massage, bitch.)]
+		</p>
+	#ELSE
+		<p>
+			After a few minutes of relative peace, Mistress Amber moves her feet off your back, and after quickly standing up, she triumphantly sneers, [amber.speech(Good bitch. Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
+		</p>
+		<p>
+			[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having pleased your Mistress, you wonder what you should do next.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -803,10 +812,16 @@
 	
 	<htmlContent tag="LOUNGE_AMBER_LOSES_IT"><![CDATA[
 	<p>
-		You <i>really</i> aren't in the mood for this right now, and shake your head at the succubus before you. [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
+		[pc.speech(Well, that's definitely not happening,)] you say, crossing your [pc.arms] and frowning at Amber.
 	</p>
 	<p>
-		Amber's extraordinary hair grows visibly brighter as her eyes burn with an incandescent rage. [amber.speech(You fucking <i>bitch</i>!)]
+		[amber.speech(You worthless, pathetic bitch! You're <i>so</i> fucking lucky you're Lilaya's little bitch,)] Amber snaps, before turning her back to you. [amber.speech(Don't you <i>dare</i> disturb me again, unless you've decided to act like the worthless worm you are.)]
+	</p>
+	<p>
+		You <i>really</i> aren't in the mood for this right now, and shake your head as you scold the rude maid, [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
+	</p>
+	<p>
+		The glow of Amber's extraordinary hair suddenly seems to increase in intensity, and her eyes burn with an incandescent rage as she screeches, [amber.speech(You fucking <i>bitch</i>!)]
 	</p>
 	<p>
 		Barely giving you a moment to react, Amber launches herself at you in a blind fury, determined to beat you into submission.
@@ -985,7 +1000,7 @@
 		[amber.speech(Good bitch. Now hold still,)] Mistress Amber snaps, before turning around and opening the top drawer of a nearby cabinet. From within, she produces a light pink collar and matching leather leash, before turning back to face you with an evil grin on her face.
 	</p>
 	<p>
-		[amber.speech(We can't have you going outside without being marked as my property, now, can we bitch?)] Amber sneers, before bending down to fasten the collar around your neck. Instantly, you feel [style.colourArcane(a powerful enchantment)] within the collar start to take effect, and you let out a whimpering little moan as you realise that it's making you both hornier and more submissive. A the same time, you feel the collar jinx's [style.colourBad(sealing)] the collar onto you.
+		[amber.speech(We can't have you going outside without being marked as my property, now, can we bitch?)] Amber sneers, before bending down to fasten the collar around your neck. Instantly, you feel [style.colourArcane(a powerful enchantment)] within the collar start to take effect, and you let out a whimpering little moan as you realise that it's making you both hornier and more submissive. A the same time, you feel the collar [style.colourBad(sealing)] itself onto you.
 	</p>
 	<p>
 		[amber.speech(Good bitch,)] Mistress Amber says, clipping the leash to the metal ring at the front of your new collar. With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(Take a look at yourself, bitch. You're completely pathetic, aren't you?!)]

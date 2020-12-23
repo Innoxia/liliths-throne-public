@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet>dsg_enforcer_service</clothingSet> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -134,7 +134,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours>
@@ -149,120 +149,62 @@
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your greatcoat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s greatcoat.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s greatcoat and roughly pull it off over [npc.her] head.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] greatcoat off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your greatcoat off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your greatcoat and roughly pulls it off over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s greatcoat off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s greatcoat and roughly pulls it off over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the greatcoat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.arms] through the greatcoat's sleeves as you pull it on [npc.herHim].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the greatcoat down over [npc.her] head, before pulling it down over [npc.her] torso.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the T-shirt.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.arms] through the greatcoat's sleeves, before pulling it down over your torso.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the greatcoat down over your head, before pushing your [pc.arms] through the sleeves.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.arms] through the greatcoat's sleeves before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the greatcoat down over [npc2.her] head, before pulling it down over [npc2.her] torso.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the greatcoat's sleeves and [npc.verb(button)] up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the greatcoat's sleeves and [npc.verb(button)] up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the greatcoat's sleeves and hastily [npc.verb(button)] up the front.]]>
+		</otherRough>
 	</replacementText>
-
-	<displacementText type="UNBUTTONS">
-		<playerSelf><![CDATA[
-			You unbutton your greatcoat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You unbutton [npc.name]'s greatcoat.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You pop open the buttons on [npc.name]'s greatcoat.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] unbuttons [npc.her] greatcoat.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] unbuttons your greatcoat.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] pops open the buttons on your greatcoat.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] unbuttons [npc2.name]'s greatcoat.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] pops open the buttons on [npc2.name]'s greatcoat.
-		]]></NPCOtherNPCRough>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc.her] greatcoat and [npc.verb(pull)] [npc.her] arms out of the sleeves.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] the front of [npc2.namePos] greatcoat and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on the front of [npc2.namePos] greatcoat and roughly [npc.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</otherRough>
 	</displacementText>
 	
+	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="UNBUTTONS">
-		<playerSelf><![CDATA[
-			You button up your greatcoat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You button up [npc.name]'s greatcoat.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You roughly button up [npc.name]'s greatcoat.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] buttons up [npc.her] greatcoat to cover [npc.her] torso.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] buttons up your greatcoat.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] roughly buttons up your greatcoat.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] buttons up [npc2.name]'s greatcoat.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] roughly buttons up [npc2.name]'s greatcoat.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] greatcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] greatcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] greatcoat.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] greatcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] greatcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] greatcoat.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

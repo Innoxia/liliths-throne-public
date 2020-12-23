@@ -1,461 +1,631 @@
 package com.lilithsthrone.game.character.race;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.4
  * @author Innoxia
  */
-public enum Race {
+public class Race {
 
-	NONE("none",
+	public static AbstractRace NONE = new AbstractRace("no race",
+			"no race",
+			"no race",
+			"no race",
 			"none",
-			PresetColour.RACE_HUMAN,
+			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(Attack.MAIN),
+			RacialClass.MAMMAL,
+			CombatBehaviour.BALANCED,
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_HUMAN,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			false),
-	
-	// HUMAN:
-	HUMAN("human",
-			"human",
-			PresetColour.RACE_HUMAN,
-			
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(Attack.MAIN),
-			
-			0.5f,
-			1,
-			
-			1,
-			Attribute.DAMAGE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
 		@Override
-		public boolean isBestialPartsAvailable() {
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
+	
+	// HUMAN:
+	public static AbstractRace HUMAN = new AbstractRace("human",
+			"humans",
+			"human",
+			"humans",
+			"human",
+			PresetColour.RACE_HUMAN,
+			Disposition.CIVILIZED,
+			RacialClass.MAMMAL,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL,
+			false) {
+		@Override
+		public boolean isFeralPartsAvailable() {
 			return false;
 		}
-	},
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
 
 	// ANGEL:
-	ANGEL("angel",
+	public static AbstractRace ANGEL = new AbstractRace("angel",
+			"angels",
 			"angel",
+			"angels",
+			"angelic",
 			PresetColour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPELL),
+			RacialClass.MAMMAL,
+			CombatBehaviour.SPELLS,
 			0.25f,
 			1,
-
 			1,
-			Attribute.DAMAGE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
+		public boolean isFeralPartsAvailable() {
+			return false;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.ANGEL;
+		}
+	};
 
 	// DEMON:
-	DEMON("demon",
-			"demon",
+	public static AbstractRace DEMON = new AbstractRace("demon",
+			"demons",
+			Util.newHashMapOfValues(
+					new Value<>(LegConfiguration.BIPEDAL, "demon"),
+					new Value<>(LegConfiguration.ARACHNID, "demonic-spider"),
+					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopus"),
+					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horse"),
+					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
+					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snake")),
+			Util.newHashMapOfValues(
+					new Value<>(LegConfiguration.BIPEDAL, "demons"),
+					new Value<>(LegConfiguration.ARACHNID, "demonic-spiders"),
+					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopuses"),
+					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horses"),
+					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
+					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snakes")),
+			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.SPECIAL_ATTACK,
-					Attack.SEDUCTION,
-					Attack.SPELL),
+			RacialClass.MAMMAL,
+			CombatBehaviour.SEDUCE,
 			0.75f,
 			2,
-
 			3,
-			Attribute.DAMAGE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false) {
-		public String getName(GameCharacter character, boolean bestial) {
-			if(bestial) {
-				if(character!=null) {
-					Race r = character.getLegType().getRace();
-					return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
-							?r==Race.DEMON
-								?"demonic-horse"
-								:"demonic-"+r.getName(bestial)
-							:"demon";
-				} else {
-					return getName(true);
-				}
-			}
-			return "demon";
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
 		}
-	},
+		
+//		// This is the same as what's found in Subspecies.DEMON
+//		@Override
+//		private String getFeralName(LegConfiguration legConfiguration, boolean plural) {
+//			AbstractRace r = character.getLegType().getRace();
+//			
+//			if(plural) {
+//				switch(character.getLegConfiguration()) {
+//					case ARACHNID:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-spiders"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case BIPEDAL:
+//						return "demon";
+//					case CEPHALOPOD:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-octopuses"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case QUADRUPEDAL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-horses"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case TAIL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-fish"
+//								:"demonic-"+r.getNamePlural(character, true);
+//					case TAIL_LONG:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-snakes"
+//								:"demonic-"+r.getNamePlural(character, true);
+//				}
+//				
+//			} else {
+//				switch(character.getLegConfiguration()) {
+//					case ARACHNID:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-spider"
+//								:"demonic-"+r.getName(character, true);
+//					case BIPEDAL:
+//						return "demon";
+//					case CEPHALOPOD:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-octopus"
+//								:"demonic-"+r.getName(character, true);
+//					case QUADRUPEDAL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-horse"
+//								:"demonic-"+r.getName(character, true);
+//					case TAIL:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-fish"
+//								:"demonic-"+r.getName(character, true);
+//					case TAIL_LONG:
+//						return r==Race.HUMAN || r==Race.DEMON
+//								?"demonic-snake"
+//								:"demonic-"+r.getName(character, true);
+//				}
+//			}
+//			return "demon";
+//		}
+		
+//		@Override
+//		public String getName(GameCharacter character, boolean feral) {
+//			if(feral) {
+//				if(character!=null) {
+//					return getFeralName(character, false);
+//				}
+//			}
+//			return "demon";
+//		}
+//		@Override
+//		public String getNamePlural(GameCharacter character, boolean feral) {
+//			if(feral) {
+//				if(character!=null) {
+//					return getFeralName(character, true);
+//				}
+//			}
+//			return "demon";
+//		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.DEMON;
+		}
+	};
 
 	// BOVINES:
-	COW_MORPH("cow-morph",
-			"cow",
-			PresetColour.RACE_COW_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-
-			1,
-			Attribute.DAMAGE_COW_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+	public static AbstractRace COW_MORPH = new AbstractRace("cow-morph",
+				"cow-morphs",
+				"cow",
+				"cows",
+				"cow",
+				PresetColour.RACE_COW_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				1,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.COW_MORPH;
+		}
+	};
 
 	// CANINES:
-	DOG_MORPH("dog-morph",
-			"dog",
-			PresetColour.RACE_DOG_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(Attack.MAIN),
-			0.5f,
-			1,
+	public static AbstractRace DOG_MORPH = new AbstractRace("dog-morph",
+				"dog-morphs",
+				"dog",
+				"dogs",
+				"dog",
+				PresetColour.RACE_DOG_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.DOG_MORPH
+					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.DOG_MORPH;
+		}
+	};
 
-			2,
-			Attribute.DAMAGE_DOG_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-
-	WOLF_MORPH("wolf-morph",
-			"wolf",
-			PresetColour.RACE_WOLF_MORPH,
-			Disposition.SAVAGE,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			
-			2,
-			Attribute.DAMAGE_WOLF_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+	public static AbstractRace WOLF_MORPH = new AbstractRace("wolf-morph",
+				"wolf-morphs",
+				"wolf",
+				"wolves",
+				"wolf",
+				PresetColour.RACE_WOLF_MORPH,
+				Disposition.SAVAGE,
+				RacialClass.MAMMAL,
+				CombatBehaviour.ATTACK,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.WOLF_MORPH
+					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.WOLF_MORPH;
+		}
+	};
 	
-	FOX_MORPH("fox-morph",
-			"fox",
-			PresetColour.RACE_FOX_MORPH,
-			Disposition.UNPREDICTABLE,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			0.5f,
-			1,
-			
-			2,
-			Attribute.DAMAGE_FOX_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+	public static AbstractRace FOX_MORPH = new AbstractRace("fox-morph",
+				"fox-morphs",
+				"fox",
+				"foxes",
+				"fox",
+				PresetColour.RACE_FOX_MORPH,
+				Disposition.UNPREDICTABLE,
+				RacialClass.MAMMAL,
+				CombatBehaviour.SUPPORT,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.FOX_MORPH
+					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.FOX_MORPH;
+		}
+	};
+	
 
 	// FELINES:
-	CAT_MORPH("cat-morph",
-			"cat",
-			PresetColour.RACE_CAT_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-
-			2,
-			Attribute.DAMAGE_CAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-
+	public static AbstractRace CAT_MORPH = new AbstractRace("cat-morph",
+				"cat-morphs",
+				"cat",
+				"cats",
+				"cat",
+				PresetColour.RACE_CAT_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.CAT_MORPH;
+		}
+	};
+	
+//	public static AbstractRace PANTHER_MORPH = new AbstractRace("panther-morph",
+//			"panther",
+//			PresetColour.RACE_PANTHER_MORPH,
+//			Disposition.UNPREDICTABLE,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPECIAL_ATTACK),
+//			0.5f,
+//			1,
+//			2,
+//			Attribute.DAMAGE_PANTHER_MORPH,
+//			FurryPreference.NORMAL,
+//			FurryPreference.NORMAL,
+//			true),
+	
 	// EQUINE:
-	HORSE_MORPH("horse-morph",
-			"horse",
-			PresetColour.RACE_HORSE_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
+	public static AbstractRace HORSE_MORPH = new AbstractRace("horse-morph",
+				"horse-morphs",
+				"horse",
+				"horses",
+				"horse",
+				PresetColour.RACE_HORSE_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				1,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		public void applyRaceChanges(Body body) {
+			// 75% chance for genitals to be dark:
+			if(Math.random()<0.75f) {
+				Colour lightColour = Util.randomItemFrom(Util.newArrayListOfValues(
+						PresetColour.SKIN_PALE,
+						PresetColour.SKIN_LIGHT));
+				Colour darkColour = Util.randomItemFrom(Util.newArrayListOfValues(
+						PresetColour.SKIN_DARK,
+						PresetColour.SKIN_CHOCOLATE,
+						PresetColour.SKIN_EBONY));
+				if(body.getPenis().getType()==PenisType.EQUINE) {
+					if(Math.random()<0.66f) {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, darkColour));
+					} else {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.MOTTLED, darkColour, false, lightColour, false));
+					}
+				}
+				if(body.getVagina().getType()==VaginaType.HORSE_MORPH) {
+					body.getCoverings().put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, darkColour, PresetColour.ORIFICE_INTERIOR));
+				}
+				if(body.getAss().getType()==AssType.HORSE_MORPH) {
+					body.getCoverings().put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, darkColour, PresetColour.ORIFICE_INTERIOR));
+				}
+			}
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HORSE_MORPH;
+		}
+	};
+
+	
+	public static AbstractRace REINDEER_MORPH = new AbstractRace("reindeer-morph",
+				"reindeer-morphs",
+				"reindeer",
+				"reindeers",
+				"reindeer",
+				PresetColour.RACE_REINDEER_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.REINDEER_MORPH;
+		}
+	};
 			
-			1,
-			Attribute.DAMAGE_HORSE_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
 
+	public static AbstractRace SQUIRREL_MORPH = new AbstractRace("squirrel-morph",
+				"squirrel-morphs",
+				"squirrel",
+				"squirrels",
+				"squirrel",
+				PresetColour.RACE_SQUIRREL_MORPH,
+				Disposition.CIVILIZED,
+				RacialClass.MAMMAL,
+				CombatBehaviour.SUPPORT,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.SQUIRREL_MORPH;
+		}
+	};
+
+	public static AbstractRace RAT_MORPH = new AbstractRace("rat-morph",
+				"rat-morphs",
+				"rat",
+				"rats",
+				"rat",
+				PresetColour.RACE_RAT_MORPH,
+				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				4,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.RAT_MORPH;
+		}
+	};
+
+	public static AbstractRace RABBIT_MORPH = new AbstractRace("rabbit-morph",
+				"rabbit-morphs",
+				"rabbit",
+				"rabbits",
+				"rabbit",
+				PresetColour.RACE_RABBIT_MORPH,
+				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
+				CombatBehaviour.DEFEND,
+				0.5f,
+				2,
+				8,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.RABBIT_MORPH;
+		}
+	};
 	
-	 REINDEER_MORPH("reindeer-morph",
-			"reindeer",
-			PresetColour.RACE_REINDEER_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-		 
-			2,
-			Attribute.DAMAGE_REINDEER_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-			
-
-	SQUIRREL_MORPH("squirrel-morph",
-			"squirrel",
-			PresetColour.RACE_SQUIRREL_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN),
-			0.5f,
-			1,
-
-			2,
-			Attribute.DAMAGE_SQUIRREL_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-
-	RAT_MORPH("rat-morph",
-			"rat",
-			PresetColour.RACE_RAT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-
-			4,
-			Attribute.DAMAGE_RAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-
-	RABBIT_MORPH("rabbit-morph",
-			"rabbit",
-			PresetColour.RACE_RABBIT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			2,
-
-			8,
-			Attribute.DAMAGE_RABBIT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+	public static AbstractRace BAT_MORPH = new AbstractRace("bat-morph",
+				"bat-morphs",
+				"bat",
+				"bats",
+				"bat",
+				PresetColour.RACE_BAT_MORPH,
+				Disposition.NEUTRAL,
+				RacialClass.MAMMAL,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				2,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public boolean isFlyingRace() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.BAT_MORPH;
+		}
+	};
 	
-	BAT_MORPH("bat-morph",
-			"bat",
-			PresetColour.RACE_BAT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-
-			2,
-			Attribute.DAMAGE_BAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
-	
-	ALLIGATOR_MORPH("alligator-morph",
-			"alligator",
-			PresetColour.RACE_ALLIGATOR_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-
-			4,
-			Attribute.DAMAGE_ALLIGATOR_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+	public static AbstractRace ALLIGATOR_MORPH = new AbstractRace("alligator-morph",
+				"alligator-morphs",
+				"alligator",
+				"alligators",
+				"alligator",
+				PresetColour.RACE_ALLIGATOR_MORPH,
+				Disposition.NEUTRAL,
+				RacialClass.REPTILE,
+				CombatBehaviour.DEFEND,
+				0.5f,
+				1,
+				4,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.ALLIGATOR_MORPH;
+		}
+	};
 
 	// SLIME:
-	SLIME("slime",
+	public static AbstractRace SLIME = new AbstractRace("slime",
+			"slimes",
+			"slime",
+			"slimes",
 			"slime",
 			PresetColour.RACE_SLIME,
 			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(Attack.SEDUCTION),
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
 			0.5f,
 			1,
-
 			1,
-			Attribute.DAMAGE_SLIME,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
-			false),
+			false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
 
 	// AVIAN:
-	HARPY("harpy",
-			"avian",
+	public static AbstractRace HARPY = new AbstractRace("harpy",
+			"harpies",
+			"bird",
+			"birds",
+			"harpy",
 			PresetColour.RACE_HARPY,
 			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
+			RacialClass.BIRD,
+			CombatBehaviour.SEDUCE,
 			0.5f,
 			3,
-			
 			4,
-			Attribute.DAMAGE_HARPY,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false) {
+		@Override
+		public boolean isFlyingRace() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HARPY;
+		}
+	};
 	
 
 	// ELEMENTALS:
-//	ELEMENTAL_EARTH("earth elemental",
-//			"earth elementals",
-//			"earth elemental",
-//			"earth elemental",
-//			"earth elementals",
-//			"earth elementals",
-//
-//			PresetColour.SPELL_SCHOOL_EARTH,
-//			Disposition.NEUTRAL,
-//			Util.newArrayListOfValues(
-//					Attack.MAIN,
-//					Attack.SPELL),
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_ELEMENTAL_EARTH,
-//			Attribute.RESISTANCE_ELEMENTAL_EARTH,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
-//	
-//	ELEMENTAL_WATER("water elemental",
-//			"water elementals",
-//			"water elemental",
-//			"water elemental",
-//			"water elementals",
-//			"water elementals",
-//
-//			PresetColour.SPELL_SCHOOL_WATER,
-//			Disposition.NEUTRAL,
-//			Util.newArrayListOfValues(
-//					Attack.MAIN,
-//					Attack.SPELL),
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_ELEMENTAL_WATER,
-//			Attribute.RESISTANCE_ELEMENTAL_WATER,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
-//	
-//	ELEMENTAL_AIR("air elemental",
-//			"air elementals",
-//			"air elemental",
-//			"air elemental",
-//			"air elementals",
-//			"air elementals",
-//
-//			PresetColour.SPELL_SCHOOL_AIR,
-//			Disposition.NEUTRAL,
-//			Util.newArrayListOfValues(
-//					Attack.MAIN,
-//					Attack.SPELL),
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_ELEMENTAL_AIR,
-//			Attribute.RESISTANCE_ELEMENTAL_AIR,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
-//	
-//	ELEMENTAL_FIRE("fire elemental",
-//			"fire elementals",
-//			"fire elemental",
-//			"fire elemental",
-//			"fire elementals",
-//			"fire elementals",
-//
-//			PresetColour.SPELL_SCHOOL_FIRE,
-//			Disposition.NEUTRAL,
-//			Util.newArrayListOfValues(
-//					Attack.MAIN,
-//					Attack.SEDUCTION,
-//					Attack.SPELL),
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_ELEMENTAL_FIRE,
-//			Attribute.RESISTANCE_ELEMENTAL_FIRE,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
-//	
-//	ELEMENTAL_ARCANE("arcane elemental",
-//			"arcane elementals",
-//			"arcane elemental",
-//			"arcane elemental",
-//			"arcane elementals",
-//			"arcane elementals",
-//
-//			PresetColour.SPELL_SCHOOL_ARCANE,
-//			Disposition.NEUTRAL,
-//			Util.newArrayListOfValues(
-//					Attack.SEDUCTION,
-//					Attack.SPELL),
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_ELEMENTAL_ARCANE,
-//			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
-//			FurryPreference.MAXIMUM,
-//			FurryPreference.MAXIMUM,
-//			false),
 
-	ELEMENTAL("elemental",
-			"elemental",
-			PresetColour.SPELL_SCHOOL_ARCANE,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			0.5f,
-			1,
-
-			1,
-			Attribute.DAMAGE_ELEMENTAL,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	;
+	public static AbstractRace ELEMENTAL = new AbstractRace("elemental",
+				"elementals",
+				"elemental",
+				"elementals",
+				"elemental",
+				PresetColour.SPELL_SCHOOL_ARCANE,
+				Disposition.NEUTRAL,
+				RacialClass.OTHER,
+				CombatBehaviour.BALANCED,
+				0.5f,
+				1,
+				1,
+				FurryPreference.MAXIMUM,
+				FurryPreference.MAXIMUM,
+				false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.DEMON;
+		}
+	};
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -489,7 +659,7 @@ public enum Race {
 	 * 
 	 * "Bee-girls can commonly be found gathering nectar near their hive.",
 	 * 
-	 * RacialBody.BEE_MORPH, Genus.INSECT, Disposition.NEUTRAL,
+	 * Race.BEE_MORPH, Genus.INSECT, Disposition.NEUTRAL,
 	 * StatusEffect.BEE_MORPH, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.MELEE), new
@@ -524,7 +694,7 @@ public enum Race {
 	 * 
 	 * "Queen bees, like all royal bees, will never leave their hive.",
 	 * 
-	 * RacialBody.ROYAL_BEE, Genus.INSECT, Disposition.SAVAGE,
+	 * Race.ROYAL_BEE, Genus.INSECT, Disposition.SAVAGE,
 	 * StatusEffect.ROYAL_BEE, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.MELEE), new
@@ -554,7 +724,7 @@ public enum Race {
 	 * 
 	 * "Tiger-girls will force their prey to pleasure them orally.",
 	 * 
-	 * RacialBody.TIGER_MORPH, Genus.FELINE, Disposition.SAVAGE,
+	 * Race.TIGER_MORPH, Genus.FELINE, Disposition.SAVAGE,
 	 * StatusEffect.TIGER_MORPH, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.MELEE), new
@@ -597,7 +767,7 @@ public enum Race {
 	 * "Female centaurs are slightly more forgiving than their male counterparts, but will not hesitate to fight any intruders."
 	 * ,
 	 * 
-	 * RacialBody.CENTAUR, Genus.EQUINE, Disposition.UNPREDICTABLE,
+	 * Race.CENTAUR, Genus.EQUINE, Disposition.UNPREDICTABLE,
 	 * StatusEffect.CENTAUR, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.MELEE)), true),
@@ -632,7 +802,7 @@ public enum Race {
 	 * 
 	 * "Slime queens are only ever female in appearance.",
 	 * 
-	 * RacialBody.SLIME_QUEEN, Genus.SLIME, Disposition.SAVAGE,
+	 * Race.SLIME_QUEEN, Genus.SLIME, Disposition.SAVAGE,
 	 * StatusEffect.SLIME_QUEEN, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.SEDUCTION)), false),
@@ -656,13 +826,12 @@ public enum Race {
 	 * "Tengu females are extremely attractive and only really care about themselves."
 	 * ,
 	 * 
-	 * RacialBody.TENGU, Genus.AVIAN, Disposition.UNPREDICTABLE,
+	 * Race.TENGU, Genus.AVIAN, Disposition.UNPREDICTABLE,
 	 * StatusEffect.TENGU, Utilities.newArrayListOfValues(new
 	 * ListValue<Attack>(Attack.SPECIAL_ATTACK), new
 	 * ListValue<Attack>(Attack.SEDUCTION)), false);
 	 */
 
-	// TODO:
 	/*
 	 * NOT DONE
 	 * -------------------------------------------------------------------------
@@ -701,7 +870,7 @@ public enum Race {
 	 * " Each shark morph pregnancy will result in up to three shark morphs, which will rapidly reach full maturity and leave to make their own way in Dominion."
 	 * ,
 	 * 
-	 * RacialBody.SHARK_MORPH, Genus.AQUATIC, Disposition.CIVILIZED,
+	 * Race.SHARK_MORPH, Genus.AQUATIC, Disposition.CIVILIZED,
 	 * StatusEffect.SHARK_MORPH, false, false), TIGER_SHARK("tiger shark", "",
 	 * 
 	 * "Tiger sharks are a humanoid monster race." +
@@ -737,7 +906,7 @@ public enum Race {
 	 * " Each Tiger shark pregnancy will result in up to three Tiger sharks, which will rapidly reach full maturity and leave to find a body of water to claim as their own."
 	 * ,
 	 * 
-	 * RacialBody.TIGER_SHARK, Genus.AQUATIC, Disposition.SAVAGE,
+	 * Race.TIGER_SHARK, Genus.AQUATIC, Disposition.SAVAGE,
 	 * StatusEffect.TIGER_SHARK, true, false);
 	 * 
 	 * 
@@ -787,7 +956,7 @@ public enum Race {
 	 * "If an individual finds a partner outside of their colony, they will be expected to bring them back to the colony so everyone can try and breed their new partner."
 	 * ,
 	 * 
-	 * RacialBody.MOUSE_MORPH, Genus.RODENT, Disposition.CIVILIZED,
+	 * Race.MOUSE_MORPH, Genus.RODENT, Disposition.CIVILIZED,
 	 * StatusEffect.MOUSE_MORPH),
 	 * 
 	 * RAT_MORPH("rat morph",
@@ -835,7 +1004,7 @@ public enum Race {
 	 * "Once they grow tired of fucking one another, the gang will seek out other rat-morph gangs to fight and fuck, and will sometimes even venture to the surface to breed an unlucky citizen."
 	 * ,
 	 * 
-	 * RacialBody.RAT_MORPH, Genus.RODENT, Disposition.UNPREDICTABLE,
+	 * Race.RAT_MORPH, Genus.RODENT, Disposition.UNPREDICTABLE,
 	 * StatusEffect.RAT_MORPH),
 	 * 
 	 * 
@@ -881,7 +1050,7 @@ public enum Race {
 	 * " If anyone is foolish enough to trespass into the colonies' hive, the queen will invariably forcefully transform the trespasser into a wasp morph drone."
 	 * ,
 	 * 
-	 * RacialBody.WASP_MORPH, Genus.INSECT, Disposition.SAVAGE,
+	 * Race.WASP_MORPH, Genus.INSECT, Disposition.SAVAGE,
 	 * StatusEffect.WASP_MORPH),
 	 * 
 	 * 
@@ -911,7 +1080,7 @@ public enum Race {
 	 * " Once the eggs hatch, the new Lizard morphs will rapidly reach full maturity and leave to make their own way in Dominion."
 	 * ,
 	 * 
-	 * RacialBody.LIZARD_MORPH, Genus.REPTILE, Disposition.CIVILIZED,
+	 * Race.LIZARD_MORPH, Genus.REPTILE, Disposition.CIVILIZED,
 	 * StatusEffect.LIZARD_MORPH), LAMIA("lamia",
 	 * 
 	 * "Lamias are a monster found everywhere except Dominion." +
@@ -933,7 +1102,7 @@ public enum Race {
 	 * "Female Lamias will use their prey to breed with, forcing them to cum on demand by using hypnotism."
 	 * + " Males will try to impregnate anyone they catch.",
 	 * 
-	 * RacialBody.LAMIA, Genus.REPTILE, Disposition.CIVILIZED,
+	 * Race.LAMIA, Genus.REPTILE, Disposition.CIVILIZED,
 	 * StatusEffect.LAMIA),
 	 * 
 	 * 
@@ -967,7 +1136,7 @@ public enum Race {
 	 * " They will not lay their eggs in anyone without permission, but after being injected with venom, not many partners refuse."
 	 * ,
 	 * 
-	 * RacialBody.SPIDER_MORPH, Genus.ARACHNID, Disposition.CIVILIZED,
+	 * Race.SPIDER_MORPH, Genus.ARACHNID, Disposition.CIVILIZED,
 	 * StatusEffect.SPIDER_MORPH),
 	 * 
 	 * ARACHNE("arachne",
@@ -991,7 +1160,7 @@ public enum Race {
 	 * " Females will deposit their eggs in whoever they catch, using their prey's cum to fertilise them beforehand."
 	 * ,
 	 * 
-	 * RacialBody.ARACHNE, Genus.ARACHNID, Disposition.SAVAGE,
+	 * Race.ARACHNE, Genus.ARACHNID, Disposition.SAVAGE,
 	 * StatusEffect.ARACHNE),
 	 * 
 	 * 
@@ -1025,7 +1194,7 @@ public enum Race {
 	 * " Once fertilised eggs hatch, the new Wyverns will rapidly reach full maturity and leave to make their own way in Dominion."
 	 * ,
 	 * 
-	 * RacialBody.WYVERN, Genus.DRAGON, Disposition.CIVILIZED,
+	 * Race.WYVERN, Genus.DRAGON, Disposition.CIVILIZED,
 	 * StatusEffect.WYVERN),
 	 * 
 	 * DRAGON("dragon",
@@ -1064,7 +1233,7 @@ public enum Race {
 	 * " Once fertilised eggs hatch, the new Dragons will rapidly reach full maturity and leave to make their own way in the ruins."
 	 * ,
 	 * 
-	 * RacialBody.DRAGON, Genus.DRAGON, Disposition.UNPREDICTABLE,
+	 * Race.DRAGON, Genus.DRAGON, Disposition.UNPREDICTABLE,
 	 * StatusEffect.DRAGON),
 	 * 
 	 * 
@@ -1115,119 +1284,117 @@ public enum Race {
 	 * "Lilin are also able to create new demons by force-feeding them their corruptive cum over the course of a few days."
 	 * ,
 	 * 
-	 * RacialBody.DEMON, Genus.DEMON, Disposition.UNPREDICTABLE,
+	 * Race.DEMON, Genus.DEMON, Disposition.UNPREDICTABLE,
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name;
-	private String nameBestial;
-	private Colour colour;
-	private Disposition disposition;
-	private List<Attack> preferredAttacks;
-	private int numberOfOffspringLow;
-	private int numberOfOffspringHigh;
-	private float chanceForMaleOffspring;
-	private Attribute damageMultiplier;
-	private FurryPreference defaultFemininePreference;
-	private FurryPreference defaultMasculinePreference;
-	private boolean affectedByFurryPreference;
+
+	public static List<AbstractRace> allRaces;
 	
-	private Race(String name,
-			String nameBestial,
-			
-			Colour colour,
-			Disposition disposition,
-			List<Attack> preferredAttacks,
-			float chanceForMaleOffspring,
-			int numberOfOffspringLow,
-			
-			int numberOfOffspringHigh,
-			Attribute damageMultiplier,
-			
-			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference,
-			boolean affectedByFurryPreference) {
-		
-		this.name = name;
-		this.nameBestial = nameBestial;
-		
-		this.colour = colour;
-		this.disposition = disposition;
-
-		this.preferredAttacks = preferredAttacks;
-
-		this.chanceForMaleOffspring=chanceForMaleOffspring;
-		
-		this.numberOfOffspringLow = numberOfOffspringLow;
-		this.numberOfOffspringHigh = numberOfOffspringHigh;
-		
-		this.damageMultiplier = damageMultiplier;
-		
-		this.defaultFemininePreference = defaultFemininePreference;
-		this.defaultMasculinePreference = defaultMasculinePreference;
-		
-		this.affectedByFurryPreference = affectedByFurryPreference;
-	}
-
-	public boolean isBestialPartsAvailable() {
-		return true;
-	}
+	public static Map<AbstractRace, String> raceToIdMap = new HashMap<>();
+	public static Map<String, AbstractRace> idToRaceMap = new HashMap<>();
 	
-	public String getName(GameCharacter character, boolean bestial) {
-		if(bestial) {
-			return nameBestial;
-		}
-		return name;
-	}
-	
-	public String getName(boolean bestial) {
-		if(bestial) {
-			return nameBestial;
-		}
-		return name;
-	}
-
-	public Disposition getDisposition() {
-		return disposition;
-	}
-
-	public List<Attack> getPreferredAttacks() {
-		return preferredAttacks;
-	}
-
-	public int getNumberOfOffspringLow() {
-		return numberOfOffspringLow;
-	}
-
-	public int getNumberOfOffspringHigh() {
-		return numberOfOffspringHigh;
-	}
-	
-	public Colour getColour() {
-		return colour;
-	}
-	
-	public boolean isAffectedByFurryPreference() {
-		return affectedByFurryPreference;
-	}
-	
-	public float getChanceForMaleOffspring() {
-		return chanceForMaleOffspring;
-	}
-
 	/**
-	 * <b>Should only be used in Subspecies' getDamageMultiplier() method!</b>
+	 * @param id Will be in the format of: 'innoxia_maid'.
 	 */
-	public Attribute getDefaultDamageMultiplier() {
-		return damageMultiplier;
+	public static AbstractRace getRaceFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToRaceMap.keySet());
+		return idToRaceMap.get(id);
 	}
-
-	public FurryPreference getDefaultFemininePreference() {
-		return defaultFemininePreference;
+	
+	public static String getIdFromRace(AbstractRace race) {
+		return raceToIdMap.get(race);
 	}
+	
+	static {
+		allRaces = new ArrayList<>();
+		
+		// Modded races:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", null, "race");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("race")) {
+					try {
+						AbstractRace race = new AbstractRace(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("_race", "");
+						allRaces.add(race);
+						raceToIdMap.put(race, id);
+						idToRaceMap.put(id, race);
+//						System.out.println("race: "+id);
+					} catch(Exception ex) {
+						System.err.println("Loading modded race failed at 'Race'. File path: "+innerEntry.getValue().getAbsolutePath());
+						System.err.println("Actual exception: ");
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res races:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", null, "race");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("race")) {
+					try {
+						AbstractRace race = new AbstractRace(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("_race", "");
+						allRaces.add(race);
+						raceToIdMap.put(race, id);
+						idToRaceMap.put(id, race);
+					} catch(Exception ex) {
+						System.err.println("Loading race failed at 'Race'. File path: "+innerEntry.getValue().getAbsolutePath());
+						System.err.println("Actual exception: ");
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// Hard-coded:
+		
+		Field[] fields = Race.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractRace.class.isAssignableFrom(f.getType())) {
+				AbstractRace race;
+				try {
+					race = ((AbstractRace) f.get(null));
 
-	public FurryPreference getDefaultMasculinePreference() {
-		return defaultMasculinePreference;
+					raceToIdMap.put(race, f.getName());
+					idToRaceMap.put(f.getName(), race);
+					allRaces.add(race);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		allRaces.sort((r1, r2) -> r1.getName(false).compareTo(r2.getName(false)));
+		
+		for(AbstractRace race : Race.getAllRaces()) {
+			if(race!=Race.NONE) {
+				String name = race.getName(true);
+				AbstractAttribute racialAttribute = new AbstractAttribute(true, 0, -100, 100, name+" damage", Util.capitaliseSentence(name)+" damage", "swordIcon", race.getColour(), name+"-obliteration", name+"-mercy", null) {
+					@Override
+					public String getDescription(GameCharacter owner) {
+						return "Increases damage vs "+race.getNamePlural(true)+".";
+					}
+				};
+				String id = "DAMAGE_"+Race.getIdFromRace(race);
+//				System.out.println(name+", "+id);
+				
+				Attribute.racialAttributes.put(race, racialAttribute);
+				Attribute.attributeToIdMap.put(racialAttribute, id);
+				Attribute.idToAttributeMap.put(id, racialAttribute);
+				Attribute.allAttributes.add(racialAttribute);
+			}
+		}
 	}
-
+	
+	public static List<AbstractRace> getAllRaces() {
+		return allRaces;
+	}
 }

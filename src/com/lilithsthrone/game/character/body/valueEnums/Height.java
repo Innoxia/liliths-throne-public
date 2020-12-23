@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.86
@@ -13,7 +14,7 @@ public enum Height {
 	// Need to standardise to 1.5 each category
 
 //	/**6" to 2'*/
-//	NEGATIVE_THREE_MIMIMUM("fairy-sized", 15, 61, PresetColour.GENERIC_SIZE_ONE),
+	NEGATIVE_THREE_MIMIMUM("fairy-sized", 15, 61, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**2' to 3'6"*/
 	NEGATIVE_TWO_MIMIMUM("very tiny", 61, 106, PresetColour.GENERIC_SIZE_ONE),
@@ -45,7 +46,8 @@ public enum Height {
 	/**9' to 12'*/
 	SEVEN_COLOSSAL("colossal", 274, 366, PresetColour.GENERIC_SIZE_EIGHT);
 	
-	private int minimumValue, maximumValue;
+	private int minimumValue;
+	private int maximumValue;
 	private String descriptor;
 	private Colour colour;
 
@@ -65,7 +67,11 @@ public enum Height {
 	}
 
 	public int getMedianValue() {
-		return minimumValue + (maximumValue - minimumValue) / 2;
+		return (minimumValue + maximumValue) / 2;
+	}
+
+	public int getRandomValue() {
+		return minimumValue + Util.random.nextInt(maximumValue - minimumValue);
 	}
 	
 	/**
@@ -74,7 +80,11 @@ public enum Height {
 	public static int getShortStatureCutOff() {
 		return ZERO_TINY.getMinimumValue();
 	}
-
+	
+	public boolean isShortStature() {
+		return this.getMinimumValue()<getShortStatureCutOff();
+	}
+	
 	public static Height getHeightFromInt(int centimeters) {
 		for(Height cs : Height.values()) {
 			if(centimeters >= cs.getMinimumValue() && centimeters < cs.getMaximumValue()) {

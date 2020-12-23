@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.3.7
+ * @version 0.3.9.4
  * @author Innoxia
  */
 public class QuestTree {
@@ -13,6 +13,7 @@ public class QuestTree {
 	
 	public static TreeNode<Quest> enchantmentTree = new TreeNode<Quest>(Quest.SIDE_ENCHANTMENTS_LILAYA_HELP);
 	public static TreeNode<Quest> pregnancyTree = new TreeNode<Quest>(Quest.SIDE_PREGNANCY_CONSULT_LILAYA);
+	public static TreeNode<Quest> incubationTree = new TreeNode<Quest>(Quest.SIDE_INCUBATION_WAITING);
 	public static TreeNode<Quest> slaveryTree = new TreeNode<Quest>(Quest.SIDE_SLAVER_NEED_RECOMMENDATION);
 	public static TreeNode<Quest> accommodationTree = new TreeNode<Quest>(Quest.SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION);
 	public static TreeNode<Quest> hypnoWatchTree = new TreeNode<Quest>(Quest.SIDE_HYPNO_WATCH_VICKY);
@@ -22,9 +23,12 @@ public class QuestTree {
 	public static TreeNode<Quest> daddyTree = new TreeNode<Quest>(Quest.DADDY_START);
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
-
+	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
+	
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
+	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
+	
 	
 	
 	static {
@@ -68,6 +72,9 @@ public class QuestTree {
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
 
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		incubationTree.addChild(node1);
+		
 		accommodationTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		node1 = new TreeNode<Quest>(Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED);
@@ -188,6 +195,23 @@ public class QuestTree {
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		
+		// Wes quest:
+
+		node1 = new TreeNode<Quest>(Quest.WES_1);
+		wesTree.addChild(node1);
+
+		node2 = new TreeNode<Quest>(Quest.WES_2);
+		node1.addChild(node2);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_WES);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_ELLE);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		
 		// Romance quests:
 
 		
@@ -219,5 +243,18 @@ public class QuestTree {
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
+		
+
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_2_CONTRACT_SIGNED);
+		natalyaTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_3_TRAINING_1);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_4_TRAINING_2);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_5_TRAINING_3);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
+		
 	}
 }

@@ -4,10 +4,12 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -17,20 +19,24 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slaveEvent.SlaveEventType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.3.7
+ * @version 0.3.9.2
  * @author Innoxia
  */
 public class OccupantManagementDialogue {
@@ -39,6 +45,8 @@ public class OccupantManagementDialogue {
 	private static StringBuilder miscDialogueSB = new StringBuilder();
 	private static int dayNumber = 1;
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+	private static List<SlaveEventType> eventTypeFilterExclusions = new ArrayList<>();
+	private static List<String> slaveIdFilterExclusions = new ArrayList<>();
 	
 	static {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
@@ -70,7 +78,7 @@ public class OccupantManagementDialogue {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		return SLAVE_LIST_MANAGEMENT;
 	}
-
+	
 	/**
 	 * @param dialogueToExitTo The DialogueNode which should be displayed when exiting out of the occupant management windows. Pass in null to return to default dialogue.
 	 * @param slaveTrader The character you are trading with.
@@ -262,7 +270,19 @@ public class OccupantManagementDialogue {
 			
 			int count=0;
 			if(Main.game.getSlaveryEvents(dayNumber)!=null) {
+				List<SlaveryEventLogEntry> entries = new ArrayList<>(Main.game.getSlaveryEvents(dayNumber));
+				int filtered = 0;
 				for(SlaveryEventLogEntry entry : Main.game.getSlaveryEvents(dayNumber)) {
+					if(eventTypeFilterExclusions.contains(entry.getEvent().getType())
+							|| (slaveIdFilterExclusions.contains(entry.getSlaveID()) && slaveIdFilterExclusions.containsAll(entry.getInvolvedSlaveIDs()))) {
+						filtered++;
+						entries.remove(entry);
+					}
+				}
+				if(filtered>0) {
+					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>[style.italicsBad(Filtered events: "+filtered+")]</div>");
+				}
+				for(SlaveryEventLogEntry entry : entries) {
 					if(count%2==0) {
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:"+PresetColour.BACKGROUND.toWebHexString()+";'>");
 					} else {
@@ -295,10 +315,134 @@ public class OccupantManagementDialogue {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index==0) {
+				return "Room";
+			} else if(index==1) {
+				return "Filter (type)";
+			} else if(index==2) {
+				return "Filter (slave)";
+			}
+			return null;
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getSlaveryResponse(index);
+			if(responseTab==0) {
+				return getSlaveryResponse(index);
+				
+			} else if(responseTab==1) {
+				if(index==0) {
+					return getSlaveryResponse(index);
+				}
+				if(index==1) {
+					return new Response("Add all", "Add all types to the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_GOOD;
+						}
+						@Override
+						public void effects() {
+							eventTypeFilterExclusions.clear();
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Clear all", "Remove all types from the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_BAD;
+						}
+						@Override
+						public void effects() {
+							eventTypeFilterExclusions.clear();
+							Collections.addAll(eventTypeFilterExclusions, SlaveEventType.values());
+						}
+					};
+				}
+				if(index-3<SlaveEventType.values().length) {
+					SlaveEventType type = SlaveEventType.values()[index-3];
+					return new Response(type.getName(), "Click to filter events by this type:<br/><i>"+type.getDescription()+"</i>", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							if(eventTypeFilterExclusions.contains(type)) {
+								return PresetColour.TEXT_GREY;
+							} else {
+								return PresetColour.GENERIC_MINOR_GOOD;
+							}
+						}
+						@Override
+						public void effects() {
+							if(eventTypeFilterExclusions.contains(type)) {
+								eventTypeFilterExclusions.remove(type);
+							} else {
+								eventTypeFilterExclusions.add(type);
+							}
+						}
+					};
+				}
+				
+			} else if(responseTab==2) {
+				List<String> ownedSlaves = Main.game.getPlayer().getSlavesOwned();
+				if(index==0) {
+					return getSlaveryResponse(index);
+				}
+				if(index==1) {
+					return new Response("Add all", "Add all slaves to the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_GOOD;
+						}
+						@Override
+						public void effects() {
+							slaveIdFilterExclusions.clear();
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Clear all", "Remove all slaves from the filter.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.GENERIC_BAD;
+						}
+						@Override
+						public void effects() {
+							slaveIdFilterExclusions.clear();
+							slaveIdFilterExclusions.addAll(ownedSlaves);
+						}
+					};
+				}
+				if(index-3<ownedSlaves.size()) {
+					String slaveId = ownedSlaves.get(index-3);
+					GameCharacter slave = null;
+					try {
+						slave = Main.game.getNPCById(slaveId);
+					} catch(Exception ex) {}
+					if(slave==null) {
+						return null;
+					}
+					GameCharacter slaveInner = slave;
+					return new Response(UtilText.parse(slave, "[npc.Name]"), "Click to filter this slave in or out of displayed events.", OCCUPANT_OVERVIEW) {
+						@Override
+						public Colour getHighlightColour() {
+							if(slaveIdFilterExclusions.contains(slaveId)) {
+								return PresetColour.TEXT_GREY;
+							} else {
+								return slaveInner.getFemininity().getColour();
+							}
+						}
+						@Override
+						public void effects() {
+							if(slaveIdFilterExclusions.contains(slaveId)) {
+								slaveIdFilterExclusions.remove(slaveId);
+							} else {
+								slaveIdFilterExclusions.add(slaveId);
+							}
+						}
+					};
+				}
+			}
+			return null;
 		}
 	};
 	
@@ -435,8 +579,8 @@ public class OccupantManagementDialogue {
 	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
-			WorldType[] importantWorlds = new WorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
-			for(WorldType wt : importantWorlds) {
+			AbstractWorldType[] importantWorlds = new AbstractWorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
+			for(AbstractWorldType wt : importantWorlds) {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
@@ -454,7 +598,7 @@ public class OccupantManagementDialogue {
 	
 	
 	
-	private static String getWorldRooms(WorldType worldType) {
+	private static String getWorldRooms(AbstractWorldType worldType) {
 		StringBuilder worldRoomSB = new StringBuilder();
 		
 		worldRoomSB.append(
@@ -583,8 +727,8 @@ public class OccupantManagementDialogue {
 											+ "<h6 style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Modifications</h6>"
 											+ getRoomUpgradeHeader());
 			
-			List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
-			for(PlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades(place.getPlaceUpgrades())) {
+			List<AbstractPlaceUpgrade> coreUpgrades = new ArrayList<>();
+			for(AbstractPlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades(place.getPlaceUpgrades())) {
 				if(upgrade.getAvailability(cellToInspect).getKey() || (!upgrade.getAvailability(cellToInspect).getValue().isEmpty())) { // Do not display upgrades that have no explanation as to why they're banned.
 					if(upgrade.isCoreRoomUpgrade()) {
 						coreUpgrades.add(upgrade);
@@ -617,7 +761,7 @@ public class OccupantManagementDialogue {
 //			}
 			
 			i = 0;
-			for (PlaceUpgrade upgrade : coreUpgrades) {
+			for (AbstractPlaceUpgrade upgrade : coreUpgrades) {
 				UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
 				i++;
 			}
@@ -777,7 +921,7 @@ public class OccupantManagementDialogue {
 				+ "</div>";
 	}
 	
-	private static String getUpgradeEntry(Cell cell, PlaceUpgrade upgrade) {
+	private static String getUpgradeEntry(Cell cell, AbstractPlaceUpgrade upgrade) {
 		miscDialogueSB.setLength(0);
 		GenericPlace place = cell.getPlace();
 		float affectionChange = upgrade.getHourlyAffectionGain();
@@ -789,7 +933,7 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px;"+(owned?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:5%; float:left; margin:0; padding:0;'>"
-							+ "<div class='title-button no-select' id='ROOM_MOD_INFO_"+upgrade+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "<div class='title-button no-select' id='ROOM_MOD_INFO_"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 						+ "</div>"
 						+ "<div style='width:25%; float:left; margin:0; padding:0;'>"
 							+ (owned
@@ -842,10 +986,12 @@ public class OccupantManagementDialogue {
 						+ "<div style='float:left; width:10%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>");
 		
 		if(owned) {
-			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost() || upgrade.isCoreRoomUpgrade()) {
-				miscDialogueSB.append("<div id='"+upgrade+"_SELL_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
+			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost() || !upgrade.getRemovalAvailability(cell).getKey()) {
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_SELL_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+upgrade+"_SELL' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_SELL' class='square-button solo'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
 			
 		} else {
@@ -854,7 +1000,7 @@ public class OccupantManagementDialogue {
 			}
 			if(canBuy) {
 				if(!upgrade.getPrerequisites().isEmpty()) {
-					for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
+					for(AbstractPlaceUpgrade prereq : upgrade.getPrerequisites()) {
 						if(!place.getPlaceUpgrades().contains(prereq)) {
 							canBuy = false;
 							break;
@@ -864,9 +1010,11 @@ public class OccupantManagementDialogue {
 			}
 			
 			if(canBuy) {
-				miscDialogueSB.append("<div id='"+upgrade+"_BUY' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_BUY' class='square-button solo'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+upgrade+"_BUY_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
+				miscDialogueSB.append("<div id='"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade)+"_BUY_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			}
 		}
 		
@@ -898,7 +1046,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static StringBuilder purchaseAvailability = new StringBuilder();
-	public static String getPurchaseAvailabilityTooltipText(Cell cell, PlaceUpgrade upgrade) {
+	public static String getPurchaseAvailabilityTooltipText(Cell cell, AbstractPlaceUpgrade upgrade) {
 		GenericPlace place = cell.getPlace();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
 		
@@ -920,7 +1068,7 @@ public class OccupantManagementDialogue {
 			
 			if(!upgrade.getPrerequisites().isEmpty()) {
 				purchaseAvailability.append("You need to purchase the following first:");
-				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
+				for(AbstractPlaceUpgrade prereq : upgrade.getPrerequisites()) {
 					if(place.getPlaceUpgrades().contains(prereq)) {
 						purchaseAvailability.append("<br/><span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					} else {

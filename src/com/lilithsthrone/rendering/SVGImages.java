@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -15,15 +16,19 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.6.5
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum SVGImages {
 	SVG_IMAGE_PROVIDER;
 
 	private String
-
-			displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
+	
+			flagUs,
+			
+			fist,
+			
+			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
 			menuIcon,
 			inventoryIcon, inventoryIconDisabled,
@@ -34,9 +39,10 @@ public enum SVGImages {
 			diskLoad, diskLoadConfirm, diskLoadDisabled, diskLoadQuick,
 			diskDelete, diskDeleteConfirm,
 			
+			essence, essenceUncoloured,
 			itemsOnFloorIcon,
 			
-			cornerGlowNight, cornerGlowTwilight,
+			cornerGlowNight, cornerGlowTwilight, cornerGlowAlwaysLight,
 			
 			drinkSmall, drink,
 			
@@ -47,7 +53,14 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceBackgroundDemon, raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground,
+			raceBackgroundHalf,
+			raceBackgroundSlime,
+			raceBackgroundDemon,
+			raceUnknown,
+			raceDobermann,
+			raceDobermannDesaturated,
+			raceWisp,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -92,11 +105,14 @@ public enum SVGImages {
 			coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple,
 			coverableAreaBreastsCrotch, coverableAreaUdders, coverableAreaNippleCrotch,
 			coverableAreaVagina, coverableAreaUrethraVagina,
+			coverableAreaSpinneret,
 			coverableAreaMound,
 			coverableAreaThighs,
 			coverableAreaUrethraPenis,
+
+			eggIncubation1, eggIncubation2, eggIncubation3,
 			
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationStretchRecoveryPrevented, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
@@ -113,16 +129,25 @@ public enum SVGImages {
 	private SVGImages() {
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/flag_us.svg");
+			flagUs = Util.inputStreamToString(is);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/fist.svg");
+			fist = Util.inputStreamToString(is);
+			fist = setColour(fist, PresetColour.BASE_BLACK);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
 			displacedIcon = Util.inputStreamToString(is);
 
-			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/concealed.svg");
 			concealedIcon = Util.inputStreamToString(is);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/cummedInWarningIcon.svg");
-			cummedInIcon = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/dirtyIcon.svg");
+			dirtyIcon = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/lipstickIcon.svg");
+			lipstickIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/feminineWarningIcon.svg");
 			feminineWarningIcon = Util.inputStreamToString(is);
 			feminineWarningIcon = setColour(feminineWarningIcon, PresetColour.FEMININE);
@@ -161,9 +186,16 @@ public enum SVGImages {
 			questInventoryIconDisabled = Util.inputStreamToString(is);
 			questInventoryIconDisabled = setColour(questInventoryIconDisabled, PresetColour.BASE_PITCH_BLACK);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/essenceArcane.svg");
+			essence = Util.inputStreamToString(is);
+			essence = setColour(essence, PresetColour.GENERIC_ARCANE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/essenceArcane.svg");
+			essenceUncoloured = Util.inputStreamToString(is);
+			essenceUncoloured = setColour(essenceUncoloured, PresetColour.BASE_GREY);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
-			itemsOnFloorIcon = setColour(itemsOnFloorIcon, PresetColour.BASE_BLACK);
+			itemsOnFloorIcon = setColour(itemsOnFloorIcon, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW, PresetColour.BASE_BLACK);
 
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlow.svg");
@@ -173,7 +205,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowLight.svg");
 			cornerGlowTwilight = Util.inputStreamToString(is);
 			cornerGlowTwilight = setColour(cornerGlowTwilight, PresetColour.BASE_PITCH_BLACK);
-			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowAlwaysLight.svg");
+			cornerGlowAlwaysLight = Util.inputStreamToString(is);
+			cornerGlowAlwaysLight = setColour(cornerGlowAlwaysLight, PresetColour.BASE_PITCH_BLACK, PresetColour.BASE_YELLOW_PALE, null);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
 			drinkSmall = Util.inputStreamToString(is);
@@ -307,6 +342,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermannDesaturated = Util.inputStreamToString(is);
 			raceDobermannDesaturated = setColour(raceDobermannDesaturated, PresetColour.BASE_GREY);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceWisp.svg");
+			raceWisp = Util.inputStreamToString(is);
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
@@ -681,6 +719,9 @@ public enum SVGImages {
 			coverableAreaVagina = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMound.svg");
 			coverableAreaMound = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaSpinneret.svg");
+			coverableAreaSpinneret = Util.inputStreamToString(is);
 			
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreastsCrotch.svg");
@@ -704,6 +745,8 @@ public enum SVGImages {
 			penetrationTypePenis = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTail.svg");
 			penetrationTypeTail = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTentacle.svg");
+			penetrationTypeTentacle = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTongue.svg");
 			penetrationTypeTongue = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFoot.svg");
@@ -711,6 +754,14 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeClit.svg");
 			penetrationTypeClit = Util.inputStreamToString(is);
 			
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation1.svg");
+			eggIncubation1 = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation2.svg");
+			eggIncubation2 = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/incubation3.svg");
+			eggIncubation3 = Util.inputStreamToString(is);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
@@ -781,6 +832,20 @@ public enum SVGImages {
 		s = SvgUtil.colourReplacement(null, colourShade, s);
 		return s;
 	}
+
+	private String setColour(String stringSVG, Colour colour1, Colour colour2, Colour colour3) {
+		String s = stringSVG;
+		s = SvgUtil.colourReplacement(null, colour1, colour2, colour3, s);
+		return s;
+	}
+	
+	public String getFlagUs() {
+		return flagUs;
+	}
+	
+	public String getFist() {
+		return fist;
+	}
 	
 	public String getDisplacedIcon() {
 		return displacedIcon;
@@ -790,8 +855,12 @@ public enum SVGImages {
 		return concealedIcon;
 	}
 	
-	public String getCummedInIcon() {
-		return cummedInIcon;
+	public String getDirtyIcon() {
+		return dirtyIcon;
+	}
+	
+	public String getLipstickIcon(Covering covering) {
+		return setColour(lipstickIcon, covering.getPrimaryColour());
 	}
 
 	public String getFeminineWarningIcon() {
@@ -836,6 +905,14 @@ public enum SVGImages {
 
 	public String getQuestInventoryIconDisabled() {
 		return questInventoryIconDisabled;
+	}
+
+	public String getEssence() {
+		return essence;
+	}
+
+	public String getEssenceUncoloured() {
+		return essenceUncoloured;
 	}
 
 	public String getJournalIcon() {
@@ -923,6 +1000,10 @@ public enum SVGImages {
 
 	public String getCornerGlowTwilight() {
 		return cornerGlowTwilight;
+	}
+	
+	public String getCornerGlowAlwaysLight() {
+		return cornerGlowAlwaysLight;
 	}
 	
 	public String getPlayerMapIconMasculine() {
@@ -1140,6 +1221,10 @@ public enum SVGImages {
 	public String getCoverableAreaVagina() {
 		return coverableAreaVagina;
 	}
+	
+	public String getCoverableAreaSpinneret() {
+		return coverableAreaSpinneret;
+	}
 
 	public String getCoverableAreaMound() {
 		return coverableAreaMound;
@@ -1163,6 +1248,10 @@ public enum SVGImages {
 	
 	public String getPenetrationTypeTail() {
 		return penetrationTypeTail;
+	}
+	
+	public String getPenetrationTypeTentacle() {
+		return penetrationTypeTentacle;
 	}
 	
 	public String getPenetrationTypeTongue() {
@@ -1208,7 +1297,17 @@ public enum SVGImages {
 	public String getCombinationDepthMaximum() {
 		return combinationDepthMaximum;
 	}
-
+	
+	public String getEggIncubation(int stage) {
+		if(stage<=1) {
+			return eggIncubation1;
+		} else if(stage==2) {
+			return eggIncubation2;
+		} else {
+			return eggIncubation3;
+		}
+	}
+	
 	public String getStretching() {
 		return stretching;
 	}
@@ -1417,6 +1516,10 @@ public enum SVGImages {
 		return raceDobermannDesaturated;
 	}
 
+	public String getRaceWisp() {
+		return raceWisp;
+	}
+	
 	public String getCounterZero() {
 		return counterZero;
 	}

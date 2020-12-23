@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -18,49 +19,49 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.97
- * @version 0.2.11
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum LustLevel {
 
 	ZERO_COLD("cold", 0, 10, 0.5f, PresetColour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_0;
 		}
 	},
 
 	ONE_HORNY("horny", 10, 25, 0.75f, PresetColour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_1;
 		}
 	},
 
 	TWO_AMOROUS("sensual", 25, 50, 1f, PresetColour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_2;
 		}
 	},
 
 	THREE_LUSTFUL("amorous", 50, 75, 1.25f, PresetColour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_3;
 		}
 	},
 
 	FOUR_IMPASSIONED("lustful", 75, 90, 1.5f, PresetColour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_4;
 		}
 	},
 	
 	FIVE_BURNING("impassioned", 90, 100, 1.5f, PresetColour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_5;
 		}
 	};
@@ -83,7 +84,7 @@ public enum LustLevel {
 		this.sexPaceDominant = sexPaceDominant;
 	}
 
-	public abstract StatusEffect getRelatedStatusEffect();
+	public abstract AbstractStatusEffect getRelatedStatusEffect();
 
 	public String getName() {
 		return name;
@@ -110,6 +111,9 @@ public enum LustLevel {
 	}
 
 	public static LustLevel getLustLevelFromValue(float value){
+		if(value<0) {
+			return ZERO_COLD;
+		}
 		for(LustLevel al : LustLevel.values()) {
 			if(value>=al.getMinimumValue() && value<al.getMaximumValue()) {
 				return al;
@@ -239,7 +243,7 @@ public enum LustLevel {
 							sb.append("[npc.NameIsFull] not really interested in having sex at all right now, and as a result, [npc.she] [npc.verb(want)] to take things slow and gentle.");
 							break;
 						case ONE_HORNY:
-							sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust, allowing [npc.her] to keep a cool head and concentrate on taking things slow and gentle.");
+							sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust, allowing [npc.herHim] to keep a cool head and concentrate on taking things slow and gentle.");
 							break;
 						case TWO_AMOROUS:
 							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but [npc.is] still able to concentrate on taking things slow and gentle.");

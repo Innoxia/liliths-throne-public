@@ -11,8 +11,9 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -52,7 +53,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -107,21 +107,29 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9") && !this.isSlave()) {
 			this.equipClothing();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.3")) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN)) {
 				this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 			}
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6") && !this.isSlave()) {
+			this.getPetNameMap().remove(Main.game.getPlayer().getId());
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
-				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 5),
-						new Value<>(PerkCategory.LUST, 1),
-						new Value<>(PerkCategory.ARCANE, 0)));
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			super.setupPerks(autoSelectPerks);
+			
+		} else {
+			PerkManager.initialisePerks(this,
+					Util.newArrayListOfValues(),
+					Util.newHashMapOfValues(
+							new Value<>(PerkCategory.PHYSICAL, 5),
+							new Value<>(PerkCategory.LUST, 1),
+							new Value<>(PerkCategory.ARCANE, 0)));
+		}
 	}
 	
 	@Override
@@ -219,21 +227,21 @@ public class Scarlett extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_HELENA)
 				&& (this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP || this.hasVagina())) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SKATER_DRESS, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
 			
 		} else {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
 		}
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_SILVER, false), true, this);
 	}
 	
 	@Override
@@ -293,7 +301,7 @@ public class Scarlett extends NPC {
 			if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 				return "#fa2ca7";
 			} else {
-				return "#ff85cc";
+				return "#ff94d6";
 			}
 		}
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -321,9 +329,18 @@ public class Scarlett extends NPC {
 	public void dailyUpdate() {
 		if(!this.isSlave() && this.hasVagina() && !Main.game.getCharactersPresent().contains(this)) { // Female Scarlett:
 			if(this.getMinutesSinceLastTimeHadSex()>(60*22) || this.isVaginaVirgin()) {// Scarlett has sex with one of her followers every night (if she is horny or is a virgin):
-				this.calculateGenericSexEffects(true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				if(this.isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
+					this.calculateGenericSexEffects(
+							true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
+				} else {
+					this.calculateGenericSexEffects(
+							true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				}
 			}
 			this.applyMakeup();
+		}
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && this.getAffection(Main.game.getNpc(Helena.class))<0) {
+			this.incrementAffection(Main.game.getNpc(Helena.class), 5);
 		}
 	}
 	
@@ -341,6 +358,11 @@ public class Scarlett extends NPC {
 			this.returnToHome();
 			return;
 		}
+		if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_1_G_SLAVERY) {
+			Main.game.getNpc(Helena.class).turnUpdate();
+			this.setLocation(Main.game.getNpc(Helena.class), false);
+			return;
+		}
 		if(this.isSlave() || Main.game.getCharactersPresent().contains(this) || this.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
 			return; // Do not move if a slave, if the player is present in her tile, or if banished to the empty tile.
 		}
@@ -354,11 +376,10 @@ public class Scarlett extends NPC {
 			return;
 		}
 
-		boolean nestHours = Main.game.isDayTime() || (Main.game.getHourOfDay()>8 && Main.game.getHourOfDay()<21);
+		boolean nestHours = Main.game.isDayTime() || (Main.game.getHourOfDay()>9 && Main.game.getHourOfDay()<21);
 		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettToldToReturn)) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome)
-					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.scarlettGoneHome)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.scarlettGoneHome)) {
 				goHome(); // If Helena is home on special business, Scarlett is with her.
 				
 			} else if((Main.game.isWorkTime() || (Main.game.getDateNow().getDayOfWeek()==DayOfWeek.FRIDAY && Main.game.getHourOfDay()>12 && Main.game.getHourOfDay()<21))
@@ -368,6 +389,7 @@ public class Scarlett extends NPC {
 				
 			} else if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						&& nestHours
+						&& Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)!=Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN // Once Scarlett goes to meet Helena, she stays with her until player progresses to next stage of quest
 						&& (Main.game.isWeekend() || Main.game.getHourOfDay()>12)) { // Do not appear in nest before work
 				this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, false);
 				this.equipClothing();
@@ -397,10 +419,11 @@ public class Scarlett extends NPC {
 	}
 	
 	public void completeBodyReset() {
-		Main.game.getNpc(Scarlett.class).setBody(Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER, false);
-		Main.game.getNpc(Scarlett.class).setStartingBody(true);
-		Main.game.getNpc(Scarlett.class).endPregnancy(true);
-		Main.game.getNpc(Scarlett.class).equipClothing();
+		this.setBody(Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER, false);
+		this.setStartingBody(true);
+		this.endPregnancy(true);
+		this.equipClothing();
+		this.getPetNameMap().remove(Main.game.getPlayer().getId());
 	}
 	
 	public void applyFeminisation() {
@@ -428,8 +451,8 @@ public class Scarlett extends NPC {
 	}
 
 	public void applyMakeup() {
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_BLACK));
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_BLACK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
 		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED_LIGHT));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
@@ -439,6 +462,10 @@ public class Scarlett extends NPC {
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
 		return Util.newArrayListOfValues(SAScarlett.class);
+	}
+	
+	public boolean isLikesPlayer() {
+		return this.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE;
 	}
 	
 }

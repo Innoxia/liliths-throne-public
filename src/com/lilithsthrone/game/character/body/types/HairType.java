@@ -1,218 +1,348 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.11
+ * @version 0.3.9.1
  * @author Innoxia
  */
-public enum HairType implements BodyPartTypeInterface {
-	HUMAN(BodyCoveringType.HAIR_HUMAN, Race.HUMAN),
+public class HairType {
 
-	ANGEL(BodyCoveringType.HAIR_ANGEL, Race.ANGEL),
+	public static AbstractHairType HUMAN = new AbstractHairType(BodyCoveringType.HAIR_HUMAN,
+			Race.HUMAN,
+			"human",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("soft", "feminine"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with human-like hair.<br/>"
+					+ "[npc.Name] now [npc.has] [npc.hairColour], [style.boldHuman(human hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], human hair") {
+	};
 
-	DEMON_COMMON(BodyCoveringType.HAIR_DEMON, Race.DEMON),
-
-	DOG_MORPH(BodyCoveringType.HAIR_CANINE_FUR, Race.DOG_MORPH),
-
-	LYCAN(BodyCoveringType.HAIR_LYCAN_FUR, Race.WOLF_MORPH),
+	public static AbstractHairType ANGEL = new AbstractHairType(BodyCoveringType.HAIR_ANGEL,
+			Race.ANGEL,
+			"angelic",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("silken", "soft", "feminine"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with silken, angelic hair.<br/>"
+					+ "[npc.Name] now [npc.has] [npc.hairColour], [style.boldAngel(angelic hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], angelic hair") {
+	};
 	
-	FOX_MORPH(BodyCoveringType.HAIR_FOX_FUR, Race.FOX_MORPH),
+	public static AbstractHairType DEMON = new AbstractHairType(BodyCoveringType.HAIR_DEMON,
+			Race.DEMON,
+			"demonic",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("silken", "soft", "feminine"),
+			"#IF(npc.isShortStature())"
+				+ "The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, impish hair.<br/>"
+					+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldImp(impish hair)]."
+			+ "#ELSE"
+				+ "The transformation only lasts a matter of moments, leaving [npc.herHim] with silken, demonic hair.<br/>"
+					+ "[npc.Name] now [npc.has] [npc.hairColour], [style.boldDemon(demonic hair)]."
+			+ "#ENDIF",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF hair") {
+	};
 
-	CAT_MORPH(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
-
-	CAT_MORPH_SIDEFLUFF(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
-
-	COW_MORPH(BodyCoveringType.HAIR_BOVINE_FUR, Race.COW_MORPH),
-
-	ALLIGATOR_MORPH(BodyCoveringType.HAIR_SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
-
-	SQUIRREL_MORPH(BodyCoveringType.HAIR_SQUIRREL_FUR, Race.SQUIRREL_MORPH),
-
-	RAT_MORPH(BodyCoveringType.HAIR_RAT_FUR, Race.RAT_MORPH),
-
-	RABBIT_MORPH(BodyCoveringType.HAIR_RABBIT_FUR, Race.RABBIT_MORPH),
-
-	BAT_MORPH(BodyCoveringType.HAIR_BAT_FUR, Race.BAT_MORPH),
-
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH),
-
-	REINDEER_MORPH(BodyCoveringType.HAIR_REINDEER_FUR, Race.REINDEER_MORPH),
-
-	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY);
-
+	public static AbstractHairType DOG_MORPH = new AbstractHairType(BodyCoveringType.HAIR_CANINE_FUR,
+			Race.DOG_MORPH,
+			"dog",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldDogMorph(dog hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], dog-like hair") {
+	};
 	
-	private BodyCoveringType coveringType;
-	private Race race;
+	public static AbstractHairType WOLF_MORPH = new AbstractHairType(BodyCoveringType.HAIR_LYCAN_FUR, //TODO rename
+			Race.WOLF_MORPH,
+			"wolf",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldWolfMorph(wolf hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], wolf-like hair") {
+	};
 
-	private HairType(BodyCoveringType coveringType, Race race) {
-		this.coveringType = coveringType;
-		this.race = race;
-	}
+	public static AbstractHairType FOX_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FOX_FUR,
+			Race.FOX_MORPH,
+			"fox",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldFoxMorph(fox hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], fox-like hair") {
+	};
 
-	/**
-	 * Use instead of <i>valueOf()</i>.
-	 */
-	public static HairType getTypeFromString(String value) {
-		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
+	public static AbstractHairType CAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_FELINE_FUR, //TODO change to cat
+			Race.CAT_MORPH,
+			"cat",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldCatMorph(cat hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], cat-like hair") {
+	};
+
+	//TODO should be PANTHER
+	public static AbstractHairType CAT_MORPH_SIDEFLUFF = new AbstractHairType(BodyCoveringType.HAIR_FELINE_FUR,
+			Race.CAT_MORPH,
+			"cat (sidefluff)",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldCatMorph(cat hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], cat-like hair, complete with soft, fuzzy fur on the sides of [npc.her] face") {
+	};
+
+	public static AbstractHairType COW_MORPH = new AbstractHairType(BodyCoveringType.HAIR_BOVINE_FUR, //TODO change to cow
+			Race.COW_MORPH,
+			"cow",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldCowMorph(cow hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], cow-like hair") {
+	};
+
+	public static AbstractHairType ALLIGATOR_MORPH = new AbstractHairType(BodyCoveringType.HAIR_SCALES_ALLIGATOR, //TODO change to hair
+			Race.ALLIGATOR_MORPH,
+			"alligator",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("coarse"),
+			Util.newArrayListOfValues("coarse"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldAlligatorMorph(alligator hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], coarse alligator hair") {
+	};
+
+	public static AbstractHairType SQUIRREL_MORPH = new AbstractHairType(BodyCoveringType.HAIR_SQUIRREL_FUR,
+			Race.SQUIRREL_MORPH,
+			"squirrel",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldSquirrelMorph(squirrel hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], squirrel-like hair") {
+	};
+
+	public static AbstractHairType RAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_RAT_FUR,
+			Race.RAT_MORPH,
+			"rat",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldRatMorph(rat hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], rat-like hair") {
+	};
+
+	public static AbstractHairType RABBIT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_RABBIT_FUR,
+			Race.RABBIT_MORPH,
+			"rabbit",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldRabbitMorph(rabbit hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], rabbit-like hair") {
+	};
+
+	public static AbstractHairType BAT_MORPH = new AbstractHairType(BodyCoveringType.HAIR_BAT_FUR,
+			Race.BAT_MORPH,
+			"bat",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldBatMorph(bat hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], bat-like hair") {
+	};
+
+	public static AbstractHairType HORSE_MORPH = new AbstractHairType(BodyCoveringType.HAIR_HORSE_HAIR,
+			Race.HORSE_MORPH,
+			"horse",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldHorseMorph(horse hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], horse-like hair") {
+	};
+
+	public static AbstractHairType REINDEER_MORPH = new AbstractHairType(BodyCoveringType.HAIR_REINDEER_FUR,
+			Race.REINDEER_MORPH,
+			"reindeer",
+			"hair",
+			"hairs",
+			Util.newArrayListOfValues("furry", "fur-like"),
+			Util.newArrayListOfValues("furry", "fur-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour] [style.boldReindeerMorph(reindeer hair)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], reindeer-like hair") {
+	};
+
+	public static AbstractHairType HARPY = new AbstractHairType(BodyCoveringType.HAIR_HARPY,
+			Race.HARPY,
+			"harpy",
+			"head-feather",
+			"head-feathers",
+			Util.newArrayListOfValues("beautiful", "bird-like"),
+			Util.newArrayListOfValues("beautiful", "bird-like"),
+			"The transformation only lasts a matter of moments, leaving [npc.herHim] with a plume of feathers in place of hair.<br/>"
+				+ "[npc.Name] now [npc.has] [npc.hairColour], bird-like [style.boldHarpy(harpy feathers)].",
+			"[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], bird-like harpy feathers") {
+		@Override
+		public boolean isDefaultPlural(GameCharacter gc) {
+			return true;
 		}
-		return valueOf(value);
-	}
-
-	@Override
-	public String getDeterminer(GameCharacter gc) {
-		return "a head of";
-	}
-
-	@Override
-	public boolean isDefaultPlural() {
-		switch(coveringType) {
-			case HAIR_HARPY:
-//			case HAIR_SCALES_ALLIGATOR:
-				return true;
-			default:
-				return false;
+		@Override
+		public String getDeterminer(GameCharacter gc) {
+			return "a plume of";
 		}
-	}
+	};
 
-	@Override
-	public String getNameSingular(GameCharacter gc) {
-		switch(coveringType) {
-			case HAIR_HARPY:
-				return "head-feather";
-//			case HAIR_SCALES_ALLIGATOR:
-//				return "head-scale";
-			case SLIME_HAIR:
-				return "slime-hair";
-			default:
-				return "hair";
+	private static List<AbstractHairType> allHairTypes;
+	private static Map<AbstractHairType, String> hairToIdMap = new HashMap<>();
+	private static Map<String, AbstractHairType> idToHairMap = new HashMap<>();
+	
+	static {
+		allHairTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
+					try {
+						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allHairTypes.add(type);
+						hairToIdMap.put(type, id);
+						idToHairMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
 		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("hair")) {
+					try {
+						AbstractHairType type = new AbstractHairType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allHairTypes.add(type);
+						hairToIdMap.put(type, id);
+						idToHairMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		// Add in hard-coded hair types:
+		
+		Field[] fields = HairType.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractHairType.class.isAssignableFrom(f.getType())) {
+				
+				AbstractHairType ct;
+				try {
+					ct = ((AbstractHairType) f.get(null));
+
+					hairToIdMap.put(ct, f.getName());
+					idToHairMap.put(f.getName(), ct);
+					
+					allHairTypes.add(ct);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		Collections.sort(allHairTypes, (t1, t2)->
+			t1.getRace()==Race.NONE
+				?-1
+				:(t2.getRace()==Race.NONE
+					?1
+					:t1.getRace().getName(false).compareTo(t2.getRace().getName(false))));
 	}
 	
-	@Override
-	public String getNamePlural(GameCharacter gc) {
-		switch(coveringType) {
-			case HAIR_HARPY:
-				return "head-feathers";
-//			case HAIR_SCALES_ALLIGATOR:
-//				return "head-scales";
-			case SLIME_HAIR:
-				return "slime-hair";
-			default:
-				return "hair";
+	public static AbstractHairType getHairTypeFromId(String id) {
+		if(id.equals("IMP") || id.equals("DEMON_COMMON")) {
+			return HairType.DEMON;
 		}
-	}
-
-	@Override
-	public String getDescriptor(GameCharacter gc) { //TODO how does any of this (except for harpy) make sense?
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic");
-			case CAT_MORPH:
-				return UtilText.returnStringAtRandom("cat-like");
-			case CAT_MORPH_SIDEFLUFF:
-				return UtilText.returnStringAtRandom("cat-like");
-			case COW_MORPH:
-				return UtilText.returnStringAtRandom("cow-like");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic");
-			case DOG_MORPH:
-				return UtilText.returnStringAtRandom("dog-like");
-			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("squirrel-like");
-			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("alligator-like");
-			case HARPY:
-				return UtilText.returnStringAtRandom("bird-like");
-			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("horse-like");
-			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("reindeer-like");
-			case HUMAN:
-				return UtilText.returnStringAtRandom("");
-			case LYCAN:
-				return UtilText.returnStringAtRandom("wolf-like");
-			case FOX_MORPH:
-				return UtilText.returnStringAtRandom("fox-like");
-			case BAT_MORPH:
-				return UtilText.returnStringAtRandom("bat-like");
-			case RAT_MORPH:
-				return UtilText.returnStringAtRandom("rat-like");
-			case RABBIT_MORPH:
-				return UtilText.returnStringAtRandom("rabbit-like");
+		if(id.equals("LYCAN")) {
+			return HairType.WOLF_MORPH;
 		}
-		return "";
-	}
-
-	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return coveringType;
-	}
-
-	@Override
-	public Race getRace() {
-		return race;
-	}
-
-	@Override
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case CAT_MORPH_SIDEFLUFF:
-				return UtilText.returnStringAtRandom("feline sidefluff");
-			case DEMON_COMMON:
-				return "demonic";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "harpy";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "reindeer";
-			case HUMAN:
-				return "human";
-			case LYCAN:
-				return "wolf";
-			case FOX_MORPH:
-				return "fox";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-		}
-		return "";
+		id = Util.getClosestStringMatch(id, idToHairMap.keySet());
+		return idToHairMap.get(id);
 	}
 	
-	private static Map<Race, List<HairType>> typesMap = new HashMap<>();
-	public static List<HairType> getHairTypes(Race r) {
+	public static String getIdFromHairType(AbstractHairType hairType) {
+		return hairToIdMap.get(hairType);
+	}
+	
+	public static List<AbstractHairType> getAllHairTypes() {
+		return allHairTypes;
+	}
+	
+	private static Map<AbstractRace, List<AbstractHairType>> typesMap = new HashMap<>();
+	
+	public static List<AbstractHairType> getHairTypes(AbstractRace r) {
 		if(typesMap.containsKey(r)) {
 			return typesMap.get(r);
 		}
 		
-		List<HairType> types = new ArrayList<>();
-		for(HairType type : HairType.values()) {
+		List<AbstractHairType> types = new ArrayList<>();
+		for(AbstractHairType type : HairType.getAllHairTypes()) {
 			if(type.getRace()==r) {
 				types.add(type);
 			}

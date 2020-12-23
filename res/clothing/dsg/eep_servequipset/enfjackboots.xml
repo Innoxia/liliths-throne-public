@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -109,76 +109,46 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slip your jackboots off your [pc.feet].
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You slip [npc.name]'s jackboots and off [npc.her] [npc.feet].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You yank [npc.name]'s jackboots off [npc.her] [npc.feet].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slips [npc.her] jackboots off her [npc.feet].
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] slips your jackboots off your [pc.feet].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] yanks your jackboots off [pc.her] [pc.feet].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] slips [npc2.name]'s jackboots off [npc2.her] [npc2.feet].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] yanks [npc2.name]'s jackboots off [npc2.her] [npc2.feet].
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You step into the jackboots.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.feet] into the jackboots.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You stuff [npc.name]'s [npc.feet] into the jackboots.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] steps into the jackboots.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.feet] into the jackboots.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] stuffs your [npc.feet] into the jackboots.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.feet] into the jackboots.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] stuffs [npc2.name] [npc2.feet] into the jackboots.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into the jackboots.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.feet] into the jackboots.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(shove)] [npc2.namePos] [npc2.feet] into the jackboots.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] jackboots off [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] jackboots off [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] jackboots off [npc2.her] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

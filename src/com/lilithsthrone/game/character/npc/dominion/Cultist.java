@@ -9,11 +9,10 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -38,8 +37,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -91,7 +88,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 				this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 			}
@@ -99,7 +96,7 @@ public class Cultist extends NPC {
 				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 
 			this.setHistory(Occupation.NPC_CULTIST);
 			
@@ -200,31 +197,31 @@ public class Cultist extends NPC {
 		
 		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
 		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
-		clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"));
 		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_sock_thighhigh_socks"));
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
-		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
+		equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
 		if(Math.random()<0.5) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_hat_wide", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		}
 		if(Math.random()>0.5f) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
+			equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_cleaning_witch_broom"));
 		}
 		
 		// Makeup:
@@ -288,41 +285,45 @@ public class Cultist extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_sterility"))) {
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					Main.game.getPlayer().useItem(item, target, false);
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " [npc.She] lets out an angry huff, but as [npc.sheIs] in no position to refuse, [npc.she] reluctantly does as you ask,"
-								+ " [npc.speech(This is an insult to Lilith herself...)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_innoxia_pills_sterility.getName(false)]' to [npc2.name], you tell [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " [npc2.She] lets out an angry huff, but as [npc2.sheIs] in no position to refuse, [npc2.she] reluctantly does as you ask,"
+									+ " [npc2.speech(This is an insult to Lilith herself...)]")
 							+ "</p>");
 				} else {
-					itemOwner.removeItemByType(ItemType.PROMISCUITY_PILL);
+					itemOwner.removeItemByType(ItemType.getItemTypeFromId("innoxia_pills_sterility"));
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " With an angry huff, [npc.she] slaps the pill out of your hand,"
-								+ " [npc.speech(How dare you! Lilith demands that her followers' seed remain strong!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a '[#ITEM_innoxia_pills_sterility.getName(false)]' to [npc2.name], you ask [npc2.herHim] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " With an angry huff, [npc2.she] slaps the pill out of your hand,"
+									+ " [npc2.speech(How dare you! Lilith demands that her followers' seed remain strong!)]")
 							+ "</p>");
 				}
 					
-			} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+			} else if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				Main.game.getPlayer().useItem(item, target, false);
 				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you tell [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you tell [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
+									+ " [npc2.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 					
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you ask [npc.her] to swallow it."
-								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-								+ " [npc.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+								+ UtilText.parse(user, target,
+									"Holding out a "+item.getName(false, false)+" to [npc2.name], you ask [npc2.herHim] to swallow it."
+									+ " [npc2.She] lets out a delighted cry, and eagerly swallows the little "+item.getColour(0).getName()+" pill,"
+									+ " [npc2.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]")
 							+ "</p>");
 				}
 			}
@@ -363,7 +364,7 @@ public class Cultist extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 
@@ -405,9 +406,12 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				return UtilText.parse(target,
 						"<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
@@ -416,9 +420,14 @@ public class Cultist extends NPC {
 						+ "</p>");
 			} else if (!target.isPlayer()){
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
+				if(clothing!=null && clothing.isCondom(InventorySlot.PENIS)) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, [npc2.name] [npc2.verb(slap)] it away and [npc2.verb(growl)],"
+							+ " [npc2.speech(I don't think so! You're going to take my seed, and you're going to love it!)]");
 				}
 				return UtilText.parse(target,
 						"<p>"
@@ -427,14 +436,7 @@ public class Cultist extends NPC {
 						+ "</p>");
 			}
 		}
-		
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	//TODO UNique virginity loss/dirty talk needed. Was previously using the same as DominionSuccubusAttacker, which didn't fit the situation.

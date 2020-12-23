@@ -8,13 +8,22 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.AppliedStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMoveType;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -23,7 +32,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
@@ -33,50 +41,45 @@ import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
- * Singleton enforced by Enum.<br/>
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.9.3
  * @author Innoxia, Irbynx
  */
-public enum Combat {
-	COMBAT;
-
-	// TODO Make sure your status effects end before you take your turn, enemy's status effects end at the start of their turn
-	// Also, end combat it enemy drops to 0 health/mana/stamina on their turn from combat effects
-
-	private static NPC activeNPC;
-	private static GameCharacter targetedAlly;
-	private static GameCharacter targetedEnemy;
-	private static NPC enemyLeader;
+public class Combat {
 	
-	private static List<NPC> allies = new ArrayList<>();
-	private static List<NPC> enemies = new ArrayList<>();
-	private static List<NPC> allCombatants = new ArrayList<>();
-	private static List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
+	private NPC activeNPC;
+	private GameCharacter targetedAlly;
+	private GameCharacter targetedEnemy;
+	private NPC enemyLeader;
 	
-	private static float escapeChance = 0;
-	private static Map<GameCharacter, Float> totalDamageTaken;
-	private static int turn = 0;
-	private static boolean attemptedEscape = false;
-	private static boolean escaped = false;
-	private static boolean playerVictory = false;
-	private static StringBuilder postCombatStringBuilder = new StringBuilder();
+	private List<NPC> allies = new ArrayList<>();
+	private List<NPC> enemies = new ArrayList<>();
+	private List<NPC> allCombatants = new ArrayList<>();
+	private List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
 	
-	private static StringBuilder combatTurnResolutionStringBuilder = new StringBuilder();
+	private float escapeChance = 0;
+	private Map<GameCharacter, Float> totalDamageTaken;
+	private int turn = 0;
+	private boolean attemptedEscape = false;
+	private boolean escaped = false;
+	private boolean playerVictory = false;
+	private StringBuilder postCombatStringBuilder = new StringBuilder();
 	
-	private static Map<GameCharacter, Stack<Float>> manaBurnStack;
+	private StringBuilder combatTurnResolutionStringBuilder = new StringBuilder();
 	
-	private static Map<GameCharacter, Map<StatusEffect, Integer>> statusEffectsToApply;
+	private Map<GameCharacter, Stack<Float>> manaBurnStack;
 	
-	private static Map<GameCharacter, List<String>> combatContent;
-	private static Map<GameCharacter, List<String>> predictionContent;
+	private Map<GameCharacter, Map<AbstractStatusEffect, Integer>> statusEffectsToApply;
 	
-
-	private static Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
-
-	private Combat() {
+	private Map<GameCharacter, List<String>> combatContent;
+	private Map<GameCharacter, List<String>> predictionContent;
+	private Map<GameCharacter, List<String>> escapeDescriptionMap;
+	
+	private Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
+	
+	public Combat() {
 	}
 
 	/**
@@ -92,13 +95,14 @@ public enum Combat {
 			Map<GameCharacter, String> openingDescriptions) {
 		
 		allCombatants = new ArrayList<>();
-		Combat.allies = new ArrayList<>();
-		Combat.enemyLeader = enemyLeader;
-		Combat.enemies = new ArrayList<>();
+		this.allies = new ArrayList<>();
+		this.enemyLeader = enemyLeader;
+		this.enemies = new ArrayList<>();
 		activeCombatants = new ArrayList<>();
 
 		predictionContent = new HashMap<>();
 		combatContent = new HashMap<>();
+		escapeDescriptionMap = new HashMap<>();
 		itemsToBeUsed = new HashMap<>();
 		manaBurnStack = new HashMap<>();
 		statusEffectsToApply = new HashMap<>();
@@ -110,14 +114,26 @@ public enum Combat {
 		statusEffectsToApply.put(Main.game.getPlayer(), new HashMap<>());
 		combatContent.put(Main.game.getPlayer(), new ArrayList<>());
 		activeCombatants.add(Main.game.getPlayer());
-		
+
+		if(Main.game.getPlayer().isElementalSummoned()) {
+			this.addAlly(Main.game.getPlayer().getElemental());
+			Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
+		}
 		if(allies!=null){
 			for(NPC ally : allies) {
-				Combat.addAlly(ally);
+				this.addAlly(ally);
+				if(ally.isElementalSummoned()) {
+					this.addAlly(ally.getElemental());
+					ally.getElemental().setLocation(ally, false);
+				}
 			}
 		}
 		for(NPC enemy : enemies) {
-			Combat.addEnemy(enemy);
+			this.addEnemy(enemy);
+			if(enemy.isElementalSummoned()) {
+				this.addEnemy(enemy.getElemental());
+				enemy.getElemental().setLocation(enemy, false);
+			}
 		}
 		enemies.sort((enemy1, enemy2) -> enemy2.getLevel()-enemy1.getLevel());
 		
@@ -148,7 +164,7 @@ public enum Combat {
 		}
 		if(escapeChance >0 && Main.game.getPlayer().getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
 			boolean cheetahEnemy = false;
-			for(GameCharacter enemy : Combat.getEnemies(Main.game.getPlayer())) {
+			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
 				if(enemy.getSubspecies()==Subspecies.CAT_MORPH_CHEETAH) {
 					cheetahEnemy = true;
 				}
@@ -226,30 +242,35 @@ public enum Combat {
 			combatContent.get(combatant).add(startingEffect);
 		}
 		
-		if(Main.game.getPlayer().getEquippedMoves().isEmpty()) {
-			Main.game.getPlayer().equipBasicCombatMoves();
-		}
-		
 		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
 		applyNewTurnShielding(Main.game.getPlayer());
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), null, null);
 		
-		combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), Combat.getTurn()==0?"Preparation":"", combatContent.get(Main.game.getPlayer())));
+		combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), getTurn()==0?"Preparation":"", combatContent.get(Main.game.getPlayer())));
 
 		Main.game.setInCombat(true);
 		
 		for(NPC npc : allCombatants) {
-			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, Combat.getTurn()==0?"Preparation":"", combatContent.get(npc)));
+			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, getTurn()==0?"Preparation":"", combatContent.get(npc)));
 			
 			npc.resetSelectedMoves();
-			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
+			npc.resetDefaultMoves(); // Resetting to take into account any newly obtained moves. Does not do anything to player party members.
 			npc.resetMoveCooldowns();
 			applyNewTurnShielding(npc);
 			npc.setRemainingAP(npc.getMaxAP(), null, null);
 			// Sets up NPC ally/enemy lists that include player
-			List<GameCharacter> npcAllies = Combat.getAllies(npc);
-			List<GameCharacter> npcEnemies = Combat.getEnemies(npc);
+			List<GameCharacter> npcAllies = getAllies(npc);
+			List<GameCharacter> npcEnemies = getEnemies(npc);
+			
+//			System.out.println(npc.getName());
+//			for(AbstractCombatMove move : npc.getAvailableMoves()) {
+//				System.out.println(move.getIdentifier());
+//			}
+//			System.out.println("---");
+//			for(AbstractCombatMove move : npc.getEquippedMoves()) {
+//				System.out.println(move.getIdentifier());
+//			}
 			
 			// Selects the moves
 			npc.selectMoves(npcEnemies, npcAllies);
@@ -259,12 +280,12 @@ public enum Combat {
 		Main.mainController.openInventory();
 	}
 
-	public static void setCharacterTurnContent(GameCharacter character, List<String> descriptions) {
+	public void setCharacterTurnContent(GameCharacter character, List<String> descriptions) {
 		combatContent.put(character, descriptions);
 	}
 	
-	private static String getCharactersTurnDiv(GameCharacter character, String title, List<String> descriptions) {
-		String effects = Combat.applyEffects(character);
+	private String getCharactersTurnDiv(GameCharacter character, String title, List<String> descriptions) {
+		String effects = applyEffects(character);
 		StringBuilder sb = new StringBuilder();
 		
 		boolean enemy = enemies.contains(character);
@@ -295,16 +316,19 @@ public enum Combat {
 	}
 	
 	/**
-	 * Ends combat, removing status effects and handling post-combat experience
-	 * gains and loot drops.
+	 * Ends combat, removing status effects and handling post-combat experience gains and loot drops.
 	 * 
 	 * @param playerVictory
 	 */
-	public static void endCombat(boolean playerVictory) {
+	public void endCombat(boolean playerVictory) {
 		
 		postCombatStringBuilder.setLength(0);
 		
-		Combat.playerVictory = playerVictory;
+		this.playerVictory = playerVictory;
+
+		for(NPC enemy : enemies) {
+			enemy.removeFlag(NPCFlagValue.playerEscapedLastCombat);
+		}
 		
 		if (playerVictory) {
 			// Give the player experience and money if they won:
@@ -345,14 +369,6 @@ public enum Combat {
 						}
 					}
 				}
-				if(enemy.isElementalSummoned()) {
-					enemy.removeCompanion(enemy.getElemental());
-					enemy.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(),
-							"<div class='container-full-width' style='text-align:center;'>"
-									+ "[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!"
-							+ "</div>"));
-				}
 			}
 
 			List<String> itemsLooted = new ArrayList<>();
@@ -364,9 +380,11 @@ public enum Combat {
 			}
 			// Apply essence drops:
 			boolean essenceDropFound = false;
-			Map<TFEssence, Integer> essences = new HashMap<>();
+			int totalEssencesGained = 0;
 			for(NPC enemy : enemies) {
-				if(enemy.getLootEssenceDrops()!=null) {
+				int essencesGained = enemy.getLootEssenceDrops();
+				totalEssencesGained += essencesGained;
+				if(essencesGained>0) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.essencePostCombatDiscovered);
 						
@@ -423,19 +441,15 @@ public enum Combat {
 							}
 						}
 					}
-					
-					for(Entry<TFEssence, Integer> entry : enemy.getLootEssenceDrops().entrySet()) {
-						essences.putIfAbsent(entry.getKey(), 0);
-						essences.put(entry.getKey(), essences.get(entry.getKey())+entry.getValue());
-					}
 				}
 			}
 			
-			if(!essences.isEmpty()) {
-				for(Entry<TFEssence, Integer> entry : essences.entrySet()) {
-					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>"
-							+ "</br>");
-				}
+			if(totalEssencesGained>0) {
+				postCombatStringBuilder.append(
+						"<div class='container-full-width' style='text-align:center;'>"
+								+ Main.game.getPlayer().incrementEssenceCount(totalEssencesGained, true)
+						+ "</div>"
+						+ "</br>");
 			}
 			
 		} else { // Player lost combat:
@@ -452,49 +466,51 @@ public enum Combat {
 			Main.game.getPlayer().incrementMoney(moneyLoss);
 			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
 			
-			// Remove elementals:
-			if(Main.game.getPlayer().isElementalSummoned()) {
-				Main.game.getPlayer().removeCompanion(Main.game.getPlayer().getElemental());
-				Main.game.getPlayer().getElemental().returnToHome();
-				postCombatStringBuilder.append(UtilText.parse(Main.game.getPlayer().getElemental(), "<div class='container-full-width' style='text-align:center;'>Your elemental, [npc.name], is [style.boldTerrible(dispelled)]!</div>"));
-			}
-			for(NPC ally : allies) {
-				if(ally.isElementalSummoned()) {
-					ally.removeCompanion(ally.getElemental());
-					ally.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(ally, ally.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
-				}
-			}
-			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
 			}
 		}
-
-		Main.game.setInCombat(false);
-
-		// Sort out effects after combat:
-		if (Main.game.getPlayer().getHealth() == 0) {
-			Main.game.getPlayer().setHealth(5);
-		}
-		if (Main.game.getPlayer().getMana() == 0) {
-			Main.game.getPlayer().setMana(5);
+		
+		// Remove elementals:
+		for(GameCharacter combatant : getAllCombatants(true)) {
+			if(combatant.isElementalSummoned()) {
+				combatant.getElemental().returnToHome();
+				if((playerVictory && getEnemies(Main.game.getPlayer()).contains(combatant))
+						 || (!playerVictory && !getEnemies(Main.game.getPlayer()).contains(combatant))) {
+					combatant.setElementalSummoned(false);
+					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is completely drained of energy and is [style.italicsBad(dispelled)]!"
+							+ "</i></p>"));
+				} else { 
+					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is drained of energy and [style.italicsArcane(returns to [npc2.her] passive form)]!"
+							+ "</i></p>"));
+				}
+			}
 		}
 		
-		// Reset opponent resources to starting values:
-		for(NPC enemy : enemies) {
-			enemy.setMana(enemy.getAttributeValue(Attribute.MANA_MAXIMUM));
-			enemy.setHealth(enemy.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+		Main.game.setInCombat(false);
+		
+		// Sort out effects after combat:
+		for(GameCharacter character : getAllCombatants(true)) {
+			if(enemies.contains(character)) {
+				character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
+				character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			} else {
+				character.setMana(Math.max(character.getMana(), 5));
+				character.setHealth(Math.max(character.getHealth(), 5));
+			}
+			character.clearCombatStatusEffects();
 		}
-//		for(NPC ally : allies) {
-//			ally.setMana(ally.getAttributeValue(Attribute.MANA_MAXIMUM));
-//			ally.setHealth(ally.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-//		}
-
+		
 		Main.game.getTextStartStringBuilder().append(postCombatStringBuilder.toString());
 	}
 
-	private static String npcStatus() {
+	private String npcStatus() {
 		return "";
 	}
 
@@ -503,11 +519,11 @@ public enum Combat {
 		return ENEMY_ATTACK;
 	}
 	
-	public static boolean isCombatantDefeated(GameCharacter character) {
+	public boolean isCombatantDefeated(GameCharacter character) {
 		return (character.getHealth() <= 0 || (character.getLust()>=100 && character.isVulnerableToLustLoss()));
 	}
 	
-	public static boolean isOpponent(GameCharacter character, GameCharacter target) {
+	public boolean isOpponent(GameCharacter character, GameCharacter target) {
 		if(allies.contains(character) || character.isPlayer()) {
 			return enemies.contains(target);
 		} else {
@@ -515,7 +531,7 @@ public enum Combat {
 		}
 	}
 	
-	private static boolean isAlliedPartyDefeated() {
+	private boolean isAlliedPartyDefeated() {
 		for(NPC ally : allies) {
 			if(!isCombatantDefeated(ally)) {
 				return false;
@@ -524,7 +540,7 @@ public enum Combat {
 		return isCombatantDefeated(Main.game.getPlayer());
 	}
 	
-	private static boolean isEnemyPartyDefeated() {
+	private boolean isEnemyPartyDefeated() {
 		for(NPC enemy : enemies) {
 			if(!isCombatantDefeated(enemy)) {
 				return false;
@@ -533,23 +549,19 @@ public enum Combat {
 		return true;
 	}
 
-	public static final DialogueNode ITEM_USED = new DialogueNode("Combat", "Use the item.", true) {
-
+	public final DialogueNode ITEM_USED = new DialogueNode("Combat", "Use the item.", true) {
 		@Override
 		public String getLabel() {
 			return getCombatLabel();
 		}
-
 		@Override
 		public String getHeaderContent() {
 			return npcStatus();
 		}
-
 		@Override
 		public String getContent() {
 			return getCombatContent();
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -574,14 +586,13 @@ public enum Combat {
 				return null;
 			}
 		}
-
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};
 
-	public static final DialogueNode SUBMIT = new DialogueNode("Combat", "Submit", true) {
+	public final DialogueNode SUBMIT = new DialogueNode("Combat", "Submit", true) {
 
 		@Override
 		public String getLabel() {
@@ -638,7 +649,7 @@ public enum Combat {
 			return DialogueNodeType.NORMAL;
 		}
 	};
-	public static final DialogueNode SUBMIT_CONFIRM = new DialogueNode("Combat", "Submit", true) {
+	public final DialogueNode SUBMIT_CONFIRM = new DialogueNode("Combat", "Submit", true) {
 
 		@Override
 		public String getLabel() {
@@ -662,6 +673,7 @@ public enum Combat {
 					@Override
 					public void effects() {
 						endCombat(false);
+						Main.game.setResponseTab(0);
 						Main.game.setContent(enemyLeader.endCombat(true, false));
 					}
 				};
@@ -677,7 +689,7 @@ public enum Combat {
 		}
 	};
 
-	public static final DialogueNode ENEMY_ATTACK = new DialogueNode("Combat", "The enemy strikes back at you.", true) {
+	public final DialogueNode ENEMY_ATTACK = new DialogueNode("Combat", "The enemy strikes back at you.", true) {
 
 		@Override
 		public String getLabel() {
@@ -746,7 +758,11 @@ public enum Combat {
 						@Override
 						public void effects() {
 							enemyLeader.applyEscapeCombatEffects();
+							for(NPC enemy : enemies) {
+								enemy.addFlag(NPCFlagValue.playerEscapedLastCombat);
+							}
 							Main.game.setInCombat(false);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
@@ -760,6 +776,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(true);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(enemyLeader.endCombat(true, true));
 						}
 					};
@@ -772,6 +789,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(false);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(enemyLeader.endCombat(true, false));
 						}
 					};
@@ -831,7 +849,7 @@ public enum Combat {
 					
 					if(index==9) {
 						return new Response("Submit",
-								(Combat.getEnemies(Main.game.getPlayer()).size()==1
+								(getEnemies(Main.game.getPlayer()).size()==1
 									?"Surrender this fight to your opponent, allowing them to do whatever they want to you."
 									:"Surrender this fight to your enemies, allowing them to do whatever they want to you."),
 								SUBMIT);
@@ -867,7 +885,7 @@ public enum Combat {
 						
 				if(responseTab==0) {
 					if(Main.game.getPlayer().getEquippedMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getEquippedMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getEquippedMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 						
@@ -879,21 +897,21 @@ public enum Combat {
 					
 				} else if(responseTab==1) {
 					if(Main.game.getPlayer().getAvailableBasicMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableBasicMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableBasicMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
 					
 				} else if(responseTab==2) {
 					if(Main.game.getPlayer().getAvailableSpecialMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableSpecialMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableSpecialMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
 					
 				} else if(responseTab==3) {
 					if(Main.game.getPlayer().getAvailableSpellMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableSpellMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableSpellMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
@@ -930,12 +948,12 @@ public enum Combat {
 									// Sets up NPC ally/enemy lists that include player
 									List<GameCharacter> npcAllies= getAllies(targetedAlly);
 									List<GameCharacter> npcEnemies = getEnemies(targetedAlly);
-									npcAllies.removeIf((character)->Combat.isCombatantDefeated(character));
-									npcEnemies.removeIf((character)->Combat.isCombatantDefeated(character));
+									npcAllies.removeIf((character)->isCombatantDefeated(character));
+									npcEnemies.removeIf((character)->isCombatantDefeated(character));
 									
 									// Figures out the new moves
 									int i = 0;
-									for(Value<GameCharacter, CombatMove> move : targetedAlly.getSelectedMoves()) {
+									for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
 										move.getValue().performOnDeselection(i,
 												targetedAlly,
 												move.getKey(),
@@ -956,22 +974,22 @@ public enum Combat {
 				}
 				
 			} else if(index==11) {
-				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(Combat.getTargetedAlliedCombatant().isPlayer()?"Yourself":Util.capitaliseSentence(Combat.getTargetedAlliedCombatant().getName())),
+				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(getTargetedAlliedCombatant().isPlayer()?"Yourself":Util.capitaliseSentence(getTargetedAlliedCombatant().getName())),
 						"You can cycle through your targeted allied combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
 						List<GameCharacter> alliesPlusPlayer = Util.newArrayListOfValues(Main.game.getPlayer());
-						alliesPlusPlayer.addAll(Combat.getAllies(Main.game.getPlayer()));
+						alliesPlusPlayer.addAll(getAllies(Main.game.getPlayer()));
 						if(alliesPlusPlayer.size()==1) {
 							return;
 						}
 						for(int i=0; i<alliesPlusPlayer.size(); i++) {
-							if(alliesPlusPlayer.get(i).equals(Combat.getTargetedAlliedCombatant())) {
+							if(alliesPlusPlayer.get(i).equals(getTargetedAlliedCombatant())) {
 								if(i+1<alliesPlusPlayer.size()) {
-									Combat.setTargetedCombatant(alliesPlusPlayer.get(i+1));
+									setTargetedCombatant(alliesPlusPlayer.get(i+1));
 									break;
 								} else {
-									Combat.setTargetedCombatant(alliesPlusPlayer.get(0));
+									setTargetedCombatant(alliesPlusPlayer.get(0));
 									break;
 								}
 							}
@@ -980,21 +998,21 @@ public enum Combat {
 				};
 
 			} else if(index==12) {
-				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(Combat.getTargetedCombatant().getName()),
+				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(getTargetedCombatant().getName()),
 						"You can cycle through your targeted enemy combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
-						List<GameCharacter> playerEnemies = Combat.getEnemies(Main.game.getPlayer());
+						List<GameCharacter> playerEnemies = getEnemies(Main.game.getPlayer());
 						if(playerEnemies.size()==1) {
 							return;
 						}
 						for(int i=0; i<playerEnemies.size(); i++) {
-							if(playerEnemies.get(i).equals(Combat.getTargetedCombatant())) {
+							if(playerEnemies.get(i).equals(getTargetedCombatant())) {
 								if(i+1<playerEnemies.size()) {
-									Combat.setTargetedCombatant(playerEnemies.get(i+1));
+									setTargetedCombatant(playerEnemies.get(i+1));
 									break;
 								} else {
-									Combat.setTargetedCombatant(playerEnemies.get(0));
+									setTargetedCombatant(playerEnemies.get(0));
 									break;
 								}
 							}
@@ -1014,7 +1032,7 @@ public enum Combat {
 					public void effects() {
 						if(Main.game.isInCombat()) {
 							int i = 0;
-							for(Value<GameCharacter, CombatMove> move : Main.game.getPlayer().getSelectedMoves()) {
+							for(Value<GameCharacter, AbstractCombatMove> move : Main.game.getPlayer().getSelectedMoves()) {
 								move.getValue().performOnDeselection(i,
 										Main.game.getPlayer(),
 										move.getKey(),
@@ -1041,7 +1059,7 @@ public enum Combat {
 		}
 	};
 	
-	private static Response getMoveResponse(CombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
+	private Response getMoveResponse(AbstractCombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
 		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant():getTargetedCombatant();
 
 		int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
@@ -1057,7 +1075,7 @@ public enum Combat {
 		boolean isCrit = move.canCrit(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
 		
 		if(move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit)!=null && !move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).isEmpty()) {
-			for(Entry<StatusEffect, Integer> entry : move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).entrySet()) {
+			for(Entry<AbstractStatusEffect, Integer> entry : move.getStatusEffects(Main.game.getPlayer(), moveTarget, isCrit).entrySet()) {
 				moveStatblock.append("Applies <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(moveTarget))+"</b>"
 						+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b>");
 			}
@@ -1087,19 +1105,19 @@ public enum Combat {
 				return move.getColour();
 			}
 			@Override
-			public CombatMove getAssociatedCombatMove() {
+			public AbstractCombatMove getAssociatedCombatMove() {
 				return move;
 			}
 		};
 	}
 	
-	public static List<String> applyExtraAttackEffects(GameCharacter attacker, GameCharacter target, Attack attackType, AbstractWeapon weapon, boolean isHit, boolean isCritical) {
+	public List<String> applyExtraAttackEffects(GameCharacter attacker, GameCharacter target, Attack attackType, AbstractWeapon weapon, boolean isHit, boolean isCritical) {
 		List<String> extraAttackEffects = new ArrayList<>();
 		
 		if(target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)
 				&& (attackType==Attack.MAIN || attackType==Attack.OFFHAND || attackType==Attack.DUAL)
 				&& (weapon==null || weapon.getWeaponType().isMelee())) {
-			float cloakOfFlamesDamage = Math.round(5 * (1 + (Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));
+			float cloakOfFlamesDamage = Math.round(5 * (1 + (target.getAttributeValue(Attribute.DAMAGE_FIRE)/100f)));
 			cloakOfFlamesDamage = (Math.round(cloakOfFlamesDamage*10))/10f;
 			if (cloakOfFlamesDamage < 1) {
 				cloakOfFlamesDamage = 1;
@@ -1124,7 +1142,7 @@ public enum Combat {
 			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
 			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
 			
-			Combat.addStatusEffectToApply(target, StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
+			addStatusEffectToApply(target, StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
 			
 			extraAttackEffects.add(UtilText.parse(target, "As [npc.name] is critically hit, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudburst!"));
 			
@@ -1135,23 +1153,23 @@ public enum Combat {
 		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical && isHit) {
 			extraAttackEffects.add(
 							"Thanks to your [style.boldFetish(sadist fetish)], the arousal you feel from critically hitting someone manifests as an arcane essence!<br/>"
-							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false));
+							+Main.game.getPlayer().incrementEssenceCount(1, false));
 		}
 		
 		if(target.isPlayer() && target.hasFetish(Fetish.FETISH_MASOCHIST) && isCritical && isHit) {
 			extraAttackEffects.add(
 							"Thanks to your [style.boldFetish(masochist fetish)], the arousal you feel from getting critically hit manifests as an arcane essence!<br/>"
-							+Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false));
+							+Main.game.getPlayer().incrementEssenceCount(1, false));
 		}
 		
 		return extraAttackEffects;
 	}
 
-	private static void escape(GameCharacter attacker) {
+	private void escape(GameCharacter escapee) {
 		attemptedEscape = true;
 		
 		boolean allEnemiesStunned = true;
-		if(attacker.isPlayer() || getAllies(Main.game.getPlayer()).contains(attacker)) {
+		if(escapee.isPlayer() || getAllies(Main.game.getPlayer()).contains(escapee)) {
 			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
 				if(!enemy.isStunned()) {
 					allEnemiesStunned = false;
@@ -1168,21 +1186,23 @@ public enum Combat {
 			}
 		}
 		
-		String s = "";
+		escapeDescriptionMap = new HashMap<>();
+		StringBuilder escapeDescription = new StringBuilder();
 		if(allEnemiesStunned) {
 			escaped = true;
-			s = ("All of your enemies are stunned, so you're easily able to escape!");
+			escapeDescription.append("All of your enemies are stunned, so you're easily able to escape!");
 		} else if (Util.random.nextInt(100) < escapeChance) {
 			escaped = true;
-			s = ("You got away!");
+			escapeDescription.append("You successfully managed to escape!");
 		} else {
-			s = ("You failed to escape!");
+			escapeDescription.append("You failed to escape!");
 		}
+		escapeDescriptionMap.put(escapee, Util.newArrayListOfValues(escapeDescription.toString()));
 		
-		for(GameCharacter combatant : Combat.getAllCombatants(true)) {
-			if(Combat.getAllies(attacker).contains(combatant) || combatant.equals(attacker)) {
+		for(GameCharacter combatant : getAllCombatants(true)) {
+			if(getAllies(escapee).contains(combatant) || combatant.equals(escapee)) {
 				int i = 0;
-				for(Value<GameCharacter, CombatMove> move : combatant.getSelectedMoves()) {
+				for(Value<GameCharacter, AbstractCombatMove> move : combatant.getSelectedMoves()) {
 					move.getValue().performOnDeselection(i,
 							combatant,
 							move.getKey(),
@@ -1192,12 +1212,33 @@ public enum Combat {
 					i++;
 				}
 				combatant.resetSelectedMoves();
-				combatant.setRemainingAP(combatant.getMaxAP(), Combat.getEnemies(combatant), Combat.getAllies(combatant));
+				combatant.setRemainingAP(combatant.getMaxAP(), getEnemies(combatant), getAllies(combatant));
 				predictionContent.put(combatant, new ArrayList<>());
+				if(escaped && !combatant.equals(escapee)) {
+					escapeDescriptionMap.put(combatant,
+							Util.newArrayListOfValues(UtilText.parse(combatant, "[npc.Name] manages to escape with you!")));
+				}
+			} else {
+				if(escaped) {
+					escapeDescriptionMap.put(combatant,
+							Util.newArrayListOfValues(UtilText.parse(combatant, "[npc.Name] tries to block your escape, but fails!")));
+				}
 			}
 		}
 		
-		combatContent.put(attacker, Util.newArrayListOfValues(s));
+		if(escaped) {
+			// Remove elementals:
+			for(GameCharacter combatant : getAllCombatants(true)) {
+				if(combatant.isElementalSummoned()) {
+					combatant.getElemental().returnToHome();
+					escapeDescription.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is drained of energy and [style.italicsArcane(returns to [npc2.her] passive form)]!"
+							+ "</i></p>"));
+				}
+			}
+		}
 	}
 
 	/**
@@ -1205,14 +1246,14 @@ public enum Combat {
 	 * @param character The character performing an attack turn.
 	 * @return true if the character is able to perform an attack, false if they cannot (due to being defeated, stunned, or attempting to escape).
 	 */
-	private static boolean attackCharacter(GameCharacter character) {
+	private boolean attackCharacter(GameCharacter character) {
+		if(escaped) {
+			combatContent.put(character, escapeDescriptionMap.get(character));
+			return false;
+		}
+		
 		if(character.isPlayer()) {
-			if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "You manage to escape!")));
-				return false;
-				
-			} else if (!activeCombatants.contains(character)) {
+			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
@@ -1225,12 +1266,7 @@ public enum Combat {
 			}
 			
 		} else if(allies.contains(character)) {
-			if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "[npc.Name] manages to escape with you!")));
-				return false;
-				
-			} else if (!activeCombatants.contains(character)) {
+			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
@@ -1247,11 +1283,6 @@ public enum Combat {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
-				
-			} else if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "[npc.Name] tries to block your escape, but fails!")));
-				return false;
 			}
 		}
 		
@@ -1266,9 +1297,9 @@ public enum Combat {
 		return true;
 	}
 
-	private static StringBuilder endTurnStatusEffectText = new StringBuilder();
+	private StringBuilder endTurnStatusEffectText = new StringBuilder();
 	
-	private static void applyNewTurnShielding(GameCharacter character) {
+	private void applyNewTurnShielding(GameCharacter character) {
 	    character.resetShields();
 	    
 	    int bonusEnergyShielding = Math.round(character.getAttributeValue(Attribute.ENERGY_SHIELDING));
@@ -1282,7 +1313,7 @@ public enum Combat {
 	    character.incrementShields(DamageType.LUST, Math.round(character.getAttributeValue(DamageType.LUST.getResistAttribute())));
 	}
 	
-	public static void endCombatTurn() {
+	public void endCombatTurn() {
 		combatTurnResolutionStringBuilder.setLength(0);
 		
 		List<GameCharacter> combatants = getAllCombatants(true); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
@@ -1304,7 +1335,7 @@ public enum Combat {
 			// After all defensive and supportive moves have been made, apply the queued up status effects before the attacks start hitting, as they should only be defensive or supportive-based.
 			if(i==2) {
 				for(GameCharacter character : combatants) {
-					for(Entry<StatusEffect, Integer> entry : statusEffectsToApply.get(character).entrySet()) {
+					for(Entry<AbstractStatusEffect, Integer> entry : statusEffectsToApply.get(character).entrySet()) {
 						character.addStatusEffect(entry.getKey(), entry.getValue()+1);// Add 1 to the status effect duration, as it gets immediately decremented by 1 within the getCharactersTurnDiv() method (as it calls the applyEffects() method).
 					}
 					statusEffectsToApply.put(character, new HashMap<>());
@@ -1312,7 +1343,7 @@ public enum Combat {
 			}
 		}
 		for(GameCharacter character : combatants) {
-			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(character, Combat.getTurn()==0?"Preparation":"", combatContent.get(character)));
+			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(character, getTurn()==0?"Preparation":"", combatContent.get(character)));
 			character.resetSelectedMoves();
 		}
 		
@@ -1320,7 +1351,7 @@ public enum Combat {
 		
 		// End turn effects:
 		for(GameCharacter character : combatants) {
-			for(Entry<StatusEffect, Integer> entry : statusEffectsToApply.get(character).entrySet()) {
+			for(Entry<AbstractStatusEffect, Integer> entry : statusEffectsToApply.get(character).entrySet()) {
 				character.addStatusEffect(entry.getKey(), entry.getValue());
 			}
 			statusEffectsToApply.put(character, new HashMap<>());
@@ -1356,7 +1387,7 @@ public enum Combat {
 												"[style.boldArcane("+(Util.capitaliseSentence(Perk.ARCANE_VAMPYRISM.getName(Main.game.getPlayer())))+":)]<br/>"
 														+Util.capitaliseSentence(Util.stringsToStringList(vampyres, false))+(vampyres.size()>1 || playerVampyre?" absorb":" absorbs")
 														+" half of [npc.namePos] remaining aura,"
-														+ (Combat.enemies.contains(character)
+														+ (enemies.contains(character)
 																?"[style.colourGood("
 																:"[style.colourBad(")
 														+" gaining "+manaAbsorbed+" aura)]!")));
@@ -1376,8 +1407,8 @@ public enum Combat {
 					predictionContent.put(character, new ArrayList<>());
 					
 				} else {
-					npcAllies.removeIf((c)->Combat.isCombatantDefeated(c));
-					npcEnemies.removeIf((c)->Combat.isCombatantDefeated(c));
+					npcAllies.removeIf((c)->isCombatantDefeated(c));
+					npcEnemies.removeIf((c)->isCombatantDefeated(c));
 					
 					// Figures out new moves for NPCs:
 					character.selectMoves(npcEnemies, npcAllies);
@@ -1402,7 +1433,15 @@ public enum Combat {
 		turn++;
 	}
 
-	private static String getTitleResources(GameCharacter character) {
+	private String getShieldsDisplayValue(AbstractAttribute att, int shields) {
+		String valueForDisplay = String.valueOf(shields);
+		if(att.isInfiniteAtUpperLimit() && shields>=att.getUpperLimit()) {
+			valueForDisplay = UtilText.getInfinitySymbol(false);
+		}
+		return valueForDisplay;
+	}
+	
+	private String getTitleResources(GameCharacter character) {
 		int apRemaining = character.getRemainingAP();
 		StringBuilder sb = new StringBuilder();
 		
@@ -1415,11 +1454,11 @@ public enum Combat {
 		if(shields!=0) {
 			shieldsFound = true;
 			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(Attribute.ENERGY_SHIELDING, shields))
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
 						+ "</div>");
 		}
-		
+
 		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
 		for(DamageType dt : damageTypes) {
 			shields = character.getShields(dt);
@@ -1430,7 +1469,7 @@ public enum Combat {
 				shieldsFound = true;
 				sb.append(
 						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+dt.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(dt.getResistAttribute(), shields))
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
 						+ "</div>");
 			}
@@ -1444,7 +1483,7 @@ public enum Combat {
 			shieldsFound = true;
 			sb.append(
 					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(DamageType.LUST.getResistAttribute(), shields))
 						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
 					+ "</div>");
 		}
@@ -1454,7 +1493,7 @@ public enum Combat {
 		return sb.toString();
 	}
 	
-	private static String getCombatContent() {
+	private String getCombatContent() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+PresetColour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>");
@@ -1473,7 +1512,7 @@ public enum Combat {
 				}
 				sb.append("</br>");
 			
-				for(GameCharacter ally : Combat.getAllies(Main.game.getPlayer())) {
+				for(GameCharacter ally : getAllies(Main.game.getPlayer())) {
 					sb.append(UtilText.parse(ally, "</br>[style.boldMinorGood([npc.Name])]")+ getTitleResources(ally));
 					for(String s : predictionContent.get(ally)) {
 						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
@@ -1483,8 +1522,8 @@ public enum Combat {
 			sb.append("</div>");
 
 			sb.append("<div class='container-half-width'>");
-			for(GameCharacter enemy : Combat.getEnemies(Main.game.getPlayer())) {
-				sb.append(UtilText.parse(enemy, (Combat.enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]"))+ getTitleResources(enemy));
+			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
+				sb.append(UtilText.parse(enemy, (enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]"))+ getTitleResources(enemy));
 				for(String s : predictionContent.get(enemy)) {
 					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 				}
@@ -1499,29 +1538,51 @@ public enum Combat {
 		return sb.toString(); 
 	}
 	
-	private static String applyEffects(GameCharacter character) {
+	private String applyEffects(GameCharacter character) {
 		endTurnStatusEffectText = new StringBuilder();
-		List<StatusEffect> effectsToRemove = new ArrayList<>();
-		for (StatusEffect se : character.getStatusEffects()) {
+		List<AbstractStatusEffect> effectsToRemove = new ArrayList<>();
+		for (AppliedStatusEffect appliedSe : character.getAppliedStatusEffects()) {
+			AbstractStatusEffect se = appliedSe.getEffect();
 			if (se.isCombatEffect()) {
-				String effectString = se.applyEffect(character, 0);
-				if(!effectString.isEmpty()) {
-					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
+				appliedSe.setSecondsPassed(turn);
+				StringBuilder s = new StringBuilder();
+				if(appliedSe.getEffect().getEffectInterval()<=0 || ((turn-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
+					if(appliedSe.getEffect().getEffectInterval()<=0) {
+						s.append(se.applyEffect(character, 1, appliedSe.getSecondsPassed()));
+					} else {
+						for(int i=0; i<((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())/appliedSe.getEffect().getEffectInterval()); i++) {
+							if(s.length()>0) {
+								s.append("<br/>");
+							}
+							s.append(se.applyEffect(character, 1, appliedSe.getSecondsPassed()));
+						}
+					}
+					
+					appliedSe.setLastTimeAppliedEffect(Main.game.getSecondsPassed());
+					if(s.length()!=0) {
+						endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + s.toString()+ "</p>");
+					}
 				}
+				
+				
+//				String effectString = se.applyEffect(character, 1, appliedSe.getSecondsPassed());
+//				if(!effectString.isEmpty()) {
+//					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
+//				}
 				character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
 				if (character.getStatusEffectDuration(se) == 0) { // Do not remove special effects (i.e. ones set at -1 duration)
 					effectsToRemove.add(se);
 				}
 			}
 		}
-		for (StatusEffect se : effectsToRemove) {
+		for (AbstractStatusEffect se : effectsToRemove) {
 			endTurnStatusEffectText.append(character.removeStatusEffectCombat(se));
 		}
 		return endTurnStatusEffectText.toString();
 	}
 
 	// Utility methods:
-	private static String getCombatLabel() {
+	private String getCombatLabel() {
 		if(turn==0) {
 			return "Combat - Start";
 		} else {
@@ -1532,55 +1593,55 @@ public enum Combat {
 	/**
 	 * @return The enemy NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
 	 */
-	public static GameCharacter getTargetedCombatant() {
+	public GameCharacter getTargetedCombatant() {
 		return targetedEnemy;
 	}
 
 	/**
 	 * @return The allied NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
 	 */
-	public static GameCharacter getTargetedAlliedCombatant() {
+	public GameCharacter getTargetedAlliedCombatant() {
 		return targetedAlly;
 	}
 
-	public static void setTargetedCombatant(GameCharacter targetedCombatant) {
-		if(Combat.getEnemies(Main.game.getPlayer()).contains(targetedCombatant)) {
-			Combat.targetedEnemy = targetedCombatant;
+	public void setTargetedCombatant(GameCharacter targetedCombatant) {
+		if(getEnemies(Main.game.getPlayer()).contains(targetedCombatant)) {
+			targetedEnemy = targetedCombatant;
 		} else {
-			Combat.targetedAlly = targetedCombatant;
+			targetedAlly = targetedCombatant;
 		}
 	}
 	
-	public static NPC getActiveNPC() {
+	public NPC getActiveNPC() {
 		return activeNPC;
 	}
 
-	public static void setActiveNPC(NPC activeNPC) {
-		Combat.activeNPC = activeNPC;
+	public void setActiveNPC(NPC activeNPC) {
+		this.activeNPC = activeNPC;
 	}
 
-	public static void resetItemsToBeUsed(GameCharacter character) {
+	public void resetItemsToBeUsed(GameCharacter character) {
 		itemsToBeUsed.put(character, new ArrayList<>());
 	}
 	
-	public static List<Value<GameCharacter, AbstractItem>> getItemsToBeUsed(GameCharacter user) {
+	public List<Value<GameCharacter, AbstractItem>> getItemsToBeUsed(GameCharacter user) {
 		return itemsToBeUsed.get(user);
 	}
 
-	public static void addItemToBeUsed(GameCharacter user, GameCharacter target, AbstractItem item) {
+	public void addItemToBeUsed(GameCharacter user, GameCharacter target, AbstractItem item) {
 		itemsToBeUsed.get(user).add(new Value<>(target, item));
 		//TODO test combatmove
 		predictionContent.get(Main.game.getPlayer()).add(CombatMove.ITEM_USAGE.getPrediction(user.getSelectedMoves().size(), user, target, getEnemies(user), getAllies(user)));
 		Main.game.getPlayer().selectMove(user.getSelectedMoves().size(), CombatMove.ITEM_USAGE, target, getEnemies(user), getAllies(user));
 	}
 	
-	public static String getPregnancyProtectionText(GameCharacter character) {
+	public String getPregnancyProtectionText(GameCharacter character) {
 			return (character.isVisiblyPregnant()
 					?UtilText.parse(character, "A powerful field of arcane energy is protecting [npc.namePos] pregnant belly, ensuring that no harm can come to [npc.her] unborn offspring.")
 					:"");
 	}
 
-	public static List<GameCharacter> getAllCombatants(boolean includePlayer) {
+	public List<GameCharacter> getAllCombatants(boolean includePlayer) {
 		List<GameCharacter> returnList = new ArrayList<>(allCombatants);
 		if(includePlayer) {
 			returnList.add(Main.game.getPlayer());
@@ -1588,7 +1649,7 @@ public enum Combat {
 		return returnList;
 	}
 	
-	public static void addAlly(NPC ally) {
+	public void addAlly(NPC ally) {
 		allies.add(ally);
 		allCombatants.add(ally);
 		ally.resetMoveCooldowns();
@@ -1607,8 +1668,8 @@ public enum Combat {
 			applyNewTurnShielding(ally);
 			ally.setRemainingAP(ally.getMaxAP(), npcEnemies, npcAllies);
 			
-			npcAllies.removeIf((c)->Combat.isCombatantDefeated(c));
-			npcEnemies.removeIf((c)->Combat.isCombatantDefeated(c));
+			npcAllies.removeIf((c)->isCombatantDefeated(c));
+			npcEnemies.removeIf((c)->isCombatantDefeated(c));
 			
 			// Figures out new moves for NPCs:
 			ally.selectMoves(npcEnemies, npcAllies);
@@ -1616,7 +1677,7 @@ public enum Combat {
 		}
 	}
 	
-	public static void addEnemy(NPC enemy) {
+	public void addEnemy(NPC enemy) {
 		enemies.add(enemy);
 		allCombatants.add(enemy);
 		enemy.resetMoveCooldowns();
@@ -1636,8 +1697,8 @@ public enum Combat {
 			applyNewTurnShielding(enemy);
 			enemy.setRemainingAP(enemy.getMaxAP(), npcEnemies, npcAllies);
 			
-			npcAllies.removeIf((c)->Combat.isCombatantDefeated(c));
-			npcEnemies.removeIf((c)->Combat.isCombatantDefeated(c));
+			npcAllies.removeIf((c)->isCombatantDefeated(c));
+			npcEnemies.removeIf((c)->isCombatantDefeated(c));
 			
 			// Figures out new moves for NPCs:
 			enemy.selectMoves(npcEnemies, npcAllies);
@@ -1645,7 +1706,10 @@ public enum Combat {
 		}
 	}
 	
-	public static List<GameCharacter> getAllies(GameCharacter combatant) {
+	/**
+	 * @return A list of this combatant's allies. <b>Does not include</b> the combatant themselves.
+	 */
+	public List<GameCharacter> getAllies(GameCharacter combatant) {
 		List<GameCharacter> returnList = new ArrayList<>();
 		
 		if(combatant.isPlayer()) {
@@ -1659,10 +1723,12 @@ public enum Combat {
 			returnList.addAll(enemies);
 		}
 		
+		returnList.remove(combatant);
+		
 		return returnList;
 	}
 
-	public static List<GameCharacter> getEnemies(GameCharacter combatant) {
+	public List<GameCharacter> getEnemies(GameCharacter combatant) {
 		List<GameCharacter> returnList = new ArrayList<>();
 		
 		if(combatant.isPlayer()) {
@@ -1683,12 +1749,10 @@ public enum Combat {
 	 * @param target The character whose party member will be returned.
 	 * @return A random member of the target's party. WIll attempt to return a member that isn't the target, but if the target's party only contains them, will return the target. 
 	 */
-	public static GameCharacter getRandomAlliedPartyMember(GameCharacter target) {
+	public GameCharacter getRandomAlliedPartyMember(GameCharacter target) {
 		List<GameCharacter> possibleTargets = new ArrayList<>();
 		for(GameCharacter character : getAllies(target)) {
-			if(!character.equals(target)) {
-				possibleTargets.add(character);
-			}
+			possibleTargets.add(character);
 		}
 		if(possibleTargets.size() == 0) {
 			return target;
@@ -1696,24 +1760,24 @@ public enum Combat {
 		return possibleTargets.get(Util.random.nextInt(possibleTargets.size()));
 	}
 
-	public static int getTurn() {
+	public int getTurn() {
 		return turn;
 	}
 
-	public static float getTotalDamageTaken(GameCharacter character) {
+	public float getTotalDamageTaken(GameCharacter character) {
 		totalDamageTaken.putIfAbsent(character, 0f);
 		return totalDamageTaken.get(character);
 	}
 
-	public static void setTotalDamageTaken(GameCharacter character, float damage) {
+	public void setTotalDamageTaken(GameCharacter character, float damage) {
 		totalDamageTaken.put(character, damage);
 	}
 
-	public static void incrementTotalDamageTaken(GameCharacter character, float increment) {
+	public void incrementTotalDamageTaken(GameCharacter character, float increment) {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
 	}
 
-	public static boolean isCharacterVictory(GameCharacter character) {
+	public boolean isCharacterVictory(GameCharacter character) {
 		if(getEnemies(character).contains(Main.game.getPlayer())) {
 			return !playerVictory;
 		}
@@ -1723,27 +1787,27 @@ public enum Combat {
 	/**
 	 * @return true if the last combat that took place resulted in the player's victory.
 	 */
-	public static boolean isPlayerVictory() {
+	public boolean isPlayerVictory() {
 		return playerVictory;
 	}
 
-	public static void setupManaBurnStackForOutOfCombat(GameCharacter character) {
+	public void setupManaBurnStackForOutOfCombat(GameCharacter character) {
 		manaBurnStack = new HashMap<>();
 		manaBurnStack.put(character, new Stack<>());
 	}
 	
-	public static Map<GameCharacter, Stack<Float>> getManaBurnStack() {
+	public Map<GameCharacter, Stack<Float>> getManaBurnStack() {
 		return manaBurnStack;
 	}
 	
-	public static void addStatusEffectToApply(GameCharacter target, StatusEffect effect, int duration) {
+	public void addStatusEffectToApply(GameCharacter target, AbstractStatusEffect effect, int duration) {
 		statusEffectsToApply.get(target).put(effect, duration);
 //		statusEffectsToApply.get(target).putIfAbsent(effect, 0);
 //		
 //		statusEffectsToApply.get(target).put(effect, statusEffectsToApply.get(target).get(effect)+duration);
 	}
 
-	public static Map<GameCharacter, Map<StatusEffect, Integer>> getStatusEffectsToApply() {
+	public Map<GameCharacter, Map<AbstractStatusEffect, Integer>> getStatusEffectsToApply() {
 		return statusEffectsToApply;
 	}
 }

@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -28,10 +27,10 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -75,6 +74,7 @@ public class OptionsDialogue {
 	public static ContentOptionsPage contentOptionsPage = ContentOptionsPage.MISC;
 
 	private static boolean confirmNewGame = false;
+	public static boolean startingNewGame = false;
 	
 	public static final DialogueNode MENU = new DialogueNode("Menu", "Menu", true) {
 		
@@ -116,7 +116,6 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
 					return new ResponseEffectsOnly(
@@ -129,19 +128,23 @@ public class OptionsDialogue {
 									:"")){
 						@Override
 						public void effects() {
-							//Fixes a bug where inventory would stay on screen
-							if (Main.game.isStarted()) {
-								Main.game.setInCombat(false);
-								Main.game.setInSex(false);
+							if(!startingNewGame) {
+								startingNewGame = true;
+								
+								//Fixes a bug where inventory would stay on screen
+								if (Main.game.isStarted()) {
+									Main.game.setInCombat(false);
+									Main.game.setInSex(false);
+								}
+								
+								Main.mainController.setAttributePanelContent("");
+								Main.mainController.setRightPanelContent("");
+								Main.mainController.setButtonsLeftContent("");
+								Main.mainController.setButtonsRightContent("");
+								Main.game.setRenderMap(false);
+								Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
+								confirmNewGame = false;
 							}
-							
-							Main.mainController.setAttributePanelContent("");
-							Main.mainController.setRightPanelContent("");
-							Main.mainController.setButtonsLeftContent("");
-							Main.mainController.setButtonsRightContent("");
-							Main.game.setRenderMap(false);
-							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
-							confirmNewGame = false;
 						}
 					};
 					
@@ -192,7 +195,7 @@ public class OptionsDialogue {
 					public void effects() {
 						Main.primaryStage.close();
 						confirmNewGame=false;
-						
+						System.exit(0);
 					}
 				};
 				
@@ -220,7 +223,7 @@ public class OptionsDialogue {
 			} else if (index == 9) {
 				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
-			} else if (index == 10) {
+			} else if (index == 11) {
 				return new ResponseEffectsOnly("Blog", "Opens the page:<br/><br/><i>https://lilithsthrone.blogspot.co.uk/</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
@@ -229,11 +232,20 @@ public class OptionsDialogue {
 					}
 				};
 			
-			} else if (index == 11) {
+			} else if (index == 12) {
 				return new ResponseEffectsOnly("Github", "Opens the page:<br/><br/><i>https://github.com/Innoxia/liliths-throne-public</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
 						Util.openLinkInDefaultBrowser("https://github.com/Innoxia/liliths-throne-public");
+						confirmNewGame=false;
+					}
+				};
+			
+			} else if (index == 13) {
+				return new ResponseEffectsOnly("Wiki", "Opens the page:<br/><br/><i>https://www.lilithsthrone.com/wiki/doku.php</i><br/><br/><b>Externally in your default browser.</b>"){
+					@Override
+					public void effects() {
+						Util.openLinkInDefaultBrowser("https://www.lilithsthrone.com/wiki/doku.php");
 						confirmNewGame=false;
 					}
 				};
@@ -484,7 +496,7 @@ public class OptionsDialogue {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
 						@Override
 						public void effects() {
-							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
+							Main.game.getCharacterUtils().saveCharacterAsXML(Main.game.getPlayer());
 							Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Character exported!");
 						}
 					};
@@ -726,7 +738,7 @@ public class OptionsDialogue {
 						Main.saveProperties();
 						
 						for(NPC npc : Main.game.getAllNPCs()) {
-							if(!Main.game.isInCombat() || !Combat.getAllCombatants(false).contains(npc)) {
+							if(!Main.game.isInCombat() || !Main.combat.getAllCombatants(false).contains(npc)) {
 								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
 								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							}
@@ -1555,92 +1567,101 @@ public class OptionsDialogue {
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
 						
-						+ "<br/><br/>[style.boldGood(Hover over the buttons to see what each option means!)]"
+						+ "<br/>[style.italicsGood(Hover over the buttons to see what each option means!)]"
 						
-						+ "<br/><br/>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
+						+ "<br/>Please note that some races, such as demons and harpies, are limited in their available furry preference options."
 					+ "</div>"
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>");
 					
+			UtilText.nodeContentSB.append("<div class='container-full-width'>");
+					
+				UtilText.nodeContentSB.append("<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>");
+					UtilText.nodeContentSB.append("<b style='color:"+PresetColour.RACE_HUMAN.toWebHexString()+"; float:left; width:100%; text-align:center;'>Human Spawn Rate</b>");
+					UtilText.nodeContentSB.append("<div style='display:inline-block; padding-left:5%; width:100%;'>");
+							UtilText.nodeContentSB.append(getSpawnRateDiv(
+											"HUMAN_SPAWN_RATE",
+											PresetColour.RACE_HUMAN,
+											Main.getProperties().humanSpawnRate+"%",
+											Main.getProperties().humanSpawnRate,
+											0,
+											100));
+					UtilText.nodeContentSB.append("</div>");
+				UtilText.nodeContentSB.append("</div>");
+
+				UtilText.nodeContentSB.append("<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>");
+					UtilText.nodeContentSB.append("<b style='color:"+PresetColour.RACE_CENTAUR.toWebHexString()+"; float:left; width:100%; text-align:center;'>Taur Spawn Rate</b>");
+					UtilText.nodeContentSB.append("<div style='display:inline-block; padding-left:5%; width:100%;'>");
+							UtilText.nodeContentSB.append(getSpawnRateDiv(
+											"TAUR_SPAWN_RATE",
+											PresetColour.RACE_CENTAUR,
+											Main.getProperties().taurSpawnRate+"%",
+											Main.getProperties().taurSpawnRate,
+											0,
+											100));
+					UtilText.nodeContentSB.append("</div>");
+				UtilText.nodeContentSB.append("</div>");
+
+				UtilText.nodeContentSB.append("<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>");
+					UtilText.nodeContentSB.append("<b style='color:"+PresetColour.RACE_HALF_DEMON.toWebHexString()+"; float:left; width:100%; text-align:center;'>Half-Demon Spawn Rate</b>");
+					UtilText.nodeContentSB.append("<div style='display:inline-block; padding-left:5%; width:100%;'>");
+							UtilText.nodeContentSB.append(getSpawnRateDiv(
+											"HALF_DEMON_SPAWN_RATE",
+											PresetColour.RACE_HALF_DEMON,
+											Main.getProperties().halfDemonSpawnRate+"%",
+											Main.getProperties().halfDemonSpawnRate,
+											0,
+											100));
+					UtilText.nodeContentSB.append("</div>");
+				UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append("</div>");
+			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.RACE_CENTAUR, "Tauric Upper-body Furriness", "Set how furry you prefer the upper bodies of taurs to be."));
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
+					(Main.getProperties().taurFurryLevel==2
+						?"<div id='TAUR_FURRY_LIMIT_"+2+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.MINIMUM.getColour().toWebHexString()+";'>"
+							+ FurryPreference.MINIMUM.getName()
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+2+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.MINIMUM.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().taurFurryLevel==1
+						?"<div id='TAUR_FURRY_LIMIT_"+1+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.HUMAN.getColour().toWebHexString()+";'>"
+							+ "Human"
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+1+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled(Human)]"
+							+ "</div>")
+					+(Main.getProperties().taurFurryLevel==0
+						?"<div id='TAUR_FURRY_LIMIT_"+0+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"
+							+ "Untouched"
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+0+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled(Untouched)]"
+							+ "</div>")
 					
-						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
-							+ "<b style='color:"+PresetColour.RACE_HUMAN.toWebHexString()+"; float:left; width:100%; text-align:center;'>Human encounters</b>"
-							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
-								+ "<div id='furry_preference_human_encounter_zero' class='square-button"+(Main.getProperties().humanEncountersLevel==0
-									?" selected' style='border-color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
-							
-								+ "<div id='furry_preference_human_encounter_one' class='square-button"+(Main.getProperties().humanEncountersLevel==1
-									?" selected' style='border-color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
-								
-								+ "<div id='furry_preference_human_encounter_two' class='square-button"+(Main.getProperties().humanEncountersLevel==2
-									?" selected' style='border-color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
-								
-								+ "<div id='furry_preference_human_encounter_three' class='square-button"+(Main.getProperties().humanEncountersLevel==3
-									?" selected' style='border-color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
-								
-								+ "<div id='furry_preference_human_encounter_four' class='square-button"+(Main.getProperties().humanEncountersLevel==4
-									?" selected' style='border-color:"+PresetColour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
-							+"</div>"
-						+ "</div>"
-					
-						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
-							+ "<b style='color:"+PresetColour.RACE_CENTAUR.toWebHexString()+"; float:left; width:100%; text-align:center;'>Taurs</b>"
-							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
-								+ "<div id='taur_furry_preference_zero' class='square-button"+(Main.getProperties().taurFurryLevel==0
-									?" selected' style='border-color:"+PresetColour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
-							
-								+ "<div id='taur_furry_preference_one' class='square-button"+(Main.getProperties().taurFurryLevel==1
-									?" selected' style='border-color:"+PresetColour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
-								
-								+ "<div id='taur_furry_preference_two' class='square-button"+(Main.getProperties().taurFurryLevel==2
-									?" selected' style='border-color:"+PresetColour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
-								
-								+ "<div id='taur_furry_preference_three' class='square-button"+(Main.getProperties().taurFurryLevel==3
-									?" selected' style='border-color:"+PresetColour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
-								
-								+ "<div id='taur_furry_preference_four' class='square-button"+(Main.getProperties().taurFurryLevel==4
-									?" selected' style='border-color:"+PresetColour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
-							+"</div>"
-						+ "</div>"
-						
-						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
-							+ "<b style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+"; float:left; width:100%; text-align:center;'>Forced TF Racial Limits</b>"
-							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
-								+ "<div id='forced_tf_limit_human' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN
-									?" selected' style='border-color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
-							
-								+ "<div id='forced_tf_limit_minimum' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM
-									?" selected' style='border-color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
-								
-								+ "<div id='forced_tf_limit_reduced' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.REDUCED
-									?" selected' style='border-color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
-								
-								+ "<div id='forced_tf_limit_normal' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.NORMAL
-									?" selected' style='border-color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
-								
-								+ "<div id='forced_tf_limit_maximum' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MAXIMUM
-									?" selected' style='border-color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
-									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
-							+"</div>"
-						+ "</div>"
-							
-					+ "</div>");
+					+(Main.getProperties().taurFurryLevel==5
+						?"<div id='TAUR_FURRY_LIMIT_"+5+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.MAXIMUM.getColour().toWebHexString()+";'>"
+							+ FurryPreference.MAXIMUM.getName()
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+5+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.MAXIMUM.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().taurFurryLevel==4
+						?"<div id='TAUR_FURRY_LIMIT_"+4+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.NORMAL.getColour().toWebHexString()+";'>"
+							+ FurryPreference.NORMAL.getName()
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+4+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.NORMAL.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().taurFurryLevel==3
+						?"<div id='TAUR_FURRY_LIMIT_"+3+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.REDUCED.getColour().toWebHexString()+";'>"
+							+ FurryPreference.REDUCED.getName()
+							+ "</div>"
+						:"<div id='TAUR_FURRY_LIMIT_"+3+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.REDUCED.getName()+")]"
+							+ "</div>"));
+			UtilText.nodeContentSB.append("</div></div>");
 			
 			
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align: center;'>"
@@ -1671,7 +1692,7 @@ public class OptionsDialogue {
 											+ "</div>");
 
 			int i=0;
-			for(Subspecies subspecies : Subspecies.values()) {
+			for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 				if(subspecies.isDisplayedInFurryPreferences()) {
 					UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 					i++;
@@ -1696,9 +1717,9 @@ public class OptionsDialogue {
 				return new Response("Defaults", "Reset all furry and spawn preferences to their default settings.", FURRY_PREFERENCE) {
 					@Override
 					public void effects() {
-						for(Subspecies subspecies : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(subspecies, FurryPreference.NORMAL);
-							Main.getProperties().setMasculineFurryPreference(subspecies, FurryPreference.NORMAL);
+						for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+							Main.getProperties().setFeminineFurryPreference(subspecies, subspecies.getDefaultFemininePreference());
+							Main.getProperties().setMasculineFurryPreference(subspecies, subspecies.getDefaultMasculinePreference());
 
 							Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
 							Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
@@ -1716,6 +1737,33 @@ public class OptionsDialogue {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
+
+	private static String getSpawnRateDiv(String id, Colour colour, String valueDisplay, int value, int minimum, int maximum) {
+		StringBuilder contentSB = new StringBuilder();
+
+		contentSB.append("<div class='container-full-width' style='padding:0; margin:2px 0;'>");
+		
+			contentSB.append(
+					"<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+							+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+					+ "</div>"
+					+ "<div id='"+id+"_INCREASE' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+							+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldMinorGood(+)]")
+					+ "</div>"
+					+ "<div class='container-full-width' style='text-align:center; width:40%; float:right; margin:0;'>"
+						+ "<b>"+valueDisplay+"</b>"
+					+ "</div>"
+					+ "<div id='"+id+"_DECREASE' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+						+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldMinorBad(-)]")
+					+ "</div>"
+					+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+				+ "</div>");
+		
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
 	
 	private static String getEntryBackgroundColour(boolean alternative) {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -1731,9 +1779,10 @@ public class OptionsDialogue {
 		}
 	}
 	
-	private static String getSubspeciesPreferencesPanel(Subspecies s, boolean altColour) {
+	private static String getSubspeciesPreferencesPanel(AbstractSubspecies s, boolean altColour) {
 		StringBuilder sb = new StringBuilder();
 		String baseStyle = "max-width:30px; width:14%; margin:0 1%; padding:0;";
+		String subspeciesId = Subspecies.getIdFromSubspecies(s);
 		
 		sb.append("<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(altColour)+"; padding:0; margin:0 0 6px 0; border-left:solid 4px "+s.getColour(null).toWebHexString()+";'>");
 		
@@ -1745,7 +1794,7 @@ public class OptionsDialogue {
 			sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 
 				for(FurryPreference preference : FurryPreference.values()) {
-					sb.append("<div id='FEMININE_"+preference+"_"+s+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
+					sb.append("<div id='FEMININE_"+preference+"_"+subspeciesId+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
 								+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference && s.isFurryPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+preference.getColour().toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
@@ -1753,8 +1802,8 @@ public class OptionsDialogue {
 				sb.append("</div>");
 				sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-					sb.append("<div id='FEMININE_SPAWN_"+preference+"_"+s+"' class='square-button small"
-								+(Main.getProperties().getSubspeciesFemininePreferencesMap().get(s)==preference
+					sb.append("<div id='FEMININE_SPAWN_"+preference+"_"+subspeciesId+"' class='square-button small"+(!s.isSpawnPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesFemininePreferencesMap().get(s)==preference && s.isSpawnPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+PresetColour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 				}
@@ -1769,7 +1818,7 @@ public class OptionsDialogue {
 			sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 			
 				for(FurryPreference preference : FurryPreference.values()) {
-					sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
+					sb.append("<div id='MASCULINE_"+preference+"_"+subspeciesId+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
 								+(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(s)==preference && s.isFurryPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+preference.getColour().toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
@@ -1777,15 +1826,17 @@ public class OptionsDialogue {
 			sb.append("</div>");
 			sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-					sb.append("<div id='MASCULINE_SPAWN_"+preference+"_"+s+"' class='square-button small"
-								+(Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s)==preference
+					sb.append("<div id='MASCULINE_SPAWN_"+preference+"_"+subspeciesId+"' class='square-button small"+(!s.isSpawnPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s)==preference && s.isSpawnPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+PresetColour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 				}
 				
 			sb.append("</div>");
 
-			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+s+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>");
+			sb.append("<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+subspeciesId+"' style='position:absolute; margin:0; padding:0; left:1%; right:auto; top:auto; bottom:auto;'>"
+							+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()
+						+"</div>");
 		sb.append("</div>");
 		
 		return sb.toString();
@@ -1908,7 +1959,14 @@ public class OptionsDialogue {
 								"Enchantment Capacity",
 								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
-
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+								"BAD_END",
+								PresetColour.GENERIC_TERRIBLE,
+								"Bad Ends",
+								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered.",
+								Main.getProperties().hasValue(PropertyValue.badEndContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 								"LEVEL_DRAIN",
 								PresetColour.GENERIC_TERRIBLE,
@@ -1949,13 +2007,6 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-							"AUTO_SEX_CLOTHING_MANAGEMENT",
-							PresetColour.BASE_BLUE_STEEL,
-							"Post-sex clothing replacement",
-							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
-							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
-			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"AGE",
 							PresetColour.AGE_TWENTIES,
@@ -1976,6 +2027,27 @@ public class OptionsDialogue {
 							"Sadistic sex",
 							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
 							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"LIPSTICK_MARKING",
+							PresetColour.BASE_RED_DARK,
+							"Lipstick marking",
+							"This enables lipstick marking of bodyparts via kisses during sex.",
+							Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"SHARED_ENCYCLOPEDIA",
+							PresetColour.GENERIC_EXCELLENT,
+							"Shared Encyclopedia",
+							"When enabled, your character will use the shared Encyclopedia (whose entries are unlocked across any playthrough). If disabled, unlocked Encyclopedia entries are only shown if your current character has discovered them.",
+							Main.getProperties().hasValue(PropertyValue.sharedEncyclopedia)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"WEATHER_INTERRUPTION",
+							PresetColour.GENERIC_ARCANE,
+							"Storm interruptions",
+							"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
+							Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
@@ -1991,13 +2063,18 @@ public class OptionsDialogue {
 							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-							"BYPASS_SEX_ACTIONS",
-							PresetColour.BASE_PINK,
-							"Sex action bypass",
-							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
-							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
-			
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
+				for (int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='BYPASS_SEX_ACTIONS_" + i + "' class='normal-button" + (Main.getProperties().bypassSexActions == i ? " selected" : "") + "' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+ (Main.getProperties().bypassSexActions == i
+							? "[style.boldGood("
+							: "[style.colourDisabled(")
+							+ com.lilithsthrone.game.Properties.bypassSexActionsLabels[i] + ")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
+			}
+
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"VOLUNTARY_NTR",
 							PresetColour.GENERIC_MINOR_BAD,
@@ -2077,6 +2154,34 @@ public class OptionsDialogue {
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"FURRY_TAIL_PENETRATION",
+							PresetColour.BASE_MAGENTA,
+							"Furry tail penetrations",
+							"This enables furry tails to engage in penetrative actions in sex.",
+							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
+					
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"INFLATION_CONTENT",
+							PresetColour.CUM,
+							"Cum Inflation",
+							"This enables cum inflation mechanics.",
+							Main.getProperties().hasValue(PropertyValue.inflationContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_MANAGEMENT",
+							PresetColour.BASE_BLUE_STEEL,
+							"Post-sex clothing replacement",
+							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
+							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"AUTO_SEX_CLOTHING_STRIP",
+							PresetColour.BASE_PINK_LIGHT,
+							"Automatic stripping",
+							"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+							Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FUTA_BALLS",
 							PresetColour.BASE_PINK,
@@ -2106,8 +2211,8 @@ public class OptionsDialogue {
 				
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
 				for(int i=2; i>=0; i--) {
-					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-							+(Main.getProperties().udders==i
+					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel()==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().getUddersLevel()==i
 								?(i==0?"[style.boldBad(":"[style.boldGood(")
 								:"[style.colourDisabled(")
 							+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");
@@ -2164,6 +2269,13 @@ public class OptionsDialogue {
 							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+					"SPITTING_ENABLED",
+					PresetColour.BASE_BLUE,
+					"Rejecting TF potions",
+					"Forced TF potions may be spat out if this is enabled.",
+					!Main.game.isSpittingDisabled()));
+			
 			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
 				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 								"FORCED_TF",
@@ -2174,16 +2286,46 @@ public class OptionsDialogue {
 								Main.getProperties().forcedTFPercentage,
 								0,
 								100));
-			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
-					"SPITTING_ENABLED",
-					PresetColour.BASE_BLUE,
-					"Rejecting TF potions",
-					"Forced TF potions may be spat out if this is enabled.",
-					!Main.game.isSpittingDisabled()));
-
-			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_GREEN, "Forced TF Racial Limits", "This allows you to set the maximum furry limit of what an NPC will forcibly transform you into."));
+			UtilText.nodeContentSB.append(
+					(Main.getProperties().getForcedTFPreference()==FurryPreference.REDUCED
+						?"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.REDUCED+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.REDUCED.getColour().toWebHexString()+";'>"
+							+ FurryPreference.REDUCED.getName()
+							+ "</div>"
+						:"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.REDUCED+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.REDUCED.getName()+")]"
+							+ "</div>")
+					+ (Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM
+						?"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.MINIMUM+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.MINIMUM.getColour().toWebHexString()+";'>"
+							+ FurryPreference.MINIMUM.getName()
+							+ "</div>"
+						:"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.MINIMUM+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.MINIMUM.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN
+						?"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.HUMAN+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.HUMAN.getColour().toWebHexString()+";'>"
+							+ FurryPreference.HUMAN.getName()
+							+ "</div>"
+						:"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.HUMAN+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.HUMAN.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().getForcedTFPreference()==FurryPreference.MAXIMUM
+						?"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.MAXIMUM+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.MAXIMUM.getColour().toWebHexString()+";'>"
+							+ FurryPreference.MAXIMUM.getName()
+							+ "</div>"
+						:"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.MAXIMUM+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.MAXIMUM.getName()+")]"
+							+ "</div>")
+					+(Main.getProperties().getForcedTFPreference()==FurryPreference.NORMAL
+						?"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.NORMAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+FurryPreference.NORMAL.getColour().toWebHexString()+";'>"
+							+ FurryPreference.NORMAL.getName()
+							+ "</div>"
+						:"<div id='FORCED_TF_FURRY_LIMIT_"+FurryPreference.NORMAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+ "[style.colourDisabled("+FurryPreference.NORMAL.getName()+")]"
+							+ "</div>"));
+			UtilText.nodeContentSB.append("</div></div>");
+			
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 				UtilText.nodeContentSB.append(
 						(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
@@ -2275,19 +2417,13 @@ public class OptionsDialogue {
 				UtilText.nodeContentSB.append("</div></div>");
 			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"FURRY_TAIL_PENETRATION",
-							PresetColour.BASE_MAGENTA,
-							"Furry tail penetrations",
-							"This enables furry tails to engage in penetrative actions in sex.",
-							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
-					
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
-							"INFLATION_CONTENT",
-							PresetColour.CUM,
-							"Cum Inflation",
-							"This enables cum inflation mechanics.",
-							Main.getProperties().hasValue(PropertyValue.inflationContent)));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+					"COMPANION",
+					PresetColour.BASE_GREEN_LIGHT,
+					"Companions",
+					"Enable the ability to add slaves or friendly occupants as your companion."
+						+ "<br/>[style.boldBad(Warning:)] This is an experimental feature, and support for companions was dropped in v0.3.9, so there will be no special dialogue or actions involving your companions outside of Dominion.",
+					Main.getProperties().hasValue(PropertyValue.companionContent)));
 
 			if(contentOptionsPage==ContentOptionsPage.BODIES) {
 				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
@@ -2358,6 +2494,16 @@ public class OptionsDialogue {
 								Main.getProperties().penisSizePreference,
 								-20,
 								20));
+
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+								"TRAP_PENIS_SIZE_PREFERENCE",
+								PresetColour.BASE_PINK_LIGHT,
+								Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
+								"The penis size of randomly-generated "+Gender.N_P_TRAP.getName()+"s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
+								(100+Main.getProperties().trapPenisSizePreference)+"%",
+								Main.getProperties().trapPenisSizePreference,
+								-90,
+								100));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -2454,7 +2600,7 @@ public class OptionsDialogue {
 	
 
 	/**
-	 * To be followed by: </div></div>
+	 * To be followed by two closing div elements.
 	 */
 	private static String getCustomContentPreferenceDivStart(Colour colour, String title, String description) {
 		StringBuilder contentSB = new StringBuilder();
@@ -2462,7 +2608,7 @@ public class OptionsDialogue {
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+title+"</b><b>:</b> "
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
@@ -2617,6 +2763,7 @@ public class OptionsDialogue {
 
 			UtilText.nodeContentSB.append("<br/>"
 					+ "Contributors:</br>" // In alphabetical order:
+					+ "<b style='color:#21bfc5;'>AceXP</b></br>"
 					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
 					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"

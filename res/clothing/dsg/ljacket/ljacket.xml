@@ -27,7 +27,7 @@
 		<description><![CDATA[A biker-style leather jacket. Goes well with too much hair gel and a switchblade.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>0.5</physicalResistance> 
+		<physicalResistance>2</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>MASCULINE</femininity> 
@@ -128,7 +128,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours>
 			<colour>CLOTHING_BLACK</colour>
 		</primaryColours> 

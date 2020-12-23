@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.4
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public class SMPixShowerTime extends SexManagerDefault {
@@ -21,6 +21,11 @@ public class SMPixShowerTime extends SexManagerDefault {
 		super(SexPositionUnique.SHOWER_TIME_PIX,
 				dominants,
 				submissives);
+	}
+
+	@Override
+	public boolean isWashingScene() {
+		return true;
 	}
 	
 	@Override

@@ -2,37 +2,91 @@
 <dialogue>
 
 	<htmlContent tag="ENSLAVEMENT_SUCCESS_COLLAR"><![CDATA[
+	#IF(npc.getAffection(pc)>10)
+		<p>
+			As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting [npc.herHim] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.namePos] neck.
+		</p>
+		<p>
+			As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+				<br/>Identification: [npc.nameFull(true)]
+				<br/>Race: [npc.Race])]
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and lets out an almost inaudible whine.
+			#ELSE
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! This isn't a slave collar is it?!)]
+			#ENDIF
+		</p>
+		<p>
+			Grinning at [npc.name], you don't have time to offer a response, as with a bright purple flash, [npc.she] suddenly disappears from sight. The last thing you see as [npc.sheIs] whisked away is a face of shocked betrayal, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
+		</p>
+	#ELSE
+		<p>
+			Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+		</p>
+		<p>
+			As you lift the collar up to [npc.her] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting this [npc.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around the [npc.race] neck. The [#SPECIAL_PARSE_0]'s arcane enchantment instantly recognises [npc.herHim] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+		</p>
+		<p>
+			Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+			<br/>Identification: [npc.nameFull(true)]
+			<br/>Race: [npc.Race])]
+		</p>
+	#ENDIF
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		As you lift the collar up to [npc.her] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting this [npc.race] as a potential enslavement target. Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around the [npc.race] neck. The [#SPECIAL_PARSE_0]'s arcane enchantment instantly recognises [npc.herHim] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
-	</p>
-	<p>
-		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
-	</p>
-	<p style='text-align:center;'>
-		[style.italicsArcane(Slave Registered.
-		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		From Finch's instructions, you know that <b>[npc.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc.she]'ll be waiting for you to pick [npc.herHim] up.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENSLAVEMENT_SUCCESS"><![CDATA[
+	#IF(npc.getAffection(pc)>10)
+		<p>
+			As you bring the [#SPECIAL_PARSE_0] closer to [npc.name], you feel [#SPECIAL_PARSE_1] start to steadily hum; a clear indication that [npc.sheIs] being detected as a potential enslavement target. Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing.
+		</p>
+		<p>
+			As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+				<br/>Identification: [npc.nameFull(true)]
+				<br/>Race: [npc.Race])]
+		</p>
+		<p>
+			#IF(npc.isMute())
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and lets out an almost inaudible whine.
+			#ELSE
+				Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! You're not enslaving me, are you?!)]
+			#ENDIF
+		</p>
+		<p>
+			Grinning at [npc.name], you don't have time to offer a response, as with a bright purple flash, [npc.she] suddenly disappears from sight. The last thing you see as [npc.sheIs] whisked away is a face of shocked betrayal, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
+		</p>
+	#ELSE
+		<p>
+			Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
+		</p>
+		<p>
+			Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. The [#SPECIAL_PARSE_0]'s arcane enchantment recognises the [npc.race] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
+		</p>
+		<p>
+			Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsArcane(Slave Registered.
+			<br/>Identification: [npc.nameFull(true)]
+			<br/>Race: [npc.Race])]
+		</p>
+	#ENDIF
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. The [#SPECIAL_PARSE_0]'s arcane enchantment recognises the [npc.race] as being a criminal, and with a purple flash, <b>[npc.sheIs] teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>.
-	</p>
-	<p>
-		Just before [npc.she] disappears, glowing purple lettering is projected into the air, which reads:
-	</p>
-	<p style='text-align:center;'>
-		[style.italicsArcane(Slave Registered.
-		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		From Finch's instructions, you know that <b>[npc.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc.she]'ll be waiting for you to pick [npc.herHim] up.
 	</p>
 	]]>
 	</htmlContent>
@@ -78,10 +132,7 @@
 
 	<htmlContent tag="ENSLAVEMENT_FAIL_NO_LICENSE"><![CDATA[
 	<p>
-		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.sheIs] so exhausted that [npc.she] can't manage to put up any significant amount of resistance.
-	</p>
-	<p>
-		Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
+		Holding the [#SPECIAL_PARSE_0] in one [pc.hand], you take a step towards the [npc.race]. Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear. Despite the fact that [npc.sheIs] a wanted criminal, the [#SPECIAL_PARSE_0]'s arcane enchantment recognises the fact that you don't have a slaver license, which is evidenced by glowing red lettering that's projected into the air, reading:
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsBad(Invalid owner! Slaver license required!<br/>

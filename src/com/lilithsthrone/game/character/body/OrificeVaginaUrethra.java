@@ -145,13 +145,13 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getHeightValue() * 0.05f * this.getDepth(owner).getDepthPercentage());
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
+		return (int) (owner.getHeightValue() * 0.05f * depth.getDepthPercentage());
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		return getMaximumPenetrationDepthComfortable(owner, depth) * 2;
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] can't help but let out a startled cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
+							+ "[npc.Name] can't help but let out a startled cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.pussy],"
 								+ " before the [style.boldShrink(puffy rim)] of [npc.her] urethra [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
 							+ "[style.boldSex(The rim of [npc.namePos] urethra is no longer swollen and puffy!)]"
 						+ "</p>");

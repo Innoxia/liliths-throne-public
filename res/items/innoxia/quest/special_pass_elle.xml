@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>5000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Elle's Contractor Pass]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Elle's Contractor Pass]]></namePlural>
+		<description><![CDATA[Complete with a sturdy fabric lanyard, and signed by Superintendent Aellasys Lunettemartu herself, this pass grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent illegal items from being confiscated.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>special_pass_elle.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_PURPLE_LIGHT</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.colourGood(Grants access)] to Enforcer HQ's requisitions area]]></line>
+			<line><![CDATA[Provides [style.colourExcellent(immunity)] to [style.colourBlueDark(illegal)] item confiscations]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			Signed by Superintendent Aellasys Lunettemartu, and attached to a sturdy fabric lanyard, this 'Contractor Pass' grants the bearer access to the requisitions area of Dominion's Enforcer HQ. It can also be shown to Enforcer patrols to prevent illegal items from being confiscated.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the pass...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] pass to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

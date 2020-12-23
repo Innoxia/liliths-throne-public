@@ -211,7 +211,9 @@ public class Element {
 		org.w3c.dom.NodeList nl = innerElement.getChildNodes();
 		List<Element> returnList = new ArrayList<>();
 		for (int i = 0; i < nl.getLength(); i++) {
-			returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
+			if(nl.item(i) instanceof org.w3c.dom.Element) {
+				returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
+			}
 		}
 		return returnList;
 	}

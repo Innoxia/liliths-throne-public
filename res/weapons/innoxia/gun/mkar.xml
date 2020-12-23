@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>1000000</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name appendDamageName="false"><![CDATA[MKAR]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[MKARs]]></namePlural>
+		<description><![CDATA[Chambered in 7.62×39mm Soviet intermediate cartridge, this modernised assault rifle supports both semi and fully automatic fire modes. The gas-operated firing mechanism utilises a rotating bolt, and is capable of producing a cyclic rate of fire of around 600–650 rounds per minute.]]></description>
+		<attackDescriptor>shoot</attackDescriptor>
+		<attackTooltipDescription>Use your MKAR to fire a single bullet at your target.</attackTooltipDescription>
+		
+		<rarity>LEGENDARY</rarity> 
+		<weaponSet/> 
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] out [npc.her] MKAR, inserts a magazine, and pulls the charging handle, putting it into a state where it's ready to be used in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] MKAR away.]]></unequipText>
+		<imageName>mkar.svg</imageName>
+		<imageEquippedName>mkar_semi_auto.svg</imageEquippedName> 
+		
+		<damage>21000</damage>
+		<arcaneCost>0</arcaneCost>
+		<damageVariance>LOW</damageVariance>
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves>
+			<move>MKAR_MAG_DUMP</move>
+		</combatMoves>
+		<enchantmentLimit>0</enchantmentLimit>
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours> 
+			<colour>CLOTHING_BROWN</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<customColours>
+			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_BROWN</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour c0="#abc837" c1="#bcd35f" c2="#cdde87" c3="#dde9af" c4="#eef4d7">
+				<defaultColours>
+					<colour>CLOTHING_GUNMETAL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags>
+			<tag>CHEAT_ITEM</tag>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Taking aim with [npc.her] MKAR, [npc.name] [npc.verb(pull)] the trigger and [npc.verb(fire)] a bullet at [npc2.name], hitting [npc2.herHim] directly in the chest!<br/>Thankfully, there seems to be some kind of arcane force preventing [npc2.name] from being seriously wounded or killed...
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Taking aim with [npc.her] MKAR, [npc.name] [npc.verb(pull)] the trigger and fires a bullet at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

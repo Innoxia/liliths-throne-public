@@ -158,7 +158,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_GONE_HOME"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena has gone home early for the day. As such, you'll be unable to enter the shop and speak with her again until
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].
@@ -177,7 +177,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_CLOSED"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].
@@ -188,14 +188,14 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_FINISHED_OPEN"><![CDATA[
 	<p>
-		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, which is evidenced by the large crowd of fans who are loitering around nearby in the hopes of catching a glimpse of Helena herself.
+		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, and while the initial excitement of Helena's unexpected presence has by now worn off, there still several fans loitering around nearby in the hopes of getting an autograph or a kind word from Helena herself.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_FINISHED_CLOSED"><![CDATA[
 	<p>
-		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, and even though it's currently closed, there are still a few dedicated fans loitering around nearby in the hopes of catching a glimpse of Helena herself.
+		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, and even though it's currently closed, there are still a few dedicated fans loitering around nearby as they wait for the chance to get an autograph or a kind word from Helena herself.
 	</p>
 	]]>
 	</htmlContent>
@@ -217,7 +217,7 @@
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_CLOSED"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
-		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+		#IF(game.getDayOfWeek()==DOW_FRIDAY || game.getDayOfWeek()==DOW_SATURDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
 			 [style.colourMinorBad(tomorrow morning at the earliest)].

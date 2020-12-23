@@ -62,7 +62,7 @@
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL"/>
+		<primaryColours values="DEBUG_ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
@@ -70,6 +70,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags>
+			<tag>CHEAT_ITEM</tag>
 			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -9,8 +10,9 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -48,21 +50,29 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
+import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -105,8 +115,21 @@ public class Natalya extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
+			this.setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_OFFICE_STABLE, true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.8")) {
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREY_GREEN));
+			this.setHeight(172);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8")) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop", DamageType.PHYSICAL));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.10")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 		}
 	}
 
@@ -149,11 +172,11 @@ public class Natalya extends NPC {
 		this.setWingType(WingType.NONE);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());
-		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.TAUR, true);
+		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
 		this.setBreastCrotchType(BreastType.NONE);
 		
 		// Core:
-		this.setHeight(176);
+		this.setHeight(172);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
@@ -161,7 +184,7 @@ public class Natalya extends NPC {
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREY_GREEN));
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LILAC_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_HORSE_HAIR, PresetColour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_LILAC), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
@@ -216,12 +239,13 @@ public class Natalya extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(46);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(500);
 		this.setPenisCumExpulsion(85);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		// Horse-like modifiers:
 		this.clearPenisModifiers();
 		this.addPenisModifier(PenetrationModifier.FLARED);
@@ -247,18 +271,18 @@ public class Natalya extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_taur_skirt"), PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_torsoOver_feminine_blazer"), PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_taur_skirt"), PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torsoOver_feminine_blazer"), PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_hair_accessories_hair_sticks", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_horseshoe_necklace", PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_thick_rim_glasses", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_sticks", PresetColour.CLOTHING_PURPLE_ROYAL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_horseshoe_necklace", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_thick_rim_glasses", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);
 	}
 	
 	@Override
@@ -281,6 +305,16 @@ public class Natalya extends NPC {
 	}
 	
 	@Override
+	public void dailyUpdate() {
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
+			Main.game.getDialogueFlags().incrementNatalyaPoints(-2);
+			if(Main.game.getDateNow().getDayOfMonth()==1) {
+				Main.game.getDialogueFlags().setNatalyaPoints(0);
+			}
+		}
+	}
+	
+	@Override
 	public void endSex() {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
 			if(this.getClothingInSlot(InventorySlot.ANUS)!=null) {
@@ -296,12 +330,17 @@ public class Natalya extends NPC {
 	}
 
 	@Override
-	public SexPace getSexPaceDomPreference(){
+	public SexPace getSexPaceDomPreference() {
 		return SexPace.DOM_NORMAL;
+	}
+
+	@Override
+	public SexPace getSexPaceSubPreference(GameCharacter character) {
+		return SexPace.SUB_EAGER;
 	}
 	
 	public void insertDildo() {
-		AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_clothing_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false);
+		AbstractClothing dildo = Main.game.getItemGen().generateClothing("innoxia_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false);
 		
 		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 		dildo.setName("Natalya's "+UtilText.applyVibration("vibrating", dildo.getRarity().getColour())+" dildo");
@@ -310,7 +349,7 @@ public class Natalya extends NPC {
 	}
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 	
@@ -334,7 +373,11 @@ public class Natalya extends NPC {
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "HELENA_ALLEYWAY_ORGASM_NO_FACIAL"));
 			}
 			
-			return new SexActionOrgasmOverride(true, sb.toString()) {
+			return new SexActionOrgasmOverride(true) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
 				@Override
 				public void applyEffects() {
 					if(applyExtraEffects) {
@@ -355,9 +398,128 @@ public class Natalya extends NPC {
 	public String getDirtyTalk() {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
 			return UtilText.parseFromXMLFile("characters/dominion/natalya", "HELENA_ALLEYWAY_DIRTY_TALK");
+		} else {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_RECEIVING_BLOWJOB");
+				
+			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_RECEIVING_RIMJOB");
+				
+			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, SexAreaPenetration.PENIS).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_GIVING_ANAL");
+				
+			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_GIVING_BLOWJOB");
+				
+			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_GIVING_RIMJOB");
+				
+			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.game.getPlayer(), SexAreaPenetration.PENIS, SexAreaOrifice.ANUS).contains(this)) {
+				return UtilText.parseFromXMLFile("characters/dominion/natalya", "DIRTY_TALK_RECEIVING_ANAL");
+				
+			}
 		}
 		
 		return super.getDirtyTalk();
+	}
+
+	@Override
+	public String getVaginaRevealDescription(GameCharacter characterBeingRevealed, GameCharacter characterReacting) {
+		if(characterBeingRevealed.isPlayer()) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p>");
+				sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
+						"[npc2.Name] [npc2.verb(sneer)] when [npc2.she] [npc2.verb(see)] "
+								+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
+										? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, and in a tone of absolute disgust, [npc2.she] snaps, "
+										: "[npc.namePos] [npc.pussy+], and in a tone of absolute disgust, [npc2.she] snaps, ")
+								+ "[npc2.speech(How disgusting! I <i>hate</i> seeing dirty little fuck-holes! I'll have that removed later...)]"));
+			sb.append("</p>");
+			
+			return sb.toString();
+		}
+		
+		return super.getVaginaRevealDescription(characterBeingRevealed, characterReacting);
+	}
+	
+	@Override
+	public TransformativePotion generateTransformativePotion(GameCharacter target) {
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
+		
+		List<PossibleItemEffect> effects = new ArrayList<>();
+
+		// Feminine form:
+		for(int i=target.getFemininityValue(); i<65; i+=15) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1), ""));
+		}
+		if(target.getMuscleValue()>Muscle.THREE_MUSCULAR.getMedianValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1), ""));
+		}
+		if(target.getBodySizeValue()>BodySize.TWO_AVERAGE.getMinimumValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1), ""));
+		}
+		if(target.hasHair()) {
+			for(int i=target.getHairRawLengthValue(); i<HairLength.THREE_SHOULDER_LENGTH.getMaximumValue(); i+=15) {
+				effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), ""));
+			}
+		}
+		for(int i=target.getLipSizeValue(); i<LipSize.TWO_FULL.getValue(); i+=2) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), ""));
+		}
+		
+		// Breasts:
+		for(int i=target.getBreastSize().getMeasurement(); i<CupSize.D.getMeasurement(); i+=3) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), ""));
+		}
+		for(int i=target.getNippleSize().getValue(); i<NippleSize.TWO_BIG.getValue(); i+=2) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1), ""));
+		}
+		for(int i=target.getAreolaeSize().getValue(); i<AreolaeSize.TWO_BIG.getValue(); i+=2) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1), ""));
+		}
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1), ""));
+
+		// Ass:
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1), ""));
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1), ""));
+		if(target.getHipSize().getValue()<HipSize.ONE_VERY_NARROW.getValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1), ""));
+		} else if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1), ""));
+		}
+		if(target.getAssSize().getValue()<AssSize.ONE_TINY.getValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), ""));
+		} else if(target.getAssSize().getValue()<AssSize.THREE_NORMAL.getValue()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), ""));
+		}
+
+		// Remove vagina:
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
+		
+		// Add penis:
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
+		if(target.getPenisRawSizeValue()<15) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), ""));
+		}
+		if(target.getPenisRawSizeValue()<30) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), ""));
+		}
+		for(int i=target.getPenisRawGirthValue(); i<PenetrationGirth.THREE_AVERAGE.getValue(); i+=2) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), ""));
+		}
+		
+		// Balls & cum:
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1), ""));
+		if(target.isInternalTesticles()) {
+			effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_INTERNAL, TFPotency.MINOR_DRAIN, 1), ""));
+		}
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
+		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
+
+		return new TransformativePotion(itemType, effects);
 	}
 
 }

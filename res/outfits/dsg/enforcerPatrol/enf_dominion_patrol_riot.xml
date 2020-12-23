@@ -37,11 +37,11 @@
 	
 	<generationAttributes>
 		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
-		<clothingConditional1 constant="true"><![CDATA[npc.getFemininity() == FEMININITY_FEMININE]]></clothingConditional1>
+		<clothingConditional1 constant="true"><![CDATA[npc.isFeminine()]]></clothingConditional1>
 		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
-		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
+		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 		<presetColourGroup1> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
 			<randomColour>CLOTHING_GOLD</randomColour>
 			<randomColour>CLOTHING_SILVER</randomColour>
@@ -119,12 +119,12 @@
 			<!-- Combat shirt always, change color depending on femininity -->
 			<uniqueClothing>
 				<conditional><![CDATA[clothingConditional1]]></conditional>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_PINK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_PINK" enchantmentKnown="true" id="dsg_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
 			<uniqueClothing>
 				<conditional><![CDATA[!clothingConditional1]]></conditional>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLUE" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLUE" enchantmentKnown="true" id="dsg_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
 			<!-- Riot belt always -->
@@ -135,7 +135,7 @@
 			
 			<!-- Tactical pants always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_tpants" isDirty="false">
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_tpants" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			

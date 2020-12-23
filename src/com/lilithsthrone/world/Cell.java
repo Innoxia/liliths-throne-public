@@ -10,8 +10,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -20,8 +21,10 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
+import com.lilithsthrone.world.places.Aquatic;
+import com.lilithsthrone.world.places.Darkness;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -32,7 +35,9 @@ public class Cell implements XMLSaving {
 
 	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
 	
-	private WorldType type;
+	public static int refundMoney = 0;
+	
+	private AbstractWorldType type;
 
 	private Vector2i location;
 
@@ -44,7 +49,7 @@ public class Cell implements XMLSaving {
 	private Set<String> charactersHomeIds;
 	private Set<String> charactersGlobalIds;
 
-	public Cell(WorldType type, Vector2i location) {
+	public Cell(AbstractWorldType type, Vector2i location) {
 		this.type = type;
 		this.location = location;
 		
@@ -62,11 +67,11 @@ public class Cell implements XMLSaving {
 		
 		Element location = doc.createElement("location");
 		element.appendChild(location);
-		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
-		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
+		XMLUtil.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
+		XMLUtil.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
 		
-		CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
-		CharacterUtils.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
+		XMLUtil.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
+		XMLUtil.addAttribute(doc, element, "travelledTo", String.valueOf(this.travelledTo));
 		
 		place.saveAsXML(element, doc);
 		
@@ -76,7 +81,7 @@ public class Cell implements XMLSaving {
 		return element;
 	}
 	
-	public static Cell loadFromXML(Element parentElement, Document doc, WorldType type) {
+	public static Cell loadFromXML(Element parentElement, Document doc, AbstractWorldType type) {
 		
 		Element locationElement = ((Element)parentElement.getElementsByTagName("location").item(0));
 		
@@ -108,6 +113,10 @@ public class Cell implements XMLSaving {
 			if(invNode!=null) {
 				cell.setInventory(CharacterInventory.loadFromXML(((Element)invNode), doc));
 			}
+			if(refundMoney>0) {
+				cell.getInventory().incrementMoney(refundMoney);
+				refundMoney = 0;
+			}
 		} catch(Exception ex) {	
 			System.err.println("Cell import error 1");
 		}
@@ -123,14 +132,14 @@ public class Cell implements XMLSaving {
 	}
 	
 	public String getId() {
-		return type.toString()+"-X:"+location.getX()+"-Y:"+location.getY();
+		return WorldType.getIdFromWorldType(type)+"-X:"+location.getX()+"-Y:"+location.getY();
 	}
 
-	public WorldType getType() {
+	public AbstractWorldType getType() {
 		return type;
 	}
 
-	public void setType(WorldType type) {
+	public void setType(AbstractWorldType type) {
 		this.type = type;
 	}
 	
@@ -153,7 +162,7 @@ public class Cell implements XMLSaving {
 	public void setTravelledTo(boolean travelledTo) {
 		this.travelledTo = travelledTo;
 	}
-
+	
 	public GenericPlace getPlace() {
 		return place;
 	}
@@ -165,11 +174,32 @@ public class Cell implements XMLSaving {
 		}
 	}
 
-	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean isLight() {
+		return !isDark();
+	}
+	
+	public boolean isDark() {
+		return getPlace().getPlaceType().getDarkness()==Darkness.ALWAYS_DARK
+				|| (getPlace().getPlaceType().getDarkness()==Darkness.DAYLIGHT && !Main.game.isDayTime());
+	}
+
+	public Aquatic getAquatic() {
+		return getPlace().getPlaceType().getAquatic();
+	}
+	
+	public DialogueNode getDialogue(boolean withRandomEncounter) {
+		return getPlace().getDialogue(this, withRandomEncounter, false);
+	}
+	
+	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		return getPlace().getDialogue(this, withRandomEncounter, forceEncounter);
+	}
+
+	public boolean addPlaceUpgrade(AbstractPlaceUpgrade upgrade) {
 		return getPlace().addPlaceUpgrade(this, upgrade);
 	}
 	
-	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean removePlaceUpgrade(AbstractPlaceUpgrade upgrade) {
 		return getPlace().removePlaceUpgrade(this, upgrade);
 	}
 	

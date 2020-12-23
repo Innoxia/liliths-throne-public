@@ -329,7 +329,7 @@
 		[lilaya.speech(Hmm... Well, if you find yourself feeling like that, there's no need to sneak off into my room. J-Just come back here and I-I can run some tests on you! O-Ok?)] Lilaya responds, trying her best to sound stern and in control, but ultimately failing as her thoughts shift to wanting to do lewd things with you.
 	</p>
 	<p>
-		[pc.speech(Yes, Lilaya,)] you respond, much in the same way you always used to with your [lilaya.relation(pc)] Lily.
+		[pc.speech(Yes, Lilaya,)] you respond, much in the same way you always used to with your aunt Lily.
 	</p>
 	<p>
 		[lilaya.speech(So, now that that's out of the way, what is it you need?)]
@@ -434,6 +434,51 @@
 	</p>
 	<p>
 		Finding yourself in an increasingly awkward position, you realise that your only real option is to agree to do as she asks...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_ELLE_HELP_REPEAT"><![CDATA[
+	<p>
+		Having forgotten what it was that Lilaya deduced about Elle's location, you ask your [lilaya.relation(pc)] if she can remind you of where you should be looking for her. Letting out an exasperated sigh, Lilaya pushes her glasses up onto the bridge of her nose and sharply states, [lilaya.speech(She's going down into the Bat Caverns, remember?! Just travel down to the west side of Submission to get there!)]
+	</p>
+	<p>
+		#IF(game.isSillyMode())
+			As you start to thank Lilaya for her help, she steps forwards and bonks you over the head with a rolled-up stack of papers. Frowning at you in disapproval, she states, [lilaya.speech(Please do try to remember what I've said this time!)]
+		#ELSE
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_ELLE_HELP"><![CDATA[
+	<p>
+		Struggling to figure out for yourself where Elle could be teleporting to during her long Wednesday lunch breaks, you ask Lilaya if she can help you to figure out where to go. Telling her that the Superintendent apparently takes a pair of night vision goggles with her, and that she returns with wet shoes often coated in some kind of glowing residue, you ask your [lilaya.relation(pc)] if she can figure out what location Elle is visiting.
+	</p>
+	<p>
+		[lilaya.speech(Hmm, well, if she's taking night vision goggles with her, then she's going somewhere that's dark even in the middle of the day,)] Lilaya muses, before stepping over to a nearby pile of books and retrieving one that appears to be a reference guide on local flora. Flicking through the pages, she quickly finds what she was looking for, and reads out loud, [lilaya.speech(<i>'Bioluminescent fungi are found all throughout Lilith's Realm...'</i> Now where's the section on Dominion... Ah, here it is; <i>'One may be surprised to discover that the subterranean Bat Caverns are home to one of the most diverse fungal ecosystems currently known to exist. In places, vast carpets of bioluminescent fungi can be observed, and it is impossible to take a step without disturbing their vividly-glowing spores...'</i>)]
+	</p>
+	<p>
+		Closing her book and looking up at you with a triumphant look on her face, your [lilaya.relation(pc)] proudly declares, [lilaya.speech(Mystery solved! Your elusive Enforcer must be teleporting down into the Bat Caverns. If you've never been there before, then you should know that you have to travel down to the west side of Submission to get there. Please do be careful if you do decide to follow this 'Elle' character though; the last I heard, the Bat Caverns are quite a dangerous place...)]
+	</p>
+	#IF(game.isSillyMode())
+		<p>
+			You start to thank Lilaya for her help, but before you're able to articulate your thoughts, she steps forwards and bonks you on the head with the book that she's still holding. Frowning at you in disapproval, she tuts, [lilaya.speech(You really should have been able to solve this by yourself...)]
+		</p>
+		<p>
+			Rubbing your head and feeling more than a little ashamed from your [lilaya.relation(pc)]'s words, you wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Thanking Lilaya for her help, and reassuring her that you'll be careful, you wonder what to do next...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'>
+		[style.italicsMinorGood(You can find Elle by searching in the Bat Caverns between [units.time(12)]-[units.time(15)] on a Wednesday!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -782,7 +827,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
+	<htmlContent tag="END_SEX_GEISHA_NO_ORGASM"><![CDATA[
 	<p>
 		Lilaya collapses face-first onto her bed, giving her demonic wings an impatient flutter as she sighs in annoyance, [lilaya.speech(As grateful as I am for this outfit, I <i>really</i> don't appreciate being treated like that! You didn't even get me to cum once!)]
 	</p>
@@ -807,25 +852,57 @@
 	
 	<htmlContent tag="LAB_JINX_REMOVAL"><![CDATA[
 	<p>
-		[pc.speech(I was wondering if you could help me with my clothes,)] you say, before explaining to Lilaya how you're unable to unjinx your clothing due to a 'servitude' enchantment being present on them. 
+		[pc.speech(I was wondering if you could help me with my clothes,)] you say, before explaining to Lilaya how you're unable to unseal your clothing due to a 'servitude' enchantment being present on them. 
 	</p>
 	<p>
 		As she hears you explaining your dilemma, your [lilaya.relation(pc)] crosses her arms and tuts in disapproval. Shaking her head as you finish talking, she asks, [lilaya.speech(How did you end up in such a ridiculous situation? Were you just going around Dominion putting on any old piece of clothing you found lying on the ground? No, wait, don't answer. I feel as though I'd regret finding out.)]
 	</p>
 	<p>
-		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unjinx any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the jinxes from all of your clothing. Just come and stand over here, please.)]
+		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unseal any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the seals from all of your clothing. Just come and stand over here, please.)]
 	</p>
 	<p>
-		Moving up next to Lilaya, you hold still as she unjinxes your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
+		Moving up next to Lilaya, you hold still as she unseals your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- LAB_LILAYA_HUG -->
+	
+	<htmlContent tag="LAB_LILAYA_HUG"><![CDATA[
+	<p>
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_2_D_MEETING_A_LILIN))
+			Although she's no longer the same person you knew before Lilith's spell altered this reality, you know that Lilaya is sure to love the same sort of big hug which you used to give her when she was your aunt Lily.
+		#ELSE
+			Although she's not the same person as the Lily from your world, you know that Lilaya is sure to love the same sort of big hug which you used to give your aunt.
+		#ENDIF
+		#IF(pc.isShy())
+			 Although you're shy around most people, you feel at ease when in the presence of [lilaya.race], and so you don't feel any trepidation in throwing your [pc.arms] around her and pulling her into your loving embrace.
+		#ELSE
+			 Stepping up to the [lilaya.race], you throw your [pc.arms] around her and pull her into your loving embrace.
+		#ENDIF
+	</p>
+	<p>
+		Furiously blushing at this sudden display of affection, your [lilaya.relation(pc)] stutters, [lilaya.speech(W-What are you doing?! I-I have important work to be getting on with! I-I don't have time for this!)]
+	</p>
+	<p>
+		Despite her words, the embarrassed [lilaya.race] makes no move to push you off of her, and in fact actually seems to lean into your hug. What's more, you're able to see that her [lilaya.tail+] is excitedly wrapping itself around the leg of the table behind her, and as you continue to hold your [lilaya.relation(pc)] in your embrace, her [lilaya.wings+] suddenly flap out and curl around to return your hug. With her cheeks still flushing a deep shade of scarlet, she mutters, [lilaya.speech(I-I suppose I can spare a minute or two...)]
+	</p>
+	<p>
+		After sharing a hug with your [lilaya.relation(pc)] for another couple of minutes, she eventually breaks it off and declares, [lilaya.speech(T-That was nice, thank you, [pc.name]. Now, I really have a lot of important work to get done today, s-so please don't try this again!)]
+	</p>
+	<p>
+		Although she made it very clear from her body language that she actually likes being hugged, you're sure that Lilaya would get angry if you were to try and hug her again today. As your [lilaya.relation(pc)] waits to hear if there's anything else you want from her, you think to yourself that you could always do this to her again tomorrow without risk of annoying her... 
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- LILAYA_EXPLAINS_ESSENCES -->
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered))
-		#IF(SPECIAL_PARSE_0=="false")
+		#IF(!pc.isAnyEquippedClothingSealed())
 			<p>
 				[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)] you explain. [pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]
 			</p>
@@ -989,7 +1066,7 @@
 			[pc.speech(Wait, I absorbed their <i>essence</i>? What does that mean?)]
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1009,7 +1086,7 @@
 			[pc.speech(Wait, what does all of this mean?)] you ask.
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1035,7 +1112,7 @@
 			[pc.speech(Wait, what does all of this mean?)] you ask.
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1049,7 +1126,7 @@
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES_3"><![CDATA[
 	<p>
-		[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from. It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining, [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]
+		[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from. It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining, [lilaya.speech(So don't have any qualms about using these essences to enchant or unseal anything!)]
 	</p>
 	<p>
 		As she speaks, Lilaya reaches down under the table and produces a bottle of Feline's Fancy, putting it down on the desk before turning back towards you.
@@ -1066,7 +1143,7 @@
 	<p>
 		[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)] Lilaya picks up the little potion and places it off to one side. [lilaya.speech(And that's all there is to it!)]
 	</p>
-	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false")
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && pc.isAnyEquippedClothingSealed())
 		<p>
 			Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
 		</p>
@@ -1094,7 +1171,7 @@
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
 		<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/>
-		<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>
+		<i>In the same way, you're now able to unseal clothing. Simply select the clothing in your inventory, then press the 'Unseal' button.</i>
 	</div>
 	]]>
 	</htmlContent>

@@ -9,20 +9,22 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
@@ -32,7 +34,8 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -44,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.3.5.5
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -67,11 +70,17 @@ public class DominionSuccubusAttacker extends NPC {
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
+
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
 			
 			addFetish(Fetish.FETISH_DEFLOWERING);
 			addFetish(Fetish.FETISH_DOMINANT);
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
+
+			this.removePersonalityTrait(PersonalityTrait.PRUDE);
+
+			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 			
@@ -81,7 +90,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setLevel(Util.random.nextInt(3) + 4);
+			setLevel(Util.random.nextInt(5) + 4);
 			
 			setName(Name.getRandomTriplet(Race.DEMON));
 			this.setPlayerKnowsName(false);
@@ -89,13 +98,13 @@ public class DominionSuccubusAttacker extends NPC {
 			// Set random inventory & weapons:
 			resetInventory(true);
 			inventory.setMoney(50);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 			
 			// CLOTHING:
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
@@ -132,9 +141,9 @@ public class DominionSuccubusAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override
@@ -152,16 +161,6 @@ public class DominionSuccubusAttacker extends NPC {
 		return UtilText.parse(this,
 				"Although all demons have an extremely powerful libido, some suffer from it far more than others."
 				+ " While most are able to control their sexual desires, others, such as this [npc.race], struggle to think of anything but how to secure their next sexual conquest.");
-	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-//			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
-//				this.setPendingTransformationToGenderIdentity(true);
-//			}
-			setPendingClothingDressing(true);
-		}
 	}
 
 	@Override
@@ -183,26 +182,35 @@ public class DominionSuccubusAttacker extends NPC {
 		return AlleywayDemonDialogue.DEMON_ATTACK;
 	}
 
+	@Override
+	public boolean isAffectionHighEnoughToInviteHome() {
+		if(this.isRelatedTo(Main.game.getPlayer())) {
+			return this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_TWO_LIKE.getMinimumValue();
+		} else {
+			return this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
+		}
+	}
+
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
-		if(this.isSlave()) {
-			return super.getMainAttackDescription(armRow, target, isHit);
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
+		if(!this.isSlave() && this.getMainWeapon(0)==null) {
+			if(this.isFeminine()) {
+				return UtilText.parse(this, target,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a stinging slap across [npc2.her] face.",
+								"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
+								"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
+			} else {
+				return UtilText.parse(this, target,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
+								"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
+								"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
+			}
 		}
-		if(this.isFeminine()) {
-			return UtilText.parse(this, target,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a stinging slap across [npc2.her] face.",
-							"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
-							"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
-		} else {
-			return UtilText.parse(this, target,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
-							"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
-							"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
-		}
+		return super.getMainAttackDescription(armRow, target, isHit, critical);
 	}
 
 	@Override
@@ -218,9 +226,12 @@ public class DominionSuccubusAttacker extends NPC {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				return UtilText.parse(equipper, target,
 						"<p>"
 							+ "Holding out a condom to [npc2.name], [npc.name] [npc.verb(force)] [npc2.herHim] to take it and put it on."
@@ -228,11 +239,16 @@ public class DominionSuccubusAttacker extends NPC {
 							+ " [npc2.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>");
 				
-			} else if (!target.isPlayer()){
+			} else if (!target.isPlayer()) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
+				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, [npc2.name] [npc2.verb(slap)] it away and [npc2.verb(sneer)],"
+							+ " [npc2.speech(Hah! I don't think so!)]");
 				}
 				return UtilText.parse(equipper, target,
 						"<p>"
@@ -242,19 +258,13 @@ public class DominionSuccubusAttacker extends NPC {
 						+ "</p>");
 			}
 		}
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	@Override
 	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
 		if(!receivingCharacter.isPlayer() || penetrating!=SexAreaPenetration.PENIS || penetrated!=SexAreaOrifice.VAGINA || !penetratingCharacter.equals(this) || this.isSlave()) {
-			return "";
+			return null;
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -308,7 +318,7 @@ public class DominionSuccubusAttacker extends NPC {
 							+ " Moving [npc.her] hands down to take hold of your waist, [npc.she] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
 							+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
 						+ "</p>");
-			sb.append(UtilText.formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
+			
 		} else {
 			sb.append(
 					"<p>"
@@ -326,7 +336,7 @@ public class DominionSuccubusAttacker extends NPC {
 						+ " [npc.speechNoEffects(It looks like you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You can't help but let out [pc.a_moan+] as you feel [npc.namePos] [npc.cock+] throbbing deep within your cunt, which causes [npc.her] to let out another mocking laugh and ask,"
+						+ "You can't help but let out [pc.a_moan+] as you feel [npc.namePos] [npc.cock+] throbbing deep within your cunt, which causes [npc.herHim] to let out another mocking laugh and ask,"
 						+ " [npc.speechNoEffects(What's that? You want me to do it again?!)]"
 					+ "</p>"
 					+ "<p>"
@@ -340,43 +350,37 @@ public class DominionSuccubusAttacker extends NPC {
 						+ " As [npc.her] cock continues to pound your cunt, [npc.name] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for demonic cock."
 						+ " As [npc.she] says this, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
 					+ "</p>");
-			sb.append(UtilText.formatVirginityLoss("Although your hymen had already been torn, you've now officially lost your virginity!"));
-		}
-		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
-			sb.append("<p style='text-align:center;'>"
-							+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-						+ "</p>"
-						+ "<p>"
-							+ "As the [npc.race] carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
-						+ "</p>"
-						+ "<p style='text-align:center;'>"
-							+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
-									+ "To... <b>her</b>?!")
-						+ "</p>"
-						+ "<p>"
-							+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-							+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the [npc.race] is telling you."
-						+ "</p>"
-						+ "<p style='text-align:center;'>"
-						+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
-								+ "Just a slut for demon cock...<br/>"
-								+ "She's right, I'm just another easy fuck for someone like her...")
-						+ "</p>"
-						+ "<p>"
-							+ "You're vaguely aware of the [npc.race]'s taunts fading away as [npc.she] starts to focus [npc.her] concentration on fucking you."
-							+ " With a desperate moan, you start bucking your hips back against [npc.herHim], resigning yourself to the fact that now you're nothing more than a"
-							+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-						+ "</p>");
-
-		if(this.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			sb.append("<p style='text-align:center;'>"
-										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(this)+")] [style.italicsArcane(experience!)]"
-								+ "</p>");
 		}
 		
 		return UtilText.parse(this, sb.toString());
+	}
+	
+	@Override
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return "<p style='text-align:center;'>"
+						+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "As the [npc.race] carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
+								+ "To... <b>her</b>?!")
+					+ "</p>"
+					+ "<p>"
+						+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
+						+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the [npc.race] is telling you."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+					+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+							+ "Just a slut for demon cock...<br/>"
+							+ "She's right, I'm just another easy fuck for someone like her...")
+					+ "</p>"
+					+ "<p>"
+						+ "You're vaguely aware of the [npc.race]'s taunts fading away as [npc.she] starts to focus [npc.her] concentration on fucking you."
+						+ " With a desperate moan, you start bucking your hips back against [npc.herHim], resigning yourself to the fact that now you're nothing more than a"
+						+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+					+ "</p>";
 	}
 	
 	// Dirty talk:

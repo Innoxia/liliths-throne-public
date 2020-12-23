@@ -197,7 +197,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Gently pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your [pc.nipple], you let out a little whimper as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your [pc.nipple(true)], you let out a little whimper as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts], you start gently pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -239,7 +239,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -277,11 +277,11 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to rapidly finger your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to rapidly finger your [pc.breast(true)].",
 					
 					"Roughly pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Forcefully curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start roughly grinding your digits in and out of your [pc.breast+].",
+					"Forcefully curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start roughly grinding your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts+], you start roughly slamming your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -323,7 +323,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.breast+].",
 					
-					"Curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
+					"Curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start pumping your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}
@@ -361,11 +361,11 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to desperately finger your [pc.breast].",
+					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.fingers] deep inside your [pc.nipple+], before starting to desperately finger your [pc.breast(true)].",
 					
 					"Enthusiastically pumping your [pc.fingers] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you frantically finger your [pc.breast+].",
 					
-					"Desperately curling your [pc.fingers] up inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start eagerly grinding your digits in and out of your [pc.breast+].",
+					"Desperately curling your [pc.fingers] up inside your fuckable [pc.nipple(true)], you let out [pc.a_moan] as you start eagerly grinding your digits in and out of your [pc.breast+].",
 					
 					"Focusing on pleasuring your fuckable [pc.breasts+], you eagerly start slamming your [pc.fingers] in and out of one of your [pc.nipples+].");
 		}

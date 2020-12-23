@@ -131,7 +131,7 @@
 		 As you sit down beside your slave, Helena flashes you a slight smile and states, [helena.speech(My offer for the purchase of my dear Scarlett stands at [#SPECIAL_PARSE_0] flames. I am sure that I need not remind you, but you will either accept my offer, or else I will have no choice but to close this business down.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			Looking across at your slave, you see her cast an affectionate glance your way, as though [scarlett.sheIs] trying to make it known that [scarlett.she]'d rather stay by your side. Picking up on the fact that the [scarlett.race] is quite fond of you, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
 		#ELSE
 			Looking across at your slave, you see her roll [scarlett.her] [scarlett.eyes], as though [scarlett.sheIs] trying to make it known that [scarlett.she] doesn't care what happens to [scarlett.herHim]. Unsure of whether or not the two of you are close to one another, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
@@ -154,7 +154,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="ROMANCE_SHOP_CORE_4_SCARLETT"><![CDATA[
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
 			As you push open the door and [pc.step] inside Helena's shop, you can't help but be reminded of the very first time you ever set foot in here. Over on the far side of the room, the black-feathered form of Scarlett is slouched down behind the shop's trendy counter, and as she sees you enter she calls out, [scarlett.speech([pc.Name]?! You're back!)]
 		</p>
@@ -199,7 +199,7 @@
 	<p>
 		#IF(scarlett.isAbleToFly())
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully skipping off and launching herself into the air.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Giving you one last smile,
 			#ELSE
 				 Giving you one last scowl,
@@ -207,7 +207,7 @@
 			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out out a collective sigh of disappointment.
 		#ELSE
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully striding off down the street.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Giving you one last smile,
 			#ELSE
 				 Giving you one last scowl,
@@ -680,17 +680,7 @@
 		 In another contrast to her naked slaves, this [natalya.race] is dressed to impress, as on the upper, humanoid part of her body, a very smart feminine blazer and shirt are restraining her round, [natalya.cupSize]-cup breasts, while a large, black skirt conceals whatever genitalia she might have at the rear of her feral horse's body. Her silken, black hair is tied up into a smart bun, which is being held in place by a pair of royal-purple hair sticks. Perched on the bridge of her cute feminine nose, she's wearing a pair of black, thick-rimmed glasses, and as she realises that the store in front of her is closed, she rolls her grey-green eyes and tuts, [natalya.speech(This is most unsatisfactory. I was assured that there'd be somebody here to receive me...)]
 	</p>
 	<p>
-		As the events in front of you have unfolded so quickly, you haven't had the opportunity to attract this [natalya.race]'s attention, but as she turns away from the locked door, you realise that now's the moment to introduce yourself...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ROMANCE_PAINTING_3"><![CDATA[
-	<p>
-		You take the golden paint outside. Helena follows you outside to supervise. Criticises everything, but is happy with the end result. If cheap paint, she says the end result <i>does</i> look like the purple-star one.
-	</p>
-	<p>
-		Tells you to follow her inside; she has more to discuss with you.
+		As the events in front of you have unfolded so quickly, you haven't had the opportunity to attract this small [natalya.race]'s attention, but as she turns away from the locked door, you realise that now's the moment to introduce yourself...
 	</p>
 	]]>
 	</htmlContent>
@@ -700,10 +690,10 @@
 	
 	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY"><![CDATA[
 	<p>
-		Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is Natalya Loviennemartu, and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Am I now to discover that she is not here?)]
+		Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is [natalya.name] [natalya.surname], and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Please inform her that I have arrived!)]
 	</p>
 	<p>
-		As you confirm that this is indeed the case, and that the harpy matriarch will not be returning today, Natalya's smirk is quickly replaced by an irritated scowl. Letting out a loud tutting noise, she impatiently produces a trailing paper receipt from out of one of her blazer's pockets, before rudely thrusting it into your [pc.hands] and declaring, [natalya.speech(This is the list of everything that's to be delivered today. As you can no doubt see, there's plenty to be unloaded, so hurry up and get that door unlocked, then I'll command my big, strong boys... ~Ahem!~ That is, then I shall have the slaves here get to work.)]
+		As you reveal that Helena has already left and will not be returning today, the small [natalya.race]'s smirk is quickly replaced by an irritated scowl. Letting out a loud tutting noise, she impatiently produces a trailing paper receipt from out of one of her blazer's pockets, before rudely thrusting it into your [pc.hands] and declaring, [natalya.speech(This is the list of everything that's to be delivered today. As you can no doubt see, there's plenty to be unloaded, so hurry up and get that door unlocked, then I'll command my big, strong boys... ~Ahem!~ That is, then I shall have the slaves here get to work.)]
 	</p>
 	<p>
 		As you quickly scan over the list which Natalya just passed to you, it becomes immediately apparent that there is a huge amount of furniture for the centaurs to unload. Seeing no reason to delay, you unlock and open the front door, while Natalya proudly trots over to the side of the nearest centaur and starts to unbuckle him from the cart's harness. As she does this, you can't help but notice the way in which the [natalya.race]'s delicate fingers stroke over her slave's body, and as she walks around to the second centaur, she makes a show of flicking her tail in their direction. Quite clearly being extremely well-trained, the centaurs stoically ignore their owner's playful teasing, and as soon as Natalya gives them the word, they silently set about unloading the furniture from the back of the cart.
@@ -730,13 +720,13 @@
 	
 	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_NEXT"><![CDATA[
 	<p>
-		Obviously having been previously instructed on where each piece of furniture is to be placed, the two centaurs get on with their task without requiring any further orders, which seems to suit their owner very well, as the arrogant [natalya.race] seems more than happy to simply stand back and watch her slaves work. Not showing any sign of wanting to engage you in conversation, Natalya hungrily gazes at her slaves' muscular bodies as they heave piece after piece of heavy furniture into Helena's shop. It only takes a few minutes of this before the [natalya.race] starts biting her lip and audibly panting in excitement. Staring longingly at the centaurs' huge, sheathed cocks and massive, dangling balls, she seems to forget that you're still standing there as she mutters under her breath, [natalya.speech(That's my good boys... You'll get your reward tonight...)]
+		Obviously having been previously instructed on where each piece of furniture is to be placed, the two centaurs get on with their task without requiring any further orders, which seems to suit their owner very well, as the arrogant [natalya.race] seems more than happy to simply stand back and watch her slaves work. Not showing any sign of wanting to engage you in conversation, Natalya hungrily gazes at her slaves' muscular bodies as they heave piece after piece of heavy furniture into Helena's shop. It only takes a few minutes of this before the pretty [natalya.race] starts biting her lip and audibly panting in excitement. Staring longingly at the centaurs' huge, sheathed cocks and massive, dangling balls, she seems to forget that you're still standing there as she mutters under her breath, [natalya.speech(That's my good boys... You'll get your reward later...)]
 	</p>
 	<p>
 		At the exact same moment, both you and Natalya suddenly become aware that there's a thick stream of slimy precum drooling down to form a steadily-growing pool on the paving stones beneath her feral horse body. Pretending as though nothing is wrong, she quickly trots around to the rear of the cart, before grabbing something out of the back of it and arrogantly shouting out to you, [natalya.speech(Stay right there and make sure my slaves do not require anything. I will be back in just a moment!)]
 	</p>
 	<p>
-		Concealing the item she's just grabbed behind her body, the [natalya.race] canters off down the alleyway beside Helena's shop, before turning a corner and disappearing from sight. Knowing that the alleyway leads to nothing but a dead end, you could always follow after Natalya and see what she's getting up to. Then again, if you weren't curious to find out what she's packing beneath that large skirt of hers, you could always do as she says and remain here until she returns...
+		Concealing the item she's just grabbed behind her body, the lithe [natalya.race] nimbly canters off down the alleyway beside Helena's shop, before turning a corner and disappearing from sight. Knowing that the alleyway leads to nothing but a dead end, you could always follow after Natalya and see what she's getting up to. Then again, if you don't want to find out what she's packing beneath that large skirt of hers, you could always do as she says and remain here until she returns...
 	</p>
 	]]>
 	</htmlContent>
@@ -754,7 +744,7 @@
 		Watching the two slaves carry all sorts of furniture into Helena's shop, you can't help but be impressed by their superb efficiency. Without ever uttering a single word to one another, they get on with their work in perfect harmony, and after just fifteen minutes they've unloaded every last item. Seeing no sign of their owner, the centaurs obediently return to stand side-by-side in front of the now-empty cart, stoically staring straight ahead as they await Natalya's return.
 	</p>
 	<p>
-		Just a moment later, the [natalya.race] steps out from the alleyway, and with a satisfied, smug look on her face, she trots up to where her slaves are standing and sets about strapping them into their harnesses. As Natalya passes you by, you smell a strong, heady musk following in her wake, and as she once again teases her slaves by flicking her horse-like tail in their direction, one of the centaurs starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the [natalya.race] tightly buckles up his harness before finally turning to you and rudely declaring, [natalya.speech(You're a good [pc.girl], having waited here as I instructed. Now you will sign the receipt I gave to you and we shall be on our way.)]
+		Just a moment later, the small [natalya.race] steps out from the alleyway, and with a satisfied, smug look on her face, she trots up to where her slaves are standing and sets about strapping them into their harnesses. As Natalya passes you by, you smell a strong, heady musk following in her wake, and as she once again teases her slaves by flicking her horse-like tail in their direction, one of the centaurs starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the [natalya.race] tightly buckles up his harness before finally turning to you and rudely declaring, [natalya.speech(You're a good [pc.girl], having waited here as I instructed. Now you will sign the receipt I gave to you and we shall be on our way.)]
 	</p>
 	<p>
 		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Having been keeping a close eye on the two centaurs the entire time they were unpacking the furniture, you're sure that nothing is damaged, and so you do as the [natalya.race] says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished. As you're able to follow my commands, I suppose that you show a glimmer of potential and so could be considered for employment at Dominion Express. Our address is on that business card; I expect to see you there at some point in the future.)]
@@ -776,7 +766,7 @@
 		With Natalya and her centaurs having departed, you decide to head inside Helena's shop and take a quick look around. Although it's possible to see the new interior by looking through the large glass windows, upon entering the store you still find yourself completely blown away by how different it looks. The barren shop floor from an hour earlier has been transformed into what now looks like an exclusive VIP lounge, with plush designer sofas and elegant coffee tables tastefully placed here and there in little self-contained clusters.
 	</p>
 	<p>
-		Heading over to the back room from which you retrieved the painting supplies, you're amazed to discover that it's now a combined storage and staff room. A long, stylish counter runs alongside the left-hand wall, and holds everything from coffee and tea machines to glass-fronted fridges ready to be stocked with cold drinks. The other side of the room is home to several rows of shelving units, as well as a half dozen metal posts, which have been securely bolted down to the floor. Noticing that there's a large metal ring attached to each one, you realise that the purpose of these posts is so that slaves can be chained up to them.
+		Heading over to the back room from which you retrieved the painting supplies, you're amazed to discover that it's now a combined storage and staff room. A long, stylish counter runs alongside the left-hand wall, and holds everything from coffee and tea machines to glass-fronted fridges ready to be stocked with cold drinks. The other side of the room is blocked from sight behind several free-standing room dividers, and after peering around them, you discover that the area beyond is home to several rows of shelving units, as well as a half dozen metal posts, which have been securely bolted down to the floor. Noticing that there's a large metal ring attached to each one, you realise that the purpose of these posts is so that slaves can be chained up to them.
 	</p>
 	<p>
 		Having finished your brief inspection, you swiftly exit Helena's store, before locking the front door and posting the keys through the letterbox, as instructed. Once again finding yourself in the position where there's nothing to do except leave and 
@@ -808,19 +798,19 @@
 		 Quickly approaching the end of the passageway, you peer around the corner to see that there's a very lewd scene taking place before you.
 	</p>
 	<p>
-		The first thing that grabs your attention is the fact that Natalya has not only pulled up her large skirt, but is also flicking her tail to one side, which gives you an unobstructed view of her rear end. Despite what her feminine appearance might lead people to assume, you're able to see that there's no sign of a pussy between this [natalya.race]'s legs. Instead, she possesses a massive, flared, horse-like cock, complete with an accompanying pair of huge, heavy balls that hang down between her hindquarters. Matching the shade of the horse-like hair which covers her feral lower body, her animalistic genitalia are mostly dark black in colour, although there is a small amount of pale lilac mottling on her [natalya.cockSize], erect shaft.
+		The first thing that grabs your attention is the fact that Natalya has not only pulled up her large skirt, but is also flicking her tail to one side, which gives you an unobstructed view of her rear end. Despite what her feminine appearance might lead people to assume, you're able to see that there's no sign of a pussy between this small [natalya.race]'s legs. Instead, she possesses a massive, flared, horse-like cock, complete with an accompanying pair of huge, heavy balls that hang down between her hindquarters. Matching the shade of the horse-like hair which covers her feral lower body, her animalistic genitalia are mostly dark black in colour, although there is a small amount of pale lilac mottling on her [natalya.cockSize], erect shaft.
 	</p>
 	<p>
 		Despite the fact that you're quite clearly visible from where she's standing, Natalya hasn't noticed your approach, as her focus is entirely on the object which she just received from her cart. Following her gaze as she looks back and down at her rear hoofs, your eyes open wide as you see that the [natalya.race] has placed a gigantic, [style.size(56)] ribbed dildo down on the ground, which is facing directly up towards her ass. As she lowers her hindquarters down towards this massive toy, your eyes are drawn to Natalya's alluring asshole. Being puffed up into an ebony, doughnut-like ring, it looks just like a feral horse's at first glance, but as it drops down ever closer to the tip of the massive dildo, its true demonic nature is revealed, as you see that its surface is glistening with clear, slimy lubricant.
 	</p>
 	<p>
-		Still oblivious to your presence, Natalya drops her hips down a little further, letting out a deep moan as the tip of the dildo slips inside of her asshole. Panting and moaning, the [natalya.race] forces the first of the dildo's three bulbous ribs past the puffy rim of her asshole and into her slimy rear entrance. At this moment, the dildo reveals itself to be enchanted and starts vigorously vibrating, causing Natalya to let out another shuddering moan. Unable to cope with the pleasure, her legs suddenly give way, and the remaining two ribs of the dildo obscenely stretch out the [natalya.race]'s puffy asshole as they're suddenly forced all the way into her ass.
+		Still oblivious to your presence, Natalya drops her hips down a little further, letting out a deep moan as the tip of the dildo slips inside of her asshole. Panting and moaning, the [natalya.race] forces the first of the dildo's three bulbous ribs past the puffy rim of her asshole and into her slimy rear entrance. At this moment, the dildo reveals itself to be enchanted and starts vigorously vibrating, causing Natalya to let out another shuddering moan. Unable to cope with the pleasure, her legs suddenly give way, and you watch in disbelief as the remaining two ribs of the dildo obscenely stretch out the lithe [natalya.race]'s puffy asshole as they're suddenly forced all the way into her ass.
 	</p>
 	<p>
 		At this moment, Natalya finally catches sight of you, and with copious amounts of precum drooling out of her massive horse-like cock, she staggers to her feet and shouts out, [natalya.speech(Y-You insolent [pc.girl]! How dare... ~Ooh!~ How dare you disobey my orders!)]
 	</p>
 	<p>
-		Before you can respond, the arrogant sneer quickly returns to Natalya's face as she breathlessly pants, [natalya.speech(You need to be shown your place... I will train you as I would a newly-purchased [pc.filly]! You will refer to me as your Mistress and kneel down before me... ~Mmm!~ Yes... Kneel down before your Mistress, slave!)]
+		Before you can respond, the arrogant sneer quickly returns to Natalya's face as she breathlessly pants, [natalya.speech(You need to be shown your place... I will train you to be an obedient filly! You will refer to me as your Mistress and kneel down before me... ~Mmm!~ Yes... Kneel down before your Mistress, filly!)]
 	</p>
 	<p>
 		As her throbbing cock continues to leak musky precum all over the floor, Natalya can't help but let out a deep moan, and you wonder whether you should do as she says and kneel before her, or simply turn around and take your leave...
@@ -844,7 +834,7 @@
 		Just a moment later, the [natalya.race] steps out from the alleyway, and with a satisfied, smug look on her face, she trots up to where her slaves are standing and sets about strapping them into their harnesses. As Natalya passes you by, you smell a strong, heady musk following in her wake, and as she once again teases her slaves by flicking her horse-like tail in their direction, one of the centaurs starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the [natalya.race] tightly buckles up his harness before finally turning to you and rudely declaring, [natalya.speech(Your disobedience disgusts me, [pc.girl]. Not only did you not wait here as I instructed, but you also refused to obey my command to kneel before me. The least you can do now is sign the receipt I gave to you; I am anxious to be on my way.)]
 	</p>
 	<p>
-		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Having been keeping a close eye on the two centaurs the entire time they were unpacking the furniture, you're sure that nothing is damaged, and so you do as the [natalya.race] says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished. You may find me at the address on that business card; once you accept the fact that you're in need of some obedience training, you may present yourself to me there, and I'll consider taking some time to break you in.)]
+		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Having been keeping a close eye on the two centaurs the entire time they were unpacking the furniture, you're sure that nothing is damaged, and so you do as the small [natalya.race] says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished. You may find me at the address on that business card; once you accept the fact that you're in need of some obedience training, you may present yourself to me there, and I'll consider taking some time to break you in.)]
 	</p>
 	<p>
 		With that, the haughty [natalya.race] trots off to the back of her cart, making a point of going the long way around so as to walk in front of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this tonight...)]
@@ -860,13 +850,13 @@
 	
 	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT"><![CDATA[
 	<p>
-		Drawn in by the arousing sight of this dominant [natalya.race]'s huge cock and puffy asshole, you do as she commands and move forwards, before kneeling down on the ground in front of her. Looking down her nose at you, Natalya smirks and demands, [natalya.speech(Now call me Mistress, slave, and beg to be allowed to touch my cock!)]
+		Drawn in by the arousing sight of this dominant [natalya.race]'s huge cock and puffy asshole, you do as she commands and move forwards, before kneeling down on the ground in front of her. Looking down her nose at you, Natalya smirks and demands, [natalya.speech(Now call me Mistress, filly, and beg to be allowed to touch my cock!)]
 	</p>
 	<p>
 		Having already decided to submit to her, you do as you're told, and beg, [pc.speech(Please, Mistress, allow me to touch your cock!)]
 	</p>
 	<p>
-		Impatiently stepping forwards, Natalya thrusts her leaky cock towards you and commands, [natalya.speech(Get started, slave! ~Mmm!~ You are only permitted to use your hands, nothing else!)]
+		Impatiently stepping forwards, Natalya thrusts her leaky cock towards you and commands, [natalya.speech(Get started, filly! ~Mmm!~ You are only permitted to use your hands, nothing else!)]
 	</p>
 	<p>
 		With Natalya's huge, flared member hovering just inches away from your face, the heady scent of her musky precum washes over you, and you can't help but let out a desperate, horny [pc.moan] as you prepare to do as your Mistress commands...
@@ -876,13 +866,13 @@
 	
 	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_START_SEX"><![CDATA[
 	<p>
-		Reaching forwards, you obediently wrap your [pc.fingers] around Natalya's huge, throbbing cock and give it a loving stroke. The hot shaft instantly jumps up in excitement as the [natalya.race] feels your loving touch, and in a further display of exhilaration, she starts rapidly pawing at the ground with one of her front hoofs. As a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, Natalya calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, slave! ~Mmm!~ Do a good job, and I'll reward you by allowing you to receive my load all over your face!)]
+		Reaching forwards, you obediently wrap your [pc.fingers] around Natalya's huge, throbbing cock and give it a loving stroke. The hot shaft instantly jumps up in excitement as the [natalya.race] feels your loving touch, and in a further display of exhilaration, she starts rapidly pawing at the ground with one of her front hoofs. As a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, Natalya calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, filly! ~Mmm!~ Do a good job, and I'll reward you by allowing you to receive my load all over your face!)]
 	</p>
 	<p>
 		[pc.speech(Yes, Mistress!)] you obediently reply as you enthusiastically masturbate her cock. Running your [pc.fingers] down to the leaky head, you allow the slimy precum to drool out into your [pc.hands], before massaging it down the length of her throbbing shaft.
 	</p>
 	<p>
-		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good slave! ~Ooh!~ Remember, you're forbidden from using anything but your hands!)] Natalya reminds you as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
+		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good filly! ~Ooh!~ Remember, you're forbidden from using anything but your hands!)] Natalya reminds you as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
 	</p>
 	]]>
 	</htmlContent>
@@ -893,27 +883,27 @@
 	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_POST_SEX"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_playerReceivedNatalyaFacial))
 		<p>
-			Now that Natalya has had her fun, she smirks down at you and arrogantly remarks, [natalya.speech(With a little more training, you'll make a fine slave. Now, remove my dildo for me; I want to hurry back and check on my boys.)]
+			Now that Natalya has had her fun, she smirks down at you and arrogantly remarks, [natalya.speech(With a little more training, you'll make a fine filly. Now, remove my dildo for me; I want to hurry back and check on my boys.)]
 		</p>
 		<p>
-			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slave! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ That will be a reward later on in your training!)]
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, filly! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ That will be a reward later on in your training!)]
 		</p>
 		<p>
 			Eager to obey Natalya's order, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
 		</p>
 	#ELSE
 		<p>
-			Although Natalya has had her fun, she is quite clearly displeased with your refusal to receive her facial, and arrogantly remarks, [natalya.speech(I'll work on your disobedience later, slave. For now, just remove my dildo for me; I want to hurry back and check on my boys.)]
+			Although Natalya has had her fun, she is quite clearly displeased with your refusal to receive her facial, and arrogantly remarks, [natalya.speech(I'll work on your disobedience later, filly. For now, just remove my dildo for me; I want to hurry back and check on my boys.)]
 		</p>
 		<p>
-			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slave! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ Bad [pc.girls] like you aren't deserving of it!)]
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, filly! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ Bad [pc.girls] like you aren't deserving of it!)]
 		</p>
 		<p>
 			Not wanting to annoy Natalya any more than you've already done so, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
 		</p>
 	#ENDIF
 	<p>
-		Before you're tempted to touch it, Natalya quickly pulls her skirt back down to conceal her lower body, depriving you of the erotic sight of both her slutty asshole and massive horse-like cock. Grabbing the dildo from out of your [pc.hands], she starts trotting off back in the direction of Helena's shop, calling over her shoulder as she goes, [natalya.speech(Come on, slave! Follow your Mistress!)]
+		Before you're tempted to touch it, Natalya quickly pulls her skirt back down to conceal her lower body, depriving you of the erotic sight of both her slutty asshole and massive horse-like cock. Grabbing the dildo from out of your [pc.hands], she starts trotting off back in the direction of Helena's shop, calling over her shoulder as she goes, [natalya.speech(Come on, filly! Follow your Mistress!)]
 	</p>
 	<p>
 		There's little else for you to do except obey Natalya's command and follow her back to the shop...
@@ -926,10 +916,10 @@
 		As you trail along in your Mistress's wake, she purposefully swishes her tail back in your direction, wafting the heady, potent musk still being given off by her precum-coated cock back in your direction. For the first time since meeting her, she turns to give you the briefest glimpse of a genuine smile, before trotting along and leading you out from the alleyway's exit.
 	</p>
 	<p>
-		As you head back out into the main street outside of Helena's shop, you see that Natalya's centaur slaves are obediently standing side-by-side in front of the now-empty cart, stoically staring straight ahead as they await their owner's return. Quickly trotting over to the two centaurs, your Mistress sets about strapping them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, Natalya tightly buckles up his harness before turning back to address you, [natalya.speech(Slave! You will sign the receipt I gave to you earlier, and then my boys and I shall be on our way.)]
+		As you head back out into the main street outside of Helena's shop, you see that Natalya's centaur slaves are obediently standing side-by-side in front of the now-empty cart, stoically staring straight ahead as they await their owner's return. Quickly trotting over to the two centaurs, your Mistress sets about strapping them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the small [natalya.race] tightly buckles up his harness before turning back to address you, [natalya.speech(Filly! You will sign the receipt I gave to you earlier, and then my boys and I shall be on our way.)]
 	</p>
 	<p>
-		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Not wanting to displease your Mistress, you quickly do as she says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished, slave. The address at which you may find me is printed on that business card; I expect to see you there at some point in the future so that I may continue with your training. Do not disappoint me, slave.)]
+		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Not wanting to displease your Mistress, you quickly do as she says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished, filly. The address at which you may find me is printed on that business card; I expect to see you there at some point in the future so that I may continue with your training. Do not disappoint me, filly.)]
 	</p>
 	<p>
 		With that, the haughty [natalya.race] trots off to the back of her cart, making a point of going the long way around so as to walk in front of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this tonight...)]
@@ -1092,7 +1082,7 @@
 				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett here is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take her under my wing, which necessitates this ultimatum; either you will accept my generous offer of [#SPECIAL_PARSE_0] flames in exchange for selling Scarlett to me, or else I will have no choice but to close this business down.)]
 			</p>
 			<p>
-				#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				#IF(scarlett.isLikesPlayer())
 					Looking across at [scarlett.name], you see her cast an affectionate glance your way, as though [scarlett.sheIs] trying to make it known that [scarlett.she]'d rather stay by your side. Picking up on the fact that the [scarlett.race] is quite fond of you, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
 				#ELSE
 					Looking across at [scarlett.name], you see her roll [scarlett.her] [scarlett.eyes], as though [scarlett.sheIs] trying to make it known that [scarlett.she] doesn't care what happens to [scarlett.herHim]. Unsure of whether or not the two of you are close to one another, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
@@ -1191,9 +1181,9 @@
 	</htmlContent>
 	
 	<htmlContent tag="ROMANCE_SCARLETT_SOLD_REACTION"><![CDATA[
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
-			[scarlett.speech(You will come back and visit me again, won't you, [pc.name]?)] Scarlett asks, blushing a little as [scarlet.she] reveals [scarlett.her] affection towards you.
+			[scarlett.speech(You will come back and visit me again, won't you, [pc.name]?)] Scarlett asks, blushing a little as [scarlett.she] reveals [scarlett.her] affection towards you.
 		</p>
 		<p>
 			Assuring the [scarlett.race] that you will, you can't help but smile as you see a happy look settle on your ex-slave's face. Turning towards Helena, [scarlett.she] asks, [scarlett.speech(What would you like me to do now?)]
@@ -1387,7 +1377,7 @@
 	<htmlContent tag="ROMANCE_RETURN_AFTER_POSTERS"><![CDATA[
 	<p>
 		Not wanting to keep Helena waiting, you decide to do as Scarlett says and follow her back to the store. As you hurry forwards and [pc.walk] along beside her,
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 the harpy blushes a little and reveals, [scarlett.speech(You know, I think Helena's going to have us work on something together for the rest of the day...)]
 		#ELSE
 			 the rude harpy reveals, [scarlett.speech(Don't think that I'm happy about it, cunt, but I think Helena's going to have us work on something together for the rest of the day...)]
@@ -1406,7 +1396,7 @@
 		[scarlett.speech(You're meant to be having a meeting back up in the nest in five minutes,)] Scarlett suddenly interjects, glancing up at a clock on the nearby wall which reads [units.currentTime].
 	</p>
 	<p>
-		[helena.speech(Yes, Scarlett, I aware,)] the regal matriarch coolly replies, before turning back to you and continuing, [helena.speech(You and Scarlett are to work together to get some final things ready for tomorrow. Please follow me, and I shall briefly explain what it is you are to do.)]
+		[helena.speech(Yes, Scarlett, I am aware,)] the regal matriarch coolly replies, before turning back to you and continuing, [helena.speech(You and Scarlett are to work together to get some final things ready for tomorrow. Please follow me, and I shall briefly explain what it is you are to do.)]
 	</p>
 	<p>
 		Sensing that this will be the final task assigned to you by Helena, you see no reason to refuse her request for assistance, and move forwards to do as she asks...
@@ -1448,7 +1438,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(I guess having to work with you isn't too bad,)] Scarlett mutters, blushing a little before turning away and stomping off into the back room. Thankful for the fact that your harpy co-worker isn't as rude or aggressive towards you as she is to others, you prepare to get started on the tasks Helena assigned to you...
 		#ELSE
 			[scarlett.speech(This fucking sucks; not only do I have to spend the night here, but I've got to put up with you,)] Scarlett rudely complains, before turning away and stomping off into the back room.
@@ -1469,7 +1459,7 @@
 	<p>
 		Seeing no reason to delay, you pick up the cleaning products which Helena has proved, before moving them out into the main store. While the place doesn't look dirty upon first glance, a more careful inspection reveals a fine layer of dust covering both the floor and furniture, while here and there, you spot the odd black or white feather that's been shed from Helena's and Scarlett's wings. From your time spent painting the shop's frontage, you know that the exterior windows are very clean, but as you move over to open the blinds, you see that the inside of the glass is quite smudged and dirty.
 	</p>
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
 			[scarlett.speech(So, what do we need to do?)] Scarlett asks as she reappears from the back room. Turning to look at her, you see that she's grabbed a cereal bar from out of the provisions that Helena left for you, and as she starts loudly munching on it, you can't help but notice how she's scattering crumbs all over the floor.
 		</p>
@@ -1501,7 +1491,7 @@
 		Knowing that she's likely to react in a hostile manner if you do anything but treat her nicely, you [pc.step] over to where Scarlett is sitting on the counter and kindly ask her if she'd please help you with the cleaning.
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(Of course I'll help!)] she eagerly replies, before blushing a little and muttering, [scarlett.speech(I mean... I guess it would be a good idea if the two of us worked together on this...)]
 		#ELSE
 			[scarlett.speech(Fucking hell,)] she sighs, before jumping down off the counter and muttering, [scarlett.speech(Fine... I guess it would be a good idea if the two of us worked together on this...)]
@@ -1515,7 +1505,7 @@
 		Knowing that the best way to deal with Scarlett is to show her who's boss, you [pc.step] over to where she's is sitting on the counter and firmly scold her for lazing about while you're the one doing all the cleaning.
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(Fine, I'll help...)] she sulkily replies, before muttering, [scarlett.speech(I guess it <i>would</i> be a good idea if the two of us worked together on this...)]
 		#ELSE
 			[scarlett.speech(Fucking hell,)] she sighs, before jumping down off the counter and muttering, [scarlett.speech(Fine... I guess it <i>would</i> be a good idea if the two of us worked together on this...)]
@@ -1533,7 +1523,7 @@
 	</p>
 	<p>
 		Sharing out the food provided to you by Helena, you and Scarlett sit in silence for a while as the two of you eat. Finishing her meal before you, the harpy shuffles about a little and admits,
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 [scarlett.speech(You know, I actually kind of like getting to spend this time with you, [pc.name]...)]
 		#ELSE
 			 [scarlett.speech(I guess this isn't really too bad. It sure beats being a slave, anyway...)]
@@ -1559,7 +1549,7 @@
 		Without caring about your presence, Scarlett strips off her dress, revealing that she's wearing a matching pair of black boyshorts and croptop bra. Grabbing something from out of one of the fridges, she collapses down on the sofa opposite to yours, before showing off what turns out to be a bottle of whiskey and saying, [scarlett.speech(That fridge is stocked with some good shit. Helena said we could drink whatever's here, so I'm having this.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			Unscrewing the cap, the harpy takes a swig straight out of the bottle, before grinning and holding it out to you, saying, [scarlett.speech(Go on, you can have some too...)]
 		#ELSE
 			Unscrewing the cap, the harpy takes a swig straight out of the bottle, before rolling her eyes and holding it out to you, saying, [scarlett.speech(Fine, you can have some too...)]
@@ -1640,7 +1630,7 @@
 			#ENDIF
 		</p>
 		<p>
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				Continuing to advance towards you, the horny, drunk harpy lustfully pants, [scarlett.speechNoEffects(Y'know, [pc.name], I really kinda like you... I've been wantin' to 'ave some fun with you fer a good long while... You're gonna love bein' my bitch...)]
 			#ELSE
 				Continuing to advance towards you, the horny, drunk harpy lustfully pants, [scarlett.speechNoEffects(Y'know, [pc.name], you really piss me off... I've been wantin' to give ya a good, hard hate-fuck fer a real long while... I'm gonna make ya my bitch...)]
@@ -1986,14 +1976,14 @@
 		The group of harpies hovering nearby immediately start agreeing and flattering their matriarch, and only stop with their grovelling praise once Helena raises one of her beautiful white wings to silence them. Allowing a faint smile to settle on her face, she continues, [helena.speech(As I am now accepting my followers' help once again, I shall not require your services after today, [pc.name]. Before then, however, I do have one last thing which I must ask of you; I require you to look after my dear Scarlett for the day, as I shall be too busy with entertaining my guests to keep an eye on her.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(You mean I'm going to be spending more time with [pc.name]?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
 		#ELSE
 			[scarlett.speech(You mean I've got to spend more time with this cunt?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[helena.speech(That is correct,)] the matriarch replies, before gesturing through the shop's windows at the huge crowd of fans and potential customers which has assembled outside. [helena.speech(As you can see, I am expecting many visitors today, and so the two of you shall stay in the back room and prepare drinks for them. My girls here will be able to handle everything else.)]
 		#ELSE
 			[helena.speech(Do not speak in such a manner in my presence,)] the matriarch icily replies, causing Scarlett to visibly flinch and apologise. Gesturing through the shop's windows at the huge crowd of fans and potential customers which has assembled outside, she continues, [helena.speech(As you can see, I am expecting many visitors today, and so the two of you shall stay in the back room and prepare drinks for them. My girls here will be able to handle everything else.)]
@@ -2019,7 +2009,7 @@
 		, the two of you find yourselves continuously tasked with either operating the tea and coffee machines, or pouring out all manner of cold drinks from the well-stocked fridges.
 	</p>
 	<p>
-		By the time the grand opening event finally comes to a close, you and Scarlett are absolutely exhausted, and as the last of the guests are escorted out, you each collapse down onto the sofas which you'd slept on the night before. As her harpy followers set about leaning up after the guests, Helena enters the back room and proudly declares, [helena.speech(I must say, that went better than I could ever have hoped for! Why, today alone I've received orders for almost fifty custom slaves!)]
+		By the time the grand opening event finally comes to a close, you and Scarlett are absolutely exhausted, and as the last of the guests are escorted out, you each collapse down onto the sofas which you'd slept on the night before. As her harpy followers set about cleaning up after the guests, Helena enters the back room and proudly declares, [helena.speech(I must say, that went better than I could ever have hoped for! Why, today alone I've received orders for almost fifty custom slaves!)]
 	</p>
 	<p>
 		As you stand up and offer Helena your congratulations, you can't help but notice that she looks far happier than you've ever seen her. Allowing a big, beautiful smile to settle on her face, she happily turns to Scarlett first, and says, [helena.speech(My dear Scarlett, thank you for not causing a scene today, and for assisting [pc.name] in putting up all those wonderful decorations last night. As your reward, I shall forgive you for all of the annoyances you have caused me in the past. Now, you may return to the nest and take the rest of today off.)]
@@ -2061,7 +2051,7 @@
 	
 	<htmlContent tag="ROMANCE_END_KISSED"><![CDATA[
 	<p>
-		[helena.speech(T-That was the second part of your reward!)] she quickly blurts out, and while still keeping her back to you, she continues, [helena.speech(A-As a further expression of my gratitude, I will allow you to... t-to take me out a date each Friday night! I intend to work late on Fridays, so you shall meet me here between five and nine in the evening! Y-You are also permitted to come and see me in my nest at weekends and when I'm not working here. That is all!)]
+		[helena.speech(T-That was the second part of your reward!)] she quickly blurts out, and while still keeping her back to you, she continues, [helena.speech(A-As a further expression of my gratitude, I will allow you to... t-to take me out on a date each Friday night! I intend to work late on Fridays, so you shall meet me here between five and nine in the evening! Y-You are also permitted to come and see me in my nest at weekends and when I'm not working here. That is all!)]
 	</p>
 	<p>
 		Clearly still too embarrassed to look at you, the blushing matriarch swiftly darts out of the room, before rushing past her harpy followers and exiting the store. Immediately skipping off down the street, she leaps into the air and flies off in the direction of her nest. Suddenly finding yourself with little else to do but leave, you walk across the shop floor towards the exit, ignoring the inquisitive glances thrown your way by the eight harpies who've remained behind to clean up. Pushing open the door, you [pc.step] out into Slaver Alley and wonder where to head next...

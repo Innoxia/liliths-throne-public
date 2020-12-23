@@ -1,7 +1,7 @@
 html {
 	background: #1e1e20;
 	font-family: Calibri, Carlito, sans-serif;
-	font-size:11pt;
+	font-size:15px;
 	color: #eeeeee;
 	padding: 0;
 	border:0;
@@ -76,6 +76,15 @@ h6{
 /******************************************************/
 /*GENERIC FOR ALL*/
 
+.speech{
+}
+.speech:before {
+    content: '"';
+}
+.speech:after {
+    content: '"';
+}
+
 .title{
 	font-size:20px;
 	font-weight: bold;
@@ -140,9 +149,9 @@ h6{
 	line-height:18px;
 	background-color:#19191a;
 	
-	margin:8px 8px 0 8px;
+	margin:8px 4px 0 8px;
 	padding:4px;
-	width:calc((352px/3)*2 - 32px);
+	width:calc((352px/3)*2 - 8px);
 	min-height:calc(352px/3 - 32px);
 }
 .picture{
@@ -153,7 +162,7 @@ h6{
 	line-height:18px;
 	background-color:#19191a;
 	
-	margin:8px 8px 0 8px;
+	margin:8px 8px 0 4px;
 	padding:4px;
 	width:calc(352px/3 - 32px);
 	height:calc(352px/3 - 32px);

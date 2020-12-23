@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Geisha]]></name>
+	
+	<statusEffect>SET_GEISHA</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HAIR</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

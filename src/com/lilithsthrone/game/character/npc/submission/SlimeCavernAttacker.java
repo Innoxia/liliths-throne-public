@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -22,9 +21,8 @@ import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -72,15 +70,15 @@ public class SlimeCavernAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			CharacterUtils.setHistoryAndPersonality(this, true);
+			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			this.setBodyMaterial(BodyMaterial.SLIME);
 			
@@ -88,17 +86,17 @@ public class SlimeCavernAttacker extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
-			CharacterUtils.generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
 			this.setStartingCombatMoves();
 			loadImages();
 			
-			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
+			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 
 			initHealthAndManaToMax();
 		}
@@ -120,15 +118,15 @@ public class SlimeCavernAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		CharacterUtils.generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings); //TODO
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings); //TODO
 	}
 	
 	@Override
 	public void hourlyUpdate() {
 		if(!this.isSlave()) {
-			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
+			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 		}
 	}
 	

@@ -15,9 +15,11 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -36,11 +38,11 @@ import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
@@ -68,6 +70,9 @@ public class CompanionManagement {
 	}
 
 	public static void initManagement(DialogueNode coreNode, int defaultResponseTab, NPC targetedCharacter) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
+			Main.game.saveDialogueNode();
+		}
 		CompanionManagement.coreNode = coreNode;
 		CompanionManagement.defaultResponseTab = defaultResponseTab;
 		Main.game.getDialogueFlags().setManagementCompanion(targetedCharacter);
@@ -92,6 +97,13 @@ public class CompanionManagement {
 		CharactersPresentDialogue.resetContent(slave);
 //		coreNode = Main.game.getCurrentDialogueNode();
 		return CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS;
+	}
+	
+	public static DialogueNode getSlaveryManagementSlaveCosmeticsDialogue(NPC slave) {
+		Main.game.getDialogueFlags().setManagementCompanion(slave);
+		CharactersPresentDialogue.resetContent(slave);
+//		coreNode = Main.game.getCurrentDialogueNode();
+		return CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_MAKEUP;
 	}
 	
 	public static NPC characterSelected() {
@@ -317,7 +329,7 @@ public class CompanionManagement {
 							null);
 					
 				} else {
-					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned())) {
+					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned() && !Main.game.getPlayer().isElementalSummoned())) {
 						return new ResponseEffectsOnly(
 								characterSelected().isElemental()
 									?"Dispel"
@@ -357,7 +369,7 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-
+								
 								Main.game.setResponseTab(0);
 								CharactersPresentDialogue.resetContent(Main.game.getCharactersPresent().get(0));
 							}
@@ -382,7 +394,7 @@ public class CompanionManagement {
 					return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 						@Override
 						public void effects() {
-							SpellManagement.setTarget(characterSelected(), coreNode);
+							SpellManagement.setSpellOwner(characterSelected(), coreNode);
 						}
 					};
 					
@@ -508,7 +520,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Change [npc.namePos] name or tell [npc.herHim] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				return new Response("Send home", UtilText.parse(characterSelected(), "[npc.Name] isn't in your party, so you can't send [npc.herHim] home..."), null);
 				
 			} else if(index==11) {
@@ -526,7 +538,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -554,7 +566,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		
 		} else { // Friendly occupant or null character not currently in the player's party:
@@ -656,7 +674,7 @@ public class CompanionManagement {
 				}
 				return new Response("Set names", UtilText.parse(characterSelected(), "Tell [npc.name] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 				
-			} else if(index==10) {
+			} else if(index==10 && Main.getProperties().hasValue(PropertyValue.companionContent)) {
 				if(characterSelected() == null) {
 					return new Response("Send home", "You haven't selected anyone...", null);
 				}
@@ -680,7 +698,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -711,7 +729,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		}
 		
@@ -822,11 +846,10 @@ public class CompanionManagement {
 				}
 				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
 			}
-			float fatigue = character.getSlaveJobTotalFatigue();
+			float stamina = character.getDailySlaveJobStamina();
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"
-//										+ "<b>Presets</b>"
-									+"<i>Current daily fatigue: "+(fatigue<=0?"[style.colourGood(":"[style.colourBad(")+fatigue+")]</i>"
+									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
@@ -900,7 +923,11 @@ public class CompanionManagement {
 										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
 										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
-								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?null:PresetColour.GENERIC_BAD))+"/hour"
+								+ " = "
+								+(income>0
+									?UtilText.formatAsMoney(income, "b")
+									:UtilText.formatAsMoney(income, "b", PresetColour.GENERIC_BAD))
+								+"/hour"
 							+"</div>"
 							);
 				
@@ -1048,11 +1075,11 @@ public class CompanionManagement {
 	};
 	
 
-	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
+	private static Map<AbstractBodyCoveringType, List<String>> CoveringsNamesMap;
 	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
-			if(!BodyChanging.getTarget().getBodyMaterial().isAbleToWearMakeup()) {
+			if(!BodyChanging.getTarget().isAbleToWearMakeup()) {
 				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.namePos] body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
 				
 			} else {
@@ -1086,37 +1113,66 @@ public class CompanionManagement {
 					
 					CoveringsNamesMap = new LinkedHashMap<>();
 
-					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
-					} else {
-						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-							if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
-									&& !(bp instanceof Hair)
-									&& !(bp instanceof Eye)) {
-								
-								String name = bp.getName(BodyChanging.getTarget());
-								if(bp instanceof Skin) {
-									name = "torso";
-								} else if(bp instanceof Vagina) {
-									name = "vagina";
-								}
-								
-								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
-									CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
-								} else {
-									CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
-								}
+//					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
+//						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
+//						
+//					} else {
+					for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
+						if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
+								&& !(bp instanceof Hair)
+								&& !(bp instanceof Eye)) {
+							
+							String name = bp.getName(BodyChanging.getTarget());
+							if(bp instanceof Torso) {
+								name = "torso";
+							} else if(bp instanceof Vagina) {
+								name = "vagina";
+							}
+							
+							if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
+								CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
+							} else {
+								CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
 							}
 						}
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
-						if(BodyChanging.getTarget().hasBreastsCrotch()) {
-							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+					}
+
+					// Alter the map for if the target's body is not made of flesh:
+					if(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH) {
+						Map<AbstractBodyCoveringType, List<String>> altMaterialCoveringsNamesMap = new LinkedHashMap<>();
+						for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
+							altMaterialCoveringsNamesMap.put(BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), entry.getKey().getCategory()), entry.getValue());
+						}
+						CoveringsNamesMap = altMaterialCoveringsNamesMap;
+					}
+
+					for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()) {
+						if(entry.getKey().getCategory()==BodyCoveringCategory.ANUS) {
+							entry.getValue().clear();
+							entry.getValue().add("anus");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.MOUTH) {
+							entry.getValue().clear();
+							entry.getValue().add("mouth");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.NIPPLE) {
+							entry.getValue().clear();
+							entry.getValue().add("nipples");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.NIPPLE_CROTCH) {
+							entry.getValue().clear();
+							entry.getValue().add("crotch nipples");
+						} else if(entry.getKey().getCategory()==BodyCoveringCategory.TONGUE) {
+							entry.getValue().clear();
+							entry.getValue().add("tongue");
 						}
 					}
+//					CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
+//					CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
+//					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
+//					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
+//					if(BodyChanging.getTarget().hasBreastsCrotch()) {
+//						CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+//					}
 				}
+//				}
 			};
 
 		} else if (index == 6) {
@@ -1127,6 +1183,16 @@ public class CompanionManagement {
 					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
+			if(coreNode==OccupantManagementDialogue.SLAVE_LIST) {
+				return new Response("Back", "Return to the occupant list overview.", coreNode) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(defaultResponseTab);
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
+			}
 			return new Response("Back", "Return to the slave management screen.", coreNode) {
 				@Override
 				public void effects() {
@@ -1215,9 +1281,9 @@ public class CompanionManagement {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair] length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair(true)] length.")
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
@@ -1310,10 +1376,14 @@ public class CompanionManagement {
 							true, BodyChanging.getTarget().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL),
+							"Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_SCLERA, "Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
+							true,
+							BodyCoveringType.getMaterialBodyCoveringType(BodyChanging.getTarget().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA),
+							"Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 		}
 		
 		@Override
@@ -1353,33 +1423,33 @@ public class CompanionManagement {
 									+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 								+ "</h6>");
 			
-			for(Entry<BodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
-				BodyCoveringType bct = entry.getKey();
+			for(Entry<AbstractBodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
+				AbstractBodyCoveringType bct = entry.getKey();
 				
 				String title = Util.capitaliseSentence(bct.getName(BodyChanging.getTarget()));
 				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.namePos] "+Util.stringsToStringList(entry.getValue(), false)+".";
 				
-				if(bct == BodyCoveringType.ANUS) {
+				if(bct.getCategory()==BodyCoveringCategory.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering [npc.namePos] anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.VAGINA) {
+				} else if(bct.getCategory()==BodyCoveringCategory.VAGINA) {
 					title = "Vagina";
 					description = "This is the skin that's currently covering [npc.namePos] labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
 					
-				} else if(bct == BodyCoveringType.PENIS) {
+				} else if(bct.getCategory()==BodyCoveringCategory.PENIS) {
 					title = "Penis";
 					description = "This is the skin that's currently covering [npc.namePos] penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.NIPPLE_CROTCH) {
 					title = "Crotch Nipples";
 					description = "This is the skin that's currently covering the nipples and areolae on [npc.namePos] [npc.crotchBoobs]. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
-				} else if(bct == BodyCoveringType.MOUTH) {
+				} else if(bct.getCategory()==BodyCoveringCategory.MOUTH) {
 					title = "Lips & Throat";
 					if(BodyChanging.getTarget().getFaceType() == FaceType.HARPY) {
 						description = "This is the colour of [npc.namePos] beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
@@ -1387,7 +1457,7 @@ public class CompanionManagement {
 						description = "This is the skin that's currently covering [npc.namePos] lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
 					}
 					
-				} else if(bct == BodyCoveringType.TONGUE) {
+				} else if(bct.getCategory()==BodyCoveringCategory.TONGUE) {
 					title = "Tongue";
 					description = "This is the skin that's currently covering [npc.namePos] tongue.";
 				}
@@ -1462,7 +1532,7 @@ public class CompanionManagement {
 							:"")
 					);
 			
-			for(BodyCoveringType bct : BodyCoveringType.values()) {
+			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
 				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
 						|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
 						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
@@ -1662,7 +1732,7 @@ public class CompanionManagement {
 
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 					"<p>"
-						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+						+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 						+ " As [npc.sheIs] your slave, you could also change [npc.her] name to whatever you'd like it to be..."
 					+ "</p>"));
 				
@@ -1708,7 +1778,7 @@ public class CompanionManagement {
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parse(characterSelected(), 
 						"<p>"
-							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.her] to call you by a different name or title."
+							+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
 							+ " As [npc.sheIs] not your slave, you can't get [npc.herHim] to change [npc.her] name."
 						+ "</p>"));
 				

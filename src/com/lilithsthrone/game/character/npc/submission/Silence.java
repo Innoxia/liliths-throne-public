@@ -12,8 +12,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -50,28 +50,23 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -256,11 +251,11 @@ public class Silence extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			AbstractWeapon weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			AbstractWeapon weapon = Main.game.getItemGen().generateWeapon("innoxia_feather_epic", DamageType.POISON);
 			weapon.setEffects(new ArrayList<>());
 			this.equipMainWeaponFromNowhere(weapon);
 			
-			weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			weapon = Main.game.getItemGen().generateWeapon("innoxia_feather_epic", DamageType.POISON);
 			weapon.setEffects(new ArrayList<>());
 			this.equipOffhandWeaponFromNowhere(weapon);
 		}
@@ -271,23 +266,23 @@ public class Silence extends NPC {
 		
 		this.setPiercedEar(true);
 		this.setPiercedVagina(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_piercings_piercing_vertical_hood", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_HOT, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_vertical_hood", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_HOT, null, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_skirt", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_skirt", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, PresetColour.CLOTHING_WHITE, false), true, this);
 
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-		AbstractClothing scrunchie = AbstractClothingType.generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_PINK_LIGHT, false);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		AbstractClothing scrunchie = Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_scrunchie", PresetColour.CLOTHING_PINK_LIGHT, false);
 		scrunchie.setPattern("none");
 		this.equipClothingFromNowhere(scrunchie, true, this);
 		
 		
-		AbstractClothing demonStoneNecklace = AbstractClothingType.generateClothing("innoxia_neck_demonstone_necklace", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_SILVER, null, false);
+		AbstractClothing demonStoneNecklace = Main.game.getItemGen().generateClothing("innoxia_neck_demonstone_necklace", PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_SILVER, null, false);
 		
 		demonStoneNecklace.clearEffects();
 		
@@ -349,7 +344,7 @@ public class Silence extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	
 	@Override
@@ -396,7 +391,7 @@ public class Silence extends NPC {
 	public CombatBehaviour getCombatBehaviour() {
 		if(Main.game.isInCombat()) {
 			boolean spellsAvailable = false;
-			for(GameCharacter character : Combat.getAllCombatants(true)) {
+			for(GameCharacter character : Main.combat.getAllCombatants(true)) {
 				if(!getWeightedSpellsAvailable(character).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
 					spellsAvailable = true;
 					break;
@@ -410,7 +405,7 @@ public class Silence extends NPC {
 	}
 	
 	@Override
-	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	public float getMoveWeight(AbstractCombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		if(move.getAssociatedSpell()==Spell.ELEMENTAL_AIR) {
 			return 0;
 		}

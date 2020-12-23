@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.89
- * @version 0.2.10
+ * @version 0.3.9.3
  * @author Innoxia
  */
 public enum NPCFlagValue {
@@ -13,9 +13,12 @@ public enum NPCFlagValue {
 	genericNPCBetrayedByPlayer,
 	
 	knowsPlayerGender,
+	knowsPlayerDemon,
 	introducedToPlayer,
 	pendingClothingDressing,
-//	pendingTransformationToGenderIdentity,
+	prostituteQuestioned,
+	playerEscapedLastCombat,
+	thinksPlayerEnforcer,
 	
 	flagSlaveBackground,
 	flagSlaveSmallTalk,
@@ -37,7 +40,9 @@ public enum NPCFlagValue {
 	flagOffspringApartmentIntroduced,
 	flagOffspringFightApologyNeeded,
 	flagOffspringRapeApologyNeeded,
-	fightOffspringInApartment;
+	fightOffspringInApartment,
+	
+	elementalStayDirty;
 	
 	private static List<NPCFlagValue> slaveFlags = new ArrayList<>();
 	private static List<NPCFlagValue> occupantFlags = new ArrayList<>();
@@ -52,7 +57,6 @@ public enum NPCFlagValue {
 		slaveFlags.add(flagSlaveSpanking);
 		slaveFlags.add(flagSlaveMolest);
 		
-
 		occupantFlags.add(occupantTalkLife);
 		occupantFlags.add(occupantTalkJob);
 		occupantFlags.add(occupantTalkLilaya);

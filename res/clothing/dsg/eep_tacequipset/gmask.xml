@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -54,7 +54,13 @@
 		<enchantmentLimit/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/> 
+		<effects>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+		</effects> 
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
 		<blockedPartsList> 
@@ -112,7 +118,7 @@
 			#fff6d5
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
+		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours>
@@ -122,73 +128,43 @@
 		<tertiaryColours values="JUST_SILVER"/>
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java
+		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
 		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> 
-			
+		<itemTags> 	
 			<tag>RIGID_MATERIAL</tag>
+			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off the gas mask.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You take the mask off [npc.name]'s [npc.face].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You yank the gas mask off [npc.name]'s [npc.face].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes off [npc.her] gas mask.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] takes the gas mask off your [pc.face].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] yanks the gas mask off your [pc.face].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] takes off [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] yanks the gas mask [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the gas mask and [npc.verb(screw)] in a new filter cartridge.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the gas mask onto [npc2.namePos] [npc.face] and [npc.verb(screw)] in a new filter cartridge.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the gas mask onto [npc2.namePos] [npc2.face] and hastily [npc.verb(screw)] in a new filter cartridge.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You put on the gas mask.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You push the the gas mask onto [npc.name] [npc.face].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force the gas mask onto [npc.name]'s [npc.face].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] puts on the gas mask.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pushes the gas mask onto your [pc.face].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces the gas mask onto your [pc.face].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pushes the gas mask onto [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces the gas mask onto [npc2.name]'s [npc2.face].
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] gas mask.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] gas mask off [npc2.her] [npc2.face].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] gas mask from [npc2.her] [npc2.face].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

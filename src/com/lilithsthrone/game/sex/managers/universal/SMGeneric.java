@@ -229,7 +229,7 @@ public class SMGeneric extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPace getForcedSexPace(GameCharacter character) {
+	public SexPace getStartingSexPaceModifier(GameCharacter character) {
 		for(ResponseTag tag : tags) {
 			switch(tag) {
 				case PREFER_DOGGY:
@@ -260,7 +260,7 @@ public class SMGeneric extends SexManagerDefault {
 					break;
 			}
 		}
-		return super.getForcedSexPace(character);
+		return super.getStartingSexPaceModifier(character);
 	}
 	
 }

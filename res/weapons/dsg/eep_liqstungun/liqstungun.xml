@@ -12,9 +12,15 @@
 		
 		<determiner><![CDATA[an]]></determiner>
 		
-		<name><![CDATA[LSG-9000 stun gun]]></name>
+		<name><![CDATA[#IF game.isSillyModeEnabled()
+			#THEN LSG-9000 coom gun
+			#ELSE arcane liquid stun gun
+			#ENDIF]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[LSG-9000 stun guns]]></namePlural> 
+		<namePlural pluralByDefault="false"><![CDATA[#IF game.isSillyModeEnabled()
+			#THEN LSG-9000 coom guns
+			#ELSE arcane liquid stun guns
+			#ENDIF]]></namePlural> 
 		
 		<description><![CDATA[
 		The final word in riot control, this weapon uses a water spell to propel a stream of water to conduct arcane lightning at any target its sights. 
@@ -51,7 +57,12 @@
 		
 		<imageEquippedName>liqstungun.svg</imageEquippedName>
 		
-		<damage>50</damage> 
+		<damage>50</damage>
+		
+		<aoe chance="85">25</aoe>
+		<aoe chance="85">25</aoe>
+		<aoe chance="10">10</aoe>
+		<aoe chance="10">10</aoe>
 		
 		<arcaneCost>5</arcaneCost> 
 		
@@ -75,8 +86,14 @@
 			<colour>CLOTHING_BLUE</colour>
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_ORANGE</colour>
+		</tertiaryColours> 
+		<tertiaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+		</itemTags>
 		
 	</coreAttributes>
 
@@ -146,14 +163,17 @@
 					#ENDIF
 				#ELSE A jet of water streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before succumbing to the effects of the lightning! [npc2.Name] [npc2.verb(shiver)] a bit as the water soaks into [npc2.her] [npc2.skinSkin].
 					#IF npc.getBreastRawStoredMilkValue()>=150
-						#THEN   As if sesnsing the bounty stored in [npc.namePos] [npc.breastsD], <b>the gun's pumps start pulling [npc.her] [npc.milkD] through the hoses.</b> [npc.Name] [npc.verb(moan)] at the stimulation.
+						#THEN   As if sensing the bounty stored in [npc.namePos] [npc.breastsD], <b>the gun's pumps start pulling [npc.her] [npc.milkD] through the hoses.</b> [npc.Name] [npc.verb(moan)] at the stimulation.
 					#ELSE
 						#IF npc.getPenisRawStoredCumValue()>=150
-							#THEN  As if sesnsing the bounty stored in [npc.namePos] [npc.ballsD], <b>the gun's pumps start pulling [npc.her] [npc.cumD] through the hoses.</b> [npc.Name] [npc.verb(groan)] at the stimulation.
+							#THEN  As if sensing the bounty stored in [npc.namePos] [npc.ballsD], <b>the gun's pumps start pulling [npc.her] [npc.cumD] through the hoses.</b> [npc.Name] [npc.verb(groan)] at the stimulation.
 						#ENDIF
 					#ENDIF
 				#ENDIF
 			#ELSE A jet of water streams towards [npc2.name], followed by a crackling bolt of arcane lightning. [npc2.Name] barely has time to stare with a look of disbelief on [npc2.her] face before succumbing to the effects of the lightning! [npc2.Name] [npc2.verb(shiver)] a bit as the water soaks [npc2.her] [npc2.skinSkin].
+			#ENDIF
+			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
+			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 6)] [npc2.Name] is <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
 			#ENDIF
 		]]></hitText>
 	</hitDescriptions>

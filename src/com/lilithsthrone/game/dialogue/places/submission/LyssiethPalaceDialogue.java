@@ -54,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.9.9
  * @author Innoxia
  */
 public class LyssiethPalaceDialogue {
@@ -74,15 +74,31 @@ public class LyssiethPalaceDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", PlaceType.SUBMISSION_LILIN_PALACE_GATE.getDialogue(false)) {
+				return new Response("Leave", "Leave Lyssieth's palace and head back out into Submission.", ENTRANCE_LEAVING) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE);
+						Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_CAVERN, false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "ENTRANCE_LEAVING"));
 					}
 				};
 			}
 			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_LEAVING = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PlaceType.SUBMISSION_LILIN_PALACE_CAVERN.getDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -593,8 +609,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==11) { // Teleport
-			
-				if(Main.game.getPlayer().getRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
+				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaReactedToPlayerAsDemon)) {
 					return new Response("Lilaya's lab", "Lyssieth is unwilling to face her daughter until you've broken the news to her that you're now a full demon. You'll have to make your own way back to the lab...", null);
 				}
 
@@ -960,8 +975,8 @@ public class LyssiethPalaceDialogue {
 				return new Response("Meraxis's office", "Step out of Lyssieth's office and into her daughter's office-cum-waiting room.", AFTER_DEMON_TF_SIREN_OFFICE_LEAVE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots();
-						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
+						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots(true);
+						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true, false);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}
 				};
@@ -1172,7 +1187,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getPlayer().setPenisSize(20);
-							Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK);
 						}
 					}
 					@Override
@@ -1225,7 +1240,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 							Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getPlayer().setPenisSize(20);
-							Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK);
 						}
 					}
 					@Override
@@ -1312,7 +1327,7 @@ public class LyssiethPalaceDialogue {
 						if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 							Main.game.getNpc(Lilaya.class).setPenisSize(20);
-							Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+							Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_THICK);
 							Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 						}
 					}
@@ -1462,7 +1477,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
 						}
@@ -1521,7 +1536,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK);
 							}
 							Main.game.getNpc(Lilaya.class).setPenisType(PenisType.NONE);
 						}
@@ -1580,7 +1595,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}
@@ -1636,12 +1651,12 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 								Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getPlayer().setPenisSize(20);
-								Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK);
 							}
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}
@@ -1693,7 +1708,7 @@ public class LyssiethPalaceDialogue {
 							if(!Main.game.getNpc(Lilaya.class).hasPenisIgnoreDildo()) {
 								Main.game.getNpc(Lilaya.class).setPenisType(PenisType.DEMON_COMMON);
 								Main.game.getNpc(Lilaya.class).setPenisSize(20);
-								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.THREE_THICK);
+								Main.game.getNpc(Lilaya.class).setPenisGirth(PenetrationGirth.FOUR_THICK);
 								Main.game.getNpc(Lilaya.class).setPenisCumStorage(100);
 							}
 						}

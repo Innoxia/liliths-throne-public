@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
@@ -20,9 +21,9 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -49,8 +50,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -86,7 +85,7 @@ public class HarpyNestHelena {
 							+ publicSexStartDescription
 						+ "</p>";
 			}
-			@Override //TODO
+			@Override
 			public String getRandomPublicSexDescription() {
 				return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 							+ UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()),
@@ -99,6 +98,14 @@ public class HarpyNestHelena {
 						+"</p>";
 			}
 			@Override
+			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+				if(partner.getWorldLocation()==WorldType.HARPY_NEST) { // If this is a scene in the nest, Scarlett stops after cumming.
+					return super.isPartnerWantingToStopSex(partner);
+				}
+				return (Main.sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1)
+						|| Main.sex.getNumberOfOrgasms(partner)>=3;
+			}
+			@Override
 			public SexControl getSexControl(GameCharacter character) {
 				if(character.isPlayer()) {
 					return SexControl.ONGOING_ONLY;
@@ -106,8 +113,24 @@ public class HarpyNestHelena {
 				return super.getSexControl(character);
 			}
 			@Override
+			public boolean isAbleToEquipSexClothing(GameCharacter character){
+				return false;
+			}
+			@Override
+			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+				return character.getWorldLocation()!=WorldType.HARPY_NEST;
+			}
+			@Override
+			public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+				return character.getWorldLocation()!=WorldType.HARPY_NEST;
+			}
+			@Override
 			public boolean isPositionChangingAllowed(GameCharacter character) {
 				return false;
+			}
+			@Override
+			public boolean isCharacterStartNaked(GameCharacter character) {
+				return !character.isPlayer() && character.getWorldLocation()==WorldType.HELENAS_APARTMENT;
 			}
 			@Override
 			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -119,7 +142,7 @@ public class HarpyNestHelena {
 			}
 			@Override
 			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-				if(!character.isPlayer()) {
+				if(!character.isPlayer() && scarlettPreference!=null) {
 					return scarlettPreference;
 				}
 				return super.getForeplayPreference(character, targetedCharacter);
@@ -143,10 +166,16 @@ public class HarpyNestHelena {
 	
 	private static void applyScarlettFuckedEffects() {
 		Main.game.getNpc(Scarlett.class).returnToHome();
+		Main.game.getNpc(Scarlett.class).equipClothing();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.scarlettGoneHome, true);
 		if(Main.game.getNpc(Scarlett.class).hasVagina()) {
-			Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
-					true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
+			} else {
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			}
 		}
 	}
 	
@@ -212,8 +241,10 @@ public class HarpyNestHelena {
 								null);
 						
 					} else {
+						if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)) {
+							return new Response("Scarlett", "Head over to where Scarlett is surrounded by a crowd of harpies and say hello.", HELENAS_NEST_MEETING_SCARLETT);
+						}
 						return new Response("Scarlett", "Head over to where Scarlett is sitting and say hello.", HELENAS_NEST_MEETING_SCARLETT);
-						
 					}
 				}
 				
@@ -271,8 +302,9 @@ public class HarpyNestHelena {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", HELENAS_NEST_MAIN_QUEST_NO_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -347,8 +379,9 @@ public class HarpyNestHelena {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -356,8 +389,9 @@ public class HarpyNestHelena {
 				return new Response("Struggle", "Start struggling and crying out in discomfort.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_STRUGGLE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -370,8 +404,9 @@ public class HarpyNestHelena {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 			}
@@ -515,10 +550,10 @@ public class HarpyNestHelena {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseEffectsOnly("Scarlett's Shop", "You arrive at Scarlett's Shop.") {
+				return new Response("Scarlett's Shop", "You arrive at Scarlett's Shop.", PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, false);
 					}
 				};
 				
@@ -595,7 +630,7 @@ public class HarpyNestHelena {
 	public static final DialogueNode HELENAS_NEST_TALK = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 60*5;
+			return 30*60;
 		}
 		@Override
 		public String getContent() {
@@ -612,8 +647,8 @@ public class HarpyNestHelena {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 			Main.game.getNpc(Helena.class).setLocation(Main.game.getPlayer(), false);
-			((Helena)Main.game.getNpc(Helena.class)).applyLingerie();
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaBedroomFromNest, true);
+			((Helena)Main.game.getNpc(Helena.class)).applyLingerie();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -628,24 +663,7 @@ public class HarpyNestHelena {
 			return HelenaHotel.DATE_APARTMENT_BEDROOM.getResponse(responseTab, index);
 		}
 	};
-
-	public static final DialogueNode HELENAS_NEST_RETURN_AFTER_SEX = new DialogueNode("", "", true, true) {
-		@Override
-		public int getSecondsPassed() {
-			return 60*5;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_RETURN_AFTER_SEX");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return HELENAS_NEST.getResponse(responseTab, index);
-		}
-	};
-
-	//TODO
-//	Add Scarlett female sex variation at nest (WILL BUG OUT IF NOT ADDED!)
+	
 	public static final DialogueNode HELENAS_NEST_MEETING_SCARLETT = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
@@ -654,7 +672,7 @@ public class HarpyNestHelena {
 			} else {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT"));
 			}
-			Main.game.getNpc(Scarlett.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true); //TODO test
+			Main.game.getNpc(Scarlett.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -668,58 +686,78 @@ public class HarpyNestHelena {
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
 			if(index==0) {
-				return new Response("Step back", "Scarlett is clearly not interested in talking to you, and so there's nothing to do but step back and take your leave..", HELENAS_NEST_EXTERIOR) {
+				return new Response("Leave",
+						((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()
+							?"Tell Scarlett that you only wanted to stop by and say hello, and that you've got to leave now."
+							:"Not wanting to put up with her awful attitude, you tell Scarlett that you're going to leave.",
+						HELENAS_NEST_EXTERIOR) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_STEP_BACK"));
+						if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_STEP_BACK_POST_QUEST"));
+							
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_STEP_BACK"));
+						}
 					}
 				};
 			}
 			
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)) {
-				//TODO need mouth or genitals free
-				if(Main.game.getHourOfDay()>19) {
-					responses.add(new Response("Servant", "It's too late in the day to start working as Scarlett's servant. You should try again another day before [units.time(19)]...", null));
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					responses.add(new Response("Servant",
+							"As Scarlett is not attracted to you, she does not want you acting as her servant...",
+							null));
 					
-				} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
-						|| (Main.game.getNpc(Scarlett.class).hasVagina() && Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
-						|| (!Main.game.getNpc(Scarlett.class).hasVagina() && Main.game.isAnalContentEnabled() && Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
-						|| (!Main.game.getNpc(Scarlett.class).hasPenis() && Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))
-						|| (!Main.game.getNpc(Scarlett.class).hasPenis() && Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
-					responses.add(new Response("Servant", "Act as Scarlett's servant for the day to get a chance at fucking her.", HELENAS_NEST_SCARLETTS_SERVANT) {
+				} else if(Main.game.getDayMinutes()>19*60) {
+					responses.add(new Response("Servant",
+							"It's too late in the day to start working as Scarlett's servant. You should try again another day before [units.time(19)]...",
+							null));
+					
+				} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true) // Performing oral
+						|| (Main.game.getNpc(Scarlett.class).hasVagina() && Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) // Fucking Scarlett
+						|| (Main.game.getNpc(Scarlett.class).hasVagina() && Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) // Scissoring
+						|| (Main.game.isAnalContentEnabled() && Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) // Fucking Scarlett's ass
+						|| (Main.game.getNpc(Scarlett.class).hasPenis() && Main.game.isAnalContentEnabled() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) // Getting anally fucked
+						|| (Main.game.getNpc(Scarlett.class).hasPenis() && Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) // Getting fucked
+						) {
+					responses.add(new Response("Servant",
+							((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()
+								?"Tell Scarlett that you'd like to repay her kindness towards you by acting as her servant for the day."
+								:"Work as Scarlett's servant for the day to get a chance at fucking her.",
+							HELENAS_NEST_SCARLETTS_SERVANT) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-							Main.game.getPlayer().removeAllCompanions(true); //TODO test elemental
+							Main.game.getPlayer().removeAllCompanions(true);
 						}
 					});
 					
 				} else {
-					responses.add(new Response("Servant", "You need to be able to access your mouth or genitals in order to serve as a servant for Scarlett...", null));
+					responses.add(new Response("Servant",
+							"You need to be able to access your mouth or genitals in order to work as Scarlett's servant...",
+							null));
 				}
 				
-				if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())!=AffectionLevelBasic.LIKE) {
-					return new Response("Apartment", "Scarlett doesn't like you enough to offer sex without having you first act as her servant...", null);
-					
-				} else {
-					return new Response("Apartment", "Tell Scarlett that you'd like to spend some time with her in her room.", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX) {
-						@Override
-						public boolean isSexHighlight() {
-							return true;
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_APARTMENT"));
-							Main.game.getPlayer().removeAllCompanions(true); //TODO test elemental
-							Main.game.getNpc(Scarlett.class).returnToHome();
-							Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
-						}
-					};
+				if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.scarlettRelaxed)) {
+						responses.add(new Response("Relax",
+								"Scarlett has already spent time relaxing with you today. If you wanted to spend more time with her, you'll have to return tomorrow.",
+								null));
+					} else {
+						responses.add(new Response("Relax",
+								"Accept Scarlett's invitation to sit down and relax with her for a while.",
+								HELENAS_NEST_SCARLETT_RELAX) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.scarlettRelaxed, true);
+							}
+						});
+					}
 				}
 				
 			} else {
-				if(Main.game.getNpc(Scarlett.class).hasPenis()) { // Scarlett has a penis:
+				if(Main.game.getNpc(Scarlett.class).hasPenis()) { // Scarlett has a penis (this should always be the case, as Scarlett only loses her vagina after Helena's romance quest is complete):
 					if(Main.game.isAnalContentEnabled()) {
 						if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
 							responses.add(new Response("Offer ass", "Scarlett is not attracted to you, and so is unwilling to have sex with you.", null));
@@ -882,6 +920,7 @@ public class HarpyNestHelena {
 				responses.add(new Response("Helena", "Tell Scarlett that Helena is requesting her presence back at her shop in Slaver Alley.", HELENAS_NEST_MEETING_SCARLETT_TO_SHOP) {
 					@Override
 					public void effects() {
+						Main.game.getNpc(Scarlett.class).setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 						Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaScarlettToldToReturn, true);
 					}
@@ -917,9 +956,10 @@ public class HarpyNestHelena {
 						@Override
 						public void effects() {
 							// Move them both here to make sure they haven't gone due to time ticking over into night time when player arrives:
-							Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+							Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+							Main.game.getNpc(Scarlett.class).setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 							Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
-							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_TO_SHOP_FLY_AFTER"));
 						}
 					};
@@ -961,6 +1001,55 @@ public class HarpyNestHelena {
 		}
 	};
 
+	public static final DialogueNode HELENAS_NEST_SCARLETT_RELAX = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETT_RELAX");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Apartment", "As Scarlett is not attracted to you, she will not invite you to spend some time with her in her room...", null);
+				}
+				return new Response("Apartment",
+						"Accept Scarlett's invitation to spend some time with her in her room.",
+						HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
+					@Override
+					public void effects() {
+						Main.game.getPlayer().removeAllCompanions(true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETT_RELAX_APARTMENT"));
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response(
+						!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())
+							?"Leave"
+							:"Decline",
+						!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())
+							?"Say goodbye to Scarlett and head out of Helena's nest."
+							:"Tell Scarlett that you've got other matters which require your attention today, before taking your leave and heading back out of Helena's nest.",
+						HELENAS_NEST_EXTERIOR) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETT_RELAX_LEAVE"));
+					}
+				};
+			}
+			
+			return null;
+		}
+	};
+
 	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
@@ -968,41 +1057,37 @@ public class HarpyNestHelena {
 		}
 		@Override
 		public String getContent() {
-			return "";
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Back massage", "Choose to massage Scarlett's back...", HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE) {
+			List<Response> responses = new ArrayList<>();
+			
+			responses.add(new Response("Back massage", "Choose to massage Scarlett's back...", HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE) {
+				@Override
+				public void effects() {
+					Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
+				}
+			});
+			
+			responses.add(new Response("Groom wings", "Choose to groom Scarlett's wings...", HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS) {
+				@Override
+				public void effects() {
+					Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
+				}
+			});
+			
+			if(Main.game.isFootContentEnabled()) {
+				responses.add(new Response("Talons", "Choose to massage Scarlett's bird-like feet...", HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE) {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Groom wings", "Choose to groom Scarlett's wings...", HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-					}
-				};
-				
-			} else if(index==3) {
-				return new Response("Apply makeup", "Choose to apply makeup to Scarlett's face...", HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-					}
-				};
-				
-			} else if(index==4 && Main.game.isFootContentEnabled()) {
-				return new Response("Talons", "Choose to massage Scarlett's bird-like feet...", HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-					}
-				};
+				});
+			}
+
+			if(index!=0 && index-1<responses.size()) {
+				return responses.get(index-1);
 			}
 			return null;
 		}
@@ -1010,12 +1095,17 @@ public class HarpyNestHelena {
 
 	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE"));
+			Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(Main.game.getNpc(Scarlett.class).getClothingBlockingCoverableAreaAccess(CoverableArea.BACK, false), true, Main.game.getNpc(Scarlett.class));
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 60*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1028,62 +1118,41 @@ public class HarpyNestHelena {
 				};
 				
 			} else if(index==2) {
-				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-					return new Response("Oral", "As you are unable to access your mouth, you cannot perform oral on Scarlett...", null);
-				}
 				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
-					if(Main.game.isAnalContentEnabled()) {
-						return new ResponseSex(
-								"Anilingus",
-								"Take your reward now and perform anilingus on Scarlett while the other harpies continue to pamper her...",
-								true,
-								false,
-								getScarlettSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN,
-										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
-												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
-										"Scarlett's harpy followers continue to pamper her while you get started on licking her ass..."),
-								null,
-								null,
-								AFTER_SCARLETT_SERVANT_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_ANILINGUS")) {
-							@Override
-							public List<InitialSexActionInformation> getInitialSexActions() {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueAnus.ANILINGUS_START, false, true));
-							}
-						};
-						
-					} else {
-						return new ResponseSex(
-								"Blowjob",
-								"Take your reward now and suck Scarlett's cock while the other harpies continue to pamper her...",
-								true,
-								false,
-								getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
-										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
-												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
-										"Scarlett's harpy followers continue to pamper her while you get started on sucking her cock..."),
-								null,
-								null,
-								AFTER_SCARLETT_SERVANT_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_BLOWJOB")) {
-							@Override
-							public List<InitialSexActionInformation> getInitialSexActions() {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
-							}
-						};
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return new Response("Blowjob", "As you are unable to access your mouth, you cannot perform oral on Scarlett...", null);
 					}
-					
-				} else {
 					return new ResponseSex(
-							"Cunnilingus",
-							"Take your reward now and let Scarlett sit on your face while the other harpies continue to pamper her...",
+							"Blowjob",
+							"Take your reward now and suck Scarlett's cock while the other harpies continue to pamper her...",
 							true,
 							false,
-							getScarlettSexManager(SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN,
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
+									"Scarlett's harpy followers continue to pamper her while you get started on sucking her cock..."),
+							null,
+							null,
+							AFTER_SCARLETT_SERVANT_SEX,
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_BLOWJOB")) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+						}
+					};
+					
+				} else {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return new Response("Cunnilingus", "As you are unable to access your mouth, you cannot perform oral on Scarlett...", null);
+					}
+					return new ResponseSex(
+							"Cunnilingus",
+							"Take your reward now and orally service Scarlett's pussy while the other harpies continue to pamper her...",
+							true,
+							false,
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
 									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
@@ -1092,7 +1161,7 @@ public class HarpyNestHelena {
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_CUNNILINGUS")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_CUNNILINGUS")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START, false, true));
@@ -1138,7 +1207,7 @@ public class HarpyNestHelena {
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HANDJOB")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HANDJOB")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), FingerPenis.COCK_MASTURBATING_START, false, true));
@@ -1159,57 +1228,13 @@ public class HarpyNestHelena {
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_FINGERING")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_FINGERING")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), FingerVagina.FINGERING_START, false, true));
 						}
 					};
 				}
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP = new DialogueNode("", "", true, true) {
-		@Override
-		public int getSecondsPassed() {
-			return 60*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Hold back", "Choose to hold back and wait until later for Scarlett's reward.", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_HOLD_BACK"));
-					}
-				};
-				
-			} else if(index==2) {
-				return new ResponseSex(
-						"Make out",
-						"Take your reward now and make out with Scarlett while the other harpies continue to pamper her...",
-						true,
-						false,
-						getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING_IN_LAP, SexSlotSitting.SITTING, //TODO taur?
-								new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
-								"Scarlett's harpy followers continue to pamper her while the two of you start making out with one another..."),
-						null,
-						null,
-						AFTER_SCARLETT_SERVANT_SEX,
-						UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_MAKEOUT")) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
-					}
-				};
 			}
 			return null;
 		}
@@ -1231,75 +1256,88 @@ public class HarpyNestHelena {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HOLD_BACK"));
+						Main.game.getNpc(Scarlett.class).setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_CLEAR));
 					}
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return new Response("Blowjob", "As you are unable to access your mouth, you cannot perform oral on Scarlett...", null);
+					}
 					return new ResponseSex(
-							"Talon-job",
-							"Take your reward now and have Scarlett use her talons to jerk you off while the other harpies continue to pamper her...",
+							"Blowjob",
+							"Take your reward now and suck Scarlett's cock while the other harpies continue to pamper her...",
 							true,
 							false,
-							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL, //TODO taur?
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS),
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS))),
-									"Scarlett's harpy followers continue to pamper her while she jerks you off using her bird-like talons..."),
+											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
+									"Scarlett's harpy followers continue to pamper her while you get started on sucking her cock..."),
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_TALONJOB")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_BLOWJOB")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
-							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START, false, true));
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
 						}
 					};
 					
 				} else {
-					if(Main.game.getNpc(Scarlett.class).hasPenis()) {
-						return new ResponseSex(
-								"Handjob",
-								"Take your reward now and jerk off Scarlett's cock while the other harpies continue to pamper her...",
-								true,
-								false,
-								getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
-										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS))),
-										"Scarlett's harpy followers continue to pamper her while you get started on jerking off her cock..."),
-								null,
-								null,
-								AFTER_SCARLETT_SERVANT_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HANDJOB")) {
-							@Override
-							public List<InitialSexActionInformation> getInitialSexActions() {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), FingerPenis.COCK_MASTURBATING_START, false, true));
-							}
-						};
-						
-					} else {
-						return new ResponseSex(
-								"Finger her",
-								"Take your reward now and finger Scarlett's pussy while the other harpies continue to pamper her...",
-								true,
-								false,
-								getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
-										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA))),
-										"Scarlett's harpy followers continue to pamper her while you get started on fingering her pussy..."),
-								null,
-								null,
-								AFTER_SCARLETT_SERVANT_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_FINGERING")) {
-							@Override
-							public List<InitialSexActionInformation> getInitialSexActions() {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), FingerVagina.FINGERING_START, false, true));
-							}
-						};
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return new Response("Cunnilingus", "As you are unable to access your mouth, you cannot perform oral on Scarlett...", null);
 					}
+					return new ResponseSex(
+							"Cunnilingus",
+							"Take your reward now and orally service Scarlett's pussy while the other harpies continue to pamper her...",
+							true,
+							false,
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH))),
+									"Scarlett's harpy followers continue to pamper her while you get started on licking her pussy..."),
+							null,
+							null,
+							AFTER_SCARLETT_SERVANT_SEX,
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_CUNNILINGUS")) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START, false, true));
+						}
+					};
 				}
+				
+			} else if(index==3) {
+				if(!Main.game.getPlayer().hasPenis()) {
+					return new Response("Talon-job", "As you don't have a penis, you cannot receive a talon-job from Scarlett...", null);
+				}
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+					return new Response("Talon-job", "As you can't get access to your penis, you cannot receive a talon-job from Scarlett...", null);
+				}
+				return new ResponseSex(
+						"Talon-job",
+						"Take your reward now and have Scarlett use her talons to jerk you off while the other harpies continue to pamper her...",
+						true,
+						false,
+						getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS),
+								Util.newHashMapOfValues(
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS))),
+								"Scarlett's harpy followers continue to pamper her while she jerks you off using her bird-like talons..."),
+						null,
+						null,
+						AFTER_SCARLETT_SERVANT_SEX,
+						UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_TALONJOB")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START, false, true));
+					}
+				};
 			}
 			return null;
 		}
@@ -1317,7 +1355,7 @@ public class HarpyNestHelena {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Do as Scarlett says and leave the nest...", HELENAS_NEST_EXTERIOR) {
+				return new Response("Leave", "Continue on your way over to the entrance of Helena's nest.", HELENAS_NEST_EXTERIOR) {
 					@Override
 					public void effects() {
 						applyScarlettFuckedEffects();
@@ -1332,6 +1370,7 @@ public class HarpyNestHelena {
 		@Override
 		public void applyPreParsingEffects() {
 			randomChance = (float) Math.random();
+			Main.game.getNpc(Scarlett.class).equipClothing();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1339,102 +1378,73 @@ public class HarpyNestHelena {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
-				return new Response("Back out", "Back out of this and tell Scarlett that you're going to leave...", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_LEAVE){
+				return new Response("Back out", "Back out of this and tell Scarlett that you're going to leave...", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_LEAVE);
+				
+			} else if(index==1) {
+				return new Response("Kiss feet",
+						"Kiss Scarlett's feet.<br/>[style.italicsExcellent(She will definitely choose you as her partner if you do this!)]",
+						HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), -5));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_KISS_FEET"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 10));
 					}
 				};
-			}
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
-				if(index==1) {
-					return new Response("Follow", "Follow Scarlett down into her apartment for your reward...", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX) {
-						@Override
-						public boolean isSexHighlight() {
-							return true;
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
-							Main.game.getNpc(Scarlett.class).returnToHome();
-							Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
-						}
-					};
-				}
 				
-			} else {
-				if(index==1) {
-					return new Response("Kiss feet",
-							"Kiss Scarlett's feet.<br/>[style.italicsExcellent(She will definitely choose you as her partner if you do this!)]",
-							HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX) {
-						@Override
-						public boolean isSexHighlight() {
-							return true;
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_KISS_FEET"));
+			} else if(index==2) {
+				return new Response("Bow down",
+						"Bow down in front of Scarlett.<br/>[style.italicsGood(She is likely, but not certain, to choose you as her partner if you do this.)]",
+						randomChance<0.75f
+							?HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX
+							:HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NOT_CHOSEN) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
+					@Override
+					public void effects() {
+						if(randomChance<0.75f) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 10));
-							Main.game.getNpc(Scarlett.class).returnToHome();
-							Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
+							
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN_NOT_CHOSEN"));
 						}
-					};
-					
-				} else if(index==2) {
-					return new Response("Bow down",
-							"Bow down in front of Scarlett.<br/>[style.italicsGood(She is likely, but not certain, to choose you as her partner if you do this.)]",
-							randomChance<0.75f
-								?HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX
-								:HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NOT_CHOSEN) {
-						@Override
-						public boolean isSexHighlight() {
-							return true;
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Flatter",
+						"Do your best to flatter and impress Scarlett.<br/>[style.italicsMinorGood(She is just as likely as not to choose you as her partner if you do this.)]",
+						randomChance<0.5f
+							?HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX
+							:HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NOT_CHOSEN) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
+					@Override
+					public void effects() {
+						if(randomChance<0.5f) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
+							
+						} else {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER_NOT_CHOSEN"));
 						}
-						@Override
-						public void effects() {
-							if(randomChance<0.75f) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN"));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-								Main.game.getNpc(Scarlett.class).returnToHome();
-								Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
-								
-							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN_NOT_CHOSEN"));
-							}
-						}
-					};
-					
-				} else if(index==3) {
-					return new Response("Flatter",
-							"Do your best to flatter and impress Scarlett.<br/>[style.italicsMinorGood(She is just as likely as not to choose you as her partner if you do this.)]",
-							randomChance<0.5f
-								?HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX
-								:HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NOT_CHOSEN) {
-						@Override
-						public boolean isSexHighlight() {
-							return true;
-						}
-						@Override
-						public void effects() {
-							if(randomChance<0.5f) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER"));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"));
-								Main.game.getNpc(Scarlett.class).returnToHome();
-								Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
-								
-							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER_NOT_CHOSEN"));
-							}
-						}
-					};
-				}
+					}
+				};
 			}
 			return null;
 		}
@@ -1452,7 +1462,7 @@ public class HarpyNestHelena {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Do as Scarlett says and leave the nest...", HELENAS_NEST_EXTERIOR) {
+				return new Response("Leave", "Exit Helena's nest.", HELENAS_NEST_EXTERIOR) {
 					@Override
 					public void effects() {
 						applyScarlettFuckedEffects();
@@ -1464,6 +1474,10 @@ public class HarpyNestHelena {
 	};
 
 	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NOT_CHOSEN = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			applyScarlettFuckedEffects();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -1479,7 +1493,6 @@ public class HarpyNestHelena {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Scarlett.class).returnToHome();
-						Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
 					}
 				};
 			}
@@ -1488,6 +1501,11 @@ public class HarpyNestHelena {
 	};
 	
 	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Scarlett.class).returnToHome();
+			Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -1500,14 +1518,20 @@ public class HarpyNestHelena {
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
 			
-			if(index==0) {
-				return new Response("Back out", "Back out of this and tell Scarlett that you're going to leave...", HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE){
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), -10));
-					}
-				};
-			}
+			responses.add(new ResponseSex(
+					"No preference",
+					"Tell Scarlett that you have no preference in how you want her to fuck you, and that she can figure it out after getting started...",
+					true,
+					false,
+					getScarlettSexManager(SexPosition.STANDING, SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_SUBMISSIVE,
+							null,
+							Util.newHashMapOfValues(),
+							""),
+					null,
+					null,
+					AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
+					UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_NO_PREFERENCE")) {
+			});
 			
 			if(Main.game.getNpc(Scarlett.class).hasPenis()) {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -1528,7 +1552,7 @@ public class HarpyNestHelena {
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_BLOWJOB")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_BLOWJOB")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
@@ -1555,7 +1579,7 @@ public class HarpyNestHelena {
 								null,
 								null,
 								AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_ANAL")) {
+								UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_ANAL")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
@@ -1583,7 +1607,7 @@ public class HarpyNestHelena {
 								null,
 								null,
 								AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_VAGINAL")) {
+								UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_VAGINAL")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
@@ -1611,7 +1635,7 @@ public class HarpyNestHelena {
 							null,
 							null,
 							AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_CUNNILINGUS")) {
+							UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_CUNNILINGUS")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START, false, true));
@@ -1641,7 +1665,7 @@ public class HarpyNestHelena {
 								null,
 								null,
 								AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SCISSORING")) {
+								UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SCISSORING")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), ClitClit.TRIBBING_START, false, true));
@@ -1669,7 +1693,7 @@ public class HarpyNestHelena {
 								null,
 								null,
 								AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER")) {
+								UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisVagina.PENIS_FUCKING_START, false, true));
@@ -1700,7 +1724,7 @@ public class HarpyNestHelena {
 									null,
 									null,
 									AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX,
-									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER_ASS")) {
+									UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER_ASS")) {
 								@Override
 								public List<InitialSexActionInformation> getInitialSexActions() {
 									return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), PenisAnus.PENIS_FUCKING_START, false, true));
@@ -1710,7 +1734,7 @@ public class HarpyNestHelena {
 					}
 				}
 			}
-
+			
 			for(int i=0; i<responses.size(); i++) {
 				if(index==i+1) {
 					return responses.get(i);
@@ -1721,31 +1745,11 @@ public class HarpyNestHelena {
 		}
 	};
 	
-	public static final DialogueNode HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE = new DialogueNode("", "", true, true) {
-		@Override
-		public int getSecondsPassed() {
-			return 5*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Leave", "Do as Scarlett says and head back up and out into Helena's nest...", HELENAS_NEST_EXTERIOR) {
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
-						applyScarlettFuckedEffects();
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	public static final DialogueNode AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX = new DialogueNode("Finished", "Scarlett has had enough for now...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.scarlettGoneHome, true);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -1756,13 +1760,41 @@ public class HarpyNestHelena {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Leave", "Do as Scarlett says and head back up and out into Helena's nest...", HELENAS_NEST_EXTERIOR) {
+			if(index==0) {
+				return new Response("Leave", "Tell Scarlett that you need to be leaving now and ride the elevator back up to Helena's nest...", HELENAS_NEST_EXTERIOR) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_LEAVE"));
 						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 					}
 				};
+				
+			} else if(index==1) {
+				return new Response("Sleep over", "Agree to spend the night with Scarlett.", AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_SLEEP_OVER) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
+						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_SLEEP_OVER = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return Main.game.getMinutesUntilTimeInMinutes(60*8) * 60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_SLEEP_OVER");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Continue on over to the exit of Helena's nest...", HELENAS_NEST_EXTERIOR);
 			}
 			return null;
 		}

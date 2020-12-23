@@ -6,7 +6,7 @@ import org.w3c.dom.events.MouseEvent;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
-import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -98,7 +98,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				
 				if(!response.hasRequirements()) {
 					if(response instanceof ResponseSex) {
-						if(((ResponseSex)response).isPlayerDom()) {
+						if(((ResponseSex)response).isPlayerInDominantSlot()) {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
 						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");
@@ -112,10 +112,14 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 						
 					} else if(response.getAssociatedCombatMove()!=null) {
-						CombatMove move = response.getAssociatedCombatMove();
+						AbstractCombatMove move = response.getAssociatedCombatMove();
 						boolean coreMove = Main.game.getPlayer().getEquippedMoves().contains(move);
 						
-						tooltipSB.append("<div class='title'><span style='color:" + (coreMove?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString() + ";'>"+Util.capitaliseSentence(move.getName(0, Main.game.getPlayer()))+"</span></div>");
+						tooltipSB.append("<div class='title'>"
+											+ "<span style='color:" + (coreMove?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString() + ";'>"
+												+Util.capitaliseSentence(move.getName(0, Main.game.getPlayer()))
+											+"</span>"
+										+ "</div>");
 						boxHeight+=44;
 						
 						int cost = move.getAPcost(Main.game.getPlayer());
@@ -153,7 +157,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				} else {
 					if(response.isAvailable()) {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span> (<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
 							} else {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span> (<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
@@ -175,7 +179,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else if(response.isAbleToBypass()) {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
 										+ " (<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
 							} else {
@@ -199,7 +203,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
 										+ " (<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
 							} else {

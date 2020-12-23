@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name appendColourName="false"><![CDATA[pussy pump]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pussy pumps]]></namePlural>
+		<description><![CDATA[This pump consists of a vibrating dildo, which is inserted into the wearer's pussy, and an enclosing shield. At the base of the dildo, there are a series of holes, through which the orgasming wearer's girlcum is drained and sucked down into a plastic tube.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>VAGINA</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>vagina_pump.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_VIBRATION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			<tag>MILKING_EQUIPMENT</tag>
+			<tag>TRANSPARENT</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>REQUIRES_VAGINA</tag>
+			<tag>PLUGS_VAGINA</tag>
+			<tag>RIGID_MATERIAL</tag>
+			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<sexAttributesSelf>
+		<penetration>
+			<length>15</length>
+			<girth>4</girth>
+			<modifiers/>
+		</penetration>
+		<orifice/>
+	</sexAttributesSelf>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc.her] [npc.pussy+], before turning up the dial on the milking machine and letting the now-pressurised shield suck itself into place over [npc.her] [npc.labia+].
+			#IF(npc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+				<br/>[style.italicsCum(The pussy-pump quickly sucks out all of [npc.namePos] creampie!)]
+			#ENDIF
+			]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.pussy+], before turning up the dial on the milking machine and letting the now-pressurised shield suck itself into place over [npc2.her] [npc2.labia+].
+			#IF(npc2.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+				<br/>[style.italicsCum(The pussy-pump quickly sucks out all of [npc2.namePos] creampie!)]
+			#ENDIF
+			]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the dildo into [npc2.her] [npc2.pussy+], before cranking up the dial on the milking machine and letting the now-pressurised shield suck itself into place over [npc2.her] [npc2.labia+].
+			#IF(npc2.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+				<br/>[style.italicsCum(The pussy-pump quickly sucks out all of [npc2.namePos] creampie!)]
+			#ENDIF
+			]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(turn)] down the dial on the milking machine, before sliding the dildo out of [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(turn)] down the dial on the milking machine, before sliding the dildo out of [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[With no regard for [npc2.her] comfort, [npc.name] roughly [npc.verb(pull)] the still-pressurised pump off of [npc2.namePos] [npc2.labia+] and [npc.verb(yank)] the vibrating dildo out of [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>
