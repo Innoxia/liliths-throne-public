@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.script.CompiledScript;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
@@ -67,6 +68,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -421,6 +423,10 @@ public class UtilText {
 	private static String getGlowStyle(Colour colour) {
 		return colour==null?"":"text-shadow: 0px 0px 4px "+colour.getShadesRgbaFormat(0.75f)[1]+";";
 	}
+	
+	private static Boolean isPlayer(String target, GameCharacter character) {
+		return target.startsWith("npc") && character.isPlayer();
+	}
 
 	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects) {
 		modifiedSentence = text.trim();
@@ -616,6 +622,10 @@ public class UtilText {
 //		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
 		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
+
+	public static String applyGlow(String input) {
+		return "<span style='text-shadow: 0px 0px 4px;'>"+input+"</span>";
+	}
 	
 	public static String applyGlow(String input, Colour colour) {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
@@ -783,11 +793,11 @@ public class UtilText {
 	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
 	 */
 	public static String parseFromXMLFile(List<ParserTag> parserTags, String folderPath, String pathName, String tag, List<GameCharacter> specialNPC) {
-		File file = new File(folderPath+pathName+".xml");
+		File file = new File(folderPath+System.getProperty("file.separator")+pathName+".xml");
 
 		List<String> strings = new ArrayList<>();
 		
-		if (file.exists()) {
+		if(file.exists()) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -796,8 +806,10 @@ public class UtilText {
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				
-				for(int i=0; i<((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").getLength(); i++){
-					Element e = (Element) ((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").item(i);
+//				String rootElelemnt = doc.getDocumentElement().getTagName();
+				
+				for(int i=0; i<(doc.getDocumentElement()).getElementsByTagName("htmlContent").getLength(); i++){
+					Element e = (Element) (doc.getDocumentElement()).getElementsByTagName("htmlContent").item(i);
 					
 					if(e.getAttribute("tag").equals(tag)) {
 						strings.add(e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
@@ -807,6 +819,8 @@ public class UtilText {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else {
+			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+pathName+".xml")+"' does not exist!");
 		}
 		
 		if(strings.isEmpty()) {
@@ -1347,7 +1361,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						if(command.startsWith("N")) {
 							return "You";
 						} else {
@@ -1381,7 +1395,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						if(command.startsWith("N")) {
 							return "Your";
 						} else {						 
@@ -1402,7 +1416,7 @@ public class UtilText {
 				false,
 				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				+ " If you need the actual player name for third-person reference, passin 'true' as an argument.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -1415,7 +1429,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you're";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1444,7 +1458,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you are";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1461,7 +1475,7 @@ public class UtilText {
 				false,
 				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				+ " If you need the actual player name for third-person reference, passin 'true' as an argument.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -1474,7 +1488,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you've";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1503,7 +1517,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" has";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you have";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -3272,7 +3286,7 @@ public class UtilText {
 				false,
 				false,
 				"(thought content)",
-				"Parses the supplied text in teh argument as though it's a thought of the character."){
+				"Parses the supplied text in the argument as though it's a thought of the character."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -3966,7 +3980,7 @@ public class UtilText {
 				"Returns the correct version of 'has' for this character (has or have)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "have";
 				} else {
 					return "has";
@@ -3984,7 +3998,7 @@ public class UtilText {
 				"Returns the correct version of 'is' for this character (is or are)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "are";
 				} else {
 					return "is";
@@ -4002,7 +4016,7 @@ public class UtilText {
 				"Returns the correct version of 'does' for this character (do or does)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "do";
 				} else {
 					return "does";
@@ -4020,7 +4034,7 @@ public class UtilText {
 				"Returns the correct version of 'was' for this character (was or were)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "were";
 				} else {
 					return "was";
@@ -4040,10 +4054,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific possessive pronoun for this character (your, her, his). By default, returns 'your' for player character."
-				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the actual third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "your";
 					
 				} else {
@@ -4075,7 +4089,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "yours";
 				} else {
 					if(character.isFeminine()) {
@@ -4098,7 +4112,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "yours";
 				} else {
 					if(character.isPlayerKnowsName()) {
@@ -4119,10 +4133,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -4152,10 +4166,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, she, he). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -4185,10 +4199,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you're, she's, he's). By default, returns 'you're' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you're";
 				} else {
 					if(character.isFeminine()) {
@@ -4218,10 +4232,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you are, she is, he is). By default, returns 'you are' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you are";
 				} else {
 					if(character.isFeminine()) {
@@ -4251,10 +4265,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's). By default, returns 'you've' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you've";
 				} else {
 					if(character.isFeminine()) {
@@ -4286,7 +4300,7 @@ public class UtilText {
 				"Returns the correct gender-specific pronoun contraction for this character (you have, she has, he has). By default, returns 'you have' for player character."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "you have";
 				} else {
 					if(character.isFeminine()) {
@@ -4314,10 +4328,10 @@ public class UtilText {
 				true,
 				"",
 				"Returns correct gender-specific reflexive pronoun for this character (yourself, herself, himself). By default, returns 'yourself' for player character."
-						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
+						+ " If you need the regular reflexive player character pronoun, passin 'true' as an argument."){
 					@Override
 					public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-						if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+						if(arguments==null && isPlayer(target, character)) {
 							return "yourself";
 						} else {
 							if(character.isFeminine()) {
@@ -4484,6 +4498,24 @@ public class UtilText {
 					return "<i>"+arguments+"</i>";
 				else
 					return "<i>...</i>";
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"glow",
+						"glowing",
+						"g"),
+				false,
+				false,
+				"(text to make glow)",
+				"Description of method"){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null)
+					return applyGlow(arguments);
+				else
+					return applyGlow("...");
 			}
 		});
 		
@@ -4656,10 +4688,37 @@ public class UtilText {
 						"Description of method"){//TODO
 					@Override
 					public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-						if(arguments!=null)
-							return applyGlow(arguments, c);
-						else
-							return "<i>...</i>";
+						if(arguments!=null) {
+							if(c.getRainbowColours()!=null) {
+								StringBuilder sb = new StringBuilder();
+
+								int i=0;
+								int openBrackets = 0;
+								char[] characters = arguments.toCharArray();
+								for(char ch : characters) {
+									if(ch=='<') {
+										openBrackets++;
+									}
+									if(openBrackets==0) {
+										Colour col = new Colour(Util.newColour(c.getRainbowColours().get(i%c.getRainbowColours().size())));
+										sb.append(applyGlow(String.valueOf(ch), col));
+										i++;
+									} else {
+										sb.append(ch);
+									}
+									if(ch=='>') {
+										openBrackets--;
+									}
+								}
+
+								return sb.toString();
+
+							} else {
+								return applyGlow(arguments, c);
+							}
+						} else {
+							return applyGlow("...");
+						}
 					}
 				});
 			}
@@ -8907,16 +8966,28 @@ public class UtilText {
 		
 		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
-		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
+		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions");//, "-scripting");
+		try {
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("exit");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("quit");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("load");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("loadWithNewGlobal");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("bindProperties");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("Object.bindProperties");
+		} catch(Exception ex) {
+			System.err.println("ENGINE_SCOPE binding removal error.");
+		}
 		
 //		ScriptEngineManager manager = new ScriptEngineManager();
 //		engine = manager.getEngineByName("javascript");
 		
 		// Parser targets:
-		for(ParserTarget target : ParserTarget.values()) {
-			if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
-				for(String tag : target.getTags()) {
-					engine.put(tag, target.getCharacter(tag, null));
+		if(Main.game.isStarted()) {
+			for(ParserTarget target : ParserTarget.values()) {
+				if(target!=ParserTarget.STYLE && target!=ParserTarget.UNIT && target!=ParserTarget.NPC && target!=ParserTarget.COMPANION) {
+					for(String tag : target.getTags()) {
+						engine.put(tag, target.getCharacter(tag, null));
+					}
 				}
 			}
 		}
@@ -9005,6 +9076,9 @@ public class UtilText {
 		}
 		for(CumProduction cumProduction : CumProduction.values()) {
 			engine.put("CUM_PRODUCTION_"+cumProduction.toString(), cumProduction);
+		}
+		for(BodyPartTag bpt : BodyPartTag.values()) {
+			engine.put("BODY_PART_TAG_"+bpt.toString(), bpt);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
@@ -9239,35 +9313,37 @@ public class UtilText {
 		if(engine==null) {
 			initScriptEngine();
 		}
-		
-		if(!specialNPCs.isEmpty()) {
-//			System.out.println("List size: "+specialNPCList.size());
-			for(int i = 0; i<specialNPCs.size(); i++) {
-				if(i==0) {
-					engine.put("npc", specialNPCs.get(i));
+
+		if(Main.game.isStarted()) {
+			if(!specialNPCs.isEmpty()) {
+	//			System.out.println("List size: "+specialNPCList.size());
+				for(int i = 0; i<specialNPCs.size(); i++) {
+					if(i==0) {
+						engine.put("npc", specialNPCs.get(i));
+					}
+					engine.put("npc"+(i+1), specialNPCs.get(i));
+	//				System.out.println("Added: npc"+(i+1));
 				}
-				engine.put("npc"+(i+1), specialNPCs.get(i));
-//				System.out.println("Added: npc"+(i+1));
+				
+			} else {
+				try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+					engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
+	//				System.out.println("specialNPCList is empty");
+				} catch(Exception ex) {
+	//				System.err.println("Parsing error 2: Could not initialise npc");
+				}
 			}
 			
-		} else {
-			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
-				engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
-//				System.out.println("specialNPCList is empty");
-			} catch(Exception ex) {
-//				System.err.println("Parsing error 2: Could not initialise npc");
+			if(Main.game.getPlayer().hasCompanions()) {
+				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
+					if(i==0) {
+						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
+					}
+					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+				}
 			}
 		}
 		
-		if(Main.game.getPlayer().hasCompanions()) {
-			for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
-				if(i==0) {
-					engine.put("com", Main.game.getPlayer().getCompanions().get(i));
-				}
-				engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
-			}
-		}
-
 		StringBuilder conditionalStatementWithVariables = new StringBuilder();
 		
 		if(hasXmlVariables) {

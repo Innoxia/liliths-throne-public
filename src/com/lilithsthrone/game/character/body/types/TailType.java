@@ -300,7 +300,7 @@ public class TailType {
 					BodyPartTag.TAIL_PREHENSILE,
 					BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION,
 					BodyPartTag.TAIL_SLEEP_HUGGING,
-					BodyPartTag.TAIL_TYPE_SKIN,
+					BodyPartTag.TAIL_TYPE_SCALES,
 					BodyPartTag.TAIL_TAPERING_LINEAR), false) {
 	};
 	

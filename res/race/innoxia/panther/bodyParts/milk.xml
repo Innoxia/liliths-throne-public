@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>innoxia_panther</race>
+	
+	<transformationName><![CDATA[panther]]></transformationName>
+	
+	<baseFluidType>MILK</baseFluidType>
+	
+	<flavour>MILK</flavour>
+	
+	<namesMasculine/>
+	<namesFeminine/>
+	
+	<descriptorsMasculine>
+		<name><![CDATA[panther]]></name>
+	</descriptorsMasculine>
+	
+	<descriptorsFeminine>
+		<name><![CDATA[panther]]></name>
+	</descriptorsFeminine>
+	
+	<defaultFluidModifiers/>
+</fluid>

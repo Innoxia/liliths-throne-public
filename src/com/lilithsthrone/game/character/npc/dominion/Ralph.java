@@ -541,13 +541,13 @@ public class Ralph extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				itemOwner.useItem(item, target, false);
 				
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "You pull out a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
+								+ "You pull out a "+item.getName(false, false)+" from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 								+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 								+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy, although somewhat muffled, giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");
@@ -555,7 +555,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
+								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to swallow it."
 								+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 								+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -569,7 +569,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 								"<p>"
-									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
+									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 									+ " Suppressing your groans, you turn back, holding out your hand as you ask him to swallow it."
 									+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 									+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -579,7 +579,7 @@ public class Ralph extends NPC {
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
+								+ "Producing a "+item.getName(false, false)+" from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
 									+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 									+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");
