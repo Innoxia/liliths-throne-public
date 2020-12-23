@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
  * @since 0.1.83
- * @version 0.3.7
+ * @version 0.4
  * @author Innoxia
  */
 public enum TongueModifier {
@@ -17,7 +17,9 @@ public enum TongueModifier {
 	
 	FLAT("flat"),
 	
-	STRONG("strong");
+	STRONG("strong"),
+	
+	TAPERED("tapered");
 	
 	private String descriptor;
 

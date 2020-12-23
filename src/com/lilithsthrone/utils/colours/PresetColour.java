@@ -926,6 +926,8 @@ public class PresetColour {
 			PresetColour.COVERING_RAINBOW_PASTEL
 			);
 	
+	// I know...
+	public static List<Colour> allCoveringColoursWithClear = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 	public static List<Colour> allMakeupColours = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
@@ -1167,6 +1169,76 @@ public class PresetColour {
 					System.err.println("Loading colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// Tags are only used for externally-loaded colours, so handle addition to lists here before hard-coded colours are checked:
+		for(Colour colour : allPresetColours) {
+			for(ColourTag tag : colour.getTags()) {
+				switch(tag) {
+					case ANTLER:
+						antlerColours.add(colour);
+						break;
+					case FEATHER_NATURAL:
+						naturalFeatherColours.add(colour);
+						break;
+					case FEATHER_DYE:
+						dyeFeatherColours.add(colour);
+						break;
+					case FUR:
+						naturalFurColours.add(colour);
+						break;
+					case GENERIC_COVERING:
+						allCoveringColours.add(colour);
+						allCoveringColoursWithClear.add(colour);
+						break;
+					case HAIR:
+						naturalHairColours.add(colour);
+						break;
+					case HORN:
+						hornColours.add(colour);
+						break;
+					case MAKEUP:
+						allMakeupColours.add(colour);
+						break;
+					case SCALE:
+						naturalScaleColours.add(colour);
+						break;
+					case SKIN:
+						allSkinColours.add(colour);
+						break;
+					case SLIME_NATURAL:
+						naturalSlimeColours.add(colour);
+						break;
+					case SLIME_DYE:
+						dyeSlimeColours.add(colour);
+						break;
+						
+					case IRIS_DYE:
+						dyeIrisColours.add(colour);
+						break;
+					case IRIS_NATURAL:
+						naturalIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_NATURAL:
+						naturalPredatorIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_DYE:
+						dyePredatorIrisColours.add(colour);
+						break;
+					case PUPIL_DYE:
+						dyePupilColours.add(colour);
+						break;
+					case PUPIL_NATURAL:
+						naturalPupilColours.add(colour);
+						break;
+					case SCLERA_NATURAL:
+						naturalScleraColours.add(colour);
+						break;
+					case SCLERA_DYE:
+						dyeScleraColours.add(colour);
+						break;
 				}
 			}
 		}

@@ -170,36 +170,81 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
+		List<MilkingRoom> freeRooms = new ArrayList<>();
+		List<MilkingRoom> fullRooms = new ArrayList<>();
 		List<Cell> milkingCells = new ArrayList<>();
-		
+
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-			
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
-			
+			if (charactersPresent < 8) {
+				freeRooms.add(room);
+			} else {
+				fullRooms.add(room);
+			}
+		}
+		if (freeRooms.isEmpty()&&needFreeCell) {
+			return null;
+		}
+
+		// check for a room with capacity and the right type first
+		for(MilkingRoom room : freeRooms) {
+			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
+
 			if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
-					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
 				return c;
-				
+
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
-					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 				return c;
-				
+
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
 				return c;
-			}
-			
-			if((needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+
+			} else {
+				// not the right type, but has capacity
 				milkingCells.add(c);
 			}
 		}
+
+		for(MilkingRoom room : fullRooms) {
+			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
+
+			milkingCells.add(c);
+		}
+
 		if(milkingCells.isEmpty()) {
 			return null;
+		}
+
+		for (Cell c: milkingCells) {
+			int charactersPresent = Main.game.getCharactersPresent(c).size();
+			// all rooms of the right type are full, so select a room with capacity to avoid crowding
+			if (charactersPresent<8) {
+				return c;
+			// if all rooms are full, and a free slot is not needed	use a full room of the right type
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+			}
 		}
 		return milkingCells.get(0);
 	}
