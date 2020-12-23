@@ -172,7 +172,6 @@ public class MilkingRoom implements XMLSaving {
 	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
 		List<MilkingRoom> freeRooms = new ArrayList<>();
 		List<MilkingRoom> fullRooms = new ArrayList<>();
-
 		List<Cell> milkingCells = new ArrayList<>();
 
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {

@@ -109,7 +109,7 @@ public class RoomPlayer {
 			} else if(emperorBed) {
 				restedEffect = StatusEffect.WELL_RESTED_BOOSTED;
 			}
-			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + ((240+sleepTimeInMinutes)*60));
+			character.addStatusEffect(restedEffect, ((neet?12:10)*60*60) + (sleepTimeInMinutes*60));
 		}
 
 		Main.game.getPlayer().setActive(false);
@@ -188,13 +188,6 @@ public class RoomPlayer {
 				};
 				
 			} else if (index == 6) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-					return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				} else {
-					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
-				}
-				
-			} else if (index == 7) {
 				return new Response("Manage room", "Enter the management screen for this particular room.", OccupantManagementDialogue.ROOM_UPGRADES) {
 					@Override
 					public void effects() {
@@ -202,7 +195,7 @@ public class RoomPlayer {
 					}
 				};
 				
-			}  else if (index == 8) {
+			}  else if (index == 7) {
 				if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
 					return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", ROOM) {
 						@Override
@@ -218,6 +211,12 @@ public class RoomPlayer {
 					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 				}
 				
+			} else if (index == 8) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
+					return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+				} else {
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+				}
 			}
 			
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
