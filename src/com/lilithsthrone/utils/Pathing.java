@@ -223,7 +223,9 @@ public class Pathing {
 				}
 				
 				if(totalTimePassed>=2*60*60) { // Every 2 hours, perform an end turn. I didn't encounter any lag when just ending the turn on every tile moved, but I'm sure it could lag when moving huge distances.
+					Main.game.getPlayer().setActive(false);
 					Main.game.endTurn(totalTimePassed);
+					Main.game.getPlayer().setActive(true);
 					totalTimePassed = 0;
 				}
 			}
@@ -233,8 +235,10 @@ public class Pathing {
 		Cell destination = getPathingCells().get(getPathingCells().size()-1);
 		Main.game.getPlayer().setLocation(destination.getType(), destination.getLocation(), false);
 
+		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(totalTimePassed);
-		
+		Main.game.getPlayer().setActive(true);
+
 		return new Response("", "", destination.getDialogue(false));
 	}
 	

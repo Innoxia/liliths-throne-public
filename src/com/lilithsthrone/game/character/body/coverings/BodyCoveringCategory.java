@@ -55,7 +55,7 @@ public enum BodyCoveringCategory {
 	}
 	
 	/**
-	 * @return true if this BodyCoveringCategory changes based on the material which teh character's body is made out of.
+	 * @return true if this BodyCoveringCategory changes based on the material which the character's body is made out of.
 	 */
 	public boolean isInfluencedByMaterialType() {
 		return true;

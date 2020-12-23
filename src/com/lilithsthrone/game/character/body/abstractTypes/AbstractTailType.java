@@ -327,7 +327,8 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public String getGirthDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
 			} else {
@@ -515,7 +516,8 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	}
 	
 	public String getGirthDescriptor(PenetrationGirth girth) {
-		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)) {
 			switch(girth) {
 				case ZERO_THIN:
 					return "thin";
@@ -633,7 +635,9 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 		if(owner.getTailCount()>1) {
 			tailText = "[npc.tailGirth] [npc.tails]";
 		}
-		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"
@@ -768,7 +772,9 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	public String getLengthTransformationDescription(GameCharacter owner, boolean positive) {
 		String heightPercentageDescription = " (length is "+((int)(owner.getTailLengthAsPercentageOfHeight()*100))+"% of [npc.namePos] height)";
-		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN) || this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
+		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_SKIN)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_SCALES)
+				|| this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
 			if(positive) {
 				return UtilText.parse(owner,
 						"<p>"

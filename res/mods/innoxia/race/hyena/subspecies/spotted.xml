@@ -78,8 +78,12 @@
 	<!-- All non-striped hyenas are classified as spotted just to catch any which have accidentally had their covering set to something other than spotted or striped. -->
 	
 	<!-- The name of the svg file which represents this subspecies' icon.
-	It should be located in the same folder as this xml file. -->
-	<iconName>icon</iconName>
+	It should be located in the same folder as this xml file.
+	The 'displaySize' attribute defines how much (if any) this icon should be shrunk to fit onto the background image.
+		This is so that you can make your icon a full-sized svg, so that it's a full size for use in other places (such as for the book image or item backgrounds) and resize it just for this subspecies icon.
+		The default value I use is 80 (corresponding to 80% of the image's full size), but you can define it however you like, or even omit it entirely (in which case a value of 100 is used).
+		A setting of 100 means that no resizing will be made to your icon image. -->
+	<iconName displaySize="80">icon</iconName>
 	
 	<!-- The name of the svg file which represents the background for this subspecies' icon.
 	It should be located in the same folder as this xml file.
@@ -121,7 +125,8 @@
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic spotted hyena, known as a 'spotted hyena-morph' when bipedal, and a 'spotted hyenataur' when the lower body is that of a typically-oversized feral spotted hyena. To be identified as a spotted hyena-morph, a character must be a hyena-morph that has spotted fur.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
+	<!-- Names for this subspecies when the character is a half-demon.
+	You can omit these altogether, in which case the game will automatically generate a generic half-demon name for your subspecies. -->
 	<nameHalfDemon><![CDATA[kishi]]></nameHalfDemon>
 	<namePluralHalfDemon><![CDATA[kishis]]></namePluralHalfDemon>
 	<singularMaleNameHalfDemon><![CDATA[kishi]]></singularMaleNameHalfDemon>
@@ -133,11 +138,11 @@
 	<feralAttributes>
 		<!-- Naming: -->
 		<feralName><![CDATA[spotted hyena]]></feralName>
-		<feralNamePlural><![CDATA[spotted hyena]]></feralNamePlural>
+		<feralNamePlural><![CDATA[spotted hyenas]]></feralNamePlural>
 		<feralSingularMaleName><![CDATA[spotted hyena]]></feralSingularMaleName>
 		<feralSingularFemaleName><![CDATA[spotted hyena]]></feralSingularFemaleName>
-		<feralPluralMaleName><![CDATA[spotted hyena]]></feralPluralMaleName>
-		<feralPluralFemaleName><![CDATA[spotted hyena]]></feralPluralFemaleName>
+		<feralPluralMaleName><![CDATA[spotted hyenas]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[spotted hyenas]]></feralPluralFemaleName>
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->

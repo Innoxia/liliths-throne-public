@@ -6570,7 +6570,7 @@ public class ClothingType {
 					clothingToIdMap.put(ct, id);
 					idToClothingMap.put(id, ct);
 
-					if(ct.getRarity()==Rarity.COMMON) {
+					if(ct.getRarity()==Rarity.COMMON && !ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)) {
 						commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
 						
 						if (ct.getFemininityRestriction() == Femininity.FEMININE) {
@@ -6611,7 +6611,7 @@ public class ClothingType {
 					clothingToIdMap.put(ct, id);
 					idToClothingMap.put(id, ct);
 
-					if(ct.getRarity()==Rarity.COMMON) {
+					if(ct.getRarity()==Rarity.COMMON && !ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)) {
 						commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
 						
 						if (ct.getFemininityRestriction() == Femininity.FEMININE) {
@@ -6658,7 +6658,7 @@ public class ClothingType {
 						continue;
 					}
 					
-					if(ct.getRarity()==Rarity.COMMON) {
+					if(ct.getRarity()==Rarity.COMMON && !ct.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)) {
 						commonClothingMap.get(ct.getEquipSlots().get(0)).add(ct);
 						
 						if (ct.getFemininityRestriction() == Femininity.FEMININE) {
