@@ -889,6 +889,7 @@ public class Sex {
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
 							}
 						}
+						clothingEquipped = character.getClothingInSlot(entry2.getKey()); // check if now equipped
 						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
 							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
 								if(clothing.getClothingType().equals(c.getClothingType())) {
@@ -901,10 +902,10 @@ public class Sex {
 								}
 							}
 							
-						} else if(character.getCell().getInventory().hasClothing(c)) { // Try to pick up their clothing if it's on the floor:
+						} else if(character.getCell().getInventory().hasClothing(c) && clothingEquipped==null) { // Try to pick up their clothing if it's still on the floor:
 							character.addClothing(c, true);
 							
-						} else if(character.getCell().getInventory().hasClothing(dirtyClone)) { // Try to pick up their clothing if it's on the floor:
+						} else if(character.getCell().getInventory().hasClothing(dirtyClone) && clothingEquipped==null) { // Try to pick up their clothing if it's still on the floor:
 							character.addClothing(dirtyClone, true);
 						}
 					}

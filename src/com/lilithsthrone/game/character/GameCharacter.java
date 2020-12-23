@@ -648,7 +648,7 @@ public abstract class GameCharacter implements XMLSaving {
 		potentialPartnersAsMother = new ArrayList<>();
 		potentialPartnersAsFather = new ArrayList<>();
 		littersGenerated = 0;
-		
+
 		// Stats:
 		foughtPlayerCount=0;
 		lostCombatCount=0;
@@ -1108,8 +1108,8 @@ public abstract class GameCharacter implements XMLSaving {
 		XMLUtil.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
 
 		XMLUtil.addAttribute(doc, characterPregnancy, "littersGenerated", String.valueOf(this.getLittersGenerated()));
-		
-		
+
+
 		if(!timeProgressedToFinalIncubationStage.isEmpty()) {
 			Element incubationStageElement = doc.createElement("timeProgressedToFinalIncubationStage");
 			characterPregnancy.appendChild(incubationStageElement);
@@ -2367,7 +2367,7 @@ public abstract class GameCharacter implements XMLSaving {
 				} else {
 					character.setLittersGenerated(0);
 				}
-				
+
 				nodes = pregnancyElement.getElementsByTagName("timeProgressedToFinalIncubationStage");
 				if(nodes.getLength()>0) {
 					element = (Element) nodes.item(0);
@@ -8973,7 +8973,7 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT), target, request, mainSexTypes, 1);
-		
+
 		// Legs (weighted quite low as it's probably not as desired as penetrative sex even with relevant fetishes):
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 0.5f);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, mainSexTypes, 0.25f);
@@ -19103,7 +19103,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		Litter birthedLitter = pregnantLitter;
-		
+
 		if(withBirth) {
 			AbstractClothing c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 			while(c!=null) {
@@ -19119,7 +19119,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			this.removeDirtySlot(InventorySlot.VAGINA, true);
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA, true);
-			
+
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
@@ -19167,7 +19167,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getIncubationLitter(orifice)==null) {
 			return;
 		}
-		
+
 		this.getIncubationLitter(orifice).setBirthDate(Main.game.getDateNow());
 		if(this.getIncubationLitter(orifice).getMother()!=null) { // Set birth date for the mother's litter copy:
 			for(Litter motherCopy : this.getIncubationLitter(orifice).getMother().getLittersImplanted()) {
@@ -19186,7 +19186,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		Litter birthedLitter = this.getIncubationLitter(orifice);
-		
+
 		if(withBirth) {
 			CoverableArea covArea = CoverableArea.VAGINA;
 			List<InventorySlot> associatedSlots = new ArrayList<>();
@@ -19235,7 +19235,7 @@ public abstract class GameCharacter implements XMLSaving {
 			for(InventorySlot slot : associatedSlots) {
 				this.removeDirtySlot(slot, true);
 			}
-			
+
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer())
 					|| (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())
 					|| birthedLitter.getIncubator().isPlayer()) {
@@ -19418,7 +19418,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setPregnantLitter(Litter pregnantLitter) {
 		this.pregnantLitter = pregnantLitter;
 	}
-	
+
 	public int getLittersGenerated() {
 		return littersGenerated;
 	}
@@ -21736,13 +21736,15 @@ public abstract class GameCharacter implements XMLSaving {
 				this.addClothing(clothing, false);
 			}
 		}
-		
-		inventory.getClothingCurrentlyEquipped().add(newClothing);
-		newClothing.setSlotEquippedTo(slotToEquipInto);
-		
-		newClothing.onEquipApplyEffects(this, this, false);
-		
-		applyEquipClothingEffects(newClothing, slotToEquipInto, null, false);
+
+        AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
+
+		inventory.getClothingCurrentlyEquipped().add(clonedClothing);
+        clonedClothing.setSlotEquippedTo(slotToEquipInto);
+
+        clonedClothing.onEquipApplyEffects(this, this, false);
+
+		applyEquipClothingEffects(clonedClothing, slotToEquipInto, null, false);
 	}
 
 	/**

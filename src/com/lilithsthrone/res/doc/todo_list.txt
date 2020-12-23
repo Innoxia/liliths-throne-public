@@ -37,6 +37,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where hair length, breast size, ass size, and hip size had no tolerance so that post-combat forced TFs alternated between too big and too small. (PR#1334 by Stadler76)
 		Fixed typo in phoenix-harpy description and tidied up parts of the code in UtilText.java. (PR#1336 by Stadler76)
 		Fixed some instances of incorrect unit parsing. (PR#1321 by NoStepOnSneks)
+		Fixed a bug where if a clothing item to be equipped had multiple occurrences, equipping this item would lead to bugs when the next occurrence of the item was to be equipped. (PR#1419 by AceXP)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
