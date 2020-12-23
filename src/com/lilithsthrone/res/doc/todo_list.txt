@@ -36,6 +36,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added checks for fertility pills, including broodmother. Roxy now sells broodmother pills and random NPCs may sometimes be carrying them. Ralph and Lilaya now react to broodmother pills in the same way as fertility pills. Fixed incorrect colour descriptions of fertility pills in several places. (PR#1422 by AceXP)
 		Fixed issue where hair length, breast size, ass size, and hip size had no tolerance so that post-combat forced TFs alternated between too big and too small. (PR#1334 by Stadler76)
 		Fixed typo in phoenix-harpy description and tidied up parts of the code in UtilText.java. (PR#1336 by Stadler76)
+		Fixed some instances of incorrect unit parsing. (PR#1321 by NoStepOnSneks)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
