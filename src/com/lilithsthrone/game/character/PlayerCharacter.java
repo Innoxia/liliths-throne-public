@@ -109,6 +109,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private boolean sideQuestUpdated;
 	private boolean relationshipQuestUpdated;
 
+	private boolean isActive;
+
 	protected List<String> friendlyOccupants;
 	
 	//Discoveries:
@@ -144,7 +146,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
 		relationshipQuestUpdated = false;
-		
+
+		isActive = true;
+
 		racesDiscoveredFromBook = new HashSet<>();
 
 		itemsDiscovered = new HashSet<>();
@@ -899,7 +903,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void setRelationshipQuestUpdated(boolean relationshipQuestUpdated) {
 		this.relationshipQuestUpdated = relationshipQuestUpdated;
 	}
-	
+
+	public boolean isActive() { return isActive; }
+
+	public void setActive(boolean active) { this.isActive = active; }
+
 	public Map<QuestLine, Quest> getQuestsFailed() {
 		return questsFailed;
 	}
