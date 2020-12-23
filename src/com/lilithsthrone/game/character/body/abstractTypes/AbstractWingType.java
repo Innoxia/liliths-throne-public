@@ -174,7 +174,6 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 		return false;
 	}
 
-	
 	public WingSize getMinimumSize() {
 		return minimumSize;
 	}
