@@ -88,8 +88,8 @@
 	]]></bodyDescription>
 	
 	<!-- Feral variant of the above. -->
-	<bodyDesriptionFeral><![CDATA[
+	<bodyDescriptionFeral><![CDATA[
 		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle.
-	]]></bodyDesriptionFeral>
+	]]></bodyDescriptionFeral>
 	
 </face>
