@@ -63,6 +63,35 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Bringing [npc.her] [npc.face] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] wrapped [npc.her] [npc.lips+] around [npc2.her] [npc2.clit+] and performed oral on it.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] mouth and forcing [npc.herHim] to perform oral on it.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] had [npc2.her] [npc2.clit] sucked.");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] mouth, and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] sucked against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] sucking [npc2.namePos] [npc2.clit+].");
+						}
 						break;
 					case FINGER:
 						break;
@@ -1200,6 +1229,35 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.clit+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] clit-fucked [npc.namePos] [npc.asshole+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] clit-fucked in the ass by [npc2.name].");
+						}
 						break;
 					case FINGER:
 						if(pastTense) {
@@ -1416,6 +1474,36 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.clitTip+] of [npc2.namePos] [npc2.clit],"
+											+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.clit+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being clit-fucked by [npc2.name].");
+						}
 						break;
 					case FINGER:
 						if(pastTense) {

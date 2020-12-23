@@ -1854,7 +1854,7 @@ public class StatusEffect {
 		}
 	};
 
-	public static AbstractStatusEffect AQUATIC_POSITIVE = new AbstractStatusEffect(90,
+	public static AbstractStatusEffect AQUATIC_TAIL_POSITIVE = new AbstractStatusEffect(90,
 			"Aquatic harmony",
 			"aquatic_positive",
 			PresetColour.GENERIC_GOOD,
@@ -1862,7 +1862,9 @@ public class StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.ACTION_POINTS, 1f),
-					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 5f)),
 			Util.newArrayListOfValues(
 					"[style.boldBlueLight(Lost legs)]")) {
 		@Override
@@ -1888,11 +1890,13 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getCell().getAquatic().isWater() && target.getSubspecies().isAquatic(target);
+			return target.getCell().getAquatic().isWater()
+					&& target.getLegConfiguration()==LegConfiguration.TAIL
+					&& target.getSubspecies().isAquatic(target);
 		}
 	};
 
-	public static AbstractStatusEffect AQUATIC_NEGATIVE = new AbstractStatusEffect(90,
+	public static AbstractStatusEffect AQUATIC_TAIL_NEGATIVE = new AbstractStatusEffect(90,
 			"Fish out of water",
 			"aquatic_negative",
 			PresetColour.GENERIC_BAD,
@@ -1900,7 +1904,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.ACTION_POINTS, -1f),
-					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f)),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -15f),
+					new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues(
 					"[style.boldTan(Grown two legs)]")) {
 		@Override
@@ -1926,7 +1932,63 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.getCell().getAquatic().isWater() && target.getSubspecies().isAquatic(target);
+			return !target.getCell().getAquatic().isWater()
+					&& target.getLegConfiguration()==LegConfiguration.TAIL
+					&& target.getSubspecies().isAquatic(target);
+		}
+	};
+	
+	public static AbstractStatusEffect AQUATIC_POSITIVE = new AbstractStatusEffect(90,
+			"Aquatic harmony",
+			"aquatic_positive",
+			PresetColour.GENERIC_GOOD,
+			PresetColour.BASE_BLUE_LIGHT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 15f),
+					new Value<>(Attribute.ENERGY_SHIELDING, 5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"As [npc.nameIsFull] [npc.a_race], and [npc.she] [npc.has] access to a nearby body of water, [npc.she] [npc.verb(feel)] very comfortable!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getCell().getAquatic().isWater()
+					&& target.getLegConfiguration()!=LegConfiguration.TAIL
+					&& target.getSubspecies().isAquatic(target);
+		}
+	};
+
+	public static AbstractStatusEffect AQUATIC_NEGATIVE = new AbstractStatusEffect(90,
+			"Fish out of water",
+			"aquatic_negative",
+			PresetColour.GENERIC_BAD,
+			PresetColour.BASE_TAN,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -10f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -15f),
+					new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"As [npc.nameIsFull] [npc.a_race], and there is no body of water nearby, [npc.she] is feeling very uncomfortable!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.getCell().getAquatic().isWater()
+					&& target.getLegConfiguration()!=LegConfiguration.TAIL
+					&& target.getSubspecies().isAquatic(target);
 		}
 	};
 	
@@ -4037,18 +4099,10 @@ public class StatusEffect {
 			sb.append("<p>"
 						+ "From their significant weight, you're sure that the eggs in your stomach have by now reached full maturity, and could be laid and hatched at any time of your choosing."
 					+ "</p>");
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya...)]"
-						+ "</p>");
-			} else {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
-						+ "</p>");
-			}
 			
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your stomach!)]"
+						+ "<br/>(To lay your eggs, open your phone's menu and access the 'Eggs' tab.)"
 					+ "</p>");
 			
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
@@ -4081,10 +4135,7 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] stomach filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
-					+ (target.isPlayer()
-							?" It might be a good idea to visit Lilaya..."
-							:"");
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] stomach filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -4178,18 +4229,10 @@ public class StatusEffect {
 			sb.append("<p>"
 						+ "From their significant weight, you're sure that the eggs in your [npc.breasts] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
 					+ "</p>");
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya...)]"
-						+ "</p>");
-			} else {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
-						+ "</p>");
-			}
 			
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.breasts]!)]"
+						+ "<br/>(To lay your eggs, open your phone's menu and access the 'Eggs' tab.)"
 					+ "</p>");
 			
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
@@ -4221,10 +4264,7 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.breasts] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
-					+ (target.isPlayer()
-							?" It might be a good idea to visit Lilaya..."
-							:"");
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.breasts] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -4332,18 +4372,10 @@ public class StatusEffect {
 			sb.append("<p>"
 						+ "From their significant weight, you're sure that the eggs in your [npc.crotchBoobs] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
 					+ "</p>");
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya...)]"
-						+ "</p>");
-			} else {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
-						+ "</p>");
-			}
 			
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.crotchBoobs]!)]"
+						+ "<br/>(To lay your eggs, open your phone's menu and access the 'Eggs' tab.)"
 					+ "</p>");
 			
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
@@ -4383,10 +4415,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.crotchBoobs] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
-					+ (target.isPlayer()
-							?" It might be a good idea to visit Lilaya..."
-							:"");
+					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.crotchBoobs] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -4480,18 +4509,10 @@ public class StatusEffect {
 			sb.append("<p>"
 						+ "From their significant weight, you're sure that the eggs in your [npc.spinneret] have by now reached full maturity, and could be laid and hatched at any time of your choosing."
 					+ "</p>");
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya...)]"
-						+ "</p>");
-			} else {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
-						+ "</p>");
-			}
 			
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your [npc.spinneret]!)]"
+						+ "<br/>(To lay your eggs, open your phone's menu and access the 'Eggs' tab.)"
 					+ "</p>");
 			
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
@@ -4524,10 +4545,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.spinneret] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
-					+ (target.isPlayer()
-							?" It might be a good idea to visit Lilaya..."
-							:"");
+					"From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] [npc.spinneret] filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -4621,18 +4639,10 @@ public class StatusEffect {
 			sb.append("<p>"
 						+ "From their significant weight, you're sure that the eggs in your womb have by now reached full maturity, and could be laid and hatched at any time of your choosing."
 					+ "</p>");
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya...)]"
-						+ "</p>");
-			} else {
-				sb.append("<p>"
-							+ "[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]"
-						+ "</p>");
-			}
 			
 			sb.append("<p style='text-align:center;'>"
 						+ "[style.boldSex(You're now ready to lay the eggs that have been incubating in your womb!)]"
+						+ "<br/>(To lay your eggs, open your phone's menu and access the 'Eggs' tab.)"
 					+ "</p>");
 			
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
@@ -4664,10 +4674,7 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] womb filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.")
-					+ (target.isPlayer()
-							?" It might be a good idea to visit Lilaya..."
-							:"");
+			return UtilText.parse(target, "From one of [npc.namePos] sexual encounters, [npc.sheHas] had [npc.her] womb filled with eggs. Having reached full maturity, they're now ready to be laid and hatched.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {

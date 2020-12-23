@@ -2,6 +2,8 @@
 <coveringType>
 	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
 	
+	<!-- See fur.xml for a fully-commented coveringType example. -->
+	
 	<category>HAIR</category>
 	
 	<determiner><![CDATA[a layer of]]></determiner>

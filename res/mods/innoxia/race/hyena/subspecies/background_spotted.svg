@@ -1,5 +1,5 @@
 <svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
- <ellipse transform="rotate(-6.004)" cx="28.466" cy="35.066" rx="29.831" ry="29.831" fill="#ffe6d5" fill-rule="evenodd" overflow="visible" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal"/>
+ <circle transform="rotate(-6.004)" cx="28.477" cy="35.172" r="30" fill="#ffe6d5" fill-rule="evenodd" overflow="visible" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal"/>
  <g fill="#ff7f2a">
   <ellipse transform="rotate(-10.091)" cx="4.2029" cy="47.25" rx="2.9123" ry="3.1065"/>
   <ellipse transform="rotate(-10.091)" cx="13.594" cy="30.321" rx="2.9123" ry="3.1065"/>
