@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -280,6 +281,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	public boolean isGift() {
 		return itemType.isGift();
+	}
+
+	public boolean isTypeOneOf(String ... itemType) {
+		return Stream.of(itemType).anyMatch(it -> (this.getItemType().equals(ItemType.getItemTypeFromId(it))));
 	}
 
 	@Override

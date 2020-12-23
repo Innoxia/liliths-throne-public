@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Bread Roll]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Bread Rolls]]></namePlural>
-		<description><![CDATA[A perfectly average bread roll, wrapped in a small, brown paper bag. A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs up while surrounded by all manner of delicious-looking baked goods.]]></description> 
+		<description><![CDATA[A perfectly average bread roll, wrapped in a small, brown paper bag. A logo printed on one side of this wrapper shows a portly human chef giving you a thumbs-up while surrounded by all manner of delicious-looking baked goods.]]></description> 
 		
 		<useDescriptor>eat</useDescriptor>
 		

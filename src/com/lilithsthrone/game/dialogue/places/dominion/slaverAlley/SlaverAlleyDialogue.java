@@ -56,8 +56,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -316,8 +314,7 @@ public class SlaverAlleyDialogue {
 			} else {
 				Main.game.getNpc(GenericMaleNPC.class).addSlave(slave);	
 			}
-			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
-			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
+			slave.initSlavePermissions();
 		}
 		
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleySlavesFreed, false);

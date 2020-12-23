@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Deep Roar]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Deep Roars]]></namePlural>
+		<description><![CDATA[A glass bottle filled with arrack; a distilled alcoholic drink made from fermented coconut sugar. The branding on the front proudly carries the name 'Deep Roar', while a label on the back describes how a family of tiger-morphs have been distilling this beverage for twelve generations.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">panther_deep_roar.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 45% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+			[#npc.incrementAlcoholLevel(0.45)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Deep Roar, before tilting [npc.her] head back and bringing it up to [npc.her] waiting [npc.lips]. An extremely strong alcoholic scent rises from the opening, and with a gulp, [npc.name] [npc.verb(start)] downing the liquid, discovering that it tastes like a floral dark rum.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unscrew)] the cap from the bottle of Deep Roar, before bringing it up to [npc2.namePos] waiting [npc2.lips]. An extremely strong alcoholic scent rises from the opening, and with a gulp, [npc2.name] [npc2.verb(start)] downing the liquid, discovering that it tastes like a floral dark rum.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
