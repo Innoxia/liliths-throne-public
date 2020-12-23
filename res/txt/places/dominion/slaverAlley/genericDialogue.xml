@@ -1642,7 +1642,7 @@
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyBribed))
 			[sean.speech(So, we're doing this again, are we? You want to keep on complaining and then pay the 'official sponsored break' fee? Or are you going to just drop it?)]
 		#ELSE
-			[sean.speech(So, what do you want now? More complaining from you?)]
+			[sean.speech(So, what do you want now? Let me guess, you've got more complaining to do?)]
 		#ENDIF
 	</p>
 	]]>
