@@ -40,6 +40,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed a bug where if a clothing item to be equipped had multiple occurrences, equipping this item would lead to bugs when the next occurrence of the item was to be equipped. (PR#1419 by Deboucher & AceXP)
 		Fixed the bug where clicking on an equipped item while enchanting during a trading session would give you full access to the inventory of the trader, allowing you to take all their equipped items and the items in their inventory. (PR#1420 by AxeXP)
 		Fixed issue with milking rooms not being able to support 8 slaves, maids gathering on the player's tile when loitering in the corridors of Lilaya's home, and the 'well rested' status effect no being applied correctly. (PR#1425 by AceXP)
+		Enchantment recipes can now be applied to weapons that already have enchantments. (PR#1423 by AceXP)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
