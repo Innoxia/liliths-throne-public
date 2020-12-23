@@ -6360,13 +6360,14 @@ public class MainControllerInitMethod {
 			}
 			
 			
-			for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+				String subspeciesId = Subspecies.getIdFromSubspecies(subspecies);
 				for(FurryPreference preference : FurryPreference.values()) {
-					id = "FEMININE_" + preference+"_"+s;
+					id = "FEMININE_" + preference+"_"+subspeciesId;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						if(s.isFurryPreferencesEnabled()) {
+						if(subspecies.isFurryPreferencesEnabled()) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.getProperties().setFeminineFurryPreference(s, preference);
+								Main.getProperties().setFeminineFurryPreference(subspecies, preference);
 								Main.saveProperties();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}, false);
@@ -6375,17 +6376,17 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								preference.getName(),
-								s.isFurryPreferencesEnabled()
-									?preference.getDescriptionFeminine(s)
+								subspecies.isFurryPreferencesEnabled()
+									?preference.getDescriptionFeminine(subspecies)
 									:"This subspecies cannot have its furry preference changed!"
 								);
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
-					id = "MASCULINE_" + preference+"_"+s;
+					id = "MASCULINE_" + preference+"_"+subspeciesId;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(s.isFurryPreferencesEnabled()) {
-								Main.getProperties().setMasculineFurryPreference(s, preference);
+							if(subspecies.isFurryPreferencesEnabled()) {
+								Main.getProperties().setMasculineFurryPreference(subspecies, preference);
 								Main.saveProperties();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -6395,18 +6396,18 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								preference.getName(),
-								s.isFurryPreferencesEnabled()
-									?preference.getDescriptionMasculine(s)
+								subspecies.isFurryPreferencesEnabled()
+									?preference.getDescriptionMasculine(subspecies)
 									:"This subspecies cannot have its furry preference changed!");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-					id = "FEMININE_SPAWN_" + preference+"_"+s;
+					id = "FEMININE_SPAWN_" + preference+"_"+subspeciesId;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						if(s.isSpawnPreferencesEnabled()) {
+						if(subspecies.isSpawnPreferencesEnabled()) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.getProperties().setFeminineSubspeciesPreference(s, preference);
+								Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
 								Main.saveProperties();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}, false);
@@ -6416,17 +6417,17 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								Util.capitaliseSentence(preference.getName()),
-								s.isSpawnPreferencesEnabled()
+								subspecies.isSpawnPreferencesEnabled()
 									?"Set the weighted chance for feminine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
 										+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>"
 									:"This subspecies cannot have its spawn preference changed!");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
-					id = "MASCULINE_SPAWN_" + preference+"_"+s;
+					id = "MASCULINE_SPAWN_" + preference+"_"+subspeciesId;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						if(s.isSpawnPreferencesEnabled()) {
+						if(subspecies.isSpawnPreferencesEnabled()) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.getProperties().setMasculineSubspeciesPreference(s, preference);
+								Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
 								Main.saveProperties();
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}, false);
@@ -6436,7 +6437,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								Util.capitaliseSentence(preference.getName()),
-								s.isSpawnPreferencesEnabled()
+								subspecies.isSpawnPreferencesEnabled()
 									?"Set the weighted chance for masculine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
 										+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>"
 									:"This subspecies cannot have its spawn preference changed!");

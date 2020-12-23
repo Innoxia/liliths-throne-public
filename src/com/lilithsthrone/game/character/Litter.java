@@ -35,7 +35,9 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * @author Innoxia, orvail
  */
 public class Litter implements XMLSaving {
-
+	
+	private String id;
+	
 	private LocalDateTime conceptionDate;
 	private LocalDateTime birthDate;
 	private LocalDateTime incubationStartDate;
@@ -57,6 +59,8 @@ public class Litter implements XMLSaving {
 	private AbstractSubspecies fatherRace;
 
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
+		this.id = mother.getId()+mother.getLittersGenerated();
+		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
 		this.incubationStartDate = null;
@@ -98,7 +102,8 @@ public class Litter implements XMLSaving {
 		generateBirthedDescription();
 	}
 	
-	public Litter(LocalDateTime conceptionDate,
+	public Litter(String id,
+			LocalDateTime conceptionDate,
 			LocalDateTime birthDate,
 			String motherId, String fatherId,
 			int sonsMother, int daughtersMother,
@@ -106,6 +111,7 @@ public class Litter implements XMLSaving {
 			List<String> offspring,
 			AbstractSubspecies motherRace, AbstractSubspecies fatherRace,
 			String birthedDescription) {
+		this.id = id;
 
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
@@ -131,8 +137,9 @@ public class Litter implements XMLSaving {
 		Element element = doc.createElement("litter");
 		parentElement.appendChild(element);
 
-//		XMLUtil.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getDayOfConception()));
-//		XMLUtil.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+		Element idElement = doc.createElement("id");
+		element.appendChild(idElement);
+		idElement.setTextContent(id);
 
 		XMLUtil.createXMLElementWithValue(doc, element, "yearOfBirth", String.valueOf(this.getBirthDate().getYear()));
 		XMLUtil.createXMLElementWithValue(doc, element, "monthOfBirth", this.getBirthDate().getMonth().toString());
@@ -179,9 +186,14 @@ public class Litter implements XMLSaving {
 	}
 	
 	public static Litter loadFromXML(Element parentElement, Document doc) {
-		List<String> offspring = new ArrayList<>();
+		String loadedId = "";
+
+		if(parentElement.getElementsByTagName("id").item(0)!=null) {
+			loadedId = parentElement.getElementsByTagName("id").item(0).getTextContent();
+		}
 		
 		Element element = (Element) parentElement.getElementsByTagName("offspringList").item(0);
+		List<String> offspring = new ArrayList<>();
 		NodeList offSpringList = element.getElementsByTagName("offspring");
 		for(int i = 0; i < offSpringList.getLength(); i++){
 			Element e = ((Element)offSpringList.item(i));
@@ -202,7 +214,6 @@ public class Litter implements XMLSaving {
 		LocalDateTime loadedIncubationStartDate = null;
 		
 		if(parentElement.getElementsByTagName("dayOfConception").getLength()>0) {
-
 			int day = Integer.valueOf(((Element)parentElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value"));
 			Month month = Month.valueOf(((Element)parentElement.getElementsByTagName("monthOfConception").item(0)).getAttribute("value"));
 			int year = Integer.valueOf(((Element)parentElement.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
@@ -239,7 +250,7 @@ public class Litter implements XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		Litter litter = new Litter(
+		Litter litter = new Litter(loadedId,
 				loadedConceptionDate,
 				loadedBirthDate,
 				parentElement.getAttribute("motherId"),
@@ -262,6 +273,10 @@ public class Litter implements XMLSaving {
 		}
 		
 		return litter;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public boolean isSelfImpregnation() {

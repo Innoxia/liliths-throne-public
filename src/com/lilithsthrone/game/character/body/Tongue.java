@@ -215,6 +215,12 @@ public class Tongue implements BodyPartInterface {
 									+ " [style.boldGrow(being particularly wide)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.tongue] is now particularly wide!)]");
 					break;
+				case TAPERED:
+					return "<p>"
+							+ "[npc.Name] [npc.verb(feel)] a constricting pressure on all sides of [npc.her] [npc.tongue], and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)]"
+							+ " [style.boldGrow(it taper down towards the tip)].<br/>"
+							+ "[style.boldSex([npc.NamePos] [npc.tongue] is now tapered!)]"
+						+ "</p>";
 			}
 		sb.append("</p>");
 		
@@ -264,6 +270,12 @@ public class Tongue implements BodyPartInterface {
 						+ "[npc.Name] [npc.verb(feel)] a pulsating pressure rising up into [npc.her] [npc.tongue], and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)]"
 						+ " [style.boldShrink(it narrow down)].<br/>"
 						+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer particularly wide!)]"
+					+ "</p>";
+			case TAPERED:
+				return "<p>"
+						+ "[npc.Name] [npc.verb(feel)] a pulsating pressure building up within [npc.her] [npc.tongue], and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)]"
+						+ " [style.boldShrink(it fill out and lose its tapered point)].<br/>"
+						+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer tapered!)]"
 					+ "</p>";
 		}
 		

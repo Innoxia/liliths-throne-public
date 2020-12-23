@@ -1321,6 +1321,7 @@ public class Race {
 						allRaces.add(race);
 						raceToIdMap.put(race, id);
 						idToRaceMap.put(id, race);
+//						System.out.println("race: "+id);
 					} catch(Exception ex) {
 						System.err.println("Loading modded race failed at 'Race'. File path: "+innerEntry.getValue().getAbsolutePath());
 						System.err.println("Actual exception: ");
@@ -1370,6 +1371,8 @@ public class Race {
 				}
 			}
 		}
+		
+		allRaces.sort((r1, r2) -> r1.getName(false).compareTo(r2.getName(false)));
 		
 		for(AbstractRace race : Race.getAllRaces()) {
 			if(race!=Race.NONE) {

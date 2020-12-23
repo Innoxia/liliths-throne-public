@@ -75,6 +75,7 @@ public abstract class AbstractOutfit {
 			this.conditional = 	coreAttributes.getMandatoryFirstOf("conditional").getTextContent();
 			this.weight = 		Integer.valueOf(coreAttributes.getMandatoryFirstOf("weight").getTextContent());
 			
+			this.worldTypes = new ArrayList<>();
 			if(coreAttributes.getOptionalFirstOf("worldTypes").isPresent()) {
 				this.worldTypes = coreAttributes
 					.getMandatoryFirstOf("worldTypes") 
@@ -377,7 +378,10 @@ public abstract class AbstractOutfit {
 					
 					boolean anyConditionalsFound = false;
 					
-					for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+					List<AbstractClothingType> clothingList = new ArrayList<>(ClothingType.getAllClothing());
+					clothingList.removeIf(c->c.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN));
+					
+					for(AbstractClothingType ct : clothingList) {
 						AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct);
 						// Check for required tags:
 						try {

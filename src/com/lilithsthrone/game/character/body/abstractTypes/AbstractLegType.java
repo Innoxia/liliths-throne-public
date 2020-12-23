@@ -755,9 +755,8 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							(demon
 								?AssType.DEMON_COMMON
 								:startingBodyType.getAssType()),
-							(body.isFeminine()
-								? startingBodyType.getFemaleAssSize()
-								: startingBodyType.getMaleAssSize()),
+							(body.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+							(body.isFeminine() ? startingBodyType.getFemaleHipSize() : startingBodyType.getMaleHipSize()),
 							startingBodyType.getAnusWetness(),
 							(float) (startingBodyType.getAnusCapacity()*(largeGenitals?2.5:1)),
 							startingBodyType.getAnusDepth()+(largeGenitals?2:0),

@@ -1,5 +1,6 @@
 package com.lilithsthrone.controller.eventListeners;
 
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
@@ -41,10 +42,11 @@ public class InventorySelectedItemEventListener implements EventListener {
 //		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
 //				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE
 //				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
-		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY
+		if(Main.game.getCurrentDialogueNode()==EnchantmentDialogue.ENCHANTMENT_MENU
+			|| (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY
 				&& (!Main.game.isInSex() || Main.game.getCurrentDialogueNode().isInventoryDisabled())
 				&& !Main.game.isInCombat()
-				&& (clothingEquipped!=null || weaponEquipped!=null)) {
+				&& (clothingEquipped!=null || weaponEquipped!=null))) {
 			return;
 		}
 		

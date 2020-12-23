@@ -1378,7 +1378,7 @@ public class ItemType {
 //			false,
 //			"breeder pill",
 //			"breeder pills",
-//			"A small, pink pill, individually packaged in a foil and plastic wrapper."
+//			"A small, purple pill, individually packaged in a foil and plastic wrapper."
 //				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Enhancer', it's colloquially known as a 'breeder pill', and temporarily boosts both fertility and virility when ingested.",
 //			"pill",
 //			PresetColour.CLOTHING_PINK,
@@ -1399,8 +1399,8 @@ public class ItemType {
 //		@Override
 //		public String getUseDescription(GameCharacter user, GameCharacter target) {
 //			return getGenericUseDescription(user, target,
-//					"Popping the little pink pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
-//					"Popping the little pink pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
+//					"Popping the little purple pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
+//					"Popping the little purple pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
 //					"[npc.Name] pops a breeder pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
 //					"[npc.Name] pops a breeder pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
 //		}
@@ -1538,7 +1538,7 @@ public class ItemType {
 			false,
 			"Arcane Pregnancy Tester",
 			"Arcane Pregnancy Testers",
-			"A small plastic wand, no longer than 15cm, which has a digital readout embedded in the middle."
+			"A small plastic wand, no longer than "+Units.size(15)+", which has a digital readout embedded in the middle."
 					+ " The small instruction leaflet that came with it says to 'swipe the tester over the target's stomach to find out who the father is!'",
 			"pregnancy_test",
 			PresetColour.CLOTHING_WHITE,
@@ -2067,10 +2067,10 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
-					"The package is quite small, measuring roughly 20cm along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
+					"The package is quite small, measuring roughly "+Units.size(20)+" along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly "+Units.size(20)+" along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly "+Units.size(20)+" along each edge. It's constructed of brown cardboard, and sealed with packaging tape.",
+					"The package is quite small, measuring roughly "+Units.size(20)+" along each edge. It's constructed of brown cardboard, and sealed with packaging tape.");
 		}
 		
 		@Override

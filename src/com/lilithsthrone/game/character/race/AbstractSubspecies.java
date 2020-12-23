@@ -107,8 +107,10 @@ public abstract class AbstractSubspecies {
 	private Colour secondaryColour;
 	private Colour tertiaryColour;
 	
+	protected int iconSize;
 	protected String pathName;
 	protected String backgroundPathName;
+	protected boolean externalFileBackground;
 	
 	protected String SVGString;
 	protected String SVGStringUncoloured;
@@ -356,6 +358,7 @@ public abstract class AbstractSubspecies {
 			this.flags = flags;
 		}
 		
+		this.externalFileBackground = false;
 		this.pathName = "/com/lilithsthrone/res/" + pathName;
 		this.bookPathName = "/com/lilithsthrone/res/" + pathName;
 		this.backgroundPathName = "/com/lilithsthrone/res/" + backgroundPathName;
@@ -406,9 +409,18 @@ public abstract class AbstractSubspecies {
 				this.subspeciesWeighting = coreElement.getMandatoryFirstOf("subspeciesWeighting").getTextContent();
 				
 				this.pathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("iconName").getTextContent();
-				this.backgroundPathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("backgroundName").getTextContent();
-				if(this.backgroundPathName.isEmpty()) {
+				if(!coreElement.getMandatoryFirstOf("iconName").getAttribute("displaySize").isEmpty()) {
+					this.iconSize = Integer.valueOf(coreElement.getMandatoryFirstOf("iconName").getAttribute("displaySize"));
+				} else {
+					this.iconSize = 100;
+				}
+				
+				if(coreElement.getOptionalFirstOf("backgroundName").isPresent() && !coreElement.getMandatoryFirstOf("backgroundName").getTextContent().isEmpty()) {
+					this.backgroundPathName = XMLFile.getParentFile().getAbsolutePath() + "/"+ coreElement.getMandatoryFirstOf("backgroundName").getTextContent();
+					this.externalFileBackground = true;
+				} else {
 					this.backgroundPathName = "/com/lilithsthrone/res/statusEffects/race/raceBackground";
+					this.externalFileBackground = false;
 				}
 				this.SVGString = null;
 				
@@ -417,7 +429,9 @@ public abstract class AbstractSubspecies {
 				this.bookName = coreElement.getMandatoryFirstOf("bookName").getTextContent();
 				this.bookNamePlural = bookName; // There is no need for a plural
 				
-				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath() + "/";
+				this.bookIdFolderPath = XMLFile.getParentFile().getAbsolutePath();
+				bookIdFolderPath = "res"+bookIdFolderPath.split("res")[1];
+//				System.out.println(bookIdFolderPath);
 				this.basicDescriptionId = coreElement.getMandatoryFirstOf("basicDescriptionId").getTextContent();
 				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();
 				
@@ -431,13 +445,22 @@ public abstract class AbstractSubspecies {
 				this.pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
 
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
-				
-				this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
-				this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
-				this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
-				this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
-				this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
-				this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+
+				if(coreElement.getOptionalFirstOf("nameHalfDemon").isPresent()) {
+					this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
+					this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
+					this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
+					this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
+					this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
+					this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+				} else {
+					this.nameHalfDemon = null;
+					this.namePluralHalfDemon = null;
+					this.singularMaleNameHalfDemon = null;
+					this.singularFemaleNameHalfDemon = null;
+					this.pluralMaleNameHalfDemon = null;
+					this.pluralFemaleNameHalfDemon = null;
+				}
 				
 				this.feralAttributes = null;
 				if(coreElement.getOptionalFirstOf("feralAttributes").isPresent()
@@ -594,7 +617,9 @@ public abstract class AbstractSubspecies {
 			}
 		}
 		if(subspecies==null) {
-			System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+			if(Main.game.isStarted()) { // Races get recalculated after the game starts in Game.handlePostGameInit(), so only show errors if the detection is still failing after that
+				System.err.println("Error: getSubspeciesFromBody() did not find a suitable Subspecies!");
+			}
 			return Subspecies.HUMAN;
 		}
 		return subspecies;
@@ -1186,6 +1211,8 @@ public abstract class AbstractSubspecies {
 	
 	protected void initSVGStrings() {
 		if(pathName!=null) {
+			String fullDivStyle = "width:100%;height:100%;margin:0;padding:0;position:absolute;left:0;bottom:0;";
+			
 			try {
 				if(this.isFromExternalFile()) {
 					List<String> lines = Files.readAllLines(Paths.get(pathName+".svg"));
@@ -1194,7 +1221,8 @@ public abstract class AbstractSubspecies {
 						sb.append(line);
 					}
 					SVGStringUncoloured = sb.toString();
-					SVGStringUncoloured = "<div style='width:80%;height:80%;position:absolute;left:10%;bottom:10%;'>"+SVGStringUncoloured+"</div>";
+					float iconResizeBorder = (100-iconSize)/2f;
+					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
 					InputStream is = this.getClass().getResourceAsStream(pathName + ".svg");
@@ -1208,13 +1236,13 @@ public abstract class AbstractSubspecies {
 				
 				String SVGStringBackground = "";
 
-				if(this.isFromExternalFile()) {
+				if(this.externalFileBackground) {
 					List<String> lines = Files.readAllLines(Paths.get(backgroundPathName+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
 					}
-					SVGStringBackground = sb.toString();
+					SVGStringBackground = "<div style='"+fullDivStyle+"'>"+sb.toString()+"</div>";
 					
 				} else {
 					if(!backgroundPathName.isEmpty()) {
@@ -1222,7 +1250,7 @@ public abstract class AbstractSubspecies {
 						if(is==null) {
 							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
 						}
-						SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+						SVGStringBackground = "<div style='"+fullDivStyle+"'>"+Util.inputStreamToString(is)+"</div>";
 						
 						is.close();
 					}
@@ -1234,30 +1262,30 @@ public abstract class AbstractSubspecies {
 						colour,
 						secondaryColour,
 						tertiaryColour,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
-				SVGStringUncoloured = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>";
+				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				
 				slimeSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 
 				halfDemonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 
 				demonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringDesaturated = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.BASE_GREY,
@@ -1366,7 +1394,7 @@ public abstract class AbstractSubspecies {
 				|| this.getRace()==Race.ELEMENTAL
 				|| this.getRace()==Race.HUMAN) {
 			
-			String[] demonNames = demonLegConfigurationNames.get(character.getLegConfiguration());
+			String[] demonNames = demonLegConfigurationNames.get(character==null?LegConfiguration.BIPEDAL:character.getLegConfiguration());
 			
 			names = new String[] {
 				"half-"+demonNames[0],

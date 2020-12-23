@@ -170,34 +170,34 @@ public class FaceType {
 				)){
 	};
 
-	public static AbstractFaceType CAT_MORPH_PANTHER = new AbstractFaceType(BodyCoveringType.FELINE_FUR,
-			Race.CAT_MORPH,
-			MouthType.CAT_MORPH,
-			null,
-			null,
-			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
-			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
-			"nose",
-			"noses",
-			Util.newArrayListOfValues(""),
-			Util.newArrayListOfValues(""),
-			"[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic panther-like muzzle, and [npc.her] tongue flattens and transforms into a cat-like one."
-				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
-					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
-				+ "#ELSE"
-					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+]"
-				+ "#ENDIF"
-					+ ", and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.<br/>"
-				+ "[npc.Name] now [npc.has] an anthropomorphic [style.boldCatMorph(panther-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
-				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
-			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, panther-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
-			"[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
-			Util.newArrayListOfValues(
-					BodyPartTag.FACE_MUZZLE,
-					BodyPartTag.FACE_FANGS,
-					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
-				)){
-	};
+//	public static AbstractFaceType CAT_MORPH_PANTHER = new AbstractFaceType(BodyCoveringType.FELINE_FUR,
+//			Race.CAT_MORPH,
+//			MouthType.CAT_MORPH,
+//			null,
+//			null,
+//			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
+//			Util.newArrayListOfValues("anthropomorphic panther-like", "panther-like", "panther"),
+//			"nose",
+//			"noses",
+//			Util.newArrayListOfValues(""),
+//			Util.newArrayListOfValues(""),
+//			"[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic panther-like muzzle, and [npc.her] tongue flattens and transforms into a cat-like one."
+//				+ "#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)"
+//					+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face"
+//				+ "#ELSE"
+//					+ " Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+]"
+//				+ "#ENDIF"
+//					+ ", and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.<br/>"
+//				+ "[npc.Name] now [npc.has] an anthropomorphic [style.boldCatMorph(panther-like face)], [npc.materialDescriptor] [npc.faceFullDescription]."
+//				+ " Within [npc.her] [npc.mouth], [npc.she] has a [style.boldCatMorph(flat, cat-like tongue)].",
+//			"[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, panther-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
+//			"[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a powerful, toothy muzzle, big nose, and strong jawline.",
+//			Util.newArrayListOfValues(
+//					BodyPartTag.FACE_MUZZLE,
+//					BodyPartTag.FACE_FANGS,
+//					BodyPartTag.FACE_NATURAL_BALDNESS_FURRY
+//				)){
+//	};
 
 	public static AbstractFaceType COW_MORPH = new AbstractFaceType(BodyCoveringType.BOVINE_FUR,
 			Race.COW_MORPH,
@@ -569,6 +569,9 @@ public class FaceType {
 		}
 		if(id.equals("TENGU")) {
 			return FaceType.HARPY;
+		}
+		if(id.equals("CAT_MORPH_PANTHER")) {
+			id = "innoxia_panther_face";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToFaceMap.keySet());
