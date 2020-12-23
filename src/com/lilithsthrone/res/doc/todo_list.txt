@@ -44,6 +44,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Updated github build tutorial. (PR#1323 by LjyiH)
 		Fixed missing verbs in several files. (PR#1291 by TadUnlikely)
 		Fixed incorrect dialogue scene titles when getting tattoos in Kate's shop, incorrect description of how much cum was expelled during orgasm when performing a double creampie orgasm action, and a reference to ass instead of breast in nipple-fingering actions. (by AceXP)
+		Fixed a bug where having an elemental in a feral form would cause the the left and right sidebar to go blank. (PR#1457 by AceXP)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
@@ -108,8 +109,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
 		Fixed reference to feral characters having feet when they had a tail lower body type.
 		
-	
-	
 	
 	
 	Singular parsing of body parts does not use descriptors, e.g. for [npc.breast(true)+]
