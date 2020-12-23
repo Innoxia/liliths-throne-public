@@ -13,6 +13,8 @@ public enum BodyPartTag {
 	NIGHT_VISION,
 	/** Removes the 'Darkness' status effect when in an unlit area. Granted by bat ears. (Should really only be given to ear types.) */
 	ECHO_LOCATION,
+	/** Removes the 'Darkness' status effect when in an unlit area. Granted by snake snoots. */
+	THERMAL_VISION,
 	
 	
 	// Torso:

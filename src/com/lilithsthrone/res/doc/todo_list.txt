@@ -76,8 +76,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added ROUGH as a covering modifier.
 		Added TAPERED as a tongue modifier.
 		Added REPTILIAN and AMPHIBIAN foot types.
-		Added BodyPartTag TORSO_DORSAL_FIN.
-		Added BodyPartTag TAIL_TYPE_SCALES.
+		Added BodyPartTags TORSO_DORSAL_FIN, TAIL_TYPE_SCALES, and THERMAL_VISION.
 		
 	Sex:
 		NPCs now have the chance to decide to initiate penetration using a clitoris that's large enough to act as a pseudo-penis.

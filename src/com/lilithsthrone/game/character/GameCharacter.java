@@ -19991,6 +19991,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if(bpi.getType().getTags().contains(BodyPartTag.ECHO_LOCATION)) {
 				return UtilText.parse(this, "thanks to the echo-location ability which [npc.her] "+bpi.getType().getRace().getName(false)+" "+bpi.getName(this)+" grant [npc.herHim]");
 			}
+			if(bpi.getType().getTags().contains(BodyPartTag.THERMAL_VISION)) {
+				return UtilText.parse(this, "thanks to the fact that [npc.her] "+bpi.getType().getRace().getName(true)+" "+bpi.getName(this)+" "+(bpi.getType().isDefaultPlural(this)?"grant":"grants")+" [npc.herHim] thermal vision");
+			}
 		}
 		for(AbstractStatusEffect se : this.getStatusEffects()) {
 			if(se.getTags().contains(ItemTag.NIGHT_VISION_SELF) || se.getTags().contains(ItemTag.NIGHT_VISION_AREA)) {
