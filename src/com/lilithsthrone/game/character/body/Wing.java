@@ -58,6 +58,7 @@ public class Wing implements BodyPartInterface {
 	public String setType(GameCharacter owner, AbstractWingType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
+			this.setSize(owner, this.getSizeValue());
 			if(owner!=null) {
 				owner.postTransformationCalculation();
 			}
@@ -107,6 +108,7 @@ public class Wing implements BodyPartInterface {
 		sb.append("</p>");
 
 		this.type = type;
+		this.setSize(owner, this.getSizeValue());
 		
 		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
@@ -124,7 +126,7 @@ public class Wing implements BodyPartInterface {
 	
 	public String setSize(GameCharacter owner, int wingSize) {
 		if(owner==null) {
-			int effectiveSize = Math.max(0, Math.min(wingSize, WingSize.getLargest()));
+			int effectiveSize = Math.max(this.getType().getMinimumSize().getValue(), Math.min(wingSize, this.getType().getMaximumSize().getValue()));
 			this.size = effectiveSize;
 			return "";
 		}
@@ -133,7 +135,7 @@ public class Wing implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.NamePos] [npc.do]n't have any wings, so nothing happens...)]</p>");
 		}
 		
-		int effectiveSize = Math.max(0, Math.min(wingSize, WingSize.getLargest()));
+		int effectiveSize = Math.max(this.getType().getMinimumSize().getValue(), Math.min(wingSize, this.getType().getMaximumSize().getValue()));
 		if(owner.getWingSizeValue() == effectiveSize) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.wings] doesn't change...)]</p>");
 		}

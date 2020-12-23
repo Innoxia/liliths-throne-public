@@ -94,6 +94,44 @@ public class FootType {
 		}
 	};
 
+	public static AbstractFootType REPTILIAN = new AbstractFootType("reptilian",
+			"foot",
+			"feet",
+			Util.newArrayListOfValues("masculine","clawed"),
+			Util.newArrayListOfValues("feminine", "clawed", "slender"),
+			"toe",
+			"toes",
+			Util.newArrayListOfValues("masculine", "clawed"),
+			Util.newArrayListOfValues("feminine", "clawed", "slender"),
+			"footjob",
+			"[npc.SheHasFull] reptilian feet.",
+			Util.newArrayListOfValues(
+					FootStructure.DIGITIGRADE)) {
+		@Override
+		public String getFootNailPolishDescription(GameCharacter owner) {
+			return " The claws at the end of [npc.her] stout toes have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".";
+		}
+	};
+
+	public static AbstractFootType AMPHIBIAN = new AbstractFootType("amphibian",
+			"foot",
+			"feet",
+			Util.newArrayListOfValues("masculine", "webbed"),
+			Util.newArrayListOfValues("feminine", "webbed", "slender"),
+			"toe",
+			"toes",
+			Util.newArrayListOfValues("masculine", "webbed"),
+			Util.newArrayListOfValues("feminine", "webbed", "slender"),
+			"footjob",
+			"[npc.SheHasFull] amphibian feet.",
+			Util.newArrayListOfValues(
+					FootStructure.DIGITIGRADE)) {
+		@Override
+		public String getFootNailPolishDescription(GameCharacter owner) {
+			return " The ends of [npc.her] toes have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".";
+		}
+	};
+
 	public static AbstractFootType TALONS = new AbstractFootType("bird-like",
 			"talon",
 			"talons",

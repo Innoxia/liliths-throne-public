@@ -27,9 +27,10 @@
 		#ELSE
 			0
 		#ENDIF
-	]]></subspeciesWeighting><iconName>icon</iconName>
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon</iconName>
 	<backgroundName>background_striped</backgroundName>
-		<bookIconName>icon</bookIconName>
+	<bookIconName>icon</bookIconName>
 	<bookName>Laughing Hyenas</bookName>
 	<basicDescriptionId>HYENA_BASIC</basicDescriptionId>
 	<advancedDescriptionId>HYENA_ADVANCED</advancedDescriptionId>
@@ -49,11 +50,11 @@
 	<pluralFemaleNameHalfDemon><![CDATA[kishis]]></pluralFemaleNameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[striped hyena]]></feralName>
-		<feralNamePlural><![CDATA[striped hyena]]></feralNamePlural>
+		<feralNamePlural><![CDATA[striped hyenas]]></feralNamePlural>
 		<feralSingularMaleName><![CDATA[striped hyena]]></feralSingularMaleName>
 		<feralSingularFemaleName><![CDATA[striped hyena]]></feralSingularFemaleName>
-		<feralPluralMaleName><![CDATA[striped hyena]]></feralPluralMaleName>
-		<feralPluralFemaleName><![CDATA[striped hyena]]></feralPluralFemaleName>
+		<feralPluralMaleName><![CDATA[striped hyenas]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[striped hyenas]]></feralPluralFemaleName>
 		<legConfiguration>QUADRUPEDAL</legConfiguration>
 		<sizeHeight>true</sizeHeight>
 		<size>85</size>

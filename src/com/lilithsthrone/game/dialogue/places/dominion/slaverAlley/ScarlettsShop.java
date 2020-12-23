@@ -2956,7 +2956,7 @@ public class ScarlettsShop {
 			sb.append("<div class='cosmetics-container' style='background:transparent;'>"
 						+ CharacterModificationUtils.getAgeChoiceDiv()
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
-						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						+ CharacterModificationUtils.getPersonalityChoiceDiv(true)
 						+ CharacterModificationUtils.getObedienceChoiceDiv()
 						+ CharacterModificationUtils.getAffectionChoiceDiv()
 						+ CharacterModificationUtils.getFetishChoiceDiv()

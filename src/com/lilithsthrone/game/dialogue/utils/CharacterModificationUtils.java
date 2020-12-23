@@ -324,7 +324,7 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static String getPersonalityChoiceDiv() {
+	public static String getPersonalityChoiceDiv(boolean allowSpecials) {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width' style='text-align:center;'>");
@@ -339,7 +339,7 @@ public class CharacterModificationUtils {
 				}
 				
 				for(PersonalityTrait trait : PersonalityTrait.values()) {
-					if(!trait.isSpecialRequirements()) {
+					if(allowSpecials || !trait.isSpecialRequirements()) {
 						if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
 							contentSB.append(
 									"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
@@ -1225,26 +1225,36 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(WingSize wingSize : WingSize.values()) {
-			if(target.getWingSize() == wingSize) {
+			if(target.getWingType().getMinimumSize().getValue()>wingSize.getValue()
+					|| target.getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
+						"<div class='cosmetics-button disabled'>"
+							+ Util.capitaliseSentence(wingSize.getName())
+							+ (wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")
 						+ "</div>");
-				
+			
 			} else {
-				contentSB.append(
-						"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
-						+ "</div>");
+				if(BodyChanging.getTarget().getWingSize() == wingSize) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
+									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
+								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
+									+(wingSize.getValue()>=target.getLegConfiguration().getMinimumWingSizeForFlight(target.getBody()).getValue()?"*":"")+"</span>"
+							+ "</div>");
+				}
 			}
 		}
 
 		return applyWrapper("Wing Size",
 				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] wings."
 						+ "<br/><i>Wing size affects [npc.namePos] ability to fly."
-						+ " This varies based on leg configuration, with suitable sizes for [npc.namePos] '[npc.legConfiguration]' body being marked by an asterisk.</i>"),
+						+ " This varies based on leg configuration, with suitable sizes for [npc.namePos] '[npc.legConfiguration]' body being marked by an asterisk. Some wing types do not support all possible wing sizes.</i>"),
 				"WING_SIZE",
 				contentSB.toString(),
 				true);
@@ -3686,39 +3696,20 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformClitorisSizeDiv() {
 		return applyFullVariableWrapper("Clitoris Size",
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis."
-						+ " All sizes larger than '<i style='color:"+ClitorisSize.ZERO_AVERAGE.getColour().toWebHexString()+";'>"
-							+ Util.capitaliseSentence(ClitorisSize.ZERO_AVERAGE.getDescriptor())+"</i>' enable [npc.her] clitoris to be used for penetrative actions in sex."),
+				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris."
+						+ " All sizes larger than '<i style='color:"+ClitorisSize.ONE_BIG.getColour().toWebHexString()+";'>"
+							+ Util.capitaliseSentence(ClitorisSize.ONE_BIG.getDescriptor())+"</i>' enable [npc.her] clitoris to be used for penetrative actions in sex."
+									+ " (Size will be marked by an asterisk when large enough to be used as a pseudo penis.)"),
 				"CLITORIS_SIZE",
 				Units.size(1),
 				Units.size(5),
 				Units.size(BodyChanging.getTarget().getVaginaRawClitorisSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)
-					+"<br/><i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())+"</i>",
+					+"<br/>"
+					+ "<i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())
+					+ (BodyChanging.getTarget().getVaginaClitorisSize().isPseudoPenisSize()?"*":"")
+					+"</i>",
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()<=0,
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()>=ClitorisSize.SEVEN_STALLION.getMaximumValue());
-//		contentSB.setLength(0);
-//		
-//		for(ClitorisSize size : ClitorisSize.values()) {
-//			if(BodyChanging.getTarget().getVaginaClitorisSize() == size) {
-//				contentSB.append(
-//						"<div class='cosmetics-button active'>"
-//							+ "<span style='color:"+size.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-//						+ "</div>");
-//				
-//			} else {
-//				contentSB.append(
-//						"<div id='CLITORIS_SIZE_"+size+"' class='cosmetics-button'>"
-//							+ "<span style='color:"+size.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-//						+ "</div>");
-//			}
-//		}
-//
-//		return applyWrapper("Clitoris Size",
-//				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris."
-//						+ "<br/><i>All non-zero values enable [npc.namePos] clitoris to be used as a penetrative object in sex.</i>"),
-//				"CLITORIS_SIZE",
-//				contentSB.toString(),
-//				true);
 	}
 
 	public static String getSelfTransformClitorisGirthDiv() {

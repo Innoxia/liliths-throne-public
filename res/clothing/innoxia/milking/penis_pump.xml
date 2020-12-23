@@ -52,6 +52,7 @@
 			<tag>ENABLE_SEX_EQUIP</tag>
 			<tag>RIGID_MATERIAL</tag>
 			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
 		</itemTags>
 	</coreAttributes>
 	

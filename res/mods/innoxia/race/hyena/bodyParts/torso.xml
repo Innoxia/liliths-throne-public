@@ -40,4 +40,8 @@
 		[npc.Her] torso has [npc.a_femininity(true)] appearance, and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].
 	]]></bodyDescription>
 	
+	<!-- Tags which this torso type should support (no tags are needed for hyena torsos).
+	See the arm.xml file for an example of a tags element being used. -->
+	<tags/>
+	
 </torso>
