@@ -43,6 +43,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Enchantment recipes can now be applied to weapons that already have enchantments. (PR#1423 by AceXP)
 		Updated github build tutorial. (PR#1323 by LjyiH)
 		Fixed missing verbs in several files. (PR#1291 by TadUnlikely)
+		Fixed incorrect dialogue scene titles when getting tattoos in Kate's shop, incorrect description of how much cum was expelled during orgasm when performing a double creampie orgasm action, and a reference to ass instead of breast in nipple-fingering actions. (by AceXP)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
@@ -72,7 +73,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added some more global NPC transformation debug buttons (in Misc. category).
 		Added labourer outfits, so reindeer overseers will no longer spawn with completely random outfits.
 		Slightly adjusted the default colours of the leather belt.
-		Diamond necklaces will no longer spawn as a random item in Dominion's alleyways or canal tiles.
+		Diamond necklaces will no longer spawn as a random item in Dominion's alleyways, canal tiles, or in the crates in the Supplier Depot.
+		Characters with the TAIL_LONG leg configuration now gain access to the 'tail swipe' combat move.
 	
 	Body:
 		Added ROUGH as a covering modifier.
@@ -104,16 +106,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed spotted & striped hyenas not having correct plural names for their feral forms.
 		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
 		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
+		Fixed reference to feral characters having feet when they had a tail lower body type.
+		
 	
 	
+	
+	
+	Singular parsing of body parts does not use descriptors, e.g. for [npc.breast(true)+]
 	
 	PRs
-	
-	add TAIL_LONG as another way to unlock the default tail-swipe
-	
-	Leg description in Body describes foot structure etc. when the character has only a tail
-	
-	Found diamond necklace in wolfgang lair
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
@@ -127,6 +128,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Prevent spectators from being drained
 	 
 	Add race fetish preferences
+	
+	Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
 	
 	
 	[] Sex availability
@@ -172,9 +175,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Weapons do not list their bonuses when clicked on them in inventory
 	
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
-	
-	Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
-	 I do remember finding a diamond necklace in the crates at Wolfgang's. Maybe those items should also have some value limit on them?
 	
 	For these pills, although there is a determiner provided in the XML file, the items in the game have a null value for determiner
 	

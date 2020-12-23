@@ -2815,7 +2815,9 @@ public class Body implements XMLSaving {
 		}
 		if(owner.isFeral()) {
 			sb.append("Just like the rest of [npc.her] body, [npc.her] [npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
-			sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+			}
 		} else {
 			switch(owner.getLegConfiguration()) {
 				case ARACHNID:
@@ -2837,20 +2839,22 @@ public class Body implements XMLSaving {
 			}
 			sb.append(leg.getType().getBodyDescription(owner));
 		}
-		
-		switch(owner.getFootStructure()) {
-			case NONE:
-			case TENTACLED:
-				break;
-			case DIGITIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] toes.");
-				break;
-			case PLANTIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] with [npc.her] feet flat on the ground.");
-				break;
-			case UNGULIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
-				break;
+
+		if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+			switch(owner.getFootStructure()) {
+				case NONE:
+				case TENTACLED:
+					break;
+				case DIGITIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] toes.");
+					break;
+				case PLANTIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] with [npc.her] feet flat on the ground.");
+					break;
+				case UNGULIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
+					break;
+			}
 		}
 		
 		if(owner.getFootNailPolish().getPrimaryColour() != PresetColour.COVERING_NONE) {
