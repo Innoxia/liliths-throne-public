@@ -97,14 +97,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where milking pumps and spider webbing seals could spawn as generic clothing on randomly-generated NPCs.
 		Fixed spotted & striped hyenas not having correct plural names for their feral forms.
 		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
+		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
 	
 	
 	
 	PRs
 	
 	Leg description in Body describes foot structure etc. when the character has only a tail
-	
-	Eating Hyena food item throws script errors?
 	
 	Found diamond necklace in wolfgang lair
 	

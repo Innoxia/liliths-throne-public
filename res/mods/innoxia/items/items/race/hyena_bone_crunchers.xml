@@ -57,7 +57,7 @@
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel stronger...
 			</p>
-			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 2)]
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
 		]]></applyEffects>
 		
 		<itemTags>
@@ -69,7 +69,7 @@
 	<useDescriptions>
 		<selfUse><![CDATA[
 		[npc.Name] [npc.verb(open)] the top of the brown paper bag and [npc.verb(breathe)] in the rich, meaty smell of its contents. Unable to resist the delicious-looking pieces of roasted bone found inside, [npc.she]
-		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena)
+		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena_face)
 			 [npc.verb(start)] using [npc.her] powerful hyena jaws to crunch each of them into pieces, and in a matter of moments [npc.has] completely devoured the entire bag.
 		#ELSE
 			 [npc.verb(start)] eagerly sucking the delicious marrow out of each of them, and in a matter of moments [npc.has] completely devoured the entire bag.
@@ -77,7 +77,7 @@
 		]]></selfUse>
 		<otherUse><![CDATA[
 		[npc.Name] [npc.verb(open)] the top of the brown paper bag and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to breathe in the rich, meaty smell of its contents. Unable to resist the delicious-looking pieces of roasted bone found inside, [npc2.she]
-		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena)
+		#IF(npc.getFaceType()==FACE_TYPE_innoxia_hyena_face)
 			 [npc2.verb(start)] using [npc2.her] powerful hyena jaws to crunch each of them into pieces, and in a matter of moments [npc2.has] completely devoured the entire bag.
 		#ELSE
 			 [npc2.verb(start)] eagerly sucking the delicious marrow out of each of them, and in a matter of moments [npc2.has] completely devoured the entire bag.
