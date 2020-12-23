@@ -35,7 +35,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Slaves in the stocks at Slaver Alley without a vagina will no longer have vaginal sex events generated for them. Also fixed these slaves' descriptions and the issue where they would always have all permissions granted. (PR#1426 by AceXP)
 		Added checks for fertility pills, including broodmother. Roxy now sells broodmother pills and random NPCs may sometimes be carrying them. Ralph and Lilaya now react to broodmother pills in the same way as fertility pills. Fixed incorrect colour descriptions of fertility pills in several places. (PR#1422 by AceXP)
 		Fixed issue where hair length, breast size, ass size, and hip size had no tolerance so that post-combat forced TFs alternated between too big and too small. (PR#1334 by Stadler76)
-	
+		Fixed typo in phoenix-harpy description and tidied up parts of the code in UtilText.java. (PR#1336 by Stadler76)
+		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
 		Added support for wing types to have a defined minimum and maximum size (see the 'res/mods/innoxia/race/hyena/unused_bodyParts/wing.xml' for the commented example).

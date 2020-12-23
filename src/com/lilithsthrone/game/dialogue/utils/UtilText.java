@@ -420,6 +420,10 @@ public class UtilText {
 	private static String getGlowStyle(Colour colour) {
 		return colour==null?"":"text-shadow: 0px 0px 4px "+colour.getShadesRgbaFormat(0.75f)[1]+";";
 	}
+	
+	private static Boolean isPlayer(String target, GameCharacter character) {
+		return target.startsWith("npc") && character.isPlayer();
+	}
 
 	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects) {
 		modifiedSentence = text.trim();
@@ -1354,7 +1358,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						if(command.startsWith("N")) {
 							return "You";
 						} else {
@@ -1388,7 +1392,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						if(command.startsWith("N")) {
 							return "Your";
 						} else {						 
@@ -1409,7 +1413,7 @@ public class UtilText {
 				false,
 				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				+ " If you need the actual player name for third-person reference, passin 'true' as an argument.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -1422,7 +1426,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you're";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1451,7 +1455,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you are";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1468,7 +1472,7 @@ public class UtilText {
 				false,
 				"(prefix/real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				+ " If you need the actual player name for third-person reference, passin 'true' as an argument.") {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
@@ -1481,7 +1485,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you've";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1510,7 +1514,7 @@ public class UtilText {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" has";
 					
 				} else {
-					if(target.startsWith("npc") && character.isPlayer()) {
+					if(isPlayer(target, character)) {
 						return "you have";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -3973,7 +3977,7 @@ public class UtilText {
 				"Returns the correct version of 'has' for this character (has or have)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "have";
 				} else {
 					return "has";
@@ -3991,7 +3995,7 @@ public class UtilText {
 				"Returns the correct version of 'is' for this character (is or are)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "are";
 				} else {
 					return "is";
@@ -4009,7 +4013,7 @@ public class UtilText {
 				"Returns the correct version of 'does' for this character (do or does)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "do";
 				} else {
 					return "does";
@@ -4027,7 +4031,7 @@ public class UtilText {
 				"Returns the correct version of 'was' for this character (was or were)."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "were";
 				} else {
 					return "was";
@@ -4047,10 +4051,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific possessive pronoun for this character (your, her, his). By default, returns 'your' for player character."
-				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the actual third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "your";
 					
 				} else {
@@ -4082,7 +4086,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "yours";
 				} else {
 					if(character.isFeminine()) {
@@ -4105,7 +4109,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "yours";
 				} else {
 					if(character.isPlayerKnowsName()) {
@@ -4126,10 +4130,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -4159,10 +4163,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct pronoun for this character (you, she, he). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -4192,10 +4196,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you're, she's, he's). By default, returns 'you're' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you're";
 				} else {
 					if(character.isFeminine()) {
@@ -4225,10 +4229,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you are, she is, he is). By default, returns 'you are' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you are";
 				} else {
 					if(character.isFeminine()) {
@@ -4258,10 +4262,10 @@ public class UtilText {
 				true,
 				"(real pronoun)",
 				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's). By default, returns 'you've' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				+ " If you need the regular third-person player character pronoun contraction, passin 'true' as an argument."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+				if(arguments==null && isPlayer(target, character)) {
 					return "you've";
 				} else {
 					if(character.isFeminine()) {
@@ -4293,7 +4297,7 @@ public class UtilText {
 				"Returns the correct gender-specific pronoun contraction for this character (you have, she has, he has). By default, returns 'you have' for player character."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(target.startsWith("npc") && character.isPlayer()) {
+				if(isPlayer(target, character)) {
 					return "you have";
 				} else {
 					if(character.isFeminine()) {
@@ -4321,10 +4325,10 @@ public class UtilText {
 				true,
 				"",
 				"Returns correct gender-specific reflexive pronoun for this character (yourself, herself, himself). By default, returns 'yourself' for player character."
-						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
+						+ " If you need the regular reflexive player character pronoun, passin 'true' as an argument."){
 					@Override
 					public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-						if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+						if(arguments==null && isPlayer(target, character)) {
 							return "yourself";
 						} else {
 							if(character.isFeminine()) {

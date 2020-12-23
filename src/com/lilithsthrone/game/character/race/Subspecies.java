@@ -4733,7 +4733,7 @@ public class Subspecies {
 					return true;
 				}
 			},
-			"While just as obsessed with [npc.her] looks as other harpies, [npc.name] is also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
+			"While just as obsessed with [npc.her] looks as other harpies, [npc.nameIsFull] also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
 				+ " In particular, [npc.she] [npc.has] an exceptionally high affinity with arcane fire...",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
