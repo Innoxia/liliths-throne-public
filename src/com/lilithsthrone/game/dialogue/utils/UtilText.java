@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
@@ -8963,7 +8964,17 @@ public class UtilText {
 		
 		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
-		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
+		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions");//, "-scripting");
+		try {
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("exit");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("quit");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("load");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("loadWithNewGlobal");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("bindProperties");
+			engine.getBindings(ScriptContext.ENGINE_SCOPE).remove("Object.bindProperties");
+		} catch(Exception ex) {
+			System.err.println("ENGINE_SCOPE binding removal error.");
+		}
 		
 //		ScriptEngineManager manager = new ScriptEngineManager();
 //		engine = manager.getEngineByName("javascript");
