@@ -24698,7 +24698,26 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "[style.colourDisabled(Nothing happens...)]"
 					+ "</p>";
 		}
-		
+
+        // Pregnant slimes without a vagina are stuck until the pregnancy is resolved
+        if(type==BodyMaterial.FLESH && this.getBodyMaterial()==BodyMaterial.SLIME && this.isPregnant() && !this.hasVagina()) {
+           return UtilText.parse(this,
+        		   "<p>"
+						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
+						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be suddenly glows brightly before a strange feeling starts to permeate [npc.her] groin."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.She] [npc.verb(feel)] the transformation slow down and then reverse until [npc.her] entire body has reverted to being made entirely out of slime!"
+					+ "</p>"
+					+ "<p>"
+						+ "It seems that the ongoing pregnancy is [style.italicsBad(preventing)] [npc.him] from turning into anything other than a slime,"
+							+ " and it looks like [npc.she] will have to either gain a vagina or give birth before it will be possible to transform into having a body made of flesh."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.NamePos] body is still made out of [style.boldTfGeneric(slime)]!"
+					+ "</p>");
+        }
+
 		if(type == BodyMaterial.SLIME) {
 			// Slimes can't wear makeup:
 			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllMakeupTypes()) {

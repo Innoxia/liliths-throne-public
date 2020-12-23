@@ -45,6 +45,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed missing verbs in several files. (PR#1291 by TadUnlikely)
 		Fixed incorrect dialogue scene titles when getting tattoos in Kate's shop, incorrect description of how much cum was expelled during orgasm when performing a double creampie orgasm action, and a reference to ass instead of breast in nipple-fingering actions. (by AceXP)
 		Fixed a bug where having an elemental in a feral form would cause the the left and right sidebar to go blank. (PR#1457 by AceXP)
+		Prevented pregnant slimes without a vagina from transforming back to flesh, as the birthing scenes only account for characters with a vagina. (PR#1459 by AceXP)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
