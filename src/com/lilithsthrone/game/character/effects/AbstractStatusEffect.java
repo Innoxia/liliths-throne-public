@@ -321,11 +321,11 @@ public abstract class AbstractStatusEffect {
 			if(!shortConditionalCheck) {
 				String parsedResult = UtilText.parse(Util.newArrayListOfValues(target), applicationCondition, true, new ArrayList<>());
 				parsedResult = parsedResult.replaceAll("\\s", "");
-				return Boolean.valueOf(parsedResult);
+				return Boolean.valueOf(parsedResult.trim());
 				
 			} else {
 				try {
-					UtilText.evaluateConditional(Util.newArrayListOfValues(target), applicationCondition, true);
+					return UtilText.evaluateConditional(Util.newArrayListOfValues(target), applicationCondition, true);
 				} catch (ScriptException e) {
 					System.err.println("Conditional parsing (from status effect) error: "+applicationCondition);
 					e.printStackTrace();

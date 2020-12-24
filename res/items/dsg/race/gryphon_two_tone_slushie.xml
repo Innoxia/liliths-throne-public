@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the cup reads 'Mixed by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>200</value> 
+		<determiner><![CDATA[a cup of]]></determiner>
+		<name><![CDATA[Two-Tone Slushie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
+		<description><![CDATA[A kiwi-and-strawberry flavored two-tone slushie. The label depicts a gryphon-girl wearing only an apron handing a fountain cup resembling this one out towards an imaginary customer.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">gryphon_two_tone_slushie.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_FIRE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/15)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_FIRE, 1)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(bring)] the cup of Two-Tone Slushie up to [npc.her] [npc.mouth]. The smell of kiwis and strawberries rises from the straw, and as [npc.she] [npc.verb(wrap)] [npc.her] lips around it and [npc.verb(start)] sucking down the cold semi-solid [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(bring)] the cup of Two-Tone Slushie up to [npc2.namePos] waiting [npc2.lips]. The smell of kiwis and strawberries rises from the straw, and as [npc2.she] [npc2.verb(warp)] [npc2.her] lips around it and [npc2.verb(start)] sucking down the cold semi-solid, [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

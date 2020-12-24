@@ -50,6 +50,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added support for defining feral face description in face modding xml files. (PR#1452 by Stadler76)
 		Added 'Poncho' clothing item. (Unisex, over-torso slot, sold by Nyan.) (by NoStepOnSnek)
 		
+	DSG's race contributions:
+		Added 7 new races: Sharks, Bears, Dragons, Ferrets, Gryphons, Otters, and Raccoons.
+		Added 1 subspecies for each of these new races, except for the dragon race, which has the subspecies: Coatl, Ryu, Dragon, Drake, and Wyvern.
+		Added 18 new consumable items, consisting of a drink (attribute) & food item (transformative) for each of the 7 new races, with dragons having an extra 2 variants of their drink item and 2 extra variants of their food item.
+		Added 12 new colours related to the new races added.
+		Added 7 new combat moves for the new races: 'Charging Bite' (sharks), 'Five Claw Strike' (bears), 'Breath Weapon' (dragons), 'War Dance' (ferrets), 'Hunting Call' (gryphons), 'Tail Slap' (otters), and 'Cornered Beast' (raccoons).
+	
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
 		Added support for wing types to have a defined minimum and maximum size (see the 'res/mods/innoxia/race/hyena/unused_bodyParts/wing.xml' for the commented example).
@@ -85,7 +92,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added ROUGH as a covering modifier.
 		Added TAPERED as a tongue modifier.
 		Added REPTILIAN and AMPHIBIAN foot types.
-		Added BodyPartTags TORSO_DORSAL_FIN, TAIL_TYPE_SCALES, and THERMAL_VISION.
+		Added BodyPartTags TORSO_DORSAL_FIN, TAIL_TYPE_SCALES, THERMAL_VISION, and ALLOWS_FLIGHT.
 		
 	Sex:
 		NPCs now have the chance to decide to initiate penetration using a clitoris that's large enough to act as a pseudo-penis.
@@ -112,7 +119,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where TF potions with a TF type that's been removed from the game would throw background errors when trying to use it.
 		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
 		Fixed reference to feral characters having feet when they had a tail lower body type.
-		
+		Fixed a couple of issues that were causing modded status effects to not work.
 	
 	
 	

@@ -13339,6 +13339,7 @@ public class StatusEffect {
 					allStatusEffects.add(statusEffect);
 					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
 					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
+//					System.out.println("modded SE: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading modded status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
@@ -13357,7 +13358,7 @@ public class StatusEffect {
 					allStatusEffects.add(statusEffect);
 					statusEffectToIdMap.put(statusEffect, innerEntry.getKey());
 					idToStatusEffectMap.put(innerEntry.getKey(), statusEffect);
-//					System.out.println("SE: "+innerEntry.getKey());
+//					System.out.println("res SE: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading status effect failed at 'StatusEffect'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");

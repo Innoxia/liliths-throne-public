@@ -6600,7 +6600,7 @@ public abstract class GameCharacter implements XMLSaving {
 //				addStatusEffect(se, -1);
 //			}
 			//TODO
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && !se.isFromExternalFile())
+			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked
 					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
 					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
 //				if(se.getCategory()==StatusEffectCategory.ATTRIBUTE && this.isPlayer()) {
@@ -24145,8 +24145,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.isAbleToFlyFromArms() && !this.isArmMovementHindered();
 	}
 	
+	public boolean isAbleToFlyFromExtraParts() {
+		for(BodyPartInterface bpi : this.getBody().getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isAbleToFly() {
-		return isAbleToFlyFromArms() || body.isAbleToFlyFromWings();
+		return isAbleToFlyFromArms()
+				|| body.isAbleToFlyFromWings()
+				|| isAbleToFlyFromExtraParts();
 	}
 	
 	// Pubic Hair:
