@@ -16,6 +16,7 @@
 		
 		<rarity>UNCOMMON</rarity> 
 		
+		<!-- There is a fully commented example of this in 'hyena_bone_crunchers.xml' -->
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
 		<imageName zLayer="1" imageRotation="-15" imageSize="80">hyena_workout_power.svg</imageName>
 		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>

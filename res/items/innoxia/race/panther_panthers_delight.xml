@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>500</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Panther's Delight]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Panther's Delights]]></namePlural>
+		<description><![CDATA[A large, raw tomahawk steak, with a small brown tag tied to the bone which displays the words 'Panther's Delight'. Flipping the label over, there's some information which declares the piece of meat to contain  all the minerals and nutrients a growing big cat needs.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/panther/subspecies/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="65">panther_panthers_delight.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>innoxia_panther</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[pantherian]]></potionDescriptor>
+		<associatedRace>innoxia_panther</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel a lot stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Taking hold of the 'Panther's Delight', which consists of nothing more than a large, raw tomahawk steak, [npc.name] [npc.verb(bring)] it up to [npc.her] mouth. A rich, bloody smell rises to fill [npc.her] nostrils, and [npc.she] [npc.verb(find)] [npc.herself] drooling at the thought of eating the raw meat. Without further thought, [npc.she] greedily [npc.verb(devour)] the dripping flesh, licking [npc.her] fingers clean after rapidly finishing [npc.her] impromptu meal.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Taking hold of the 'Panther's Delight', which consists of nothing more than a large, raw tomahawk steak, [npc.verb(bring)] it up to [npc2.namePos] mouth. A rich, bloody smell rises to fill [npc2.her] nostrils, and [npc2.she] [npc2.verb(find)] [npc2.herself] drooling at the thought of eating the raw meat. Without further thought, [npc2.she] greedily [npc2.verb(devour)] the dripping flesh, licking [npc2.her] fingers clean after rapidly finishing [npc2.her] impromptu meal.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
