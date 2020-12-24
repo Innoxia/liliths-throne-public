@@ -22,7 +22,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Added 'Charging Bite' combat move, available to characters who have a face type that has shark teeth. (by DSG)
 		Added variations of starting demonstone damage type based on your birth month, and correct some descriptions during the prologue related to this. (PR#1409 by Rfpnj)
 		Fixed bug where the 'Dye & reforge all (stack)' action would not consume reforge hammers. (by AceXP)
 		Fixed bug where 'Unequip all' would inadvertently unequip milking pumps, which would end up with them being added to your inventory. (by AceXP)
@@ -69,6 +68,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added setCovering() to Body class to make the setting of coverings easier in race mods. (See 'applySubspeciesChanges' element in lion.xml for an example on this being used.)
 		You can now leave the half-demon name elements empty in subspecies xml files (in which case the game will automatically generate a generic half-demon name for your subspecies).
 		Added support for a 'displaySize' attribute to the 'iconName' element in subspecies xml files, allowing you to define the resizing percentage of your icon image.
+		Added 'coveringIconColour' element for modded colours, allowing you to define the colour to use a different colour for covering icons than its usual colour for text.
 	
 	Gameplay:
 		Added a separate variant of the aquatic status effects for characters of an aquatic race who have the leg configuration 'TAIL'.
@@ -120,18 +120,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
 		Fixed reference to feral characters having feet when they had a tail lower body type.
 		Fixed a couple of issues that were causing modded status effects to not work.
+		Fixed issue where loading a previously saved game would sometimes show parsing errors on the initial dialogue page (for example, in the entrance tile to Slaver Alley).
+		Fixed spam of warnings about getFeralAttributes() returning null every time you loaded the game as a feral character.
 	
 	
 	
-	When autosave on slaver alley entrance:
-		Conditional parsing (from Map) error: (pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_HELENA, QUEST_ROMANCE_HELENA_6_ADVERTISING)) | Size of variableCalls: 0
 	
-	When loading in as a feral, spam of:
-		Warning: getFeralAttributes() for player_name (ID:PlayerCharacter) is returning null!
-	
-	Investigate NPCs not using clit egg laying on player
-	
-	Singular parsing of body parts does not use descriptors, e.g. for [npc.breast(true)+]
 	
 	Might consider for the fish leg TF having it autoequip what you had before it went fish mode. Might get annoying to have to constantly open inventory and re-equip sets etc every time you cross water
 	

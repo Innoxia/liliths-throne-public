@@ -22622,7 +22622,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public FeralAttributes getFeralAttributes() {
 		FeralAttributes att = this.getSubspecies().getFeralAttributes();
 		if(att==null) {
-			System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+") is returning null!");
+			if(Main.game.isStarted()) { // Only print warnings after the game has started, as all characters' bodies have their subspecies calculated at the end of game start, to avoid errors from pre-initialisation of external res subspecies.
+				System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+", subspecies: "+Subspecies.getIdFromSubspecies(this.getSubspecies())+") is returning null!");
+			}
 			att = new FeralAttributes(this.getSubspecies().getName(this),
 					this.getSubspecies().getNamePlural(this),
 					this.getLegConfiguration(),
@@ -22632,6 +22634,7 @@ public abstract class GameCharacter implements XMLSaving {
 					this.getBreastCrotchRows(),
 					this.getNippleCrotchCountPerBreast(),
 					false);
+//			throw new IllegalAccessError();
 //			List<AbstractRace> raceOrdering = new ArrayList<>(this.body.getRaceWeightMap().keySet());
 //			Map<AbstractRace, Integer> raceWeightMap = this.body.getRaceWeightMap();
 //			raceOrdering.sort((r1, r2) -> raceWeightMap.get(r2)-raceWeightMap.get(r1));

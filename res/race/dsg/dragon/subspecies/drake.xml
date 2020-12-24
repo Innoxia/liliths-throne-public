@@ -52,7 +52,7 @@
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFace().getType()!=FACE_TYPE_dsg_dragon_face)
-			[#targetedBody.getFace().setType(FACE_TYPE_dsg_dragon_face)]
+			[#targetedBody.getFace().setType(null, FACE_TYPE_dsg_dragon_face)]
 		#ENDIF
 		#IF(targetedBody.getWing().getType()!=WING_TYPE_NONE)
 			[#targetedBody.getWing().setType(null, WING_TYPE_NONE)]
