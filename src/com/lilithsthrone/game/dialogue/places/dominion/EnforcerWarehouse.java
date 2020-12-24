@@ -92,9 +92,9 @@ public class EnforcerWarehouse {
 		
 		// Make SWORD guards a predator subspecies:
 		List <AbstractSubspecies> subspeciesAvailable = Util.newArrayListOfValues(
-				Subspecies.CAT_MORPH_TIGER,
-				Subspecies.CAT_MORPH_LEOPARD,
-				Subspecies.CAT_MORPH_LION,
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_leopard"),
 				Subspecies.DOG_MORPH_DOBERMANN,
 				Subspecies.DOG_MORPH_GERMAN_SHEPHERD,
 				Subspecies.FOX_MORPH,

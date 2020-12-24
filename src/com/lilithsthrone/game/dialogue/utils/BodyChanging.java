@@ -928,12 +928,6 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(), "Tongue colour",
-								(BodyChanging.getTarget().isPlayer()
-										?"The colour of your tongue."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),
-								true, true)
-						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(), "Hair colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"Change the colour of your hair."
@@ -1453,6 +1447,12 @@ public class BodyChanging {
 							BodyChanging.getTarget().getCovering(BodyCoveringType.NIPPLES).getType(),
 							"Nipple Colour", 
 							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] nipples."),
+							true, true)
+
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+							BodyChanging.getTarget().getCovering(BodyCoveringType.MILK).getType(),
+							"Milk Colour", 
+							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.milk]."),
 							true, true);
 		}
 		
@@ -1532,8 +1532,13 @@ public class BodyChanging {
 							BodyChanging.getTarget().getCovering(BodyCoveringType.VAGINA).getType(),
 							"Vagina Colour", 
 							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] vagina."),
+							true, true)
+
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+							BodyChanging.getTarget().getCovering(BodyCoveringType.GIRL_CUM).getType(),
+							"Girlcum Colour", 
+							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.girlcum]."),
 							true, true));
-			
 
 			if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
@@ -1618,8 +1623,13 @@ public class BodyChanging {
 							BodyChanging.getTarget().getCovering(BodyCoveringType.PENIS).getType(),
 							"Penis Colour", 
 							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] penis."),
+							true, true)
+
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+							BodyChanging.getTarget().getCovering(BodyCoveringType.CUM).getType(),
+							"Cum Colour", 
+							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.cum]."),
 							true, true));
-			
 
 			if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPubicHair(false, "Pubic hair",
@@ -1698,11 +1708,16 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchPlasticityDiv()
 					+"</div>"
 					
-					
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
 							BodyChanging.getTarget().getCovering(BodyCoveringType.NIPPLES_CROTCH).getType(),
 							"Nipple Colour", 
 							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.crotchNipples]."),
+							true, true)
+
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false,
+							BodyChanging.getTarget().getCovering(BodyCoveringType.MILK).getType(),
+							"Milk Colour", 
+							UtilText.parse(BodyChanging.getTarget(), "Change the colour of [npc.namePos] [npc.milk]."),
 							true, true);
 		}
 		

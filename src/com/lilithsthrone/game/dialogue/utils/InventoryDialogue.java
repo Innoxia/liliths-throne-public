@@ -152,7 +152,7 @@ public class InventoryDialogue {
 		zlayerClothing.sort(new ClothingZLayerComparator());
 		
 		for(AbstractClothing c : zlayerClothing) { 
-			if(!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) {
+			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
 				if(Main.game.isInNewWorld()) {
 					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
 				} else {
@@ -7589,6 +7589,7 @@ public class InventoryDialogue {
 					public void effects(){
 						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
 										+ getDyeBrushEffects(weapon, dyePreviews.get(0))

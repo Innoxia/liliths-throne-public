@@ -182,7 +182,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static AbstractCombatMove ALLIGATOR_TAIL_SWIPE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
+	public static AbstractCombatMove TAIL_SWIPE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "tail swipe",
             2,
             3,
@@ -205,7 +205,10 @@ public class CMSpecialAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue(), "Available to characters who have a thick, prehensile tail.");
+            return new Value<>(
+            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue())
+            			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
+            		"Available to characters who have a thick, prehensile tail, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }
 
         @Override
@@ -545,7 +548,7 @@ public class CMSpecialAttack {
 				!Collections.disjoint(source.getFaceTypeTags(), Util.newArrayListOfValues(
 						BodyPartTag.FACE_MUZZLE,
 						BodyPartTag.FACE_FANGS,
-						BodyPartTag.FACE_SHARK_TEETH,
+//						BodyPartTag.FACE_SHARK_TEETH,
 						BodyPartTag.FACE_BEAK
 				)),
 				"Available to characters with an anthropomorphic face.");

@@ -34,9 +34,14 @@
 	
 	<incompatibleSlots/>
 	
-	<primaryColours values="LEATHER"/>
+	<primaryColours>
+		<colour>CLOTHING_BLACK</colour>
+		<colour>CLOTHING_DESATURATED_BROWN</colour>
+		<colour>CLOTHING_BROWN_DARK</colour>
+		<colour>CLOTHING_BROWN_VERY_DARK</colour>
+	</primaryColours>
 	<primaryColoursDye values="ALL"/>
-	<secondaryColours values="ALL_METAL"/>
+	<secondaryColours values="JUST_STEEL"/>
 	<secondaryColoursDye values="ALL_METAL"/>
 	<tertiaryColours/>
 	<tertiaryColoursDye/>
