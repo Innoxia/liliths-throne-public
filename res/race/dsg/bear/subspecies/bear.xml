@@ -22,11 +22,11 @@
 	
 	<!-- The id of the item associated with this race which can be enchanted to modify attributes.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_vanilla_water'. -->
-	<attributeItemId>dsg_bear_vodka</attributeItemId>
+	<attributeItemId>dsg_race_bear_vodka</attributeItemId>
 	
 	<!-- The id of the item associated with this race which can be enchanted to create a transformation potion.
 	If you do not have an associated item made for this race then use 'innoxia_race_human_bread_roll'. -->
-	<transformativeItemId>dsg_bear_honey_bread</transformativeItemId>
+	<transformativeItemId>dsg_race_bear_honey_bread</transformativeItemId>
 	
 	<!-- An integer representing how important this Subspecies is to be defined as a character's Subspecies override (meaning that this Subspecies will always be their true Subspecies, no matter the race of their body parts).
 	The default value is 0, which, along with any negative integer value, means that this Subspecies does not set an Override.
