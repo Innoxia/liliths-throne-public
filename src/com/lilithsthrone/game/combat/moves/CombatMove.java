@@ -374,8 +374,8 @@ public class CombatMove {
 			return CMSpecialAttack.HORSE_KICK;
 		} else if(id.equals("cat-scratch")) {
 			return CMSpecialAttack.CAT_SCRATCH;
-		} else if(id.equals("tail-swipe")) {
-			return CMSpecialAttack.ALLIGATOR_TAIL_SWIPE;
+		} else if(id.equals("tail-swipe") || id.equals("ALLIGATOR_TAIL_SWIPE")) {
+			return CMSpecialAttack.TAIL_SWIPE;
 		} else if(id.equals("squirrel-scratch")) {
 			return CMSpecialAttack.SQUIRREL_SCRATCH;
 		} else if(id.equals("savage-attack")) {

@@ -104,6 +104,8 @@ public abstract class AbstractRacialBody {
 	private int anusWetness;
 	private int maleAssSize;
 	private int femaleAssSize;
+	private int maleHipSize;
+	private int femaleHipSize;
 	private int anusElasticity;
 	private int anusPlasticity;
 
@@ -337,6 +339,8 @@ public abstract class AbstractRacialBody {
 		this.anusWetness = anusWetness.getValue();
 		this.maleAssSize = maleAssSize.getValue();
 		this.femaleAssSize = femaleAssSize.getValue();
+		this.maleHipSize = maleAssSize.getValue();
+		this.femaleHipSize = femaleAssSize.getValue();
 		this.anusElasticity = anusElasticity.getValue();
 		this.anusPlasticity = anusPlasticity.getValue();
 		
@@ -499,6 +503,16 @@ public abstract class AbstractRacialBody {
 				this.anusWetness = Integer.valueOf(coreElement.getMandatoryFirstOf("anusWetness").getTextContent());
 				this.maleAssSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleAssSize").getTextContent());
 				this.femaleAssSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleAssSize").getTextContent());
+				if(coreElement.getOptionalFirstOf("maleHipSize").isPresent()) {
+					this.maleHipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("maleHipSize").getTextContent());
+				} else {
+					this.maleHipSize = this.maleAssSize;
+				}
+				if(coreElement.getOptionalFirstOf("femaleHipSize").isPresent()) {
+					this.femaleHipSize = Integer.valueOf(coreElement.getMandatoryFirstOf("femaleHipSize").getTextContent());
+				} else {
+					this.femaleHipSize = this.femaleAssSize;
+				}
 				this.anusElasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("anusElasticity").getTextContent());
 				this.anusPlasticity = Integer.valueOf(coreElement.getMandatoryFirstOf("anusPlasticity").getTextContent());
 				
@@ -949,6 +963,14 @@ public abstract class AbstractRacialBody {
 
 	public int getFemaleAssSize() {
 		return femaleAssSize;
+	}
+
+	public int getMaleHipSize() {
+		return maleHipSize;
+	}
+
+	public int getFemaleHipSize() {
+		return femaleHipSize;
 	}
 
 	public int getMaleHairLength() {

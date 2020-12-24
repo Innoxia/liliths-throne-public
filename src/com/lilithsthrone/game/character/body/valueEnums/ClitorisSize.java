@@ -12,9 +12,19 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum ClitorisSize {
 	
-	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE),
+	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE) {
+		@Override
+		public boolean isPseudoPenisSize() {
+			return false;
+		}
+	},
 	
-	ONE_BIG("big", 1, 5, PresetColour.GENERIC_SIZE_TWO),
+	ONE_BIG("big", 1, 5, PresetColour.GENERIC_SIZE_TWO) {
+		@Override
+		public boolean isPseudoPenisSize() {
+			return false;
+		}
+	},
 	
 	TWO_LARGE("large", 5, 10, PresetColour.GENERIC_SIZE_THREE),
 	
@@ -38,7 +48,11 @@ public enum ClitorisSize {
 		this.maximumValue = maximumValue;
 		this.colour = colour;
 	}
-
+	
+	public boolean isPseudoPenisSize() {
+		return true;
+	}
+	
 	public int getMinimumValue() {
 		return minimumValue;
 	}

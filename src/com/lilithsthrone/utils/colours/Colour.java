@@ -38,11 +38,14 @@ public class Colour {
 	private Colour colourLinkLighter = null;
 	private Colour colourLinkDarker = null;
 	
+	private List<ColourTag> tags;
+	
 	public Colour(Color colour) {
 		this.metallic = false;
 		this.colour = colour;
 		this.lightColour = colour;
 		this.name = "";
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, Color colour, Color lightColour, String name) {
@@ -52,6 +55,7 @@ public class Colour {
 		this.colour = colour;
 		this.lightColour = lightColour;
 		this.name = name;
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name) {
@@ -61,6 +65,7 @@ public class Colour {
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
 		this.name = name;
+		tags = null;
 	}
 	
 	// Constructors with formatting names:
@@ -72,6 +77,7 @@ public class Colour {
 		this.lightColour = lightColour;
 		this.name = name;
 		this.formattingNames = formattingNames;
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name, List<String> formattingNames) {
@@ -82,6 +88,7 @@ public class Colour {
 		this.lightColour = colour.getLightColour();
 		this.name = name;
 		this.formattingNames=formattingNames;
+		tags = null;
 	}
 	
 	public Colour(File XMLFile, String author, boolean mod) {
@@ -110,6 +117,13 @@ public class Colour {
 				if(coreElement.getOptionalFirstOf("formattingNames").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("formattingNames").getAllOf("name")) {
 						formattingNames.add(e.getTextContent());
+					}
+				}
+				
+				tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						tags.add(ColourTag.valueOf(e.getTextContent()));
 					}
 				}
 				
@@ -316,6 +330,13 @@ public class Colour {
 
 	public List<String> getFormattingNames() {
 		return formattingNames;
+	}
+
+	public List<ColourTag> getTags() {
+		if(tags==null) {
+			return new ArrayList<>();
+		}
+		return tags;
 	}
 
 }

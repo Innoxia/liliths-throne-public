@@ -59,6 +59,10 @@ public enum ItemTag {
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 	
+	/** Excludes this clothing from being randomly chosen to equip on an NPC in automatic outfit generation.
+	 *  Also excludes the clothing from randomly spawning as tile-exploration loot.
+	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
+	NO_RANDOM_SPAWN,
 	
 	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
 			Util.newArrayListOfValues(

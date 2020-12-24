@@ -9,9 +9,12 @@ import java.util.stream.Collectors;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -363,25 +366,6 @@ public class DebugDialogue {
 							}
 						};
 						
-				} else if(index==5) {
-					return new Response("Bimbos!", "Turn every feminine NPC in the game into a busty, slovenly bimbo.<br/>[style.italicsBad(Warning! This cannot easily be undone!)]", DEBUG_MENU){
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.BASE_PINK_DEEP;
-						}
-						@Override
-						public void effects() {
-							for(NPC npc : Main.game.getAllNPCs()) {
-								if(npc.isFeminine()) {
-									npc.addFetish(Fetish.FETISH_BIMBO);
-									npc.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-									if(npc.getBreastSize().getMeasurement()<CupSize.E.getMeasurement()) {
-										npc.setBreastSize(CupSize.E);
-									}
-								}
-							}
-						}
-					};
 				}
 //				else if (index == 5) {
 //					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
@@ -505,6 +489,97 @@ public class DebugDialogue {
 					}
 					return new Response("Wes test", "Spawn Wes and start his quest.<br/>[style.italicsBad(Warning! Save your game before testing this! Please only test this if you know what you're doing!!!)]", WesQuest.WES_QUEST_START);
 					
+				} else if(index==16) {
+					return new Response("Bimbos!", "Turn every feminine NPC in the game into a busty, slovenly bimbo.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.BASE_PINK_DEEP;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								if(npc.isFeminine()) {
+									npc.addFetish(Fetish.FETISH_BIMBO);
+									npc.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+									if(npc.getBreastSize().getMeasurement()<CupSize.E.getMeasurement()) {
+										npc.setBreastSize(CupSize.E);
+									}
+								}
+							}
+						}
+					};
+					
+				} else if(index==17) {
+					return new Response("Tiger mode", "Turn every NPC in the game into a greater tiger-morph.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.RACE_CAT_MORPH_TIGER;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								Main.game.getCharacterUtils().reassignBody(
+										npc,
+										npc.getBody(),
+										npc.getGender(),
+										Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"),
+										RaceStage.GREATER,
+										false);
+							}
+						}
+					};
+					
+				} else if(index==18) {
+					return new Response("Mofu mode", "Every NPC with a covering type that supports the 'fluffy' modifier gains the 'fluffy' modifier.<br/>[style.italicsBad(Warning! This cannot be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.BASE_ROSE;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								for(BodyPartInterface part : npc.getBody().getAllBodyParts()) {
+									AbstractBodyCoveringType bct = npc.getCovering(part);
+									if(bct!=null
+											&& (bct.getNaturalModifiers().contains(CoveringModifier.FLUFFY) || bct.getExtraModifiers().contains(CoveringModifier.FLUFFY))) {
+										npc.getCovering(bct).setModifier(CoveringModifier.FLUFFY);
+									}
+								}
+								
+							}
+						}
+					};
+				} else if(index==19) {
+					return new Response("Moo mode",
+							"Every feminine NPC will have their breast size incremented by 5,"
+									+ " gain the '"+Fetish.FETISH_LACTATION_SELF+"' fetish,"
+									+ " gain 500ml breast milk storage,"
+									+ " ass size incremented by 1,"
+									+ " and hip size incremented by 1."
+							+ "<br/>[style.italicsBad(Warning! This cannot be undone!)]",
+							DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.RACE_COW_MORPH;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								if(npc.isFeminine()) {
+									npc.addFetish(Fetish.FETISH_LACTATION_SELF);
+									npc.incrementBreastMilkStorage(500);
+									npc.incrementBreastSize(5);
+									npc.incrementAssSize(1);
+									npc.incrementHipSize(1);
+//									npc.setBreastMilkStorage(Math.max(500, npc.getBreastRawMilkStorageValue()));
+//									
+//									npc.setBreastSize(Math.max(CupSize.HH.getMeasurement(), npc.getBreastSize().getMeasurement()));
+//									npc.setAssSize(Math.max(AssSize.FOUR_LARGE.getValue(), npc.getAssSize().getValue()));
+//									npc.setHipSize(Math.max(HipSize.SIX_EXTREMELY_WIDE.getValue(), npc.getHipSize().getValue()));
+								}
+							}
+						}
+					};
 				}
 				
 			} else if(responseTab == 3) {

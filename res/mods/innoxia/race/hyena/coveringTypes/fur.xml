@@ -33,7 +33,8 @@
 	<extraCoveringModifiers/>
 	
 	<!-- The patterns which can be applied to this covering type.
-	The 'weighting' attribute determines the weighted chance of the pattern being randomly chosen when first created for a character. -->
+	The 'weighting' attribute determines the weighted chance of the pattern being randomly chosen when first created for a character.
+	Values for covering patterns can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/CoveringPattern.java -->
 	<naturalPatterns>
 		<pattern weighting="1">SPOTTED</pattern> <!-- As SPOTTED or STRIPED is applied to spotted and striped hyenas in their subspecies XML, it doesn't really matter which is randomly chosen here (as it will be overwritten). -->
 		<pattern weighting="1">STRIPED</pattern>

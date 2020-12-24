@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>innoxia_panther</race>
+	
+	<transformationName><![CDATA[panther]]></transformationName>
+	
+	<coveringType>innoxia_panther_fur</coveringType>
+	
+	<nippleType>innoxia_panther_nipple</nippleType>
+	
+	<fluidType>innoxia_panther_milk</fluidType>
+	
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldPanther(panther-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldPanther(panther milk)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] panther-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldPanther(panther-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldPanther(panther milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] panther-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>
