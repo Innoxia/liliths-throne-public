@@ -1334,7 +1334,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly push your [npc.ass+] against [npc2.namePos] [npc2.hand] as [npc2.she] fingers your [npc.crotchNipple+].";
+			return "Eagerly push your [npc.breast+(true)] against [npc2.namePos] [npc2.hand] as [npc2.she] fingers your [npc.crotchNipple+].";
 		}
 
 		@Override

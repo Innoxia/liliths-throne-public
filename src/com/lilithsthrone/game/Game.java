@@ -1486,10 +1486,10 @@ public class Game implements XMLSaving {
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
+		Main.game.setStarted(true); // Set started before setting content so that it parses correctly (as the scripting engine is initialised fully in the setStarted() method).
 		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 		Main.game.endTurn(0);
-		Main.game.started = true;
 		
 		// Do a zero-time status effect update after declaring that the game has started to make sure that everything is initialised properly (mainly just so external status effects are initialised):
 		for(NPC npc : Main.game.getAllNPCs()) {
@@ -1562,7 +1562,6 @@ public class Game implements XMLSaving {
 	}
 	
 	public void initNewGame(DialogueNode startingDialogueNode) {
-		
 		NPCMap.clear();
 		initUniqueNPCs();
 
@@ -1571,16 +1570,33 @@ public class Game implements XMLSaving {
 		Main.game.getActiveWorld().getCell(0, 1).setDiscovered(false);
 		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
 		
-
-		started = false;
+		setStarted(false);
 		
 		SlaverAlleyDialogue.dailyReset();
 		
 		UtilText.initScriptEngine();
 
-		started = true;
+		setStarted(true);
 		
 		setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
+	}
+	
+	/**
+	 * This needs to be run after initialising a new or loaded game.
+	 */
+	private void handlePostGameInit() {
+		UtilText.initScriptEngine();
+		
+		// Handle Subspecies detection after UtilText's parsing engine has been initialised (as modded races require parsing of a conditional to determine weighting).
+		for(NPC npc : this.getAllNPCs()) {
+			npc.getBody().calculateRace(npc);
+		}
+		player.getBody().calculateRace(player);
+		
+		// Refresh UI to update race icons:
+		if(getCurrentDialogueNode()!=null) {
+			MainController.updateUI();
+		}
 	}
 	
 	private void initUniqueNPCs() {
@@ -2133,6 +2149,7 @@ public class Game implements XMLSaving {
 					&& !Main.game.getPlayer().getCompanions().contains(npc)) {
 				for(Entry<SexAreaOrifice, Litter> entry : new HashMap<>(npc.getIncubatingLitters()).entrySet()) {
 					long finalStageTime = npc.getTimeProgressedToFinalIncubationStage(entry.getKey());
+//					System.out.println(finalStageTime+", "+(Main.game.getSecondsPassed() - finalStageTime));
 					if(finalStageTime>0 && (Main.game.getSecondsPassed() - finalStageTime) > (12*60*60)) {
 						npc.endIncubationPregnancy(entry.getKey(), true);
 						
@@ -4203,6 +4220,17 @@ public class Game implements XMLSaving {
 		return started;
 	}
 	
+	/**
+	 * Sets whether the game has finished initialisation and has started.
+	 * <b/>If set to true, the method handlePostGameInit() is called to finish post-init setups.
+	 */
+	public void setStarted(boolean started) {
+		this.started = started;
+		if(started) {
+			Main.game.handlePostGameInit();
+		}
+	}
+
 	public boolean isPrologueFinished() {
 		return getPlayer()!=null && getPlayer().hasQuest(QuestLine.MAIN) && getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_PROLOGUE);
 	}

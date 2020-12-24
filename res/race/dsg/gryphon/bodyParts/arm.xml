@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractArmType.java -->
+	
+	<!-- The id of the race which this arm belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>dsg_gryphon</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[gryphon]]></transformationName>
+	
+	<!-- The id of the material covering this arm.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>dsg_gryphon_feathers</coveringType>
+	
+	<!-- Whether this arm type grants the ability to fly. -->
+	<allowsFlight>false</allowsFlight>
+	
+	<!-- Tags which are associated with this arm type.
+	You should most likely only be using the 'arms' tags for your arm type, which are: ARM_STANDARD, ARM_WINGS, ARM_WINGS_FEATHERED, ARM_WINGS_LEATHERY.
+	You should use either 'ARM_STANDARD' or 'ARM_WINGS', but not both.
+	If you use 'ARM_WINGS', then you should also define either 'ARM_WINGS_FEATHERED' or 'ARM_WINGS_LEATHERY'.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	
+	<!-- The singular and plural name of this arm type.
+	These should be left as 'arm' and 'arms' for standard arm types, and changed to 'wing' and 'wings' if your arm type are wings (such as those found on harpies or bat-morphs). -->
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's arm of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>feathered</descriptor>
+		<descriptor>feather-coated</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>feathered</descriptor>
+		<descriptor>feather-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's hands: -->
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>gryphon-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>gryphon-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's fingers: -->
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>taloned</descriptor>
+		<descriptor>gryphon-like</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>taloned</descriptor>
+		<descriptor>gryphon-like</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this arm type.
+	This description immediately follows a brief description of the arm type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] [npc.verb(see)] heavily scaled skin growing over the backs of [npc.her] hands as sharp talons push out to replace [npc.her] fingernails. [npc.Her] palms are rapidly covered by the same scaly skin that travels up her forearms before blending in with the feathers that cover her [npc.her] upper-biceps where [npc.her] new feathers smoothly transition into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldGryphon(gryphon-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How these arms are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] formed into anthropomorphic, gryphon-like hands with sharp talons on each digit. Tough, heavily scaled skin covers [npc.her] hands and forearms.
+	]]></bodyDescription>
+	
+</arm>

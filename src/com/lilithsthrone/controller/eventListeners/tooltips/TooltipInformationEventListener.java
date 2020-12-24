@@ -67,7 +67,6 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
@@ -396,7 +395,6 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			
 			// Picture:
-			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
 
 			// Description:
 			tooltipSB.append("<div class='subTitle-picture'>");
@@ -423,6 +421,8 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 			}
 			tooltipSB.append("</div>");
+			
+			tooltipSB.append("<div class='picture'>" + move.getSVGString() + "</div>");
 
 			// Description:
 			Value<Boolean, String> availableValue = owner.isMoveAvailable(move.getIdentifier());
@@ -1576,7 +1576,7 @@ public class TooltipInformationEventListener implements EventListener {
 								?"background: repeating-linear-gradient(135deg, " + primaryColour.toWebHexString() + ", " + primaryColour.getShades()[4] + " 1px);"
 								:(primaryColour.getRainbowColours()!=null
 									?"background: "+primaryColour.getRainbowDiv(1)+";"
-									:"background:" + (primaryColour.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():primaryColour.toWebHexString()) + ";"))
+									:"background:" + (primaryColour.getCoveringIconColour()) + ";"))
 						+ "'></div>"
 						+ (displaySecondary
 							?"<div class='colour-box' style='width:8px; height:8px; margin:0; padding:0; border-radius:2px;"
@@ -1584,7 +1584,7 @@ public class TooltipInformationEventListener implements EventListener {
 									?"background: repeating-linear-gradient(135deg, " + secondaryColour.toWebHexString() + ", " + secondaryColour.getShades()[4] + " 1px);"
 									:(secondaryColour.getRainbowColours()!=null
 										?"background: "+secondaryColour.getRainbowDiv(1)+";"
-										:"background:" + (secondaryColour.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():secondaryColour.toWebHexString()) + ";"))
+										:"background:" + (secondaryColour.getCoveringIconColour()) + ";"))
 								+ "'></div>"
 							:"")
 					+ "</div>"

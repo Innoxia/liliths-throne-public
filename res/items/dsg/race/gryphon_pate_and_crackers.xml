@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription printed on the packaging reads 'Packed by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>350</value> 
+		<determiner><![CDATA[a package of]]></determiner>
+		<name><![CDATA[Pâté and Crackers]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Tuna Sashimi]]></namePlural>
+		<description><![CDATA[A small tin of meat pâté and crackers wrapped in a wax paper package. The label on package is a cartoony depiction a smiling grypon-boy with crumbs all around his beak.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName>gryphon_pate_and_crackers.svg</imageName>
+		
+		<colourPrimary>dsg_gryphonBlue</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[gryphon]]></potionDescriptor>
+		<associatedRace>dsg_gryphon</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 20% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Restores)] 20% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		#IF(game.isSillyModeEnabled())
+		 [npc.speech(Okay, let's get this out of the packaging,)] [npc.name] [npc.verb(say)] to an unseen audience before unpacking the crackers and opening the tin. The tin makes a slight hiss as air rushes in. [npc.speech(Nice hiss,)] [npc.she] [npc.verb(comment)].
+		#ELSE
+		 [npc.Name] [npc.verb(unpack)] the crackers and [npc.verb(open)] the tin.
+		#ENDIF 
+		 [npc.She] [npc.verb(breathe)] in the hearty scent of crackers just out of the oven and freshly cooked meat. Unable to resist the delicious looking meal, [npc.she] quickly [npc.verb(devour)] it all, leaving only an empty tin and torn wax paper behind.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		#IF(game.isSillyModeEnabled())
+		 [npc.speech(Okay, let's get this out of the packaging.)] [npc.Name] says before unpacking
+		#ELSE
+		 [npc.Name] [npc.verb(unpack)]
+		#END IF
+		 the crackers and [npc.verb(open)] the tin
+		#IF(game.isSillyModeEnabled())
+		. The tin makes a slight hiss as air rushes in. [npc.speech(Nice hiss.)] [npc.she] [npc.verb(say)] while laying out
+		#ELSE
+		, laying out
+		#ENDIF
+		 the meal before [npc2.name]. [npc2.She] [npc2.verb(breathe)] in the hearty scent of crackers just out of the oven and freshly cooked meat. Unable to resist, [npc2.she] quickly [npc2.verb(devour)] it all, leaving only an empty tin and torn wax paper behind.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

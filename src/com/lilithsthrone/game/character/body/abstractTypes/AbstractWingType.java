@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -38,6 +39,8 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	private String transformationName;
 	
 	private boolean allowsFlight;
+	private WingSize minimumSize;
+	private WingSize maximumSize;
 
 	private String name;
 	private String namePlural;
@@ -52,6 +55,8 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 	 * @param coveringType What covers this wing type (i.e skin/fur/feather type).
 	 * @param race What race has this wing type.
 	 * @param allowsFlight Whether this wing type is capable of granting the character flight.
+	 * @param minimumSize The minimum size that this wing type is capable of being transformed into.
+	 * @param maximumSize The maximum size that this wing type is capable of being transformed into.
 	 * @param transformationName The name that should be displayed when offering this wing type as a transformation. Should be something like "curved" or "straight".
 	 * @param name The singular name of the wing. This will usually just be "wing" or "antler".
 	 * @param namePlural The plural name of the wing. This will usually just be "wings" or "antlers".
@@ -76,6 +81,9 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 		this.race = race;
 
 		this.allowsFlight = allowsFlight;
+		
+		this.minimumSize = WingSize.ZERO_TINY;
+		this.maximumSize = WingSize.FOUR_HUGE;
 		
 		this.transformationName = transformationName;
 		this.name = name;
@@ -109,7 +117,17 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
 				this.allowsFlight = Boolean.valueOf(coreElement.getMandatoryFirstOf("allowsFlight").getTextContent());
+				
 
+				this.minimumSize = WingSize.ZERO_TINY;
+				if(coreElement.getOptionalFirstOf("minimumSize").isPresent()) {
+					this.minimumSize = WingSize.valueOf(coreElement.getMandatoryFirstOf("minimumSize").getTextContent());
+				}
+				this.maximumSize = WingSize.FOUR_HUGE;
+				if(coreElement.getOptionalFirstOf("maximumSize").isPresent()) {
+					this.maximumSize = WingSize.valueOf(coreElement.getMandatoryFirstOf("maximumSize").getTextContent());
+				}
+				
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
 				this.descriptorsMasculine = new ArrayList<>();
@@ -152,6 +170,14 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 		return allowsFlight;
 	}
 	
+	public WingSize getMinimumSize() {
+		return minimumSize;
+	}
+
+	public WingSize getMaximumSize() {
+		return maximumSize;
+	}
+
 	@Override
 	public String getTransformationNameOverride() {
 		return transformationName;

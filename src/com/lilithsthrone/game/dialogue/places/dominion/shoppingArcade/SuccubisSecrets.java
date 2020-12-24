@@ -913,7 +913,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getLabel() {
-			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getTattooSlotName()) +" Tattoo";
 		}
 		
 		@Override

@@ -135,7 +135,6 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -324,7 +323,7 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static String getPersonalityChoiceDiv() {
+	public static String getPersonalityChoiceDiv(boolean allowSpecials) {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width' style='text-align:center;'>");
@@ -339,7 +338,7 @@ public class CharacterModificationUtils {
 				}
 				
 				for(PersonalityTrait trait : PersonalityTrait.values()) {
-					if(!trait.isSpecialRequirements()) {
+					if(allowSpecials || !trait.isSpecialRequirements()) {
 						if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
 							contentSB.append(
 									"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
@@ -1224,26 +1223,36 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(WingSize wingSize : WingSize.values()) {
-			if(BodyChanging.getTarget().getWingSize() == wingSize) {
+			if(BodyChanging.getTarget().getWingType().getMinimumSize().getValue()>wingSize.getValue()
+					|| BodyChanging.getTarget().getWingType().getMaximumSize().getValue()<wingSize.getValue()) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+						"<div class='cosmetics-button disabled'>"
+							+ Util.capitaliseSentence(wingSize.getName())
+							+ (wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")
 						+ "</div>");
-				
+			
 			} else {
-				contentSB.append(
-						"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
-								+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
-						+ "</div>");
+				if(BodyChanging.getTarget().getWingSize() == wingSize) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(wingSize.getName())
+									+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='CHANGE_WING_SIZE_"+wingSize+"' class='cosmetics-button'>"
+								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(wingSize.getName())
+									+(wingSize.getValue()>=BodyChanging.getTarget().getLegConfiguration().getMinimumWingSizeForFlight().getValue()?"*":"")+"</span>"
+							+ "</div>");
+				}
 			}
 		}
 
 		return applyWrapper("Wing Size",
 				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] wings."
 						+ "<br/><i>Wing size affects [npc.namePos] ability to fly."
-						+ " This varies based on leg configuration, with suitable sizes for [npc.namePos] '[npc.legConfiguration]' body being marked by an asterisk.</i>"),
+						+ " This varies based on leg configuration, with suitable sizes for [npc.namePos] '[npc.legConfiguration]' body being marked by an asterisk. Some wing types do not support all possible wing sizes.</i>"),
 				"WING_SIZE",
 				contentSB.toString(),
 				true);
@@ -1817,13 +1826,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getFaceType() == face) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+face.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(face.getTransformName())+"</span>"
+								+ "<span style='color:"+face.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(face.getTransformName())+(face.getTags().contains(BodyPartTag.THERMAL_VISION)?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_FACE_"+FaceType.getIdFromFaceType(face)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+face.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(face.getTransformName())+"</span>"
+								+ "<span style='color:"+face.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(face.getTransformName())+(face.getTags().contains(BodyPartTag.THERMAL_VISION)?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1831,7 +1840,8 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Face",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] face type."
-						+ "<br/><i>Face type influences mouth and tongue types, and is therefore used for both character and sex descriptions, as well as for determining subspecies identification.</i>"),
+						+ "<br/><i>Face type determines mouth and tongue types."
+						+ " It also determines subspecies identification, and can grant thermal vision capabilities (marked by an asterisk).</i>"),
 				"FACE_TYPE",
 				contentSB.toString(),
 				true);
@@ -3685,39 +3695,20 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformClitorisSizeDiv() {
 		return applyFullVariableWrapper("Clitoris Size",
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] penis."
-						+ " All sizes larger than '<i style='color:"+ClitorisSize.ZERO_AVERAGE.getColour().toWebHexString()+";'>"
-							+ Util.capitaliseSentence(ClitorisSize.ZERO_AVERAGE.getDescriptor())+"</i>' enable [npc.her] clitoris to be used for penetrative actions in sex."),
+				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris."
+						+ " All sizes larger than '<i style='color:"+ClitorisSize.ONE_BIG.getColour().toWebHexString()+";'>"
+							+ Util.capitaliseSentence(ClitorisSize.ONE_BIG.getDescriptor())+"</i>' enable [npc.her] clitoris to be used for penetrative actions in sex."
+									+ " (Size will be marked by an asterisk when large enough to be used as a pseudo penis.)"),
 				"CLITORIS_SIZE",
 				Units.size(1),
 				Units.size(5),
 				Units.size(BodyChanging.getTarget().getVaginaRawClitorisSizeValue(), Units.ValueType.PRECISE, Units.UnitType.SHORT)
-					+"<br/><i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())+"</i>",
+					+"<br/>"
+					+ "<i style='color:"+BodyChanging.getTarget().getVaginaClitorisSize().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getVaginaClitorisSize().getDescriptor())
+					+ (BodyChanging.getTarget().getVaginaClitorisSize().isPseudoPenisSize()?"*":"")
+					+"</i>",
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()<=0,
 				BodyChanging.getTarget().getVaginaRawClitorisSizeValue()>=ClitorisSize.SEVEN_STALLION.getMaximumValue());
-//		contentSB.setLength(0);
-//		
-//		for(ClitorisSize size : ClitorisSize.values()) {
-//			if(BodyChanging.getTarget().getVaginaClitorisSize() == size) {
-//				contentSB.append(
-//						"<div class='cosmetics-button active'>"
-//							+ "<span style='color:"+size.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-//						+ "</div>");
-//				
-//			} else {
-//				contentSB.append(
-//						"<div id='CLITORIS_SIZE_"+size+"' class='cosmetics-button'>"
-//							+ "<span style='color:"+size.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(size.getDescriptor())+"</span>"
-//						+ "</div>");
-//			}
-//		}
-//
-//		return applyWrapper("Clitoris Size",
-//				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] clitoris."
-//						+ "<br/><i>All non-zero values enable [npc.namePos] clitoris to be used as a penetrative object in sex.</i>"),
-//				"CLITORIS_SIZE",
-//				contentSB.toString(),
-//				true);
 	}
 
 	public static String getSelfTransformClitorisGirthDiv() {
@@ -5603,7 +5594,7 @@ public class CharacterModificationUtils {
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 													:(c.getRainbowColours()!=null
 														?"<div class='phone-item-colour' style='background: "+rainbow
-														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+														:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 												+(c==PresetColour.COVERING_NONE
 													?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 													:"'>")
@@ -5655,7 +5646,7 @@ public class CharacterModificationUtils {
 														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 														:(c.getRainbowColours()!=null
 															?"<div class='phone-item-colour' style='background: "+rainbow
-															:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+															:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 													+(c==PresetColour.COVERING_NONE
 														?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 														:"'>")

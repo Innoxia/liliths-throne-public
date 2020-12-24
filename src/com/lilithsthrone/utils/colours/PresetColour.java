@@ -486,7 +486,7 @@ public class PresetColour {
 	// Monochrome:
 	public static Colour SKIN_IVORY = new Colour(false, BaseColour.WHITE, "ivory") {};
 	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(SKIN_IVORY);
-	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(SKIN_GREY);
+	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(SKIN_GREY);
 	// Pink:
 	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
 	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {}.setLinkedColourLighter(SKIN_PINK_PALE);
@@ -539,7 +539,7 @@ public class PresetColour {
 	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(COVERING_WHITE);
 	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {}.setLinkedColourLighter(COVERING_GREY);
 	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(COVERING_DARK_GREY);
-	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(COVERING_BLACK);
+	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(COVERING_BLACK);
 	// Pink:
 	public static Colour COVERING_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
 	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(COVERING_PINK_LIGHT);
@@ -640,7 +640,7 @@ public class PresetColour {
 	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
 	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(EYE_WHITE);
 	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(EYE_GREY);
-	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(EYE_BLACK);
+	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(EYE_BLACK);
 	// Pink:
 	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
 	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(EYE_PINK_SALMON);
@@ -926,6 +926,8 @@ public class PresetColour {
 			PresetColour.COVERING_RAINBOW_PASTEL
 			);
 	
+	// I know...
+	public static List<Colour> allCoveringColoursWithClear = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 	public static List<Colour> allMakeupColours = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
@@ -1167,6 +1169,76 @@ public class PresetColour {
 					System.err.println("Loading colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// Tags are only used for externally-loaded colours, so handle addition to lists here before hard-coded colours are checked:
+		for(Colour colour : allPresetColours) {
+			for(ColourTag tag : colour.getTags()) {
+				switch(tag) {
+					case ANTLER:
+						antlerColours.add(colour);
+						break;
+					case FEATHER_NATURAL:
+						naturalFeatherColours.add(colour);
+						break;
+					case FEATHER_DYE:
+						dyeFeatherColours.add(colour);
+						break;
+					case FUR:
+						naturalFurColours.add(colour);
+						break;
+					case GENERIC_COVERING:
+						allCoveringColours.add(colour);
+						allCoveringColoursWithClear.add(colour);
+						break;
+					case HAIR:
+						naturalHairColours.add(colour);
+						break;
+					case HORN:
+						hornColours.add(colour);
+						break;
+					case MAKEUP:
+						allMakeupColours.add(colour);
+						break;
+					case SCALE:
+						naturalScaleColours.add(colour);
+						break;
+					case SKIN:
+						allSkinColours.add(colour);
+						break;
+					case SLIME_NATURAL:
+						naturalSlimeColours.add(colour);
+						break;
+					case SLIME_DYE:
+						dyeSlimeColours.add(colour);
+						break;
+						
+					case IRIS_DYE:
+						dyeIrisColours.add(colour);
+						break;
+					case IRIS_NATURAL:
+						naturalIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_NATURAL:
+						naturalPredatorIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_DYE:
+						dyePredatorIrisColours.add(colour);
+						break;
+					case PUPIL_DYE:
+						dyePupilColours.add(colour);
+						break;
+					case PUPIL_NATURAL:
+						naturalPupilColours.add(colour);
+						break;
+					case SCLERA_NATURAL:
+						naturalScleraColours.add(colour);
+						break;
+					case SCLERA_DYE:
+						dyeScleraColours.add(colour);
+						break;
 				}
 			}
 		}

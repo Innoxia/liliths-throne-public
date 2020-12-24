@@ -13,6 +13,15 @@ public enum BodyPartTag {
 	NIGHT_VISION,
 	/** Removes the 'Darkness' status effect when in an unlit area. Granted by bat ears. (Should really only be given to ear types.) */
 	ECHO_LOCATION,
+	/** Removes the 'Darkness' status effect when in an unlit area. Granted by snake snoots. */
+	THERMAL_VISION,
+	/** For races which have some kind of special flight ability not granted by arm-wings or real wings, use this tag on the relevant body part. */
+	ALLOWS_FLIGHT,
+	
+	// Torso:
+	
+	/** Torso types with this tag are considered to have a dorsal fin. */
+	TORSO_DORSAL_FIN,
 	
 	
 	// Arms:
@@ -72,8 +81,11 @@ public enum BodyPartTag {
 	TAIL_SLEEP_HUGGING,
 	
 	
-	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, alligator, rat.*/
+	/** Of a type which is covered in skin. Used for girth descriptors and descriptions. Examples would be demonic, rat.*/
 	TAIL_TYPE_SKIN,
+
+	/** Of a type which is covered in scales. Used for girth descriptors and descriptions. Examples would be alligator.*/
+	TAIL_TYPE_SCALES,
 	
 	/** Of a type which is covered in fur. Used for girth descriptors and descriptions. Examples would be cat, dog, fox.*/
 	TAIL_TYPE_FUR,

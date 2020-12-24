@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -63,7 +64,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -75,7 +76,28 @@ public class CharacterCreation {
 	public static final int TIME_TO_JOB = 150;
 	public static final int TIME_TO_SEX_EXPERIENCE = 150;
 	public static final int TIME_TO_FINAL_CHECK = 150;
+
+	public static SpellSchool getStartingTomeSpellSchool() {
+		if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
+			return SpellSchool.EARTH;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+			return SpellSchool.AIR;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
+			return SpellSchool.WATER;
+		}
+		return SpellSchool.FIRE;
+	}
 	
+	public static SpellSchool getStartingDemonstoneSpellSchool() {
+		if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+			return SpellSchool.EARTH;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 3) {
+			return SpellSchool.AIR;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 0) {
+			return SpellSchool.WATER;
+		}
+		return SpellSchool.FIRE;
+	}
 
 	public static final DialogueNode CHARACTER_CREATION_START = new DialogueNode("Disclaimer", "", true) {
 
@@ -689,7 +711,7 @@ public class CharacterCreation {
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 						
-						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						+ CharacterModificationUtils.getPersonalityChoiceDiv(false)
 						
 					+"</div>";
 		}
@@ -1931,16 +1953,42 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						Main.game.getPlayer().setMoney(5000);
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
 						
-						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
-						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.SLAM));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
 						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						
+						Spell startingSpell = Spell.FIREBALL;
+						switch(getStartingTomeSpellSchool()) {
+							case AIR:
+								startingSpell = Spell.POISON_VAPOURS;
+								break;
+							case EARTH:
+								startingSpell = Spell.SLAM;
+								break;
+							case FIRE:
+							case ARCANE:
+								startingSpell = Spell.FIREBALL;
+								break;
+							case WATER:
+								startingSpell = Spell.ICE_SHARD;
+								break;
+						}
+						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(startingSpell));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						
 						applyGameStart();
@@ -2093,8 +2141,24 @@ public class CharacterCreation {
 						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
-						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
+						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
 						
 						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
 						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
