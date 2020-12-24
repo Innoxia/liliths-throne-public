@@ -48,6 +48,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Prevented pregnant slimes without a vagina from transforming back to flesh, as the birthing scenes only account for characters with a vagina. (PR#1459 by AceXP)
 		Fixed issue where Sean could not be challenged a second time if you backed out and changed your mind about fighting him. Also fixed some incorrect clothing descriptions and missing text. (PR#1458 by AceXP)
 		Added support for defining feral face description in face modding xml files. (PR#1452 by Stadler76)
+		Added 'Poncho' clothing item. (Unisex, over-torso slot, sold by Nyan.) (by NoStepOnSnek)
 		
 	Engine/Modding:
 		Made some slight improvements to the documentation of the xml files related to race modding.
@@ -112,6 +113,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed parsing errors when eating the hyena food item 'Bone Crunchers'.
 		Fixed reference to feral characters having feet when they had a tail lower body type.
 		
+	
 	
 	
 	When autosave on slaver alley entrance:
