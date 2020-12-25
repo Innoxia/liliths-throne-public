@@ -21,9 +21,15 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringSkinToneColorHelper;
@@ -3288,6 +3294,10 @@ public class Body implements XMLSaving {
 		return face;
 	}
 
+	public AbstractFaceType getFaceType() {
+		return face.getType();
+	}
+	
 	public Eye getEye() {
 		return eye;
 	}
@@ -3296,12 +3306,24 @@ public class Body implements XMLSaving {
 		return ear;
 	}
 
+	public AbstractEarType getEarType() {
+		return ear.getType();
+	}
+
 	public Hair getHair() {
 		return hair;
 	}
 
+	public AbstractHairType getHairType() {
+		return hair.getType();
+	}
+
 	public Horn getHorn() {
 		return horn;
+	}
+
+	public AbstractHornType getHornType() {
+		return horn.getType();
 	}
 
 	public Leg getLeg() {
@@ -3328,8 +3350,16 @@ public class Body implements XMLSaving {
 		return tail;
 	}
 
+	public AbstractTailType getTailType() {
+		return tail.getType();
+	}
+
 	public Tentacle getTentacle() {
 		return tentacle;
+	}
+
+	public AbstractTongueType getTongueType() {
+		return face.getTongue().getType();
 	}
 
 	public Vagina getVagina() {
@@ -3338,6 +3368,14 @@ public class Body implements XMLSaving {
 
 	public Wing getWing() {
 		return wing;
+	}
+
+	public int getWingSizeValue() {
+		return wing.getSizeValue();
+	}
+
+	public AbstractWingType getWingType() {
+		return wing.getType();
 	}
 
 	public void setAntenna(Antenna antenna) {
@@ -3364,6 +3402,14 @@ public class Body implements XMLSaving {
 		this.face = face;
 	}
 
+	public String setFaceType(AbstractFaceType type) {
+		return face.setType(null, type);
+	}
+
+	public String setFaceType(GameCharacter owner, AbstractFaceType type) {
+		return face.setType(owner, type);
+	}
+
 	public void setEye(Eye eye) {
 		this.eye = eye;
 	}
@@ -3372,12 +3418,32 @@ public class Body implements XMLSaving {
 		this.ear = ear;
 	}
 
+	public String setEarType(AbstractEarType type) {
+		return this.ear.setType(null, type);
+	}
+
+	public String setEarType(GameCharacter owner, AbstractEarType type) {
+		return this.ear.setType(owner, type);
+	}
+
 	public void setHair(Hair hair) {
 		this.hair = hair;
 	}
 
+	public String setHairType(AbstractHairType type) {
+		return this.hair.setType(null, type);
+	}
+
+	public String setHairType(GameCharacter owner, AbstractHairType type) {
+		return this.hair.setType(owner, type);
+	}
+
 	public void setLeg(Leg leg) {
 		this.leg = leg;
+	}
+
+	public void setTongueType(AbstractTongueType type) {
+		this.face.getTongue().setType(type);
 	}
 
 	public void setTorso(Torso torso) {
@@ -3386,6 +3452,14 @@ public class Body implements XMLSaving {
 	
 	public void setHorn(Horn horn) {
 		this.horn = horn;
+	}
+
+	public String setHornType(AbstractHornType type) {
+		return this.horn.setType(null, type);
+	}
+
+	public String setHornType(GameCharacter owner, AbstractHornType type) {
+		return this.horn.setType(owner, type);
 	}
 
 	public void setPenis(Penis penis) {
@@ -3400,6 +3474,14 @@ public class Body implements XMLSaving {
 		this.tail = tail;
 	}
 
+	public String setTailType(AbstractTailType type) {
+		return this.tail.setType(null, type);
+	}
+
+	public String setTailType(GameCharacter owner, AbstractTailType type) {
+		return this.tail.setType(owner, type);
+	}
+
 	public void setTentacle(Tentacle tentacle) {
 		this.tentacle = tentacle;
 	}
@@ -3410,6 +3492,22 @@ public class Body implements XMLSaving {
 
 	public void setWing(Wing wing) {
 		this.wing = wing;
+	}
+
+	public String setWingSize(int size) {
+		return this.wing.setSize(null, size);
+	}
+
+	public String setWingSize(GameCharacter owner, int size) {
+		return this.wing.setSize(owner, size);
+	}
+
+	public String setWingType(AbstractWingType type) {
+		return this.wing.setType(null, type);
+	}
+
+	public String setWingType(GameCharacter owner, AbstractWingType type) {
+		return this.wing.setType(owner, type);
 	}
 
 	// Descriptions:
