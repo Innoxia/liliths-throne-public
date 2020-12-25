@@ -18,7 +18,7 @@
 	<coveringType>dsg_dragon_scales</coveringType>
 	
 	<!-- The id of the mouth that's associated with this face type. -->
-	<mouthType>dsg_dragon_mouth</mouthType>
+	<mouthType>dsg_dragon_mouthCoatl</mouthType>
 	
 	<!-- Tags which are associated with this face type.
 	You should most likely only be using the 'faces' tags for your face type, which are:

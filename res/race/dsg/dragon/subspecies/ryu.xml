@@ -172,7 +172,7 @@
 		If the 'breastRowCount' is 0, this value is never used. -->
 		<nipplesPerBreastCount>1</nipplesPerBreastCount>
 		<!-- The number of breast rows this feral form has near their crotch. -->
-		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
 		<!-- The number of nipples per crotch breast. -->
 		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
 		

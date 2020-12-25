@@ -5848,6 +5848,9 @@ public class Body implements XMLSaving {
 		this.getBreast().setNippleCountPerBreast(null, attributes.getNipplesPerBreastCount());
 		this.getBreastCrotch().setRows(null, attributes.getCrotchBreastRowCount());
 		this.getBreastCrotch().setNippleCountPerBreast(null, attributes.getNipplesPerCrotchBreastCount());
+		if(attributes.getCrotchBreastRowCount() == 0) {
+			this.getBreastCrotch().setType(null, BreastType.NONE);
+		}
 		
 		// Set genital relative sizes:
 		AbstractRacialBody rb = subspecies.getRace().getRacialBody();

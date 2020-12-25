@@ -70,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.12";
+	public static final String VERSION_NUMBER = "0.3.13";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -88,6 +88,10 @@ public class Main extends Application {
 		
 		"<p>"
 			+ "Hello again!"
+		+ "</p>"
+		
+		+ "<p>"
+			+ "<i>This hotfix of v0.3.13 addresses some bugs that were present in v0.3.12.</i>"
 		+ "</p>"
 		
 		+ "<p>"
@@ -112,6 +116,32 @@ public class Main extends Application {
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 
+		+ "<br/>"
+		
+		+ "<list>"
+		+ "<h6>v0.3.13</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Dragon breath attack is now unlocked by the character's race being identified as 'dragon', not by having a dragon torso. (by DSG)</ul>"
+			+"<ul>Fixed issue with the dragon subspecies 'Coatl' not being detected correctly. (by Stadler)</ul>"
+			+"<ul>Fixed bug where feral characters would spawn with crotch-boobs, even if crotch-boob row count was defined as 0. (by Stadler)</ul>"
+			
+			+"<li>Engine/Modding:</li>"
+			+"<ul>Added parser hooks to penetration, orifice, and tongue modifiers (using prefixes 'PENETRATION_MODIFIER_', 'ORIFICE_MODIFIER_', and 'TONGUE_MODIFIER_' respectively).</ul>"
+			+"<ul>Added support in racialBody xml files for setting 'breastCrotchType' to NONE for races you want to never spawn with crotch-boobs.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Characters no longer have their cum & girlcum automatically gain the 'musky' modifier when changing into a non-bipedal leg configuration. (Centaurs still have this modifier by default.)</ul>"
+			+"<ul>Sharks and all dragon subspecies will no longer spawn with crotch-boobs.</ul>"
+			+"<ul>Removed restrictive minimum and maximum limitations for insect wing size.</ul>"
+			+"<ul>Ralph no longer sells Impish Brew (you can still buy it from Roxy).</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Racial food items which have more than one torso type associated with them now have access to those torso types in the enchantment menu.</ul>"
+			+"<ul>Fixed dragon's 'Breath weapon' special attack dealing 0 damage.</ul>"
+			+"<ul>Fixed some minor issues with NPCs spawned as a dragon subspecies having the odd part assigned incorrectly.</ul>"
+			+"<ul>Fixed bug where the penis slot would not accept any clothing if a character lacked a penis, causing strapons to be impossible to equip.</ul>"
+		+"</list>"
+		
 		+ "<br/>"
 		
 		+ "<list>"

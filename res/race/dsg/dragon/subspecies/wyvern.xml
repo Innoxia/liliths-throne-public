@@ -57,7 +57,7 @@
 		#IF(targetedBody.getHorn().getType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHorn().getType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_hornCurled)]
-			#ELSE IF(RND.nextInt(100) < 50)
+			#ELSEIF(RND.nextInt(100) < 50)
 				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_hornCurved)]
 			#ELSE
 				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_horn)]
@@ -164,7 +164,7 @@
 		If the 'breastRowCount' is 0, this value is never used. -->
 		<nipplesPerBreastCount>1</nipplesPerBreastCount>
 		<!-- The number of breast rows this feral form has near their crotch. -->
-		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
 		<!-- The number of nipples per crotch breast. -->
 		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
 		

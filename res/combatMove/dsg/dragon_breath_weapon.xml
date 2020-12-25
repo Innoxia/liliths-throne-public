@@ -31,9 +31,9 @@
 	The parsing target of 'npc' corresponds to the character who is performing the move (and so conditional statements can be used to affect what damage type is inflicted).
 	All available values of DamageType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageType.java -->
 	<damageType><![CDATA[
-		#IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+		#IF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 			FIRE
-		#ELSE IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 			ICE
 		#ELSE
 			POISON
@@ -45,9 +45,9 @@
 	<baseDamage><![CDATA[
 		#IF(npc.isSpeechMuffled())
 			0
-		#ELSE IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) * 4]
-		#ELSE IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) * 4]
 		#ELSE
 			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON) * 4]
@@ -106,13 +106,13 @@
 	The parsing target of 'npc' corresponds to the character who is being checked to see if they have this move available to them.
 	All whitespace is stripped from the returned String before it is parsed into a Boolean. -->
 	<availabilityCondition><![CDATA[
-		[#npc.getTorsoType()==TORSO_TYPE_dsg_dragon_torso]
+		[#npc.getRace()==RACE_dsg_dragon]
 	]]>
 	</availabilityCondition>
 	
 	<!-- A short description to let the player know what the conditions are for this move being available to them. -->
 	<availabilityDescription><![CDATA[
-		Available to characters who have a dragon torso type.
+		Available to dragon characters.
 	]]></availabilityDescription>
 	
 	<!-- The weighting for this action's chance of being selected by an AI combatant.
@@ -184,9 +184,9 @@
 				As [npc.her] mouth is muffled, [npc.name] [npc.verb(fail)] to hit [npc2.name], and [npc.verb(end)] up doing no damage at all...
 			#ELSE
 				[npc.Name] [npc.verb(open)] [npc.her] mouth and [npc.verb(let)] out a mighty 
-				#IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+				#IF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 					blast of fire
-				#ELSE IF (npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
+				#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 					stream of ice shards
 				#ELSE
 					gust of poisonous fumes
