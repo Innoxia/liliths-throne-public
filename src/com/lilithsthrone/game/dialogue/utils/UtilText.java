@@ -120,6 +120,8 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
@@ -9032,7 +9034,10 @@ public class UtilText {
 		for(InventorySlot is : InventorySlot.values()) {
 			engine.put("IS_"+is.toString(), is);
 		}
-		
+		for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
+			engine.put("TATTOO_"+TattooType.getIdFromTattooType(tattooType), tattooType);
+		}
+				
 		// Misc.:
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
