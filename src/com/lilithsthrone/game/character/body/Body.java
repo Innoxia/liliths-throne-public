@@ -20,6 +20,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
@@ -29,6 +30,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
@@ -3278,6 +3280,10 @@ public class Body implements XMLSaving {
 		return arm;
 	}
 
+	public AbstractArmType getArmType() {
+		return arm.getType();
+	}
+
 	public Ass getAss() {
 		return ass;
 	}
@@ -3346,6 +3352,10 @@ public class Body implements XMLSaving {
 		return torso;
 	}
 
+	public AbstractTorsoType getTorsoType() {
+		return torso.getType();
+	}
+
 	public Tail getTail() {
 		return tail;
 	}
@@ -3384,6 +3394,14 @@ public class Body implements XMLSaving {
 
 	public void setArm(Arm arm) {
 		this.arm = arm;
+	}
+
+	public String setArmType(AbstractArmType type) {
+		return this.arm.setType(null, type);
+	}
+
+	public String setArmType(GameCharacter owner, AbstractArmType type) {
+		return this.arm.setType(owner, type);
 	}
 
 	public void setAss(Ass ass) {
@@ -3450,6 +3468,14 @@ public class Body implements XMLSaving {
 		this.torso = torso;
 	}
 	
+	public String setTorsoType(AbstractTorsoType type) {
+		return this.torso.setType(null, type);
+	}
+
+	public String setTorsoType(GameCharacter owner, AbstractTorsoType type) {
+		return this.torso.setType(owner, type);
+	}
+
 	public void setHorn(Horn horn) {
 		this.horn = horn;
 	}
