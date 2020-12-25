@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <ellipse style="isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1;font-variant-east_asian:normal" cx="28.466" cy="35.066" fill="#ffd5d5" fill-rule="evenodd" color="#000" overflow="visible" rx="29.831" ry="29.831" transform="rotate(-6.004)"/>
+    <path fill="#ff2a2a" d="M59.189 44.278c-15.644-2.962-12.75-29.292-4.812-31.921a30.116 30.116 0 0 0-4.652-4.522C36.315 6.709 16.56 11.75 1.962 31.155a31.045 31.045 0 0 0 1.236 9.448c12.163-9.39 17.582 2.988 15.75 18.122 8.858-11.087 17.683-2.17 17.608 2.478 5.573-22.766 17.67-11.93 14.812-6.59 2.474-2.24 6.197-7.395 7.82-10.335z"/>
+    <circle style="isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" cx="28.466" cy="35.066" r="29.831" fill="none" stroke="#000" stroke-width="2" color="#000" overflow="visible" transform="rotate(-6.004)"/>
+</svg>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the bottle reads 'Distilled by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>150</value> 
+		<determiner><![CDATA[a can of]]></determiner>
+		<name><![CDATA[Berry Soda]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
+		<description><![CDATA[An aluminum can of berry-flavored soda. The label on the can depicts an otter-boy in some swim trunks sitting on the bank of a river while drinking from a similar can.
+		]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">otter_berry_soda.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldHealth([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/15)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After first opening the can, [npc.name] [npc.verb(bring)] the can of Berry Soda up to [npc.her] [npc.mouth]. A surprisingly authentic smell of nondescript berries rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the fizzy liquid, [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After first removing the cork, [npc.name] [npc.verb(bring)] the bottle of Grog up to [npc2.namePos] waiting [npc2.lips]. A surprisingly authentic smell of nondescript berries rises from the opening, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the fizzy liquid, [npc.she] [npc.verb(feel)] much more refreshed.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -6600,7 +6600,7 @@ public abstract class GameCharacter implements XMLSaving {
 //				addStatusEffect(se, -1);
 //			}
 			//TODO
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && !se.isFromExternalFile())
+			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked
 					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
 					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
 //				if(se.getCategory()==StatusEffectCategory.ATTRIBUTE && this.isPlayer()) {
@@ -19991,6 +19991,9 @@ public abstract class GameCharacter implements XMLSaving {
 			if(bpi.getType().getTags().contains(BodyPartTag.ECHO_LOCATION)) {
 				return UtilText.parse(this, "thanks to the echo-location ability which [npc.her] "+bpi.getType().getRace().getName(false)+" "+bpi.getName(this)+" grant [npc.herHim]");
 			}
+			if(bpi.getType().getTags().contains(BodyPartTag.THERMAL_VISION)) {
+				return UtilText.parse(this, "thanks to the fact that [npc.her] "+bpi.getType().getRace().getName(true)+" "+bpi.getName(this)+" "+(bpi.getType().isDefaultPlural(this)?"grant":"grants")+" [npc.herHim] thermal vision");
+			}
 		}
 		for(AbstractStatusEffect se : this.getStatusEffects()) {
 			if(se.getTags().contains(ItemTag.NIGHT_VISION_SELF) || se.getTags().contains(ItemTag.NIGHT_VISION_AREA)) {
@@ -22619,7 +22622,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public FeralAttributes getFeralAttributes() {
 		FeralAttributes att = this.getSubspecies().getFeralAttributes();
 		if(att==null) {
-			System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+") is returning null!");
+			if(Main.game.isStarted()) { // Only print warnings after the game has started, as all characters' bodies have their subspecies calculated at the end of game start, to avoid errors from pre-initialisation of external res subspecies.
+				System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+", subspecies: "+Subspecies.getIdFromSubspecies(this.getSubspecies())+") is returning null!");
+			}
 			att = new FeralAttributes(this.getSubspecies().getName(this),
 					this.getSubspecies().getNamePlural(this),
 					this.getLegConfiguration(),
@@ -22629,6 +22634,7 @@ public abstract class GameCharacter implements XMLSaving {
 					this.getBreastCrotchRows(),
 					this.getNippleCrotchCountPerBreast(),
 					false);
+//			throw new IllegalAccessError();
 //			List<AbstractRace> raceOrdering = new ArrayList<>(this.body.getRaceWeightMap().keySet());
 //			Map<AbstractRace, Integer> raceWeightMap = this.body.getRaceWeightMap();
 //			raceOrdering.sort((r1, r2) -> raceWeightMap.get(r2)-raceWeightMap.get(r1));
@@ -24142,8 +24148,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.isAbleToFlyFromArms() && !this.isArmMovementHindered();
 	}
 	
+	public boolean isAbleToFlyFromExtraParts() {
+		for(BodyPartInterface bpi : this.getBody().getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isAbleToFly() {
-		return isAbleToFlyFromArms() || body.isAbleToFlyFromWings();
+		return isAbleToFlyFromArms()
+				|| body.isAbleToFlyFromWings()
+				|| isAbleToFlyFromExtraParts();
 	}
 	
 	// Pubic Hair:
@@ -24695,7 +24712,26 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "[style.colourDisabled(Nothing happens...)]"
 					+ "</p>";
 		}
-		
+
+        // Pregnant slimes without a vagina are stuck until the pregnancy is resolved
+        if(type==BodyMaterial.FLESH && this.getBodyMaterial()==BodyMaterial.SLIME && this.isPregnant() && !this.hasVagina()) {
+           return UtilText.parse(this,
+        		   "<p>"
+						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
+						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be suddenly glows brightly before a strange feeling starts to permeate [npc.her] groin."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.She] [npc.verb(feel)] the transformation slow down and then reverse until [npc.her] entire body has reverted to being made entirely out of slime!"
+					+ "</p>"
+					+ "<p>"
+						+ "It seems that the ongoing pregnancy is [style.italicsBad(preventing)] [npc.him] from turning into anything other than a slime,"
+							+ " and it looks like [npc.she] will have to either gain a vagina or give birth before it will be possible to transform into having a body made of flesh."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.NamePos] body is still made out of [style.boldTfGeneric(slime)]!"
+					+ "</p>");
+        }
+
 		if(type == BodyMaterial.SLIME) {
 			// Slimes can't wear makeup:
 			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllMakeupTypes()) {
