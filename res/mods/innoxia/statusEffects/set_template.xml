@@ -17,8 +17,9 @@
 	<renderInEffectsPanel>true</renderInEffectsPanel>
 	
 	<!-- The category which this status effect falls into. You can omit this field if you want it to be set to DEFAULT (which is the standard category).
+	This particular category is set to INVENTORY, as set bonuses only need to be checked for after a character has had their inventory changed in some way.
 	Categories, along with their meanings, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffectCategory.java -->
-	<category>DEFAULT</category>
+	<category>INVENTORY</category>
 	
 	<!-- 'BENEFICIAL' if this is a good status effect for a character to have, 'NEUTRAL' if it's neither, or 'DETRIMENTAL' if it's a bad one. -->
 	<beneficial>BENEFICIAL</beneficial>

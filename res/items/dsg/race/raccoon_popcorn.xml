@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the plate reads 'Packed by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>150</value> 
+		<determiner><![CDATA[a bag of]]></determiner>
+		<name><![CDATA[Popcorn]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Popcorn]]></namePlural>
+		<description><![CDATA[A plastic bag of lightly buttered popcorn. The label on the cover depicts a raccoon-girl in denim overalls triumphantly raising an ear of corn above her while popcorn kernels explode off of it.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName>raccoon_popcorn.svg</imageName>
+		
+		<colourPrimary>dsg_raccoonGrey</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[raccoon]]></potionDescriptor>
+		<associatedRace>dsg_raccoon</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 20% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the bag and [npc.verb(breathe)] in the rich scent of butter and hot starch. Unable to resist the delicious looking snack, [npc.she] eagerly [npc.verb(start)] wolfing it all down and [npc.verb(empty)] the bag in moments.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the bag and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to [npc2.verb(breathe)] in the rich scent of butter and hot starch. Unable to resist the delicious-looking seafood inside, [npc2.she] [npc2.verb(start)] wolfing it all down and [npc.verb(empty)] the bag in moments.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

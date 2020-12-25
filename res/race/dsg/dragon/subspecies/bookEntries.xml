@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="DRAGON_BASIC"><![CDATA[
+	<p>
+		Dragon-morphs prefer terrain that naturally isolates them via either remoteness or inhospitableness. They might be found in the desert and around the volcano in the south of Lilith's Realm, deep in the jungles to the north, or up in the the Mountains of the Moon to the west. Some may even seek the Youko Forest. They rarely venture outside of these environments and almost never enter civilization. A tough, scaly exterior, flight capability, and powerful breath weapons distinguishes them from other morphs.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DRAGON_ADVANCED"><![CDATA[
+	<p>
+		Although all dragon-morphs differ individually, they are possibly the most solitary race to inhabit the realm and thus tend to be standoffish, even towards other dragon-morphs. Very little is known about their other traits and combined with the fact that they are also by far the least populous mortal race, it is possible for one to go their entire life without seeing one outside of a book. Most dragon-morphs are subsistence farmers, interacting with perhaps a few isolated traders for goods they cannot grow or make.
+	</p>
+	<p>
+		Dragon-morphs have three distinct subspecies with smaller groups of subvariants between them. The base dragon-morph takes on the traditional appearance resembling that of a giant predatory reptile with leathery wings and inhabits the desert, volcanic, and mountainous regions of the realm. The ryu-morph lives among the youko in their forest and possess blunted muzzles decorated with curious whip-like antennae. They are the most social of the dragon-morph subspecies, hoarding knowledge and occasionally granting it to others. The coatl-morph lives deep in the jungle, far north of Itza'aak. Resembling winged serpents, they are the only subspecies with feathers for plumage and are practitioners of powerful air magic. Two notable subvariants of the dragon-morph are the wyvern-morph and drake-morph, which have arm wings and no wings respectively.
+	</p>
+	<p>
+		Like most other mythological races, dragon-morphs are more affected by arcane storms than others. In fact, even from the edges of the realm, dragon-morphs are drawn towards arcane storms and they are an integral part of the dragon-morph reproductive cycle since flying in close proximity to or high above one dramatically increases the chances of finding a mate. 
+	</p>
+	<p>
+		Fifty years ago, when storms were rare and less powerful, only a few dragons would show up to each one, keeping the amount of competition, and thus violence, down. But as storms have become more frequent and more powerful, the number of dragons in the realm have surged as well as the number of participants in each "storm-orgy" and the associated fights have become increasingly fierce. The year [#game.getYear() - 3] saw the most powerful single storm ever recorded and the resulting aerial battles came to be known as "The Day the Sky Burned."
+	</p>
+	<p>
+		A dragon-morph's offspring will be a mixture of dragon-morphs and offspring of their partner's race. An important note: dragon-morphs with the requisite equipment lay eggs. Newborn dragon-morphs can break out on their own, but races not naturally possessing a means of breaking the shell will require assistance. It is therefore vital the mother remain present during hatching.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>

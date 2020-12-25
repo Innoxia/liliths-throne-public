@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractArmType.java -->
+	
+	<!-- The id of the race which this arm belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>dsg_dragon</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[dragon winged]]></transformationName>
+	
+	<!-- The id of the material covering this arm.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>dsg_dragon_scales</coveringType>
+	
+	<!-- Whether this arm type grants the ability to fly. -->
+	<allowsFlight>true</allowsFlight>
+	
+	<!-- Tags which are associated with this arm type.
+	You should most likely only be using the 'arms' tags for your arm type, which are: ARM_STANDARD, ARM_WINGS, ARM_WINGS_FEATHERED, ARM_WINGS_LEATHERY.
+	You should use either 'ARM_STANDARD' or 'ARM_WINGS', but not both.
+	If you use 'ARM_WINGS', then you should also define either 'ARM_WINGS_FEATHERED' or 'ARM_WINGS_LEATHERY'.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>ARM_WINGS</tag>
+	</tags>
+	
+	<!-- The singular and plural name of this arm type.
+	These should be left as 'arm' and 'arms' for standard arm types, and changed to 'wing' and 'wings' if your arm type are wings (such as those found on harpies or bat-morphs). -->
+	<name><![CDATA[wing]]></name>
+	<namePlural><![CDATA[wings]]></namePlural> 
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's arm of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor>scaly</descriptor>
+		<descriptor>scale-coated</descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor>scaly</descriptor>
+		<descriptor>scale-coated</descriptor>
+	</descriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's hands: -->
+	<handName><![CDATA[hand]]></handName>
+	<handNamePlural><![CDATA[hands]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>dragon-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>dragon-like</descriptor>
+		<descriptor>scaly</descriptor>
+	</handDescriptorsFeminine>
+	
+	<!-- Same naming formats as those for the arm type above, but these describe the arm's fingers: -->
+	<fingerName><![CDATA[finger]]></fingerName>
+	<fingerNamePlural><![CDATA[fingers]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>talon-tipped</descriptor>
+		<descriptor>dragon-like</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>soft</descriptor>
+		<descriptor>feminine</descriptor>
+		<descriptor>talon-tipped</descriptor>
+		<descriptor>dragon-like</descriptor>
+	</fingerDescriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this arm type.
+	This description immediately follows a brief description of the arm type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, starting at [npc.her] hands in shock, [npc.she] [npc.verb(watch)] [npc.her] fingers narrowing down and growing longer and longer as a tough membrane of leathery skin starts to grow between them. [npc.She] [npc.verb(cry)] out in alarm as [npc.she] [npc.verb(feel)] [npc.her] bones snapping into a new form, and before [npc.her] very eyes, [npc.her] hands and arms have completely transformed into [style.boldDragon(huge, draconic wings)]. Where [npc.her] hands once were, two of [npc.her] fingers have shrunk down into the middle-joint of [npc.her] new appendages, with two small forefingers and an opposable thumb, each tipped with a sharp talon. At [npc.her] shoulders where [npc.her] new wings meet [npc.her] shoulder, her new scales smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] torso.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with huge [style.boldDragon(draconic wings)] in place of arms, which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	
+	<!-- How these arms are described in a character's description page. -->
+	<bodyDescription><![CDATA[
+	In place of arms and hands, [npc.she] [npc.has] [npc.armRows] huge draconic wings which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)].
+	#IF(!npc.isFeral())
+	 [npc.Her] hands are comprised of two forefingers and a thumb, each tipped with a sharp talon. Although slightly less dextrous than a five-digit hand, [npc.sheIs] still able to use them to form a hand-like grip.
+	#ENDIF
+	]]></bodyDescription>
+	
+</arm>

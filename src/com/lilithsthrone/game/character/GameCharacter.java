@@ -6600,7 +6600,7 @@ public abstract class GameCharacter implements XMLSaving {
 //				addStatusEffect(se, -1);
 //			}
 			//TODO
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && !se.isFromExternalFile())
+			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked
 					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
 					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
 //				if(se.getCategory()==StatusEffectCategory.ATTRIBUTE && this.isPlayer()) {
@@ -22622,7 +22622,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public FeralAttributes getFeralAttributes() {
 		FeralAttributes att = this.getSubspecies().getFeralAttributes();
 		if(att==null) {
-			System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+") is returning null!");
+			if(Main.game.isStarted()) { // Only print warnings after the game has started, as all characters' bodies have their subspecies calculated at the end of game start, to avoid errors from pre-initialisation of external res subspecies.
+				System.err.println("Warning: getFeralAttributes() for "+this.getNameIgnoresPlayerKnowledge()+" (ID:"+this.getId()+", subspecies: "+Subspecies.getIdFromSubspecies(this.getSubspecies())+") is returning null!");
+			}
 			att = new FeralAttributes(this.getSubspecies().getName(this),
 					this.getSubspecies().getNamePlural(this),
 					this.getLegConfiguration(),
@@ -22632,6 +22634,7 @@ public abstract class GameCharacter implements XMLSaving {
 					this.getBreastCrotchRows(),
 					this.getNippleCrotchCountPerBreast(),
 					false);
+//			throw new IllegalAccessError();
 //			List<AbstractRace> raceOrdering = new ArrayList<>(this.body.getRaceWeightMap().keySet());
 //			Map<AbstractRace, Integer> raceWeightMap = this.body.getRaceWeightMap();
 //			raceOrdering.sort((r1, r2) -> raceWeightMap.get(r2)-raceWeightMap.get(r1));
@@ -24145,8 +24148,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.isAbleToFlyFromArms() && !this.isArmMovementHindered();
 	}
 	
+	public boolean isAbleToFlyFromExtraParts() {
+		for(BodyPartInterface bpi : this.getBody().getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isAbleToFly() {
-		return isAbleToFlyFromArms() || body.isAbleToFlyFromWings();
+		return isAbleToFlyFromArms()
+				|| body.isAbleToFlyFromWings()
+				|| isAbleToFlyFromExtraParts();
 	}
 	
 	// Pubic Hair:

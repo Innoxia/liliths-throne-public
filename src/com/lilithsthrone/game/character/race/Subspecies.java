@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
@@ -3333,6 +3334,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3409,7 +3412,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
-			
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3492,6 +3496,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3573,6 +3579,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the bottle reads 'Distilled by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>200</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Vodka]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
+		<description><![CDATA[A glass bottle containing a highly alcoholic beverage made from potatoes.
+		#IF(!game.isSillyModeEnabled())
+		 The label depicts a bear-boy hard at work loading a still.
+		#ELSE
+		 The label depicts a bear-boy squatting in a tracksuit. Above him a speech bubble reads "Иди нахуй", which you assume is some kind of swear.
+		#ENDIF
+		]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">bear_vodka.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_ICE.getFormattedValue(3)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 25% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/15)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_ICE, 3)]
+			[#npc.incrementAlcoholLevel(0.25)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		After first removing the cork, [npc.name] [npc.verb(bring)] the bottle of Vodka up to [npc.her] [npc.mouth]. A very potent smell of alcohol rises from the opening, and as [npc.she] [npc.verb(tilt)] [npc.her] head back and [npc.verb(start)] drinking the fiery liquid, a tingling warmth begins growing in the core of [npc.her] body.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		After first removing the cork, [npc.name] [npc.verb(bring)] the bottle of Grog up to [npc2.namePos] waiting [npc2.lips]. A very potent smell of alcohol rises from the opening, and as [npc2.she] [npc2.verb(tilt)] [npc2.her] head back and [npc2.verb(start)] drinking the fiery liquid, a tingling warmth begins growing in the core of [npc2.her] body.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

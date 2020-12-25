@@ -135,7 +135,6 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -5595,7 +5594,7 @@ public class CharacterModificationUtils {
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 													:(c.getRainbowColours()!=null
 														?"<div class='phone-item-colour' style='background: "+rainbow
-														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+														:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 												+(c==PresetColour.COVERING_NONE
 													?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 													:"'>")
@@ -5647,7 +5646,7 @@ public class CharacterModificationUtils {
 														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 														:(c.getRainbowColours()!=null
 															?"<div class='phone-item-colour' style='background: "+rainbow
-															:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+															:"<div class='phone-item-colour' style='background-color:" + (c.getCoveringIconColour()) + ";"))
 													+(c==PresetColour.COVERING_NONE
 														?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
 														:"'>")

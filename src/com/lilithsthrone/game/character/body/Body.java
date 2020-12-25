@@ -2564,6 +2564,9 @@ public class Body implements XMLSaving {
 		sb.append(" [npc.SheHasFull] <span style='color:"+ BodySize.valueOf(getBodySize()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySize()).getName(true) + "</span>, "
 						+ "<span style='color:"+ Muscle.valueOf(getMuscle()).getColour().toWebHexString() + ";'>" +Muscle.valueOf(getMuscle()).getName(false) + "</span>"
 							+ " body, giving [npc.herHim] <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[npc.a_bodyShape]</span> body shape.");
+		if(torso.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+			sb.append(" [style.colourBlue(The unique nature of [npc.namePos] body allows [npc.herHim] to fly!)]");
+		}
 		
 		
 		// Pregnancy:
@@ -2770,6 +2773,14 @@ public class Body implements XMLSaving {
 			
 			sb.append(" [npc.Her] [npc.arms] are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))
 					+", and are <span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>"+owner.getFemininity().getName(false)+" in appearance.");
+			
+			if(arm.getType().allowsFlight()) {
+				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
+					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
+				} else {
+					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
+				}
+			}
 		}
 		sb.append("</p>");
 
@@ -5837,6 +5848,9 @@ public class Body implements XMLSaving {
 		this.getBreast().setNippleCountPerBreast(null, attributes.getNipplesPerBreastCount());
 		this.getBreastCrotch().setRows(null, attributes.getCrotchBreastRowCount());
 		this.getBreastCrotch().setNippleCountPerBreast(null, attributes.getNipplesPerCrotchBreastCount());
+		if(attributes.getCrotchBreastRowCount() == 0) {
+			this.getBreastCrotch().setType(null, BreastType.NONE);
+		}
 		
 		// Set genital relative sizes:
 		AbstractRacialBody rb = subspecies.getRace().getRacialBody();
@@ -6079,6 +6093,7 @@ public class Body implements XMLSaving {
 		}
 		return arm.getType().allowsFlight();
 	}
+	
 	public boolean isAbleToFlyFromWings() {
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			return false;
