@@ -6225,6 +6225,27 @@ public class Body implements XMLSaving {
 		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue();
 	}
 
+	public boolean isAbleToFlyFromExtraParts() {
+		for(BodyPartInterface bpi : getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Basically the opposite of isAbleToFly, but skips the minimumWingSizeForFlight-checks
+	 * and the checks for slime bodies.
+	 * @return true if the body is incapable of flight
+	 */
+	public Boolean isInCapableOfFlight() {
+		return !(
+			isAbleToFlyFromExtraParts() ||
+			arm.getType().allowsFlight() ||
+			wing.getType().allowsFlight());
+	}
+
 	public boolean isTakesAfterMother() {
 		return takesAfterMother;
 	}

@@ -75,8 +75,7 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon &&
-		targetedBody.getArmType()!=ARM_TYPE_dsg_dragon_armWings && 
-		targetedBody.getWingType()==WING_TYPE_NONE)
+		targetedBody.isInCapableOfFlight())
 			150
 		#ELSE
 			0

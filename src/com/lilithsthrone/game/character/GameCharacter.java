@@ -24149,12 +24149,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToFlyFromExtraParts() {
-		for(BodyPartInterface bpi : this.getBody().getAllBodyParts()) {
-			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
-				return true;
-			}
-		}
-		return false;
+		return body.isAbleToFlyFromExtraParts();
 	}
 	
 	public boolean isAbleToFly() {
