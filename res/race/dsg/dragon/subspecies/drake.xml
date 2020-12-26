@@ -51,17 +51,10 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
-			[#targetedBody.getFaceType(null, FACE_TYPE_dsg_dragon_face)]
-		#ENDIF
 		#IF(targetedBody.getWingType()!=WING_TYPE_NONE)
-			[#targetedBody.getWingType(null, WING_TYPE_NONE)]
+			[#targetedBody.setWingType(WING_TYPE_NONE)]
 		#ENDIF
-		#IF(
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_horn &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurved &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurled
-		)
+		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
 			#ELSEIF(RND.nextInt(100) < 50)
@@ -82,9 +75,8 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon &&
-		targetedBody.getFace().getType()==FACE_TYPE_dsg_dragon_face &&
-		targetedBody.getArm().getType()!=ARM_TYPE_dsg_dragon_armWings && 
-		targetedBody.getWing().getType()==WING_TYPE_NONE)
+		targetedBody.getArmType()!=ARM_TYPE_dsg_dragon_armWings && 
+		targetedBody.getWingType()==WING_TYPE_NONE)
 			150
 		#ELSE
 			0

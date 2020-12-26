@@ -57,6 +57,9 @@
 		#IF(targetedBody.getTongueType()!=TONGUE_TYPE_dsg_dragon_tongueForked)
 			[#targetedBody.setTongueType(TONGUE_TYPE_dsg_dragon_tongueForked)]
 		#ENDIF
+		#IF(!targetedBody.getFace().getTongue().hasTongueModifier(TONGUE_MODIFIER_BIFURCATED))
+			[#targetedBody.getFace().getTongue().addTongueModifier(null, TONGUE_MODIFIER_BIFURCATED)]
+		#ENDIF
 		#IF(targetedBody.getEarType()!=EAR_TYPE_dsg_dragon_ear)
 			[#targetedBody.setEarType(EAR_TYPE_dsg_dragon_ear)]
 		#ENDIF
@@ -86,10 +89,8 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getFaceType()==FACE_TYPE_dsg_dragon_faceCoatl &&
-		targetedBody.getTongueType()==TONGUE_TYPE_dsg_dragon_tongueForked &&
+		targetedBody.getFace().getTongue().hasTongueModifier(TONGUE_MODIFIER_BIFURCATED) &&
 		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairFeathers &&
-		targetedBody.getEarType()==EAR_TYPE_dsg_dragon_ear &&
 		targetedBody.getHornType()==HORN_TYPE_NONE &&
 		((targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral()) ||
 		(targetedBody.getTailType()==TAIL_TYPE_NONE && targetedBody.isFeral())) &&

@@ -54,11 +54,7 @@
 		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_face)]
 		#ENDIF
-		#IF(
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_horn &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurved &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurled
-		)
+		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
 			#ELSEIF(RND.nextInt(100) < 50)
@@ -82,7 +78,6 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getFaceType()==FACE_TYPE_dsg_dragon_face &&
 		targetedBody.getArmType()==ARM_TYPE_dsg_dragon_armWings)
 			150
 		#ELSE

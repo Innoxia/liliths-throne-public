@@ -57,11 +57,7 @@
 		#IF(targetedBody.getWingSizeValue() < 3)
 			[#targetedBody.setWingSize(3)]
 		#ENDIF
-		#IF(
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_horn &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurved &&
-			targetedBody.getHornType() != HORN_TYPE_dsg_dragon_hornCurled
-		)
+		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
 			#ELSEIF(RND.nextInt(100) < 50)

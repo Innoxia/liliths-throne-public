@@ -81,7 +81,6 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getFaceType()==FACE_TYPE_dsg_dragon_faceRyu &&
 		targetedBody.getEarType()==EAR_TYPE_dsg_dragon_earExternal &&
 		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairMane &&
 		targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers &&
