@@ -85,7 +85,8 @@
 		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairMane &&
 		targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers &&
 		targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tailTufted &&
-		targetedBody.getTorsoType()==TORSO_TYPE_dsg_dragon_torsoRyu &&
+		targetedBody.isAbleToFlyFromExtraParts() &&
+		!targetedBody.getArmType().allowsFlight() &&
 		targetedBody.getWingType()==WING_TYPE_NONE)
 			200
 		#ELSE
