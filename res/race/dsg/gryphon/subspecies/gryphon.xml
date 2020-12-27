@@ -51,11 +51,11 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getWing().getType()!=WING_TYPE_dsg_gryphon_wing)
-			[#targetedBody.getWing().setType(null, WING_TYPE_dsg_gryphon_wing)]
+		#IF(targetedBody.getWingType() != WING_TYPE_dsg_gryphon_wing)
+			[#targetedBody.setWingType(WING_TYPE_dsg_gryphon_wing)]
 		#ENDIF
-		#IF(targetedBody.getWing().getSizeValue() < 3)
-			[#targetedBody.getWing().setSize(null, 3)]
+		#IF(targetedBody.getWingSizeValue() < 3)
+			[#targetedBody.setWingSize(3)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	
