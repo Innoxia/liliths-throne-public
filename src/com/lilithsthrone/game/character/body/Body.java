@@ -145,6 +145,7 @@ public class Body implements XMLSaving {
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private AbstractSubspecies subspeciesOverride = null;
+	private AbstractSubspecies halfDemonSubspecies = null;
 	private int height;
 	private int femininity;
 	private int bodySize;
@@ -3261,7 +3262,10 @@ public class Body implements XMLSaving {
 	}
 
 	public AbstractSubspecies getHalfDemonSubspecies() {
-		return AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		if (halfDemonSubspecies == null) {
+			halfDemonSubspecies = AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		}
+		return halfDemonSubspecies;
 	}
 
 	public Antenna getAntenna() {
