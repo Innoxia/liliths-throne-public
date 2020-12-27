@@ -3336,6 +3336,14 @@ public class Body implements XMLSaving {
 		return leg;
 	}
 
+	public AbstractLegType getLegType() {
+		return leg.getType();
+	}
+
+	public LegConfiguration getLegConfiguration() {
+		return leg.getLegConfiguration();
+	}
+
 	public Penis getPenis() {
 		return penis;
 	}
@@ -3458,6 +3466,18 @@ public class Body implements XMLSaving {
 
 	public void setLeg(Leg leg) {
 		this.leg = leg;
+	}
+
+	public String setLegType(AbstractLegType type) {
+		return this.leg.setType(null, type);
+	}
+
+	public String setLegType(GameCharacter owner, AbstractLegType type) {
+		return this.leg.setType(owner, type);
+	}
+
+	public void setLegConfigurationForced(AbstractLegType type, LegConfiguration legConfiguration) {
+		this.leg.setLegConfigurationForced(type, legConfiguration);
 	}
 
 	public void setTongueType(AbstractTongueType type) {
