@@ -3536,6 +3536,22 @@ public class Body implements XMLSaving {
 		return this.wing.setType(owner, type);
 	}
 
+	public Boolean hasTongueModifier(TongueModifier modifier) {
+		return face.getTongue().hasTongueModifier(modifier);
+	}
+
+	public String addTongueModifier(TongueModifier modifier) {
+		return addTongueModifier(null, modifier);
+	}
+
+	public String addTongueModifier(GameCharacter owner, TongueModifier modifier) {
+		return face.getTongue().addTongueModifier(owner, modifier);
+	}
+
+	public void resetTongueModifiers() {
+		face.getTongue().resetTongueModifiers();
+	}
+
 	// Descriptions:
 	private StringBuilder descriptionSB;
 

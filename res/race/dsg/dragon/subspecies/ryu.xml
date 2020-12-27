@@ -53,6 +53,7 @@
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceRyu)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_faceRyu)]
+			[#targetedBody.resetTongueModifiers()]
 		#ENDIF
 		#IF(targetedBody.getEarType()!=EAR_TYPE_dsg_dragon_earExternal)
 			[#targetedBody.setEarType(EAR_TYPE_dsg_dragon_earExternal)]

@@ -53,6 +53,7 @@
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_face)]
+			[#targetedBody.resetTongueModifiers()]
 		#ENDIF
 		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)

@@ -173,7 +173,7 @@ public class Tongue implements BodyPartInterface {
 
 	public String addTongueModifier(GameCharacter owner, TongueModifier modifier) {
 		if(hasTongueModifier(modifier)) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+			return owner==null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		tongueModifiers.add(modifier);
@@ -281,6 +281,10 @@ public class Tongue implements BodyPartInterface {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+
+	public void resetTongueModifiers() {
+		tongueModifiers = new HashSet<>(type.getDefaultRacialTongueModifiers());
 	}
 
 	@Override
