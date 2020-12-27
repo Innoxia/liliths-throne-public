@@ -15,11 +15,11 @@
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.getVagina().getClitoris().setGirth(null, 0)]
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 0)]
-		[#targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).setPattern(COVERING_PATTERN_STRIPED)]
+		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_STRIPED)]
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_hyena)
-			#IF(targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).getPattern()==COVERING_PATTERN_STRIPED)
+			#IF(targetedBody.getCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true)==COVERING_PATTERN_STRIPED)
 				100
 			#ELSE
 				0

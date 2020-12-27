@@ -6062,6 +6062,50 @@ public class Body implements XMLSaving {
 		return this.getCoverings().get(handledType);
 	}
 
+	public CoveringModifier getCoveringModifier(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial) {
+		Covering covering = getCovering(bodyCoveringType, accountForNonFleshMaterial);
+
+		if (covering == null) {
+			System.err.println("Warning: getCoveringPattern() returned null for the covering '" + bodyCoveringType.toString() + "'!");
+			return null;
+		}
+
+		return covering.getModifier();
+	}
+
+	public void setCoveringModifier(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial, CoveringModifier modifier) {
+		Covering covering = getCovering(bodyCoveringType, accountForNonFleshMaterial);
+
+		if (covering == null) {
+			System.err.println("Warning: setCoveringModifier() returned null for the covering '" + bodyCoveringType.toString() + "'!");
+			return;
+		}
+
+		covering.setModifier(modifier);
+	}
+
+	public CoveringPattern getCoveringPattern(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial) {
+		Covering covering = getCovering(bodyCoveringType, accountForNonFleshMaterial);
+
+		if (covering == null) {
+			System.err.println("Warning: getCoveringPattern() returned null for the covering '" + bodyCoveringType.toString() + "'!");
+			return null;
+		}
+
+		return covering.getPattern();
+	}
+
+	public void setCoveringPattern(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial, CoveringPattern pattern) {
+		Covering covering = getCovering(bodyCoveringType, accountForNonFleshMaterial);
+
+		if (covering == null) {
+			System.err.println("Warning: setCoveringPattern() returned null for the covering '" + bodyCoveringType.toString() + "'!");
+			return;
+		}
+
+		covering.setPattern(pattern);
+	}
+
 	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
 		return coveringsDiscovered.contains(bct);
 	}
