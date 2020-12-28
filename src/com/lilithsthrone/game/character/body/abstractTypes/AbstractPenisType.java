@@ -146,6 +146,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 				this.fromExternalFile = true;
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
