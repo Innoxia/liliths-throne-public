@@ -156,11 +156,6 @@ public enum LegConfiguration {
 		public boolean isTailLostOnInitialTF() {
 			return false;
 		}
-		@Override
-		public WingSize getMinimumWingSizeForFlight(Body body) {
-			return body.isFeral() ? WingSize.THREE_LARGE : WingSize.FOUR_HUGE;
-		}
-
 	},
 
 	/**
@@ -777,11 +772,11 @@ public enum LegConfiguration {
 	}
 
 	/**
-	 * @param body The corresponding body. Used in overrides.
+	 * @param body The corresponding body.
 	 * @return The minimum WingSize required for flight.
 	 */
 	public WingSize getMinimumWingSizeForFlight(Body body) {
-		return minimumWingSizeForFlight;
+		return body.isFeral() ? WingSize.THREE_LARGE : minimumWingSizeForFlight;
 	}
 
 	public boolean isWingsOnLegConfiguration() {
