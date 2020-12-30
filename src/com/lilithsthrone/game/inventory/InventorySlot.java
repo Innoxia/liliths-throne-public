@@ -329,6 +329,38 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
+			if (character == null) {
+				return null;
+			}
+			if(!isPhysicallyAvailable(character)) {
+				return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(this),
+					null,
+					this.getPhysicallyUnavailableReason(character),
+					Util.newArrayListOfValues(ItemTag.REQUIRES_NO_PENIS));
+			}
+			// Leg configuration (takes into account feral):
+			List<BodyPartClothingBlock> blockedList = character.getLegConfiguration().getBodyPartClothingBlock(character);
+			if(blockedList!=null) {
+				for(BodyPartClothingBlock block : blockedList) {
+					if(block.getBlockedSlots().contains(this)) {
+						return block;
+					}
+				}
+			}
+			for(BodyPartInterface bodypart : character.getBody().getAllBodyParts()) {
+				BodyPartClothingBlock block = bodypart.getType().getBodyPartClothingBlock();
+				if(block!=null) {
+					if(block.getBlockedSlots().contains(this)) {
+						return block;
+					}
+				}
+			}
+			
+			return null;
+		}
+		@Override
 		protected String getNameForParsing() {
 			return "[npc.cock]";
 		}
@@ -343,6 +375,38 @@ public enum InventorySlot {
 				return UtilText.parse(character, "[npc.Name] [npc.do] not have a vagina!");
 			}
 			return super.getPhysicallyUnavailableReason(character);
+		}
+		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
+			if (character == null) {
+				return null;
+			}
+			if(!isPhysicallyAvailable(character)) {
+				return new BodyPartClothingBlock(
+					Util.newArrayListOfValues(this),
+					null,
+					this.getPhysicallyUnavailableReason(character),
+					Util.newArrayListOfValues(ItemTag.REQUIRES_NO_VAGINA));
+			}
+			// Leg configuration (takes into account feral):
+			List<BodyPartClothingBlock> blockedList = character.getLegConfiguration().getBodyPartClothingBlock(character);
+			if(blockedList!=null) {
+				for(BodyPartClothingBlock block : blockedList) {
+					if(block.getBlockedSlots().contains(this)) {
+						return block;
+					}
+				}
+			}
+			for(BodyPartInterface bodypart : character.getBody().getAllBodyParts()) {
+				BodyPartClothingBlock block = bodypart.getType().getBodyPartClothingBlock();
+				if(block!=null) {
+					if(block.getBlockedSlots().contains(this)) {
+						return block;
+					}
+				}
+			}
+			
+			return null;
 		}
 		@Override
 		protected String getNameForParsing() {

@@ -106,8 +106,11 @@ import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -9077,6 +9080,15 @@ public class UtilText {
 		}
 		for(BodyPartTag bpt : BodyPartTag.values()) {
 			engine.put("BODY_PART_TAG_"+bpt.toString(), bpt);
+		}
+		for(PenetrationModifier penMod : PenetrationModifier.values()) {
+			engine.put("PENETRATION_MODIFIER_"+penMod.toString(), penMod);
+		}
+		for(OrificeModifier orificeMod : OrificeModifier.values()) {
+			engine.put("ORIFICE_MODIFIER_"+orificeMod.toString(), orificeMod);
+		}
+		for(TongueModifier tongueMod : TongueModifier.values()) {
+			engine.put("TONGUE_MODIFIER_"+tongueMod.toString(), tongueMod);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {

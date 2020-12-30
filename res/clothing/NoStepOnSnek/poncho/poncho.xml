@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the poncho's inner lining informs you that it was made by 'Serpentia Silk&Satin Ltd.'.]]></clothingAuthorTag>
+
+		<value>750</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[poncho]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[ponchos]]></namePlural> 
+		
+		<description><![CDATA[A fringed blanket shaped for easy wear, it makes for a warm yet airy garment suitable for a broad range of temperatures.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>TORSO_OVER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/>
+		
+		<imageName>poncho.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots/>
+			</blockedParts>
+				
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+
+		<primaryColoursDye/>
+
+		<secondaryColours values="ALL"/>
+
+		<secondaryColoursDye/>
+
+		<tertiaryColours/>
+
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the poncho.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the poncho onto [npc2.name].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(put)] the poncho onto [npc2.name].]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] poncho.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] poncho.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] poncho.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

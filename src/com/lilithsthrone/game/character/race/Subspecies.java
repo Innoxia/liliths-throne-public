@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
@@ -3333,6 +3334,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3409,7 +3412,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
-			
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3492,6 +3496,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -3573,6 +3579,8 @@ public class Subspecies {
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
+			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
@@ -4878,11 +4886,15 @@ public class Subspecies {
 									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
 					return wispSVG;
 				}
+				AbstractSubspecies passiveForm = ((Elemental)character).getPassiveForm();
+				if (passiveForm.SVGString == null) {
+					passiveForm.initSVGStrings();
+				}
 				String raceSvg = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_FIRE),
 						this.getColour(character),
 						this.getColour(character),
 						this.getColour(character),
-						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+						passiveForm.SVGStringUncoloured);
 				return getBipedBackground(raceSvg, character, this.getColour(character));
 			}
 			return super.getSVGString(character);
@@ -4952,11 +4964,15 @@ public class Subspecies {
 							"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
 					return wispSVG;
 				}
+				AbstractSubspecies passiveForm = ((Elemental)character).getPassiveForm();
+				if (passiveForm.SVGString == null) {
+					passiveForm.initSVGStrings();
+				}
 				String raceSvg = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_EARTH),
 						this.getColour(character),
 						this.getColour(character),
 						this.getColour(character),
-						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+						passiveForm.SVGStringUncoloured);
 				return getBipedBackground(raceSvg, character, this.getColour(character));
 			}
 			return super.getSVGString(character);
@@ -5027,11 +5043,15 @@ public class Subspecies {
 									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
 					return wispSVG;
 				}
+				AbstractSubspecies passiveForm = ((Elemental)character).getPassiveForm();
+				if (passiveForm.SVGString == null) {
+					passiveForm.initSVGStrings();
+				}
 				String raceSvg = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_WATER),
 						this.getColour(character),
 						this.getColour(character),
 						this.getColour(character),
-						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+						passiveForm.SVGStringUncoloured);
 				return getBipedBackground(raceSvg, character, this.getColour(character));
 			}
 			return super.getSVGString(character);
@@ -5101,11 +5121,15 @@ public class Subspecies {
 									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
 					return wispSVG;
 				}
+				AbstractSubspecies passiveForm = ((Elemental)character).getPassiveForm();
+				if (passiveForm.SVGString == null) {
+					passiveForm.initSVGStrings();
+				}
 				String raceSvg = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_AIR),
 						this.getColour(character),
 						this.getColour(character),
 						this.getColour(character),
-						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+						passiveForm.SVGStringUncoloured);
 				return getBipedBackground(raceSvg, character, this.getColour(character));
 			}
 			return super.getSVGString(character);
@@ -5175,11 +5199,15 @@ public class Subspecies {
 									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
 					return wispSVG;
 				}
+				AbstractSubspecies passiveForm = ((Elemental)character).getPassiveForm();
+				if (passiveForm.SVGString == null) {
+					passiveForm.initSVGStrings();
+				}
 				String raceSvg = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_ARCANE),
 						this.getColour(character),
 						this.getColour(character),
 						this.getColour(character),
-						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+						passiveForm.SVGStringUncoloured);
 				return getBipedBackground(raceSvg, character, this.getColour(character));
 			}
 			return super.getSVGString(character);

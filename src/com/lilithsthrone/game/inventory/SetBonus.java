@@ -100,6 +100,7 @@ public class SetBonus {
 					allSetBonuses.add(setBonus);
 					setBonusToIdMap.put(setBonus, id);
 					idToSetBonusMap.put(id, setBonus);
+//					System.out.println("modded "+id);
 				} catch(Exception ex) {
 					System.err.println("Loading modded set bonus failed at 'SetBonusType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
@@ -119,6 +120,7 @@ public class SetBonus {
 					allSetBonuses.add(setBonus);
 					setBonusToIdMap.put(setBonus, id);
 					idToSetBonusMap.put(id, setBonus);
+//					System.out.println("res "+id);
 //					System.out.println("SBT: "+innerEntry.getKey());
 				} catch(Exception ex) {
 					System.err.println("Loading set bonus failed at 'SetBonusType'. File path: "+innerEntry.getValue().getAbsolutePath());

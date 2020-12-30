@@ -795,7 +795,7 @@
 		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so much, [pc.name]! I mean, I may have to buy my matriarch something with this if she find out about it, but I'll try to use it to buy myself something!)]
 	</p>
 	<p>
-		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to care of yourself, ok?)]
+		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to take care of yourself, ok?)]
 	</p>
 	<p>
 		[npc.speech(I will! Thank you! In fact, I'm going to go hide this away before any other harpies see it. Thank you so much!)]

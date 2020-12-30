@@ -188,7 +188,8 @@
 	
 	<!-- This section defines the attributes for crotch-boobs.
 	Crotch-boobs are only present on feminine characters, so there is no section for masculine crotch-boob definitions.
-	All of these attributes use the same value definitions as those for normal breasts above. -->
+	All of these attributes use the same value definitions as those for normal breasts above.
+	Define the 'breastCrotchType' as NONE if you want this race to always spawn without crotch boobs. -->
 	<breastCrotchType>innoxia_hyena_breast</breastCrotchType>
 	<breastCrotchShapes udderShapes="false"/>
 	

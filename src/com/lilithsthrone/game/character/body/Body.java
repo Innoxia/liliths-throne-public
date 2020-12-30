@@ -2155,11 +2155,7 @@ public class Body implements XMLSaving {
 		// Describe face (ears, eyes & horns):
 		// Femininity:
 		sb.append(getHeader("Face"));
-		if(owner.isFeral()) {
-			sb.append("[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)].");
-		} else {
-			sb.append(face.getType().getBodyDescription(owner));
-		}
+		sb.append(face.getType().getBodyDescription(owner));
 		if(owner.getBlusher().getPrimaryColour()!=PresetColour.COVERING_NONE) {
 			sb.append(" [npc.SheIsFull] wearing "+owner.getBlusher().getColourDescriptor(owner, true, false)+" blusher.");
 		}
@@ -2568,6 +2564,9 @@ public class Body implements XMLSaving {
 		sb.append(" [npc.SheHasFull] <span style='color:"+ BodySize.valueOf(getBodySize()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySize()).getName(true) + "</span>, "
 						+ "<span style='color:"+ Muscle.valueOf(getMuscle()).getColour().toWebHexString() + ";'>" +Muscle.valueOf(getMuscle()).getName(false) + "</span>"
 							+ " body, giving [npc.herHim] <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[npc.a_bodyShape]</span> body shape.");
+		if(torso.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+			sb.append(" [style.colourBlue(The unique nature of [npc.namePos] body allows [npc.herHim] to fly!)]");
+		}
 		
 		
 		// Pregnancy:
@@ -2774,6 +2773,14 @@ public class Body implements XMLSaving {
 			
 			sb.append(" [npc.Her] [npc.arms] are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))
 					+", and are <span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>"+owner.getFemininity().getName(false)+" in appearance.");
+			
+			if(arm.getType().allowsFlight()) {
+				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
+					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
+				} else {
+					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
+				}
+			}
 		}
 		sb.append("</p>");
 
@@ -2815,7 +2822,9 @@ public class Body implements XMLSaving {
 		}
 		if(owner.isFeral()) {
 			sb.append("Just like the rest of [npc.her] body, [npc.her] [npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
-			sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+			}
 		} else {
 			switch(owner.getLegConfiguration()) {
 				case ARACHNID:
@@ -2837,20 +2846,22 @@ public class Body implements XMLSaving {
 			}
 			sb.append(leg.getType().getBodyDescription(owner));
 		}
-		
-		switch(owner.getFootStructure()) {
-			case NONE:
-			case TENTACLED:
-				break;
-			case DIGITIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] toes.");
-				break;
-			case PLANTIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] with [npc.her] feet flat on the ground.");
-				break;
-			case UNGULIGRADE:
-				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
-				break;
+
+		if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+			switch(owner.getFootStructure()) {
+				case NONE:
+				case TENTACLED:
+					break;
+				case DIGITIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] toes.");
+					break;
+				case PLANTIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] with [npc.her] feet flat on the ground.");
+					break;
+				case UNGULIGRADE:
+					sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
+					break;
+			}
 		}
 		
 		if(owner.getFootNailPolish().getPrimaryColour() != PresetColour.COVERING_NONE) {
@@ -5837,6 +5848,9 @@ public class Body implements XMLSaving {
 		this.getBreast().setNippleCountPerBreast(null, attributes.getNipplesPerBreastCount());
 		this.getBreastCrotch().setRows(null, attributes.getCrotchBreastRowCount());
 		this.getBreastCrotch().setNippleCountPerBreast(null, attributes.getNipplesPerCrotchBreastCount());
+		if(attributes.getCrotchBreastRowCount() == 0) {
+			this.getBreastCrotch().setType(null, BreastType.NONE);
+		}
 		
 		// Set genital relative sizes:
 		AbstractRacialBody rb = subspecies.getRace().getRacialBody();
@@ -6079,6 +6093,7 @@ public class Body implements XMLSaving {
 		}
 		return arm.getType().allowsFlight();
 	}
+	
 	public boolean isAbleToFlyFromWings() {
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			return false;

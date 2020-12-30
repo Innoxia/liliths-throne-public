@@ -782,7 +782,7 @@ public class EnchantmentDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Confirmations: ",
-						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved game."
+						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved enchantment."
 							+ " When turned on, it will take two clicks to apply any button press."
 							+ " When turned off, it will only take one click.",
 						ENCHANTMENT_SAVE_LOAD) {

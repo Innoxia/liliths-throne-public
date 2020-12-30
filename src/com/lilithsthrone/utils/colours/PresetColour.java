@@ -486,7 +486,7 @@ public class PresetColour {
 	// Monochrome:
 	public static Colour SKIN_IVORY = new Colour(false, BaseColour.WHITE, "ivory") {};
 	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(SKIN_IVORY);
-	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(SKIN_GREY);
+	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(SKIN_GREY);
 	// Pink:
 	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
 	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {}.setLinkedColourLighter(SKIN_PINK_PALE);
@@ -539,7 +539,7 @@ public class PresetColour {
 	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(COVERING_WHITE);
 	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {}.setLinkedColourLighter(COVERING_GREY);
 	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(COVERING_DARK_GREY);
-	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(COVERING_BLACK);
+	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(COVERING_BLACK);
 	// Pink:
 	public static Colour COVERING_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
 	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(COVERING_PINK_LIGHT);
@@ -640,7 +640,7 @@ public class PresetColour {
 	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
 	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(EYE_WHITE);
 	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(EYE_GREY);
-	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(EYE_BLACK);
+	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(EYE_BLACK);
 	// Pink:
 	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
 	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(EYE_PINK_SALMON);

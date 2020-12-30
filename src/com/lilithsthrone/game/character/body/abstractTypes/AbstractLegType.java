@@ -30,7 +30,6 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -766,36 +765,36 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(BreastCrotch.class)) { // Crotch-boobs:
+			AbstractBreastType crotchBoobType = BreastType.NONE;
+			if(body.isFeminine()) {
+				if(demon) {
+					crotchBoobType = BreastType.DEMON_COMMON;
+				} else {
+					crotchBoobType = startingBodyType.getBreastCrotchType();
+				}
+			}
+			
 			if(!applyFullEffects) {
-				body.getBreastCrotch().setType(null,
-						(body.isFeminine()
-							?(demon
-								?BreastType.DEMON_COMMON
-								:startingBodyType.getBreastType())
-							:BreastType.NONE));
+				body.getBreastCrotch().setType(null, crotchBoobType);
 				
 			} else {
 				body.setBreastCrotch(
 						new BreastCrotch(
-						(body.isFeminine()
-							?(demon
-								?BreastType.DEMON_COMMON
-								:startingBodyType.getBreastType())
-							:BreastType.NONE),
-						Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-						startingBodyType.getBreastCrotchSize(),
-						startingBodyType.getBreastCrotchLactationRate(),
-						startingBodyType.getBreastCrotchCount(),
-						startingBodyType.getBreastCrotchNippleSize(),
-						startingBodyType.getBreastCrotchNippleShape(),
-						startingBodyType.getBreastCrotchAreolaeSize(),
-						startingBodyType.getBreastCrotchAreolaeShape(),
-						startingBodyType.getNippleCountPerBreastCrotch(),
-						startingBodyType.getBreastCrotchCapacity(),
-						startingBodyType.getBreastCrotchDepth(),
-						startingBodyType.getBreastCrotchElasticity(),
-						startingBodyType.getBreastCrotchPlasticity(), 
-						true));
+							crotchBoobType,
+							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+							startingBodyType.getBreastCrotchSize(),
+							startingBodyType.getBreastCrotchLactationRate(),
+							startingBodyType.getBreastCrotchCount(),
+							startingBodyType.getBreastCrotchNippleSize(),
+							startingBodyType.getBreastCrotchNippleShape(),
+							startingBodyType.getBreastCrotchAreolaeSize(),
+							startingBodyType.getBreastCrotchAreolaeShape(),
+							startingBodyType.getNippleCountPerBreastCrotch(),
+							startingBodyType.getBreastCrotchCapacity(),
+							startingBodyType.getBreastCrotchDepth(),
+							startingBodyType.getBreastCrotchElasticity(),
+							startingBodyType.getBreastCrotchPlasticity(), 
+							true));
 			}
 		}
 		if(legConfiguration.getFeralParts().contains(Tail.class)) { // Tail:
@@ -833,7 +832,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							startingBodyType.getCumProduction()*(largeGenitals?10:1),
 							startingBodyType.getTesticleQuantity())
 						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
-				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+//				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getPenis().setVirgin(virgin);
 			}
 		}
@@ -864,7 +863,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 									startingBodyType.getVaginaPlasticity(),
 									true)
 							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true));
-				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+//				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getVagina().getOrificeVagina().setVirgin(virgin);
 			}
 		}

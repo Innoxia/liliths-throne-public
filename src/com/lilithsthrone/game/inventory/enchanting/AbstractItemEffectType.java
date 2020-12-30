@@ -2389,7 +2389,9 @@ public abstract class AbstractItemEffectType {
 				break;
 				
 			case TF_PENIS:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				for(int i=0; i< PenisType.getPenisTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
@@ -2435,7 +2437,9 @@ public abstract class AbstractItemEffectType {
 				break;
 				
 			case TF_SKIN:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				for(int i=0; i< TorsoType.getTorsoTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
 				break;
 				
 			case TF_TAIL:
@@ -2469,7 +2473,9 @@ public abstract class AbstractItemEffectType {
 				break;
 				
 			case TF_VAGINA:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				for(int i=0; i< VaginaType.getVaginaTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				}
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
