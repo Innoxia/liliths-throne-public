@@ -600,7 +600,7 @@ public abstract class AbstractSubspecies {
 //			if(race==Race.HUMAN) {
 //				new IllegalArgumentException().printStackTrace();
 //			}
-			return Integer.valueOf(UtilText.parse(subspeciesWeighting.trim()));
+			return Integer.valueOf(UtilText.parse(subspeciesWeighting).trim());
 		}
 		return 0;
 	}
