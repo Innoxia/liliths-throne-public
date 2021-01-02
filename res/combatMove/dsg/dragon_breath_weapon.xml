@@ -45,12 +45,8 @@
 	<baseDamage><![CDATA[
 		#IF(npc.isSpeechMuffled())
 			0
-		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) * 4]
-		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) * 4]
 		#ELSE
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON) * 4]
+			75
 		#ENDIF
 	]]></baseDamage>
 	
