@@ -3094,7 +3094,7 @@ public class Body implements XMLSaving {
 	
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
-		
+
 		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
@@ -3118,7 +3118,9 @@ public class Body implements XMLSaving {
 		
 		subspecies = AbstractSubspecies.getSubspeciesFromBody(this, race);
 //		boolean overrideSubspecies = false;
-		
+
+		halfDemonSubspecies = null; // reset so it will be recalculated when accessed
+
 		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
