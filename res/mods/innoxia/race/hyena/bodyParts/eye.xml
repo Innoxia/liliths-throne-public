@@ -17,7 +17,7 @@
 	<coveringType>innoxia_hyena_eye</coveringType>
 	
 	<!-- Tags which are associated with this eye type.
-	You should most likely only be using the vision tags for your ear type, such as NIGHT_VISION and THERMAL_VISION
+	You should most likely only be using the vision tags for your eye type, such as NIGHT_VISION and THERMAL_VISION
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
 		<tag>NIGHT_VISION</tag>
