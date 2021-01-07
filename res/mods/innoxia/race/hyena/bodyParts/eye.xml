@@ -16,6 +16,13 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_eye</coveringType>
 	
+	<!-- Tags which are associated with this eye type.
+	You should most likely only be using the vision tags for your eye type, such as NIGHT_VISION and THERMAL_VISION
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>NIGHT_VISION</tag>
+	</tags>
+	
 	<!-- The default number of pairs that this eye type should have (should most likely be 1). -->
 	<defaultPairCount>1</defaultPairCount>
 	

@@ -50,6 +50,8 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 	private String eyeTransformationDescription;
 	private String eyeBodyDescription;
 	
+	private List<BodyPartTag> tags;
+	
 	/**
 	 * @param coveringType What covers this eye type (i.e skin/fur/feather type).
 	 * @param race What race has this eye type.
@@ -95,6 +97,8 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 		
 		this.eyeTransformationDescription = eyeTransformationDescription;
 		this.eyeBodyDescription = eyeBodyDescription;
+		
+		this.tags = new ArrayList<>();
 	}
 	
 	public AbstractEyeType(File XMLFile, String author, boolean mod) {
@@ -116,6 +120,13 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 				
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+					tags.add(BodyPartTag.valueOf(e.getTextContent()));
+					}
+				}
 				
 				this.defaultPairCount = Integer.valueOf(coreElement.getMandatoryFirstOf("defaultPairCount").getTextContent());
 				
@@ -225,5 +236,9 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 //	@Override
 	public String getTransformationDescription(GameCharacter owner) {
 		return UtilText.parse(owner, eyeTransformationDescription);
+	}
+	
+	public List<BodyPartTag> getTag() {
+		return tags;
 	}
 }
