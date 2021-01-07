@@ -50,7 +50,7 @@ public abstract class AbstractEyeType implements BodyPartTypeInterface {
 	private String eyeTransformationDescription;
 	private String eyeBodyDescription;
 	
-	private List<BodyPartTag> tags = new;
+	private List<BodyPartTag> tags;
 	
 	/**
 	 * @param coveringType What covers this eye type (i.e skin/fur/feather type).
