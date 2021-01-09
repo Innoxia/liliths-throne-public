@@ -78,6 +78,7 @@ public class Tongue implements BodyPartInterface {
 	 */
 	public void setType(AbstractTongueType type) {
 		this.type = type;
+		resetTongueModifiers();
 	}
 
 	public boolean isPierced() {

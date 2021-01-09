@@ -53,11 +53,9 @@
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceCoatl)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_faceCoatl)]
-			[#targetedBody.resetTongueModifiers()]
 		#ENDIF
 		#IF(targetedBody.getTongueType()!=TONGUE_TYPE_dsg_dragon_tongueForked)
 			[#targetedBody.setTongueType(TONGUE_TYPE_dsg_dragon_tongueForked)]
-			[#targetedBody.resetTongueModifiers()]
 		#ENDIF
 		#IF(!targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED))
 			[#targetedBody.addTongueModifier(TONGUE_MODIFIER_BIFURCATED)]
