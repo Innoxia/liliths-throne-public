@@ -297,7 +297,7 @@ public class Body implements XMLSaving {
 		
 		height = builder.height;
 		femininity = builder.femininity;
-		bodySize = builder. bodySize;
+		bodySize = builder.bodySize;
 		muscle = builder.muscle;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
