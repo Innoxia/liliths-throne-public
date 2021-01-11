@@ -51,23 +51,23 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getWing().getType() != WING_TYPE_dsg_dragon_wing)
-			[#targetedBody.getWing().setType(null, WING_TYPE_dsg_dragon_wing)]
+		#IF(targetedBody.getWingType() != WING_TYPE_dsg_dragon_wing)
+			[#targetedBody.setWingType(WING_TYPE_dsg_dragon_wing)]
 		#ENDIF
-		#IF(targetedBody.getWing().getSizeValue() < 3)
-			[#targetedBody.getWing().setSize(null, 3)]
+		#IF(targetedBody.getWingSizeValue() < WING_SIZE_THREE_LARGE)
+			[#targetedBody.setWingSize(WING_SIZE_THREE_LARGE)]
 		#ENDIF
-		#IF(targetedBody.getHorn().getType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHorn().getType()==HORN_TYPE_NONE)
+		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
 			#IF(RND.nextInt(100) < 33)
-				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_horn)]
+				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
 			#ELSEIF(RND.nextInt(100) < 50)
-				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_hornCurved)]
+				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurved)]
 			#ELSE
-				[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_hornCurled)]
+				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
 			#ENDIF
 		#ENDIF
-		#IF(targetedBody.getTail().getType()!=TAIL_TYPE_dsg_dragon_tailSpaded)
-			[#targetedBody.getTail().setType(null, TAIL_TYPE_dsg_dragon_tailSpaded)]
+		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailSpaded)
+			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailSpaded)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	

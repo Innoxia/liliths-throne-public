@@ -53,7 +53,7 @@
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 18)]
-		[#targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).setPattern(COVERING_PATTERN_SPOTTED)]
+		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
 		#IF(targetedBody.isFeminine())
 			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.05)]
 		#ENDIF
@@ -66,7 +66,7 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_hyena)
-			#IF(targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).getPattern()!=COVERING_PATTERN_STRIPED)
+			#IF(targetedBody.getCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true)!=COVERING_PATTERN_STRIPED)
 				100
 			#ELSE
 				0
