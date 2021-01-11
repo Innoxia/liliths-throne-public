@@ -145,6 +145,7 @@ public class Body implements XMLSaving {
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private AbstractSubspecies subspeciesOverride = null;
+	private AbstractSubspecies halfDemonSubspecies = null;
 	private int height;
 	private int femininity;
 	private int bodySize;
@@ -296,7 +297,7 @@ public class Body implements XMLSaving {
 		
 		height = builder.height;
 		femininity = builder.femininity;
-		bodySize = builder. bodySize;
+		bodySize = builder.bodySize;
 		muscle = builder.muscle;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
@@ -3097,7 +3098,7 @@ public class Body implements XMLSaving {
 	
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
-		
+
 		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
@@ -3121,7 +3122,9 @@ public class Body implements XMLSaving {
 		
 		subspecies = AbstractSubspecies.getSubspeciesFromBody(this, race);
 //		boolean overrideSubspecies = false;
-		
+
+		halfDemonSubspecies = null; // reset so it will be recalculated when accessed
+
 		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
@@ -3265,7 +3268,10 @@ public class Body implements XMLSaving {
 	}
 
 	public AbstractSubspecies getHalfDemonSubspecies() {
-		return AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		if (halfDemonSubspecies == null) {
+			halfDemonSubspecies = AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		}
+		return halfDemonSubspecies;
 	}
 
 	public Antenna getAntenna() {

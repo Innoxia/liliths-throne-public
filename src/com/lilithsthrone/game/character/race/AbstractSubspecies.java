@@ -59,6 +59,7 @@ public abstract class AbstractSubspecies {
 	
 	private int baseSlaveValue;
 	private int subspeciesOverridePriority;
+	private static AbstractSubspecies fleshSubspecies = null;
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
@@ -554,6 +555,7 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
+		fleshSubspecies = null;
 		if(this.isFromExternalFile() && Main.game.isStarted()) {
 			UtilText.setBodyForParsing("targetedBody", body);
 			UtilText.parse(applySubspeciesChanges);
@@ -585,7 +587,10 @@ public abstract class AbstractSubspecies {
 	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
 	 */
 	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
-		return getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		if (fleshSubspecies == null) {
+			fleshSubspecies = getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		}
+		return fleshSubspecies;
 	}
 	
 	/**
