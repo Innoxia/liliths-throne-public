@@ -1154,8 +1154,8 @@ public class TooltipInformationEventListener implements EventListener {
 							+ "<span style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + "; font-size:110%;'>"
 								+ (owner.getName(true).length() == 0
 									?"[npc.Race]"
-									:(owner.isPlayer()
-										?"[pc.Name]"
+									:(owner.isPlayer() || owner.isPlayerKnowsName()
+										?"[npc.NameFull]"
 										:"[npc.Name]"))
 							+"</span>"
 						+"<br/>Level " + owner.getLevel() + " <span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>| "

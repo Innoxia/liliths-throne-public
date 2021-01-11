@@ -38,7 +38,7 @@
 
 	<htmlContent tag="ROLL_LOSING"><![CDATA[
 	<p>
-		Both you and [npc.name] roll all five of your dice to get the game started. As they clatter to a halt, your opponent lets out a triumphant laugh as [npc.she] sees that [npc.she] has a better hand. [npc.speech(Hah! This is just the start, and I'm already winning! Now, you gonna' call, or you want to raise the stakes?)]
+		Both you and [npc.name] roll all five of your dice to get the game started. As they clatter to a halt, your opponent lets out a triumphant laugh as [npc.she] sees that [npc.sheHasFull] a better hand. [npc.speech(Hah! This is just the start, and I'm already winning! Now, you gonna' call, or you want to raise the stakes?)]
 	</p>
 	]]>
 	</htmlContent>

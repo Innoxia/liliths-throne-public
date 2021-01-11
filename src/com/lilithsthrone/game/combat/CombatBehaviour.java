@@ -27,8 +27,8 @@ public enum CombatBehaviour {
 			"Wherever possible, [npc.name] will focus on seducing [npc.her] opponents instead of using damaging or defensive abilities."),
 	
 	SPELLS("spells",
-			"Tell [npc.name] to focus on using all the spells which [npc.she] has at [npc.her] disposal.",
-			"Wherever possible, [npc.name] will focus on using spells which [npc.she] has at [npc.her] disposal."),
+			"Tell [npc.name] to focus on using all the spells which [npc.sheHasFull] at [npc.her] disposal.",
+			"Wherever possible, [npc.name] will focus on using spells which [npc.sheHasFull] at [npc.her] disposal."),
 	
 	SUPPORT("support",
 			"Tell [npc.name] to focus on using spells or other abilities which support [npc.her] allies.",

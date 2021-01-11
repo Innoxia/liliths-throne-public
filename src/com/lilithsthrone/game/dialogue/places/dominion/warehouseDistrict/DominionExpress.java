@@ -481,7 +481,7 @@ public class DominionExpress {
 		}
 		npc.setLocation(Main.game.getPlayer(), false);
 		
-		npc.setLastTimeOrgasmed(Main.game.getMinutesPassed()-(25*60));
+		npc.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()-(25*60*60));
 		
 		try {
 			Main.game.addNPC(npc, false);

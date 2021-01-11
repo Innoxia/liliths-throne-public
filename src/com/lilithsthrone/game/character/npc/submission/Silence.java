@@ -314,8 +314,8 @@ public class Silence extends NPC {
 		sb.append("<br/>"
 				+ "Thanks to this inability of hers to talk, she's been given the name 'Silence', but what she lacks in verbal communication she more than compensates for in her sexual appetite."
 				+ " Seemingly in a perpetual state of horniness, this lewd rat-girl can often be found riding a stranger's cock, or even more commonly, forcing them to perform oral on her.");
-		
-		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS) {
+
+		if(this.getHomeWorldLocation()==WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS) {
 			sb.append("<br/>"
 					+ "No longer a personal bodyguard for Vengar, Silence is now a professional bounty hunter."
 					+ " Joined by her long-time companion, Shadow, she can be found in Slaver Alley's 'Bounty Hunter Lodge'.");
@@ -346,6 +346,14 @@ public class Silence extends NPC {
 	public void hourlyUpdate() {
 		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
+
+	public void moveToBountyHunterLodge() {
+		this.setLocation(WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS, PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE, true);
+		if(Main.game.getHourOfDay()<2 || Main.game.getHourOfDay()>=10) {
+			this.setLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_STAIRS, false);
+			this.setNearestLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_SEATING, false);
+		}
+	}
 	
 	@Override
 	public void turnUpdate() {
@@ -361,7 +369,9 @@ public class Silence extends NPC {
 			}
 
 		} else {
-			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+			if(!Main.game.getCharactersPresent().contains(this)) {
+				this.moveToBountyHunterLodge();
+			}
 		}
 	}
 	

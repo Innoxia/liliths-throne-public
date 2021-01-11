@@ -294,6 +294,11 @@ public enum ItemTag {
 					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
 			true),
 	
+	CHASTITY( // Tags the clothing as being some form of chastity device, meaning that it will apply the 'CHASTITY_1' status effect when equipped
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Chastity device)]"),
+			true),
+	
 	// To detect whether creampies should leak out or not:
 	
 	PLUGS_ANUS( // Counts as being inserted into the wearer's anus. E.g. butt plugs or anal beads
@@ -392,7 +397,10 @@ public enum ItemTag {
 		}
 		return clothingTooltipAdditions;
 	}
-
+	
+	/**
+	 * @return true if this tag makes the clothing to which it is applied a sex toy, meaning that NPCs will not remove it during sex unless it is blocking the part they wish to access.
+	 */
 	public boolean isSexToy() {
 		return sexToy;
 	}

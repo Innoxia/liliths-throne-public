@@ -79,7 +79,7 @@
 			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
 		#ENDIF
 		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
-		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldRacoon(raccoon-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] has a [style.boldRacoon(flat, raccoon-like tongue)].
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldRacoon(raccoon-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldRacoon(flat, raccoon-like tongue)].
 	]]></transformationDescription>
 	
 	<!-- How this face is described in a character's description page. -->

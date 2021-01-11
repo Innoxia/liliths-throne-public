@@ -1575,10 +1575,14 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			Element lastOrgasmElement = (Element)element.getElementsByTagName("lastTimeOrgasmed").item(0);
+			int secondModifier = 1;
+			if(Main.isVersionOlderThan(version, "0.3.14")) {
+				secondModifier = 60; // In old versions, this was recorded in minutes, not seconds
+			}
 			if(lastOrgasmElement!=null) {
-				character.setLastTimeOrgasmed(Long.valueOf(lastOrgasmElement.getAttribute("value")));
+				character.setLastTimeOrgasmedSeconds(Long.valueOf(lastOrgasmElement.getAttribute("value")) * secondModifier);
 			} else {
-				character.setLastTimeOrgasmed(character.getLastTimeHadSex());
+				character.setLastTimeOrgasmedSeconds(character.getLastTimeHadSex() * secondModifier);
 			}
 		}
 		
@@ -6557,7 +6561,7 @@ public abstract class GameCharacter implements XMLSaving {
 			AbstractStatusEffect se = appliedSe.getEffect();
 			appliedSe.setSecondsPassed(appliedSe.getSecondsPassed() + secondsPassed);
 			StringBuilder sb = new StringBuilder();
-			if (!se.isCombatEffect()){
+			if (!se.isCombatEffect()) {
 				if(appliedSe.getEffect().getEffectInterval()<=0 || ((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
 					if(appliedSe.getEffect().getEffectInterval()<=0) {
 						sb.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
@@ -6579,7 +6583,8 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			incrementStatusEffectDuration(se, -secondsPassed);
 			
-			if(appliedSe.getSecondsRemaining()<0 && !se.isConditionsMet(this)) {
+			if(appliedSe.getSecondsRemaining()<0
+					&& (!se.isConditionsMet(this) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
 				tempListStatusEffects.add(se);
 			}
 		}
@@ -6588,26 +6593,17 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractStatusEffect se : tempListStatusEffects) {
 			removeStatusEffect(se);
 		}
-		
-		// Moved to the end of combat
-//		if (!Main.game.isInCombat()) {
-//			clearCombatStatusEffects();
-//		}
+		// Combat status effects are automatically removed at the end of combat (in Combat.java), so there's no need to remove them here.
 		
 		// Add all status effects that are applicable:
 		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffects()) {
-//			if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-//				addStatusEffect(se, -1);
-//			}
-			//TODO
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked
+			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
 					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
 					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
-//				if(se.getCategory()==StatusEffectCategory.ATTRIBUTE && this.isPlayer()) {
-//					System.out.println(se.getName(this));
-//				}
 				if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-					addStatusEffect(se, -1);
+					if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+						addStatusEffect(se, se.getApplicationLength()); // Default application length is -1
+					}
 				}
 			}
 		}
@@ -7315,17 +7311,28 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
+	@Deprecated
 	/**
+	 * <b>You should use getLastTimeOrgasmedSeconds() instead!</b>
 	 * @return A value <b>in minutes</b> for when this character last orgasmed.
 	 */
 	public long getLastTimeOrgasmed() {
+		return lastTimeOrgasmed/60;
+	}
+	public long getLastTimeOrgasmedSeconds() {
 		return lastTimeOrgasmed;
 	}
 
+	@Deprecated
 	/**
-	 * param lastTimeOrgasmed A value <b>in minutes</b> for when this character last orgasmed.
+	 * <b>You should use setLastTimeOrgasmedSeconds() instead!</b>
+	 * @param lastTimeOrgasmed A value <b>in minutes</b> for when this character last orgasmed.
 	 */
 	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
+		this.lastTimeOrgasmed = lastTimeOrgasmed*60;
+	}
+	
+	public void setLastTimeOrgasmedSeconds(long lastTimeOrgasmed) {
 		this.lastTimeOrgasmed = lastTimeOrgasmed;
 	}
 	
@@ -7441,10 +7448,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Foot-related content checks:
-		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive()) && !lustOrArousalCalculation) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive() && !lustOrArousalCalculation) {
 			weight-=100000;
 		}
-		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive()) && !lustOrArousalCalculation) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive() && !lustOrArousalCalculation) {
 			weight-=100000;
 		}
 		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled() && !lustOrArousalCalculation) {
@@ -8874,8 +8881,8 @@ public abstract class GameCharacter implements XMLSaving {
 		map.put(type, (int) (calculateSexTypeWeighting(type, target, request)*multiplier));
 	}
 
-	public void generateSexChoices(boolean resetPositioning, GameCharacter target) {
-		generateSexChoices(resetPositioning, target, null);
+	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target) {
+		generateSexChoices(resetPositioningBan, target, null);
 	}
 	
 	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
@@ -8988,11 +8995,17 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT), target, request, foreplaySexTypes, 3);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT), target, request, mainSexTypes, 1f);
 		
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH), target, request, foreplaySexTypes, 2);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH), target, request, mainSexTypes, 2);
+		
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, foreplaySexTypes, 2);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, mainSexTypes, 2);
+		
 		
 		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 		mainSexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 
-		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 			System.out.println("Foreplay contains foot actions 1");
 		}
 		
@@ -9148,7 +9161,7 @@ public abstract class GameCharacter implements XMLSaving {
 			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.TAIL);
 		}
 
-		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 			System.out.println("Foreplay contains foot actions 2");
 		}
 		
@@ -9205,7 +9218,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		foreplayPreference.put(target, null);
 		if(!foreplaySexTypes.isEmpty()) {
-			if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+			if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 				System.out.println("Foreplay contains foot actions 3");
 			}
 			if(request!=null) {
@@ -18004,9 +18017,10 @@ public abstract class GameCharacter implements XMLSaving {
 		equipMove("tease");
 		equipMove("avert");
 	}
-
+	
 	public void resetDefaultMoves() {
 		if(!this.isPlayer()
+                && !(this.isElemental() && ((Elemental)this).getSummoner().isPlayer())
 				&& (!this.isSlave() || !this.getOwner().isPlayer())
 				&& !Main.game.getPlayer().getParty().contains(this)) {
 			this.clearEquippedMoves();
@@ -18705,9 +18719,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getRestingLust() {
 		int restingLust = (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
 		
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			restingLust += 75;
-		}
+		restingLust += this.getAttributeValue(Attribute.RESTING_LUST);
 		
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isVibrator()) {
@@ -18727,7 +18739,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return Math.min(restingLust, 80);
+		return Math.max(0, Math.min(restingLust, Attribute.RESTING_LUST.getUpperLimit()));
 	}
 	
 	public String setLust(float lust) {
@@ -18781,6 +18793,15 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isWearingCondom() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isCondom(c.getSlotEquippedTo())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isWearingChastity() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getItemTags().contains(ItemTag.CHASTITY)) {
 				return true;
 			}
 		}
@@ -19822,11 +19843,12 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.worldLocation = worldLocation;
 		
-		this.location = location;
+		Vector2i boundVector = new Vector2i(Math.min(Main.game.getWorlds().get(worldLocation).WORLD_WIDTH-1, location.getX()), Math.min(Main.game.getWorlds().get(worldLocation).WORLD_HEIGHT-1, location.getY()));
+		this.location = boundVector;
 		if(this.companions!=null && (!this.isPlayer() || !this.isCaptive())) { // Companions do not follow if player is captive
 			for(GameCharacter companion : this.getCompanions()) {
 				if(!companion.isCaptive()) { // Characters do not follow if captive:
-					companion.setLocation(getWorldLocation(), location, false);
+					companion.setLocation(getWorldLocation(), boundVector, false);
 				}
 			}
 		}
@@ -19834,7 +19856,7 @@ public abstract class GameCharacter implements XMLSaving {
 		getCell().addCharacterPresentId(this.getId());
 		
 		if(setAsHomeLocation) {
-			setHomeLocation(worldLocation, location);
+			setHomeLocation(worldLocation, boundVector);
 		}
 		
 		updateLocationListeners();
@@ -19866,9 +19888,17 @@ public abstract class GameCharacter implements XMLSaving {
 			setLocation(worldType, Util.randomItemFrom(occupiedCells).getLocation(), setAsHomeLocation);
 		}
 	}
+
+	public void setRandomLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		setRandomLocation(worldType, placeType, false);
+	}
 	
 	public void setRandomLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
+	}
+
+	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		setNearestLocation(worldType, placeType, false);
 	}
 	
 	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
@@ -19934,8 +19964,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setHomeLocation(AbstractWorldType homeWorldLocation, Vector2i location) {
 		getHomeCell().removeCharacterHomeId(this.getId());
 		this.homeWorldLocation = homeWorldLocation;
-		this.homeLocation = location;
-		Main.game.getWorlds().get(homeWorldLocation).getCell(location).addCharacterHomeId(this.getId());
+		
+		Vector2i boundVector = new Vector2i(Math.min(Main.game.getWorlds().get(worldLocation).WORLD_WIDTH-1, location.getX()), Math.min(Main.game.getWorlds().get(worldLocation).WORLD_HEIGHT-1, location.getY()));
+		this.homeLocation = boundVector;
+		Main.game.getWorlds().get(homeWorldLocation).getCell(boundVector).addCharacterHomeId(this.getId());
 	}
 	
 	public void returnToHome() {
@@ -22724,8 +22756,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue();
 	}
 	
-	private GenderAppearance calculateGenderAppearance(boolean colouredGender)
-	{
+	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
 		return calculateGenderAppearance(colouredGender, false);
 	}
 	
@@ -22740,7 +22771,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.F_P_V_B_FUTANARI);
 						
 				} else if(visibleVagina) {
@@ -22948,7 +22979,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.N_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -23156,7 +23187,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.M_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -23647,6 +23678,13 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		return "";
+	}
+	
+	/**
+	 * Calls body.removeAllMakeup(), which sets all makeup coverings to be: CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE
+	 */
+	public void removeAllMakeup() {
+		body.removeAllMakeup();
 	}
 	
 	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
@@ -24368,7 +24406,13 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// ------------------------------ Arms: ------------------------------ //
-	
+
+	/**
+	 * @return true If this character is not feral, or if the cahratcer's feral parts are defined to allow arms or arm-wings.
+	 */
+	public boolean hasArms() {
+		return !this.isFeral() || this.getFeralAttributes().isArmsOrWingsPresent();
+	}
 	// Type:
 	public AbstractArmType getArmType() {
 		return body.getArm().getType();
@@ -25211,10 +25255,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Breasts: ------------------------------ //
 	
 	// Misc:
-	/** Feral characters do not have breasts. */
+	/** Feral characters are the only characters who may not have nipples, as they often do not have breasts. */
+	public boolean hasNipples() {
+		return !this.isFeral() || this.getFeralAttributes().isBreastsPresent();
+	}
 	public boolean hasBreasts() {
-		return (this.isFeral()?this.getFeralAttributes().isBreastsPresent():true)
-				&& body.getBreast().hasBreasts();
+		return hasNipples() && body.getBreast().hasBreasts();
 	}
 	public boolean isBreastFuckableNipplePenetration() {
 		return body.getBreast().isFuckable();

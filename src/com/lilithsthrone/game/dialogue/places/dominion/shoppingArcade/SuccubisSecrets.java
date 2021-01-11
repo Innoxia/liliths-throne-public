@@ -9,12 +9,21 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Antenna;
+import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
+import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -368,16 +377,46 @@ public class SuccubisSecrets {
 								name = "vagina";
 							}
 							
-							if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(Main.game.getPlayer()))) {
-								CoveringsNamesMap.get(bp.getBodyCoveringType(Main.game.getPlayer())).add(name);
-							} else {
-								CoveringsNamesMap.put(bp.getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
+							boolean addBpi = true;
+							// Check for parts not owned:
+							if((bp instanceof Antenna && !Main.game.getPlayer().hasAntennae())
+									|| (bp instanceof Arm && !Main.game.getPlayer().hasArms())
+									|| (bp instanceof Breast && !Main.game.getPlayer().hasNipples())
+									|| (bp instanceof BreastCrotch && !Main.game.getPlayer().hasBreastsCrotch())
+									|| (bp instanceof Hair && !Main.game.getPlayer().hasHair())
+									|| (bp instanceof Horn && !Main.game.getPlayer().hasHorns())
+									|| (bp instanceof Penis && !Main.game.getPlayer().hasPenisIgnoreDildo())
+									|| (bp instanceof Tail && !Main.game.getPlayer().hasTail())
+									|| (bp instanceof Tentacle && !Main.game.getPlayer().hasTentacle())
+									|| (bp instanceof Vagina && !Main.game.getPlayer().hasVagina())
+									|| (bp instanceof Wing && !Main.game.getPlayer().hasWings())) {
+								addBpi = false;
+							}
+							if(addBpi) {
+								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(Main.game.getPlayer()))) {
+									CoveringsNamesMap.get(bp.getBodyCoveringType(Main.game.getPlayer())).add(name);
+								} else {
+									CoveringsNamesMap.put(bp.getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
+								}
 							}
 						}
 					}
+					
+					
 					if(Main.game.getPlayer().getTailType()==TailType.DEMON_HAIR_TIP && !CoveringsNamesMap.containsKey(BodyCoveringType.HAIR_DEMON)) {
 						CoveringsNamesMap.put(BodyCoveringType.HAIR_DEMON, Util.newArrayListOfValues(BodyCoveringType.HAIR_DEMON.getName(Main.game.getPlayer())));
 					}
+
+					if(Main.game.getPlayer().hasNipples()) {
+						CoveringsNamesMap.putIfAbsent(BodyCoveringType.MILK, Util.newArrayListOfValues("milk"));
+					}
+					if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
+						CoveringsNamesMap.putIfAbsent(BodyCoveringType.CUM,  Util.newArrayListOfValues("cum"));
+					}
+					if(Main.game.getPlayer().hasVagina()) {
+						CoveringsNamesMap.putIfAbsent(BodyCoveringType.GIRL_CUM,  Util.newArrayListOfValues("girlcum"));
+					}
+					
 					
 					if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
 						CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getPubicHairType().getType(), new ArrayList<>());
@@ -575,12 +614,11 @@ public class SuccubisSecrets {
 				String title = Util.capitaliseSentence(bct.getName(Main.game.getPlayer()));
 				String description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently covering your "+Util.stringsToStringList(entry.getValue(), false)+".";
 				
-//				if(bct == BodyCoveringType.SLIME) {
-//					title = "Slime";
-//					description = "Your entire body is made of slime!";
-//					
-//				} else
-				if(bct.getCategory()==BodyCoveringCategory.ANUS) {
+
+				if(bct.getCategory()==BodyCoveringCategory.FLUID) {
+					description = "As its name would suggest, this is simply your "+Util.stringsToStringList(entry.getValue(), false)+".";
+					
+				} else if(bct.getCategory()==BodyCoveringCategory.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering your anal rim. The secondary colour determines what your anus's inner-walls look like.";
 					

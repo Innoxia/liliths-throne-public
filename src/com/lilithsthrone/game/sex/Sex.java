@@ -228,7 +228,7 @@ public class Sex {
 	/**Maps: Characters performing denials -> Map of characters they've denied mapped to the number of times they were denied. */
 	private Map<GameCharacter, Map<GameCharacter, Integer>> deniedOrgasmsCountMap;
 	private Map<GameCharacter, Map<GameCharacter, Map<SexType, Integer>>> sexCountMap;
-	private Map<GameCharacter, Map<GameCharacter, Integer>> cummedInsideMap;
+	private Map<GameCharacter, Map<GameCharacter, Map<SexAreaInterface, Integer>>> cummedInsideMap;
 
 	
 	// Positioning, requests, tracking:
@@ -1016,7 +1016,7 @@ public class Sex {
 					}
 				}
 			}
-			participant.setLastTimeHadSex(Main.game.getMinutesPassed(), Main.sex.getNumberOfOrgasms(participant)>0);
+			participant.setLastTimeHadSex(Main.game.getMinutesPassed(), false); // Do not need to set orgasm time, as it is set in setNumberOfOrgasms() and incrementNumberOfOrgasms()
 			if(participant instanceof NPC) {
 				((NPC)participant).endSex();
 			}
@@ -1282,7 +1282,6 @@ public class Sex {
 				}
 				if(getNumberOfOrgasms(participant) > 0
 						&& Main.game.isInNewWorld()) {
-					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
 						endSexSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -1395,7 +1394,6 @@ public class Sex {
 				}
 				if(getNumberOfOrgasms(participant) > 0
 						&& Main.game.isInNewWorld()) {
-					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
@@ -2623,8 +2621,10 @@ public class Sex {
 								stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()));
 							}
 						}
+						for(SexAreaInterface cummedArea : cummedInAreas) {
+							Main.sex.incrementTimesCummedInside(cumProvider, cumTarget, cummedArea, 1);
+						}
 					}
-					Main.sex.incrementTimesCummedInside(cumProvider, cumTarget, 1);
 				}
 
 				List<CoverableArea> cummedOnAreas = sexAction.getAreasCummedOn(cumProvider, cumTarget);
@@ -5096,7 +5096,10 @@ public class Sex {
 	
 	private void addSexAction(GameCharacter character, GameCharacter target, SexActionInteractions interactions, SexActionInterface action, boolean addedForCharacter, boolean addedForTarget) {
 		if(!addedForCharacter) {
-			if(action.getSexAreaInteractions().isEmpty()) {
+			if(action.getSexAreaInteractions().isEmpty()
+					|| action.getSexAreaInteractions().keySet().contains(null)
+					|| action.getSexAreaInteractions().values().contains(null)) {
+				// If no sex interactions are defined, or if there is an "interaction-to-null" defined (signifying that the action is performing a simple availability check), then add the action
 				addedForCharacter = true;
 			} else {
 				outer:
@@ -5118,7 +5121,10 @@ public class Sex {
 		}
 
 		if(!addedForTarget) {
-			if(action.getSexAreaInteractions().isEmpty()) {
+			if(action.getSexAreaInteractions().isEmpty()
+					|| action.getSexAreaInteractions().keySet().contains(null)
+					|| action.getSexAreaInteractions().values().contains(null)) {
+				// If no sex interactions are defined, or if there is an "interaction-to-null" defined (signifying that the action is performing a simple availability check), then add the action
 				addedForTarget = true;
 			} else {
 				outer:
@@ -5435,10 +5441,12 @@ public class Sex {
 	}
 	
 	public void setNumberOfOrgasms(GameCharacter character, int count) {
+		character.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 		orgasmCountMap.put(character, count);
 	}
 	
 	public void incrementNumberOfOrgasms(GameCharacter character, int increment) {
+		character.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 		character.incrementDaysOrgasmCount(increment);
 		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
@@ -5472,21 +5480,30 @@ public class Sex {
 		deniedOrgasmsCountMap.get(denier).put(target, deniedOrgasmsCountMap.get(denier).get(target)+increment);
 	}
 	
+	/**
+	 * @return The total number of times the character has cum inside the target during the sex scene. Use the other method signatures if you want to check for a specific orifice/penetration.
+	 */
 	public int getTimesCummedInside(GameCharacter character, GameCharacter target) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).putIfAbsent(target, 0);
-		return cummedInsideMap.get(character).get(target);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		return cummedInsideMap.get(character).get(target).values().stream().collect(Collectors.summingInt(Integer::intValue));
 	}
 	
-	public void setTimesCummedInside(GameCharacter character, GameCharacter target, int count) {
+	public int getTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).put(target, count);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		cummedInsideMap.get(character).get(target).putIfAbsent(areaCummedIn, 0);
+		return cummedInsideMap.get(character).get(target).get(areaCummedIn);
 	}
 	
-	public void incrementTimesCummedInside(GameCharacter character, GameCharacter target, int increment) {
+	public void setTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn, int count) {
 		cummedInsideMap.putIfAbsent(character, new HashMap<>());
-		cummedInsideMap.get(character).putIfAbsent(target, 0);
-		cummedInsideMap.get(character).put(target, cummedInsideMap.get(character).get(target)+increment);
+		cummedInsideMap.get(character).putIfAbsent(target, new HashMap<>());
+		cummedInsideMap.get(character).get(target).put(areaCummedIn, count);
+	}
+	
+	public void incrementTimesCummedInside(GameCharacter character, GameCharacter target, SexAreaInterface areaCummedIn, int increment) {
+		setTimesCummedInside(character, target, areaCummedIn, getTimesCummedInside(character, target, areaCummedIn)+increment);
 	}
 	
 	public int getSexTypeCount(GameCharacter performer, GameCharacter partner, SexType sexType) {
@@ -5605,7 +5622,6 @@ public class Sex {
 				return false;
 			}
 		}
-		
 		return !Main.sex.getSexPositionSlot(charactersFeet).isStanding(charactersFeet);
 	}
 	
@@ -5882,5 +5898,16 @@ public class Sex {
 				break;
 		}
 		return true;
+	}
+	
+	/**
+	 * Helper method so that there's a parser hook for generating a SexType.
+	 */
+	public SexType newSexType(SexParticipantType asParticipant, SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
+		return new SexType(asParticipant, performingSexArea, targetedSexArea);
+	}
+	
+	public SexType newSexType(SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
+		return new SexType(SexParticipantType.NORMAL, performingSexArea, targetedSexArea);
 	}
 }

@@ -506,50 +506,6 @@
 	</htmlContent>
 	
 	
-	<!-- BOUNTY_HUNTERS -->
-	
-	<htmlContent tag="BOUNTY_HUNTERS"><![CDATA[
-	<p>
-		On the opposite side of the street to the Slavery Administration building, there's a timber-framed tavern bearing the name 'Bounty Hunter Lodge'. A sign near to the door declares it to be open twenty-four hours a day, seven days of the week, and is the best place in the city to find and hire bounty hunters willing to track down runaway slaves.
-	</p>
-	<p>
-		The bright lights shining out of the crooked old windows, combined with the loud sounds of merriment coming from within, informs you that there are a multitude of people currently inside. If you wanted to, you could step in through the open doors and take a look inside.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="BOUNTY_HUNTERS_ENTER"><![CDATA[
-	<p>
-		Pushing open the front door, you step into the establishment and take a look around... 
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- BOUNTY_HUNTERS_INTERIOR -->
-	
-	<htmlContent tag="BOUNTY_HUNTERS_INTERIOR"><![CDATA[
-	<p>
-		The interior of the 'Bounty Hunter Lodge' takes the form of a large open-plan dining area, with a long wooden bar running along the far wall. The expansive floor area is filled with long wooden tables and benches, which are currently seating a large number of people of all different shapes and sizes. From the heady smell in the air and the inebriated shouts and laughter coming from the tavern's patrons, you can safely assume that a large portion of most bounty hunter's pay-checks are spent in here on alcohol.
-	</p>
-	<p>
-		#IF(game.getCharactersPresent().contains(silence))
-			Sitting all alone in one corner of the large hall, you see the familiar figure of Silence, the albino rat-girl whom you first met serving as one of Vengar's bodyguards. You wonder if you should head over and say something to her, or turn around and leave...
-		#ELSE
-			As you don't have any business with these bounty hunters, there's not much else you can do but turn around and leave...
-		#ENDIF
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="BOUNTY_HUNTERS_INTERIOR_LEAVE"><![CDATA[
-	<p>
-		Deciding that you've had enough of being in this place, you exit in the same way you entered, and soon find yourself standing back outside in Slaver Alley... 
-	</p>
-	]]>
-	</htmlContent>
-	
-	
 	<!-- AUCTION_BLOCK -->
 	
 	<htmlContent tag="AUCTION_BLOCK"><![CDATA[

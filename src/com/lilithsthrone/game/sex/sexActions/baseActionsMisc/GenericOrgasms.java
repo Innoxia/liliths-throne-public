@@ -7161,7 +7161,7 @@ public class GenericOrgasms {
 
 		@Override
 		public String getActionDescription() {
-			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Don't make any requests of [npc2.herHim], and see what [npc2.she] has in store for you.";
+			return "You can feel that [npc2.name] is fast approaching [npc2.her] orgasm. Don't make any requests of [npc2.herHim], and see what [npc2.sheHasFull] in store for you.";
 		}
 
 		@Override

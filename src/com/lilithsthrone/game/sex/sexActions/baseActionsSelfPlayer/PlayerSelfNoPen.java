@@ -80,65 +80,6 @@ public class PlayerSelfNoPen {
 		
 	};
 	
-	
-	public static final SexAction PLAYER_STROKE_PENIS = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
-			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
-			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
-		}
-		
-		@Override
-		public String getActionTitle() {
-			return "Stroke cock (self)";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Get some pleasure from stroking your [pc.cock].";
-		}
-
-		@Override
-		public String getDescription() {
-			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				return UtilText.returnStringAtRandom(
-						"Reaching down between your [pc.legs+], you take hold of your [pc.cock+], stroking up and down its length as you let out [pc.a_moan+].",
-						"You tease your [pc.fingers] over the [pc.cockHead+] of your [pc.cock+], groaning and sighing as you start jerking off.",
-						"Taking hold of your [pc.cock+] in one hand, you let out [pc.a_moan+] as you start jerking off.",
-						"Wrapping your [pc.fingers] around your [pc.cock+], you let out a series of [pc.groans+] as you start masturbating.");
-				
-			} else {
-				return UtilText.returnStringAtRandom(
-						"You run your [pc.hand] over your groin, pressing your "+Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+" down against your [pc.cock+] as you let out a little [pc.groan].",
-						"You slide your fingers down between your [pc.legs+], letting out a little [pc.groan] as you feel your "+Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
-								+" rubbing down against your [pc.cock+].",
-						"You slide your fingertips over your "+Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+", before pressing down and trying to stimulate your [pc.cock+] through your clothing.",
-						"Pushing down between your legs with the palm of your hand, you rub up and down as you feel your "+Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
-								+" being pressed tightly against your concealed [pc.cock].");
-			}
-		}
-		
-		@Override
-		public void applyEffects() {
-			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaPenetration.PENIS);
-			}
-		}
-		
-	};
-	
-	
-	
 	public static final SexAction PLAYER_STROKE_MOUND = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,

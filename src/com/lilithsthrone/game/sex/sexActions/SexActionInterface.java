@@ -1657,7 +1657,7 @@ public interface SexActionInterface {
 					break;
 				case FOOT:
 					// IF no legs or feet, cannot use foot actions:
-					if(performingCharacter.getLegCount()==0 || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
+					if(!performingCharacter.hasLegs() || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
 						return false;
 					}
 					break;
