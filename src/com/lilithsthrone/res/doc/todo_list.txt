@@ -26,6 +26,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the player's elemental had their combat moves reset every time you loading a saved game. (by AceXP)
 	 	Fixed softlock at the end of combat when fighting imps in Submission. (by AceXP)
 		Improved performance by caching subspecies variables and only doing a recalculation when needed. (PR#1471 by AceXP)
+		Fixed typo in 'Ear pull' blowjob action. (PR#1472 by darkofoc)
+		Fixed issue where the appearance for feral legs was hardcoded and didn't take various leg configurations into account. (PR#1467 by Stadler76)
 		
 	DSG's race fixes:
 		Race version 1.3:
@@ -118,6 +120,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Helena sex without her becoming a total slut
 	Make a non-sloot Helena ending
 	
+	demonic sneks basiliks?
 	
 	Some errors in the selfie in punctuation and description..
 	-- You have a short, dark brown, white-highlighted, dragon-like mane than runs from her head down the back of your neck.​ , which is unstyled.
