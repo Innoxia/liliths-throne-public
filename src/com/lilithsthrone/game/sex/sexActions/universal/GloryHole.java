@@ -222,7 +222,8 @@ public class GloryHole {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+			return Main.sex.getCharacterPerformingAction().hasVagina()
+					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED
 						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING
 						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))==SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)

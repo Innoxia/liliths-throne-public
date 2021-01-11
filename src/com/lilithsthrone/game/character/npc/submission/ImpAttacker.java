@@ -51,6 +51,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
@@ -346,6 +347,9 @@ public class ImpAttacker extends NPC {
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = target.getSubspecies().getTransformativeItem(target);
+        if(itemType==null) {
+            itemType = ItemType.getItemTypeFromId("innoxia_race_human_bread_roll");
+        }
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 //		int numberOfTransformations = (2+Util.random.nextInt(4)) * (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2:1);

@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -65,6 +66,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -300,15 +302,29 @@ public class Nyan extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 
 		this.unequipAllClothingIntoVoid(true, true);
-		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+
+		Colour lingerieColour = Util.randomItemFrom(Util.newArrayListOfValues(
+				PresetColour.CLOTHING_WHITE,
+				PresetColour.CLOTHING_WHITE,
+				PresetColour.CLOTHING_WHITE,
+				PresetColour.CLOTHING_BLACK));
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, lingerieColour, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, lingerieColour, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_mini_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_BLOUSE, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
-
+		
+		Colour blouseColour = Util.randomItemFrom(Util.newArrayListOfValues(
+				PresetColour.CLOTHING_WHITE,
+				PresetColour.CLOTHING_PINK_LIGHT,
+				PresetColour.CLOTHING_PINK_LIGHT,
+				PresetColour.CLOTHING_PINK_LIGHT,
+				PresetColour.CLOTHING_PERIWINKLE));
+		AbstractClothing blouse = Main.game.getItemGen().generateClothing("innoxia_torso_blouse", blouseColour, false);
+		blouse.setSticker("nametag", "nyan");
+		
+		this.equipClothingFromNowhere(blouse, true, this);
 	}
 	
 	@Override
@@ -329,6 +345,9 @@ public class Nyan extends NPC {
 
 	@Override
 	public void dailyUpdate() {
+		this.applyWash(true, true, StatusEffect.CLEANED_SHOWER, (8*60));
+		equipClothing();
+		
 		clearNonEquippedInventory(false);
 		
 		commonFemaleClothing.clear();

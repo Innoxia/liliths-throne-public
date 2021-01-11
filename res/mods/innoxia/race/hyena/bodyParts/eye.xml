@@ -16,6 +16,12 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_eye</coveringType>
 	
+	<!-- Tags which are associated with this eye type.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
+	<tags>
+		<tag>NIGHT_VISION</tag>
+	</tags>
+	
 	<!-- The default number of pairs that this eye type should have (should most likely be 1). -->
 	<defaultPairCount>1</defaultPairCount>
 	
@@ -25,7 +31,7 @@
 	
 	<!-- The default shape that the pupil should have.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/EyeShape.java -->
-	<defaultPupilShape>ROUND</defaultPupilShape>
+	<defaultPupilShape>VERTICAL</defaultPupilShape>
 	
 	<!-- The singular and plural names of this eye. -->
 	<name><![CDATA[eye]]></name>
@@ -43,7 +49,7 @@
 	<!-- The description which is shown when a character transforms to obtain this eye type.
 	This description immediately follows a brief description of the eye type undergoing a transformation. -->
 	<transformationDescription><![CDATA[
-		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into hyena-like eyes, with large irises and pupils.
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into hyena-like eyes, with large irises and vertical pupils.
 		<br/>[npc.Name] now [npc.has] [style.boldHyena(hyena-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].
 	]]></transformationDescription>
 	

@@ -1669,6 +1669,9 @@ public class Body implements XMLSaving {
 			if(importedEye.getType().getRace()==Race.CAT_MORPH) {
 				importedEye.setType(null, EyeType.getEyeTypes(Race.getRaceFromId("innoxia_panther")).get(0));
 			}
+			if(importedEar.getType().getRace()==Race.CAT_MORPH) {
+				importedEar.setType(null, EarType.getEarTypes(Race.getRaceFromId("innoxia_panther")).get(0));
+			}
 			if(importedHair.getType().getRace()==Race.CAT_MORPH) {
 				importedHair.setType(null, HairType.getHairTypes(Race.getRaceFromId("innoxia_panther")).get(0));
 			}
@@ -1936,6 +1939,7 @@ public class Body implements XMLSaving {
 							felineCovering.isPrimaryGlowing(),
 							felineCovering.getSecondaryColour(),
 							felineCovering.isSecondaryGlowing());
+					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getBodyCoveringTypeFromId("innoxia_panther_fur"));
 				}
 				
 //				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
@@ -3036,14 +3040,14 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Penis"));
 			if (observant) {
 				if(owner.hasPenis()) {
-					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a cock,"
+					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.sheHasFull] a cock,"
 										+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]");
 				} else {
 					sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a cock.)]");
 				}
 				
 			} else {
-				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]");
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.sheHasFull] one.)]");
 			}
 			sb.append("</p>");
 		}
@@ -3059,7 +3063,7 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Vagina"));
 			if (observant){
 				if(vagina.getType() != VaginaType.NONE){
-					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a pussy,"
+					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.sheHasFull] a pussy,"
 									+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]");
 					
 				} else {
@@ -3067,7 +3071,7 @@ public class Body implements XMLSaving {
 				}
 				
 			} else {
-				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]");
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.sheHasFull] one.)]");
 			}
 			sb.append("</p>");
 		}
@@ -5223,7 +5227,7 @@ public class Body implements XMLSaving {
 			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
 				descriptionSB.append(" [npc.Her] belly is noticeably swollen, as [npc.sheIs] well into [npc.her] pregnancy.");
 			} else {
-				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to give birth just yet.");
+				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to give birth just yet.");
 			}
 			descriptionSB.append("</p>");
 			sectionAdded = true;
@@ -5336,7 +5340,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_2)) {
 							stage = " [npc.Her] belly is noticeably swollen, as the eggs in [npc.her] stomach have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] stomach just yet.";
+							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] stomach just yet.";
 						}
 						break;
 					case NIPPLE:
@@ -5346,7 +5350,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_2)) {
 							stage = " [npc.Her] [npc.breasts] are noticeably swollen, as the eggs in [npc.her] [npc.nipples] have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] [npc.breasts] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.nipples] just yet.";
+							stage = " [npc.Her] [npc.breasts] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.nipples] just yet.";
 						}
 						break;
 					case NIPPLE_CROTCH:
@@ -5356,7 +5360,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2)) {
 							stage = " [npc.Her] [npc.crotchBoobs] are noticeably swollen, as the eggs in [npc.her] [npc.crotchNipples] have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] [npc.crotchBoobs] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.crotchNipples] just yet.";
+							stage = " [npc.Her] [npc.crotchBoobs] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.crotchNipples] just yet.";
 						}
 						break;
 					case SPINNERET:
@@ -5367,7 +5371,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_2)) {
 							stage = " [npc.Her] "+spinneretArea+" is noticeably swollen, as the eggs in [npc.her] spinneret have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] "+spinneretArea+" is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] spinneret just yet.";
+							stage = " [npc.Her] "+spinneretArea+" is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] spinneret just yet.";
 						}
 						break;
 					case VAGINA:
@@ -5377,7 +5381,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_2)) {
 							stage = " [npc.Her] belly is noticeably swollen, as the eggs in [npc.her] womb have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
+							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
 						}
 						break;
 					case ASS:
@@ -5503,7 +5507,7 @@ public class Body implements XMLSaving {
 					descriptionSB.append("<p>");
 				}
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] is responsible for previously having laid [npc.her] eggs in you, and in total, [npc.she] has done so "+Util.intToString(incubatedLitters)+" "+(incubatedLitters==1?"time":"times")+".</span>");
+							+ "[npc.Name] is responsible for previously having laid [npc.her] eggs in you, and in total, [npc.sheHasFull] done so "+Util.intToString(incubatedLitters)+" "+(incubatedLitters==1?"time":"times")+".</span>");
 				
 				for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
 					if(litter.getMother()!=null && litter.getMother().equals(owner)) {
@@ -5867,7 +5871,12 @@ public class Body implements XMLSaving {
 			this.getHair().setLength(null, 0);
 		}
 		
-		// Remove all makeup:
+		removeAllMakeup();
+		
+		CharacterModificationUtils.resetCoveringsToBeApplied();
+	}
+
+	public void removeAllMakeup() {
 		for(AbstractBodyCoveringType makeup : BodyCoveringType.allMakeupTypes) {
 			if(coverings.containsKey(makeup)) {
 				coverings.put(makeup, new Covering(makeup, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE, false, PresetColour.COVERING_NONE, false));
@@ -5875,7 +5884,7 @@ public class Body implements XMLSaving {
 		}
 		CharacterModificationUtils.resetCoveringsToBeApplied();
 	}
-
+	
 	public boolean isPiercedStomach() {
 		return piercedStomach;
 	}

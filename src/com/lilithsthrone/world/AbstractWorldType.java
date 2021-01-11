@@ -72,8 +72,8 @@ public abstract class AbstractWorldType {
 		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
-		usesFile = true;
-		this.placesMap=placesMap;
+		this.usesFile = true;
+		this.placesMap = placesMap;
 	}
 	
 	@Override

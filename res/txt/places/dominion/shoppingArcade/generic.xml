@@ -131,6 +131,32 @@
 	</htmlContent>
 	
 	
+	<!-- RESTAURANT -->
+	
+	<htmlContent tag="RESTAURANT"><![CDATA[
+	<p>
+		Tucked away in one corner of the Shopping Arcade, the restaurant 'The Oaken Glade' proudly displays its name in flowing gold lettering above its front door. The establishment's large windows allow you to look in on an incredible scene; the vast interior has been manipulated by some form of arcane-powered illusion, making it appear as though the restaurant is a portal directly into the middle of a summer-time forest clearing.
+		#IF(game.isDayTime())
+			 Bright sunlight shines down through the leaves of the huge oak trees which border this clearing, covering the tables and chairs in a soft, dappled-green glow.
+		#ELSE(game.getCurrentDayPeriod()==DAY_PERIOD_NIGHT)
+			 Glowing lanterns have been hung from the branches of the huge oak trees which border this clearing, casting the tables and chairs in a soft, orange glow.
+		#ENDIF
+	</p>
+	<p>
+		The scene is so fascinating that it's able to draw in a continuous stream of passersby. Walking up to the menu displayed next to the entrance, these potential customers are almost all immediately turned away by what they see. Moving up to take a look yourself, you see the reason for their swift departure; the cheapest item on the menu is a three-course meal that's priced at almost one-thousand flames. The wine menu is even more outrageously expensive, and you imagine that it would be all too easy for a couple to generate an evening's bill of close to ten thousand flames.
+	</p>
+	<p>
+		The glass of the window beside the front door has been elaborately etched with decorative, flowing patterns, and in the middle of this, there's some writing which declares this restaurant to be
+		#IF(game.getHourOfDay()>=18 && game.getHourOfDay()<=23)
+			 [style.colourMinorGood('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourGood(open)].
+		#ELSE
+			 [style.colourMinorBad('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- ANTIQUES -->
 	
 	<htmlContent tag="ANTIQUES"><![CDATA[
@@ -293,6 +319,214 @@
 	</p>
 	<p>
 		Saying farewell to the unfortunate squirrel-boy, you follow in Scarlett's footsteps, and after quickly exiting the store room, you continue on back out into the Shopping Arcade. Looking around, you see no sign of the rude harpy, and assume that she must have immediately flown off back to Helena's shop. Thinking that it would be best to return there yourself as quickly as possible, you set off on your way once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		Conveniently located near to the entrance of the Arcade, these public toilets appear to be very regularly maintained, as they are nothing short of being spotlessly clean. They're also of a higher quality than a regular public restroom, as the walls, floor, and sinks are all made out of what appears to be marble. The dozen-or-so stalls are expertly crafted out of varnished, wooden panelling, while the excellent ventilation ensures that the air is always fresh and odour-free.
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Due to the current time, these toilets are completely deserted. As you walk past the open stalls, you see that the wall separating the two at the far end has had a glory hole cut into it. While a piece of cardboard has been taped over this hole, there's really nothing that would be stopping someone from peeling this barrier off and making use of it...
+		#ELSE
+			A few of the stalls are currently occupied, while a couple of members of the public are making use of the sinks before heading back out into the Arcade to continue their shopping. As you walk past these people, you see that the wall separating two of the stalls has had a glory hole cut into it. While a piece of cardboard has been taped over this hole, there's really nothing that would be stopping someone from peeling this barrier off and making use of it...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_USE -->
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		Stepping into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet. After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_WASH -->
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM"><![CDATA[
+	<p>
+		Deciding that it would be fun to get serviced at the glory hole, you peel off the cardboard that's covering it up, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		#IF(game.isExtendedWorkTime())
+			 With the room being as relatively busy as it is, you know that you won't have to wait long before a stranger turns up who'll choose to service you through the glory hole...
+		#ELSE
+			 With the room being completely deserted, you have little choice but to patiently wait and hope that a stranger turns up who'll choose to service you through the glory hole...
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Twenty
+		#ELSE
+			Five
+		#ENDIF
+		 minutes later, you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger chooses to immediately kneel down
+		#IF(npc.isMute())
+			 and push [npc.her] open mouth up to the hole. With an impatient tap on the wall to let you know that [npc.sheIs] there, the stranger prepares to orally service you.
+		#ELSE
+			 and call out through the hole,
+			#IF(pc.hasPenis())
+				 [npc.speech(Come on then! Put your cock through here and I'll give it a good suck!)]
+			#ELSEIF(pc.hasVagina())
+				 [npc.speech(Come on then! Push your pussy up against the hole and I'll eat you out!)]
+			#ELSE
+				 [npc.speech(Come on then! Give me something to suck already!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about receiving oral from some random stranger, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly step up to the glory hole,
+		#IF(pc.hasPenis())
+			 preparing to have your [pc.cock+] sucked by the stranger on the other side.
+		#ELSEIF(pc.hasVagina())
+			 preparing to have your [pc.pussy+] licked by the stranger on the other side.
+		#ELSE
+			 preparing to have your genderless mound licked by the stranger on the other side.
+		#ENDIF
+	</p>
+	<p>
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		#IF(!npc.isMute())
+			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
+			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
+			|[npc.speech(~Mmm!~ Oh yeah! Let's get started!)]
+			|[npc.speech(Oh yeah, babe! I'll show you how much of a slut I am!)])]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_DOM_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_DOM_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the horny slut's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to who just orally serviced you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB"><![CDATA[
+	<p>
+		Feeling horny and eager to pleasure some stranger's cock, you peel off the tape that's covering up the glory hole, before
+		#IF(pc.hasCompanions())
+			 telling [com.name] to wait outside and then locking the stall's door behind you.
+		#ELSE
+			  locking the stall's door behind you.
+		#ENDIF
+		#IF(game.isExtendedWorkTime())
+			 With the room being as relatively busy as it is, you know that you won't have to wait long before a stranger turns up who'll want you to orally service them...
+		#ELSE
+			 With the room being completely deserted, you have little choice but to patiently wait and hope that a stranger turns up who'll want you to orally service them...
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			Twenty
+		#ELSE
+			Five
+		#ENDIF
+		 minutes later, and you finally hear someone enter the stall on the other side. With the open glory hole obviously having been the reason they chose to enter this stall, the stranger immediately steps up to it and starts shifting their clothing out of the way. Just a moment later, and their [npc.cockDescriptive(true)] is being pushed through the hole. Before you can make a move, [npc.name]
+		#IF(npc.isMute())
+			 impatiently taps the wall, encouraging you to get started on sucking [npc.her] cock...
+		#ELSE
+			#IF(npc.isSelfish())
+				#IF(npc.isFeminine())
+					 barks out a sharp command,
+				#ELSE
+					 lets out a deep growl,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on, slut, get to work!)]
+				|[npc.speech(Start sucking, slut!)]
+				|[npc.speech(Come on, you dirty slut, get started already!)])]
+			#ELSE
+				#IF(npc.isFeminine())
+					 sensually [npc.moansVerb],
+				#ELSE
+					 lets out a deep grunt,
+				#ENDIF
+				 [game.random(
+				[npc.speech(Come on then, show me what you can do!)]
+				|[npc.speech(Get your lips wrapped around my cock!)]
+				|[npc.speech(Come on, get started already!)])]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_LEAVE"><![CDATA[
+	<p>
+		Having second thoughts about servicing some random stranger's cock, you back away from the hole and wait for them to give up and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_START"><![CDATA[
+	<p>
+		Having already waited long enough, you quickly kneel down in front of the glory hole,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 before opening your mouth and leaning in towards [npc.namePos] [npc.cock+].
+		#ELSE
+			 but as your mouth is blocked, all you can prepare to do is give [npc.name] a handjob.
+		#ENDIF
+	</p>
+	<p>
+		Hearing you drop down in front of [npc.herHim], [npc.name] lets out an eager [npc.moan], and as [npc.her] cock starts to stiffen, [npc.she] impatiently bucks [npc.her] [npc.hips] up against the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILETS_GLORY_HOLE_SUB_POST_SEX -->
+	
+	<htmlContent tag="TOILETS_GLORY_HOLE_SUB_POST_SEX"><![CDATA[
+	<p>
+		You step back from the glory hole, grinning to yourself as you hear [npc.name] letting out a satisfied [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of the adjoining stall's door announces the stranger's exit.
+	</p>
+	<p>
+		Just a moment later, you reach down to unlock the door of your own stall, and as you open it and step back out into the toilets, you see that [npc.name] has already left. With absolutely no idea as to whose cock you just serviced, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>

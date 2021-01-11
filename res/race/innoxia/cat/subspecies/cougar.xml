@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>CAT_MORPH</race>
+	<colour>innoxia_cougar</colour>
+	<secondaryColour>innoxia_cougar</secondaryColour>
+	<tertiaryColour>innoxia_cougar</tertiaryColour>
+	<mainSubspecies>false</mainSubspecies>
+	<baseSlaveValue>18000</baseSlaveValue>
+	<attributeItemId>innoxia_race_cat_felines_fancy</attributeItemId>
+	<transformativeItemId>innoxia_race_cat_kittys_reward</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges><![CDATA[
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_FELINE_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_SHORT, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_FELINE_FUR, COVERING_PATTERN_NONE, COLOUR_COVERING_TAN, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.updateCoverings(true, true, true, true)]
+		[#targetedBody.setBodySize(55)]
+		[#targetedBody.setMuscle(75)]
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_CAT_MORPH
+		&& targetedBody.getCovering(BODY_COVERING_TYPE_FELINE_FUR, true).getPrimaryColour()==COLOUR_COVERING_TAN
+		&& targetedBody.getCovering(BODY_COVERING_TYPE_FELINE_FUR, true).getPattern()==COVERING_PATTERN_NONE
+		&& targetedBody.getMuscle()>=MUSCLE_THREE_MUSCULAR.getMinimumValue()
+		&& targetedBody.getBodySize()>=BODY_SIZE_TWO_AVERAGE.getMinimumValue())
+			120
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="75">icon</iconName>
+	<backgroundName/>
+	<bookIconName>icon</bookIconName>
+	<bookName>Curious Kitties</bookName>
+	<basicDescriptionId>CAT_MORPH_BASIC</basicDescriptionId>
+	<advancedDescriptionId>CAT_MORPH_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[cougar-morph]]></name>
+	<namePlural><![CDATA[cougar-morphs]]></namePlural>
+	<singularMaleName><![CDATA[cougar-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[cougar-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[cougar-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[cougar-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic cougar, known as a 'cougar-morph' when bipedal, and a 'cougartaur' when the lower body is that of a feral cougar. To be identified as a cougar-morph, a character must be a cat-morph with plain, tan-coloured fur, as well as muscles of at least '[#MUSCLE_THREE_MUSCULAR.getName(false)]' and a body size of least '[#BODY_SIZE_TWO_AVERAGE.getName(false)]'.]]></description>
+	<feralAttributes>
+		<feralName><![CDATA[cougar]]></feralName>
+		<feralNamePlural><![CDATA[cougars]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[cougar]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[cougar]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[cougars]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[cougars]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>80</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>4</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>true</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="25">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="5">MAJOR_CORRUPTION</attribute>
+		<attribute value="10">DAMAGE_PHYSICAL</attribute>
+		<attribute value="10">DAMAGE_UNARMED</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="15" feminineWeighting="15">PHYSICAL</category>
+		<category masculineWeighting="2" feminineWeighting="5">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="ONE_VERY_RARE">SAVANNAH</region>
+		<region rarity="TWO_RARE">MOUNTAINS</region>
+		<region rarity="TWO_RARE">FIELDS</region>
+		<region rarity="TWO_RARE">WOODLAND</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="THREE_UNCOMMON">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

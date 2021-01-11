@@ -63,7 +63,8 @@ public interface SexManagerInterface {
 	public boolean isAbleToSkipSexScene();
 
 	/**
-	 * @return The SexPace that this character should have at the start of this sex scene. Unlike the <i>getForcedSexPace(character)</i> method, this method does <b>not</b> lock the character into the specified sex pace for the duration of this sex scene.
+	 * @return The SexPace that this character should have at the start of this sex scene.
+	 *  Unlike the <i>getForcedSexPace(character)</i> method, this method does <b>not</b> lock the character into the specified sex pace for the duration of this sex scene.
 	 */
 	public default SexPace getStartingSexPaceModifier(GameCharacter character) {
 		return null;

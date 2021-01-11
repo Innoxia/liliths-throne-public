@@ -70,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.13";
+	public static final String VERSION_NUMBER = "0.3.14";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**

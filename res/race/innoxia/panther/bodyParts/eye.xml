@@ -6,11 +6,15 @@
 	
 	<coveringType>innoxia_panther_eye</coveringType>
 	
+	<tags>
+		<tag>NIGHT_VISION</tag>
+	</tags>
+	
 	<defaultPairCount>1</defaultPairCount>
 	
 	<defaultIrisShape>ROUND</defaultIrisShape>
 	
-	<defaultPupilShape>VERTICAL</defaultPupilShape>
+	<defaultPupilShape>ROUND</defaultPupilShape>
 	
 	<name><![CDATA[eye]]></name>
 	<namePlural><![CDATA[eyes]]></namePlural>
@@ -24,7 +28,7 @@
 	</descriptorsFeminine>
 	
 	<transformationDescription><![CDATA[
-		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into panther-like eyes, with large irises and vertical pupils.
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into panther-like eyes, with large irises and round pupils.
 		<br/>[npc.Name] now [npc.has] [style.boldPanther(panther-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].
 	]]></transformationDescription>
 	

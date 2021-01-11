@@ -489,6 +489,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
 								questString = "MAIN_1_E_REPORT_TO_HELENA";
 							}
+							if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.14") && questString.startsWith("RELATIONSHIP_NYAN")) {
+								continue;
+							}
 							try {
 								Quest quest = Quest.valueOf(questString);
 								List<Quest> questList = new ArrayList<>();
@@ -676,12 +679,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaVisited, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaInterviewOffered, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
-			
-//			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-//				character.addItem(Main.game.getItemGeneration().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
-//			}
-//			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
+
+		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
+			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
+		}
+		
 		if(Main.isVersionOlderThan(version, "0.3.8.1")) {
 			if(character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
 				character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
@@ -692,11 +695,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
-		
-		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
-			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
-		}
-		
+
 		return character;
 	}
 

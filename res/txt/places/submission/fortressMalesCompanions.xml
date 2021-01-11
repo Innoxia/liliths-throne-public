@@ -208,7 +208,7 @@
 		#THEN
 			[npc.speech(Yes! Please, breed us!)] [npc.name] chimes in, mimicking your submissive movement.
 		#ELSE
-			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... Sure, whatever...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -241,7 +241,7 @@
 		#THEN
 			[npc.speech(Come on! Please, use me!)] [npc.name] happily calls out to the imps.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to. [npc.speech(Just get it over with.)]
+			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. [npc.speech(Just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
@@ -273,7 +273,7 @@
 		#THEN
 			Wanting to please [npc2.name], [npc.name] once more does as [npc.sheIs] commanded, and, lying back, [npc.she] spreads [npc.her] [npc.legs] and begs, [npc.speech(Please, give me your strong seed!)]
 		#ELSE
-			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to. [npc.speech(Just get it over with.)]
+			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. [npc.speech(Just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
@@ -309,7 +309,7 @@
 		#THEN
 			[npc.speech(Yes! use us!)] [npc.name] happily calls out to the imps.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to. [npc.speech(Let's just get it over with.)]
+			[npc.speech(Eugh... I can't believe this...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to. [npc.speech(Let's just get it over with.)]
 		#ENDIF
 	</p>
 	<p>
@@ -338,7 +338,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.she] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -368,7 +368,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.she] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -406,7 +406,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.she] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -439,7 +439,7 @@
 		#THEN
 			[npc.speech(Of course, [pc.name]!)] [npc.she] happily calls out.
 		#ELSE
-			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has to.
+			[npc.speech(Eugh... I can't believe this... Fine...)] [npc.she] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] to.
 		#ENDIF
 	</p>
 	<p>
@@ -694,7 +694,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -721,7 +721,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -756,7 +756,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>
@@ -796,7 +796,7 @@
 		#THEN
 			[npc.speech(Oh, yeah, this is going to be good!)] [npc.name] chimes in.
 		#ELSE
-			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.she] has no other choice.
+			[npc.speech(Eugh... If we have to...)] [npc.name] sighs, making it clear that [npc.sheIs] only doing this because [npc.sheHasFull] no other choice.
 		#ENDIF
 	</p>
 	<p>

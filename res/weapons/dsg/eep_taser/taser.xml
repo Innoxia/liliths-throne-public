@@ -83,7 +83,7 @@
 			#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
-			[npc.Name] [npc.verb(fire)] [npc.her] taser. [npc2.Name] suddenly [npc2.verb(find)] metal darts embedded in [npc2.her] aura before being surrounded by pulsating streams of arcane lightning! [npc2.she] has lost some energy! The spent cartridge clatters on the ground and [npc.name] [npc.verb(insert)] another one into the taser.
+			[npc.Name] [npc.verb(fire)] [npc.her] taser. [npc2.Name] suddenly [npc2.verb(find)] metal darts embedded in [npc2.her] aura before being surrounded by pulsating streams of arcane lightning! [npc2.sheHasFull] lost some energy! The spent cartridge clatters on the ground and [npc.name] [npc.verb(insert)] another one into the taser.
 			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
 			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc2.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
 			#ENDIF

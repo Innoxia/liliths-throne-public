@@ -100,11 +100,13 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_WHITE);
 
 	public static ArrayList<Colour> SHADES_OF_GREY = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_BLACK_JET,
+//			PresetColour.CLOTHING_BLACK_JET,
 			PresetColour.CLOTHING_BLACK,
 			PresetColour.CLOTHING_GREY_DARK,
 			PresetColour.CLOTHING_GREY,
-			PresetColour.CLOTHING_WHITE);
+			PresetColour.CLOTHING_GREY_LIGHT
+//			PresetColour.CLOTHING_WHITE
+			);
 	
 	public static ArrayList<Colour> DARK_SHADES = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_GREY,
@@ -121,6 +123,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLUE_NAVY,
 			PresetColour.CLOTHING_PINK_LIGHT,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_WHITE,
 			PresetColour.CLOTHING_GREY,
 			PresetColour.CLOTHING_BLACK);
@@ -157,6 +160,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLACK_JET,
 			PresetColour.CLOTHING_GREY,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,
@@ -239,6 +243,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_ORANGE_BRIGHT,
 			PresetColour.CLOTHING_ORANGE_DARK,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,
@@ -298,6 +303,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_ORANGE_BRIGHT,
 			PresetColour.CLOTHING_ORANGE_DARK,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,
