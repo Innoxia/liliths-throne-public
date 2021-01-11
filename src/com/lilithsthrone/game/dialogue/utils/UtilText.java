@@ -112,6 +112,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -9225,6 +9226,9 @@ public class UtilText {
 		}
 		for(AbstractWingType type : WingType.getAllWingTypes()) {
 			engine.put("WING_TYPE_"+WingType.getIdFromWingType(type), type);
+		}
+		for(WingSize size : WingSize.values()) {
+			engine.put("WING_SIZE_"+size.toString(), size.getValue());
 		}
 		
 		

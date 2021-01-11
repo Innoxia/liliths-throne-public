@@ -51,26 +51,26 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getFace().getType()!=FACE_TYPE_dsg_dragon_faceRyu)
-			[#targetedBody.getFace().setType(null, FACE_TYPE_dsg_dragon_faceRyu)]
+		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceRyu)
+			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_faceRyu)]
 		#ENDIF
-		#IF(targetedBody.getEar().getType()!=EAR_TYPE_dsg_dragon_earExternal)
-			[#targetedBody.getEar().setType(null, EAR_TYPE_dsg_dragon_earExternal)]
+		#IF(targetedBody.getEarType()!=EAR_TYPE_dsg_dragon_earExternal)
+			[#targetedBody.setEarType(EAR_TYPE_dsg_dragon_earExternal)]
 		#ENDIF
-		#IF(targetedBody.getHair().getType()!=HAIR_TYPE_dsg_dragon_hairMane)
-			[#targetedBody.getHair().setType(null, HAIR_TYPE_dsg_dragon_hairMane)]
+		#IF(targetedBody.getHairType()!=HAIR_TYPE_dsg_dragon_hairMane)
+			[#targetedBody.setHairType(HAIR_TYPE_dsg_dragon_hairMane)]
 		#ENDIF
-		#IF(targetedBody.getWing().getType()!=WING_TYPE_NONE)
-			[#targetedBody.getWing().setType(null, WING_TYPE_NONE)]
+		#IF(targetedBody.getWingType()!=WING_TYPE_NONE)
+			[#targetedBody.setWingType(WING_TYPE_NONE)]
 		#ENDIF
-		#IF(targetedBody.getHorn().getType()!=HORN_TYPE_dsg_dragon_hornAntlers)
-			[#targetedBody.getHorn().setType(null, HORN_TYPE_dsg_dragon_hornAntlers)]
+		#IF(targetedBody.getHornType()!=HORN_TYPE_dsg_dragon_hornAntlers)
+			[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornAntlers)]
 		#ENDIF
-		#IF(targetedBody.getTail().getType()!=TAIL_TYPE_dsg_dragon_tailTufted)
-			[#targetedBody.getTail().setType(null, TAIL_TYPE_dsg_dragon_tailTufted)]
+		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailTufted)
+			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailTufted)]
 		#ENDIF
-		#IF(targetedBody.getTorso().getType()!=TORSO_TYPE_dsg_dragon_torsoRyu)
-			[#targetedBody.getTorso().setType(null, TORSO_TYPE_dsg_dragon_torsoRyu)]
+		#IF(targetedBody.getTorsoType()!=TORSO_TYPE_dsg_dragon_torsoRyu)
+			[#targetedBody.setTorsoType(TORSO_TYPE_dsg_dragon_torsoRyu)]
 		#ENDIF
 	]]></applySubspeciesChanges>
 	
@@ -81,13 +81,13 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getEar().getType()==EAR_TYPE_dsg_dragon_earExternal &&
-		targetedBody.getHair().getType()==HAIR_TYPE_dsg_dragon_hairMane &&
-		targetedBody.getHorn().getType()==HORN_TYPE_dsg_dragon_hornAntlers &&
-		targetedBody.getTail().getType()==TAIL_TYPE_dsg_dragon_tailTufted &&
-		targetedBody.getTorso().getType()==TORSO_TYPE_dsg_dragon_torsoRyu &&
-		targetedBody.getWing().getType()==WING_TYPE_NONE &&
-		!targetedBody.getArm().getType().allowsFlight())
+		targetedBody.getEarType()==EAR_TYPE_dsg_dragon_earExternal &&
+		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairMane &&
+		targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers &&
+		targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tailTufted &&
+		targetedBody.isAbleToFlyFromExtraParts() &&
+		!targetedBody.getArmType().allowsFlight() &&
+		targetedBody.getWingType()==WING_TYPE_NONE)
 			200
 		#ELSE
 			0
