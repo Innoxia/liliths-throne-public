@@ -81,13 +81,13 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getFace().getType()==FACE_TYPE_dsg_dragon_faceRyu &&
 		targetedBody.getEar().getType()==EAR_TYPE_dsg_dragon_earExternal &&
 		targetedBody.getHair().getType()==HAIR_TYPE_dsg_dragon_hairMane &&
 		targetedBody.getHorn().getType()==HORN_TYPE_dsg_dragon_hornAntlers &&
 		targetedBody.getTail().getType()==TAIL_TYPE_dsg_dragon_tailTufted &&
 		targetedBody.getTorso().getType()==TORSO_TYPE_dsg_dragon_torsoRyu &&
-		targetedBody.getWing().getType()==WING_TYPE_NONE)
+		targetedBody.getWing().getType()==WING_TYPE_NONE &&
+		!targetedBody.getArm().getType().allowsFlight())
 			200
 		#ELSE
 			0

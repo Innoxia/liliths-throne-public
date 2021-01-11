@@ -57,6 +57,9 @@
 		#IF(targetedBody.getFace().getTongue().getType()!=TONGUE_TYPE_dsg_dragon_tongueForked)
 			[#targetedBody.getFace().getTongue().setType(TONGUE_TYPE_dsg_dragon_tongueForked)]
 		#ENDIF
+		#IF(!targetedBody.getFace().getTongue().hasTongueModifier(TONGUE_MODIFIER_BIFURCATED))
+			[#targetedBody.getFace().getTongue().addTongueModifier(null, TONGUE_MODIFIER_BIFURCATED)]
+		#ENDIF
 		#IF(targetedBody.getEar().getType()!=EAR_TYPE_dsg_dragon_ear)
 			[#targetedBody.getEar().setType(null, EAR_TYPE_dsg_dragon_ear)]
 		#ENDIF
@@ -72,9 +75,9 @@
 		#IF(targetedBody.getHorn().getType()!=HORN_TYPE_NONE)
 			[#targetedBody.getHorn().setType(null, HORN_TYPE_NONE)]
 		#ENDIF
-		#IF(targetedBody.getTail().getType()!=TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral())
+		#IF(targetedBody.getTail().getType()!=TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral() && targetedBody.getLeg().getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG)
 			[#targetedBody.getTail().setType(null, TAIL_TYPE_dsg_dragon_tail)]
-		#ELSEIF(targetedBody.getTail().getType()!=TAIL_TYPE_NONE && targetedBody.isFeral())
+		#ELSEIF(targetedBody.getTail().getType()!=TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLeg().getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))
 			[#targetedBody.getTail().setType(null, TAIL_TYPE_NONE)]
 		#ENDIF
 	]]></applySubspeciesChanges>
@@ -86,13 +89,11 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.getFace().getType()==FACE_TYPE_dsg_dragon_faceCoatl &&
-		targetedBody.getFace().getTongue().getType()==TONGUE_TYPE_dsg_dragon_tongueForked &&
+		targetedBody.getFace().getTongue().hasTongueModifier(TONGUE_MODIFIER_BIFURCATED) &&
 		targetedBody.getHair().getType()==HAIR_TYPE_dsg_dragon_hairFeathers &&
-		targetedBody.getEar().getType()==EAR_TYPE_dsg_dragon_ear &&
 		targetedBody.getHorn().getType()==HORN_TYPE_NONE &&
-		((targetedBody.getTail().getType()==TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral()) ||
-		(targetedBody.getTail().getType()==TAIL_TYPE_NONE && targetedBody.isFeral())) &&
+		((targetedBody.getTail().getType()==TAIL_TYPE_dsg_dragon_tail && !targetedBody.isFeral() && targetedBody.getLeg().getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG) ||
+		(targetedBody.getTail().getType()==TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLeg().getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))) &&
 		targetedBody.getWing().getType()==WING_TYPE_dsg_dragon_wingFeathered)
 			200
 		#ELSE

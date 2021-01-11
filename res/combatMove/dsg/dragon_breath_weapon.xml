@@ -45,12 +45,12 @@
 	<baseDamage><![CDATA[
 		#IF(npc.isSpeechMuffled())
 			0
-		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) * 4]
-		#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) * 4]
+		#ELSEIF(npc.getFaceRace()==RACE_dsg_dragon && npc.getSkinRace()==RACE_dsg_dragon)
+			[#75 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
+		#ELSEIF(npc.getFaceRace()==RACE_dsg_dragon || npc.getSkinRace()==RACE_dsg_dragon)
+			[#50 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
 		#ELSE
-			[#npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON) * 4]
+			[#20 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
 		#ENDIF
 	]]></baseDamage>
 	
@@ -185,13 +185,13 @@
 			#ELSE
 				[npc.Name] [npc.verb(open)] [npc.her] mouth and [npc.verb(let)] out a mighty 
 				#IF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
-					blast of fire
+					jet of fire
 				#ELSEIF(npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_FIRE) && npc.getAttributeValue(ATTRIBUTE_DAMAGE_ICE) >= npc.getAttributeValue(ATTRIBUTE_DAMAGE_POISON))
 					stream of ice shards
 				#ELSE
 					gust of poisonous fumes
 				#ENDIF
-				 at [npc2.name] that crashes into [npc2.her] aura!
+				 at [npc2.name] that engulfs [npc2.her] aura!
 			#ENDIF
 			formattedHealthDamage
 		]]></execute>

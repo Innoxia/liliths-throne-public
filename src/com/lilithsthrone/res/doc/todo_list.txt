@@ -26,6 +26,26 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the player's elemental had their combat moves reset every time you loading a saved game. (by AceXP)
 	 	Fixed softlock at the end of combat when fighting imps in Submission. (by AceXP)
 		Improved performance by caching subspecies variables and only doing a recalculation when needed. (PR#1471 by AceXP)
+		
+	DSG's race fixes:
+		Race version 1.3:
+			Removed face requirements from wyvern, drake, coatl, and ryu subspecies weighting for improved support for lesser morphs.
+			Removed attribute scaling from the Breath Weapon special attack as it was already having damage boosted in damage calcuation, creating a "double-dip". Base damage is now fixed at 75.
+			Removed ear requirement from coatls.
+			Removed face TF from wyverns and drakes.
+			Changed coatl tongue requirement to only require the BIFURCATED modifier.
+			Improved flightlessness detection in drakes and ryus.
+			Fixed incorrect year and formatting in the book entry for dragons.
+			Fixed typo in bear vagina descriptions.
+			Fixed gryphons spawning in with generic feathered wings instead of the correct wing type.
+		Race version 1.31:
+			Fixed three typoes in the dragon vagina TF description.
+		Race version 1.32:
+			Fixed similar typoes as 1.31 in the vagina TF descriptions for bears, ferrets, gryphons, otters, raccoons, sharks.
+		Race version 1.33:
+			Fixed formatting issue in the otter beverage effects description.
+			Changed Breath Weapon calculation, base damage will now scale with spell damage bonuses. Starting damage is now 20. Having either a dragon torso or dragon face will increase starting damage to 50. Having both will increase starting damage to 75.
+			Fixed feral coatls with a leg configuration of TAIL_LONG not being recongized as a coatl.
 	
 	Engine/Modding:
 		Added parser prefix hooks for muscle, body size, and body shape enums (using 'MUSCLE_', 'BODY_SIZE_', and 'BODY_SHAPE', respectively).
