@@ -2826,9 +2826,29 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Legs"));
 		}
 		if(owner.isFeral()) {
-			sb.append("Just like the rest of [npc.her] body, [npc.her] [npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
+			String feralLegsPrefix = "Just like the rest of [npc.her] body, [npc.her] ";
+			switch(owner.getLegConfiguration()) {
+				case ARACHNID:
+				case CEPHALOPOD:
+				case AVIAN:
+					sb.append(feralLegsPrefix).append("[npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
+					break;
+				case BIPEDAL:
+					break;
+				case TAIL:
+					sb.append(feralLegsPrefix).append("[npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
+					break;
+				case TAIL_LONG:
+					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					break;
+				case QUADRUPEDAL:
+					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
+					break;
+			}
 			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
-				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into ").append(owner.getLegType().getFootType().getFootNamePlural()).append(".");
+			} else {
+				sb.append("It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 			}
 		} else {
 			switch(owner.getLegConfiguration()) {
@@ -2843,7 +2863,7 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures "+Units.size(owner.getHeightValue()*5)+" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
 					break;
 				case QUADRUPEDAL:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -2893,8 +2913,8 @@ public class Body implements XMLSaving {
 				sb.append("[style.colourFeminineStrong(have an extremely feminine shape to them)].");
 			}
 			
-		} else {
-			sb.append(" [npc.Her] [npc.leg] is "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
+		} else if(!owner.isFeral()) {
+			sb.append(" [npc.Her] [npc.leg(true)] is "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
 			if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
 				sb.append("[style.colourMasculineStrong(has a very masculine shape to it)].");
 				
