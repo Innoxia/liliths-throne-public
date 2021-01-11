@@ -168,24 +168,28 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_FOUR);
+					slotsTwo.add(SexSlotDesk.HUMPING_FOUR);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_FOUR);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_FOUR);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_FOUR);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_THREE);
+					slotsTwo.add(SexSlotDesk.HUMPING_THREE);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_THREE);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_THREE);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_THREE);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_THREE);
 				case 2: 
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_TWO);
+					slotsTwo.add(SexSlotDesk.HUMPING_TWO);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_TWO);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_TWO);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK_TWO);
 					slotsFive.add(SexSlotDesk.OVER_DESK_ON_FRONT_TWO);
 				default:
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS);
+					slotsTwo.add(SexSlotDesk.HUMPING);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL);
 					slotsFour.add(SexSlotDesk.OVER_DESK_ON_BACK);

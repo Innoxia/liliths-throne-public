@@ -222,6 +222,9 @@ public class FeralAttributes {
 		return size;
 	}
 
+	/**
+	 * @return true if this feral body has either arms or arm-wings.
+	 */
 	public boolean isArmsOrWingsPresent() {
 		return armsOrWingsPresent;
 	}

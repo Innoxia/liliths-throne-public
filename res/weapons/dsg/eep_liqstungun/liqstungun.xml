@@ -45,7 +45,7 @@
 				#ELSEIF npc.getPenisRawStoredCumValue()>=150
 					#THEN and discretely [npc.verb(slide)] the cup attachment over [npc.her] [npc.penisD]. [npc.She] then [npc.verb(pull)] the sling over [npc.her] shoulder and [npc.verb(let)] out a small groan as the pumps draw [npc.her] [npc.cumD] into the built-in tank.
 					[#npc.setPenisStoredCum(npc.getPenisRawStoredCumValue()-150)]
-				#ELSE and [npc.verb(allow)] the built-in tank to magically fill itself with arcane-enhanced water, since [npc.she] has no special ammunition to put in it, before pulling the sling over [npc.her] shoulder.
+				#ELSE and [npc.verb(allow)] the built-in tank to magically fill itself with arcane-enhanced water, since [npc.sheHasFull] no special ammunition to put in it, before pulling the sling over [npc.her] shoulder.
 				#ENDIF
 			#ELSE and pull the sling over [npc.her] shoulder. The arcane-enhanced water sloshes around inside as the built-in tank magically fills itself.
 		#ENDIF

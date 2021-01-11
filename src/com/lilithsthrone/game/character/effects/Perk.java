@@ -408,7 +408,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.she] has spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
+					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.sheHasFull] spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
 		}
 	};
 
@@ -837,6 +837,22 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(live)] a life of crime, stealing from the rich and poor alike.");
+		}
+	};
+	
+	public static AbstractPerk JOB_BOUNTY_HUNTER = new AbstractPerk(20,
+			true,
+			"No Escape",
+			PerkCategory.JOB,
+			"perks/jobs/bounty_hunter",
+			PresetColour.BASE_CRIMSON,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 15)),
+			Util.newArrayListOfValues("[style.boldExcellent(-50%)] chance of enemy escape")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] an expert at tracking down and capturing fugitives, and as such, enemies have a hard time escaping from [npc.herHim] in combat.");
 		}
 	};
 	

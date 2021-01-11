@@ -348,7 +348,7 @@ public class OccupancyUtil implements XMLSaving {
 				
 			} else {
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
-						&& (slave.getLastTimeOrgasmed()+(60*(24+12))<Main.game.getMinutesPassed())) { // Give them a 12-hour period of pent up, so they will have the chance to ambush the player or have sex with other slaves
+						&& (slave.getLastTimeOrgasmedSeconds()+(60*60*(24+12))<Main.game.getSecondsPassed())) { // Give them a 12-hour period of pent up, so they will have the chance to ambush the player or have sex with other slaves
 					slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
 				}
 			}
@@ -685,8 +685,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 									milkingStored.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] stored.");
 								}
-								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
+								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
 							}
 						}
 						if(slave.getClothingInSlot(InventorySlot.VAGINA)!=null
@@ -702,8 +701,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 									milkingStored.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] stored.");
 								}
-								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
+								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
 							}
 						}
 						generatedIncome += income;

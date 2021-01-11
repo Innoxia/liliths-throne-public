@@ -1,4 +1,4 @@
-<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
  <defs>
   <linearGradient id="linearGradient1745" x1="348.04" x2="362.61" y1="168.37" y2="185.72" gradientTransform="matrix(.078544 .23642 -.23642 .078544 26.284 -69.746)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#ff8080" offset="0"/>
@@ -9,13 +9,13 @@
    <stop stop-color="#fff6d5" offset="1"/>
   </linearGradient>
   <linearGradient id="linearGradient4756" x1="51.966" x2="46.983" y1="53.203" y2="50.458" gradientTransform="translate(-.13559 -1.0847)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#ffe2c8" offset="0"/>
-   <stop stop-color="#f1bf97" offset=".036558"/>
-   <stop stop-color="#b3b3b3" offset=".20235"/>
+   <stop stop-color="#ff624f" offset="0"/>
+   <stop stop-color="#ec925f" offset=".051217"/>
+   <stop stop-color="#b3b3b3" offset=".42464"/>
    <stop stop-color="#999" offset="1"/>
   </linearGradient>
  </defs>
- <g fill="#000000" font-size="8.2356px" letter-spacing="0px" stroke-width=".20589" word-spacing="0px">
+ <g font-size="8.2356px" letter-spacing="0px" stroke-width=".20589" word-spacing="0px">
   <g font-family="'Courier New'">
    <text transform="rotate(18.3)" x="31.025839" y="40.903381" font-weight="bold" style="line-height:1.25" xml:space="preserve"><tspan x="31.025839" y="48.125088" stroke-width=".20589"/></text>
    <text transform="rotate(18.3)" x="31.723774" y="38.837486" font-weight="bold" style="line-height:1.25" xml:space="preserve"><tspan x="31.723774" y="46.059193" stroke-width=".20589"/></text>

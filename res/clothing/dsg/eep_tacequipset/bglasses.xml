@@ -81,6 +81,13 @@
 				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
 				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
 			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
 		</blockedPartsList>
 		
 		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->

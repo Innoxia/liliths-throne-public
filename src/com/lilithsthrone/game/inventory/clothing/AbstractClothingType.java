@@ -418,7 +418,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument(), clothingXMLFile.getAbsolutePath()))
 						.collect(Collectors.toList());
 					
-					this.blockedPartsMap = Util.newHashMapOfValues(new Value<>(this.getEquipSlots().get(0), blockedPartsList));
+				this.blockedPartsMap = Util.newHashMapOfValues(new Value<>(this.getEquipSlots().get(0), blockedPartsList));
 			}
 
 			try {
@@ -1655,6 +1655,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						&& displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
 					return UtilText.parse(clothingOwner, displacementDescriptions.get(slotClothingIsEquippedTo).get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
 				}
+//				System.out.println(dt);
 				return UtilText.parse(clothingOwner, "[npc.Name] "+(clothingRemover.isPlayer()?dt.getDescription():dt.getDescriptionThirdPerson())+" [npc.her] "+this.getName()+".");
 				
 			} else {
@@ -2208,15 +2209,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
 									? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand(colours, this.getColourReplacements()) + "</div>"
 										+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 									: "")
 									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
 										? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand(colours, this.getColourReplacements()) + "</div>"
 											+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 										: "");
 
 							addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
@@ -2263,15 +2264,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
 									? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand(colours, this.getColourReplacements()) + "</div>"
 										+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 									: "")
 									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
 										? "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand(colours, this.getColourReplacements()) + "</div>"
 											+ "<div style='width:100%;height:100%;position:absolute;left:0;top:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 										: "");
 							
 							addSVGStringMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);

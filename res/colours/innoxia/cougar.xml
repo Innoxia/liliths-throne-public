@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	
+	<name><![CDATA[dark tan]]></name>
+	
+	<colour>dda97d</colour>
+	<lightColour>dda97d</lightColour>
+	
+	<!--
+	<colour>eb7b20</colour>
+	<lightColour>cf5700</lightColour>
+	-->
+	
+	<formattingNames>
+		<name><![CDATA[cougar]]></name>
+		<name><![CDATA[cougarMorph]]></name>
+	</formattingNames>
+	
+	<tags/>
+	
+</colour>

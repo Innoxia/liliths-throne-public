@@ -20,6 +20,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FootMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
@@ -56,6 +57,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelf.SelfFingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -193,7 +195,6 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToTailAndTentacle = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToLowerHalf = new HashMap<>();
 	
-	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToFinger = new HashMap<>();
 	
@@ -204,20 +205,20 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToTailAndTentacle = new HashMap<>();
 	
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToAllAreas = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToAllAreas = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToAllAreas;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToAllAreas;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToLowerHalf = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToLowerHalf;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToLowerHalf = new HashMap<>();
 	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tailToLowerHalf;
-	
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToUpperTorso;
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToLowerHalf;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToUpperTorso = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> tentacleToLowerHalf = new HashMap<>();
 
-	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToGroin;
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToGroin = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> feetToMouth = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> appendagesToGroin = new HashMap<>();
 	
@@ -266,6 +267,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToVagina = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToCrotchBoobs = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToFeet = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToMouth = new HashMap<>();
 
@@ -358,6 +360,7 @@ public class SexActionPresets {
 			mouthToVagina.put(area, vaginaAreas);
 			mouthToPenis.put(area, penisAreas);
 			mouthToCrotchBoobs.put(area, crotchBoobAreas);
+			mouthToFeet.put(area, feetAreas);
 			
 			mouthToBreasts.put(area, breastAreas);
 			
@@ -376,6 +379,10 @@ public class SexActionPresets {
 		for(SexAreaInterface area : thighAreas) {
 			thighsToPenis.put(area, penisAreas);
 		}
+		for(SexAreaInterface area : feetAreas) {
+			feetToMouth.put(area, mouthAreas);
+		}
+		
 		for(SexAreaInterface area : penisAreas) {
 			penisToAss.put(area, assAreas);
 			penisToVagina.put(area, vaginaAreas);
@@ -441,6 +448,7 @@ public class SexActionPresets {
 		sexActions.add(TongueBreastsCrotch.class);
 		sexActions.add(TongueNipple.class);
 		sexActions.add(TongueNippleCrotch.class);
+		sexActions.add(FootMouth.class);
 		sexActions.add(PenisMouth.class);
 
 		// Tail actions:
@@ -473,9 +481,11 @@ public class SexActionPresets {
 		sexActions.add(ClitVagina.class);
 		sexActions.add(ClitAnus.class);
 		
-//		selfActions.add(PlayerMasturbation.class);
-//		selfActions.add(PartnerMasturbation.class);
-
+		// Self actions:
+		//TODO convert player/partner classes into combined classes
+		
+		selfActions.add(SelfFingerPenis.class);
+		
 		selfActions.add(PartnerSelfNoPen.class);
 		selfActions.add(PartnerSelfFingerAnus.class);
 		selfActions.add(PartnerSelfFingerMouth.class);
