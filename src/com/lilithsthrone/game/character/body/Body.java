@@ -3602,6 +3602,10 @@ public class Body implements XMLSaving {
 		face.getTongue().resetTongueModifiers();
 	}
 
+	public boolean isFaceHuman() {
+		return face.getType().getRace() == Race.HUMAN;
+	}
+
 	// Descriptions:
 	private StringBuilder descriptionSB;
 
