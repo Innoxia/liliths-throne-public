@@ -614,11 +614,13 @@ public abstract class AbstractSubspecies {
 		AbstractSubspecies subspecies = null;
 		
 		int highestWeighting = 0;
+		int newWeighting;
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-			if(sub.getSubspeciesWeighting(body, race)>highestWeighting
+			newWeighting = sub.getSubspeciesWeighting(body, race);
+			if(newWeighting>highestWeighting
 					&& (!body.isFeral() || sub.isFeralConfigurationAvailable())) {
 				subspecies = sub;
-				highestWeighting = sub.getSubspeciesWeighting(body, race);
+				highestWeighting = newWeighting;
 			}
 		}
 		if(subspecies==null) {
