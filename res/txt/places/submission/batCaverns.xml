@@ -126,10 +126,10 @@
 	
 	<htmlContent tag="SLIME_LAKE_FLY"><![CDATA[
 	<p>
-		Seeing no need to use one of boats, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the island.
+		Seeing no need to use one of boats, you take a small run up towards the lake's shore, and#IF(!pc.isAbleToFlyFromExtraParts()), with a flap of your wings,#ENDIF launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the island.
 	</p>
 	<p>
-		It only takes a minute or so to reach your destination, and, with a final flap of your wings, you land on the island's shore, right beside a wooden jetty that's the mirror image of the one on the lake's far side. Smiling to yourself as you think about those poor people who aren't able to fly, you begin to walk up the island's gentle incline towards the stout stone tower.
+		It only takes a minute or so to reach your destination, and#IF(!pc.isAbleToFlyFromExtraParts()), with a final flap of your wings,#ENDIF you land on the island's shore, right beside a wooden jetty that's the mirror image of the one on the lake's far side. Smiling to yourself as you think about those poor people who aren't able to fly, you begin to walk up the island's gentle incline towards the stout stone tower.
 	</p>
 	]]>
 	</htmlContent>
@@ -160,10 +160,10 @@
 	
 	<htmlContent tag="SLIME_LAKE_FLY_RETURN"><![CDATA[
 	<p>
-		Seeing no need to use the little wooden boat, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the far shore.
+		Seeing no need to use the little wooden boat, you take a small run up towards the lake's shore, and#IF(!pc.isAbleToFlyFromExtraParts()), with a flap of your wings,#ENDIF launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the far shore.
 	</p>
 	<p>
-		It only takes a minute or so to reach your destination, and, with a final flap of your wings, you've reached your destination. Smiling to yourself as you think about those poor people who aren't able to fly, you set off to continue on your journey.
+		It only takes a minute or so to reach your destination#IF(!pc.isAbleToFlyFromExtraParts()), and, with a final flap of your wings, you've reached your destination#ENDIF. Smiling to yourself as you think about those poor people who aren't able to fly, you set off to continue on your journey.
 	</p>
 	]]>
 	</htmlContent>
