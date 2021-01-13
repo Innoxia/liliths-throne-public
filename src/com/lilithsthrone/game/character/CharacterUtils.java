@@ -836,7 +836,7 @@ public class CharacterUtils {
 		}
 		
 		// Wings:
-		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.
+		if(!body.getArm().getType().allowsFlight() && body.getWing().getType() == WingType.NONE) { // Do not give back wings to characters who have arm wings.
 			if (Math.random()>=takesAfterMotherChance) {
 				if (mother.hasGenericWings()) {
 					body.getWing().setTypeAndSize(mother.getWingType(), mother.getWingSizeValue());
