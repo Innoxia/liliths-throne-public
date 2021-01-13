@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[hooded-snake]]></transformationName>
+	<coveringType>SNAKE_SCALES</coveringType>
+	<mouthType>NoStepOnSnek_snake_mouth</mouthType>
+	<tags>
+		<tag>FACE_MUZZLE</tag>
+		<tag>FACE_FANGS</tag>
+		<tag>FACE_NATURAL_BALDNESS_SCALY</tag>
+		<tag>THERMAL_VISION</tag>
+	</tags>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic snake-like</descriptor>
+		<descriptor>snake-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic snake-like</descriptor>
+		<descriptor>snake-like</descriptor>
+	</descriptorsFeminine>
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic, snake-like muzzle. [npc.Her] teeth grow out into a pair of long fangs, which can thankfully be folded up within [npc.her] mouth in order to tuck them out of the way. With the transformation not having yet run its course, [npc.namePos] neck suddenly stretches out and [npc.her] tongue narrows and splits, leaving [npc.herHim] with a distinctly snake-like head. Meanwhile, the back and sides of [npc.her] neck begin to flare out, and within moments [npc.she] [npc.has] a very distinctive, cobra-like hood.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldSnake(snake-like face)], which is [npc.materialDescriptor] [npc.faceFullDescription]. On the back and sides of [npc.her] elongated neck, [npc.she] [npc.has] a cobra-like hood, while in [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldSnake(flat, snake-like tongue)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, snake-like face, [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a muzzle, fangs, and cobra-like hood.
+	]]></bodyDescription>
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a #IF(game.isSillyModeEnabled())very boopable snoot#ELSE muzzle#ENDIF, fangs, and cobra-like hood.
+	]]></bodyDescriptionFeral>
+</face>

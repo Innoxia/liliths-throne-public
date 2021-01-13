@@ -307,7 +307,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length.<br/>"
+								+ "An intense pressure builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(hard, fleshy ribs)] grow up all along its length.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now ribbed!)]"
 							+ "</p>";
 				}
@@ -319,7 +319,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A pulsating warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length.<br/>"
+								+ "A pulsating warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(little wriggling tentacles)] grow up all along its length.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now covered with little tentacles, which wriggle with a mind of their own!)]"
 							+ "</p>";
 				}
@@ -331,7 +331,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length.<br/>"
+								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(little fleshy barbs)] grow up all along its length.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now lined with fleshy, backwards-facing barbs!)]"
 							+ "</p>";
 				}
@@ -343,7 +343,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's cock.<br/>"
+								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, the [style.boldGrow(head flares out)], much like that of a horse's cock.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a wide, flared head!)]"
 							+ "</p>";
 				}
@@ -355,7 +355,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, the [style.boldGrow(head smoothes over)], leaving it looking like the head of a reptile's cock.<br/>"
+								+ "An intense warmth builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, the [style.boldGrow(head smoothes over)], leaving it looking like the head of a reptile's cock.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a smooth, blunt head!)]"
 							+ "</p>";
 				}
@@ -367,7 +367,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, a [style.boldGrow(fat knot)] quickly grows up there.<br/>"
+								+ "An intense warmth builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, a [style.boldGrow(fat knot)] quickly grows up there.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] now has a fat knot at the base!)]"
 							+ "</p>";
 				}
@@ -393,7 +393,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense pressure builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there.<br/>"
+								+ "An intense pressure builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, it pulls back into a brand new [style.boldGrow(sheath)] that's just grown up there.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now sheathed!)]"
 							+ "</p>";
 				}
@@ -405,7 +405,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, the shaft suddenly [style.boldGrow(tapers down)].<br/>"
+								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, the shaft suddenly [style.boldGrow(tapers down)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now tapered!)]"
 							+ "</p>";
 				}
@@ -417,7 +417,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length.<br/>"
+								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, a series of [style.boldGrow(prominent veins)] grow up all along its length.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is now veiny!)]"
 							+ "</p>";
 				}
@@ -449,7 +449,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An soothing coolness builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, [npc.her] hard, fleshy ribs suddenly [style.boldShrink(disappear)].<br/>"
+								+ "An soothing coolness builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, [npc.her] hard, fleshy ribs suddenly [style.boldShrink(disappear)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer ribbed!)]"
 							+ "</p>";
 				}
@@ -461,7 +461,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up within [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, [npc.her] little wriggling tentacles [style.boldShrink(disappear)].<br/>"
+								+ "A soothing coolness builds up within [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, [npc.her] little wriggling tentacles [style.boldShrink(disappear)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer covered with little tentacles!)]"
 							+ "</p>";
 				}
@@ -473,7 +473,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, [npc.her] little fleshy barbs [style.boldShrink(disappear)].<br/>"
+								+ "A soothing coolness builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, [npc.her] little fleshy barbs [style.boldShrink(disappear)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer barbed!)]"
 							+ "</p>";
 				}
@@ -486,7 +486,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, [npc.her] flared head [style.boldShrink(shrinks)] down,"
+								+ "A soothing coolness builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, [npc.her] flared head [style.boldShrink(shrinks)] down,"
 									+ " making [npc.her] clit look like a regular, human-like one.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] no longer has a flared head!)]"
 							+ "</p>";
@@ -500,7 +500,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up in the tip of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, [npc.her] blunt head [style.boldShrink(shrinks)] down,"
+								+ "A soothing coolness builds up in the tip of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, [npc.her] blunt head [style.boldShrink(shrinks)] down,"
 									+ " making [npc.her] clit look like a regular, human-like one.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] no longer has a blunt head!)]"
 							+ "</p>";
@@ -513,7 +513,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, [npc.her] fat knot [style.boldShrink(shrinks)] and disappears.<br/>"
+								+ "A soothing coolness builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, [npc.her] fat knot [style.boldShrink(shrinks)] and disappears.<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer knotted!)]"
 							+ "</p>";
 				}
@@ -537,7 +537,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "A soothing coolness builds up in the base of [npc.namePos] [npc.clit], and before [npc.she] has a chance to react, [npc.her] sheath [style.boldShrink(disappears)].<br/>"
+								+ "A soothing coolness builds up in the base of [npc.namePos] [npc.clit], and before [npc.sheHasFull] a chance to react, [npc.her] sheath [style.boldShrink(disappears)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer sheathed!)]"
 							+ "</p>";
 				}
@@ -549,7 +549,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, the shaft suddenly [style.boldShrink(widens)].<br/>"
+								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, the shaft suddenly [style.boldShrink(widens)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer tapered!)]"
 							+ "</p>";
 				}
@@ -561,7 +561,7 @@ public class Clitoris implements BodyPartInterface {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.she] has a chance to react, [npc.her] prominent veins [style.boldShrink(disappear)].<br/>"
+								+ "An intense warmth builds up within [npc.namePos] [npc.clit], but before [npc.sheHasFull] a chance to react, [npc.her] prominent veins [style.boldShrink(disappear)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.clit] is no longer veiny!)]"
 							+ "</p>";
 				}

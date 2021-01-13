@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>NoStepOnSnek_octopus</race>
+	<colour>NoStepOnSnek_octopus</colour>
+	<secondaryColour>NoStepOnSnek_octopus</secondaryColour>
+	<tertiaryColour>NoStepOnSnek_octopus</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>10000</baseSlaveValue>
+	<attributeItemId>NoStepOnSnek_race_octopus_ink_vodka</attributeItemId>
+	<transformativeItemId>NoStepOnSnek_race_octopus_shrimp_cocktail</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>false</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_NoStepOnSnek_octopus)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">octopus</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>octopus</bookIconName>
+	<bookName>Heavily Armed Suckers</bookName>
+	<basicDescriptionId>OCTOPUS_BASIC</basicDescriptionId>
+	<advancedDescriptionId>OCTOPUS_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[octopus-morph]]></name>
+	<namePlural><![CDATA[octopus-morphs]]></namePlural>
+	<singularMaleName><![CDATA[octopus-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[octopus-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[octopus-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[octopus-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic octopus, known as a 'octopus-morph'.]]></description>
+	<nameHalfDemon><![CDATA[kraken]]></nameHalfDemon>
+	<namePluralHalfDemon><![CDATA[krakens]]></namePluralHalfDemon>
+	<singularMaleNameHalfDemon><![CDATA[kraken]]></singularMaleNameHalfDemon>
+	<singularFemaleNameHalfDemon><![CDATA[kraken]]></singularFemaleNameHalfDemon>
+	<pluralMaleNameHalfDemon><![CDATA[krakens]]></pluralMaleNameHalfDemon>
+	<pluralFemaleNameHalfDemon><![CDATA[krakens]]></pluralFemaleNameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[octopus]]></feralName>
+		<feralNamePlural><![CDATA[octopuses]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[octopus]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[octopus]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[octopuses]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[octopuses]]></feralPluralFemaleName>
+		<legConfiguration>CEPHALOPOD</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>40</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] octopus-like body is quite strong, and [npc.she] [npc.has] an increased affinity for the arcane.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="10">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="1" feminineWeighting="1">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="1" feminineWeighting="1">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="FOUR_COMMON">SEA_CITY</region>
+		<region rarity="FOUR_COMMON">SEA</region>
+		<region rarity="THREE_UNCOMMON">RIVER</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

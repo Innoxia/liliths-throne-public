@@ -151,6 +151,10 @@ public class Tail implements BodyPartInterface {
 
 	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
+		if(!Main.game.isStarted() || owner==null) {
+			this.tailCount = tailCount;
+			return "";
+		}
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

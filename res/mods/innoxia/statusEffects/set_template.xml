@@ -123,6 +123,15 @@
 	]]></applicationCondition>
 	-->
 	
+	<!-- How long this status effect should be applied for when the conditions are met.
+	This is measured in seconds and should always be a positive integer.
+	The exception to the positive integer rule is the special value of -1, which means that the status effect should remain active for as long as the applicationCondition is returning true.
+	In almost all of the game's status effects, this field is left as -1.
+	If you define the attribute 'constantRefresh' as true, then the effect's duration will be refreshed to the duration you've defined every turn so long as applicationCondition continues to return true.
+	If 'constantRefresh' is false, then the effect will be applied to the character once at the moment the applicationCondition returns true, and not applied again until the duration has expired and applicationCondition returns true once again.
+	If the value is left as -1, then 'constantRefresh' has no effect, but for formatting uniformity, it should probably be left as false. -->
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	
 	
 	<!-- Status effects execute an 'applyEffect(GameCharacter target, int secondsPassed)' method every time the game ends a turn.
 	The 'target' is the character who is under the effect of this particular status effect, while the 'secondsPassed' is how much time, in seconds, has passed on this turn.

@@ -20,10 +20,18 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringSkinToneColorHelper;
@@ -145,6 +153,7 @@ public class Body implements XMLSaving {
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private AbstractSubspecies subspeciesOverride = null;
+	private AbstractSubspecies halfDemonSubspecies = null;
 	private int height;
 	private int femininity;
 	private int bodySize;
@@ -296,7 +305,7 @@ public class Body implements XMLSaving {
 		
 		height = builder.height;
 		femininity = builder.femininity;
-		bodySize = builder. bodySize;
+		bodySize = builder.bodySize;
 		muscle = builder.muscle;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
@@ -1669,6 +1678,9 @@ public class Body implements XMLSaving {
 			if(importedEye.getType().getRace()==Race.CAT_MORPH) {
 				importedEye.setType(null, EyeType.getEyeTypes(Race.getRaceFromId("innoxia_panther")).get(0));
 			}
+			if(importedEar.getType().getRace()==Race.CAT_MORPH) {
+				importedEar.setType(null, EarType.getEarTypes(Race.getRaceFromId("innoxia_panther")).get(0));
+			}
 			if(importedHair.getType().getRace()==Race.CAT_MORPH) {
 				importedHair.setType(null, HairType.getHairTypes(Race.getRaceFromId("innoxia_panther")).get(0));
 			}
@@ -1936,6 +1948,7 @@ public class Body implements XMLSaving {
 							felineCovering.isPrimaryGlowing(),
 							felineCovering.getSecondaryColour(),
 							felineCovering.isSecondaryGlowing());
+					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getBodyCoveringTypeFromId("innoxia_panther_fur"));
 				}
 				
 //				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
@@ -2821,9 +2834,29 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Legs"));
 		}
 		if(owner.isFeral()) {
-			sb.append("Just like the rest of [npc.her] body, [npc.her] [npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
+			String feralLegsPrefix = "Just like the rest of [npc.her] body, [npc.her] ";
+			switch(owner.getLegConfiguration()) {
+				case ARACHNID:
+				case CEPHALOPOD:
+				case AVIAN:
+					sb.append(feralLegsPrefix).append("[npc.legRace] [npc.legs] are entirely [style.colourFeral(feral in nature)]. ");
+					break;
+				case BIPEDAL:
+					break;
+				case TAIL:
+					sb.append(feralLegsPrefix).append("[npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
+					break;
+				case TAIL_LONG:
+					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					break;
+				case QUADRUPEDAL:
+					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
+					break;
+			}
 			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
-				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into "+owner.getLegType().getFootType().getFootNamePlural()+".");
+				sb.append("[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into ").append(owner.getLegType().getFootType().getFootNamePlural()).append(".");
+			} else {
+				sb.append("It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 			}
 		} else {
 			switch(owner.getLegConfiguration()) {
@@ -2838,7 +2871,7 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures "+Units.size(owner.getHeightValue()*5)+" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
 					break;
 				case QUADRUPEDAL:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -2888,8 +2921,8 @@ public class Body implements XMLSaving {
 				sb.append("[style.colourFeminineStrong(have an extremely feminine shape to them)].");
 			}
 			
-		} else {
-			sb.append(" [npc.Her] [npc.leg] is "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
+		} else if(!owner.isFeral()) {
+			sb.append(" [npc.Her] [npc.leg(true)] is "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
 			if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
 				sb.append("[style.colourMasculineStrong(has a very masculine shape to it)].");
 				
@@ -3036,14 +3069,14 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Penis"));
 			if (observant) {
 				if(owner.hasPenis()) {
-					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a cock,"
+					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.sheHasFull] a cock,"
 										+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]");
 				} else {
 					sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a cock.)]");
 				}
 				
 			} else {
-				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]");
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.sheHasFull] one.)]");
 			}
 			sb.append("</p>");
 		}
@@ -3059,7 +3092,7 @@ public class Body implements XMLSaving {
 			sb.append(getHeader("Vagina"));
 			if (observant){
 				if(vagina.getType() != VaginaType.NONE){
-					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a pussy,"
+					sb.append("[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.sheHasFull] a pussy,"
 									+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]");
 					
 				} else {
@@ -3067,7 +3100,7 @@ public class Body implements XMLSaving {
 				}
 				
 			} else {
-				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]");
+				sb.append("[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.sheHasFull] one.)]");
 			}
 			sb.append("</p>");
 		}
@@ -3093,7 +3126,7 @@ public class Body implements XMLSaving {
 	
 	/** To be called after every transformation. Returns the body's race. */
 	public void calculateRace(GameCharacter target) {
-		
+
 		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
@@ -3117,7 +3150,9 @@ public class Body implements XMLSaving {
 		
 		subspecies = AbstractSubspecies.getSubspeciesFromBody(this, race);
 //		boolean overrideSubspecies = false;
-		
+
+		halfDemonSubspecies = null; // reset so it will be recalculated when accessed
+
 		if(subspecies.getSubspeciesOverridePriority()>0 && (this.getSubspeciesOverride()==null || subspecies.getSubspeciesOverridePriority()>this.getSubspeciesOverride().getSubspeciesOverridePriority())) {
 			this.setSubspeciesOverride(subspecies);
 		}
@@ -3261,7 +3296,10 @@ public class Body implements XMLSaving {
 	}
 
 	public AbstractSubspecies getHalfDemonSubspecies() {
-		return AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		if (halfDemonSubspecies == null) {
+			halfDemonSubspecies = AbstractSubspecies.getSubspeciesFromBody(this, getRaceFromPartWeighting(true));
+		}
+		return halfDemonSubspecies;
 	}
 
 	public Antenna getAntenna() {
@@ -3270,6 +3308,10 @@ public class Body implements XMLSaving {
 
 	public Arm getArm() {
 		return arm;
+	}
+
+	public AbstractArmType getArmType() {
+		return arm.getType();
 	}
 
 	public Ass getAss() {
@@ -3288,6 +3330,10 @@ public class Body implements XMLSaving {
 		return face;
 	}
 
+	public AbstractFaceType getFaceType() {
+		return face.getType();
+	}
+	
 	public Eye getEye() {
 		return eye;
 	}
@@ -3296,16 +3342,36 @@ public class Body implements XMLSaving {
 		return ear;
 	}
 
+	public AbstractEarType getEarType() {
+		return ear.getType();
+	}
+
 	public Hair getHair() {
 		return hair;
+	}
+
+	public AbstractHairType getHairType() {
+		return hair.getType();
 	}
 
 	public Horn getHorn() {
 		return horn;
 	}
 
+	public AbstractHornType getHornType() {
+		return horn.getType();
+	}
+
 	public Leg getLeg() {
 		return leg;
+	}
+
+	public AbstractLegType getLegType() {
+		return leg.getType();
+	}
+
+	public LegConfiguration getLegConfiguration() {
+		return leg.getLegConfiguration();
 	}
 
 	public Penis getPenis() {
@@ -3324,12 +3390,24 @@ public class Body implements XMLSaving {
 		return torso;
 	}
 
+	public AbstractTorsoType getTorsoType() {
+		return torso.getType();
+	}
+
 	public Tail getTail() {
 		return tail;
 	}
 
+	public AbstractTailType getTailType() {
+		return tail.getType();
+	}
+
 	public Tentacle getTentacle() {
 		return tentacle;
+	}
+
+	public AbstractTongueType getTongueType() {
+		return face.getTongue().getType();
 	}
 
 	public Vagina getVagina() {
@@ -3340,12 +3418,28 @@ public class Body implements XMLSaving {
 		return wing;
 	}
 
+	public int getWingSizeValue() {
+		return wing.getSizeValue();
+	}
+
+	public AbstractWingType getWingType() {
+		return wing.getType();
+	}
+
 	public void setAntenna(Antenna antenna) {
 		this.antenna = antenna;
 	}
 
 	public void setArm(Arm arm) {
 		this.arm = arm;
+	}
+
+	public String setArmType(AbstractArmType type) {
+		return this.arm.setType(null, type);
+	}
+
+	public String setArmType(GameCharacter owner, AbstractArmType type) {
+		return this.arm.setType(owner, type);
 	}
 
 	public void setAss(Ass ass) {
@@ -3364,6 +3458,14 @@ public class Body implements XMLSaving {
 		this.face = face;
 	}
 
+	public String setFaceType(AbstractFaceType type) {
+		return face.setType(null, type);
+	}
+
+	public String setFaceType(GameCharacter owner, AbstractFaceType type) {
+		return face.setType(owner, type);
+	}
+
 	public void setEye(Eye eye) {
 		this.eye = eye;
 	}
@@ -3372,20 +3474,68 @@ public class Body implements XMLSaving {
 		this.ear = ear;
 	}
 
+	public String setEarType(AbstractEarType type) {
+		return this.ear.setType(null, type);
+	}
+
+	public String setEarType(GameCharacter owner, AbstractEarType type) {
+		return this.ear.setType(owner, type);
+	}
+
 	public void setHair(Hair hair) {
 		this.hair = hair;
+	}
+
+	public String setHairType(AbstractHairType type) {
+		return this.hair.setType(null, type);
+	}
+
+	public String setHairType(GameCharacter owner, AbstractHairType type) {
+		return this.hair.setType(owner, type);
 	}
 
 	public void setLeg(Leg leg) {
 		this.leg = leg;
 	}
 
+	public String setLegType(AbstractLegType type) {
+		return this.leg.setType(null, type);
+	}
+
+	public String setLegType(GameCharacter owner, AbstractLegType type) {
+		return this.leg.setType(owner, type);
+	}
+
+	public void setLegConfigurationForced(AbstractLegType type, LegConfiguration legConfiguration) {
+		this.leg.setLegConfigurationForced(type, legConfiguration);
+	}
+
+	public void setTongueType(AbstractTongueType type) {
+		this.face.getTongue().setType(type);
+	}
+
 	public void setTorso(Torso torso) {
 		this.torso = torso;
 	}
 	
+	public String setTorsoType(AbstractTorsoType type) {
+		return this.torso.setType(null, type);
+	}
+
+	public String setTorsoType(GameCharacter owner, AbstractTorsoType type) {
+		return this.torso.setType(owner, type);
+	}
+
 	public void setHorn(Horn horn) {
 		this.horn = horn;
+	}
+
+	public String setHornType(AbstractHornType type) {
+		return this.horn.setType(null, type);
+	}
+
+	public String setHornType(GameCharacter owner, AbstractHornType type) {
+		return this.horn.setType(owner, type);
 	}
 
 	public void setPenis(Penis penis) {
@@ -3400,6 +3550,14 @@ public class Body implements XMLSaving {
 		this.tail = tail;
 	}
 
+	public String setTailType(AbstractTailType type) {
+		return this.tail.setType(null, type);
+	}
+
+	public String setTailType(GameCharacter owner, AbstractTailType type) {
+		return this.tail.setType(owner, type);
+	}
+
 	public void setTentacle(Tentacle tentacle) {
 		this.tentacle = tentacle;
 	}
@@ -3410,6 +3568,38 @@ public class Body implements XMLSaving {
 
 	public void setWing(Wing wing) {
 		this.wing = wing;
+	}
+
+	public String setWingSize(int size) {
+		return this.wing.setSize(null, size);
+	}
+
+	public String setWingSize(GameCharacter owner, int size) {
+		return this.wing.setSize(owner, size);
+	}
+
+	public String setWingType(AbstractWingType type) {
+		return this.wing.setType(null, type);
+	}
+
+	public String setWingType(GameCharacter owner, AbstractWingType type) {
+		return this.wing.setType(owner, type);
+	}
+
+	public Boolean hasTongueModifier(TongueModifier modifier) {
+		return face.getTongue().hasTongueModifier(modifier);
+	}
+
+	public String addTongueModifier(TongueModifier modifier) {
+		return addTongueModifier(null, modifier);
+	}
+
+	public String addTongueModifier(GameCharacter owner, TongueModifier modifier) {
+		return face.getTongue().addTongueModifier(owner, modifier);
+	}
+
+	public void resetTongueModifiers() {
+		face.getTongue().resetTongueModifiers();
 	}
 
 	// Descriptions:
@@ -4571,6 +4761,12 @@ public class Body implements XMLSaving {
 		
 		descriptionSB.append(viewedVagina.getType().getBodyDescription(owner));
 		
+		if(viewedVagina.getType().isEggLayer()) {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] lays eggs instead of giving birth to live young.");
+		} else {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] gives birth to live young.");
+		}
+		
 		if(owner.isFeral()) {
 			descriptionSB.append(" [style.colourFeral(As is to be expected, [npc.her] [npc.pussy] is entirely feral in form, and is no different to that of a normal [npc.vaginaRace]'s.)]");
 		} else if(vagina.isFeral(owner)) {
@@ -4773,6 +4969,9 @@ public class Body implements XMLSaving {
 				}
 			}
 		}
+		
+		
+		// Girlcum:
 		
 		descriptionSB.append(" [npc.Her] [npc.girlcumColour(true)] [npc.girlcum]");
 		
@@ -5223,7 +5422,7 @@ public class Body implements XMLSaving {
 			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
 				descriptionSB.append(" [npc.Her] belly is noticeably swollen, as [npc.sheIs] well into [npc.her] pregnancy.");
 			} else {
-				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to give birth just yet.");
+				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to give birth just yet.");
 			}
 			descriptionSB.append("</p>");
 			sectionAdded = true;
@@ -5336,7 +5535,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_2)) {
 							stage = " [npc.Her] belly is noticeably swollen, as the eggs in [npc.her] stomach have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] stomach just yet.";
+							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] stomach just yet.";
 						}
 						break;
 					case NIPPLE:
@@ -5346,7 +5545,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_2)) {
 							stage = " [npc.Her] [npc.breasts] are noticeably swollen, as the eggs in [npc.her] [npc.nipples] have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] [npc.breasts] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.nipples] just yet.";
+							stage = " [npc.Her] [npc.breasts] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.nipples] just yet.";
 						}
 						break;
 					case NIPPLE_CROTCH:
@@ -5356,7 +5555,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2)) {
 							stage = " [npc.Her] [npc.crotchBoobs] are noticeably swollen, as the eggs in [npc.her] [npc.crotchNipples] have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] [npc.crotchBoobs] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.crotchNipples] just yet.";
+							stage = " [npc.Her] [npc.crotchBoobs] are massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] [npc.crotchNipples] just yet.";
 						}
 						break;
 					case SPINNERET:
@@ -5367,7 +5566,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_2)) {
 							stage = " [npc.Her] "+spinneretArea+" is noticeably swollen, as the eggs in [npc.her] spinneret have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] "+spinneretArea+" is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] spinneret just yet.";
+							stage = " [npc.Her] "+spinneretArea+" is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] spinneret just yet.";
 						}
 						break;
 					case VAGINA:
@@ -5377,7 +5576,7 @@ public class Body implements XMLSaving {
 						} else if(owner.hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_2)) {
 							stage = " [npc.Her] belly is noticeably swollen, as the eggs in [npc.her] womb have had time in which to mature and grow.";
 						} else {
-							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.she] hasn't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
+							stage = " [npc.Her] belly is massively swollen, and although [npc.sheIs] clearly ready for it, [npc.sheHasFull]n't decided to lay the eggs which [npc.sheHas] incubated in [npc.her] womb just yet.";
 						}
 						break;
 					case ASS:
@@ -5503,7 +5702,7 @@ public class Body implements XMLSaving {
 					descriptionSB.append("<p>");
 				}
 				descriptionSB.append("<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] is responsible for previously having laid [npc.her] eggs in you, and in total, [npc.she] has done so "+Util.intToString(incubatedLitters)+" "+(incubatedLitters==1?"time":"times")+".</span>");
+							+ "[npc.Name] is responsible for previously having laid [npc.her] eggs in you, and in total, [npc.sheHasFull] done so "+Util.intToString(incubatedLitters)+" "+(incubatedLitters==1?"time":"times")+".</span>");
 				
 				for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
 					if(litter.getMother()!=null && litter.getMother().equals(owner)) {
@@ -5867,7 +6066,12 @@ public class Body implements XMLSaving {
 			this.getHair().setLength(null, 0);
 		}
 		
-		// Remove all makeup:
+		removeAllMakeup();
+		
+		CharacterModificationUtils.resetCoveringsToBeApplied();
+	}
+
+	public void removeAllMakeup() {
 		for(AbstractBodyCoveringType makeup : BodyCoveringType.allMakeupTypes) {
 			if(coverings.containsKey(makeup)) {
 				coverings.put(makeup, new Covering(makeup, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE, false, PresetColour.COVERING_NONE, false));
@@ -5875,7 +6079,7 @@ public class Body implements XMLSaving {
 		}
 		CharacterModificationUtils.resetCoveringsToBeApplied();
 	}
-
+	
 	public boolean isPiercedStomach() {
 		return piercedStomach;
 	}
@@ -5920,6 +6124,22 @@ public class Body implements XMLSaving {
 												?BodyCoveringType.getMaterialBodyCoveringType(this.getBodyMaterial(), bodyCoveringType.getCategory())
 												:bodyCoveringType;
 		return this.getCoverings().get(handledType);
+	}
+
+	public CoveringModifier getCoveringModifier(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial) {
+		return getCovering(bodyCoveringType, accountForNonFleshMaterial).getModifier();
+	}
+
+	public void setCoveringModifier(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial, CoveringModifier modifier) {
+		getCovering(bodyCoveringType, accountForNonFleshMaterial).setModifier(modifier);
+	}
+
+	public CoveringPattern getCoveringPattern(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial) {
+		return getCovering(bodyCoveringType, accountForNonFleshMaterial).getPattern();
+	}
+
+	public void setCoveringPattern(AbstractBodyCoveringType bodyCoveringType, boolean accountForNonFleshMaterial, CoveringPattern pattern) {
+		getCovering(bodyCoveringType, accountForNonFleshMaterial).setPattern(pattern);
 	}
 
 	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
@@ -6099,6 +6319,27 @@ public class Body implements XMLSaving {
 			return false;
 		}
 		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight().getValue();
+	}
+
+	public boolean isAbleToFlyFromExtraParts() {
+		for(BodyPartInterface bpi : getAllBodyParts()) {
+			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Basically the opposite of isAbleToFly, but skips the minimumWingSizeForFlight-checks
+	 * and the checks for slime bodies.
+	 * @return true if the body is incapable of flight
+	 */
+	public Boolean isInCapableOfFlight() {
+		return !(
+			isAbleToFlyFromExtraParts() ||
+			arm.getType().allowsFlight() ||
+			wing.getType().allowsFlight());
 	}
 
 	public boolean isTakesAfterMother() {

@@ -293,7 +293,7 @@ public class WingType {
 		}
 		
 		List<AbstractWingType> types = new ArrayList<>();
-		for(AbstractWingType type : WingType.getAllWingTypes()) { //TODO should have NONE?
+		for(AbstractWingType type : WingType.getAllWingTypes()) {
 			if(type.getRace()==r) {
 				types.add(type);
 			}

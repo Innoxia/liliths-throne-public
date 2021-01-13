@@ -70,6 +70,8 @@ public abstract class AbstractStatusEffect {
 
 	private boolean requiresApplicationCheck;
 	private int effectInterval;
+	private int applicationLength;
+	private boolean constantRefresh;
 	private boolean shortConditionalCheck;
 	
 	private String applicationCondition;
@@ -117,7 +119,7 @@ public abstract class AbstractStatusEffect {
 			boolean beneficial,
 			Map<AbstractAttribute, Float> attributeModifiers,
 			List<String> extraEffects) {
-		this(StatusEffectCategory.DEFAULT, renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
+		this(StatusEffectCategory.DEFAULT, renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShadeTertiary, beneficial, attributeModifiers, extraEffects);
 	}
 	
 	public AbstractStatusEffect(StatusEffectCategory category,
@@ -157,6 +159,8 @@ public abstract class AbstractStatusEffect {
 		this.sexEffect = false;
 		
 		this.effectInterval = 0;
+		this.applicationLength = -1;
+		this.constantRefresh = false;
 		this.shortConditionalCheck = false;
 		this.applicationCondition = null;
 		
@@ -274,6 +278,14 @@ public abstract class AbstractStatusEffect {
 				} else {
 					requiresApplicationCheck = true;
 				}
+
+				if(coreElement.getOptionalFirstOf("applicationLength").isPresent()) {
+					this.applicationLength = Integer.valueOf(coreElement.getMandatoryFirstOf("applicationLength").getTextContent());
+					this.constantRefresh = Boolean.valueOf(coreElement.getMandatoryFirstOf("applicationLength").getAttribute("constantRefresh"));
+				} else {
+					this.applicationLength = -1;
+					this.constantRefresh = false;
+				}
 				
 				if(!coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval").isEmpty()) {
 					this.effectInterval = Integer.valueOf(coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval"));
@@ -338,6 +350,14 @@ public abstract class AbstractStatusEffect {
 		return false;
 	}
 	
+	public int getApplicationLength() {
+		return applicationLength;
+	}
+
+	public boolean isConstantRefresh() {
+		return constantRefresh;
+	}
+
 	public boolean renderInEffectsPanel() {
 		return renderInEffectsPanel;
 	}

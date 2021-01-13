@@ -1594,6 +1594,7 @@ public class CharacterInventory implements XMLSaving {
 											if (!clothingToRemove.containsKey(equippedClothing))
 												if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
 													if(automaticClothingManagement) {
+//														System.out.println(equippedClothing +", "+ bpEquipped.displacementType);
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
 													} else {
 														equipTextSB.append(characterClothingOwner.isPlayer()
@@ -1644,7 +1645,10 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
-			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
+//			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
+			Set<AbstractClothing> blockingClothingSet = new HashSet<>(clothingToRemove.keySet());
+			blockingClothingSet.removeIf(c -> c != clothing);
+			
 			equipTextSB.append(characterClothingOwner.isPlayer()
 					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, your " + Util.clothesToStringList(blockingClothingSet, false) + " need"
 						+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."
@@ -1662,22 +1666,39 @@ public class CharacterInventory implements XMLSaving {
 		// If you want to unequip this clothing now:
 		if (unequipIfAble) {
 			// Sort clothing to remove in zLayer order(so you take off your shirt before removing bra etc.):
+			// v0.3.14: Apparently iterating through clothingToRemove using this list makes Java cry and see values as null. Have add removalTextMap and iterate through that map and order removal text instead...
 			List<AbstractClothing> tempClothingList = new ArrayList<>();
 			tempClothingList.addAll(clothingToRemove.keySet());
 			tempClothingList.sort(new ClothingZLayerComparator());
-
-			// TODO Take in removerCharacter and targetCharacter:
-			// Rachel removes your panties. You pull down Rachel's panties
-
+			
+			Map<AbstractClothing, String> removalTextMap = new HashMap<>();
+			
 			// Description of each clothing item that is removed/displaced:
-			for (AbstractClothing c : tempClothingList) {
-				equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
-						? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
-								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
-						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
-				// if(c==clothing)
-				// unequipTextSB.append("<br/>"+(isInventoryFull()?characterClothingOwner.droppedItemText(clothing):characterClothingOwner.addedItemToInventoryText(clothing)));
+			for(Entry<AbstractClothing, DisplacementType> entry : clothingToRemove.entrySet()) {
+				AbstractClothing c = entry.getKey();
+				DisplacementType dt = entry.getValue();
+				
+				removalTextMap.put(c,
+						(equipTextSB.length() == 0 ? "" : "<br/>")
+						+ (dt == DisplacementType.REMOVE_OR_EQUIP
+							? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+									: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
+							: c.getClothingType().displaceText(
+									characterClothingOwner,
+									characterRemovingClothing,
+									c.getSlotEquippedTo(),
+									dt,
+									(Main.game.isInSex()
+										?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH
+										:false))));
 			}
+			
+			// Append removal descriptions, sorted by zLayer:
+			removalTextMap.keySet().stream().sorted(new ClothingZLayerComparator());
+			for(Entry<AbstractClothing, String> entry : removalTextMap.entrySet()) {
+				equipTextSB.append(entry.getValue());
+			}
+			
 
 			// Actually unequip the clothing:
 			clothingCurrentlyEquipped.remove(clothing);

@@ -9,6 +9,7 @@ import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,7 @@ public abstract class AbstractSubspecies {
 	
 	private int baseSlaveValue;
 	private int subspeciesOverridePriority;
+	private static AbstractSubspecies fleshSubspecies = null;
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
@@ -494,7 +496,7 @@ public abstract class AbstractSubspecies {
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
 				
-				this.statusEffectAttributeModifiers = new HashMap<>();
+				this.statusEffectAttributeModifiers = new LinkedHashMap<>();
 				for(Element e : coreElement.getMandatoryFirstOf("statusEffectAttributeModifiers").getAllOf("attribute")) {
 					statusEffectAttributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
 				}
@@ -554,6 +556,7 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
+		fleshSubspecies = null;
 		if(this.isFromExternalFile() && Main.game.isStarted()) {
 			UtilText.setBodyForParsing("targetedBody", body);
 			UtilText.parse(applySubspeciesChanges);
@@ -585,7 +588,10 @@ public abstract class AbstractSubspecies {
 	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
 	 */
 	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
-		return getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		if (fleshSubspecies == null) {
+			fleshSubspecies = getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		}
+		return fleshSubspecies;
 	}
 	
 	/**

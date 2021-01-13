@@ -204,8 +204,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:null,
-								SexActionPresets.groinToFeet
-								),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -234,7 +234,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:SexActionPresets.mouthToTailAndTentacle,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -593,7 +594,8 @@ public class StandardSexActionInteractions {
 											SexActionPresets.appendagesToCrotchBoobs)
 									:null),
 								SexActionPresets.appendagesToLowerHalf,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,
@@ -751,7 +753,8 @@ public class StandardSexActionInteractions {
 			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 					new SexActionInteractions(
 					Util.mergeMaps(
-							SexActionPresets.groinToFeet),
+							SexActionPresets.groinToFeet,
+							SexActionPresets.mouthToFeet),
 					Util.newArrayListOfValues(
 							OrgasmCumTarget.LEGS,
 							OrgasmCumTarget.FEET,
@@ -781,7 +784,8 @@ public class StandardSexActionInteractions {
 									?Util.mergeMaps(
 											SexActionPresets.breastsToPenis,
 											SexActionPresets.fingerToLowerHalf)
-									:null),
+									:null,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.FLOOR),
@@ -810,7 +814,8 @@ public class StandardSexActionInteractions {
 									:SexActionPresets.mouthToAppendages,
 								performer.isTaur()
 									?SexActionPresets.fingerToLowerHalf
-									:null),
+									:null,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.FLOOR),
@@ -1054,7 +1059,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
-								SexActionPresets.assToGroin),
+								SexActionPresets.assToGroin,
+								SexActionPresets.feetToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1222,7 +1228,8 @@ public class StandardSexActionInteractions {
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
 									SexActionPresets.tentacleToLowerHalf,
-									SexActionPresets.appendagesToAllAreas),
+									SexActionPresets.appendagesToAllAreas,
+									SexActionPresets.mouthToFeet),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.ASS,
 									OrgasmCumTarget.GROIN,
@@ -1325,7 +1332,9 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.groinToGroin,
 								SexActionPresets.appendagesToLowerHalf,
-								SexActionPresets.lowerHalfToAppendages),
+								SexActionPresets.lowerHalfToAppendages,
+								SexActionPresets.mouthToFeet,
+								SexActionPresets.feetToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.SELF_LEGS,
@@ -1378,7 +1387,8 @@ public class StandardSexActionInteractions {
 								!target.isTaur()
 									?SexActionPresets.mouthToAppendages
 									:SexActionPresets.mouthToTailAndTentacle,
-								SexActionPresets.groinToFeet),
+								SexActionPresets.groinToFeet,
+								SexActionPresets.mouthToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.FEET,

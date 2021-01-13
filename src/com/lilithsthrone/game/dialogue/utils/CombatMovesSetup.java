@@ -43,7 +43,7 @@ public class CombatMovesSetup {
                             		"<i>(You can click on the icons below to add and remove them from [npc.namePos] core combat moves.)</i>"
                             		+(getTarget().isPlayer()
                             				?""
-                            				:"<i>([npc.Name] will only choose to use [npc.her] core moves when in combat, unless [npc.she] has none available, in which case [npc.she] will choose from [npc.her] non-core moves.)</i>"))
+                            				:"<i>([npc.Name] will only choose to use [npc.her] core moves when in combat, unless [npc.sheHasFull] none available, in which case [npc.she] will choose from [npc.her] non-core moves.)</i>"))
                             + "</div>"
                             + "<div class='container-full-width' style='padding:8px; text-align:center;'>"
                             + "<h6 style='text-align:center;'>[style.colourMinorGood(Core Combat Moves)]</h6>");

@@ -50,9 +50,9 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum==null) {
 					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
 					if(selfcest) {
-						sb.append("[npc.she] has knocked [npc.herself] up");
+						sb.append("[npc.sheHasFull] knocked [npc.herself] up");
 					} else {
-						sb.append("[npc.she] has been impregnated");
+						sb.append("[npc.sheHasFull] been impregnated");
 					}
 					sb.append(")]!");
 					
@@ -60,13 +60,13 @@ public enum PregnancyDescriptor {
 					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
 					if(directSexInsemination) {
 						if(selfcest) {
-							sb.append("[npc.she] has knocked [npc.herself] up");
+							sb.append("[npc.sheHasFull] knocked [npc.herself] up");
 						} else {
 							sb.append("[npc2.nameHas] knocked [npc.herHim] up");
 						}
 					} else {
 						if(selfcest) {
-							sb.append("[npc.she] has impregnated [npc.herself]");
+							sb.append("[npc.sheHasFull] impregnated [npc.herself]");
 						} else {
 							sb.append("[npc2.nameHas] impregnated [npc.herHim]");
 						}
@@ -122,9 +122,9 @@ public enum PregnancyDescriptor {
 				if(characterProvidingCum==null) {
 					sb.append("[npc.NamePos] womb is already filled with eggs, [style.boldSex(so there's no chance that ");
 					if(selfcest) {
-						sb.append("[npc.she] has knocked [npc.herself] up");
+						sb.append("[npc.sheHasFull] knocked [npc.herself] up");
 					} else {
-						sb.append("[npc.she] has been impregnated");
+						sb.append("[npc.sheHasFull] been impregnated");
 					}
 					sb.append(")]!");
 					
@@ -132,13 +132,13 @@ public enum PregnancyDescriptor {
 					sb.append("[npc.NamePos] womb is already filled with eggs, [style.boldSex(so there's no chance that ");
 					if(directSexInsemination) {
 						if(selfcest) {
-							sb.append("[npc.she] has knocked [npc.herself] up");
+							sb.append("[npc.sheHasFull] knocked [npc.herself] up");
 						} else {
 							sb.append("[npc2.nameHas] knocked [npc.herHim] up");
 						}
 					} else {
 						if(selfcest) {
-							sb.append("[npc.she] has impregnated [npc.herself]");
+							sb.append("[npc.sheHasFull] impregnated [npc.herself]");
 						} else {
 							sb.append("[npc2.nameHas] impregnated [npc.herHim]");
 						}

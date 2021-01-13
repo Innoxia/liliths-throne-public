@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>NoStepOnSnek_octopus</race>
+	<transformationName><![CDATA[octopus]]></transformationName>
+	<coveringType>OCTOPUS_SKIN</coveringType>
+	<tags/>
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>furry</descriptor>
+		<descriptor>octopus-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>furry</descriptor>
+		<descriptor>octopus-like</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		They quickly quickly grow into delicate, almost translucent frills where [npc.herHim] ears would normally be.
+		<br/>[npc.Name] now [npc.has] [style.boldOctopus(large, octopus-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of octopus-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]#IF(npc.isPiercedEar()), and which have been pierced#ENDIF.
+	]]></bodyDescription>
+</ear>

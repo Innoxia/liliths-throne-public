@@ -225,9 +225,9 @@ public class GamblingDenDialogue {
 				} else if(index==3) {
 					// Cage on/off
 					if(Main.game.getNpc(Axel.class).getClothingInSlot(InventorySlot.PENIS)!=null) {
-						return new Response("Uncage",
-								"Take off [axel.namePos] chastity cage."
-										+ "<br/>[style.italicsMinorGood(You can put [axel.namePos] cage back on at any time.)]",
+						return new Response("Cage: [style.colourMinorGood(Equipped)]",
+								"[axel.Name] is currently wearing [axel.her] chastity cage. You could take it off of [axel.herHim], if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -237,9 +237,9 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("Cage",
-								"Get [axel.name] to put [axel.her] chastity cage back on."
-										+ "<br/>[style.italicsMinorGood(You can take [axel.namePos] cage off at any time.)]",
+						return new Response("Cage: [style.colourMinorBad(Unequipped)]",
+								"[axel.Name] is currently not wearing [axel.her] chastity cage. You could change that, if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -1283,8 +1283,9 @@ public class GamblingDenDialogue {
 						AXEL_VENGAR_VISIT_RETURN_FINISH) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+						((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+						((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(REWARD_AMOUNT));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Axel.class).setAffection(Main.game.getPlayer(), 40));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.SIDE_UTIL_COMPLETE));

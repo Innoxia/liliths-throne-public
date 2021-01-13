@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eye>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[snake]]></transformationName>
+	<coveringType>NoStepOnSnek_snake_eye</coveringType>
+	<defaultPairCount>1</defaultPairCount>
+	<defaultIrisShape>ROUND</defaultIrisShape>
+	<defaultPupilShape>VERTICAL</defaultPupilShape>
+	<name><![CDATA[eye]]></name>
+	<namePlural><![CDATA[eyes]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[predatory]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[predatory]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into snake-like eyes, with large irises and vertical pupils.
+		<br/>[npc.Name] now [npc.has] [style.boldSnake(snake-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.eyePairs] snake-like eyes, the irises and pupils of which are larger than a regular human's. They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.
+	]]></bodyDescription>
+</eye>

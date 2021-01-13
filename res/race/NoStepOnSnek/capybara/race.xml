@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>NoStepOnSnek_capybara</racialBody>
+	<applyRaceChanges/>
+	<name><![CDATA[capybara-morph]]></name>
+	<namePlural><![CDATA[capybara-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[capybara]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[capybaras]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[capybara]]></defaultTransformName>
+	<colour>NoStepOnSnek_capybara</colour>
+	<disposition>CIVILIZED</disposition>
+	<racialClass>MAMMAL</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>false</flyingRace>
+	<combatBehaviour>SUPPORT</combatBehaviour>
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	<numberOfOffspringLow>1</numberOfOffspringLow>
+	<numberOfOffspringHigh>8</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

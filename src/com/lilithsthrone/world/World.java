@@ -97,7 +97,7 @@ public class World implements XMLSaving {
 		try {
 			return grid[vec.getX()][vec.getY()];
 		} catch(Exception ex) {
-			System.err.println("Error in WorldType: "+this.getWorldType());
+			System.err.println("Error in WorldType: "+WorldType.getIdFromWorldType(this.getWorldType()));
 			throw ex;
 		}
 	}

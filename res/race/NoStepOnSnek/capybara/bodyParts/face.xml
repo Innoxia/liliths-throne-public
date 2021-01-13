@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>NoStepOnSnek_capybara</race>
+	<transformationName><![CDATA[capybara]]></transformationName>
+	<coveringType>NoStepOnSnek_capybara_fur</coveringType>
+	<mouthType>NoStepOnSnek_capybara_mouth</mouthType>
+	<tags>
+		<tag>FACE_MUZZLE</tag>
+		<tag>FACE_NATURAL_BALDNESS_FURRY</tag>
+	</tags>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic, capybara-like</descriptor>
+		<descriptor>capybara-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic, capybara-like</descriptor>
+		<descriptor>capybara-like</descriptor>
+	</descriptorsFeminine>
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic capybara-like muzzle, and [npc.her] tongue flattens and grows wider, turning into a similarly animalistic one.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath.
+		<br/>[npc.Name] now [npc.has] an anthropomorphic [style.boldCapybara(capybara-like face)], [npc.materialDescriptor] [npc.faceFullDescription]. Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldCapybara(flat, capybara-like tongue)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, capybara-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a blunt muzzle.
+	]]></bodyDescription>
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)] and complete with a blunt muzzle.
+	]]></bodyDescriptionFeral>
+</face>
