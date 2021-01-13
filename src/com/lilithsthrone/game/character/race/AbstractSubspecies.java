@@ -9,6 +9,7 @@ import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -495,7 +496,7 @@ public abstract class AbstractSubspecies {
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
 				
-				this.statusEffectAttributeModifiers = new HashMap<>();
+				this.statusEffectAttributeModifiers = new LinkedHashMap<>();
 				for(Element e : coreElement.getMandatoryFirstOf("statusEffectAttributeModifiers").getAllOf("attribute")) {
 					statusEffectAttributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
 				}

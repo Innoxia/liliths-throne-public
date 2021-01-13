@@ -27910,6 +27910,8 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// ------------------------------ Tentacle: ------------------------------ //
 	
+	// Tentacles refer to leg-replacement tentacles. If other tentacles are added in the future, they will have different names.
+	
 	public boolean hasTentacle() {
 		return getTentacleType()!=TentacleType.NONE;
 	}
@@ -27936,7 +27938,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementTentacleLengthAsPercentageOfHeight(float increment) {
 		return setTentacleLengthAsPercentageOfHeight(getTentacleLengthAsPercentageOfHeight() + increment);
 	}
-	/** @param penetrationLength true if you want to know the length of tail that is used in penetrations. It is equal to 80% of total length. */
+	/** @param penetrationLength true if you want to know the length of tentacle that is used in penetrations. It is equal to 80% of total length. */
 	public int getTentacleLength(boolean penetrationLength) {
 		return (int) (body.getTentacle().getLength(this) * (penetrationLength?0.8f:1));
 	}
@@ -27992,8 +27994,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getTentacle().getType().getPronoun(this);
 	}
 	// Count:
-	public int getTentacleCount() {
-		return body.getTentacle().getTentacleCount();
+	/**
+	 * This will always be the same as the number of legs this character has, as tentacles are just leg-replacements.
+	 */
+	public int getTentacleCount() {//TODO Tentacle count wasn't being set properly in leg type setting. Find a better fix for this.
+		return this.getLegCount();
+//		return body.getTentacle().getTentacleCount();
 	}
 	public String setTentacleCount(int tentacleCount) {
 		return body.getTentacle().setTentacleCount(this, tentacleCount);

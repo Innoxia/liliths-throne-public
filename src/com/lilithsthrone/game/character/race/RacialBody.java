@@ -223,7 +223,7 @@ public class RacialBody {
 			TorsoType.COW_MORPH,
 			BodyMaterial.FLESH,
 			BodyCoveringType.BODY_HAIR_BOVINE_FUR,
-			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(HornType.BOVINE_CURVED, HornType.BOVINE_STRAIGHT),
+			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(HornType.CURVED, HornType.STRAIGHT),
 			PenisType.COW_MORPH, 18, PenetrationGirth.FOUR_THICK, TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			Util.newArrayListOfValues(TailType.COW_MORPH),
 			TentacleType.NONE,

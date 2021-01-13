@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>25</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Chocolate Brownie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Chocolate Brownies]]></namePlural>
+		<description><![CDATA[A small cardboard box containing both a delicious chocolate brownie as well as a small ceramic plate upon which to present it. While a popular snack in general, capybaras have somehow become closely associated with it, although nobody seems to know quite how.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="90" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/NoStepOnSnek/capybara/subspecies/capybara.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">capybara_brownie.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>NoStepOnSnek_capybara</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[capybara]]></potionDescriptor>
+		<associatedRace>NoStepOnSnek_capybara</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] the brownie out of its protective box and quickly [npc.verb(devour)] it, leaving [npc.herHim] with the delicious taste of chocolate filling [npc.her] mouth.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(take)] the brownie out of its protective box, before bringing it up to [npc2.namePos] [npc2.lips] and getting [npc2.herHim] to eat it. Quickly devouring it, [npc2.name] is left with the delicious taste of chocolate filling [npc2.her] mouth.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

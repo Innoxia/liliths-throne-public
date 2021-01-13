@@ -1562,7 +1562,7 @@ public class CharacterUtils {
 				if(!halfDemon) {
 					character.setBreastType(BreastType.HUMAN);
 					character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
-					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace(), false)));
 				}
 				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
 				character.setArmType(ArmType.HUMAN);
@@ -1578,7 +1578,7 @@ public class CharacterUtils {
 				if(!halfDemon) {
 					character.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(character.getLegRace())));
 					character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
-					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace(), false)));
 				}
 				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
 				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
@@ -1595,7 +1595,7 @@ public class CharacterUtils {
 				if(!halfDemon) {
 					character.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(character.getLegRace())));
 					character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
-					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+					character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace(), false)));
 				}
 				
 				AbstractFaceType faceType = Util.randomItemFrom(FaceType.getFaceTypes(character.getLegRace()));

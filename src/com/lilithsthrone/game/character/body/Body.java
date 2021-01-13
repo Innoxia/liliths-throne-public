@@ -4761,6 +4761,12 @@ public class Body implements XMLSaving {
 		
 		descriptionSB.append(viewedVagina.getType().getBodyDescription(owner));
 		
+		if(viewedVagina.getType().isEggLayer()) {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] lays eggs instead of giving birth to live young.");
+		} else {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] gives birth to live young.");
+		}
+		
 		if(owner.isFeral()) {
 			descriptionSB.append(" [style.colourFeral(As is to be expected, [npc.her] [npc.pussy] is entirely feral in form, and is no different to that of a normal [npc.vaginaRace]'s.)]");
 		} else if(vagina.isFeral(owner)) {
@@ -4963,6 +4969,9 @@ public class Body implements XMLSaving {
 				}
 			}
 		}
+		
+		
+		// Girlcum:
 		
 		descriptionSB.append(" [npc.Her] [npc.girlcumColour(true)] [npc.girlcum]");
 		

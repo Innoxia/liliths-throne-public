@@ -144,6 +144,10 @@ public class Tentacle implements BodyPartInterface {
 
 	public String setTentacleCount(GameCharacter owner, int tentacleCount) {
 		tentacleCount = Math.max(1, Math.min(tentacleCount, MAXIMUM_COUNT));
+		if(!Main.game.isStarted() || owner==null) {
+			this.tentacleCount = tentacleCount;
+			return "";
+		}
 		
 		if(owner.getTentacleCount() == tentacleCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
