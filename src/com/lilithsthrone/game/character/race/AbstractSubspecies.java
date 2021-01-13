@@ -1091,14 +1091,20 @@ public abstract class AbstractSubspecies {
 
 	public String getBasicDescription(GameCharacter character) {
 		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+			File file = new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml");
+			if (file.exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+			}
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
 		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+			File file = new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml");
+			if (file.exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+			}
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
