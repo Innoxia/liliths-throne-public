@@ -21,6 +21,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	NoStepOnSnek's races:
+		Added snake race, with subspecies of 'snake-morph' (bipedal snakes), 'lamia' (long-tailed snakes), and 'melusine' (long-tailed snakes with wings).		
+		Added octopus race, with subspecies of 'octopus-morph' (cephalopod body).
+		Added capybara race, with subspecies of capybara-morph (bipedal or quadrupedal body).
+		Added 6 food/drink items: Boiled Eggs/Snake Oil for snakes, Shrimp Cocktail/Ink Vodka for octopuses, Chocolate Brownie/Chamomile Tea for capybaras.
+		Added special attack 'Ink Cloud', unlocked by having an octopus face.
+	
 	Contributions:
 		Added support for multiple vagina or penis types per race in enchanted TF potion effects. (PR#1465 by Stadler76)
 		Fixed issue where the player's elemental had their combat moves reset every time you loading a saved game. (by AceXP)
@@ -86,6 +93,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'Humping' sex slots to the 'Over desk' sex position.
 	
 	Other:
+		The five main horn types (curled, spiral, curved, swept-back, straight) are no longer limited to demons, and instead are generically available for all races who lack special horn types in the same way that feathered/leathery wings are.
 		Hyena, panther, and demon eyes now have night vision.
 		Rabbits, rats, and squirrels now correctly have plantigrade feet by default instead of digitgrade.
 		Removed the 8-hour loiter action and added a 24-hour action.
@@ -110,8 +118,87 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where 'Present pussy' positioning action was available in gloryhole scenes even if you didn't have a vagina.
 		The size of the preview image when dying clothing and weapons now correctly fits into the tooltip's width.
 		Fixed incorrect colouring of some status effect icons (such as the icons for the smoking effects).
+		Fixed minor bug where ordering of attributes in modded race tooltips would be random.
+		Fixed issue where tentacle count was not correctly linked to leg count.
 	
 	
+	
+	[x] Restore live birth snek vagina
+	
+	update colour of tentacle binding icon
+	
+	[] Add definition to make pubic hair impossible
+		[] FaceType
+		[] Ass
+		[] Arm
+		[] Penis, Vagina
+	
+	[] Add mod override for applyNonBipedNameChange
+	
+	[] Add a way to TF tongue (mouth?)
+	
+	[x] convert horns into generic horns
+		[x] Add to generic TFs
+	
+	[x] Add generic egg-laying or live birthing descriptor to body vagina description
+	
+	Test:
+		Sneks
+			[x] Remove xml comments
+			[x] Icon
+				[x] Icon needs to be centred
+			[x] Half-demon name to basilisk
+			[x] Body parts
+				Changed face TF name from lamia to snake
+				Changed snake face TF to be a snake face, not human
+				Removed viper, renamed 'cobra' to 'hooded snake'
+				Updated face TF descriptions
+				Removed 'paw-like' from hand descriptors, changed 'snake-like' hand & finger descriptor to 'reptilian'
+				Removed 'MUSKY' from default cum modifiers.
+				Changed ear's bodyDescription.
+				Renamed 'lamia' ears to 'pointed snake'
+				Removed horn (as it was the same as the generic no-race horns which I've just made)
+				Removed non-egg vagina
+				Removed default PUFFY modifier for vagina
+			[x] Race
+			[x] RacialBody
+				[x] Race should not be applying lamia lower body
+				[x] Apply to lamia
+			[x] Covering types
+				Changed hair & body hair FLUFFY modifier to COARSE.	
+			[x] Subspecies
+				Changed application of subspecies changes for lamia and melusine.
+			[x] Book lore
+			[x] Test no hair spawning
+			[x] Subspecies bonus
+		Capybara
+			[x] Remove xml comments
+			[x] Icon
+			[x] Body parts
+				Removed MUSKY from cum
+				Changed testicles to be external
+				Changed to be very rare along river and uncommon in jungle and jungle city
+			[x] Race
+			[x] RacialBody
+			[x] Covering types
+			[x] Subspecies
+			[x] Book lore
+			[x] Subspecies bonus
+		Octopus
+			[x] Remove xml comments
+			[x] Icon
+			[x] Body parts
+			[x] Race
+			[x] RacialBody
+			[x] Covering types
+			[x] Subspecies
+			[x] Book lore
+			[x] Subspecies bonus
+	
+	
+	Panther book is yellow?
+	
+	Add insect racial class, limit wing types
 	
 	Jaguar subspecies
 		Black big cats should be panthers
