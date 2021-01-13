@@ -13,10 +13,10 @@
 	<bipedalSubspecies>false</bipedalSubspecies>
 	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
-		[#LEG_TYPE_NoStepOnSnek_snake_leg.applyLegConfigurationTransformation(targetedBody, LEG_CONFIGURATION_TAIL_LONG, true)]
+		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_snake_leg, LEG_CONFIGURATION_TAIL_LONG, true)]
 	]]></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
-		#IF(targetedRace==RACE_NoStepOnSnek_snake && targetedBody.getLeg().getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG)
+		#IF(targetedRace==RACE_NoStepOnSnek_snake && targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG)
 			200
 		#ELSE
 			0
