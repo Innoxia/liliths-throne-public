@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
@@ -3414,6 +3415,10 @@ public class Body implements XMLSaving {
 		return vagina;
 	}
 
+	public AbstractVaginaType getVaginaType() {
+		return vagina.getType();
+	}
+
 	public Wing getWing() {
 		return wing;
 	}
@@ -3564,6 +3569,14 @@ public class Body implements XMLSaving {
 
 	public void setVagina(Vagina vagina) {
 		this.vagina = vagina;
+	}
+
+	public String setVaginaType(AbstractVaginaType type) {
+		return this.vagina.setType(null, type);
+	}
+
+	public String setVaginaType(GameCharacter owner, AbstractVaginaType type) {
+		return this.vagina.setType(owner, type);
 	}
 
 	public void setWing(Wing wing) {
