@@ -654,6 +654,73 @@ public enum LegConfiguration {
 		public boolean isTailLostOnInitialTF() {
 			return false;
 		}
+	},
+
+	/**
+	 * This LegConfiguration is a 'tauric' configuration for bird races.
+	 */
+	WINGED_BIPED("winged-biped",
+			0,
+			0,
+			false,
+			true,
+			WingSize.THREE_LARGE,
+			true,
+			2,
+			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph, with their genitals shifting to be found in a rear-facing cloaca."
+					+ " The most common examples of this are feral wyverns and feral bats, in which the arms are replaced by wings, though they tend to walk on all fours by using their wings like forelegs.",
+			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
+			TFModifier.TF_MOD_LEG_CONFIG_WINGED_BIPED,
+			"statusEffects/race/raceBackgroundLegAvian") {
+		@Override
+		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
+			return Util.newArrayListOfValues(
+					GenitalArrangement.CLOACA_BEHIND);
+		}
+		@Override
+		public List<Class<? extends BodyPartInterface>> getFeralParts() {
+			return Util.newArrayListOfValues(Ass.class, Anus.class, BreastCrotch.class, Leg.class, Tail.class, Tentacle.class, Penis.class, Testicle.class, Vagina.class, Clitoris.class);
+		}
+		@Override
+		public List<BodyPartClothingBlock> getBodyPartClothingBlock(GameCharacter character) {
+			if(character.isFeral()) {
+				return Util.newArrayListOfValues(
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.HAND),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for winged-bipeds or winged-bipedal-ferals can be worn in this slot.",
+									Util.newArrayListOfValues(
+											ItemTag.FITS_CEPHALOPOD_BODY,
+											ItemTag.FITS_FERAL_ALL_BODY,
+											ItemTag.FITS_FERAL_CEPHALOPOD_BODY,
+											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
+											ItemTag.ONLY_FITS_FERAL_CEPHALOPOD_BODY)),
+							new BodyPartClothingBlock(
+									Util.newArrayListOfValues(
+											InventorySlot.WEAPON_MAIN_1,
+											InventorySlot.WEAPON_MAIN_2,
+											InventorySlot.WEAPON_MAIN_3,
+											InventorySlot.WEAPON_OFFHAND_1,
+											InventorySlot.WEAPON_OFFHAND_2,
+											InventorySlot.WEAPON_OFFHAND_3),
+									character.getLegType().getRace(),
+									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
+									Util.newArrayListOfValues(
+											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+				
+			} else {
+				return null; // This is a feral only leg configuration.
+			}
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_COMMON);
+		}
+		@Override
+		public boolean isTailLostOnInitialTF() {
+			return false;
+		}
 	};
 
 	private String name;

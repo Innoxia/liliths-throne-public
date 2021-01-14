@@ -2102,6 +2102,7 @@ public class Body implements XMLSaving {
 				}
 				break;
 			case BIPEDAL:
+			case WINGED_BIPED:
 				break;
 			case TAIL:
 				if(owner.isFeral()) {
@@ -2850,6 +2851,7 @@ public class Body implements XMLSaving {
 					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
@@ -2874,6 +2876,7 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
 					break;
 				case QUADRUPEDAL:
+				case WINGED_BIPED:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}

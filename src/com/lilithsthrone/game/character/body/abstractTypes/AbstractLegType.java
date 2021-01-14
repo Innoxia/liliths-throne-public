@@ -455,6 +455,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		boolean feral = true;
 		
 		switch(legConfiguration) {
+//			case WINGED_BIPED:
 			case BIPEDAL:
 				feral = false;
 				if(applyEffects) {
