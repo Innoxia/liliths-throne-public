@@ -2877,7 +2877,9 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
-			sb.append(leg.getType().getBodyDescription(owner));
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append(leg.getType().getBodyDescription(owner));
+			}
 		}
 
 		if(owner.getLegConfiguration().getNumberOfLegs()>0) {
