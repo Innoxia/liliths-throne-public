@@ -665,7 +665,7 @@ public enum LegConfiguration {
 			false,
 			true,
 			WingSize.THREE_LARGE,
-			true,
+			false,
 			2,
 			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph, with their genitals shifting to be found in a rear-facing cloaca."
 					+ " The most common examples of this are feral wyverns and feral bats, in which the arms are replaced by wings, though they tend to walk on all fours by using their wings like forelegs.",
@@ -675,6 +675,8 @@ public enum LegConfiguration {
 		@Override
 		public List<GenitalArrangement> getAvailableGenitalConfigurations() {
 			return Util.newArrayListOfValues(
+					GenitalArrangement.NORMAL,
+					GenitalArrangement.CLOACA,
 					GenitalArrangement.CLOACA_BEHIND);
 		}
 		@Override
@@ -687,17 +689,6 @@ public enum LegConfiguration {
 				return Util.newArrayListOfValues(
 							new BodyPartClothingBlock(
 									Util.newArrayListOfValues(
-											InventorySlot.HAND),
-									character.getLegType().getRace(),
-									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], only clothing suitable for winged-bipeds or winged-bipedal-ferals can be worn in this slot.",
-									Util.newArrayListOfValues(
-											ItemTag.FITS_CEPHALOPOD_BODY,
-											ItemTag.FITS_FERAL_ALL_BODY,
-											ItemTag.FITS_FERAL_CEPHALOPOD_BODY,
-											ItemTag.ONLY_FITS_FERAL_ALL_BODY,
-											ItemTag.ONLY_FITS_FERAL_CEPHALOPOD_BODY)),
-							new BodyPartClothingBlock(
-									Util.newArrayListOfValues(
 											InventorySlot.WEAPON_MAIN_1,
 											InventorySlot.WEAPON_MAIN_2,
 											InventorySlot.WEAPON_MAIN_3,
@@ -707,7 +698,8 @@ public enum LegConfiguration {
 									character.getLegType().getRace(),
 									"Due to the fact that [npc.nameHasFull] the feral body of [npc.a_legRace], [npc.she] cannot wield regular weapons!",
 									Util.newArrayListOfValues(
-											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
+											ItemTag.FITS_ARM_WINGS,
+											ItemTag.FITS_ARM_WINGS_EXCLUSIVE)));
 				
 			} else {
 				return null; // This is a feral only leg configuration.
