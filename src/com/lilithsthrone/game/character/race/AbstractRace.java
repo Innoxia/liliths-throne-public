@@ -341,7 +341,7 @@ public abstract class AbstractRace {
 		if(feral) {
 			return getFeralName(
 				character != null ? 
-					new LegConfigurationAquatic(character.getLegConfiguration(), character.getSubspecies().isAquatic(character)) : // <-- maybe use isAquatic(null) here? ~Stadler76
+					new LegConfigurationAquatic(character.getLegConfiguration(), character.getSubspecies().isAquatic(character)) :
 					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
 				false);
 		}
@@ -356,7 +356,7 @@ public abstract class AbstractRace {
 		if(feral) {
 			return getFeralName(
 				character != null ? 
-					new LegConfigurationAquatic(character.getLegConfiguration(), character.getSubspecies().isAquatic(character)) : // <-- maybe use isAquatic(null) here? ~Stadler76
+					new LegConfigurationAquatic(character.getLegConfiguration(), character.getSubspecies().isAquatic(character)) :
 					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
 				true);
 		}
