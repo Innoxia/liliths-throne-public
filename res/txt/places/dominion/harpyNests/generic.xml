@@ -31,9 +31,9 @@
 	#IF(pc.isPartyAbleToFly())
 		<p>
 			#IF(pc.hasCompanions())
-				Telling [com.name] to follow along, you spread your wings and dash into a forwards sprint, and with a little jump and a few powerful flaps, you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and with another flap of your wings, you and your [com.companion] swoop down to land on top of it.
+				Telling [com.name] to follow along, you #IF(!pc.isAbleToFlyFromExtraParts())spread your wings and #ENDIFdash into a forwards sprint, and with a little jump#IF(!pc.isAbleToFlyFromExtraParts()) and a few powerful flaps,#ENDIF you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and#IF(!pc.isAbleToFlyFromExtraParts()) with another flap of your wings,#ENDIF you and your [com.companion] swoop down to land on top of it.
 			#ELSE
-				Spreading your wings, you dash into a forwards sprint, and with a little jump and a powerful flap, you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and with another flap of your wings, you gracefully swoop down to land on top of it.
+				#IF(!pc.isAbleToFlyFromExtraParts())Spreading your wings, you#ELSEYou#ENDIF dash into a forwards sprint, and with a little jump#IF(!pc.isAbleToFlyFromExtraParts()) and a powerful flap#ENDIF, you take off into the air. Quickly gaining altitude, you circle back towards the tall building, looking for an easy spot to land. Thankfully, the structure's steepled roof has had a flat platform built over the top of it, and#IF(!pc.isAbleToFlyFromExtraParts()) with another flap of your wings,#ENDIF you gracefully swoop down to land on top of it.
 			#ENDIF
 		</p>
 		<p>

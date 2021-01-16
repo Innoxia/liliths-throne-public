@@ -824,7 +824,7 @@ public class UtilText {
 				e.printStackTrace();
 			}
 		} else {
-			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+pathName+".xml")+"' does not exist!");
+			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+System.getProperty("file.separator")+pathName+".xml")+"' does not exist!");
 		}
 		
 		if(strings.isEmpty()) {

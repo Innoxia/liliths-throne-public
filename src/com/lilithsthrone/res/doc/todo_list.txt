@@ -37,6 +37,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where the appearance for feral legs was hardcoded and didn't take various leg configurations into account. (PR#1467 by Stadler76)
 		Tidied up a lot of race code, and fixed issue where changing a character's tongueType (as part of changing face type) wouldn't resets its modifiers. Also added 'WING_SIZE_' as a parser prefix hook for WingSize enum values. (PR#1480 by Stadler76)
 		Updated the tentacle-constrict icon. (by DSG)
+		Made the tooltip fade-in animation toggleable via the existing 'Fade-In' game option. This fixes the bug where tooltips were appearing blank when using some versions of java to run the game. (PR#1449 by CognitiveMist)
+		Improved damage calculations for special attacks. Added ability to set 'damageVariance' in modded combat moves. Added CombatMoveType POWER for use when defining special attacks instead of having to use ATTACK or SPELL. (PR#1473 by Stadler76)
+		Fixed references to the player using their wings in several scenes when the player was in fact able to fly without their wings. (PR#1483 by Stadler76)
+		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
 		
 	DSG's race fixes:
 		Race version 1.3:
@@ -136,25 +140,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[#pc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
 	
-	[x] Restore live birth snek vagina
-	
-	[x] DSG's icon
-		[x] update colour of tentacle binding icon
-	
-	[x] Add way to define place types for Subspecies spawn
-		Test:
-			[x] Imp spawn submission tunnels
-		
-	[x] Fix 'standing at full height' for ferals
-	
-	[x] Fix issue where feral TF into snake gave pc a tail?
+	Vicky's 'clothing' action should be hidden if she has no clothing for sale
 	
 	[] Check that lower body of tail can be used as penetrative object
 		[] Prevent tails from being grown on this leg configuration?
-	
-	[x] Too long feral sneks (1.7m height results in 8.5m tail length)
-	
-	[x] Sneks spawning nowhere.
 	
 	[] Add definition to make pubic hair impossible
 		[] Make it impossible by default on non-mammalian/avian race parts
@@ -166,64 +155,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Add mod override for applyNonBipedNameChange
 	
 	[] Add a way to TF tongue (mouth?)
-	
-	[x] convert horns into generic horns
-		[x] Add to generic TFs
-	
-	[x] Add generic egg-laying or live birthing descriptor to body vagina description
-	
-	Test:
-		Sneks
-			[x] Remove xml comments
-			[x] Icon
-				[x] Icon needs to be centred
-			[x] Half-demon name to basilisk
-			[x] Body parts
-				Changed face TF name from lamia to snake
-				Changed snake face TF to be a snake face, not human
-				Removed viper, renamed 'cobra' to 'hooded snake'
-				Updated face TF descriptions
-				Removed 'paw-like' from hand descriptors, changed 'snake-like' hand & finger descriptor to 'reptilian'
-				Removed 'MUSKY' from default cum modifiers.
-				Changed ear's bodyDescription.
-				Renamed 'lamia' ears to 'pointed snake'
-				Removed horn (as it was the same as the generic no-race horns which I've just made)
-				Removed non-egg vagina
-				Removed default PUFFY modifier for vagina
-			[x] Race
-			[x] RacialBody
-				[x] Race should not be applying lamia lower body
-				[x] Apply to lamia
-			[x] Covering types
-				Changed hair & body hair FLUFFY modifier to COARSE.	
-			[x] Subspecies
-				Changed application of subspecies changes for lamia and melusine.
-			[x] Book lore
-			[x] Test no hair spawning
-			[x] Subspecies bonus
-		Capybara
-			[x] Remove xml comments
-			[x] Icon
-			[x] Body parts
-				Removed MUSKY from cum
-				Changed testicles to be external
-				Changed to be very rare along river and uncommon in jungle and jungle city
-			[x] Race
-			[x] RacialBody
-			[x] Covering types
-			[x] Subspecies
-			[x] Book lore
-			[x] Subspecies bonus
-		Octopus
-			[x] Remove xml comments
-			[x] Icon
-			[x] Body parts
-			[x] Race
-			[x] RacialBody
-			[x] Covering types
-			[x] Subspecies
-			[x] Book lore
-			[x] Subspecies bonus
 	
 	
 	Panther book is yellow?
@@ -585,9 +516,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		 have a '[ ] Don't show this again' checkbox for that message?
 		 
 	add options upon giving birth to select which offspring you'd like to potentially see again
-		 
-		 
-	PRs
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
