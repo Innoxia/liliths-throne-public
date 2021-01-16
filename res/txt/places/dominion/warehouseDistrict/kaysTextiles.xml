@@ -129,19 +129,19 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STORAGE_AREA_SEARCHING"><![CDATA[
+	<htmlContent tag="STORAGE_AREA_SEARCHED"><![CDATA[
 	<p>
-		[pc.Stepping] up to the 'Surplus Disposal' crate, you take a look inside and see if you can find anything worth taking. Although most of the crate's contents seem to be either half-finished or damaged in some way, there are some items which appear to be in perfect condition...
+		Having now taken everything of value from the 'Surplus Disposal' crate, there's nothing more for you to do except turn around and leave. There's sure to be new items to take tomorrow, but until then, there's no point in returning to this area...
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- STORAGE_AREA_SEARCHED -->
+	<!-- STORAGE_AREA_SEARCHING -->
 	
-	<htmlContent tag="STORAGE_AREA_SEARCHED"><![CDATA[
+	<htmlContent tag="STORAGE_AREA_SEARCHING"><![CDATA[
 	<p>
-		Having now taken everything of value from the 'Surplus Disposal' crate, there's nothing more for you to do except turn around and leave. There's sure to be new items to take tomorrow, but until then, there's no point in returning to this area...
+		[pc.Stepping] up to the 'Surplus Disposal' crate, you take a look inside and see if you can find anything worth taking. Although most of the crate's contents seem to be either half-finished or damaged in some way, there are some items which appear to be in perfect condition...
 	</p>
 	]]>
 	</htmlContent>
