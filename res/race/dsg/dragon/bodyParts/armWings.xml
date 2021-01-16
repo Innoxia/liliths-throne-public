@@ -27,6 +27,7 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
 		<tag>ARM_WINGS</tag>
+		<tag>ARM_WINGS_LEATHERY</tag>
 	</tags>
 	
 	<!-- The singular and plural name of this arm type.

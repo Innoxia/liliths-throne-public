@@ -14,6 +14,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.3.2
@@ -24,9 +25,10 @@ public class OffspringMapDialogue {
 	
 	private static List<NPC> getOffspringList() {
 		AbstractWorldType worldType = Main.game.getPlayer().getWorldLocation();
+		AbstractPlaceType placeType = Main.game.getPlayer().getLocationPlace().getPlaceType();
 		
 		return Main.game.getOffspringNotSpawned(npc->
-			npc.getSubspecies().isAbleToNaturallySpawnInLocation(worldType)
+			npc.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType)
 				&& (worldType==WorldType.HARPY_NEST
 						?(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
 						:(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY))

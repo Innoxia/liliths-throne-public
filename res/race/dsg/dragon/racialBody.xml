@@ -280,7 +280,10 @@
 	<!-- Multiple tail types can be defined for one race, from which a random type will be selected upon spawning an instance of this race.
 	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/TailType.java -->
 	<tailTypes>
-		<type>NONE</type>
+		<type>dsg_dragon_tail</type>
+        <type>dsg_dragon_tailSpaded</type>
+        <type>dsg_dragon_tailTufted</type>
+		<type>dsg_dragon_tailFeathered</type>
 	</tailTypes>
 	
 	

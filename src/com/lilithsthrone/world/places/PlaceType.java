@@ -269,8 +269,8 @@ public class PlaceType {
 				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
 			} else {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
 			
@@ -295,8 +295,8 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 				return pop;
 				
@@ -457,7 +457,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Daddy.class))) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.DINER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.DINER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return DOMINION_PLAZA.getPopulation();
 		}
@@ -723,8 +723,8 @@ public class PlaceType {
 				return new ArrayList<>();
 			}
 			return Util.newArrayListOfValues(
-					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
-					new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
+					new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	};
 	
@@ -887,7 +887,7 @@ public class PlaceType {
 			null, "in the Enforcer HQ") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 		}
 	}.initWeatherImmune();
 
@@ -1297,7 +1297,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1329,7 +1329,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 	
@@ -1345,7 +1345,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1418,7 +1418,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1448,7 +1448,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1478,7 +1478,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1567,7 +1567,7 @@ public class PlaceType {
 			null, "in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1629,7 +1629,7 @@ public class PlaceType {
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				return super.getPopulation();
 			} else {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)));
 			}
 		}
 	};
@@ -1663,7 +1663,7 @@ public class PlaceType {
 			null, "in the Harpy Nests") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 		}
 	}.initWeatherImmune();
 	
@@ -2062,7 +2062,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isWorkTime()) {
-				pop.add(new Population(true, PopulationType.CONSTRUCTION_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CONSTRUCTION_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return pop;
 		}
@@ -2604,11 +2604,11 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
-			pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 			return pop;
 		}
 	}.initWeatherImmune();
@@ -2625,7 +2625,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
 				return new ArrayList<>();
 			}
@@ -2743,7 +2743,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
 				return new ArrayList<>();
 			}
@@ -2917,11 +2917,11 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
-			pop.add(new Population(false, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			pop.add(new Population(false, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			return pop;
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -3059,9 +3059,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return pop;
 		}
@@ -3078,7 +3078,7 @@ public class PlaceType {
 			null, "in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3093,7 +3093,7 @@ public class PlaceType {
 			null, "in the stocks at Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3109,7 +3109,7 @@ public class PlaceType {
 			"in Slaver Alley"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3194,18 +3194,18 @@ public class PlaceType {
 				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING)) {
 					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
 						return Util.newArrayListOfValues(
-								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, true)),
-								new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
-								new Population(true, PopulationType.FAN, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)),
+								new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
+								new Population(true, PopulationType.FAN, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					} else {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					}
 					
 				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR) && !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
 					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					} else {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					}
 				}
 			}
@@ -3225,7 +3225,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(
-					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
+					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
 					new Population(true, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -3267,7 +3267,7 @@ public class PlaceType {
 			"in 'The Rusty Collar'"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3283,7 +3283,7 @@ public class PlaceType {
 			"in 'The Rusty Collar'"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3299,7 +3299,7 @@ public class PlaceType {
 			"in 'The Rusty Collar'"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3315,7 +3315,7 @@ public class PlaceType {
 			"in 'The Rusty Collar'"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3407,7 +3407,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3437,7 +3437,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3470,7 +3470,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3485,7 +3485,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3500,7 +3500,7 @@ public class PlaceType {
 			null, "in the toilets of 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 	
@@ -3866,9 +3866,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, false)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, false)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false)));
 			}
 			pop.addAll(SUBMISSION_ENTRANCE.getPopulation());
 			return pop;
@@ -4761,8 +4761,8 @@ public class PlaceType {
 			null, "in the Gambling Den") {
 		@Override
 		public List<Population> getPopulation() {
-			Map<AbstractSubspecies, SubspeciesSpawnRarity> popComponent = new HashMap<>(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false));
-			Subspecies.getWorldSpecies(WorldType.DOMINION, false).forEach((key, value) -> popComponent.merge(key, value, (v1, v2) -> v1));
+			Map<AbstractSubspecies, SubspeciesSpawnRarity> popComponent = new HashMap<>(Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false));
+			Subspecies.getWorldSpecies(WorldType.DOMINION, this, false).forEach((key, value) -> popComponent.merge(key, value, (v1, v2) -> v1));
 			popComponent.remove(Subspecies.IMP);
 			popComponent.remove(Subspecies.IMP_ALPHA);
 			return Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, popComponent));

@@ -2035,13 +2035,19 @@ public class Body implements XMLSaving {
 		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
 		// Describe race:
 		sb.append(getHeader("Overview"));
+		
+		String heightDescription = " Standing at full height";
+		if(owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()) {
+			heightDescription = " From head to tail";
+		}
+		
 		if (owner.isPlayer()) {
 			sb.append("You are [pc.name], "
 							+(owner.getRace()==Race.HUMAN
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
 								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+" Standing at full height, you measure [pc.heightValue].");
+						+heightDescription+", you measure [pc.heightValue].");
 		} else {
 			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("[npc.Name] is "
@@ -2049,16 +2055,16 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+						+ heightDescription+", [npc.she] measures [npc.heightValue]");
 			} else {
 				if(observant) {
 					sb.append("Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+							+ heightDescription+", [npc.she] measures [npc.heightValue]");
 				} else {
 					sb.append("[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+								+ heightDescription+", [npc.she] measures [npc.heightValue]");
 				}
 			}
 			if(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())) {
@@ -2847,7 +2853,7 @@ public class Body implements XMLSaving {
 					sb.append(feralLegsPrefix).append("[npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case QUADRUPEDAL:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -6039,7 +6045,9 @@ public class Body implements XMLSaving {
 				false);
 		
 		// Set feral-specific attributes:
-		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
+		this.getLeg().getType().applyLegConfigurationTransformation(this, attributes.getLegConfiguration(), true);
+		
+//		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
 		this.setHeight(attributes.getSize());
 		
 		// Set breast and crotch-boob counts:
