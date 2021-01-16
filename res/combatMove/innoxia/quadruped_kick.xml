@@ -44,6 +44,10 @@
 		#ENDIF
 	]]></baseDamage>
 	
+	<!-- The damage variance of this attack, optional
+	All available values of DamageVariance can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageVariance.java -->
+	<damageVariance/>
+
 	<!-- How much damage this move blocks.
 	The block type corresponds to the 'damageType' defined above.
 	The parsing target of 'npc' corresponds to the character who is performing the move.

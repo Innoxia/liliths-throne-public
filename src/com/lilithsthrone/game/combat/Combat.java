@@ -1102,7 +1102,7 @@ public class Combat {
 			}
 			@Override
 			public Colour getHighlightColour() {
-				return move.getColour();
+				return move.getColourByDamageType(Main.game.getPlayer());
 			}
 			@Override
 			public AbstractCombatMove getAssociatedCombatMove() {

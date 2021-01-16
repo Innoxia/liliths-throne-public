@@ -388,7 +388,7 @@ public class TooltipInformationEventListener implements EventListener {
 			boolean coreMove = owner.getEquippedMoves().contains(move);
 			
 			tooltipSB.append("<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"+(coreMove?"[style.colourMinorGood(Core)]":"[style.colourMinorBad(Non-core)]")+"</div>");
-			tooltipSB.append("<div class='subTitle' style='color:"+move.getType().getColour().toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
+			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
 			
 			if(currentCooldown>0) {
 				tooltipSB.append("<div class='subTitle'><span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>On cooldown</span>: "+currentCooldown+(currentCooldown==1?" turn":" turns")+"</div>");
