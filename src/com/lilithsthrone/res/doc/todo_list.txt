@@ -40,6 +40,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made the tooltip fade-in animation toggleable via the existing 'Fade-In' game option. This fixes the bug where tooltips were appearing blank when using some versions of java to run the game. (PR#1449 by CognitiveMist)
 		Improved damage calculations for special attacks. Added ability to set 'damageVariance' in modded combat moves. Added CombatMoveType POWER for use when defining special attacks instead of having to use ATTACK or SPELL. (PR#1473 by Stadler76)
 		Fixed references to the player using their wings in several scenes when the player was in fact able to fly without their wings. (PR#1483 by Stadler76)
+		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
 		
 	DSG's race fixes:
 		Race version 1.3:
