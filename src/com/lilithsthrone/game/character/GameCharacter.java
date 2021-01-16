@@ -3892,6 +3892,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
+	public void setName(String name) {
+		this.nameTriplet = new NameTriplet(name, name, name);
+	}
+	
 	public void setName(NameTriplet nameTriplet) {
 		this.nameTriplet = nameTriplet;
 	}
@@ -17848,7 +17852,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(selectedMovesDisruption.get(index) == false) {
 					GameCharacter target = moveEntry.getKey();
 					float lustStart = target.getLust();
-					sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
 								+ move.perform(index, this, target, enemies, allies));
 					float lustEnd = target.getLust();
 					if(lustStart!=lustEnd) {
@@ -17890,7 +17894,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					
 				} else {
-					sb.append("<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
 								+ "<b style='color: " + PresetColour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>");
 				}
 				descriptionList.add(index, sb.toString());

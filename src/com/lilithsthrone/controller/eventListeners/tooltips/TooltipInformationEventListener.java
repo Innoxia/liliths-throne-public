@@ -388,7 +388,7 @@ public class TooltipInformationEventListener implements EventListener {
 			boolean coreMove = owner.getEquippedMoves().contains(move);
 			
 			tooltipSB.append("<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"+(coreMove?"[style.colourMinorGood(Core)]":"[style.colourMinorBad(Non-core)]")+"</div>");
-			tooltipSB.append("<div class='subTitle' style='color:"+move.getType().getColour().toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
+			tooltipSB.append("<div class='subTitle' style='color:"+move.getColourByDamageType(owner).toWebHexString()+"; width:46%; margin:2% 2% 0% 2%;'>"+move.getType().getName()+"</div>");
 			
 			if(currentCooldown>0) {
 				tooltipSB.append("<div class='subTitle'><span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>On cooldown</span>: "+currentCooldown+(currentCooldown==1?" turn":" turns")+"</div>");
@@ -935,7 +935,7 @@ public class TooltipInformationEventListener implements EventListener {
 								}
 								break;
 							case TAIL_LONG:
-								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
+								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail (Length: "+(Units.size(owner.getHeightValue()*LegConfiguration.getSerpentTailLengthMultiplier()))+")", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case AVIAN:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" bird legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));

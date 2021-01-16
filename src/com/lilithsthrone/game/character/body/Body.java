@@ -2127,7 +2127,8 @@ public class Body implements XMLSaving {
 					sb.append(" [style.colourFeral([npc.Her] entire body has transformed into that of a feral [npc.legRace]."
 							+ " [npc.Her] ass and genitals have shifted to be located within a cloaca on the underside of [npc.her] feral body.)]");
 				} else {
-					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace], which measures "+Units.size(owner.getHeightValue()*5)+" in length."
+					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace],"
+								+ " which measures "+Units.size(owner.getHeightValue()*LegConfiguration.getSerpentTailLengthMultiplier())+" in length."
 							+ " [npc.Her] ass and genitals are completely feral in nature, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
 				}
 				break;
@@ -2877,13 +2878,18 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures "
+							).append(Units.size(owner.getHeightValue()*LegConfiguration.getSerpentTailLengthMultiplier())).append(" in length. ");
 					break;
 				case QUADRUPEDAL:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
-			sb.append(leg.getType().getBodyDescription(owner));
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append(leg.getType().getBodyDescription(owner));
+			} else {
+				sb.append(" It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
+			}
 		}
 
 		if(owner.getLegConfiguration().getNumberOfLegs()>0) {

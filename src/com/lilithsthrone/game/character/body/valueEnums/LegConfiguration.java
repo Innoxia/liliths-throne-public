@@ -838,4 +838,11 @@ public enum LegConfiguration {
 	public String getSubspeciesStatusEffectBackgroundPath() {
 		return subspeciesStatusEffectBackgroundPath;
 	}
+	
+	/**
+	 * @return How many times longer a character's serpent tail is than their height.
+	 */
+	public static int getSerpentTailLengthMultiplier() {
+		return 5;
+	}
 }
