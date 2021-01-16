@@ -46,7 +46,19 @@
 		
 		<enchantmentLimit>5</enchantmentLimit>
 		
-		<effects/> 
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[Afflicts target with [style.boldPoison("Negative Arcane Duality")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF !npc2.hasStatusEffect(SE_ARCANE_DUALITY_NEGATIVE)
+		#THEN [##npc2.addStatusEffect(SE_ARCANE_DUALITY_NEGATIVE, 6)] [npc2.Name] [style.boldPoison([npc2.verb(struggle)] to defend [npc2.herself])] as [npc2.her] eyelids grow visibly heavier. 
+		#ENDIF
+		]]></onCriticalHitEffect>
 		
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL_WITH_METALS"/>
@@ -63,17 +75,12 @@
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
 		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The needle on the end of the dart embeds itself in [npc2.namePos] aura and releases its contents.
-		#IF !npc2.hasStatusEffect(SE_ARCANE_DUALITY_NEGATIVE)
-		#THEN [##npc2.addStatusEffect(SE_ARCANE_DUALITY_NEGATIVE, 6)] [npc2.Name] <span style='color:#85FF8B;'><b>[npc2.verb(struggle)] to defend [npc2.herself]</b></span> as [npc2.her] eyelids grow visibly heavier. 
-		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The dart clatters uselessly on the ground.

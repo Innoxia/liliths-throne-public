@@ -47,6 +47,18 @@
 		
 		<effects/>
 		
+		<extraEffects>
+			<effect><![CDATA[Afflicts target with [style.boldPhysical("Dazed")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF !npc2.hasStatusEffect(SE_DAZED)
+		#THEN [##npc2.addStatusEffect(SE_DAZED, 6)] [npc2.Name] [npc2.is] [style.boldPhysical(seeing stars)] from such a succession of blows! 
+		#ENDIF
+		]]></onCriticalHitEffect>
+		
 		<primaryColours values="JUST_STEEL"/> 
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours values="JUST_BLACK"/> 
@@ -57,8 +69,7 @@
 		</itemTags>
 		
 	</coreAttributes>
-
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	
 	<hitDescriptions>
 		<hitText><![CDATA[
 		Swinging out with [npc.her] baton, [npc.name] [npc.verb(manage)] to hit [npc2.name] square in the chest. There is a loud cracking sound as the shaft connects with the aura above [npc2.her] torso to drain [npc2.her] energy!
@@ -68,13 +79,9 @@
 		]]></hitText>
 		<hitText><![CDATA[
 		Swinging out with [npc.her] baton, [npc.name] [npc.verb(manage)] to hit [npc2.name] across the head! There is a loud cracking sound as the shaft connects with the aura above [npc2.her] head to drain [npc2.her] energy!
-		#IF !npc2.hasStatusEffect(SE_DAZED)
-		#THEN [##npc2.addStatusEffect(SE_DAZED, 6)] [npc2.Name] [npc2.is] <span style='color:#A79E90;'><b>seeing stars</b></span> from such a blow. 
-		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 		Thrusting out with [npc.her] baton, [npc.name] [npc.verb(attempt)] to hit [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!

@@ -47,6 +47,18 @@
 		
 		<effects/>
 		
+		<extraEffects>
+			<effect><![CDATA[Afflicts target with [style.boldLust("Lustful Distraction")] on critical hit.]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect><![CDATA[
+		#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
+		#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc2.is] [style.boldLust(feeling the lingering effects of the arcane lightning.)]
+		#ENDIF
+		]]></onCriticalHitEffect>
+		
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_GREY"/> 
@@ -58,7 +70,6 @@
 		
 	</coreAttributes>
 
-	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
 			Aiming [npc.her] taser at [npc2.name], [npc.she] 
@@ -67,9 +78,6 @@
 			#ELSE [npc.verb(pull)] the trigger. 
 			#ENDIF 
 			The metal darts embed themselves in [npc2.namePos] aura while pink and purple lightning course through the wires, draining [npc2.her] energy! The spent cartridge ejects itself and dissolves into thin air. [npc.Name] suddenly [npc.verb(find)] another cartridge in [npc.her] [npc.hand] and [npc.verb(insert)] it into the business end of the taser.
-			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc2.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
-			#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
 			[npc.Name] [npc.verb(shoot)] [npc2.name] with [npc.her] 
@@ -78,19 +86,12 @@
 			#ELSE taser.
 			#ENDIF
 			There is a loud bang and then a brilliant pink and purple flash as [npc2.namePos] energy is drained! The spent cartridge pops out and [npc.name] [npc.verb(insert)] another one into the taser.
-			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc2.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
-			#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
 			[npc.Name] [npc.verb(fire)] [npc.her] taser. [npc2.Name] suddenly [npc2.verb(find)] metal darts embedded in [npc2.her] aura before being surrounded by pulsating streams of arcane lightning! [npc2.sheHasFull] lost some energy! The spent cartridge clatters on the ground and [npc.name] [npc.verb(insert)] another one into the taser.
-			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc2.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
-			#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 
-	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
 			Aiming [npc.her] taser at [npc2.name], [npc.verb(pull)] the trigger. The metal darts glance off [npc2.nameHas] aura and fall uselessly to the ground! 
