@@ -58,7 +58,7 @@
 		<effects/>
 		
 		<extraEffects>
-			<effect><![CDATA[Afflicts target with [style.boldLust("Lustful Distraction")] on critical hit.]]></effect>
+			<effect><![CDATA[[style.boldLust("Lustful Distraction")] on critical hit.]]></effect>
 		</extraEffects>
 		
 		<onHitEffect/>

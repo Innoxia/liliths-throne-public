@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[cryoprism guns]]></namePlural> 
 		
-		<description><![CDATA[Having the longest reach in the Enforcer arsenal, the cryoprism gun uses a [style.ice(freezing)] [style.legendary(clear demonstone)] as the active medium of an otherwise normal quad-pumped solid state laser. The result turns a mildly annoying laser beam into a powerful freeze ray with a perfectly flat trajectory.]]></description> 
+		<description><![CDATA[Having the longest reach in the Enforcer arsenal, the cryoprism gun uses a [style.colourIce(freezing)] [style.colourLegendary(clear demonstone)] as the active medium of an otherwise normal quad-pumped solid state laser. The result turns a mildly annoying laser beam into a powerful freeze ray with a perfectly flat trajectory.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		
@@ -49,16 +49,18 @@
 		<effects/>
 		
 		<extraEffects>
-			<effect><![CDATA[Afflicts target with [style.boldIce("Freezing Fog")] on critical hit.]]></effect>
+			<effect><![CDATA[[style.boldIce("Freezing Fog")] on critical hit.]]></effect>
 		</extraEffects>
 		
 		<onHitEffect/>
 		
 		<onCriticalHitEffect><![CDATA[
-		#IF !npc2.hasStatusEffect(SE_FREEZING_FOG)
-		#THEN [##npc2.addStatusEffect(SE_FREEZING_FOG, 4)] A [style.boldIce(freezing fog)] settles around around [npc2.name]!
-		#ELSEIF npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN)
-		#THEN [##npc2.addStatusEffect(SE_FROZEN, 2)] The [style.ice(fog)] around [npc2.name] flash-freezes [style.boldIce(thin layer of ice)]!
+		#IF (!npc2.hasStatusEffect(SE_FREEZING_FOG))
+			[##npc2.addStatusEffect(SE_FREEZING_FOG, 4)] A [style.boldIce(freezing fog)] settles around around [npc2.name]!
+		#ELSEIF (npc2.hasStatusEffect(SE_FREEZING_FOG) && !npc2.hasStatusEffect(SE_FROZEN))
+			[##npc2.addStatusEffect(SE_FROZEN, 2)]
+			[##npc2.removeStatusEffect(SE_FREEZING_FOG)]
+			The [style.colourIce(fog)] around [npc2.name] flash-freezes [style.boldIce(thin layer of ice)]!
 		#ENDIF
 		]]></onCriticalHitEffect>
 		

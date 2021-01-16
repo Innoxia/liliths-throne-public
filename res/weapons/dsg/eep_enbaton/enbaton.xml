@@ -48,7 +48,7 @@
 		<effects/>
 		
 		<extraEffects>
-			<effect><![CDATA[Afflicts target with [style.boldPhysical("Dazed")] on critical hit.]]></effect>
+			<effect><![CDATA[[style.boldPhysical("Dazed")] on critical hit.]]></effect>
 		</extraEffects>
 		
 		<onHitEffect/>

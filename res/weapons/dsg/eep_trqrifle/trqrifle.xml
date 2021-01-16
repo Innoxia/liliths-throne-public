@@ -49,7 +49,7 @@
 		<effects/>
 		
 		<extraEffects>
-			<effect><![CDATA[Afflicts target with [style.boldPoison("Negative Arcane Duality")] on critical hit.]]></effect>
+			<effect><![CDATA[[style.boldPoison("Negative Arcane Duality")] on critical hit.]]></effect>
 		</extraEffects>
 		
 		<onHitEffect/>

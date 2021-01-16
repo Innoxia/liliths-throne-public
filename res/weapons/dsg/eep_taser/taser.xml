@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<authorTag><![CDATA[On the underside of the body, there is a small engraving that reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+		<authorTag><![CDATA[On the underside of the body, a small engraving reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
 		
 		<value>7500</value> 
 		
@@ -48,7 +48,7 @@
 		<effects/>
 		
 		<extraEffects>
-			<effect><![CDATA[Afflicts target with [style.boldLust("Lustful Distraction")] on critical hit.]]></effect>
+			<effect><![CDATA[[style.boldLust("Lustful Distraction")] on critical hit.]]></effect>
 		</extraEffects>
 		
 		<onHitEffect/>
