@@ -636,11 +636,13 @@ public abstract class AbstractSubspecies {
 		AbstractSubspecies subspecies = null;
 		
 		int highestWeighting = 0;
+		int newWeighting;
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-			if(sub.getSubspeciesWeighting(body, race)>highestWeighting
+			newWeighting = sub.getSubspeciesWeighting(body, race);
+			if(newWeighting>highestWeighting
 					&& (!body.isFeral() || sub.isFeralConfigurationAvailable())) {
 				subspecies = sub;
-				highestWeighting = sub.getSubspeciesWeighting(body, race);
+				highestWeighting = newWeighting;
 			}
 		}
 		if(subspecies==null) {
@@ -1110,15 +1112,17 @@ public abstract class AbstractSubspecies {
 	}
 
 	public String getBasicDescription(GameCharacter character) {
-		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() &&
+		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() &&
+		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
