@@ -18,7 +18,7 @@
 			#IF(pc.getQuest(QUEST_LINE_RELATIONSHIP_NYAN_HELP)==QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)
 				Although you've managed to discover that Wolfgang and Karl have seized control of Kay's business, you've yet to resolve the situation. Sooner or later, you're going to have to confront the two dobermanns again and convince them to leave Kay alone... 
 			#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_RELATIONSHIP_NYAN_HELP, QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS))
-				Having rescued Kay's business from Wolfgang and Karl, you've been given permission to come and go from the premises as you please. What's more, the thankful [kay.race] said that you could pay [kay.herHim] a personal visit whenever you feel like it...
+				Having rescued [kay.namePos] business from Wolfgang and Karl, you've been given permission to come and go from the premises as you please. What's more, the thankful [kay.race] said that you could pay [kay.herHim] a personal visit whenever you feel like it...
 			#ELSE
 				Having told Nyan that you'd discover why Kay has suddenly stopped doing business with her, you're going to have to head inside the warehouse and find out what's going on...
 			#ENDIF
@@ -871,7 +871,7 @@
 		After watching the bounty hunters depart via the same door through which you entered, you're able to breathe a sigh of relief and think about how happy Nyan is going to be when you're able to tell her of your success. Before you're able to give that too much thought, however, a quiet creaking coming from somewhere close behind you suddenly draws your attention.
 	</p>
 	<p>
-		Turning to face the origin of this noise, you're able to see that the solid wooden door on the other side of the room is steadily being pushed open. having had your hands full dealing Wolfgang and Karl all this time, you weren't able to give this door much of your attention, but now, through the smoke-filled air, you're able to see that the brass plaque screwed onto it reads 'Mr. Kay's Office'.
+		Turning to face the origin of this noise, you're able to see that the solid wooden door on the other side of the room is steadily being pushed open. Having had your hands full dealing with Wolfgang and Karl all this time, you weren't able to give this door much of your attention, but now, through the smoke-filled air, you're able to see that the brass plaque screwed onto it reads 'Mr. Kay's Office'.
 	</p>
 	<p>
 		[kay.speech(Are they gone?)] a nervous, slightly-feminine voice calls out from behind this door. After you've quickly replied in the positive, the owner of this voice lets out a big sigh of relief, before pulling their door wide open and happily exclaiming in a refined, posh-sounding accent, [kay.speech(Thank goodness! I've barely been able to leave my office since- ~Ahem!~ Oh! ~Ahem!~ It's so smoky in here!)]
@@ -1821,10 +1821,10 @@
 		After taking a moment to reach forwards and dominantly grope [kay.namePos] [kay.ass+], you give [kay.herHim] the further order to spread [kay.herself] and get ready to have [kay.her] toy inserted. Letting out a desperately-horny whine, your submissive pet once again obeys, and after reaching back around and spreading [kay.her] cheeks, [kay.she] moans, [kay.speech(Like this, [pc.name]?)]
 	</p>
 	<p>
-		Responding in the affirmative, you lift [kay.namePos] silver buttplug up to [kay.her] [kay.ass], and after teasing it around [kay.her] rim a few times, you firmly push it into [kay.her] [kay.asshole+]. [kay.Her] white-furred cat-tail frantically twists around as you push the toy into [kay.her] ass, and as you can't help but smile as [kay.she] squeaks, [kay.speech(~Aah!~ It actually fit! ~Ooh!~ That feels... good...)]
+		Responding in the affirmative, you lift [kay.namePos] silver buttplug up to [kay.her] [kay.ass], and after teasing it around [kay.her] rim a few times, you firmly push it into [kay.her] [kay.asshole+]. [kay.Her] white-furred cat-tail frantically twists around as you push the toy into [kay.her] ass, and as you can't help but smile as [kay.she] squeaks, [kay.speech(~Aah!~ It actually fits! ~Ooh!~ That feels... good...)]
 	</p>
 	<p>
-		Giving your pet's ass one last squeeze, you tell [kay.herHim] that the blue hue of the heart-shaped gem on the end of [kay.her] toy perfectly matches [kay.her] pretty eyes, which causes [kay.her] to let out a happy giggle. Sitting back, you order [kay.name] to resume [kay.her] previous position, and after [kay.sheHas] quickly pulled up [kay.her] trousers and sat back down on the floor, you reach over and stroke the top of [kay.her] head, wondering what to do with [kay.herHim] next...
+		Giving your pet's ass one last squeeze, you tell [kay.herHim] that the blue hue of the heart-shaped gem on the end of [kay.her] toy perfectly matches [kay.her] pretty eyes, which causes [kay.herHim] to let out a happy giggle. Sitting back, you order [kay.name] to resume [kay.her] previous position, and after [kay.sheHas] quickly pulled up [kay.her] trousers and sat back down on the floor, you reach over and stroke the top of [kay.her] head, wondering what to do with [kay.herHim] next...
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -1951,16 +1951,16 @@
 		Clearly enjoying this opportunity to show off to you, [kay.name] makes a show of slipping off [kay.her] stiletto heels, before stripping out of [kay.her] feminine blazer, shirt, and trousers. Soon left wearing nothing but [kay.her] hot-pink lacy thong and open-cup bra, the horny [kay.race] teases [kay.her] delicate fingers over [kay.her] big, exposed nipples, before finally taking [kay.her] lingerie off and standing before you, naked.
 	</p>
 	<p>
-		#IF(!kay.getClothingInSlot(IS_PENIS)==null)
-			#IF(!kay.getClothingInSlot(IS_ANUS)==null)
-				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
+		#IF(kay.getClothingInSlot(IS_PENIS)==null)
+			#IF(kay.getClothingInSlot(IS_ANUS)==null)
+				After doing a little spin to show off [kay.her] sexy, androgynous body,
 			#ELSE
-				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
+				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
 			#ENDIF
-		#ELSEIF(!kay.getClothingInSlot(IS_ANUS)==null)
-			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
+		#ELSEIF(kay.getClothingInSlot(IS_ANUS)==null)
+			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
 		#ELSE
-			After doing a little spin to show off [kay.her] sexy, androgynous body,
+			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
 		#ENDIF
 		 [kay.name] neatly folds [kay.her] feminine outfit and puts it tidily away, before quickly pulling on [kay.her] old, masculine suit. Flashing a sly smile your way, [kay.name] returns to sit by your side, letting out a contented purr as you stroke [kay.her] ears and wonder what to do next...
 	</p>
@@ -1979,16 +1979,16 @@
 		With no place for [kay.herHim] to get any privacy in the small office, the blushing [kay.race] is left with no choice but to change right in front of you. Clearly enjoying this opportunity to show off to you, [kay.name] makes a show of taking off [kay.her] tie and jacket, before unbuttoning [kay.her] shirt and letting it fall to the floor. With [kay.her] toned stomach and surprisingly large nipples now on display, you can't help but start to get turned on as the [kay.race] finishes undressing by removing [kay.her] shoes, trousers, and finally, [kay.her] briefs.
 	</p>
 	<p>
-		#IF(!kay.getClothingInSlot(IS_PENIS)==null)
-			#IF(!kay.getClothingInSlot(IS_ANUS)==null)
-				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
+		#IF(kay.getClothingInSlot(IS_PENIS)==null)
+			#IF(kay.getClothingInSlot(IS_ANUS)==null)
+				After doing a little spin to show off [kay.her] sexy, androgynous body,
 			#ELSE
-				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
+				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
 			#ENDIF
-		#ELSEIF(!kay.getClothingInSlot(IS_ANUS)==null)
-			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
+		#ELSEIF(kay.getClothingInSlot(IS_ANUS)==null)
+			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
 		#ELSE
-			After doing a little spin to show off [kay.her] sexy, androgynous body,
+			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
 		#ENDIF
 		 [kay.name] neatly folds [kay.her] masculine outfit and puts it tidily away, before picking up [kay.her] hot-pink lacy thong and matching cupless bra. Pulling them on, [kay.name] immediately starts to look a lot more feminine, and you can't help but lustfully watch as she continues getting dressed by pulling on her feminine shirt and trousers. Fixing her light pink tie around her neck, she pulls on her feminine blazer, before slipping her soft, delicate feet into her pair of stiletto heels. Finally, after replacing her masculine watch with a feminine one she's been keeping in one of her drawers, the cute cat-girl swaps her plain white headband with one that has a pretty pink bow on it.
 	</p>
