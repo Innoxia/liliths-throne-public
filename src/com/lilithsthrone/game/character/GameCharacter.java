@@ -3892,6 +3892,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
+	public void setName(String name) {
+		this.nameTriplet = new NameTriplet(name, name, name);
+	}
+	
 	public void setName(NameTriplet nameTriplet) {
 		this.nameTriplet = nameTriplet;
 	}
