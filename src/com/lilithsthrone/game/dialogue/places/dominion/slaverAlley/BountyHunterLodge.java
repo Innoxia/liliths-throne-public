@@ -213,9 +213,9 @@ public class BountyHunterLodge {
 							"Offer to let the dobermanns fuck you again..."
 								+ "<br/>"
 								+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
-										?"[style.italicsSexDom(As you"
+										?"[style.italicsSexDom(As you)]"
 												+ " [style.italicsMinorGood(have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
-												+ "[style.italicsSex(, you will be able to take the dominant role in the following sex scene.)]"
+												+ "[style.italicsSexDom(, you will be able to take the dominant role in the following sex scene.)]"
 										:"[style.italicsSex(As you)]"
 												+ " [style.italicsMinorBad(do not have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
 												+ "[style.italicsSex(, you will only be able to take the submissive role in the following sex scene.)]"),
@@ -235,9 +235,9 @@ public class BountyHunterLodge {
 							"Seduce the dobermanns and have sex with them..."
 									+ "<br/>"
 									+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
-											?"[style.italicsSexDom(As you"
+											?"[style.italicsSexDom(As you)]"
 													+ " [style.italicsMinorGood(have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
-													+ "[style.italicsSex(, you will be able to take the dominant role in the following sex scene.)]"
+													+ "[style.italicsSexDom(, you will be able to take the dominant role in the following sex scene.)]"
 											:"[style.italicsSex(As you)]"
 													+ " [style.italicsMinorBad(do not have the "+Fetish.FETISH_DOMINANT.getName(Main.game.getPlayer())+" fetish)]"
 													+ "[style.italicsSex(, you will only be able to take the submissive role in the following sex scene.)]"),
