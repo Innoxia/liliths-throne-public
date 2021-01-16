@@ -1951,13 +1951,13 @@
 		Clearly enjoying this opportunity to show off to you, [kay.name] makes a show of slipping off [kay.her] stiletto heels, before stripping out of [kay.her] feminine blazer, shirt, and trousers. Soon left wearing nothing but [kay.her] hot-pink lacy thong and open-cup bra, the horny [kay.race] teases [kay.her] delicate fingers over [kay.her] big, exposed nipples, before finally taking [kay.her] lingerie off and standing before you, naked.
 	</p>
 	<p>
-		#IF(kay.getClothingInSlot(IS_PENIS)==null)
-			#IF(kay.getClothingInSlot(IS_ANUS)==null)
+		#IF(!kay.getClothingInSlot(IS_PENIS)==null)
+			#IF(!kay.getClothingInSlot(IS_ANUS)==null)
 				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
 			#ELSE
 				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
 			#ENDIF
-		#ELSEIF(kay.getClothingInSlot(IS_ANUS)==null)
+		#ELSEIF(!kay.getClothingInSlot(IS_ANUS)==null)
 			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
 		#ELSE
 			After doing a little spin to show off [kay.her] sexy, androgynous body,
@@ -1979,13 +1979,13 @@
 		With no place for [kay.herHim] to get any privacy in the small office, the blushing [kay.race] is left with no choice but to change right in front of you. Clearly enjoying this opportunity to show off to you, [kay.name] makes a show of taking off [kay.her] tie and jacket, before unbuttoning [kay.her] shirt and letting it fall to the floor. With [kay.her] toned stomach and surprisingly large nipples now on display, you can't help but start to get turned on as the [kay.race] finishes undressing by removing [kay.her] shoes, trousers, and finally, [kay.her] briefs.
 	</p>
 	<p>
-		#IF(kay.getClothingInSlot(IS_PENIS)==null)
-			#IF(kay.getClothingInSlot(IS_ANUS)==null)
+		#IF(!kay.getClothingInSlot(IS_PENIS)==null)
+			#IF(!kay.getClothingInSlot(IS_ANUS)==null)
 				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage and blue-jewelled buttplug,
 			#ELSE
 				After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] white chastity cage,
 			#ENDIF
-		#ELSEIF(kay.getClothingInSlot(IS_ANUS)==null)
+		#ELSEIF(!kay.getClothingInSlot(IS_ANUS)==null)
 			After doing a little spin to show off the fact that [kay.sheIs] still wearing [kay.her] blue-jewelled buttplug,
 		#ELSE
 			After doing a little spin to show off [kay.her] sexy, androgynous body,

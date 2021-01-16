@@ -1495,12 +1495,12 @@ public class KaysWarehouse {
 							Util.newArrayListOfValues(CoverableArea.VAGINA),
 							Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Kay.class), ClitMouth.CLIT_ORAL_START, false, true))));
 				} else {
-					responses.add(new Response("Clit sucked", "You a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"' in able to get it sucked by [kay.name].", null));
+					responses.add(new Response("Clit sucked", "You require a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"' before you are able to get it sucked by [kay.name].", null));
 				}
 				
 			} else {
-				responses.add(new Response("Receive cunnilingus", "You require a pussy and access to it in able to receive cunnilingus from [kay.name].", null));
-				responses.add(new Response("Clit sucked", "You require a pussy, a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"', and access to it in able to get it sucked by [kay.name].", null));
+				responses.add(new Response("Receive cunnilingus", "You require a pussy and access to it before you are able to receive cunnilingus from [kay.name].", null));
+				responses.add(new Response("Clit sucked", "You require a pussy, a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"', and access to it before you are able to get it sucked by [kay.name].", null));
 			}
 			
 			for(int i=0;i<responses.size();i++) {
