@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -113,19 +114,31 @@ public class Race {
 	public static AbstractRace DEMON = new AbstractRace("demon",
 			"demons",
 			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demon"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spider"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopus"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horse"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snake")),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), "demon"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), "demon"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.ARACHNID, false), "demonic-spider"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.ARACHNID, true), "demonic-spider"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.CEPHALOPOD, false), "demonic-octopus"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.CEPHALOPOD, true), "demonic-octopus"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.QUADRUPEDAL, false), "demonic-horse"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.QUADRUPEDAL, true), "demonic-horse"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL, false), "demonic-fish"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL, true), "demonic-fish"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, false), "demonic-snake"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpent")),
 			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demons"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spiders"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopuses"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horses"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snakes")),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), "demons"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), "demons"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.ARACHNID, false), "demonic-spiders"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.ARACHNID, true), "demonic-spiders"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.CEPHALOPOD, false), "demonic-octopuses"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.CEPHALOPOD, true), "demonic-octopuses"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.QUADRUPEDAL, false), "demonic-horses"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.QUADRUPEDAL, true), "demonic-horses"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL, false), "demonic-fish"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL, true), "demonic-fish"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, false), "demonic-snakes"),
+					new Value<>(new LegConfigurationAquatic(LegConfiguration.TAIL_LONG, true), "demonic-sea-serpents")),
 			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,

@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BreastCrotch;
+import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
@@ -447,7 +448,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 */
 	private String handleLegConfigurationChanges(Body body, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		
-		String feralRaceName = this.getRace().getFeralName(legConfiguration, false);
+		String feralRaceName = this.getRace().getFeralName(new LegConfigurationAquatic(legConfiguration, body.getSubspecies().isAquatic(null)), false);
 		String feralRaceNameDeterminer = UtilText.generateSingularDeterminer(feralRaceName);
 		StringBuilder feralStringBuilder = new StringBuilder();
 		String feralRaceNameWithDeterminer = feralRaceNameDeterminer+" "+feralRaceName;

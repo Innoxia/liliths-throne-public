@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
@@ -471,7 +472,7 @@ public class Subspecies {
 				case TAIL_LONG:
 				case AVIAN:
 					return r==Race.HUMAN || r==Race.DEMON
-							?Race.DEMON.getFeralName(legConfiguration, false)
+							?Race.DEMON.getFeralName(new LegConfigurationAquatic(legConfiguration, this.isAquatic(null)), false)
 							:"demonic-"+r.getName(character, true);
 			}
 			
