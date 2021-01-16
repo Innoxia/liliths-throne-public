@@ -116,17 +116,21 @@ public abstract class AbstractRace {
 		this.name = name;
 		this.namePlural = namePlural;
 		this.nameFeral = nameFeral;
-		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false)) &&
-		    !nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL!");
+		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
+			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = false!");
 			this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), name);
+		}
+		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
+			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = true!");
 			this.nameFeral.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), name);
 		}
 		this.nameFeralPlural = nameFeralPlural;
-		if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false)) &&
-		    !nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
-			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL!");
+		if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
+			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = false!");
 			this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false), namePlural);
+		}
+		if (!nameFeralPlural.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true))) {
+			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeralPlural BIPEDAL and aquatic = true!");
 			this.nameFeralPlural.put(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, true), namePlural);
 		}
 		this.defaultTransformName = defaultTransformName;
