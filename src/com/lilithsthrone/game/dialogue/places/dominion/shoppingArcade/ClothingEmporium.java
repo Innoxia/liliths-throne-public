@@ -122,7 +122,7 @@ public class ClothingEmporium {
 		public String getResponseTabTitle(int index) {
 			if(index==0) {
 				return "Trade";
-			} else if(index==1) {
+			} else if(index==1 && Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return "Talk";
 			} else {
 				return null;
@@ -330,55 +330,11 @@ public class ClothingEmporium {
 								}
 							};
 						}
-						
-					}
-					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
-					if(index==1) {
-						return new Response("Report back", "Tell Nyan that you've dealt with the suppliers.", SHOP_REPORT_BACK) {
-							@Override
-							public void effects() {
-								Main.game.getNpc(Nyan.class).setSellModifier(1.25f);
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 25));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
-							}
-						};
-					}
-					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
-					if(index==1) {
-						return new Response("Report back", "Report back to Nyan once you've dealt with the suppliers.", null);
-					}
-					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES) {
-					if(index==1) {
-						return new Response("Offer help", "Tell Nyan that you'll help her with her supplier problem.", SHOP_OFFER_HELP) {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP));
-							}
-						};
-					}
-					
-				} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)){
-					if(index==1) {
-						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.<br/>[style.italicsQuestRomance(This will start Nyan's romance quest!)]", SHOP_ENCHANTED_CLOTHING) {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
-							}
-							@Override
-							public Colour getHighlightColour() {
-								return PresetColour.QUEST_RELATIONSHIP;
-							}
-						};
 					}
 				}
 				
 				
-				if (index == 0) {
+				if(index == 0) {
 					return new Response("Leave", "Tell Nyan that you've got to get going.", EXTERIOR) {
 						@Override
 						public void effects() {
@@ -389,11 +345,9 @@ public class ClothingEmporium {
 							}
 						}
 					};
-					
-				} else {
-					return null;
 				}
 				
+				return null;
 				
 			} else if(responseTab==0) {
 				if (index == 1) {
@@ -533,7 +487,7 @@ public class ClothingEmporium {
 					
 				} else if (index == 5) {
 					if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-						return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNpc(Nyan.class)){
+						return new ResponseTrade("Enchanted Clothing", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNpc(Nyan.class)){
 							@Override
 							public void effects() {
 								Main.game.getNpc(Nyan.class).clearNonEquippedInventory(false);
@@ -546,10 +500,46 @@ public class ClothingEmporium {
 								}
 							}
 						};
+						
+					} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+						return new Response("Enchanted Clothing",
+								"Ask Nyan if she stocks enchanted clothing."
+										+ "<br/>[style.italicsQuestRomance(This will start Nyan's romance quest!)]",
+								SHOP_ENCHANTED_CLOTHING) {
+							@Override
+							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
+							}
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.QUEST_RELATIONSHIP;
+							}
+						};
+						
+					} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+						return new Response("Report back", "Tell Nyan that you've dealt with the suppliers.", SHOP_REPORT_BACK) {
+							@Override
+							public void effects() {
+								Main.game.getNpc(Nyan.class).setSellModifier(1.25f);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(5000));
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 25));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
+							}
+						};
+						
+					} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES)) {
+						return new Response("Report back", "Report back to Nyan once you've dealt with the suppliers.", null);
+						
 					} else {
-						return new Response("Specials", "Nyan doesn't have any special items of clothing on offer at the moment...", null);
+						return new Response("Offer help", "Tell Nyan that you'll help her with her supplier problem.", SHOP_OFFER_HELP) {
+							@Override
+							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP));
+							}
+						};
 					}
-					
+					 
 				} else if (index == 0) {
 					return new Response("Leave", "Tell Nyan that you've got to get going.", EXTERIOR) {
 						@Override
@@ -557,10 +547,10 @@ public class ClothingEmporium {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
 						}
 					};
-					
-				} else {
-					return null;
 				}
+				
+				return null;
+				
 			} else {
 				return null;
 			}

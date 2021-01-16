@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.utils.XMLSaving;
@@ -68,15 +68,15 @@ public class Addiction implements XMLSaving {
 		Element element = doc.createElement("addiction");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "fluid", FluidType.getIdFromFluidType(this.getFluid()));
-		CharacterUtils.addAttribute(doc, element, "lastTimeSatisfied", String.valueOf(this.getLastTimeSatisfied()));
+		XMLUtil.addAttribute(doc, element, "fluid", FluidType.getIdFromFluidType(this.getFluid()));
+		XMLUtil.addAttribute(doc, element, "lastTimeSatisfied", String.valueOf(this.getLastTimeSatisfied()));
 		
 		Element innerElement = doc.createElement("providerIDs");
 		element.appendChild(innerElement);
 		for(String id : this.getProviderIDs()) {
 			Element idElement = doc.createElement("id");
 			innerElement.appendChild(idElement);
-			CharacterUtils.addAttribute(doc, idElement, "value", id);
+			XMLUtil.addAttribute(doc, idElement, "value", id);
 		}
 		
 		return element;

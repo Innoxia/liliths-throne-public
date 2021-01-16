@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -120,15 +121,15 @@ public class OccupancyUtil implements XMLSaving {
 		Element element = doc.createElement("slavery");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getOccupancyUtil().getGeneratedIncome()));
-		CharacterUtils.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getOccupancyUtil().getGeneratedUpkeep()));
+		XMLUtil.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getOccupancyUtil().getGeneratedIncome()));
+		XMLUtil.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getOccupancyUtil().getGeneratedUpkeep()));
 		
 		Element slavesAtJobElement = doc.createElement("slavesAtJob");
 		element.appendChild(slavesAtJobElement);
 		for(Entry<SlaveJob, List<String>> entry : slavesAtJob.entrySet()) {
 			if(!entry.getValue().isEmpty()) {
 				Element jobElement = doc.createElement("slaves");
-				CharacterUtils.addAttribute(doc, jobElement, "job", entry.getKey().toString());
+				XMLUtil.addAttribute(doc, jobElement, "job", entry.getKey().toString());
 				slavesAtJobElement.appendChild(jobElement);
 				for(String id : entry.getValue()) {
 					Element slaveIdElement = doc.createElement("id");
@@ -215,7 +216,7 @@ public class OccupancyUtil implements XMLSaving {
 		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 			try {
 				NPC occupant = (NPC) Main.game.getNPCById(id);
-				if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
+				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
 //					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
 						if(occupant.getHistory().isAtWork(hour)) {
 							occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
@@ -252,7 +253,7 @@ public class OccupancyUtil implements XMLSaving {
 					continue;
 				}
 				
-				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
+				if(!Main.game.getPlayer().isActive() || !Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
 						|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) { // Also move slaves who are in bedroom but have elsewhere to be
 					slavesAtJob.get(currentJob).add(slave.getId());
 					
@@ -266,11 +267,13 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 					}
-					
+
 					if(currentJob==SlaveJob.IDLE) {
 						slavesResting.add(slave);
+					} else {
+						slavesToSendToWork.add(slave);
 					}
-					slavesToSendToWork.add(slave);
+
 				}
 				if(Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 					Main.game.updateResponses();
@@ -279,17 +282,15 @@ public class OccupancyUtil implements XMLSaving {
 				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
 			}
 		}
-		
+
+		// a slave's room always has enough room, so do this first
+		for(NPC slave : slavesResting) {
+			updateSlaveJob(slave, hour, previousJobs);
+		}
+
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : slavesToSendToWork) {
-			SlaveJob currentJob = slave.getSlaveJob(hour);
-			SlaveJob previousJob = previousJobs.get(slave.getId());
-//			System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
-			if(previousJob!=null && previousJob!=currentJob) {
-				previousJob.applyJobEndEffects(slave);
-			}
-			currentJob.sendToWorkLocation(hour, slave);
-			currentJob.applyJobStartEffects(slave);
+			updateSlaveJob(slave, hour, previousJobs);
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -347,7 +348,7 @@ public class OccupancyUtil implements XMLSaving {
 				
 			} else {
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
-						&& (slave.getLastTimeOrgasmed()+(60*(24+12))<Main.game.getMinutesPassed())) { // Give them a 12-hour period of pent up, so they will have the chance to ambush the player or have sex with other slaves
+						&& (slave.getLastTimeOrgasmedSeconds()+(60*60*(24+12))<Main.game.getSecondsPassed())) { // Give them a 12-hour period of pent up, so they will have the chance to ambush the player or have sex with other slaves
 					slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
 				}
 			}
@@ -554,6 +555,22 @@ public class OccupancyUtil implements XMLSaving {
 	}
 
 	/**
+	 * @param slave The slave whose job gets updated.
+	 * @param hour Time at which this event is happening.
+	 * @param previousJobs Map with the previous job of all slaves
+	 */
+	private void updateSlaveJob(NPC slave, int hour, Map<String, SlaveJob> previousJobs) {
+		SlaveJob currentJob = slave.getSlaveJob(hour);
+		SlaveJob previousJob = previousJobs.get(slave.getId());
+		// System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
+		if(previousJob!=null && previousJob!=currentJob) {
+			previousJob.applyJobEndEffects(slave);
+		}
+		currentJob.sendToWorkLocation(hour, slave);
+		currentJob.applyJobStartEffects(slave);
+	}
+
+	/**
 	 * @param hour Time at which this event is happening.
 	 * @param slave The slave to calculate an event for.
 	 */
@@ -668,8 +685,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 									milkingStored.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] stored.");
 								}
-								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
+								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
 							}
 						}
 						if(slave.getClothingInSlot(InventorySlot.VAGINA)!=null
@@ -685,8 +701,7 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 									milkingStored.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] stored.");
 								}
-								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
+								slave.setLastTimeOrgasmedSeconds(((Main.game.getDayNumber()*24)+hour)*60*60);
 							}
 						}
 						generatedIncome += income;
@@ -819,10 +834,10 @@ public class OccupancyUtil implements XMLSaving {
 						settingsEnabled = getSexSettingsEnabled(currentJob, slave);
 						
 						Gender gender = Gender.getGenderFromUserPreferences(false, true);
-						Map<Subspecies, Integer> availableRaces = Subspecies.getGenericSexPartnerSubspeciesMap(gender);
+						Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
 						
-						Subspecies subspecies = Subspecies.HUMAN;
-						Subspecies halfDemonSubspecies = null;
+						AbstractSubspecies subspecies = Subspecies.HUMAN;
+						AbstractSubspecies halfDemonSubspecies = null;
 						if(!availableRaces.isEmpty()) {
 							subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 						}
@@ -959,9 +974,9 @@ public class OccupancyUtil implements XMLSaving {
 					String partnerName = "";
 					
 					Gender partnerGender = null;
-					Map<Subspecies, Integer> availablePartnerRaces = null;
-					Subspecies partnerSubspecies = Subspecies.HUMAN;
-					Subspecies partnerHalfDemonSubspecies = null;
+					Map<AbstractSubspecies, Integer> availablePartnerRaces = null;
+					AbstractSubspecies partnerSubspecies = Subspecies.HUMAN;
+					AbstractSubspecies partnerHalfDemonSubspecies = null;
 					
 					if(usingRealPartner) {
 						if(Math.random()<0.25f) {
@@ -978,7 +993,7 @@ public class OccupancyUtil implements XMLSaving {
 						
 					} else {
 						partnerGender = Gender.getGenderFromUserPreferences(false, true);
-						availablePartnerRaces = Subspecies.getGenericSexPartnerSubspeciesMap(partnerGender);
+						availablePartnerRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(partnerGender);
 						
 						if(!availablePartnerRaces.isEmpty()) {
 							partnerSubspecies = Util.getRandomObjectFromWeightedMap(availablePartnerRaces);

@@ -777,7 +777,7 @@ public class SlaveDialogue {
 							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
 							
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
-							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
+							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.sheHasFull] a choice in the matter..."), 
 									false, false,
 									new SMMilkingStall(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
@@ -825,7 +825,7 @@ public class SlaveDialogue {
 							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
 							
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
-							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
+							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.sheHasFull] a choice in the matter..."), 
 									false, false,
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1794,7 +1794,7 @@ public class SlaveDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-						+ "You decide that [npc.namePos] in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
+						+ "You decide that [npc.name] is in need of some physical comfort, and, stepping forwards, you reach and take hold of [npc.herHim], before pulling [npc.herHim] into a tight hug.");
 			
 			switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {
 				case DISLIKE:

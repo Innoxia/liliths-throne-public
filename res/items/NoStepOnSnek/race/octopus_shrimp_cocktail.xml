@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>70</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Shrimp Cocktail]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Shrimp Cocktails]]></namePlural>
+		<description><![CDATA[A disposable cocktail glass rimmed with freshly poached shrimp and with a small cup of spicy sauce in the centre. The illustration on the outer packaging shows an octopus-morph in chef's clothing handling a comically large number of ingredients and utensils at once.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="90" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/NoStepOnSnek/octopus/subspecies/octopus.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="80">octopus_shrimp_cocktail.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>NoStepOnSnek_octopus</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[octopus]]></potionDescriptor>
+		<associatedRace>NoStepOnSnek_octopus</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the clear plastic cover and [npc.verb(grab)] the cocktail glass. Unable to resist the delicious-looking little shellfish inside, [npc.she] eagerly [npc.verb(start)] dipping and snacking and in a matter of moments [npc.has] completely devoured the entire arrangement.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] the clear plastic cover and [npc.verb(hold)] out the cocktail glass to [npc2.name]. Unable to resist the delicious-looking little shellfish inside, [npc2.she] eagerly [npc2.verb(start)] dipping and snacking and in a matter of moments [npc2.has] completely devoured the entire arrangement.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

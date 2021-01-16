@@ -470,7 +470,7 @@ public class FingerNippleCrotch {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] and [npc2.verb(try)] to pull away, but, with a forceful yank, [npc.name] [npc.verb(pull)] [npc2.her] [npc2.hands] back into [npc.her] [npc.crotchBoobs],"
-									+ " making it quite clear that [npc2.she] has no choice but to squeeze the [npc.milk+] from [npc.her] [npc.crotchNipples].",
+									+ " making it quite clear that [npc2.sheHasFull] no choice but to squeeze the [npc.milk+] from [npc.her] [npc.crotchNipples].",
 
 							" [npc2.Name] desperately tries to pull away from [npc.namePos] [npc.crotchBoobs],"
 									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.herHim] to continue squeezing the [npc.milk+] from [npc.her] [npc.crotchNipples]."));
@@ -1334,7 +1334,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly push your [npc.ass+] against [npc2.namePos] [npc2.hand] as [npc2.she] fingers your [npc.crotchNipple+].";
+			return "Eagerly push your [npc.breast+(true)] against [npc2.namePos] [npc2.hand] as [npc2.she] fingers your [npc.crotchNipple+].";
 		}
 
 		@Override

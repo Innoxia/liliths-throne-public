@@ -54,6 +54,8 @@ public class PopulationType {
 	
 	public static AbstractPopulationType OFFICE_WORKER = new AbstractPopulationType("office worker", "office workers") {};
 	
+	public static AbstractPopulationType TEXTILE_WORKER = new AbstractPopulationType("textile worker", "textile workers") {};
+	
 	public static AbstractPopulationType CONSTRUCTION_WORKER = new AbstractPopulationType("construction worker", "construction workers") {};
 	
 	public static AbstractPopulationType RECEPTIONIST = new AbstractPopulationType("receptionist", "receptionists") {};

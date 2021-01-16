@@ -10,11 +10,13 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.2.12
- * @version 0.2.12
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractWorldType {
 
+	private WorldRegion worldRegion;
+	
 	private final String name;
 	private final String fileLocation;
 	private Colour colour;
@@ -37,7 +39,8 @@ public abstract class AbstractWorldType {
 	private AbstractPlaceType entryFromGlobalMapLocation;
 	private Map<Color, AbstractPlaceType> placesMap;
 	
-	AbstractWorldType(String name,
+	AbstractWorldType(WorldRegion worldRegion,
+			String name,
 			Colour colour,
 			int timeToTransition,
 			boolean loiteringEnabled,
@@ -47,6 +50,8 @@ public abstract class AbstractWorldType {
 			AbstractPlaceType globalMapLocation,
 			AbstractPlaceType entryFromGlobalMapLocation,
 			Map<Color, AbstractPlaceType> placesMap) {
+		this.worldRegion = worldRegion;
+		
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -67,8 +72,8 @@ public abstract class AbstractWorldType {
 		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
-		usesFile = true;
-		this.placesMap=placesMap;
+		this.usesFile = true;
+		this.placesMap = placesMap;
 	}
 	
 	@Override
@@ -101,6 +106,10 @@ public abstract class AbstractWorldType {
 
 	public int getTileSetRowNumber() {
 		return tileSetRowNumber;
+	}
+
+	public WorldRegion getWorldRegion() {
+		return worldRegion;
 	}
 
 	public String getName() {

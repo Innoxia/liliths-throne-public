@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -17,6 +16,7 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -88,19 +88,19 @@ public class EnforcerWarehouse {
 	
 	private static EnforcerWarehouseGuard generateGuard(Occupation occupation) {
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
-		Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
+		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
 		
 		// Make SWORD guards a predator subspecies:
-		List <Subspecies> subspeciesAvailable = Util.newArrayListOfValues(
-				Subspecies.CAT_MORPH_TIGER,
-				Subspecies.CAT_MORPH_LEOPARD,
-				Subspecies.CAT_MORPH_LION,
+		List <AbstractSubspecies> subspeciesAvailable = Util.newArrayListOfValues(
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_leopard"),
 				Subspecies.DOG_MORPH_DOBERMANN,
 				Subspecies.DOG_MORPH_GERMAN_SHEPHERD,
 				Subspecies.FOX_MORPH,
 				Subspecies.WOLF_MORPH);
 		
-		for(Subspecies subspecies : subspeciesAvailable) {
+		for(AbstractSubspecies subspecies : subspeciesAvailable) {
 			if(gender.isFeminine()) {
 				if(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
 						&& Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0) {
@@ -114,13 +114,13 @@ public class EnforcerWarehouse {
 			}
 		}
 		if(gender.isFeminine()) {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
 		} else {
-			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
 					subspeciesMap.remove(entry.getKey());
 				}
@@ -144,12 +144,12 @@ public class EnforcerWarehouse {
 			}
 			
 		} else {
-			Subspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
+			AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			RaceStage stage = RaceStage.GREATER;
 			if(gender.isFeminine()) {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
 			} else {
-				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
+				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 			}
 			
 			try {
@@ -171,7 +171,7 @@ public class EnforcerWarehouse {
 		for(Cell c : Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getCells(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)) {
 			EnforcerWarehouseGuard guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_CONSTABLE);
 			guard.setLocation(c.getType(), c.getLocation(), true);
-			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+			usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
 		
 		// Add four Enforcers to the entrance:
@@ -181,12 +181,12 @@ public class EnforcerWarehouse {
 		
 		guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_SERGEANT);
 		guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
-		usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+		usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		
 		for(int i=0; i<2; i++) {
 			guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_CONSTABLE);
 			guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
-			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
+			usedAdjectives.add(Main.game.getCharacterUtils().setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
 	}
 	
@@ -611,7 +611,7 @@ public class EnforcerWarehouse {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(weapon, 1, false, true));
 								
 							} else {
-								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.COR_INGREDIENT_LILITHS_GIFT, ItemType.FETISH_UNREFINED);
+								List<AbstractItemType> itemTypes = Util.newArrayListOfValues(ItemType.BOTTLED_ESSENCE_DEMON, ItemType.getItemTypeFromId("innoxia_race_demon_liliths_gift"), ItemType.FETISH_UNREFINED);
 								AbstractItem item = Main.game.getItemGen().generateItem(Util.randomItemFrom(itemTypes));
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(item, 3+Util.random.nextInt(6), false, true));
 							}

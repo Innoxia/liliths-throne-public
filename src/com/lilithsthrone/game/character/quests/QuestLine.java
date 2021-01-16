@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.3.9.4
+ * @version 0.4
  * @author Innoxia
  */
 public enum QuestLine {
@@ -32,6 +32,10 @@ public enum QuestLine {
 	SIDE_FIRST_TIME_PREGNANCY("Knocked Up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...",
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
+
+	SIDE_FIRST_TIME_INCUBATION("Egged", "You successfully incubated, laid, and hatched the eggs which were planted inside of you!",
+			QuestType.SIDE,
+			QuestTree.incubationTree),
 
 	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted slaver license!",
 			QuestType.SIDE,

@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
@@ -43,9 +43,9 @@ public class World implements XMLSaving {
 		Element element = doc.createElement("world");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
-		CharacterUtils.addAttribute(doc, element, "width", String.valueOf(this.WORLD_WIDTH));
-		CharacterUtils.addAttribute(doc, element, "height", String.valueOf(this.WORLD_HEIGHT));
+		XMLUtil.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
+		XMLUtil.addAttribute(doc, element, "width", String.valueOf(this.WORLD_WIDTH));
+		XMLUtil.addAttribute(doc, element, "height", String.valueOf(this.WORLD_HEIGHT));
 		
 		Element innerElement = doc.createElement("grid");
 		element.appendChild(innerElement);
@@ -97,7 +97,7 @@ public class World implements XMLSaving {
 		try {
 			return grid[vec.getX()][vec.getY()];
 		} catch(Exception ex) {
-			System.err.println("Error in WorldType: "+this.getWorldType());
+			System.err.println("Error in WorldType: "+WorldType.getIdFromWorldType(this.getWorldType()));
 			throw ex;
 		}
 	}

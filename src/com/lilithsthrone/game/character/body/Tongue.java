@@ -78,6 +78,7 @@ public class Tongue implements BodyPartInterface {
 	 */
 	public void setType(AbstractTongueType type) {
 		this.type = type;
+		resetTongueModifiers();
 	}
 
 	public boolean isPierced() {
@@ -173,7 +174,7 @@ public class Tongue implements BodyPartInterface {
 
 	public String addTongueModifier(GameCharacter owner, TongueModifier modifier) {
 		if(hasTongueModifier(modifier)) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+			return owner==null ? "" : "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
 		tongueModifiers.add(modifier);
@@ -215,6 +216,12 @@ public class Tongue implements BodyPartInterface {
 									+ " [style.boldGrow(being particularly wide)].<br/>"
 								+ "[style.boldSex([npc.NamePos] [npc.tongue] is now particularly wide!)]");
 					break;
+				case TAPERED:
+					return "<p>"
+							+ "[npc.Name] [npc.verb(feel)] a constricting pressure on all sides of [npc.her] [npc.tongue], and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)]"
+							+ " [style.boldGrow(it taper down towards the tip)].<br/>"
+							+ "[style.boldSex([npc.NamePos] [npc.tongue] is now tapered!)]"
+						+ "</p>";
 			}
 		sb.append("</p>");
 		
@@ -265,17 +272,27 @@ public class Tongue implements BodyPartInterface {
 						+ " [style.boldShrink(it narrow down)].<br/>"
 						+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer particularly wide!)]"
 					+ "</p>";
+			case TAPERED:
+				return "<p>"
+						+ "[npc.Name] [npc.verb(feel)] a pulsating pressure building up within [npc.her] [npc.tongue], and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)]"
+						+ " [style.boldShrink(it fill out and lose its tapered point)].<br/>"
+						+ "[style.boldSex([npc.NamePos] [npc.tongue] is no longer tapered!)]"
+					+ "</p>";
 		}
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
+	public void resetTongueModifiers() {
+		tongueModifiers = new HashSet<>(type.getDefaultRacialTongueModifiers());
+	}
+
 	@Override
-	public boolean isBestial(GameCharacter owner) {
+	public boolean isFeral(GameCharacter owner) {
 		if(owner==null) {
 			return false;
 		}
-		return owner.getLegConfiguration().getBestialParts().contains(Tongue.class) && getType().getRace().isBestialPartsAvailable();
+		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tongue.class) && getType().getRace().isFeralPartsAvailable());
 	}
 }

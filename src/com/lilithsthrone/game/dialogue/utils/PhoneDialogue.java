@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -22,6 +23,7 @@ import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -39,6 +41,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -46,6 +49,7 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaBirthing;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -82,8 +86,53 @@ import com.lilithsthrone.world.WorldType;
 public class PhoneDialogue {
 	
 	private static List<GameCharacter> charactersEncountered;
-	
 	private static StringBuilder journalSB;
+	private static SexAreaOrifice layingEggsArea;
+	private static Set<String> incubationOffspringBirthed;
+	
+	private static void applyEggLayingEffects() {
+		incubationOffspringBirthed = new HashSet<>();
+		incubationOffspringBirthed.addAll(Main.game.getPlayer().getIncubationLitter(layingEggsArea).getOffspring());
+		Main.game.getPlayer().endIncubationPregnancy(layingEggsArea, true);
+		switch(layingEggsArea) {
+			case ANUS:
+				if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					Main.game.getPlayer().incrementAssStretchedCapacity(15);
+					Main.game.getPlayer().incrementAssCapacity(
+							(Main.game.getPlayer().getAssStretchedCapacity()-Main.game.getPlayer().getAssRawCapacityValue())*Main.game.getPlayer().getAssPlasticity().getCapacityIncreaseModifier(),
+							false);
+				}
+				break;
+			case NIPPLE:
+				if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					Main.game.getPlayer().incrementNippleStretchedCapacity(15);
+					Main.game.getPlayer().incrementNippleCapacity(
+							(Main.game.getPlayer().getNippleStretchedCapacity()-Main.game.getPlayer().getNippleRawCapacityValue())*Main.game.getPlayer().getNipplePlasticity().getCapacityIncreaseModifier(),
+							false);
+				}
+				break;
+			case NIPPLE_CROTCH:
+				if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					Main.game.getPlayer().incrementNippleCrotchStretchedCapacity(15);
+					Main.game.getPlayer().incrementNippleCrotchCapacity(
+							(Main.game.getPlayer().getNippleCrotchStretchedCapacity()-Main.game.getPlayer().getNippleCrotchRawCapacityValue())*Main.game.getPlayer().getNippleCrotchPlasticity().getCapacityIncreaseModifier(),
+							false);
+				}
+				break;
+			case VAGINA:
+				if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+					Main.game.getPlayer().incrementVaginaCapacity(
+							(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+							false);
+				}
+				break;
+			default:
+				break;
+		}
+		Main.game.getPlayer().setMana(0);
+	}
+	
 	public static final DialogueNode MENU = new DialogueNode("Phone home screen", "Phone", true) {
 
 		@Override
@@ -108,178 +157,372 @@ public class PhoneDialogue {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(!Main.game.getPlayer().getIncubatingLitters().isEmpty()) {
+				if(index==0) {
+					return "Phone";
+				} else if(index==1) {
+					return "[style.colourYellowLight(Eggs)]";
+				}
+			}
+			return super.getResponseTabTitle(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response(
-						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRelationshipQuestUpdated())
-							?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Quests</span>"
-							:"Quests",
-						"Open your planner to view your current quests.", PLANNER_MAIN){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setMainQuestUpdated(false);
-					}
-				};
-				
-			} else if (index == 2) {
-				return new Response(
-						Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
-							? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
-							:"Perk Tree",
-						"View your character page.", CHARACTER_PERK_TREE) {
-					@Override
-					public void effects() {
-						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
-					@Override
-					public void effects() {
-						SpellManagement.setSpellOwner(Main.game.getPlayer(), MENU);
-					}
-				};
-				
-			} else if (index == 4) {
-				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
-				
-			} else if (index == 5) {
-				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
-				
-			} else if (index == 6) {
-				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
-				
-			} else if (index == 7) {
-				if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
-					return new Response("Contacts", "You haven't met anyone yet!", null);
-				} else {
-					return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS) {
+			if(responseTab==0) {
+				if (index == 1) {
+					return new Response(
+							(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRelationshipQuestUpdated())
+								?"<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Quests</span>"
+								:"Quests",
+							"Open your planner to view your current quests.", PLANNER_MAIN){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().sortCharactersEncountered();
-							charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(false);
+							Main.game.getPlayer().setMainQuestUpdated(false);
 						}
 					};
-				}
-				
-			} else if (index == 8) {
-				return new Response(
-						(Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
-								|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
-								|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
-								|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered))
-							? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
-							:"Encyclopedia",
-						"Have a look at all the different items and races you've discovered so far.", ENCYCLOPEDIA){
-					@Override
-					public void effects() {
-						resetContentForRaces();
-					}
-				};
-				
-			} else if (index == 9) {
-				if(Main.game.getPlayer().isAbleToSelfTransform()) {
-					return new Response("Transform",
-							"Transform your body.",
-							BodyChanging.BODY_CHANGING_CORE) {
+					
+				} else if (index == 2) {
+					return new Response(
+							Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
+								? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
+								:"Perk Tree",
+							"View your character page.", CHARACTER_PERK_TREE) {
 						@Override
 						public void effects() {
-							BodyChanging.setTarget(Main.game.getPlayer());
+							Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
 						}
 					};
-				} else {
-					return new Response("Transform", Main.game.getPlayer().getUnableToTransformDescription(), null);
-				}
-				
-			} else if (index == 10) {
-				return new Response("Maps", "Take a look at maps of all the places you've visited.", MAP) {
-					@Override
-					public void effects() {
-						worldTypeMap = Main.game.getPlayer().getWorldLocation();
-					}
-				};
-				
-			} else if (index == 11) {
-				if(Main.game.isSavedDialogueNeutral()) {
-					return new Response("Combat Moves", "Adjust the core combat moves you are prepared to perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+					
+				} else if (index == 3) {
+					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
 						@Override
 						public void effects() {
-							CombatMovesSetup.setTarget(Main.game.getPlayer(), PhoneDialogue.MENU);
+							SpellManagement.setSpellOwner(Main.game.getPlayer(), MENU);
 						}
 					};
-				} else {
-					return new Response("Combat Moves", "You are too busy to change your core combat moves.", null);
-				}
-				
-			} else if (index == 12) {
-				if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Masturbate", "You are too busy to masturbate right now. (Can only be performed in a neutral scene.)", null);
+					
+				} else if (index == 4) {
+					return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
+					
+				} else if (index == 5) {
+					return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
+					
+				} else if (index == 6) {
+					return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+					
+				} else if (index == 7) {
+					if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
+						return new Response("Contacts", "You haven't met anyone yet!", null);
+					} else {
+						return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().sortCharactersEncountered();
+								charactersEncountered = Main.game.getPlayer().getCharactersEncounteredAsGameCharacters(false);
+							}
+						};
+					}
+					
+				} else if (index == 8) {
+					return new Response(
+							(Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered))
+								? "<span style='color:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
+								:"Encyclopedia",
+							"Have a look at all the different items and races you've discovered so far.", ENCYCLOPEDIA){
+						@Override
+						public void effects() {
+							resetContentForRaces();
+						}
+					};
+					
+				} else if (index == 9) {
+					if(Main.game.getPlayer().isAbleToSelfTransform()) {
+						return new Response("Transform",
+								"Transform your body.",
+								BodyChanging.BODY_CHANGING_CORE) {
+							@Override
+							public void effects() {
+								BodyChanging.setTarget(Main.game.getPlayer());
+							}
+						};
+					} else {
+						return new Response("Transform", Main.game.getPlayer().getUnableToTransformDescription(), null);
+					}
+					
+				} else if (index == 10) {
+					return new Response("Maps", "Take a look at maps of all the places you've visited.", MAP) {
+						@Override
+						public void effects() {
+							worldTypeMap = Main.game.getPlayer().getWorldLocation();
+						}
+					};
+					
+				} else if (index == 11) {
+					if(Main.game.isSavedDialogueNeutral()) {
+						return new Response("Combat Moves", "Adjust the core combat moves you are prepared to perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+							@Override
+							public void effects() {
+								CombatMovesSetup.setTarget(Main.game.getPlayer(), PhoneDialogue.MENU);
+							}
+						};
+					} else {
+						return new Response("Combat Moves", "You are too busy to change your core combat moves.", null);
+					}
+					
+				} else if (index == 12) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+							return new Response("Masturbate", "You are too busy to masturbate right now. (Can only be performed in a neutral scene.)", null);
+							
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						return new Response("Masturbate", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
 						
-				} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
-					return new Response("Masturbate", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						return new Response("Masturbate",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with masturbating in a place where people could see you!",
+								null);
+						
+					} else {
+						return new ResponseSex("Masturbate",
+								"Decide to take a break from what you're currently doing in order to masturbate.",
+								true,
+								true,
+								new SMMasturbation(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.STANDING))),
+								Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)
+									?Main.game.getPlayer().getParty()
+									:null,
+								null,
+								AFTER_MASTURBATION,
+								UtilText.parseFromXMLFile("misc/misc", "MASTURBATION"));
+					}
 					
-				} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-					return new Response("Masturbate",
-							"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with masturbating in a place where people could see you!",
-							null);
+				} else if (index == 13){
+					String title = Main.game.isSillyMode()?"Delay":"Loiter";
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response(title, "You can only loiter to pass the time when in a neutral dialogue scene!", null);
+					}
+					if(Main.game.getPlayerCell().getPlace().isDangerous()) {
+						return new Response(title, "You can only loiter to pass the time when in a safe area!", null);
+					}
+					if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+						return new Response(title, "This is not a suitable place in which to be loitering about!", null);
+					}
+					return new Response(title, "Think about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 					
-				} else {
-					return new ResponseSex("Masturbate",
-							"Decide to take a break from what you're currently doing in order to masturbate.",
-							true,
-							true,
-							new SMMasturbation(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.STANDING))),
-							Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)
-								?Main.game.getPlayer().getParty()
-								:null,
-							null,
-							AFTER_MASTURBATION,
-							UtilText.parseFromXMLFile("misc/misc", "MASTURBATION"));
-				}
-				
-			} else if (index == 13){
-				if(!Main.game.isSavedDialogueNeutral()) {
-					return new Response("Loiter", "You can only loiter to pass the time when in a neutral dialogue scene!", null);
-				}
-				if(Main.game.getPlayerCell().getPlace().isDangerous()) {
-					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
-				}
-				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-					return new Response("Loiter", "This is not a suitable place in which to be loitering about!", null);
-				}
-				return new Response("Loiter", "THink about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
-				
-			} else if (index == 14){
-				if(!Main.game.getPlayer().isElementalSummoned()) {
-					if(Main.game.getPlayer().hasDiscoveredElemental()) {
-						return new Response("[el.Name]",
-								"You have not summoned [el.name], so you cannot talk to [el.herHim]!"
-										+ "<br/>[style.italicsMinorGood(You can summon your elemental from your 'Spells' screen!)]",
+				} else if (index == 14){
+					if(!Main.game.getPlayer().isElementalSummoned()) {
+						if(Main.game.getPlayer().hasDiscoveredElemental()) {
+							return new Response("[el.Name]",
+									"You have not summoned [el.name], so you cannot talk to [el.herHim]!"
+											+ "<br/>[style.italicsMinorGood(You can summon your elemental from your 'Spells' screen!)]",
+									null);
+						}
+						return new Response("Elemental",
+								"You have not summoned your elemental, so you cannot talk to them..."
+										+ "<br/>[style.italicsMinorGood(You can summon your elemental by learning an elemental-summoning spell and casting it from your 'Spells' screen!)]",
 								null);
 					}
-					return new Response("Elemental",
-							"You have not summoned your elemental, so you cannot talk to them..."
-									+ "<br/>[style.italicsMinorGood(You can summon your elemental by learning an elemental-summoning spell and casting it from your 'Spells' screen!)]",
-							null);
-				}
-				if(!Main.game.isSavedDialogueNeutral()) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("[el.Name]",
+								Main.game.isInSex()
+									?"You cannot talk to [el.name] during sex!"
+									:(Main.game.isInCombat()
+										?"You cannot talk to [el.name] during combat!"
+										:"You cannot talk to [el.name] in this scene!"),
+								null);
+					}
 					return new Response("[el.Name]",
-							Main.game.isInSex()
-								?"You cannot talk to [el.name] during sex!"
-								:(Main.game.isInCombat()
-									?"You cannot talk to [el.name] during combat!"
-									:"You cannot talk to [el.name] in this scene!"),
-							null);
+							"Spend some time talking with [el.name].",
+							ElementalDialogue.ELEMENTAL_START);
+					
 				}
-				return new Response("[el.Name]",
-						"Spend some time talking with [el.name].",
-						ElementalDialogue.ELEMENTAL_START);
 				
-			} else if (index == 0){
+			} else if(responseTab==1) {
+				Set<SexAreaOrifice> incubationAreas = Main.game.getPlayer().getIncubatingLitters().keySet();
+				List<Response> responses = new ArrayList<>();
+				
+				if(incubationAreas.contains(SexAreaOrifice.VAGINA)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						responses.add(new Response("Lay eggs (womb)", "You are too busy to lay eggs right now. (Can only be performed in a neutral scene.)", null));
+						
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						responses.add(new Response("Lay eggs (womb)", "There is no suitable place nearby in which to lay your eggs!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						responses.add(new Response("Lay eggs (womb)", "You are unable to gain access to your vagina, and so cannot currently lay the eggs which have matured in your womb!", null));
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						responses.add(new Response("Lay eggs (womb)",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with laying your eggs in a place where people could see you!",
+								null));
+						
+					} else if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_3)) {
+						responses.add(new Response("Lay eggs (womb)", "You need to wait until the eggs in your womb have finished growing before you're able to lay them.", null));
+						
+					} else {
+						responses.add(new Response("Lay eggs (womb)", "Find a suitable place nearby in which to lay the eggs you've been incubating in your womb.", INCUBATION_EGG_LAYING) {
+							@Override
+							public void effects() {
+								layingEggsArea = SexAreaOrifice.VAGINA;
+								applyEggLayingEffects();
+							}
+						});
+					}
+				}
+				if(incubationAreas.contains(SexAreaOrifice.ANUS)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						responses.add(new Response("Lay eggs (stomach)", "You are too busy to lay eggs right now. (Can only be performed in a neutral scene.)", null));
+						
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						responses.add(new Response("Lay eggs (stomach)", "There is no suitable place nearby in which to lay your eggs!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+						responses.add(new Response("Lay eggs (stomach)", "You are unable to gain access to your asshole, and so cannot currently lay the eggs which have matured in your stomach!", null));
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						responses.add(new Response("Lay eggs (stomach)",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with laying your eggs in a place where people could see you!",
+								null));
+						
+					} else if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_3)) {
+						responses.add(new Response("Lay eggs (stomach)", "You need to wait until the eggs in your stomach have finished growing before you're able to lay them.", null));
+						
+					} else {
+						responses.add(new Response("Lay eggs (stomach)", "Find a suitable place nearby in which to lay the eggs you've been incubating in your stomach.", INCUBATION_EGG_LAYING) {
+							@Override
+							public void effects() {
+								layingEggsArea = SexAreaOrifice.ANUS;
+								applyEggLayingEffects();
+							}
+						});
+					}
+				}
+				if(incubationAreas.contains(SexAreaOrifice.NIPPLE)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						responses.add(new Response("Lay eggs (breasts)", "You are too busy to lay eggs right now. (Can only be performed in a neutral scene.)", null));
+						
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						responses.add(new Response("Lay eggs (breasts)", "There is no suitable place nearby in which to lay your eggs!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+						responses.add(new Response("Lay eggs (breasts)", "You are unable to gain access to your nipples, and so cannot currently lay the eggs which have matured in your breasts!", null));
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						responses.add(new Response("Lay eggs (breasts)",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with laying your eggs in a place where people could see you!",
+								null));
+						
+					} else if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_3)) {
+						responses.add(new Response("Lay eggs (breasts)", "You need to wait until the eggs in your breasts have finished growing before you're able to lay them.", null));
+						
+					} else {
+						responses.add(new Response("Lay eggs (breasts)", "Find a suitable place nearby in which to lay the eggs you've been incubating in your breasts.", INCUBATION_EGG_LAYING) {
+							@Override
+							public void effects() {
+								layingEggsArea = SexAreaOrifice.NIPPLE;
+								applyEggLayingEffects();
+							}
+						});
+					}
+				}
+				if(incubationAreas.contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+					String udderName = Main.game.getPlayer().getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs";
+					if(!Main.game.isSavedDialogueNeutral()) {
+						responses.add(new Response("Lay eggs ("+udderName+")", "You are too busy to lay eggs right now. (Can only be performed in a neutral scene.)", null));
+						
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						responses.add(new Response("Lay eggs ("+udderName+")", "There is no suitable place nearby in which to lay your eggs!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES_CROTCH, true)) {
+						responses.add(new Response("Lay eggs ("+udderName+")", "You are unable to gain access to your [pc.crotchNipples], and so cannot currently lay the eggs which have matured in your [pc.crotchBoobs]!", null));
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						responses.add(new Response("Lay eggs ("+udderName+")",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with laying your eggs in a place where people could see you!",
+								null));
+						
+					} else if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_3)) {
+						responses.add(new Response("Lay eggs ("+udderName+")", "You need to wait until the eggs in your [pc.crotchBoobs] have finished growing before you're able to lay them.", null));
+						
+					} else {
+						responses.add(new Response("Lay eggs ("+udderName+")", "Find a suitable place nearby in which to lay the eggs you've been incubating in your [pc.crotchBoobs].", INCUBATION_EGG_LAYING) {
+							@Override
+							public void effects() {
+								layingEggsArea = SexAreaOrifice.NIPPLE_CROTCH;
+								applyEggLayingEffects();
+							}
+						});
+					}
+				
+				}
+				if(incubationAreas.contains(SexAreaOrifice.SPINNERET)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						responses.add(new Response("Lay eggs (spinneret)", "You are too busy to lay eggs right now. (Can only be performed in a neutral scene.)", null));
+						
+					} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+						responses.add(new Response("Lay eggs (spinneret)", "There is no suitable place nearby in which to lay your eggs!", null));
+						
+					} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						responses.add(new Response("Lay eggs (spinneret)",
+								"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with laying your eggs in a place where people could see you!",
+								null));
+						
+					} else if(!Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_3)) {
+						responses.add(new Response("Lay eggs (spinneret)", "You need to wait until the eggs in your spinneret have finished growing before you're able to lay them.", null));
+						
+					} else {
+						responses.add(new Response("Lay eggs (spinneret)", "Find a suitable place nearby in which to lay the eggs you've been incubating in your spinneret.", INCUBATION_EGG_LAYING) {
+							@Override
+							public void effects() {
+								layingEggsArea = SexAreaOrifice.SPINNERET;
+								applyEggLayingEffects();
+							}
+						});
+					}
+				}
+				
+				if(index>0 && index-1<responses.size()) {
+					return responses.get(index-1);
+				}
+				
+				// Removed due to description handling being too messy
+//				if(incubationAreas.size()>1) {
+//					Set<SexAreaOrifice> readyToLay = new HashSet<>();
+//					if(incubationAreas.contains(SexAreaOrifice.VAGINA) && Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_WOMB_3)) {
+//						readyToLay.add(SexAreaOrifice.VAGINA);
+//					}
+//					if(incubationAreas.contains(SexAreaOrifice.ANUS) && Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_STOMACH_3)) {
+//						readyToLay.add(SexAreaOrifice.ANUS);
+//					}
+//					if(incubationAreas.contains(SexAreaOrifice.NIPPLE) && Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_3)) {
+//						readyToLay.add(SexAreaOrifice.NIPPLE);
+//					}
+//					if(incubationAreas.contains(SexAreaOrifice.NIPPLE_CROTCH) && Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_3)) {
+//						readyToLay.add(SexAreaOrifice.NIPPLE_CROTCH);
+//					}
+//					if(incubationAreas.contains(SexAreaOrifice.SPINNERET) && Main.game.getPlayer().hasStatusEffect(StatusEffect.INCUBATING_EGGS_SPINNERET_3)) {
+//						readyToLay.add(SexAreaOrifice.SPINNERET);
+//					}
+//					if(readyToLay.size()<=1) {
+//						return new Response("Lay eggs (all)", "You need to wait until the eggs in at least two of your orifices have finished maturing before you're able to lay them all at once.", null);
+//					} else {
+//						return new Response("Lay eggs (all)", "Find a suitable place nearby in which to lay all of the matured eggs which you've been incubating in your orifices.", INCUBATION_EGG_LAYING) {
+//							@Override
+//							public void effects() {
+//								layingEggsAreas = new HashSet<>(readyToLay);
+//								applyEggLayingEffects();
+//							}
+//						};
+//					}
+//				}
+			}
+			
+			if(index == 0) {
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
 					public void effects() {
@@ -287,14 +530,105 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else {
-				return null;
 			}
+			return null;
 		}
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode INCUBATION_EGG_LAYING = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 60*60;
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.addSpecialParsingString(Util.intToString(incubationOffspringBirthed.size()), true);
+			UtilText.addSpecialParsingString(incubationOffspringBirthed.size()==1?"egg":"eggs", false);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_"+layingEggsArea.toString()));
+			
+			if(incubationOffspringBirthed.size()==1) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_"+layingEggsArea.toString()+"_SINGLE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_"+layingEggsArea.toString()+"_MULTIPLE"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Rest", "You have no energy left, and your eyelids seem to be getting heavier...", INCUBATION_EGG_LAYING_FINISHED){
+					@Override
+					public void effects() {
+						if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_INCUBATION)) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_INCUBATION, Quest.SIDE_UTIL_COMPLETE));
+						}
+						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode INCUBATION_EGG_LAYING_FINISHED = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.addSpecialParsingString(Util.intToString(incubationOffspringBirthed.size()), true);
+
+			if(incubationOffspringBirthed.size()==1) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_SINGLE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_MULTIPLE"));
+			}
+			
+			UtilText.nodeContentSB.append("<p style='text-align:center;'>");
+				for(String id : incubationOffspringBirthed) {
+					try {
+						GameCharacter offspring = Main.game.getNPCById(id);
+						String descriptor = LilayaBirthing.getOffspringDescriptor(offspring);
+						UtilText.nodeContentSB.append("<br/>"
+								+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
+								+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
+								+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
+					} catch(Exception ex) {
+					}
+				}
+			UtilText.nodeContentSB.append("</p>");
+			
+			if(incubationOffspringBirthed.size()==1) {
+				try {
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_END_SINGLE", Main.game.getNPCById(incubationOffspringBirthed.iterator().next())));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_END_MULTIPLE"));
+			}
+	
+			return UtilText.nodeContentSB.toString();
+		}
+	
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Continue", "Having successfully laid your eggs, you're now free to continue on your way.", Main.game.getDefaultDialogue(false));
+			}
+			return null;
 		}
 	};
 	
@@ -682,7 +1016,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static String getAttributeDisplayValue(Attribute att) {
+	private static String getAttributeDisplayValue(AbstractAttribute att) {
 		String valueForDisplay = Units.number(Main.game.getPlayer().getAttributeValue(att));
 		
 		if(att.isInfiniteAtUpperLimit() && Main.game.getPlayer().getAttributeValue(att)>=att.getUpperLimit()) {
@@ -801,17 +1135,29 @@ public class PhoneDialogue {
 //				+"<div class='container-full-width'>"
 					+ "<p style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'><b>Racial Damage Attributes</b></p>");
 			
-			List<Attribute> encounteredAttributes = new ArrayList<>();
-			for(Subspecies subspecies : Subspecies.values()) {
-				Attribute damageModifier = subspecies.getDamageMultiplier();
-				if(!encounteredAttributes.contains(damageModifier)) {
-					UtilText.nodeContentSB.append(
-							getAttributeBox(Main.game.getPlayer(), damageModifier,
-									"Increases damage vs "+subspecies.getNamePlural(null)+" by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(damageModifier))+"%</b>",
-									true));
-					encounteredAttributes.add(damageModifier);
-				}
+			List<AbstractRace> raceListSorted = new ArrayList<>(Attribute.racialAttributes.keySet());
+			raceListSorted.sort((r1, r2) -> r1.getName(true).compareTo(r2.getName(true)));
+			
+			for(AbstractRace race : raceListSorted) {
+				AbstractAttribute attribute = Attribute.racialAttributes.get(race);
+				int damageModifier = (int) Main.game.getPlayer().getAttributeValue(attribute);
+				UtilText.nodeContentSB.append(
+						getAttributeBox(Main.game.getPlayer(), attribute,
+								"Increases damage vs "+race.getNamePlural(true)+" by <b>"+Units.number(damageModifier)+"%</b>",
+								true));
 			}
+			
+//			List<AbstractAttribute> encounteredAttributes = new ArrayList<>();
+//			for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+//				AbstractAttribute damageModifier = subspecies.getDamageMultiplier();
+//				if(!encounteredAttributes.contains(damageModifier)) {
+//					UtilText.nodeContentSB.append(
+//							getAttributeBox(Main.game.getPlayer(), damageModifier,
+//									"Increases damage vs "+subspecies.getNamePlural(null)+" by <b>"+Units.number(Main.game.getPlayer().getAttributeValue(damageModifier))+"%</b>",
+//									true));
+//					encounteredAttributes.add(damageModifier);
+//				}
+//			}
 			
 			UtilText.nodeContentSB.append("</div>");
 			
@@ -1414,7 +1760,7 @@ public class PhoneDialogue {
 			return Main.game.getPlayer().getCharactersEncountered().contains(npc.getId());
 		}
 
-		private void OffspringTableLine(StringBuilder output, NPC npc) {
+		private void offspringTableLine(StringBuilder output, NPC npc, boolean evenRow, boolean includeIncubationColumn) {
 			boolean female = npc.isFeminine();
 			String color = female ? PresetColour.FEMININE.toWebHexString() : PresetColour.MASCULINE.toWebHexString();
 			String child_name = ChildMet(npc) ? npc.getName(true) : "Unknown";
@@ -1422,12 +1768,20 @@ public class PhoneDialogue {
 			String species_name = female
 								? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
 								: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
-			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName(true));
-			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName(true));
+			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getMother().getName(true)));
+			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getFather().getName(true)));
+			String incubator = npc.getIncubator() == null ? "[style.colourDisabled(n/a)]" : (npc.getIncubator().isPlayer() ? "[style.colourExcellent(You)]" : Util.capitaliseSentence(npc.getIncubator().getName(true)));
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
-			boolean isGreyedOut = extraRelationships.isEmpty();
+//			boolean isGreyedOut = extraRelationships.isEmpty();
 			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
-			if(npc.getMother()!=null && npc.getMother().isPlayer()) {
+			if(npc.getIncubator()!=null && npc.getIncubator().isPlayer()) {
+				relationships.add(0, "Incubator-mother");
+				
+				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+					relationships.add(1, "father");
+				}
+				
+			} else if(npc.getMother()!=null && npc.getMother().isPlayer()) {
 				relationships.add(0, "Mother");
 				
 				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
@@ -1437,42 +1791,58 @@ public class PhoneDialogue {
 			} else {
 				relationships.add(0, "Father");
 			}
+			
+			String innerEntryStyle = "background:transparent; margin:0; padding:0; width:"+(includeIncubationColumn?"15":"20")+"%;";
+			String innerEntryStyle2 = "background:transparent; margin:0; padding:0; width:15%;";
+			String innerEntryStyleWide = "background:transparent; margin:0; padding:0; width:25%;";
+			
+			output.append("<div class='container-full-width' style='margin:0; width:100%; background:"+(evenRow?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
 
-			output.append("<tr>");
-				output.append("<td style='min-width:100px;'>");
-					output.append("<b style='color:").append(color).append(";'>");
+				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
+					output.append("<span style='color:").append(color).append(";'>");
 						output.append(child_name);
-					output.append("</b>");
-				output.append("</td>");
-				output.append("<td style='min-width:100px;'>");
-					output.append("<b style='color:").append(race_color).append(";'>");
+					output.append("</span>");
+				output.append("</div>");
+	
+				output.append("<div class='container-full-width' style='"+innerEntryStyle2+"'>");
+					output.append("<span style='color:").append(race_color).append(";'>");
 						output.append(species_name);
-					output.append("</b>");
-				output.append("</td>");
-				output.append("<td style='min-width:100px;'>");
-					output.append("<b>");
+					output.append("</span>");
+				output.append("</div>");
+	
+				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
+//					output.append("<b>");
 						output.append(mother);
-					output.append("</b>");
-				output.append("</td>");
-				output.append("<td style='min-width:100px;'>");
-					output.append("<b>");
+//					output.append("</b>");
+				output.append("</div>");
+	
+				output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
+//					output.append("<b>");
 						output.append(father);
-					output.append("</b>");
-				output.append("</td>");
-				output.append("<td style='min-width:100px;'>");
-					output.append("<b>");
-						output.append(
-								isGreyedOut
-									?"[style.boldDisabled("+Util.stringsToStringList(relationships, false)+")]"
-									:Util.stringsToStringList(relationships, false));
-					output.append("</b>");
-				output.append("</td>");
-			output.append("</tr>");
+//					output.append("</b>");
+				output.append("</div>");
+	
+				if(includeIncubationColumn) {
+					output.append("<div class='container-full-width' style='"+innerEntryStyle+"'>");
+						output.append(incubator);
+					output.append("</div>");
+				}
+				
+				output.append("<div class='container-full-width' style='"+innerEntryStyleWide+"'>");
+//					output.append("<b>");
+						output.append(Util.stringsToStringList(relationships, false));
+//						output.append(
+//								isGreyedOut
+//									?"[style.colourDisabled("+Util.stringsToStringList(relationships, false)+")]"
+//									:Util.stringsToStringList(relationships, false));
+//					output.append("</b>");
+				output.append("</div>");
+			
+			output.append("</div>");
 		}
 
 		@Override
 		public String getContent() {
-			
 			int sonsBirthed=0;
 			int daughtersBirthed=0;
 			int sonsFathered=0;
@@ -1495,7 +1865,7 @@ public class PhoneDialogue {
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Sons", PresetColour.MASCULINE.toWebHexString(), sonsFathered);
 			OffspringHeaderDisplay(UtilText.nodeContentSB, "Fathered", "Daughters", PresetColour.FEMININE.toWebHexString(), daughtersFathered);
 
-			for (NPC npc : Main.game.getOffspring(false)) {
+			for (NPC npc : Main.game.getOffspring(false, true)) {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
@@ -1508,19 +1878,87 @@ public class PhoneDialogue {
 					
 					+ pregnancyDetails()
 
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+"<div class='subTitle'>Offspring list</div>"
-					+ "<div class='container-full-width' style='text-align:center;'>"
-					
-					+ "<table align='center'>"
-					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th><th>You are their:</th></tr>"
-					+ "<tr style='height:8px;'></tr>");
+					+ "<span style='height:16px;width:100%;float:left;'></span>");
 			
-			for(NPC npc : Main.game.getOffspring(false)) {
-				OffspringTableLine(UtilText.nodeContentSB, npc);
+			UtilText.nodeContentSB.append(
+					"<div class='subTitle'>Offspring list</div>"
+					+ "<div class='container-full-width' style='text-align:center;'>"
+						+ "<div class='container-full-width'style='float:left; margin:0; width:100%; font-weight:bold;'>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:20%;'>"
+								+ "Name"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Race"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:20%;'>"
+								+ "Mother"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:20%;'>"
+								+ "Father"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:25%;'>"
+								+ "Your relationship"
+							+ "</div>"
+						+ "</div>");
+			
+			int rowCount = 0;
+			List<NPC> offspringBirthed = new ArrayList<>(Main.game.getOffspring(false, false));
+			if(offspringBirthed.isEmpty()) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='margin:0; padding:0; width:100%;float:left;'>"
+												+ "[style.italicsDisabled(No Offspring...)]"
+											+ "</div>");
+			} else {
+				offspringBirthed.sort((a, b) -> a.getBirthday().compareTo(b.getBirthday()));
+				for(NPC npc : offspringBirthed) {
+					offspringTableLine(UtilText.nodeContentSB, npc, rowCount%2==0, false);
+					rowCount++;
+				}
+			}
+
+			UtilText.nodeContentSB.append("</div>");
+			
+			UtilText.nodeContentSB.append("<span style='height:16px;width:100%;float:left;'></span>");
+			
+			UtilText.nodeContentSB.append(
+					"<div class='subTitle'>Incubated offspring list</div>"
+					+ "<div class='container-full-width' style='text-align:center;'>"
+						+ "<div class='container-full-width'style='float:left; margin:0; width:100%; font-weight:bold;'>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Name"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Race"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Mother"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Father"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:15%;'>"
+								+ "Incubated by"
+							+ "</div>"
+							+ "<div class='container-full-width' style='float:left; margin:0; width:25%;'>"
+								+ "Your relationship"
+							+ "</div>"
+						+ "</div>");
+			
+			rowCount = 0;
+			List<NPC> offspringIncubated = new ArrayList<>(Main.game.getOffspring(false, true));
+			offspringIncubated.removeAll(offspringBirthed);
+			if(offspringIncubated.isEmpty()) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='float:left; margin:0; width:100%;'>"
+												+ "[style.italicsDisabled(No Incubated Offspring...)]"
+											+ "</div>");
+			} else {
+				offspringIncubated.sort((a, b) -> a.getBirthday().compareTo(b.getBirthday()));
+				for(NPC npc : offspringIncubated) {
+					offspringTableLine(UtilText.nodeContentSB, npc, rowCount%2==0, true);
+					rowCount++;
+				}
 			}
 			
-			UtilText.nodeContentSB.append("</table></div>");
+			UtilText.nodeContentSB.append("</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1594,7 +2032,33 @@ public class PhoneDialogue {
 					+ "</div>"
 				+ "</div>";
 	}
-
+	
+	private static String pregnancyRow(String topLeft, String bottomLeft, String topRight, String bottomRight) {
+		StringBuilder contentSB = new StringBuilder();
+		
+		contentSB.append("<div class='container-full-width' style='text-align:center; margin-top:0; margin-bottom:4px;'>");
+			contentSB.append("<div class='container-full-width' style='float:left; margin:0; width:25%; background:transparent;'>");
+				contentSB.append("<div class='container-full-width' style='float:left; margin:0; padding:0; width:100%; background:transparent;'>");
+					contentSB.append(topLeft);
+				contentSB.append("</div>");
+				contentSB.append("<div class='container-full-width' style='float:left; margin:0; padding:0; width:100%; background:transparent; white-space:nowrap;'>");
+					contentSB.append(bottomLeft);
+				contentSB.append("</div>");
+			contentSB.append("</div>");
+	
+			contentSB.append("<div class='container-full-width' style='float:left; margin:0; width:75%; background:transparent;'>");
+				contentSB.append("<div class='container-full-width' style='float:left; margin:0; padding:0; width:100%; background:transparent;'>");
+					contentSB.append(topRight);
+				contentSB.append("</div>");
+				contentSB.append("<div class='container-full-width' style='float:left; margin:0; padding:0; width:100%; background:transparent;'>");
+					contentSB.append(bottomRight);
+				contentSB.append("</div>");
+			contentSB.append("</div>");
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
+	
 	private static String pregnancyDetails() {
 		StringBuilder contentSB = new StringBuilder();
 
@@ -1602,162 +2066,271 @@ public class PhoneDialogue {
 		
 		boolean noPregnancies=true;
 
-		contentSB.append("<div class='subTitle'>Mothered children</div>");
+		contentSB.append("<div class='subTitle'>Mothered & Incubated Offspring</div>");
 		
 		if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_0)
 				|| Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_1)
 				|| Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_2)
 				|| Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)){
 			
-			contentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "[style.boldBad(Ongoing pregnancy)]"
-					+ "<br/>"
-					+ "[style.bold(Possible partners:)]");
-			
+			StringBuilder possibleFathersSB = new StringBuilder();
+			int potentialFatherCount = 0;
 			for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsMother())){
 				if(pp.getFather()!=null) {
-					contentSB.append(UtilText.parse(pp.getFather(),
-							"<br/><b>[npc.Name(A)] (</b>"
+					if(potentialFatherCount>0) {
+						possibleFathersSB.append("<br/>");
+					}
+					possibleFathersSB.append(UtilText.parse(pp.getFather(),
+							"[npc.Name(A)] ("
 								+ (!pp.getFather().getRaceStage().getName().isEmpty()
-										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
+										?"<span style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</span> "
 										:"")
-								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
+								+ "<span style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
 								+ (pp.getFather().getGender().isFeminine()
 										?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName(pp.getFather()))
 										:Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName(pp.getFather())))
-								+ "</b><b>) Probability: "));
+								+ "</span>) Probability: "));
 					
 					if (pp.getProbability() <= 0) {
-						contentSB.append("None");
+						possibleFathersSB.append("[style.italicsTerrible(None)]");
 					} else if(pp.getProbability()<=0.15f) {
-						contentSB.append("Low");
+						possibleFathersSB.append("[style.italicsBad(Low)]");
 					} else if(pp.getProbability()<=0.3f) {
-						contentSB.append("Average");
+						possibleFathersSB.append("[style.italicsMinorGood(Average)]");
 					} else if(pp.getProbability()<1) {
-						contentSB.append("High");
+						possibleFathersSB.append("[style.italicsGood(High)]");
 					} else {
-						contentSB.append("Certainty");
+						possibleFathersSB.append("[style.italicsExcellent(Certainty)]");
 					}
 					
-					contentSB.append("</b>");
+					possibleFathersSB.append("</b>");
+					potentialFatherCount++;
 				}
 			}
 			
-			contentSB.append("</div>");
+			String stage = "";
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+				stage = StatusEffect.PREGNANT_0.getName(Main.game.getPlayer());
+			} else if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_1)) {
+				stage = StatusEffect.PREGNANT_1.getName(Main.game.getPlayer());
+			} else if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_2)) {
+				stage = StatusEffect.PREGNANT_2.getName(Main.game.getPlayer());
+			} else if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
+				stage = StatusEffect.PREGNANT_3.getName(Main.game.getPlayer());
+			}
+			
+			contentSB.append(pregnancyRow("[style.boldBad(Ongoing Pregnancy)]", "[style.italicsSex('"+Util.capitaliseSentence(stage)+"')]", "<b>Possible Fathers:</b>", possibleFathersSB.toString()));
 			
 			noPregnancies=false;
-		
 		}
 		
-		if (!Main.game.getPlayer().getLittersBirthed().isEmpty()) {
-			for (Litter litter : Main.game.getPlayer().getLittersBirthed()) {
-				if(litter.getFather()!=null) {
-					contentSB.append(UtilText.parse(litter.getFather(),
-							"<div class='container-full-width' style='text-align:center;'>"
-								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
-								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
-							+ "</div>"));
-				} else {
-					contentSB.append(
-							"<div class='container-full-width' style='text-align:center;'>"
-								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
-								+ "<br/>"
-								+ "You gave birth to "+ litter.getBirthedDescription()+ "."
-							+ "</div>");
+		Map<SexAreaOrifice, List<AbstractStatusEffect>> incubationEffectMap = Util.newHashMapOfValues(
+				new Value<>(SexAreaOrifice.VAGINA, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_WOMB_1, StatusEffect.INCUBATING_EGGS_WOMB_2, StatusEffect.INCUBATING_EGGS_WOMB_3)),
+				new Value<>(SexAreaOrifice.ANUS, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_STOMACH_1, StatusEffect.INCUBATING_EGGS_STOMACH_2, StatusEffect.INCUBATING_EGGS_STOMACH_3)),
+				new Value<>(SexAreaOrifice.NIPPLE, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_1, StatusEffect.INCUBATING_EGGS_NIPPLES_2, StatusEffect.INCUBATING_EGGS_NIPPLES_3)),
+				new Value<>(SexAreaOrifice.NIPPLE_CROTCH, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_1, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_2, StatusEffect.INCUBATING_EGGS_NIPPLES_CROTCH_3)),
+				new Value<>(SexAreaOrifice.SPINNERET, Util.newArrayListOfValues(StatusEffect.INCUBATING_EGGS_SPINNERET_1, StatusEffect.INCUBATING_EGGS_SPINNERET_2, StatusEffect.INCUBATING_EGGS_SPINNERET_3)));
+		
+		for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> incubationEntry : incubationEffectMap.entrySet()) {
+			if(Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(0))
+					|| Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(1))
+					|| Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(2))) {
+				String stage = "";
+				if(Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(0))) {
+					stage = incubationEntry.getValue().get(0).getName(Main.game.getPlayer());
+				} else if(Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(1))) {
+					stage = incubationEntry.getValue().get(1).getName(Main.game.getPlayer());
+				} else if(Main.game.getPlayer().hasStatusEffect(incubationEntry.getValue().get(2))) {
+					stage = incubationEntry.getValue().get(2).getName(Main.game.getPlayer());
 				}
+				Litter litter = Main.game.getPlayer().getIncubationLitter(incubationEntry.getKey());
+				contentSB.append(pregnancyRow("[style.boldBad(Ongoing)] [style.boldPurple(Incubation)]",
+						(litter.getMother()!=null
+							?(litter.getMother().isPlayer()
+								?"Implanter: [style.colourExcellent(Yourself)]"
+								:UtilText.parse(litter.getMother(), "Implanter: <span style='color:"+litter.getMother().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
+							:"Implanter: [style.colourDisabled(Unknown)]"),
+						"Implanted in "
+							+(incubationEntry.getKey()==SexAreaOrifice.VAGINA
+								?"womb"
+								:(incubationEntry.getKey()==SexAreaOrifice.ANUS || incubationEntry.getKey()==SexAreaOrifice.MOUTH
+									?"stomach"
+									:incubationEntry.getKey().getName(Main.game.getPlayer(), true)))
+							+": "
+							+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG),
+						"[style.italicsSex('"+Util.capitaliseSentence(stage)+"')]"));
+				noPregnancies=false;
+			}
+		}
+		
+		
+		// Birthed:
+		
+		if(!Main.game.getPlayer().getLittersBirthed().isEmpty()) {
+			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
+				contentSB.append(pregnancyRow("[style.boldGood(Resolved Pregnancy)]",
+						(litter.getFather()!=null
+							?(litter.getFather().isPlayer()
+								?"Father: [style.colourExcellent(Yourself)]"
+								:UtilText.parse(litter.getFather(), "Father: <span style='color:"+litter.getFather().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
+							:"Father: [style.colourDisabled(Unknown)]"),
+						"Conceived: "
+							+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+" | Delivered: "
+							+Units.date(litter.getBirthDate(), Units.DateType.LONG),
+						"Birthed: "
+							+litter.getBirthedDescription()));
+			}
+			noPregnancies=false;
+		}
+		if(!Main.game.getPlayer().getLittersIncubated().isEmpty()) {
+			for(Litter litter : Main.game.getPlayer().getLittersIncubated()) {
+				contentSB.append(pregnancyRow("[style.boldGood(Resolved)] [style.boldPurple(Incubation)]",
+						(litter.getMother()!=null
+							?(litter.getMother().isPlayer()
+								?"Implanter: [style.colourExcellent(Yourself)]"
+								:UtilText.parse(litter.getMother(), "Implanter: <span style='color:"+litter.getMother().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
+							:"Implanter: [style.colourDisabled(Unknown)]"),
+						"Implanted: "
+								+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG)
+								+" | Delivered: "
+								+Units.date(litter.getBirthDate(), Units.DateType.LONG),
+						"Birthed: "
+							+litter.getBirthedDescription()));
 			}
 			noPregnancies=false;
 		}
 		
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
-					+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>You have never been pregnant!</span>"
-					+ "</div>");
+								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>You have never been pregnant...</span>"
+							+ "</div>");
 		}
 		
-		// Fathered children:
-
+		
+		// Fathered:
 		noPregnancies=true;
 		
-		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>"
-				+ "<div class='subTitle'>Fathered children</div>");
+		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>");
+		
+		contentSB.append("<div class='subTitle'>Fathered & Implanted Offspring</div>");
 		
 		for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsFather())) {
 			if(pp.getMother()!=null) {
-				contentSB.append(UtilText.parse(pp.getMother(),
-						"<div class='container-full-width' style='text-align:center;'>"
-						+ "[style.boldBad(Ongoing pregnancy)]"
-						+ "<br/>"
-						+"<b>[npc.Name(A)] (</b>"
-							+ (!pp.getMother().getRaceStage().getName().isEmpty()
-									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
-									:"")
-							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-							+ (pp.getMother().getGender().isFeminine()
-									?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother()))
-									:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother())))
-							+ "</b><b>)</b>"));
-				
+				String impregnationChance = "";
 				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					contentSB.append("<br/>Probability of impregnation: ");
+					impregnationChance = "Probability of impregnation: ";
 					if (pp.getProbability() <= 0) {
-						contentSB.append("None");
+						impregnationChance += "[style.italicsTerrible(None)]";
 					} else if(pp.getProbability()<=0.15f) {
-						contentSB.append("Low");
+						impregnationChance += "[style.italicsBad(Low)]";
 					} else if(pp.getProbability()<=0.3f) {
-						contentSB.append("Average");
+						impregnationChance += "[style.italicsMinorGood(Average)]";
 					} else if(pp.getProbability()<1) {
-						contentSB.append("High");
+						impregnationChance += "[style.italicsGood(High)]";
 					} else {
-						contentSB.append("Certainty");
-					}
-					
-				} else {
-					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
-						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
-						
-					} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
-						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
-						
-					} else {
-						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
-						
+						impregnationChance += "[style.italicsExcellent(Certainty)]";
 					}
 				}
 				
-				contentSB.append("</b><br/>");
-				contentSB.append("</div>");
+				String stage = "";
+				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					stage = StatusEffect.PREGNANT_0.getName(pp.getMother());
+				} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
+					stage = StatusEffect.PREGNANT_1.getName(pp.getMother());
+				} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
+					stage = StatusEffect.PREGNANT_2.getName(pp.getMother());
+				} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_3)) {
+					stage = StatusEffect.PREGNANT_3.getName(pp.getMother());
+				}
+				
+				String motherName = UtilText.parse(pp.getMother(), "[npc.Name(A)]")
+						+" ("
+						+ (!pp.getMother().getRaceStage().getName().isEmpty()
+								?"<span style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</span> "
+								:"")
+						+ "<span style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
+						+ (pp.getMother().getGender().isFeminine()
+								?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName(pp.getMother()))
+								:Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName(pp.getMother())))
+						+ "</span>)";
+				
+				contentSB.append(pregnancyRow("[style.boldBad(Ongoing Pregnancy)]", "[style.italicsSex('"+Util.capitaliseSentence(stage)+"')]", motherName, impregnationChance));
+				
 			}
 			noPregnancies=false;
 		}
-		
-		if (!Main.game.getPlayer().getLittersFathered().isEmpty()) {
-			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
-				if(litter.getMother()!=null) {
-					contentSB.append(UtilText.parse(litter.getMother(),
-							"<div class='container-full-width' style='text-align:center;'>"
-								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "<br/>"
-								+ "Conceived with [npc.name(a)] on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
-								+ "<br/>"
-								+ "[npc.She] gave birth to "+ litter.getBirthedDescription()+ "."
-							+ "</div>"));
-					
-				} else {
-					contentSB.append(
-							"<div class='container-full-width' style='text-align:center;'>"
-								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "<br/>"
-								+ "Conceived with someone you can't remember on " + Units.date(litter.getConceptionDate(), Units.DateType.LONG) + ", delivered on " + Units.date(litter.getBirthDate(), Units.DateType.LONG) + "."
-								+ "<br/>"
-								+ "They gave birth to "+ litter.getBirthedDescription()+ "."
-							+ "</div>");
+		List<Litter> incubatorOngoingLitters = new ArrayList<>(Main.game.getPlayer().getLittersImplanted());
+		incubatorOngoingLitters.removeIf(npc -> npc.getIncubator()==null || npc.getIncubator().getIncubatingLitters().isEmpty());
+		Set<GameCharacter> incubatorCharacters = new HashSet<>();
+		for(Litter litter : incubatorOngoingLitters) {
+			incubatorCharacters.add(litter.getIncubator());
+		}
+		for(GameCharacter incubator : incubatorCharacters) {
+			for(Entry<SexAreaOrifice, List<AbstractStatusEffect>> incubationEntry : incubationEffectMap.entrySet()) {
+				Litter litter = incubator.getIncubatingLitters().get(incubationEntry.getKey());
+				if(litter!=null) {
+					if(incubator.hasStatusEffect(incubationEntry.getValue().get(0))
+							|| incubator.hasStatusEffect(incubationEntry.getValue().get(1))
+							|| incubator.hasStatusEffect(incubationEntry.getValue().get(2))) {
+						String stage = "";
+						if(incubator.hasStatusEffect(incubationEntry.getValue().get(0))) {
+							stage = incubationEntry.getValue().get(0).getName(incubator);
+						} else if(incubator.hasStatusEffect(incubationEntry.getValue().get(1))) {
+							stage = incubationEntry.getValue().get(1).getName(incubator);
+						} else if(incubator.hasStatusEffect(incubationEntry.getValue().get(2))) {
+							stage = incubationEntry.getValue().get(2).getName(incubator);
+						}
+						contentSB.append(pregnancyRow("[style.boldBad(Ongoing)] [style.boldPurple(Incubation)]",
+								UtilText.parse(incubator, "Incubator: <span style='color:"+incubator.getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"),
+								"Implanted in "
+									+(incubationEntry.getKey()==SexAreaOrifice.VAGINA
+										?"womb"
+										:(incubationEntry.getKey()==SexAreaOrifice.ANUS || incubationEntry.getKey()==SexAreaOrifice.MOUTH
+											?"stomach"
+											:incubationEntry.getKey().getName(incubator, true)))
+									+": "
+									+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG),
+								"[style.italicsSex('"+Util.capitaliseSentence(stage)+"')]"));
+						noPregnancies=false;
+					}
 				}
+			}
+		}
+		
+		if(!Main.game.getPlayer().getLittersFathered().isEmpty()) {
+			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
+				contentSB.append(pregnancyRow("[style.boldGood(Resolved Pregnancy)]",
+						(litter.getMother()!=null
+							?(litter.getMother().isPlayer()
+								?"Mother: [style.colourExcellent(Yourself)]"
+								:UtilText.parse(litter.getMother(), "Mother: <span style='color:"+litter.getMother().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
+							:"Mother: [style.colourDisabled(Unknown)]"),
+						"Conceived: "
+							+Units.date(litter.getConceptionDate(), Units.DateType.LONG)
+							+" | Delivered: "
+							+Units.date(litter.getBirthDate(), Units.DateType.LONG),
+						"Birthed: "
+							+litter.getBirthedDescription()));
+			}
+			noPregnancies=false;
+		}
+		if(!Main.game.getPlayer().getLittersImplanted().isEmpty()) {
+			List<Litter> incubatorCompletedLitters = new ArrayList<>(Main.game.getPlayer().getLittersImplanted());
+			incubatorCompletedLitters.removeAll(incubatorOngoingLitters);
+			for (Litter litter : incubatorCompletedLitters) {
+				contentSB.append(pregnancyRow("[style.boldGood(Resolved)] [style.boldPurple(Incubation)]",
+						(litter.getIncubator()!=null
+							?(litter.getIncubator().isPlayer()
+								?"Incubator: [style.colourExcellent(Yourself)]"
+								:UtilText.parse(litter.getIncubator(), "Incubator: <span style='color:"+litter.getIncubator().getFemininity().getColour().toWebHexString()+";'>[npc.name(A)]</span>"))
+							:"Incubator: [style.colourDisabled(Unknown)]"),
+						"Implanted: "
+							+Units.date(litter.getIncubationStartDate(), Units.DateType.LONG)
+							+" | Delivered: "
+							+Units.date(litter.getBirthDate(), Units.DateType.LONG),
+						"Birthed: "
+							+litter.getBirthedDescription()));
 			}
 			noPregnancies=false;
 		}
@@ -1853,11 +2426,11 @@ public class PhoneDialogue {
 				+ "</b></div>";
 	}
 	
-	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect) {
+	private static String getAttributeBox(GameCharacter owner, AbstractAttribute att, String effect) {
 		return getAttributeBox(owner, att, effect, false);
 	}
 	
-	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
+	private static String getAttributeBox(GameCharacter owner, AbstractAttribute att, String effect, boolean half) {
 		float value = owner.getAttributeValue(att);
 
 		String valueForDisplay;
@@ -2032,7 +2605,7 @@ public class PhoneDialogue {
 	};
 	
 	private static String getSubspeciesDiscoveredIndication() {
-		return Main.getProperties().getSubspeciesDiscoveredCount()+"/"+Subspecies.values().length;
+		return Main.getProperties().getSubspeciesDiscoveredCount()+"/"+Subspecies.getAllSubspecies().size();
 	}
 
 	private static String getWeaponsDiscoveredIndication() {
@@ -2061,7 +2634,7 @@ public class PhoneDialogue {
 			
 			sb.append("<p style='text-align:center;'>");
 				sb.append("You have discovered:");
-				sb.append(Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.values().length
+				sb.append(Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.getAllSubspecies().size()
 								?"<br/>[style.colourGood(Subspecies: "+getSubspeciesDiscoveredIndication()+")]"
 								:"<br/>Subspecies: "+getSubspeciesDiscoveredIndication());
 
@@ -2496,16 +3069,16 @@ public class PhoneDialogue {
 	};
 
 	private static List<AbstractRace> racesDiscovered = new ArrayList<>();
-	private static List<Subspecies> subspeciesDiscovered = new ArrayList<>();
+	private static List<AbstractSubspecies> subspeciesDiscovered = new ArrayList<>();
 	private static AbstractRace raceSelected;
-	private static Subspecies subspeciesSelected;
+	private static AbstractSubspecies subspeciesSelected;
 	private static StringBuilder subspeciesSB = new StringBuilder();
 	
 	public static void resetContentForRaces() {
 		
 		subspeciesDiscovered.clear();
 		
-		for (Subspecies subspecies : Subspecies.values()) {
+		for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 			if(Main.getProperties().isRaceDiscovered(subspecies)) {
 				AbstractRace race = subspecies.getRace();
 				if(!racesDiscovered.contains(race)) {
@@ -2563,9 +3136,9 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						raceSelected = racesDiscovered.get(index - 1);
-						subspeciesSelected = Subspecies.getMainSubspeciesOfRace(raceSelected);
+						subspeciesSelected = AbstractSubspecies.getMainSubspeciesOfRace(raceSelected);
 						if(!subspeciesDiscovered.contains(subspeciesSelected)) {
-							for(Subspecies sub : subspeciesDiscovered) {
+							for(AbstractSubspecies sub : subspeciesDiscovered) {
 								if(sub.getRace()==raceSelected) {
 									subspeciesSelected = sub;
 									break;
@@ -2595,8 +3168,8 @@ public class PhoneDialogue {
 		public String getContent() {
 			subspeciesSB.setLength(0);
 			
-			Body femaleBody = CharacterUtils.generateBody(null, Gender.F_V_B_FEMALE, subspeciesSelected, RaceStage.GREATER);
-			Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
+			Body femaleBody = Main.game.getCharacterUtils().generateBody(null, Gender.F_V_B_FEMALE, subspeciesSelected, RaceStage.GREATER);
+			Body maleBody = Main.game.getCharacterUtils().generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
 			
 			subspeciesSB.append(
 				"<div class='container-full-width' style='width:40%; float:right;'>"
@@ -2653,7 +3226,7 @@ public class PhoneDialogue {
 					
 				+"<p>"
 					+ "<b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b>"
-					+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
+					+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==subspeciesSelected
 							?" ([style.colourGood(Core)] subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)"
 							:" (Subspecies of <span style='color:"+raceSelected.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceSelected.getName(false))+"</span>)")
 					+ "<br/>"
@@ -2677,13 +3250,13 @@ public class PhoneDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<Subspecies> raceSubspecies = Subspecies.getSubspeciesOfRace(raceSelected);
+			List<AbstractSubspecies> raceSubspecies = Subspecies.getSubspeciesOfRace(raceSelected);
 			
 			if (index == 0) {
 				return new Response("Back", "Return to the race selection screen.", RACES);
 			
 			} else if (index <= raceSubspecies.size()) {
-				Subspecies indexSubspecies = raceSubspecies.get(index - 1);
+				AbstractSubspecies indexSubspecies = raceSubspecies.get(index - 1);
 				if(!subspeciesDiscovered.contains(indexSubspecies)) {
 					return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
 							"You haven't discovered this subspecies yet!",
@@ -2691,13 +3264,13 @@ public class PhoneDialogue {
 				}
 				return new Response(Util.capitaliseSentence(indexSubspecies.getName(null)),
 						"Take a detailed look at what " + indexSubspecies.getNamePlural(null) + " are like."
-						+ (Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
+						+ (AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies
 							?"<br/>This is the [style.colourGood(core)] "+raceSelected.getName(false)+" subspecies."
 							:""),
 						SUBSPECIES){
 					@Override
 					public Colour getHighlightColour() {
-						if(Subspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
+						if(AbstractSubspecies.getMainSubspeciesOfRace(raceSelected)==indexSubspecies) {
 							return PresetColour.GENERIC_GOOD;
 						}
 						return super.getHighlightColour();
@@ -3072,13 +3645,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
 					@Override
 					public void effects() {
-//						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-										+ "<i>You spend the next fifteen minutes loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.endTurn(60*15);
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						loiter(15);
 					}
 				};
 				
@@ -3086,13 +3653,7 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
 					@Override
 					public void effects() {
-//						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-										+ "<i>You spend the next hour loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.endTurn(60*60);
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						loiter(60);
 					}
 				};
 				
@@ -3100,45 +3661,48 @@ public class PhoneDialogue {
 				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
 					@Override
 					public void effects() {
-//						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-										+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.endTurn(60*60*4);
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						loiter(60*4);
 					}
 				};
 				
 			} else if(index == 4) {
-				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
+				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
-//						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-										+ "<i>You spend the next eight hours loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.endTurn(60*60*8);
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						loiter(60*12);
 					}
 				};
 				
 			} else if(index == 5) {
-				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
+				return new ResponseEffectsOnly("24 hours", "Loiter in this area for the next twenty-four hours.") {
 					@Override
 					public void effects() {
-//						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-										+ "<i>You spend the next twelve hours loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.endTurn(60*60*12);
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+						loiter(60*24);
 					}
 				};
 			}
 			return null;
+		}
+
+		private void loiter(int minutes) {
+			String period = "";
+			int hours = minutes / 60;
+			int partialMinutes = minutes % 60;
+			if (hours != 0) {
+				period += (hours==1?"":Util.intToString(hours)) + " hour"+(hours==1?" ":"s ");
+			}
+			if (partialMinutes != 0) {
+				period += Util.intToString(partialMinutes) + " minutes ";
+			}
+			if (minutes == 0) {
+				period = "period ";
+			}
+			Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" +
+					"<i>You spend the next ").append(period).append("loitering about, doing nothing in particular...</i>").append("</p>");
+			Main.game.getPlayer().setActive(false);
+			Main.game.endTurn(60*minutes);
+			Main.game.getPlayer().setActive(true);
+			Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 		}
 
 		@Override

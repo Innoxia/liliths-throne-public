@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[snake]]></transformationName>
+	<coveringType>SNAKE_SCALES</coveringType>
+	<tags/>
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>scaly</descriptor>
+		<descriptor>snake-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>scaly</descriptor>
+		<descriptor>snake-like</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of [npc.her] head.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears,
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] now-fully-internal ears are made out of [npc.earFullDescription],
+		#ENDIF
+		 and as the transformation finishes, [npc.sheIs] left with the ears of an snake-morph.
+		<br/>[npc.Name] now [npc.has] [style.boldSnake(internal, scale-covered snake ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.Her] ears are an internal part of [npc.her] head, and are surrounded by a layer of [npc.earFullDescription(true)].
+		#IF(npc.isPiercedEar()) They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.#ENDIF
+	]]></bodyDescription>
+</ear>

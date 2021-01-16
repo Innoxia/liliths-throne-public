@@ -31,6 +31,8 @@
 				 [ralph.speech(I can't afford to take any more time out today, so I can't offer you any alternative to the price in flames. Maybe tomorrow I'll give you the chance to have me try and knock you up again.)]
 			#ELSEIF(pc.isPregnant())
 				 [ralph.speech(There's no other deal I can offer you, seeing as you're already pregnant.)]
+			#ELSEIF(pc.hasIncubationLitter(ORIFICE_VAGINA))
+				 [ralph.speech(There's no other deal I can offer you, seeing as you're already stuffed full of eggs.)]
 			#ELSEIF(!pc.hasVagina())
 				 [ralph.speech(Seeing as you haven't got a pussy, there's no other deal I can offer you.)]
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
@@ -61,6 +63,8 @@
 			Just as you're wondering whether it would be worth paying that much for what is, ultimately, gaining [brax.name] as a slave, Ralph says,
 			#IF(pc.isPregnant())
 				 [ralph.speech(You know, if you weren't pregnant, I could have offered you a special deal, but seeing as you've already got a bun in the oven, there's nothing else I can do for you.)]
+			#ELSEIF(pc.hasIncubationLitter(ORIFICE_VAGINA))
+				 [ralph.speech(You know, if your womb wasn't stuffed full of eggs, I could have offered you a special deal, but seeing as you're 'unavailable', there's nothing else I can do for you.)]
 			#ELSEIF(!pc.hasVagina())
 				 [ralph.speech(You know, if you had a pussy, I could have offered you a special deal, but seeing as you're lacking the necessary parts, there's nothing else I can do for you.)]
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_VAGINA, true))

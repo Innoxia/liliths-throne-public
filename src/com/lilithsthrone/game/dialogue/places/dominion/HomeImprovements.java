@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
@@ -44,7 +43,7 @@ public class HomeImprovements {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
 			@Override
 			public void turnUpdate() {
-				if(this.getGenitalArrangement()!=GenitalArrangement.CLOACA) {
+				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
 					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
 					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
 				}
@@ -52,7 +51,7 @@ public class HomeImprovements {
 		};
 		
 		npc.setRaceConcealed(true);
-		CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues());
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
 		
 		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, found you offering to service [npc.her] cock at a gloryhole...");
 		
@@ -97,7 +96,7 @@ public class HomeImprovements {
 		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
 
 		npc.setRaceConcealed(true);
-		CharacterUtils.setGenericName(npc, genericName, Util.newArrayListOfValues());
+		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
 		
 		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, decided to spend some time servicing the gloryhole [npc.she] found there...");
 		
@@ -389,8 +388,7 @@ public class HomeImprovements {
 		}
 	};
 	
-	
-	public static final DialogueNode TOILETS = new DialogueNode("", ".", false) {
+	public static final DialogueNode TOILETS = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 1*60;
@@ -423,9 +421,11 @@ public class HomeImprovements {
 					}
 				};
 				
-			} else if(index==3) {//TODO test: taur penis can't use it. Also update nightclub. Prevent penis from being used in those slots if taur
-				if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) && !Main.game.getPlayer().isTaur())
-						|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
+			} else if(index==3) {
+				boolean penisAvailable = Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
+				boolean vaginaAvailable = Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+				
+				if((penisAvailable && !Main.game.getPlayer().isTaur()) || vaginaAvailable) {
 					return new Response("Glory hole (use)",
 							"One of the toilet's stalls has a glory hole in it. Enter the stall and wait for someone on the other side to service you.",
 							TOILETS_GLORY_HOLE_DOM) {
@@ -435,9 +435,9 @@ public class HomeImprovements {
 						}
 					};
 					
-				} else if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) && Main.game.getPlayer().isTaur()) {
+				} else if(penisAvailable && Main.game.getPlayer().isTaur()) {
 					return new Response("Glory hole (use)",
-							"As your [pc.cock] is positioned on the underside of your lower ",
+							"Due to the shape of your [pc.legRace]'s body, you cannot get into a suitable position for using the glory hole...",
 							null);
 					
 				} else {
@@ -445,7 +445,6 @@ public class HomeImprovements {
 							"You can't get access to your genitals, so can't get serviced at a glory hole.",
 							null);
 				}
-				
 				
 			} else if(index==4) {
 				if((Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true))

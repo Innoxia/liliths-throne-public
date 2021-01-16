@@ -11,8 +11,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -81,6 +81,7 @@ public class Roxy extends NPC {
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.getItemTypeFromId("innoxia_pills_fertility"),
+			ItemType.getItemTypeFromId("innoxia_pills_broodmother"),
 			ItemType.getItemTypeFromId("innoxia_pills_sterility"),
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
@@ -89,8 +90,7 @@ public class Roxy extends NPC {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
-					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)
-							|| itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
+					&& (itemType.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN) || itemType.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN))) {
 				itemsForSale.add(itemType);
 			}
 		}

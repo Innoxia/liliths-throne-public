@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>200</value> 
+		<determiner><![CDATA[a thermo cup of]]></determiner>
+		<name><![CDATA[Chamomile Tea]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Chamomile Teas]]></namePlural>
+		<description><![CDATA[A large, insulated cup filled with a calming chamomile tea. Nobody seems completely sure whether it causes the capybaras' legendary serenity or merely complements it, but they're certainly consuming a lot of the stuff.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="70">capybara_tea2go.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the tea within is still at a nice temperature, [npc.verb(take)] a deep swig of the calming liquid.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the tea within is still at a nice temperature, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips] so [npc2.she] can take a deep swig of the calming liquid.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

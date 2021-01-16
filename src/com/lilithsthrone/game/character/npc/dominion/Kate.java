@@ -9,11 +9,10 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -347,7 +346,7 @@ public class Kate extends NPC {
 			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
 		}
 		
-		for(AbstractClothing c : CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 6, 2)) {
+		for(AbstractClothing c : Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, clothingToSell, 6, 2)) {
 			this.addClothing(c, false);
 		}
 	}
@@ -487,12 +486,12 @@ public class Kate extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				itemOwner.useItem(item, target, false);
 				return new Value<>(true,
 						"<p>"
-							+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
-							+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
+							+ "Producing a "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
+							+ " She giggles as she happily swallows the little "+item.getColour(0).getName()+" pill, knowing that it's going to make her womb far more fertile."
 						+ "</p>");
 			} else {
 				return new Value<>(false,
@@ -505,9 +504,12 @@ public class Kate extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if(!target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				return "<p>"
 							+ "Holding out a condom to [kate.name], you force [kate.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [kate.she] rolls it down the length of [kate.her] [kate.cock+] as [kate.she] whines at you,"
@@ -517,7 +519,12 @@ public class Kate extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, Kate slaps it away and laughs,"
+							+ " [kate.speech(No way! It's no fun if I don't get any cum!)]");
 				}
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
@@ -529,13 +536,7 @@ public class Kate extends NPC {
 						+ "</p>";
 			}
 		}
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	

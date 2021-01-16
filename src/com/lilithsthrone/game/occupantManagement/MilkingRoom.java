@@ -10,7 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -82,9 +82,9 @@ public class MilkingRoom implements XMLSaving {
 		Element element = doc.createElement("milkingRoom");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
-		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
-		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
+		XMLUtil.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
+		XMLUtil.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
+		XMLUtil.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
 
 		for(FluidStored fluid : fluidsStored) {
 			fluid.saveAsXML(element, doc);
@@ -96,7 +96,7 @@ public class MilkingRoom implements XMLSaving {
 			for(Entry<String, List<AbstractClothing>> entry : clothingRemovedForMilking.entrySet()) {
 				Element clothingCharacter = doc.createElement("clothingCharacter");
 				clothingSaved.appendChild(clothingCharacter);
-				CharacterUtils.addAttribute(doc, clothingCharacter, "id", entry.getKey());
+				XMLUtil.addAttribute(doc, clothingCharacter, "id", entry.getKey());
 				for(AbstractClothing clothing : entry.getValue()) {
 					Element e = clothing.saveAsXML(clothingSaved, doc);
 					clothingCharacter.appendChild(e);
@@ -170,36 +170,81 @@ public class MilkingRoom implements XMLSaving {
 	}
 	
 	public static Cell getMilkingCell(GameCharacter character, boolean needFreeCell) {
+		List<MilkingRoom> freeRooms = new ArrayList<>();
+		List<MilkingRoom> fullRooms = new ArrayList<>();
 		List<Cell> milkingCells = new ArrayList<>();
-		
+
 		for(MilkingRoom room : Main.game.getOccupancyUtil().getMilkingRooms()) {
 			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
-			
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
-			
+			if (charactersPresent < 8) {
+				freeRooms.add(room);
+			} else {
+				fullRooms.add(room);
+			}
+		}
+		if (freeRooms.isEmpty()&&needFreeCell) {
+			return null;
+		}
+
+		// check for a room with capacity and the right type first
+		for(MilkingRoom room : freeRooms) {
+			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
+
 			if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
-					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
 				return c;
-				
+
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
-					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
 				return c;
-				
+
 			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
-					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
 				return c;
-			}
-			
-			if((needFreeCell?charactersPresent<8:charactersPresent<=8)) {
+
+			} else {
+				// not the right type, but has capacity
 				milkingCells.add(c);
 			}
 		}
+
+		for(MilkingRoom room : fullRooms) {
+			Cell c = Main.game.getWorlds().get(room.getWorldType()).getCell(room.getLocation());
+
+			milkingCells.add(c);
+		}
+
 		if(milkingCells.isEmpty()) {
 			return null;
+		}
+
+		for (Cell c: milkingCells) {
+			int charactersPresent = Main.game.getCharactersPresent(c).size();
+			// all rooms of the right type are full, so select a room with capacity to avoid crowding
+			if (charactersPresent<8) {
+				return c;
+			// if all rooms are full, and a free slot is not needed	use a full room of the right type
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
+					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+				if(!needFreeCell&&charactersPresent==8) {
+					return c;
+				}
+			}
 		}
 		return milkingCells.get(0);
 	}
@@ -418,7 +463,7 @@ public class MilkingRoom implements XMLSaving {
 					}
 					milkyMilknessSB.append("<br/>"
 								+ "<span style='color:"+type.getRace().getColour().toWebHexString()+";'>"
-									+Util.capitaliseSentence(type.getRace().getName(fluid.isBestial()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
+									+Util.capitaliseSentence(type.getRace().getName(fluid.isFeral()))+" "+type.getBaseType().getNames().get(0)//type.getName(fluidOwner)
 								+"</span>"
 							+ "</div>");
 	

@@ -9,12 +9,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -69,12 +69,12 @@ public class SlaveInStocks extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
+			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
+			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					
 				} else if(s.getRace()!=Race.DEMON
 						&& s.getRace()!=Race.ANGEL
@@ -83,10 +83,10 @@ public class SlaveInStocks extends NPC {
 						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
-					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
+					if(AbstractSubspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+						AbstractSubspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					} else {
-						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
+						AbstractSubspecies.addToSubspeciesMap(3, gender, s, availableRaces);
 					}
 				}
 			}
@@ -106,11 +106,11 @@ public class SlaveInStocks extends NPC {
 			
 			// ADDING FETISHES:
 			
-			CharacterUtils.addFetishes(this);
+			Main.game.getCharacterUtils().addFetishes(this);
 			
 			// BODY RANDOMISATION:
 			
-			CharacterUtils.randomiseBody(this, true);
+			Main.game.getCharacterUtils().randomiseBody(this, true);
 			
 			// INVENTORY:
 			
@@ -119,31 +119,8 @@ public class SlaveInStocks extends NPC {
 
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			CharacterUtils.applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyMakeup(this, true);
 
-			if(Math.random()<0.8f) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
-				this.setFaceVirgin(false);
-			}
-			
-			if(Math.random()<0.6f) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
-				this.setAssVirgin(false);
-			}
-			
-			if(!this.hasVagina()) {
-				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
-				this.setAssVirgin(false);
-			} else {
-				if(Math.random()<0.6f) {
-					this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL);
-					this.setVaginaVirgin(false);
-				}
-			}
-			
-			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
-			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
-			
 			this.setPlayerKnowsName(true);
 
 			initHealthAndManaToMax();
@@ -172,24 +149,7 @@ public class SlaveInStocks extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			if(this.isSlave()) {
-				return (UtilText.parse(this,
-						"[npc.NamePos] days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
-			} else {
-				return (UtilText.parse(this,
-						"[npc.Name] is a prostitute who whores [npc.herself] out in the backalleys of Dominion."));
-			}
-			
-		} else {
-			if(this.isSlave()) {
-				return (UtilText.parse(this,
-						"[npc.NamePos] days of prowling the back alleys of Dominion and mugging innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
-			} else {
-				return (UtilText.parse(this,
-						"[npc.Name] is a resident of Dominion, who prowls the back alleys in search of innocent travellers to mug and rape."));
-			}
-		}
+		return (UtilText.parse(this, "[npc.Name] is a slave, who, for one reason or another, has been locked into the stocks for public use."));
 	}
 
 	@Override
@@ -221,10 +181,10 @@ public class SlaveInStocks extends NPC {
 				if(!Main.game.getCharactersPresent().contains(this)) {
 					Gender gender = Gender.getGenderFromUserPreferences(false, true);
 					
-					Map<Subspecies, Integer> availableRaces = Subspecies.getGenericSexPartnerSubspeciesMap(gender);
+					Map<AbstractSubspecies, Integer> availableRaces = AbstractSubspecies.getGenericSexPartnerSubspeciesMap(gender);
 					
-					Subspecies subspecies = Subspecies.HUMAN;
-					Subspecies halfDemonSubspecies = null;
+					AbstractSubspecies subspecies = Subspecies.HUMAN;
+					AbstractSubspecies halfDemonSubspecies = null;
 					if(!availableRaces.isEmpty()) {
 						subspecies = Util.getRandomObjectFromWeightedMap(availableRaces);
 					}
@@ -239,12 +199,39 @@ public class SlaveInStocks extends NPC {
 					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
 						this.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
 					}
-					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL)) {
+					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL) && this.hasVagina()) {
 						this.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
 					}
 				}
 				
 			}
 		}
+	}
+	
+	public void initSlavePermissions() {
+		this.clearSlaveJobSettings(SlaveJob.PUBLIC_STOCKS);
+		
+		if(Math.random()<0.8f) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
+			this.setFaceVirgin(false);
+		}
+		
+		if(Math.random()<0.6f) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
+			this.setAssVirgin(false);
+		}
+		
+		if(!this.hasVagina()) {
+			this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
+			this.setAssVirgin(false);
+		} else {
+			if(Math.random()<0.6f) {
+				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL);
+				this.setVaginaVirgin(false);
+			}
+		}
+		
+		this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+		this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 	}
 }

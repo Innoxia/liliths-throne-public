@@ -2,7 +2,8 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 import java.util.List;
 
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -27,10 +28,10 @@ public enum FluidTypeBase {
 			PresetColour.MILK);
 	
 	private List<String> names;
-	private BodyCoveringType coveringType;
+	private AbstractBodyCoveringType coveringType;
 	private Colour colour;
 
-	private FluidTypeBase(List<String> names, BodyCoveringType coveringType, Colour colour) {
+	private FluidTypeBase(List<String> names, AbstractBodyCoveringType coveringType, Colour colour) {
 		this.names = names;
 		this.coveringType = coveringType;
 		this.colour = colour;
@@ -40,7 +41,7 @@ public enum FluidTypeBase {
 		return names;
 	}
 	
-	public BodyCoveringType getCoveringType() {
+	public AbstractBodyCoveringType getCoveringType() {
 		return coveringType;
 	}
 

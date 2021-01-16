@@ -1,23 +1,33 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.9
- * @version 0.3.9.1
+ * @version 0.4
  * @author Innoxia
  */
 public abstract class AbstractVaginaType implements BodyPartTypeInterface {
@@ -39,10 +49,16 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			new Value<>("sexes", 1),
 			new Value<>("slits", 1),
 			new Value<>("twats", 2));
+
+	private boolean mod;
+	private boolean fromExternalFile;
 	
-	private BodyCoveringType skinType;
+	private AbstractBodyCoveringType coveringType;
 	private AbstractFluidType fluidType;
 	private AbstractRace race;
+
+	private String transformationName;
+	
 	private boolean eggLayer;
 	
 	private List<String> names;
@@ -56,7 +72,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	private List<OrificeModifier> defaultRacialOrificeModifiers;
 	
 	/**
-	 * @param skinType What covers this vagina type.
+	 * @param coveringType What covers this vagina type.
 	 * @param fluidType The type of girlcum that this vagina produces.
 	 * @param race What race has this vagina type.
 	 * @param eggLayer If this vagina lays eggs or not.
@@ -73,7 +89,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	 * @param bodyDescription A sentence or two to describe this vagina type, as seen in the character view screen. It should follow the same format as all of the other entries in the PenisType class.
 	 * @param defaultRacialPenetrationModifiers Which modifiers this vagina naturally spawns with.
 	 */
-	public AbstractVaginaType(BodyCoveringType skinType,
+	public AbstractVaginaType(AbstractBodyCoveringType coveringType,
 			AbstractFluidType fluidType,
 			AbstractRace race,
 			boolean eggLayer,
@@ -83,10 +99,12 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			String transformationDescription,
 			String bodyDescription,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
-		this.skinType = skinType;
+		this.coveringType = coveringType;
 		this.fluidType = fluidType;
 		this.race = race;
 		this.eggLayer = eggLayer;
+
+		this.transformationName = null; // Use default race transformation name
 		
 		this.names = names;
 		this.namesPlural = namesPlural;
@@ -103,7 +121,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		}
 	}
 	
-	public AbstractVaginaType(BodyCoveringType skinType,
+	public AbstractVaginaType(AbstractBodyCoveringType skinType,
 			AbstractFluidType fluidType,
 			AbstractRace race,
 			boolean eggLayer,
@@ -119,6 +137,77 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 				transformationDescription,
 				bodyDescription,
 				defaultRacialOrificeModifiers);
+	}
+	
+	public AbstractVaginaType(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+				
+				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
+				this.eggLayer = Boolean.valueOf(coreElement.getMandatoryFirstOf("eggLayer").getTextContent());
+				
+				this.names = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
+					names.add(e.getTextContent());
+				}
+				
+				this.namesPlural = new ArrayList<>();
+				for(Element e : coreElement.getMandatoryFirstOf("namesPlural").getAllOf("name")) {
+					namesPlural.add(e.getTextContent());
+				}
+				
+				this.descriptors = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("descriptors").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("descriptors").getAllOf("descriptor")) {
+						descriptors.add(e.getTextContent());
+					}
+				}
+
+				this.transformationDescription = coreElement.getMandatoryFirstOf("transformationDescription").getTextContent();
+				this.bodyDescription = coreElement.getMandatoryFirstOf("bodyDescription").getTextContent();
+				
+				this.defaultRacialOrificeModifiers = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("defaultOrificeModifiers").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("defaultOrificeModifiers").getAllOf("modifier")) {
+						defaultRacialOrificeModifiers.add(OrificeModifier.valueOf(e.getTextContent()));
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractAnusType was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+	
+	@Override
+	public String getTransformationNameOverride() {
+		return transformationName;
 	}
 
 	public AbstractFluidType getFluidType() {
@@ -139,7 +228,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public boolean isDefaultPlural() {
+	public boolean isDefaultPlural(GameCharacter gc) {
 		return false;
 	}
 
@@ -210,8 +299,8 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
+		return coveringType;
 	}
 
 	@Override

@@ -1,13 +1,17 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -72,6 +76,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldDemon(demonic eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)]."
 			+ "#ENDIF",
 			"[npc.SheHasFull] [npc.eyePairs] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType CAT_MORPH = new AbstractEyeType(BodyCoveringType.EYE_FELINE,
@@ -89,6 +97,10 @@ public class EyeType {
 					+ "[npc.Name] now [npc.has] [style.boldCatMorph(cat-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] cat-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType COW_MORPH = new AbstractEyeType(BodyCoveringType.EYE_COW_MORPH,
@@ -106,6 +118,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldCowMorph(cow-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] cow-like eyes, the irises and pupils of which are larger than a regular human's."
 			+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType DOG_MORPH = new AbstractEyeType(BodyCoveringType.EYE_DOG_MORPH,
@@ -123,6 +139,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldDogMorph(dog-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] dog-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType FOX_MORPH = new AbstractEyeType(BodyCoveringType.EYE_FOX_MORPH,
@@ -140,6 +160,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldFoxMorph(fox-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] fox-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType WOLF_MORPH = new AbstractEyeType(BodyCoveringType.EYE_LYCAN,
@@ -157,6 +181,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldWolfMorph(wolf-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] wolf-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType SQUIRREL_MORPH = new AbstractEyeType(BodyCoveringType.EYE_SQUIRREL,
@@ -242,6 +270,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldAlligatorMorph(alligator-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] alligator-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType HORSE_MORPH = new AbstractEyeType(BodyCoveringType.EYE_HORSE_MORPH,
@@ -259,6 +291,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldHorseMorph(horse-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] horse-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType REINDEER_MORPH = new AbstractEyeType(BodyCoveringType.EYE_REINDEER_MORPH,
@@ -276,6 +312,10 @@ public class EyeType {
 				+ "[npc.Name] now [npc.has] [style.boldReindeerMorph(reindeer-like eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] reindeer-like eyes, the irises and pupils of which are larger than a regular human's."
 				+ " They have [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+		}
 	};
 
 	public static AbstractEyeType HARPY = new AbstractEyeType(BodyCoveringType.EYE_HARPY,
@@ -302,8 +342,47 @@ public class EyeType {
 	
 	static {
 		allEyeTypes = new ArrayList<>();
+
+		// Modded types:
+		
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("eye")) {
+					try {
+						AbstractEyeType type = new AbstractEyeType(innerEntry.getValue(), entry.getKey(), true) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allEyeTypes.add(type);
+						eyeToIdMap.put(type, id);
+						idToEyeMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+		
+		// External res types:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/race", "bodyParts", null);
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				if(Util.getXmlRootElementName(innerEntry.getValue()).equals("eye")) {
+					try {
+						AbstractEyeType type = new AbstractEyeType(innerEntry.getValue(), entry.getKey(), false) {};
+						String id = innerEntry.getKey().replaceAll("bodyParts_", "");
+						allEyeTypes.add(type);
+						eyeToIdMap.put(type, id);
+						idToEyeMap.put(id, type);
+					} catch(Exception ex) {
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 		
 		// Add in hard-coded eye types:
+		
 		Field[] fields = EyeType.class.getFields();
 		
 		for(Field f : fields){

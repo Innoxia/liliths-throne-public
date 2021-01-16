@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -445,7 +446,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
@@ -463,7 +464,7 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
-						for(Subspecies r : Subspecies.values()) {
+						for(AbstractSubspecies r : Subspecies.getAllSubspecies()) {
 							if(!r.isNonBiped()) {
 								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
 								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
@@ -717,7 +718,23 @@ public class PrologueDialogue {
 							}
 						}
 						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
+						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
 						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
@@ -739,6 +756,29 @@ public class PrologueDialogue {
 
 		@Override
 		public String getContent() {
+			String demonstoneImages = "images of flames";
+			String demonstoneEnergy = "flame";
+			switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+				case AIR:
+					demonstoneImages = "images of gaseous green vapours";
+					demonstoneEnergy = "poison";
+					break;
+				case EARTH:
+					demonstoneImages = "lines of energy";
+					demonstoneEnergy = "energy";
+					break;
+				case ARCANE:
+				case FIRE:
+					demonstoneImages = "images of flames";
+					demonstoneEnergy = "flame";
+					break;
+				case WATER:
+					demonstoneImages = "images of snowflakes and icicles";
+					demonstoneEnergy = "ice";
+					break;
+			}
+			UtilText.addSpecialParsingString(demonstoneImages, true);
+			UtilText.addSpecialParsingString(demonstoneEnergy, false);
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_6");
 		}
 		
@@ -770,6 +810,23 @@ public class PrologueDialogue {
 
 		@Override
 		public String getContent() {
+			String spellName = Spell.FIREBALL.getName();
+			switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+				case AIR:
+					spellName = Spell.POISON_VAPOURS.getName();
+					break;
+				case EARTH:
+					spellName = Spell.SLAM.getName();
+					break;
+				case ARCANE:
+				case FIRE:
+					spellName = Spell.FIREBALL.getName();
+					break;
+				case WATER:
+					spellName = Spell.ICE_SHARD.getName();
+					break;
+			}
+			UtilText.addSpecialParsingString(spellName, true);
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_7");
 		}
 		
@@ -811,15 +868,25 @@ public class PrologueDialogue {
 						Main.game.getPlayer().incrementMoney(5000);
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
-						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
-						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.SLAM));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						Spell startingSpell = Spell.FIREBALL;
+						switch(CharacterCreation.getStartingTomeSpellSchool()) {
+							case AIR:
+								startingSpell = Spell.POISON_VAPOURS;
+								break;
+							case EARTH:
+								startingSpell = Spell.SLAM;
+								break;
+							case FIRE:
+							case ARCANE:
+								startingSpell = Spell.FIREBALL;
+								break;
+							case WATER:
+								startingSpell = Spell.ICE_SHARD;
+								break;
 						}
+						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(startingSpell));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+						
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>[style.boldExcellent("+spellBook.getName()+")] added to your room's storage!</p>");
 						
 					}

@@ -6,10 +6,9 @@ import java.util.AbstractMap.SimpleEntry;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -33,6 +32,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -64,7 +64,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -76,7 +76,28 @@ public class CharacterCreation {
 	public static final int TIME_TO_JOB = 150;
 	public static final int TIME_TO_SEX_EXPERIENCE = 150;
 	public static final int TIME_TO_FINAL_CHECK = 150;
+
+	public static SpellSchool getStartingTomeSpellSchool() {
+		if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
+			return SpellSchool.EARTH;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+			return SpellSchool.AIR;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
+			return SpellSchool.WATER;
+		}
+		return SpellSchool.FIRE;
+	}
 	
+	public static SpellSchool getStartingDemonstoneSpellSchool() {
+		if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
+			return SpellSchool.EARTH;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 3) {
+			return SpellSchool.AIR;
+		} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 0) {
+			return SpellSchool.WATER;
+		}
+		return SpellSchool.FIRE;
+	}
 
 	public static final DialogueNode CHARACTER_CREATION_START = new DialogueNode("Disclaimer", "", true) {
 
@@ -438,7 +459,7 @@ public class CharacterCreation {
 		switch(character.getFemininity()) {
 			case MASCULINE_STRONG:
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE, false), true, character);
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OXFORD_SHIRT, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_RED, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -454,7 +475,7 @@ public class CharacterCreation {
 				
 			case MASCULINE:
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, character);
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_mens_smart_shoes", PresetColour.CLOTHING_BLACK, false), true, character);
@@ -473,7 +494,7 @@ public class CharacterCreation {
 				} else {
 					Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_WHITE, false));
 				}
-				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLUE_GREY, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, character);
 				character.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_low_top_skater_shoes", PresetColour.CLOTHING_RED, false), true, character);
@@ -557,10 +578,10 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_neck_scarf", PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, PresetColour.CLOTHING_GREY);
-				generateClothingOnFloor(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_WHITE);
+				generateClothingOnFloor("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE);
-				generateClothingOnFloor(ClothingType.TORSO_OXFORD_SHIRT, PresetColour.CLOTHING_WHITE);
+				generateClothingOnFloor("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_neck_tie", PresetColour.CLOTHING_RED);
 				generateClothingOnFloor("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK);
 				break;
@@ -589,7 +610,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_LIGHT);
-				generateClothingOnFloor(ClothingType.TORSO_BLOUSE, PresetColour.CLOTHING_BLUE_LIGHT);
+				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_GREEN);
 				
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, PresetColour.CLOTHING_PINK_LIGHT);
@@ -640,7 +661,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_BLUE_LIGHT);
-				generateClothingOnFloor(ClothingType.TORSO_BLOUSE, PresetColour.CLOTHING_BLUE_LIGHT);
+				generateClothingOnFloor("innoxia_torso_blouse", PresetColour.CLOTHING_BLUE_LIGHT);
 				generateClothingOnFloor(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_GREEN);
 				generateClothingOnFloor(ClothingType.TORSO_LONG_SLEEVE_DRESS, PresetColour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_SHORT_CROPTOP, PresetColour.CLOTHING_PINK);
@@ -690,7 +711,7 @@ public class CharacterCreation {
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 						
-						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						+ CharacterModificationUtils.getPersonalityChoiceDiv(false)
 						
 					+"</div>";
 		}
@@ -1932,16 +1953,42 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						Main.game.getPlayer().setMoney(5000);
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
 						
-						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
-						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.SLAM));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 2) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.POISON_VAPOURS));
-						} else if(Main.game.getPlayer().getBirthMonth().getValue()  % 4 == 3) {
-							spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
 						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
+						
+						Spell startingSpell = Spell.FIREBALL;
+						switch(getStartingTomeSpellSchool()) {
+							case AIR:
+								startingSpell = Spell.POISON_VAPOURS;
+								break;
+							case EARTH:
+								startingSpell = Spell.SLAM;
+								break;
+							case FIRE:
+							case ARCANE:
+								startingSpell = Spell.FIREBALL;
+								break;
+							case WATER:
+								startingSpell = Spell.ICE_SHARD;
+								break;
+						}
+						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(startingSpell));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						
 						applyGameStart();
@@ -2063,7 +2110,7 @@ public class CharacterCreation {
 					+ "<br/>"
 					+"<details>"
 						+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>Import Log</summary>"
-						+ CharacterUtils.getCharacterImportLog()
+						+ Main.game.getCharacterUtils().getCharacterImportLog()
 					+ "</details>"
 					+ "<div class='container-full-width'>"
 						+ "<h5 style='text-align:center;'>Appearance</h5>"
@@ -2094,8 +2141,24 @@ public class CharacterCreation {
 						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
-						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+
+						DamageType damageType = DamageType.FIRE;
+						switch(CharacterCreation.getStartingDemonstoneSpellSchool()) {
+							case AIR:
+								damageType = DamageType.POISON;
+								break;
+							case EARTH:
+								damageType = DamageType.PHYSICAL;
+								break;
+							case ARCANE:
+							case FIRE:
+								damageType = DamageType.FIRE;
+								break;
+							case WATER:
+								damageType = DamageType.ICE;
+								break;
+						}
+						Main.game.getPlayer().equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_crystal_rare", damageType));
 						
 						AbstractItem spellBook = Main.game.getItemGen().generateItem(ItemType.getSpellBookType(Spell.FIREBALL));
 						if(Main.game.getPlayer().getBirthMonth().getValue() % 4 == 1) {

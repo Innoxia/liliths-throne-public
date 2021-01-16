@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>NoStepOnSnek_octopus</racialBody>
+	<applyRaceChanges/>
+	<name><![CDATA[octopus-morph]]></name>
+	<namePlural><![CDATA[octopus-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="CEPHALOPOD"><![CDATA[octopus]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="CEPHALOPOD"><![CDATA[octopuses]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[octopus]]></defaultTransformName>
+	<colour>NoStepOnSnek_octopus</colour>
+	<disposition>UNPREDICTABLE</disposition>
+	<racialClass>FISH</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>false</flyingRace>
+	<combatBehaviour>ATTACK</combatBehaviour>
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	<numberOfOffspringLow>2</numberOfOffspringLow>
+	<numberOfOffspringHigh>5</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

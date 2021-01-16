@@ -20,7 +20,8 @@ public enum CombatMoveType {
     DEFEND("Defend", PresetColour.SPELL_SCHOOL_WATER),
     TEASE("Tease", PresetColour.GENERIC_SEX),
     SPELL("Spell", PresetColour.GENERIC_ARCANE),
-    SKILL("Skill", PresetColour.GENERIC_GOOD),
+	POWER("Power", PresetColour.GENERIC_ARCANE),
+//    SKILL("Skill", PresetColour.GENERIC_GOOD),
     ATTACK_DEFEND("Defensive Attack", PresetColour.SPELL_SCHOOL_WATER, new ArrayList<>(Arrays.asList(CombatMoveType.ATTACK, CombatMoveType.DEFEND)));
 
     private String name;

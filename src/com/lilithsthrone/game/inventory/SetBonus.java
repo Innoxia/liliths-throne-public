@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.inventory;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.utils.Util;
 
@@ -86,81 +86,50 @@ public class SetBonus {
 	}
 
 	static {
+		
 		allSetBonuses = new ArrayList<>();
 		
-		File dir = new File("res/mods");
+		// Modded set bonus types:
 		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] modDirectoryListing = dir.listFiles();
-			if (modDirectoryListing != null) {
-				for (File modAuthorDirectory : modDirectoryListing) {
-					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/setBonuses");
-					File[] innerDirectoryListing = modAuthorClothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-					if (innerDirectoryListing != null) {
-						for (File innerChild : innerDirectoryListing) {
-							try {
-								String id = modAuthorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-								AbstractSetBonus setBonus = new AbstractSetBonus(innerChild, modAuthorDirectory.getName(), true) {};
-								allSetBonuses.add(setBonus);
-								setBonusToIdMap.put(setBonus, id);
-								idToSetBonusMap.put(id, setBonus);
-							} catch(Exception ex) {
-								System.err.println("Loading modded set bonus failed at 'SetBonus' Code 1. File path: "+innerChild.getAbsolutePath());
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		// Add in external res set bonuses:
-		
-		dir = new File("res/setBonuses");
-		
-		if (dir.exists() && dir.isDirectory()) {
-			File[] authorDirectoriesListing = dir.listFiles();
-			if (authorDirectoriesListing != null) {
-				for (File authorDirectory : authorDirectoriesListing) {
-					if (authorDirectory.isDirectory()){
-						File[] innerDirectoryListing = authorDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
-						if (innerDirectoryListing != null) {
-							for (File innerChild : innerDirectoryListing) {
-								try {
-									String id = authorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
-									AbstractSetBonus setBonus = new AbstractSetBonus(innerChild, authorDirectory.getName(), true) {};
-									allSetBonuses.add(setBonus);
-									setBonusToIdMap.put(setBonus, id);
-									idToSetBonusMap.put(id, setBonus);
-								} catch(Exception ex) {
-									System.err.println("Loading modded set bonus failed at 'SetBonus' Code 2. File path: "+innerChild.getAbsolutePath());
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		
-		Field[] fields = SetBonus.class.getFields();
-		
-		for(Field f : fields){
-			if (AbstractSetBonus.class.isAssignableFrom(f.getType())) {
-				
-				AbstractSetBonus setBonus;
-				
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/setBonuses");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
-					setBonus = ((AbstractSetBonus) f.get(null));
-
-					setBonusToIdMap.put(setBonus, f.getName());
-					idToSetBonusMap.put(f.getName(), setBonus);
+					String id = innerEntry.getKey();
+					AbstractSetBonus setBonus = new AbstractSetBonus(innerEntry.getValue(), entry.getKey(), true) {};
 					allSetBonuses.add(setBonus);
-					
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
+					setBonusToIdMap.put(setBonus, id);
+					idToSetBonusMap.put(id, setBonus);
+//					System.out.println("modded "+id);
+				} catch(Exception ex) {
+					System.err.println("Loading modded set bonus failed at 'SetBonusType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
 				}
 			}
 		}
+		
+		// External res outfit types:
+
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/setBonuses");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					String id = innerEntry.getKey();
+					AbstractSetBonus setBonus = new AbstractSetBonus(innerEntry.getValue(), entry.getKey(), false) {};
+					allSetBonuses.add(setBonus);
+					setBonusToIdMap.put(setBonus, id);
+					idToSetBonusMap.put(id, setBonus);
+//					System.out.println("res "+id);
+//					System.out.println("SBT: "+innerEntry.getKey());
+				} catch(Exception ex) {
+					System.err.println("Loading set bonus failed at 'SetBonusType'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 	
 	public static List<AbstractSetBonus> getAllSetBonuses() {

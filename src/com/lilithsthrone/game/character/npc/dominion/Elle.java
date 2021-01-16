@@ -11,9 +11,9 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -61,7 +61,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -378,10 +377,10 @@ public class Elle extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility")) || item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_broodmother"))) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				return new Value<>(true,
 						"<p>"
-							+ "Producing "+item.getName(true, false)+" from your inventory, you prepare to offer it to Elle, but before you can even get that far, the [elle.race] sees what it is you're holding and declares,"
+							+ "Producing a "+item.getName(false, false)+" from your inventory, you prepare to offer it to Elle, but before you can even get that far, the [elle.race] sees what it is you're holding and declares,"
 							+ " [elle.speechNoEffects(There's no way I'm taking that! I have absolutely zero intention of ever getting pregnant, thank you very much!)]"
 						+ "</p>"
 						+ "<p>"

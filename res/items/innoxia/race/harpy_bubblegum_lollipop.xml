@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>10</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Bubblegum Lollipop]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Bubblegum Lollipop]]></namePlural>
+		<description><![CDATA[A bright pink lollipop, with a little ball of gum at its core. Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/harpy/icon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="70">harpy_bubblegum_lollipop.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>RACE_HARPY</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[harpy]]></potionDescriptor>
+		<associatedRace>HARPY</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(10)] to 'potion effects']]></line>
+			<line><![CDATA[[style.italicsSex(+3)] [style.italicsFeminine(femininity)]]]></line>
+			<line><![CDATA[Applies <i style='color:[#SE_LOLLIPOP_SUCKING.getColour().toWebHexString()];'>'Sucking lollipop'</i>:]]></line>
+			<line><![CDATA[<i>[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(5)]</i>]]></line>
+			
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.addStatusEffect(SE_LOLLIPOP_SUCKING, 60*20)]
+		
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel more feminine...
+			</p>
+			[#npc.incrementFemininity(3)]
+			[#npc.addPotionEffect(ATTRIBUTE_DAMAGE_LUST, 10)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(push)] the bright pink lollipop past [npc.her] [npc.lips], causing [npc.her] taste buds to be overwhelmed by the sweet, sugary flavour of bubblegum. Before [npc.she] [npc.verb(know)] what [npc.sheIs] doing, [npc.sheIs] letting out soft, feminine moans, which soon turn into lewd whines as [npc.she] [npc.verb(find)] [npc.herself] unable to think about anything other than wildly sucking on the object in [npc.her] mouth.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(push)] the bright pink lollipop past [npc2.namePos] [npc2.lips], causing [npc2.her] taste buds to be overwhelmed by the sweet, sugary flavour of bubblegum. Before [npc2.she] [npc2.verb(know)] what [npc2.sheIs] doing, [npc2.nameIs] letting out soft, feminine moans, which soon turn into lewd whines as [npc2.she] [npc2.verb(find)] [npc2.herself] unable to think about anything other than wildly sucking on the object in [npc2.her] mouth.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

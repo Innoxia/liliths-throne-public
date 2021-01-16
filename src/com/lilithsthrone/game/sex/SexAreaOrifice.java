@@ -8,7 +8,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.3.5.5
+ * @version 0.4
  * @author Innoxia
  */
 public enum SexAreaOrifice implements SexAreaInterface {
@@ -30,11 +30,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.MOUTH;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.MOUTH;
 		}
 		@Override
@@ -63,6 +63,35 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Bringing [npc.her] [npc.face] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] wrapped [npc.her] [npc.lips+] around [npc2.her] [npc2.clit+] and performed oral on it.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] mouth and forcing [npc.herHim] to perform oral on it.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] had [npc2.her] [npc2.clit] sucked.");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] mouth, and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] sucked against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] sucking [npc2.namePos] [npc2.clit+].");
+						}
 						break;
 					case FINGER:
 						break;
@@ -219,11 +248,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.NIPPLES;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.NIPPLE;
 		}
 		@Override
@@ -441,11 +470,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.BREASTS;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.CHEST;
 		}
 		@Override
@@ -619,11 +648,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.NIPPLES_CROTCH;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.STOMACH;
 		}
 		@Override
@@ -837,11 +866,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.BREASTS_CROTCH;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.STOMACH;
 		}
 		@Override
@@ -1014,11 +1043,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.ASS;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.LEG;
 		}
 		@Override
@@ -1167,11 +1196,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.ANUS;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.ANUS;
 		}
 		@Override
@@ -1200,6 +1229,35 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.clit+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] clit-fucked [npc.namePos] [npc.asshole+].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] clit-fucked in the ass by [npc2.name].");
+						}
 						break;
 					case FINGER:
 						if(pastTense) {
@@ -1383,11 +1441,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.VAGINA;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.VAGINA;
 		}
 		@Override
@@ -1416,6 +1474,36 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			if(targetArea.isPenetration()) {
 				switch((SexAreaPenetration)targetArea) {
 					case CLIT:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.clitTip+] of [npc2.namePos] [npc2.clit],"
+											+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.clit+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being clit-fucked by [npc2.name].");
+						}
 						break;
 					case FINGER:
 						if(pastTense) {
@@ -1606,11 +1694,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return true;
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.THIGHS;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.LEG;
 		}
 		@Override
@@ -1701,11 +1789,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.VAGINA;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.VAGINA;
 		}
 		@Override
@@ -1859,11 +1947,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
 		}
 		@Override
-		public CoverableArea getRelatedCoverableArea() {
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
 			return CoverableArea.PENIS;
 		}
 		@Override
-		public InventorySlot getRelatedInventorySlot() {
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
 			return InventorySlot.PENIS;
 		}
 		@Override
@@ -1995,6 +2083,225 @@ public enum SexAreaOrifice implements SexAreaInterface {
 						}
 						break;
 					case TONGUE:
+						break;
+				}
+			}
+			return UtilText.parse(performer, target, sb.toString());
+		}
+	},
+	
+	SPINNERET(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f , 0.5f,
+			4/60f, 4/60f,
+			true) {
+		@Override
+		public String getName(GameCharacter owner, boolean standardName) {
+			return "spinneret";
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Main.sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
+			return CoverableArea.ASS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
+			if(owner!=null && owner.hasTailSpinneret()) {
+				return InventorySlot.TAIL;
+			}
+			return InventorySlot.ANUS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getSpinneretStretchedCapacity();
+			}
+			return owner.getSpinneretRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getSpinneretMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getSpinneretMaximumPenetrationDepthUncomfortable();
+		}
+		@Override
+		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
+			StringBuilder sb = new StringBuilder();
+			if(performer==target) {
+				System.err.println("SexAreaOrifice.SPINNERET getSexDescription() error: Does not support self actions!");
+				return "";
+			}
+			
+			if(targetArea.isPenetration()) {
+				switch((SexAreaPenetration)targetArea) {
+					case CLIT:
+						break;
+					case FINGER:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Taking hold of [npc2.namePos] [npc2.hand+],"
+											+ " [npc.name] rubbed [npc2.her] [npc2.fingers+] up and down over [npc.her] spinneret before making [npc2.herHim] slip them inside and start fingering [npc.her] web-spinning orifice.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers+] into [npc.her] spinneret and start fingering [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] curling [npc2.her] [npc2.fingers] up inside [npc.namePos] spinneret, [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] spinneret,"
+											+ " and could do nothing but cry as [npc2.she] was forced to finger [npc.herHim] against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] fingering [npc.namePos] spinneret.");
+						}
+						break;
+					case FOOT:
+						break;
+					case PENIS:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Rubbing [npc.her] spinneret over the [npc2.cockHead+] of [npc2.namePos] [npc2.cock],"
+											+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] web-spinning orifice.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.cock] into [npc.her] spinneret and start fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.cock+] into [npc.namePos] spinneret, [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.cock] out of [npc.namePos] spinneret, and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.cock] used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being fucked by [npc2.name].");
+						}
+						break;
+					case TAIL:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Taking hold of [npc2.namePos] [npc2.tail+], [npc.name] rubbed it up and down over [npc.her] spinneret before making [npc2.herHim] penetrate and start tail-fucking [npc.her] web-spinning orifice.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tail+] into [npc.her] spinneret and start tail-fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tail] into [npc.namePos] spinneret, [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tail-fucked [npc.name].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tail] out of [npc.namePos] spinneret, and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] having [npc.her] spinneret tail-fucked by [npc2.name].");
+						}
+						break;
+					case TENTACLE:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("Taking hold of [npc2.namePos] [npc2.tentacle+], [npc.name] rubbed it up and down over [npc.her] spinneret before making [npc2.herHim] penetrate and start tentacle-fucking [npc.her] web-spinning orifice.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tentacle+] into [npc.her] spinneret and start tentacle-fucking [npc.herHim].");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tentacle] into [npc.namePos] spinneret, [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tentacle-fucked [npc.name].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tentacle] out of [npc.namePos] spinneret, and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] having [npc.her] spinneret tentacle-fucked by [npc2.name].");
+						}
+						break;
+					case TONGUE:
+						if(pastTense) {
+							switch(performerPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append("[npc.Name] pushed [npc.her] spinneret against [npc2.namePos] [npc2.face], before [npc.sexPaceVerb] making [npc2.herHim] start performing oral on [npc.her] web-spinning orifice.");
+									break;
+								case SUB_RESISTING:
+									sb.append("[npc.Name] tried to resist,"
+											+ " but [npc.was] unable to stop [npc2.name] from pressing [npc2.her] [npc2.face] against [npc.her] spinneret and then start performing oral on [npc.her] web-spinning orifice.");
+									break;
+							}
+							switch(targetPace) {
+								case DOM_GENTLE:
+								case DOM_NORMAL:
+								case SUB_EAGER:
+								case SUB_NORMAL:
+								case DOM_ROUGH:
+									sb.append(" Letting out a series of [npc2.moans+], [npc2.name] [npc2.sexPaceVerb] pressed [npc2.her] [npc2.lips+] against [npc.namePos] spinneret and continued performing oral on [npc.herHim].");
+									break;
+								case SUB_RESISTING:
+									sb.append(" [npc2.Name] tried to resist,"
+											+ " but [npc2.was] unable to stop [npc.name] from planting [npc.her] spinneret over [npc2.her] [npc2.face] and [npc.sexPaceVerb] forcing [npc2.herHim] to perform oral on [npc.herHim].");
+									break;
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] performing oral on [npc.namePos] spinneret.");
+						}
 						break;
 				}
 			}

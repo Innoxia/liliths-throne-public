@@ -293,7 +293,7 @@ public enum SlaveJob {
 		
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
-			if(slave.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+			if(slave.hasTraitActivated(Perk.NYMPHOMANIAC)) {
 				return 1f;
 			} else {
 				return -0.25f;
@@ -412,7 +412,7 @@ public enum SlaveJob {
 		}
 		@Override
 		public void sendToWorkLocation(int hour, GameCharacter slave) {
-			Cell c = MilkingRoom.getMilkingCell(slave, true);
+			Cell c = MilkingRoom.getMilkingCell(slave, false);
 			if(c!=null) {
 				if(c.getType()!=slave.getWorldLocation() || c.getLocation()!=slave.getLocation()) {
 					slave.setLocation(c.getType(), c.getLocation(), false);
@@ -424,7 +424,7 @@ public enum SlaveJob {
 		}
 		@Override
 		public void applyJobStartEffects(GameCharacter slave) {
-			Cell c = MilkingRoom.getMilkingCell(slave, true);
+			Cell c = MilkingRoom.getMilkingCell(slave, false);
 			if(c!=null) {
 				List<AbstractClothing> clothingRemoved = new ArrayList<>();
 				boolean equipBreastPumps = false;

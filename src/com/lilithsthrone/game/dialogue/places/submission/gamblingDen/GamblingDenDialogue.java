@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -224,9 +225,9 @@ public class GamblingDenDialogue {
 				} else if(index==3) {
 					// Cage on/off
 					if(Main.game.getNpc(Axel.class).getClothingInSlot(InventorySlot.PENIS)!=null) {
-						return new Response("Uncage",
-								"Take off [axel.namePos] chastity cage."
-										+ "<br/>[style.italicsMinorGood(You can put [axel.namePos] cage back on at any time.)]",
+						return new Response("Cage: [style.colourMinorGood(Equipped)]",
+								"[axel.Name] is currently wearing [axel.her] chastity cage. You could take it off of [axel.herHim], if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -236,9 +237,9 @@ public class GamblingDenDialogue {
 						};
 						
 					} else {
-						return new Response("Cage",
-								"Get [axel.name] to put [axel.her] chastity cage back on."
-										+ "<br/>[style.italicsMinorGood(You can take [axel.namePos] cage off at any time.)]",
+						return new Response("Cage: [style.colourMinorBad(Unequipped)]",
+								"[axel.Name] is currently not wearing [axel.her] chastity cage. You could change that, if you wanted to..."
+										+ "<br/>[style.italicsMinorGood(You can freely equip and remove [axel.namePos] cage at any time.)]",
 								OFFICE_WITH_LEXA_CAGE) {
 							@Override
 							public void effects() {
@@ -1282,8 +1283,9 @@ public class GamblingDenDialogue {
 						AXEL_VENGAR_VISIT_RETURN_FINISH) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+						((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+						((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(REWARD_AMOUNT));
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Axel.class).setAffection(Main.game.getPlayer(), 40));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.SIDE_UTIL_COMPLETE));
@@ -1334,7 +1336,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							
-							Map<Subspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValues = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 5),
 									new Value<>(Subspecies.IMP, 10),
 									new Value<>(Subspecies.DOG_MORPH, 25),
@@ -1343,7 +1345,7 @@ public class GamblingDenDialogue {
 									new Value<>(Subspecies.DEMON, 100),
 									new Value<>(Subspecies.ELEMENTAL_ARCANE, 500));
 							
-							Map<Subspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
+							Map<AbstractSubspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
 									new Value<>(Subspecies.HUMAN, 16),
 									new Value<>(Subspecies.IMP, 8),
 									new Value<>(Subspecies.DOG_MORPH, 2),
@@ -1367,13 +1369,13 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+ "<p style='width:100%'><b>Slot Machine Results:</b></p>");
 								
-								List<Subspecies> races = new ArrayList<>(slotMachineValues.keySet());
+								List<AbstractSubspecies> races = new ArrayList<>(slotMachineValues.keySet());
 								
-								List<Subspecies> results = new ArrayList<>();
+								List<AbstractSubspecies> results = new ArrayList<>();
 	
 								boolean winner = false;
 								if(Math.random()<0.32f) {
-									Subspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
+									AbstractSubspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
 									for(int i=0; i<3; i++) {
 										results.add(s);
 									}
@@ -1381,7 +1383,7 @@ public class GamblingDenDialogue {
 									
 								} else {
 									for(int i=0; i<3; i++) {
-										Subspecies s = races.get(Util.random.nextInt(races.size()));
+										AbstractSubspecies s = races.get(Util.random.nextInt(races.size()));
 										results.add(s);
 										if(i==0) {
 											races.remove(s);
@@ -1390,7 +1392,7 @@ public class GamblingDenDialogue {
 									Collections.shuffle(results);
 								}
 								
-								for(Subspecies r : results) {
+								for(AbstractSubspecies r : results) {
 									Main.game.getTextEndStringBuilder().append(
 											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?PresetColour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
 													+"<div class='modifier-icon-content'>"+r.getSVGString(null)+"</div>"
@@ -1412,7 +1414,7 @@ public class GamblingDenDialogue {
 								Main.game.getTextEndStringBuilder().append("<div class='container-half-width' style='position:relative; text-align:center;'>"
 										+"<p style='text-align:center;'>");
 							
-									for(Entry<Subspecies, Integer> entry : slotMachineValues.entrySet()) {
+									for(Entry<AbstractSubspecies, Integer> entry : slotMachineValues.entrySet()) {
 										Main.game.getTextEndStringBuilder().append("<span style='color:"+entry.getKey().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getNamePlural(null))+"</span>: "
 												+UtilText.formatAsMoney(entry.getValue(), "span")+"<br/>");
 									}

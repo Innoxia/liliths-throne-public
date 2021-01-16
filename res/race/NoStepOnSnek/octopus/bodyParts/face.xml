@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<face>
+	<race>NoStepOnSnek_octopus</race>
+	<transformationName><![CDATA[octopus]]></transformationName>
+	<coveringType>OCTOPUS_SKIN</coveringType>
+	<mouthType>NoStepOnSnek_octopus_mouth</mouthType>
+	<tags>
+		<tag>FACE_BEAK</tag>
+	</tags>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine>
+		<descriptor>anthropomorphic octopus-like</descriptor>
+		<descriptor>octopus-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>anthropomorphic octopus-like</descriptor>
+		<descriptor>octopus-like</descriptor>
+	</descriptorsFeminine>
+	<noseName><![CDATA[nose]]></noseName>
+	<noseNamePlural><![CDATA[noses]]></noseNamePlural>
+	<noseDescriptorsMasculine/>
+	<noseDescriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.Her] nose and mouth twitch and transform as they fuse together and push out into a short beak, and [npc.her] tongue thins down, turning into an octopus-like one.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, 
+		#ELSE
+			 Just like the rest of [npc.her] body, [npc.her] new face is [npc.materialDescriptor] [npc.faceSkin+], 
+		#ENDIF
+		 and as the transformation finally comes to an end, [npc.sheIs] left panting and sighing as [npc.she] [npc.verb(try)] to catch [npc.her] breath. [npc.She] [npc.verb(find)], much to [npc.her] relief, that [npc.sheIs] able to harden or soften the edges of [npc.her] beak at will, allowing [npc.herHim] to portray facial emotions as well as to wrap [npc.her] beak's edges around anything [npc.she] might want to put in [npc.her] mouth.
+		<br/>[npc.Name] now has an anthropomorphic [style.boldOctopus(octopus-like face)], [npc.materialDescriptor] [npc.faceFullDescription].  Within [npc.her] [npc.mouth], [npc.she] [npc.has] a [style.boldOctopus(thin, octopus-like tongue)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.a_feminineDescriptor(true)], anthropomorphic, octopus-like face [npc.materialCompositionDescriptor] [npc.faceFullDescription(true)] and complete with a beak.
+	]]></bodyDescription>
+	<bodyDescriptionFeral><![CDATA[
+		[npc.SheHasFull] the [npc.feminineDescriptor(true)] face of a feral [npc.legRace], which is [npc.materialDescriptor] [npc.faceFullDescription(true)].
+	]]></bodyDescriptionFeral>
+</face>

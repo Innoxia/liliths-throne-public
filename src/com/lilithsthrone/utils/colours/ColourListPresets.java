@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.4
- * @version 0.3.9.2
+ * @version 0.4
  * @author Innoxia
  */
 @SuppressWarnings("unchecked")
@@ -18,6 +18,50 @@ public class ColourListPresets {
 
 	public static ArrayList<Colour> NONE = new ArrayList<>();
 
+	//----- COVERING PRESETS -----//
+	
+	public static ArrayList<Colour> humanSkinColours = new ArrayList<>(PresetColour.humanSkinColours);
+	public static ArrayList<Colour> ratSkinColours = new ArrayList<>(PresetColour.ratSkinColours);
+	public static ArrayList<Colour> demonSkinColours = new ArrayList<>(PresetColour.demonSkinColours);
+	public static ArrayList<Colour> allSkinColours = new ArrayList<>(PresetColour.allSkinColours);
+	
+	public static ArrayList<Colour> naturalSlimeColours = new ArrayList<>(PresetColour.naturalSlimeColours);
+	public static ArrayList<Colour> dyeSlimeColours = new ArrayList<>(PresetColour.dyeSlimeColours);
+	
+	public static ArrayList<Colour> naturalFeatherColours = new ArrayList<>(PresetColour.naturalFeatherColours);
+	public static ArrayList<Colour> dyeFeatherColours = new ArrayList<>(PresetColour.dyeFeatherColours);
+	
+	public static ArrayList<Colour> naturalFurColours = new ArrayList<>(PresetColour.naturalFurColours);
+	
+	public static ArrayList<Colour> allCoveringColours = new ArrayList<>(PresetColour.allCoveringColours);
+	
+	public static ArrayList<Colour> allMakeupColours = new ArrayList<>(PresetColour.allMakeupColours);
+	
+	public static ArrayList<Colour> naturalScaleColours = new ArrayList<>(PresetColour.naturalScaleColours);
+	
+	public static ArrayList<Colour> hornColours = new ArrayList<>(PresetColour.hornColours);
+	public static ArrayList<Colour> antlerColours = new ArrayList<>(PresetColour.antlerColours);
+	
+	public static ArrayList<Colour> naturalHairColours = new ArrayList<>(PresetColour.naturalHairColours);
+	
+	public static ArrayList<Colour> naturalIrisColours = new ArrayList<>(PresetColour.naturalIrisColours);
+	public static ArrayList<Colour> dyeIrisColours = new ArrayList<>(PresetColour.dyeIrisColours);
+
+	public static ArrayList<Colour> naturalDemonIrisColours = new ArrayList<>(PresetColour.naturalDemonIrisColours);
+	public static ArrayList<Colour> dyeDemonIrisColours = new ArrayList<>(PresetColour.dyeDemonIrisColours);
+
+	public static ArrayList<Colour> naturalPredatorIrisColours = new ArrayList<>(PresetColour.naturalPredatorIrisColours);
+	public static ArrayList<Colour> dyePredatorIrisColours = new ArrayList<>(PresetColour.dyePredatorIrisColours);
+
+	public static ArrayList<Colour> naturalPupilColours = new ArrayList<>(PresetColour.naturalPupilColours);
+	public static ArrayList<Colour> dyePupilColours = new ArrayList<>(PresetColour.dyePupilColours);
+
+	public static ArrayList<Colour> naturalScleraColours = new ArrayList<>(PresetColour.naturalScleraColours);
+	public static ArrayList<Colour> dyeScleraColours = new ArrayList<>(PresetColour.dyeScleraColours);
+	
+	
+	//----- CLOTHING PRESETS -----//
+	
 	/*
 		NOTE:
 		All clothing colours are available in the JUST_ form. For example,
@@ -56,11 +100,13 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_WHITE);
 
 	public static ArrayList<Colour> SHADES_OF_GREY = Util.newArrayListOfValues(
-			PresetColour.CLOTHING_BLACK_JET,
+//			PresetColour.CLOTHING_BLACK_JET,
 			PresetColour.CLOTHING_BLACK,
 			PresetColour.CLOTHING_GREY_DARK,
 			PresetColour.CLOTHING_GREY,
-			PresetColour.CLOTHING_WHITE);
+			PresetColour.CLOTHING_GREY_LIGHT
+//			PresetColour.CLOTHING_WHITE
+			);
 	
 	public static ArrayList<Colour> DARK_SHADES = Util.newArrayListOfValues(
 			PresetColour.CLOTHING_GREY,
@@ -77,6 +123,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLUE_NAVY,
 			PresetColour.CLOTHING_PINK_LIGHT,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_WHITE,
 			PresetColour.CLOTHING_GREY,
 			PresetColour.CLOTHING_BLACK);
@@ -113,6 +160,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLACK_JET,
 			PresetColour.CLOTHING_GREY,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,
@@ -195,6 +243,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_ORANGE_BRIGHT,
 			PresetColour.CLOTHING_ORANGE_DARK,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,
@@ -254,6 +303,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_ORANGE_BRIGHT,
 			PresetColour.CLOTHING_ORANGE_DARK,
 			PresetColour.CLOTHING_DESATURATED_BROWN,
+			PresetColour.CLOTHING_DESATURATED_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN,
 			PresetColour.CLOTHING_BROWN_DARK,
 			PresetColour.CLOTHING_BROWN_VERY_DARK,

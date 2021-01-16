@@ -1,75 +1,177 @@
 package com.lilithsthrone.utils.colours;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 import javafx.scene.paint.Color;
 
 /**
  * @since 0.3.7
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public class Colour {
 
+	private boolean mod;
+	private boolean fromExternalFile;
+	
 	private boolean metallic;
 	
 	private Color colour;
 	private Color lightColour;
+	private Color coveringIconColour;
 	
 	private String name;
 	private List<String> formattingNames;
-
+	
 	private Colour colourLinkLighter = null;
 	private Colour colourLinkDarker = null;
+	
+	private List<ColourTag> tags;
 	
 	public Colour(Color colour) {
 		this.metallic = false;
 		this.colour = colour;
 		this.lightColour = colour;
+		this.coveringIconColour = null;
 		this.name = "";
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, Color colour, Color lightColour, String name) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
+		this.coveringIconColour = null;
 		this.name = name;
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
+		this.coveringIconColour = null;
 		this.name = name;
+		tags = null;
 	}
 	
 	// Constructors with formatting names:
 	public Colour(boolean metallic, Color colour, Color lightColour, String name, List<String> formattingNames) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour;
 		this.lightColour = lightColour;
+		this.coveringIconColour = null;
 		this.name = name;
 		this.formattingNames = formattingNames;
+		tags = null;
 	}
 	
 	public Colour(boolean metallic, BaseColour colour, String name, List<String> formattingNames) {
+		this.mod = false;
+		this.fromExternalFile = false;
 		this.metallic = metallic;
 		this.colour = colour.getColour();
 		this.lightColour = colour.getLightColour();
+		this.coveringIconColour = null;
 		this.name = name;
 		this.formattingNames=formattingNames;
+		tags = null;
 	}
 	
+	public Colour(File XMLFile, String author, boolean mod) {
+		if (XMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element coreElement = Element.getDocumentRootElement(XMLFile); // Loads the document and returns the root element - in Colour files it's <colour>
+
+				this.mod = mod;
+				this.fromExternalFile = true;
+				
+				this.metallic = Boolean.valueOf(coreElement.getMandatoryFirstOf("metallic").getTextContent());
+
+				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
+				
+				this.colour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("colour").getTextContent(), 16));
+				this.lightColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("lightColour").getTextContent(), 16));
+				if(coreElement.getOptionalFirstOf("coveringIconColour").isPresent()
+						&& !coreElement.getMandatoryFirstOf("coveringIconColour").getTextContent().isEmpty()) {
+					try {
+						this.coveringIconColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("coveringIconColour").getTextContent(), 16));
+					} catch(Exception ex) {
+						System.err.println("coveringIconColour failure in '"+this.name+"':\n"+ex.getMessage());
+					}
+				}
+				
+				this.formattingNames = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("formattingNames").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("formattingNames").getAllOf("name")) {
+						formattingNames.add(e.getTextContent());
+					}
+				}
+				
+				tags = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
+						tags.add(ColourTag.valueOf(e.getTextContent()));
+					}
+				}
+				
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("Colour was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
+			}
+		}
+	}
+	
+	public boolean isMod() {
+		return mod;
+	}
+
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+
 	/**
-	 * @return A String in the format RRGGBB
+	 * @return A String in the format #RRGGBB
 	 */
 	public String toWebHexString() {
 		return "#"+getColor().toString().substring(2, 8);
+	}
+
+	/**
+	 * The colour that should be used when displaying icons to the player in covering recolouring screens. Will usually be the same as toWebHexString().
+	 * @return A String in the format #RRGGBB
+	 */
+	public String getCoveringIconColour() {
+		if(coveringIconColour!=null) {
+			return "#"+coveringIconColour.toString().substring(2, 8);
+		}
+		return "#"+colour.toString().substring(2, 8);
 	}
 
 	public Color getColor() {
@@ -106,10 +208,6 @@ public class Colour {
 		sb.deleteCharAt(sb.length()-1);
 		sb.append(");");
 		return sb.toString();
-	}
-	
-	public boolean isJetBlack() {
-		return false;
 	}
 	
 	public String getName() {
@@ -253,6 +351,13 @@ public class Colour {
 
 	public List<String> getFormattingNames() {
 		return formattingNames;
+	}
+
+	public List<ColourTag> getTags() {
+		if(tags==null) {
+			return new ArrayList<>();
+		}
+		return tags;
 	}
 
 }

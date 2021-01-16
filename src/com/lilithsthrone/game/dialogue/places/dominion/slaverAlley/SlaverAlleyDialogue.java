@@ -32,7 +32,6 @@ import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -56,8 +55,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -316,8 +313,7 @@ public class SlaverAlleyDialogue {
 			} else {
 				Main.game.getNpc(GenericMaleNPC.class).addSlave(slave);	
 			}
-			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
-			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
+			slave.initSlavePermissions();
 		}
 		
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleySlavesFreed, false);
@@ -449,7 +445,8 @@ public class SlaverAlleyDialogue {
 		return target.isFeminine()
 				&& target.hasVagina()
 				&& target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
-				&& !target.isPregnant();
+				&& !target.isPregnant()
+				&& !target.hasIncubationLitter(SexAreaOrifice.VAGINA);
 	}
 	
 	private static void applyLockedUpEffects(boolean includeCompanion, boolean willingCompanion) {
@@ -1120,13 +1117,13 @@ public class SlaverAlleyDialogue {
 
 	private static List<AbstractItemType> getCafeItems() {
 		return Util.newArrayListOfValues(
-				ItemType.INT_INGREDIENT_VANILLA_WATER,
-				ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH,
-				ItemType.SEX_INGREDIENT_BUNNY_JUICE,
-				ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
-				ItemType.RACE_INGREDIENT_RABBIT_MORPH,
-				ItemType.RACE_INGREDIENT_RAT_MORPH,
-				ItemType.RACE_INGREDIENT_BAT_MORPH);
+				ItemType.getItemTypeFromId("innoxia_race_human_vanilla_water"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_juice_box"),
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_juice"),
+				ItemType.getItemTypeFromId("innoxia_race_squirrel_squirrel_java"),
+				ItemType.getItemTypeFromId("innoxia_race_rabbit_bunny_carrot_cake"),
+				ItemType.getItemTypeFromId("innoxia_race_rat_brown_rats_burger"),
+				ItemType.getItemTypeFromId("innoxia_race_bat_fruit_bats_salad"));
 	}
 	
 	public static final DialogueNode MARKET_STALL_CAFE_INTERIOR = new DialogueNode("", "", true) {
@@ -1244,55 +1241,28 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNode BOUNTY_HUNTERS = new DialogueNode("Bounty Hunter Lodge", "", false) {
+	public static final DialogueNode BOUNTY_HUNTERS = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS");
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "EXTERIOR");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Enter", "Enter the establishment and take a look around inside...", BOUNTY_HUNTERS_INTERIOR) {
+				return new Response("Enter", "Enter the establishment and take a look around inside...", BountyHunterLodge.ENTRANCE_INITITAL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_ENTER"));
+						Main.game.getPlayer().setLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE, false);
 					}
 				};
 			}
 			return null;
 		}
 	};
-
-	public static final DialogueNode BOUNTY_HUNTERS_INTERIOR = new DialogueNode("Bounty Hunter Lodge", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 2*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_INTERIOR");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1 && Main.game.getCharactersPresent().contains(Main.game.getNpc(Silence.class))) {
-				return new Response("Silence", "Head over and say something to Silence...<br/>[style.italicsBad(A mini-quest involving Silence and Shadow will be added soon!)]", null);
-				
-			} else if(index==0) {
-				return new Response("Leave", "Turn around and exit the establishment...", BOUNTY_HUNTERS) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_INTERIOR_LEAVE"));
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	
 	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", "", false) {
 
@@ -1933,6 +1903,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Stocks breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Stocks breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				return new ResponseSex("Stocks breeding",
 						"Ask [sean.name] if he'd like to lock you in the stocks and breed you in front of members of the public.",
 						Util.newArrayListOfValues(Fetish.FETISH_EXHIBITIONIST, Fetish.FETISH_PREGNANCY, Fetish.FETISH_SUBMISSIVE),
@@ -2066,6 +2039,9 @@ public class SlaverAlleyDialogue {
 				if(Main.game.getPlayer().isPregnant()) {
 					return new Response("Double breeding", "You are already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
 				}
+				if(Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "Your womb is full of eggs, so you cannot be bred by [sean.name] in the stocks.", null);
+				}
 				if(!getMainCompanion().hasVagina()) {
 					return new Response("Double breeding", "[com.Name] does not have a vagina, so cannot be bred by [sean.name] in the stocks.", null);
 				}
@@ -2074,6 +2050,9 @@ public class SlaverAlleyDialogue {
 				}
 				if(getMainCompanion().isPregnant()) {
 					return new Response("Double breeding", "[com.Name] is already pregnant, so cannot be bred by [sean.name] in the stocks.", null);
+				}
+				if(getMainCompanion().hasIncubationLitter(SexAreaOrifice.VAGINA)) {
+					return new Response("Double breeding", "[com.NamePos] womb is full of eggs, so [com.she] cannot be bred by [sean.name] in the stocks.", null);
 				}
 				if(!Main.game.getNpc(Sean.class).isAttractedTo(getMainCompanion())) {
 					return new Response("Double breeding", "[sean.Name] is not attracted to [com.name], so is unwilling to breed [com.herHim].", null);
@@ -2406,14 +2385,14 @@ public class SlaverAlleyDialogue {
 						
 						c.getPlace().setPlaceType(PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
 						Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
-						Main.game.getNpc(Sean.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
-						
-						// Sean takes jacket, belt, and hat off:
+
 						NPC sean = Main.game.getNpc(Sean.class);
+						sean.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_DESERTED_ALLEYWAY);
+						// Sean takes his stabproof vest, utility belt, and beret off:
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.TORSO_OVER), true, sean);
-						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HEAD), true, sean);
 						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HIPS), true, sean);
-						
+						sean.unequipClothingIntoInventory(sean.getClothingInSlot(InventorySlot.HEAD), true, sean);
+
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyComplained, true);
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyVisitedHiddenAlleyway)) {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_CHALLENGE_REPEAT"));
@@ -2421,7 +2400,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_CHALLENGE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyVisitedHiddenAlleyway, true);
 						
-						Main.game.getNpc(Sean.class).setPlayerKnowsName(true);
+						sean.setPlayerKnowsName(true);
 					}
 				};
 				
@@ -2543,6 +2522,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_CHALLENGE_BACK_OUT"));
 						Main.game.getPlayer().setNearestLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PATH, false);
 						Main.game.getNpc(Sean.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS);
+						Main.game.getNpc(Sean.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 						if(Main.game.getNpc(Sean.class).getAffection(Main.game.getPlayer())>AffectionLevel.NEGATIVE_ONE_ANNOYED.getMedianValue()) {
 							Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Sean.class).incrementAffection(Main.game.getPlayer(), -5));
 						}

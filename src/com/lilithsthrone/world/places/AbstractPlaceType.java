@@ -21,16 +21,19 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class AbstractPlaceType {
 
+	protected WorldRegion worldRegion;
+	
 	protected String name;
 	protected String tooltipDescription;
 	protected String SVGString;
@@ -43,6 +46,8 @@ public class AbstractPlaceType {
 	protected boolean dangerous;
 	protected boolean itemsDisappear;
 	
+	protected Aquatic aquatic;
+	protected Darkness darkness;
 	protected TeleportPermissions teleportPermissions;
 	
 	protected List<Weather> weatherImmunities;
@@ -54,13 +59,16 @@ public class AbstractPlaceType {
 	
 	protected static int colourReplacementId = 0;
 	
-	public AbstractPlaceType(String name,
+	public AbstractPlaceType(WorldRegion worldRegion,
+			String name,
 			String tooltipDescription,
 			String SVGPath,
 			Colour colour,
 			DialogueNode dialogue,
+			Darkness darkness,
 			Encounter encounterType,
 			String virginityLossDescription) {
+		this.worldRegion = worldRegion;
 		
 		this.name = name;
 		this.tooltipDescription = tooltipDescription;
@@ -76,6 +84,9 @@ public class AbstractPlaceType {
 		this.dangerous = false;
 		this.itemsDisappear = true;
 		this.globalMapTile = false;
+		
+		this.aquatic = Aquatic.LAND;
+		this.darkness = darkness;
 		this.teleportPermissions = TeleportPermissions.BOTH;
 		
 		if(SVGPath!=null) {
@@ -135,6 +146,11 @@ public class AbstractPlaceType {
 		this.weatherImmunities = new ArrayList<>(Arrays.asList(weatherImmunities));
 		return this;
 	}
+	
+	public AbstractPlaceType initAquatic(Aquatic aquatic) {
+		this.aquatic = aquatic;
+		return this;
+	}
 
 	/**
 	 * Define teleport permissions for this tile.
@@ -145,6 +161,10 @@ public class AbstractPlaceType {
 		return this;
 	}
 	
+	public WorldRegion getWorldRegion() {
+		return worldRegion;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -206,7 +226,11 @@ public class AbstractPlaceType {
 	}
 
 	public boolean isLand() {
-		return true;
+		return getAquatic().isLand();
+	}
+
+	public boolean isWater() {
+		return getAquatic().isWater();
 	}
 	
 	public boolean isDangerous() {
@@ -219,6 +243,14 @@ public class AbstractPlaceType {
 	
 	public boolean isItemsDisappear() {
 		return itemsDisappear;
+	}
+
+	public Aquatic getAquatic() {
+		return aquatic;
+	}
+
+	public Darkness getDarkness() {
+		return darkness;
 	}
 	
 	public static String getSVGOverride(String pathName, Colour colour) {

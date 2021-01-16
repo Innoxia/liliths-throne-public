@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>35</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Canine Crush]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Canine Crushes]]></namePlural>
+		<description><![CDATA[A glass bottle of what looks to be some kind of beer. A label on the front shows a beautiful dog-girl down on all fours presenting her naked, dripping pussy to a greater dog-boy's erect, knotted dog-cock.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">dog_canine_crush.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_PHYSIQUE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_PHYSIQUE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+			<line><![CDATA[[style.boldMinorBad(Adds)] 5% to [style.boldAlcohol(intoxication level)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/20)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A soothing wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 1)]
+			[#npc.incrementAlcoholLevel(0.05)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ALCOHOLIC</tag>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Canine Crush, before lifting it to [npc.her] waiting [npc.lips] and promptly downing the entire bottle. Although it tastes like a regular beer, a strange, musky aftertaste is left lingering on [npc.namePos] [npc.tongue].
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Canine Crush, before lifting it to [npc2.namePos] waiting [npc2.lips] and getting [npc2.her] to down the entire bottle. Although it tastes like a regular beer, a strange, musky aftertaste is left lingering on [npc2.namePos] [npc2.tongue].
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public enum CondomFailure {
@@ -12,6 +12,8 @@ public enum CondomFailure {
 	SABOTAGED,
 	
 	CUM_OVERLOAD,
+
+	EGG_LAYING,
 	
 	MINERAL_OIL_SELF_CUM,
 	

@@ -1,11 +1,16 @@
-<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="zaranixHomeIcon" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#f55" offset="0"/>
    <stop stop-color="#ff8080" offset="1"/>
   </linearGradient>
  </defs>
- <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
- <text x="-27.254236" y="20.067797" fill="#000000" font-family="sans-serif" font-size="40px" letter-spacing="0px" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="-27.254236" y="56.561008" font-family="Cambria"/></text>
- <text transform="scale(1.0375 .9639)" x="15.601452" y="53.173885" fill="#ffffff" font-family="sans-serif" font-size="60.282px" letter-spacing="0px" stroke-width="1.5071" word-spacing="0px" style="line-height:1.25" xml:space="preserve"><tspan x="15.601452" y="53.173885" fill="#ffffff" font-family="Cambria" stroke-width="1.5071">Z</tspan></text>
+ <ellipse cx="32" cy="32.006" rx="30.383" ry="30.381" fill="url(#zaranixHomeIcon)" fill-rule="evenodd"/>
+ <g transform="matrix(.675 0 0 .675 10.023 20.985)">
+  <g transform="translate(0 -988.36)" fill="none" stroke="#fff">
+   <path transform="matrix(1.4036 0 0 1.4036 -13.18 -411.23)" d="m42.473 1031.5-19.752-0.091v-12.482h-4.13l13.783-11.89 14.173 11.69-4.273 0.086z" stroke-width="2.594"/>
+   <path transform="matrix(1.4036 0 0 1.4036 -13.18 -411.23)" d="m32.31 1030.4-0.04755-8.17" stroke-width="6"/>
+  </g>
+ </g>
+ <path d="m24.59 9.2163 0.040812-2.0584 14.377-0.077525-14.294 18.237h14.458l-0.04105-2.3823" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
 </svg>

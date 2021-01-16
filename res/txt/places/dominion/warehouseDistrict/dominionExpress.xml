@@ -832,6 +832,15 @@
 		<p style='text-align:center;'>
 			[style.italicsMinorBad(If you want to see Mistress Natalya, you'll have to come back after resolving your pregnancy.)]
 		</p>
+	#ELSEIF(pc.hasIncubationLitter(ORIFICE_VAGINA))
+			Before you can say anything, a curious little arcane device to one side of the door lets out a high-pitched beeping noise, which causes the horse-girl to frowns at you and flatly state, [style.speechFeminine(That means your womb's stuffed full of eggs. I am not sure if you're aware, but Mistress Natalya despises anything even remotely related to pregnancies. She will have no interest in seeing you until after you've laid your eggs.)]
+		</p>
+		<p>
+			Having been denied entry to Mistress Natalya's office, there's little else for you to do except turn around and leave...
+		</p>
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(If you want to see Mistress Natalya, you'll have to come back after laying the eggs which you're incubating in your womb.)]
+		</p>
 	#ELSEIF(collar==null || !collar.getId().equals("innoxia_neck_filly_choker"))
 			 Recognising you as a qualified filly, she looks down at your neck, before frowning at you and flatly stating, [style.speechFeminine(Mistress Natalya will be furious if she sees that you're not wearing your filly choker. I can only let you into her office if you're wearing it.)]
 		</p>
@@ -1396,7 +1405,7 @@
 		#ELSE
 			 Thanks to the fact that he's only wearing a bronze slave collar around his neck,
 		#ENDIF
-		 you can see that this slave's body isn't the only thing that's huge, as [npc.she] has a massive, black horse-cock and huge pair of balls hanging down between [npc.her] hindquarters. Playfully prancing around to give this [npc.race]'s ass a slap, Mistress Natalya introduces [npc.herHim] to you by exclaiming, [natalya.speech(This here is [npc.name]! [npc.SheIs] one of my hardest workers, but as [npc.she] keeps on causing trouble in the stables, [npc.sheHas] never been promoted past the lowest rank of bronze. Isn't that right, [npc.name]?)]
+		 you can see that this slave's body isn't the only thing that's huge, as [npc.sheHasFull] a massive, black horse-cock and huge pair of balls hanging down between [npc.her] hindquarters. Playfully prancing around to give this [npc.race]'s ass a slap, Mistress Natalya introduces [npc.herHim] to you by exclaiming, [natalya.speech(This here is [npc.name]! [npc.SheIs] one of my hardest workers, but as [npc.she] keeps on causing trouble in the stables, [npc.sheHas] never been promoted past the lowest rank of bronze. Isn't that right, [npc.name]?)]
 	</p>
 	<p>
 		[npc.speech(Yes, Mistress,)] the slave snorts, [npc.speech(Sorry, Mistress.)]

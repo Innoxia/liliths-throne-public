@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.AbstractRace;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -45,7 +45,7 @@ public class Response {
 	private Femininity femininityRequired;
 	private AbstractRace raceRequired;
 
-	private CombatMove combatMove;
+	private AbstractCombatMove combatMove;
 	
 	// Sex action variables:
 	
@@ -178,7 +178,7 @@ public class Response {
 		return false;
 	}
 	
-	public CombatMove getAssociatedCombatMove() {
+	public AbstractCombatMove getAssociatedCombatMove() {
 		return combatMove;
 	}
 	
@@ -399,7 +399,9 @@ public class Response {
 		
 		if(perksRequired!=null) {
 			for(AbstractPerk p : perksRequired){
-				if(Main.game.getPlayer().hasTrait(p, true)) {
+				if(p.isEquippableTrait()
+						?Main.game.getPlayer().hasTrait(p, true)
+						:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
 					SB.append("<br/>"
 							+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 							+ " (<span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk</span>): "
@@ -466,7 +468,9 @@ public class Response {
 			if(sexAreaAccessRequiredForPerformer!=null && characterPerformingSexAction!=null) {
 				boolean penetrationAccess = true;
 				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
-					if(sArea!=null && (!characterPerformingSexAction.isSexAreaExposed(sArea) || (getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION && characterPerformingSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())))) {
+					if(sArea!=null
+							&& (!characterPerformingSexAction.isSexAreaExposed(sArea)
+								|| (getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION && characterPerformingSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea(characterPerformingSexAction))))) {
 						penetrationAccess = false;
 					}
 				}
@@ -516,7 +520,9 @@ public class Response {
 			if(sexAreaAccessRequiredForTargeted!=null && characterTargetedForSexAction!=null) {
 				boolean orificeAccess = true;
 				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
-					if(sArea!=null && (!characterTargetedForSexAction.isSexAreaExposed(sArea) || (getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION && characterTargetedForSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())))) {
+					if(sArea!=null
+							&& (!characterTargetedForSexAction.isSexAreaExposed(sArea)
+									|| (getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION && characterTargetedForSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea(characterTargetedForSexAction))))) {
 						orificeAccess = false;
 					}
 				}
@@ -681,7 +687,9 @@ public class Response {
 			return false;
 		}
 		for (AbstractPerk p : perksRequired) {
-			if(!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
+			if(p.isEquippableTrait()
+					?!Main.game.getPlayer().hasTrait(p, true)
+					:!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
 				return true;
 			}
 		}
@@ -721,7 +729,7 @@ public class Response {
 			switch(getSexActionType()){
 				case REQUIRES_NO_PENETRATION:
 					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(sArea!=null && (!sArea.isFree(characterPerformingSexAction) || characterPerformingSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea()))) {
+						if(sArea!=null && (!sArea.isFree(characterPerformingSexAction) || characterPerformingSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea(characterPerformingSexAction)))) {
 							return false;
 						}
 					}
@@ -743,7 +751,7 @@ public class Response {
 		
 		// Check to make sure penetrationType is exposed:
 		for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-			if(!characterPerformingSexAction.isSexAreaExposed(sArea)) {
+			if(sArea!=null && !characterPerformingSexAction.isSexAreaExposed(sArea)) {
 				return false;
 			}
 		}
@@ -775,7 +783,7 @@ public class Response {
 			switch(getSexActionType()){
 				case REQUIRES_NO_PENETRATION:
 					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
-						if(sArea!=null && (!sArea.isFree(characterTargetedForSexAction) || characterTargetedForSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea()))) {
+						if(sArea!=null && (!sArea.isFree(characterTargetedForSexAction) || characterTargetedForSexAction.isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea(characterTargetedForSexAction)))) {
 							return false;
 						}
 					}
@@ -797,7 +805,7 @@ public class Response {
 		
 		// Check to make sure penetrationType is exposed:
 		for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
-			if(!characterTargetedForSexAction.isSexAreaExposed(sArea)) {
+			if(sArea!=null && !characterTargetedForSexAction.isSexAreaExposed(sArea)) {
 				return false;
 			}
 		}

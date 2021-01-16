@@ -11,8 +11,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -128,6 +128,9 @@ public class Natalya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.10")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
+		}
 	}
 
 	@Override
@@ -169,7 +172,7 @@ public class Natalya extends NPC {
 		this.setWingType(WingType.NONE);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());
-		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.TAUR, true);
+		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
 		this.setBreastCrotchType(BreastType.NONE);
 		
 		// Core:
@@ -181,7 +184,7 @@ public class Natalya extends NPC {
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREY_GREEN));
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LILAC_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_HORSE_HAIR, PresetColour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_LILAC), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
@@ -442,7 +445,7 @@ public class Natalya extends NPC {
 	
 	@Override
 	public TransformativePotion generateTransformativePotion(GameCharacter target) {
-		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+		AbstractItemType itemType = ItemType.getItemTypeFromId("innoxia_race_horse_sugar_carrot_cube");
 		
 		List<PossibleItemEffect> effects = new ArrayList<>();
 

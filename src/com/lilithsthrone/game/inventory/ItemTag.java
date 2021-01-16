@@ -58,12 +58,32 @@ public enum ItemTag {
 			false),
 	
 	//-------------- WEAPONS & CLOTHING --------------//
-
+	
+	/** Excludes this clothing from being randomly chosen to equip on an NPC in automatic outfit generation.
+	 *  Also excludes the clothing from randomly spawning as tile-exploration loot.
+	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
+	NO_RANDOM_SPAWN,
+	
+	NIGHT_VISION_SELF(  // Makes this clothing or weapon provide immunity to the darkness debuff for just the wearer while equipped
+			Util.newArrayListOfValues(
+					"[style.colourGood(Negates 'Darkness' effect)]"),
+			false),
+	
+	NIGHT_VISION_AREA( // Makes this clothing or weapon provide immunity to the darkness debuff for all characters in the area in which the wearer is located while equipped
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Negates 'Darkness' effect for all nearby characters)]"),
+			false),
+	
 	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 
 	TRANSPARENT( // This item of clothing does not conceal any areas. Used for chastity cages & condoms (so penis is still visible). Could also be used for sheer clothing material.
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
+			false),
+
+	WEAPON_FERAL_EQUIPPABLE( // Allows ferals to equip this weapon (as they cannot equip weapons by default)
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Can be equipped by ferals)]"),
 			false),
 	
 	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
@@ -99,6 +119,11 @@ public enum ItemTag {
 					"[style.colourTerrible(Blocks non-flight combat escape)]"),
 			false),
 
+	PREVENTS_COMBAT_ESCAPE(  // Prevents the character from escaping from combat
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Prevents combat escape)]"),
+			false),
+	
 	DISCARDED_WHEN_UNEQUIPPED( //  Makes the clothing be thrown away when unequipped. E.g. Condoms
 			Util.newArrayListOfValues(
 					"[style.colourMinorBad(Discarded when unequipped)]"),
@@ -134,45 +159,45 @@ public enum ItemTag {
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
 	FITS_HOOFS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits hoofs)]"),
+					"[style.colourFeral(Only fits hoofs)]"),
 			false),
 	FITS_HOOFS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits hoofs)]"),
+					"[style.colourFeral(Fits hoofs)]"),
 			false),
 	
 	FITS_TALONS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits talons)]"),
+					"[style.colourFeral(Only fits talons)]"),
 			false),
 	FITS_TALONS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits talons)]"),
+					"[style.colourFeral(Fits talons)]"),
 			false),
 	
 	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Only fits feathered arm-wings)]"),
 			false),
 	FITS_FEATHERED_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits feathered arm-wings)]"),
+					"[style.colourTfGeneric(Fits feathered arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Only fits leathery arm-wings)]"),
 			false),
 	FITS_LEATHERY_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits leathery arm-wings)]"),
+					"[style.colourTfGeneric(Fits leathery arm-wings)]"),
 			false),
 	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arm-wings)]"),
+					"[style.colourTfGeneric(Only fits arm-wings)]"),
 			false),
 	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Fits arm-wings)]"),
+					"[style.colourTfGeneric(Fits arm-wings)]"),
 			false),
 	
 	FITS_NON_BIPED_BODY_HUMANOID(
@@ -181,21 +206,70 @@ public enum ItemTag {
 			false),
 	FITS_TAUR_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits taur bodies)]"),
+					"[style.colourTfGeneric(Only fits quadrupedal bodies)]"),
 			false),
 	FITS_LONG_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits long-tailed bodies)]"),false), //lamia, eels
+					"[style.colourTfGeneric(Only fits long-tailed bodies)]"),false), //lamia, eels
 	FITS_TAIL_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits tailed bodies)]"),false), //mermaids
+					"[style.colourTfGeneric(Only fits tailed bodies)]"),false), //mermaids
 	FITS_ARACHNID_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arachnid bodies)]"),false), //spiders and scorpions
+					"[style.colourTfGeneric(Only fits arachnid bodies)]"),false), //spiders and scorpions
 	FITS_CEPHALOPOD_BODY(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits cephalopod bodies)]"),false), //octopuses and squids
-
+					"[style.colourTfGeneric(Only fits cephalopod bodies)]"),false), //octopuses and squids
+	FITS_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourTfGeneric(Only fits avian bodies)]"),false), //bird-taurs
+	
+	// These tags are non-exclusive, so clothing with them can additionally be equipped by non-ferals:
+	FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits all feral bodies)]"),false), //All feral bodies can equip clothing marked with this tag.
+	FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits quadrupedal feral bodies)]"),false), //Quadrupedal feral bodies can equip clothing marked with this tag
+	FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits long-tailed feral bodies)]"),false), //Long-tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits tailed feral bodies)]"),false), //Tailed feral bodies can equip clothing marked with this tag
+	FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits arachnid feral bodies)]"),false), //Arachnid feral bodies can equip clothing marked with this tag
+	FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits cephalopod feral bodies)]"),false), //Cephalopod feral bodies can equip clothing marked with this tag
+	FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Fits avian feral bodies)]"),false), //Avian feral bodies can equip clothing marked with this tag
+	// These tags are exclusive, so clothing with them can ONLY be equipped by the corresponding body type (unless the clothing additionally has other permissive tags):
+	ONLY_FITS_FERAL_ALL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits feral bodies)]"),false),
+	ONLY_FITS_FERAL_QUADRUPED_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits quadrupedal feral bodies)]"),false),
+	ONLY_FITS_FERAL_LONG_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits long-tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_TAIL_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits tailed feral bodies)]"),false),
+	ONLY_FITS_FERAL_ARACHNID_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits arachnid feral bodies)]"),false),
+	ONLY_FITS_FERAL_CEPHALOPOD_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits cephalopod feral bodies)]"),false),
+	ONLY_FITS_FERAL_AVIAN_BODY(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits avian feral bodies)]"),false),
+	
+	
 	RIGID_MATERIAL( // The clothing is made out of a rigid material, and as such, groping actions cannot be performed on it. Used for chastity cages/belts.
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Blocks groping actions)]"),
@@ -218,6 +292,11 @@ public enum ItemTag {
 	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
 			Util.newArrayListOfValues(
 					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
+	
+	CHASTITY( // Tags the clothing as being some form of chastity device, meaning that it will apply the 'CHASTITY_1' status effect when equipped
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Chastity device)]"),
 			true),
 	
 	// To detect whether creampies should leak out or not:
@@ -318,7 +397,10 @@ public enum ItemTag {
 		}
 		return clothingTooltipAdditions;
 	}
-
+	
+	/**
+	 * @return true if this tag makes the clothing to which it is applied a sex toy, meaning that NPCs will not remove it during sex unless it is blocking the part they wish to access.
+	 */
 	public boolean isSexToy() {
 		return sexToy;
 	}

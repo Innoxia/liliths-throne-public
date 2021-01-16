@@ -11,8 +11,8 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -44,6 +44,8 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -212,7 +214,7 @@ public class Ralph extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_GOLD, false), true, this);
 
 	}
@@ -244,6 +246,13 @@ public class Ralph extends NPC {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
 					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+			}
+		}
+
+		for(AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
+			if(weapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 1+Util.random.nextInt(5), false, false);
 			}
 		}
 		
@@ -402,22 +411,30 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
-	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
+			if(Main.sex.getSexManager().getPosition() == SexPosition.OVER_DESK && target.equals(this)) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
-					inventory.resetEquipDescription();
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, he slaps it away and grunts,"
+							+ " [npc2.speech(I don't think so! You agreed to let me breed you, and that's exactly what I'm going to do!)]");
 				}
 				return UtilText.parse(target,
 						"<p>"
-							+ "You pull out a condom and try to give it to [npc.name], but he simply swats it away and dismissively grunts,"
+							+ "You pull out a condom and hold it out to Ralph, but as he sees what it is you've got, he grabs it and tears it in two, before dismissively grunting,"
 							+ " [npc.speech(I don't think so! You agreed to let me breed you, and that's exactly what I'm going to do!)]"
 						+ "</p>");
 			}
 			
 			if(!target.isPlayer()) {
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return null;
+				}
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return "<p>"
 							+ "You pull out a condom from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
@@ -450,13 +467,7 @@ public class Ralph extends NPC {
 				}
 			}
 		}
-		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
-				"You tear open the packet and roll the condom down the length of your [pc.penis].",
-				"You tear open the packet and roll the condom down the length of [npc.namePos] [npc.penis].",
-				"You tear open the packet and forcefully roll the condom down the length of [npc.namePos] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
-				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
+		return null;
 	}
 	
 	
@@ -530,13 +541,13 @@ public class Ralph extends NPC {
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
-			if(item.getItemType().equals(ItemType.getItemTypeFromId("innoxia_pills_fertility"))) {
+			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
 				itemOwner.useItem(item, target, false);
 				
 				if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "You pull out a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
+								+ "You pull out a "+item.getName(false, false)+" from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 								+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 								+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy, although somewhat muffled, giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");
@@ -544,7 +555,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 							"<p>"
-								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
+								+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to swallow it."
 								+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 								+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -558,7 +569,7 @@ public class Ralph extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 					return new Value<>(true,
 								"<p>"
-									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a '[#ITEM_innoxia_pills_fertility.getName(false)]'."
+									+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a "+item.getName(false, false)+"."
 									+ " Suppressing your groans, you turn back, holding out your hand as you ask him to swallow it."
 									+ " He lets out a little laugh as he sees what you're giving him, and, quickly popping the pill out of its plastic container and swallowing it,"
 									+ " he takes a moment to say a few words before continuing to fuck you, "
@@ -568,7 +579,7 @@ public class Ralph extends NPC {
 				} else {
 					return new Value<>(true,
 							"<p>"
-								+ "Producing a '[#ITEM_innoxia_pills_fertility.getName(false)]' from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
+								+ "Producing a "+item.getName(false, false)+" from your inventory, you lean forwards, looking up at Ralph and asking him to swallow it as you hold it up to him."
 									+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 									+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>");

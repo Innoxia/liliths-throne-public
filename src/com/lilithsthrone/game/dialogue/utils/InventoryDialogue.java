@@ -152,7 +152,7 @@ public class InventoryDialogue {
 		zlayerClothing.sort(new ClothingZLayerComparator());
 		
 		for(AbstractClothing c : zlayerClothing) { 
-			if(!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) {
+			if((!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) && !c.isMilkingEquipment()) {
 				if(Main.game.isInNewWorld()) {
 					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
 				} else {
@@ -2726,6 +2726,8 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 6) {
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -2736,7 +2738,10 @@ public class InventoryDialogue {
 											resetPostAction();
 										}
 									};
-									
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
+								
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
 									return new Response("Equip Offhand (Self)",
@@ -2745,21 +2750,27 @@ public class InventoryDialogue {
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response("Equip Offhand (Self)",
-										"Equip the " + weapon.getName() + "."
-											+(weapon.getWeaponType().isTwoHanded()
-													?"<br/>[style.italicsGood(Although "+(weapon.getWeaponType().isPlural()?"":"")+")]"
-													:""),
-										INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append(
-											"<p style='text-align:center;'>"
-												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)",
+											"Equip the " + weapon.getName() + "."
+												+(weapon.getWeaponType().isTwoHanded()
+														?"<br/>[style.italicsGood(Although "+(weapon.getWeaponType().isPlural()?"":"")+")]"
+														:""),
+											INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append(
+												"<p style='text-align:center;'>"
+													+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
@@ -2896,7 +2907,9 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
@@ -2905,6 +2918,9 @@ public class InventoryDialogue {
 											resetPostAction();
 										}
 									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 									
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
@@ -2914,15 +2930,21 @@ public class InventoryDialogue {
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+													+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
@@ -2931,37 +2953,48 @@ public class InventoryDialogue {
 //								if(!weapon.getWeaponType().isAbleToBeDropped()) {
 //									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), "You cannot give away the " + weapon.getName() + "!", null);
 //								}
+
+								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ inventoryNPC.equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), weapon.getCannotBeEquippedText(inventoryNPC, slot), null);
+								}
 								
-								return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] main weapon."), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ inventoryNPC.equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
 							
 							} else if(index == 12) {
 //								if(!weapon.getWeaponType().isAbleToBeDropped()) {
 //									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), "You cannot give away the " + weapon.getName() + "!", null);
 //								}
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response("Equip Offhand (Self)",
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"),
 											(weapon.getWeaponType().isPlural()
 												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[inventoryNPC.getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), weapon.getCannotBeEquippedText(inventoryNPC, slot), null);
+								}
 							
 							} else {
 								return null;
@@ -3097,16 +3130,21 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append(
-											"<p style='text-align:center;'>"
-												+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append(
+												"<p style='text-align:center;'>"
+													+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 									
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
@@ -3116,16 +3154,22 @@ public class InventoryDialogue {
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append(
-											"<p style='text-align:center;'>"
-												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append(
+												"<p style='text-align:center;'>"
+													+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 								
 							} else if (index == 9) {
 								return getBuybackResponse();
@@ -3393,15 +3437,20 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons owned by someone else!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, inventoryNPC)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								InventorySlot slot = InventorySlot.mainWeaponSlots[Main.game.getPlayer().getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipMainWeaponFromInventory(weapon, inventoryNPC)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Main (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 								
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
@@ -3411,29 +3460,40 @@ public class InventoryDialogue {
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, inventoryNPC)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response("Equip Offhand (Self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, inventoryNPC)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response("Equip Offhand (Self)", weapon.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
+								}
 								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ inventoryNPC.equipMainWeaponFromInventory(weapon, inventoryNPC)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								InventorySlot slot = InventorySlot.mainWeaponSlots[inventoryNPC.getMainWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] main weapon."), INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ inventoryNPC.equipMainWeaponFromInventory(weapon, inventoryNPC)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.HerHim])"), weapon.getCannotBeEquippedText(inventoryNPC, slot), null);
+								}
 								
 							} else if(index == 12) {
 								if(weapon.getWeaponType().isTwoHanded()) {
@@ -3443,15 +3503,21 @@ public class InventoryDialogue {
 												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
 											null);
 								}
-								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-											+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, inventoryNPC)
-											+ "</p>");
-										resetPostAction();
-									}
-								};
+								
+								InventorySlot slot = InventorySlot.offhandWeaponSlots[Main.game.getPlayer().getOffhandWeaponIndexToEquipTo(weapon)];
+								if(weapon.isCanBeEquipped(Main.game.getPlayer(), slot)) {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
+												+ inventoryNPC.equipOffhandWeaponFromInventory(weapon, inventoryNPC)
+												+ "</p>");
+											resetPostAction();
+										}
+									};
+								} else {
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.HerHim])"), weapon.getCannotBeEquippedText(inventoryNPC, slot), null);
+								}
 								
 							} else {
 								return null;
@@ -6477,7 +6543,13 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6495,7 +6567,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 					+ "Pattern:<br/>");
 	 
-			for (Pattern pattern : Pattern.getAllPatterns().values()) {
+			for (Pattern pattern : Pattern.getAllPatterns()) {
 				if (dyePreviewPattern.equals(pattern.getName())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"
@@ -6592,7 +6664,14 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_WEAPON_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")
+										+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -7523,6 +7602,7 @@ public class InventoryDialogue {
 					public void effects(){
 						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
 										+ getDyeBrushEffects(weapon, dyePreviews.get(0))

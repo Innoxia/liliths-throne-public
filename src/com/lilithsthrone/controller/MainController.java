@@ -39,6 +39,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
@@ -49,9 +50,10 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Kay;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -62,6 +64,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -489,7 +492,11 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							System.out.println(Main.sex.isSexStarted());
+							Main.sex.getTargetedPartner(Main.game.getPlayer()).generateSexChoices(true, Main.game.getPlayer());
+//							Main.game.getPlayer().setFeral(Subspecies.HORSE_MORPH);
+//							UtilText.addSpecialParsingString("true", true);
+//							System.out.println(UtilText.parse("#IF([#SPECIAL_PARSE_0]):3#ELSE:(#ENDIF"));
+//							System.out.println(Main.sex.isSexStarted());
 						}
 						 
 
@@ -654,11 +661,16 @@ public class MainController implements Initializable {
 							}
 						}
 						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME
-								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY){
-							GameCharacter slave =
-									Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
-										?BodyChanging.getTarget()
-										:Main.game.getDialogueFlags().getManagementCompanion();
+								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
+								|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+							
+							GameCharacter slave = Main.game.getDialogueFlags().getManagementCompanion();
+							if(Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
+								slave = BodyChanging.getTarget();
+							} else if(Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+								slave = Main.game.getNpc(Kay.class);
+							}
+							GameCharacter slaveFinal = slave;
 							
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
@@ -677,7 +689,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slaveFinal.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -704,7 +716,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+													slaveFinal.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 												}
 											});
 										} else {
@@ -730,7 +742,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slaveFinal.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -1186,10 +1198,10 @@ public class MainController implements Initializable {
 											} else {
 												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
 												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-												Main.game.getTextStartStringBuilder().append(
-														"<p style='text-align:center'>"
-															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
-														+ "</p>");
+												Main.game.getTextStartStringBuilder()
+													.append("<p style='text-align:center'>[style.italicsAir(")
+													.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? "With a flap of your wings, you" : "You")
+													.append(" launch yourself into the air, before swiftly flying to your destination!)]</p>");
 												Main.game.setContent(new Response("", "", dn) {
 													@Override
 													public int getSecondsPassed() {
@@ -1365,6 +1377,26 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				BodyChanging.getTarget().setArmRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setAntennaCountListener(int i) {
+		String id = "ANTENNA_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setAntennaRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setAntennaePerRowCountListener(int i) {
+		String id = "ANTENNA_COUNT_PER_ROW_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setAntennaePerRow(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1705,7 +1737,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
-		Attribute[] attributes = {
+		AbstractAttribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
@@ -1732,7 +1764,7 @@ public class MainController implements Initializable {
 		for(GameCharacter character : charactersBeingRendered) {
 			String idModifier = (character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_");
 			
-			for (Attribute a : attributes) {
+			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentAttributes.getElementById(idModifier+a.getName())) != null) {
 					if(a == Attribute.EXPERIENCE) {
 						((EventTarget) documentAttributes.getElementById(idModifier+a.getName())).addEventListener("click", e -> {
@@ -1858,7 +1890,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 					
 					// Set target to whoever is interacting with this area:
-					if(Main.game.isInSex()) { //TODO add click helper text
+					if(Main.game.isInSex()) { //TODO add click helper text //TODO add border or something to show that it's clickable
 						SexAreaInterface si = null;
 						if(se==StatusEffect.PENIS_STATUS) {
 							si = SexAreaPenetration.PENIS;
@@ -1925,7 +1957,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (CombatMove combatMove : character.getAvailableMoves()) {
+			for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
 				id = "CM_"+idModifier + combatMove.getIdentifier();
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -2090,7 +2122,7 @@ public class MainController implements Initializable {
 			}
 		}
 		
-		Attribute[] attributes = {
+		AbstractAttribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
@@ -2100,7 +2132,7 @@ public class MainController implements Initializable {
 				Attribute.AROUSAL,
 				Attribute.LUST };
 		if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
-			attributes = new Attribute[] {Attribute.EXPERIENCE};
+			attributes = new AbstractAttribute[] {Attribute.EXPERIENCE};
 		}
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
@@ -2125,7 +2157,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 						
-						Set<Subspecies> subspecies = new HashSet<>();
+						Set<AbstractSubspecies> subspecies = new HashSet<>();
 						subspecies.addAll(pop.getSpecies().keySet());
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								"Races Present",
@@ -2143,7 +2175,7 @@ public class MainController implements Initializable {
 		for(GameCharacter character : charactersBeingRendered) {
 			String idModifier = character.getId()+"_";
 			
-			for (Attribute a : attributes) {
+			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
 					if(a == Attribute.EXPERIENCE) {
 						((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
@@ -2278,7 +2310,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (CombatMove combatMove : character.getAvailableMoves()) {
+				for (AbstractCombatMove combatMove : character.getAvailableMoves()) {
 					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
 					if (((EventTarget) documentRight.getElementById(id)) != null) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -2329,6 +2361,9 @@ public class MainController implements Initializable {
 	}
 	
 	public void setTooltipContent(String content) {
+		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
+			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
+		}
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {

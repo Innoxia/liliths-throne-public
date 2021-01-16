@@ -1,10 +1,12 @@
 package com.lilithsthrone.utils.colours;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.utils.Util;
@@ -191,12 +193,11 @@ public class PresetColour {
 
 	public static Colour ATTRIBUTE_PHYSIQUE = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("physique", "phys", "strength", "str")) {};
 	public static Colour ATTRIBUTE_ARCANE = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("intelligence", "int")) {};
-	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, Util.newColour(0xff1a8c), Util.newColour(0xff1a8c), "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
+	public static Colour ATTRIBUTE_CORRUPTION = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("corruption", "cor", "corr")) {};
 
 	public static Colour ATTRIBUTE_AROUSAL = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("arousal", "ars")) {};
 	public static Colour ATTRIBUTE_LUST = new Colour(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("lust", "lst", "seduction")) {};
 
-	//TODO
 	public static Colour PHYSIQUE_STAGE_ZERO = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_ONE = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_TWO = new Colour(false, BaseColour.MAGENTA, "magenta") {};
@@ -204,7 +205,6 @@ public class PresetColour {
 	public static Colour PHYSIQUE_STAGE_FOUR = new Colour(false, BaseColour.MAGENTA, "magenta") {};
 	public static Colour PHYSIQUE_STAGE_FIVE = new Colour(false, BaseColour.GOLD, "gold") {};
 	
-	//TODO
 	public static Colour INTELLIGENCE_STAGE_ZERO = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_ONE = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_TWO = new Colour(false, BaseColour.PURPLE, "purple") {};
@@ -212,7 +212,6 @@ public class PresetColour {
 	public static Colour INTELLIGENCE_STAGE_FOUR = new Colour(false, BaseColour.PURPLE, "purple") {};
 	public static Colour INTELLIGENCE_STAGE_FIVE = new Colour(false, BaseColour.GOLD, "gold") {};
 	
-	//TODO
 	public static Colour FITNESS_STAGE_ZERO = new Colour(false, BaseColour.LILAC, "light purple") {};
 	public static Colour FITNESS_STAGE_ONE = new Colour(false, BaseColour.LILAC, "light purple") {};
 	public static Colour FITNESS_STAGE_TWO = new Colour(false, BaseColour.LILAC, "light purple") {};
@@ -423,13 +422,14 @@ public class PresetColour {
 	public static Colour CLOTHING_RED = new Colour(false, Util.newColour(0xd73939), Util.newColour(0xd73939), "red") {};
 	public static Colour CLOTHING_RED_BRIGHT = new Colour(false, Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red") {};
 	public static Colour CLOTHING_DESATURATED_BROWN = new Colour(false, Util.newColour(0x6c5d53), Util.newColour(0x6c5d53), "desaturated brown") {};
-	public static Colour CLOTHING_BROWN = new Colour(false, Util.newColour(0xC87137), Util.newColour(0xC87137), "brown") {};
-	public static Colour CLOTHING_BROWN_DARK = new Colour(false, Util.newColour(0x63391C), Util.newColour(0x63391C), "dark brown") {};
-	public static Colour CLOTHING_BROWN_VERY_DARK = new Colour(false, Util.newColour(0x3C2211), Util.newColour(0x3C2211), "midnight brown") {};
+	public static Colour CLOTHING_DESATURATED_BROWN_DARK = new Colour(false, Util.newColour(0x3a2e25), Util.newColour(0x3a2e25), "dark desaturated brown") {};
+	public static Colour CLOTHING_BROWN = new Colour(false, Util.newColour(0x8c5b39), Util.newColour(0x8c5b39), "brown") {};
+	public static Colour CLOTHING_BROWN_DARK = new Colour(false, Util.newColour(0x634028), Util.newColour(0x634028), "dark brown") {};
+	public static Colour CLOTHING_BROWN_VERY_DARK = new Colour(false, Util.newColour(0x3c2618), Util.newColour(0x3c2618), "midnight brown") {};
 	public static Colour CLOTHING_ORANGE = new Colour(false, Util.newColour(0xE79F6F), Util.newColour(0xE79F6F), "orange") {};
 	public static Colour CLOTHING_ORANGE_BRIGHT = new Colour(false, Util.newColour(0xFF7900), Util.newColour(0xFF7900), "bright orange") {};
 	public static Colour CLOTHING_ORANGE_DARK = new Colour(false, Util.newColour(0xE56D00), Util.newColour(0xE56D00), "dark orange") {};
-	public static Colour CLOTHING_TAN = new Colour(false, Util.newColour(0xEDC491), Util.newColour(0xEDC491), "tan") {};
+	public static Colour CLOTHING_TAN = new Colour(false, Util.newColour(0xd9bc98), Util.newColour(0xd9bc98), "tan") {};
 	public static Colour CLOTHING_KHAKI = new Colour(false, Util.newColour(0xaa9e76), Util.newColour(0xaa9e76), "khaki") {};
 	public static Colour CLOTHING_OLIVE = new Colour(false, Util.newColour(0x5f4a2a), Util.newColour(0x5f4a2a), "olive") {};//0x887509 0x5f4a2a
 	public static Colour CLOTHING_YELLOW = new Colour(false, Util.newColour(0xE2C360), Util.newColour(0xE2C360), "yellow") {};
@@ -487,7 +487,7 @@ public class PresetColour {
 	// Monochrome:
 	public static Colour SKIN_IVORY = new Colour(false, BaseColour.WHITE, "ivory") {};
 	public static Colour SKIN_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(SKIN_IVORY);
-	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(SKIN_GREY);
+	public static Colour SKIN_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(SKIN_GREY);
 	// Pink:
 	public static Colour SKIN_PINK_PALE = new Colour(false, BaseColour.PINK_PALE, "pale pink") {};
 	public static Colour SKIN_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {}.setLinkedColourLighter(SKIN_PINK_PALE);
@@ -540,7 +540,7 @@ public class PresetColour {
 	public static Colour COVERING_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(COVERING_WHITE);
 	public static Colour COVERING_DARK_GREY = new Colour(false, BaseColour.GREY_DARK, "dark-grey") {}.setLinkedColourLighter(COVERING_GREY);
 	public static Colour COVERING_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(COVERING_DARK_GREY);
-	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(COVERING_BLACK);
+	public static Colour COVERING_JET_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(COVERING_BLACK);
 	// Pink:
 	public static Colour COVERING_PINK_LIGHT = new Colour(false, BaseColour.PINK_LIGHT, "light pink") {};
 	public static Colour COVERING_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(COVERING_PINK_LIGHT);
@@ -641,7 +641,7 @@ public class PresetColour {
 	public static Colour EYE_WHITE = new Colour(false, BaseColour.WHITE, "white") {};
 	public static Colour EYE_GREY = new Colour(false, BaseColour.GREY, "grey") {}.setLinkedColourLighter(EYE_WHITE);
 	public static Colour EYE_BLACK = new Colour(false, BaseColour.BLACK, "black") {}.setLinkedColourLighter(EYE_GREY);
-	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public boolean isJetBlack() { return true; } }.setLinkedColourLighter(EYE_BLACK);
+	public static Colour EYE_PITCH_BLACK = new Colour(false, BaseColour.BLACK, "pitch black") { public String getCoveringIconColour() { return BaseColour.PITCH_BLACK.toWebHexString(); } }.setLinkedColourLighter(EYE_BLACK);
 	// Pink:
 	public static Colour EYE_PINK_SALMON = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink") {};
 	public static Colour EYE_PINK = new Colour(false, BaseColour.PINK, "pink") {}.setLinkedColourLighter(EYE_PINK_SALMON);
@@ -927,6 +927,8 @@ public class PresetColour {
 			PresetColour.COVERING_RAINBOW_PASTEL
 			);
 	
+	// I know...
+	public static List<Colour> allCoveringColoursWithClear = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 	public static List<Colour> allMakeupColours = Util.mergeLists(Util.newArrayListOfValues(PresetColour.COVERING_CLEAR), allCoveringColours);
 
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
@@ -1133,8 +1135,117 @@ public class PresetColour {
 	
 	static {
 		allPresetColours = new ArrayList<>();
+
+		// Modded colours:
 		
-		// Add in hard-coded leg types:
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/colours");
+		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					Colour colour = new Colour(innerEntry.getValue(), entry.getKey(), true) {};
+					String id = innerEntry.getKey();
+					allPresetColours.add(colour);
+					colourToIdMap.put(colour, id);
+					idToColourMap.put(id, colour);
+				} catch(Exception ex) {
+					System.err.println("Loading modded colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// External res colours:
+		
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/colours");
+		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
+				try {
+					Colour colour = new Colour(innerEntry.getValue(), entry.getKey(), false) {};
+					String id = innerEntry.getKey();
+					allPresetColours.add(colour);
+					colourToIdMap.put(colour, id);
+					idToColourMap.put(id, colour);
+				} catch(Exception ex) {
+					System.err.println("Loading colour failed at 'Colour'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		// Tags are only used for externally-loaded colours, so handle addition to lists here before hard-coded colours are checked:
+		for(Colour colour : allPresetColours) {
+			for(ColourTag tag : colour.getTags()) {
+				switch(tag) {
+					case ANTLER:
+						antlerColours.add(colour);
+						break;
+					case FEATHER_NATURAL:
+						naturalFeatherColours.add(colour);
+						break;
+					case FEATHER_DYE:
+						dyeFeatherColours.add(colour);
+						break;
+					case FUR:
+						naturalFurColours.add(colour);
+						break;
+					case GENERIC_COVERING:
+						allCoveringColours.add(colour);
+						allCoveringColoursWithClear.add(colour);
+						break;
+					case HAIR:
+						naturalHairColours.add(colour);
+						break;
+					case HORN:
+						hornColours.add(colour);
+						break;
+					case MAKEUP:
+						allMakeupColours.add(colour);
+						break;
+					case SCALE:
+						naturalScaleColours.add(colour);
+						break;
+					case SKIN:
+						allSkinColours.add(colour);
+						break;
+					case SLIME_NATURAL:
+						naturalSlimeColours.add(colour);
+						break;
+					case SLIME_DYE:
+						dyeSlimeColours.add(colour);
+						break;
+						
+					case IRIS_DYE:
+						dyeIrisColours.add(colour);
+						break;
+					case IRIS_NATURAL:
+						naturalIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_NATURAL:
+						naturalPredatorIrisColours.add(colour);
+						break;
+					case IRIS_PREDATOR_DYE:
+						dyePredatorIrisColours.add(colour);
+						break;
+					case PUPIL_DYE:
+						dyePupilColours.add(colour);
+						break;
+					case PUPIL_NATURAL:
+						naturalPupilColours.add(colour);
+						break;
+					case SCLERA_NATURAL:
+						naturalScleraColours.add(colour);
+						break;
+					case SCLERA_DYE:
+						dyeScleraColours.add(colour);
+						break;
+				}
+			}
+		}
+		
+		// Hard-coded colours:
+		
 		Field[] fields = PresetColour.class.getFields();
 		
 		for(Field f : fields){

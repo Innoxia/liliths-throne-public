@@ -336,7 +336,7 @@
 	#IF(npc.isCharacterPossiblyFather(pc.getId()))
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE
@@ -356,7 +356,7 @@
 	#ELSEIF(npc.isCharacterPossiblyFather(npc2.getId()))
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you, [npc2.name]! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that [npc2.nameIs] the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -374,7 +374,7 @@
 	#ELSE
 		#IF(npc.hasFetish(FETISH_PREGNANCY))
 			<p>
-				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 				#IF npc.isAttractedTo(pc)
 				#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 				#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -789,7 +789,7 @@
 		[npc.speech(R-Really? That's for me?)] [npc.name] asks, stepping forwards and cautiously taking the flames from you. [npc.speech(I-I don't know what to say. Thank you so, so much, [pc.name]! You have no idea how much this will help!)]
 	</p>
 	<p>
-		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to care of yourself, ok?)]
+		[pc.speech(You're very welcome,)] you reply. [pc.speech(Just promise to take care of yourself, ok?)]
 	</p>
 	<p>
 		[npc.speech(I will! Thank you! In fact, I'm going to go buy myself some food right now. Thank you so much!)]
@@ -1298,7 +1298,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another pair of bottles, before shoving their necks into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1308,7 +1308,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1318,7 +1318,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.she] has plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
+		Turning towards your companion, [npc2.name], [npc.name] reveals that [npc.sheHasFull] plans for [npc2.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [npc2.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]

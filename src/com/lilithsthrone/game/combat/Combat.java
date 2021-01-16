@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.AppliedStatusEffect;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -73,6 +75,7 @@ public class Combat {
 	
 	private Map<GameCharacter, List<String>> combatContent;
 	private Map<GameCharacter, List<String>> predictionContent;
+	private Map<GameCharacter, List<String>> escapeDescriptionMap;
 	
 	private Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
 	
@@ -99,6 +102,7 @@ public class Combat {
 
 		predictionContent = new HashMap<>();
 		combatContent = new HashMap<>();
+		escapeDescriptionMap = new HashMap<>();
 		itemsToBeUsed = new HashMap<>();
 		manaBurnStack = new HashMap<>();
 		statusEffectsToApply = new HashMap<>();
@@ -251,13 +255,22 @@ public class Combat {
 			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, getTurn()==0?"Preparation":"", combatContent.get(npc)));
 			
 			npc.resetSelectedMoves();
-			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
+			npc.resetDefaultMoves(); // Resetting to take into account any newly obtained moves. Does not do anything to player party members.
 			npc.resetMoveCooldowns();
 			applyNewTurnShielding(npc);
 			npc.setRemainingAP(npc.getMaxAP(), null, null);
 			// Sets up NPC ally/enemy lists that include player
 			List<GameCharacter> npcAllies = getAllies(npc);
 			List<GameCharacter> npcEnemies = getEnemies(npc);
+			
+//			System.out.println(npc.getName());
+//			for(AbstractCombatMove move : npc.getAvailableMoves()) {
+//				System.out.println(move.getIdentifier());
+//			}
+//			System.out.println("---");
+//			for(AbstractCombatMove move : npc.getEquippedMoves()) {
+//				System.out.println(move.getIdentifier());
+//			}
 			
 			// Selects the moves
 			npc.selectMoves(npcEnemies, npcAllies);
@@ -483,19 +496,17 @@ public class Combat {
 		Main.game.setInCombat(false);
 		
 		// Sort out effects after combat:
-		if (Main.game.getPlayer().getHealth() == 0) {
-			Main.game.getPlayer().setHealth(5);
-		}
-		if (Main.game.getPlayer().getMana() == 0) {
-			Main.game.getPlayer().setMana(5);
+		for(GameCharacter character : getAllCombatants(true)) {
+			if(enemies.contains(character)) {
+				character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
+				character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			} else {
+				character.setMana(Math.max(character.getMana(), 5));
+				character.setHealth(Math.max(character.getHealth(), 5));
+			}
+			character.clearCombatStatusEffects();
 		}
 		
-		// Reset opponent resources to starting values:
-		for(NPC enemy : enemies) {
-			enemy.setMana(enemy.getAttributeValue(Attribute.MANA_MAXIMUM));
-			enemy.setHealth(enemy.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		}
-
 		Main.game.getTextStartStringBuilder().append(postCombatStringBuilder.toString());
 	}
 
@@ -874,7 +885,7 @@ public class Combat {
 						
 				if(responseTab==0) {
 					if(Main.game.getPlayer().getEquippedMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getEquippedMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getEquippedMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 						
@@ -886,21 +897,21 @@ public class Combat {
 					
 				} else if(responseTab==1) {
 					if(Main.game.getPlayer().getAvailableBasicMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableBasicMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableBasicMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
 					
 				} else if(responseTab==2) {
 					if(Main.game.getPlayer().getAvailableSpecialMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableSpecialMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableSpecialMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
 					
 				} else if(responseTab==3) {
 					if(Main.game.getPlayer().getAvailableSpellMoves().size()>moveIndex) {
-						CombatMove move = Main.game.getPlayer().getAvailableSpellMoves().get(moveIndex);
+						AbstractCombatMove move = Main.game.getPlayer().getAvailableSpellMoves().get(moveIndex);
 						
 						return getMoveResponse(move, pcEnemies, pcAllies);
 					}
@@ -942,7 +953,7 @@ public class Combat {
 									
 									// Figures out the new moves
 									int i = 0;
-									for(Value<GameCharacter, CombatMove> move : targetedAlly.getSelectedMoves()) {
+									for(Value<GameCharacter, AbstractCombatMove> move : targetedAlly.getSelectedMoves()) {
 										move.getValue().performOnDeselection(i,
 												targetedAlly,
 												move.getKey(),
@@ -1021,7 +1032,7 @@ public class Combat {
 					public void effects() {
 						if(Main.game.isInCombat()) {
 							int i = 0;
-							for(Value<GameCharacter, CombatMove> move : Main.game.getPlayer().getSelectedMoves()) {
+							for(Value<GameCharacter, AbstractCombatMove> move : Main.game.getPlayer().getSelectedMoves()) {
 								move.getValue().performOnDeselection(i,
 										Main.game.getPlayer(),
 										move.getKey(),
@@ -1048,7 +1059,7 @@ public class Combat {
 		}
 	};
 	
-	private Response getMoveResponse(CombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
+	private Response getMoveResponse(AbstractCombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
 		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant():getTargetedCombatant();
 
 		int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
@@ -1091,10 +1102,10 @@ public class Combat {
 			}
 			@Override
 			public Colour getHighlightColour() {
-				return move.getColour();
+				return move.getColourByDamageType(Main.game.getPlayer());
 			}
 			@Override
-			public CombatMove getAssociatedCombatMove() {
+			public AbstractCombatMove getAssociatedCombatMove() {
 				return move;
 			}
 		};
@@ -1154,11 +1165,11 @@ public class Combat {
 		return extraAttackEffects;
 	}
 
-	private void escape(GameCharacter attacker) {
+	private void escape(GameCharacter escapee) {
 		attemptedEscape = true;
 		
 		boolean allEnemiesStunned = true;
-		if(attacker.isPlayer() || getAllies(Main.game.getPlayer()).contains(attacker)) {
+		if(escapee.isPlayer() || getAllies(Main.game.getPlayer()).contains(escapee)) {
 			for(GameCharacter enemy : getEnemies(Main.game.getPlayer())) {
 				if(!enemy.isStunned()) {
 					allEnemiesStunned = false;
@@ -1175,21 +1186,23 @@ public class Combat {
 			}
 		}
 		
-		String s = "";
+		escapeDescriptionMap = new HashMap<>();
+		StringBuilder escapeDescription = new StringBuilder();
 		if(allEnemiesStunned) {
 			escaped = true;
-			s = ("All of your enemies are stunned, so you're easily able to escape!");
+			escapeDescription.append("All of your enemies are stunned, so you're easily able to escape!");
 		} else if (Util.random.nextInt(100) < escapeChance) {
 			escaped = true;
-			s = ("You got away!");
+			escapeDescription.append("You successfully managed to escape!");
 		} else {
-			s = ("You failed to escape!");
+			escapeDescription.append("You failed to escape!");
 		}
+		escapeDescriptionMap.put(escapee, Util.newArrayListOfValues(escapeDescription.toString()));
 		
 		for(GameCharacter combatant : getAllCombatants(true)) {
-			if(getAllies(attacker).contains(combatant) || combatant.equals(attacker)) {
+			if(getAllies(escapee).contains(combatant) || combatant.equals(escapee)) {
 				int i = 0;
-				for(Value<GameCharacter, CombatMove> move : combatant.getSelectedMoves()) {
+				for(Value<GameCharacter, AbstractCombatMove> move : combatant.getSelectedMoves()) {
 					move.getValue().performOnDeselection(i,
 							combatant,
 							move.getKey(),
@@ -1201,10 +1214,31 @@ public class Combat {
 				combatant.resetSelectedMoves();
 				combatant.setRemainingAP(combatant.getMaxAP(), getEnemies(combatant), getAllies(combatant));
 				predictionContent.put(combatant, new ArrayList<>());
+				if(escaped && !combatant.equals(escapee)) {
+					escapeDescriptionMap.put(combatant,
+							Util.newArrayListOfValues(UtilText.parse(combatant, "[npc.Name] manages to escape with you!")));
+				}
+			} else {
+				if(escaped) {
+					escapeDescriptionMap.put(combatant,
+							Util.newArrayListOfValues(UtilText.parse(combatant, "[npc.Name] tries to block your escape, but fails!")));
+				}
 			}
 		}
 		
-		combatContent.put(attacker, Util.newArrayListOfValues(s));
+		if(escaped) {
+			// Remove elementals:
+			for(GameCharacter combatant : getAllCombatants(true)) {
+				if(combatant.isElementalSummoned()) {
+					combatant.getElemental().returnToHome();
+					escapeDescription.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is drained of energy and [style.italicsArcane(returns to [npc2.her] passive form)]!"
+							+ "</i></p>"));
+				}
+			}
+		}
 	}
 
 	/**
@@ -1213,13 +1247,13 @@ public class Combat {
 	 * @return true if the character is able to perform an attack, false if they cannot (due to being defeated, stunned, or attempting to escape).
 	 */
 	private boolean attackCharacter(GameCharacter character) {
+		if(escaped) {
+			combatContent.put(character, escapeDescriptionMap.get(character));
+			return false;
+		}
+		
 		if(character.isPlayer()) {
-			if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "You manage to escape!")));
-				return false;
-				
-			} else if (!activeCombatants.contains(character)) {
+			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
@@ -1232,12 +1266,7 @@ public class Combat {
 			}
 			
 		} else if(allies.contains(character)) {
-			if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "[npc.Name] manages to escape with you!")));
-				return false;
-				
-			} else if (!activeCombatants.contains(character)) {
+			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
@@ -1253,11 +1282,6 @@ public class Combat {
 			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
 						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
-				return false;
-				
-			} else if(escaped) {
-				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "[npc.Name] tries to block your escape, but fails!")));
 				return false;
 			}
 		}
@@ -1409,7 +1433,7 @@ public class Combat {
 		turn++;
 	}
 
-	private String getShieldsDisplayValue(Attribute att, int shields) {
+	private String getShieldsDisplayValue(AbstractAttribute att, int shields) {
 		String valueForDisplay = String.valueOf(shields);
 		if(att.isInfiniteAtUpperLimit() && shields>=att.getUpperLimit()) {
 			valueForDisplay = UtilText.getInfinitySymbol(false);

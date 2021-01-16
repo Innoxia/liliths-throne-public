@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -29,8 +30,8 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -51,6 +52,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -107,25 +109,27 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private boolean sideQuestUpdated;
 	private boolean relationshipQuestUpdated;
 
+	private boolean isActive;
+
 	protected List<String> friendlyOccupants;
 	
 	//Discoveries:
 	private List<String> charactersEncountered;
 	private Set<AbstractWorldType> worldsVisited;
 	
-	private Set<Subspecies> racesDiscoveredFromBook;
+	private Set<AbstractSubspecies> racesDiscoveredFromBook;
 	
 	private Set<AbstractItemType> itemsDiscovered;
 	private Set<AbstractWeaponType> weaponsDiscovered;
 	private Set<AbstractClothingType> clothingDiscovered;
-	private Set<Subspecies> subspeciesDiscovered;
-	private Set<Subspecies> subspeciesAdvancedKnowledge;
+	private Set<AbstractSubspecies> subspeciesDiscovered;
+	private Set<AbstractSubspecies> subspeciesAdvancedKnowledge;
 	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
 
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, AbstractSubspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -142,7 +146,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
 		relationshipQuestUpdated = false;
-		
+
+		isActive = true;
+
 		racesDiscoveredFromBook = new HashSet<>();
 
 		itemsDiscovered = new HashSet<>();
@@ -178,29 +184,29 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element playerSpecific = doc.createElement("playerSpecific");
 		playerElement.appendChild(playerSpecific);
 		
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
 		
 		Element questUpdatesElement = doc.createElement("questUpdates");
 		playerSpecific.appendChild(questUpdatesElement);
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
+		XMLUtil.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
 		
 		Element innerElement = doc.createElement("raceBooksDiscovered");
 		playerSpecific.appendChild(innerElement);
-		for(Subspecies subspecies : racesDiscoveredFromBook) {
+		for(AbstractSubspecies subspecies : racesDiscoveredFromBook) {
 			if(subspecies != null) {
 				Element e = doc.createElement("race");
 				innerElement.appendChild(e);
-				e.setTextContent(subspecies.toString());
+				e.setTextContent(Subspecies.getIdFromSubspecies(subspecies));
 			}
 		}
 		
 		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
 		playerSpecific.appendChild(charactersEncounteredElement);
 		for(String id : charactersEncountered) {
-			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
+			XMLUtil.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
 		}
 		
 		innerElement = doc.createElement("questMap");
@@ -208,9 +214,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		for(Entry<QuestLine, List<Quest>> entry : quests.entrySet()) {
 			Element e = doc.createElement("entry");
 			innerElement.appendChild(e);
-			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, e, "questLine", entry.getKey().toString());
 			for(int i=0; i<entry.getValue().size(); i++) {
-				CharacterUtils.addAttribute(doc, e, "q"+i, String.valueOf(entry.getValue().get(i)));
+				XMLUtil.addAttribute(doc, e, "q"+i, String.valueOf(entry.getValue().get(i)));
 			}
 		}
 
@@ -219,8 +225,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		for(Entry<QuestLine, Quest> entry : questsFailed.entrySet()) {
 			Element e = doc.createElement("entry");
 			innerElement.appendChild(e);
-			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, e, "q", String.valueOf(entry.getValue()));
+			XMLUtil.addAttribute(doc, e, "questLine", entry.getKey().toString());
+			XMLUtil.addAttribute(doc, e, "q", String.valueOf(entry.getValue()));
 		}
 		
 		Element friendlyOccupants = doc.createElement("friendlyOccupants");
@@ -229,7 +235,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("occupant");
 			friendlyOccupants.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", occupant);
+			XMLUtil.addAttribute(doc, element, "id", occupant);
 		}
 		
 		Element worldsVisitedElement = doc.createElement("worldsVisited");
@@ -238,7 +244,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Element element = doc.createElement("world");
 			worldsVisitedElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
+			XMLUtil.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
 		}
 
 		// Discoveries:
@@ -286,19 +292,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element racesDiscovered = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(racesDiscovered);
-		for(Subspecies subspecies : this.subspeciesDiscovered) {
+		for(AbstractSubspecies subspecies : this.subspeciesDiscovered) {
 			if(!this.subspeciesAdvancedKnowledge.contains(subspecies)) {
 				Element element = doc.createElement("race");
 				racesDiscovered.appendChild(element);
-				element.setTextContent(subspecies.toString());
+				element.setTextContent(Subspecies.getIdFromSubspecies(subspecies));
 			}
 		}
 		Element racesDiscoveredAdvanced = doc.createElement("racesDiscoveredAdvanced");
 		playerSpecific.appendChild(racesDiscoveredAdvanced);
-		for(Subspecies subspecies : this.subspeciesAdvancedKnowledge) {
+		for(AbstractSubspecies subspecies : this.subspeciesAdvancedKnowledge) {
 			Element element = doc.createElement("race");
 			racesDiscoveredAdvanced.appendChild(element);
-			element.setTextContent(subspecies.toString());
+			element.setTextContent(Subspecies.getIdFromSubspecies(subspecies));
 		}
 		
 		
@@ -367,7 +373,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							for(int i=0; i < races.getLength(); i++){
 								Element e = (Element) races.item(i);
 								try {
-									character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
+									character.addRaceDiscoveredFromBook(Subspecies.getSubspeciesFromId(e.getAttribute("value")));
 								} catch(Exception ex) {
 								}
 							}
@@ -379,7 +385,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							for(int i=0; i < races.getLength(); i++){
 								Element e = (Element) races.item(i);
 								try {
-									character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getTextContent()));
+									character.addRaceDiscoveredFromBook(Subspecies.getSubspeciesFromId(e.getTextContent()));
 								} catch(Exception ex) {
 								}
 							}
@@ -483,26 +489,33 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
 								questString = "MAIN_1_E_REPORT_TO_HELENA";
 							}
-							Quest quest = Quest.valueOf(questString);
-							List<Quest> questList = new ArrayList<>();
-							
-							int questIncrement=0;
-							while(!questString.isEmpty()) {
-								quest = Quest.valueOf(questString);
-
-								questList.add(quest);
-								
-								questIncrement++;
-								questString = e.getAttribute("q"+questIncrement);
-								if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
-									questString = "MAIN_1_E_REPORT_TO_HELENA";
-								}
+							if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.14") && questString.startsWith("RELATIONSHIP_NYAN")) {
+								continue;
 							}
-							
-							character.quests.put(
-									questLine,
-									questList);
-							
+							try {
+								Quest quest = Quest.valueOf(questString);
+								List<Quest> questList = new ArrayList<>();
+								
+								int questIncrement=0;
+								while(!questString.isEmpty()) {
+									quest = Quest.valueOf(questString);
+	
+									questList.add(quest);
+									
+									questIncrement++;
+									questString = e.getAttribute("q"+questIncrement);
+									if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
+										questString = "MAIN_1_E_REPORT_TO_HELENA";
+									}
+								}
+								
+								character.quests.put(
+										questLine,
+										questList);
+							} catch(Exception ex) {
+								System.out.println("Error in PlayerCharacter loading: QuestLine failed to load: "+questString);
+								ex.printStackTrace();
+							}
 						}
 					}
 				}
@@ -530,7 +543,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					
 					if(!e.getAttribute("id").equals("NOT_SET")) {
 						character.getFriendlyOccupants().add(e.getAttribute("id"));
-						CharacterUtils.appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
+						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
 					}
 				}
 			} catch(Exception ex) {	
@@ -541,7 +554,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
 					
 					character.getWorldsVisited().add(WorldType.getWorldTypeFromId(e.getAttribute("id")));
-					CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+					Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
 				}
 			} catch(Exception ex) {	
 			}
@@ -585,7 +598,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				for(int i=0; i<races.getLength(); i++){
 					Element e = ((Element)races.item(i));
 					try {
-						character.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
+						character.subspeciesDiscovered.add(Subspecies.getSubspeciesFromId(e.getTextContent()));
 					} catch(Exception ex) {
 					}
 				}
@@ -597,8 +610,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				for(int i=0; i<races.getLength(); i++){
 					Element e = ((Element)races.item(i));
 					try {
-						character.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
-						character.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getTextContent()));
+						character.subspeciesDiscovered.add(Subspecies.getSubspeciesFromId(e.getTextContent()));
+						character.subspeciesAdvancedKnowledge.add(Subspecies.getSubspeciesFromId(e.getTextContent()));
 					} catch(Exception ex) {
 					}
 				}
@@ -666,12 +679,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaVisited, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaInterviewOffered, false);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
-			
-//			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-//				character.addItem(Main.game.getItemGeneration().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
-//			}
-//			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
+
+		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
+			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
+		}
+		
 		if(Main.isVersionOlderThan(version, "0.3.8.1")) {
 			if(character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
 				character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
@@ -682,19 +695,23 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
-		
-		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
-			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
-		}
-		
+
 		return character;
 	}
 
 	@Override
-	protected void updateAttributeListeners() {
-		if (playerAttributeChangeEventListeners != null)
-			for (CharacterChangeEventListener eventListener : playerAttributeChangeEventListeners)
+	public void updateAttributeListeners(boolean requiresStatusEffectUpdate) {
+		if (playerAttributeChangeEventListeners != null) {
+			for (CharacterChangeEventListener eventListener : playerAttributeChangeEventListeners) {
 				eventListener.onChange();
+			}
+		}
+		if(requiresStatusEffectUpdate) {
+//			if(Main.game.isStarted() && this.getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP) {
+//				throw new IllegalArgumentException();
+//			}
+			requiresAttributeStatusEffectCheck = true;
+		}
 	}
 
 	@Override
@@ -706,9 +723,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	public void updateInventoryListeners() {
-		if (playerInventoryChangeEventListeners != null)
-			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners)
+		if (playerInventoryChangeEventListeners != null) {
+			for (CharacterChangeEventListener eventListener : playerInventoryChangeEventListeners) {
 				eventListener.onChange();
+			}
+		}
+		requiresInventoryStatusEffectCheck = true;
 	}
 	
 	@Override
@@ -731,9 +751,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(!Main.game.isInNewWorld()) {
 			return ""; // This isn't displayed anywhere before the game starts for real.
 		} else {
-			return "Having been pulled into an enchanted mirror in your aunt Lily's museum, you woke up to find yourself in another world."
+			if(description==null || description.isEmpty()) {
+				return "Having been pulled into an enchanted mirror in your aunt Lily's museum, you woke up to find yourself in another world."
 					+ " By a stroke of good fortune, one of the first people you met was Lilaya; this world's version of your aunt."
 					+ " Having convinced her that your story is true, you're now working towards finding a way to get back to your old world.";
+			} else {
+				return UtilText.parse(this, description);
+			}
 		}
 	}
 	
@@ -878,7 +902,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void setRelationshipQuestUpdated(boolean relationshipQuestUpdated) {
 		this.relationshipQuestUpdated = relationshipQuestUpdated;
 	}
-	
+
+	public boolean isActive() { return isActive; }
+
+	public void setActive(boolean active) { this.isActive = active; }
+
 	public Map<QuestLine, Quest> getQuestsFailed() {
 		return questsFailed;
 	}
@@ -1160,11 +1188,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	// Discoveries:
 	
-	public boolean addRaceDiscoveredFromBook(Subspecies subspecies) {
+	public boolean addRaceDiscoveredFromBook(AbstractSubspecies subspecies) {
 		return racesDiscoveredFromBook.add(subspecies);
 	}
 	
-	public Set<Subspecies> getRacesDiscoveredFromBook() {
+	public Set<AbstractSubspecies> getRacesDiscoveredFromBook() {
 		return racesDiscoveredFromBook;
 	}
 
@@ -1219,12 +1247,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	/** <b>You should be using the Properties class to add this!</b> */
-	public boolean addRaceDiscovered(Subspecies subspecies) {
+	public boolean addRaceDiscovered(AbstractSubspecies subspecies) {
 		return subspeciesDiscovered.add(subspecies);
 	}
 
 	/** <b>You should be using the Properties class to access this!</b> */
-	public boolean isRaceDiscovered(Subspecies subspecies) {
+	public boolean isRaceDiscovered(AbstractSubspecies subspecies) {
 		return subspeciesDiscovered.contains(subspecies);
 	}
 
@@ -1234,17 +1262,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	/** <b>You should be using the Properties class to add this!</b> */
-	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
+	public boolean addAdvancedRaceKnowledge(AbstractSubspecies subspecies) {
 		return subspeciesAdvancedKnowledge.add(subspecies);
 	}
 
 	/** <b>You should be using the Properties class to access this!</b> */
-	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
+	public boolean isAdvancedRaceKnowledgeDiscovered(AbstractSubspecies subspecies) {
 		if(subspeciesAdvancedKnowledge.contains(subspecies)) {
 			return true;
 		}
 		// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
-		Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
+		AbstractSubspecies coreSubspecies = AbstractSubspecies.getMainSubspeciesOfRace(subspecies.getRace());
 		if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
 			return subspeciesAdvancedKnowledge.contains(coreSubspecies);
 		}
@@ -1338,6 +1366,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
+	public boolean isAbleToBeEgged() {
 		return true;
 	}
 	

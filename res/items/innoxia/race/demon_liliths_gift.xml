@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>1500</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Lilith's Gift]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Lilith's Gifts]]></namePlural>
+		<description><![CDATA[A glass bottle, filled with bubbling pink liquid. On the bottle's label, there's an image of a succubus's perfectly-formed, heart-shaped ass. Her delicate hands are reaching down to pull apart her soft ass cheeks, fully exposing her tight asshole and dripping-wet pussy.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">demon_liliths_gift.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>ATTRIBUTE_CORRUPTION</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_CORRUPTION</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Restores)] 10% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_CORRUPTION.getFormattedValue(25)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A sickly wave of corruptive arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_CORRUPTION, 25)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		The moment [npc.name] [npc.verb(pull)] the stopper out from the bottle of Lilith's Gift, [npc.sheIs] filled with a desperate need to drink the bubbling pink liquid contained within. Instantly, [npc.she] [npc.verb(bring)] the bottle to [npc.her] [npc.lips] and [npc.verb(gulp)] it all down, suppressing [npc.her] gag reflex as [npc.her] senses are overwhelmed by how sickeningly sweet it is.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		Pulling out the stopper from the bottle of Lilith's Gift, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips]. Instantly, [npc2.she] [npc2.verb(gulp)] it all down, suppressing [npc2.her] gag reflex as [npc2.her] senses are overwhelmed by how sickeningly sweet it is.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

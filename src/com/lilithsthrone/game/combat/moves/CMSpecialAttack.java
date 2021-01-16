@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
@@ -26,17 +26,18 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.4
  * @author Innoxia
  */
 public class CMSpecialAttack {
 	
-	public static CombatMove HORSE_KICK = new CombatMove("hoof-kick",
+	public static AbstractCombatMove HORSE_KICK = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "hoof kick",
             1,
             2,
             CombatMoveType.ATTACK,
             DamageType.UNARMED,
+            DamageVariance.NONE,
             "moves/hoof_kick",
             Util.newArrayListOfValues(PresetColour.RACE_HORSE_MORPH),
             false,
@@ -44,13 +45,13 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 1))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, (source.getUnarmedDamage() * 2 * (source.isLegMovementHindered()?0.1f:1)));
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        protected int getDamage(GameCharacter source, GameCharacter target) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, false);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), false);
         }
         
         @Override
@@ -89,7 +90,8 @@ public class CMSpecialAttack {
             return formatAttackOutcome(source, target,
             		(source.isLegMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] leg movement, [npc.name] [npc.verb(struggle)] to put any power behind [npc.her] kick, dealing minimal damage to [npc2.name]..."
-            				:"[npc.Name] [npc.verb(turn)] to one side, before kicking out and powerfully striking [npc2.name] with [npc.her] "+(source.getLegConfiguration()==LegConfiguration.TAUR?"hoofs":"hoof")+"!")+damageValue.getKey(),
+            				:"[npc.Name] [npc.verb(turn)] to one side, before kicking out and powerfully striking [npc2.name] with [npc.her] "+(source.getLegConfiguration()==LegConfiguration.QUADRUPEDAL?"hoofs":"hoof")+"!")
+            			+damageValue.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
             			?"[npc.Name] immediately strikes again in an attempt to break through [npc2.namePos] block!"+critDamageValue.getKey()
@@ -107,14 +109,14 @@ public class CMSpecialAttack {
         public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	int damage = getDamage(source, target);
             int potentialDamage = getDamageType(source).shieldCheckNoDamage(source, target, damage);
-            if(potentialDamage != damage) {
+            if(potentialDamage<=0) {// != damage) {
                 return true;
             }
             return false;
         }
     };
 
-	public static CombatMove CAT_SCRATCH = new CombatMove("cat-scratch",
+	public static AbstractCombatMove CAT_SCRATCH = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "scratch",
             1,
             1,
@@ -126,13 +128,13 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, ((source.getUnarmedDamage()*1.5f) * (source.isArmMovementHindered()?0.5f:1)));
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -181,7 +183,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static CombatMove ALLIGATOR_TAIL_SWIPE = new CombatMove("tail-swipe",
+	public static AbstractCombatMove TAIL_SWIPE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "tail swipe",
             2,
             3,
@@ -193,18 +195,21 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*3;
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue(), "Available to characters who have a thick, prehensile tail.");
+            return new Value<>(
+            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue())
+            			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
+            		"Available to characters who have a thick, prehensile tail, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }
 
         @Override
@@ -244,7 +249,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static CombatMove SQUIRREL_SCRATCH = new CombatMove("squirrel-scratch",
+	public static AbstractCombatMove SQUIRREL_SCRATCH = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "squirrel scratch",
             1,
             1,
@@ -256,13 +261,13 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 1))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * (source.isArmMovementHindered()?0.5f:1));
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -312,7 +317,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static CombatMove WOLF_SAVAGE = new CombatMove("savage-attack",
+	public static AbstractCombatMove WOLF_SAVAGE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "savage attack",
             6,
             3,
@@ -324,13 +329,13 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 3))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * 4 * (source.isArmMovementHindered()?0.5f:1));
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -390,7 +395,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static CombatMove ANTLER_HEADBUTT = new CombatMove("antler-headbutt",
+	public static AbstractCombatMove ANTLER_HEADBUTT = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "antler headbutt",
             1,
             2,
@@ -402,13 +407,13 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
 
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -453,7 +458,7 @@ public class CMSpecialAttack {
         }
     };
 
-	public static CombatMove COW_HEADBUTT = new CombatMove("horn-headbutt",
+	public static AbstractCombatMove COW_HEADBUTT = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "horn headbutt",
             1,
             2,
@@ -464,21 +469,17 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
-
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
         }
-
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.hasHorns() && !source.getHornType().equals(HornType.REINDEER_RACK), "Available to characters who have horns.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
@@ -486,14 +487,12 @@ public class CMSpecialAttack {
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
             				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage.");
         }
-
         @Override
         public String getDescription(GameCharacter source) {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] horns to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage.");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
@@ -509,14 +508,13 @@ public class CMSpecialAttack {
             			:null),
                     "The duration of '"+StatusEffect.DAZED.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };
     
-    public static CombatMove BITE = new CombatMove("bite",
+    public static AbstractCombatMove BITE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
             "feral bite",
             1,
             2,
@@ -536,23 +534,23 @@ public class CMSpecialAttack {
     		return super.getWeight(source, enemies, allies);
     	}
     	
-        private int getBaseDamage(GameCharacter source) {
+        protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage() * 2 * (!source.isCoverableAreaExposed(CoverableArea.MOUTH)?0:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+        protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
 				!Collections.disjoint(source.getFaceTypeTags(), Util.newArrayListOfValues(
-					FaceTypeTag.MUZZLE,
-					FaceTypeTag.FANGS,
-					FaceTypeTag.SHARK_TEETH,
-					FaceTypeTag.BEAK
+						BodyPartTag.FACE_MUZZLE,
+						BodyPartTag.FACE_FANGS,
+//						BodyPartTag.FACE_SHARK_TEETH,
+						BodyPartTag.FACE_BEAK
 				)),
 				"Available to characters with an anthropomorphic face.");
         }

@@ -71,6 +71,8 @@
 			<tag>SEALS_NIPPLES</tag>
 			<tag>RIGID_MATERIAL</tag>
 			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+			<tag>FITS_FERAL_ALL_BODY</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
 		</itemTags>
 	</coreAttributes>
 	
