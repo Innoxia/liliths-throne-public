@@ -43,6 +43,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
 		Fixed an oversight for mer-tailed and serpent-tailed non-ferals where the full leg description, complete with references to feet, was being incorrectly shown. (PR#1487 by Stadler76)
 		Fixed graphical issues which arose when selecting very dark dye colors on items due to some stroke colors being set to CMYK black (#231f20) instead of RGB black (#000000). (PR#1488 by DSG)
+		Fixed parsing errors, typos and minor issues in Nyan's updated quest content. (PR#1491 by AceXP)
+		
+	DSG's Enforcer Item updates (PR#1490):
+		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
+		Enforcer weapon effects are now applied on critical hits instead of by random chance.
+		Pepperball rifle and pistol now have new special attacks of 'Mag Dump' and 'Seven Rounds Rapid', respectively.
+		The Liquid Stun Gun's silly-mode effects have been moved into a new silly-mode variant of the weapon, which can be spawned via the debug menu's cheat spawn menu.
+		Added a test Enforcer beret with no sticker requirements to the debug menu's cheat spawn menu.
+		Updated Enforcer beret with some description text that was lost during sticker work.
 		
 	DSG's race fixes:
 		Race version 1.3:

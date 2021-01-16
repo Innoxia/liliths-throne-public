@@ -33,7 +33,7 @@
 		<imageEquippedName>pblauncher.svg</imageEquippedName>
 		
 		<damage>60</damage>
-		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'):-->
+
 		<aoe chance="100">54</aoe>
 		<aoe chance="100">42</aoe>
 		<aoe chance="100">42</aoe>
