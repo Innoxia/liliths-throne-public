@@ -18,7 +18,7 @@
 			#IF(pc.getQuest(QUEST_LINE_RELATIONSHIP_NYAN_HELP)==QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)
 				Although you've managed to discover that Wolfgang and Karl have seized control of Kay's business, you've yet to resolve the situation. Sooner or later, you're going to have to confront the two dobermanns again and convince them to leave Kay alone... 
 			#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_RELATIONSHIP_NYAN_HELP, QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS))
-				Having rescued Kay's business from Wolfgang and Karl, you've been given permission to come and go from the premises as you please. What's more, the thankful cat-boy said that you could pay him a personal visit whenever you feel like it...
+				Having rescued Kay's business from Wolfgang and Karl, you've been given permission to come and go from the premises as you please. What's more, the thankful [kay.race] said that you could pay [kay.herHim] a personal visit whenever you feel like it...
 			#ELSE
 				Having told Nyan that you'd discover why Kay has suddenly stopped doing business with her, you're going to have to head inside the warehouse and find out what's going on...
 			#ENDIF
@@ -1171,19 +1171,19 @@
 	<htmlContent tag="KAY_OFFICE_DOMINATE_END"><![CDATA[
 	<p>
 		#IF(pc.isTaur())
-			Impatiently pawing at the ground, you tell the cute [kay.race] that if he wants to have some real fun with you, then he's going to have to make a show of his submission. Motioning for him to vacate his seat, you smile in delight as [kay.name] slips off of it and kneels down to one side of his desk. [pc.Stepping] forwards and pushing the chair back against the wall, you sit down on your hindquarters behind your pet's desk, before reaching over to pat him on the head.
+			Impatiently pawing at the ground, you tell the cute [kay.race] that if [kay.she] wants to have some real fun with you, then [kay.she]'s going to have to make a show of [kay.her] submission. Motioning for [kay.herHim] to vacate [kay.her] seat, you smile in delight as [kay.name] slips off of it and kneels down to one side of [kay.her] desk. [pc.Stepping] forwards and pushing the chair back against the wall, you sit down on your hindquarters behind your pet's desk, before reaching over to pat [kay.herHim] on the head.
 		#ELSE
-			Impatiently tapping your [pc.foot] on the ground, you tell the cute [kay.race] that if he wants to have some real fun with you, then he's going to have to make a show of his submission. Motioning for him to vacate his seat, you smile in delight as [kay.name] slips off of it and kneels down to one side of his desk. [pc.Stepping] forwards and sitting down on the chair which your pet has just relinquished, you reach over to pat him on the head.
+			Impatiently tapping your [pc.foot] on the ground, you tell the cute [kay.race] that if [kay.she] wants to have some real fun with you, then [kay.she]'s going to have to make a show of [kay.her] submission. Motioning for [kay.herHim] to vacate [kay.her] seat, you smile in delight as [kay.name] slips off of it and kneels down to one side of [kay.her] desk. [pc.Stepping] forwards and sitting down on the chair which your pet has just relinquished, you reach over to pat [kay.herHim] on the head.
 		#ENDIF
 	</p>
 	<p>
-		[kay.speech([pc.Name], I've got some things in my drawer which you might like to use...)] the cute [kay.race] informs you as you dominantly stroke his soft, white-furred ears.
+		[kay.speech([pc.Name], I've got some things in my drawer which you might like to use...)] the cute [kay.race] informs you as you dominantly stroke [kay.her] soft, white-furred ears.
 	</p>
 	<p>
-		Curious to find out what [kay.name] could be talking about, you reach down and slide open the drawer. Inside, you're surprised to see that there's a white chastity cage and a silver, blue-jewelled buttplug. Looking back over at [kay.name], you see that he's blushing and looking down at the floor, and while nervously rubbing his delicate hands together, he whimpers, [kay.speech(I got them a while ago but never used them...)]
+		Curious to find out what [kay.name] could be talking about, you reach down and slide open the drawer. Inside, you're surprised to see that there's a white chastity cage and a silver, blue-jewelled buttplug. Looking back over at [kay.name], you see that [kay.she]'s blushing and looking down at the floor, and while nervously rubbing [kay.her] delicate hands together, [kay.she] whimpers, [kay.speech(I got them a while ago but never used them...)]
 	</p>
 	<p>
-		Telling [kay.name] that he's a good submissive pet for being so prepared, you once again stroke the top of his head, before wondering what the first thing you'll do with him should be...
+		Telling [kay.name] that [kay.she]'s a good submissive pet for being so prepared, you once again stroke the top of [kay.her] head, before wondering what the first thing you'll do with [kay.herHim] should be...
 	</p>
 	]]>
 	</htmlContent>
@@ -1317,7 +1317,7 @@
 	#IF(pc.isTaur())
 		<p>
 			With [kay.name] already kneeling down in a suitable position, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
-			#IF(pc.isAbleToAccessCoverableArea(CA_PENIS, false))
+			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
 				 Standing up and turning the rear of your [pc.legRace]'s lower body towards [kay.herHim], you present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Exposing your groin, you stand up and turn the rear of your [pc.legRace]'s lower body towards [kay.herHim], thereby presenting your submissive pet with your [pc.pussy+].
@@ -1332,7 +1332,7 @@
 	#ELSE
 		<p>
 			With [kay.namePos] head so close to your groin, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
-			#IF(pc.isAbleToAccessCoverableArea(CA_PENIS, false))
+			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
 				 Spinning your chair to one side, you spread your [pc.legs] and present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Quickly exposing your [pc.pussy+], you spin your chair to one side and present yourself to your submissive pet.
@@ -1352,7 +1352,7 @@
 	#IF(pc.isTaur())
 		<p>
 			With [kay.name] already kneeling down in a suitable position, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
-			#IF(pc.isAbleToAccessCoverableArea(CA_PENIS, false))
+			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
 				 Standing up and turning the rear of your [pc.legRace]'s lower body towards [kay.herHim], you present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Exposing your groin, you stand up and turn the rear of your [pc.legRace]'s lower body towards [kay.herHim], thereby presenting your submissive pet with your [pc.pussy+].
@@ -1367,7 +1367,7 @@
 	#ELSE
 		<p>
 			With [kay.namePos] head so close to your groin, you can't resist the temptation of getting [kay.herHim] to perform oral on you.
-			#IF(pc.isAbleToAccessCoverableArea(CA_PENIS, false))
+			#IF(pc.isAbleToAccessCoverableArea(CA_VAGINA, false))
 				 Spinning your chair to one side, you spread your [pc.legs] and present your submissive pet with your [pc.pussy+].
 			#ELSE
 				 Quickly exposing your [pc.pussy+], you spin your chair to one side and present yourself to your submissive pet.
@@ -2042,7 +2042,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Obediently dropping down onto her knees as you return to sit behind her desk, Kay lets out an excited moan, and you wonder what to do with her next...
+		Obediently dropping down onto her knees as you return to sit behind her desk, [kay.name] lets out an excited moan, and you wonder what to do with her next...
 	</p>
 	]]>
 	</htmlContent>
