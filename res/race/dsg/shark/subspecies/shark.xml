@@ -187,11 +187,6 @@
 		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
 	</perkWeightings>
 	
-	<!-- Along with 'worldLocations' below, this determines in what areas of the game this subspecies can spawn.
-	'regionLocations' covers a more general spawn area, whereas 'worldLocations' is a lot more precise in which areas should see this subspecies spawning.
-	The text inside the 'region' element corresponds to a WorldRegion as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldRegion.java 
-	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
-	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<regionLocations>
 		<region rarity="THREE_UNCOMMON">RIVER</region>
 		<region rarity="FOUR_COMMON">SEA</region>
@@ -200,15 +195,14 @@
 		<region rarity="ONE_VERY_RARE">JUNGLE_CITY</region>
 	</regionLocations>
 	
-	<!-- The places in which this subspecies can spawn.
-	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
-	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
-	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<worldLocations>
 		<world rarity="ZERO_EXTREMELY_RARE">NIGHTLIFE_CLUB</world>
-		<region rarity="TWO_RARE">DOMINION_CANAL</region>
-		<region rarity="TWO_RARE">DOMINION_ALLEYS_CANAL_CROSSING</region>
 	</worldLocations>
+	
+	<placeLocations>
+		<place rarity="TWO_RARE">DOMINION_CANAL</place>
+		<place rarity="TWO_RARE">DOMINION_ALLEYS_CANAL_CROSSING</place>
+	</placeLocations>
 	
 	<!-- Any special flags which should be applied to this subspecies.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesFlag.java -->

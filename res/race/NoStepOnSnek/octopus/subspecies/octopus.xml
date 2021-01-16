@@ -80,5 +80,9 @@
 	<worldLocations>
 		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
 	</worldLocations>
+	<placeLocations>
+		<place rarity="TWO_RARE">DOMINION_CANAL</place>
+		<place rarity="TWO_RARE">DOMINION_ALLEYS_CANAL_CROSSING</place>
+	</placeLocations>
 	<flags/>
 </subspecies>

@@ -55,6 +55,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.1.91
@@ -196,7 +197,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -249,7 +250,7 @@ public class Subspecies {
 			"A typical angel.",
 			null,
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -329,7 +330,7 @@ public class Subspecies {
 			"One of the seven elder lilin.",
 			null,
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -387,7 +388,7 @@ public class Subspecies {
 			"A lilin.",
 			null,
 			null,
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -451,7 +452,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -628,7 +629,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -767,7 +768,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -840,7 +841,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -928,7 +929,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
@@ -1010,7 +1011,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
@@ -1101,7 +1102,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
@@ -1209,7 +1210,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour secondaryColour = PresetColour.COVERING_BROWN;
@@ -1333,7 +1334,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 			new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
 			new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
@@ -1439,7 +1440,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
@@ -1539,7 +1540,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			AbstractSubspecies.applyFoxColoring(body);
@@ -1610,7 +1611,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
@@ -1689,7 +1690,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour fennecColour = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN));
@@ -1771,7 +1772,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -1902,7 +1903,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -2024,7 +2025,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_SPAWN_PREFERENCE)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -2175,7 +2176,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 		}
@@ -2245,7 +2246,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = PresetColour.COVERING_BROWN;
@@ -2342,7 +2343,7 @@ public class Subspecies {
 						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour primaryColor = PresetColour.COVERING_ORANGE;
@@ -2450,7 +2451,7 @@ public class Subspecies {
 						new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType().getRace()==Race.CAT_MORPH) {
@@ -2929,7 +2930,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -3027,7 +3028,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
@@ -3128,7 +3129,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -3226,7 +3227,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
@@ -3321,7 +3322,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3399,7 +3400,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3480,7 +3481,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3563,7 +3564,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -3667,7 +3668,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
@@ -3777,7 +3778,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.SNOW, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.REINDEER_MORPH) {
@@ -3840,7 +3841,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.RIVER, SubspeciesSpawnRarity.ONE_VERY_RARE)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.ALLIGATOR_MORPH) {
@@ -3891,7 +3892,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public AbstractItemType getTransformativeItem(GameCharacter owner) {
@@ -4086,7 +4087,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.FOUR_COMMON)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.SQUIRREL_MORPH) {
@@ -4152,7 +4153,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON),
 					new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null) {
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE)), null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.RAT_MORPH) {
@@ -4216,7 +4217,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {
@@ -4305,7 +4306,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.THREE_UNCOMMON)),
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			null) {
+			null, null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
@@ -4400,7 +4401,7 @@ public class Subspecies {
 				new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 				new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.FOUR_COMMON),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			null) {
+			null, null) {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.BAT_MORPH) {
@@ -4471,7 +4472,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISBALE_SPAWN_PREFERENCE,
 				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
@@ -4565,7 +4566,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.TWO_RARE),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4670,7 +4671,7 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4773,7 +4774,7 @@ public class Subspecies {
 					new Value<>(WorldRegion.VOLCANO, SubspeciesSpawnRarity.TWO_RARE)),
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE)),
-			Util.newArrayListOfValues(
+			null, Util.newArrayListOfValues(
 					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -4863,7 +4864,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.SPELL_SCHOOL_FIRE,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Fire.", null, Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			"An arcane elemental bound to the school of Fire.", null, Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -4944,7 +4945,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.SPELL_SCHOOL_EARTH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Earth.", null, Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			"An arcane elemental bound to the school of Earth.", null, Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -5023,7 +5024,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.SPELL_SCHOOL_WATER,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Water.", null, Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			"An arcane elemental bound to the school of Water.", null, Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -5101,7 +5102,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.SPELL_SCHOOL_AIR,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Air.", null, Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			"An arcane elemental bound to the school of Air.", null, Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -5179,7 +5180,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.SPELL_SCHOOL_ARCANE,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Arcane.", null, Util.newHashMapOfValues(), Util.newArrayListOfValues(
+			"An arcane elemental bound to the school of Arcane.", null, Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public int getSubspeciesOverridePriority() {
@@ -5228,8 +5229,10 @@ public class Subspecies {
 	public static Map<AbstractSubspecies, String> subspeciesToIdMap = new HashMap<>();
 	public static Map<String, AbstractSubspecies> idToSubspeciesMap = new HashMap<>();
 
-	private static Map<AbstractWorldType, Map<AbstractSubspecies, SubspeciesSpawnRarity>> worldSpecies;
 	private static Map<WorldRegion, Map<AbstractSubspecies, SubspeciesSpawnRarity>> regionSpecies;
+	private static Map<AbstractWorldType, Map<AbstractSubspecies, SubspeciesSpawnRarity>> worldSpecies;
+	private static Map<AbstractPlaceType, Map<AbstractSubspecies, SubspeciesSpawnRarity>> placeSpecies;
+	
 	protected static Map<AbstractSubspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
 	protected static Map<AbstractRace, List<AbstractSubspecies>> subspeciesFromRace;
 	
@@ -5321,12 +5324,19 @@ public class Subspecies {
 		
 		worldSpecies = new HashMap<>();
 		regionSpecies = new HashMap<>();
+		placeSpecies = new HashMap<>();
 		dominionStormImmuneSpecies = new HashMap<>();
 		subspeciesFromRace = new HashMap<>();
 		
 		for(AbstractSubspecies species : Subspecies.getAllSubspecies()) {
 			subspeciesFromRace.putIfAbsent(species.getRace(), new ArrayList<>());
 			subspeciesFromRace.get(species.getRace()).add(species);
+			
+			for(Entry<WorldRegion, SubspeciesSpawnRarity> type : species.getRegionLocations().entrySet()) {
+				regionSpecies.putIfAbsent(type.getKey(), new HashMap<>());
+				regionSpecies.get(type.getKey()).put(species, type.getValue());
+			}
+			
 			for(Entry<AbstractWorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
 				worldSpecies.putIfAbsent(type.getKey(), new HashMap<>());
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
@@ -5338,9 +5348,10 @@ public class Subspecies {
 				} catch(Exception ex) {	
 				}
 			}
-			for(Entry<WorldRegion, SubspeciesSpawnRarity> type : species.getRegionLocations().entrySet()) {
-				regionSpecies.putIfAbsent(type.getKey(), new HashMap<>());
-				regionSpecies.get(type.getKey()).put(species, type.getValue());
+			
+			for(Entry<AbstractPlaceType, SubspeciesSpawnRarity> type : species.getPlaceLocations().entrySet()) {
+				placeSpecies.putIfAbsent(type.getKey(), new HashMap<>());
+				placeSpecies.get(type.getKey()).put(species, type.getValue());
 			}
 		}
 		
@@ -5357,10 +5368,11 @@ public class Subspecies {
 	
 	/**
 	 * @param worldType The WorldType from which to fetch Subspecies present.
+	 * @param placeType The PlaceType from which to fetch Subspecies present. Can be passed in as null to ignore.
 	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
 	 */
-	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {
+	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, AbstractPlaceType placeType, boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
 		regionSpecies.putIfAbsent(worldType.getWorldRegion(), new HashMap<>());
 		
@@ -5370,6 +5382,15 @@ public class Subspecies {
 				map.put(regionEntry.getKey(), regionEntry.getValue());
 			}
 		}
+		if(placeType!=null) {
+			placeSpecies.putIfAbsent(placeType, new HashMap<>());
+			for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
+				if(!map.containsKey(placeEntry.getKey())) {
+					map.put(placeEntry.getKey(), placeEntry.getValue());
+				}
+			}
+		}
+		
 		Map<AbstractSubspecies, SubspeciesSpawnRarity> filteredMap = new HashMap<>(map);
 		if(onlyCoreRaceSpecies) {
 			for(AbstractSubspecies sub : map.keySet()) {
