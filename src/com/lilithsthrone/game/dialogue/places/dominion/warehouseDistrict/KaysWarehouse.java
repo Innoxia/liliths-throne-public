@@ -530,7 +530,7 @@ public class KaysWarehouse {
 					return new Response("Surplus", "You've already taken today's surplus stock!", null);
 					
 				} else {
-					return new Response("Surplus", "Help yourself to today's surplus stock.", STORAGE_AREA_SEARCHED) {
+					return new Response("Surplus", "Help yourself to today's surplus stock.", STORAGE_AREA_SEARCHING) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kayCratesSearched, true);
@@ -539,11 +539,11 @@ public class KaysWarehouse {
 							clothingToGenerate.removeIf((clothing) -> clothing.getRarity()!=Rarity.COMMON || !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN) || clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN));
 							
 							Main.game.getTextEndStringBuilder().append(
-									UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "STORAGE_AREA_SEARCHING")
-									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
 									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), true), false)
 									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), true), false):"")
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), true), false):""));
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), true), false):"")
+							        + UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "STORAGE_AREA_SEARCHED"));
 						}
 					};
 				}
@@ -552,14 +552,14 @@ public class KaysWarehouse {
 		}
 	};
 	
-	public static final DialogueNode STORAGE_AREA_SEARCHED = new DialogueNode("Storage Room", "", false) {
+	public static final DialogueNode STORAGE_AREA_SEARCHING = new DialogueNode("Storage Room", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "STORAGE_AREA_SEARCHED");
+			return UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "STORAGE_AREA_SEARCHING");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1495,12 +1495,12 @@ public class KaysWarehouse {
 							Util.newArrayListOfValues(CoverableArea.VAGINA),
 							Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Kay.class), ClitMouth.CLIT_ORAL_START, false, true))));
 				} else {
-					responses.add(new Response("Clit sucked", "You a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"' in able to get it sucked by [kay.name].", null));
+					responses.add(new Response("Clit sucked", "You require a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"' before you are able to get it sucked by [kay.name].", null));
 				}
 				
 			} else {
-				responses.add(new Response("Receive cunnilingus", "You require a pussy and access to it in able to receive cunnilingus from [kay.name].", null));
-				responses.add(new Response("Clit sucked", "You require a pussy, a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"', and access to it in able to get it sucked by [kay.name].", null));
+				responses.add(new Response("Receive cunnilingus", "You require a pussy and access to it before you are able to receive cunnilingus from [kay.name].", null));
+				responses.add(new Response("Clit sucked", "You require a pussy, a clit of at least size '"+ClitorisSize.getMinimumClitorisSizeForPseudoPenis()+"', and access to it before you are able to get it sucked by [kay.name].", null));
 			}
 			
 			for(int i=0;i<responses.size();i++) {
