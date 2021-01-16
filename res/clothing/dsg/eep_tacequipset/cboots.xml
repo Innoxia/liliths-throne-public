@@ -1,136 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+
 <clothing>
-	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
-	Your clothing's id (which is very important to the game), is calculated from your clothing's folder and .xml name using the following code:
-		modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
-	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
-	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
-	
+
 	<coreAtributes>
 	
 		<authorTag><![CDATA[A tag sewn into the inside of the tounge of each boot reads "MFD by DSG Tanning Co."]]></authorTag>
-	
-		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
+
 		<value>700</value> 
-		
-		<!-- The determiner that's displayed before this item's name. While usually 'a' or 'an', for things like socks or gloves, you'll want to use 'a pair of'. I use the CDATA tag for all text values, as it allows html markup to be embedded without causing issues.-->
+
 		<determiner><![CDATA[a pair of]]></determiner>
-		
-		<!-- The name of this clothing. -->
+
 		<name><![CDATA[tactical combat boots]]></name>
-		
-		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
+
 		<namePlural pluralByDefault="true"><![CDATA[tactical combat boots]]></namePlural> 
-		
-		<!-- The description that's shown in tooltips and on the item's inspection page. -->
+
 		<description><![CDATA[A pair of sturdy combat boots. Unlike their traditional counterparts, these take elements from athletic shoes to improve the wearer's speed and agility at the expense of some durability.]]></description> 
-		
-		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
+
 		<physicalResistance>3</physicalResistance> 
-		
-		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
+
 		<femininity>ANDROGYNOUS</femininity> 
-		
-		<!-- The slot that this clothing fits into. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+
 		<slot>FOOT</slot> 
-		
-		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+
 		<rarity>EPIC</rarity> 
-		
-		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+
 		<clothingSet/>
-		
-		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
-		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
+
 		<imageName>cboots.svg</imageName> 
-		
-		<!-- The file path for this clothing's image while equipped. It's only used by condoms in the base game at the moment (so an unequipped condom in your inventory has a different image than while being worn). -->
+
 		<imageEquippedName/> 
-		
-		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 5, and is calculated as:
-			int base = (getClothingSet()==null?5:10);
-			return base + getIncompatibleSlots().size()*base;-->
+
 		<enchantmentLimit/>
-		
-		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
+
 		<effects/> 
-		
-		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
+
 		<blockedPartsList> 
-		
-			<!-- You can add as many blockedParts elements as you like, but they should each have a different 'displacementType', and THERE SHOULD BE AT LEAST ONE, OF TYPE 'REMOVE_OR_EQUIP'.-->
+
 			<blockedParts>
-			
-				<!-- If this clothing is displaced in the following way (in this case, by being removed), then the 'blockedBodyParts', 'clothingAccessBlocked', and 'concealedSlots' will all be revealed. If multiple 'blockedParts' block or conceal the same slot, only one 'blockedParts' needs to be displaced to reveal it. (e.g. If a pair of trousers has 'UNZIPS' and 'PULLS_DOWN' displacementTypes, and both of these contain the 'concealedSlots' 'slot' 'PENIS', then the penis will be revealed if either UNZIPS or PULLS_DOWN is activated.)
-				A full list of displacementTypes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				<!-- The access required to perform this displacementType. clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+
 				<clothingAccessRequired>
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
-				
-				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-				<blockedBodyParts/> <!-- Use the tag 'bodyPart' for values inserted here. -->
-				
-				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+
+				<blockedBodyParts/> 
+
 				<clothingAccessBlocked>
 					<clothingAccess>FEET</clothingAccess>
-				</clothingAccessBlocked> <!-- Use the tag 'clothingAccess' for values inserted here. -->
-				
-				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
-				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
+				</clothingAccessBlocked> 
+
+				<concealedSlots/> 
 			</blockedParts>
 		</blockedPartsList>
-		
-		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+
 		<incompatibleSlots/> 
-		
-		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours, secondaryColours, and tertiaryColours can all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
-		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff2a2a
-			#ff5555
-			#ff8080
-			#ffaaaa
-			#ffd5d5
-		Orange is used as base colour for changing the secondary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ff7f2a
-			#ff9955
-			#ffb380
-			#ffccaa
-			#ffe6d5
-		Yellow is used as base colour for changing the tertiary colour of the graphic in-game, and the game will only recognise and change the following colours:
-			#ffd42a
-			#ffdd55
-			#ffe680
-			#ffeeaa
-			#fff6d5
-		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
-		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
-		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_STEEL"/>
-		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
-		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
-		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
-		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
-		<tertiaryColoursDye values="ALL_METAL"/>
 		
-		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<tertiaryColoursDye values="ALL_METAL"/>
+
 		<itemTags> 
 			<tag>RIGID_MATERIAL</tag>
 			<tag>CONTRABAND_MEDIUM</tag>
 		</itemTags>
 	</coreAtributes>
 
-	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-	
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(put)] the boots on and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(wind)] the laces around the upper a few times, [npc.verb(tie)] a strudy knot and [npc.verb(tuck)] the excess neatly between the lacing and the toungue.]]>
@@ -142,8 +81,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(pull)] the laces as tightly as possible before tying a hasty knot.]]>
 		</otherRough>
 	</replacementText>
-	
-	<!-- 'displacementText' is used for removal and displacement. -->
+
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(untie)] the laces and pull the boots from [npc.her] [npc.feet].]]>
