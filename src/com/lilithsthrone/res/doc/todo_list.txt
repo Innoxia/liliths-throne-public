@@ -41,6 +41,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved damage calculations for special attacks. Added ability to set 'damageVariance' in modded combat moves. Added CombatMoveType POWER for use when defining special attacks instead of having to use ATTACK or SPELL. (PR#1473 by Stadler76)
 		Fixed references to the player using their wings in several scenes when the player was in fact able to fly without their wings. (PR#1483 by Stadler76)
 		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
+		Fixed an oversight for mer-tailed and serpent-tailed non-ferals where the full leg description, complete with references to feet, was being incorrectly shown. (PR#1487 by Stadler76)
 		
 	DSG's race fixes:
 		Race version 1.3:
@@ -114,6 +115,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		You can now get your milk, cum, and girlcum recoloured by Kate at Succubi's Secrets, and you will no longer see covering recolouring options for parts you do not have (e.g. Horn covering colours will no be displayed if you have no horns).
 		NPC surnames are now shown in their name tooltip.
 		Updated home icons for Arthur, Zaranix, Desryth, and Helena.
+		Added indication of a serpent-tail's length in characters' body tooltip.
 	
 	Bugs:
 		Numerous parsing fixes.
