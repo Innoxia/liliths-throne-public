@@ -246,9 +246,10 @@ public class RatWarrensDialogue {
 	public static void applyRatWarrensRaid() {
 		Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
 		Main.game.getPlayer().setNearestLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+
+		((Shadow)Main.game.getNpc(Shadow.class)).moveToBountyHunterLodge();
+		((Silence)Main.game.getNpc(Silence.class)).moveToBountyHunterLodge();
 		
-		Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-		Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		Main.game.getNpc(Shadow.class).removeItemByType(ItemType.RESONANCE_STONE);
 		
 		Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));

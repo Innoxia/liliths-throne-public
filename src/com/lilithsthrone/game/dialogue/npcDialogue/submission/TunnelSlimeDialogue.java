@@ -689,7 +689,7 @@ public class TunnelSlimeDialogue {
 			} else if (index == 5) {
 				if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
 					return new Response("Submit",
-							"You can't submit to [npc.name], as [npc.she] has no interest in having sex with you!",
+							"You can't submit to [npc.name], as [npc.sheHasFull] no interest in having sex with you!",
 							null);
 				} else {
 					return new ResponseSex("Submit",

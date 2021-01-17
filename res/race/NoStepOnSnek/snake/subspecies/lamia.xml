@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>NoStepOnSnek_snake</race>
+	<colour>NoStepOnSnek_snake</colour>
+	<secondaryColour>NoStepOnSnek_snake</secondaryColour>
+	<tertiaryColour>NoStepOnSnek_snake</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>10000</baseSlaveValue>
+	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
+	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>false</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges><![CDATA[
+		[#LEG_TYPE_NoStepOnSnek_snake_leg.applyLegConfigurationTransformation(targetedBody, LEG_CONFIGURATION_TAIL_LONG, true)]
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_NoStepOnSnek_snake && targetedBody.getLeg().getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG)
+			200
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="60">snake</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>snake</bookIconName>
+	<bookName>Clutching Coils</bookName>
+	<basicDescriptionId>SNAKE_BASIC</basicDescriptionId>
+	<advancedDescriptionId>SNAKE_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[lamia]]></name>
+	<namePlural><![CDATA[lamias]]></namePlural>
+	<singularMaleName><![CDATA[lamia-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[lamia-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[lamia-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[lamia-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic snake with the lower body of a typically-oversized feral snake, known as a 'lamia'.]]></description>
+	<nameHalfDemon><![CDATA[naga]]></nameHalfDemon>
+	<namePluralHalfDemon><![CDATA[nagas]]></namePluralHalfDemon>
+	<singularMaleNameHalfDemon><![CDATA[naga]]></singularMaleNameHalfDemon>
+	<singularFemaleNameHalfDemon><![CDATA[naga]]></singularFemaleNameHalfDemon>
+	<pluralMaleNameHalfDemon><![CDATA[nagas]]></pluralMaleNameHalfDemon>
+	<pluralFemaleNameHalfDemon><![CDATA[nagas]]></pluralFemaleNameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[snake]]></feralName>
+		<feralNamePlural><![CDATA[snakes]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[snake]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[snake]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[snakes]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[snakes]]></feralPluralFemaleName>
+		<legConfiguration>TAIL_LONG</legConfiguration>
+		<sizeHeight>false</sizeHeight>
+		<size>70</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		Although [npc.namePos] snake-like body is very quick and strong, [npc.she] can't regulate [npc.her] body temperature very well, and so [npc.sheIs] weak to both arcane ice and fire. On the positive side, [npc.she] [npc.has] a strong affinity with arcane poison.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="10">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="15">CRITICAL_DAMAGE</attribute>
+		<attribute value="25">DAMAGE_POISON</attribute>
+		<attribute value="-5">RESISTANCE_ICE</attribute>
+		<attribute value="-5">RESISTANCE_FIRE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="THREE_UNCOMMON">FIELD_CITY</region>
+		<region rarity="FOUR_COMMON">DESERT_CITY</region>
+		<region rarity="FOUR_COMMON">JUNGLE_CITY</region>
+		<region rarity="THREE_UNCOMMON">FIELDS</region>
+		<region rarity="THREE_UNCOMMON">WOODLAND</region>
+		<region rarity="TWO_RARE">SAVANNAH</region>
+		<region rarity="FOUR_COMMON">DESERT</region>
+		<region rarity="FOUR_COMMON">JUNGLE</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

@@ -1066,7 +1066,8 @@ public class DebugDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
+			StringBuilder sb = new StringBuilder();
+			sb.append("<p>"
 						+ "Select one of the races to reset your body to the default values of that race. (i.e. Regenerate your current body as that of a different race.)"
 					+ "</p>"
 					+ "<p>"
@@ -1074,7 +1075,17 @@ public class DebugDialogue {
 						+ "[style.colourTfMinor(Minor)]: Same as partial, but also includes ass, breasts, penis, and vagina.</br>"
 						+ "[style.colourTfLesser(Lesser)]: Same as minor, but also includes arms and legs.</br>"
 						+ "[style.colourTfGreater(Greater)]: Sets all parts to the race's.</br>"
-					+ "</p>";
+					+ "</p>"
+					+ "<p>"
+					+ "<b>IDs:</b><br/>");
+			for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
+				sb.append("<span style='color:"+sub.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(Main.game.getPlayer()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
+				sb.append("</br>");
+			}
+			
+			sb.append("</p>");
+			
+			return sb.toString();
 		}
 		
 		@Override

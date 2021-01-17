@@ -347,14 +347,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite thick in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very thick in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely thick and girthy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -377,14 +380,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness and fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
-					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
+				case FIVE_THICK:
+					sb.append(UtilText.parse(owner, " very big and fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely thick and fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -407,14 +413,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size and fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely thick and fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -437,14 +446,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average volume in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely voluminous in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -467,14 +479,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size and volume in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite large and voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very large and voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely voluminous in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -497,14 +512,17 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite large in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very large in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
-					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
+				case SIX_CHUBBY:
+					sb.append(UtilText.parse(owner, " incredibly large in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely large in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -527,12 +545,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "average";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "thick";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-thick";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-thick";
+				case SEVEN_FAT:
+					return "unbelievably-thick";
 			}
 		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_FUR)) {
@@ -545,12 +565,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "fluffy";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "very-fluffy";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-fluffy";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-fluffy";
+				case SEVEN_FAT:
+					return "unbelievably-fluffy";
 			}
 		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_TUFT)) {
@@ -563,12 +585,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "fluffy";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "very-fluffy";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-fluffy";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-fluffy";
+				case SEVEN_FAT:
+					return "unbelievably-fluffy";
 			}
 		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_HAIR)) {
@@ -581,12 +605,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "average";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "voluminous";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-voluminous";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-voluminous";
+				case SEVEN_FAT:
+					return "unbelievably-voluminous";
 			}
 		}
 
@@ -600,12 +626,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "average";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "voluminous";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-voluminous";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-voluminous";
+				case SEVEN_FAT:
+					return "unbelievably-voluminous";
 			}
 		}
 		if(this.getTags().contains(BodyPartTag.TAIL_TYPE_GENERIC)) {
@@ -618,12 +646,14 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "average";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "large";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "huge";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "massive";
+				case SEVEN_FAT:
+					return "colossal";
 			}
 		}
 		

@@ -6543,7 +6543,13 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6658,7 +6664,14 @@ public class InventoryDialogue {
 				
 				for(Colour c : cr.getAllColours()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_WEAPON_"+i+"_"+c.getId()+"'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")
+										+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"

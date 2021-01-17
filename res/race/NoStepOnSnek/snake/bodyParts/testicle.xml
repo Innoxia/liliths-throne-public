@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>NoStepOnSnek_snake</race>
+	<coveringType>SNAKE_SCALES</coveringType>
+	<fluidType>NoStepOnSnek_snake_cum</fluidType>
+	<internal>true</internal>
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+</testicle>

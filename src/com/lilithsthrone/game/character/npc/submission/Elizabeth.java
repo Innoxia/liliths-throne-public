@@ -104,7 +104,7 @@ public class Elizabeth extends NPC {
 					PersonalityTrait.BRAVE);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.FOUR_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		}
 	}
 
@@ -146,7 +146,7 @@ public class Elizabeth extends NPC {
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FOUR_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());

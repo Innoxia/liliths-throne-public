@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<leg>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[snake]]></transformationName>
+	<coveringType>SNAKE_SCALES</coveringType>
+	<defaultFootStructure>PLANTIGRADE</defaultFootStructure>
+	<footType>REPTILIAN</footType>
+	<spinneret>false</spinneret>
+	<tentacleType>NONE</tentacleType>
+	<tentacleCount>0</tentacleCount>
+	<allowedLegConfigurations>
+		<configuration>TAIL_LONG</configuration>
+		<configuration>BIPEDAL</configuration>
+	</allowedLegConfigurations>
+	<name><![CDATA[leg]]></name>
+	<namePlural><![CDATA[legs]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>masculine</descriptor>
+		<descriptor>scaly</descriptor>
+		<descriptor>anthropomorphic, reptilian</descriptor>
+		<descriptor>scale-covered</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>scaly</descriptor>
+		<descriptor>anthropomorphic, reptilian</descriptor>
+		<descriptor>scale-covered</descriptor>
+	</descriptorsFeminine>
+	<footDescriptorsMasculine>
+		<descriptor>reptilian</descriptor>
+	</footDescriptorsMasculine>
+	<footDescriptorsFeminine>
+		<descriptor>reptilian</descriptor>
+	</footDescriptorsFeminine>
+	<toeDescriptorsMasculine>
+		<descriptor>reptilian</descriptor>
+	</toeDescriptorsMasculine>
+	<toeDescriptorsFeminine>
+		<descriptor>reptilian</descriptor>
+	</toeDescriptorsFeminine>
+	<transformationDescription><![CDATA[
+		A layer of reptilian scales quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new scales spread down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little scales grow to cover [npc.her] soles, leaving [npc.herHim] with reptilian feet. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new scales smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
+		<br/>[npc.Name] now [npc.has] anthropomorphic, [style.boldSnake(reptilian legs and feet)], which are [npc.materialDescriptor] [npc.legFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into anthropomorphic reptilian feet, complete with sharp claws.
+	]]></bodyDescription>
+</leg>

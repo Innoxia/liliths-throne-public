@@ -27,6 +27,13 @@
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
 		</blockedPartsList>
 		
 		<incompatibleSlots/>

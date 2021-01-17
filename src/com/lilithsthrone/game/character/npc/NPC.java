@@ -331,18 +331,19 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(npcSpecificElement!=null) {
 			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
-
-			Element e = (Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0);
-			if(e!=null) {
-				npc.setLastTimeHadSex(Long.valueOf(e.getAttribute("value")), false);
-			}
 			
-			e = (Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0);
-			if(e!=null) {
-				npc.setLastTimeOrgasmed(Long.valueOf(e.getAttribute("value")));
-			} else {
-				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
-			}
+			// Moved to GameCharacter element some time long ago...
+//			Element e = (Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0);
+//			if(e!=null) {
+//				npc.setLastTimeHadSex(Long.valueOf(e.getAttribute("value")), false);
+//			}
+//			
+//			e = (Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0);
+//			if(e!=null) {
+//				npc.setLastTimeOrgasmed(Long.valueOf(e.getAttribute("value")));
+//			} else {
+//				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
+//			}
 			
 			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
 			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
@@ -351,7 +352,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 			NodeList npcValues = ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue");
 			for(int i = 0; i < npcValues.getLength(); i++){
-				e = (Element) npcValues.item(i);
+				Element e = (Element) npcValues.item(i);
 				try {
 					npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
 				} catch(Exception ex) {
@@ -880,8 +881,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return null;
 	};
 	
+	/**
+	 * @return The chance of enemies managing to escape from this NPC. Defined as an int from 0-100, representing percentage.
+	 */
 	public int getEscapeChance() {
-		return 30;
+		return (int) (30 * (this.hasTrait(Perk.JOB_BOUNTY_HUNTER, true)?0.5f:1));
 	}
 
 	public boolean isSurrendersAtZeroMana() {

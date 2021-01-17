@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bookText>
+	
+	<htmlContent tag="CAPYBARA_BASIC"><![CDATA[
+	<p>
+		Capybara-morphs are almost exclusively found in the temperate fields and forests surrounding Dominion, although the odd individual may sometimes be seen wandering the streets of the city. Rounded ears and their distinctive, large blunt snouts are usually enough to identify a person as a capybara-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CAPYBARA_ADVANCED"><![CDATA[
+	<p>
+		While the individual personalities of capybara-morphs vary greatly from one individual to another, they have a reputation for being extremely relaxed and unflappable.
+	</p>
+	<p>
+		Like most other races, capybara-morphs get affected by arcane storms. However, due to the fact that most of them live far away from Dominion's epicentre of such storms, they typically only experience mild effects.
+	</p>
+	<p>
+		A capybara-morph's offspring will be a mixture of capybara-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+	
+</bookText>

@@ -532,7 +532,7 @@ public class RedLightDistrict {
 				};
 				
 			} else if(index == 2) {
-				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
+				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.sheHasFull] in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -580,7 +580,7 @@ public class RedLightDistrict {
 				};
 				
 			} else if(index == 2) {
-				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
+				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.sheHasFull] in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(

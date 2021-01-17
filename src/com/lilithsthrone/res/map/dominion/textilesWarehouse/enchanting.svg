@@ -1,0 +1,22 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="spoolGradient" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -1284.7)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <ellipse cx="32" cy="32" rx="30.383" ry="30.381" fill="url(#spoolGradient)" fill-rule="evenodd"/>
+ <g transform="translate(0 .59416)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m17.532 16.569h28.936" stroke-width="4.0725"/>
+  <path d="m17.532 46.243h28.936" stroke-width="4.0725"/>
+  <g stroke-width="2.4435">
+   <path d="m20.746 20.806h22.507"/>
+   <path d="m20.746 31.252h22.507"/>
+   <path d="m20.746 27.605h22.329c4.3898 0 6.3099 6.3896 6.5204 11.302 0.25374 5.9223 7.1469 6.5595 7.572-0.14504"/>
+   <path d="m20.746 38.609h22.507"/>
+   <path d="m20.746 34.982h22.507"/>
+   <path d="m20.746 42.209h22.507"/>
+   <path d="m20.746 24.106h22.507"/>
+  </g>
+ </g>
+</svg>

@@ -50,6 +50,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Kay;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
@@ -63,6 +64,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -490,6 +492,7 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							Main.sex.getTargetedPartner(Main.game.getPlayer()).generateSexChoices(true, Main.game.getPlayer());
 //							Main.game.getPlayer().setFeral(Subspecies.HORSE_MORPH);
 //							UtilText.addSpecialParsingString("true", true);
 //							System.out.println(UtilText.parse("#IF([#SPECIAL_PARSE_0]):3#ELSE:(#ENDIF"));
@@ -658,11 +661,16 @@ public class MainController implements Initializable {
 							}
 						}
 						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME
-								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY){
-							GameCharacter slave =
-									Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
-										?BodyChanging.getTarget()
-										:Main.game.getDialogueFlags().getManagementCompanion();
+								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
+								|| Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+							
+							GameCharacter slave = Main.game.getDialogueFlags().getManagementCompanion();
+							if(Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
+								slave = BodyChanging.getTarget();
+							} else if(Main.game.getCurrentDialogueNode() == KaysWarehouse.KAY_OFFICE_DOMINATE_NAMING) {
+								slave = Main.game.getNpc(Kay.class);
+							}
+							GameCharacter slaveFinal = slave;
 							
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
@@ -681,7 +689,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slaveFinal.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -708,7 +716,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+													slaveFinal.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 												}
 											});
 										} else {
@@ -734,7 +742,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													slave.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slaveFinal.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -1190,10 +1198,10 @@ public class MainController implements Initializable {
 											} else {
 												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
 												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-												Main.game.getTextStartStringBuilder().append(
-														"<p style='text-align:center'>"
-															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
-														+ "</p>");
+												Main.game.getTextStartStringBuilder()
+													.append("<p style='text-align:center'>[style.italicsAir(")
+													.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? "With a flap of your wings, you" : "You")
+													.append(" launch yourself into the air, before swiftly flying to your destination!)]</p>");
 												Main.game.setContent(new Response("", "", dn) {
 													@Override
 													public int getSecondsPassed() {
@@ -1882,7 +1890,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 					
 					// Set target to whoever is interacting with this area:
-					if(Main.game.isInSex()) { //TODO add click helper text
+					if(Main.game.isInSex()) { //TODO add click helper text //TODO add border or something to show that it's clickable
 						SexAreaInterface si = null;
 						if(se==StatusEffect.PENIS_STATUS) {
 							si = SexAreaPenetration.PENIS;
@@ -2353,6 +2361,9 @@ public class MainController implements Initializable {
 	}
 	
 	public void setTooltipContent(String content) {
+		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
+			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
+		}
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {

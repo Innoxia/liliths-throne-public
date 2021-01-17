@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>NoStepOnSnek_snake</race>
+	<transformationName><![CDATA[pointed snake]]></transformationName>
+	<coveringType>SNAKE_SCALES</coveringType>
+	<tags/>
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>scaly</descriptor>
+		<descriptor>pointed</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>scaly</descriptor>
+		<descriptor>pointed</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		The hot itching feeling passes after a few moments, leaving [npc.herHim] with delicate, scaly ears, with long, pointed tips.<br/>
+		[npc.Name] now [npc.has] [style.boldSnake(pointed snake-ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of pointed snake ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)]#IF(npc.isPiercedEar()), and which have been pierced#ENDIF.
+		#IF(npc.getFaceType()==FACE_TYPE_HUMAN)
+			 Small patches of scales extend from the base of [npc.her] ears down onto [npc.her] cheeks.
+		#ENDIF
+	]]></bodyDescription>
+</ear>

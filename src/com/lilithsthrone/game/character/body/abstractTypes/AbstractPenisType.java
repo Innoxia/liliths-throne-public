@@ -43,6 +43,8 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+
+	private boolean pubicHairAllowed;
 	
 	private AbstractTesticleType testicleType;
 	
@@ -90,6 +92,9 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			String transformationDescription,
 			String bodyDescription,
 			List<PenetrationModifier> defaultRacialPenetrationModifiers) {
+
+		this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+		
 		this.coveringType = coveringType;
 		this.race = race;
 		this.testicleType = testicleType;
@@ -146,9 +151,15 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 				this.fromExternalFile = true;
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+
+				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
+					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+				}
 				
 				this.testicleType = TesticleType.getTesticleTypeFromId(coreElement.getMandatoryFirstOf("testicleType").getTextContent());
 				
@@ -204,6 +215,10 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isPubicHairAllowed() {
+		return pubicHairAllowed;
+	}
+
 	@Override
 	public String getTransformationNameOverride() {
 		return transformationName;

@@ -180,7 +180,7 @@ public class RatWarrensCaptive extends NPC {
 			this.addAssOrificeModifier(OrificeModifier.PUFFY);
 			this.setAssWetness(Wetness.FIVE_SLOPPY);
 			this.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
-			this.setAssCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SIX_GIRTHY), true);
+			this.setAssCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
 			this.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
 			this.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
 			if(Main.game.isAssHairEnabled()) {
@@ -203,7 +203,7 @@ public class RatWarrensCaptive extends NPC {
 		this.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
 		this.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
-		this.setVaginaCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SIX_GIRTHY), true);
+		this.setVaginaCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
 		
 		if(Main.game.isPubicHairEnabled()) {
 			this.setPubicHair(BodyHair.FOUR_NATURAL);

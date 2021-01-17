@@ -24,7 +24,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, you got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
+				[npc.speech(That's right, you got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(Just because I love being a mommy, don't think I'm letting you off the hook! I'm still so fucking horny all the time, so you're going to give me another good fuck, understand?!)]
 				#ELSE
@@ -45,7 +45,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, you got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
+				[npc.speech(That's right, you got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
 				#IF(npc.isAttractedTo(com))
 					 [npc.speech(Just because I love being a mommy, don't think I'm letting you off the hook! I'm so fucking horny all the time, and you're going to take responsibility for that!)]
 				#ELSE
@@ -66,7 +66,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me knocked up!)] [npc.name] shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. Sensually running [npc.her] [npc.fingers+] over [npc.her] swollen belly, [npc.she] exclaims,
 				#IF(npc.isAttractedTo(pc))
 					 [npc.speech(Just because I love being a mommy, don't think I'm letting you off the hook! I'm so fucking horny all the time, and you're going to take responsibility for that!)]
 				#ELSE
@@ -222,7 +222,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! Isn't it just fantastic?!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! Isn't it just fantastic?!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 			#ELSE
 				[npc.speech(Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that you're the father of [npc.her] children.
 			#ENDIF
@@ -238,7 +238,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(Yeah, before you ask, it was you, [com.name()]! You got me knocked up! Isn't it just so fantastic?!)] she explains to your [com.companion], the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that [com.name] is the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was you, [com.name()]! You got me knocked up! Isn't it just so fantastic?!)] she explains to your [com.companion], the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that [com.name] is the father of [npc.her] children, [npc.she] continues,
 			#ELSE
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children.
 			#ENDIF
@@ -254,7 +254,7 @@
 		</p>
 		<p>
 			#IF(npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! Isn't it just so fantastic?!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
+				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]! They got me knocked up! Isn't it just so fantastic?!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.sheHasFull] a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 			#ELSE
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFatherName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children.
 			#ENDIF
@@ -1196,7 +1196,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [com.name], [npc.name] reveals that [npc.she] has plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [com.name], [npc.name] reveals that [npc.sheHasFull] plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another pair of bottles, before shoving their necks into [com.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1206,7 +1206,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_TF"><![CDATA[
 	<p>
-		Turning towards your companion, [com.name], [npc.name] reveals that [npc.she] has plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
+		Turning towards your companion, [com.name], [npc.name] reveals that [npc.sheHasFull] plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect [npc.preferredBody(b)], just like [pc.herHim]!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [com.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]
@@ -1216,7 +1216,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_COMPANION_FETISH"><![CDATA[
 	<p>
-		Turning towards your companion, [com.name], [npc.name] reveals that [npc.she] has plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
+		Turning towards your companion, [com.name], [npc.name] reveals that [npc.sheHasFull] plans for [com.herHim] as well, [npc.speech(You're going to join your friend here and become a perfect partner for me!)]
 	</p>
 	<p>
 		In much the same way as [npc.sheHas] just done with you, [npc.name] quickly grabs and opens another bottle, before shoving its neck into [com.namePos] mouth, growling, [npc.speech(That's it! Get transformed!)]

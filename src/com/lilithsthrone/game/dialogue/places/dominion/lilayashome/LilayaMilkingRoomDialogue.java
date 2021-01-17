@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -155,10 +154,10 @@ public class LilayaMilkingRoomDialogue {
 							UtilText.parse(getMilkingTarget(),
 									(getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative()
 											?(getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()
-												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for both the "
+												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for both the "
 													+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" and "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetishes."
-												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" fetish.")
-											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetish.")),
+												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" fetish.")
+											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetish.")),
 							null);
 					
 				} else {
@@ -242,10 +241,10 @@ public class LilayaMilkingRoomDialogue {
 							UtilText.parse(getMilkingTarget(),
 									(getMilkingTarget().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative()
 											?(getMilkingTarget().getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative()
-												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for both the "
+												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for both the "
 													+Fetish.FETISH_CUM_STUD.getName(getMilkingTarget())+" and "+Fetish.FETISH_PENIS_GIVING.getName(getMilkingTarget())+" fetishes."
-												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_CUM_STUD.getName(getMilkingTarget())+" fetish.")
-											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_PENIS_GIVING.getName(getMilkingTarget())+" fetish.")),
+												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_CUM_STUD.getName(getMilkingTarget())+" fetish.")
+											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_PENIS_GIVING.getName(getMilkingTarget())+" fetish.")),
 							null);
 					
 				} else {
@@ -277,8 +276,7 @@ public class LilayaMilkingRoomDialogue {
 						public boolean postEndTurnEffects() {
 							int milked = MilkingRoom.getActualCumPerHour(getMilkingTarget());
 							getMilkingTarget().incrementPenisStoredCum(-milked);
-							getMilkingTarget().removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-							getMilkingTarget().setLastTimeOrgasmed(Main.game.getMinutesPassed());
+							getMilkingTarget().setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 							return true;
 						}
 					};
@@ -326,7 +324,7 @@ public class LilayaMilkingRoomDialogue {
 						&& getMilkingTarget().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
-							UtilText.parse(getMilkingTarget(), "As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_VAGINAL_RECEIVING.getName(getMilkingTarget())+" fetish."),
+							UtilText.parse(getMilkingTarget(), "As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_VAGINAL_RECEIVING.getName(getMilkingTarget())+" fetish."),
 							null);
 					
 				}else {
@@ -356,8 +354,7 @@ public class LilayaMilkingRoomDialogue {
 						}
 						@Override
 						public boolean postEndTurnEffects() {
-							getMilkingTarget().removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-							getMilkingTarget().setLastTimeOrgasmed(Main.game.getMinutesPassed());
+							getMilkingTarget().setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
 							return true;
 						}
 					};
@@ -421,10 +418,10 @@ public class LilayaMilkingRoomDialogue {
 							UtilText.parse(getMilkingTarget(),
 									(getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative()
 											?(getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative()
-												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for both the "
+												?"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for both the "
 													+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" and "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetishes."
-												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" fetish.")
-											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetish.")),
+												:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_LACTATION_SELF.getName(getMilkingTarget())+" fetish.")
+											:"As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.sheHasFull] a negative desire for the "+Fetish.FETISH_BREASTS_SELF.getName(getMilkingTarget())+" fetish.")),
 							null);
 					
 				} else {
