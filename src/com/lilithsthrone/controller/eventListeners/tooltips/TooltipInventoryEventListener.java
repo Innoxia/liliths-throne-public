@@ -121,7 +121,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			tattooTooltip(tattoo);
 			
 		} else if(dyeClothing != null) {
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480);
 
 			Colour subtitleColour = dyeClothing.isEnchantmentKnown()?dyeClothing.getRarity().getColour():PresetColour.RARITY_UNKNOWN;
 
@@ -136,8 +136,15 @@ public class TooltipInventoryEventListener implements EventListener {
 				dyeColours.remove(colourIndex);
 				dyeColours.add(colourIndex, colour);
 				tooltipSB.append("<div class='title' style='color:" + subtitleColour.toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>"
+						+ "<div class='subTitle'>"
+							+ Util.capitaliseSentence(colour.getName())
+							+" ("
+							+ (dyeClothing.getClothingType().getColourReplacement(colourIndex).getDefaultColours().contains(colour)
+								?"Standard Colour"
+								:"Non-standard Colour")
+							+")"
+						+ "</div>"
+						+ "<div class='picture full' style='position:relative; margin:8px; padding:0; width:calc("+TOOLTIP_WIDTH+"px - 24px); height:calc("+TOOLTIP_WIDTH+"px - 24px);'>"
 						+ dyeClothing.getClothingType().getSVGImage(
 								slotEquippedTo,
 								dyeColours,
@@ -152,7 +159,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				dyeColours.add(colourIndex, patternColour);
 				tooltipSB.append("<div class='title' style='color:" + subtitleColour.toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(Pattern.getPattern(InventoryDialogue.dyePreviewPattern).getNiceName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>"
+						+ "<div class='picture full' style='position:relative; margin:8px; padding:0; width:calc("+TOOLTIP_WIDTH+"px - 24px); height:calc("+TOOLTIP_WIDTH+"px - 24px);'>"
 						+ dyeClothing.getClothingType().getSVGImage(
 								slotEquippedTo,
 								InventoryDialogue.dyePreviews,
@@ -166,7 +173,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if(dyeWeapon != null) {
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH-40, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>");
@@ -175,14 +182,21 @@ public class TooltipInventoryEventListener implements EventListener {
 				List<Colour> dyeColours = new ArrayList<>(InventoryDialogue.dyePreviews);
 				dyeColours.remove(colourIndex);
 				dyeColours.add(colourIndex, colour);
-				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>"
+				tooltipSB.append("<div class='subTitle'>"
+							+ Util.capitaliseSentence(colour.getName()) 
+							+" ("
+							+ (dyeClothing.getClothingType().getColourReplacement(colourIndex).getDefaultColours().contains(colour)
+								?"Standard Colour"
+								:"Non-standard Colour")
+							+")"
+						+ "</div>"
+						+ "<div class='picture full' style='position:relative; margin:8px; padding:0; width:calc("+TOOLTIP_WIDTH+"px - 24px); height:calc("+TOOLTIP_WIDTH+"px - 24px);'>"
 							+ dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), dyeColours)
 						+ "</div>");
 			
 			} else if(damageType!=null) {
 				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(damageType.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>"
+						+ "<div class='picture full' style='position:relative; margin:8px; padding:0; width:calc("+TOOLTIP_WIDTH+"px - 24px); height:calc("+TOOLTIP_WIDTH+"px - 24px);'>"
 							+ dyeWeapon.getWeaponType().getSVGImage(damageType, InventoryDialogue.dyePreviews)
 						+ "</div>");
 			}

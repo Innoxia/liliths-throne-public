@@ -247,7 +247,7 @@ public class DominionExpress {
 						StringBuilder sb = new StringBuilder(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_HUNG"));
 						sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_GENERIC_END"));
 						sb.append(Main.game.getPlayer().incrementPenisSize(10));
-						if(Main.game.getPlayer().getPenisGirth().getValue()<PenetrationGirth.FIVE_FAT.getValue()) {
+						if(Main.game.getPlayer().getPenisGirth().getValue()<PenetrationGirth.FIVE_THICK.getValue()) {
 							sb.append(Main.game.getPlayer().incrementPenisGirth(1));
 						}
 						if(Main.game.getPlayer().getTesticleSize().getValue()<TesticleSize.FIVE_MASSIVE.getValue()) {
@@ -481,7 +481,7 @@ public class DominionExpress {
 		}
 		npc.setLocation(Main.game.getPlayer(), false);
 		
-		npc.setLastTimeOrgasmed(Main.game.getMinutesPassed()-(25*60));
+		npc.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()-(25*60*60));
 		
 		try {
 			Main.game.addNPC(npc, false);

@@ -21,7 +21,6 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -85,8 +84,8 @@ public class DialogueFlags implements XMLSaving {
 	// Enforcer warehouse guards defeated:
 	public Set<String> warehouseDefeatedIDs = new HashSet<>();
 
-	// Storage tiles checked:
-	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
+//	// Storage tiles checked:
+//	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
 	
 	public DialogueFlags() {
@@ -184,15 +183,14 @@ public class DialogueFlags implements XMLSaving {
 		
 		saveSet(element, doc, warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
-		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
-		element.appendChild(supplierStorageRoomsCheckedElement);
-		for(Vector2i value : supplierStorageRoomsChecked) {
-			Element location = doc.createElement("location");
-			supplierStorageRoomsCheckedElement.appendChild(location);
-			XMLUtil.addAttribute(doc, location, "x", String.valueOf(value.getX()));
-			XMLUtil.addAttribute(doc, location, "y", String.valueOf(value.getY()));
-		}
-		
+//		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
+//		element.appendChild(supplierStorageRoomsCheckedElement);
+//		for(Vector2i value : supplierStorageRoomsChecked) {
+//			Element location = doc.createElement("location");
+//			supplierStorageRoomsCheckedElement.appendChild(location);
+//			XMLUtil.addAttribute(doc, location, "x", String.valueOf(value.getX()));
+//			XMLUtil.addAttribute(doc, location, "y", String.valueOf(value.getY()));
+//		}
 		
 		return element;
 	}
@@ -307,16 +305,16 @@ public class DialogueFlags implements XMLSaving {
 		
 		loadSet(parentElement, doc, newFlags.warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
-		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
-			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
-				Element e = (Element) ((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").item(i);
-				
-				newFlags.supplierStorageRoomsChecked.add(
-						new Vector2i(
-								Integer.valueOf(e.getAttribute("x")),
-								Integer.valueOf(e.getAttribute("y"))));
-			}
-		}
+//		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
+//			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
+//				Element e = (Element) ((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").item(i);
+//				
+//				newFlags.supplierStorageRoomsChecked.add(
+//						new Vector2i(
+//								Integer.valueOf(e.getAttribute("x")),
+//								Integer.valueOf(e.getAttribute("y"))));
+//			}
+//		}
 
 		return newFlags;
 	}
@@ -456,7 +454,7 @@ public class DialogueFlags implements XMLSaving {
 	}
 	
 	public boolean hasHelenaConversationTopic(HelenaConversationTopic topic) {
-		return reindeerEncounteredIDs.contains(topic.toString());
+		return helenaConversationTopics.contains(topic.toString());
 	}
 	
 	public void addReindeerEncountered(String reindeerID) {

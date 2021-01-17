@@ -75,11 +75,10 @@ public class HarpyNestsDialogue {
 					@Override
 					public void effects() {
 						if(Main.game.getPlayer().isAbleToFly()) {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Stepping back out through the same door you used to enter the Enforcer post, you spread your wings and swoop back down to street level."
-									+ "</p>");
-							
+							Main.game.getTextStartStringBuilder()
+								.append("<p>Stepping back out through the same door you used to enter the Enforcer post, you")
+								.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? " spread your wings and" : "")
+								.append(" swoop back down to street level.</p>");
 						} else {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"

@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
@@ -79,14 +80,16 @@ public class SubmissionAttacker extends NPC {
 			
 			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+				Map<AbstractSubspecies, SubspeciesSpawnRarity> worldSpeciesMap = Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 				if(s==Subspecies.SLIME) {
 					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
-				} else if(s==Subspecies.IMP || s==Subspecies.IMP_ALPHA) {
-					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
-					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(worldSpeciesMap.containsKey(s)) {
+					if(s==Subspecies.IMP || s==Subspecies.IMP_ALPHA) {
+						AbstractSubspecies.addToSubspeciesMap((int) (100 * worldSpeciesMap.get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					} else {
+						AbstractSubspecies.addToSubspeciesMap((int) (100 * worldSpeciesMap.get(s).getChanceMultiplier()), gender, s, availableRaces);
+					}
 				}
 			}
 

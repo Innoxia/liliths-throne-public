@@ -231,6 +231,10 @@ public abstract class AbstractBodyCoveringType {
 						this.naturalModifiers.add(CoveringModifier.valueOf(e.getTextContent()));
 					}
 				}
+				if(this.naturalModifiers.isEmpty()) {
+					System.err.println("WARNING: AbstractBodyCoveringType mod did not have any naturalModifiers defined! SMOOTH added for error-prevention.");
+					this.naturalModifiers.add(CoveringModifier.SMOOTH);
+				}
 				
 				this.extraModifiers = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("extraCoveringModifiers").isPresent()) {

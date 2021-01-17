@@ -87,10 +87,6 @@ public enum DialogueFlagValue {
 	nyanSex(true),
 	nyanGift(true),
 	
-	supplierDepotDoorUnlocked,
-	suppliersEncountered,
-	suppliersTriedConvincing,
-	
 	ashleySexToysDiscovered,
 	ashleyAttitude,
 	
@@ -212,6 +208,23 @@ public enum DialogueFlagValue {
 	natalyaDailySexAsSub(true),
 	natalyaDailySexAsDom(true),
 	
+	// Kay:
+	kayTalkedTo(true),
+	kayFlirtedWith(true),
+	kaySubmitted,
+	kayPreviouslyFeminised,
+	kayFeminised,
+
+	kayDommed(true),
+	
+	kayCratesSearched(true),
+	dobermannDefeatPaid,
+	dobermannDefeatEnforcer,
+	dobermannDefeatDemon,
+	dobermannDefeatSeduced,
+	dobermannDefeatCombat,
+	supplierDepotDoorUnlocked, // Named 'suppliers' from old quest structure, refers to dobermanns
+	suppliersEncountered,
 	
 	// Zaranix:
 	zaranixDiscoveredHome,

@@ -503,7 +503,7 @@ public class LegType {
 	
 	public static AbstractLegType SQUIRREL_MORPH = new AbstractLegType(BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",
@@ -526,7 +526,7 @@ public class LegType {
 	
 	public static AbstractLegType RAT_MORPH = new AbstractLegType(BodyCoveringType.RAT_FUR,
 			Race.RAT_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",
@@ -549,7 +549,7 @@ public class LegType {
 	
 	public static AbstractLegType RABBIT_MORPH = new AbstractLegType(BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			FootStructure.DIGITIGRADE,
+			FootStructure.PLANTIGRADE,
 			FootType.PAWS,
 			"a pair of",
 			"leg",

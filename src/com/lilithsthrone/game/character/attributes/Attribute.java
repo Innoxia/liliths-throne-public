@@ -148,6 +148,23 @@ public class Attribute {
 			}
 		}
 	};
+	
+	public static AbstractAttribute RESTING_LUST = new AbstractAttribute(false,
+			0,
+			0,
+			80,
+			"resting lust",
+			"Resting lust",
+			"arousalIcon",
+			PresetColour.ATTRIBUTE_LUST,
+			"passion",
+			"indifference",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The amount of lust which [npc.name] naturally gravitates towards over a period of time.");
+		}
+	};
 
 	public static AbstractAttribute MAJOR_PHYSIQUE = new AbstractAttribute(false,
 			0,

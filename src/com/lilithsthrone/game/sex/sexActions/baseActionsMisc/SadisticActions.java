@@ -49,13 +49,13 @@ public class SadisticActions {
 				assFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(target))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.ASS);
 			} catch(Exception ex) {
-				// No available finger-ass actions, so can't reach face
+				// No available finger-ass actions, so can't reach ass
 			}
 			try {
 				assFingerReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(target)).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
 						.getInteractions().get(SexAreaOrifice.ASS).contains(SexAreaPenetration.FINGER);
 			} catch(Exception ex) {
-				// No available finger-ass actions, so can't reach face
+				// No available finger-ass actions, so can't reach ass
 			}
 			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.isDom(target)

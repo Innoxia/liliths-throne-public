@@ -15,7 +15,8 @@ public enum BodyPartTag {
 	ECHO_LOCATION,
 	/** Removes the 'Darkness' status effect when in an unlit area. Granted by snake snoots. */
 	THERMAL_VISION,
-	
+	/** For races which have some kind of special flight ability not granted by arm-wings or real wings, use this tag on the relevant body part. */
+	ALLOWS_FLIGHT,
 	
 	// Torso:
 	

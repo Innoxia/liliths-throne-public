@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription printed on the peel reads 'Picked by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>1000</value> 
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[Yellow Dragonfruit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Yellow Dragonfruits]]></namePlural>
+		<description><![CDATA[Named for the scaly, spiky leaves on its exterior, this rare fruit was first cultivated by dragon-morphs centuries ago. Legend has it that every hidden grove where it now grows was once a dragon's home. This variety grows best in rocky and sandy soils.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>EPIC</rarity> 
+		
+		<imageName>dragon_dragonfruit_yellow.svg</imageName>
+		
+		<colourPrimary>dsg_dragonRed</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[dragon]]></potionDescriptor>
+		<associatedRace>dsg_dragon</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(5)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 5)]
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] the fruit and [npc.verb(marvel)] at tender flesh and crunchy seeds inside. Unable to resist the delicious looking fruit, [npc.she] eagerly [npc.verb(start)] wolfing it all down, leaving empty peels behind in moments.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(peel)] the fruit for [npc2.name] and [npc.verb(hold)] it out to [npc2.her], allowing [npc2.herHim] to [npc2.verb(marvel)] at the tender flesh and crunchy seeds inside. Unable to resist the delicious-looking fruit, [npc2.she] [npc2.verb(start)] wolfing it all down, leaving behind empty peels in moments.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -1679,7 +1679,7 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode CAPTIVE_DAY_2_EVENING_TRAINING = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLastTimeOrgasmed(Main.game.getMinutesPassed()+30);
+			Main.game.getPlayer().setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()+(60*30));
 			GameCharacter milker = getMilkers().get(3);
 			milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
 		}

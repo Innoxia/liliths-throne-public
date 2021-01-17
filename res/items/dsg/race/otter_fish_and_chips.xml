@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the box reads 'Packed by DSG Foodstuffs LLC']]></authorTag>
+		
+		<value>250</value> 
+		<determiner><![CDATA[a box of]]></determiner>
+		<name><![CDATA[Fish and Chips]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Fish and Chips]]></namePlural>
+		<description><![CDATA[A takeaway box of deep fried potatoes and battered cod with a dip made from mashed peas. On the box is a portrait of an otter-girl in a barmaid costume winking at the viewer.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName>otter_fish_and_chips.svg</imageName>
+		
+		<colourPrimary>dsg_otterBrown</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[otter]]></potionDescriptor>
+		<associatedRace>dsg_otter</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 15% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/15)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(MAJOR_PHYSIQUE, 1)]
+			#ENDIF
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the box and [npc.verb(breathe)] in the scent of the hot grease and fried starch. Unable to resist the delicious looking meal inside, [npc.she] [npc.verb(start)] shoving pieces into [npc.her] mouth until the entire box has been emptied.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(remove)] glass cover from the plate and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to breathe in the scent of hot grease and fried starch. Unable to resist the delicious-looking mean inside, [npc2.she] [npc2.verb(start)] shoving pieces into [npc2.her] mouth until the entire box has been emptied.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

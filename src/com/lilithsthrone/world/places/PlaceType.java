@@ -25,6 +25,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
+import com.lilithsthrone.game.dialogue.places.dominion.NyanApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
@@ -52,11 +53,12 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.PixsPlaygr
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.BountyHunterLodge;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaveryAdministration;
 import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.KaysWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.Warehouses;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
@@ -267,8 +269,8 @@ public class PlaceType {
 				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
 			} else {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
 			
@@ -283,7 +285,9 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			DominionPlaces.STREET,
-			Darkness.ALWAYS_LIGHT, Encounter.DOMINION_STREET, "in the streets of Dominion") {
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -291,8 +295,8 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 				return pop;
 				
@@ -383,7 +387,7 @@ public class PlaceType {
 			"Demon Home (Arthur)",
 			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
 			"dominion/demonHomeArthurIcon",
-			PresetColour.BASE_PINK,
+			PresetColour.RACE_HUMAN,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Demon Home") {
@@ -435,7 +439,7 @@ public class PlaceType {
 			"Demon Home (Daddy)",
 			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
 			"dominion/demonHomeDaddyIcon",
-			PresetColour.BASE_PINK,
+			PresetColour.BASE_INDIGO,
 			DemonHome.DEMON_HOME_STREET_DADDY,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Demon Home") {
@@ -453,7 +457,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Daddy.class))) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.DINER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.DINER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return DOMINION_PLAZA.getPopulation();
 		}
@@ -467,6 +471,26 @@ public class PlaceType {
 			PresetColour.BASE_GOLD,
 			ShoppingArcadeDialogue.OUTSIDE,
 			Darkness.ALWAYS_LIGHT, Encounter.DOMINION_STREET, "in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_STREET.getPopulation();
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_NYAN_APARTMENT = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Nyan's Apartment",
+			"As she's shown you where she lives, you know that Nyan's Apartment building is in this area of Dominion.",
+			"dominion/homeNyanIcon",
+			PresetColour.BASE_GREY,
+			NyanApartment.EXTERIOR,
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -699,8 +723,8 @@ public class PlaceType {
 				return new ArrayList<>();
 			}
 			return Util.newArrayListOfValues(
-					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
-					new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
+					new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	};
 	
@@ -863,7 +887,7 @@ public class PlaceType {
 			null, "in the Enforcer HQ") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 		}
 	}.initWeatherImmune();
 
@@ -1273,7 +1297,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1305,7 +1329,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 	
@@ -1321,7 +1345,7 @@ public class PlaceType {
 
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1394,7 +1418,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1424,7 +1448,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1454,7 +1478,7 @@ public class PlaceType {
 			null, "in 'Argus's DIY Depot'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1474,7 +1498,7 @@ public class PlaceType {
 			"Toilets",
 			"At the back corner of the warehouse, there are some toilets available for customers to use.",
 			"dominion/homeImprovements/toilets",
-			PresetColour.BASE_GREEN_DARK,
+			PresetColour.BASE_BLUE_LIGHT,
 			HomeImprovements.TOILETS,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the toilets at 'Argus's DIY Depot'")
@@ -1543,7 +1567,7 @@ public class PlaceType {
 			null, "in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune();
 
@@ -1605,7 +1629,7 @@ public class PlaceType {
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				return super.getPopulation();
 			} else {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.HARPY, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)));
 			}
 		}
 	};
@@ -1639,7 +1663,7 @@ public class PlaceType {
 			null, "in the Harpy Nests") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 		}
 	}.initWeatherImmune();
 	
@@ -2038,7 +2062,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isWorkTime()) {
-				pop.add(new Population(true, PopulationType.CONSTRUCTION_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CONSTRUCTION_WORKER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return pop;
 		}
@@ -2580,11 +2604,11 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
-			pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+			pop.add(new Population(true, PopulationType.ENFORCER, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
 			return pop;
 		}
 	}.initWeatherImmune();
@@ -2601,7 +2625,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
 				return new ArrayList<>();
 			}
@@ -2674,39 +2698,15 @@ public class PlaceType {
 			null, "in an antique shop"
 			).initWeatherImmune();
 	
-	public static final AbstractPlaceType SHOPPING_ARCADE_SUPPLIER_DEPOT = new AbstractPlaceType(
+	public static final AbstractPlaceType SHOPPING_ARCADE_RESTAURANT = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Supplier Depot",
-			"This 'Supplier Depot' looks to have seen better days, with the interior looking to be both run down and completely deserted.",
-			"dominion/shoppingArcade/supplierDepot",
-			PresetColour.BASE_CRIMSON,
-			SupplierDepot.EXTERIOR,
+			"The Oaken Glade",
+			"The restaurant 'The Oaken Glade' caters to the more affluent of the Shopping Arcade's patrons, with their most basic three-course meal set at the eye-watering price of almost one thousand flames.",
+			"dominion/shoppingArcade/restaurant",
+			PresetColour.BASE_GREEN_DARK,
+			ShoppingArcadeDialogue.RESTAURANT,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the supplier depot") {
-		@Override
-		public Colour getColour() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return PresetColour.BASE_GREEN;
-			} else {
-				return PresetColour.BASE_CRIMSON;
-			}
-		}
-		@Override
-		public String getTooltipDescription() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, this 'Supplier Depot' is once more functioning as the hub through which many of the Shopping Arcade's stores purchase their goods in bulk.";
-			} else {
-				return tooltipDescription;
-			}
-		}
-		@Override
-		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return getSVGOverride("dominion/shoppingArcade/supplierDepot", PresetColour.BASE_GREEN);
-			} else {
-				return SVGString;
-			}
-		}
+			null, "in 'The Oaken Glade'") {
 	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
@@ -2730,22 +2730,40 @@ public class PlaceType {
 			Darkness.ALWAYS_LIGHT,
 			null, "in the Shopping Arcade"
 			).initWeatherImmune();
-	
+
+	public static final AbstractPlaceType SHOPPING_ARCADE_TOILETS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Toilets",
+			"Conveniently positioned near to the entrance of the Shopping Arcade, there are some public toilets.",
+			"dominion/shoppingArcade/toilets",
+			PresetColour.BASE_BLUE_LIGHT,
+			ShoppingArcadeDialogue.TOILETS,
+			Darkness.ALWAYS_LIGHT,
+			null, "in the public toilets in the Shopping Arcade") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.isExtendedWorkTime()) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				return new ArrayList<>();
+			}
+		}
+	}.initWeatherImmune();
 	
 	
 	
 	// Supplier Depot:
 	
-	public static final AbstractPlaceType SUPPLIER_DEPOT_CORRIDOR = new AbstractPlaceType(
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_CORRIDOR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Corridor",
-			"A dimly-lit corridor, with sounds of laughter coming from the far end.",
+			"A well-lit corridor, open to the warehouse's storage and weaving areas, runs down the full length of the building.",
 			null,
 			PresetColour.BASE_BLACK,
-			SupplierDepot.SUPPLIER_DEPOT_CORRIDOR,
+			KaysWarehouse.CORRIDOR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the supplier depot"
-			) {
+			null,
+			"in Kay's Textiles") {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
@@ -2756,80 +2774,131 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 	
-	public static final AbstractPlaceType SUPPLIER_DEPOT_ENTRANCE = new AbstractPlaceType(
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Reception Area",
-			"A derelict and very dusty reception area. There's no sign of life in here.",
-			"dominion/shoppingArcade/exit",
-			PresetColour.BASE_GREY,
-			SupplierDepot.SUPPLIER_DEPOT_RECEPTION,
+			"The warehouse's reception area is staffed by a depressed-looking dog-girl, who doesn't seem at all interested in fulfilling her duties.",
+			"dominion/textilesWarehouse/exit",
+			PresetColour.BASE_RED,
+			KaysWarehouse.RECEPTION,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the supplier depot") {
+			null,
+			"in Kay's Textiles") {
 		@Override
-		public boolean isPopulated() {
-			return Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, this 'Supplier Depot' is once more functioning as the hub through which many of the Shopping Arcade's stores purchase their goods in bulk.";
+				return "With the Dobermanns dealt with, the depressed dog-girl who staffs the reception desk seems a lot happier and eager to help visitors.";
 			} else {
 				return tooltipDescription;
+			}
+		}
+	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_STORAGE_ROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Storage Room",
+			"Numerous crates fill this storage room, each one packed full of enchanted clothing.",
+			"dominion/textilesWarehouse/storage",
+			PresetColour.BASE_RED,
+			KaysWarehouse.STORAGE_AREA,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Kay's Textiles"
+			) {
+		@Override
+		public Colour getColour() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kayCratesSearched)
+					|| !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)) {
+				return PresetColour.BASE_RED;
+			} else {
+				return PresetColour.BASE_GREEN;
 			}
 		}
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return getSVGOverride("dominion/shoppingArcade/exit", PresetColour.BASE_GREEN);
-			} else {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kayCratesSearched)
+					|| !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)) {
 				return SVGString;
+			} else {
+				return getSVGOverride("dominion/textilesWarehouse/storage", PresetColour.BASE_GREEN);
 			}
+		}
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
+	
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_ENCHANTING = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Weaving Machines",
+			"A large number of what look to be arcane weaving machines are being operated by the dozens of textile workers in this area.",
+			"dominion/textilesWarehouse/enchanting",
+			PresetColour.GENERIC_ARCANE,
+			KaysWarehouse.WEAVING_MACHINES,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Kay's Textiles"
+			) {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(
+					new Population(true, PopulationType.TEXTILE_WORKER, PopulationDensity.NUMEROUS,
+							Util.newHashMapOfValues(
+									new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.CAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.COW_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
+									new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune();
 	
-	public static final AbstractPlaceType SUPPLIER_DEPOT_STORAGE_ROOM = new AbstractPlaceType(
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_OVERSEER_STATION = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Storage Room",
-			"Numerous crates, filled with miscellaneous goods of all sorts, fill this storage room.",
-			"dominion/shoppingArcade/supplierStorageRoom",
-			PresetColour.BASE_ORANGE,
-			SupplierDepot.SUPPLIER_DEPOT_STORAGE_ROOM,
+			"Overseer Station",
+			"A set of steps leads up to a mezzanine floor, upon which an overseer's station looks out over the entire warehouse floor.",
+			"dominion/textilesWarehouse/overseer_station",
+			PresetColour.BASE_GREY_DARK,
+			KaysWarehouse.OVERSEER_STATION,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the supplier depot"
-			).initItemsPersistInTile()
-			.initWeatherImmune();
-	
-	public static final AbstractPlaceType SUPPLIER_DEPOT_OFFICE = new AbstractPlaceType(
-			WorldRegion.DOMINION,
-			"Office",
-			"Numerous offices, now vandalised and filled with rubbish, are located at the back of the building.",
-			"dominion/shoppingArcade/supplierOffice",
-			PresetColour.BASE_CRIMSON,
-			SupplierDepot.SUPPLIER_DEPOT_OFFICE,
-			Darkness.ALWAYS_LIGHT,
-			null, "in the supplier depot") {
+			null,
+			"in Kay's Textiles"
+			) {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getWorlds().get(WorldType.TEXTILES_WAREHOUSE).getCell(PlaceType.TEXTILE_WAREHOUSE_OFFICE).isTravelledTo()) {
+				return Util.newArrayListOfValues(new Population(false, PopulationType.TEXTILE_WORKER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			} else {
+				return super.getPopulation();
+			}
+		}
 		@Override
 		public boolean isDangerous() {
-			return !Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS);
 		}
 		@Override
 		public String getTooltipDescription() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-				return "With the Dobermanns dealt with, the offices in the rear of the building have been renovated, and are used by the Supplier Depot's many salespersons.";
+			if(Main.game.getWorlds().get(WorldType.TEXTILES_WAREHOUSE).getCell(PlaceType.TEXTILE_WAREHOUSE_OFFICE).isTravelledTo()) {
+				return "With the Dobermanns dealt with, the overseer station outside of Kay's office is now appropriately staffed by one of the textile workers.";
 			} else {
 				return tooltipDescription;
 			}
 		}
-		@Override
-		public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suppliersEncountered)) {
-				return SupplierDepot.SUPPLIER_DEPOT_OFFICE_REPEAT;
-				
-			} else {
-				return SupplierDepot.SUPPLIER_DEPOT_OFFICE;
-			}
-		}
 	}.initWeatherImmune();
+	
+	public static final AbstractPlaceType TEXTILE_WAREHOUSE_OFFICE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Kay's Office",
+			"Accessed via the overseer's station, Kay's office is rather small, although very elegantly furnished.",
+			"dominion/textilesWarehouse/office",
+			PresetColour.BASE_BLUE_LIGHT,
+			KaysWarehouse.OFFICE,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Kay's Textiles").initWeatherImmune();
 	
 	
 	
@@ -2848,11 +2917,11 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
-			pop.add(new Population(false, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			pop.add(new Population(false, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			return pop;
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -2990,9 +3059,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 			}
 			return pop;
 		}
@@ -3009,7 +3078,7 @@ public class PlaceType {
 			null, "in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3024,22 +3093,23 @@ public class PlaceType {
 			null, "in the stocks at Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
 	public static final AbstractPlaceType SLAVER_ALLEY_BOUNTY_HUNTERS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Bounty Hunter Lodge",
+			"'The Rusty Collar'",
 			"A tavern in which bounty hunters can be contracted to track down runaway slaves.",
 			"dominion/slaverAlley/bountyHunters",
 			PresetColour.BASE_RED_DARK,
 			SlaverAlleyDialogue.BOUNTY_HUNTERS,
 			Darkness.ALWAYS_LIGHT,
-			null, "in Slaver Alley"){
+			null,
+			"in Slaver Alley"){
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
@@ -3124,18 +3194,18 @@ public class PlaceType {
 				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_6_ADVERTISING)) {
 					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
 						return Util.newArrayListOfValues(
-								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, true)),
-								new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
-								new Population(true, PopulationType.FAN, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+								new Population(true, PopulationType.HARPY, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.HARPY_NEST, this, true)),
+								new Population(true, PopulationType.SHOPPER, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
+								new Population(true, PopulationType.FAN, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					} else {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					}
 					
 				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR) && !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
 					if(Main.game.getNpc(Helena.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					} else {
-						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+						return Util.newArrayListOfValues(new Population(true, PopulationType.FAN, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 					}
 				}
 			}
@@ -3155,7 +3225,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(
-					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
+					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
 					new Population(true, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -3171,6 +3241,159 @@ public class PlaceType {
 			null, "in Slaver Alley").initWeatherImmune(Weather.MAGIC_STORM);
 	
 	
+	// Bounty hunter lodge:
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_ENTRANCE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Entrance",
+			"The main entrance to the tavern takes the form of a pair of weathered, wooden doors.",
+			"dominion/slaverAlley/bountyHunterLodge/exit",
+			PresetColour.BASE_RED,
+			BountyHunterLodge.ENTRANCE,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+	
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_FLOOR = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Main floor",
+			"The majority of the floor area inside the tavern is occupied by a dozen large, wooden tables, around which bounty hunters and all sorts of unsavoury individuals are seated.",
+			null,
+			PresetColour.BASE_BLACK,
+			BountyHunterLodge.FLOOR,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'"){
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+	
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_BOUNTY_BOARD = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bounty board",
+			"Next to the main entrance, there's a huge wooden board, onto which active bounties are posted.",
+			"dominion/slaverAlley/bountyHunterLodge/bountyBoard",
+			PresetColour.CLOTHING_BLUE_GREY,
+			BountyHunterLodge.BOUNTY_BOARD,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'"){
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+	
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_BAR = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bar",
+			"The long bar is always busy, and keeps the tavern's many patrons plied with all sorts of alcoholic beverages.",
+			"dominion/slaverAlley/bountyHunterLodge/bar",
+			PresetColour.BASE_ORANGE,
+			BountyHunterLodge.BAR,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'"){
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_SEATING = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Recessed seating",
+			"Around the edges of the taven's main floor, there are several recessed seating areas.",
+			"dominion/slaverAlley/bountyHunterLodge/seatingArea",
+			PresetColour.BASE_BROWN,
+			BountyHunterLodge.SEATING,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'"){
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_STAIRS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Stairs",
+			"A narrow staircase leads up to the tavern's first floor.",
+			"dominion/slaverAlley/bountyHunterLodge/stairsUp",
+			PresetColour.BASE_GREEN_LIGHT,
+			BountyHunterLodge.STAIRS,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+	
+	// First floor:
+	
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_CORRIDOR = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Corridor",
+			"A narrow corridor links all the rooms on teh tavern's first floor.",
+			null,
+			PresetColour.BASE_BLACK,
+			BountyHunterLodge.UPSTAIRS_CORRIDOR,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_STAIRS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Stairs",
+			"A narrow staircase leads down to the tavern's ground floor.",
+			"dominion/slaverAlley/bountyHunterLodge/stairsDown",
+			PresetColour.BASE_RED_LIGHT,
+			BountyHunterLodge.UPSTAIRS_STAIRS,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Room",
+			"Just like all of the other rooms here, this one has already been rented out...",
+			"dominion/slaverAlley/bountyHunterLodge/room",
+			PresetColour.BASE_TEAL,
+			BountyHunterLodge.UPSTAIRS_ROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_DOBERMANNS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Room",
+			"Just like all of the other rooms here, this one has already been rented out...",
+			"dominion/slaverAlley/bountyHunterLodge/room",
+			PresetColour.BASE_TEAL,
+			BountyHunterLodge.UPSTAIRS_ROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+
+	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Room",
+			"Just like all of the other rooms here, this one has already been rented out...",
+			"dominion/slaverAlley/bountyHunterLodge/room",
+			PresetColour.BASE_TEAL,
+			BountyHunterLodge.UPSTAIRS_ROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
+	
+	
 	// Watering hole:
 	
 	public static final AbstractPlaceType WATERING_HOLE_ENTRANCE = new AbstractPlaceType(
@@ -3184,7 +3407,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3208,13 +3431,13 @@ public class PlaceType {
 			"Seating Area",
 			"Areas set aside on the edge of the club offer relatively peaceful places for revellers to sit down and talk with one another.",
 			"dominion/nightLife/seatingArea",
-			PresetColour.BASE_BLUE,
+			PresetColour.BASE_BROWN,
 			NightlifeDistrict.WATERING_HOLE_SEATING,
 			Darkness.ALWAYS_LIGHT,
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3247,7 +3470,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3262,7 +3485,7 @@ public class PlaceType {
 			null, "in 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 
@@ -3271,13 +3494,13 @@ public class PlaceType {
 			"Toilets",
 			"The club's toilets are quite large, and contain numerous stalls and sinks.",
 			"dominion/nightLife/toilets",
-			PresetColour.BASE_GREEN_DARK,
+			PresetColour.BASE_BLUE_LIGHT,
 			NightlifeDistrict.WATERING_HOLE_TOILETS,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the toilets of 'The Watering Hole'") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, false)));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
 	}.initWeatherImmune();
 	
@@ -3334,7 +3557,7 @@ public class PlaceType {
 	public static final AbstractPlaceType HELENA_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"The a wide, carpeted hallways connects the rooms in Helena's apartment.",
+			"The wide, carpeted hallways connects the rooms in Helena's apartment.",
 			null,
 			PresetColour.BASE_BLACK,
 			HelenaApartment.PLACE_HALLWAY,
@@ -3491,6 +3714,119 @@ public class PlaceType {
 		.initWeatherImmune();
 	
 	
+
+	// Helena's apartment:
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_HALLWAY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Hallway",
+			"The wide, carpeted hallways connects the rooms in Helena's apartment.",
+			null,
+			PresetColour.BASE_BLACK,
+			NyanApartment.HALLWAY,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the hallway of Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_ENTRANCE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Entrance Hall",
+			"While modesty decorated, the entrance hall to Nyan's apartment is large enough to have a built-in cloak-room.",
+			"dominion/nyanApartment/entranceHall",
+			PresetColour.BASE_RED,
+			NyanApartment.ENTRANCE_HALL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the entrance hall of Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_NYAN_BEDROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Nyan's Bedroom",
+			"Decorated in soft, pastel colours, and holding an impressive collection of romance novels and stuffed toys, Nyan's bedroom is the one place in which she feels completely calm.",
+			"dominion/nyanApartment/bedroomNyan",
+			PresetColour.BASE_PINK_LIGHT,
+			NyanApartment.NYAN_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Nyan's bedroom"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_SPARE_BEDROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Spare Bedroom",
+			"Directly opposite Nyan's bedroom, there's a fully-furnished spare bedroom.",
+			"dominion/nyanApartment/bedroom",
+			PresetColour.BASE_LILAC,
+			NyanApartment.SPARE_BEDROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the spare bedroom in Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_ENSUITE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Ensuite Bathroom",
+			"Nyan's bedroom has an ensuite bathroom, half of which is taken up by a huge bathtub.",
+			"dominion/nyanApartment/bathroom",
+			PresetColour.BASE_AQUA,
+			NyanApartment.ENSUITE,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the ensuite in Nyan's apartment"
+		).initWeatherImmune();
+
+	public static final AbstractPlaceType NYAN_APARTMENT_BATHROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bathroom",
+			"This bathroom is quite small, and holds only a toilet and sink.",
+			"dominion/nyanApartment/toilet",
+			PresetColour.BASE_BLUE_LIGHT,
+			NyanApartment.BATHROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the bathroom in Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_KITCHEN = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Kitchen",
+			"Nyan's open-plan kitchen is joined to her dining room, and is of a reasonable size. The windows offer a decent down into the street below.",
+			"dominion/nyanApartment/kitchen",
+			PresetColour.BASE_ORANGE,
+			NyanApartment.KITCHEN,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the kitchen in Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_DINING_ROOM = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dining Room",
+			"Nyan's open-plan dining room is joined to her kitchen, and contains several cabinets, as well as the expected table and chairs. The windows offer a decent down into the street below.",
+			"dominion/nyanApartment/diningRoom",
+			PresetColour.BASE_BLUE_STEEL,
+			NyanApartment.DINING_ROOM,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the dining room in Nyan's apartment"
+		).initWeatherImmune();
+	
+	public static final AbstractPlaceType NYAN_APARTMENT_LOUNGE = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Lounge",
+			"The large lounge in Nyan's apartment holds several plush sofas, each of which is covered in colourful cushions.",
+			"dominion/nyanApartment/lounge",
+			PresetColour.BASE_INDIGO,
+			NyanApartment.LOUNGE,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the lounge in Nyan's apartment"
+		).initWeatherImmune();
+	
+	
+	
 	// Submission:
 
 	public static final AbstractPlaceType SUBMISSION_ENTRANCE = new AbstractPlaceType(
@@ -3530,9 +3866,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			if(Main.game.isExtendedWorkTime()) {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, false)));
+				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false)));
 			} else {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, false)));
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false)));
 			}
 			pop.addAll(SUBMISSION_ENTRANCE.getPopulation());
 			return pop;
@@ -4425,8 +4761,8 @@ public class PlaceType {
 			null, "in the Gambling Den") {
 		@Override
 		public List<Population> getPopulation() {
-			Map<AbstractSubspecies, SubspeciesSpawnRarity> popComponent = new HashMap<>(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false));
-			Subspecies.getWorldSpecies(WorldType.DOMINION, false).forEach((key, value) -> popComponent.merge(key, value, (v1, v2) -> v1));
+			Map<AbstractSubspecies, SubspeciesSpawnRarity> popComponent = new HashMap<>(Subspecies.getWorldSpecies(WorldType.SUBMISSION, this, false));
+			Subspecies.getWorldSpecies(WorldType.DOMINION, this, false).forEach((key, value) -> popComponent.merge(key, value, (v1, v2) -> v1));
 			popComponent.remove(Subspecies.IMP);
 			popComponent.remove(Subspecies.IMP_ALPHA);
 			return Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, popComponent));
@@ -5148,6 +5484,8 @@ public class PlaceType {
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
 		id.replaceAll("ALEXA", "HELENA");
+		id.replaceAll("SUPPLIER_DEPOT", "TEXTILE_WAREHOUSE");
+		
 		if(id.equals("ZARANIX_FF_BEDROOM")) {
 			id = "ZARANIX_FF_OFFICE";
 			
@@ -5175,6 +5513,9 @@ public class PlaceType {
 			id = "DOMINION_EXIT_NORTH";
 		} else if(id.equals("DOMINION_EXIT_TO_SEA")) {
 			id = "DOMINION_EXIT_WEST";
+			
+		} else if(id.equals("SHOPPING_ARCADE_SUPPLIER_DEPOT")) {
+			id = "SHOPPING_ARCADE_RESTAURANT";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());

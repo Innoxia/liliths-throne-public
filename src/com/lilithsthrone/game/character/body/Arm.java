@@ -197,6 +197,10 @@ public class Arm implements BodyPartInterface {
 			this.underarmHair = underarmHair;
 			return "";
 		}
+
+		if(!this.getType().isUnderarmHairAllowed()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] arm type prevents [npc.herHim] from growing any underarm hair, nothing happens...)]</p>");
+		}
 		
 		if(getUnderarmHair() == underarmHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

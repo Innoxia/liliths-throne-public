@@ -621,7 +621,7 @@ public class PregnancyRoulette {
 		}
 		@Override
 		public String getDescription() {
-			return UtilText.parse(breeders.get(breederIndex-1), "Now that [npc.name] has had [npc.her] turn and given you a creampie, [npc.she] has to [npc.step] back...");
+			return UtilText.parse(breeders.get(breederIndex-1), "Now that [npc.name] has had [npc.her] turn and given you a creampie, [npc.sheHasFull] to [npc.step] back...");
 		}
 		@Override
 		public String getContent() {

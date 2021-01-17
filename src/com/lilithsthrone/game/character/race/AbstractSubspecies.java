@@ -9,6 +9,7 @@ import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.4
@@ -59,6 +62,7 @@ public abstract class AbstractSubspecies {
 	
 	private int baseSlaveValue;
 	private int subspeciesOverridePriority;
+	private static AbstractSubspecies fleshSubspecies = null;
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
@@ -125,6 +129,7 @@ public abstract class AbstractSubspecies {
 
 	private Map<WorldRegion, SubspeciesSpawnRarity> regionLocations;
 	private Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations;
+	private Map<AbstractPlaceType, SubspeciesSpawnRarity> placeLocations;
 	
 	private List<SubspeciesFlag> flags;
 
@@ -276,6 +281,7 @@ public abstract class AbstractSubspecies {
 			String description,
 			Map<WorldRegion, SubspeciesSpawnRarity> regionLocations,
 			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations,
+			Map<AbstractPlaceType, SubspeciesSpawnRarity> placeLocations,
 			List<SubspeciesFlag> flags) {
 		
 		this.mainSubspecies = mainSubspecies;
@@ -350,6 +356,12 @@ public abstract class AbstractSubspecies {
 			this.worldLocations = new HashMap<>();
 		} else {
 			this.worldLocations = worldLocations;
+		}
+		
+		if(placeLocations == null) {
+			this.placeLocations = new HashMap<>();
+		} else {
+			this.placeLocations = placeLocations;
 		}
 		
 		if(flags == null) {
@@ -494,7 +506,7 @@ public abstract class AbstractSubspecies {
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
 				
-				this.statusEffectAttributeModifiers = new HashMap<>();
+				this.statusEffectAttributeModifiers = new LinkedHashMap<>();
 				for(Element e : coreElement.getMandatoryFirstOf("statusEffectAttributeModifiers").getAllOf("attribute")) {
 					statusEffectAttributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
 				}
@@ -514,13 +526,24 @@ public abstract class AbstractSubspecies {
 				}
 
 				this.regionLocations = new HashMap<>();
-				for(Element e : coreElement.getMandatoryFirstOf("regionLocations").getAllOf("region")) {
-					regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+				if(coreElement.getOptionalFirstOf("regionLocations").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("regionLocations").getAllOf("region")) {
+						regionLocations.put(WorldRegion.valueOf(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+					}
 				}
 				
 				this.worldLocations = new HashMap<>();
-				for(Element e : coreElement.getMandatoryFirstOf("worldLocations").getAllOf("world")) {
-					worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+				if(coreElement.getOptionalFirstOf("worldLocations").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("worldLocations").getAllOf("world")) {
+						worldLocations.put(WorldType.getWorldTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+					}
+				}
+				
+				this.placeLocations = new HashMap<>();
+				if(coreElement.getOptionalFirstOf("placeLocations").isPresent()) {
+					for(Element e : coreElement.getMandatoryFirstOf("placeLocations").getAllOf("place")) {
+						placeLocations.put(PlaceType.getPlaceTypeFromId(e.getTextContent()), SubspeciesSpawnRarity.valueOf(e.getAttribute("rarity")));
+					}
 				}
 				
 				this.flags = new ArrayList<>();
@@ -554,6 +577,7 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
+		fleshSubspecies = null;
 		if(this.isFromExternalFile() && Main.game.isStarted()) {
 			UtilText.setBodyForParsing("targetedBody", body);
 			UtilText.parse(applySubspeciesChanges);
@@ -585,7 +609,10 @@ public abstract class AbstractSubspecies {
 	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
 	 */
 	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
-		return getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		if (fleshSubspecies == null) {
+			fleshSubspecies = getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+		}
+		return fleshSubspecies;
 	}
 	
 	/**
@@ -609,11 +636,13 @@ public abstract class AbstractSubspecies {
 		AbstractSubspecies subspecies = null;
 		
 		int highestWeighting = 0;
+		int newWeighting;
 		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-			if(sub.getSubspeciesWeighting(body, race)>highestWeighting
+			newWeighting = sub.getSubspeciesWeighting(body, race);
+			if(newWeighting>highestWeighting
 					&& (!body.isFeral() || sub.isFeralConfigurationAvailable())) {
 				subspecies = sub;
-				highestWeighting = sub.getSubspeciesWeighting(body, race);
+				highestWeighting = newWeighting;
 			}
 		}
 		if(subspecies==null) {
@@ -1083,15 +1112,17 @@ public abstract class AbstractSubspecies {
 	}
 
 	public String getBasicDescription(GameCharacter character) {
-		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() &&
+		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getBasicDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		if(this.isFromExternalFile()) {
-			return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
+		if(this.isFromExternalFile() &&
+		   new File(bookIdFolderPath+System.getProperty("file.separator")+"bookEntries.xml").exists()) {
+				return UtilText.parseFromXMLFile(new ArrayList<>(), bookIdFolderPath, "bookEntries", getAdvancedDescriptionId(), new ArrayList<>());
 		}
 		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
@@ -1361,13 +1392,20 @@ public abstract class AbstractSubspecies {
 	public Map<AbstractWorldType, SubspeciesSpawnRarity> getWorldLocations() {
 		return worldLocations;
 	}
+
+	public Map<AbstractPlaceType, SubspeciesSpawnRarity> getPlaceLocations() {
+		return placeLocations;
+	}
 	
 	/**
-	 * @param worldType
+	 * @param worldType The world in which this species' spawn availability is to be checked.
+	 * @param placeType An optional place type, which can be null if not needed. If a non-null argument is passed in, this method will return true if either the worldType or the placeType allows for this subspecies to spawn.
 	 * @return true if this subspecies is able to spawn in the worldType, either due to having a spawn chance in that worldType directly, or in the WorldRegion in which that worldType is located.
 	 */
-	public boolean isAbleToNaturallySpawnInLocation(AbstractWorldType worldType) {
-		return getRegionLocations().containsKey(worldType.getWorldRegion()) || getWorldLocations().containsKey(worldType);
+	public boolean isAbleToNaturallySpawnInLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		return getRegionLocations().containsKey(worldType.getWorldRegion())
+				|| getWorldLocations().containsKey(worldType)
+				|| (placeType!=null && getPlaceLocations().containsKey(placeType));
 	}
 	
 	public List<SubspeciesFlag> getFlags() {

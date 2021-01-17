@@ -83,68 +83,6 @@ public class PartnerSelfNoPen {
 		
 	};
 	
-	
-	
-	public static final SexAction PARTNER_STROKE_PENIS = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
-			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
-			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
-		}
-		
-		@Override
-		public String getActionTitle() {
-			return "Masturbate";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Get some pleasure from stroking your [npc.cock].";
-		}
-
-		@Override
-		public String getDescription() {
-			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				return UtilText.returnStringAtRandom(
-						"Reaching down between [npc.her] legs, [npc.name] takes hold of [npc.her] [npc.cock+], stroking up and down its length as [npc.she] lets out a low groan.",
-						"[npc.Name] teases [npc.her] fingers over the [npc.cockHead+] of [npc.her] [npc.cock+], [npc.groaning+] as [npc.she] rubs [npc.her] thumb over the top.",
-						"Taking hold of [npc.her] [npc.cock+] in one hand, [npc.name] eagerly starts jerking off.",
-						"Wrapping [npc.her] fingers around [npc.her] [npc.cock+], [npc.name] lets out a series of [npc.groans+] as [npc.she] starts masturbating.");
-				
-			} else {
-				return UtilText.returnStringAtRandom(
-						"[npc.Name] runs [npc.her] [npc.hand] over [npc.her] groin, pressing [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
-							+" down against [npc.her] [npc.cock+] as [npc.she] lets out a little [npc.groan].",
-						"[npc.Name] slides [npc.her] fingers down between [npc.her] [npc.legs], letting out a little [npc.groan] as [npc.she] presses [npc.her] "
-						 +Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+" down against [npc.her] [npc.cock+].",
-						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Main.sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()
-							+", before pressing down and trying to stimulate [npc.her] [npc.cock+] through [npc.her] clothing.",
-						"Pushing down between [npc.her] [npc.legs] with the palm of [npc.her] [npc.hand], [npc.name] rubs [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
-								+" tightly against [npc.her] concealed [npc.cock+].");
-			}
-		}
-		
-		@Override
-		public void applyEffects() {
-			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
-			}
-		}
-		
-	};
-	
-	
-	
 	public static final SexAction PARTNER_STROKE_MOUND = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
