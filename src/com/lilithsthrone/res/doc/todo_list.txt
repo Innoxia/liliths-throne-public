@@ -161,14 +161,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[#npc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
 	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
 	
-	[x] Fix issues with feral snake lengths
-		[x] Height and tail length need to be combined somehow
-		[x] Implement Stadler's idea of serpentTailLength element in feralAttributes
-		[x] Fix legs body description for feral snakes
-		[x] Test sex insertions when feral snek
-			[x] name is referred to as "leg"
-			[x] Plurality is wrong
-			
 	[] Add mod override for applyNonBipedNameChange
 		[] Add silly mode naming?
 	

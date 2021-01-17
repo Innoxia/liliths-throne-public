@@ -266,7 +266,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		if(gc==null) {
-			return "";
+			return determiner;
 		}
 		if(gc.getLegCount()==1) {
 			return "a";
