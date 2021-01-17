@@ -336,14 +336,17 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness and fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
-					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
+				case FOUR_GIRTHY:
+					sb.append(UtilText.parse(owner, " quite big and fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
-					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
+				case FIVE_THICK:
+					sb.append(UtilText.parse(owner, " very big and fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely thick and fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 			
@@ -366,14 +369,17 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					sb.append(UtilText.parse(owner, " quite thick in proportion to the rest of [npc.her] body."));
 					break;
-				case FIVE_FAT:
+				case FIVE_THICK:
 					sb.append(UtilText.parse(owner, " very thick in proportion to the rest of [npc.her] body."));
 					break;
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
+					break;
+				case SEVEN_FAT:
+					sb.append(UtilText.parse(owner, " extremely thick and girthy in proportion to the rest of [npc.her] body."));
 					break;
 			}	
 		}
@@ -395,12 +401,14 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "fluffy";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "very-fluffy";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-fluffy";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-fluffy";
+				case SEVEN_FAT:
+					return "unbelievably-fluffy";
 			}
 			
 		} else {
@@ -413,12 +421,14 @@ public abstract class AbstractTentacleType implements BodyPartTypeInterface {
 					return "narrow";
 				case THREE_AVERAGE:
 					return "average";
-				case FOUR_THICK:
+				case FOUR_GIRTHY:
 					return "thick";
-				case FIVE_FAT:
+				case FIVE_THICK:
 					return "extra-thick";
-				case SIX_GIRTHY:
+				case SIX_CHUBBY:
 					return "extremely-thick";
+				case SEVEN_FAT:
+					return "unbelievably-thick";
 			}
 		}
 		

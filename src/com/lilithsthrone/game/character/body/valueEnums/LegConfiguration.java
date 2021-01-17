@@ -237,6 +237,10 @@ public enum LegConfiguration {
 			return true;
 		}
 		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
+		}
+		@Override
 		public boolean isThighSexAvailable() {
 			return false;
 		}
@@ -355,6 +359,10 @@ public enum LegConfiguration {
 		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
+		}
+		@Override
+		public boolean isAbleToGrowTail() {
+			return false;
 		}
 		@Override
 		public boolean isThighSexAvailable() {
@@ -726,6 +734,13 @@ public enum LegConfiguration {
 	 */
 	public abstract boolean isTailLostOnInitialTF();
 	
+	/**
+	 * @return true if this LegConfiguration prevents the character from growing a tail.
+	 */
+	public boolean isAbleToGrowTail() {
+		return true;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -842,7 +857,7 @@ public enum LegConfiguration {
 	/**
 	 * @return How many times longer a character's serpent tail is than their height.
 	 */
-	public static int getSerpentTailLengthMultiplier() {
+	public static int getDefaultSerpentTailLengthMultiplier() {
 		return 5;
 	}
 }
