@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -70,6 +71,8 @@ public abstract class AbstractStatusEffect {
 
 	private boolean requiresApplicationCheck;
 	private int effectInterval;
+	private int applicationLength;
+	private boolean constantRefresh;
 	private boolean shortConditionalCheck;
 	
 	private String applicationCondition;
@@ -117,7 +120,7 @@ public abstract class AbstractStatusEffect {
 			boolean beneficial,
 			Map<AbstractAttribute, Float> attributeModifiers,
 			List<String> extraEffects) {
-		this(StatusEffectCategory.DEFAULT, renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
+		this(StatusEffectCategory.DEFAULT, renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShadeTertiary, beneficial, attributeModifiers, extraEffects);
 	}
 	
 	public AbstractStatusEffect(StatusEffectCategory category,
@@ -157,6 +160,8 @@ public abstract class AbstractStatusEffect {
 		this.sexEffect = false;
 		
 		this.effectInterval = 0;
+		this.applicationLength = -1;
+		this.constantRefresh = false;
 		this.shortConditionalCheck = false;
 		this.applicationCondition = null;
 		
@@ -274,6 +279,14 @@ public abstract class AbstractStatusEffect {
 				} else {
 					requiresApplicationCheck = true;
 				}
+
+				if(coreElement.getOptionalFirstOf("applicationLength").isPresent()) {
+					this.applicationLength = Integer.valueOf(coreElement.getMandatoryFirstOf("applicationLength").getTextContent());
+					this.constantRefresh = Boolean.valueOf(coreElement.getMandatoryFirstOf("applicationLength").getAttribute("constantRefresh"));
+				} else {
+					this.applicationLength = -1;
+					this.constantRefresh = false;
+				}
 				
 				if(!coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval").isEmpty()) {
 					this.effectInterval = Integer.valueOf(coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval"));
@@ -338,6 +351,14 @@ public abstract class AbstractStatusEffect {
 		return false;
 	}
 	
+	public int getApplicationLength() {
+		return applicationLength;
+	}
+
+	public boolean isConstantRefresh() {
+		return constantRefresh;
+	}
+
 	public boolean renderInEffectsPanel() {
 		return renderInEffectsPanel;
 	}
@@ -916,7 +937,7 @@ public abstract class AbstractStatusEffect {
 						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 						break;
 					case TAIL:
-						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
 						break;
 					case TONGUE:
 						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
@@ -953,6 +974,7 @@ public abstract class AbstractStatusEffect {
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(owner, orifice).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
+						GameCharacter penetrationOwner = Main.sex.getOngoingCharactersUsingAreas(owner, orifice, sArea).iterator().next();
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
@@ -961,7 +983,8 @@ public abstract class AbstractStatusEffect {
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 								break;
 							case TAIL:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
+										+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
 								break;
 							case TONGUE:
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");

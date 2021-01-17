@@ -27,10 +27,10 @@
 	One of the defined names will be chosen at random every time the name is displayed to the player. 
 	Names ending in '-' are handled in a special manner by appending a random, generic vagina name to the end of it before returning, so for this example of 'hyena-', the names 'hyena-pussy', 'hyena-twat', etc. will be returned. -->
 	<names>
-		<name><![CDATA[dsg-]]></name>
+		<name><![CDATA[bear-]]></name>
 	</names>
 	<namesPlural>
-		<name><![CDATA[dsg-]]></name>
+		<name><![CDATA[bear-]]></name>
 	</namesPlural>
 	
 	<!-- The descriptors which should be drawn upon when describing a character's vagina of this type.

@@ -25,7 +25,7 @@ public class QuestTree {
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
 	
-	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
+	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
 	
@@ -215,10 +215,12 @@ public class QuestTree {
 		// Romance quests:
 
 		
-		node1 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP);
+		node1 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP);
 		nyanTree.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN);
+		node2 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS);
 		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN);
+		node2.addChild(node1);
 		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node2.addChild(node1);
 		

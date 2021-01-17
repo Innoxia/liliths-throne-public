@@ -84,8 +84,8 @@ public class PenisType {
 			Race.DEMON,
 			TesticleType.DEMON_COMMON,
 			Util.newArrayListOfValues("succubus-"),
-			Util.newArrayListOfValues("incubus-"),
 			Util.newArrayListOfValues("succubus-"),
+			Util.newArrayListOfValues("incubus-"),
 			Util.newArrayListOfValues("incubus-"),
 			Util.newArrayListOfValues("demonic"),
 			"[npc.She] [npc.verb(squirm)] and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive demonic counterpart."
@@ -115,8 +115,8 @@ public class PenisType {
 			Race.COW_MORPH,
 			TesticleType.BOVINE,
 			Util.newArrayListOfValues("cow-"),
-			Util.newArrayListOfValues("bull-"),
 			Util.newArrayListOfValues("cow-"),
+			Util.newArrayListOfValues("bull-"),
 			Util.newArrayListOfValues("bull-"),
 			Util.newArrayListOfValues(""),
 			"Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head tapers down into a point.<br/>"
@@ -134,8 +134,8 @@ public class PenisType {
 			Race.DOG_MORPH,
 			TesticleType.CANINE,
 			Util.newArrayListOfValues("dog-", "bitch-"),
-			Util.newArrayListOfValues("dog-"),
 			Util.newArrayListOfValues("dog-", "bitch-"),
+			Util.newArrayListOfValues("dog-"),
 			Util.newArrayListOfValues("dog-"),
 			Util.newArrayListOfValues("canine"),
 			"Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
@@ -188,8 +188,8 @@ public class PenisType {
 			Race.FOX_MORPH,
 			TesticleType.FOX_MORPH,
 			Util.newArrayListOfValues("fox-", "vixen-"),
-			Util.newArrayListOfValues("fox-"),
 			Util.newArrayListOfValues("fox-", "vixen-"),
+			Util.newArrayListOfValues("fox-"),
 			Util.newArrayListOfValues("fox-"),
 			Util.newArrayListOfValues("vulpine"),
 			"Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
@@ -251,8 +251,8 @@ public class PenisType {
 			Race.HORSE_MORPH,
 			TesticleType.EQUINE,
 			Util.newArrayListOfValues("mare-", "horse-", "equine-"),
-			Util.newArrayListOfValues("stallion-", "horse-", "equine-"),
 			Util.newArrayListOfValues("mare-", "horse-", "equine-"),
+			Util.newArrayListOfValues("stallion-", "horse-", "equine-"),
 			Util.newArrayListOfValues("stallion-", "horse-", "equine-"),
 			Util.newArrayListOfValues(""),
 			"Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.<br/>"

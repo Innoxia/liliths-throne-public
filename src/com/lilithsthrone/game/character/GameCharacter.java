@@ -1575,10 +1575,14 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			Element lastOrgasmElement = (Element)element.getElementsByTagName("lastTimeOrgasmed").item(0);
+			int secondModifier = 1;
+			if(Main.isVersionOlderThan(version, "0.3.14")) {
+				secondModifier = 60; // In old versions, this was recorded in minutes, not seconds
+			}
 			if(lastOrgasmElement!=null) {
-				character.setLastTimeOrgasmed(Long.valueOf(lastOrgasmElement.getAttribute("value")));
+				character.setLastTimeOrgasmedSeconds(Long.valueOf(lastOrgasmElement.getAttribute("value")) * secondModifier);
 			} else {
-				character.setLastTimeOrgasmed(character.getLastTimeHadSex());
+				character.setLastTimeOrgasmedSeconds(character.getLastTimeHadSex() * secondModifier);
 			}
 		}
 		
@@ -3886,6 +3890,10 @@ public abstract class GameCharacter implements XMLSaving {
 				return getNameIgnoresPlayerKnowledge();
 			}
 		}
+	}
+	
+	public void setName(String name) {
+		this.nameTriplet = new NameTriplet(name, name, name);
 	}
 	
 	public void setName(NameTriplet nameTriplet) {
@@ -6557,7 +6565,7 @@ public abstract class GameCharacter implements XMLSaving {
 			AbstractStatusEffect se = appliedSe.getEffect();
 			appliedSe.setSecondsPassed(appliedSe.getSecondsPassed() + secondsPassed);
 			StringBuilder sb = new StringBuilder();
-			if (!se.isCombatEffect()){
+			if (!se.isCombatEffect()) {
 				if(appliedSe.getEffect().getEffectInterval()<=0 || ((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
 					if(appliedSe.getEffect().getEffectInterval()<=0) {
 						sb.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
@@ -6579,7 +6587,8 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			incrementStatusEffectDuration(se, -secondsPassed);
 			
-			if(appliedSe.getSecondsRemaining()<0 && !se.isConditionsMet(this)) {
+			if(appliedSe.getSecondsRemaining()<0
+					&& (!se.isConditionsMet(this) || se.getApplicationLength()>0)) { // If getApplicationLength() is not -1, then this status effect should be removed and re-checked, even if isConditionsMet() is returning true.
 				tempListStatusEffects.add(se);
 			}
 		}
@@ -6588,26 +6597,17 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractStatusEffect se : tempListStatusEffects) {
 			removeStatusEffect(se);
 		}
-		
-		// Moved to the end of combat
-//		if (!Main.game.isInCombat()) {
-//			clearCombatStatusEffects();
-//		}
+		// Combat status effects are automatically removed at the end of combat (in Combat.java), so there's no need to remove them here.
 		
 		// Add all status effects that are applicable:
 		for (AbstractStatusEffect se : StatusEffect.getAllStatusEffects()) {
-//			if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-//				addStatusEffect(se, -1);
-//			}
-			//TODO
-			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked
+			if((se.getCategory()==StatusEffectCategory.DEFAULT && (!se.isFromExternalFile() || se.isMod())) // Modded SEs probably won't have taken into account category, so let them always be checked.
 					|| (se.getCategory()==StatusEffectCategory.INVENTORY && requiresInventoryStatusEffectCheck)
 					|| (se.getCategory()==StatusEffectCategory.ATTRIBUTE && requiresAttributeStatusEffectCheck)) {
-//				if(se.getCategory()==StatusEffectCategory.ATTRIBUTE && this.isPlayer()) {
-//					System.out.println(se.getName(this));
-//				}
 				if(se.isRequiresApplicationCheck() && se.isConditionsMet(this)) {
-					addStatusEffect(se, -1);
+					if(!this.hasStatusEffect(se) || se.isConstantRefresh()) {
+						addStatusEffect(se, se.getApplicationLength()); // Default application length is -1
+					}
 				}
 			}
 		}
@@ -7315,17 +7315,28 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
+	@Deprecated
 	/**
+	 * <b>You should use getLastTimeOrgasmedSeconds() instead!</b>
 	 * @return A value <b>in minutes</b> for when this character last orgasmed.
 	 */
 	public long getLastTimeOrgasmed() {
+		return lastTimeOrgasmed/60;
+	}
+	public long getLastTimeOrgasmedSeconds() {
 		return lastTimeOrgasmed;
 	}
 
+	@Deprecated
 	/**
-	 * param lastTimeOrgasmed A value <b>in minutes</b> for when this character last orgasmed.
+	 * <b>You should use setLastTimeOrgasmedSeconds() instead!</b>
+	 * @param lastTimeOrgasmed A value <b>in minutes</b> for when this character last orgasmed.
 	 */
 	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
+		this.lastTimeOrgasmed = lastTimeOrgasmed*60;
+	}
+	
+	public void setLastTimeOrgasmedSeconds(long lastTimeOrgasmed) {
 		this.lastTimeOrgasmed = lastTimeOrgasmed;
 	}
 	
@@ -7441,10 +7452,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Foot-related content checks:
-		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive()) && !lustOrArousalCalculation) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive() && !lustOrArousalCalculation) {
 			weight-=100000;
 		}
-		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive()) && !lustOrArousalCalculation) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive() && !lustOrArousalCalculation) {
 			weight-=100000;
 		}
 		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled() && !lustOrArousalCalculation) {
@@ -8874,8 +8885,8 @@ public abstract class GameCharacter implements XMLSaving {
 		map.put(type, (int) (calculateSexTypeWeighting(type, target, request)*multiplier));
 	}
 
-	public void generateSexChoices(boolean resetPositioning, GameCharacter target) {
-		generateSexChoices(resetPositioning, target, null);
+	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target) {
+		generateSexChoices(resetPositioningBan, target, null);
 	}
 	
 	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
@@ -8988,11 +8999,17 @@ public abstract class GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT), target, request, foreplaySexTypes, 3);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT), target, request, mainSexTypes, 1f);
 		
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH), target, request, foreplaySexTypes, 2);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH), target, request, mainSexTypes, 2);
+		
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, foreplaySexTypes, 2);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.FOOT), target, request, mainSexTypes, 2);
+		
 		
 		foreplaySexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 		mainSexTypes.entrySet().removeIf(e -> e.getValue()<=0);
 
-		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 			System.out.println("Foreplay contains foot actions 1");
 		}
 		
@@ -9148,7 +9165,7 @@ public abstract class GameCharacter implements XMLSaving {
 			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.TAIL);
 		}
 
-		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+		if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 			System.out.println("Foreplay contains foot actions 2");
 		}
 		
@@ -9205,7 +9222,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		foreplayPreference.put(target, null);
 		if(!foreplaySexTypes.isEmpty()) {
-			if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS))) {
+			if(debug && foreplaySexTypes.containsKey(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaOrifice.MOUTH))) {
 				System.out.println("Foreplay contains foot actions 3");
 			}
 			if(request!=null) {
@@ -15765,6 +15782,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 					return this.getPenisRawSizeValue();
 				case TAIL:
+					if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+						return this.getLegTailLength(true);
+					}
 					return this.getTailLength(true);
 				case TENTACLE:
 					break;
@@ -15815,6 +15835,9 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				return this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
+				}
 				return this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TENTACLE:
 				break;
@@ -15853,6 +15876,11 @@ public abstract class GameCharacter implements XMLSaving {
 						? this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
+							? this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
+							: this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
+				}
 				return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
 						? this.getTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
@@ -15912,6 +15940,9 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				return this.getPenisRawSizeValue() > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return this.getLegTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
+				}
 				return this.getTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TENTACLE:
 				break;
@@ -16386,7 +16417,9 @@ public abstract class GameCharacter implements XMLSaving {
 						case TAIL:
 							sb.append(getGenericInitialPenetrationDepthDescription(characterPenetrating,
 									penetrationType,
-									characterPenetrating.getTailLength(true),
+									characterPenetrating.getLegConfiguration()==LegConfiguration.TAIL_LONG
+										?characterPenetrating.getLegTailLength(true)
+										:characterPenetrating.getTailLength(true),
 									characterPenetrated,
 									orifice,
 									"[npc.tail]",
@@ -16433,7 +16466,9 @@ public abstract class GameCharacter implements XMLSaving {
 					case TAIL:
 						sb.append(getGenericOngoingPenetrationDepthDescription(characterPenetrating,
 								penetrationType,
-								characterPenetrating.getTailLength(true),
+								characterPenetrating.getLegConfiguration()==LegConfiguration.TAIL_LONG
+									?characterPenetrating.getLegTailLength(true)
+									:characterPenetrating.getTailLength(true),
 								characterPenetrated,
 								orifice,
 								"[npc.tail]",
@@ -17835,7 +17870,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(selectedMovesDisruption.get(index) == false) {
 					GameCharacter target = moveEntry.getKey();
 					float lustStart = target.getLust();
-					sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(index, this)) + ":</b> "
 								+ move.perform(index, this, target, enemies, allies));
 					float lustEnd = target.getLust();
 					if(lustStart!=lustEnd) {
@@ -17877,7 +17912,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					
 				} else {
-					sb.append("<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
+					sb.append("<b style='text-align:center; color: " + move.getColourByDamageType(this).toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
 								+ "<b style='color: " + PresetColour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>");
 				}
 				descriptionList.add(index, sb.toString());
@@ -18004,9 +18039,10 @@ public abstract class GameCharacter implements XMLSaving {
 		equipMove("tease");
 		equipMove("avert");
 	}
-
+	
 	public void resetDefaultMoves() {
 		if(!this.isPlayer()
+                && !(this.isElemental() && ((Elemental)this).getSummoner().isPlayer())
 				&& (!this.isSlave() || !this.getOwner().isPlayer())
 				&& !Main.game.getPlayer().getParty().contains(this)) {
 			this.clearEquippedMoves();
@@ -18705,9 +18741,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getRestingLust() {
 		int restingLust = (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
 		
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			restingLust += 75;
-		}
+		restingLust += this.getAttributeValue(Attribute.RESTING_LUST);
 		
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isVibrator()) {
@@ -18727,7 +18761,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return Math.min(restingLust, 80);
+		return Math.max(0, Math.min(restingLust, Attribute.RESTING_LUST.getUpperLimit()));
 	}
 	
 	public String setLust(float lust) {
@@ -18781,6 +18815,15 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isWearingCondom() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isCondom(c.getSlotEquippedTo())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isWearingChastity() {
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.getItemTags().contains(ItemTag.CHASTITY)) {
 				return true;
 			}
 		}
@@ -19822,11 +19865,12 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.worldLocation = worldLocation;
 		
-		this.location = location;
+		Vector2i boundVector = new Vector2i(Math.min(Main.game.getWorlds().get(worldLocation).WORLD_WIDTH-1, location.getX()), Math.min(Main.game.getWorlds().get(worldLocation).WORLD_HEIGHT-1, location.getY()));
+		this.location = boundVector;
 		if(this.companions!=null && (!this.isPlayer() || !this.isCaptive())) { // Companions do not follow if player is captive
 			for(GameCharacter companion : this.getCompanions()) {
 				if(!companion.isCaptive()) { // Characters do not follow if captive:
-					companion.setLocation(getWorldLocation(), location, false);
+					companion.setLocation(getWorldLocation(), boundVector, false);
 				}
 			}
 		}
@@ -19834,7 +19878,7 @@ public abstract class GameCharacter implements XMLSaving {
 		getCell().addCharacterPresentId(this.getId());
 		
 		if(setAsHomeLocation) {
-			setHomeLocation(worldLocation, location);
+			setHomeLocation(worldLocation, boundVector);
 		}
 		
 		updateLocationListeners();
@@ -19866,9 +19910,17 @@ public abstract class GameCharacter implements XMLSaving {
 			setLocation(worldType, Util.randomItemFrom(occupiedCells).getLocation(), setAsHomeLocation);
 		}
 	}
+
+	public void setRandomLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		setRandomLocation(worldType, placeType, false);
+	}
 	
 	public void setRandomLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
+	}
+
+	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		setNearestLocation(worldType, placeType, false);
 	}
 	
 	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
@@ -19934,8 +19986,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public void setHomeLocation(AbstractWorldType homeWorldLocation, Vector2i location) {
 		getHomeCell().removeCharacterHomeId(this.getId());
 		this.homeWorldLocation = homeWorldLocation;
-		this.homeLocation = location;
-		Main.game.getWorlds().get(homeWorldLocation).getCell(location).addCharacterHomeId(this.getId());
+		
+		Vector2i boundVector = new Vector2i(Math.min(Main.game.getWorlds().get(worldLocation).WORLD_WIDTH-1, location.getX()), Math.min(Main.game.getWorlds().get(worldLocation).WORLD_HEIGHT-1, location.getY()));
+		this.homeLocation = boundVector;
+		Main.game.getWorlds().get(homeWorldLocation).getCell(boundVector).addCharacterHomeId(this.getId());
 	}
 	
 	public void returnToHome() {
@@ -22724,8 +22778,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue();
 	}
 	
-	private GenderAppearance calculateGenderAppearance(boolean colouredGender)
-	{
+	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
 		return calculateGenderAppearance(colouredGender, false);
 	}
 	
@@ -22740,7 +22793,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.F_P_V_B_FUTANARI);
 						
 				} else if(visibleVagina) {
@@ -22948,7 +23001,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.N_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -23156,7 +23209,7 @@ public abstract class GameCharacter implements XMLSaving {
 					return new GenderAppearance(
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
-							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.she] has [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
+							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
 							Gender.M_P_V_B_HERMAPHRODITE);
 						
 				} else if(visibleVagina) {
@@ -23647,6 +23700,13 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		return "";
+	}
+	
+	/**
+	 * Calls body.removeAllMakeup(), which sets all makeup coverings to be: CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_NONE
+	 */
+	public void removeAllMakeup() {
+		body.removeAllMakeup();
 	}
 	
 	public boolean isBodyCoveringTypesDiscovered(AbstractBodyCoveringType bct) {
@@ -24149,12 +24209,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToFlyFromExtraParts() {
-		for(BodyPartInterface bpi : this.getBody().getAllBodyParts()) {
-			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
-				return true;
-			}
-		}
-		return false;
+		return body.isAbleToFlyFromExtraParts();
 	}
 	
 	public boolean isAbleToFly() {
@@ -24164,7 +24219,21 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	// Pubic Hair:
+	/**
+	 * @return true if this character has a penis which allows pubic hair. If no penis is present, then returns true if this character has a vagina which allows pubic hair. Failing that, returns false.
+	 */
+	public boolean isPubicHairAvailable() {
+		if(this.hasPenis()) {
+			return getPenisType().isPubicHairAllowed();
+		} else if(this.hasVagina()) {
+			return getVaginaType().isPubicHairAllowed();
+		}
+		return false;
+	}
 	public BodyHair getPubicHair() {
+		if(!isPubicHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getPubicHair();
 	}
 	public Covering getPubicHairType() {
@@ -24177,6 +24246,15 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCovering(getBodyHairCoveringType(getTorsoType().getRace()));
 	}
 	public String setPubicHair(BodyHair pubicHair) {
+		if(!isPubicHairAvailable()) {
+			if(this.hasPenis() && !getPenisType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] penis type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else if(this.hasVagina() && !getVaginaType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] vagina type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] lack of genitalia prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			}
+		}
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
@@ -24368,7 +24446,13 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// ------------------------------ Arms: ------------------------------ //
-	
+
+	/**
+	 * @return true If this character is not feral, or if the cahratcer's feral parts are defined to allow arms or arm-wings.
+	 */
+	public boolean hasArms() {
+		return !this.isFeral() || this.getFeralAttributes().isArmsOrWingsPresent();
+	}
 	// Type:
 	public AbstractArmType getArmType() {
 		return body.getArm().getType();
@@ -24449,7 +24533,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Underarm hair:
+	/**
+	 * @return true if this character has an arm type which allows underarm hair.
+	 */
+	public boolean isUnderarmHairAvailable() {
+		return this.getArmType().isUnderarmHairAllowed();
+	}
 	public BodyHair getUnderarmHair() {
+		if(!this.isUnderarmHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getArm().getUnderarmHair();
 	}
 	public Covering getUnderarmHairType() {
@@ -24567,7 +24660,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getAss().setHipSize(this, getHipSize().getValue() + hipSize);
 	}
 	// Ass hair:
+	public boolean isAssHairAvailable() {
+		return this.getAssType().getAnusType().isAssHairAllowed();
+	}
 	public BodyHair getAssHair() {
+		if(!this.isAssHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getAss().getAnus().getAssHair();
 	}
 	public Covering getAssHairType() {
@@ -25211,10 +25310,12 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Breasts: ------------------------------ //
 	
 	// Misc:
-	/** Feral characters do not have breasts. */
+	/** Feral characters are the only characters who may not have nipples, as they often do not have breasts. */
+	public boolean hasNipples() {
+		return !this.isFeral() || this.getFeralAttributes().isBreastsPresent();
+	}
 	public boolean hasBreasts() {
-		return (this.isFeral()?this.getFeralAttributes().isBreastsPresent():true)
-				&& body.getBreast().hasBreasts();
+		return hasNipples() && body.getBreast().hasBreasts();
 	}
 	public boolean isBreastFuckableNipplePenetration() {
 		return body.getBreast().isFuckable();
@@ -26312,8 +26413,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Facial hair:
+	public boolean isFacialHairAvailable() {
+		return this.getFaceType().isFacialHairAllowed();
+	}
 	public BodyHair getFacialHair() {
-		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)) {
+		if(!this.isFacialHairAvailable()
+				|| (this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent))) {
 			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();
@@ -26748,6 +26853,47 @@ public abstract class GameCharacter implements XMLSaving {
 			return legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects);
 		}
 		return "";
+	}
+	// Serpent-tail leg configuration sex attributes:
+	// Length:
+	public float getLegTailLengthAsPercentageOfHeight() {
+		return body.getLeg().getLengthAsPercentageOfHeight();
+	}
+	public String setLegTailLengthAsPercentageOfHeight(float length) {
+		return body.getLeg().setLengthAsPercentageOfHeight(this, length);
+	}
+	public String incrementLegTailLengthAsPercentageOfHeight(float increment) {
+		return setLegTailLengthAsPercentageOfHeight(getLegTailLengthAsPercentageOfHeight() + increment);
+	}
+	/** @param penetrationLength true if you want to know the length of serpent-tail that is used in penetrations. It is equal to 80% of total length. */
+	public int getLegTailLength(boolean penetrationLength) {
+		return (int) (body.getLeg().getLength(this) * (penetrationLength?0.8f:1));
+	}
+	/** The diameter of this character's serpent-tail, measured from the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getLegTailCircumference(float atLength) {
+		return (float) (getLegTailDiameter(atLength)*Math.PI);
+	}
+	/** The diameter of this character's serpent-tail at the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getLegTailBaseCircumference() {
+		return getLegTailCircumference(0);
+	}
+	/** The diameter of this character's serpent-tail at the length specified, measured from the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getLegTailDiameter(float atLength) {
+		return body.getLeg().getDiameter(this, atLength);
+	}
+	/** The diameter of this character's serpent-tail at the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getLegTailBaseDiameter() {
+		return getLegTailDiameter(0);
+	}
+	// Girth:
+	public PenetrationGirth getLegTailGirth() {
+		return PenetrationGirth.getGirthFromInt(this.getHipSize().getValue());
+	}
+	public String getLegTailGirthDescriptor() {
+		return getLegTailGirth().getName();
+	}
+	public int getLegTailRawGirthValue() {
+		return this.getHipSize().getValue();
 	}
 	// Name:
 	public String getLegName() {
@@ -27877,6 +28023,8 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// ------------------------------ Tentacle: ------------------------------ //
 	
+	// Tentacles refer to leg-replacement tentacles. If other tentacles are added in the future, they will have different names.
+	
 	public boolean hasTentacle() {
 		return getTentacleType()!=TentacleType.NONE;
 	}
@@ -27903,7 +28051,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementTentacleLengthAsPercentageOfHeight(float increment) {
 		return setTentacleLengthAsPercentageOfHeight(getTentacleLengthAsPercentageOfHeight() + increment);
 	}
-	/** @param penetrationLength true if you want to know the length of tail that is used in penetrations. It is equal to 80% of total length. */
+	/** @param penetrationLength true if you want to know the length of tentacle that is used in penetrations. It is equal to 80% of total length. */
 	public int getTentacleLength(boolean penetrationLength) {
 		return (int) (body.getTentacle().getLength(this) * (penetrationLength?0.8f:1));
 	}
@@ -27959,8 +28107,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getTentacle().getType().getPronoun(this);
 	}
 	// Count:
-	public int getTentacleCount() {
-		return body.getTentacle().getTentacleCount();
+	/**
+	 * This will always be the same as the number of legs this character has, as tentacles are just leg-replacements.
+	 */
+	public int getTentacleCount() {//TODO Tentacle count wasn't being set properly in leg type setting. Find a better fix for this.
+		return this.getLegCount();
+//		return body.getTentacle().getTentacleCount();
 	}
 	public String setTentacleCount(int tentacleCount) {
 		return body.getTentacle().setTentacleCount(this, tentacleCount);

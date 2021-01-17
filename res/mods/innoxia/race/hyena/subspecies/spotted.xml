@@ -53,7 +53,7 @@
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 18)]
-		[#targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).setPattern(COVERING_PATTERN_SPOTTED)]
+		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
 		#IF(targetedBody.isFeminine())
 			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.05)]
 		#ENDIF
@@ -66,7 +66,7 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_hyena)
-			#IF(targetedBody.getCovering(BODY_COVERING_TYPE_innoxia_hyena_fur, true).getPattern()!=COVERING_PATTERN_STRIPED)
+			#IF(targetedBody.getCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true)!=COVERING_PATTERN_STRIPED)
 				100
 			#ELSE
 				0
@@ -215,13 +215,23 @@
 		<region rarity="ONE_VERY_RARE">DESERT</region>
 	</regionLocations>
 	
-	<!-- The places in which this subspecies can spawn.
+	<!-- The world types in which this subspecies can spawn.
 	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
 	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
 	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<worldLocations>
 		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
 	</worldLocations>
+	
+	<!-- The place types in which this subspecies can spawn.
+	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
+	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies.
+	-->
+	<placeLocations>
+		<place rarity="TWO_RARE">DOMINION_CANAL</place>
+		<place rarity="TWO_RARE">DOMINION_ALLEYS_CANAL_CROSSING</place>
+	</placeLocations>
 	
 	<!-- Any special flags which should be applied to this subspecies.
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesFlag.java -->

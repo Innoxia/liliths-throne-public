@@ -33,11 +33,14 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
 	private boolean mod;
 	private boolean fromExternalFile;
-
+	
 	private String transformationName;
-
+	
 	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
+
+	private boolean facialHairAllowed;
+	
 	private AbstractMouthType mouthType;
 	
 	private List<String> names;
@@ -70,7 +73,6 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 			String faceTransformationDescription,
 			String faceBodyDescription,
 			List<BodyPartTag> tags) {
-
 		this(
 			coveringType,
 			race,
@@ -118,6 +120,8 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 			String faceBodyDescriptionFeral,
 			List<BodyPartTag> tags) {
 		
+		this.facialHairAllowed = race.getRacialClass().isAnthroHair();
+		
 		this.coveringType = coveringType;
 		this.race = race;
 		this.mouthType = mouthType;
@@ -160,6 +164,11 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+				
+				this.facialHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("facialHairAllowed").isPresent()) {
+					this.facialHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("facialHairAllowed").getTextContent());
+				}
 				
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
 				
@@ -229,6 +238,10 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isFacialHairAllowed() {
+		return facialHairAllowed;
+	}
+
 	public AbstractMouthType getMouthType() {
 		return mouthType;
 	}

@@ -139,6 +139,10 @@ public class Anus implements BodyPartInterface {
 			return "";
 		}
 		String transformation = "";
+
+		if(!this.getType().isAssHairAllowed()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] anus type prevents [npc.herHim] from growing any hair around [npc.her] asshole, nothing happens...)]</p>");
+		}
 		
 		if(getAssHair() == assHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

@@ -37,6 +37,7 @@ public class CMSpecialAttack {
             2,
             CombatMoveType.ATTACK,
             DamageType.UNARMED,
+            DamageVariance.NONE,
             "moves/hoof_kick",
             Util.newArrayListOfValues(PresetColour.RACE_HORSE_MORPH),
             false,
@@ -50,7 +51,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, false);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), false);
         }
         
         @Override
@@ -133,7 +134,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -200,13 +201,13 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
-            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue())
+            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_GIRTHY.getValue())
             			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
             		"Available to characters who have a thick, prehensile tail, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }
@@ -266,7 +267,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -334,7 +335,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -412,7 +413,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override
@@ -473,7 +474,7 @@ public class CMSpecialAttack {
         }
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
@@ -539,7 +540,7 @@ public class CMSpecialAttack {
 
         protected int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(source);
-            return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+            return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
         
         @Override

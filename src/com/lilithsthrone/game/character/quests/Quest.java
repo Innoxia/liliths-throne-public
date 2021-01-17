@@ -1317,57 +1317,69 @@ public enum Quest {
 	
 	// Romance quests:
 
-	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
+	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
-			return "Offer Nyan your help";
+			return "Helping Nyan";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
-					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
+			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her wholesale supplier has suddenly stopped communicating with her."
+					+ " Apparently, this supplier used to be on good terms with Nyan, and his uncharacteristic behaviour has caused the nervous cat-girl to suspect something terrible has happened to him.<br/>"
+					+ "Perhaps you could offer Nyan your help by finding out what's happened to this supplier?";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
+			return "You offered Nyan your help in finding out what's happened to her wholesale enchanted clothing supplier.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
+	RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
-			return "Confront the suppliers";
+			return "Saving Kay";
 		}
-
 		@Override
 		public String getDescription() {
-			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
-					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
+			return "Nyan told you that her supplier, [kay.nameFull], has his business set up in Dominion's warehouse district."
+					+ " You'll need to travel to the north-west of the city, find Kay's warehouse, and discover why he's suddenly cut off all communication with Nyan.";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
+			return "You not only found Kay's warehouse, but were also able to discover that his business has been effectively seized by a pair of bullying bounty hunters.";
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
+	RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
-			return "Reward";
+			return "Bounty Hunter Bullies";
 		}
-
 		@Override
 		public String getDescription() {
-			return "You should return to Nyan and get the reward she promised you.";
+			return "Wolfgang and Karl, a pair of bounty hunters hired by Kay to protect his warehouse, have turned on their employer and effectively seized full control of his business."
+					+ " One way or another, you're going to have to convince these dobermann bullies to leave Kay alone...";
 		}
-
 		@Override
 		public String getCompletedDescription() {
-			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
+			return "By dealing with Wolfgang and Karl and sending them skulking off back to Slaver Alley's 'Bounty Hunter Lodge', you've both saved Kay's business and ensured that Nyan once again has access to a stock of enchanted clothing."
+					+ " Offering you his eternal thanks, Kay said that you're welcome to pay him a visit whenever you like.";
+		}
+	},
+	
+	RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 1, 25) {
+		@Override
+		public String getName() {
+			return "Nyan's Reward";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that you've saved Kay's business, you should return to Nyan and inform her of what's happened.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "A very happy Nyan paid you your promised reward, and also offered to give you a lifetime 25% discount in her store."
+					+ " She also let slip that she's single, in a clumsy attempt to try and hit on you...";
 		}
 	},
 	

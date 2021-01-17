@@ -96,13 +96,12 @@ public class DominionAlleywayAttacker extends NPC {
 					}
 					
 				} else {
-					if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					if(Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
-					if(canalSpecies) {
-						if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-							AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						}
+					if(canalSpecies && Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).containsKey(s)) {
+//						System.out.println(s.getName(null));
+						AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
 				}
 			}

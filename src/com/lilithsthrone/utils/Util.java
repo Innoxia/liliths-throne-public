@@ -1149,6 +1149,9 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("They", "Dey");
 		slovenlySpeechReplacementMap.put("they", "dey");
+
+		slovenlySpeechReplacementMap.put("These", "Dese");
+		slovenlySpeechReplacementMap.put("these", "dese");
 		
 		slovenlySpeechReplacementMap.put("And", "'An");
 		slovenlySpeechReplacementMap.put("and", "an'");
@@ -1236,6 +1239,7 @@ public class Util {
 			<br/>Into -> inta
 			<br/>The -> Da
 			<br/>Them -> Dem
+			<br/>These -> Dese
 			<br/>And -> An'
 			<br/>Of -> 'O
 			<br/>Who -> 'O

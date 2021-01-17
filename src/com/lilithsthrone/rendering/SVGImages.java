@@ -3,9 +3,11 @@ package com.lilithsthrone.rendering;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -112,7 +114,7 @@ public enum SVGImages {
 
 			eggIncubation1, eggIncubation2, eggIncubation3,
 			
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTailSerpent, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationStretchRecoveryPrevented, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
@@ -745,6 +747,8 @@ public enum SVGImages {
 			penetrationTypePenis = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTail.svg");
 			penetrationTypeTail = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTailSerpent.svg");
+			penetrationTypeTailSerpent = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTentacle.svg");
 			penetrationTypeTentacle = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTongue.svg");
@@ -1030,20 +1034,20 @@ public enum SVGImages {
 		return spellOverlay;
 	}
 
-	public String getWomensWatchHourHand() {
-		return womensWatchHourHand;
+	public String getWomensWatchHourHand(List<Colour> colours, List<ColourReplacement> replacements) {
+		return SvgUtil.colourReplacement("womanWatchHour", colours, replacements, womensWatchHourHand);
 	}
 
-	public String getWomensWatchMinuteHand() {
-		return womensWatchMinuteHand;
+	public String getWomensWatchMinuteHand(List<Colour> colours, List<ColourReplacement> replacements) {
+		return SvgUtil.colourReplacement("womanWatchMinute", colours, replacements, womensWatchMinuteHand);
 	}
 
-	public String getMensWatchHourHand() {
-		return mensWatchHourHand;
+	public String getMensWatchHourHand(List<Colour> colours, List<ColourReplacement> replacements) {
+		return SvgUtil.colourReplacement("manWatchHour", colours, replacements, mensWatchHourHand);
 	}
 
-	public String getMensWatchMinuteHand() {
-		return mensWatchMinuteHand;
+	public String getMensWatchMinuteHand(List<Colour> colours, List<ColourReplacement> replacements) {
+		return SvgUtil.colourReplacement("manWatchMinute", colours, replacements, mensWatchMinuteHand);
 	}
 
 	public String getWeatherDayClear() {
@@ -1246,7 +1250,10 @@ public enum SVGImages {
 		return penetrationTypeFinger;
 	}
 	
-	public String getPenetrationTypeTail() {
+	public String getPenetrationTypeTail(boolean serpentTail) {
+		if(serpentTail) {
+			return penetrationTypeTailSerpent;
+		}
 		return penetrationTypeTail;
 	}
 	

@@ -676,7 +676,8 @@ public class ItemEffectType {
 	};
 
 	public static AbstractItemEffectType MAKEUP_SET = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Opens cosmetics screen)]"),
+			"[style.boldPink(Opens cosmetics screen)]",
+			"[style.boldSex(Automatically re-applies heavy lipstick after sex)]"),
 			PresetColour.BASE_PURPLE) {
 		@Override
 		public boolean isBreakOutOfInventory() {

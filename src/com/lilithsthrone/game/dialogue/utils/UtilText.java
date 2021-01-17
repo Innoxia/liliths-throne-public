@@ -93,6 +93,7 @@ import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -111,6 +112,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -177,6 +179,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -821,7 +824,7 @@ public class UtilText {
 				e.printStackTrace();
 			}
 		} else {
-			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+pathName+".xml")+"' does not exist!");
+			System.err.println("Error in UtilText.parseFromXMLFile(): File '"+(folderPath+System.getProperty("file.separator")+pathName+".xml")+"' does not exist!");
 		}
 		
 		if(strings.isEmpty()) {
@@ -3160,7 +3163,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"speechMasculine"),
+						"speechMasculine",
+						"masculineSpeech"),
 				false,
 				false,
 				"(speech content)",
@@ -3179,7 +3183,10 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"speechMasculineStrong",
 						"speechMasculineHeavy",
-						"speechMasculinePlus"),
+						"speechMasculinePlus",
+						"masculineStrongSpeech",
+						"masculineHeavySpeech",
+						"masculinePlusSpeech"),
 				false,
 				false,
 				"(speech content)",
@@ -3196,7 +3203,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"speechAndrogynous"),
+						"speechAndrogynous",
+						"androgynousSpeech"),
 				false,
 				false,
 				"(speech content)",
@@ -3213,7 +3221,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"speechFeminine"),
+						"speechFeminine",
+						"feminineSpeech"),
 				false,
 				false,
 				"(speech content)",
@@ -3232,7 +3241,10 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"speechFeminineStrong",
 						"speechFeminineHeavy",
-						"speechFemininePlus"),
+						"speechFemininePlus",
+						"feminineStrongSpeech",
+						"feminineHeavySpeech",
+						"femininePlusSpeech"),
 				false,
 				false,
 				"(speech content)",
@@ -6468,8 +6480,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"Returns the name of the character's thighs. Will almost always simply be 'thighs'.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return "thighs";
@@ -6483,11 +6495,11 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"Returns the name of the character's thighs, with a descriptive word appended to the front of it, based on hip size.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return "thighs";
+				return applyDescriptor(character.getHipSize().getDescriptor(), "thighs");
 			}
 		});
 		
@@ -6496,12 +6508,15 @@ public class UtilText {
 						"foot"),
 				true,
 				true,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The singular name of this character's foot."
+					+ " If the character is wearing clothing which is restricting direct access to their foot, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the singular name of this character's foot.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
 					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
@@ -6525,12 +6540,15 @@ public class UtilText {
 						"footD"),
 				true,
 				true,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The singular name of this character's foot, plus a descriptor appended to the front."
+					+ " If the character is wearing clothing which is restricting direct access to their foot, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the singular name of this character's foot.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
 					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
@@ -6553,12 +6571,15 @@ public class UtilText {
 						"feet"),
 				true,
 				true,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The plural name of this character's feet."
+					+ " If the character is wearing clothing which is restricting direct access to their feet, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the plural name of this character's feet.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
 					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
@@ -6582,12 +6603,15 @@ public class UtilText {
 						"feetD"),
 				true,
 				false,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The plural name of this character's feet, plus a descriptor appended to the front."
+					+ " If the character is wearing clothing which is restricting direct access to their feet, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the plural name of this character's feet.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(parserTags.contains(ParserTag.SEX_DESCRIPTION)) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
 					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
@@ -6610,11 +6634,28 @@ public class UtilText {
 						"toes"),
 				true,
 				true,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The plural name of this character's toes."
+					+ " If the character is wearing clothing which is restricting direct access to their feet, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the plural name of this character's toes.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) { // If not able to access feet, return foot-related clothing description, not toes:
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
+										?"footwear"
+										:clothing.getName()+"-clad-"+character.getLegType().getFootNamePlural(character),
+									clothing.getNamePlural(),
+									clothing.getNamePlural());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return character.getLegType().getToeNamePlural(character);
 			}
 		});
@@ -6625,11 +6666,28 @@ public class UtilText {
 						"toesD"),
 				true,
 				false,
-				"",
-				"Description of method",
-				BodyPartType.LEG){//TODO
+				"(ignore clothing)",
+				"The plural name of this character's toes, plus a descriptor appended to the front."
+					+ " If the character is wearing clothing which is restricting direct access to their feet, and this command is parsed during sex, it will return the name of the characters footwear."
+					+ " Pass in 'true' as an argument to ignore that sex behaviour, ensuring that the command will always return the plural name of this character's toes.",
+				BodyPartType.LEG){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				boolean trueName = arguments!=null && arguments.equalsIgnoreCase("true");
+				if(parserTags.contains(ParserTag.SEX_DESCRIPTION) && !trueName) {
+					if(!character.isAbleToAccessCoverableArea(CoverableArea.FEET, false)) { // If not able to access feet, return foot-related clothing description, not toes:
+						try {
+							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
+							return UtilText.returnStringAtRandom(
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
+										?"footwear"
+										:clothing.getName()+"-clad-"+character.getLegType().getFootNamePlural(character),
+									clothing.getNamePlural(),
+									clothing.getNamePlural());
+						} catch(Exception ex) {
+						}
+					}
+				}
 				return applyDescriptor(character.getLegType().getToeDescriptor(character), character.getLegType().getToeNamePlural(character));
 			}
 		});
@@ -7416,10 +7474,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the name for the tip of the character's tail."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "tip";
+				}
 				return character.getTailType().getTailTipNameSingular(character);
 			}
 		});
@@ -7431,10 +7493,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the plural name for the tip of the character's tail."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "tips";
+				}
 				return character.getTailType().getTailTipNamePlural(character);
 			}
 		});
@@ -7448,10 +7514,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the name for the tip of the character's tail, along with a descriptor prefix."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "pointed tip";
+				}
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNameSingular(character));
 			}
 		});
@@ -7465,10 +7535,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the plural name for the tip of the character's tail, along with a descriptor prefix."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "pointed tips";
+				}
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
 			}
 		});
@@ -7480,11 +7554,11 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the number of tails this character has.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getTailDeterminer();
+				return Util.intToString(character.getTailCount());
 			}
 		});
 		
@@ -7495,10 +7569,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns a single word descriptor for this tail's girth."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return character.getLegTailGirthDescriptor();
+				}
 				return character.getTailGirthDescriptor();
 			}
 		});
@@ -7510,16 +7588,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the circumference of the character's tail, as measured at the base, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7530,16 +7619,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the circumference of the character's tail, as measured at the very tip, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailCircumference(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailCircumference(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7551,16 +7651,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the diameter of the character's tail, as measured at the base, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7572,16 +7683,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the diameter of the character's tail, as measured at the very tip, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailDiameter(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailDiameter(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7593,16 +7715,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the length of the character's tail, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7614,16 +7747,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the length of the character's tail which is used in penetrations (80% of total length), in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+							
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 		
@@ -9090,6 +9234,15 @@ public class UtilText {
 		for(TongueModifier tongueMod : TongueModifier.values()) {
 			engine.put("TONGUE_MODIFIER_"+tongueMod.toString(), tongueMod);
 		}
+		for(Muscle muscle : Muscle.values()) {
+			engine.put("MUSCLE_"+muscle.toString(), muscle);
+		}
+		for(BodySize bodySize : BodySize.values()) {
+			engine.put("BODY_SIZE_"+bodySize.toString(), bodySize);
+		}
+		for(BodyShape bodyShape : BodyShape.values()) {
+			engine.put("BODY_SHAPE_"+bodyShape.toString(), bodyShape);
+		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
 			engine.put("FLUID_TYPE_"+FluidType.getIdFromFluidType(fluidType), fluidType);
@@ -9160,6 +9313,9 @@ public class UtilText {
 		for(AbstractWingType type : WingType.getAllWingTypes()) {
 			engine.put("WING_TYPE_"+WingType.getIdFromWingType(type), type);
 		}
+		for(WingSize size : WingSize.values()) {
+			engine.put("WING_SIZE_"+size.toString(), size.getValue());
+		}
 		
 		
 		// Effects & persona:
@@ -9225,6 +9381,9 @@ public class UtilText {
 		}
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
+		}
+		for(DayPeriod dayPeriod : DayPeriod.values()) {
+			engine.put("DAY_PERIOD_"+dayPeriod.toString(), dayPeriod);
 		}
 		for(DialogueFlagValue flag : DialogueFlagValue.values()) {
 			engine.put("FLAG_"+flag.toString(), flag);
@@ -9778,6 +9937,9 @@ public class UtilText {
 			case SKIN:
 				return character.getBody().getTorso();
 			case TAIL:
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return character.getBody().getLeg();
+				}
 				return character.getBody().getTail();
 			case TENTACLE:
 				return character.getBody().getTentacle();

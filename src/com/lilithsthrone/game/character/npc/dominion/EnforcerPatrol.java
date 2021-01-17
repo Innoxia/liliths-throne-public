@@ -83,11 +83,11 @@ public class EnforcerPatrol extends NPC {
 				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
 					continue;
 				}
-				if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				if(Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).containsKey(s)) {
+					AbstractSubspecies.addToSubspeciesMap((int) (5 * Subspecies.getWorldSpecies(WorldType.DOMINION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
-					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).containsKey(s)) { // Add Submission races at only 20% of the chance of Dominion races
+					AbstractSubspecies.addToSubspeciesMap((int) (Subspecies.getWorldSpecies(WorldType.SUBMISSION, null, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 				
 //				switch(s) {

@@ -411,10 +411,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					feralStringBuilder.append("[style.italicsFeral(If [npc.she] [npc.verb(grow)] any wings, they will be located on the back of [npc.her] upper body.)]");
 				}
 			}
-//			if(!legConfiguration.isAbleToGrowTail()) {
-//				feralStringBuilder.append("<br/>");
-//				feralStringBuilder.append("[style.italicsFeral(This leg configuration will prevent [npc.name] from growing a tail!)]");
-//			}
+			if(!legConfiguration.isAbleToGrowTail()) {
+				feralStringBuilder.append("<br/>");
+				feralStringBuilder.append("[style.italicsFeral(This leg configuration will prevent [npc.name] from growing a tail!)]");
+			}
 		feralStringBuilder.append("</p>");
 		
 		if(applyEffects) {

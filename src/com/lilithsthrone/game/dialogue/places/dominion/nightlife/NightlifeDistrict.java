@@ -3498,9 +3498,10 @@ public class NightlifeDistrict {
 					};
 					
 				} else if(index==3) {
-					if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
-							|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
-							|| (!Main.game.getPlayer().hasPenis() && !Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))) {
+					boolean penisAvailable = Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
+					boolean vaginaAvailable = Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+					
+					if((penisAvailable && !Main.game.getPlayer().isTaur()) || vaginaAvailable) {
 						return new Response("Glory hole (use)",
 								"A couple of the toilet's stalls have glory holes in them. Step up to one and have the person on the other side service you.",
 								WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY) {
@@ -3510,11 +3511,34 @@ public class NightlifeDistrict {
 							}
 						};
 						
+					} else if(penisAvailable && Main.game.getPlayer().isTaur()) {
+						return new Response("Glory hole (use)",
+								"Due to the shape of your [pc.legRace]'s body, you cannot get into a suitable position for using the glory hole...",
+								null);
+						
 					} else {
 						return new Response("Glory hole (use)",
 								"You can't get access to your genitals, so can't get serviced at a glory hole.",
 								null);
 					}
+//					
+//					if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
+//							|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
+//							|| (!Main.game.getPlayer().hasPenis() && !Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))) {
+//						return new Response("Glory hole (use)",
+//								"A couple of the toilet's stalls have glory holes in them. Step up to one and have the person on the other side service you.",
+//								WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY) {
+//							@Override
+//							public void effects() {
+//								spawnSubGloryHoleNPC("stranger");
+//							}
+//						};
+//						
+//					} else {
+//						return new Response("Glory hole (use)",
+//								"You can't get access to your genitals, so can't get serviced at a glory hole.",
+//								null);
+//					}
 					
 					
 				} else if(index==4) {

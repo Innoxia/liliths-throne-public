@@ -388,8 +388,7 @@ public class HomeImprovements {
 		}
 	};
 	
-	
-	public static final DialogueNode TOILETS = new DialogueNode("", ".", false) {
+	public static final DialogueNode TOILETS = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 1*60;
@@ -422,9 +421,11 @@ public class HomeImprovements {
 					}
 				};
 				
-			} else if(index==3) {//TODO test: taur penis can't use it. Also update nightclub. Prevent penis from being used in those slots if taur
-				if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) && !Main.game.getPlayer().isTaur())
-						|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
+			} else if(index==3) {
+				boolean penisAvailable = Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
+				boolean vaginaAvailable = Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+				
+				if((penisAvailable && !Main.game.getPlayer().isTaur()) || vaginaAvailable) {
 					return new Response("Glory hole (use)",
 							"One of the toilet's stalls has a glory hole in it. Enter the stall and wait for someone on the other side to service you.",
 							TOILETS_GLORY_HOLE_DOM) {
@@ -434,9 +435,9 @@ public class HomeImprovements {
 						}
 					};
 					
-				} else if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) && Main.game.getPlayer().isTaur()) {
+				} else if(penisAvailable && Main.game.getPlayer().isTaur()) {
 					return new Response("Glory hole (use)",
-							"As your [pc.cock] is positioned on the underside of your lower ",
+							"Due to the shape of your [pc.legRace]'s body, you cannot get into a suitable position for using the glory hole...",
 							null);
 					
 				} else {
@@ -444,7 +445,6 @@ public class HomeImprovements {
 							"You can't get access to your genitals, so can't get serviced at a glory hole.",
 							null);
 				}
-				
 				
 			} else if(index==4) {
 				if((Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true))

@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -1639,7 +1640,7 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case TAIL:
-					if(!performingCharacter.getTailType().isSuitableForPenetration()) {
+					if(performingCharacter.getLegConfiguration()!=LegConfiguration.TAIL_LONG && !performingCharacter.getTailType().isSuitableForPenetration()) {
 						return false;
 					}
 					break;
@@ -1657,7 +1658,7 @@ public interface SexActionInterface {
 					break;
 				case FOOT:
 					// IF no legs or feet, cannot use foot actions:
-					if(performingCharacter.getLegCount()==0 || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
+					if(!performingCharacter.hasLegs() || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
 						return false;
 					}
 					break;

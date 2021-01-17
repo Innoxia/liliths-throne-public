@@ -336,6 +336,39 @@ public class WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
 	};
 	
+	public static AbstractWorldType BOUNTY_HUNTER_LODGE = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Rusty Collar",
+			PresetColour.BASE_RED_DARK,
+			1,
+			false,
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/slaverAlley/bountyHunterLodge/bountyHunterLodge.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.BOUNTY_HUNTER_LODGE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE),
+					
+					new Value<>(new Color(0xff8000), PlaceType.BOUNTY_HUNTER_LODGE_BOUNTY_BOARD),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.BOUNTY_HUNTER_LODGE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.BOUNTY_HUNTER_LODGE_SEATING),
+					new Value<>(new Color(0x00ffff), PlaceType.BOUNTY_HUNTER_LODGE_STAIRS))) {
+	};
+	
+	public static AbstractWorldType BOUNTY_HUNTER_LODGE_UPSTAIRS = new AbstractWorldType(WorldRegion.DOMINION,
+			"The Rusty Collar (Upstairs)",
+			PresetColour.BASE_RED_DARK,
+			1,
+			false,
+			false,
+			TeleportPermissions.BOTH, "/com/lilithsthrone/res/map/dominion/slaverAlley/bountyHunterLodge/bountyHunterLodgeUpstairs.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.BOUNTY_HUNTER_LODGE_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_CORRIDOR),
+					new Value<>(new Color(0xffff00), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_DOBERMANNS),
+					new Value<>(new Color(0xff80ff), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE),
+					new Value<>(new Color(0x00ffff), PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_STAIRS))) {
+	};
+	
 	public static AbstractWorldType SHOPPING_ARCADE = new AbstractWorldType(WorldRegion.DOMINION,
 			"Shopping Arcade",
 			PresetColour.BASE_YELLOW,
@@ -353,8 +386,9 @@ public class WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
-					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT),
-					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES)
+					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_RESTAURANT),
+					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES),
+					new Value<>(new Color(0xff8080), PlaceType.SHOPPING_ARCADE_TOILETS)
 					)){
 		@Override
 		public boolean isRevealedOnStart() {
@@ -373,19 +407,21 @@ public class WorldType {
 		}
 	};
 	
-	public static AbstractWorldType SUPPLIER_DEN = new AbstractWorldType(WorldRegion.DOMINION,
-			"Supplier Depot",
-			PresetColour.BASE_CRIMSON,
+	public static AbstractWorldType TEXTILES_WAREHOUSE = new AbstractWorldType(WorldRegion.DOMINION,
+			"Kay's Textiles",
+			PresetColour.GENERIC_ARCANE,
 			1,
 			false,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
-			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.SUPPLIER_DEPOT_ENTRANCE, Util.newHashMapOfValues(
+			"/com/lilithsthrone/res/map/dominion/textilesWarehouse/textilesWarehouse.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.TEXTILE_WAREHOUSE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
-					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
-					new Value<>(new Color(0xff0000), PlaceType.SUPPLIER_DEPOT_ENTRANCE),
-					new Value<>(new Color(0xff00ff), PlaceType.SUPPLIER_DEPOT_STORAGE_ROOM),
-					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))) {
+					new Value<>(new Color(0x808080), PlaceType.TEXTILE_WAREHOUSE_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.TEXTILE_WAREHOUSE_ENTRANCE),
+					new Value<>(new Color(0xff00ff), PlaceType.TEXTILE_WAREHOUSE_STORAGE_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.TEXTILE_WAREHOUSE_ENCHANTING),
+					new Value<>(new Color(0x00ffff), PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION),
+					new Value<>(new Color(0x00ff00), PlaceType.TEXTILE_WAREHOUSE_OFFICE))) {
 		@Override
 		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
@@ -671,6 +707,42 @@ public class WorldType {
 		@Override
 		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in Helena's apartment!";
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
+	};
+	
+	public static AbstractWorldType NYANS_APARTMENT = new AbstractWorldType(WorldRegion.DOMINION,
+			"Nyan's apartment",
+			PresetColour.BASE_PINK_LIGHT,
+			1,
+			false,
+			false,
+			TeleportPermissions.NONE, "/com/lilithsthrone/res/map/dominion/nyanApartment/apartment.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_NYAN_APARTMENT, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x808080), PlaceType.NYAN_APARTMENT_HALLWAY),
+					new Value<>(new Color(0x00ff00), PlaceType.NYAN_APARTMENT_ENTRANCE),
+
+					new Value<>(new Color(0xff8000), PlaceType.NYAN_APARTMENT_DINING_ROOM),
+					new Value<>(new Color(0xffff00), PlaceType.NYAN_APARTMENT_KITCHEN),
+					
+					new Value<>(new Color(0x0000ff), PlaceType.NYAN_APARTMENT_BATHROOM),
+					new Value<>(new Color(0x00ff80), PlaceType.NYAN_APARTMENT_LOUNGE),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.NYAN_APARTMENT_SPARE_BEDROOM),
+					new Value<>(new Color(0xff0000), PlaceType.NYAN_APARTMENT_NYAN_BEDROOM),
+					new Value<>(new Color(0x00ffff), PlaceType.NYAN_APARTMENT_ENSUITE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+		@Override
+		public String getSexBlockedReason(GameCharacter character) {
+			return "You can't have sex while in Nyan's apartment!";
 		}
 		@Override
 		public boolean isFurniturePresent() {
@@ -988,6 +1060,9 @@ public class WorldType {
 	
 	public static AbstractWorldType getWorldTypeFromId(String id) {
 		id.replaceAll("SEWERS", "SUBMISSION");
+		if(id.equals("SUPPLIER_DEN")) {
+			return TEXTILES_WAREHOUSE;
+		}
 		id = Util.getClosestStringMatch(id, idToWorldMap.keySet());
 		return idToWorldMap.get(id);
 	}

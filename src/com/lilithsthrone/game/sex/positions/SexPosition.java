@@ -863,11 +863,21 @@ public class SexPosition {
 			SexActionPresets.positioningActionsNew, Util.newArrayListOfValues(MissionaryDesk.class)) {
 		@Override
 		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
+			Map<SexSlot, GameCharacter> reversedPositioningSlotsMap = new HashMap<>();
+			for(Entry<GameCharacter, SexSlot> entry : positioningSlots.entrySet()) {
+				reversedPositioningSlotsMap.put(entry.getValue(), entry.getKey());
+			}
+			
 			List<List<SexSlot>> mutuallyExclusiveSlots = new ArrayList<>();
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.BETWEEN_LEGS, SexSlotDesk.PERFORMING_ORAL));
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.BETWEEN_LEGS_TWO, SexSlotDesk.PERFORMING_ORAL_TWO));
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.BETWEEN_LEGS_THREE, SexSlotDesk.PERFORMING_ORAL_THREE));
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.BETWEEN_LEGS_FOUR, SexSlotDesk.PERFORMING_ORAL_FOUR));
+			
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.OVER_DESK_ON_FRONT, SexSlotDesk.OVER_DESK_ON_BACK));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.OVER_DESK_ON_FRONT_TWO, SexSlotDesk.OVER_DESK_ON_BACK_TWO));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.OVER_DESK_ON_FRONT_THREE, SexSlotDesk.OVER_DESK_ON_BACK_THREE));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotDesk.OVER_DESK_ON_FRONT_FOUR, SexSlotDesk.OVER_DESK_ON_BACK_FOUR));
 			
 			for(List<SexSlot> entry : mutuallyExclusiveSlots) {
 				for(SexSlot s : entry) {
@@ -882,6 +892,34 @@ public class SexPosition {
 						}
 					}
 				}
+			}
+
+			if((slot==SexSlotDesk.HUMPING && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK))
+					|| (slot==SexSlotDesk.HUMPING_TWO && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_TWO) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_TWO))
+					|| (slot==SexSlotDesk.HUMPING_THREE && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_THREE) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_THREE))
+					|| (slot==SexSlotDesk.HUMPING_FOUR && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_FRONT_FOUR) && !positioningSlots.containsValue(SexSlotDesk.OVER_DESK_ON_BACK_FOUR))) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "There is no free character lying over a desk to hump!"));
+			}
+
+			// Cannot hump when the person standing behind the intended target is a taur:
+			if((slot==SexSlotDesk.HUMPING && positioningSlots.containsValue(SexSlotDesk.BETWEEN_LEGS) && reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS).isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS), "[npc.Name] cannot hump anyone while [npc2.namePos] [npc2.legRace]'s body is in the way!"));
+			} else if((slot==SexSlotDesk.HUMPING_TWO && positioningSlots.containsValue(SexSlotDesk.BETWEEN_LEGS_TWO) && reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_TWO).isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_TWO), "[npc.Name] cannot hump anyone while [npc2.namePos] [npc2.legRace]'s body is in the way!"));
+			} else if((slot==SexSlotDesk.HUMPING_THREE && positioningSlots.containsValue(SexSlotDesk.BETWEEN_LEGS_THREE) && reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_THREE).isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_THREE), "[npc.Name] cannot hump anyone while [npc2.namePos] [npc2.legRace]'s body is in the way!"));
+			} else if((slot==SexSlotDesk.HUMPING_FOUR && positioningSlots.containsValue(SexSlotDesk.BETWEEN_LEGS_FOUR) && reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_FOUR).isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.BETWEEN_LEGS_FOUR), "[npc.Name] cannot hump anyone while [npc2.namePos] [npc2.legRace]'s body is in the way!"));
+			}
+			// And vice-versa:
+			if((slot==SexSlotDesk.BETWEEN_LEGS && positioningSlots.containsValue(SexSlotDesk.HUMPING) && characterToTakeSlot.isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.HUMPING), "[npc.NamePos] [npc2.legRace]'s body will not fit while [npc2.name] is in the way!"));
+			} else if((slot==SexSlotDesk.BETWEEN_LEGS_TWO && positioningSlots.containsValue(SexSlotDesk.HUMPING_TWO) && characterToTakeSlot.isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.HUMPING_TWO), "[npc.NamePos] [npc2.legRace]'s body will not fit while [npc2.name] is in the way!"));
+			} else if((slot==SexSlotDesk.BETWEEN_LEGS_THREE && positioningSlots.containsValue(SexSlotDesk.HUMPING_THREE) && characterToTakeSlot.isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.HUMPING_THREE), "[npc.NamePos] [npc2.legRace]'s body will not fit while [npc2.name] is in the way!"));
+			} else if((slot==SexSlotDesk.BETWEEN_LEGS_FOUR && positioningSlots.containsValue(SexSlotDesk.HUMPING_FOUR) && characterToTakeSlot.isTaur())) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, reversedPositioningSlotsMap.get(SexSlotDesk.HUMPING_FOUR), "[npc.NamePos] [npc2.legRace]'s body will not fit while [npc2.name] is in the way!"));
 			}
 			
 			if(characterToTakeSlot.isTaur()
@@ -913,6 +951,10 @@ public class SexPosition {
 						|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_TWO
 						|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_THREE
 						|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_FOUR
+						|| e.getValue()==SexSlotDesk.HUMPING
+						|| e.getValue()==SexSlotDesk.HUMPING_TWO
+						|| e.getValue()==SexSlotDesk.HUMPING_THREE
+						|| e.getValue()==SexSlotDesk.HUMPING_FOUR
 						|| e.getValue()==SexSlotDesk.PERFORMING_ORAL
 						|| e.getValue()==SexSlotDesk.PERFORMING_ORAL_TWO
 						|| e.getValue()==SexSlotDesk.PERFORMING_ORAL_THREE
@@ -925,7 +967,7 @@ public class SexPosition {
 				}
 			}
 			if(!suitablePositionDesk || !suitablePositionStandingOrOral) {
-				return new Value<Boolean, String>(false, "At least one character needs to be on top of the desk, and another either standing, receiving oral, or performing oral for this position to work.");
+				return new Value<Boolean, String>(false, "At least one character needs to be on top of the desk, and another either standing, humping, receiving oral, or performing oral for this position to work.");
 			}
 			return new Value<Boolean, String>(true, "");
 		}
@@ -938,6 +980,7 @@ public class SexPosition {
 			List<String> deskFrontTaurNames = new ArrayList<>();
 			List<String> standingNames = new ArrayList<>();
 			List<String> standingNamesTaur = new ArrayList<>();
+			List<String> humpingNames = new ArrayList<>();
 			List<String> performingOralNames = new ArrayList<>();
 			List<String> receivingOralNames = new ArrayList<>();
 
@@ -946,6 +989,7 @@ public class SexPosition {
 			GameCharacter mainDeskBack = null;
 			GameCharacter mainStanding = null;
 			GameCharacter mainStandingTaur = null;
+			GameCharacter mainHumping = null;
 			GameCharacter mainPerformingOral = null;
 			GameCharacter mainReceivingOral = null;
 			
@@ -1017,6 +1061,20 @@ public class SexPosition {
 							} else {
 								standingNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							}
+						}
+						
+					} else if(e.getValue()==SexSlotDesk.HUMPING
+							|| e.getValue()==SexSlotDesk.HUMPING_TWO
+							|| e.getValue()==SexSlotDesk.HUMPING_THREE
+							|| e.getValue()==SexSlotDesk.HUMPING_FOUR) {
+						if(mainHumping==null) {
+							mainHumping=e.getKey();
+						}
+						
+						if(e.getKey().isPlayer()) {
+							humpingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
+						} else {
+							humpingNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 						}
 						
 					} else if(e.getValue()==SexSlotDesk.PERFORMING_ORAL
@@ -1129,6 +1187,26 @@ public class SexPosition {
 				}
 			}
 			
+
+			// Humping:
+			
+			int humpingCount = humpingNames.size();
+			if(humpingCount>0) {
+				if(humpingCount>=2) {
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(humpingNames, false))+" have eagerly clambered up onto the edge of the desk, and are ready to start humping their partners.");
+					
+				} else if(humpingCount==1) {
+					sb.append(UtilText.parse(mainHumping, "[npc.Name] [npc.has] eagerly clambered up onto the edge of the desk, and [npc.is] ready to start humping"));
+					if(totalDeskCount>1) {
+						sb.append(UtilText.parse(mainHumping," [npc.her] partner. "));
+					} else {
+						sb.append(UtilText.parse(mainDesk," [npc.name]")+". ");
+					}
+				}
+			}
+			
+			
+			// Performing oral:
 			
 			if(performingOralNames.size()>=2) {
 					sb.append(Util.capitaliseSentence(Util.stringsToStringList(performingOralNames, false))+" are positioned so as to be right up between "

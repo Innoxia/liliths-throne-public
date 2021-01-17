@@ -300,7 +300,7 @@ public class Shadow extends NPC {
 					+ " and thinks nothing of using her finely-honed stealth abilities to ambush innocent people and force herself upon them at blade-point."
 				+ " From this indiscriminate targeting of those around her, combined with rumours of her previous employers being stabbed in the back, Shadow has a reputation for being underhanded and treacherous.");
 		
-		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS) {
+		if(this.getHomeWorldLocation()==WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS) {
 			sb.append("<br/>"
 					+ "No longer a personal bodyguard for Vengar, Shadow is now a professional bounty hunter."
 					+ " Joined by her long-time companion, Silence, she can be found in Slaver Alley's 'Bounty Hunter Lodge'.");
@@ -332,6 +332,14 @@ public class Shadow extends NPC {
 		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	
+	public void moveToBountyHunterLodge() {
+		this.setLocation(WorldType.BOUNTY_HUNTER_LODGE_UPSTAIRS, PlaceType.BOUNTY_HUNTER_LODGE_UPSTAIRS_ROOM_SHADOW_SILENCE, true);
+		if(Main.game.getHourOfDay()<2 || Main.game.getHourOfDay()>=10) {
+			this.setLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_STAIRS, false);
+			this.setNearestLocation(WorldType.BOUNTY_HUNTER_LODGE, PlaceType.BOUNTY_HUNTER_LODGE_SEATING, false);
+		}
+	}
+	
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
@@ -346,7 +354,9 @@ public class Shadow extends NPC {
 			}
 			
 		} else {
-			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+			if(!Main.game.getCharactersPresent().contains(this)) {
+				this.moveToBountyHunterLodge();
+			}
 		}
 	}
 	

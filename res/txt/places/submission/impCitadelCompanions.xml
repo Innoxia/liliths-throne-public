@@ -1223,7 +1223,7 @@
 	</p>
 	<p>
 		#IF !npc.getFetishDesire(FETISH_TRANSFORMATION_RECEIVING).isPositive()
-		#THEN [npc.speech(I-I really don't want to be a fox-girl!)] [npc.name] complains, but, realising that [npc.she] has no choice in the matter, [npc.she] reluctantly continues, [npc.speech(Fine... I'll drink it...)]
+		#THEN [npc.speech(I-I really don't want to be a fox-girl!)] [npc.name] complains, but, realising that [npc.sheHasFull] no choice in the matter, [npc.she] reluctantly continues, [npc.speech(Fine... I'll drink it...)]
 		#ELSE [npc.speech(Ooh, being a fox-girl sounds like fun!)] [npc.name] happily replies. [npc.speech(Come on, give me the potion!)]
 		#ENDIF
 	</p>
@@ -1299,7 +1299,7 @@
 	</p>
 	<p>
 		#IF !npc.getFetishDesire(FETISH_TRANSFORMATION_RECEIVING).isPositive()
-		#THEN [npc.speech(I-I really don't want to be a fox-girl!)] [npc.name] complains, but, realising that [npc.she] has no choice in the matter, [npc.she] reluctantly continues, [npc.speech(Fine... I'll drink it as well...)]
+		#THEN [npc.speech(I-I really don't want to be a fox-girl!)] [npc.name] complains, but, realising that [npc.sheHasFull] no choice in the matter, [npc.she] reluctantly continues, [npc.speech(Fine... I'll drink it as well...)]
 		#ELSE [npc.speech(Ooh, being a fox-girl sounds like fun!)] [npc.name] happily replies. [npc.speech(Come on, give me the potion!)]
 		#ENDIF
 	</p>

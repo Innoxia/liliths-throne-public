@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>NoStepOnSnek_snake</race>
+	<colour>NoStepOnSnek_snake</colour>
+	<secondaryColour>NoStepOnSnek_snake</secondaryColour>
+	<tertiaryColour>NoStepOnSnek_snake</tertiaryColour>
+	<mainSubspecies>false</mainSubspecies>
+	<baseSlaveValue>10000</baseSlaveValue>
+	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
+	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges/>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_NoStepOnSnek_snake)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="60">snake</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>snake</bookIconName>
+	<bookName>Clutching Coils</bookName>
+	<basicDescriptionId>SNAKE_BASIC</basicDescriptionId>
+	<advancedDescriptionId>SNAKE_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[snake-morph]]></name>
+	<namePlural><![CDATA[snake-morphs]]></namePlural>
+	<singularMaleName><![CDATA[snake-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[snake-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[snake-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[snake-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic snake, known as a 'snake-morph'.]]></description>
+	<nameHalfDemon><![CDATA[basilisk]]></nameHalfDemon>
+	<namePluralHalfDemon><![CDATA[basilisks]]></namePluralHalfDemon>
+	<singularMaleNameHalfDemon><![CDATA[basilisk]]></singularMaleNameHalfDemon>
+	<singularFemaleNameHalfDemon><![CDATA[basilisk]]></singularFemaleNameHalfDemon>
+	<pluralMaleNameHalfDemon><![CDATA[basilisks]]></pluralMaleNameHalfDemon>
+	<pluralFemaleNameHalfDemon><![CDATA[basilisks]]></pluralFemaleNameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[snake]]></feralName>
+		<feralNamePlural><![CDATA[snakes]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[snake]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[snake]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[snakes]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[snakes]]></feralPluralFemaleName>
+		<legConfiguration>TAIL_LONG</legConfiguration>
+		<sizeHeight>false</sizeHeight>
+		<size>70</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>0</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		Although [npc.namePos] snake-like body is quick and strong, [npc.she] can't regulate [npc.her] body temperature very well, and so [npc.sheIs] weak to both arcane ice and fire. On the positive side, [npc.she] [npc.has] a strong affinity with arcane poison.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="5">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute> 
+		<attribute value="0">MAJOR_CORRUPTION</attribute>
+		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="25">DAMAGE_POISON</attribute>
+		<attribute value="-5">RESISTANCE_ICE</attribute>
+		<attribute value="-5">RESISTANCE_FIRE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="ZERO_EXTREMELY_RARE">DOMINION</region>
+		<region rarity="ZERO_EXTREMELY_RARE">FIELD_CITY</region>
+		<region rarity="ZERO_EXTREMELY_RARE">DESERT_CITY</region>
+		<region rarity="ZERO_EXTREMELY_RARE">JUNGLE_CITY</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ZERO_EXTREMELY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

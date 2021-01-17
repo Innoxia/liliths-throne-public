@@ -462,7 +462,7 @@ public class FingerNipple {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] and [npc2.verb(try)] to pull away, but, with a forceful yank, [npc.name] [npc.verb(pull)] [npc2.her] [npc2.hands] back into [npc.her] [npc.breasts],"
-									+ " making it quite clear that [npc2.she] has no choice but to squeeze the [npc.milk+] from [npc.her] [npc.nipples].",
+									+ " making it quite clear that [npc2.sheHasFull] no choice but to squeeze the [npc.milk+] from [npc.her] [npc.nipples].",
 
 							" [npc2.Name] desperately [npc2.verb(try)] to pull away from [npc.namePos] [npc.breasts],"
 									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.herHim] to continue squeezing the [npc.milk+] from [npc.her] [npc.nipples]."));

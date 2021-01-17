@@ -850,7 +850,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -885,7 +885,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -925,7 +925,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -960,7 +960,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1003,7 +1003,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override
@@ -1111,7 +1111,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return UtilText.parse(occupant(),"Talking with [npc.Name]");
 		}
 
 		@Override

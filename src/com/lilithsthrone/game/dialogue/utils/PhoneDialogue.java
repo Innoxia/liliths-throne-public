@@ -3666,18 +3666,18 @@ public class PhoneDialogue {
 				};
 				
 			} else if(index == 4) {
-				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
-					@Override
-					public void effects() {
-						loiter(60*8);
-					}
-				};
-				
-			} else if(index == 5) {
 				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
 						loiter(60*12);
+					}
+				};
+				
+			} else if(index == 5) {
+				return new ResponseEffectsOnly("24 hours", "Loiter in this area for the next twenty-four hours.") {
+					@Override
+					public void effects() {
+						loiter(60*24);
 					}
 				};
 			}
