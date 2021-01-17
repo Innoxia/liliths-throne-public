@@ -151,6 +151,13 @@
 		<sizeHeight>true</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->
 		<size>85</size>
+		<!-- The length of this feral form's tail when in the form of a serpent.
+		Hyenas cannot transform to gain a serpent-tail lower body, so this really has no effect whatsoever, but if your subspecies is something like a snake, you'll want to set this to a reasonable value.
+		Values are defined as a percentage of the character's 'size', with this percentage being added onto their size to generate their total length.
+		As most of a snake's length is in fact their body, not their tail, the usual value for this element is a lot lower than you might expect, and is by default 0.1 (which represents 10%).
+		For an example of how this works, if this hyena was to somehow become a serpent-tailed feral, they would have a body length of 85 (as defined above in the 'size' element) plus an additional 10% of that from their tail length as defined here.
+			So, they would be: 85 + (0.1*85) = 85 + 8.5 = 93.5cm long. -->
+		<serpentTailLength>0.1</serpentTailLength>
 		
 		<!-- The number of breast rows this feral form has on their chest.
 		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->

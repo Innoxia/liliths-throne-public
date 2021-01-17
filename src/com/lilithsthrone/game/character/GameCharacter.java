@@ -3854,30 +3854,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			if(isFeminine()) {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-girl";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-girl";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "woman";
-				} else {
-					return getSubspecies().getSingularFemaleName(this);
-				}
+				return getSubspecies().getSingularFemaleName(this);
 				
 			} else {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-boi";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-boi";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "man";
-				} else {
-					return getSubspecies().getSingularMaleName(this);
-				}
+				return getSubspecies().getSingularMaleName(this);
 			}
 			
 		} else {
@@ -24116,10 +24096,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getMinimumHeight() {
 		if(this.isFeral()) {
-			return Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
+			return Math.min(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
 		}
 		return this.getSubspecies().isShortStature()
-				?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()
+				?Height.NEGATIVE_TWO_MINIMUM.getMinimumValue()
 				:Height.ZERO_TINY.getMinimumValue();
 	}
 	
@@ -24140,7 +24120,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!ignoreHeightRestrictions) {
 			if(this.getHeightValue()<Height.ZERO_TINY.getMinimumValue()) {
 				height = Math.min(Height.ZERO_TINY.getMinimumValue()-1,
-							Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height));
+							Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height));
 			} else {
 				height = Math.min(Height.SEVEN_COLOSSAL.getMaximumValue(),
 							Math.max(Height.ZERO_TINY.getMinimumValue(), height));
@@ -26865,8 +26845,11 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementLegTailLengthAsPercentageOfHeight(float increment) {
 		return setLegTailLengthAsPercentageOfHeight(getLegTailLengthAsPercentageOfHeight() + increment);
 	}
-	/** @param penetrationLength true if you want to know the length of serpent-tail that is used in penetrations. It is equal to 80% of total length. */
+	/** @param penetrationLength true if you want to know the length of serpent-tail that is used in penetrations. It is equal to 80% of total tail length for non-ferals, or 80% of total body_tail length for ferals. */
 	public int getLegTailLength(boolean penetrationLength) {
+		if(this.isFeral() && penetrationLength) {
+			return (int) ((this.getHeightValue() + body.getLeg().getLength(this)) * 0.8f);
+		}
 		return (int) (body.getLeg().getLength(this) * (penetrationLength?0.8f:1));
 	}
 	/** The diameter of this character's serpent-tail, measured from the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */

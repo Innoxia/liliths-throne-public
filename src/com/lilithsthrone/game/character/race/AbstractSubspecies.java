@@ -479,6 +479,12 @@ public abstract class AbstractSubspecies {
 						&& coreElement.getMandatoryFirstOf("feralAttributes").getOptionalFirstOf("feralName").isPresent()) {
 					try {
 						Element feralElement = coreElement.getMandatoryFirstOf("feralAttributes");
+						
+						float serpentTailLength = 0.2f;
+						if(feralElement.getOptionalFirstOf("serpentTailLength").isPresent()) {
+							serpentTailLength = Float.valueOf(feralElement.getMandatoryFirstOf("serpentTailLength").getTextContent());
+						}
+						
 						this.feralAttributes = new FeralAttributes(
 								feralElement.getMandatoryFirstOf("feralName").getTextContent(),
 								feralElement.getMandatoryFirstOf("feralNamePlural").getTextContent(),
@@ -488,17 +494,18 @@ public abstract class AbstractSubspecies {
 								feralElement.getMandatoryFirstOf("feralPluralFemaleName").getTextContent(),
 
 								LegConfiguration.valueOf(feralElement.getMandatoryFirstOf("legConfiguration").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("sizeHeight").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("size").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("sizeHeight").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("size").getTextContent()),
+								serpentTailLength,
 
-								Integer.valueOf(coreElement.getMandatoryFirstOf("breastRowCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerBreastCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("crotchBreastRowCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerCrotchBreastCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("breastRowCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("nipplesPerBreastCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("crotchBreastRowCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("nipplesPerCrotchBreastCount").getTextContent()),
 
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("armsOrWingsPresent").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("fingerActionsAvailable").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("hairPresent").getTextContent()));
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("armsOrWingsPresent").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("fingerActionsAvailable").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("hairPresent").getTextContent()));
 					} catch(Exception ex) {
 						System.err.println("Error in AbstractSubspecies loading: feralAttributes failed to initialise!<br/>"+ex.getMessage());
 					}
@@ -974,16 +981,6 @@ public abstract class AbstractSubspecies {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
 			}
 		}
-
-		if(Main.game.isSillyModeEnabled() && character!=null) {
-			if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-boi";
-			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-				return "catte-boi";
-			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-				return "birb";
-			}
-		}
 		return singularMaleName;
 	}
 
@@ -1000,17 +997,6 @@ public abstract class AbstractSubspecies {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, false);
 			}
 		}
-		
-		if(Main.game.isSillyModeEnabled() && character!=null) {
-			if(character.getSubspecies() == Subspecies.WOLF_MORPH){
-				return "awoo-girl";
-			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-				return "catte-girl";
-			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-				return "birb";
-			}
-		}
-		
 		return singularFemaleName;
 	}
 

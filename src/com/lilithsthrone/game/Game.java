@@ -1764,8 +1764,8 @@ public class Game implements XMLSaving {
 
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Kay.class))) { addNPC(new Kay(), false); addedNpcs.add(Kay.class); }
 			if(addedNpcs.contains(Kay.class)) {
-				Main.game.getNpc(Nyan.class).setAffection(Main.game.getNpc(SupplierLeader.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-				Main.game.getNpc(SupplierLeader.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				Main.game.getNpc(Nyan.class).setAffection(Main.game.getNpc(Kay.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+				Main.game.getNpc(Kay.class).setAffection(Main.game.getNpc(Nyan.class), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			}
 			
 			// Harpy nests:

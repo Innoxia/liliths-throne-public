@@ -168,9 +168,10 @@
 		This determines their overall body shape. -->
 		<legConfiguration>TAIL_LONG</legConfiguration>
 		<!-- Whether or not this feral form's size is measured as height from floor to head, as for most mammals (true), or from head to tail (false), as for alligators and other low-lying animals which are far longer than they are tall. -->
-		<sizeHeight>true</sizeHeight>
+		<sizeHeight>false</sizeHeight>
 		<!-- The height/length of this subspecies' feral form, measured in cm. -->
 		<size>300</size>
+		<serpentTailLength>0.1</serpentTailLength>
 		
 		<!-- The number of breast rows this feral form has on their chest.
 		This will usually be 0, as it refers to breasts in the position of humans, which most animals lack. -->
