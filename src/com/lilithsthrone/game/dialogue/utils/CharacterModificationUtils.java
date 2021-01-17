@@ -5341,19 +5341,55 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getKatesDivAssHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getAssHair(), "ASS_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isAssHairAvailable()
+						?""
+						:"<br/><i>Due to [npc.namePos] anus type, [npc.she] cannot grow any ass hair!</i>"),
+				BodyChanging.getTarget().getAssHair(),
+				"ASS_HAIR_",
+				!BodyChanging.getTarget().isAssHairAvailable());
 	}
 	
 	public static String getKatesDivUnderarmHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getUnderarmHair(), "UNDERARM_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isUnderarmHairAvailable()
+						?""
+						:"<br/><i>Due to [npc.namePos] arm type, [npc.she] cannot grow any underam hair!</i>"),
+				BodyChanging.getTarget().getUnderarmHair(),
+				"UNDERARM_HAIR_",
+				!BodyChanging.getTarget().isUnderarmHairAvailable());
 	}
 	
 	public static String getKatesDivFacialHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled());
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled()
+						?"<br/><i>Due to the fact that [npc.nameIsFull] feminine, [npc.she] cannot grow a beard!</i>"
+						:(BodyChanging.getTarget().isUnderarmHairAvailable()
+							?""
+							:"<br/><i>Due to [npc.namePos] face type, [npc.she] cannot grow a beard!</i>")),
+				BodyChanging.getTarget().getFacialHair(),
+				"FACIAL_HAIR_",
+				!BodyChanging.getTarget().isFacialHairAvailable() || (BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled()));
 	}
 	
 	public static String getKatesDivPubicHair(boolean withCost, String title, String description) {
-		return getKatesDivGenericBodyHair(withCost, title, description, BodyChanging.getTarget().getPubicHair(), "PUBIC_HAIR_", false);
+		return getKatesDivGenericBodyHair(withCost,
+				title,
+				description
+					+(BodyChanging.getTarget().hasPenisIgnoreDildo() && !BodyChanging.getTarget().getPenisType().isPubicHairAllowed()
+						?"<br/><i>Due to [npc.namePos] penis type, [npc.she] cannot grow any pubic hair!</i>"
+						:(BodyChanging.getTarget().hasVagina() && !BodyChanging.getTarget().getVaginaType().isPubicHairAllowed()
+							?"<br/><i>Due to [npc.namePos] vagina type, [npc.she] cannot grow any pubic hair!</i>"
+							:"<br/><i>Due to the fact that [npc.she] [npc.verb(lack)] genitalia, [npc.name] cannot grow any pubic hair!</i>")),
+				BodyChanging.getTarget().getPubicHair(),
+				"PUBIC_HAIR_",
+				!BodyChanging.getTarget().isPubicHairAvailable());
 	}
 	
 	private static String getKatesDivGenericBodyHair(boolean withCost, String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
@@ -5389,7 +5425,7 @@ public class CharacterModificationUtils {
 						:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
 								? UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b")
 								: UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b", PresetColour.GENERIC_BAD))),
-				description,
+				UtilText.parse(BodyChanging.getTarget(), description),
 				id,
 				contentSB.toString(),
 				false);

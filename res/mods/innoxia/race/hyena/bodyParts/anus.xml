@@ -14,6 +14,11 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>ANUS</coveringType>
 	
+	<!-- Whether or not this anus type can have ass hair growing around it.
+	By default, anus types allow ass hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this anus type would allow ass hair even if this element was omitted (as hyenas are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<assHairAllowed>true</assHairAllowed>
+	
 	<!-- The singular names of this anus.
 	One of the defined names will be chosen at random every time the name is displayed to the player.-->
 	<names/>

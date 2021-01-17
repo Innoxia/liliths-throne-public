@@ -24219,7 +24219,21 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	// Pubic Hair:
+	/**
+	 * @return true if this character has a penis which allows pubic hair. If no penis is present, then returns true if this character has a vagina which allows pubic hair. Failing that, returns false.
+	 */
+	public boolean isPubicHairAvailable() {
+		if(this.hasPenis()) {
+			return getPenisType().isPubicHairAllowed();
+		} else if(this.hasVagina()) {
+			return getVaginaType().isPubicHairAllowed();
+		}
+		return false;
+	}
 	public BodyHair getPubicHair() {
+		if(!isPubicHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getPubicHair();
 	}
 	public Covering getPubicHairType() {
@@ -24232,6 +24246,15 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCovering(getBodyHairCoveringType(getTorsoType().getRace()));
 	}
 	public String setPubicHair(BodyHair pubicHair) {
+		if(!isPubicHairAvailable()) {
+			if(this.hasPenis() && !getPenisType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] penis type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else if(this.hasVagina() && !getVaginaType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] vagina type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] lack of genitalia prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			}
+		}
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
@@ -24510,7 +24533,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Underarm hair:
+	/**
+	 * @return true if this character has an arm type which allows underarm hair.
+	 */
+	public boolean isUnderarmHairAvailable() {
+		return this.getArmType().isUnderarmHairAllowed();
+	}
 	public BodyHair getUnderarmHair() {
+		if(!this.isUnderarmHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getArm().getUnderarmHair();
 	}
 	public Covering getUnderarmHairType() {
@@ -24628,7 +24660,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getAss().setHipSize(this, getHipSize().getValue() + hipSize);
 	}
 	// Ass hair:
+	public boolean isAssHairAvailable() {
+		return this.getAssType().getAnusType().isAssHairAllowed();
+	}
 	public BodyHair getAssHair() {
+		if(!this.isAssHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getAss().getAnus().getAssHair();
 	}
 	public Covering getAssHairType() {
@@ -26375,8 +26413,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Facial hair:
+	public boolean isFacialHairAvailable() {
+		return this.getFaceType().isFacialHairAllowed();
+	}
 	public BodyHair getFacialHair() {
-		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)) {
+		if(!this.isFacialHairAvailable()
+				|| (this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent))) {
 			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();

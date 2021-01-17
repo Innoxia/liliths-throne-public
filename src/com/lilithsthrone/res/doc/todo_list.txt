@@ -90,6 +90,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'newSexType(SexParticipantType, SexAreaInterface, SexAreaInterface)' method to the sex class (at the very bottom of the class file) so that there's a way to generate SexType objects from the parser (via the 'sex' object).
 		You can now define 'placeLocations' in subspecies xml files to allow for subspecies to spawn in specific place types. (See 'res/mods/innoxia/race/hyena/spotted.xml' for an annotated example.)
 		You can now actually leave 'regionLocations' and 'worldLocations' elements in subspecies xml files blank without throwing errors, as the comments said you could.
+		Added ability to define body hair availability to the bodyPart xml files: anus, arm, face, penis, and vagina.
 	
 	Gameplay:
 		Added 'cougar-morph' as a subspecies of cat-morph. Requirements to be identified as a cougar are: non-patterned tan fur, muscles of at least 'muscular', and body size of at least 'average'.
@@ -127,8 +128,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		You can now get your milk, cum, and girlcum recoloured by Kate at Succubi's Secrets, and you will no longer see covering recolouring options for parts you do not have (e.g. Horn covering colours will no be displayed if you have no horns).
 		NPC surnames are now shown in their name tooltip.
 		Updated home icons for Arthur, Zaranix, Desryth, and Helena.
+		Slightly adjusted penetration girth brackets.
 		Added indication of a serpent-tail's length in characters' body tooltip, and changed torso's 'Height' indication to 'Length' if the character is feral and their size is measured head-to-tail instead of how high they are.
 		Serpent-tailed lower bodies can now have their length transformed (either from the self-TF menu or by enchanting food items which have the 'serpent tail' leg configuration transformation available to them, such as snake eggs).
+		By default, only body parts belonging to mammal or bird races now support having pubic, facial, ass, and underarm hair.
 	
 	Bugs:
 		Numerous parsing fixes.
@@ -149,44 +152,35 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where tentacle count was not correctly linked to leg count.
 		Fixed incorrect descriptions of height and serpent-tail length for feral characters.
 		Fixed issue where transforming into a feral wouldn't apply the correct leg configuration changes, which was leaving characters with tails where they should have had them removed.
-	
-	
-	
+		
 	
 	
 	[#pc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
+	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
 	
-	[x] Check that lower body of tail can be used as penetrative object
-		[x] Prevent tails from being grown on this leg configuration
-			[x] Long-tail, tail, arachnid
-		[x] Base it on hip size (used as tail girth)
-			[x] Add new tier for penetration girth
-		[x] Add methods copied from tail type for sex use
-			[x] Update serpent-tail length where used with getLegTailLength()
-		[x] Add info to body description
-			[x] Test non-feral
-			[x] Test feral
-		[x] Add sex functionality
-			[x] Check tail sex actions
-			[x] Check ongoing SE tail pen
-				[x] Ongoing stats are wrong
-		[x] Tail name parsing
-		[x] Ending diameter too big?
-		[x] Add potion TFs for serpent tail length in TF potions which have it as a TF option
-			 [x] Test
-		[x] Add self-TF for tail length
-		[x] Prevent self-TF tail types
-		[x] Self-TF serpent tail has no asterisk?
-		[x] Add indication somewhere that girth is based on hip size
+	[x] Add definition to make pubic hair impossible
+		[x] Make it impossible by default on non-mammalian/avian race parts
+		[x] FaceType
+			[x] mod file with comments
+			[x] TF blocks
+		[x] Ass
+			[x] mod file with comments
+			[x] TF blocks
+		[x] Arm
+			[x] mod file with comments
+			[x] TF blocks
+		[x] Penis, Vagina
+			[x] mod file with comments
+			[x] TF blocks
+		[x] Testing of pubic hair growth
+			[x] Hyena
+			[x] Alligator
+				[x] Disable self-TF menu for all 4
+			
+	Fix issues with feral snake lengths
+		Height and tail length need to be combined somehow
+		Implement Stadler's idea of serpentTailLength element in feralAttributes
 	
-	Add charm to find race
-	
-	[] Add definition to make pubic hair impossible
-		[] Make it impossible by default on non-mammalian/avian race parts
-		[] FaceType
-		[] Ass
-		[] Arm
-		[] Penis, Vagina
 	
 	[] Add mod override for applyNonBipedNameChange
 	
@@ -527,6 +521,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Ability to set what level of morphs Minimum/Lesser/Greater Spawn with Breasts, Ass, Genitals of the morph's type
 		 Basically being able to make it so that you can choose which level comes with the attached level of genitalia so I can turn them all on or someone can turn them all off
 		
+	Add charm to find race in alleyways?
 	
 	All non-hoofed taurs sapwn with shoes & socks (0.9 did not have this issue)
 	

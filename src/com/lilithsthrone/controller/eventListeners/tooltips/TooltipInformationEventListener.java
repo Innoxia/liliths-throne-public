@@ -909,7 +909,9 @@ public class TooltipInformationEventListener implements EventListener {
 								:(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())
 									?"<span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>"
 									:"<span>"))
-								+(feral&&!owner.getFeralAttributes().isSizeHeight()?"Length":"Height")+": [unit.sizeShort(" + owner.getHeightValue()+ ")]</span>"));
+								+(feral&&!owner.getFeralAttributes().isSizeHeight()
+										?"Length: [unit.sizeShort(" + (owner.getHeightValue() + owner.getLegTailLength(false))+ ")]</span>"
+										:"Height: [unit.sizeShort(" + owner.getHeightValue() + ")]</span>")));
 						
 						
 						// LESSER:
@@ -937,7 +939,7 @@ public class TooltipInformationEventListener implements EventListener {
 								}
 								break;
 							case TAIL_LONG:
-								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
+								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral&&!owner.getFeralAttributes().isSizeHeight()?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
 										owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case AVIAN:
