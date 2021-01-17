@@ -3559,7 +3559,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
-							BodyChanging.getTarget().incrementLegTailLengthAsPercentageOfHeight(0.25f);
+							BodyChanging.getTarget().incrementLegTailLengthAsPercentageOfHeight(-0.25f);
 						} else {
 							BodyChanging.getTarget().incrementTailLengthAsPercentageOfHeight(-0.25f);
 						}

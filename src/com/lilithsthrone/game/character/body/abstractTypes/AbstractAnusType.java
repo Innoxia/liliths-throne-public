@@ -30,9 +30,11 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 
 	private boolean mod;
 	private boolean fromExternalFile;
-
+	
 	private AbstractBodyCoveringType coveringType;
 	private AbstractRace race;
+
+	private boolean assHairAllowed;
 	
 	private List<String> names;
 	private List<String> namesPlural;
@@ -58,6 +60,8 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 			List<String> descriptorsMasculine,
 			List<String> descriptorsFeminine,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
+
+		this.assHairAllowed = race.getRacialClass().isAnthroHair();
 		
 		this.coveringType = coveringType;
 		this.race = race;
@@ -92,6 +96,11 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 				
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
+
+				this.assHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("assHairAllowed").isPresent()) {
+					this.assHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("assHairAllowed").getTextContent());
+				}
 				
 				this.names = new ArrayList<>();
 				for(Element e : coreElement.getMandatoryFirstOf("names").getAllOf("name")) {
@@ -139,6 +148,10 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isAssHairAllowed() {
+		return assHairAllowed;
+	}
+
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "";

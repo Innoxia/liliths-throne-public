@@ -17,7 +17,7 @@ public enum RacialClass {
 	
 	private boolean anthroHair;
 	private boolean anthroBreasts;
-
+	
 	private RacialClass(boolean anthroHair, boolean anthroBreasts) {
 		this.anthroHair = anthroHair;
 		this.anthroBreasts = anthroBreasts;
