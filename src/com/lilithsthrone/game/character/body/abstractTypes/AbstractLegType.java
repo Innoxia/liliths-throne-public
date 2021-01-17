@@ -266,21 +266,56 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		return determiner;
+		if(gc==null) {
+			return determiner;
+		}
+		if(gc.getLegCount()==1) {
+			return "a";
+		} else if(gc.getLegCount()==2) {
+			return "a pair of";
+		}
+		return Util.intToString(gc.getLegCount());
 	}
 
 	@Override
 	public boolean isDefaultPlural(GameCharacter gc) {
-		return true;
+		if(gc==null) {
+			return true;
+		}
+		return gc.getLegCount()>1;
 	}
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
+		switch(gc.getLegConfiguration()) {
+			case ARACHNID:
+			case AVIAN:
+			case BIPEDAL:
+			case QUADRUPEDAL:
+				return "leg";
+			case CEPHALOPOD:
+				return "tentacle";
+			case TAIL:
+			case TAIL_LONG:
+				return "tail";
+		}
 		return name;
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
+		switch(gc.getLegConfiguration()) {
+			case ARACHNID:
+			case AVIAN:
+			case BIPEDAL:
+			case QUADRUPEDAL:
+				return "legs";
+			case CEPHALOPOD:
+				return "tentacles";
+			case TAIL:
+			case TAIL_LONG:
+				return "tails";
+		}
 		return namePlural;
 	}
 

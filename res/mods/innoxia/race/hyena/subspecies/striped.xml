@@ -58,6 +58,7 @@
 		<legConfiguration>QUADRUPEDAL</legConfiguration>
 		<sizeHeight>true</sizeHeight>
 		<size>85</size>
+		<serpentTailLength>0.1</serpentTailLength>
 		<breastRowCount>0</breastRowCount>
 		<nipplesPerBreastCount>1</nipplesPerBreastCount>
 		<crotchBreastRowCount>1</crotchBreastRowCount>

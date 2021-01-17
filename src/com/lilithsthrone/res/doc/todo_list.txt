@@ -132,6 +132,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added indication of a serpent-tail's length in characters' body tooltip, and changed torso's 'Height' indication to 'Length' if the character is feral and their size is measured head-to-tail instead of how high they are.
 		Serpent-tailed lower bodies can now have their length transformed (either from the self-TF menu or by enchanting food items which have the 'serpent tail' leg configuration transformation available to them, such as snake eggs).
 		By default, only body parts belonging to mammal or bird races now support having pubic, facial, ass, and underarm hair.
+		Feral snake subspecies now have more accurate body-to-tail length ratios, and by default are now closer to 2m in total length as a result.
 	
 	Bugs:
 		Numerous parsing fixes.
@@ -152,37 +153,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where tentacle count was not correctly linked to leg count.
 		Fixed incorrect descriptions of height and serpent-tail length for feral characters.
 		Fixed issue where transforming into a feral wouldn't apply the correct leg configuration changes, which was leaving characters with tails where they should have had them removed.
-		
+		Fixed bug where feral attributes of modded races were not being loaded correctly.
+		Fixed minor issue with feral Coatl not being described as serpents in some places.
 	
 	
-	[#pc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
+	
+	[#npc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
 	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
 	
-	[x] Add definition to make pubic hair impossible
-		[x] Make it impossible by default on non-mammalian/avian race parts
-		[x] FaceType
-			[x] mod file with comments
-			[x] TF blocks
-		[x] Ass
-			[x] mod file with comments
-			[x] TF blocks
-		[x] Arm
-			[x] mod file with comments
-			[x] TF blocks
-		[x] Penis, Vagina
-			[x] mod file with comments
-			[x] TF blocks
-		[x] Testing of pubic hair growth
-			[x] Hyena
-			[x] Alligator
-				[x] Disable self-TF menu for all 4
-			
-	Fix issues with feral snake lengths
-		Height and tail length need to be combined somehow
-		Implement Stadler's idea of serpentTailLength element in feralAttributes
-	
-	
 	[] Add mod override for applyNonBipedNameChange
+		[] Add silly mode naming?
 	
 	[] Add a way to TF tongue (mouth?)
 	

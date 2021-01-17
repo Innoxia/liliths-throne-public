@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
@@ -776,7 +777,7 @@ public class Subspecies {
 		}
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getRandomValue());
+			body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(8)); // 3-7 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
@@ -791,7 +792,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DEMON) {
-				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
+				if(body.getHeight()==Height.NEGATIVE_TWO_MINIMUM) {
 					return 150;
 				}
 			}
@@ -1441,6 +1442,34 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
+		@Override
+		public String getName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "awoo-morph";
+			}
+			return super.getName(character);
+		}
+		@Override
+		public String getNamePlural(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "awoo-morphs";
+			}
+			return super.getNamePlural(character);
+		}
+		@Override
+		public String getSingularMaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "awoo-boi";
+			}
+			return super.getSingularMaleName(character);
+		}
+		@Override
+		public String getSingularFemaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "awoo-girl";
+			}
+			return super.getSingularFemaleName(character);
+		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
@@ -2177,6 +2206,34 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)),
 			null, null) {
+		@Override
+		public String getName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "catte-morph";
+			}
+			return super.getName(character);
+		}
+		@Override
+		public String getNamePlural(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "catte-morphs";
+			}
+			return super.getNamePlural(character);
+		}
+		@Override
+		public String getSingularMaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "catte-boi";
+			}
+			return super.getSingularMaleName(character);
+		}
+		@Override
+		public String getSingularFemaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "catte-girl";
+			}
+			return super.getSingularFemaleName(character);
+		}
 		@Override
 		public void applySpeciesChanges(Body body) {
 		}
@@ -4475,6 +4532,34 @@ public class Subspecies {
 			null, Util.newArrayListOfValues(
 				SubspeciesFlag.DISBALE_SPAWN_PREFERENCE,
 				SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
+		@Override
+		public String getName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "birb";
+			}
+			return super.getName(character);
+		}
+		@Override
+		public String getNamePlural(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && (character==null || (!character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL))) {
+				return "birbs";
+			}
+			return super.getNamePlural(character);
+		}
+		@Override
+		public String getSingularMaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "birb";
+			}
+			return super.getSingularMaleName(character);
+		}
+		@Override
+		public String getSingularFemaleName(GameCharacter character) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled() && character!=null && !character.isFeral() && character.getLegConfiguration()==LegConfiguration.BIPEDAL) {
+				return "birb";
+			}
+			return super.getSingularFemaleName(character);
+		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
 			String[] names = new String[] {

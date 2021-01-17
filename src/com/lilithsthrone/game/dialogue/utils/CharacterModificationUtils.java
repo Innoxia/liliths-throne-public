@@ -1068,17 +1068,19 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformTailLengthDiv() {
 		if(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+			float percentageMinimum = BodyChanging.getTarget().isFeral()?Leg.LENGTH_PERCENTAGE_MIN_FERAL:Leg.LENGTH_PERCENTAGE_MIN;
+			
 			return applyFullVariableWrapper(Util.capitaliseSentence(LegConfiguration.TAIL_LONG.getName())+" Length",
 					UtilText.parse(BodyChanging.getTarget(),
 						"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
-								+ " and is limited to values of between "+(int)(Leg.LENGTH_PERCENTAGE_MIN*100)+"% and "+(int)(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
+								+ " and is limited to values of between "+(int)(percentageMinimum*100)+"% and "+(int)(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
 					"TAIL_LENGTH",
 					"5%",
 					"25%",
 					(int)(BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()*100)+"%"
 						+ "<br/>"
 						+ Units.size(BodyChanging.getTarget().getLegTailLength(false)),
-					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=Leg.LENGTH_PERCENTAGE_MIN,
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=percentageMinimum,
 					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()>=Leg.LENGTH_PERCENTAGE_MAX);
 			
 		} else {
