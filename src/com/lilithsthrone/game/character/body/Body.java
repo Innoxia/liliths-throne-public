@@ -2128,7 +2128,7 @@ public class Body implements XMLSaving {
 							+ " [npc.Her] ass and genitals have shifted to be located within a cloaca on the underside of [npc.her] feral body.)]");
 				} else {
 					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace],"
-								+ " which measures "+Units.size(owner.getHeightValue()*LegConfiguration.getSerpentTailLengthMultiplier())+" in length."
+								+ " which measures "+Units.size(owner.getLegTailLength(false))+" in length."
 							+ " [npc.Her] ass and genitals are completely feral in nature, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
 				}
 				break;
@@ -2855,6 +2855,9 @@ public class Body implements XMLSaving {
 					break;
 				case TAIL_LONG:
 					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
+					sb.append(" It forms the majority of [npc.her] body's [npc.heightValue]-length,");
+					sb.append(" and from [npc.her] head, it tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -2865,6 +2868,7 @@ public class Body implements XMLSaving {
 			} else {
 				sb.append("It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 			}
+			
 		} else {
 			switch(owner.getLegConfiguration()) {
 				case ARACHNID:
@@ -2878,8 +2882,10 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures "
-							).append(Units.size(owner.getHeightValue()*LegConfiguration.getSerpentTailLengthMultiplier())).append(" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)].");
+					sb.append(" It measures ").append(Units.size(owner.getLegTailLength(false))).append(" in length,");
+					sb.append(" and tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -4316,7 +4322,7 @@ public class Body implements XMLSaving {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawLengthValue() * 2.25f),
 					false,
-					PenetrationGirth.FIVE_FAT.getValue(),
+					PenetrationGirth.FIVE_THICK.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());

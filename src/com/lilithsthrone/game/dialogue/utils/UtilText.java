@@ -7474,10 +7474,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the name for the tip of the character's tail."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "tip";
+				}
 				return character.getTailType().getTailTipNameSingular(character);
 			}
 		});
@@ -7489,10 +7493,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the plural name for the tip of the character's tail."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "tips";
+				}
 				return character.getTailType().getTailTipNamePlural(character);
 			}
 		});
@@ -7506,10 +7514,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the name for the tip of the character's tail, along with a descriptor prefix."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "pointed tip";
+				}
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNameSingular(character));
 			}
 		});
@@ -7523,10 +7535,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the plural name for the tip of the character's tail, along with a descriptor prefix."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return "pointed tips";
+				}
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipNamePlural(character));
 			}
 		});
@@ -7538,11 +7554,11 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns the number of tails this character has.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getTailDeterminer();
+				return Util.intToString(character.getTailCount());
 			}
 		});
 		
@@ -7553,10 +7569,14 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.TAIL){//TODO
+				"Returns a single word descriptor for this tail's girth."
+					+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
+				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return character.getLegTailGirthDescriptor();
+				}
 				return character.getTailGirthDescriptor();
 			}
 		});
@@ -7568,16 +7588,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the circumference of the character's tail, as measured at the base, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailBaseCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7588,16 +7619,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the circumference of the character's tail, as measured at the very tip, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailCircumference(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailCircumference(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailCircumference(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7609,16 +7651,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the diameter of the character's tail, as measured at the base, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailBaseDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7630,16 +7683,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the diameter of the character's tail, as measured at the very tip, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailDiameter(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailDiameter(character.getLegTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailDiameter(character.getTailLength(false)), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7651,16 +7715,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the length of the character's tail, in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+					
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 
@@ -7672,16 +7747,27 @@ public class UtilText {
 				true,
 				"(pluralUnits)",
 				"Returns the length of the character's tail which is used in penetrations (80% of total length), in the metric or imperial units as defined in user settings."
-						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch')."
+						+ "<br/><b>Note:</b> If the character has the '"+LegConfiguration.TAIL_LONG.getName()+"' leg configuration, values related to that tail will be returned.",
 				BodyPartType.TAIL){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(arguments!=null) {
-					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
-						return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getLegTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
 					}
+					return Units.size(character.getLegTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+							
+				} else {
+					if(arguments!=null) {
+						if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+							return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+						}
+					}
+					return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 				}
-				return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 		
@@ -9851,6 +9937,9 @@ public class UtilText {
 			case SKIN:
 				return character.getBody().getTorso();
 			case TAIL:
+				if(character.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return character.getBody().getLeg();
+				}
 				return character.getBody().getTail();
 			case TENTACLE:
 				return character.getBody().getTentacle();

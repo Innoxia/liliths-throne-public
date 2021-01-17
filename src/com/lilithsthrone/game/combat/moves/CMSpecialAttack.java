@@ -207,7 +207,7 @@ public class CMSpecialAttack {
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
-            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_THICK.getValue())
+            		(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.FOUR_GIRTHY.getValue())
             			|| source.getLegConfiguration()==LegConfiguration.TAIL_LONG,
             		"Available to characters who have a thick, prehensile tail, or a '"+LegConfiguration.TAIL_LONG.getName()+"' lower body.");
         }

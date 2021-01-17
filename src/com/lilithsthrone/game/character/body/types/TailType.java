@@ -266,7 +266,7 @@ public class TailType {
 	public static final AbstractTailType ALLIGATOR_MORPH = new AbstractTailType(
 			BodyCoveringType.ALLIGATOR_SCALES,
 			Race.ALLIGATOR_MORPH,
-			PenetrationGirth.FIVE_FAT,
+			PenetrationGirth.FIVE_THICK,
 			0.6f,
 			"alligator",
 			"",
@@ -581,7 +581,7 @@ public class TailType {
 	public static final AbstractTailType FOX_MORPH = new AbstractTailType(
 			BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			0.6f,
 			"fox",
 			"",
@@ -620,7 +620,7 @@ public class TailType {
 	public static final AbstractTailType FOX_MORPH_MAGIC = new AbstractTailType(
 			BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			1f,
 			"arcane fox",
 			"",
@@ -671,7 +671,7 @@ public class TailType {
 	public static final AbstractTailType HARPY = new AbstractTailType(
 			BodyCoveringType.FEATHERS,
 			Race.HARPY,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			0.5f,
 			"harpy plume",
 			"plume of",
@@ -829,7 +829,7 @@ public class TailType {
 	public static final AbstractTailType RABBIT_MORPH = new AbstractTailType(
 			BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			PenetrationGirth.FIVE_FAT,
+			PenetrationGirth.FIVE_THICK,
 			0.075f,
 			"rabbit",
 			"",
@@ -867,7 +867,7 @@ public class TailType {
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(
 			BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			0.05f,
 			"reindeer",
 			"",
@@ -905,7 +905,7 @@ public class TailType {
 	public static final AbstractTailType SQUIRREL_MORPH = new AbstractTailType(
 			BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			PenetrationGirth.FIVE_FAT,
+			PenetrationGirth.FIVE_THICK,
 			1f,
 			"squirrel",
 			"",
@@ -944,7 +944,7 @@ public class TailType {
 	public static final AbstractTailType WOLF_MORPH = new AbstractTailType(
 			BodyCoveringType.LYCAN_FUR,
 			Race.WOLF_MORPH,
-			PenetrationGirth.FOUR_THICK,
+			PenetrationGirth.FOUR_GIRTHY,
 			0.4f,
 			"wolf",
 			"",

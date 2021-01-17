@@ -107,6 +107,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made the three brown clothing colours less saturated, so they look less orange and more brown than before. Also slightly desaturated the tan colour.
 		Added 'dark desaturated brown' and 'desaturated tan' as new clothing colours.
 		In clothing/weapon dye screens, standard colours for the selected item now have a slightly lighter border, and the tooltip for each colour reveals whether it's a standard colour or not.
+		The 'Demonstone necklace' item is now sold by Vicky, not Nyan.
 	
 	Sex:
 		Added 'Stroke cock' as an ongoing self-action, which you can start/stop like other ongoing actions.
@@ -114,6 +115,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Weighting of NPCs' choice to use foot actions is no longer partially based on the player character's fetishes, and is now only affected by the foot action content setting and whether the NPC at least likes the associated foot fetish.
 		Added more information to NPCs' 'Desires' status effect tooltip when in sex, so that you can now see NPCs' foreplay and main sex preferences.
 		Added 'Humping' sex slots to the 'Over desk' sex position.
+		Characters can now use their serpent-tail lower body to perform all of the usual tail sex actions. Serpent-tail girth is based on hip size, while length starts at 500% of height.
 	
 	Other:
 		The five main horn types (curled, spiral, curved, swept-back, straight) are no longer limited to demons, and instead are generically available for all races who lack special horn types in the same way that feathered/leathery wings are.
@@ -125,7 +127,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		You can now get your milk, cum, and girlcum recoloured by Kate at Succubi's Secrets, and you will no longer see covering recolouring options for parts you do not have (e.g. Horn covering colours will no be displayed if you have no horns).
 		NPC surnames are now shown in their name tooltip.
 		Updated home icons for Arthur, Zaranix, Desryth, and Helena.
-		Added indication of a serpent-tail's length in characters' body tooltip.
+		Added indication of a serpent-tail's length in characters' body tooltip, and changed torso's 'Height' indication to 'Length' if the character is feral and their size is measured head-to-tail instead of how high they are.
+		Serpent-tailed lower bodies can now have their length transformed (either from the self-TF menu or by enchanting food items which have the 'serpent tail' leg configuration transformation available to them, such as snake eggs).
 	
 	Bugs:
 		Numerous parsing fixes.
@@ -150,12 +153,33 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
+	
 	[#pc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
 	
-	Vicky's 'clothing' action should be hidden if she has no clothing for sale
+	[x] Check that lower body of tail can be used as penetrative object
+		[x] Prevent tails from being grown on this leg configuration
+			[x] Long-tail, tail, arachnid
+		[x] Base it on hip size (used as tail girth)
+			[x] Add new tier for penetration girth
+		[x] Add methods copied from tail type for sex use
+			[x] Update serpent-tail length where used with getLegTailLength()
+		[x] Add info to body description
+			[x] Test non-feral
+			[x] Test feral
+		[x] Add sex functionality
+			[x] Check tail sex actions
+			[x] Check ongoing SE tail pen
+				[x] Ongoing stats are wrong
+		[x] Tail name parsing
+		[x] Ending diameter too big?
+		[x] Add potion TFs for serpent tail length in TF potions which have it as a TF option
+			 [x] Test
+		[x] Add self-TF for tail length
+		[x] Prevent self-TF tail types
+		[x] Self-TF serpent tail has no asterisk?
+		[x] Add indication somewhere that girth is based on hip size
 	
-	[] Check that lower body of tail can be used as penetrative object
-		[] Prevent tails from being grown on this leg configuration?
+	Add charm to find race
 	
 	[] Add definition to make pubic hair impossible
 		[] Make it impossible by default on non-mammalian/avian race parts
@@ -167,7 +191,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Add mod override for applyNonBipedNameChange
 	
 	[] Add a way to TF tongue (mouth?)
-	
 	
 	Panther book is yellow?
 	
@@ -191,8 +214,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	-- You have a short, dark brown, white-highlighted, dragon-like mane than runs from her head down the back of your neck.​ , which is unstyled.
 	Also sclerae and pupil colors seem to be stuck on white and black respectively.
 	Also the word "her" during transformation seems to be showing up a lot.
-	
-	
 	
 	ClitMouth and ClitMouthPen are the same class?
 	

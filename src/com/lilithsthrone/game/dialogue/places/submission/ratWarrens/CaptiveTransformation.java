@@ -172,8 +172,8 @@ public enum CaptiveTransformation {
 					map.put("You's gonna be growin' a nice fat cock! Yer gonna be makin' us a lotta cash with all the cum this thing's gonna be spurtin' out! Heh-heh-heh!",
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType())
 							+ target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 			} else {
@@ -187,8 +187,8 @@ public enum CaptiveTransformation {
 				} else {
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!",
 							target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 			}
@@ -396,14 +396,14 @@ public enum CaptiveTransformation {
 					map.put("You's gonna be growin' a nice fat cock! Yer gonna be makin' us a lotta cash with all the cum this thing's gonna be spurtin' out! Heh-heh-heh!",
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType())
 							+ target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				} else {
 					map.put("Yer cock needs ta be big an' fat!",
 							target.incrementPenisSize(20)
-							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()
-									?target.setPenisGirth(PenetrationGirth.FOUR_THICK)
+							+ (target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()
+									?target.setPenisGirth(PenetrationGirth.FOUR_GIRTHY)
 									:""));
 				}
 				

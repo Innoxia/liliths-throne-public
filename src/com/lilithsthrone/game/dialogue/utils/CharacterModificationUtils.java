@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.BreastCrotch;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
@@ -1026,6 +1027,9 @@ public class CharacterModificationUtils {
 		for(AbstractTailType tail : TailType.getAllTailTypes()) {
 			if((tail.getRace() !=null && availableRaces.contains(tail.getRace()))
 					|| (!removeNone && tail==TailType.NONE)) {
+				if(!BodyChanging.getTarget().getLegConfiguration().isAbleToGrowTail() && tail!=TailType.NONE) {
+					continue;
+				}
 				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
 					continue;
 				}
@@ -1063,19 +1067,36 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformTailLengthDiv() {
-		return applyFullVariableWrapper("Tail Length",
-				UtilText.parse(BodyChanging.getTarget(),
-						BodyChanging.getTarget().hasTail()
-							?"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height, and is limited to values of between 10% and 200%."
-							:"[npc.Name] [npc.do] not have a tail, so the length cannot be changed!"),
-				"TAIL_LENGTH",
-				"5%",
-				"25%",
-				(int)(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
-					+ "<br/>"
-					+ Units.size(BodyChanging.getTarget().getTailLength(false)),
-				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
-				BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX || !BodyChanging.getTarget().hasTail());
+		if(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+			return applyFullVariableWrapper(Util.capitaliseSentence(LegConfiguration.TAIL_LONG.getName())+" Length",
+					UtilText.parse(BodyChanging.getTarget(),
+						"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
+								+ " and is limited to values of between "+(int)(Leg.LENGTH_PERCENTAGE_MIN*100)+"% and "+(int)(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
+					"TAIL_LENGTH",
+					"5%",
+					"25%",
+					(int)(BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()*100)+"%"
+						+ "<br/>"
+						+ Units.size(BodyChanging.getTarget().getLegTailLength(false)),
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=Leg.LENGTH_PERCENTAGE_MIN,
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()>=Leg.LENGTH_PERCENTAGE_MAX);
+			
+		} else {
+			return applyFullVariableWrapper("Tail Length",
+					UtilText.parse(BodyChanging.getTarget(),
+							BodyChanging.getTarget().hasTail()
+								?"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
+										+ " and is limited to values of between "+(int)(Tail.LENGTH_PERCENTAGE_MIN*100)+"% and "+(int)(Tail.LENGTH_PERCENTAGE_MAX*100)+"%."
+								:"[npc.Name] [npc.do] not have a tail, so the length cannot be changed!"),
+					"TAIL_LENGTH",
+					"5%",
+					"25%",
+					(int)(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
+						+ "<br/>"
+						+ Units.size(BodyChanging.getTarget().getTailLength(false)),
+					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
+					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()>=Tail.LENGTH_PERCENTAGE_MAX || !BodyChanging.getTarget().hasTail());
+		}
 	}
 	
 	public static String getSelfTransformTailCountDiv() {
@@ -1158,7 +1179,10 @@ public class CharacterModificationUtils {
 		return applyWrapper("Tail Girth",
 				UtilText.parse(BodyChanging.getTarget(),
 						!BodyChanging.getTarget().hasTail()
-							?"As [npc.name] [npc.do] not have a tail, [npc.she] cannot change [npc.her] tail girth!"
+							?("As [npc.name] [npc.do] not have a tail, [npc.she] cannot change [npc.her] tail girth!"
+									+(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG
+										?"<br/>(<i>The girth of [npc.her] serpent-tail is based on [npc.her] hip size.</i>)"
+										:""))
 							:("Change the girth of [npc.namePos] [npc.tail]."
 									+ "<br/><i>Tail girth has an impact in determining whether a tail is too large for the orifice it is penetrating.</i>")),
 				"TAIL_GIRTH",
@@ -1923,13 +1947,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getLegConfiguration() == legConfig) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+PresetColour.RACE_BESTIAL.toWebHexString()+";'>"+Util.capitaliseSentence(legConfig.getName())+(legConfig.isTailLostOnInitialTF()?"":"*")+"</span>"
+								+ "<span style='color:"+PresetColour.RACE_BESTIAL.toWebHexString()+";'>"+Util.capitaliseSentence(legConfig.getName())+(!legConfig.isAbleToGrowTail()?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_LEG_CONFIGURATION_"+legConfig+"' class='cosmetics-button'>"
-								+ "<span style='color:"+PresetColour.RACE_BESTIAL.getShades()[0]+";'>"+Util.capitaliseSentence(legConfig.getName())+(legConfig.isTailLostOnInitialTF()?"":"*")+"</span>"
+								+ "<span style='color:"+PresetColour.RACE_BESTIAL.getShades()[0]+";'>"+Util.capitaliseSentence(legConfig.getName())+(!legConfig.isAbleToGrowTail()?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1937,7 +1961,7 @@ public class CharacterModificationUtils {
 		
 		return applyWrapper("Leg Configuration",
 				UtilText.parse(BodyChanging.getTarget(), "Change what [npc.namePos] lower body is like."
-						+ "<br/><i>Applying this change causes all body parts below the waist to be transformed. Some leg configurations (marked by an asterisk) will remove [npc.namePos] tail during the transformation!</i>"),
+						+ "<br/><i>Applying this change causes all body parts below the waist to be transformed! Some leg configurations (marked by an asterisk) will prevent [npc.namePos] from growing a tail!</i>"),
 				"LEG_CONFIGURATION",
 				contentSB.toString(),
 				true);
@@ -2391,8 +2415,11 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Hip Size",
-				UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.namePos] hips."
-						+ "<br/><i>This is a purely cosmetic change.</i>"),
+				UtilText.parse(BodyChanging.getTarget(),
+						"Change the size of [npc.namePos] hips."
+						+ (BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG
+								?"<br/>This affects the girth of [npc.her] serpent-tail."
+								:"<br/>If [npc.she] ever gains a serpent-tail lower-body, this will affect its girth.")),
 				"HIP_SIZE",
 				contentSB.toString(),
 				true);

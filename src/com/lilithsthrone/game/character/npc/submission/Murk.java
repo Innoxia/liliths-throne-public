@@ -132,10 +132,13 @@ public class Murk extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREY_GREEN), false);
 			this.setPenisSize(38);
-			this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+			this.setPenisGirth(PenetrationGirth.SEVEN_FAT);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.9.4")) {
 			this.setName(new NameTriplet("Murk"));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4")) {
+			this.setPenisGirth(PenetrationGirth.SEVEN_FAT);
 		}
 	}
 
@@ -231,7 +234,7 @@ public class Murk extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisSize(38);
-		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.setPenisGirth(PenetrationGirth.SEVEN_FAT);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(350);
 		this.fillCumToMaxStorage();

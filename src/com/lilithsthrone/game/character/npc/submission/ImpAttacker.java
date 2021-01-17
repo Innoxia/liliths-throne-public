@@ -420,7 +420,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));
@@ -472,7 +472,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_GIRTHY.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));
