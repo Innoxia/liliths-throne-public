@@ -27,19 +27,37 @@
 	<basicDescriptionId>SNAKE_BASIC</basicDescriptionId>
 	<advancedDescriptionId>SNAKE_ADVANCED</advancedDescriptionId>
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
-	<name><![CDATA[snake-morph]]></name>
-	<namePlural><![CDATA[snake-morphs]]></namePlural>
-	<singularMaleName><![CDATA[snake-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[snake-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[snake-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[snake-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[snake-morph]]></name>
+			<namePlural><![CDATA[snake-morphs]]></namePlural>
+			<singularMaleName><![CDATA[snake-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[snake-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[snake-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[snake-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	<nameAnthroSillyMode>
+		<namesDefault>
+			<name><![CDATA[snek-morph]]></name>
+			<namePlural><![CDATA[snek-morphs]]></namePlural>
+			<singularMaleName><![CDATA[snek-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[snek-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[snek-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[snek-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthroSillyMode>
 	<description><![CDATA[An anthropomorphic snake, known as a 'snake-morph'.]]></description>
-	<nameHalfDemon><![CDATA[basilisk]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[basilisks]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[basilisk]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[basilisk]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[basilisks]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[basilisks]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[basilisk]]></name>
+			<namePlural><![CDATA[basilisks]]></namePlural>
+			<singularMaleName><![CDATA[basilisk]]></singularMaleName>
+			<singularFemaleName><![CDATA[basilisk]]></singularFemaleName>
+			<pluralMaleName><![CDATA[basilisks]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[basilisk]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[snake]]></feralName>
 		<feralNamePlural><![CDATA[snakes]]></feralNamePlural>

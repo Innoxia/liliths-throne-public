@@ -13,6 +13,8 @@
 	]]></applyRaceChanges>
 	<name><![CDATA[snake-morph]]></name>
 	<namePlural><![CDATA[snake-morphs]]></namePlural>
+	<nameSillyMode><![CDATA[snek-morph]]></nameSillyMode>
+	<namePluralSillyMode><![CDATA[snek-morphs]]></namePluralSillyMode>
 	<nameFeral>
 		<name legConfiguration="TAIL_LONG"><![CDATA[snake]]></name>
 	</nameFeral>

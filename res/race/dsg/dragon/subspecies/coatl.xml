@@ -133,26 +133,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[coatl-morph]]></name>
-	<namePlural><![CDATA[coatl-morphs]]></namePlural>
-	<singularMaleName><![CDATA[coatl-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[coatl-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[coatl-morph]]></name>
+			<namePlural><![CDATA[coatl-morphs]]></namePlural>
+			<singularMaleName><![CDATA[coatl-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[coatl-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic coatl, known as a 'coatl-morph' when bipedal, and a 'coatl-naga' when the lower body is that of a typically-oversized feral coatl. To be identified as a coatl-morph, a character must be a dragon-morph with a coatl face, forked tongue, head feathers, internal ears, a normal dragon tail, and feathered wings.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[quetzalcoatl]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[quetzalcoatls]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[quetzalcoatl]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[quetzalcoatl]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[quetzalcoatls]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[quetzalcoatls]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[quetzalcoatl]]></name>
+			<namePlural><![CDATA[quetzalcoatls]]></namePlural>
+			<singularMaleName><![CDATA[quetzalcoatl]]></singularMaleName>
+			<singularFemaleName><![CDATA[quetzalcoatl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[quetzalcoatls]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[quetzalcoatls]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>

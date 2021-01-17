@@ -91,6 +91,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		You can now define 'placeLocations' in subspecies xml files to allow for subspecies to spawn in specific place types. (See 'res/mods/innoxia/race/hyena/spotted.xml' for an annotated example.)
 		You can now actually leave 'regionLocations' and 'worldLocations' elements in subspecies xml files blank without throwing errors, as the comments said you could.
 		Added ability to define body hair availability to the bodyPart xml files: anus, arm, face, penis, and vagina.
+		Added ability to define subspecies names based on their leg configuration. Refactoring old subspecies xml files is not needed. If you would like to make use of this functionality, see the 'res/mods/innoxia/race/hyena/spotted.xml' file.
+		Also added ability to define subspecies silly-mode names. See the same file as above.
 	
 	Gameplay:
 		Added 'cougar-morph' as a subspecies of cat-morph. Requirements to be identified as a cougar are: non-patterned tan fur, muscles of at least 'muscular', and body size of at least 'average'.
@@ -161,8 +163,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[#npc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
 	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
 	
-	[] Add mod override for applyNonBipedNameChange
-		[] Add silly mode naming?
+	[x] Add mod override for applyNonBipedNameChange
+		[x] Update naming comments
+		[x] Refactor all races with new naming system
+			 [x] DSG races
+			 	[x] Test
+			 [x] Snek races
+			 	[x] Test
+		[x] Add silly mode naming
 	
 	[] Add a way to TF tongue (mouth?)
 	
@@ -182,8 +190,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Helena sex without her becoming a total slut
 	Make a non-sloot Helena ending
 	
-	demonic sneks basiliks?
-	
 	Some errors in the selfie in punctuation and description..
 	-- You have a short, dark brown, white-highlighted, dragon-like mane than runs from her head down the back of your neck.​ , which is unstyled.
 	Also sclerae and pupil colors seem to be stuck on white and black respectively.
@@ -197,8 +203,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	add debug option to spawn an attacker of a certain race
 	
 	Add mathematical pie
-	
-	Ace in developers: Issue 1436, 1464
 	
 	Add 1 random sex action addition to actions (italics, centred)
 		Taste when performing oral
