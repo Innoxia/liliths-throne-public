@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.LegConfigurationAquatic;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -38,6 +39,8 @@ public abstract class AbstractRace {
 	
 	private String name;
 	private String namePlural;
+	private String nameSillyMode;
+	private String namePluralSillyMode;
 	private Map<LegConfigurationAquatic, String> nameFeral;
 	private Map<LegConfigurationAquatic, String> nameFeralPlural;
 	private String defaultTransformName;
@@ -115,6 +118,8 @@ public abstract class AbstractRace {
 		
 		this.name = name;
 		this.namePlural = namePlural;
+		this.nameSillyMode = name;
+		this.namePluralSillyMode = namePlural;
 		this.nameFeral = nameFeral;
 		if (!nameFeral.containsKey(new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false))) {
 			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL and aquatic = false!");
@@ -178,6 +183,17 @@ public abstract class AbstractRace {
 				
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				
+				if(coreElement.getOptionalFirstOf("nameSillyMode").isPresent()) {
+					this.nameSillyMode = coreElement.getMandatoryFirstOf("nameSillyMode").getTextContent();
+				} else {
+					this.nameSillyMode = this.name;
+				}
+				if(coreElement.getOptionalFirstOf("namePluralSillyMode").isPresent()) {
+					this.namePluralSillyMode = coreElement.getMandatoryFirstOf("namePluralSillyMode").getTextContent();
+				} else {
+					this.namePluralSillyMode = this.namePlural;
+				}
 				
 				this.nameFeral = new HashMap<>();
 				String anyFeralName = "";
@@ -345,6 +361,9 @@ public abstract class AbstractRace {
 					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
 				false);
 		}
+		if(Main.game!=null && Main.game.isSillyMode()) {
+			return nameSillyMode;
+		}
 		return name;
 	}
 	
@@ -359,6 +378,9 @@ public abstract class AbstractRace {
 					new LegConfigurationAquatic(character.getLegConfiguration(), character.getSubspecies().isAquatic(character)) :
 					new LegConfigurationAquatic(LegConfiguration.BIPEDAL, false),
 				true);
+		}
+		if(Main.game!=null && Main.game.isSillyMode()) {
+			return namePluralSillyMode;
 		}
 		return namePlural;
 	}
