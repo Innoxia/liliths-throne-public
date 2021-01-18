@@ -1879,8 +1879,8 @@ public class CharacterUtils {
 		// Body:
 		int height = character.getHeightValue()-15 + Util.random.nextInt(30) +1;
 		
-		if(character.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
-			character.setHeight(Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height)));
+		if(character.getHeight()==Height.NEGATIVE_TWO_MINIMUM) {
+			character.setHeight(Math.min(Height.NEGATIVE_TWO_MINIMUM.getMaximumValue()-1, Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height)));
 			
 		} else if(character.getHeight()==Height.NEGATIVE_ONE_TINY) {
 			character.setHeight(Math.min(Height.NEGATIVE_ONE_TINY.getMaximumValue()-1, Math.max(Height.NEGATIVE_ONE_TINY.getMinimumValue(), height)));

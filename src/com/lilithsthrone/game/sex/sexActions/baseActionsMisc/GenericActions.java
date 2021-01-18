@@ -643,8 +643,8 @@ public class GenericActions {
 			} else {
 				Main.sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.THREE_LARGE);
 			}
-			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_THICK.getValue()) {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_THICK));
+			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_GIRTHY.getValue()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_GIRTHY));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < 20) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisSize(20));

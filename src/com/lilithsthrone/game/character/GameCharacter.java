@@ -3854,30 +3854,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			if(isFeminine()) {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-girl";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-girl";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "woman";
-				} else {
-					return getSubspecies().getSingularFemaleName(this);
-				}
+				return getSubspecies().getSingularFemaleName(this);
 				
 			} else {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-boi";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-boi";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "man";
-				} else {
-					return getSubspecies().getSingularMaleName(this);
-				}
+				return getSubspecies().getSingularMaleName(this);
 			}
 			
 		} else {
@@ -15782,6 +15762,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 					return this.getPenisRawSizeValue();
 				case TAIL:
+					if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+						return this.getLegTailLength(true);
+					}
 					return this.getTailLength(true);
 				case TENTACLE:
 					break;
@@ -15832,6 +15815,9 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				return this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
+				}
 				return this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated)/(characterPenetrated.getBodyMaterial().isOrificesLimitedDepth()?3:12);
 			case TENTACLE:
 				break;
@@ -15870,6 +15856,11 @@ public abstract class GameCharacter implements XMLSaving {
 						? this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getPenisRawSizeValue() <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
+							? this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
+							: this.getLegTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
+				}
 				return (this.isWantingToFullyPenetrate(characterPenetrated) || !factorInWantingToFullyPenetrate
 						? this.getTailLength(true) <= orifice.getMaximumPenetrationDepthUncomfortable(characterPenetrated)
 						: this.getTailLength(true) <= orifice.getMaximumPenetrationDepthComfortable(characterPenetrated));
@@ -15929,6 +15920,9 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				return this.getPenisRawSizeValue() > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TAIL:
+				if(this.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					return this.getLegTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
+				}
 				return this.getTailLength(true) > orifice.getMaximumPenetrationDepthComfortable(characterPenetrated);
 			case TENTACLE:
 				break;
@@ -16403,7 +16397,9 @@ public abstract class GameCharacter implements XMLSaving {
 						case TAIL:
 							sb.append(getGenericInitialPenetrationDepthDescription(characterPenetrating,
 									penetrationType,
-									characterPenetrating.getTailLength(true),
+									characterPenetrating.getLegConfiguration()==LegConfiguration.TAIL_LONG
+										?characterPenetrating.getLegTailLength(true)
+										:characterPenetrating.getTailLength(true),
 									characterPenetrated,
 									orifice,
 									"[npc.tail]",
@@ -16450,7 +16446,9 @@ public abstract class GameCharacter implements XMLSaving {
 					case TAIL:
 						sb.append(getGenericOngoingPenetrationDepthDescription(characterPenetrating,
 								penetrationType,
-								characterPenetrating.getTailLength(true),
+								characterPenetrating.getLegConfiguration()==LegConfiguration.TAIL_LONG
+									?characterPenetrating.getLegTailLength(true)
+									:characterPenetrating.getTailLength(true),
 								characterPenetrated,
 								orifice,
 								"[npc.tail]",
@@ -24098,10 +24096,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getMinimumHeight() {
 		if(this.isFeral()) {
-			return Math.min(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
+			return Math.min(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
 		}
 		return this.getSubspecies().isShortStature()
-				?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()
+				?Height.NEGATIVE_TWO_MINIMUM.getMinimumValue()
 				:Height.ZERO_TINY.getMinimumValue();
 	}
 	
@@ -24122,7 +24120,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!ignoreHeightRestrictions) {
 			if(this.getHeightValue()<Height.ZERO_TINY.getMinimumValue()) {
 				height = Math.min(Height.ZERO_TINY.getMinimumValue()-1,
-							Math.max(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue(), height));
+							Math.max(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), height));
 			} else {
 				height = Math.min(Height.SEVEN_COLOSSAL.getMaximumValue(),
 							Math.max(Height.ZERO_TINY.getMinimumValue(), height));
@@ -24201,7 +24199,21 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	// Pubic Hair:
+	/**
+	 * @return true if this character has a penis which allows pubic hair. If no penis is present, then returns true if this character has a vagina which allows pubic hair. Failing that, returns false.
+	 */
+	public boolean isPubicHairAvailable() {
+		if(this.hasPenis()) {
+			return getPenisType().isPubicHairAllowed();
+		} else if(this.hasVagina()) {
+			return getVaginaType().isPubicHairAllowed();
+		}
+		return false;
+	}
 	public BodyHair getPubicHair() {
+		if(!isPubicHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getPubicHair();
 	}
 	public Covering getPubicHairType() {
@@ -24214,6 +24226,15 @@ public abstract class GameCharacter implements XMLSaving {
 		return getCovering(getBodyHairCoveringType(getTorsoType().getRace()));
 	}
 	public String setPubicHair(BodyHair pubicHair) {
+		if(!isPubicHairAvailable()) {
+			if(this.hasPenis() && !getPenisType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] penis type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else if(this.hasVagina() && !getVaginaType().isPubicHairAllowed()) {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] vagina type prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			} else {
+				return UtilText.parse(this, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] lack of genitalia prevents [npc.herHim] from growing any pubic hair, nothing happens...)]</p>");
+			}
+		}
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
@@ -24492,7 +24513,16 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Underarm hair:
+	/**
+	 * @return true if this character has an arm type which allows underarm hair.
+	 */
+	public boolean isUnderarmHairAvailable() {
+		return this.getArmType().isUnderarmHairAllowed();
+	}
 	public BodyHair getUnderarmHair() {
+		if(!this.isUnderarmHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getArm().getUnderarmHair();
 	}
 	public Covering getUnderarmHairType() {
@@ -24610,7 +24640,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getAss().setHipSize(this, getHipSize().getValue() + hipSize);
 	}
 	// Ass hair:
+	public boolean isAssHairAvailable() {
+		return this.getAssType().getAnusType().isAssHairAllowed();
+	}
 	public BodyHair getAssHair() {
+		if(!this.isAssHairAvailable()) {
+			return BodyHair.ZERO_NONE;
+		}
 		return body.getAss().getAnus().getAssHair();
 	}
 	public Covering getAssHairType() {
@@ -26357,8 +26393,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	// Facial hair:
+	public boolean isFacialHairAvailable() {
+		return this.getFaceType().isFacialHairAllowed();
+	}
 	public BodyHair getFacialHair() {
-		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)) {
+		if(!this.isFacialHairAvailable()
+				|| (this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent))) {
 			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();
@@ -26793,6 +26833,50 @@ public abstract class GameCharacter implements XMLSaving {
 			return legType.applyLegConfigurationTransformation(this, legConfiguration, true, applyFullEffects);
 		}
 		return "";
+	}
+	// Serpent-tail leg configuration sex attributes:
+	// Length:
+	public float getLegTailLengthAsPercentageOfHeight() {
+		return body.getLeg().getLengthAsPercentageOfHeight();
+	}
+	public String setLegTailLengthAsPercentageOfHeight(float length) {
+		return body.getLeg().setLengthAsPercentageOfHeight(this, length);
+	}
+	public String incrementLegTailLengthAsPercentageOfHeight(float increment) {
+		return setLegTailLengthAsPercentageOfHeight(getLegTailLengthAsPercentageOfHeight() + increment);
+	}
+	/** @param penetrationLength true if you want to know the length of serpent-tail that is used in penetrations. It is equal to 80% of total tail length for non-ferals, or 80% of total body_tail length for ferals. */
+	public int getLegTailLength(boolean penetrationLength) {
+		if(this.isFeral() && penetrationLength) {
+			return (int) ((this.getHeightValue() + body.getLeg().getLength(this)) * 0.8f);
+		}
+		return (int) (body.getLeg().getLength(this) * (penetrationLength?0.8f:1));
+	}
+	/** The diameter of this character's serpent-tail, measured from the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getLegTailCircumference(float atLength) {
+		return (float) (getLegTailDiameter(atLength)*Math.PI);
+	}
+	/** The diameter of this character's serpent-tail at the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getLegTailBaseCircumference() {
+		return getLegTailCircumference(0);
+	}
+	/** The diameter of this character's serpent-tail at the length specified, measured from the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getLegTailDiameter(float atLength) {
+		return body.getLeg().getDiameter(this, atLength);
+	}
+	/** The diameter of this character's serpent-tail at the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getLegTailBaseDiameter() {
+		return getLegTailDiameter(0);
+	}
+	// Girth:
+	public PenetrationGirth getLegTailGirth() {
+		return PenetrationGirth.getGirthFromInt(this.getHipSize().getValue());
+	}
+	public String getLegTailGirthDescriptor() {
+		return getLegTailGirth().getName();
+	}
+	public int getLegTailRawGirthValue() {
+		return this.getHipSize().getValue();
 	}
 	// Name:
 	public String getLegName() {

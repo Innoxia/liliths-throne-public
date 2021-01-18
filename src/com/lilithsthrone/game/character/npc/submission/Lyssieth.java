@@ -152,7 +152,7 @@ public class Lyssieth extends NPC {
 					PersonalityTrait.LEWD);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.FOUR_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
@@ -223,7 +223,7 @@ public class Lyssieth extends NPC {
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 //		this.setHornType(HornType.CURLED);
-		this.setTailGirth(PenetrationGirth.FOUR_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 
 		// Core:
 		this.setHeight(184);
@@ -399,7 +399,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_RED), true);
 		
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
-		Main.game.getPlayer().setTailGirth(PenetrationGirth.FOUR_THICK);
+		Main.game.getPlayer().setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
 		Main.game.getPlayer().setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		Main.game.getPlayer().setMinimumHornsPerRow(2);
@@ -841,12 +841,12 @@ public class Lyssieth extends NPC {
 		this.setPenisType(type);
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
-			this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+			this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 			this.setPenisSize(18);
 			this.setTesticleSize(TesticleSize.THREE_LARGE);
 			this.setPenisCumStorage(500);
 		} else {
-			this.setPenisGirth(PenetrationGirth.FIVE_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_THICK);
 			this.setPenisSize(30);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(2500);
@@ -872,7 +872,7 @@ public class Lyssieth extends NPC {
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(45);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FOUR_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.FOUR_HUGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);

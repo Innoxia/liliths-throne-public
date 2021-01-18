@@ -35,19 +35,43 @@
 	<basicDescriptionId>HYENA_BASIC</basicDescriptionId>
 	<advancedDescriptionId>HYENA_ADVANCED</advancedDescriptionId>
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
-	<name><![CDATA[striped hyena-morph]]></name>
-	<namePlural><![CDATA[striped hyena-morphs]]></namePlural>
-	<singularMaleName><![CDATA[striped hyena-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[striped hyena-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[striped hyena-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[striped hyena-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[striped hyena-morph]]></name>
+			<namePlural><![CDATA[striped hyena-morphs]]></namePlural>
+			<singularMaleName><![CDATA[striped hyena-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[striped hyena-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[striped hyena-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[striped hyena-girls]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL">
+			<name><![CDATA[striped hyenataur]]></name>
+			<namePlural><![CDATA[striped hyenataurs]]></namePlural>
+			<singularMaleName><![CDATA[striped hyenataur]]></singularMaleName>
+			<singularFemaleName><![CDATA[striped hyenatauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[striped hyenataurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[striped hyenatauresses]]></pluralFemaleName>
+		</names>
+	</nameAnthro>
 	<description><![CDATA[An anthropomorphic striped hyena, known as a 'striped hyena-morph' when bipedal, and a 'striped hyenataur' when the lower body is that of a typically-oversized feral striped hyena. To be identified as a striped hyena-morph, a character must be a hyena-morph that has striped fur.]]></description>
-	<nameHalfDemon><![CDATA[kishi]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[kishis]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[kishi]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[kishi]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[kishis]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[kishis]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[kishi]]></name>
+			<namePlural><![CDATA[kishis]]></namePlural>
+			<singularMaleName><![CDATA[kishi]]></singularMaleName>
+			<singularFemaleName><![CDATA[kishi]]></singularFemaleName>
+			<pluralMaleName><![CDATA[kishis]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[kishi]]></pluralFemaleName>
+		</namesDefault>
+		<names legConfiguration="QUADRUPEDAL">
+			<name><![CDATA[kishitaur]]></name>
+			<namePlural><![CDATA[kishitaurs]]></namePlural>
+			<singularMaleName><![CDATA[kishitaur]]></singularMaleName>
+			<singularFemaleName><![CDATA[kishitauress]]></singularFemaleName>
+			<pluralMaleName><![CDATA[kishitaurs]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[kishitauresses]]></pluralFemaleName>
+		</names>
+	</nameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[striped hyena]]></feralName>
 		<feralNamePlural><![CDATA[striped hyenas]]></feralNamePlural>
@@ -58,6 +82,7 @@
 		<legConfiguration>QUADRUPEDAL</legConfiguration>
 		<sizeHeight>true</sizeHeight>
 		<size>85</size>
+		<serpentTailLength>0.1</serpentTailLength>
 		<breastRowCount>0</breastRowCount>
 		<nipplesPerBreastCount>1</nipplesPerBreastCount>
 		<crotchBreastRowCount>1</crotchBreastRowCount>

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.main.Main;
@@ -2020,17 +2021,23 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	TAIL(2, -1f, true) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
-			if(standardName) {
+			if(standardName || owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
 				return "tail";
 			}
 			return owner.getTailName();
 		}
 		@Override
 		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			if(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+				return owner.getLegTailLength(penetrationLength);
+			}
 			return owner.getTailLength(penetrationLength);
 		}
 		@Override
 		public float getDiameter(GameCharacter owner, int atLength) {
+			if(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+				return owner.getLegTailDiameter(atLength);
+			}
 			return owner.getTailDiameter(atLength);
 		}
 		@Override
