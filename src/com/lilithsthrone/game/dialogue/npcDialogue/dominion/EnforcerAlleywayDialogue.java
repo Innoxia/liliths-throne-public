@@ -20,7 +20,10 @@ import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -81,6 +84,20 @@ public class EnforcerAlleywayDialogue {
 
 	private static boolean contrabandFound = false;
 	private static boolean heavyContrabandFound = false;
+        
+        private static int uniformPassable; // -1 = impassable
+                                         // 0 = passable but a few minor details are wrong
+                                         // 1 = passable
+        
+        private static int impersonatingCandi; // same as above but
+                                               // 0 = not impersonating
+                                               // -2 or less = impassable because of a quest outcome
+        private static int impersonatingClaire;
+        private static int impersonatingBrax;
+        private static int impersonatingWes;
+        private static int impersonatingElle;
+        private static int impersonatingNysa;
+        
 	private static Map<AbstractItem, Integer> itemsConfiscated = new HashMap<>();
 	private static Map<AbstractWeapon, Integer> weaponsConfiscated = new HashMap<>();
 	private static Map<AbstractClothing, Integer> clothingConfiscated = new HashMap<>();
@@ -108,8 +125,155 @@ public class EnforcerAlleywayDialogue {
 		
 		encounteredBefore = ((NPC)getEnforcerLeader()).hasEncounteredBefore();
 		setDemonRevealed(Main.game.getPlayer().getRace()==Race.DEMON);
-		setThinksPlayerEnforcer(Main.game.getPlayer().hasAnyEnforcerStatusEffect());
+                uniformPassable = -1;
+                impersonatingCandi = 0;
+                impersonatingClaire = 0;
+                impersonatingBrax = 0;
+                impersonatingWes = 0;
+                impersonatingElle = 0;
+                impersonatingNysa = 0;
+		setThinksPlayerEnforcer(checkPlayerUniform());
 	}
+        
+        private static boolean checkPlayerUniform() {
+            //human and angel players immediately fail
+            if(Main.game.getPlayer().hasAnyEnforcerStatusEffect() && (Main.game.getPlayer().getRace() == Race.HUMAN || Main.game.getPlayer().getRace() == Race.ANGEL)) {
+                uniformPassable = -1;
+            }
+            //check uniform elements
+            else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_enfdjacket")) {
+                //blank uniforms fail
+                if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
+                    uniformPassable = 0;
+                }
+                else {
+                    switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name")) {
+                        //generic uniforms with mismatched ranks will arouse suspicion
+                        case "name_pc":
+                            if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("collar").equals("tab_pc")) {
+                                uniformPassable = 1;
+                            }
+                            else {
+                                uniformPassable = 0;
+                            }
+                            break;
+                        case "name_sg":
+                            if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("collar").equals("tab_sg")) {
+                                uniformPassable = 1;
+                            }
+                            else {
+                                uniformPassable = 0;
+                            }
+                            break;
+                        case "name_ip":
+                            if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("collar").equals("tab_ip")) {
+                                uniformPassable = 1;
+                            }
+                            else {
+                                uniformPassable = 0;
+                            }
+                            break;
+                        case "name_su":
+                            if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("collar").equals("tab_su")) {
+                                uniformPassable = 1;
+                            }
+                            else {
+                                uniformPassable = 0;
+                            }
+                            break;
+                        case "name_cs":
+                            if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("collar").equals("tab_cs")) {
+                                uniformPassable = 1;
+                            }
+                            else {
+                                uniformPassable = 0;
+                            }
+                            break;
+                        //named npc checks
+                        case "name_brax":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.WOLF_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingBrax = 1;
+                            }
+                            //the player defeated Brax and caused him to be enslaved
+                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)){
+                                uniformPassable = -1;
+                                impersonatingBrax = -2;                                
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingBrax = -1;
+                            }
+                            break;
+                        case "name_candi":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.CAT_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingCandi = 1;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingCandi = -1;
+                            }
+                            break;
+                        case "name_claire":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.CAT_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingClaire = 1;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingClaire = -1;
+                            }
+                            break;
+                        case "name_elle":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.HORSE_MORPH_UNICORN) {
+                                uniformPassable = 1;
+                                impersonatingElle = 1;
+                            }
+                            // player sided with Wes and caused Elle to get enslaved
+                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_WES, Quest.WES_3_WES)) {
+                                uniformPassable = -1;
+                                impersonatingElle = -2;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingElle = -1;
+                            }
+                            break;
+                        case "name_wesley":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.FOX_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingWes = 1;
+                            }
+                            // player sided with Elle and caused Wes to get enslaved
+                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
+                                uniformPassable = -1;
+                                impersonatingWes = -2;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingWes = -1;
+                            }
+                            break;
+                        case "name_nysa":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.LILIN) {
+                                uniformPassable = 1;
+                                impersonatingNysa = 1;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingNysa = -1;
+                            }
+                            break;
+                    }
+                }               
+            }
+            if ((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa) >= 0) {
+                return true;
+            }
+            return false;
+        }
 	
 	public static boolean isDemonRevealed() {
 		return ((NPC)getEnforcerLeader()).hasFlag(NPCFlagValue.knowsPlayerDemon);
