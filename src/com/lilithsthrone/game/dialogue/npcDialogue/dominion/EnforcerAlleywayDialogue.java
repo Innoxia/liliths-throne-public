@@ -97,6 +97,7 @@ public class EnforcerAlleywayDialogue {
         private static int impersonatingWes;
         private static int impersonatingElle;
         private static int impersonatingNysa;
+        private static int impersonatingSean;
         
 	private static Map<AbstractItem, Integer> itemsConfiscated = new HashMap<>();
 	private static Map<AbstractWeapon, Integer> weaponsConfiscated = new HashMap<>();
@@ -132,6 +133,7 @@ public class EnforcerAlleywayDialogue {
                 impersonatingWes = 0;
                 impersonatingElle = 0;
                 impersonatingNysa = 0;
+                impersonatingSean = 0;
 		setThinksPlayerEnforcer(checkPlayerUniform());
 	}
         
@@ -141,6 +143,7 @@ public class EnforcerAlleywayDialogue {
                 uniformPassable = -1;
             }
             //check uniform elements
+            //check for a dress jacket
             else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
                     Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_enfdjacket")) {
                 //blank uniforms fail
@@ -269,7 +272,37 @@ public class EnforcerAlleywayDialogue {
                     }
                 }               
             }
-            if ((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa) >= 0) {
+            //check for unique stabvests
+            else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_ptrlequipset_stpvest")) {
+                if(!Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
+                    switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name_plate")){
+                        case "claire":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.CAT_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingCandi = 1;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingCandi = -1;
+                            }
+                            break;
+                        case "sean":
+                            if(Main.game.getPlayer().getSubspecies() == Subspecies.RABBIT_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingSean = 1;
+                            }
+                            else {
+                                uniformPassable = -1;
+                                impersonatingSean = -1;
+                            }
+                            break;
+                            
+                    }
+                }
+            }
+            
+            if((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa) >= 0) {
                 return true;
             }
             return false;
