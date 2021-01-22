@@ -54,7 +54,7 @@
 		#IF(!targetedBody.isFaceHuman() && targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_face)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_face)]
 		#ENDIF
-		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
+		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
 			#ELSEIF(RND.nextInt(100) < 50)

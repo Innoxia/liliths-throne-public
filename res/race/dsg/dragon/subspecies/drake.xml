@@ -54,7 +54,7 @@
 		#IF(targetedBody.getWingType()!=WING_TYPE_NONE)
 			[#targetedBody.setWingType(WING_TYPE_NONE)]
 		#ENDIF
-		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
+		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
 			#ELSEIF(RND.nextInt(100) < 50)

@@ -57,7 +57,7 @@
 		#IF(targetedBody.getWingSizeValue() < WING_SIZE_THREE_LARGE)
 			[#targetedBody.setWingSize(WING_SIZE_THREE_LARGE)]
 		#ENDIF
-		#IF(targetedBody.getHornType()==HORN_TYPE_dsg_dragon_hornAntlers || targetedBody.getHornType()==HORN_TYPE_NONE)
+		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
 			#IF(RND.nextInt(100) < 33)
 				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
 			#ELSEIF(RND.nextInt(100) < 50)
