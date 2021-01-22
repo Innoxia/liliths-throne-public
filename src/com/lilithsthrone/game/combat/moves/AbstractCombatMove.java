@@ -76,6 +76,7 @@ public abstract class AbstractCombatMove {
     
     private DamageType damageType;
     private int baseDamage;
+	private DamageVariance damageVariance;
     
     private int cooldown;
     private int APcost;
@@ -103,8 +104,38 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, type, damageType, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
     }
+
+	public AbstractCombatMove(CombatMoveCategory category,
+    		String name,
+    		int cooldown,
+    		int APcost,
+    		CombatMoveType type,
+    		DamageType damageType,
+			DamageVariance damageVariance,
+    		String pathName,
+    		boolean canTargetAllies,
+    		boolean canTargetEnemies,
+    		boolean canTargetSelf,
+    		Map<AbstractStatusEffect, Integer> statusEffects) {
+    	this(category, name, cooldown, APcost, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    }
+
+	public AbstractCombatMove(CombatMoveCategory category,
+			String name,
+			int cooldown,
+			int APcost,
+			CombatMoveType type,
+			DamageType damageType,
+			String pathName,
+			List<Colour> iconColours,
+			boolean canTargetAllies,
+			boolean canTargetEnemies,
+			boolean canTargetSelf,
+			Map<AbstractStatusEffect, Integer> statusEffects) {
+		this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+	}
     
     /**
      * Default constructor
@@ -121,6 +152,7 @@ public abstract class AbstractCombatMove {
     		int APcost,
     		CombatMoveType type,
     		DamageType damageType,
+			DamageVariance damageVariance,
     		String pathName,
     		List<Colour> iconColours,
     		boolean canTargetAllies,
@@ -141,6 +173,7 @@ public abstract class AbstractCombatMove {
         this.type = type;
         this.baseDamage = 0;
         this.damageType = damageType;
+		this.damageVariance = damageVariance;
         this.canTargetEnemies = canTargetEnemies;
         this.canTargetAllies = canTargetAllies;
         this.canTargetSelf = canTargetSelf;
@@ -200,6 +233,18 @@ public abstract class AbstractCombatMove {
 						this.type = CombatMoveType.valueOf(coreElement.getMandatoryFirstOf("type").getTextContent());
 					} catch(Exception ex) {
 						System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': type not recognised! (Set to ATTACK)");
+					}
+				}
+				
+				this.damageVariance = DamageVariance.NONE;
+				if(coreElement.getOptionalFirstOf("damageVariance").isPresent()) {
+					try {
+						String variance = coreElement.getMandatoryFirstOf("damageVariance").getTextContent();
+						if (!variance.isEmpty()) {
+							this.damageVariance = DamageVariance.valueOf(variance);
+						}
+					} catch(Exception ex) {
+						System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': variance not recognised! (Set to NONE)");
 					}
 				}
 				
@@ -725,8 +770,12 @@ public abstract class AbstractCombatMove {
     		return 0;
     	}
         DamageType damageType = getDamageType(source);
-        return (int) Attack.calculateSpecialAttackDamage(source, target, damageType, getBaseDamage(source), DamageVariance.NONE, isCrit);
+        return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
     }
+
+	public DamageVariance getDamageVariance() {
+		return damageVariance;
+	}
 
 	public Spell getAssociatedSpell() {
         return associatedSpell;
@@ -828,6 +877,14 @@ public abstract class AbstractCombatMove {
 		}
 		return this.getType().getColour();
     }
+
+	public Colour getColourByDamageType(GameCharacter source) {
+		if (Util.newArrayListOfValues(CombatMoveType.SPELL, CombatMoveType.POWER).contains(type)) {
+			return getDamageType(source).getColour();
+		}
+
+		return type.getColour();
+	}
 
 	public boolean isMod() {
 		return mod;

@@ -579,7 +579,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"));
-						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.FIVE_FAT, PenisLength.FOUR_HUGE, TesticleSize.FOUR_HUGE, CumProduction.FOUR_LARGE);
+						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenetrationGirth.FIVE_THICK, PenisLength.FOUR_HUGE, TesticleSize.FOUR_HUGE, CumProduction.FOUR_LARGE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
 				};

@@ -12,8 +12,10 @@ html {
 body{
 	padding:0;
 	margin:0;
-	
-	 -webkit-animation-name: fadeIn;
+}
+
+.tooltip-animation {
+	-webkit-animation-name: fadeIn;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: ease-out;
     -webkit-animation-duration: 0.3s;

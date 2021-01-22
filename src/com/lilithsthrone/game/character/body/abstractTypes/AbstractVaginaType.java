@@ -58,6 +58,8 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+
+	private boolean pubicHairAllowed;
 	
 	private boolean eggLayer;
 	
@@ -99,6 +101,8 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			String transformationDescription,
 			String bodyDescription,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
+		this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+		
 		this.coveringType = coveringType;
 		this.fluidType = fluidType;
 		this.race = race;
@@ -159,6 +163,11 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+
+				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
+					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+				}
 				
 				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
 				this.eggLayer = Boolean.valueOf(coreElement.getMandatoryFirstOf("eggLayer").getTextContent());
@@ -205,6 +214,10 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isPubicHairAllowed() {
+		return pubicHairAllowed;
+	}
+
 	@Override
 	public String getTransformationNameOverride() {
 		return transformationName;

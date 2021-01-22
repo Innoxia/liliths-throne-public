@@ -126,26 +126,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[ryu-morph]]></name>
-	<namePlural><![CDATA[ryu-morphs]]></namePlural>
-	<singularMaleName><![CDATA[ryu-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[ryu-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[ryu-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[ryu-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[ryu-morph]]></name>
+			<namePlural><![CDATA[ryu-morphs]]></namePlural>
+			<singularMaleName><![CDATA[ryu-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[ryu-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[ryu-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[ryu-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic ryu, known as a 'ryu-morph' when bipedal, and a 'ryutaur' when the lower body is that of a typically-oversized feral ryu. To be identified as a ryu-morph, a character must be a dragon-morph with a ryu face, a mane, external ears, a tufted tail, and no wings.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[ikuchi]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[ikuchi]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[ikuchi]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[ikuchi]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[ikuchi]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[ikuchi]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[ikuchi]]></name>
+			<namePlural><![CDATA[ikuchi]]></namePlural>
+			<singularMaleName><![CDATA[ikuchi]]></singularMaleName>
+			<singularFemaleName><![CDATA[ikuchi]]></singularFemaleName>
+			<pluralMaleName><![CDATA[ikuchi]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[ikuchi]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>

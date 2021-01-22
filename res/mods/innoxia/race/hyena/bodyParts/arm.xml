@@ -17,6 +17,11 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>innoxia_hyena_fur</coveringType>
 	
+	<!-- Whether or not this ass type can have underarm hair growing on it.
+	By default, arm types allow underarm hair if its race is of either the MAMMAL or BIRD RacialClass. As such, this arm type would allow ass hair even if this element was omitted (as hyenas are of the MAMMAL class), but I've included it here for demonstration purposes.
+	You should define this as either 'true' or 'false', or, if you'd like to leave it to its default value, then leave this element blank or omit it entirely. -->
+	<underarmHairAllowed>true</underarmHairAllowed>
+	
 	<!-- Whether this arm type grants the ability to fly. -->
 	<allowsFlight>false</allowsFlight>
 	

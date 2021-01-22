@@ -29,19 +29,27 @@
 	<basicDescriptionId>SNAKE_BASIC</basicDescriptionId>
 	<advancedDescriptionId>SNAKE_ADVANCED</advancedDescriptionId>
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
-	<name><![CDATA[lamia]]></name>
-	<namePlural><![CDATA[lamias]]></namePlural>
-	<singularMaleName><![CDATA[lamia-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[lamia-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[lamia-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[lamia-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[lamia]]></name>
+			<namePlural><![CDATA[lamias]]></namePlural>
+			<singularMaleName><![CDATA[lamia-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[lamia-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[lamia-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[lamia-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	<description><![CDATA[An anthropomorphic snake with the lower body of a typically-oversized feral snake, known as a 'lamia'.]]></description>
-	<nameHalfDemon><![CDATA[naga]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[nagas]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[naga]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[naga]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[nagas]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[nagas]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[naga]]></name>
+			<namePlural><![CDATA[nagas]]></namePlural>
+			<singularMaleName><![CDATA[naga]]></singularMaleName>
+			<singularFemaleName><![CDATA[naga]]></singularFemaleName>
+			<pluralMaleName><![CDATA[nagas]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[naga]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[snake]]></feralName>
 		<feralNamePlural><![CDATA[snakes]]></feralNamePlural>
@@ -51,7 +59,8 @@
 		<feralPluralFemaleName><![CDATA[snakes]]></feralPluralFemaleName>
 		<legConfiguration>TAIL_LONG</legConfiguration>
 		<sizeHeight>false</sizeHeight>
-		<size>170</size>
+		<size>180</size>
+		<serpentTailLength>0.1</serpentTailLength>
 		<breastRowCount>0</breastRowCount>
 		<nipplesPerBreastCount>1</nipplesPerBreastCount>
 		<crotchBreastRowCount>0</crotchBreastRowCount>

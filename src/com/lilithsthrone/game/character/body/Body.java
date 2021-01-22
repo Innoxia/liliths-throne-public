@@ -2036,13 +2036,27 @@ public class Body implements XMLSaving {
 		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
 		// Describe race:
 		sb.append(getHeader("Overview"));
+		
+		String heightDescription = " Standing at full height, [npc.she] [npc.verb(measure)] [npc.heightValue]";
+		if(owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()) {
+			if(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+				heightDescription = " [npc.Her] body measures [npc.heightValue], which combined with [npc.her] [npc.tailLength]-long tail, gives [npc.herHim] a total length of "
+						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				
+//				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] "
+//						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+			} else {
+				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] [npc.heightValue]";
+			}
+		}
+		
 		if (owner.isPlayer()) {
 			sb.append("You are [pc.name], "
 							+(owner.getRace()==Race.HUMAN
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
 								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+" Standing at full height, you measure [pc.heightValue].");
+						+heightDescription+".");
 		} else {
 			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("[npc.Name] is "
@@ -2050,20 +2064,21 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+						+ heightDescription);
 			} else {
 				if(observant) {
 					sb.append("Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+							+ heightDescription);
 				} else {
 					sb.append("[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+								+ heightDescription);
 				}
 			}
 			if(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())) {
-				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>significantly taller</span> than you.");
+				String descriptor = owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()?"longer":"taller";
+				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>significantly "+descriptor+"</span> than you.");
 			} else if(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())) {
 				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_ZERO.toWebHexString()+";'>significantly shorter</span> than you.");
 			} else {
@@ -2122,7 +2137,8 @@ public class Body implements XMLSaving {
 					sb.append(" [style.colourFeral([npc.Her] entire body has transformed into that of a feral [npc.legRace]."
 							+ " [npc.Her] ass and genitals have shifted to be located within a cloaca on the underside of [npc.her] feral body.)]");
 				} else {
-					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace], which measures "+Units.size(owner.getHeightValue()*5)+" in length."
+					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace],"
+								+ " which measures "+Units.size(owner.getLegTailLength(false))+" in length."
 							+ " [npc.Her] ass and genitals are completely feral in nature, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
 				}
 				break;
@@ -2848,7 +2864,16 @@ public class Body implements XMLSaving {
 					sb.append(feralLegsPrefix).append("[npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
+					if(!owner.isFeral()) {
+						sb.append(" It forms the majority of [npc.her] body's [npc.heightValue]-length,");
+						sb.append(" and from [npc.her] head, it tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+						sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted. ");
+					} else {
+						sb.append(" Its [npc.tailLength]-length contributes to [npc.her] body's total length of "+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG)+".");
+						sb.append(" It tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+						sb.append(" When used to penetrate an orifice, both [npc.her] tail and body can be inserted, up to a maximum of [npc.tailPenetrationLength(true)]. ");
+					}
 					break;
 				case QUADRUPEDAL:
 					sb.append(feralLegsPrefix).append("[npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
@@ -2859,6 +2884,7 @@ public class Body implements XMLSaving {
 			} else {
 				sb.append("It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 			}
+			
 		} else {
 			switch(owner.getLegConfiguration()) {
 				case ARACHNID:
@@ -2872,13 +2898,20 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)].");
+					sb.append(" It measures ").append(Units.size(owner.getLegTailLength(false))).append(" in length,");
+					sb.append(" and tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
-			sb.append(leg.getType().getBodyDescription(owner));
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append(leg.getType().getBodyDescription(owner));
+			} else {
+				sb.append(" It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
+			}
 		}
 
 		if(owner.getLegConfiguration().getNumberOfLegs()>0) {
@@ -4330,7 +4363,7 @@ public class Body implements XMLSaving {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawLengthValue() * 2.25f),
 					false,
-					PenetrationGirth.FIVE_FAT.getValue(),
+					PenetrationGirth.FIVE_THICK.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
@@ -5904,7 +5937,7 @@ public class Body implements XMLSaving {
 			return false;
 		}
 		
-		this.height = Math.max(Height.NEGATIVE_THREE_MIMIMUM.getMinimumValue(), Math.min(height, Height.SEVEN_COLOSSAL.getMaximumValue()));
+		this.height = Math.max(Height.NEGATIVE_THREE_MINIMUM.getMinimumValue(), Math.min(height, Height.SEVEN_COLOSSAL.getMaximumValue()));
 
 		return true;
 	}
@@ -6065,8 +6098,11 @@ public class Body implements XMLSaving {
 				false);
 		
 		// Set feral-specific attributes:
-		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
+		this.getLeg().getType().applyLegConfigurationTransformation(this, attributes.getLegConfiguration(), true);
+		
+//		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
 		this.setHeight(attributes.getSize());
+		this.getLeg().setLengthAsPercentageOfHeight(null, attributes.getSerpentTailLength());
 		
 		// Set breast and crotch-boob counts:
 		this.getBreast().setRows(null, attributes.getBreastRowCount());

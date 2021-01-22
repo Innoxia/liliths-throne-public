@@ -36,6 +36,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed typo in 'Ear pull' blowjob action. (PR#1472 by darkofoc)
 		Fixed issue where the appearance for feral legs was hardcoded and didn't take various leg configurations into account. (PR#1467 by Stadler76)
 		Tidied up a lot of race code, and fixed issue where changing a character's tongueType (as part of changing face type) wouldn't resets its modifiers. Also added 'WING_SIZE_' as a parser prefix hook for WingSize enum values. (PR#1480 by Stadler76)
+		Updated the tentacle-constrict icon. (by DSG)
+		Made the tooltip fade-in animation toggleable via the existing 'Fade-In' game option. This fixes the bug where tooltips were appearing blank when using some versions of java to run the game. (PR#1449 by CognitiveMist)
+		Improved damage calculations for special attacks. Added ability to set 'damageVariance' in modded combat moves. Added CombatMoveType POWER for use when defining special attacks instead of having to use ATTACK or SPELL. (PR#1473 by Stadler76)
+		Fixed references to the player using their wings in several scenes when the player was in fact able to fly without their wings. (PR#1483 by Stadler76)
+		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
+		Fixed an oversight for mer-tailed and serpent-tailed non-ferals where the full leg description, complete with references to feet, was being incorrectly shown. (PR#1487 by Stadler76)
+		Fixed graphical issues which arose when selecting very dark dye colors on items due to some stroke colors being set to CMYK black (#231f20) instead of RGB black (#000000). (PR#1488 by DSG)
+		Fixed parsing errors, typos and minor issues in Nyan's updated quest content. (PR#1491 by AceXP)
+		
+	DSG's Enforcer Item updates (PR#1490):
+		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
+		Enforcer weapon effects are now applied on critical hits instead of by random chance.
+		Pepperball rifle and pistol now have new special attacks of 'Mag Dump' and 'Seven Rounds Rapid', respectively.
+		The Liquid Stun Gun's silly-mode effects have been moved into a new silly-mode variant of the weapon, which can be spawned via the debug menu's cheat spawn menu.
+		Added a test Enforcer beret with no sticker requirements to the debug menu's cheat spawn menu.
+		Updated Enforcer beret with some description text that was lost during sticker work.
 		
 	DSG's race fixes:
 		Race version 1.3:
@@ -56,6 +72,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Fixed formatting issue in the otter beverage effects description.
 			Changed Breath Weapon calculation, base damage will now scale with spell damage bonuses. Starting damage is now 20. Having either a dragon torso or dragon face will increase starting damage to 50. Having both will increase starting damage to 75.
 			Fixed feral coatls with a leg configuration of TAIL_LONG not being recongized as a coatl.
+		Race version 1.34:
+			Fixed dragon racialBody not having any tails listed
+			Fixed gryphon racialBody not having tail feathers listed
+			Added the "feathered" tail type to dragons
+			Added a missing ARM_WINGS_LEATHERY tag to dragon arm-wings
 	
 	Engine/Modding:
 		Added parser prefix hooks for muscle, body size, and body shape enums (using 'MUSCLE_', 'BODY_SIZE_', and 'BODY_SHAPE', respectively).
@@ -67,6 +88,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added RESTING_LUST as an attribute, so any modded items or effects can now influence this.
 		Changed method signature for Sex methods: 'setTimesCummedInside()' and 'incrementTimesCummedInside()'.
 		Added 'newSexType(SexParticipantType, SexAreaInterface, SexAreaInterface)' method to the sex class (at the very bottom of the class file) so that there's a way to generate SexType objects from the parser (via the 'sex' object).
+		You can now define 'placeLocations' in subspecies xml files to allow for subspecies to spawn in specific place types. (See 'res/mods/innoxia/race/hyena/spotted.xml' for an annotated example.)
+		You can now actually leave 'regionLocations' and 'worldLocations' elements in subspecies xml files blank without throwing errors, as the comments said you could.
+		Added ability to define body hair availability to the bodyPart xml files: anus, arm, face, penis, and vagina.
+		Added ability to define subspecies names based on their leg configuration. Refactoring old subspecies xml files is not needed. If you would like to make use of this functionality, see the 'res/mods/innoxia/race/hyena/spotted.xml' file.
+		Also added ability to define subspecies silly-mode names. See the same file as above.
 	
 	Gameplay:
 		Added 'cougar-morph' as a subspecies of cat-morph. Requirements to be identified as a cougar are: non-patterned tan fur, muscles of at least 'muscular', and body size of at least 'average'.
@@ -84,6 +110,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made the three brown clothing colours less saturated, so they look less orange and more brown than before. Also slightly desaturated the tan colour.
 		Added 'dark desaturated brown' and 'desaturated tan' as new clothing colours.
 		In clothing/weapon dye screens, standard colours for the selected item now have a slightly lighter border, and the tooltip for each colour reveals whether it's a standard colour or not.
+		The 'Demonstone necklace' item is now sold by Vicky, not Nyan.
 	
 	Sex:
 		Added 'Stroke cock' as an ongoing self-action, which you can start/stop like other ongoing actions.
@@ -91,6 +118,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Weighting of NPCs' choice to use foot actions is no longer partially based on the player character's fetishes, and is now only affected by the foot action content setting and whether the NPC at least likes the associated foot fetish.
 		Added more information to NPCs' 'Desires' status effect tooltip when in sex, so that you can now see NPCs' foreplay and main sex preferences.
 		Added 'Humping' sex slots to the 'Over desk' sex position.
+		Characters can now use their serpent-tail lower body to perform all of the usual tail sex actions. Serpent-tail girth is based on hip size, while length starts at 500% of height.
 	
 	Other:
 		The five main horn types (curled, spiral, curved, swept-back, straight) are no longer limited to demons, and instead are generically available for all races who lack special horn types in the same way that feathered/leathery wings are.
@@ -102,6 +130,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		You can now get your milk, cum, and girlcum recoloured by Kate at Succubi's Secrets, and you will no longer see covering recolouring options for parts you do not have (e.g. Horn covering colours will no be displayed if you have no horns).
 		NPC surnames are now shown in their name tooltip.
 		Updated home icons for Arthur, Zaranix, Desryth, and Helena.
+		Slightly adjusted penetration girth brackets.
+		Added indication of a serpent-tail's length in characters' body tooltip, and changed torso's 'Height' indication to 'Length' if the character is feral and their size is measured head-to-tail instead of how high they are.
+		Serpent-tailed lower bodies can now have their length transformed (either from the self-TF menu or by enchanting food items which have the 'serpent tail' leg configuration transformation available to them, such as snake eggs).
+		By default, only body parts belonging to mammal or bird races now support having pubic, facial, ass, and underarm hair.
+		Feral snake subspecies now have more accurate body-to-tail length ratios, and by default are now closer to 2m in total length as a result.
 	
 	Bugs:
 		Numerous parsing fixes.
@@ -120,81 +153,26 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed incorrect colouring of some status effect icons (such as the icons for the smoking effects).
 		Fixed minor bug where ordering of attributes in modded race tooltips would be random.
 		Fixed issue where tentacle count was not correctly linked to leg count.
+		Fixed incorrect descriptions of height and serpent-tail length for feral characters.
+		Fixed issue where transforming into a feral wouldn't apply the correct leg configuration changes, which was leaving characters with tails where they should have had them removed.
+		Fixed bug where feral attributes of modded races were not being loaded correctly.
+		Fixed minor issue with feral Coatl not being described as serpents in some places.
 	
 	
 	
-	[x] Restore live birth snek vagina
+	[#npc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
+	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
 	
-	update colour of tentacle binding icon
-	
-	[] Add definition to make pubic hair impossible
-		[] FaceType
-		[] Ass
-		[] Arm
-		[] Penis, Vagina
-	
-	[] Add mod override for applyNonBipedNameChange
+	[x] Add mod override for applyNonBipedNameChange
+		[x] Update naming comments
+		[x] Refactor all races with new naming system
+			 [x] DSG races
+			 	[x] Test
+			 [x] Snek races
+			 	[x] Test
+		[x] Add silly mode naming
 	
 	[] Add a way to TF tongue (mouth?)
-	
-	[x] convert horns into generic horns
-		[x] Add to generic TFs
-	
-	[x] Add generic egg-laying or live birthing descriptor to body vagina description
-	
-	Test:
-		Sneks
-			[x] Remove xml comments
-			[x] Icon
-				[x] Icon needs to be centred
-			[x] Half-demon name to basilisk
-			[x] Body parts
-				Changed face TF name from lamia to snake
-				Changed snake face TF to be a snake face, not human
-				Removed viper, renamed 'cobra' to 'hooded snake'
-				Updated face TF descriptions
-				Removed 'paw-like' from hand descriptors, changed 'snake-like' hand & finger descriptor to 'reptilian'
-				Removed 'MUSKY' from default cum modifiers.
-				Changed ear's bodyDescription.
-				Renamed 'lamia' ears to 'pointed snake'
-				Removed horn (as it was the same as the generic no-race horns which I've just made)
-				Removed non-egg vagina
-				Removed default PUFFY modifier for vagina
-			[x] Race
-			[x] RacialBody
-				[x] Race should not be applying lamia lower body
-				[x] Apply to lamia
-			[x] Covering types
-				Changed hair & body hair FLUFFY modifier to COARSE.	
-			[x] Subspecies
-				Changed application of subspecies changes for lamia and melusine.
-			[x] Book lore
-			[x] Test no hair spawning
-			[x] Subspecies bonus
-		Capybara
-			[x] Remove xml comments
-			[x] Icon
-			[x] Body parts
-				Removed MUSKY from cum
-				Changed testicles to be external
-				Changed to be very rare along river and uncommon in jungle and jungle city
-			[x] Race
-			[x] RacialBody
-			[x] Covering types
-			[x] Subspecies
-			[x] Book lore
-			[x] Subspecies bonus
-		Octopus
-			[x] Remove xml comments
-			[x] Icon
-			[x] Body parts
-			[x] Race
-			[x] RacialBody
-			[x] Covering types
-			[x] Subspecies
-			[x] Book lore
-			[x] Subspecies bonus
-	
 	
 	Panther book is yellow?
 	
@@ -212,14 +190,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Helena sex without her becoming a total slut
 	Make a non-sloot Helena ending
 	
-	demonic sneks basiliks?
-	
 	Some errors in the selfie in punctuation and description..
 	-- You have a short, dark brown, white-highlighted, dragon-like mane than runs from her head down the back of your neck.​ , which is unstyled.
 	Also sclerae and pupil colors seem to be stuck on white and black respectively.
 	Also the word "her" during transformation seems to be showing up a lot.
-	
-	
 	
 	ClitMouth and ClitMouthPen are the same class?
 	
@@ -229,8 +203,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	add debug option to spawn an attacker of a certain race
 	
 	Add mathematical pie
-	
-	Ace in developers: Issue 1436, 1464
 	
 	Add 1 random sex action addition to actions (italics, centred)
 		Taste when performing oral
@@ -533,6 +505,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Ability to set what level of morphs Minimum/Lesser/Greater Spawn with Breasts, Ass, Genitals of the morph's type
 		 Basically being able to make it so that you can choose which level comes with the attached level of genitalia so I can turn them all on or someone can turn them all off
 		
+	Add charm to find race in alleyways?
 	
 	All non-hoofed taurs sapwn with shoes & socks (0.9 did not have this issue)
 	
@@ -555,9 +528,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		 have a '[ ] Don't show this again' checkbox for that message?
 		 
 	add options upon giving birth to select which offspring you'd like to potentially see again
-		 
-		 
-	PRs
 	
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
