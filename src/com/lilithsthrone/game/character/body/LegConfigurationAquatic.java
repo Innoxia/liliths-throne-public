@@ -35,8 +35,8 @@ public class LegConfigurationAquatic {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof LegConfigurationAquatic) {
-			if (((LegConfigurationAquatic) o).isAquatic() == isAquatic() &&
-				((LegConfigurationAquatic) o).getLegConfiguration() == getLegConfiguration()) {
+			if (((LegConfigurationAquatic) o).aquatic == this.aquatic &&
+				((LegConfigurationAquatic) o).legConfiguration == this.legConfiguration) {
 				return true;
 			}
 		}
@@ -45,9 +45,9 @@ public class LegConfigurationAquatic {
 
 	@Override
 	public int hashCode() {
-		int hash = 5;
-		hash = 89 * hash + Objects.hashCode(this.legConfiguration);
-		hash = 89 * hash + (this.aquatic ? 1 : 0);
+		int hash = 17;
+		hash = 31 * hash + Objects.hashCode(this.legConfiguration);
+		hash = 31 * hash + (this.aquatic ? 1 : 0);
 		return hash;
 	}
 }
