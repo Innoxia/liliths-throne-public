@@ -27,8 +27,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -295,8 +295,7 @@ public class Util {
 	
 	public static String getXmlRootElementName(File XMLFile) {
 		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(XMLFile);
 			
 			// Cast magic:

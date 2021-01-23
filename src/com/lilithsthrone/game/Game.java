@@ -299,6 +299,10 @@ public class Game implements XMLSaving {
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
+	public static TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	public static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	public static DocumentBuilder docBuilder;
+
 	public Game() {
 		worlds = new HashMap<>();
 		for(AbstractWorldType type : WorldType.getAllWorldTypes()) {
@@ -324,7 +328,13 @@ public class Game implements XMLSaving {
 		savedEnforcers = new HashMap<>();
 		
 		savedInventories = new HashMap<>();
-		
+
+		try {
+			docBuilder = docFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
 		weatherTimeRemainingInSeconds = 5*60*60;
@@ -343,12 +353,8 @@ public class Game implements XMLSaving {
 				System.out.println(timeStart);
 			}
 			// Starting stuff:
-			
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
+
 			Document doc = docBuilder.newDocument();
-			
 
 			// Writing game stuff to export:
 			
@@ -358,16 +364,15 @@ public class Game implements XMLSaving {
 			character.saveAsXML(characterNode, doc);
 			
 			// Ending stuff:
-			
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer1 = tf.newTransformer();
+
+			Transformer transformer1 = transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
 			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
 			
 			// Save this xml:
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
@@ -405,8 +410,6 @@ public class Game implements XMLSaving {
 			if(timeLog) {
 				System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 			}
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
@@ -417,9 +420,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(file);
+				Document doc = docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -482,189 +483,179 @@ public class Game implements XMLSaving {
 				}
 			}
 		}
-		
+
+		if(timeLog) {
+			timeStart = System.nanoTime();
+			System.out.println(timeStart);
+		}
+		// Starting stuff:
+
+		Document doc = docBuilder.newDocument();
+
+		// Writing game stuff to export:
+
+		Element game = doc.createElement("game");
+		doc.appendChild(game);
+
 		try {
-			if(timeLog) {
-				timeStart = System.nanoTime();
-				System.out.println(timeStart);
+			Element informationNode = doc.createElement("coreInfo");
+			game.appendChild(informationNode);
+			XMLUtil.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+			XMLUtil.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
+			XMLUtil.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
+			XMLUtil.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
+			XMLUtil.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
+			XMLUtil.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
+			XMLUtil.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
+
+			Element inventoryNode = doc.createElement("savedInventories");
+			game.appendChild(inventoryNode);
+			for(Entry<String, CharacterInventory> entry : savedInventories.entrySet()) {
+				Element element = doc.createElement("savedInventory");
+				XMLUtil.addAttribute(doc, element, "character", entry.getKey());
+				inventoryNode.appendChild(element);
+				entry.getValue().saveAsXML(element, doc);
 			}
-			// Starting stuff:
-			
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
-			
 
-			// Writing game stuff to export:
-			
-			Element game = doc.createElement("game");
-			doc.appendChild(game);
-			
-			try {
-				Element informationNode = doc.createElement("coreInfo");
-				game.appendChild(informationNode);
-				XMLUtil.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
-				XMLUtil.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
-				XMLUtil.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
-				XMLUtil.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
-				XMLUtil.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
-				XMLUtil.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
-				XMLUtil.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
-
-				Element inventoryNode = doc.createElement("savedInventories");
-				game.appendChild(inventoryNode);
-				for(Entry<String, CharacterInventory> entry : savedInventories.entrySet()) {
-					Element element = doc.createElement("savedInventory");
-					XMLUtil.addAttribute(doc, element, "character", entry.getKey());
-					inventoryNode.appendChild(element);
-					entry.getValue().saveAsXML(element, doc);
-				}
-
-				Element savedEnforcersNode = doc.createElement("savedEnforcers");
-				game.appendChild(savedEnforcersNode);
-				for(Entry<AbstractWorldType, List<List<String>>> entrySet : Main.game.savedEnforcers.entrySet()) {
-					Element element = doc.createElement("world");
-					savedEnforcersNode.appendChild(element);
-					XMLUtil.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
-					for(List<String> ids : entrySet.getValue()) {
-						Element enforcersElement = doc.createElement("enforcers");
-						element.appendChild(enforcersElement);
-						for(String s : ids) {
-							Element idElement = doc.createElement("id");
-							enforcersElement.appendChild(idElement);
-							idElement.setTextContent(s);
-						}
+			Element savedEnforcersNode = doc.createElement("savedEnforcers");
+			game.appendChild(savedEnforcersNode);
+			for(Entry<AbstractWorldType, List<List<String>>> entrySet : Main.game.savedEnforcers.entrySet()) {
+				Element element = doc.createElement("world");
+				savedEnforcersNode.appendChild(element);
+				XMLUtil.addAttribute(doc, element, "type", WorldType.getIdFromWorldType(entrySet.getKey()));
+				for(List<String> ids : entrySet.getValue()) {
+					Element enforcersElement = doc.createElement("enforcers");
+					element.appendChild(enforcersElement);
+					for(String s : ids) {
+						Element idElement = doc.createElement("id");
+						enforcersElement.appendChild(idElement);
+						idElement.setTextContent(s);
 					}
 				}
-				
-				try {
-					Main.game.getOccupancyUtil().saveAsXML(game, doc);
-				}catch(Exception ex) {
-					System.err.println("SlaveryUtil saving failed!");
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
-				}
-				
-				Element dateNode = doc.createElement("date");
-				informationNode.appendChild(dateNode);
-				XMLUtil.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
-				XMLUtil.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
-				XMLUtil.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
-				XMLUtil.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
-				XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
-			} catch(Exception ex) {
-				System.err.println("coreInfo saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
 			}
-			
-			Main.game.dialogueFlags.saveAsXML(game, doc);
-			
+
 			try {
-				Element eventLogNode = doc.createElement("eventLog");
-				game.appendChild(eventLogNode);
-				for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
-					event.saveAsXML(eventLogNode, doc);
-				}
-			} catch(Exception ex) {
-				System.err.println("eventLog saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
+				Main.game.getOccupancyUtil().saveAsXML(game, doc);
+			}catch(Exception ex) {
+				System.err.println("SlaveryUtil saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
 			}
-		
-			try {
-				Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
-				game.appendChild(slaveryEventLogNode);
-				for(Value<Integer, List<SlaveryEventLogEntry>> entry : Main.game.getSlaveryEventLog()) {
-					Element element = doc.createElement("day");
-					slaveryEventLogNode.appendChild(element);
-					XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
-					for(SlaveryEventLogEntry event : entry.getValue()) {
-						event.saveAsXML(element, doc);
-					}
-				}
-			} catch(Exception ex) {
-				System.err.println("slaveryEventLog saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
+
+			Element dateNode = doc.createElement("date");
+			informationNode.appendChild(dateNode);
+			XMLUtil.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
+			XMLUtil.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
+			XMLUtil.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
+			XMLUtil.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
+			XMLUtil.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
+		} catch(Exception ex) {
+			System.err.println("coreInfo saving failed!");
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
+		}
+
+		Main.game.dialogueFlags.saveAsXML(game, doc);
+
+		try {
+			Element eventLogNode = doc.createElement("eventLog");
+			game.appendChild(eventLogNode);
+			for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
+				event.saveAsXML(eventLogNode, doc);
 			}
-			
-			// Add maps:
-			try {
-				Element mapNode = doc.createElement("maps");
-				game.appendChild(mapNode);
-				for(World world : Main.game.getWorlds().values()) {
+		} catch(Exception ex) {
+			System.err.println("eventLog saving failed!");
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
+		}
+
+		try {
+			Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
+			game.appendChild(slaveryEventLogNode);
+			for(Value<Integer, List<SlaveryEventLogEntry>> entry : Main.game.getSlaveryEventLog()) {
+				Element element = doc.createElement("day");
+				slaveryEventLogNode.appendChild(element);
+				XMLUtil.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
+				for(SlaveryEventLogEntry event : entry.getValue()) {
+					event.saveAsXML(element, doc);
+				}
+			}
+		} catch(Exception ex) {
+			System.err.println("slaveryEventLog saving failed!");
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
+		}
+
+		// Add maps:
+		try {
+			Element mapNode = doc.createElement("maps");
+			game.appendChild(mapNode);
+			for(World world : Main.game.getWorlds().values()) {
 //					if(world!=null && world.getWorldType()!=WorldType.WORLD_MAP) { // Do not save world map, as it is for all intents and purposes immutable.
-						world.saveAsXML(mapNode, doc);
+					world.saveAsXML(mapNode, doc);
 //					}
-				}
-			} catch(Exception ex) {
-				System.err.println("maps saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
 			}
-			
-			// Add player:
-			try {
-				Element characterNode = doc.createElement("playerCharacter");
+		} catch(Exception ex) {
+			System.err.println("maps saving failed!");
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
+		}
+
+		// Add player:
+		try {
+			Element characterNode = doc.createElement("playerCharacter");
+			game.appendChild(characterNode);
+			Main.game.getPlayer().saveAsXML(characterNode, doc);
+		} catch(Exception ex) {
+			System.err.println("playerCharacter saving failed!");
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
+		}
+
+		// Add all NPCs:
+		try {
+			for(GameCharacter character : Main.game.getNPCMap().values()) {
+				Element characterNode = doc.createElement("NPC");
 				game.appendChild(characterNode);
-				Main.game.getPlayer().saveAsXML(characterNode, doc);
-			} catch(Exception ex) {
-				System.err.println("playerCharacter saving failed!");
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
+				character.saveAsXML(characterNode, doc);
 			}
-		
-			// Add all NPCs:
-			try {
-				for(GameCharacter character : Main.game.getNPCMap().values()) {
-					Element characterNode = doc.createElement("NPC");
-					game.appendChild(characterNode);
-					character.saveAsXML(characterNode, doc);
+		} catch(Exception ex) {
+			System.err.println("NPC saving failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
+		}
+
+
+		// Ending stuff:
+		try {
+			Transformer transformer1 = transformerFactory.newTransformer();
+			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+
+			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
+
+			// Save this xml:
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			DOMSource source = new DOMSource(doc);
+
+			String saveLocation = "data/saves/"+exportFileName+".xml";
+			StreamResult result = new StreamResult(saveLocation);
+
+			transformer.transform(source, result);
+
+			if(!exportFileName.startsWith("AutoSave")) {
+				if(overwrite) {
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Save game overwritten!");
+				} else {
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Game saved!");
 				}
-			} catch(Exception ex) {
-				System.err.println("NPC saving failed!");
-				ex.printStackTrace();
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 			}
-			
-			
-			// Ending stuff:
-			try {
-				TransformerFactory tf = TransformerFactory.newInstance();
-				Transformer transformer1 = tf.newTransformer();
-				transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-				StringWriter writer = new StringWriter();
-	
-				transformer1.transform(new DOMSource(doc), new StreamResult(writer));
-				
-				// Save this xml:
-				TransformerFactory transformerFactory = TransformerFactory.newInstance();
-				Transformer transformer = transformerFactory.newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-				DOMSource source = new DOMSource(doc);
-				
-				String saveLocation = "data/saves/"+exportFileName+".xml";
-				StreamResult result = new StreamResult(saveLocation);
-				
-				transformer.transform(source, result);
-				
-				if(!exportFileName.startsWith("AutoSave")) {
-					if(overwrite) {
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Save game overwritten!");
-					} else {
-						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, PresetColour.GENERIC_GOOD, "Game saved!");
-					}
-				}
-			} catch(Exception ex) {
-				System.err.println("XML writing failed!");
-				ex.printStackTrace();
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail</span>", "XML writing failure"), false);
-			}
-			
-			if(timeLog) {
-				System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
-			}
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
+		} catch(Exception ex) {
+			System.err.println("XML writing failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail</span>", "XML writing failure"), false);
+		}
+
+		if(timeLog) {
+			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 		}
 	}
 	
@@ -681,9 +672,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(file);
+				Document doc = docBuilder.parse(file);
 
 				long time = System.nanoTime();
 				if(debug) {

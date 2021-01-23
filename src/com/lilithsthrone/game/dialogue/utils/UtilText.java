@@ -22,8 +22,8 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -803,8 +803,7 @@ public class UtilText {
 		
 		if(file.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(file);
 				
 				// Cast magic:
@@ -852,8 +851,7 @@ public class UtilText {
 		
 		if (file.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(file);
 				
 				// Cast magic:
