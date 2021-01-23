@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import javax.xml.parsers.DocumentBuilder;
 
 import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
@@ -803,8 +802,7 @@ public class UtilText {
 		
 		if(file.exists()) {
 			try {
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(file);
+				Document doc = Game.docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -851,8 +849,7 @@ public class UtilText {
 		
 		if (file.exists()) {
 			try {
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(file);
+				Document doc = Game.docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

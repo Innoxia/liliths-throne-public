@@ -5,8 +5,6 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,8 +47,7 @@ public class Artwork {
 			for(File subFile : dir.listFiles(textFilter)) {
 				if (subFile.exists()) {
 					try {
-						DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-						Document doc = dBuilder.parse(subFile);
+						Document doc = Game.docBuilder.parse(subFile);
 						
 						// Cast magic:
 						doc.getDocumentElement().normalize();

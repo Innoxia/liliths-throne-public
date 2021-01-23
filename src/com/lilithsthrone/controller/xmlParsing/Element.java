@@ -49,7 +49,7 @@ public class Element {
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = Game.docFactory.newDocumentBuilder().parse(xmlFile);
+			Document parsedDocument = Game.docBuilder.parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
 			

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -257,10 +256,7 @@ public class Properties {
 	
 	public void savePropertiesAsXML(){
 		try {
-		
-			DocumentBuilder docBuilder = Game.docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+			Document doc = Game.docBuilder.newDocument();
 			Element properties = doc.createElement("properties");
 			doc.appendChild(properties);
 
@@ -581,7 +577,7 @@ public class Properties {
 		
 			transformer.transform(source, result);
 		
-		} catch (ParserConfigurationException | TransformerException e) {
+		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -599,8 +595,7 @@ public class Properties {
 		if (new File("data/properties.xml").exists())
 			try {
 				File propertiesXML = new File("data/properties.xml");
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(propertiesXML);
+				Document doc = Game.docBuilder.parse(propertiesXML);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

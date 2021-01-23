@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 
@@ -82,8 +80,7 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 	public AbstractAnusType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Game.docBuilder.parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -144,10 +143,8 @@ public class CharacterUtils {
 		try {
 //			long timeStart = System.nanoTime();
 //			System.out.println(timeStart);
-			
-			DocumentBuilder docBuilder = Game.docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+
+			Document doc = Game.docBuilder.newDocument();
 			
 			Element properties = doc.createElement("playerCharacter");
 			doc.appendChild(properties);
@@ -197,7 +194,7 @@ public class CharacterUtils {
 			
 			transformer.transform(source, result);
 		
-		} catch (ParserConfigurationException | TransformerException e) {
+		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -223,8 +220,7 @@ public class CharacterUtils {
 		
 		if (xmlFile.exists()) {
 			try {
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(xmlFile);
+				Document doc = Game.docBuilder.parse(xmlFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

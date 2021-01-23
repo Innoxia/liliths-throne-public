@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -965,10 +964,7 @@ public class EnchantmentDialogue {
 
 		try {
 			// Starting stuff:
-			
-			DocumentBuilder docBuilder = Game.docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+			Document doc = Game.docBuilder.newDocument();
 			
 			Element enchantment = doc.createElement("enchantment");
 			doc.appendChild(enchantment);
@@ -1038,8 +1034,7 @@ public class EnchantmentDialogue {
 
 			if (file.exists()) {
 				try {
-					DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-					Document doc = dBuilder.parse(file);
+					Document doc = Game.docBuilder.parse(file);
 					
 					// Cast magic:
 					doc.getDocumentElement().normalize();

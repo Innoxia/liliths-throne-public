@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 
@@ -206,8 +204,7 @@ public abstract class AbstractBodyCoveringType {
 	public AbstractBodyCoveringType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilder dBuilder = Game.docFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Game.docBuilder.parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
