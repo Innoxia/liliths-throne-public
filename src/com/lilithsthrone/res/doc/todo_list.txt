@@ -30,7 +30,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributions:
 		Added support for multiple vagina or penis types per race in enchanted TF potion effects. (PR#1465 by Stadler76)
-		Fixed issue where the player's elemental had their combat moves reset every time you loading a saved game. (by AceXP)
+		Fixed issue where the combat moves of the player's elemental were reset. (by AceXP)
 	 	Fixed softlock at the end of combat when fighting imps in Submission. (by AceXP)
 		Improved performance by caching subspecies variables and only doing a recalculation when needed. (PR#1471 by AceXP)
 		Fixed typo in 'Ear pull' blowjob action. (PR#1472 by darkofoc)
@@ -532,11 +532,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
 	
-	exk bug:
-		It is related to the MC having a elemental with a passive form of HARPY_PHOENIX, so rather exotic.
-		 The resulting subspecies object for this has several fields that are Null, including things like SVGStringUncoloured. Which then leads to NullPointerExceptions in the ColourReplacement function.
-		 This leads to the left and right panels not rendering anymore.
-	 
 	Well one of my slaves just drained me of 4 levels and I was watching (Meta wise, she didnt know i was even there)
 		Prevent spectators from being drained
 	 
@@ -572,7 +567,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	we need an option to have Lilaya keep her skin tone when she becomes a full demon
 	
-	Adding images to characters not working if png image is PNG
+	Adding images to characters not working if png image is PNG (check PR #1448 by Cognitive Mist)
 	
 	Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
 	
@@ -590,8 +585,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	
 	For these pills, although there is a determiner provided in the XML file, the items in the game have a null value for determiner
-	
-	Check 'Kevin' save for multiple clients in Angel's Kiss bug
 	
 	male imp has "succubus-cock"?
 	
@@ -611,12 +604,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	go slime -> demon horse legs -> taur -> unslime
 		demon gets slime options
 	
-	1. Visit any merchant
-	2. Select any enchantable item from the player character's inventory
-	3. Click on enchant
-	4. Without exiting the enchant window (cancel/finish enchantment), click on either player character or npc's equipped item inventory
-	5. Shop inventory becomes free to take, so is equipped ones
-	
 	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
 		went to bed at 39/39 hp and woke up with 40/70 or so
 	
@@ -635,7 +622,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	I suggest adding a selection of fetishes to the section on sexual experiences when creating a character
 	
-	Found a bug where player youkos for some reason have access to the slime transform menu
+	Found a bug where player youkos for some reason have access to the slime transform menu (need to account for self transform ability in transformtion dialogs) Now only demon/slime/debug.
 	
 	Blaze/Crystal post-victory scene should be travel disabled with option to continue (like Max)
 	
@@ -881,7 +868,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	set weapon damage as tier constants
 	
 	coloured cum/milk/girlcum/saliva
-	
+
 	Enchanting a Burning opaque demonstone with + Fire damage doesn't affect unarmed fire damage
 		only + unarmed damage is affecting its melee damage. +fire damage isn't applying at all
 	

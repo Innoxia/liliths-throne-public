@@ -23,8 +23,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -299,10 +297,6 @@ public class Game implements XMLSaving {
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
-	public static TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	public static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-	public static DocumentBuilder docBuilder;
-
 	public Game() {
 		worlds = new HashMap<>();
 		for(AbstractWorldType type : WorldType.getAllWorldTypes()) {
@@ -329,12 +323,6 @@ public class Game implements XMLSaving {
 		
 		savedInventories = new HashMap<>();
 
-		try {
-			docBuilder = docFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
 		weatherTimeRemainingInSeconds = 5*60*60;
@@ -354,7 +342,7 @@ public class Game implements XMLSaving {
 			}
 			// Starting stuff:
 
-			Document doc = docBuilder.newDocument();
+			Document doc = Main.docBuilder.newDocument();
 
 			// Writing game stuff to export:
 			
@@ -365,7 +353,7 @@ public class Game implements XMLSaving {
 			
 			// Ending stuff:
 
-			Transformer transformer1 = transformerFactory.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
@@ -373,7 +361,7 @@ public class Game implements XMLSaving {
 			
 			// Save this xml:
 
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -420,7 +408,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = docBuilder.parse(file);
+				Document doc = Main.docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -490,7 +478,7 @@ public class Game implements XMLSaving {
 		}
 		// Starting stuff:
 
-		Document doc = docBuilder.newDocument();
+		Document doc = Main.docBuilder.newDocument();
 
 		// Writing game stuff to export:
 
@@ -622,14 +610,14 @@ public class Game implements XMLSaving {
 
 		// Ending stuff:
 		try {
-			Transformer transformer1 = transformerFactory.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
 			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
 
 			// Save this xml:
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -672,7 +660,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = docBuilder.parse(file);
+				Document doc = Main.docBuilder.parse(file);
 
 				long time = System.nanoTime();
 				if(debug) {

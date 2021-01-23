@@ -185,7 +185,7 @@ public abstract class AbstractStatusEffect {
 	public AbstractStatusEffect(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(XMLFile);
+				Document doc = Main.docBuilder.parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

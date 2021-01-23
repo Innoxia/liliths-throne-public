@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -14,6 +13,9 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 import javafx.scene.paint.Color;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * @since 0.3.7
@@ -98,8 +100,10 @@ public class Colour {
 	public Colour(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(XMLFile);
-				
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(XMLFile);
+
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				

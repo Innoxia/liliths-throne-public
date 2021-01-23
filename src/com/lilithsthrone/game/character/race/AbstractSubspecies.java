@@ -371,7 +371,7 @@ public abstract class AbstractSubspecies {
 	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(XMLFile);
+				Document doc = Main.docBuilder.parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

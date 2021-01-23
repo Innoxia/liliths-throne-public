@@ -964,7 +964,7 @@ public class EnchantmentDialogue {
 
 		try {
 			// Starting stuff:
-			Document doc = Game.docBuilder.newDocument();
+			Document doc = Main.docBuilder.newDocument();
 			
 			Element enchantment = doc.createElement("enchantment");
 			doc.appendChild(enchantment);
@@ -1003,14 +1003,14 @@ public class EnchantmentDialogue {
 			
 			// Ending stuff:
 			
-			Transformer transformer1 = Game.transformerFactory.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
 			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
 			
 			// Save this xml:
-			Transformer transformer = Game.transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -1020,8 +1020,6 @@ public class EnchantmentDialogue {
 			
 			transformer.transform(source, result);
 			
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
@@ -1034,7 +1032,7 @@ public class EnchantmentDialogue {
 
 			if (file.exists()) {
 				try {
-					Document doc = Game.docBuilder.parse(file);
+					Document doc = Main.docBuilder.parse(file);
 					
 					// Cast magic:
 					doc.getDocumentElement().normalize();

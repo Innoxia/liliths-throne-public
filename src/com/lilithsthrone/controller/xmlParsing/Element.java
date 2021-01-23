@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.lilithsthrone.game.Game;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * @author BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
@@ -49,7 +50,7 @@ public class Element {
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = Game.docBuilder.parse(xmlFile);
+			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
 			

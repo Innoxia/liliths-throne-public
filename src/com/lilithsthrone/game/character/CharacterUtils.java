@@ -144,7 +144,7 @@ public class CharacterUtils {
 //			long timeStart = System.nanoTime();
 //			System.out.println(timeStart);
 
-			Document doc = Game.docBuilder.newDocument();
+			Document doc = Main.docBuilder.newDocument();
 			
 			Element properties = doc.createElement("playerCharacter");
 			doc.appendChild(properties);
@@ -154,7 +154,7 @@ public class CharacterUtils {
 			
 //			System.out.println("Difference2: "+(System.nanoTime()-timeStart)/1000000000f);
 			
-			Transformer transformer1 = Game.transformerFactory.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
@@ -169,7 +169,7 @@ public class CharacterUtils {
 //			System.out.println(output);
 			
 			// Save this xml:
-			Transformer transformer = Game.transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -220,7 +220,7 @@ public class CharacterUtils {
 		
 		if (xmlFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(xmlFile);
+				Document doc = Main.docBuilder.parse(xmlFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

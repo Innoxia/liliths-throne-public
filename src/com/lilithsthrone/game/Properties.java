@@ -256,7 +256,7 @@ public class Properties {
 	
 	public void savePropertiesAsXML(){
 		try {
-			Document doc = Game.docBuilder.newDocument();
+			Document doc = Main.docBuilder.newDocument();
 			Element properties = doc.createElement("properties");
 			doc.appendChild(properties);
 
@@ -569,7 +569,7 @@ public class Properties {
 			
 			
 			// Write out to properties.xml:
-			Transformer transformer = Game.transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -595,7 +595,7 @@ public class Properties {
 		if (new File("data/properties.xml").exists())
 			try {
 				File propertiesXML = new File("data/properties.xml");
-				Document doc = Game.docBuilder.parse(propertiesXML);
+				Document doc = Main.docBuilder.parse(propertiesXML);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

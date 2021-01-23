@@ -802,7 +802,7 @@ public class UtilText {
 		
 		if(file.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(file);
+				Document doc = Main.docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -849,7 +849,7 @@ public class UtilText {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(file);
+				Document doc = Main.docBuilder.parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

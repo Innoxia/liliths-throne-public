@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -108,7 +108,7 @@ public class AbstractTattooType extends AbstractCoreType {
 
 		if (tattooXMLFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(tattooXMLFile);
+				Document doc = Main.docBuilder.parse(tattooXMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

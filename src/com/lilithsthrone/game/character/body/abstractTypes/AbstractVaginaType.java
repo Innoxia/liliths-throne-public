@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -144,7 +144,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	public AbstractVaginaType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Game.docBuilder.parse(XMLFile);
+				Document doc = Main.docBuilder.parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
