@@ -93,7 +93,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	public AbstractHairType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

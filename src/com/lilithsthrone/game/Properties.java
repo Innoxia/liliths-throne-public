@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -256,7 +255,7 @@ public class Properties {
 	
 	public void savePropertiesAsXML(){
 		try {
-			Document doc = Main.docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 			Element properties = doc.createElement("properties");
 			doc.appendChild(properties);
 
@@ -595,7 +594,7 @@ public class Properties {
 		if (new File("data/properties.xml").exists())
 			try {
 				File propertiesXML = new File("data/properties.xml");
-				Document doc = Main.docBuilder.parse(propertiesXML);
+				Document doc = Main.getDocBuilder().parse(propertiesXML);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

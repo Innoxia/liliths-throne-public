@@ -10,14 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -964,7 +962,7 @@ public class EnchantmentDialogue {
 
 		try {
 			// Starting stuff:
-			Document doc = Main.docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 			
 			Element enchantment = doc.createElement("enchantment");
 			doc.appendChild(enchantment);
@@ -1032,7 +1030,7 @@ public class EnchantmentDialogue {
 
 			if (file.exists()) {
 				try {
-					Document doc = Main.docBuilder.parse(file);
+					Document doc = Main.getDocBuilder().parse(file);
 					
 					// Cast magic:
 					doc.getDocumentElement().normalize();

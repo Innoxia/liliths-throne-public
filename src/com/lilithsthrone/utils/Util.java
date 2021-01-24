@@ -293,7 +293,7 @@ public class Util {
 	
 	public static String getXmlRootElementName(File XMLFile) {
 		try {
-			Document doc = Main.docBuilder.parse(XMLFile);
+			Document doc = Main.getDocBuilder().parse(XMLFile);
 
 			// Cast magic:
 			doc.getDocumentElement().normalize();

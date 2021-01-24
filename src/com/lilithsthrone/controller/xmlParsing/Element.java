@@ -9,8 +9,6 @@ import com.lilithsthrone.main.Main;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 /**
  * @author BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
  * @since 0.2.5.8
@@ -51,14 +49,7 @@ public class Element {
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			try {
-				if (Main.docBuilder==null) {
-					Main.docBuilder = Main.docFactory.newDocumentBuilder();
-				}
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			}
-			Document parsedDocument = Main.docBuilder.parse(xmlFile);
+			Document parsedDocument = Main.getDocBuilder().parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
 			

@@ -803,7 +803,7 @@ public class UtilText {
 		
 		if(file.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(file);
+				Document doc = Main.getDocBuilder().parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -850,7 +850,7 @@ public class UtilText {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(file);
+				Document doc = Main.getDocBuilder().parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

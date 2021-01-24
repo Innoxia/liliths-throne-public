@@ -47,7 +47,7 @@ public class Artwork {
 			for(File subFile : dir.listFiles(textFilter)) {
 				if (subFile.exists()) {
 					try {
-						Document doc = Main.docBuilder.parse(subFile);
+						Document doc = Main.getDocBuilder().parse(subFile);
 						
 						// Cast magic:
 						doc.getDocumentElement().normalize();

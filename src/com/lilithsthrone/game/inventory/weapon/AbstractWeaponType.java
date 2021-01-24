@@ -117,7 +117,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 		if (weaponXMLFile.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(weaponXMLFile);
+				Document doc = Main.getDocBuilder().parse(weaponXMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

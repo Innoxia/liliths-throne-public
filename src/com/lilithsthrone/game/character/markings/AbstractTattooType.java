@@ -108,7 +108,7 @@ public class AbstractTattooType extends AbstractCoreType {
 
 		if (tattooXMLFile.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(tattooXMLFile);
+				Document doc = Main.getDocBuilder().parse(tattooXMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

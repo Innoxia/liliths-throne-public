@@ -68,8 +68,8 @@ public class Main extends Application {
 	public static Combat combat;
 
 	public static TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	public static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-	public static DocumentBuilder docBuilder;
+	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	private static DocumentBuilder docBuilder;
 
 	public static MainController mainController;
 
@@ -1026,6 +1026,17 @@ public class Main extends Application {
 		return Paths.get(path).toUri().toString().replaceAll("%20", " ");
 	}
 
+	public static DocumentBuilder getDocBuilder() {
+		if (docBuilder == null) {
+			try {
+				docBuilder = docFactory.newDocumentBuilder();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+		}
+		return docBuilder;
+	}
+
 	public static void main(String[] args) {
 		
 		// Create folders:
@@ -1035,14 +1046,6 @@ public class Main extends Application {
 		dir.mkdir();
 		dir = new File("data/characters");
 		dir.mkdir();
-
-		try {
-			if (Main.docBuilder==null) {
-				Main.docBuilder = Main.docFactory.newDocumentBuilder();
-			}
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
 
 		// Open error log
 		if(!DEBUG) {

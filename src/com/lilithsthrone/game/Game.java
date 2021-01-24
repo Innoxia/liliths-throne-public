@@ -23,11 +23,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -342,7 +340,7 @@ public class Game implements XMLSaving {
 			}
 			// Starting stuff:
 
-			Document doc = Main.docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 
 			// Writing game stuff to export:
 			
@@ -408,7 +406,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(file);
+				Document doc = Main.getDocBuilder().parse(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -478,7 +476,7 @@ public class Game implements XMLSaving {
 		}
 		// Starting stuff:
 
-		Document doc = Main.docBuilder.newDocument();
+		Document doc = Main.getDocBuilder().newDocument();
 
 		// Writing game stuff to export:
 
@@ -660,7 +658,7 @@ public class Game implements XMLSaving {
 		
 		if (file.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(file);
+				Document doc = Main.getDocBuilder().parse(file);
 
 				long time = System.nanoTime();
 				if(debug) {

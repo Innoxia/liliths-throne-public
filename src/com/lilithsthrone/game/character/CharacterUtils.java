@@ -144,7 +144,7 @@ public class CharacterUtils {
 //			long timeStart = System.nanoTime();
 //			System.out.println(timeStart);
 
-			Document doc = Main.docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 			
 			Element properties = doc.createElement("playerCharacter");
 			doc.appendChild(properties);
@@ -220,7 +220,7 @@ public class CharacterUtils {
 		
 		if (xmlFile.exists()) {
 			try {
-				Document doc = Main.docBuilder.parse(xmlFile);
+				Document doc = Main.getDocBuilder().parse(xmlFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
