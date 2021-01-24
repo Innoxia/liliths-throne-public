@@ -14,8 +14,7 @@ import com.lilithsthrone.utils.Util;
 
 import javafx.scene.paint.Color;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @since 0.3.7
@@ -100,9 +99,14 @@ public class Colour {
 	public Colour(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				try {
+					if (Main.docBuilder==null) {
+						Main.docBuilder = Main.docFactory.newDocumentBuilder();
+					}
+				} catch (ParserConfigurationException e) {
+					e.printStackTrace();
+				}
+				Document doc = Main.docBuilder.parse(XMLFile);
 
 				// Cast magic:
 				doc.getDocumentElement().normalize();

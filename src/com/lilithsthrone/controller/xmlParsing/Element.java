@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @author BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord)
@@ -50,7 +51,14 @@ public class Element {
 	public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
 		try{
 			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+			try {
+				if (Main.docBuilder==null) {
+					Main.docBuilder = Main.docFactory.newDocumentBuilder();
+				}
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			}
+			Document parsedDocument = Main.docBuilder.parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
 			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
 			

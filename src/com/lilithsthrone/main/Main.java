@@ -1037,7 +1037,9 @@ public class Main extends Application {
 		dir.mkdir();
 
 		try {
-			docBuilder = docFactory.newDocumentBuilder();
+			if (Main.docBuilder==null) {
+				Main.docBuilder = Main.docFactory.newDocumentBuilder();
+			}
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
