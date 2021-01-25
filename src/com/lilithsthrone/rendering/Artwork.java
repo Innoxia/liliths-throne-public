@@ -100,7 +100,7 @@ public class Artwork {
 		this.nakedImages = new ArrayList<>();
 
 		// Add all images to their respective lists
-		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".gif"))) {
+		for (File f : folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".gif"))) {
 			if (f.getName().startsWith("partial")) {
 				partialImages.add(f.getAbsolutePath());
 				
