@@ -97,26 +97,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[raccoon-morph]]></name>
-	<namePlural><![CDATA[raccoon-morphs]]></namePlural>
-	<singularMaleName><![CDATA[raccoon-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[raccoon-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[raccoon-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[raccoon-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[raccoon-morph]]></name>
+			<namePlural><![CDATA[raccoon-morphs]]></namePlural>
+			<singularMaleName><![CDATA[raccoon-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[raccoon-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[raccoon-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[raccoon-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic raccoon, known as a 'raccoon-morph' when bipedal, and a 'raccoontaur' when the lower body is that of a typically-oversized feral raccoon.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[azeban]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[azeban]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[azeban]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[azeban]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[azeban]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[azeban]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[azeban]]></name>
+			<namePlural><![CDATA[azeban]]></namePlural>
+			<singularMaleName><![CDATA[azeban]]></singularMaleName>
+			<singularFemaleName><![CDATA[azeban]]></singularFemaleName>
+			<pluralMaleName><![CDATA[azeban]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[azeban]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>

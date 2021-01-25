@@ -1068,17 +1068,19 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformTailLengthDiv() {
 		if(BodyChanging.getTarget().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+			float percentageMinimum = BodyChanging.getTarget().isFeral()?Leg.LENGTH_PERCENTAGE_MIN_FERAL:Leg.LENGTH_PERCENTAGE_MIN;
+			
 			return applyFullVariableWrapper(Util.capitaliseSentence(LegConfiguration.TAIL_LONG.getName())+" Length",
 					UtilText.parse(BodyChanging.getTarget(),
 						"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
-								+ " and is limited to values of between "+(int)(Leg.LENGTH_PERCENTAGE_MIN*100)+"% and "+(int)(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
+								+ " and is limited to values of between "+Math.round(percentageMinimum*100)+"% and "+Math.round(Leg.LENGTH_PERCENTAGE_MAX*100)+"%."),
 					"TAIL_LENGTH",
 					"5%",
 					"25%",
-					(int)(BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()*100)+"%"
+					Math.round(BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()*100)+"%"
 						+ "<br/>"
 						+ Units.size(BodyChanging.getTarget().getLegTailLength(false)),
-					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=Leg.LENGTH_PERCENTAGE_MIN,
+					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()<=percentageMinimum,
 					BodyChanging.getTarget().getLegTailLengthAsPercentageOfHeight()>=Leg.LENGTH_PERCENTAGE_MAX);
 			
 		} else {
@@ -1086,12 +1088,12 @@ public class CharacterModificationUtils {
 					UtilText.parse(BodyChanging.getTarget(),
 							BodyChanging.getTarget().hasTail()
 								?"Change the length of [npc.namePos] [npc.tail]. This is defined as a percentage of [npc.namePos] height,"
-										+ " and is limited to values of between "+(int)(Tail.LENGTH_PERCENTAGE_MIN*100)+"% and "+(int)(Tail.LENGTH_PERCENTAGE_MAX*100)+"%."
+										+ " and is limited to values of between "+Math.round(Tail.LENGTH_PERCENTAGE_MIN*100)+"% and "+Math.round(Tail.LENGTH_PERCENTAGE_MAX*100)+"%."
 								:"[npc.Name] [npc.do] not have a tail, so the length cannot be changed!"),
 					"TAIL_LENGTH",
 					"5%",
 					"25%",
-					(int)(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
+					Math.round(BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()*100)+"%"
 						+ "<br/>"
 						+ Units.size(BodyChanging.getTarget().getTailLength(false)),
 					BodyChanging.getTarget().getTailLengthAsPercentageOfHeight()<=Tail.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTail(),
@@ -1199,7 +1201,7 @@ public class CharacterModificationUtils {
 				"TENTACLE_LENGTH",
 				"5%",
 				"25%",
-				(int)(BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()*100)+"%"
+				Math.round(BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()*100)+"%"
 					+ "<br/>"
 					+ Units.size(BodyChanging.getTarget().getTentacleLength(false)),
 				BodyChanging.getTarget().getTentacleLengthAsPercentageOfHeight()<=Tentacle.LENGTH_PERCENTAGE_MIN || !BodyChanging.getTarget().hasTentacle(),

@@ -910,7 +910,8 @@ public class TooltipInformationEventListener implements EventListener {
 									?"<span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>"
 									:"<span>"))
 								+(feral&&!owner.getFeralAttributes().isSizeHeight()
-										?"Length: [unit.sizeShort(" + (owner.getHeightValue() + owner.getLegTailLength(false))+ ")]</span>"
+//										?"Length: [unit.sizeShort(" + (owner.getHeightValue() + owner.getLegTailLength(false))+ ")]</span>"
+										?"Length: [unit.sizeShort(" + (owner.getHeightValue())+ ")]</span>"
 										:"Height: [unit.sizeShort(" + owner.getHeightValue() + ")]</span>")));
 						
 						
@@ -939,8 +940,9 @@ public class TooltipInformationEventListener implements EventListener {
 								}
 								break;
 							case TAIL_LONG:
-								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral&&!owner.getFeralAttributes().isSizeHeight()?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
-										owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
+//								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail"+ (feral&&!owner.getFeralAttributes().isSizeHeight()?"":" (Length: "+(Units.size(owner.getLegTailLength(false)))+")"),
+//										owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
+								tooltipSB.append(getBodyPartDiv(owner, "Serpent-tail (Length: "+(Units.size(owner.getLegTailLength(false)))+")", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
 								break;
 							case AVIAN:
 								tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" bird legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegFeral()));
@@ -1543,15 +1545,6 @@ public class TooltipInformationEventListener implements EventListener {
 		String raceName;
 		raceName = race.getName(character, feral);
 
-		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "awoo-morph";
-		}
-		if(raceName.equals("cat-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "catte-morph";
-		}
-		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "birb";
-		}
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
 		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(character);

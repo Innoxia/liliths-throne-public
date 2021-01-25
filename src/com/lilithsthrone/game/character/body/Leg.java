@@ -15,11 +15,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface {
 
+	public static final float LENGTH_PERCENTAGE_MIN_FERAL = 0.05f;
 	public static final float LENGTH_PERCENTAGE_MIN = 2f;
 	public static final float LENGTH_PERCENTAGE_MAX = 10f;
 	
@@ -117,6 +118,7 @@ public class Leg implements BodyPartInterface {
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
+		
 		return type.getDeterminer(gc);
 	}
 
@@ -221,16 +223,18 @@ public class Leg implements BodyPartInterface {
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
 		if(owner==null) {
-			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
+			// Allow for setting down to feral minimum, as this could be loading of a feral part:
+			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN_FERAL, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
 			return "";
 		}
 		
 		float lengthChange = 0;
 		
-		if (lengthAsPercentageOfHeight <= LENGTH_PERCENTAGE_MIN) {
-			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MIN) {
-				lengthChange = LENGTH_PERCENTAGE_MIN - this.lengthAsPercentageOfHeight;
-				this.lengthAsPercentageOfHeight = LENGTH_PERCENTAGE_MIN;
+		float percentageMinimum = owner.isFeral()?LENGTH_PERCENTAGE_MIN_FERAL:LENGTH_PERCENTAGE_MIN;
+		if (lengthAsPercentageOfHeight <= percentageMinimum) {
+			if (this.lengthAsPercentageOfHeight != percentageMinimum) {
+				lengthChange = percentageMinimum - this.lengthAsPercentageOfHeight;
+				this.lengthAsPercentageOfHeight = percentageMinimum;
 			}
 		} else if (lengthAsPercentageOfHeight >= LENGTH_PERCENTAGE_MAX) {
 			if (this.lengthAsPercentageOfHeight != LENGTH_PERCENTAGE_MAX) {

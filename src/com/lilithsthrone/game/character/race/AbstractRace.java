@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -17,6 +14,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -37,6 +35,8 @@ public abstract class AbstractRace {
 	
 	private String name;
 	private String namePlural;
+	private String nameSillyMode;
+	private String namePluralSillyMode;
 	private Map<LegConfiguration, String> nameFeral;
 	private Map<LegConfiguration, String> nameFeralPlural;
 	private String defaultTransformName;
@@ -110,6 +110,8 @@ public abstract class AbstractRace {
 		
 		this.name = name;
 		this.namePlural = namePlural;
+		this.nameSillyMode = name;
+		this.namePluralSillyMode = namePlural;
 		this.nameFeral = nameFeral;
 		if(!nameFeral.containsKey(LegConfiguration.BIPEDAL)) {
 			System.err.println("Warning: AbstractRace '"+name+"' did not have a definition for nameFeral BIPEDAL!");
@@ -147,9 +149,7 @@ public abstract class AbstractRace {
 	public AbstractRace(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -165,6 +165,17 @@ public abstract class AbstractRace {
 				
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+				
+				if(coreElement.getOptionalFirstOf("nameSillyMode").isPresent()) {
+					this.nameSillyMode = coreElement.getMandatoryFirstOf("nameSillyMode").getTextContent();
+				} else {
+					this.nameSillyMode = this.name;
+				}
+				if(coreElement.getOptionalFirstOf("namePluralSillyMode").isPresent()) {
+					this.namePluralSillyMode = coreElement.getMandatoryFirstOf("namePluralSillyMode").getTextContent();
+				} else {
+					this.namePluralSillyMode = this.namePlural;
+				}
 				
 				this.nameFeral = new HashMap<>();
 				String anyFeralName = "";
@@ -290,6 +301,9 @@ public abstract class AbstractRace {
 		if(feral) {
 			return getFeralName(character!=null?character.getLegConfiguration():LegConfiguration.BIPEDAL, false);
 		}
+		if(Main.game!=null && Main.game.isSillyMode()) {
+			return nameSillyMode;
+		}
 		return name;
 	}
 	
@@ -300,6 +314,9 @@ public abstract class AbstractRace {
 	public String getNamePlural(GameCharacter character, boolean feral) {
 		if(feral) {
 			return getFeralName(character!=null?character.getLegConfiguration():LegConfiguration.BIPEDAL, true);
+		}
+		if(Main.game!=null && Main.game.isSillyMode()) {
+			return namePluralSillyMode;
 		}
 		return namePlural;
 	}

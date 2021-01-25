@@ -13,9 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -74,19 +71,9 @@ public abstract class AbstractSubspecies {
 	private String attributeItemId;
 	private String transformativeItemId;
 	
-	private String name;
-	private String namePlural;
-	private String singularMaleName;
-	private String singularFemaleName;
-	private String pluralMaleName;
-	private String pluralFemaleName;
-
-	private String nameHalfDemon;
-	private String namePluralHalfDemon;
-	private String singularMaleNameHalfDemon;
-	private String singularFemaleNameHalfDemon;
-	private String pluralMaleNameHalfDemon;
-	private String pluralFemaleNameHalfDemon;
+	private Map<LegConfiguration, String[]> anthroNames;
+	private Map<LegConfiguration, String[]> anthroNamesSillyMode;
+	private Map<LegConfiguration, String[]> halfDemonNames;
 	
 	private FeralAttributes feralAttributes;
 	
@@ -136,7 +123,7 @@ public abstract class AbstractSubspecies {
 	protected static Map<Integer, String> youkoIconMap;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
-
+	
 	public static Map<LegConfiguration, String[]> demonLegConfigurationNames = Util.newHashMapOfValues(
 			new Value<>(LegConfiguration.ARACHNID,
 					new String[] {
@@ -296,14 +283,17 @@ public abstract class AbstractSubspecies {
 		this.attributeItemId = attributeItemId;
 		this.transformativeItemId = transformativeItemId;
 		
-		this.name = name;
-		this.namePlural = namePlural;
-
-		this.singularMaleName = singularMaleName;
-		this.singularFemaleName = singularFemaleName;
-		
-		this.pluralMaleName = pluralMaleName;
-		this.pluralFemaleName = pluralFemaleName;
+		this.anthroNames = new HashMap<>();
+		this.anthroNames.put(null, new String[] {
+				name,
+				namePlural,
+				singularMaleName,
+				singularFemaleName,
+				pluralMaleName,
+				pluralFemaleName
+		});
+		this.anthroNamesSillyMode = new HashMap<>();
+		this.halfDemonNames = new HashMap<>();
 		
 		this.feralAttributes = feralAttributes;
 		
@@ -375,14 +365,13 @@ public abstract class AbstractSubspecies {
 		this.bookPathName = "/com/lilithsthrone/res/" + pathName;
 		this.backgroundPathName = "/com/lilithsthrone/res/" + backgroundPathName;
 		this.SVGString = null;
+		this.iconSize = 80;
 	}
 	
 	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -448,57 +437,215 @@ public abstract class AbstractSubspecies {
 				this.advancedDescriptionId = coreElement.getMandatoryFirstOf("advancedDescriptionId").getTextContent();
 				
 				this.subspeciesPreferenceDefault = SubspeciesPreference.valueOf(coreElement.getMandatoryFirstOf("defaultPreference").getTextContent());
-				
-				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
-				this.namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
-				this.singularMaleName = coreElement.getMandatoryFirstOf("singularMaleName").getTextContent();
-				this.singularFemaleName = coreElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
-				this.pluralMaleName = coreElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
-				this.pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
 
+				this.anthroNames = new HashMap<>();
+				if(!coreElement.getOptionalFirstOf("nameAnthro").isPresent()) { // Old version support
+					String name = coreElement.getMandatoryFirstOf("name").getTextContent();
+					String namePlural = coreElement.getMandatoryFirstOf("namePlural").getTextContent();
+					String singularMaleName = coreElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+					String singularFemaleName = coreElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+					String pluralMaleName = coreElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+					String pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+
+					this.anthroNames.put(null, new String[] {
+							name,
+							namePlural,
+							singularMaleName,
+							singularFemaleName,
+							pluralMaleName,
+							pluralFemaleName
+					});
+					
+				} else {
+					Element defaultNamesElement = coreElement.getMandatoryFirstOf("nameAnthro").getMandatoryFirstOf("namesDefault");
+					String name = defaultNamesElement.getMandatoryFirstOf("name").getTextContent();
+					String namePlural = defaultNamesElement.getMandatoryFirstOf("namePlural").getTextContent();
+					String singularMaleName = defaultNamesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+					String singularFemaleName = defaultNamesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+					String pluralMaleName = defaultNamesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+					String pluralFemaleName = defaultNamesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+					this.anthroNames.put(null, new String[] {
+							name,
+							namePlural,
+							singularMaleName,
+							singularFemaleName,
+							pluralMaleName,
+							pluralFemaleName
+					});
+					
+					for(Element namesElement : coreElement.getMandatoryFirstOf("nameAnthro").getAllOf("names")) {
+						LegConfiguration legConfiguration = LegConfiguration.valueOf(namesElement.getAttribute("legConfiguration"));
+						name = namesElement.getMandatoryFirstOf("name").getTextContent();
+						namePlural = namesElement.getMandatoryFirstOf("namePlural").getTextContent();
+						singularMaleName = namesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+						singularFemaleName = namesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+						pluralMaleName = namesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+						pluralFemaleName = namesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+
+						this.anthroNames.put(legConfiguration, new String[] {
+								name,
+								namePlural,
+								singularMaleName,
+								singularFemaleName,
+								pluralMaleName,
+								pluralFemaleName
+						});
+					}
+				}
+				
+				this.anthroNamesSillyMode = new HashMap<>();
+				if(coreElement.getOptionalFirstOf("nameAnthroSillyMode").isPresent()) {
+					Element defaultNamesElement = coreElement.getMandatoryFirstOf("nameAnthroSillyMode").getMandatoryFirstOf("namesDefault");
+					String name = defaultNamesElement.getMandatoryFirstOf("name").getTextContent();
+					String namePlural = defaultNamesElement.getMandatoryFirstOf("namePlural").getTextContent();
+					String singularMaleName = defaultNamesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+					String singularFemaleName = defaultNamesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+					String pluralMaleName = defaultNamesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+					String pluralFemaleName = defaultNamesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+					this.anthroNamesSillyMode.put(null, new String[] {
+							name,
+							namePlural,
+							singularMaleName,
+							singularFemaleName,
+							pluralMaleName,
+							pluralFemaleName
+					});
+					
+					for(Element namesElement : coreElement.getMandatoryFirstOf("nameAnthroSillyMode").getAllOf("names")) {
+						LegConfiguration legConfiguration = LegConfiguration.valueOf(namesElement.getAttribute("legConfiguration"));
+						name = namesElement.getMandatoryFirstOf("name").getTextContent();
+						namePlural = namesElement.getMandatoryFirstOf("namePlural").getTextContent();
+						singularMaleName = namesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+						singularFemaleName = namesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+						pluralMaleName = namesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+						pluralFemaleName = namesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+
+						this.anthroNamesSillyMode.put(legConfiguration, new String[] {
+								name,
+								namePlural,
+								singularMaleName,
+								singularFemaleName,
+								pluralMaleName,
+								pluralFemaleName
+						});
+					}
+				}
+				
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
 
+				this.halfDemonNames = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("nameHalfDemon").isPresent()) {
-					this.nameHalfDemon = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
-					this.namePluralHalfDemon = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
-					this.singularMaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
-					this.singularFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
-					this.pluralMaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
-					this.pluralFemaleNameHalfDemon = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
-				} else {
-					this.nameHalfDemon = null;
-					this.namePluralHalfDemon = null;
-					this.singularMaleNameHalfDemon = null;
-					this.singularFemaleNameHalfDemon = null;
-					this.pluralMaleNameHalfDemon = null;
-					this.pluralFemaleNameHalfDemon = null;
+					if(!coreElement.getMandatoryFirstOf("nameHalfDemon").getOptionalFirstOf("namesDefault").isPresent()) { // Old version support
+						String name = coreElement.getMandatoryFirstOf("nameHalfDemon").getTextContent();
+						String namePlural = coreElement.getMandatoryFirstOf("namePluralHalfDemon").getTextContent();
+						String singularMaleName = coreElement.getMandatoryFirstOf("singularMaleNameHalfDemon").getTextContent();
+						String singularFemaleName = coreElement.getMandatoryFirstOf("singularFemaleNameHalfDemon").getTextContent();
+						String pluralMaleName = coreElement.getMandatoryFirstOf("pluralMaleNameHalfDemon").getTextContent();
+						String pluralFemaleName = coreElement.getMandatoryFirstOf("pluralFemaleNameHalfDemon").getTextContent();
+	
+						this.halfDemonNames.put(null, new String[] {
+								name,
+								namePlural,
+								singularMaleName,
+								singularFemaleName,
+								pluralMaleName,
+								pluralFemaleName
+						});
+						
+					} else {
+						Element defaultNamesElement = coreElement.getMandatoryFirstOf("nameHalfDemon").getMandatoryFirstOf("namesDefault");
+						String name = defaultNamesElement.getMandatoryFirstOf("name").getTextContent();
+						String namePlural = defaultNamesElement.getMandatoryFirstOf("namePlural").getTextContent();
+						String singularMaleName = defaultNamesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+						String singularFemaleName = defaultNamesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+						String pluralMaleName = defaultNamesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+						String pluralFemaleName = defaultNamesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+						this.halfDemonNames.put(null, new String[] {
+								name,
+								namePlural,
+								singularMaleName,
+								singularFemaleName,
+								pluralMaleName,
+								pluralFemaleName
+						});
+						
+						for(Element namesElement : coreElement.getMandatoryFirstOf("nameHalfDemon").getAllOf("names")) {
+							LegConfiguration legConfiguration = LegConfiguration.valueOf(namesElement.getAttribute("legConfiguration"));
+							name = namesElement.getMandatoryFirstOf("name").getTextContent();
+							namePlural = namesElement.getMandatoryFirstOf("namePlural").getTextContent();
+							singularMaleName = namesElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+							singularFemaleName = namesElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+							pluralMaleName = namesElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+							pluralFemaleName = namesElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+	
+							this.halfDemonNames.put(legConfiguration, new String[] {
+									name,
+									namePlural,
+									singularMaleName,
+									singularFemaleName,
+									pluralMaleName,
+									pluralFemaleName
+							});
+						}
+					}
 				}
 				
 				this.feralAttributes = null;
 				if(coreElement.getOptionalFirstOf("feralAttributes").isPresent()
-						&& coreElement.getMandatoryFirstOf("feralAttributes").getOptionalFirstOf("feralName").isPresent()) {
+						&& (coreElement.getMandatoryFirstOf("feralAttributes").getOptionalFirstOf("feralName").isPresent() || coreElement.getMandatoryFirstOf("feralAttributes").getOptionalFirstOf("name").isPresent())) {
 					try {
 						Element feralElement = coreElement.getMandatoryFirstOf("feralAttributes");
+						
+						float serpentTailLength = 0.2f;
+						if(feralElement.getOptionalFirstOf("serpentTailLength").isPresent()) {
+							serpentTailLength = Float.valueOf(feralElement.getMandatoryFirstOf("serpentTailLength").getTextContent());
+						}
+						
+						String name = "";
+						String namePlural = "";
+						String singularMaleName = "";
+						String singularFemaleName = "";
+						String pluralMaleName = "";
+						String pluralFemaleName = "";
+						
+						if(feralElement.getOptionalFirstOf("feralName").isPresent()) { // Old version naming support:
+							name = feralElement.getMandatoryFirstOf("feralName").getTextContent();
+							namePlural = feralElement.getMandatoryFirstOf("feralNamePlural").getTextContent();
+							singularMaleName = feralElement.getMandatoryFirstOf("feralSingularMaleName").getTextContent();
+							singularFemaleName = feralElement.getMandatoryFirstOf("feralSingularFemaleName").getTextContent();
+							pluralMaleName = feralElement.getMandatoryFirstOf("feralPluralMaleName").getTextContent();
+							pluralFemaleName = feralElement.getMandatoryFirstOf("feralPluralFemaleName").getTextContent();
+							
+						} else {
+							name = feralElement.getMandatoryFirstOf("name").getTextContent();
+							namePlural = feralElement.getMandatoryFirstOf("namePlural").getTextContent();
+							singularMaleName = feralElement.getMandatoryFirstOf("singularMaleName").getTextContent();
+							singularFemaleName = feralElement.getMandatoryFirstOf("singularFemaleName").getTextContent();
+							pluralMaleName = feralElement.getMandatoryFirstOf("pluralMaleName").getTextContent();
+							pluralFemaleName = feralElement.getMandatoryFirstOf("pluralFemaleName").getTextContent();
+						}
+						
 						this.feralAttributes = new FeralAttributes(
-								feralElement.getMandatoryFirstOf("feralName").getTextContent(),
-								feralElement.getMandatoryFirstOf("feralNamePlural").getTextContent(),
-								feralElement.getMandatoryFirstOf("feralSingularMaleName").getTextContent(),
-								feralElement.getMandatoryFirstOf("feralSingularFemaleName").getTextContent(),
-								feralElement.getMandatoryFirstOf("feralPluralMaleName").getTextContent(),
-								feralElement.getMandatoryFirstOf("feralPluralFemaleName").getTextContent(),
+								name,
+								namePlural,
+								singularMaleName,
+								singularFemaleName,
+								pluralMaleName,
+								pluralFemaleName,
 
 								LegConfiguration.valueOf(feralElement.getMandatoryFirstOf("legConfiguration").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("sizeHeight").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("size").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("sizeHeight").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("size").getTextContent()),
+								serpentTailLength,
 
-								Integer.valueOf(coreElement.getMandatoryFirstOf("breastRowCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerBreastCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("crotchBreastRowCount").getTextContent()),
-								Integer.valueOf(coreElement.getMandatoryFirstOf("nipplesPerCrotchBreastCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("breastRowCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("nipplesPerBreastCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("crotchBreastRowCount").getTextContent()),
+								Integer.valueOf(feralElement.getMandatoryFirstOf("nipplesPerCrotchBreastCount").getTextContent()),
 
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("armsOrWingsPresent").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("fingerActionsAvailable").getTextContent()),
-								Boolean.valueOf(coreElement.getMandatoryFirstOf("hairPresent").getTextContent()));
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("armsOrWingsPresent").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("fingerActionsAvailable").getTextContent()),
+								Boolean.valueOf(feralElement.getMandatoryFirstOf("hairPresent").getTextContent()));
 					} catch(Exception ex) {
 						System.err.println("Error in AbstractSubspecies loading: feralAttributes failed to initialise!<br/>"+ex.getMessage());
 					}
@@ -929,20 +1076,31 @@ public abstract class AbstractSubspecies {
 		return baseName;
 	}
 	
+	private Map<LegConfiguration, String[]> getAnthroNamesMap() {
+		if(Main.game!=null && Main.game.isSillyMode() && anthroNamesSillyMode!=null && !anthroNamesSillyMode.isEmpty()) {
+			return anthroNamesSillyMode;
+		}
+		return anthroNames;
+	}
+ 	
 	/**
 	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
 	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralName();
+			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[0];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
 			}
 		}
-		return name;
+		return getAnthroNamesMap().get(null)[0];
 	}
 
 	/**
@@ -950,15 +1108,19 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralNamePlural();
+			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[1];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
 			}
 		}
-		return namePlural;
+		return getAnthroNamesMap().get(null)[1];
 	}
 	
 	/**
@@ -966,25 +1128,19 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralSingularMaleName();
+			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[2];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, false);
 			}
 		}
-
-		if(Main.game.isSillyModeEnabled() && character!=null) {
-			if(character.getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-				return "awoo-boi";
-			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-				return "catte-boi";
-			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-				return "birb";
-			}
-		}
-		return singularMaleName;
+		return getAnthroNamesMap().get(null)[2];
 	}
 
 	/**
@@ -992,26 +1148,19 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralSingularFemaleName();
+			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[3];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, false);
 			}
 		}
-		
-		if(Main.game.isSillyModeEnabled() && character!=null) {
-			if(character.getSubspecies() == Subspecies.WOLF_MORPH){
-				return "awoo-girl";
-			} else if(character.getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-				return "catte-girl";
-			} else if(character.getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-				return "birb";
-			}
-		}
-		
-		return singularFemaleName;
+		return getAnthroNamesMap().get(null)[3];
 	}
 
 	/**
@@ -1019,15 +1168,19 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralPluralMaleName();
+			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[4];
 			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
 				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
 			}
 		}
-		return pluralMaleName;
+		return getAnthroNamesMap().get(null)[4];
 	}
 
 	/**
@@ -1035,15 +1188,19 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(GameCharacter character) {
-		if(character!=null && this.isFeralConfigurationAvailable()) {
-			if(character.isFeral()) {
+		if(character!=null) {
+			if(this.isFeralConfigurationAvailable() && character.isFeral()) {
 				return getFeralAttributes().getFeralPluralFemaleName();
 			}
+			LegConfiguration conf = character.getLegConfiguration();
+			if(getAnthroNamesMap().containsKey(conf)) {
+				return getAnthroNamesMap().get(conf)[5];
+			}
 			if(character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
-				return applyNonBipedNameChange(character, getNonBipedRaceName(character), false, true);
+				return applyNonBipedNameChange(character, getNonBipedRaceName(character), true, true);
 			}
 		}
-		return pluralFemaleName;
+		return getAnthroNamesMap().get(null)[5];
 	}
 
 	public String getNonBipedRaceName(GameCharacter character) {
@@ -1054,7 +1211,14 @@ public abstract class AbstractSubspecies {
 		if(isFeralConfigurationAvailable()) {
 			return getFeralAttributes().getFeralName();
 		}
-		return name;
+		return getAnthroNamesMap().get(null)[0];
+	}
+	
+	public String getFeralNamePlural(GameCharacter character) {
+		if(isFeralConfigurationAvailable()) {
+			return getFeralAttributes().getFeralNamePlural();
+		}
+		return getAnthroNamesMap().get(null)[1];
 	}
 
 	public FeralAttributes getFeralAttributes() {
@@ -1098,11 +1262,26 @@ public abstract class AbstractSubspecies {
 				effectsModified.add("[style.boldBlueLight(Loses legs in water)]");
 			}
 			
+			if(character.isFeral()) {
+				for(String s : getFeralEffects()) {
+					effectsModified.add(s);
+				}
+			}
+			
 			return effectsModified;
 		}
 		return extraEffects;
 	}
+	
+	public List<String> getFeralEffects() {
+		List<String> feralEffects = new ArrayList<>();
+		
+		feralEffects.add("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(tripled)]");
+		feralEffects.add("[style.colourExcellent(Immune)] to [style.colourGenericTf(racial transformations)]");
 
+		return feralEffects;
+	}
+	
 	public String getBookName() {
 		return bookName;
 	}
@@ -1147,6 +1326,14 @@ public abstract class AbstractSubspecies {
 		return colour;
 	}
 	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+	
+	public Colour getTertiaryColour() {
+		return tertiaryColour;
+	}
+	
 	public SubspeciesPreference getSubspeciesPreferenceDefault() {
 		return subspeciesPreferenceDefault;
 	}
@@ -1166,7 +1353,19 @@ public abstract class AbstractSubspecies {
 		return aquatic || character.getLegConfiguration()==LegConfiguration.TAIL;
 	}
 
+	public String getPathName() {
+		return pathName;
+	}
+
+	public String getBackgroundPathName() {
+		return backgroundPathName;
+	}
+
 	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {
+		return getBipedBackground(svg, character, colour, colour, colour);
+	}
+	
+	protected String getBipedBackground(String svg, GameCharacter character, Colour colour, Colour secondaryColour, Colour tertiaryColour) {
 		String returnString = svg;
 		
 		if(character!=null) {
@@ -1179,8 +1378,8 @@ public abstract class AbstractSubspecies {
 					is.close();
 					feralBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"FERAL",
 							colour,
-							colour,
-							colour,
+							secondaryColour,
+							tertiaryColour,
 							feralBackground);
 					
 					returnString = returnString + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + feralBackground +"</div>";
@@ -1198,8 +1397,8 @@ public abstract class AbstractSubspecies {
 						is.close();
 						SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
 								colour,
-								colour,
-								colour,
+								secondaryColour,
+								tertiaryColour,
 								SVGStringLegConfigurationBackground);
 						returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
 					} catch (IOException e) {
@@ -1232,8 +1431,8 @@ public abstract class AbstractSubspecies {
 			
 			bookSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 					colour,
-					secondaryColour,
-					tertiaryColour,
+					getSecondaryColour(),
+					getTertiaryColour(),
 					"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+bookSVGString+"</div>");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1241,12 +1440,12 @@ public abstract class AbstractSubspecies {
 	}
 	
 	protected void initSVGStrings() {
-		if(pathName!=null) {
+		if(getPathName()!=null) {
 			String fullDivStyle = "width:100%;height:100%;margin:0;padding:0;position:absolute;left:0;bottom:0;";
 			
 			try {
-				if(this.isFromExternalFile()) {
-					List<String> lines = Files.readAllLines(Paths.get(pathName+".svg"));
+				if(this.isFromExternalFile() || getPathName().startsWith("res")) {
+					List<String> lines = Files.readAllLines(Paths.get(getPathName()+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -1256,9 +1455,9 @@ public abstract class AbstractSubspecies {
 					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
-					InputStream is = this.getClass().getResourceAsStream(pathName + ".svg");
+					InputStream is = this.getClass().getResourceAsStream(getPathName() + ".svg");
 					if(is==null) {
-						System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+pathName+"')! (Code 1)");
+						System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+getPathName()+"')! (Code 1)");
 					}
 					SVGStringUncoloured = Util.inputStreamToString(is);
 					is.close();
@@ -1268,7 +1467,7 @@ public abstract class AbstractSubspecies {
 				String SVGStringBackground = "";
 
 				if(this.externalFileBackground) {
-					List<String> lines = Files.readAllLines(Paths.get(backgroundPathName+".svg"));
+					List<String> lines = Files.readAllLines(Paths.get(getBackgroundPathName()+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -1276,10 +1475,10 @@ public abstract class AbstractSubspecies {
 					SVGStringBackground = "<div style='"+fullDivStyle+"'>"+sb.toString()+"</div>";
 					
 				} else {
-					if(!backgroundPathName.isEmpty()) {
-						InputStream is = this.getClass().getResourceAsStream(backgroundPathName + ".svg");
+					if(!getBackgroundPathName().isEmpty()) {
+						InputStream is = this.getClass().getResourceAsStream(getBackgroundPathName() + ".svg");
 						if(is==null) {
-							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
+							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+getBackgroundPathName()+"')! (Code 1)");
 						}
 						SVGStringBackground = "<div style='"+fullDivStyle+"'>"+Util.inputStreamToString(is)+"</div>";
 						
@@ -1291,8 +1490,8 @@ public abstract class AbstractSubspecies {
 				
 				SVGStringNoBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						secondaryColour,
-						tertiaryColour,
+						getSecondaryColour(),
+						getTertiaryColour(),
 						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
@@ -1326,8 +1525,8 @@ public abstract class AbstractSubspecies {
 				
 				SVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						secondaryColour,
-						tertiaryColour,
+						getSecondaryColour(),
+						getTertiaryColour(),
 						SVGStringUncoloured);
 				
 			} catch (IOException e) {
@@ -1350,7 +1549,7 @@ public abstract class AbstractSubspecies {
 		if(SVGString==null) {
 			initSVGStrings();
 		}
-		return getBipedBackground(SVGString, character, this.getColour(character));
+		return getBipedBackground(SVGString, character, this.getColour(character), this.getSecondaryColour(), this.getTertiaryColour());
 	}
 	
 	public String getSVGStringNoBackground() {
@@ -1444,23 +1643,20 @@ public abstract class AbstractSubspecies {
 		}
 		
 		if(names==null) {
-			if(this.isFromExternalFile() && this.nameHalfDemon!=null && !this.nameHalfDemon.isEmpty()) {
-				names = new String[] {
-						nameHalfDemon,
-						namePluralHalfDemon,
-						singularMaleNameHalfDemon,
-						singularFemaleNameHalfDemon,
-						pluralMaleNameHalfDemon,
-						pluralFemaleNameHalfDemon};
+			if(character!=null && halfDemonNames.containsKey(character.getLegConfiguration())) {
+				return halfDemonNames.get(character.getLegConfiguration());
+				
+			} else if(!halfDemonNames.isEmpty()) {
+				return halfDemonNames.get(null);
 				
 			} else if(character==null) {
 				names = new String[] {
-						"demonic-"+name,
-						"demonic-"+namePlural,
-						"demonic-"+singularMaleName,
-						"demonic-"+singularFemaleName,
-						"demonic-"+pluralMaleName,
-						"demonic-"+pluralFemaleName};
+						"demonic-"+getAnthroNamesMap().get(null)[0],
+						"demonic-"+getAnthroNamesMap().get(null)[1],
+						"demonic-"+getAnthroNamesMap().get(null)[2],
+						"demonic-"+getAnthroNamesMap().get(null)[3],
+						"demonic-"+getAnthroNamesMap().get(null)[4],
+						"demonic-"+getAnthroNamesMap().get(null)[5]};
 				
 			} else {
 				names = new String[] {

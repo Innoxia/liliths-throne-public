@@ -97,26 +97,30 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesPreference.java -->
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
 	
-	<!-- Names for this subspecies.
-	If this subspecies is defined as bipedal (in the 'bipedalSubspecies' attribute above), and the character has a non-bipedal leg configuration, then this name will be automatically modified into a variant based on the feral name which you define below.
-	Formatting should usually follow the pattern of X-morph, X-boy, X-girl. -->
-	<name><![CDATA[bear-morph]]></name>
-	<namePlural><![CDATA[bear-morphs]]></namePlural>
-	<singularMaleName><![CDATA[bear-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[bear-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[bear-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[bear-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[bear-morph]]></name>
+			<namePlural><![CDATA[bear-morphs]]></namePlural>
+			<singularMaleName><![CDATA[bear-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[bear-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[bear-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[bear-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
 	<description><![CDATA[An anthropomorphic bear, known as a 'bear-morph' when bipedal, and a 'beartaur' when the lower body is that of a typically-oversized feral bear.]]></description>
 	
-	<!-- Names for this subspecies when the character is a half-demon. -->
-	<nameHalfDemon><![CDATA[onikuma]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[onikuma]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[onikuma]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[onikuma]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[onikuma]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[onikuma]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[onikuma]]></name>
+			<namePlural><![CDATA[onikuma]]></namePlural>
+			<singularMaleName><![CDATA[onikuma]]></singularMaleName>
+			<singularFemaleName><![CDATA[onikuma]]></singularFemaleName>
+			<pluralMaleName><![CDATA[onikuma]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[onikuma]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>

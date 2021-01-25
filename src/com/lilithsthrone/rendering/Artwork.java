@@ -5,9 +5,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -49,9 +47,7 @@ public class Artwork {
 			for(File subFile : dir.listFiles(textFilter)) {
 				if (subFile.exists()) {
 					try {
-						DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-						DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-						Document doc = dBuilder.parse(subFile);
+						Document doc = Main.getDocBuilder().parse(subFile);
 						
 						// Cast magic:
 						doc.getDocumentElement().normalize();
@@ -100,7 +96,7 @@ public class Artwork {
 		this.nakedImages = new ArrayList<>();
 
 		// Add all images to their respective lists
-		for (File f : folder.listFiles((dir, name) -> name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".gif"))) {
+		for (File f : folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".gif"))) {
 			if (f.getName().startsWith("partial")) {
 				partialImages.add(f.getAbsolutePath());
 				

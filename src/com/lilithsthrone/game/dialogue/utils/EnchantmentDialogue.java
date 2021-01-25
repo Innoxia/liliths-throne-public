@@ -10,13 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -966,11 +962,7 @@ public class EnchantmentDialogue {
 
 		try {
 			// Starting stuff:
-			
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 			
 			Element enchantment = doc.createElement("enchantment");
 			doc.appendChild(enchantment);
@@ -1009,16 +1001,14 @@ public class EnchantmentDialogue {
 			
 			// Ending stuff:
 			
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer1 = tf.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
 			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
 			
 			// Save this xml:
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -1028,8 +1018,6 @@ public class EnchantmentDialogue {
 			
 			transformer.transform(source, result);
 			
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
@@ -1042,9 +1030,7 @@ public class EnchantmentDialogue {
 
 			if (file.exists()) {
 				try {
-					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-					Document doc = dBuilder.parse(file);
+					Document doc = Main.getDocBuilder().parse(file);
 					
 					// Cast magic:
 					doc.getDocumentElement().normalize();

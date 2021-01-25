@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -74,7 +76,7 @@ public class NyanMum extends NPC {
 				"Although she's the mother of Nyan, Leotie is the polar opposite of her daughter."
 						+ " Extremely confident and assertive, she's one of the most successful businesswomen in all of Lilith's Realm."
 						+ " Considering Nyan to be her most beloved treasure, Leotie's over-protective nature has undoubtedly contributed to her daughter's timid nature.",
-				53, Month.FEBRUARY, 2,
+				53, Month.APRIL, 12,
 				15,
 				Gender.F_V_B_FEMALE,
 				Subspecies.getSubspeciesFromId("innoxia_cat_subspecies_cougar"),
@@ -88,6 +90,9 @@ public class NyanMum extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.15")) {
+			this.setBirthday(LocalDateTime.of(this.getBirthday().getYear(), Month.APRIL, 12, 12, 0));
+		}
 	}
 
 	@Override
