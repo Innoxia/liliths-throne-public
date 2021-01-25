@@ -22,7 +22,6 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
-import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

@@ -16,7 +16,6 @@ import java.util.Set;
 
 import javax.script.ScriptException;
 
-import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;

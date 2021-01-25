@@ -47,6 +47,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added new icons for eagle-harpies and fennec-foxes. (by NeverLucky)
 		Fixed bug where upon summoning your elemental for the first time, background errors would be thrown. (by AceXP)
 		Made artwork file extension checking case insensitive. (PR#1448 by CognitiveMist)
+		Improved performance and memory usage by implementing use of a single instance of the TransformerFactory, DocumentBuilderFactory and DocumentBuilder. (PR#1493 by AceXP)
 		
 	DSG's Enforcer Item updates (PR#1490):
 		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
@@ -671,8 +672,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	we need an option to have Lilaya keep her skin tone when she becomes a full demon
 	
-	Adding images to characters not working if png image is PNG (check PR #1448 by Cognitive Mist)
-	
 	Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
 	
 	you have to get a tattoo that shows unique sex partners because @Innoxia never added that to the phone stats
@@ -689,8 +688,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	
 	For these pills, although there is a determiner provided in the XML file, the items in the game have a null value for determiner
-	
-	male imp has "succubus-cock"?
 	
 	post-defeat transformation sometimes makes parts too big (breasts, lips, hair), and then in next defeat TF, they shrink them
 	I've had plenty of times where characters say "I'm gonna turn you into a Zebra Girl" or something along those lines only for the forced TF to be stopped at the default Horse features but no Zebra tail or black and white fur colours.
