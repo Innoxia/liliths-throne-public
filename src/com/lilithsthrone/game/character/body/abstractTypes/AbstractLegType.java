@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -164,9 +161,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public AbstractLegType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -287,44 +282,48 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		switch(gc.getLegConfiguration()) {
-			case ARACHNID:
-			case AVIAN:
-			case BIPEDAL:
-			case QUADRUPEDAL:
-				return "leg";
-			case CEPHALOPOD:
-				return "tentacle";
-			case TAIL:
-			case TAIL_LONG:
-				return "tail";
+		if(gc!=null) {
+			switch(gc.getLegConfiguration()) {
+				case ARACHNID:
+				case AVIAN:
+				case BIPEDAL:
+				case QUADRUPEDAL:
+					return "leg";
+				case CEPHALOPOD:
+					return "tentacle";
+				case TAIL:
+				case TAIL_LONG:
+					return "tail";
+			}
 		}
 		return name;
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		switch(gc.getLegConfiguration()) {
-			case ARACHNID:
-			case AVIAN:
-			case BIPEDAL:
-			case QUADRUPEDAL:
-				return "legs";
-			case CEPHALOPOD:
-				return "tentacles";
-			case TAIL:
-			case TAIL_LONG:
-				return "tails";
+		if(gc!=null) {
+			switch(gc.getLegConfiguration()) {
+				case ARACHNID:
+				case AVIAN:
+				case BIPEDAL:
+				case QUADRUPEDAL:
+					return "legs";
+				case CEPHALOPOD:
+					return "tentacles";
+				case TAIL:
+				case TAIL_LONG:
+					return "tails";
+			}
 		}
 		return namePlural;
 	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		if (gc.isFeminine()) {
-			return Util.randomItemFrom(descriptorsFeminine);
-		} else {
+		if(gc!=null && !gc.isFeminine()) {
 			return Util.randomItemFrom(descriptorsMasculine);
+		} else {
+			return Util.randomItemFrom(descriptorsFeminine);
 		}
 	}
 

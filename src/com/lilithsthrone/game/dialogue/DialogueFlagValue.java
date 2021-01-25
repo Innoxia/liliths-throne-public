@@ -78,19 +78,30 @@ public enum DialogueFlagValue {
 	ralphAskedAboutHundredKisses,
 	ralphDailyBred(true),
 	
+	ashleySexToysDiscovered,
+	ashleyAttitude,
+	
+	reactedToKatePregnancy,
+	
+	// Nyan:
+	nyanHiding,
+	nyanDating,
+	nyanFirstKissed,
+	nyanRestaurantDateRequested,
+	nyanRestaurantDateCompleted,
+	
 	nyanTalkedTo(true),
 	nyanComplimented(true),
 	nyanFlirtedWith(true),
 	nyanHeadPatted(true),
 	nyanKissed(true),
+	
+	nyanWalked(true),
+	
 	nyanMakeOut(true),
 	nyanSex(true),
+	
 	nyanGift(true),
-	
-	ashleySexToysDiscovered,
-	ashleyAttitude,
-	
-	reactedToKatePregnancy,
 	
 	// Lilaya's Home:
 	knowsDate,

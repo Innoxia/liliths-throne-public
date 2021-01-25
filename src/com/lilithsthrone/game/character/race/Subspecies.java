@@ -642,6 +642,9 @@ public class Subspecies {
 
 		@Override
 		public String getFeralName(GameCharacter character) {
+			if(character.getHalfDemonSubspecies()!=null) {
+				return character.getHalfDemonSubspecies().getFeralName(character);
+			}
 			return DEMON.getFeralName(character);
 		}
 		
@@ -1709,7 +1712,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.PHYSICAL, 10),
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
-			PresetColour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH_FENNEC,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox with distinctive large ears, and with either tan, dirty blonde, or bleach-blonde fur."
 					+ " They are known as a 'fennec-morph' when bipedal, and a 'fennectaur' when the lower body is that of a typically-oversized feral fennec fox.",
@@ -1751,6 +1754,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public String getPathName() {
+			return "res/race/neverLucky/fox/fennec";
 		}
 	};
 	
@@ -4746,7 +4753,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.PHYSICAL, 2),
 					new Value<>(PerkCategory.LUST, 5),
 					new Value<>(PerkCategory.ARCANE, 0)),
-			PresetColour.BASE_WHITE,
+			PresetColour.BASE_GREY_LIGHT,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
 			Util.newHashMapOfValues(
@@ -4799,6 +4806,14 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public String getPathName() {
+			return "res/race/neverLucky/harpy/eagle";
+		}
+		@Override
+		public Colour getSecondaryColour() {
+			return PresetColour.BASE_PITCH_BLACK;
 		}
 	};
 

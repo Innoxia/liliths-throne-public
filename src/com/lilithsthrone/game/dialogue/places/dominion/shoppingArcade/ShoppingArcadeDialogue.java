@@ -386,14 +386,6 @@ public class ShoppingArcadeDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==0) {
-				if(index==1) {
-					if(Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<=23) {
-						return new Response("Reservation", "Step inside the restaurant and inquire about making a reservation.<br/>[style.italicsMinorBad(Restaurant content will be added in a future update!)]", null); //TODO
-					}
-					return new Response("Reservation", "The restaurant is currently closed, so you're unable to inquire about making a reservation.", null);
-				}
-			}
 			return getFastTravelResponses(responseTab, index);
 		}
 	};

@@ -84,6 +84,16 @@ public class KaysWarehouse {
 	private static final int PAY_OFF_PRICE = 50_000;
 	private static final int PAY_OFF_PRICE_WOLFGANG_SHARE = 30_000;
 	private static final int PAY_OFF_PRICE_KARL_SHARE = 20_000;
+
+	/**
+	 * Sets quest progress to RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN and appends to the TextEndStringBuilder.
+	 * <br/>Moves Wolfgang and Karl to the bounty hunter lodge.
+	 */
+	public static void applySuppliersBeatenEffects() {
+		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN));
+		((SupplierLeader)Main.game.getNpc(SupplierLeader.class)).moveToBountyHunterLodge();
+		((SupplierPartner)Main.game.getNpc(SupplierPartner.class)).moveToBountyHunterLodge();
+	}
 	
 	/** The amount of flames the dobermanns give to you if you demonically intimidate them. */
 	private static final int DEMONIC_PAYOFF = 6_000;
@@ -311,16 +321,6 @@ public class KaysWarehouse {
 			}
 		}
 		return null;
-	}
-	
-	/**
-	 * Sets quest progress to RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN and appends to the TextEndStringBuilder.
-	 * <br/>Moves Wolfgang and Karl to the bounty hunter lodge.
-	 */
-	public static void applySuppliersBeatenEffects() {
-		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN));
-		((SupplierLeader)Main.game.getNpc(SupplierLeader.class)).moveToBountyHunterLodge();
-		((SupplierPartner)Main.game.getNpc(SupplierPartner.class)).moveToBountyHunterLodge();
 	}
 	
 	private static ResponseSex getKaySexResponse(String title,
@@ -1119,10 +1119,10 @@ public class KaysWarehouse {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "OFFICE_TALK"));
 							
 							List<String> topics = Util.newArrayListOfValues(
-									"MACHINES",
-									"INTERCOM",
-									"BUSINESS",
-									"BOUNTY_HUNTERS");
+									"KAY_MACHINES",
+									"KAY_INTERCOM",
+									"KAY_BUSINESS",
+									"KAY_BOUNTY_HUNTERS");
 							long lowestValue = 1_000_000;
 							for(String topic : topics) {
 								if(Main.game.getDialogueFlags().getSavedLong(topic)<lowestValue) {

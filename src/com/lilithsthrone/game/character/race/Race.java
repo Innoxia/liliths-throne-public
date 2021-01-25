@@ -155,7 +155,20 @@ public class Race {
 		public boolean isAbleToSelfTransform() {
 			return true;
 		}
-		
+		@Override
+		public String getName(GameCharacter character, boolean feral) {
+			if(feral && character!=null && character.getHalfDemonSubspecies()!=null) {
+				return "demonic-"+character.getHalfDemonSubspecies().getFeralName(character);
+			}
+			return super.getName(character, feral);
+		}
+		@Override
+		public String getNamePlural(GameCharacter character, boolean feral) {
+			if(feral && character!=null && character.getHalfDemonSubspecies()!=null) {
+				return "demonic-"+character.getHalfDemonSubspecies().getFeralNamePlural(character);
+			}
+			return super.getNamePlural(character, feral);
+		}
 //		// This is the same as what's found in Subspecies.DEMON
 //		@Override
 //		private String getFeralName(LegConfiguration legConfiguration, boolean plural) {
@@ -278,6 +291,7 @@ public class Race {
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
+		@Override
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.DOG_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
@@ -325,6 +339,7 @@ public class Race {
 			}
 			return super.getNamePlural(character, feral);
 		}
+		@Override
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.WOLF_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
@@ -352,6 +367,7 @@ public class Race {
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
+		@Override
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.FOX_MORPH
 					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
@@ -438,6 +454,7 @@ public class Race {
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
+		@Override
 		public void applyRaceChanges(Body body) {
 			// 75% chance for genitals to be dark:
 			if(Math.random()<0.75f) {
@@ -528,6 +545,13 @@ public class Race {
 				FurryPreference.NORMAL,
 				FurryPreference.NORMAL,
 				true) {
+		@Override
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.RAT_MORPH
+					|| body.getPenis().getType()==PenisType.DEMON_COMMON) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE));
+			}
+		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
 			return RacialBody.RAT_MORPH;
