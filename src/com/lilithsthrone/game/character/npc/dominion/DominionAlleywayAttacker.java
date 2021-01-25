@@ -115,7 +115,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
 				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}

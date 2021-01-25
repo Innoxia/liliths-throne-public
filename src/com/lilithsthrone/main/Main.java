@@ -70,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.14";
+	public static final String VERSION_NUMBER = "0.3.15";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -91,22 +91,17 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "<i>This hotfix of v0.3.13 addresses some bugs that were present in v0.3.12.</i>"
+			+ "For this preview, I've mainly been working on the remake of Nyan's romance quest, which includes a new warehouse map and a new character."
+			+ " Nyan's post-quest dating content is half-finished, but will be completed for the next release."
+			+ " I've also got several other things fixed and added for this version."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "There have been also been a lot of contributions added, including a few new races by NoStepOnSnek, updates to Enforcer items and races by DSG, and numerous fixes by Stadler76 and AceXP."
 		+ "</p>"
 		
 		+ "<p>"
-			+ "This is an update to the race code refactoring work done in v0.3.10."
-			+ " It includes a few bug fixes and other miscellaneous changes, as well as a lot of code contributions from quite a few people (thank you!)."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "It also includes 7 new races, made by DSG, and added via the framework that was put in place in v0.3.10."
-			+ " Each race has a pair of consumable items, and all of them have a unique special combat move."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I'm sorry that the Foloi Fields content still isn't added, but with this necessary bug-fixing release out of the way, I can move on to finally start working on v0.4!"
-			+ " I'll hopefully have that out in a couple of weeks from this release."
+			+ "I'll have the full version of 0.4 out in a week or two!"
 		+ "</p>"
 		
 		+ "<br/>"

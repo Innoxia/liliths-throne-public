@@ -4368,17 +4368,70 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"slotClothing"),
+				true,
+				true,
+				"(inventorySlot, coloured)",
+				"Returns the name of the piece of clothing that's in the inventory slot passed in as the first argument."
+						+ " Possible arguments are the InventorySlot enum values."
+						+ " The second argument is a boolean for whether you want the clothing name to include its colour."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					InventorySlot slot;
+					String argument1 = arguments.split(",")[0].trim();
+					String argument2 = arguments.split(",")[1].trim();
+					try {
+						slot = InventorySlot.valueOf(argument1);
+					} catch(Exception ex) {
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothingslot_not_found:"+argument1+"</i>";
+					}
+					AbstractClothing clothingInSlot = character.getClothingInSlot(slot);
+					if(clothingInSlot==null) {
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>no_clothing_in_slot_"+slot+"</i>";
+					} else {
+						try {
+							boolean pronoun = parseAddPronoun;
+							parseAddPronoun = false;
+							if(Boolean.valueOf(argument2)) {
+								return clothingInSlot.getName(pronoun);
+							} else {
+								return (pronoun?UtilText.generateSingularDeterminer(clothingInSlot.getName())+" ":"")+clothingInSlot.getName();
+							}
+						} catch(Exception ex) {
+							return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothingslot_not_found</i>";
+						}
+					}
+					
+				} else {
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothingslot_not_found</i>";
+				}
+			}
+			
+			@Override
+			public String getArgumentExample() {
+				return "GROIN, true";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"topClothing",
 						"highestClothing",
 						"highClothing"),
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments are the CoverableArea values."){
+				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments are the CoverableArea enum values."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
-					CoverableArea area = CoverableArea.valueOf(arguments);
+					CoverableArea area;
+					try {
+						area = CoverableArea.valueOf(arguments);
+					} catch(Exception ex) {
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found:"+arguments+"</i>";
+					}
 					if(character.getHighestZLayerCoverableArea(area)==null) {
 						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
 					} else {
@@ -4396,7 +4449,7 @@ public class UtilText {
 			
 			@Override
 			public String getArgumentExample() {
-				return "pussy";
+				return "VAGINA";
 			}
 		});
 		
@@ -4408,11 +4461,16 @@ public class UtilText {
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments are the CoverableArea values."){
+				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments are the CoverableArea enum values."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(arguments!=null) {
-					CoverableArea area = CoverableArea.valueOf(arguments);
+					CoverableArea area;
+					try {
+						area = CoverableArea.valueOf(arguments);
+					} catch(Exception ex) {
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found:"+arguments+"</i>";
+					}
 					if(character.getLowestZLayerCoverableArea(area)==null) {
 						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
 					} else {
@@ -4430,7 +4488,7 @@ public class UtilText {
 			
 			@Override
 			public String getArgumentExample() {
-				return "pussy";
+				return "VAGINA";
 			}
 		});
 		

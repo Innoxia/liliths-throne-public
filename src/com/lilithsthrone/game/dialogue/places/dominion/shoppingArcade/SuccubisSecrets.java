@@ -703,19 +703,23 @@ public class SuccubisSecrets {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_EYES"));
 			
 			UtilText.nodeContentSB.append(getMoneyRemainingString());
-			
+
 			UtilText.nodeContentSB.append(
 					CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, Main.game.getPlayer().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 		
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true,
-							BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL),
+							BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH
+								?BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_PUPIL)
+								:BodyCoveringType.EYE_PUPILS,
 							"Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
 		
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true,
-							BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA),
+							BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.FLESH
+								?BodyCoveringType.getMaterialBodyCoveringType(Main.game.getPlayer().getBodyMaterial(), BodyCoveringCategory.EYE_SCLERA)
+								:BodyCoveringType.EYE_SCLERA,
 							"Sclerae", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 			
 			return UtilText.nodeContentSB.toString();

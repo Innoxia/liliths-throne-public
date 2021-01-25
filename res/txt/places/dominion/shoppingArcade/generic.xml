@@ -13,7 +13,7 @@
 				Travelling further up the road, you notice that there are curious amount of demons walking around in this area, and, what's more, you notice that most of them are carrying shopping bags of some sort or another. The cause of this unusual gathering is soon made apparent, as up ahead you see a huge shopping centre, with yet more demons loitering around the ornate entranceway.
 			</p>
 			<p>
-				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all still [style.colourGood(open)] for business, despite the storm currently raging overhead. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(all shops within the arcade are open from [units.time(6)]-[units.time(22)])].
+				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all still [style.colourGood(open)] for business, despite the storm currently raging overhead. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				You wonder if you should take this opportunity to go and do some shopping...
@@ -23,7 +23,7 @@
 				Travelling further up the road, you notice that there are several signs advertising the presence of 'Dominion's Largest Shopping Arcade'. Just as these signs promised, you soon catch sight of a huge shopping centre, and after just a few moments more, you find yourself standing outside the ornate entranceway.
 			</p>
 			<p>
-				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(all shops within the arcade are open from [units.time(6)]-[units.time(22)])].
+				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				Despite the fact that the shops within are closed, the doors leading into the arcade itself are not locked, and you wonder if you should go inside to take a look around...
@@ -35,7 +35,7 @@
 				The streets in this part of Dominion seem to be busier than usual, and you notice that many of the people surrounding you are holding shopping bags of all shapes and sizes. The cause of this unusual increase in traffic is soon made apparent, as up ahead you see a huge shopping centre, with yet more people loitering around the ornate entranceway.
 			</p>
 			<p>
-				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all [style.colourGood(open)] for business. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(all shops within the arcade are open from [units.time(6)]-[units.time(22)])].
+				As you approach, you take a good look at the massive building, noting that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are all [style.colourGood(open)] for business. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorGood(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				You wonder if you should take this opportunity to go and do some shopping...
@@ -45,7 +45,7 @@
 				Travelling further up the road, you notice that there are several signs advertising the presence of 'Dominion's Largest Shopping Arcade'. Just as these signs promised, you soon catch sight of a huge shopping centre, and after just a few moments more, you find yourself standing outside the ornate entranceway.
 			</p>
 			<p>
-				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(all shops within the arcade are open from [units.time(6)]-[units.time(22)])].
+				Taking a good look at the massive building, you note that its style is very reminiscent of that of a grand Victorian shopping arcade. From what you can see through the entrance's glass doors, it looks as though the shops inside are currently [style.colourBad(closed)]. Sure enough, taking a look over to one side of the entrance, you notice a sign proclaiming that [style.colourMinorBad(most shops within the arcade are open from [units.time(6)]-[units.time(22)])].
 			</p>
 			<p>
 				Despite the fact that the shops within are closed, the doors leading into the arcade itself are not locked, and you wonder if you should go inside to take a look around...
@@ -138,7 +138,7 @@
 		Tucked away in one corner of the Shopping Arcade, the restaurant 'The Oaken Glade' proudly displays its name in flowing gold lettering above its front door. The establishment's large windows allow you to look in on an incredible scene; the vast interior has been manipulated by some form of arcane-powered illusion, making it appear as though the restaurant is a portal directly into the middle of a summer-time forest clearing.
 		#IF(game.isDayTime())
 			 Bright sunlight shines down through the leaves of the huge oak trees which border this clearing, covering the tables and chairs in a soft, dappled-green glow.
-		#ELSE(game.getCurrentDayPeriod()==DAY_PERIOD_NIGHT)
+		#ELSEIF(game.getCurrentDayPeriod()==DAY_PERIOD_NIGHT)
 			 Glowing lanterns have been hung from the branches of the huge oak trees which border this clearing, casting the tables and chairs in a soft, orange glow.
 		#ENDIF
 	</p>
@@ -147,7 +147,7 @@
 	</p>
 	<p>
 		The glass of the window beside the front door has been elaborately etched with decorative, flowing patterns, and in the middle of this, there's some writing which declares this restaurant to be
-		#IF(game.getHourOfDay()>=18 && game.getHourOfDay()<=23)
+		#IF(game.getHourOfDay()>=18 && game.getHourOfDay()<23)
 			 [style.colourMinorGood('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourGood(open)].
 		#ELSE
 			 [style.colourMinorBad('Open every evening, [unit.time(18)]-[unit.time(23)]. <b>Reservations only.</b>')], meaning that it is currently [style.colourBad(closed)].
