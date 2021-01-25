@@ -17,9 +17,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -119,9 +117,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 		if (weaponXMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(weaponXMLFile);
+				Document doc = Main.getDocBuilder().parse(weaponXMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
