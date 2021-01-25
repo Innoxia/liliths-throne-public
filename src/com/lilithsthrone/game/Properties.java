@@ -7,13 +7,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -259,11 +255,7 @@ public class Properties {
 	
 	public void savePropertiesAsXML(){
 		try {
-		
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+			Document doc = Main.getDocBuilder().newDocument();
 			Element properties = doc.createElement("properties");
 			doc.appendChild(properties);
 
@@ -576,8 +568,7 @@ public class Properties {
 			
 			
 			// Write out to properties.xml:
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -585,7 +576,7 @@ public class Properties {
 		
 			transformer.transform(source, result);
 		
-		} catch (ParserConfigurationException | TransformerException e) {
+		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -603,9 +594,7 @@ public class Properties {
 		if (new File("data/properties.xml").exists())
 			try {
 				File propertiesXML = new File("data/properties.xml");
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(propertiesXML);
+				Document doc = Main.getDocBuilder().parse(propertiesXML);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

@@ -14,16 +14,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.game.Game;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -145,11 +143,8 @@ public class CharacterUtils {
 		try {
 //			long timeStart = System.nanoTime();
 //			System.out.println(timeStart);
-			
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
-			Document doc = docBuilder.newDocument();
+
+			Document doc = Main.getDocBuilder().newDocument();
 			
 			Element properties = doc.createElement("playerCharacter");
 			doc.appendChild(properties);
@@ -159,8 +154,7 @@ public class CharacterUtils {
 			
 //			System.out.println("Difference2: "+(System.nanoTime()-timeStart)/1000000000f);
 			
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer1 = tf.newTransformer();
+			Transformer transformer1 = Main.transformerFactory.newTransformer();
 			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			StringWriter writer = new StringWriter();
 
@@ -175,8 +169,7 @@ public class CharacterUtils {
 //			System.out.println(output);
 			
 			// Save this xml:
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
+			Transformer transformer = Main.transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
@@ -201,7 +194,7 @@ public class CharacterUtils {
 			
 			transformer.transform(source, result);
 		
-		} catch (ParserConfigurationException | TransformerException e) {
+		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -227,9 +220,7 @@ public class CharacterUtils {
 		
 		if (xmlFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(xmlFile);
+				Document doc = Main.getDocBuilder().parse(xmlFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
