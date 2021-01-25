@@ -319,11 +319,26 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return playerElement;
 	}
 	
+	private static boolean debug = false;
+	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
+		long time = System.nanoTime();
+		if(debug) {
+			System.out.println("Player loading start");
+		}
+		
 		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, null, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+
+		if(debug) {
+			System.out.println("character created: "+((System.nanoTime()-time)/1000000000d));
+		}
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
-		
+
+		if(debug) {
+			System.out.println("Variables loaded: "+((System.nanoTime()-time)/1000000000d));
+		}
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			character.setGenderIdentity(character.getGender());
 		}
@@ -559,6 +574,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			} catch(Exception ex) {	
 			}
 		}
+
+		if(debug) {
+			System.out.println("Initial loading: "+((System.nanoTime()-time)/1000000000d));
+		}
 		
 		if(playerSpecificElement!=null && !Main.isVersionOlderThan(version, "0.3.7.7")) {
 			nodes = playerSpecificElement.getElementsByTagName("itemsDiscovered");
@@ -616,6 +635,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+		}
+
+		if(debug) {
+			System.out.println("encyclopedia loading: "+((System.nanoTime()-time)/1000000000d));
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
@@ -696,6 +719,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 
+		if(debug) {
+			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
+		}
+		
 		return character;
 	}
 

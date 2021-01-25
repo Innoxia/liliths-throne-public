@@ -13,9 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -126,7 +123,7 @@ public abstract class AbstractSubspecies {
 	protected static Map<Integer, String> youkoIconMap;
 	protected static Map<Integer, String> youkoDesaturatedIconMap;
 	protected static Map<Integer, String> youkoHalfDemonIconMap;
-
+	
 	public static Map<LegConfiguration, String[]> demonLegConfigurationNames = Util.newHashMapOfValues(
 			new Value<>(LegConfiguration.ARACHNID,
 					new String[] {
@@ -368,14 +365,13 @@ public abstract class AbstractSubspecies {
 		this.bookPathName = "/com/lilithsthrone/res/" + pathName;
 		this.backgroundPathName = "/com/lilithsthrone/res/" + backgroundPathName;
 		this.SVGString = null;
+		this.iconSize = 80;
 	}
 	
 	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -1217,6 +1213,13 @@ public abstract class AbstractSubspecies {
 		}
 		return getAnthroNamesMap().get(null)[0];
 	}
+	
+	public String getFeralNamePlural(GameCharacter character) {
+		if(isFeralConfigurationAvailable()) {
+			return getFeralAttributes().getFeralNamePlural();
+		}
+		return getAnthroNamesMap().get(null)[1];
+	}
 
 	public FeralAttributes getFeralAttributes() {
 		return feralAttributes;
@@ -1259,11 +1262,26 @@ public abstract class AbstractSubspecies {
 				effectsModified.add("[style.boldBlueLight(Loses legs in water)]");
 			}
 			
+			if(character.isFeral()) {
+				for(String s : getFeralEffects()) {
+					effectsModified.add(s);
+				}
+			}
+			
 			return effectsModified;
 		}
 		return extraEffects;
 	}
+	
+	public List<String> getFeralEffects() {
+		List<String> feralEffects = new ArrayList<>();
+		
+		feralEffects.add("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(tripled)]");
+		feralEffects.add("[style.colourExcellent(Immune)] to [style.colourGenericTf(racial transformations)]");
 
+		return feralEffects;
+	}
+	
 	public String getBookName() {
 		return bookName;
 	}
@@ -1308,6 +1326,14 @@ public abstract class AbstractSubspecies {
 		return colour;
 	}
 	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+	
+	public Colour getTertiaryColour() {
+		return tertiaryColour;
+	}
+	
 	public SubspeciesPreference getSubspeciesPreferenceDefault() {
 		return subspeciesPreferenceDefault;
 	}
@@ -1327,7 +1353,19 @@ public abstract class AbstractSubspecies {
 		return aquatic || character.getLegConfiguration()==LegConfiguration.TAIL;
 	}
 
+	public String getPathName() {
+		return pathName;
+	}
+
+	public String getBackgroundPathName() {
+		return backgroundPathName;
+	}
+
 	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {
+		return getBipedBackground(svg, character, colour, colour, colour);
+	}
+	
+	protected String getBipedBackground(String svg, GameCharacter character, Colour colour, Colour secondaryColour, Colour tertiaryColour) {
 		String returnString = svg;
 		
 		if(character!=null) {
@@ -1340,8 +1378,8 @@ public abstract class AbstractSubspecies {
 					is.close();
 					feralBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"FERAL",
 							colour,
-							colour,
-							colour,
+							secondaryColour,
+							tertiaryColour,
 							feralBackground);
 					
 					returnString = returnString + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + feralBackground +"</div>";
@@ -1359,8 +1397,8 @@ public abstract class AbstractSubspecies {
 						is.close();
 						SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this)+"NBPID",
 								colour,
-								colour,
-								colour,
+								secondaryColour,
+								tertiaryColour,
 								SVGStringLegConfigurationBackground);
 						returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
 					} catch (IOException e) {
@@ -1393,8 +1431,8 @@ public abstract class AbstractSubspecies {
 			
 			bookSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 					colour,
-					secondaryColour,
-					tertiaryColour,
+					getSecondaryColour(),
+					getTertiaryColour(),
 					"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+bookSVGString+"</div>");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -1402,12 +1440,12 @@ public abstract class AbstractSubspecies {
 	}
 	
 	protected void initSVGStrings() {
-		if(pathName!=null) {
+		if(getPathName()!=null) {
 			String fullDivStyle = "width:100%;height:100%;margin:0;padding:0;position:absolute;left:0;bottom:0;";
 			
 			try {
-				if(this.isFromExternalFile()) {
-					List<String> lines = Files.readAllLines(Paths.get(pathName+".svg"));
+				if(this.isFromExternalFile() || getPathName().startsWith("res")) {
+					List<String> lines = Files.readAllLines(Paths.get(getPathName()+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -1417,9 +1455,9 @@ public abstract class AbstractSubspecies {
 					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
-					InputStream is = this.getClass().getResourceAsStream(pathName + ".svg");
+					InputStream is = this.getClass().getResourceAsStream(getPathName() + ".svg");
 					if(is==null) {
-						System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+pathName+"')! (Code 1)");
+						System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+getPathName()+"')! (Code 1)");
 					}
 					SVGStringUncoloured = Util.inputStreamToString(is);
 					is.close();
@@ -1429,7 +1467,7 @@ public abstract class AbstractSubspecies {
 				String SVGStringBackground = "";
 
 				if(this.externalFileBackground) {
-					List<String> lines = Files.readAllLines(Paths.get(backgroundPathName+".svg"));
+					List<String> lines = Files.readAllLines(Paths.get(getBackgroundPathName()+".svg"));
 					StringBuilder sb = new StringBuilder();
 					for(String line : lines) {
 						sb.append(line);
@@ -1437,10 +1475,10 @@ public abstract class AbstractSubspecies {
 					SVGStringBackground = "<div style='"+fullDivStyle+"'>"+sb.toString()+"</div>";
 					
 				} else {
-					if(!backgroundPathName.isEmpty()) {
-						InputStream is = this.getClass().getResourceAsStream(backgroundPathName + ".svg");
+					if(!getBackgroundPathName().isEmpty()) {
+						InputStream is = this.getClass().getResourceAsStream(getBackgroundPathName() + ".svg");
 						if(is==null) {
-							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+backgroundPathName+"')! (Code 1)");
+							System.err.println("Error! Subspecies background icon file does not exist (Trying to read from '"+getBackgroundPathName()+"')! (Code 1)");
 						}
 						SVGStringBackground = "<div style='"+fullDivStyle+"'>"+Util.inputStreamToString(is)+"</div>";
 						
@@ -1452,8 +1490,8 @@ public abstract class AbstractSubspecies {
 				
 				SVGStringNoBackground = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						secondaryColour,
-						tertiaryColour,
+						getSecondaryColour(),
+						getTertiaryColour(),
 						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
@@ -1487,8 +1525,8 @@ public abstract class AbstractSubspecies {
 				
 				SVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						colour,
-						secondaryColour,
-						tertiaryColour,
+						getSecondaryColour(),
+						getTertiaryColour(),
 						SVGStringUncoloured);
 				
 			} catch (IOException e) {
@@ -1511,7 +1549,7 @@ public abstract class AbstractSubspecies {
 		if(SVGString==null) {
 			initSVGStrings();
 		}
-		return getBipedBackground(SVGString, character, this.getColour(character));
+		return getBipedBackground(SVGString, character, this.getColour(character), this.getSecondaryColour(), this.getTertiaryColour());
 	}
 	
 	public String getSVGStringNoBackground() {

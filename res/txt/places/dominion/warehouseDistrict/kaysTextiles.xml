@@ -1017,9 +1017,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OFFICE_TALK_MACHINES"><![CDATA[
+	<htmlContent tag="OFFICE_TALK_KAY_MACHINES"><![CDATA[
 	<p>
-		#IF(game.getDialogueFlags().getSavedLong('MACHINES')>-1)
+		#IF(game.getDialogueFlags().getSavedLong('KAY_MACHINES')>-1)
 			You end up mainly talking about [kay.namePos] arcane weaving machines again, and you listen with interest as [kay.she] describes how [kay.she] had the idea to invent them after learning about how the traditional method for making and enchanting clothing is not only laborious, but also very time-consuming. Thanks to the ability of [kay.her] machines to combine both the weaving and enchantment of garments, [kay.sheHas] ended up in a position where [kay.sheIsFull] responsible for almost a quarter of all of Dominion's enchanted clothing production.
 		#ELSE
 			You soon find yourselves talking about [kay.namePos] arcane weaving machines, and you listen with interest as [kay.she] describes how [kay.she] had the idea to invent them after learning about how the traditional method for making and enchanting clothing is not only laborious, but also very time-consuming. Thanks to the ability of [kay.her] machines to combine both the weaving and enchantment of garments, [kay.sheHas] ended up in a position where [kay.sheIsFull] responsible for almost a quarter of all of Dominion's enchanted clothing production.
@@ -1028,9 +1028,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OFFICE_TALK_INTERCOM"><![CDATA[
+	<htmlContent tag="OFFICE_TALK_KAY_INTERCOM"><![CDATA[
 	<p>
-		#IF(game.getDialogueFlags().getSavedLong('INTERCOM')>-1)
+		#IF(game.getDialogueFlags().getSavedLong('KAY_INTERCOM')>-1)
 			You end up mainly talking about the arcane intercom on [kay.namePos] desk again, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the fifth human rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
 		#ELSE
 			You soon find yourselves talking about the arcane intercom on [kay.namePos] desk, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the fifth human rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
@@ -1039,9 +1039,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OFFICE_TALK_BUSINESS"><![CDATA[
+	<htmlContent tag="OFFICE_TALK_KAY_BUSINESS"><![CDATA[
 	<p>
-		#IF(game.getDialogueFlags().getSavedLong('BUSINESS')>-1)
+		#IF(game.getDialogueFlags().getSavedLong('KAY_BUSINESS')>-1)
 			You end up mainly talking about [kay.namePos] business again, and you hear the same story about how [kay.she] was only able to get started thanks to a particularly generous bank manager who agreed to approve [kay.her] risky loan. After a shaky start and many late nights spent tinkering with [kay.her] weaving machines, [kay.name] managed to fulfil a large order from a well-known harpy matriarch. Pleased with the quality of the enchanted clothing she'd ordered, this matriarch soon spread the word about [kay.namePos] business, and from then on, it was relatively plain sailing to the success [kay.she] enjoys today.
 		#ELSE
 			You soon find yourselves talking about [kay.namePos] business, and you discover that [kay.she] was only able to get started thanks to a particularly generous bank manager who agreed to approve [kay.her] risky loan. After a shaky start and many late nights spent tinkering with [kay.her] weaving machines, [kay.name] managed to fulfil a large order from a well-known harpy matriarch. Pleased with the quality of the enchanted clothing she'd ordered, this matriarch soon spread the word about [kay.namePos] business, and from then on, it was relatively plain sailing to the success [kay.she] enjoys today.
@@ -1050,9 +1050,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OFFICE_TALK_BOUNTY_HUNTERS"><![CDATA[
+	<htmlContent tag="OFFICE_TALK_KAY_BOUNTY_HUNTERS"><![CDATA[
 	<p>
-		#IF(game.getDialogueFlags().getSavedLong('BOUNTY_HUNTERS')>-1)
+		#IF(game.getDialogueFlags().getSavedLong('KAY_BOUNTY_HUNTERS')>-1)
 			You end up mainly talking about [kay.namePos] troubles with Wolfgang and Karl again, and you soon hear the same story about how the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermanns failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
 		#ELSE
 			You soon find yourselves talking about how [kay.namePos] troubles with Wolfgang and Karl began, and you soon learn that the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermanns failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
