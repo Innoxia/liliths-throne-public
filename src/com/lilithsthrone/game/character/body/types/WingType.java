@@ -280,7 +280,7 @@ public class WingType {
 		}
 		if(types.isEmpty()) {
 			for(AbstractWingType type : WingType.getAllWingTypes()) {
-				if(type.getRace()==Race.NONE) {
+				if(type.getRace()==Race.NONE && type != WingType.NONE) {
 					types.add(type);
 				}
 			}

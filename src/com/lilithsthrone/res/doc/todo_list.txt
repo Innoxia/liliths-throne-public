@@ -48,6 +48,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where upon summoning your elemental for the first time, background errors would be thrown. (by AceXP)
 		Made artwork file extension checking case insensitive. (PR#1448 by CognitiveMist)
 		Improved performance and memory usage by implementing use of a single instance of the TransformerFactory, DocumentBuilderFactory and DocumentBuilder. (PR#1493 by AceXP)
+		Fixed issue with wing types not being available in the enchantment menu, and also maximum penetration girth not being able to be selected. (by Stadler76)
 		
 	DSG's Enforcer Item updates (PR#1490):
 		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
