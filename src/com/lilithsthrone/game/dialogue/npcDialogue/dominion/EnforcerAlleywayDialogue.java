@@ -740,7 +740,7 @@ public class EnforcerAlleywayDialogue {
 							(NPC)getEnforcerLeader(),
 							getEnforcers(),
 							Util.newHashMapOfValues(
-									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(Try to fool us, will you!)] [npc.name] shouts.")),
+									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(Try play us for fools, will you!)] [npc.name] shouts.")),
 									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(You just made a big mistake!)] [npc.name] exclaims."))));
 				}
                             else if(index==2) {
