@@ -75,6 +75,14 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerAlleywayDialogue {
 	
 	private static final int BRIBE_AMOUNT = 2_000;
+        private static final String UNIFORM_PASSABLE = "uniform_passable";
+        private static final String IMPERSONATING_CANDI = "impersonating_candi";
+        private static final String IMPERSONATING_CLAIRE = "impersonating_claire";
+        private static final String IMPERSONATING_BRAX = "impersonating_brax";
+        private static final String IMPERSONATING_WES = "impersonating_wes";
+        private static final String IMPERSONATING_ELLE = "impersonating_elle";
+        private static final String IMPERSONATING_NYSA = "impersonating_nysa";
+        private static final String IMPERSONATING_SEAN = "impersonating_sean";
 	
 	private static boolean bribed = false;
 	private static boolean searched = false;
@@ -134,7 +142,18 @@ public class EnforcerAlleywayDialogue {
                 impersonatingElle = 0;
                 impersonatingNysa = 0;
                 impersonatingSean = 0;
-		setThinksPlayerEnforcer(checkPlayerUniform());
+                
+		if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
+                    setThinksPlayerEnforcer(checkPlayerUniform());
+                    Main.game.getDialogueFlags().setSavedLong(UNIFORM_PASSABLE, uniformPassable);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_CANDI, impersonatingCandi);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_CLAIRE, impersonatingClaire);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_BRAX, impersonatingBrax);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_WES, impersonatingWes);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_ELLE, impersonatingElle);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_NYSA, impersonatingNysa);
+                    Main.game.getDialogueFlags().setSavedLong(IMPERSONATING_SEAN, impersonatingSean);
+                }
 	}
         
         private static boolean checkPlayerUniform() {
@@ -145,7 +164,8 @@ public class EnforcerAlleywayDialogue {
             //check uniform elements
             //check for a dress jacket
             else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
-                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_enfdjacket")) {
+                    (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_enfdjacket") ||
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_debuggerydo_enfdjacket"))) {
                 //blank uniforms fail
                 if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
                     uniformPassable = 0;
@@ -195,14 +215,14 @@ public class EnforcerAlleywayDialogue {
                             break;
                         //named npc checks
                         case "name_brax":
-                            if(Main.game.getPlayer().getSubspecies() == Subspecies.WOLF_MORPH) {
-                                uniformPassable = 1;
-                                impersonatingBrax = 1;
-                            }
                             //the player defeated Brax and caused him to be enslaved
-                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)){
+                            if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
                                 uniformPassable = -1;
-                                impersonatingBrax = -2;                                
+                                impersonatingBrax = -2;
+                            }
+                            else if ((Main.game.getPlayer().getSubspecies() == Subspecies.WOLF_MORPH)){
+                                uniformPassable =  1;
+                                impersonatingBrax = 2;                                
                             }
                             else {
                                 uniformPassable = -1;
@@ -230,14 +250,14 @@ public class EnforcerAlleywayDialogue {
                             }
                             break;
                         case "name_elle":
-                            if(Main.game.getPlayer().getSubspecies() == Subspecies.HORSE_MORPH_UNICORN) {
-                                uniformPassable = 1;
-                                impersonatingElle = 1;
-                            }
                             // player sided with Wes and caused Elle to get enslaved
-                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_WES, Quest.WES_3_WES)) {
+                            if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_WES)) {
                                 uniformPassable = -1;
                                 impersonatingElle = -2;
+                            }
+                            else if (Main.game.getPlayer().getSubspecies() == Subspecies.HORSE_MORPH_UNICORN) {
+                                uniformPassable = 1;
+                                impersonatingElle = 1;
                             }
                             else {
                                 uniformPassable = -1;
@@ -245,14 +265,14 @@ public class EnforcerAlleywayDialogue {
                             }
                             break;
                         case "name_wesley":
-                            if(Main.game.getPlayer().getSubspecies() == Subspecies.FOX_MORPH) {
-                                uniformPassable = 1;
-                                impersonatingWes = 1;
-                            }
                             // player sided with Elle and caused Wes to get enslaved
-                            else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
+                            if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_WES, Quest.WES_3_ELLE)) {
                                 uniformPassable = -1;
                                 impersonatingWes = -2;
+                            }
+                            else if (Main.game.getPlayer().getSubspecies() == Subspecies.FOX_MORPH) {
+                                uniformPassable = 1;
+                                impersonatingWes = 1;
                             }
                             else {
                                 uniformPassable = -1;
@@ -302,7 +322,7 @@ public class EnforcerAlleywayDialogue {
                 }
             }
             
-            if((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa) >= 0) {
+            if((uniformPassable + impersonatingBrax + impersonatingCandi + impersonatingClaire + impersonatingElle + impersonatingWes + impersonatingNysa + impersonatingSean) >= 0) {
                 return true;
             }
             return false;
@@ -712,7 +732,67 @@ public class EnforcerAlleywayDialogue {
 									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
 				}
 				
-			} else {
+			} else if (Main.game.getPlayer().hasAnyEnforcerStatusEffect() && uniformPassable < 0) {
+                            if(index==1) {
+					return new ResponseCombat("Defend yourself",
+							"The Enforcers are determined to beat you!"
+									+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
+							(NPC)getEnforcerLeader(),
+							getEnforcers(),
+							Util.newHashMapOfValues(
+									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(Try to fool us, will you!)] [npc.name] shouts.")),
+									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(You just made a big mistake!)] [npc.name] exclaims."))));
+				}
+                            else if(index==2) {
+                                return new Response(UtilText.parse(getEnforcerLeader(), "Searched (<span style='color:"+getEnforcerLeader().getFemininity().getColour().toWebHexString()+";'>[npc.surname]</span>)"),
+								UtilText.parse(getEnforcerLeader(), "Do as [npc.name] says and surrender your disguise...")
+								+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+									?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
+									:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+										?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
+										:"")),
+								ENFORCER_ALLEYWAY_SEARCHED) {
+							@Override
+							public Colour getHighlightColour() {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+									return PresetColour.GENERIC_TERRIBLE;
+								}
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+									return PresetColour.GENERIC_BAD;
+								}
+								return super.getHighlightColour();
+							}
+							@Override
+							public void effects() {
+								isLeaderSearching = true;
+							}
+						};
+                            } else if(index==3) {
+                                return new Response(UtilText.parse(getEnforcerSubordinate(), "Searched (<span style='color:"+getEnforcerSubordinate().getFemininity().getColour().toWebHexString()+";'>[npc.surname]</span>)"),
+								UtilText.parse(getEnforcerSubordinate(),"Surrender your disguise but ask that [npc.name] to be the one to search you...")
+									+(playerContraband(ItemTag.CONTRABAND_HEAVY)
+										?"<br/>[style.italicsTerrible(Some of your items will be confiscated if you do this and you will be arrested!)]"
+										:(playerContraband(ItemTag.CONTRABAND_MEDIUM)
+											?"<br/>[style.italicsBad(Some of your items will be confiscated if you do this!)]"
+											:"")),
+								ENFORCER_ALLEYWAY_SEARCHED) {
+							@Override
+							public Colour getHighlightColour() {
+								if(playerContraband(ItemTag.CONTRABAND_HEAVY)) {
+									return PresetColour.GENERIC_TERRIBLE;
+								}
+								if(playerContraband(ItemTag.CONTRABAND_MEDIUM)) {
+									return PresetColour.GENERIC_BAD;
+								}
+								return super.getHighlightColour();
+							}
+							@Override
+							public void effects() {
+								isLeaderSearching = false;
+							}
+						};        
+                            }
+                        } else {
 				boolean foughtBefore = ((NPC)getEnforcerLeader()).getFoughtPlayerCount()>0;
 				boolean wantsToSearch = !isThinksPlayerEnforcer()
 						&& (Main.game.getPlayer().getRace()==Race.HUMAN || !Main.game.isDayTime())
