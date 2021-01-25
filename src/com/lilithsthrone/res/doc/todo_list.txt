@@ -46,6 +46,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed parsing errors, typos and minor issues in Nyan's updated quest content. (PR#1491 by AceXP)
 		Added new icons for eagle-harpies and fennec-foxes. (by NeverLucky)
 		Fixed bug where upon summoning your elemental for the first time, background errors would be thrown. (by AceXP)
+		Made artwork file extension checking case insensitive. (PR#1448 by CognitiveMist)
 		
 	DSG's Enforcer Item updates (PR#1490):
 		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
@@ -421,7 +422,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		PRs:
 			[] Nerf milk prices
 				[] PR1333
-			[] PR 1448
+			[x] PR 1448
 			[] PR 1442
 			
 		[] Nyan Dating
