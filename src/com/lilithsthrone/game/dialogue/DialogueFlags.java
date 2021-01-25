@@ -43,15 +43,6 @@ public class DialogueFlags implements XMLSaving {
 	
 	// Timers:
 	public Map<String, Long> savedLongs = new HashMap<>();
-//	public long ralphDiscountStartTime;
-//	public long kalahariBreakStartTime;
-//	public long daddyResetTimer;
-//	public long candiSexTimer;
-//	public long ralphSexTimer;
-//	public long impFortressAlphaDefeatedTime;
-//	public long impFortressDemonDefeatedTime;
-//	public long impFortressFemalesDefeatedTime;
-//	public long impFortressMalesDefeatedTime;
 	public int helenaSlaveOrderDay;
 
 	public int impCitadelImpWave;
@@ -245,6 +236,14 @@ public class DialogueFlags implements XMLSaving {
 				Element e = (Element) ((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").item(i);
 				
 				String id = e.getAttribute("id");
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.15")) {
+					if(id.equals("MACHINES")
+							|| id.equals("INTERCOM")
+							|| id.equals("BUSINESS")
+							|| id.equals("BOUNTY_HUNTERS")) {
+						id = "KAY_"+id;
+					}
+				}
 				newFlags.setSavedLong(id, Long.valueOf(e.getTextContent()));
 			}
 			

@@ -15797,6 +15797,20 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
+	 * @return true if the orifice is a vagina or anus and the insertion length of the penetrationType is >15% of the penetrated character's height.
+	 */
+	public static boolean isStomachBulging(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
+		if(!(orifice instanceof SexAreaOrifice) || (orifice!=SexAreaOrifice.VAGINA && orifice!=SexAreaOrifice.ANUS)) {
+			return false;
+		}
+		
+		float insertedLength = characterPenetrating.getPenetrationLengthInserted(penetrationType, characterPenetrated, (SexAreaOrifice)orifice);
+		float penetratedHeight = characterPenetrated.getHeightValue();
+		
+		return insertedLength > penetratedHeight*0.125f;
+	}
+	
+	/**
 	 * @return true if this character's penetrationType is not even 33% of the length required to comfortably reach the bottom of the characterPenetrated's orifice.
 	 *  i.e. Although this character is hilted in the orifice as deep as they can go, they are disappointingly short for the characterPenetrated.
 	 */
@@ -16579,15 +16593,15 @@ public abstract class GameCharacter implements XMLSaving {
 									+ ", [npc.name] [npc.verb(thrust)] [npc.her] "+name+" [style.italicsMinorGood(as deep as physically possible)] down [npc2.her] "+orificeName+"!");
 					} else {
 						sb.append("Encouraged by [npc2.namePos] eager [npc2.moans] betraying the fact that [npc2.sheIsFull] a "+Fetish.FETISH_SIZE_QUEEN.getName(characterPenetrated)
-									+ ", [npc.name] [npc.verb(thrust)] [npc.her] "+name+" [style.italicsMinorGood(as deep as physically possible)] into [npc2.her] "+orificeName);
+									+ ", [npc.name] [npc.verb(thrust)] [npc.her] "+name+" [style.italicsMinorGood(as deep as physically possible)] into [npc2.her] "+orificeName+"!");
 
-						if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
-								&& !characterPenetrated.isVisiblyPregnant()
-								&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
-							sb.append(", causing [npc2.her] stomach to visibly bulge!");
-						} else {
-							sb.append("!");
-						}
+//						if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
+//								&& !characterPenetrated.isVisiblyPregnant()
+//								&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
+//							sb.append(", causing [npc2.her] stomach to visibly bulge!");
+//						} else {
+//							sb.append("!");
+//						}
 					}
 					
 				} else {
@@ -16674,7 +16688,6 @@ public abstract class GameCharacter implements XMLSaving {
 					// Core penetration information is displayed last:
 					sb.append("<br/>[style.italicsSex([npc.Name] [npc.is] hilting the entire [style.sizeShort("+length+")] length of [npc.her] "+name+" in [npc2.namePos] "+orificeName+"!)]");
 				}
-
 			}
 			
 		} else { // The character being penetrated is the dom:
@@ -16747,18 +16760,18 @@ public abstract class GameCharacter implements XMLSaving {
 				} else if(characterPenetrated.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 					if(internalOrifice==SexAreaOrifice.MOUTH) {
 						sb.append("Being a "+Fetish.FETISH_SIZE_QUEEN.getName(characterPenetrated)
-									+ ", [npc2.name] eagerly [npc2.verb(take)] [npc.namePos] "+name+" [style.italicsMinorGood(as deep as physically possible)] down [npc2.her] "+orificeName+"");
+									+ ", [npc2.name] eagerly [npc2.verb(take)] [npc.namePos] "+name+" [style.italicsMinorGood(as deep as physically possible)] down [npc2.her] "+orificeName+"!");
 					} else {
 						sb.append("Being a "+Fetish.FETISH_SIZE_QUEEN.getName(characterPenetrated)
-						+ ", [npc2.name] eagerly [npc2.verb(take)] [npc.namePos] "+name+" [style.italicsMinorGood(as deep as physically possible)] into [npc2.her] "+orificeName+"");
+						+ ", [npc2.name] eagerly [npc2.verb(take)] [npc.namePos] "+name+" [style.italicsMinorGood(as deep as physically possible)] into [npc2.her] "+orificeName+"!");
 					}
-					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
-							&& !characterPenetrated.isVisiblyPregnant()
-							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
-						sb.append(", causing [npc2.her] stomach to visibly bulge!");
-					} else {
-						sb.append("!");
-					}
+//					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
+//							&& !characterPenetrated.isVisiblyPregnant()
+//							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
+//						sb.append(", causing [npc2.her] stomach to visibly bulge!");
+//					} else {
+//						sb.append("!");
+//					}
 					
 				} else if(characterPenetrated.hasFetish(Fetish.FETISH_MASOCHIST)) {
 					if(internalOrifice==SexAreaOrifice.MOUTH) {
@@ -16804,6 +16817,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		if(isStomachBulging(characterPenetrating, penetrationType, characterPenetrated, orifice)) {
+			if(sb.length()>0) {
+				sb.append("</br>");
+			}
+			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] cock is causing [npc2.namePos] stomach to bulge!)]");
+		}
 		
 		return UtilText.parse(characterPenetrating, characterPenetrated, sb.toString());
 	}
@@ -16830,8 +16849,8 @@ public abstract class GameCharacter implements XMLSaving {
 			orificeName = "throat";
 		}
 		
-		if(length<=comfortable) { // Too small:
-			if(characterPenetrating.isFullPenetrationFarTooShort(penetrationType, characterPenetrated, internalOrifice)) {
+		if(length<=comfortable) {
+			if(characterPenetrating.isFullPenetrationFarTooShort(penetrationType, characterPenetrated, internalOrifice)) { // Too small:
 				sb.append("[style.italicsBad(");
 					sb.append("[npc.NamePos] "+name+" is too short to give [npc2.name] much pleasure!");
 				sb.append(")]");
@@ -16840,26 +16859,26 @@ public abstract class GameCharacter implements XMLSaving {
 		} else if(penetratingDeep) { // Too deep:
 			if(characterPenetrated.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 				sb.append("[style.italicsSex(");
-					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
-							&& !characterPenetrated.isVisiblyPregnant()
-							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
-						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge, but as [npc2.sheIsFull] a size queen, [npc2.she] [npc2.verb(love)] it!");
-						
-					} else {
+//					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
+//							&& !characterPenetrated.isVisiblyPregnant()
+//							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
+//						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge, but as [npc2.sheIsFull] a size queen, [npc2.she] [npc2.verb(love)] it!");
+//						
+//					} else {
 						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", but as [npc2.sheIsFull] a size queen, [npc2.she] [npc2.verb(love)] it!");
-					}
+//					}
 				sb.append(")]");
 				
 			} else if(characterPenetrated.hasFetish(Fetish.FETISH_MASOCHIST)) {
 				sb.append("[style.italicsSex(");
-					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
-							&& !characterPenetrated.isVisiblyPregnant()
-							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
-						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge, but as [npc2.sheIsFull] a masochist, [npc2.she] [npc2.verb(love)] it!");
-						
-					} else {
+//					if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
+//							&& !characterPenetrated.isVisiblyPregnant()
+//							&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
+//						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge, but as [npc2.sheIsFull] a masochist, [npc2.she] [npc2.verb(love)] it!");
+//						
+//					} else {
 						sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", but as [npc2.sheIsFull] a masochist, [npc2.she] [npc2.verb(love)] it!");
-					}
+//					}
 				sb.append(")]");
 				
 			} else {
@@ -16867,17 +16886,23 @@ public abstract class GameCharacter implements XMLSaving {
 					if(internalOrifice==SexAreaOrifice.MOUTH) {
 						sb.append("[npc2.Name] [npc2.is] choking and spluttering on [npc.namePos] "+name+"!");
 					} else {
-						if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
-								&& !characterPenetrated.isVisiblyPregnant()
-								&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
-							sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge!");
-							
-						} else {
+//						if(characterPenetrating.isFullPenetrationTooLongToFit(penetrationType, characterPenetrated, internalOrifice)
+//								&& !characterPenetrated.isVisiblyPregnant()
+//								&& (orifice==SexAreaOrifice.VAGINA || orifice==SexAreaOrifice.ANUS)) {
+//							sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+", causing [npc2.her] stomach to visibly bulge!");
+//							
+//						} else {
 							sb.append("[npc.NamePos] "+name+" is thrusting too deeply into [npc2.namePos] "+orificeName+"!");
-						}
+//						}
 					}
 				sb.append(")]");
 			}
+		}
+		if(isStomachBulging(characterPenetrating, penetrationType, characterPenetrated, orifice)) {
+			if(sb.length()>0) {
+				sb.append("</br>");
+			}
+			sb.append("[style.italicsPinkDeep(The size of [npc.namePos] cock is causing [npc2.namePos] stomach to bulge!)]");
 		}
 		
 		if(sb.length()!=0) {
@@ -18022,7 +18047,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void resetDefaultMoves() {
 		if(!this.isPlayer()
-                && !(this.isElemental() && ((Elemental)this).getSummoner().isPlayer())
+				&& !(this.isElemental() && ((Elemental)this).getSummoner()!=null && ((Elemental)this).getSummoner().isPlayer())
 				&& (!this.isSlave() || !this.getOwner().isPlayer())
 				&& !Main.game.getPlayer().getParty().contains(this)) {
 			this.clearEquippedMoves();

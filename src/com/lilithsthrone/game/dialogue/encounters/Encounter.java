@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -629,8 +630,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS))),
+								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(npc.getSubspecies().getRace()==Race.HARPY)),
 							true);
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -690,8 +691,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS))),
+								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(npc.getSubspecies().getRace()==Race.HARPY)),
 							true);
 					
 					if(!offspringAvailable.isEmpty()) {
