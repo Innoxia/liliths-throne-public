@@ -167,7 +167,8 @@
 		#ENDIF
 	</p>
 	#IF(playerEnforcer)
-		#IF(game.getDialogueFlags().getSavedLong("uniform_passable") > 0)
+		
+		#ELSEIF(game.getDialogueFlags().getSavedLong("uniform_passable") > 0)
 			<p>
 				Seeing that you're wearing an Enforcer uniform, the two officers visibly relax, and the [npc.race] introduces [npc.herself] by saying, [npc.speech(I'm [npc.name], and this here's [npc2.name]. I didn't think that there were any other Enforcers assigned in this area...)]
 			</p>
