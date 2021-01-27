@@ -114,7 +114,7 @@ public enum SVGImages {
 
 			eggIncubation1, eggIncubation2, eggIncubation3,
 			
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTailSerpent, penetrationTypeTentacle, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationStretchRecoveryPrevented, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
@@ -747,6 +747,8 @@ public enum SVGImages {
 			penetrationTypePenis = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTail.svg");
 			penetrationTypeTail = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTailSerpent.svg");
+			penetrationTypeTailSerpent = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTentacle.svg");
 			penetrationTypeTentacle = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeTongue.svg");
@@ -1248,7 +1250,10 @@ public enum SVGImages {
 		return penetrationTypeFinger;
 	}
 	
-	public String getPenetrationTypeTail() {
+	public String getPenetrationTypeTail(boolean serpentTail) {
+		if(serpentTail) {
+			return penetrationTypeTailSerpent;
+		}
 		return penetrationTypeTail;
 	}
 	

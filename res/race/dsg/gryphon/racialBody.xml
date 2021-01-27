@@ -277,6 +277,7 @@
 	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/TailType.java -->
 	<tailTypes>
 		<type>dsg_gryphon_tail</type>
+		<type>dsg_gryphon_tailFeathers</type>
 	</tailTypes>
 	
 	

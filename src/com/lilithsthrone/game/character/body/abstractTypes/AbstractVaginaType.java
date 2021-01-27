@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -58,6 +56,8 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+
+	private boolean pubicHairAllowed;
 	
 	private boolean eggLayer;
 	
@@ -99,6 +99,8 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			String transformationDescription,
 			String bodyDescription,
 			List<OrificeModifier> defaultRacialOrificeModifiers) {
+		this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+		
 		this.coveringType = coveringType;
 		this.fluidType = fluidType;
 		this.race = race;
@@ -142,9 +144,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 	public AbstractVaginaType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -159,6 +159,11 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+
+				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
+					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+				}
 				
 				this.fluidType = FluidType.getFluidTypeFromId(coreElement.getMandatoryFirstOf("fluidType").getTextContent());
 				this.eggLayer = Boolean.valueOf(coreElement.getMandatoryFirstOf("eggLayer").getTextContent());
@@ -205,6 +210,10 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isPubicHairAllowed() {
+		return pubicHairAllowed;
+	}
+
 	@Override
 	public String getTransformationNameOverride() {
 		return transformationName;

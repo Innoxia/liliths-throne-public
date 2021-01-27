@@ -1840,11 +1840,7 @@ public class StatusEffect {
 			
 			ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(attMods));
 			fullModList.addAll(getExtraEffects(target));
-
-			if(target.isFeral()) {
-				fullModList.add("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(tripled)]");
-				fullModList.add("[style.colourExcellent(Immune)] to [style.colourGenericTf(racial transformations)]");
-			}
+			
 			return fullModList;
 		}
 		@Override
@@ -8779,7 +8775,7 @@ public class StatusEffect {
 			"Tentacle-grabbed",
 			"restrain_tentacles_1",
 			PresetColour.GENERIC_BAD,
-			PresetColour.BASE_ORANGE,
+			PresetColour.getColourFromId("NoStepOnSnek_octopus"),
 			null,
 			false,
 			Util.newHashMapOfValues(
@@ -8801,7 +8797,7 @@ public class StatusEffect {
 			"Tentacle-embraced",
 			"restrain_tentacles_2",
 			PresetColour.GENERIC_BAD,
-			PresetColour.BASE_ORANGE,
+			PresetColour.getColourFromId("NoStepOnSnek_octopus"),
 			null,
 			false,
 			Util.newHashMapOfValues(
@@ -8830,7 +8826,7 @@ public class StatusEffect {
 			"Tentacle-constricted",
 			"restrain_tentacles_3",
 			PresetColour.GENERIC_BAD,
-			PresetColour.BASE_ORANGE,
+			PresetColour.getColourFromId("NoStepOnSnek_octopus"),
 			null,
 			false,
 			Util.newHashMapOfValues(
@@ -8859,7 +8855,7 @@ public class StatusEffect {
 	public static AbstractStatusEffect TENTACLE_RESTRICTION_SEX = new AbstractStatusEffect(10,
 			"Tentacle-bound",
 			"immobilised_tentacles",
-			PresetColour.BASE_ORANGE,
+			PresetColour.getColourFromId("NoStepOnSnek_octopus"),
 			false,
 			null,
 			Util.newArrayListOfValues("[style.colourTerrible(Cannot move!)]")) {

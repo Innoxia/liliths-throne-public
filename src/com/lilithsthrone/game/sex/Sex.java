@@ -3794,11 +3794,21 @@ public class Sex {
 								}
 								break;
 							case TAIL:
-								if(orifice.isOrifice()) {
-									totalPenetratingDiameter += entry.getKey().getTailDiameter(
-											entry.getKey().getTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+								if(entry.getKey().getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+									if(orifice.isOrifice()) {
+										totalPenetratingDiameter += entry.getKey().getLegTailDiameter(
+												entry.getKey().getLegTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+									} else {
+										totalPenetratingDiameter += entry.getKey().getLegTailBaseDiameter();
+									}
+									
 								} else {
-									totalPenetratingDiameter += entry.getKey().getTailBaseDiameter();
+									if(orifice.isOrifice()) {
+										totalPenetratingDiameter += entry.getKey().getTailDiameter(
+												entry.getKey().getTailLength(false) - entry.getKey().getPenetrationLengthInserted(SexAreaPenetration.TAIL, characterPenetrated, (SexAreaOrifice) orifice));
+									} else {
+										totalPenetratingDiameter += entry.getKey().getTailBaseDiameter();
+									}
 								}
 								break;
 						}
@@ -4450,10 +4460,14 @@ public class Sex {
 				}
 				break;
 			case TAIL:
-				if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
-					return 0;
+				if(penetrator.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+					penetrationTypesAvailable = 1;
+				} else {
+					if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
+						return 0;
+					}
+					penetrationTypesAvailable = penetrator.getTailCount();
 				}
-				penetrationTypesAvailable = penetrator.getTailCount();
 				break;
 			case TENTACLE:
 				// Standing or not doesn't impact tentacle-legs, as they can always bend half-way to act as both support and a penetrative object

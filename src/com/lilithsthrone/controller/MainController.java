@@ -1198,10 +1198,10 @@ public class MainController implements Initializable {
 											} else {
 												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
 												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-												Main.game.getTextStartStringBuilder().append(
-														"<p style='text-align:center'>"
-															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
-														+ "</p>");
+												Main.game.getTextStartStringBuilder()
+													.append("<p style='text-align:center'>[style.italicsAir(")
+													.append(!Main.game.getPlayer().isAbleToFlyFromExtraParts() ? "With a flap of your wings, you" : "You")
+													.append(" launch yourself into the air, before swiftly flying to your destination!)]</p>");
 												Main.game.setContent(new Response("", "", dn) {
 													@Override
 													public int getSecondsPassed() {
@@ -2361,6 +2361,9 @@ public class MainController implements Initializable {
 	}
 	
 	public void setTooltipContent(String content) {
+		if (Main.getProperties().hasValue(PropertyValue.fadeInText)) {
+			content = "<div class='tooltip-animation' style='width: 100%;'>" + content + "</div>";
+		}
 		if(useJavascriptToSetContent) {
 			setWebEngineContent(webEngineTooltip, content);
 		} else {

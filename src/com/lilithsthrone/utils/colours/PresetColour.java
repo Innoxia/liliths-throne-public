@@ -171,6 +171,7 @@ public class PresetColour {
 	public static Colour RACE_REINDEER_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("reindeerMorph", "reindeer")) {};
 	public static Colour RACE_WOLF_MORPH = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("wolfMorph", "wolf")) {};
 	public static Colour RACE_FOX_MORPH = new Colour(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("foxMorph", "fox")) {};
+	public static Colour RACE_FOX_MORPH_FENNEC = new Colour(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy", Util.newArrayListOfValues("fennecFoxMorph", "fennecFox")) {};
 	public static Colour RACE_FOX_MORPH_ARCTIC = new Colour(false, BaseColour.WHITE, "white", Util.newArrayListOfValues("arcticFoxMorph", "arcticFox")) {};
 	public static Colour RACE_HARPY = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("harpy")) {};
 	public static Colour RACE_SLIME = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("slime")) {};

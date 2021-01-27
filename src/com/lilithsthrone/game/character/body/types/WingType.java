@@ -180,14 +180,6 @@ public class WingType {
 		public boolean isGeneric() {
 			return true;
 		}
-//		@Override
-//		public WingSize getMinimumSize() {
-//			return WingSize.ONE_SMALL;
-//		}
-//		@Override
-//		public WingSize getMaximumSize() {
-//			return WingSize.THREE_LARGE;
-//		}
 	};
 
 
@@ -300,7 +292,7 @@ public class WingType {
 		}
 		if(types.isEmpty()) {
 			for(AbstractWingType type : WingType.getAllWingTypes()) {
-				if(type.getRace()==Race.NONE) {
+				if(type.getRace()==Race.NONE && type != WingType.NONE) {
 					types.add(type);
 				}
 			}

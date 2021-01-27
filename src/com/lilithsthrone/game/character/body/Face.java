@@ -187,6 +187,10 @@ public class Face implements BodyPartInterface {
 			this.facialHair = facialHair;
 			return "";
 		}
+
+		if(!this.getType().isFacialHairAllowed()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.namePos] face type prevents [npc.herHim] from growing a beard, nothing happens...)]</p>");
+		}
 		
 		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.ZERO_NONE && !Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)) {
 			if(owner.isPlayer()) {

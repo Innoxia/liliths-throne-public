@@ -77,9 +77,9 @@ public class Tail implements BodyPartInterface {
 
 	public String setType(GameCharacter owner, AbstractTailType type) {
 		if(!Main.game.isStarted() || owner==null) {
-//			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
-//				type = TailType.NONE;
-//			}
+			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
+				type = TailType.NONE;
+			}
 			if(this.getLengthAsPercentageOfHeight()==this.getType().getDefaultLengthAsPercentageOfHeight()) {
 				this.setLengthAsPercentageOfHeight(owner, type.getDefaultLengthAsPercentageOfHeight());
 			}
@@ -92,10 +92,10 @@ public class Tail implements BodyPartInterface {
 
 		StringBuilder sb = new StringBuilder();
 		
-//		if(!owner.getLegConfiguration().isAbleToGrowTail() && type!=TailType.NONE) {
-//			type = TailType.NONE;
-//			sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Due to the fact that [npc.name] [npc.has] the '"+owner.getLegConfiguration().getName()+"' leg configuration, [npc.she] cannot grow a tail!)]</p>"));
-//		}
+		if(!owner.getLegConfiguration().isAbleToGrowTail() && type!=TailType.NONE) {
+			type = TailType.NONE;
+			sb.append(UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Due to the fact that [npc.name] [npc.has] the '"+owner.getLegConfiguration().getName()+"' leg configuration, [npc.she] cannot grow a tail!)]</p>"));
+		}
 		
 		if(type == getType()) {
 			if(type == TailType.NONE) {
@@ -246,7 +246,7 @@ public class Tail implements BodyPartInterface {
 		}
 
 		if(!owner.hasTail()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not [npc.has] a tail, nothing seems to happen...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not have a tail, nothing seems to happen...)]</p>");
 		}
 		
 		if(girthChange == 0) {
@@ -292,7 +292,7 @@ public class Tail implements BodyPartInterface {
 		}
 		
 		if(!owner.hasTail()) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not [npc.has] a tail, nothing seems to happen...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(As [npc.name] [npc.do] not have a tail, nothing seems to happen...)]</p>");
 		}
 		
 		if(lengthChange == 0) {

@@ -249,30 +249,10 @@ public class Kay extends NPC {
 			}
 			
 			if(isFeminine()) {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-girl";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-girl";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "woman";
-				} else {
-					return getSubspecies().getSingularFemaleName(this);
-				}
+				return getSubspecies().getSingularFemaleName(this);
 				
 			} else {
-				if(getSubspecies() == Subspecies.WOLF_MORPH && Main.game.isSillyModeEnabled()){
-					return "awoo-boi";
-				} else if(getSubspecies() == Subspecies.CAT_MORPH && Main.game.isSillyModeEnabled()){
-					return "catte-boi";
-				} else if(getSubspecies() == Subspecies.HARPY && Main.game.isSillyModeEnabled()){
-					return "birb";
-				} else if(getSubspecies()==Subspecies.HUMAN){
-					return "man";
-				} else {
-					return getSubspecies().getSingularMaleName(this);
-				}
+				return getSubspecies().getSingularMaleName(this);
 			}
 			
 		} else {

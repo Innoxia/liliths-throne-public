@@ -12,12 +12,13 @@ public enum RacialClass {
 	REPTILE(false, false),
 	AMPHIBIAN(false, false),
 	FISH(false, false),
+	INSECT(false, false),
 	
 	OTHER(true, true); // 'OTHER' could be things like slimes or elementals
 	
 	private boolean anthroHair;
 	private boolean anthroBreasts;
-
+	
 	private RacialClass(boolean anthroHair, boolean anthroBreasts) {
 		this.anthroHair = anthroHair;
 		this.anthroBreasts = anthroBreasts;

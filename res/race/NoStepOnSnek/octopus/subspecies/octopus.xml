@@ -27,19 +27,27 @@
 	<basicDescriptionId>OCTOPUS_BASIC</basicDescriptionId>
 	<advancedDescriptionId>OCTOPUS_ADVANCED</advancedDescriptionId>
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
-	<name><![CDATA[octopus-morph]]></name>
-	<namePlural><![CDATA[octopus-morphs]]></namePlural>
-	<singularMaleName><![CDATA[octopus-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[octopus-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[octopus-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[octopus-girls]]></pluralFemaleName>
-	<description><![CDATA[An anthropomorphic octopus, known as a 'octopus-morph'.]]></description>
-	<nameHalfDemon><![CDATA[kraken]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[krakens]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[kraken]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[kraken]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[krakens]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[krakens]]></pluralFemaleNameHalfDemon>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[octopus-morph]]></name>
+			<namePlural><![CDATA[octopus-morphs]]></namePlural>
+			<singularMaleName><![CDATA[octopus-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[octopus-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[octopus-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[octopus-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	<description><![CDATA[An anthropomorphic octopus, known as an 'octopus-morph'.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[kraken]]></name>
+			<namePlural><![CDATA[krakens]]></namePlural>
+			<singularMaleName><![CDATA[kraken]]></singularMaleName>
+			<singularFemaleName><![CDATA[kraken]]></singularFemaleName>
+			<pluralMaleName><![CDATA[krakens]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[krakens]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[octopus]]></feralName>
 		<feralNamePlural><![CDATA[octopuses]]></feralNamePlural>
@@ -80,5 +88,9 @@
 	<worldLocations>
 		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
 	</worldLocations>
+	<placeLocations>
+		<place rarity="TWO_RARE">DOMINION_CANAL</place>
+		<place rarity="TWO_RARE">DOMINION_ALLEYS_CANAL_CROSSING</place>
+	</placeLocations>
 	<flags/>
 </subspecies>

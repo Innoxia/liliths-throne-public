@@ -125,7 +125,7 @@ public class DominionEncounterDialogue {
 		@Override
 		public String getContent() {
 			if(Main.game.getDateNow().getMonth()==Month.MAY) { // Mother's day:
-				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, false).keySet()).getSingularFemaleName(null);
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.DOMINION_STREET, false).keySet()).getSingularFemaleName(null);
 				String litter = Util.randomItemFrom(new String[] {"twins", "triplets", "quadruplets", "quintuplets", "sextuplets"});
 				UtilText.addSpecialParsingString(name, true);
 				UtilText.addSpecialParsingString(litter, false);
@@ -133,7 +133,7 @@ public class DominionEncounterDialogue {
 				return UtilText.parseFromXMLFile("encounters/dominion/generic", "DOMINION_STREET_PILL_HANDOUT_MOTHER");
 				
 			} else { // Father's day:
-				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, false).keySet()).getSingularMaleName(null);
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.DOMINION_STREET, false).keySet()).getSingularMaleName(null);
 				UtilText.addSpecialParsingString(name, true);
 
 				return UtilText.parseFromXMLFile("encounters/dominion/generic", "DOMINION_STREET_PILL_HANDOUT_FATHER");

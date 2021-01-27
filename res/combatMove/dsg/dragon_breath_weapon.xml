@@ -8,7 +8,7 @@
 	
 	<!-- What kind of attack this is, which primarily determines when and how often NPCs will decide to use this attack during combat.
 	All available values of CombatMoveType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/moves/CombatMoveType.java -->
-	<type>ATTACK</type>
+	<type>POWER</type>
 	
 	<!-- How likely it is that the NPC who has this move available to them will select it as one of their equipped moves.
 	The default weighting is 1, and if you want it to be more likely to be chosen, then give it a higher weighting. -->
@@ -46,14 +46,18 @@
 		#IF(npc.isSpeechMuffled())
 			0
 		#ELSEIF(npc.getFaceRace()==RACE_dsg_dragon && npc.getSkinRace()==RACE_dsg_dragon)
-			[#75 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
+			150
 		#ELSEIF(npc.getFaceRace()==RACE_dsg_dragon || npc.getSkinRace()==RACE_dsg_dragon)
-			[#50 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
+			100
 		#ELSE
-			[#20 * (1 + npc.getAttributeValue(ATTRIBUTE_DAMAGE_SPELLS) / 100.0)]
+			40
 		#ENDIF
 	]]></baseDamage>
-	
+
+	<!-- The damage variance of this attack, optional
+	All available values of DamageVariance can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageVariance.java -->
+	<damageVariance>LOW</damageVariance>
+
 	<!-- How much damage this move blocks.
 	The block type corresponds to the 'damageType' defined above.
 	The parsing target of 'npc' corresponds to the character who is performing the move.

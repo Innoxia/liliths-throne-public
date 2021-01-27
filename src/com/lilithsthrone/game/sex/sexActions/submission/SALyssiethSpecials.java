@@ -74,7 +74,7 @@ public class SALyssiethSpecials {
 	public static final void playerGrowDemonicPenis() {
 		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 		Main.game.getPlayer().setPenisSize(20);
-		Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_THICK.getValue());
+		Main.game.getPlayer().setPenisGirth(PenetrationGirth.FOUR_GIRTHY.getValue());
 		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
 		Main.game.getPlayer().setPenisCumStorage(750);
 		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());

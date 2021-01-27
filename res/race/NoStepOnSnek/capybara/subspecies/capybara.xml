@@ -27,19 +27,27 @@
 	<basicDescriptionId>CAPYBARA_BASIC</basicDescriptionId>
 	<advancedDescriptionId>CAPYBARA_ADVANCED</advancedDescriptionId>
 	<defaultPreference>TWO_AVERAGE</defaultPreference>
-	<name><![CDATA[capybara-morph]]></name>
-	<namePlural><![CDATA[capybara-morphs]]></namePlural>
-	<singularMaleName><![CDATA[capybara-boy]]></singularMaleName>
-	<singularFemaleName><![CDATA[capybara-girl]]></singularFemaleName>
-	<pluralMaleName><![CDATA[capybara-boys]]></pluralMaleName>
-	<pluralFemaleName><![CDATA[capybara-girls]]></pluralFemaleName>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[capybara-morph]]></name>
+			<namePlural><![CDATA[capybara-morphs]]></namePlural>
+			<singularMaleName><![CDATA[capybara-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[capybara-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[capybara-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[capybara-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
 	<description><![CDATA[An anthropomorphic capybara, known as a 'capybara-morph' when bipedal, and a 'capybarataur' when the lower body is that of a typically-oversized feral capybara.]]></description>
-	<nameHalfDemon><![CDATA[demonic-capybara]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[demonic-capybaras]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[demonic-capybara-boy]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[demonic-capybara-girl]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[demonic-capybara-boys]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[demonic-capybara-girls]]></pluralFemaleNameHalfDemon>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[demonic-capybara]]></name>
+			<namePlural><![CDATA[demonic-capybaras]]></namePlural>
+			<singularMaleName><![CDATA[demonic-capybara-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[demonic-capybara-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[demonic-capybara-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[demonic-capybara-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
 	<feralAttributes>
 		<feralName><![CDATA[capybara]]></feralName>
 		<feralNamePlural><![CDATA[capybara]]></feralNamePlural>

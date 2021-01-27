@@ -46,7 +46,8 @@
 	
 	<!-- The singular and plural name of this leg type.
 	These should be left as 'leg' and 'legs' for standard leg types.
-	The values 'tail/tails', 'tentacle/tentacles' should be used if this leg type is a serpent/fish tail or a collection of tentacles, respectively. -->
+	The values 'tail/tails', 'tentacle/tentacles' should be used if this leg type is a serpent/fish tail or a collection of tentacles, respectively.
+	UPDATE: As of version 0.3.14, these values are overridden based on the character's leg configuration, so it doesn't really matter what you put here (although you should probably leave it as a sensible value).-->
 	<name><![CDATA[leg]]></name>
 	<namePlural><![CDATA[legs]]></namePlural> 
 	
