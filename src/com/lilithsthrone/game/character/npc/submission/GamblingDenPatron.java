@@ -75,11 +75,11 @@ public class GamblingDenPatron extends NPC {
 				if(s==Subspecies.SLIME) {
 					AbstractSubspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
+					AbstractSubspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					
-				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
-					AbstractSubspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false).containsKey(s) && s!=Subspecies.IMP && s!=Subspecies.IMP_ALPHA) {
+					AbstractSubspecies.addToSubspeciesMap((int) (25 * Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			

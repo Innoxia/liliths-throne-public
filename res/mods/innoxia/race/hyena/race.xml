@@ -20,6 +20,9 @@
 	<name><![CDATA[hyena-morph]]></name>
 	<namePlural><![CDATA[hyena-morphs]]></namePlural>
 	
+	<!-- You can also define names for use in the game's silly mode by creating elements identical to the 'name' and 'namePlural' ones above, but instead calling them 'nameSillyMode' and namePluralSillyMode.
+	See the 'res/race/NoStepOnSnek/snake/race.xml' file for an example in use. -->
+	
 	<!-- The non-gendered name and plural name of this race when in feral form.
 	The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
 	LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java

@@ -471,7 +471,7 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						return PenisLength.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
-						return PenetrationGirth.SIX_GIRTHY.getValue();
+						return PenetrationGirth.SIX_CHUBBY.getValue();
 					case TF_MOD_SIZE_TERTIARY:
 						return TesticleSize.SEVEN_ABSURD.getValue();
 					case TF_MOD_WETNESS:
@@ -2351,6 +2351,7 @@ public abstract class AbstractItemEffectType {
 				}
 				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.TAIL_LONG))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				}
 				if(LegType.getLegTypes(race).stream().anyMatch(lt->lt.isLegConfigurationAvailable(LegConfiguration.TAIL))) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_LEG_CONFIG_TAIL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
@@ -3853,6 +3854,34 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil(" Transforms foot structure to be unguligrade.") {
 							@Override public String applyEffect() { return target.setFootStructure(FootStructure.UNGULIGRADE); } };
 
+					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in serpent-tail length. (" + mediumChangeMajorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeMajorDrain/100f); }
+									};
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in serpent-tail length. (" + mediumChangeDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeDrain/100f); }
+									};
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in serpent-tail length. (" + mediumChangeMinorDrain + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeMinorDrain/100f); }
+									};
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in serpent-tail length. (+" + mediumChangeMinorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeMinorBoost/100f); }
+									};
+							case BOOST:
+								return new RacialEffectUtil("Increase in serpent-tail length. (+" + mediumChangeBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeBoost/100f); }
+									};
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in serpent-tail length. (+" + mediumChangeMajorBoost + "%)") {
+										@Override public String applyEffect() { return target.incrementLegTailLengthAsPercentageOfHeight(mediumChangeMajorBoost/100f); }
+									};
+						}
+						
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:

@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.3.9
+ * @version 0.4
  * @author Innoxia
  */
 public enum PenetrationGirth {
@@ -18,11 +18,13 @@ public enum PenetrationGirth {
 	
 	THREE_AVERAGE(3, 0, "averagely-girthed", PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_THICK(4, 0.2f, "thick", PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_GIRTHY(4, 0.2f, "girthy", PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_FAT(5, 0.4f, "fat", PresetColour.GENERIC_SIZE_SIX),
+	FIVE_THICK(5, 0.4f, "thick", PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_GIRTHY(6, 0.8f, "girthy", PresetColour.GENERIC_SIZE_SEVEN);
+	SIX_CHUBBY(6, 0.6f, "chubby", PresetColour.GENERIC_SIZE_SEVEN),
+	
+	SEVEN_FAT(7, 0.8f, "fat", PresetColour.GENERIC_SIZE_EIGHT);
 	
 	
 	private int value;
@@ -62,7 +64,7 @@ public enum PenetrationGirth {
 	}
 	
 	public static int getMaximum() {
-		return SIX_GIRTHY.getValue();
+		return SEVEN_FAT.getValue();
 	}
 	
 	public Colour getColour() {

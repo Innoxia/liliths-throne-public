@@ -6,18 +6,18 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.86
- * @version 0.2.11
+ * @version 0.4
  * @author Innoxia
  */
 public enum Height {
 	
 	// Need to standardise to 1.5 each category
 
-//	/**6" to 2'*/
-	NEGATIVE_THREE_MIMIMUM("fairy-sized", 15, 61, PresetColour.GENERIC_SIZE_ONE),
+	/**6" to 2'*/
+	NEGATIVE_THREE_MINIMUM("fairy-sized", 15, 61, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**2' to 3'6"*/
-	NEGATIVE_TWO_MIMIMUM("very tiny", 61, 106, PresetColour.GENERIC_SIZE_ONE),
+	NEGATIVE_TWO_MINIMUM("very tiny", 61, 106, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**3'6" to 4'*/
 	NEGATIVE_ONE_TINY("tiny", 106, 122, PresetColour.GENERIC_SIZE_ONE),

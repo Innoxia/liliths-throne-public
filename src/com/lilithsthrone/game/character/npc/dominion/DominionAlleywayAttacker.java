@@ -96,13 +96,12 @@ public class DominionAlleywayAttacker extends NPC {
 					}
 					
 				} else {
-					if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
-						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					if(Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).containsKey(s)) {
+						AbstractSubspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
-					if(canalSpecies) {
-						if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
-							AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
-						}
+					if(canalSpecies && Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).containsKey(s)) {
+//						System.out.println(s.getName(null));
+						AbstractSubspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, pt, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 					}
 				}
 			}
@@ -116,7 +115,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 					&& this.isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) { // Taur spawn rate
 				Main.game.getCharacterUtils().applyTaurConversion(this);
 			}

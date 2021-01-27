@@ -71,6 +71,9 @@ public enum BodyPartTag {
 	 * Should probably be added to every hair type unless it would be impossible to comfortably grab (e.g. if the hair type was sharp, pointy scales or something). */
 	HAIR_HANDLES_IN_SEX,
 	
+	/** Tags the hair as being naturally styled into a mane. */
+	HAIR_NATURAL_MANE,
+	
 	
 	// Tail (these are also used for tentacles):
 

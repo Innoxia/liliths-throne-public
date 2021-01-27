@@ -15,8 +15,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.script.ScriptException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
@@ -26,6 +24,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -185,9 +184,7 @@ public abstract class AbstractStatusEffect {
 	public AbstractStatusEffect(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -936,7 +933,7 @@ public abstract class AbstractStatusEffect {
 						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 						break;
 					case TAIL:
-						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
 						break;
 					case TONGUE:
 						SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
@@ -973,6 +970,7 @@ public abstract class AbstractStatusEffect {
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(owner, orifice).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
+						GameCharacter penetrationOwner = Main.sex.getOngoingCharactersUsingAreas(owner, orifice, sArea).iterator().next();
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
@@ -981,7 +979,8 @@ public abstract class AbstractStatusEffect {
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
 								break;
 							case TAIL:
-								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"
+										+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail(penetrationOwner.getLegConfiguration()==LegConfiguration.TAIL_LONG)+"</div>");
 								break;
 							case TONGUE:
 								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");

@@ -1024,8 +1024,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public int getValue() {
 		float modifier = 1;
 
-		if(this.getRarity()==Rarity.JINXED) {
+		if(!enchantmentKnown) {
 			modifier -= 0.5f;
+		}
+		
+		if(this.getRarity()==Rarity.JINXED) {
+			modifier -= 0.25f;
 		}
 		
 		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {
@@ -1064,9 +1068,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public int getPrice(float modifier) {
-		if(!enchantmentKnown) {
-			return 50;
-		}
 		return super.getPrice(modifier);
 	}
 	

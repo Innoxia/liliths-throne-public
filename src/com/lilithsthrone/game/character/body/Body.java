@@ -2035,13 +2035,27 @@ public class Body implements XMLSaving {
 		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
 		// Describe race:
 		sb.append(getHeader("Overview"));
+		
+		String heightDescription = " Standing at full height, [npc.she] [npc.verb(measure)] [npc.heightValue]";
+		if(owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()) {
+			if(owner.getLegConfiguration()==LegConfiguration.TAIL_LONG) {
+				heightDescription = " [npc.Her] body measures [npc.heightValue], which combined with [npc.her] [npc.tailLength]-long tail, gives [npc.herHim] a total length of "
+						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				
+//				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] "
+//						+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+			} else {
+				heightDescription = " From head to tail,  [npc.she] [npc.verb(measure)] [npc.heightValue]";
+			}
+		}
+		
 		if (owner.isPlayer()) {
 			sb.append("You are [pc.name], "
 							+(owner.getRace()==Race.HUMAN
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
 								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+" Standing at full height, you measure [pc.heightValue].");
+						+heightDescription+".");
 		} else {
 			if(owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer()) && owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
 				sb.append("[npc.Name] is "
@@ -2049,20 +2063,21 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+						+ heightDescription);
 			} else {
 				if(observant) {
 					sb.append("Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+							+ heightDescription);
 				} else {
 					sb.append("[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightValue]");
+								+ heightDescription);
 				}
 			}
 			if(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())) {
-				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>significantly taller</span> than you.");
+				String descriptor = owner.isFeral() && !owner.getFeralAttributes().isSizeHeight()?"longer":"taller";
+				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_FOUR.toWebHexString()+";'>significantly "+descriptor+"</span> than you.");
 			} else if(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())) {
 				sb.append(", making [npc.herHim] <span style='color:"+PresetColour.BODY_SIZE_ZERO.toWebHexString()+";'>significantly shorter</span> than you.");
 			} else {
@@ -2122,7 +2137,8 @@ public class Body implements XMLSaving {
 					sb.append(" [style.colourFeral([npc.Her] entire body has transformed into that of a feral [npc.legRace]."
 							+ " [npc.Her] ass and genitals have shifted to be located within a cloaca on the underside of [npc.her] feral body.)]");
 				} else {
-					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace], which measures "+Units.size(owner.getHeightValue()*5)+" in length."
+					sb.append(" [style.colourFeral([npc.Her] entire lower body, from the waist down, has transformed into the long tail of [npc.a_legRace],"
+								+ " which measures "+Units.size(owner.getLegTailLength(false))+" in length."
 							+ " [npc.Her] ass and genitals are completely feral in nature, and, in a manner identical to that of [npc.a_assRace], have shifted to be located within a front-facing cloaca.)]");
 				}
 				break;
@@ -2186,94 +2202,90 @@ public class Body implements XMLSaving {
 		} else {
 			sb.append(" "+hair.getType().getBodyDescription(owner));
 			
+			if(hair.getType().getTags().contains(BodyPartTag.HAIR_NATURAL_MANE) && owner.getFaceType().getRace()==hair.getType().getRace()) {
+				sb.append(", which forms a mane running down the back of [npc.her] neck and which "); // If hair and face races match, the mane is fully formed
+			} else {
+				sb.append(", which ");
+			}
+			
 			switch (hair.getStyle()) {
 				case NONE:
-					if(owner.isFeral()) {
-						if(owner.getLegConfiguration()==LegConfiguration.AVIAN) {
-							sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" naturally styled into a plume of head-feathers.");
-						} else {
-							sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" naturally styled into a mane.");
-						}
-					} else if(owner.getFaceType()==FaceType.HORSE_MORPH) {
-						sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" naturally styled into a horse-like mane.");
-					} else {
-						sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" unstyled.");
-					}
+					sb.append((hair.getType().isDefaultPlural(owner)?"are":"is")+" unstyled.");
 					break;
 				case BRAIDED:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into a long braid.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into a long braid.");
 					break;
 				case CURLY:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been curled and left loose.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been curled and left loose.");
 					break;
 				case LOOSE:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" left loose and unstyled.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"are":"is")+" left loose and unstyled.");
 					break;
 				case PONYTAIL:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a ponytail.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a ponytail.");
 					break;
 				case STRAIGHT:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened and left loose.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened and left loose.");
 					break;
 				case TWIN_TAILS:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into twin tails.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into twin tails.");
 					break;
 				case WAVY:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into waves and left loose.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into waves and left loose.");
 					break;
 				case MOHAWK:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a mohawk.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a mohawk.");
 					break;
 				case AFRO:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into an afro.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into an afro.");
 					break;
 				case SIDECUT:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a sidecut.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a sidecut.");
 					break;
 				case BOB_CUT:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a bob cut.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a bob cut.");
 					break;
 				case PIXIE:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a pixie-cut.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a pixie-cut.");
 					break;
 				case SLICKED_BACK:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been slicked back.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been slicked back.");
 					break;
 				case MESSY:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"are":"is")+" unstyled and very messy.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"are":"is")+" unstyled and very messy.");
 					break;
 				case HIME_CUT:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened and styled into a hime cut.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened and styled into a hime cut.");
 					break;
 				case CHONMAGE:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened, oiled and styled into a chonmage topknot.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been straightened, oiled and styled into a chonmage topknot.");
 					break;
 				case TOPKNOT:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a topknot.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a topknot.");
 					break;
 				case DREADLOCKS:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into dreadlocks.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into dreadlocks.");
 					break;
 				case BIRD_CAGE:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into an elaborate bird cage"+UtilText.returnStringAtRandom(".",", birds not included."));
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into an elaborate bird cage"+UtilText.returnStringAtRandom(".",", birds not included."));
 					break;
 				case TWIN_BRAIDS:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into long twin braids.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into long twin braids.");
 					break;
 				case DRILLS:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into drills.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into drills.");
 					break;
 				case LOW_PONYTAIL:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a low ponytail.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a low ponytail.");
 					break;
 				case CROWN_BRAID:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into a "+UtilText.returnStringAtRandom("crown of braids.","braided crown."));
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into a "+UtilText.returnStringAtRandom("crown of braids.","braided crown."));
 					break;
 				case BUN:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a bun.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been styled into a bun.");
 					break;
 				case CHIGNON:
-					sb.append(", which "+(hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
+					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been tied up into a chignon.");
 					break;
 			}
 		}
@@ -2848,7 +2860,16 @@ public class Body implements XMLSaving {
 					sb.append(feralLegsPrefix).append("[npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append(feralLegsPrefix).append("long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
+					if(!owner.isFeral()) {
+						sb.append(" It forms the majority of [npc.her] body's [npc.heightValue]-length,");
+						sb.append(" and from [npc.her] head, it tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+						sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted. ");
+					} else {
+						sb.append(" Its [npc.tailLength]-length contributes to [npc.her] body's total length of "+Units.size(owner.getHeightValue()+owner.getLegTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG)+".");
+						sb.append(" It tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+						sb.append(" When used to penetrate an orifice, both [npc.her] tail and body can be inserted, up to a maximum of [npc.tailPenetrationLength(true)]. ");
+					}
 					break;
 				case QUADRUPEDAL:
 				case WINGED_BIPED:
@@ -2860,6 +2881,7 @@ public class Body implements XMLSaving {
 			} else {
 				sb.append("It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
 			}
+			
 		} else {
 			switch(owner.getLegConfiguration()) {
 				case ARACHNID:
@@ -2873,14 +2895,21 @@ public class Body implements XMLSaving {
 					sb.append("[npc.Her] [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. ");
 					break;
 				case TAIL_LONG:
-					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)]. It measures ").append(Units.size(owner.getHeightValue()*5)).append(" in length. ");
+					sb.append("[npc.Her] long [npc.legRace]'s tail, which [npc.sheHasFull] in place of legs, is entirely [style.colourFeral(feral in nature)].");
+					sb.append(" It measures ").append(Units.size(owner.getLegTailLength(false))).append(" in length,");
+					sb.append(" and tapers off at a steady rate towards the tip, where it ends with a diameter of [npc.tailTipDiameter(true)] ([npc.tailTipCircumference(true)] in circumference).");
+					sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 					break;
 				case QUADRUPEDAL:
 				case WINGED_BIPED:
 					sb.append("[npc.Her] [npc.legs], being part of [npc.her] [npc.legRace]'s body, are entirely [style.colourFeral(feral in nature)]. ");
 					break;
 			}
-			sb.append(leg.getType().getBodyDescription(owner));
+			if(owner.getLegConfiguration().getNumberOfLegs()>0) {
+				sb.append(leg.getType().getBodyDescription(owner));
+			} else {
+				sb.append(" It is [npc.materialCompositionDescriptor] [npc.legFullDescription(true)].");
+			}
 		}
 
 		if(owner.getLegConfiguration().getNumberOfLegs()>0) {
@@ -3821,8 +3850,10 @@ public class Body implements XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-				case INVERTED:
 					descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
+					break;
+				case INVERTED:
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)], inverted");
 					break;
 				case LIPS:
 					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
@@ -4087,9 +4118,11 @@ public class Body implements XMLSaving {
 			}
 			
 			switch(owner.getNippleCrotchShape()) {
-				case INVERTED:
 				case NORMAL:
 					descriptionSB.append(" [npc.crotchNipplePrimaryColour(true)]");
+					break;
+				case INVERTED:
+					descriptionSB.append(" [npc.crotchNipplePrimaryColour(true)], inverted");
 					break;
 				case LIPS:
 					descriptionSB.append(" [npc.crotchNipplePrimaryColour(true)]-lipped");
@@ -4307,7 +4340,7 @@ public class Body implements XMLSaving {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawLengthValue() * 2.25f),
 					false,
-					PenetrationGirth.FIVE_FAT.getValue(),
+					PenetrationGirth.FIVE_THICK.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
@@ -5881,7 +5914,7 @@ public class Body implements XMLSaving {
 			return false;
 		}
 		
-		this.height = Math.max(Height.NEGATIVE_THREE_MIMIMUM.getMinimumValue(), Math.min(height, Height.SEVEN_COLOSSAL.getMaximumValue()));
+		this.height = Math.max(Height.NEGATIVE_THREE_MINIMUM.getMinimumValue(), Math.min(height, Height.SEVEN_COLOSSAL.getMaximumValue()));
 
 		return true;
 	}
@@ -6042,8 +6075,11 @@ public class Body implements XMLSaving {
 				false);
 		
 		// Set feral-specific attributes:
-		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
+		this.getLeg().getType().applyLegConfigurationTransformation(this, attributes.getLegConfiguration(), true);
+		
+//		this.getLeg().setLegConfigurationForced(this.getLeg().getType(), attributes.getLegConfiguration());
 		this.setHeight(attributes.getSize());
+		this.getLeg().setLengthAsPercentageOfHeight(null, attributes.getSerpentTailLength());
 		
 		// Set breast and crotch-boob counts:
 		this.getBreast().setRows(null, attributes.getBreastRowCount());

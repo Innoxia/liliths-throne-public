@@ -8,7 +8,7 @@
 		<name><![CDATA[pistol crossbow]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pistol crossbows]]></namePlural>
 		<description><![CDATA[Consisting of a bow-like assembly mounted horizontally on a pistol-shaped frame, this small crossbow can easily be wielded in one hand. When the string is drawn back, an arcane essence is extracted from the wielder and converted into an ethereal bolt, ready to be fired at a target.]]></description>
-		<attackDescriptor>fire</attackDescriptor>
+		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription>Shoot [npc2.name] with your pistol crossbow.</attackTooltipDescription>
 		<rarity>COMMON</rarity>
 		<weaponSet/>

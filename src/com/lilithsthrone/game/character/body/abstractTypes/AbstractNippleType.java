@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -15,7 +13,6 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
@@ -69,9 +66,7 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 	public AbstractNippleType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -142,15 +137,9 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 			case LIPS:
 				return  UtilText.returnStringAtRandom("lipple", "nipple-lip");
 			case INVERTED:
-				if(gc.hasBreasts()) {
-					return UtilText.returnStringAtRandom("inverted nipple", "inverted teat");
-				} else {
-					return "inverted nipple";
-				}
 			case NORMAL:
 				if(gc.hasBreasts()) {
 					return UtilText.returnStringAtRandom("nipple", "teat");
-					
 				} else {
 					return "nipple";
 				}
@@ -166,11 +155,6 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 			case LIPS:
 				return  UtilText.returnStringAtRandom("lipples", "nipple-lips");
 			case INVERTED:
-				if(gc.hasBreasts()) {
-					return UtilText.returnStringAtRandom("inverted nipples", "inverted teats");
-				} else {
-					return "inverted nipples";
-				}
 			case NORMAL:
 				if(gc.hasBreasts()) {
 					return UtilText.returnStringAtRandom("nipples", "teats");
@@ -183,94 +167,36 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 		return "";
 	}
 
-	// Not used for now, due to being terrible:
 	public String getNameCrotchSingular(GameCharacter gc) {
-		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
-			switch(gc.getNippleShape()) {
-				case LIPS:
-					return  UtilText.returnStringAtRandom("udder-lipple", "udder-nipple-lip");
-				case INVERTED:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("inverted udder-nipple", "inverted udder-teat");
-					} else {
-						return "inverted udder-nipple";
-					}
-				case NORMAL:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("udder-nipple", "udder-teat");
-					} else {
-						return "udder-nipple";
-					}
-				case VAGINA:
-					return UtilText.returnStringAtRandom("udder-nipple-cunt", "udder-nipple-pussy");
-			}
-			
-		} else {
-			switch(gc.getNippleShape()) {
-				case LIPS:
-					return  UtilText.returnStringAtRandom("crotch-lipple", "crotch-nipple-lip");
-				case INVERTED:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("inverted crotch-nipple", "inverted crotch-teat");
-					} else {
-						return "inverted crotch-nipple";
-					}
-				case NORMAL:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("crotch-nipple", "crotch-teat");
-						
-					} else {
-						return "crotch-nipple";
-					}
-				case VAGINA:
-					return UtilText.returnStringAtRandom("crotch-nipple-cunt", "crotch-nipple-pussy");
-			}
+		switch(gc.getNippleCrotchShape()) {
+			case LIPS:
+				return  UtilText.returnStringAtRandom("lipple", "nipple-lip");
+			case INVERTED:
+			case NORMAL:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("nipple", "teat");
+				} else {
+					return "nipple";
+				}
+			case VAGINA:
+				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
 		}
 		return "";
 	}
-
-	// Not used for now, due to being terrible:
+	
 	public String getNameCrotchPlural(GameCharacter gc) {
-		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
-			switch(gc.getNippleShape()) {
-				case LIPS:
-					return  UtilText.returnStringAtRandom("udder-lipples", "udder-nipple-lips");
-				case INVERTED:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("inverted udder-nipples", "inverted udder-teats");
-					} else {
-						return "inverted udder-nipples";
-					}
-				case NORMAL:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("udder-nipples", "udder-teats");
-						
-					} else {
-						return "udder-nipples";
-					}
-				case VAGINA:
-					return UtilText.returnStringAtRandom("udder-nipple-cunts", "udder-nipple-pussies");
-			}
-		} else {
-			switch(gc.getNippleShape()) {
-				case LIPS:
-					return  UtilText.returnStringAtRandom("crotch-lipples", "crotch-nipple-lips");
-				case INVERTED:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("inverted crotch-nipples", "inverted crotch-teats");
-					} else {
-						return "inverted crotch-nipples";
-					}
-				case NORMAL:
-					if(gc.hasBreasts()) {
-						return UtilText.returnStringAtRandom("crotch-nipples", "crotch-teats");
-						
-					} else {
-						return "crotch-nipples";
-					}
-				case VAGINA:
-					return UtilText.returnStringAtRandom("crotch-nipple-cunts", "crotch-nipple-pussies");
-			}
+		switch(gc.getNippleCrotchShape()) {
+			case LIPS:
+				return  UtilText.returnStringAtRandom("lipples", "nipple-lips");
+			case INVERTED:
+			case NORMAL:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("nipples", "teats");
+				} else {
+					return "nipples";
+				}
+			case VAGINA:
+				return UtilText.returnStringAtRandom("nipple-cunts", "nipple-pussies");
 		}
 		return "";
 	}

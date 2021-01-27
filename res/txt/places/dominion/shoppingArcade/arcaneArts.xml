@@ -4,7 +4,7 @@
 	<htmlContent tag="EXTERIOR"><![CDATA[
 		#IF(game.isExtendedWorkTime())
 			<p>
-				You find yourself standing in front of a rather peculiar shop. Although there's a sign declaring 'Arcane Arts' to be [style.colourGood(closed)], the interior is very dimly-lit, and you notice that most of the Arcade's shoppers are giving this particular store a wide berth. Wanting to take a closer look, you walk up to the entrance, and, looking through the glass into the shop's gloomy interior, you see signs of movement behind the counter.
+				You find yourself standing in front of a rather peculiar shop. Although there's a sign declaring 'Arcane Arts' to be [style.colourGood(open)], the interior is very dimly-lit, and you notice that most of the Arcade's shoppers are giving this particular store a wide berth. Wanting to take a closer look, you walk up to the entrance, and, looking through the glass into the shop's gloomy interior, you see signs of movement behind the counter.
 			</p>
 			<p>
 				A sign hanging in the door's window declares that the [style.colourMinorGood(opening hours are [unit.time(6)]-[unit.time(22)])]. You could step inside and browse the wares on offer if you wanted to.

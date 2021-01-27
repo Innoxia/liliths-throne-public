@@ -160,7 +160,7 @@ public class DarkSiren extends NPC {
 			setStartingCombatMoves();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.FOUR_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
@@ -248,7 +248,7 @@ public class DarkSiren extends NPC {
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FOUR_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setHornType(HornType.SWEPT_BACK);

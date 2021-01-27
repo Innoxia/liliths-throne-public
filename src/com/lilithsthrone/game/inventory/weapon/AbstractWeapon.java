@@ -492,7 +492,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		float modifier = 1;
 		
 		if(this.getRarity()==Rarity.JINXED) {
-			modifier -= 0.5f;
+			modifier -= 0.25f;
 		}
 		
 		if(getColour(0)==PresetColour.CLOTHING_PLATINUM) {

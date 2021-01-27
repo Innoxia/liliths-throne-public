@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -43,6 +41,8 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	private AbstractRace race;
 
 	private String transformationName;
+
+	private boolean pubicHairAllowed;
 	
 	private AbstractTesticleType testicleType;
 	
@@ -90,6 +90,9 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			String transformationDescription,
 			String bodyDescription,
 			List<PenetrationModifier> defaultRacialPenetrationModifiers) {
+
+		this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+		
 		this.coveringType = coveringType;
 		this.race = race;
 		this.testicleType = testicleType;
@@ -133,9 +136,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	public AbstractPenisType(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(XMLFile);
+				Document doc = Main.getDocBuilder().parse(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -150,6 +151,11 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 				this.coveringType = BodyCoveringType.getBodyCoveringTypeFromId(coreElement.getMandatoryFirstOf("coveringType").getTextContent());
 
 				this.transformationName = coreElement.getMandatoryFirstOf("transformationName").getTextContent();
+
+				this.pubicHairAllowed = race.getRacialClass().isAnthroHair();
+				if(coreElement.getOptionalFirstOf("pubicHairAllowed").isPresent()) {
+					this.pubicHairAllowed = Boolean.valueOf(coreElement.getMandatoryFirstOf("pubicHairAllowed").getTextContent());
+				}
 				
 				this.testicleType = TesticleType.getTesticleTypeFromId(coreElement.getMandatoryFirstOf("testicleType").getTextContent());
 				
@@ -205,6 +211,10 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 		return fromExternalFile;
 	}
 	
+	public boolean isPubicHairAllowed() {
+		return pubicHairAllowed;
+	}
+
 	@Override
 	public String getTransformationNameOverride() {
 		return transformationName;

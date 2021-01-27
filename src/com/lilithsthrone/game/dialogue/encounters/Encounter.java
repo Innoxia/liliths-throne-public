@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -357,8 +358,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS)
 										|| npc.getSubspecies()==Subspecies.ANGEL
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
 										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
@@ -509,11 +510,11 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
 										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
 										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
 										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION)
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.DOMINION, PlaceType.DOMINION_CANAL)
 										|| npc.getSubspecies()==Subspecies.SLIME
 										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
 										|| npc.getSubspecies()==Subspecies.RAT_MORPH)),
@@ -629,8 +630,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(npc.getSubspecies().getRace()==Race.HARPY)),
 							true);
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -690,8 +691,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.HARPY_NEST))),
+								?(npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
+								:(npc.getSubspecies().getRace()==Race.HARPY)),
 							true);
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -940,8 +941,8 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
-								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))
-								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION))),
+								?(npc.getHalfDemonSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))
+								:(npc.getSubspecies().isAbleToNaturallySpawnInLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS))),
 							true);
 					
 					if(!offspringAvailable.isEmpty()) {
