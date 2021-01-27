@@ -670,12 +670,12 @@ public enum LegConfiguration {
 	WINGED_BIPED("winged-biped",
 			0,
 			0,
-			false,
+			true,
 			true,
 			WingSize.THREE_LARGE,
 			false,
 			2,
-			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph, with their genitals shifting to be found in a rear-facing cloaca."
+			"A configuration in which the character's legs and groin are replaced by the body of the associated animal-morph."
 					+ " The most common examples of this are feral wyverns and feral bats, in which the arms are replaced by wings, though they tend to walk on all fours by using their wings like forelegs.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,",
 			TFModifier.TF_MOD_LEG_CONFIG_WINGED_BIPED,
