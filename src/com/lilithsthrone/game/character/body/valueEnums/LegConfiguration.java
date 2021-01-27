@@ -665,7 +665,7 @@ public enum LegConfiguration {
 	},
 
 	/**
-	 * This LegConfiguration is a 'tauric' configuration for bird races.
+	 * This LegConfiguration is a configuration for feral biped-ish races with wings instead of forelegs.
 	 */
 	WINGED_BIPED("winged-biped",
 			0,
