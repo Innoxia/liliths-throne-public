@@ -233,6 +233,10 @@ public enum LegConfiguration {
 			}
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_SNAKE);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
@@ -357,6 +361,10 @@ public enum LegConfiguration {
 			}
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_FISH);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
@@ -451,6 +459,10 @@ public enum LegConfiguration {
 		@Override
 		public boolean isGenitalsExposed(GameCharacter character) { // As genitals are beneath the arachnid body, they are not easily visible.
 			return false;
+		}
+		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_SPIDER);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -563,6 +575,10 @@ public enum LegConfiguration {
 			return false;
 		}
 		@Override
+		public void setLegsToDemon(GameCharacter character) {
+			character.setLegType(LegType.DEMON_OCTOPUS);
+		}
+		@Override
 		public boolean isTailLostOnInitialTF() {
 			return true;
 		}
@@ -656,7 +672,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_COMMON);
+			character.setLegType(LegType.DEMON_EAGLE);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
