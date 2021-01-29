@@ -716,7 +716,7 @@ public class CharacterUtils {
 		}
 
 		// Horn type and length:
-		if (body.getHornType() == HornType.NONE /*&& Math.random() >= 0.75*/) {
+		if (body.getHornType() == HornType.NONE) {
 			if (Math.random() >= takesAfterMotherChance) {
 				if (mother.hasGenericHorns()) {
 					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLength());
