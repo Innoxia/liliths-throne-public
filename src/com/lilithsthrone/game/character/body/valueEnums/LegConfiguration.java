@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -149,7 +150,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_HORSE_HOOFED.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_HORSE_HOOFED : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_HORSE_HOOFED);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -234,7 +235,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_SNAKE.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_SNAKE : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SNAKE);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -362,7 +363,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_FISH.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_FISH : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_FISH);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -462,7 +463,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_SPIDER.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_SPIDER : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_SPIDER);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -576,7 +577,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_OCTOPUS.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_OCTOPUS : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_OCTOPUS);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -672,7 +673,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_EAGLE.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_EAGLE : LegType.DEMON_COMMON);
+			this.setLegsToAvailableDemonLegs(character, LegType.DEMON_EAGLE);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -854,6 +855,14 @@ public enum LegConfiguration {
 	
 	public void setLegsToDemon(GameCharacter character) {
 		throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
+	}
+
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType) {
+		this.setLegsToAvailableDemonLegs(character, legType, LegType.DEMON_COMMON);
+	}
+
+	public void setLegsToAvailableDemonLegs(GameCharacter character, AbstractLegType legType, AbstractLegType fallBackLegType) {
+		character.setLegType(legType.isAvailableForSelfTransformMenu(character) ? legType : fallBackLegType);
 	}
 
 	public void setWingsToDemon(GameCharacter character) {
