@@ -26713,6 +26713,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHorns() {
 		return body.getHorn().getType() != HornType.NONE;
 	}
+	/**
+	 * Checks, if the character has generic horns aka horns that aren't linked to a specific race.
+	 * @return true, if the character has generic horns
+	 */
+	public boolean hasGenericHorns() {
+		return body.getHorn().getType().isGeneric();
+	}
 	public boolean isHornsAbleToBeUsedAsHandlesInSex() {
 		return this.hasHorns() && HornLength.getLengthFromInt(this.getHornLength()).isSuitableAsHandles();
 	}

@@ -60,6 +60,10 @@ public class Horn implements BodyPartInterface {
 		return type.getDescriptor(gc);
 	}
 
+	public void setType(AbstractHornType type) {
+		this.type = type;
+	}
+
 	public String setType(GameCharacter owner, AbstractHornType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
@@ -206,6 +210,15 @@ public class Horn implements BodyPartInterface {
 	
 	public int getHornLengthValue() {
 		return length;
+	}
+
+	public void setHornLength(int length) {
+		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
+	}
+
+	public void setTypeAndLength(AbstractHornType type, int length) {
+		setType(type);
+		setHornLength(length);
 	}
 
 	public String setHornLength(GameCharacter owner, int length) {

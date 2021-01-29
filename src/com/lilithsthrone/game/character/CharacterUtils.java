@@ -714,7 +714,20 @@ public class CharacterUtils {
 				body.getHorn().setHornRows(blankNPC, father.getHornRows());
 			}
 		}
-		
+
+		// Horn type and length:
+		if (body.getHornType() == HornType.NONE) {
+			if (Math.random() >= takesAfterMotherChance) {
+				if (mother.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(mother.getHornType(), mother.getHornLength());
+				}
+			} else {
+				if (father.hasGenericHorns()) {
+					body.getHorn().setTypeAndLength(father.getHornType(), father.getHornLength());
+				}
+			}
+		}
+
 		// Penis:
 		boolean inheritsFromMotherPenis = mother.hasPenis();
 		boolean inheritsFromFatherPenis = father.hasPenis();
