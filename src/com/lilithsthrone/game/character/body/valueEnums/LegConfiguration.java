@@ -149,7 +149,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_HORSE_HOOFED);
+			character.setLegType(LegType.DEMON_HORSE_HOOFED.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_HORSE_HOOFED : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -234,7 +234,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_SNAKE);
+			character.setLegType(LegType.DEMON_SNAKE.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_SNAKE : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -362,7 +362,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_FISH);
+			character.setLegType(LegType.DEMON_FISH.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_FISH : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -462,7 +462,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_SPIDER);
+			character.setLegType(LegType.DEMON_SPIDER.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_SPIDER : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -576,7 +576,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_OCTOPUS);
+			character.setLegType(LegType.DEMON_OCTOPUS.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_OCTOPUS : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
@@ -672,7 +672,7 @@ public enum LegConfiguration {
 		}
 		@Override
 		public void setLegsToDemon(GameCharacter character) {
-			character.setLegType(LegType.DEMON_EAGLE);
+			character.setLegType(LegType.DEMON_EAGLE.isAvailableForSelfTransformMenu(character) ? LegType.DEMON_EAGLE : LegType.DEMON_COMMON);
 		}
 		@Override
 		public boolean isTailLostOnInitialTF() {
