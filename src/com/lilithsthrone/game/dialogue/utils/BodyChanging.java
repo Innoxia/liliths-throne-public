@@ -266,6 +266,9 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			faceSkinOptions.add(target.getRace());
+			if (isYoukoTF()){
+				faceSkinOptions.add(Race.HUMAN);
+			}
 
 		} else {
 			faceSkinOptions.add(Race.DEMON);
@@ -290,7 +293,9 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			armLegOptions.add(target.getRace());
-
+			if (isYoukoTF()) {
+				armLegOptions.add(Race.HUMAN);
+			}
 		} else {
 			armLegOptions.add(Race.DEMON);
 			if(target.isPlayer()) {
@@ -322,7 +327,9 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			minorPartsOptions.add(target.getRace());
-
+			if (isYoukoTF()) {
+				minorPartsOptions.add(Race.HUMAN);
+			}
 		} else {
 			minorPartsOptions.add(Race.DEMON);
 			if(target.isPlayer()) {
@@ -364,6 +371,11 @@ public class BodyChanging {
 				&& !isDemonTFMenu()
 				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 				&& BodyChanging.getTarget().getSubspecies().isAbleToSelfTransform();
+	}
+	private static boolean isYoukoTF() {
+		return (BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT
+				||BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+				||BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC);
 	}
 
 	private static boolean isHalfDemon() {
@@ -623,9 +635,9 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
 									(getTarget().isElemental()
 											?allRaces
-											:(!removeNoneFromTailChoices()
-												?Util.newArrayListOfValues(Race.DEMON)
-												:getMinorPartsDemonRaces(true))),
+											:(removeNoneFromTailChoices()||isSelfTFMenu()
+												?getMinorPartsDemonRaces(true)
+												:Util.newArrayListOfValues(Race.DEMON))),
 									removeNoneFromTailChoices())
 							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 						+"</div>"
@@ -633,9 +645,11 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
-						+"</div>"
+						+"</div>");
 
-						+"<div style='clear:left;'>"
+						if (!isYoukoTF()) {
+							UtilText.nodeContentSB.append(
+						"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
 							+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
 						+"</div>"
@@ -650,7 +664,7 @@ public class BodyChanging {
 									removeNoneFromWingChoices())
 							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 						+"</div>");
-
+					}
 			// Slime/debug:
 			} else {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
