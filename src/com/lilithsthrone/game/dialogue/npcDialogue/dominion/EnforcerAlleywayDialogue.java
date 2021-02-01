@@ -222,7 +222,7 @@ public class EnforcerAlleywayDialogue {
                             }
                             else if ((Main.game.getPlayer().getSubspecies() == Subspecies.WOLF_MORPH)){
                                 uniformPassable =  1;
-                                impersonatingBrax = 2;                                
+                                impersonatingBrax = 1;                                
                             }
                             else {
                                 uniformPassable = -1;
