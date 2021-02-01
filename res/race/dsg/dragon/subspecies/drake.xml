@@ -55,13 +55,11 @@
 			[#targetedBody.setWingType(WING_TYPE_NONE)]
 		#ENDIF
 		#IF(targetedBody.getHornType().isOneOf(HORN_TYPE_dsg_dragon_hornAntlers, HORN_TYPE_NONE))
-			#IF(RND.nextInt(100) < 33)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_horn)]
-			#ELSEIF(RND.nextInt(100) < 50)
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurved)]
-			#ELSE
-				[#targetedBody.setHornType(HORN_TYPE_dsg_dragon_hornCurled)]
-			#ENDIF
+			[#targetedBody.setHornType(targetedBody.randomTypeFrom(
+				HORN_TYPE_dsg_dragon_horn,
+				HORN_TYPE_dsg_dragon_hornCurved,
+				HORN_TYPE_dsg_dragon_hornCurled
+			))]
 		#ENDIF
 		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailSpaded)
 			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailSpaded)]

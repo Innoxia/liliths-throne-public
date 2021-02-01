@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -6412,4 +6413,7 @@ public class Body implements XMLSaving {
 		this.takesAfterMother = takesAfterMother;
 	}
 
+	public BodyPartTypeInterface randomTypeFrom(BodyPartTypeInterface... values) {
+		return Util.randomItemFrom(Util.newArrayListOfValues(values));
+	}
 }
