@@ -68,7 +68,7 @@ public class BodyChanging {
 	}
 
 	private static String getPowers() {
-		return (isDemonTFMenu()?"demonic":"innate"+" transformative powers on changing");
+		return (isDemonTFMenu()?"demonic":"innate")+" transformative powers on changing";
 	}
 
 	public static void setTarget(GameCharacter target) {
@@ -246,19 +246,14 @@ public class BodyChanging {
 		}
 	}
 
-	private static List<AbstractRace> allRaces = new ArrayList<>();
-	static {
-		for(AbstractRace r : Race.getAllRaces()) {
-			allRaces.add(r);
-		}
-	}
-	
+	private static final List<AbstractRace> allRaces = new ArrayList<>(Race.getAllRaces());
+
 	private static List<AbstractRace> getFaceSkinDemonRaces() {
 		List<AbstractRace> faceSkinOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget().isElemental()) {
-			faceSkinOptions = new ArrayList<>(Race.getAllRaces());
+		if(target.isElemental()) {
+			return allRaces;
 
 		} else if(isHalfDemon()) {
 			faceSkinOptions.add(target.getHalfDemonSubspecies().getRace());
@@ -285,8 +280,8 @@ public class BodyChanging {
 		List<AbstractRace> armLegOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget().isElemental()) {
-			armLegOptions = new ArrayList<>(Race.getAllRaces());
+		if(target.isElemental()) {
+			return allRaces;
 			
 		} else if(isHalfDemon()) {
 			armLegOptions.add(target.getHalfDemonSubspecies().getRace());
@@ -315,8 +310,8 @@ public class BodyChanging {
 		List<AbstractRace> minorPartsOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget().isElemental()) {
-			minorPartsOptions = new ArrayList<>(Race.getAllRaces());
+		if(target.isElemental()) {
+			return allRaces;
 			
 		} else if(isHalfDemon()) {
 			if(isHalfSpeciesReplacement && target.getHalfDemonSubspecies().getRace()!=Race.HUMAN) {
@@ -465,7 +460,7 @@ public class BodyChanging {
 	private static List<AbstractRace> getSlaveCustomisationRaceOptions() {
 		List<AbstractRace> list = new ArrayList<>();
 		
-		for(AbstractRace race : Race.getAllRaces()) {
+		for(AbstractRace race : allRaces) {
 			if(race != Race.ANGEL
 					&& race != Race.DEMON
 					&& race != Race.ELEMENTAL
@@ -526,12 +521,12 @@ public class BodyChanging {
 						"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getAgeAppearanceChoiceDiv()
 						+"</div>"
-							
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 							+ CharacterModificationUtils.getHeightChoiceDiv()
 						+"</div>"
-							
+
 						+ "<div class='cosmetics-container' style='background:transparent;'>"
 							+ CharacterModificationUtils.getBodySizeChoiceDiv()
 							+ CharacterModificationUtils.getMuscleChoiceDiv()
@@ -541,42 +536,42 @@ public class BodyChanging {
 										+ "<b style='color:"+BodyChanging.getTarget().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getBodyShape().getName(false))+"</b>")
 							+ "</div>"
 						+"</div>"
-							
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformFaceChoiceDiv(getSlaveCustomisationRaceOptions())
 							+ CharacterModificationUtils.getSelfTransformBodyChoiceDiv(getSlaveCustomisationRaceOptions())
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(getSlaveCustomisationRaceOptions())
 							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(getSlaveCustomisationRaceOptions(), isDebugMenu())
 						+"</div>"
-		
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformArmCountDiv()
 							+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
 							+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
 						+"</div>"
-		
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(getSlaveCustomisationRaceOptions(), false)
 							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 						+"</div>"
-							
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
 							+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(getSlaveCustomisationRaceOptions(), false)
 							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
@@ -870,9 +865,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformEyeChoiceDiv(
-									(getTarget().isElemental())
-										?allRaces
-										:getMinorPartsDemonRaces(false))
+									(getMinorPartsDemonRaces(false)))
 							+ CharacterModificationUtils.getSelfTransformEyeCountDiv()
 						+"</div>"
 						
@@ -1000,9 +993,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(
-									(getTarget().isElemental())
-										?allRaces
-										:getMinorPartsDemonRaces(true))
+									(getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
 						+"</div>"
 						
@@ -1206,9 +1197,7 @@ public class BodyChanging {
 						+ "</div>"
 						
 						+ CharacterModificationUtils.getSelfTransformEarChoiceDiv(
-								(getTarget().isElemental())
-									?allRaces
-									:getMinorPartsDemonRaces(true))
+								(getMinorPartsDemonRaces(true)))
 
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(
@@ -1225,9 +1214,7 @@ public class BodyChanging {
 						
 						+ "<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
-								(getTarget().isElemental())
-									?allRaces
-									:getMinorPartsDemonRaces(true))
+								(getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
 						+"</div>"
 						
