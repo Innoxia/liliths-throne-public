@@ -139,8 +139,6 @@ public interface BodyPartTypeInterface {
 	 * @return true, if the type is among the list.
 	 */
 	public default boolean isOneOf(BodyPartTypeInterface... values) {
-		ArrayList<? extends BodyPartTypeInterface> list = new ArrayList<>(Arrays.asList(values));
-		list.removeIf(e -> e==null);
-		return list.contains(this);
+		return Arrays.asList(values).contains(this);
 	}
 }

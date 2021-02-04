@@ -6413,6 +6413,12 @@ public class Body implements XMLSaving {
 		this.takesAfterMother = takesAfterMother;
 	}
 
+	/**
+	 * Returns a randomly chosen BodyPart-type from the list of types (e. g. multiple WingTypes)
+	 * provided as parameters. To give one or more types more weight these types can be repeated.
+	 * @param values List of BodyPartTypes to choose from randomly
+	 * @return The randomly chosen type of the corresponding BodyPart
+	 */
 	public BodyPartTypeInterface randomTypeFrom(BodyPartTypeInterface... values) {
 		return Util.randomItemFrom(Util.newArrayListOfValues(values));
 	}
