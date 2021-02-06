@@ -319,7 +319,7 @@
 		</p>
 		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < -2)
 		<p>
-			[npc.speech(Nice try, but we have a new Senior Quartermaster. I don't know how your got your [pc.hands] on [elle.her] stuff, but you better hand it over, right now!)] [npc.name] snarls.
+			[npc.speech(Nice try, but we have a new Senior Quartermaster. I don't know how your got your [pc.hands] on that stuff, but you better hand it over, right now!)] [npc.name] snarls.
 		</p>
 		#ELSEIF (game.getDialogueFlags().getSavedLong("impersonating_elle") < 0)
 		<p>
