@@ -187,10 +187,11 @@
 	The text inside the 'attribute' element corresponds to an Attribute found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/attributes/Attribute.java 
 	The 'value' field corresponds to a float of the magnitude of that Attribute. -->
 	<statusEffectAttributeModifiers>
-		<attribute value="20">MAJOR_PHYSIQUE</attribute>
-		<attribute value="20">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
-		<attribute value="5">DAMAGE_FIRE</attribute>
-		<attribute value="10">CRITICAL_DAMAGE</attribute>
+		<attribute value="60">MAJOR_PHYSIQUE</attribute>
+		<attribute value="50">MAJOR_ARCANE</attribute> <!-- Values with a magnitude of 0 are discarded upon loading. I've left it here as an example. -->
+		<attribute value="20">DAMAGE_FIRE</attribute>
+		<attribute value="30">RESISTANCE_FIRE</attribute>
+		<attribute value="30">RESISTANCE_PHYSICAL</attribute>
 		<attribute value="-10">RESISTANCE_LUST</attribute>
 	</statusEffectAttributeModifiers>
 	
