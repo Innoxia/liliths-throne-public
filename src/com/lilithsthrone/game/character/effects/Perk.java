@@ -2956,7 +2956,7 @@ public class Perk {
 			"Single tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail1",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -2974,7 +2974,7 @@ public class Perk {
 			"Two tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail2",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -2992,7 +2992,7 @@ public class Perk {
 			"Three tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail3",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3010,7 +3010,7 @@ public class Perk {
 			"Four tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail4",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3028,7 +3028,7 @@ public class Perk {
 			"Five tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail5",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3046,7 +3046,7 @@ public class Perk {
 			"Six tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail6",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3064,7 +3064,7 @@ public class Perk {
 			"Seven tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail7",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3082,7 +3082,7 @@ public class Perk {
 			"Eight tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail8",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
@@ -3100,7 +3100,7 @@ public class Perk {
 			"Nine tailed Youko",
 			PerkCategory.ARCANE,
 			"statusEffects/race/raceFoxTail9",
-			PresetColour.ATTRIBUTE_ARCANE,
+			PresetColour.RACE_FOX_MORPH,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldFox(youko transformations!)]")) {
 
