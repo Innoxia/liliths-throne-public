@@ -212,34 +212,61 @@ public class Tail implements BodyPartInterface {
 		owner.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 
 		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC) && overrideYoukoLimitations) {
-			owner.removeSpecialPerk(Perk.SINGLE_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.TWO_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.THREE_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.FOUR_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.FIVE_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.SIX_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.SEVEN_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.EIGHT_TAILED_YOUKO);
-			owner.removeSpecialPerk(Perk.NINE_TAILED_YOUKO);
+			if(owner.hasPerkAnywhereInTree(Perk.SINGLE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SINGLE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.TWO_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.TWO_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.THREE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.THREE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.FOUR_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.FOUR_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.FIVE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.FIVE_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.SIX_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SIX_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.SEVEN_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.SEVEN_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.EIGHT_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.EIGHT_TAILED_YOUKO);
+			}
+			if(owner.hasPerkAnywhereInTree(Perk.NINE_TAILED_YOUKO)) {
+				owner.removeSpecialPerk(Perk.NINE_TAILED_YOUKO);
+			}
 			switch (owner.getTailCount()) {
 				case 1:
 					owner.addSpecialPerk(Perk.SINGLE_TAILED_YOUKO);
+					break;
 				case 2:
 					owner.addSpecialPerk(Perk.TWO_TAILED_YOUKO);
+					break;
 				case 3:
 					owner.addSpecialPerk(Perk.THREE_TAILED_YOUKO);
+					break;
 				case 4:
 					owner.addSpecialPerk(Perk.FOUR_TAILED_YOUKO);
+					break;
 				case 5:
 					owner.addSpecialPerk(Perk.FIVE_TAILED_YOUKO);
+					break;
 				case 6:
 					owner.addSpecialPerk(Perk.SIX_TAILED_YOUKO);
+					break;
 				case 7:
 					owner.addSpecialPerk(Perk.SEVEN_TAILED_YOUKO);
+					break;
 				case 8:
 					owner.addSpecialPerk(Perk.EIGHT_TAILED_YOUKO);
+					break;
 				case 9:
 					owner.addSpecialPerk(Perk.NINE_TAILED_YOUKO);
+					break;
 			}
 		}
 
