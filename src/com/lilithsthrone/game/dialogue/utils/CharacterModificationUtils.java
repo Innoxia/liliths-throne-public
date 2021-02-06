@@ -1103,11 +1103,7 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformTailCountDiv() {
 		contentSB.setLength(0);
-		
-		boolean isYouko = (BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT
-				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC);
-		
+
 		if(!BodyChanging.getTarget().hasTail()) {
 			contentSB.append(
 					"<div class='cosmetics-button disabled'>"
@@ -1123,7 +1119,7 @@ public class CharacterModificationUtils {
 							+ "</div>");
 					
 				} else {
-					if(!BodyChanging.isDebugMenu() && isYouko) {
+					if(!BodyChanging.isDebugMenu() && (BodyChanging.getTarget().isYouko() && i > BodyChanging.getTarget().getMaxTailCount())) {
 						contentSB.append(
 								"<div class='cosmetics-button disabled'>"
 									+ Util.capitaliseSentence(Util.intToString(i))
@@ -1143,8 +1139,8 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(),
 						!BodyChanging.getTarget().hasTail()
 							?"As [npc.name] [npc.do] not have a tail, [npc.she] cannot change how many [npc.she] [npc.has]!"
-							:((isYouko
-								?"As [npc.nameIsFull] a youko, [npc.she] cannot change the number of tails [npc.she] [npc.has]!"
+							:((BodyChanging.getTarget().isYouko()
+								?"As [npc.nameIsFull] a youko, [npc.she] can change the number of tails [npc.she] [npc.verb(appear)] to have!"
 								:"Change how many [npc.tails] [npc.name] [npc.has].")
 							+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>")),
 				"TAIL_COUNT",

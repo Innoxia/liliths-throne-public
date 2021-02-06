@@ -261,7 +261,7 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			faceSkinOptions.add(target.getRace());
-			if (isYoukoTF()){
+			if (target.isYouko()){
 				faceSkinOptions.add(Race.HUMAN);
 			}
 
@@ -288,7 +288,7 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			armLegOptions.add(target.getRace());
-			if (isYoukoTF()) {
+			if (target.isYouko()) {
 				armLegOptions.add(Race.HUMAN);
 			}
 		} else {
@@ -322,7 +322,7 @@ public class BodyChanging {
 
 		} else if(isSelfTFMenu()) {
 			minorPartsOptions.add(target.getRace());
-			if (isYoukoTF()) {
+			if (target.isYouko()) {
 				minorPartsOptions.add(Race.HUMAN);
 			}
 		} else {
@@ -366,11 +366,6 @@ public class BodyChanging {
 				&& !isDemonTFMenu()
 				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 				&& BodyChanging.getTarget().getSubspecies().isAbleToSelfTransform();
-	}
-	private static boolean isYoukoTF() {
-		return (BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT
-				||BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-				||BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC);
 	}
 
 	private static boolean isHalfDemon() {
@@ -642,7 +637,7 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 						+"</div>");
 
-						if (!isYoukoTF()) {
+						if (!BodyChanging.getTarget().isYouko()) {
 							UtilText.nodeContentSB.append(
 						"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()

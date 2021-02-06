@@ -1815,7 +1815,7 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			return 15000 * character.getMaxTailCount();
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -1831,8 +1831,8 @@ public class Subspecies {
 		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
@@ -1840,13 +1840,13 @@ public class Subspecies {
 
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -1862,7 +1862,7 @@ public class Subspecies {
 			if(character==null) {
 				return youkoIconMap.get(9);
 			}
-			return getBipedBackground(youkoIconMap.get(character.getTailCount()), character, this.getColour(character));
+			return getBipedBackground(youkoIconMap.get(character.getMaxTailCount()), character, this.getColour(character));
 		}
 
 		@Override
@@ -1870,7 +1870,7 @@ public class Subspecies {
 			if(character==null) {
 				return youkoDesaturatedIconMap.get(9);
 			}
-			return getBipedBackground(youkoDesaturatedIconMap.get(character.getTailCount()), character, PresetColour.BASE_GREY);
+			return getBipedBackground(youkoDesaturatedIconMap.get(character.getMaxTailCount()), character, PresetColour.BASE_GREY);
 		}
 		
 		@Override
@@ -1878,7 +1878,7 @@ public class Subspecies {
 			if(character!=null && character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
 				return super.getHalfDemonSVGString(character);
 			} else {
-				return getBipedBackground(youkoHalfDemonIconMap.get(character.getTailCount()), character, PresetColour.RACE_HALF_DEMON);
+				return getBipedBackground(youkoHalfDemonIconMap.get(character.getMaxTailCount()), character, PresetColour.RACE_HALF_DEMON);
 			}
 		}
 		@Override
@@ -1946,7 +1946,7 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			return 15000 * character.getMaxTailCount();
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -1965,8 +1965,8 @@ public class Subspecies {
 		
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
@@ -1974,13 +1974,13 @@ public class Subspecies {
 
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -2068,7 +2068,7 @@ public class Subspecies {
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
-			return 15000 * character.getTailCount();
+			return 15000 * character.getMaxTailCount();
 		}
 		@Override
 		public boolean isAbleToSelfTransform() {
@@ -2097,21 +2097,21 @@ public class Subspecies {
 		}
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
-			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			if(character.getMaxTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailMaxCount] arcane tail"+(character.getMaxTailCount()==1?"":"s")+".");
 			} else {
 				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 		@Override
 		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character!=null && character.getTailCount()<9) {
+			if(character!=null && character.getMaxTailCount()<9) {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
-						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<>(Attribute.MAJOR_ARCANE, (float) (10*character.getMaxTailCount())),
 						new Value<>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
-						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+						new Value<>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getMaxTailCount())),
+						new Value<>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getMaxTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),

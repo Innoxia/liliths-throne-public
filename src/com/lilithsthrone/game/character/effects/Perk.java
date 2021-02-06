@@ -2951,7 +2951,194 @@ public class Perk {
 		}
 	};
 
-	
+	public static AbstractPerk SINGLE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Single tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail1",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 10),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 15),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 25)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] one arcane tail.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk TWO_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Two tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail2",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 20),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 20),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 30)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] two arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk THREE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Three tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail3",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 30),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 25),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 35)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] three arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FOUR_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Four tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail4",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 40),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 30),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 40)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] four arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk FIVE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Five tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail5",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 50),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 35),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 45)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] five arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SIX_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Six tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail6",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 60),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 40),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 50)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] six arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk SEVEN_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Seven tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail7",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 70),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 45),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 55)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] seven arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk EIGHT_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Eight tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail8",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 80),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 50),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 60)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] eight arcane tails.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
+
+	public static AbstractPerk NINE_TAILED_YOUKO = new AbstractPerk(20,
+			false,
+			"Nine tailed Youko",
+			PerkCategory.ARCANE,
+			"statusEffects/race/raceFoxTail9",
+			PresetColour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<>(Attribute.MAJOR_ARCANE, 100),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 0),
+					new Value<>(Attribute.SPELL_COST_MODIFIER, 75),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 100)),
+			Util.newArrayListOfValues("[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.")) {
+
+		@Override
+		public String getDescription(GameCharacter target) { return null; }
+
+		@Override
+		public boolean isHiddenPerk() {	return true; }
+	};
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	
