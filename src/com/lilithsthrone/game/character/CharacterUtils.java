@@ -1455,7 +1455,7 @@ public class CharacterUtils {
 		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
 		
 		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE));
-		
+
 		body.setTentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE));
 		
 		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
@@ -1475,6 +1475,8 @@ public class CharacterUtils {
 			species.applySpeciesChanges(body);
 		}
 		body.calculateRace(linkedCharacter);
+		// To add or remove youko perks
+		body.getTail().setTailCount(linkedCharacter, body.getTail().getTailCount(), true);
 
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
