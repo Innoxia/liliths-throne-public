@@ -164,11 +164,11 @@ public class EnforcerAlleywayDialogue {
             //check uniform elements
             //check for a dress jacket
             else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
-                    (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_enfdjacket") ||
-                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_servequipset_debuggerydo_enfdjacket"))) {
+                    (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_servequipset_enfdjacket") ||
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_servequipset_debuggerydo_enfdjacket"))) {
                 //blank uniforms fail
                 if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
-                    uniformPassable = 0;
+                    uniformPassable = -1;
                 }
                 else {
                     switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name")) {
@@ -294,7 +294,7 @@ public class EnforcerAlleywayDialogue {
             }
             //check for unique stabvests
             else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
-                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().equals("dsg_eep_ptrlequipset_stpvest")) {
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_ptrlequipset_stpvest")) {
                 if(!Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
                     switch (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().get("name_plate")){
                         case "claire":
