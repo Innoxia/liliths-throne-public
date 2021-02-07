@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -110,9 +108,7 @@ public class AbstractTattooType extends AbstractCoreType {
 
 		if (tattooXMLFile.exists()) {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(tattooXMLFile);
+				Document doc = Main.getDocBuilder().parse(tattooXMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

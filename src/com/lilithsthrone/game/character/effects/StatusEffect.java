@@ -1840,11 +1840,7 @@ public class StatusEffect {
 			
 			ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(attMods));
 			fullModList.addAll(getExtraEffects(target));
-
-			if(target.isFeral()) {
-				fullModList.add("[style.colourUnarmed(Base unarmed damage)] [style.colourExcellent(tripled)]");
-				fullModList.add("[style.colourExcellent(Immune)] to [style.colourGenericTf(racial transformations)]");
-			}
+			
 			return fullModList;
 		}
 		@Override

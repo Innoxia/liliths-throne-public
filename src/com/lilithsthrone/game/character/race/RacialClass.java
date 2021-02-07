@@ -12,6 +12,7 @@ public enum RacialClass {
 	REPTILE(false, false),
 	AMPHIBIAN(false, false),
 	FISH(false, false),
+	INSECT(false, false),
 	
 	OTHER(true, true); // 'OTHER' could be things like slimes or elementals
 	

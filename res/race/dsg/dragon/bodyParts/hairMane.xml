@@ -22,6 +22,7 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/tags/BodyPartTag.java -->
 	<tags>
 		<tag>HAIR_HANDLES_IN_SEX</tag>
+		<tag>HAIR_NATURAL_MANE</tag>
 	</tags>
 	
 	<!-- The way in which this hair is referred to.
@@ -52,7 +53,7 @@
 	
 	<!-- How this hair is described in a character's description page. -->
 	<bodyDescription><![CDATA[
-		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], dragon-like mane than runs from her head down the back of [npc.her] neck.
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], dragon-like hair
 	]]></bodyDescription>
 	
 </hair>

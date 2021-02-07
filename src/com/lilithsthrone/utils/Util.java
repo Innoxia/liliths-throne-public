@@ -26,9 +26,6 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -295,10 +292,8 @@ public class Util {
 	
 	public static String getXmlRootElementName(File XMLFile) {
 		try {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(XMLFile);
-			
+			Document doc = Main.getDocBuilder().parse(XMLFile);
+
 			// Cast magic:
 			doc.getDocumentElement().normalize();
 			

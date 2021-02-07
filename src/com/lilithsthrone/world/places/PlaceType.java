@@ -486,8 +486,8 @@ public class PlaceType {
 			"Nyan's Apartment",
 			"As she's shown you where she lives, you know that Nyan's Apartment building is in this area of Dominion.",
 			"dominion/homeNyanIcon",
-			PresetColour.BASE_GREY,
-			NyanApartment.EXTERIOR,
+			PresetColour.BASE_PINK_LIGHT,
+			DominionPlaces.STREET,
 			Darkness.ALWAYS_LIGHT,
 			Encounter.DOMINION_STREET,
 			"in the streets of Dominion") {
