@@ -1885,6 +1885,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
 				if(body.getTail().getType()==TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT);
 					return 200;
 				}
 			}
@@ -2007,6 +2008,7 @@ public class Subspecies {
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE &&  body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_ARCTIC);
 					return 250;
 				}
 			}
@@ -2140,6 +2142,7 @@ public class Subspecies {
 						&& (fennecColours.contains(fox_fur.getSecondaryColour()) || fox_fur.getPattern()==CoveringPattern.NONE)
 						&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)
 						&& body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+					body.setSubspeciesOverride(Subspecies.FOX_ASCENDANT_FENNEC);
 					return 250;
 				}
 			}
