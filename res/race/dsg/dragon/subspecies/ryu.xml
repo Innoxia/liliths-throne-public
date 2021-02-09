@@ -11,7 +11,7 @@
 	The 'secondaryColour' and 'tertiaryColour' are used alongside 'colour' in recolouring this subspecies' icon and background. -->
 	<colour>dsg_ryuYellow</colour>
 	<secondaryColour>dsg_dragonBone</secondaryColour>
-	<tertiaryColour/>
+	<tertiaryColour>dsg_ryuYellow</tertiaryColour>
 	
 	<!-- Whether or not this subspecies is considered the 'main' subspecies of its parent race.
 	One subspecies, no more, of each race should have this set as true. -->
