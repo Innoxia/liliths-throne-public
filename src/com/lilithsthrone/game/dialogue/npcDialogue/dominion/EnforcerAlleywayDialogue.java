@@ -164,8 +164,8 @@ public class EnforcerAlleywayDialogue {
             //check uniform elements
             //check for a dress jacket
             else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER) != null &&
-                    (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_servequipset_enfdjacket") ||
-                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getId().startsWith("dsg_eep_servequipset_debuggerydo_enfdjacket"))) {
+                    (Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getClothingType().getId().equals("dsg_eep_servequipset_enfdjacket") ||
+                    Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getClothingType().getId().equals("dsg_eep_servequipset_debuggerydo_enfdjacket"))) {
                 //blank uniforms fail
                 if(Main.game.getPlayer().getClothingInSlot(InventorySlot.TORSO_OVER).getStickers().isEmpty()) {
                     uniformPassable = -1;
