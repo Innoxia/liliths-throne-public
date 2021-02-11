@@ -1193,7 +1193,7 @@ public class BodyCoveringType {
 							break;
 						case ICE:
 							name = "ice";
-							modifier = CoveringModifier.SHIMMERING;
+							modifier = CoveringModifier.GLITTERING;
 							naturalColours.add(PresetColour.COVERING_BLUE_LIGHT);
 							naturalColours.add(PresetColour.COVERING_WHITE);
 							break;
