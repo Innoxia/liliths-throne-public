@@ -612,19 +612,32 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformArmChoiceDiv(getArmLegDemonRaces())
 							+ CharacterModificationUtils.getSelfTransformLegChoiceDiv(getArmLegDemonRaces(), isDebugMenu())
-						+"</div>"
+						+"</div>");
 
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformArmCountDiv()
-							+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
-						+"</div>"
+						if(!BodyChanging.getTarget().isYouko()) {
+							UtilText.nodeContentSB.append(
+								"<div style='clear:left;'>"
+								+ CharacterModificationUtils.getSelfTransformArmCountDiv()
+								+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
+								+"</div>"
 
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
-							+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
-						+"</div>"
+								+"<div style='clear:left;'>"
+								+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
+								+ CharacterModificationUtils.getSelfTransformGenitalArrangementChoiceDiv()
+								+"</div>"
+							);
+						}
+						else {
+							UtilText.nodeContentSB.append(
+								"<div style='clear:left;'>"
+								+ CharacterModificationUtils.getSelfTransformFootStructureChoiceDiv()
+								+ CharacterModificationUtils.getSelfTransformLegConfigurationChoiceDiv()
+								+"</div>"
+							);
+						}
 
-						+"<div style='clear:left;'>"
+						UtilText.nodeContentSB.append(
+							"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
 									(getTarget().isElemental()
 											?allRaces
@@ -633,31 +646,33 @@ public class BodyChanging {
 												:Util.newArrayListOfValues(Race.DEMON))),
 									removeNoneFromTailChoices())
 							+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
-						+"</div>"
+							+"</div>"
 
-						+"<div style='clear:left;'>"
+							+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
-						+"</div>");
+							+"</div>"
+						);
 
 						if (!BodyChanging.getTarget().isYouko()) {
 							UtilText.nodeContentSB.append(
-						"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
-							+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
-						+"</div>"
+								"<div style='clear:left;'>"
+								+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
+								+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
+								+"</div>"
 
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
+								+"<div style='clear:left;'>"
+								+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
 									(getTarget().isElemental())
 										?allRaces
 										:(!removeNoneFromWingChoices()
 											?Util.newArrayListOfValues(Race.DEMON)
 											:getMinorPartsDemonRaces(true)),
 									removeNoneFromWingChoices())
-							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
-						+"</div>");
-					}
+								+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
+								+"</div>"
+							);
+						}
 			// Slime/debug:
 			} else {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -864,7 +879,7 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformEyeChoiceDiv(
 									(getMinorPartsDemonRaces(false)))
-							+ CharacterModificationUtils.getSelfTransformEyeCountDiv()
+							+ (BodyChanging.getTarget().isYouko()?"":CharacterModificationUtils.getSelfTransformEyeCountDiv())
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -1058,7 +1073,7 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(getSlaveCustomisationRaceOptions())
 							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornCountDiv()
 							+ CharacterModificationUtils.getSelfTransformHornsPerRowCountDiv()
@@ -1068,12 +1083,12 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(getSlaveCustomisationRaceOptions())
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
 						+"</div>"
-						
+
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAntennaCountDiv()
 							+ CharacterModificationUtils.getSelfTransformAntennaePerRowCountDiv()
 						+"</div>"
-						
+
 						+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
 								?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(), "Horn Colour",
 									(BodyChanging.getTarget().isPlayer()
@@ -1196,40 +1211,46 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getSelfTransformEarChoiceDiv(
 								(getMinorPartsDemonRaces(true)))
+				);
 
-						+"<div style='clear:left;'>"
+				if(!BodyChanging.getTarget().isYouko()) {
+					UtilText.nodeContentSB.append("<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(
-									(getTarget().isElemental())
-										?allRaces
-										:Util.mergeLists(getMinorPartsDemonRaces(true), Util.newArrayListOfValues(Race.DEMON)))
+							(getTarget().isElemental())
+									?allRaces
+									:Util.mergeLists(getMinorPartsDemonRaces(true), Util.newArrayListOfValues(Race.DEMON)))
 							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
-						+"</div>"
-						
-						+"<div style='clear:left;'>"
+							+"</div>"
+
+							+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornCountDiv()
 							+ CharacterModificationUtils.getSelfTransformHornsPerRowCountDiv()
-						+"</div>"
-						
-						+ "<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
-								(getMinorPartsDemonRaces(true)))
+							+"</div>"
+
+							+ "<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
+							(getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
-						+"</div>"
-						
-						+"<div style='clear:left;'>"
+							+"</div>"
+
+							+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAntennaCountDiv()
 							+ CharacterModificationUtils.getSelfTransformAntennaePerRowCountDiv()
-						+"</div>"
-						
-						+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
-								?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(), "Horn Colour",
-									(BodyChanging.getTarget().isPlayer()
-										?"The colour of your horns."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] horns.")),
-									true, true)
-								:"")
+							+"</div>"
 
-						+ CharacterModificationUtils.getSelfTransformLipSizeDiv()
+							+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
+							?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(), "Horn Colour",
+							(BodyChanging.getTarget().isPlayer()
+									?"The colour of your horns."
+									:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] horns.")),
+							true, true)
+							:"")
+					);
+				}
+
+				UtilText.nodeContentSB.append(
+
+						CharacterModificationUtils.getSelfTransformLipSizeDiv()
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformThroatModifiersDiv()
@@ -1259,7 +1280,8 @@ public class BodyChanging {
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour of your tongue."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),
-								true, true));
+								true, true)
+				);
 				
 			// Slime:
 			} else {
