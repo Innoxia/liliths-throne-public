@@ -11,10 +11,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -3517,6 +3519,101 @@ public class ItemType {
 			}
 			
 			allItems.add(loreBook);
+
+			// Essences
+
+			AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
+					mainSubspecies.getName(null).toLowerCase() + " intuition",
+					null,
+					mainSubspecies.getColour(null),
+					true,
+					Util.newHashMapOfValues(new Util.Value<>(Attribute.MAJOR_PHYSIQUE, 2f),
+							new Util.Value<>(Attribute.getRacialDamageAttribute(mainSubspecies.getRace()), 25f)),
+					null) {
+				@Override
+				public String getDescription(GameCharacter target) {
+					if(target == null) {
+						return "";
+					}
+					return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how "
+							+ mainSubspecies.getNamePlural(null).toLowerCase() +" will behave.");
+				}
+				@Override
+				public String getSVGString(GameCharacter owner) {
+					return getEssenceEffectSvg(mainSubspecies);
+				}
+				String effect_id = "COMBAT_BONUS_"+Subspecies.getIdFromSubspecies(mainSubspecies);
+
+//					StatusEffect.statusEffectToIdMap.put(statusEffect, effect_id);
+//					StatusEffect.idToStatusEffectMap.put(effect_id, statusEffect);
+//					StatusEffect.allStatusEffects.add(statusEffect);
+			};
+
+			AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
+					"[style.boldGood(+1)] [style.boldArcane(Arcane essence)]"),
+					mainSubspecies.getColour(null)) {
+				@Override
+				public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+					List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
+					list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
+					for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
+						list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+					}
+					return list;
+				}
+				@Override
+				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+					target.incrementEssenceCount(1, false);
+					target.addStatusEffect(statusEffect, 60*4*60);
+					return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)],"
+							+ " and are now far more effective at fighting "
+							+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"
+							+ mainSubspecies.getNamePlural(null) +"</b>!";
+				}
+			};
+
+			ItemEffectType.addAbstractItemEffectToIds("BOTTLED_ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies), effectType);
+
+			AbstractItemType essence = new AbstractItemType(
+					50,
+					null,
+					false,
+					"Bottled " + Util.capitaliseSentence(mainSubspecies.getName(null)) + " Essence",
+					"Bottled " + mainSubspecies.getName(null) + " Essences",
+					"A small glass bottle, with a little cork stopper wedged firmly in the top."
+							+ " Inside, the swirling "+mainSubspecies.getColour(null).getName().toLowerCase()
+							+ " glow of an arcane essence, imbued with the energy of a "
+							+ mainSubspecies.getName(null) + ", flickers and swirls about in a mesmerising, cyclical pattern.",
+					null,
+					mainSubspecies.getColour(null),
+					null,
+					null,
+					Rarity.EPIC,
+					Util.newArrayListOfValues(new ItemEffect(effectType)),
+					Util.newArrayListOfValues(ItemTag.ESSENCE)) {
+				@Override
+				public String getUseName() {
+					return "absorb";
+				}
+				@Override
+				public String getUseDescription(GameCharacter user, GameCharacter target) {
+					return getEssenceAbsorptionText(mainSubspecies.getColour(null), user, target);
+				}
+				@Override
+				public String getSVGString() {
+					return getEssenceSvg(mainSubspecies);
+				}
+
+			};
+
+			String essence_id = "ESSENCE_"+Subspecies.getIdFromSubspecies(mainSubspecies);
+
+			itemToIdMap.put(essence, essence_id);
+			idToItemMap.put(essence_id, essence);
+
+			allItems.add(essence);
+			essences.add(essence);
+
 		}
 	}
 	
@@ -3577,6 +3674,36 @@ public class ItemType {
 		
 		essenceMap.put(subspecies, finalImage);
 		
+		return finalImage;
+	}
+
+	private static String getEssenceEffectSvg(AbstractSubspecies subspecies) {
+		String background = "";
+		Colour colour = subspecies.getColour(null);
+		try {
+			InputStream is = ItemType.class.getResourceAsStream("/com/lilithsthrone/res/items/essenceBackground.svg");
+			String s = Util.inputStreamToString(is);
+
+			background = SvgUtil.colourReplacement(subspecies.getName(null), colour, s);
+			is.close();
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		String subspeciesIcon = subspecies.getSVGStringNoBackground();
+		subspeciesIcon = subspeciesIcon.replaceAll("fill=\"#(.*?)\"", "fill=\""+colour.getShades()[1]+"\"");
+		subspeciesIcon = subspeciesIcon.replaceAll("stroke=\"#(.*?)\"", "stroke=\""+colour.getShades()[1]+"\"");
+
+		String finalImage = "<div style='width:80%;height:80%;position:absolute;left:10%;top:10%;'>"
+				+ background
+				+ "</div>"
+				+"<div style='width:70%;height:70%;position:absolute;left:15%;top:20%;'>"
+				+ subspeciesIcon
+				+ "</div>"
+				+ "<div style='width:60%;height:60%;position:absolute;left:20%;top:25%;'>"
+				+ "</div>";
+
 		return finalImage;
 	}
 
