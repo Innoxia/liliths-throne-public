@@ -3576,10 +3576,8 @@ public class ItemType {
 				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 					target.incrementEssenceCount(1, false);
 					target.addStatusEffect(statusEffect, 60*4*60);
-					return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)],"
-							+ " and are now far more effective at fighting "
-							+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"
-							+ mainSubspecies.getNamePlural(null) +"</b>!";
+					return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)], and are now far more effective at fighting "
+							+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + mainSubspecies.getNamePlural(null) +"</b>!";
 				}
 			};
 
@@ -3590,11 +3588,11 @@ public class ItemType {
 					null,
 					false,
 					"Bottled " + Util.capitaliseSentence(mainSubspecies.getName(null)) + " Essence",
-					"Bottled " + mainSubspecies.getName(null) + " Essences",
+					"Bottled " + Util.capitaliseSentence(mainSubspecies.getName(null)) + " Essences",
 					"A small glass bottle, with a little cork stopper wedged firmly in the top."
-							+ " Inside, the swirling "+mainSubspecies.getColour(null).getName().toLowerCase()
-							+ " glow of an arcane essence, imbued with the energy of "+UtilText.generateSingularDeterminer(mainSubspecies.getName(null))
-							+ " " + mainSubspecies.getName(null) + ", flickers and swirls about in a mesmerising, cyclical pattern.",
+							+ " Inside, the swirling "+mainSubspecies.getColour(null).getName().toLowerCase() + " glow of an arcane essence,"
+							+ " imbued with the energy of "+UtilText.generateSingularDeterminer(mainSubspecies.getName(null)) + " "
+							+ mainSubspecies.getName(null) + ", flickers and swirls about in a mesmerising, cyclical pattern.",
 					null,
 					mainSubspecies.getColour(null),
 					null,
@@ -3713,8 +3711,6 @@ public class ItemType {
 				+ "</div>"
 				+"<div style='width:70%;height:70%;position:absolute;left:15%;top:20%;'>"
 				+ subspeciesIcon
-				+ "</div>"
-				+ "<div style='width:60%;height:60%;position:absolute;left:20%;top:25%;'>"
 				+ "</div>";
 
 		return finalImage;
