@@ -195,14 +195,14 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle shatters on impact with [npc2.namePos] aura, engulfing [npc2.her] in fire!
+		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle shatters on impact with [npc2.namePos] aura, engulfing [npc2.herHim] in fire!
 		]]></hitText>
 	</hitDescriptions>
 
 	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
 	<missDescriptions>
 		<missText><![CDATA[
-		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle misses [npc2.her] completely and shatters in the distance, creating an impressive but useless fireball.
+		[npc.Name] [npc.verb(throw)] the firebomb at [npc2.name]. The bottle misses [npc2.herHim] completely and shatters in the distance, creating an impressive but useless fireball.
 		]]></missText>
 	</missDescriptions>
 	

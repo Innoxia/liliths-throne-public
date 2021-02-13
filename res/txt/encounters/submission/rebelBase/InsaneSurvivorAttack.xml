@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ATTACK"><![CDATA[
+	<p>
+		ATTACK_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK"><![CDATA[
+	<p>
+		TALK_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BRIBE"><![CDATA[
+	<p>
+		BRIBE_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SURRENDER"><![CDATA[
+	<p>
+		SURRENDER_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICTORY"><![CDATA[
+	<p>
+		VICTORY_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEATED"><![CDATA[
+	<p>
+		DEFEATED_PLACEHOLDER
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

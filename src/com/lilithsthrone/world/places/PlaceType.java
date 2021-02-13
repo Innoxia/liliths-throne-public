@@ -4547,7 +4547,7 @@ public class PlaceType {
 			"submission/rebelBase/entrance",
 			PresetColour.BASE_RED,
 			RebelBase.REBEL_BASE_ENTRANCE,
-			null,
+			Encounter.REBEL_BASE,
 			"in a mysterious artificial cave")
                 .initWeatherImmune();
         

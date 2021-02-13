@@ -320,6 +320,7 @@ public enum DialogueFlagValue {
 
 	meraxisRepeatDemonTF,
 	
+        rebelBaseInsaneSurvivorEncountered,
 	
 	// Rat warrens:
 	

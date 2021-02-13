@@ -316,7 +316,7 @@ public class RebelBase {
                                             Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pboltrifle"), 2, false, true));
                                             Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbrevolver"), 5, false, true));
                                             Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_gbshotgun"), 1, false, true));
-//                                          Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, true));
+                                            Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbomb"), 10, false, true));
                                             Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.REBEL_BASE_ARMORY_SEARCHED);
                                             Main.game.getPlayerCell().getPlace().setName(PlaceType.REBEL_BASE_ARMORY_SEARCHED.getName());
                                     }

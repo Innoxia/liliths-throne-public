@@ -65,7 +65,7 @@
 					<unavailabilityText/>
 					<availabilityText/>
 				</sticker>
-				<sticker id="patched" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BLUE"> <!-- A sticker element.
+				<sticker id="patched" priority="1" defaultSticker="false" zLayer="1" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN"> <!-- A sticker element.
 				The 'id' element should be unique to stickers within this category element.
 				The 'priority' variable determines the position of this sticker in UI rendering order (in the inventory's clothing dye screen), with lower values being rendered nearer to the left of the buttons list.
 				'defaultSticker' defines whether this sticker is applied to this clothing item by default when spawned in.
@@ -222,7 +222,7 @@
 				<defaultColours>
 					<colour>CLOTHING_BROWN_DARK</colour>
 				</defaultColours> 
-				<extraColours values="ALL_METAL"/>
+				<extraColours values="ALL"/>
 			</customColour>
 		</customColours>
 		

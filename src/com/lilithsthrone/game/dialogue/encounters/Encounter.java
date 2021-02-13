@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
+import com.lilithsthrone.game.character.npc.submission.RebelBaseInsaneSurvivor;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -62,6 +63,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import java.util.HashSet;
 
 /**
  * @since 0.1.0
@@ -1080,6 +1082,35 @@ public enum Encounter {
 		}
 	},
 	
+        REBEL_BASE() {
+                @Override
+                public Map<EncounterType, Float> getDialogues() {
+                    Map<EncounterType, Float> map = new HashMap<>();
+                    if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_ESCAPE) &&
+                            !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseInsaneSurvivorEncountered))
+                    {
+                        map.put(EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK, 100f);
+                    }               
+                    return map;
+                }
+                @Override
+                protected DialogueNode initialiseEncounter(EncounterType node) {
+                    if(node == EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK) {
+                        Main.game.setActiveNPC(new RebelBaseInsaneSurvivor(Gender.getGenderFromUserPreferences(false, false)));
+                        try {
+                            Main.game.addNPC(Main.game.getActiveNPC(), false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return Main.game.getActiveNPC().getEncounterDialogue();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }           
+        },
+        
 	// chance of encounters (in likelihood order):
 	//  If night, always taken to bedroom. If ready to give birth, birthing & sleep, else fucked & sleep
 	// 	Rats get you to serve drinks
