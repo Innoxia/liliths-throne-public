@@ -4,7 +4,7 @@
 	<colour>NoStepOnSnek_snake</colour>
 	<secondaryColour>NoStepOnSnek_snake</secondaryColour>
 	<tertiaryColour>NoStepOnSnek_snake</tertiaryColour>
-	<mainSubspecies>true</mainSubspecies>
+	<mainSubspecies>false</mainSubspecies>
 	<baseSlaveValue>10000</baseSlaveValue>
 	<attributeItemId>NoStepOnSnek_race_snake_oil</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_snake_eggs</transformativeItemId>
