@@ -25,7 +25,7 @@ public class RebelBaseInsaneSurvivorDialogue {
 		return Main.game.getActiveNPC();
     }
     
-    public static final DialogueNode INSANE_SURVIVOR_ATTACK = new DialogueNode("Blocked!", "A figure blocks the way out!", true) {
+    public static final DialogueNode INSANE_SURVIVOR_ATTACK = new DialogueNode("A Living Ghost", "A strange figure in the corner.", true) {
         @Override
         public String getAuthor() {
                 return "DSG";
@@ -42,19 +42,22 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new ResponseCombat("Fight", "[npc.Name] is stopping you from leaving this place. Force your way out.",
+                return new ResponseCombat("Fight", "[npc.She] seems determined to fight you. Oblige [npc.herHim].",
                         getAttacker(), 
                         Util.newHashMapOfValues(
                         new Value<>(getAttacker(), UtilText.parse(getAttacker(), "[npc.speech(I'll fucking end you, demon scum!)]"))));
             }
             else if (index == 2) {
-                return new Response("Talk", "You get the feeling [npc.name] is beyond reason but it might be worth a try.", INSANE_SURVIVOR_TALK_ATTEMPT);
+                return new Response("Talk", "You get the feeling [npc.she] is beyond reason but it might be worth a try.", INSANE_SURVIVOR_TALK_ATTEMPT);
+            }
+            else if (index == 3 && Main.game.getPlayer().getMoney() <= 0) {
+                return new Response("Offer money", "Your empty pockets don't give you the means to try this.", null);
             }
             else if (index == 3) {
-                return new Response("Offer money", "[npc.Name] isn't after money it might be worth a try.", INSANE_SURVIVOR_BRIBE_ATTEMPT);
+                return new Response("Offer money", "[npc.She] probably isn't after money it might be worth a try.", INSANE_SURVIVOR_BRIBE_ATTEMPT);
             }
             else if (index == 4) {
-                return new Response("Surrender", "[npc.NamePos] kit might be ragged but it still looks serious. You might not be able to win this.", INSANE_SURVIVOR_SURRENDER_ATTEMPT);
+                return new Response("Surrender", "[npc.Her] kit might be ragged but it still looks serious. You might not be able to win this.", INSANE_SURVIVOR_SURRENDER_ATTEMPT);
             }
             else {
                 return null;
@@ -79,7 +82,7 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new ResponseCombat("Fight", "[npc.Name] can't be reasoned with. Force your way out.",
+                return new ResponseCombat("Fight", "[npc.She] can't be reasoned with. Defend yourself!",
                         getAttacker(), 
                         Util.newHashMapOfValues(
                         new Value<>(getAttacker(), UtilText.parse(getAttacker(), "[npc.speech(I'll fucking end you, demon scum!)]"))));
@@ -108,7 +111,7 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new ResponseCombat("Fight", "[npc.Name] can't be bought. Force your way out.",
+                return new ResponseCombat("Fight", "[npc.She] can't be bought. Defend yourself!",
                         getAttacker(), 
                         Util.newHashMapOfValues(
                         new Value<>(getAttacker(), UtilText.parse(getAttacker(), "[npc.speech(I'll fucking end you, demon scum!)]"))));
@@ -137,7 +140,7 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new ResponseCombat("Defend yourself", "[npc.Name] doesn't think your surrender is genuine, leaving you no other option.",
+                return new ResponseCombat("Defend yourself", "[npc.She] doesn't think your surrender is genuine, leaving you with little choice.",
                         getAttacker(), 
                         Util.newHashMapOfValues(
                         new Value<>(getAttacker(), UtilText.parse(getAttacker(), "[npc.speech(I'll fucking end you, demon scum!)]"))));
@@ -166,7 +169,7 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new Response("Continue", "There's no sign of [npc.name] anywhere. Might as well carry on your way...", Main.game.getDefaultDialogue(false)){
+                return new Response("Continue", "There's no sign of the stranger anywhere. Might as well carry on your way...", Main.game.getDefaultDialogue(false)){
                     public void effects() {
                         Main.game.banishNPC(getAttacker());
                         Main.game.getDialogueFlags().values.add(DialogueFlagValue.rebelBaseInsaneSurvivorEncountered);
@@ -197,7 +200,7 @@ public class RebelBaseInsaneSurvivorDialogue {
         @Override
         public Response getResponse(int responseTab, int index) {
             if (index == 1) {
-                return new Response("Continue", "There's no sign of [npc.name] anywhere. Might as well carry on your way...", Main.game.getDefaultDialogue(false)) {
+                return new Response("Continue", "There's no sign of the stranger anywhere. Might as well carry on your way...", Main.game.getDefaultDialogue(false)) {
                     @Override
                     public void effects() {
                         Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-5000));

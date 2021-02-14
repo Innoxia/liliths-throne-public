@@ -1281,38 +1281,38 @@ public enum Quest {
 		}
 	},
         
- //Rebel Base        
- REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 1, 5) {
-		@Override
-		public String getName() {
-			return "Hit The Lever!";
-		}
-		@Override
-		public String getDescription() {
-			return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "You pulled the handle against your better judement.";
-		}
-  },
+        //Rebel Base        
+        REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE, 15, 5) {
+                       @Override
+                       public String getName() {
+                               return "Hit The Lever!";
+                       }
+                       @Override
+                       public String getDescription() {
+                               return "You found a strange handle in the Bat Caverns. Who knows what it's for or what it does.";
+                       }
+                       @Override
+                       public String getCompletedDescription() {
+                               return "You pulled the handle against your better judement.";
+                       }
+        },
    
-  REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 1, 5) {
-    @Override
-    public String getName() {
-      return "Pull Handle, Recieve Mystery";
-    }
-    @Override
-    public String getDescription() {
-      return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
-    }
-    @Override
-    public String getCompletedDescription() {
-      return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
-    }
-  },
+        REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE, 15, 5) {
+          @Override
+          public String getName() {
+            return "Pull Handle, Recieve Mystery";
+          }
+          @Override
+          public String getDescription() {
+            return "The strange handle asked for some kind of password that you don't have. Perhaps a bit of searching in the vicinity will reveal some clues.";
+          }
+          @Override
+          public String getCompletedDescription() {
+            return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
+          }
+        },
         
-  REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE, 15, 5) {
 		@Override
 		public String getName() {
 			return "Fill In The Blank";
@@ -1325,9 +1325,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
 		}
-  },
+        },
         
-  REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE, 15, 5) {
 		@Override
 		public String getName() {
 			return "Open Says Me";
@@ -1340,9 +1340,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
 		}
-  },
+        },
         
-  REBEL_BASE_EXPLORATION(QuestType.SIDE, 1, 5) {
+        REBEL_BASE_EXPLORATION(QuestType.SIDE, 15, 5) {
 		@Override
 		public String getName() {
 			return "Going Spelunking";
@@ -1357,7 +1357,7 @@ public enum Quest {
 		}               
 	},
         
-  REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 10) {
+        REBEL_BASE_ESCAPE(QuestType.SIDE, 15, 100) {
 		@Override
 		public String getName() {
 			return "Getting Away With It";
@@ -1372,7 +1372,7 @@ public enum Quest {
 		}                
 	},
         
-  REBEL_BASE_FAILED(QuestType.SIDE, 1, 0) {
+        REBEL_BASE_FAILED(QuestType.SIDE, 15, 0) {
 		@Override
 		public String getName() {
 			return "Cold Feet";

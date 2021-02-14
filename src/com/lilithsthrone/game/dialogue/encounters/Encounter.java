@@ -1086,7 +1086,7 @@ public enum Encounter {
                 @Override
                 public Map<EncounterType, Float> getDialogues() {
                     Map<EncounterType, Float> map = new HashMap<>();
-                    if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_ESCAPE) &&
+                    if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_REBEL_BASE, Quest.REBEL_BASE_EXPLORATION) &&
                             !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseInsaneSurvivorEncountered))
                     {
                         map.put(EncounterType.REBEL_BASE_INSANE_SURVIVOR_ATTACK, 100f);

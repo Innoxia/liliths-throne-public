@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -41,6 +42,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -76,13 +78,13 @@ public class RebelBaseInsaneSurvivor extends NPC {
 				(Main.game.getDateNow().getYear() - RECRUITMENT_YEAR) + 18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5,
 				gender, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(10), WorldType.REBEL_BASE, PlaceType.REBEL_BASE_ENTRANCE, false);
+				new CharacterInventory(10), WorldType.REBEL_BASE, PlaceType.REBEL_BASE_SLEEPING_AREA, false);
         
         if(!isImported) {
             this.setLocation(Main.game.getPlayer(), true);
             
-            // Spawn with level between 7 and 10
-            setLevel(7 + Util.random.nextInt(4));
+            // Spawn with level between 12 and 15
+            setLevel(12 + Util.random.nextInt(4));
             
             setName(Name.getRandomTriplet(this.getRace()));
             this.setPlayerKnowsName(false);
@@ -91,12 +93,17 @@ public class RebelBaseInsaneSurvivor extends NPC {
             setDescription(UtilText.parse(this, "While apparently mostly human, [npc.name] has evidently spent a long time underground and has lost [npc.her] mind."));
             
             CharacterUtils.generateItemsInInventory(this);
+            this.addItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), 10, false, false);
         
             initPerkTreeAndBackgroundPerks();
             this.setStartingCombatMoves();
+            
+            // Nobody wants to see the gyrations of a living crack zombie
+            this.unequipMove("tease");
             loadImages();
         
             initHealthAndManaToMax();
+            this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 3600);
         }
         
     }
@@ -120,7 +127,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
             this.clearFetishDesires();
             
             this.setPersonalityTraits(PersonalityTrait.COWARDLY);
-            this.setHistory(Occupation.NPC_UNEMPLOYED);
+            this.setHistory(Occupation.NPC_REBEL_FIGHTER);
             this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
         }
         this.setBodyToGenderIdentity(true);
@@ -128,7 +135,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
         this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
         
         // Coverings befitting someone who's spent 3 decades or more hiding underground subsisting on glowing mushrooms        
-        this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PORCELAIN), true);
+        this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
         this.getCovering(BodyCoveringType.HUMAN).setPrimaryGlowing(true);
         
         this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
@@ -221,6 +228,11 @@ public class RebelBaseInsaneSurvivor extends NPC {
     @Override
     public boolean isUnique() {
         return false;
+    }
+    
+    @Override
+    public int getEscapeChance() {
+        return 0;
     }
     
     @Override
