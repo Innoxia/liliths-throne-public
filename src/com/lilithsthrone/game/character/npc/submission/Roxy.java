@@ -48,6 +48,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -59,6 +60,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.submission.SARoxySpecials;
 import com.lilithsthrone.main.Main;
@@ -85,7 +88,9 @@ public class Roxy extends NPC {
 			ItemType.MOTHERS_MILK,
 			ItemType.PREGNANCY_TEST);
 
-	static {
+	private static List<AbstractWeaponType> weaponsForSale = new ArrayList<AbstractWeaponType>();
+        
+        static {
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE)
 					&& (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))
@@ -94,6 +99,12 @@ public class Roxy extends NPC {
 				itemsForSale.add(itemType);
 			}
 		}
+                
+                for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+                    if(weaponType.getItemTags().contains(ItemTag.SOLD_BY_ROXY)) {
+                        weaponsForSale.add(weaponType);
+                    }
+                }
 	}
 	
 	public Roxy() {
@@ -338,6 +349,18 @@ public class Roxy extends NPC {
 				this.addItem(Main.game.getItemGen().generateItem(item), false);
 			}
 		}
+                
+                //add a special case for firebombs as they are disposable
+                for (AbstractWeaponType weapon : weaponsForSale) {
+                    if (weapon.getId().equals("dsg_hlf_weap_pbomb")) {
+                        if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.rebelBaseRoxyDealComplete)) {
+                            break;
+                        }
+                        this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 10, false, false);
+                    } else {
+                        this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), false);
+                    }
+                }
 		
 		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
 		
