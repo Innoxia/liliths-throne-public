@@ -34,6 +34,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
@@ -49,6 +50,7 @@ public abstract class AbstractOutfit {
 	private String filePath;
 	private String name;
 	private String description;
+	private List<WorldRegion> worldRegions;
 	private List<AbstractWorldType> worldTypes;
 	private Femininity femininity;
 	private List<OutfitType> outfitTypes;
@@ -74,7 +76,17 @@ public abstract class AbstractOutfit {
 			this.femininity = 	Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
 			this.conditional = 	coreAttributes.getMandatoryFirstOf("conditional").getTextContent();
 			this.weight = 		Integer.valueOf(coreAttributes.getMandatoryFirstOf("weight").getTextContent());
-			
+
+			this.worldRegions = new ArrayList<>();
+			if(coreAttributes.getOptionalFirstOf("worldRegions").isPresent()) {
+				this.worldRegions = coreAttributes
+						.getMandatoryFirstOf("worldRegions")
+						.getAllOf("region") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
+						.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
+						.map( e -> WorldRegion.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
+						.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need!
+			}
+
 			this.worldTypes = new ArrayList<>();
 			if(coreAttributes.getOptionalFirstOf("worldTypes").isPresent()) {
 				this.worldTypes = coreAttributes
@@ -92,7 +104,7 @@ public abstract class AbstractOutfit {
 				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 				.map( e -> OutfitType.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
 				.filter(Objects::nonNull) // Ensure that we only add non-null effects
-				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need! 
+				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need!
 			
 			// Same as above, but now with leg configurations:
 			try {
@@ -133,13 +145,23 @@ public abstract class AbstractOutfit {
 				}
 				break;
 		}
-		
-		if(this.getWorldTypes()!=null
+
+		// Check world region (if in right region, all world types match) Region may be overruled by world type
+		if(this.getWorldRegions()!=null
+				&& !this.getWorldRegions().isEmpty()
+				&& !this.getWorldRegions().contains(character.getWorldLocation().getWorldRegion())
+				&& (this.getWorldTypes()==null
+				|| this.getWorldTypes().isEmpty())) {
+			return false;
+		}
+
+		// If world type present, must be in that world type, regardless of region
+		if (this.getWorldTypes()!=null
 				&& !this.getWorldTypes().isEmpty()
 				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
-		
+
 		if(!this.getOutfitTypes().contains(type)) {
 			return false;
 		}
@@ -839,6 +861,10 @@ public abstract class AbstractOutfit {
 
 	public Femininity getFemininity() {
 		return femininity;
+	}
+
+	public List<WorldRegion> getWorldRegions() {
+		return worldRegions;
 	}
 
 	public List<AbstractWorldType> getWorldTypes() {

@@ -8,10 +8,9 @@
 		
 		<femininity>MASCULINE</femininity>
 		
-		<worldTypes>
-			<world>SUBMISSION</world>
-			<world>RAT_WARRENS</world>
-		</worldTypes>
+		<worldRegions>
+			<region>SUBMISSION</region>
+		</worldRegions>
 		
 		<outfitTypes>
 		  <type>MUGGER</type>

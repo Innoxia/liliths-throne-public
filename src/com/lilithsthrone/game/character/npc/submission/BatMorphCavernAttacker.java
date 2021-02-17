@@ -122,7 +122,7 @@ public class BatMorphCavernAttacker extends NPC {
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this);
 		
-		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override
