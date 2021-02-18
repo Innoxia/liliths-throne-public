@@ -11,8 +11,12 @@
 		
 		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
 		<femininity>FEMININE</femininity>
-		
-		<!-- The worlds in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldType (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
+
+		<!-- The regions in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldRegion (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldRegion.java -->
+		<!-- Regions can be added like this (inside the worldRegion tag): <region>SUBMISSION</region> If a region is present, the outfit can appear in any WorldType in that region. If there is also a worldTypes present, that will overrule the WorldRegion, meaning that the outfit will only appear in that WorldType (or types) and nowhere else. -->
+		<worldRegions/>
+
+		<!-- The worlds (places/maps) in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldType (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
 		<worldTypes>
 			<world>DOMINION</world>
 			<world>SUBMISSION</world>
