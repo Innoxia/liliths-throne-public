@@ -598,5 +598,4 @@ public class CMSpecialAttack {
         	return 2;
         }
     };
-
 }
