@@ -101,7 +101,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -116,7 +116,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -131,7 +131,7 @@ public abstract class AbstractCombatMove {
 			boolean canTargetEnemies,
 			boolean canTargetSelf,
 			Map<AbstractStatusEffect, Integer> statusEffects) {
-		this(category, name, cooldown, APcost, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
 	}
     
     /**
@@ -147,6 +147,7 @@ public abstract class AbstractCombatMove {
     		String name,
     		int cooldown,
     		int APcost,
+    		int equipWeighting,
     		CombatMoveType type,
     		DamageType damageType,
 			DamageVariance damageVariance,
@@ -166,7 +167,7 @@ public abstract class AbstractCombatMove {
         
         this.cooldown = cooldown;
         this.APcost = APcost;
-        this.equipWeighting = 1;
+        this.equipWeighting = equipWeighting;
         this.type = type;
         this.baseDamage = 0;
         this.damageType = damageType;
