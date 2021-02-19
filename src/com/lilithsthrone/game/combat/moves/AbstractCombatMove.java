@@ -101,7 +101,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -116,7 +116,7 @@ public abstract class AbstractCombatMove {
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
     		Map<AbstractStatusEffect, Integer> statusEffects) {
-    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+    	this(category, name, cooldown, APcost, 1, type, damageType, damageVariance, pathName, null, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
     }
 
 	public AbstractCombatMove(CombatMoveCategory category,
@@ -131,7 +131,7 @@ public abstract class AbstractCombatMove {
 			boolean canTargetEnemies,
 			boolean canTargetSelf,
 			Map<AbstractStatusEffect, Integer> statusEffects) {
-		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects);
+		this(category, name, cooldown, APcost, 1, type, damageType, DamageVariance.NONE, pathName, iconColours, canTargetAllies, canTargetEnemies, canTargetSelf, statusEffects, Util.newHashMapOfValues());
 	}
     
     /**
@@ -156,7 +156,8 @@ public abstract class AbstractCombatMove {
     		boolean canTargetAllies,
     		boolean canTargetEnemies,
     		boolean canTargetSelf,
-			Map<AbstractStatusEffect, Integer> statusEffects) {
+			Map<AbstractStatusEffect, Integer> statusEffects,
+			Map<AbstractStatusEffect, Integer> statusEffectsCritical) {
     	this.fromExternalFile = false;
     	this.mod = false;
     	
@@ -177,7 +178,7 @@ public abstract class AbstractCombatMove {
         this.canTargetSelf = canTargetSelf;
         
         this.statusEffects = statusEffects;
-        this.statusEffectsCritical = new HashMap<>();
+        this.statusEffectsCritical = statusEffectsCritical;
 
         this.associatedSpell = null;
         

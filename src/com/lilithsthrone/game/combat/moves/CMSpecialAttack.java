@@ -44,7 +44,8 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 1))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 1)),
+            Util.newHashMapOfValues()) {
 
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, (source.getUnarmedDamage() * 2 * (source.isLegMovementHindered()?0.1f:1)));
@@ -613,7 +614,8 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-            Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 2))) {
+            Util.newHashMapOfValues(),
+            Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
 
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, 20 * (source.isLegMovementHindered()?0.1f:1)); // kerambit damage
