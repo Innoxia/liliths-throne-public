@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.submission;
 
 import java.time.DayOfWeek;
 
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -76,7 +77,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -109,7 +115,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_LIGHT");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_LIGHT"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -138,7 +149,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -167,7 +183,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_BRIDGE");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_BRIDGE"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -196,7 +217,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_END");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_END"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -241,6 +267,10 @@ public class BatCaverns {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_QUEEN_GUESS"));
 				
 			}
+
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(false));
+			});
 			
 			return UtilText.nodeContentSB.toString();
 		}

@@ -2232,15 +2232,18 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return target.isPlayer()
-					&& (target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
-							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
+					&& (Util.newArrayListOfValues(
+						Encounter.DOMINION_ALLEY,
+						Encounter.DOMINION_CANAL,
+						Encounter.HARPY_NEST_WALKWAYS,
+						Encounter.SUBMISSION_TUNNELS,
+						Encounter.BAT_CAVERN
+					).contains(target.getLocationPlace().getPlaceType().getEncounterType()))
 					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
+			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, a Bat Cavern tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
