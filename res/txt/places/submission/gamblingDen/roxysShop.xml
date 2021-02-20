@@ -236,7 +236,7 @@
 	
 	<htmlContent tag="FIREBOMBS"><![CDATA[
 	<p>
-		You think back to the Arcane Firebombs you got from the mysterious cave. You don't have a way to get any more and you doubt any honest shop would want to carry something so obviously illegal. An idea starts forming in your back of your mind...
+		You think back to the Arcane Firebombs you got from the mysterious cave. You don't have a way to get any more and you doubt any honest shop would want to carry something so obviously illegal. An idea starts forming in the back of your mind...
 	</p>
 	<p>
 		You bring out a firebomb and set it down on the counter. [roxy.speech("What's that yer got there?")] Roxy asks, raising an eyebrow, [roxy.speech(The newest thing y'been jammin' up yer arse?)]

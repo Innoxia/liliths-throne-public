@@ -11,6 +11,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EarType;
@@ -26,13 +27,14 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.RebelBaseInsaneSurvivorDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -98,14 +100,31 @@ public class RebelBaseInsaneSurvivor extends NPC {
             initPerkTreeAndBackgroundPerks();
             this.setStartingCombatMoves();
             
-            // Nobody wants to see the gyrations of a living crack zombie
-            this.unequipMove("tease");
-            loadImages();
+            //no character image (yet)
+            //loadImages();
         
             initHealthAndManaToMax();
             this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 3600);
         }
         
+    }
+    
+    // Do not add tease as nobody wants to see the gyrations of a living crack zombie
+    @Override
+    public void setStartingCombatMoves() {
+        this.clearEquippedMoves();
+        this.equipMove("strike");
+        this.equipMove("twin-strike");
+    }
+
+    @Override
+    public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        // Death or Glory!
+        if (move.getType() == CombatMoveType.TEASE || move.getType() == CombatMoveType.DEFEND) {
+            return 0;
+        } else {
+            return super.getMoveWeight(move, enemies, allies);
+        }
     }
     
     @Override

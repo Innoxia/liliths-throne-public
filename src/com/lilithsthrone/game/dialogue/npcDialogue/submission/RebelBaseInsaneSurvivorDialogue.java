@@ -54,7 +54,7 @@ public class RebelBaseInsaneSurvivorDialogue {
                 return new Response("Offer money", "Your empty pockets don't give you the means to try this.", null);
             }
             else if (index == 3) {
-                return new Response("Offer money", "[npc.She] probably isn't after money it might be worth a try.", INSANE_SURVIVOR_BRIBE_ATTEMPT);
+                return new Response("Offer money", "While [npc.she] probably isn't after money, a simple offer couldn't hurt...could it?", INSANE_SURVIVOR_BRIBE_ATTEMPT);
             }
             else if (index == 4) {
                 return new Response("Surrender", "[npc.Her] kit might be ragged but it still looks serious. You might not be able to win this.", INSANE_SURVIVOR_SURRENDER_ATTEMPT);
