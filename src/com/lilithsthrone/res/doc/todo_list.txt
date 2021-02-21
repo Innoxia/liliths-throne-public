@@ -43,6 +43,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added expanded hyena-morph lore in the 'Laughing Hyenas' lore book. (by Manwhore)
 		Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)
 		In subspecies XMLs, if secondaryColour or tertiaryColour elements are empty they now default to colour. (PR#1503 by Stadler76)
+		Added several new methods in Body.java and BodyPartTypeInterface.java and used these methods to tidy up xml race files. (PR#1498)
 		
 	Engine/Modding:
 		Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).
