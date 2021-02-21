@@ -32,11 +32,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed incorrect inventory contents of attackers spawned via the debug menu. (by AceXP)
 		Fixed issue with clit size not being able to be changed in character creation. (by AceXP)
 		Fixed issue with modified fluid colours being saved. (by AceXP)
-		Fixed issue with Gryphons (and other low spawn rate subspecies) not spawning as Enforcers. (by Stadler)
+		Fixed issue with Gryphons (and other low spawn rate subspecies) not spawning as Enforcers. (by Stadler76)
 		Fixed issue where 'Warning: getClosestStringMatch()' entries would be shown when there was just a difference in capitalisation. (by AceXP)
 		Slimes and bats in the bat caverns will now correctly spawn with weapons. (by AceXP)
 		Added expanded hyena-morph lore in the 'Laughing Hyenas' lore book. (by Manwhore)
 		Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)
+		In subspecies XMLs, if secondaryColour or tertiaryColour elements are empty they now default to colour. (PR#1503 by Stadler76)
 		
 	Engine/Modding:
 		Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).
