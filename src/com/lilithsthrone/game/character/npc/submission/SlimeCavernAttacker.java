@@ -120,7 +120,7 @@ public class SlimeCavernAttacker extends NPC {
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this);
 
-		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings); //TODO need slime-specific?
 	}
 	
 	@Override
