@@ -21,568 +21,577 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	NoStepOnSnek's races:
-		Added snake race, with subspecies of 'snake-morph' (bipedal snakes), 'lamia' (long-tailed snakes), and 'melusine' (long-tailed snakes with wings).		
-		Added octopus race, with subspecies of 'octopus-morph' (cephalopod body).
-		Added capybara race, with subspecies of capybara-morph (bipedal or quadrupedal body).
-		Added 6 food/drink items: Boiled Eggs/Snake Oil for snakes, Shrimp Cocktail/Ink Vodka for octopuses, Chocolate Brownie/Chamomile Tea for capybaras.
-		Added special attack 'Ink Cloud', unlocked by having an octopus face.
+	Charisma's spider-morph contribution:
+		Added spider-morph race.
+		Added spider-morph and tarantula-morph subspecies.
+		Added 'Jet Black Coffee' and 'Chocolate Coated Cocoa Beans' for the spider-related attribute and TF items.
 	
-	Contributions:
-		Added support for multiple vagina or penis types per race in enchanted TF potion effects. (PR#1465 by Stadler76)
-		Fixed issue where the combat moves of the player's elemental were reset. (by AceXP)
-	 	Fixed softlock at the end of combat when fighting imps in Submission. (by AceXP)
-		Improved performance by caching subspecies variables and only doing a recalculation when needed. (PR#1471 by AceXP)
-		Fixed typo in 'Ear pull' blowjob action. (PR#1472 by darkofoc)
-		Fixed issue where the appearance for feral legs was hardcoded and didn't take various leg configurations into account. (PR#1467 by Stadler76)
-		Tidied up a lot of race code, and fixed issue where changing a character's tongueType (as part of changing face type) wouldn't resets its modifiers. Also added 'WING_SIZE_' as a parser prefix hook for WingSize enum values. (PR#1480 by Stadler76)
-		Updated the tentacle-constrict icon. (by DSG)
-		Made the tooltip fade-in animation toggleable via the existing 'Fade-In' game option. This fixes the bug where tooltips were appearing blank when using some versions of java to run the game. (PR#1449 by CognitiveMist)
-		Improved damage calculations for special attacks. Added ability to set 'damageVariance' in modded combat moves. Added CombatMoveType POWER for use when defining special attacks instead of having to use ATTACK or SPELL. (PR#1473 by Stadler76)
-		Fixed references to the player using their wings in several scenes when the player was in fact able to fly without their wings. (PR#1483 by Stadler76)
-		Performance improvement and fixed issue with loading of book entries for subspecies without a bookEntries.xml file. (PR#1484 by AceXP)
-		Fixed an oversight for mer-tailed and serpent-tailed non-ferals where the full leg description, complete with references to feet, was being incorrectly shown. (PR#1487 by Stadler76)
-		Fixed graphical issues which arose when selecting very dark dye colors on items due to some stroke colors being set to CMYK black (#231f20) instead of RGB black (#000000). (PR#1488 by DSG)
-		Fixed parsing errors, typos and minor issues in Nyan's updated quest content. (PR#1491 by AceXP)
-		Added new icons for eagle-harpies and fennec-foxes. (by NeverLucky)
-		Fixed bug where upon summoning your elemental for the first time, background errors would be thrown. (by AceXP)
-		Made artwork file extension checking case insensitive. (PR#1448 by CognitiveMist)
-		Improved performance and memory usage by implementing use of a single instance of the TransformerFactory, DocumentBuilderFactory and DocumentBuilder. (PR#1493 by AceXP)
-		Fixed issue with wing types not being available in the enchantment menu, and also maximum penetration girth not being able to be selected. (by Stadler76)
+	Contributors:
+		Added option for the bandana to be worn in the neck slot. (by DSG)
+		Fixed huge issue with performance, making turn times roughly 30-50% faster. (by AceXP)
+		Fixed incorrect inventory contents of attackers spawned via the debug menu. (by AceXP)
+		Fixed issue with clit size not being able to be changed in character creation. (by AceXP)
+		Fixed issue with modified fluid colours being saved. (by AceXP)
+		Fixed issue with Gryphons (and other low spawn rate subspecies) not spawning as Enforcers. (by Stadler)
+		Fixed issue where 'Warning: getClosestStringMatch()' entries would be shown when there was just a difference in capitalisation. (by AceXP)
+		Slimes and bats in the bat caverns will now correctly spawn with weapons. (by AceXP)
+		Added expanded hyena-morph lore in the 'Laughing Hyenas' lore book. (by Manwhore)
+		Added unique icon for border-collie morphs and gave bald-eagle harpy icon a coloured beak. (by NeverLucky)
 		
-	DSG's Enforcer Item updates (PR#1490):
-		Updated Enforcer item files: deleted outdated comments; fixed typos; updated weapon effects to be applied via effects element.
-		Enforcer weapon effects are now applied on critical hits instead of by random chance.
-		Pepperball rifle and pistol now have new special attacks of 'Mag Dump' and 'Seven Rounds Rapid', respectively.
-		The Liquid Stun Gun's silly-mode effects have been moved into a new silly-mode variant of the weapon, which can be spawned via the debug menu's cheat spawn menu.
-		Added a test Enforcer beret with no sticker requirements to the debug menu's cheat spawn menu.
-		Updated Enforcer beret with some description text that was lost during sticker work.
-		
-	DSG's race fixes:
-		Race version 1.3:
-			Removed face requirements from wyvern, drake, coatl, and ryu subspecies weighting for improved support for lesser morphs.
-			Removed attribute scaling from the Breath Weapon special attack as it was already having damage boosted in damage calcuation, creating a "double-dip". Base damage is now fixed at 75.
-			Removed ear requirement from coatls.
-			Removed face TF from wyverns and drakes.
-			Changed coatl tongue requirement to only require the BIFURCATED modifier.
-			Improved flightlessness detection in drakes and ryus.
-			Fixed incorrect year and formatting in the book entry for dragons.
-			Fixed typo in bear vagina descriptions.
-			Fixed gryphons spawning in with generic feathered wings instead of the correct wing type.
-		Race version 1.31:
-			Fixed three typoes in the dragon vagina TF description.
-		Race version 1.32:
-			Fixed similar typoes as 1.31 in the vagina TF descriptions for bears, ferrets, gryphons, otters, raccoons, sharks.
-		Race version 1.33:
-			Fixed formatting issue in the otter beverage effects description.
-			Changed Breath Weapon calculation, base damage will now scale with spell damage bonuses. Starting damage is now 20. Having either a dragon torso or dragon face will increase starting damage to 50. Having both will increase starting damage to 75.
-			Fixed feral coatls with a leg configuration of TAIL_LONG not being recongized as a coatl.
-		Race version 1.34:
-			Fixed dragon racialBody not having any tails listed
-			Fixed gryphon racialBody not having tail feathers listed
-			Added the "feathered" tail type to dragons
-			Added a missing ARM_WINGS_LEATHERY tag to dragon arm-wings
-	
 	Engine/Modding:
-		Added parser prefix hooks for muscle, body size, and body shape enums (using 'MUSCLE_', 'BODY_SIZE_', and 'BODY_SHAPE', respectively).
-		Added parser prefix hook for the DayPeriod enum (using 'DAY_PERIOD_').
-		Eye type xml files now support the 'tags' element.
-		Added argument to foot/feet parsing commands to ignore clothing when parsed during sex.
-		Added 'CHASTITY' item tag, which makes clothing with this tag apply the new chastity effect to characters who equip it.
-		Added an 'applicationLength' element to status effect mods. This enables you to define how long a custom status effect will be applied for if its application conditions are found to be true. If this 'applicationLength' is missing, the currently-used default value of -1 is used, so you don't need to refactor any of your status effect mod files to account for this change.
-		Added RESTING_LUST as an attribute, so any modded items or effects can now influence this.
-		Changed method signature for Sex methods: 'setTimesCummedInside()' and 'incrementTimesCummedInside()'.
-		Added 'newSexType(SexParticipantType, SexAreaInterface, SexAreaInterface)' method to the sex class (at the very bottom of the class file) so that there's a way to generate SexType objects from the parser (via the 'sex' object).
-		You can now define 'placeLocations' in subspecies xml files to allow for subspecies to spawn in specific place types. (See 'res/mods/innoxia/race/hyena/spotted.xml' for an annotated example.)
-		You can now actually leave 'regionLocations' and 'worldLocations' elements in subspecies xml files blank without throwing errors, as the comments said you could.
-		Added ability to define body hair availability to the bodyPart xml files: anus, arm, face, penis, and vagina.
-		Added ability to define subspecies names based on their leg configuration. Refactoring old subspecies xml files is not needed. If you would like to make use of this functionality, see the 'res/mods/innoxia/race/hyena/spotted.xml' file.
-		Also added ability to define subspecies silly-mode names. See the same file as above.
-		Added 'HAIR_NATURAL_MANE' as a body part tag for defining HairTypes as being naturally styled into a mane.
-		Added 'slotClothing(slot, coloured)' parsing command for parsing the name of a character's clothing.
+		Added 'NEGATIVE_ONE_LEGENDARY', 'NEGATIVE_TWO_MYTHICAL', and 'NEGATIVE_THREE_ZERO' as new SubspeciesSpawnRarity values (for subspecies which should be extremely rare).
+		Added support for use of spaced 'ELSE IF' in conditional statements (although you should probably still continue to use 'ELSEIF' for style conformity).
+		Added 'Sticker unlocks' button to the debug menu, which bypasses all clothing sticker requirements when turned on (for ease of testing clothing stickers).
+		Added functionality for characters to gain category-locked perk points.
+		Added 'TAIL_NEVER_SUTABLE_FOR_PENETRATION' BodyPartTag so that you can prevent prehensile tails from ever being used in sex.
+		Added BodyPartTags 'FACE_VENOMOUS_TEETH' and 'FACE_VENOMOUS_TEETH_LUST', which causes the 'BITE' special attack to apply 'poisoned' or 'lust-poisoned' status effects to the target.
 	
 	Gameplay:
-		Reworked Nyan's romance quest, which includes a new warehouse map and a new character. Nyan's post-quest dating content is half-finished, but will be completed for the next release.
-		Added 'cougar-morph' as a subspecies of cat-morph. Requirements to be identified as a cougar are: non-patterned tan fur, muscles of at least 'muscular', and body size of at least 'average'.
-		All chastity devices (cages and belt) now apply a new chastity status effect when equipped, which increases in intensity the longer the character continues wearing it.
-		Added internal map to Slaver Alley's bounty hunter lodge, and renamed it to 'The Rusty Collar' tavern.
-		Added public toilets to the Shopping Arcade, which you can use to wash yourself and/or use a gloryhole.
+		Added Nyan content up to the point where you can repeatedly go on weekend dates with her (and her mother).
+		Added 'aristocrat' as a background choice during character creation.
+		Reworked Pix's gym so that exercising no longer drains health, and instead applies a 'post-workout fatigue' status effect. Exercising in the gym now also grants progress towards unlocking physical perk points.
+		You can now free your slaves by purchasing a Freedom Certification from Finch and then choosing the 'Set Free' action in your slave's management dialogue. If your slave likes you and you have a free guest room, you can have your slave become a guest after freeing them.
+		You can now import characters as guests in the same way that you can import them as slaves. To do so, go to the waiting room in City Hall and use the 'Lodgers' action. Importing guests requires you to have a free guest room in Lilaya's mansion for them to move into.
+		Snake-morphs now have venomous fangs, applying 'poisoned' to enemies which they bite in combat.
 	
-	Items:
-		Added: Women's trousers (feminine, leg slot, sold by Nyan).
-		Added: Gemstone necklace (androgynous, neck/wrist slots, sold by Nyan).
-		Added: Women's winter coat (feminine, over-torso slot, sold by Nyan).
-		Bandada can now be worn in the head and hair slots, and supports pattern recolouring.
-		Long-sleeved shirt is now unisex, and the colours of its buttons and tag can be changed.
-		Added more colouring options to men's and women's watches.
-		All glasses can now be displaced by being pulled up (onto forehead).
-		Made the three brown clothing colours less saturated, so they look less orange and more brown than before. Also slightly desaturated the tan colour.
-		Added 'dark desaturated brown' and 'desaturated tan' as new clothing colours.
-		In clothing/weapon dye screens, standard colours for the selected item now have a slightly lighter border, and the tooltip for each colour reveals whether it's a standard colour or not.
-		The 'Demonstone necklace' item is now sold by Vicky, not Nyan.
-	
+	Body:
+		The property of a vagina to birth live young or lay eggs can now be modified via the self-TF menu and/or by crafting TF potions.
+		The orifice plasticity value of 'accommodating' now results in the orifice returning to 98% of its original tightness after being stretched, instead of 100%. (So the bottom 4 plasticity values now return to 100%, while the top 4 progressively return to lesser percentages.)
+		Alligator tails are no longer marked as 'prehensile', and panther tails are marked as 'prehensile' (so that they can be used in sex if you have furry tail penetration turned on).
+		Tails which are marked as suitable for penetration, but which are not prehensile, can now be used in sex so long as they are greater than 50% of the owner's height.
+		
 	Sex:
-		Added 'Stroke cock' as an ongoing self-action, which you can start/stop like other ongoing actions.
-		Added 'foot worship' actions (performing oral on a partner's feet). Available in the slots: Performing oral (in positions Standing/Behind desk/All fours/Lying down), Reverse cowgirl (for non-taurs), Missionary (for non-taurs), Scissoring.
-		Weighting of NPCs' choice to use foot actions is no longer partially based on the player character's fetishes, and is now only affected by the foot action content setting and whether the NPC at least likes the associated foot fetish.
-		Added more information to NPCs' 'Desires' status effect tooltip when in sex, so that you can now see NPCs' foreplay and main sex preferences.
-		Added 'Humping' sex slots to the 'Over desk' sex position.
-		Characters can now use their serpent-tail lower body to perform all of the usual tail sex actions. Serpent-tail girth is based on hip size, while length starts at 500% of height.
-		Stomach bulge descriptions are now appended when the penetration length inserted into a character's vagina or anus is greater than 12.5% of their height, instead of just when penetration lengths were detected as being uncomfortable.
+		Characters in a 'performing oral' or 'missionary' slot in the 'lying down' sex position can now interact with the characters lying to either side of their target.
+		Characters who are reverse face-sitting can now interact with characters who are scissoring the person whose face they are on.
+		When using quick-sex, characters will no longer lose their vaginal virginity while tribbing with a clit that's not large enough to act as a pseudo penis.
+		Characters with a positive desire towards the self-denial fetish no longer lose affection if they end sex without any orgasms, so long as they have been denied at least once (ending sex with no orgasms or denials still incurs an affection hit).
 	
 	Other:
-		The five main horn types (curled, spiral, curved, swept-back, straight) are no longer limited to demons, and instead are generically available for all races who lack special horn types in the same way that feathered/leathery wings are.
-		Hyena, panther, and demon eyes now have night vision.
-		Rabbits, rats, and squirrels now correctly have plantigrade feet by default instead of digitgrade.
-		Removed the 8-hour loiter action and added a 24-hour action.
-		Resting lust increase from being vulnerable to an ongoing arcane storm has been reduced from 75 to 50.
-		Hyena-morphs now correctly spawn with vertical pupils instead of round, and panther-morphs spawn with round pupils instead of vertical.
-		You can now get your milk, cum, and girlcum recoloured by Kate at Succubi's Secrets, and you will no longer see covering recolouring options for parts you do not have (e.g. Horn covering colours will no be displayed if you have no horns).
-		NPC surnames are now shown in their name tooltip.
-		Updated home icons for Arthur, Zaranix, Desryth, and Helena.
-		Slightly adjusted penetration girth brackets.
-		Added indication of a serpent-tail's length in characters' body tooltip, and changed torso's 'Height' indication to 'Length' if the character is feral and their size is measured head-to-tail instead of how high they are.
-		Serpent-tailed lower bodies can now have their length transformed (either from the self-TF menu or by enchanting food items which have the 'serpent tail' leg configuration transformation available to them, such as snake eggs).
-		By default, only body parts belonging to mammal or bird races now support having pubic, facial, ass, and underarm hair.
-		Feral snake subspecies now have more accurate body-to-tail length ratios, and by default are now closer to 2m in total length as a result.
-		Added tentacle attributes to your phone's 'Body stats' screen and removed breast stats for if you're a feral which has no breasts.
-		Added subspecies' status effect attributes to their encyclopedia pages.
-		Nyan's Clothing Emporium is now open from 09:00-20:00 instead of 06:00-22:00.
-		Traders will no longer always sell/buy unidentified clothing for 50 flames, and instead will offer a buy/sell price that's based on the item's unenchanted value. Also halved items' value reduction from having a 'jinxed' rarity.
-		Added debug option to spawn an attacker of a defined race when on either a Submission tunnel tile or a Dominion alleyway or canal tile.
-	
+		Added indication of the covering's race to covering recolouring menus.
+		Brax now starts with 150 essences, so he can use his pistol a lot more.
+		Updated the minimap's night-time gradient effects.
+		When searching for a partner in the club, subspecies are now ordered by race. You can also now select the race stage of your partner.
+		The elemental dispel button is now displayed in both the interaction and management tabs.
+		Changed maximum affection name from 'worships' to 'adores'.
+		The drunk speech modifier now only takes affect starting at the 'drunk' level, instead of 'tipsy'.
+		Body hair on furry morphs is now simply referred to as 'fur' instead of 'fur-like hair'.
+		When choosing your name in character creation, and changing it at city hall, you can now set your masculine/andgrogynous/feminine name triplet, which causes your first name to change based on your femininity.
+		Lyssieth now gains a lot of affection towards you after transforming you into a demon (will be retroactively applied if you are already a demon when loading into this version).
+		Added 'orgasm prevention' enchantment for clothing that's either marked as a sex toy or which fits into the groin slot. While under this effect, characters can never gain more than 95 arousal, effectively preventing them from ever orgasming.
+		Updated the icon for the 'desperate for sex' status effect.
+		When purchasing or otherwise gaining ownership of a slave, you now gain keys to all of their equipped clothing which provides a key (such as their slave collar).
+		If anal or lactation content is disabled, the enchantment menu will no longer show you secondary modifiers related to the anal orifice or lactation values.
+		Kate will now let you use pregnancy testers on her during sex.
+		The 'American tourist' background now grants doubled effects from eating burgers.
+		
 	Bugs:
-		Numerous parsing fixes.
-		Fixed issue where characters could have their location set to coordinates outside of the map's edges.
-		Fixed incorrect parsing in numerous footjob actions.
-		Fixed rare issue where characters would have unintended sex preferences after changing position.
-		The 'Frustrated' status effect is now correctly removed when the character under its effect orgasms.
-		Fixed issue with Kruger and Kalahari not spawning correctly as lion-morphs (and retroactively reset their bodies to their correct forms when you load into this version).
-		Fixed bug where numerous miscellaneous sex actions (including most of the sadistic actions and the 'pull hair/ears'-type actions) would never be available to use.
-		The 'transformationName' element in vagina body part xml definitions now works correctly.
-		Fixed bug where Helena would repeat conversation topics before you'd seen all of them.
-		Fixed issue with several incorrectly-gendered cock names (e.g. A male fox's cock being called a 'vixen-cock').
-		Fixed very rare bug where the game could randomly freeze for a turn when removing certain items of clothing.
-		Fixed issue where 'Present pussy' positioning action was available in gloryhole scenes even if you didn't have a vagina.
-		The size of the preview image when dying clothing and weapons now correctly fits into the tooltip's width.
-		Fixed incorrect colouring of some status effect icons (such as the icons for the smoking effects).
-		Fixed minor bug where ordering of attributes in modded race tooltips would be random.
-		Fixed issue where tentacle count was not correctly linked to leg count.
-		Fixed incorrect descriptions of height and serpent-tail length for feral characters.
-		Fixed issue where transforming into a feral wouldn't apply the correct leg configuration changes, which was leaving characters with tails where they should have had them removed.
-		Fixed bug where feral attributes of modded races were not being loaded correctly.
-		Fixed minor issue with feral Coatl not being described as serpents in some places.
-		Fixed issue with unintended subspecies spawning in the stocks at slaver alley (such as dragons).
-		Changing pupil and sclera colour in Succubi's Secrets should now work correctly.
-		Fixed issue where hair type was not being checked as being suitable for pulling or not in hair-pulling sex actions.
-		Fixed issue where non-harpy offspring could be encountered in the harpy nests.
-		Tail length percentages in the self-TF menu should now always correctly increment by 5%, instead of sometimes jumping by 6%.
-		Fixed issue where rat-penises were no longer spawning in with pale pink skin by default.
-		Fixed issue with feral parts on a half-demon (such as on taurs) always being referred so as being of a 'demonic-horse', instead of the half-demon's correct subspecies.
-		Fixed bug where name of nipples was being shown instead of name of crotch nipples, and added more randomly-generated descriptors to the list which nipples use.
+		Parsing and description fixes.
+		Fixed issue where you could encounter egg-incubated offspring before they'd been laid and hatched.
+		To fix an issue with dragons spawning in unintended places. Only subspecies which naturally spawn in Dominion or Submission will now be used as custom-order slaves from Helena and as generic sex partners (which are used in glory holes and a few other places).
+		Fixed issue with breast stats not showing in the phone's stats menu if your cup size was less than AA-cups.
+		Kate's covering recolouring options now correctly include lips, tongue, nipples, and anus. Also fixed incorrect covering options for when sending a slave to Kate.
+		Custom-ordered slaves from Helena now have correct wing options available to them, and the colour of nipples/anus no longer resets when changing their human skin colouring.
+		Fixed bug where horn transformations were missing from demon self-TF menu options.
+		Fixed issue with the self-TF menu not working for recolouring slime fluids.
+		Brax will now correctly have his weapons equipped when first encountering him in a new game.
+		Fixed issue with Enforcer pepperball pistol's and rifle's 'Seven Rounds Rapid' and 'Mag Dump' moves throwing a background error.
+		Fixed issue with NPCs sometimes having their home location set to seemingly-random tiles. This was mainly affecting Enforcer patrols (who had their home set to Candi's desk) and Wes and Elle (who had their home set to the HQ's waiting area).
+		Fixed bug where error log could get spammed with null pointer exception warnings at the start of sex.
+		Fixed issue where you needed both the 'Minx' and 'Object of desire' perks in order to seduce Wolfgang/Karl, instead of just one of the two.
+		Fixed issue with feral demonic parts being referred to as 'feral Demonic-human'.
+		Pregnant characters will no longer have their stomaches bulged from large penetrations.
+		Fixed issue where human NPCs were spawning at a far higher frequency than what you set their spawn preference to be.
+		Characters who are hidden during a sex scene (such as when you encounter and watch two of your slaves having sex) can no longer have their levels drained upon orgasm by any of the participants.
+		Made fennec fox icon slightly smaller so that it fits in the icon background a little better.
+		Fixed some issues with incorrect slime subspecies identification.
+		Bunny and Loppy no longer act as though they didn't previously know what the other's genitals looked like the first time they're revealed in sex.
+		Fixed incorrect descriptions for the chastity status effects (and increased lust resistance drain from -25 to -50 for the final stage).
+		Fixed bug where very old save games would break when trying to load & save them in a newer version.
+		Fixed bug where clothing would sometimes spawn with its sticker prefix applied twice and its color prefix missing.
+		Fixed issue where changing Kay's makeup would change the player's makeup instead.
+		Fixed issue where covering recolouring buttons would stop working after inspecting a character and then returning to a covering recolouring screen (such as when using the arcane makeup kit).
+		Weapon descriptions now correctly list their special tags when you click on them in the inventory.
+		Fixed some missing dialogue issues in the scenes with Wolfgang and Karl in 'The Rusty Collar'.
+		Unemployed guests can no longer gain the 'stable mistress' job.
+		Fixed bug where elementals would not have any of their status effects updated nor regenerate health/aura over time.
+		Fixed issue with both lamia and melusine being tagged as the main race of snake-morphs, instead of just lamia.
 	
+	
+	
+	[x] Add race to arguments for kate covering div
+		[x] Test ordering custom slave
+			[x] Skin resets need to be changed
+			[x] Wing types are just dragons/gryphons?
+	[x] Horns are missing from the demon self TF menu as the player
+	[x] Self-TF slime:
+		Warning: getClosestStringMatch() did not find an exact match for 'SLIME_FLUID'; returning 'SLIME_HAIR' instead. (Distance: 4)
+		Warning: getClosestStringMatch() did not find an exact match for 'SLIME_FLUID'; returning 'SLIME_HAIR' instead. (Distance: 4)
+	[x] In a new game, Brax will spawn in without weapons, as there is a check on quest progress , but when the game starts and Brax is spawned there will be no main quest yet
+	[x] Scripting parsing error: hits = (RND.nextInt(getEssenceCount())+2)
+		ReferenceError: "getEssenceCount" is not defined in <eval> at line number 1
+	[x] Remove lit area effect
+	[x] Enforcer patrols are having their home set to Candi's desk...
+	[x] Add support for 0% spawn rarity
+	[x] Sort races in club
+	[x] Dobermann seduce requires both perks?!
+	[x] Update Minx/other perks description
+	[x] Make egg-laying vagina a boolean
+		[x] Save/load
+			[x] Test
+		[x] set method String return
+		[x] Refactor egg laying checks
+		[x] Body description
+		[x] Self-TF
+			[x] Vagina type asterisk for default egg-layers
+		[x] Potion TF
+		[x] Refactor egg-laying vaginas
+			[x] Demon
+			[x] Snek
+	[x] Half-demon spider says "feral Demonic-human" for feral parts...
+	[x] Stomach bulge when pregnant
+	[x] humans are spawning a lot no matter their spawn preference
+		 From what others have said it appears that they are doubled so the first one respects the forced rate while the other one just gives them an average spawn rate and you can't mess with it
+	[x] Add support for ELSE IF
+	[x] Well one of my slaves just drained me of 4 levels and I was watching (Meta wise, she didnt know i was even there)
+		Prevent spectators from being drained
+	[x] Make fennec icon slightly smaller
+	[x] make the elemental dispel button persist in both tabs, like the form switch button
+	[-] go slime -> demon horse legs -> taur -> unslime
+		demon gets slime options
+	[x] Demon -> slime gets lop-rabbit-slime???
+		[x] Test submission slime attackers
+	[-] unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
+		went to bed at 39/39 hp and woke up with 40/70 or so
+	[x] Bunny acts like she doens't know Loppy is a futa when Loppy is revealed in sex for the first time
+	[x] Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
+	[x] Manwhore hyena lore
+		[x] Handle old hyena books
+	[-] Fixing the issue with arcane offspring map? Every time I try to use it, regardless if it's in Submission or Dominion, the game soft-locks
+	[x] Add player name triplet
+		[x] Game start
+		[x] City hall
+	[x] Lyssieth should be more than friendly after making player their daughter
+	[x] remove "disappointment upon finding vagina empty" on women w anal fetish when orgasming
+	[x] On the topic of fetish related interaction, partners into being denied shouldn't lose affection if they end combat without any orgasms
+	[-] slaves with it should get a version of pent up with positive effects.
+	[x] Maybe even an enchantment you can toss on things to outright prevent orgasm.
+		[x] Check all end sex conditions
+		[x] Test Lyssieth TF
+		[x] Quick sex
+		[x] prevent dom pregnancy roulette if cannot orgasm
+		[x] NPCs get stuck at prepare
+		[x] NPC ends at 99 before orgasming
+	[x] Add aristocrat background
+	[x] After beating imps bug?
+		(might be fixed in preview)
+	[x] Check Pix orgasm block
+	[x] Not a big issue, but with attacker spawn, the attacker can spawn as a taur, but get morphed to a non-taur. And thus lack lower clothing as the taur didn't have any. So actually all clothing and equipment should be regenerated I guess, and not just the items.
+	[x] Make plasticity 3/4 99% and 97.5% recovery
+	[?] Chastity bug: Removing the device doesn't always remove the effect
+	[x] Improve "desperate for sex" icon
+	[x] Lucky border collie
+	[x] item generation in equipClothingFromOutfit is applying sticker prefixes twice and stripping the color prefix
+		[x] Add debug option to unlock all sticker changes
+	[x] change that so you can gain perk points from gym work
+		[x] Instead of draining health, give status effect "post-workout fatigue"
+		[x] Make progress towards gaining a physical perk point
+			[x] Add tree-specific perk points
+				[x] Test loading/saving
+		[x] Standard exercise gives +10%, Pix's training gives +25%
+		[x] Test all of above
+	[x] Makeup applies to player instead of Kay
+		[x] If look at Kay's character screen while in makeup dialogue, the buttons stop working (but hair style fixes it...)
+	[x] why do we not get the keys to the collars of the slaves we buy
+	[x] you have to get a tattoo that shows unique sex partners because @Innoxia never added that to the phone stats
+	[x] Weapons do not list their bonuses when clicked on them in inventory
+	[x] disabling crotch boobs and urethra content doesn't actually hide/remove the options from TF menus/potions
+	[x] Alligator tail prehensile
+	[x] That reminds me, I need to see if anyone has already reported W&K dialogue breaking inside the bounty hunter tavern if you dom them.
+	[x] I hate the fact that Kate won't even let me check her tummy with the pregnancy tester
+	[x] Disable anal options in demon TF sex for when anal off
+	[x] Add way to free slaves
+		[x] Need to purchase a freedom title from Finch
+			[x] Add as item
+				[x] Icon
+			[x] Add Finch dialogue about freeing
+				[x] Trigger Lilaya accommodation quest start
+			[x] Update Scarlett set free in main quest (Alexa has a Freedom Certificate for her)
+		[x] After giving to slave
+			[x] Affection +25
+		[x] If affection >=50, can offer them a room (if one is available)
+			[x] Transfer them into guest
+		[x] Testing
+		[x] Handle Scarlett being freed
+			[x] goes to nest
+			[x] Test
+		[x] Handle Brax being freed
+			[x] Block for now
+	[x] importing slaves as guests soon
+		[x] Add a noticeboard outside city hall (looking for room to rent)
+			[x] Add mechanics from slaver auction
+			[x] Add dialogue
+		[x] Test
+	[x] elemental has desperate for sex SE
+		[x] Not going to resting lust for some reason
+	[x] Spooders
+		[x] Colours
+			[x] Check colour formattings
+		[x] combat moves
+		[x] items
+		[x] race
+			[x] spider
+				[x] body parts
+					[x] fluffy arms, legs, tail, torso say chitin not fur?
+					[x] Test eye TF giving 8
+				[x] coverings
+					[x] furry chitin name?
+				[x] subspecies
+					[x] describe what's needed for tarantula?
+				[x] race
+				[x] racial body
+			[x] Test colours
+		[x] status effects
+		[x] Test drider TF and naming
+		[x] Need venomous tags which apply poisoned when bitten
+	[x] American trait *2 bonus from burgers
+	[x] Rub Nyan's pregnant belly
+	
+	
+	PRs:
+		[] PR1486
+		[] Nerf milk prices
+			[] PR1333
+		[] PR 1442
+	
+	[] mouse
+	
+	[] damage += attackersDamage * (attacker.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f); applied twice to special attacks
+	
+	
+	[] Fields content
+		[] Map rework?
+			[] Areas to visit/travel through instead of tiles?
+		[] Set locations
+			[] Farm
+				Work:
+					[] Milk
+					[] Shear
+				Paid for providing:
+					[] Milked
+					[] Sheared
+			[] Centaur transport
+				[] Quick travel Elis to Dominion
+				[] Filly services for free travel
+			[] Otter family ferry
+				[] Quick travel Elis to Dominion
+				[] Fishing services for free travel
+		[] Encounters
+			[] Fields
+				[] Demonic centaurs
+					[] First travel (100% chance first time travelling through)
+						[] Saved by Elis guard (introduces names of characters)
+			[] Grassland
+				[] Snakes
+				[] Demonic centaurs
+			[] Woodland
+				Day:
+					[] Deer (residents)
+					[] Boar (truffle-hunting)
+				Night:
+					[] Wolves (pack)
+					[] Owl harpy (attack)
+		[] Elis
+			[] Map
+				[] Tavern
+					[] Rent rooms
+		[] Main quest
+			[] Refine to make it clearer what needs to be done
+			[] Meraxis encounter
+			[] Mayor meeting
 	
 	--- NYAN MARIAGE ---
+
+	[x] Nyan restaurant date
+	[x] Nyanmum interview
+	[x] Test up to here
+		[x] Restaurant characters present
+		[x] Money formatting is bold
+		[x] Wine special parsing is reversed in text
+		[x] Player drink broken
+		[x] Tiny text in leave response
+		[x] Speech colours
+		[x] Hide name until Introduction scene
+		[x] Interview stuck at Golden Threads
+		[x] Leotie's clothing emporium doesn't fit
+		[x] Nyan wearing heels in apartment
+		[x] Stop Nyan from self-removing clothing
+		[x] Reset Nyan milk
+		[-] Nyan wants 2 orgasms?
+		[x] Post-second sex in lounge??
+		[x] Post-second sex dialogue missing
+		[x] Nyan not in kitchen in morning
+		[x] Apron missing
+		[x] Apron needs removing afterwards
+		[x] Weekend date completed tooltip should have priority
+		[x] Visit Nyan action unlocked too soon
+		[x] Move to hall at end
+	[x] Nyanmum interview fail and repeat
+		[x] Quick date content (1-3 scenes, where Nyan emphasises correct answers)
+		[x] Repeat interview always succeeds
+			[x] If fail, Nyan hints and you change to correct answer
+	[x] Test up to here
+		 [x] Fail text incorrect for food (check others)
+		 [x] Dialogue says back in streets when still in apartment
+		 [x] Dialogue for 'POST_DATE_APARTMENT_INTERVIEW_FAIL_LEAVE' not found
+	[x] Nyanmum date
+		[x] Nyan sex
+		[x] Nyan + Nyanmum sex
+	[x] Test up to here
+	[x] Repeat dating
+		[x] Nyan
+		[x] Nyan + Nyanmum
+			
+	[x] AFFECTION LIMIT FROM HERE: 100
 	
-	Nyan quest:
+	[x] Improve Nyan talk topics
+	
+	[x] Nyan Dating
+		[x] Change to Friday/Saturday (so she can be there in morning without needing to leave for work)
+		[x] Action only on weekdays, change travel description to getting back from restaurant (getting there can be no issue)
+		[x] Restaurant
+			[x] Add restaurant tile to arcade
+			[x] Start date
+			[x] Can embarrass her during the date (Min. is back down to 60)
+				[x] Footsie (-5)
+				[x] Dirty suggestion (-5)
+			[x] Can flatter her/romance
+				[x] Ask waitress for candle to be lit (+5)
+				[x] Compliment appearance (+5)
+				[x] Flirting (+5)
+			[x] Dialogue:
+				[x] Reveals that her clothing emporium is one of many of her mother's business ventures
+				[x] She was given ownership & management of it to help build her confidence
+				[x] Mom is usually all over the realm doing business or entertaining business partners in her apartment in Demon Home
+				[x] Nyan clearly reveres her mom over anyone, saying how amazing she is over and over, and that she tries to overcome her social anxiety to please her
+				[x] Mention how mother paid to get restaurant set up
+			[x] Reveals Nyan's favourite food
+			[-] Reveals DoB (mum should share same birthday)
+	
+	[x] Restrict date if player cannot access mouth
+	[x] Need date lock on Saturday if date was Friday (once per weekend)
+	
+	[x] Nyan invites home
+		[x] Stutter is almost completely gone
+		[x] Kissing, leads into lounge saying that perhaps the two of you could do more than kiss tonight
+		[x] Nyan's mother is there and surprises the two of you
+		[x] Mom says that she needs to interview you to find out if you're a suitable partner for her daughter
 		
-		[x] Set up save with quest completed for testing
+	Interview:
+		[x] Need to pass interview to get into Nyan's bedroom
+			[x] Status (can't fail from this, but gives Nyanmum affection)
+				[x] Need proof of means to support Nyan
+					[x] Flames >= 1 million
+					[x] Slaves >= 20
+					[x] Lyssieth's daughter
+					[x] Occupation
+			[x] Need to prove that you love Nyan, by answering a series of questions
+				Reveal these via talking/complimenting:
+					[-] Nyan's date of birth
+					[x] Favourite food (tsipoura)
+					[x] Nyan used to do what for her every morning
+					[x] Favourite flower
+					[x] Favourite book
+					[x] Name of store before Nyan took it over
+				Passing this makes Nyan super excited
+			[x] If get >0 wrong, kicked out
+	
+	Bedroom:
+		[x] Nyan wants to just receive oral (can finger her & kissing instead)
+		[x] Afterwards she can perform oral (can instead repeat focus on her)
 		
-		Remove old quest progress
-			Check/Reset:
-				[x] Nyan inventory access
-				[x] Quest progress
-				[x] Move player out of supplier den
-				[x] Nyan, Wolfgang, Karl bodies
-					[x] Resolve pregnancies
-				[x] Affection
-				[x] Knowledge of K/W
-				[x] Map of supplier place
-				[x] Sex stats
-				[x] Clothing
+	[x] Afterwards, Nyan is exhausted, and you go to sleep with her
+	
+	[x] Morning
+		[x] Nyanmum says she heard her daughter having fun last night (Nyan hides her face)
+		[x] (teasing) Says that she needs to get to know you better if you're going to be making her daughter say such shameful things
+		[x] Next date she'll be coming along
+	
+	[x] Update talk topics to reflect player's new knowledge and less stutter
+		[x] Shop dialogue
+		[x] Relationship talk/flirt/compliment
+		[x] Walk dialogue
+	[x] Mention nyan's mum on first time seeing her after weekend
+	[x] Unlocks oral in storeroom
+		[x] Test
+			[x] Post sex response tab 1
+			[x] receiving not working
+			[x] Clothing displacements in receiving
+			[x] Post-sex clean
+				[x] Post-sex tissue cleanup description
+	
+	[x] Test Nyan weekend wear
+	
+	[x] Standardise mum/mom
+	
+	[x] Check side quest completion twice
+	
+	[x] Next date is having dinner with Nyanmom:
+		[x] Need 4000 flames
+		[x] Pick up at apartment
+		[x] Nyanmum orders most expensive wine (and another bottle when mains arrive)
+		[x] Nyanmum makes you tell her all about you
+		[x] When mains arrive, Nyanmum says she's decided to share you with Nyan
+			Permanent options:
+			[x] Agree to have sexual relationship with the two of them
+				[x] Finish meal
+			[x] Say that you're devoted to Nyan
+				[x] Finish meal
+		[x] Lead into NyanApartment sex scene
+	
+	Future dates:
+		[x] Standard repeat dates
 		
-		Nyan meeting
-			[x] Make sticker for Nyan's name tag on blouse
-			[x] Give her randomised clothing colours each day
+		[x] Test
+			[x] Fail and repeat pass
+			[x] Double date
+				[x] Leotie not wearing correct dress
+					[x] Fix for repeat too
+				[x] Nyan not in lounge
+				[x] Drunk speak on tipsy??
+				[x] Kinky text at end not start
+				[x] Change initial penetration description for kissing "Nyan lets out a high-pitched squeal as she enthusiastically slams her tongue into Leotie's mouth."
+				[x] Cannot switch to performing oral on nyanmum
+					[x] Position limitation?
+				[x] Cannot interact with face-sitting while scissoring
+				[x] Infinite "Perform cunnilingus" options
+				[x] Move sleep dialogue one paragraph back
+				[x] Kitchen is solo Nyan
+				[x] Dialogue for 'POST_SOLO_SEX_LEAVE_NYAN' not found
+				[x] Quick sex with tribbing says Nyan lost her virginity, even though clit is small
+				[x] "Nyan lost her virginity to you in her store." (reset on load for Nyan)
+			[x] Double refused
+				[x] Responses break for foreplay
+				[x] Only cunnilingus available
+				[x] Post-sex leads to double responses
+				[x] Leotie home icon in bedroom and she's at entrance...
+			[x] Double accepted
+		[x] Need affection gains during dinner
+		[x] Repeat date is too cheap
+		[x] " that you're being charged an eye-watering Youko's Reserve flames…"
+		[x] Dialogue for 'POST_DATE_APARTMENT_INTERVIEW_5_FLOWER_SUCCESS' not found
 		
-		Quest from Nyan
-			[x] Quest text
-			[x] Nyan dialogue
-				[x] Nyan knows the manager, but hasn't seen him personally in weeks
+		[x] Test repeat date
+			[x] Solo
+				[x] Goes to first date...
+			[x] Double
+				[x] Goes to first date after leaving apartment
+				[x] Dialogue for 'DOUBLE_DATE_RESTAURANT_2_MAIN_DATE' not found
 		
-		Add Kay
-			[x] Cat-boy
-				[x] Androgynous
-				[x] Ambiphilic
-				[x] Smart clothes
-				[x] Kind, cowardly, naive
-				[x] Parsing tag
-				[x] Add to game upon load
+		[x] Reduce Leotie age
+		[x] Add creampie encouragement for Nyanmum, no encouragement for Nyan
+			[x] Test
+		[x] Make neither of them force creampie
+		[x] Can't stop Nyanmum from fingering self...
+			[x] Test side-by-side creampie for missionary
+		[x] Add post-sex creampie remarks
+			[x] solo
+			[x] double
+		[x] Add next morning pregnancy testers scene for nyanmum
+			[x] Make shower clean out all fluids
+		[x] Make sure to apply pregnancy reactions
+		[x] Nyan and Nyanmum offspring not available to find (working in businesses elsewhere)
+			[x] Add coloured explanation in pregnancy reveal
+			[x] Test
+			[x] Revert (feels too limiting)
+		[x] Prevent them from starting all penetrations
+		[x] Improve end sex
+		[x] Stop penetrations (self) available when no self actions ongoing
 		
-		Suppliers
-			[x] Change to warehouse district
-				[x] add restaurant at old location
-				[x] Entrance button
-			[x] Reformat map
-			[x] Place text
-				[x] Warehouse district exterior Kay's
-				[x] Warehouse has a depressed atmosphere, receptionist says she's looking for an excuse to quit, so lets you go straight through
-			[x] Make supplies red when searched/unavailable, green otherwise
-			[x] Change tracking to daily dialogue flag, not coordinates
-			[x] Place tile populations
+		[x] Block start anal
+		[x] Suggest anal after foreplay to unlock
+			[x] Add anal
+				[x] Solo
+				[x] Double
+		[x] Test
+			[x] Foreplay skips to end
+			[x] Nyanmum not ending sex when player receives cunnilingus?
 		
-		Dobermanns in office
-			Can either:
-				[x] Pay off the remainder of their contract (50k)
-				[x] Enforcer trick (Enforcer uniform)
-				[x] Demon convincing/tricking
-				[x] Beat in fight
-				[x] Seduce (tease them about wasting their time in here when there's loads of girls waiting to be fucked out in Dominion. Requires high seduction damage or perk)
-					[x] Spit-roasted
-					[x] After finished, can find them at bounty hunter office
-			[x] Remove old flags?
+		[x] Add permanent warning to double date tooltips
 		
-		Clear warehouse
-			[x] Boss thanks you, says you can drop in at any time
-				[x] He says that he's the manager of this business, but his foolish decision to hire bounty hunters to catch a repeat thief had led to them bullying him into doing their bidding
-					[x] Bullied the owner into hiking costs, pocketing it for themselves
-				[x] He says you can help yourself to the surplus from the storage area as a reward (1-2 non-enchanted items every day)
-				[x] Can seduce him if player is dom (he is sub, likes performing oral, pegged, ridden)
+		[x] Sex actions go past 15 so 0 is blank
+		[x] Kinky lingerie not working
+		[x] Allow player to reposition in full sex
+		[?] Sex not stopping in anal sex
+			[x] Test Nyan doggy
+		[x] Stop them from stripping if in kinky clothing
+			[x] Test
+		[x] Nyanmum equips normal clothing after sex...
 		
-		[x] Talk subjects
-			[x] arcane machines
-			[x] intercom license
-			[x] business
-			[x] bounty hunters
-		
-		[x] Kay pregnancy reactions
-		
-		[x] Test kay
-			[x] Reception annex change
-			[x] Receptionist attitude bored -> depressed
-			[x] Need to explicitly say about resuming shipments when saved
-			[x] K/W combat moves need to be physical focus (weapons?)
-			[x] K/W need bounty hunter background
-				[x] Occupation, perk, icon
-			[x] K/W victory sex tooltips
-			[x] Population place type plurality
-			[x] fox population overseer station needs to wait until Kay introducted
-			[x] K/W sex doesn't start correctly
-			[x] In ongoing sex, Karl's cock is 'bitch-cock'?
-			[x] Add reference to Kay's refined accent
-			[x] Got lab coat from box. Check for epic items
-			[x] Change icon for overseer station
-			[x] Change icon for weaving machines
-			[x] Kay's office action doesn't move player
-			[x] Tooltip should show surname
-			[x] Naming screen doesn't stop keyboard shortcuts
-				 [x] Also doens't even work...
-			[x] Cage removal doesn't work...
-			[x] Cage removal sex should start with Kay's cock exposed, same for buttplug/anus
-			[x] Both foot sex starts bug (something to do with foot exposure)
-			[x] test repeat visits
-			[x] Gain money on demonic intimidation
-			[x] Stop K/W removing clothing in sex
-			[x] Fix smoking timings
-				[x] Smoking SE icon colour
-			[x] Overseer textile worker appears too soon
-		
-		
-		[x] "Heavy lipstick needs to be re-applied..."
-		
-		[x] Job perk show in main effects?
-		
-		[x] Add dobermann encounter in bounty hunter lodge
-			[x] Interior map
-				[x] Rename
-					[x] Remove references to lodge
-			[x] Shadow & Silence
-			[x] dobermann positioning
-			[x] Dialogue for each tile
-			[x] K/W encounter
-				[x] If seduced, they want sex
-				[x] If not seduced, they tell you to fuck off
-			[x] K/W and S/S sleep/work timings
-			[x] K/W stay in room for 15 minutes after sex
-		
-		[x] K/W speech colours
-		
-		[x] Make self-handjob ongoing
-		
-		[x] shopping arcade public restrooms
-		
-		[x] Add NyanMum
-			[x] Body
-			[x] Clothing
-			[x] Nyan apartment map framework
-				[x] Bathroom icon
-		
-		[x] separate natural from dye colours in dye menu
+	----- To here, then Fields -----
+	
+		Visit:
+			[] Nyan bakes (naked apron)
+			[] Nyanmum flashes you (fuck on sofa)
 			
-		[x] Merge races
+		[] Slutty actions to make Nyan horny?
+			[] Dirty date actions become positive
+			[] Unlock sex in toilets during walk?
+			[] Wear toys?
 		
-		Nyan:
-			[x] Complete quest
-				[x] AFFECTION START: POSITIVE_TWO_LIKE (30)
-				
-			[x] Block interaction until next day
-				[x] Test return same day
-				[x] Test return day after
-				
-			[x] Clarify what she meant about being boyfriend/girlfriend
-				[x] First mention of romantic novels (she says this is what would happen in one of her books)
-				[x] She says she'll be your girlfriend if you'd like
-					[x] Agree
-					[x] Refuse and agree later
-			
-			[x] After agreed to be her gf/bf
-				[x] Can talk for +2 affection daily (she mentions romance novels again)
-					Topics:
-					[x] Romance novel (first talk)
-					[x] Busy store (she makes mention of it having been established by someone else)
-					[x] Hobbies (other than reading romance novels, she likes fashion, although doesn't feel comfortable in anything other than her blouse and skirt, and baking cakes)
-					[x] Home (she says she used to live with her mum - first mention- then says she now has a nearby apartment)
-				[x] Can complement for +2 affection daily
-				[x] Can flirt for +3 affection daily
-					[x] Always requires talked first
-				[x] AFFECTION LIMIT: POSITIVE_THREE_CARING (50) (4 days of talking + flirting)
-			
-			[x] Walk action
-				[x] Make this greyed-out so the player knows it's being worked towards
-				
-			[x] Make compliment require talked first
-			
-			Requires 50 affection:
-			[x] Finish by asking to go for a walk with her
-				[x] Reveal Ashley as source of some books
-					[x] Set Nyan-Ashley affection
-				[x] Show restaurant (for future dates)
-				[x] When get back, can kiss her
-			[x] Finish with kiss, after which she says that it's better than any of her books described it to be
-				[x] Unlocks additional actions:
-					[x] Headpat +1
-					[x] Kiss +2
-					[x] Give gift +3
-					[x] Walk around arcade (once per day, can perform 1 action)
-						[x] Hold hands +1
-						[x] Kiss +2
-						
-			[x] AFFECTION LIMIT: 60
-			
-		[x] Testing up to here
-			[x] Test rose in hair
-				[x] Enchanted roses can be given
-		
-		[x] Fix dragons spawning in stocks
-		
-		[x] Bug-fixing break
-			[x] Breasts and tentacle body stats
-			[x] I suggest adding a specific description of the pros and cons of races to the Encyclopedia, as if you hover over the character's race icon
-			[x] Some errors in the selfie in punctuation and description..
-				[x] You have a short, dark brown, white-highlighted, dragon-like mane than runs from her head down the back of your neck.​ , which is unstyled.
-				[x] Also sclerae and pupil colors seem to be stuck on white and black respectively.
-				[x] AbstractHairType hair pulling method not used?
-			[x] Encountered rat-girl daughter in harpy nests
-			[x] Remove Wes Test button
-		
-		[x] Restaurant date
-		[x] Stutter is getting slightly better
-		[x] She says she's decided to take weekends off from now on. Says Saturday will be a good day for her.
-		
-		[x] Reduce shop times to 9-8
-		
-		[x] Add handling of Nyan not being there at weekends
-		
-		[x] Coat
-		
-		[x] Add date action to apartment tile
-			[x] Nyan apartment exterior
-		
-		[x] Improve description of Nyan always having a table for her
-		
-		[x] Nyan talk should reveal facts which are important:
-			[x] Novels: Favourite book (One Night in June)
-			[x] Home: Favourite flower (Daisy)
-			[x] Hobbies: Baking for mum (pastries)
-			[x] Work: Old store name (Golden Threads)
-			
-		[x] Bug-fixing break
-			[x] tail length increments of 5% goes from 65 to 59?
-			[x] ClitMouth and ClitMouthPen are the same class?
-			[?] All non-hoofed taurs spawn with shoes & socks (0.9 did not have this issue)
-			[x] Rat cocks don't seem to be spawning as pink anymore
-			[x] You had fixed half-demon genitals for various subspecies being all described as "same a feral demonic horse's", now it's broken
-			[x] Roxy just sold me a diamond necklace that is worth 100k+ for 50 flames just because it has an unknown effect
-			[x] Slime bulge for size-difference missing
-			[x] Selected Udder, regular nips, single option: "single crotch tit" "zero crotch-boobs" "inverted nip"
-				[x] "Above your groin, occupying the lower region of your abdomen, you have single large, D-cup crotch-tits.​ On each of your zero crotch-boobs, you have four big, scarlet inverted teats, with average-sized, circular areolae.​"
-			[x] Add debug option to spawn an attacker of a certain race
-			[x] Crossbow 'fire' name... "Fire you for X damage"
-		
-		[x] AFFECTION LIMIT FROM HERE: 100
-		
-		PRs:
-			[] Nerf milk prices
-				[] PR1333
-			[x] PR 1448
-			[] PR 1442
-			
-		[] Nyan Dating
-			[x] Change to Friday/Saturday (so she can be there in morning without needing to leave for work)
-			[x] Action only on weekdays, change travel description to getting back from restaurant (getting there can be no issue)
-			[] Restaurant
-				[x] Add restaurant tile to arcade
-				[] Start date
-				[] Can embarrass her during the date (Min. is back down to 60)
-					[] Footsie (-5)
-					[] Flirt with waitress/waiter (-5)
-					[] Dirty suggestion (-5)
-				[] Can flatter her/romance
-					[] Ask waitress for candle to be lit (+5)
-					[] Compliment appearance (+5)
-					[] Flirting (+5)
-				[] Dialogue:
-					[] Reveals that her clothing emporium is one of many of her mother's business ventures
-					[] She was given ownership & management of it to help build her confidence
-					[] Mom is usually all over the realm doing business or entertaining business partners in her apartment in Demon Home
-					[] Nyan clearly reveres her mom over anyone, saying how amazing she is over and over, and that she tries to overcome her social anxiety to please her
-				[] Reveals Nyan's favourite food
-				[] Reveals DoB (mum should share same birthday)
-					[] Add birthday event
-		
-		[] Nyan invites home
-			[] Stutter is almost completely gone
-				[] Update talk topics to reflect player's new knowledge and less stutter
-			[] Home is very large
-			[] Kissing, leads into lounge saying that perhaps the two of you could do more than kiss tonight
-			[] Nyan's mother is there and surprises the two of you, teases Nyan about hearing on the grape vine that she'd finally found a girl/guy
-			[] Nyan hugs mom for ages, then enthusiastically says that you've been dating for a while now
-			[] Mom says that she needs to interview you to find out if you're a suitable partner for her daughter
-			[] Nyan is extremely embarrassed, but dutifully agrees to her mom's idea
-		Interview:
-			[] Need to pass interview to get into Nyan's bedroom (if fail, you have to leave)
-				[] Need to gain Nyanmom's blessing
-					[] She's heard about you helping Nyan's business
-					[] Nyan seems to be infatuated with you, so provided you pass the interview, you'll gain her blessing
-				[] Status
-					[] Lilaya's niece is enough to make her consider you
-					[] Need proof of means to support Nyan
-						[] Flames >= 10 million
-						[] Slaves >= 20
-						[] Lyssieth's daughter
-				[] Need to prove that you love Nyan, by answering a series of questions
-					[] Reveal these via talking/complimenting
-					[] Nyan's date of birth
-					[] Favourite flower
-					[] Favourite book
-					[] Favourite food
-					[] First job
-					[] Passing this makes Nyan super excited
-				[] Says you've provisionally passed the test
-		
-		Bedroom:
-			[] If make Nyan resist, fail evening
-			[] Nyan wants to just receive oral (can finger her & kissing instead)
-			[] Afterwards, offers to perform oral (can instead repeat focus on her)
-			
-		Afterwards, Nyan is exhausted, and you go to sleep with her
-		
-		[] Unlocks oral in storeroom
-		[] Unlocks apartment visit
-		
-		[] Morning
-			[] Nyanmum says she heard her daughter having fun last night (Nyan hides her face)
-			[] (teasing) Says that she needs to get to know you better if you're going to be making her daughter say such shameful things
-			[] Next date she'll be coming along
-		
-		Next date is having dinner with Nyanmom:
-			[] Nyanmom says you're a suitable match for her daughter
-			[] Conversation flows to her regret that she wasn't able to stay with Nyan's dad
-			[] Nyan seems upset at mom's loneliness
-			[] Can steer conversation and suggestions to get Nyan to suggest that you take care of Nyanmom as well
-				[] MARRIAGE_DOUBLE Agree to have sexual relationship with the two of them
-				[] MARRIAGE_NYAN Say that you're devoted to Nyan
-		
-		After date, and repeat in future:
-			[] MARRIAGE_DOUBLE: Sex with Nyan, Nyanmom, or both
-				[] They compete to perform oral on player
-				[] Nyanmum helps Nyan lose or save virginity
-					Lose:
-						[] Player dom doggy Nyan while fingering mom
-						[] Player sub Nyan cowgirls while mom facesits
-					Save:
-						[] Player dom doggy mom while fingering Nyan
-						[] Player sub mom cowgirls while Nyan facesits
-			[] MARRIAGE_NYAN: Sex with Nyan
-				[] Nyan can lose or save virginity
-		
-		[] Add way to free slaves
-		
-			
-		Future dates:
-			[] Nyan solo, or Nyan + Nyanmom
-			[] Standard repeat dates
-			[] Special romantic date
-				[] MARRIAGE_DOUBLE: Choose to take both on romantic date
-				[] MARRIAGE_NYAN: Choose to take just Nyan
-				[] Locations:
-					[] Monthly full-moon arcane fireworks festival at Demon Home park
-					[] Helena's hotel restaurant (can't risk it if Helena dating)
-					[] Fields picnic (special centaur service, go out of city in cart and spend the afternoon in arboretum)
-					[] Manor house hotel (special centaur service, go out of city in cart and spend the night at a huge manor house hotel)
-			[] Once completed romantic date at least once, can choose to start special proposal date
-				[] Ring (from Ashley, types include wedding preparations. They disapprove of a double-marriage, and charge even more)
-					[] Wedding style (obliged by the state to offer lewd options, which they have written on a napkin)
-						[] Building/location
-							[] City Hall (bureaucrat)
-							[] Glade (Ashley says they can arrange a suitable person)
-							[] Demon Chapel (succubus)
-						[] Ceremony
-							[] Peaceful (walk to aisle, words exchanged, kiss, off to honeymoon)
-							[] Exuberant (walk to aisle, words exchanged, kiss, party, off to honeymoon)
-							[] Lewd (walk to aisle, words exchanged, fuck on altar, off to honeymoon)
-								[] Makes Nyan like exhibitionist?
-									[] Unlock sex in toilets/alleyway?
-						[] Aesthetic
-							[] Colour1/Colour2
-							[] Flowers
-								[] Lilies
-								[] Roses
-								[] Dripping-Liliths
-							[] Banners
-								[] Plain
-								[] Jazzy
-								[] Lewd
-					[] Wedding dress(es)
-						[] Traditional
-						[] Modern
-						[] Kinky
-					[] Honeymoon location
-						[] Manor house hotel
-				[] Propose at:
-					[] Restaurant reservations
-						[] Store (where first met)
-						[] Bedroom
-					[] Romantic date locations
-		
-		Marriage:
-			[] Lore about forbidden lilin marriage, she was swept away one day and married that afternoon, so the ceremony is the same (having to surprise the bride)
-			[] Chapel location, choose when to marry
-			[] Marry, then to honeymoon location
-		
-		Repeat encounters/dates:
-			[] Sex, talk
-		
+		[] Special romantic date
+			[] MARRIAGE_DOUBLE: Choose to take both on romantic date
+			[] MARRIAGE_NYAN: Choose to take just Nyan
+			[] Locations:
+				[] Monthly full-moon arcane fireworks festival at Demon Home park
+				[] Helena's hotel restaurant (can't risk it if Helena dating)
+				[] Fields picnic (special centaur service, go out of city in cart and spend the afternoon in arboretum)
+				[] Manor house hotel (special centaur service, go out of city in cart and spend the night at a huge manor house hotel)
+		[] Once completed romantic date at least once, can choose to start special proposal date
+			[] Ring (from Ashley, types include wedding preparations. They disapprove of a double-marriage, and charge even more)
+				[] Wedding style (obliged by the state to offer lewd options, which they have written on a napkin)
+					[] Building/location
+						[] City Hall (bureaucrat)
+						[] Glade (Ashley says they can arrange a suitable person)
+						[] Demon Chapel (succubus)
+					[] Ceremony
+						[] Peaceful (walk to aisle, words exchanged, kiss, off to honeymoon)
+						[] Exuberant (walk to aisle, words exchanged, kiss, party, off to honeymoon)
+						[] Lewd (walk to aisle, words exchanged, fuck on altar, off to honeymoon)
+					[] Aesthetic
+						[] Colour1/Colour2
+						[] Flowers
+							[] Lilies
+							[] Roses
+							[] Dripping-Liliths
+						[] Banners
+							[] Plain
+							[] Jazzy
+							[] Lewd
+				[] Wedding dress(es)
+					[] Traditional
+					[] Modern
+					[] Kinky
+				[] Honeymoon location
+					[] Manor house hotel
+			[] Propose at:
+				[] Restaurant reservations
+					[] Store (where first met)
+					[] Bedroom
+				[] Romantic date locations
+	
+	Marriage:
+		[] Lore about forbidden lilin marriage, she was swept away one day and married that afternoon, so the ceremony is the same (having to surprise the bride)
+		[] Chapel location, choose when to marry
+		[] Marry, then to honeymoon location
+	
+	Repeat encounters/dates:
+		[] Sex, talk
+	
 	--- END NYAN MARRIAGE ---
 	
 	
-	
-	[#npc.setFeral(SUBSPECIES_NoStepOnSnek_snake_subspecies_snake)]
-	[#pc.setFeral(SUBSPECIES_dsg_dragon_subspecies_coatl)]
-	
 	[] Suggestion: Combine the +10% race damage perks into one perk that you recieve when you read all the books instead of one perk per book
 	[] Essences need to be generated for every race...
-	[] Add mathematical pie
 	
 	Jaguar subspecies
 		Black big cats should be panthers
@@ -592,9 +601,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Demon TF without penis (cunnilingus and scissoring)
 	
 	Inno still hasn't given me alternate scenes for the foot stuff with Amber or Cunningham, nor the anal with Vicky and Natalya, nor made the rough/resist pace different from rape so the slime queen isn't such a turn off.
-		
+	
 	Helena sex without her becoming a total slut
 	Make a non-sloot Helena ending
+	
+	[] Add ability to lay unfertilised eggs (fertilise during sex, if not, then laid some time afterwards)
 	
 	Frustrated when chastity orgasm?
 	Also, cumming without producing any cum leaves someone frustrated, but the frustrated condition is removed at the end of sex because the code checks for the number of orgasms and removes the frustrated effect if it's >1
@@ -603,21 +614,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Taste when performing oral
 		Feel of penetration, based on modifiers
 	
-	Investigate loading times
-		Issue is upon first load of GameCharacter: Main.game.getCharacterUtils().generateBody(this, startingGender, startingSpeciesType, stage)
-			First load: 6.5s, Second load: 0.3s
-			Checked (init is quick):
-				Subspecies
-				Race
-				StatusEffect
-				CombatMove
-				Body parts
-				Body class
-				Item types
-		[] Add loading bar to game launch?
-			
-	Ability to set what level of morphs Minimum/Lesser/Greater Spawn with Breasts, Ass, Genitals of the morph's type
-		 Basically being able to make it so that you can choose which level comes with the attached level of genitalia so I can turn them all on or someone can turn them all off
+	[] tfw still no double paizuri
+		[] Add to Nyan
 		
 	Add charm to find race in alleyways?
 	
@@ -627,11 +625,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add three(+?) tone covering colours
 	
-	humans are spawning a lot no matter their spawn preference
-		 From what others have said it appears that they are doubled so the first one respects the forced rate while the other one just gives them an average spawn rate and you can't mess with it
-		
-	Add support for ELSE IF
-	
 	Might consider for the fish leg TF having it autoequip what you had before it went fish mode. Might get annoying to have to constantly open inventory and re-equip sets etc every time you cross water
 		 have a '[ ] Don't show this again' checkbox for that message?
 		 
@@ -640,9 +633,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Bug reports needs checking
 		From: "minor error with how the description for a spider lower..."
 	
-	Well one of my slaves just drained me of 4 levels and I was watching (Meta wise, she didnt know i was even there)
-		Prevent spectators from being drained
-	 
 	Add race fetish preferences
 	
 	
@@ -667,24 +657,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add crotch-nipple & piercing slots
 	
-	change that so you can gain an increasingly-powerful special perk from gym work
-	
-	Ralph should let you sell illegal items to him for a day if you let him fuck you
-	
 	we need an option to have Lilaya keep her skin tone when she becomes a full demon
-	
-	Pubes on furry morphs being referred to as bushy fur instead of hair on morphs that have fur when
-	
-	you have to get a tattoo that shows unique sex partners because @Innoxia never added that to the phone stats
 	
 	a weird milking room bug where auto selling milk doesn't add to the funding you get from the room, and my upkeep is in negative because of it
 		collecting the milk gives you the upkeep value
-	
-	Improve "desperate for sex" icon
-	
-	item generation in equipClothingFromOutfit is applying sticker prefixes twice and stripping the color prefix
-	
-	Weapons do not list their bonuses when clicked on them in inventory
 	
 	If you are already a slime before you met your first slime in the tunnels then you can't be slimed by that slime and you will never learn about the Slime Queen
 	
@@ -700,16 +676,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Error: one-piece swimsuit and skater dress are blocking one another's removal!!!
 	
 	tbh i mostly lack the option to have a person underneath you when you are on all fours
-	
-	make the elemental dispel button persist in both tabs, like the form switch button
-	
-	go slime -> demon horse legs -> taur -> unslime
-		demon gets slime options
-	
-	unrelated to that, I did notice that 'well rested' seems to be applied after your hp/aura is refilled
-		went to bed at 39/39 hp and woke up with 40/70 or so
-	
-	Bunny acts like she doens't know Loppy is a futa when Loppy is revealed in sex for the first time
 	
 	"Meeting Wes" quest is incompletable if you go through "Side with Wes" branch, there's a last quest where you receive Wes' Contractor Pass and you're moved into requisitions. In there you get a dialogue and a pass, but dialogue itself doesn't end nor you can halt it anyhow. 
 		 If you complete the quest to go see wes just before the office closes, it glitches up because time progresses as you talk and you are trapped in a location that you should not be able to be in at that time.
@@ -746,6 +712,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		(lots of background errors)
 	
 	Enforcer sex starts in wrong stance if they are taurs
+	
+	[] if you have anal disabled and do the TF stuff for Lilaya and Meraxis one person still performs anal
 	
 	Also, with the new strip before sex rule your opponent's items are sent to the void, making it impossible to steal from some unique characters that are normally possible
 		Add floor items tab

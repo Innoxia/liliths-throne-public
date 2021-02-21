@@ -1,88 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   cursor="default"
-   version="1.1"
-   viewBox="0 0 256 256"
-   id="svg13"
-   sodipodi:docname="cornerGlow.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
-  <metadata
-     id="metadata17">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="2560"
-     inkscape:window-height="1387"
-     id="namedview15"
-     showgrid="false"
-     inkscape:zoom="2.6074563"
-     inkscape:cx="164.66218"
-     inkscape:cy="180.41163"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg13" />
-  <defs
-     id="defs9">
-    <radialGradient
-       id="radialGradient4540"
-       cx="128"
-       cy="128"
-       r="128"
-       gradientTransform="translate(0 6.0249e-6)"
-       gradientUnits="userSpaceOnUse">
-      <stop
-         stop-color="#ffd5d5"
-         stop-opacity="0"
-         offset="0"
-         id="stop2"
-         style="stop-color:#ff2a2a;stop-opacity:0" />
-      <stop
-         stop-color="#f55"
-         stop-opacity=".062745"
-         offset="0.42015868"
-         id="stop4"
-         style="stop-color:#ff2a2a;stop-opacity:0.25098041" />
-      <stop
-         id="stop824"
-         offset="0.72881621"
-         stop-opacity=".062745"
-         stop-color="#f55"
-         style="stop-color:#ff2a2a;stop-opacity:0.50196081" />
-      <stop
-         stop-color="#ff2a2a"
-         stop-opacity=".50196"
-         offset="1"
-         id="stop6"
-         style="stop-color:#ff2a2a;stop-opacity:0.84705883" />
-    </radialGradient>
-  </defs>
-  <path
-     d="m0 0.027344v255.97l256 6e-3 6e-3 -256.01z"
-     fill="url(#radialGradient4540)"
-     id="path11"
-     style="fill:url(#radialGradient4540)" />
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <radialGradient id="radialGradient4540" cx="128" cy="128" r="128" gradientTransform="translate(0 6.0249e-6)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ff2a2a" stop-opacity="0" offset="0"/>
+   <stop stop-color="#ff2a2a" stop-opacity=".25098" offset=".42016"/>
+   <stop stop-color="#ff2a2a" stop-opacity=".50196" offset=".72882"/>
+   <stop stop-color="#ff2a2a" stop-opacity=".97664" offset="1"/>
+  </radialGradient>
+ </defs>
+ <path d="m0 0.027344v255.97l256 6e-3 6e-3 -256.01z" fill="url(#radialGradient4540)"/>
 </svg>

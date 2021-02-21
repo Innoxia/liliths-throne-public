@@ -48,7 +48,13 @@ public enum BodyPartTag {
 	
 	/** Pointy, triangular shark teeth (Currently NYI, but planned for the (far?) future) */
 	FACE_SHARK_TEETH,
+	
+	/** When the CMSpecialAttack 'BITE' is used, characters with venomous teeth apply the 'poisoned' effect. */
+	FACE_VENOMOUS_TEETH,
 
+	/** When the CMSpecialAttack 'BITE' is used, characters with venomous teeth apply the 'lust poisoned' effect. */
+	FACE_VENOMOUS_TEETH_LUST,
+	
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for mammalian races. */
 	FACE_NATURAL_BALDNESS_FURRY,
 	/** Being bald aka hairLength == 0 is not unnatural for that faceType. Use this tag for avian races. */
@@ -78,6 +84,8 @@ public enum BodyPartTag {
 	// Tail (these are also used for tentacles):
 
 	TAIL_PREHENSILE,
+	
+	TAIL_NEVER_SUTABLE_FOR_PENETRATION,
 	
 	TAIL_SUTABLE_FOR_PENETRATION,
 	

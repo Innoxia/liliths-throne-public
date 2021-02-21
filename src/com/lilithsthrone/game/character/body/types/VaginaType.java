@@ -133,40 +133,40 @@ public class VaginaType {
 				OrificeModifier.MUSCLE_CONTROL)) {
 	};
 
-	public static AbstractVaginaType DEMON_EGGS = new AbstractVaginaType(BodyCoveringType.VAGINA,
-			FluidType.GIRL_CUM_DEMON,
-			Race.DEMON,
-			true,
-			Util.newArrayListOfValues("succubus-"),
-			Util.newArrayListOfValues("succubus-"),
-			Util.newArrayListOfValues("irresistible", "perfect"),
-			"[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting."
-					+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"
-						+ " and [npc.she] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] a new set of muscles forming all along the inner-walls of [npc.her] pussy."
-					+ " With an experimental squeeze, [npc.she] quickly [npc.verb(discover)] that [npc.she] [npc.has] an incredible amount of control over [npc.her] pussy's new muscles."
-					+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
-				+ "</p>"
-				+ "<p>"
-					+ "Just as [npc.she] [npc.verb(start)] think that the transformation [npc.has] come to an end, [npc.her] pussy's new muscles involuntarily clench down,"
-						+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
-					+ " Images of fat demonic cocks slamming deep into [npc.her] new cunt flash before [npc.her] eyes,"
-						+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their hot, virile seed deep into [npc.her] demonic womb."
-					+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
-						+ " [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation."
-					+ "<br/>"
-					+ "#IF(npc.isShortStature())"
-						+ "[npc.Name] now [npc.has] an [style.boldImp(impish, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
-					+ "#ELSE"
-						+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
-					+"#ENDIF",
-			"[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced,#ELSEa#ENDIF demonic, egg-laying pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.",
-			Util.newArrayListOfValues(
-				OrificeModifier.MUSCLE_CONTROL)) {
-		@Override
-		public String getTransformName() {
-			return "demonic (egg-laying)";
-		}
-	};
+//	public static AbstractVaginaType DEMON_EGGS = new AbstractVaginaType(BodyCoveringType.VAGINA,
+//			FluidType.GIRL_CUM_DEMON,
+//			Race.DEMON,
+//			true,
+//			Util.newArrayListOfValues("succubus-"),
+//			Util.newArrayListOfValues("succubus-"),
+//			Util.newArrayListOfValues("irresistible", "perfect"),
+//			"[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting."
+//					+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"
+//						+ " and [npc.she] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] a new set of muscles forming all along the inner-walls of [npc.her] pussy."
+//					+ " With an experimental squeeze, [npc.she] quickly [npc.verb(discover)] that [npc.she] [npc.has] an incredible amount of control over [npc.her] pussy's new muscles."
+//					+ " With one last shiver of pleasure, [npc.her] pussy reshapes its exterior into an absolutely perfect-looking vagina."
+//				+ "</p>"
+//				+ "<p>"
+//					+ "Just as [npc.she] [npc.verb(start)] think that the transformation [npc.has] come to an end, [npc.her] pussy's new muscles involuntarily clench down,"
+//						+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+//					+ " Images of fat demonic cocks slamming deep into [npc.her] new cunt flash before [npc.her] eyes,"
+//						+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] [npc.verb(imagine)] them pumping their hot, virile seed deep into [npc.her] demonic womb."
+//					+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+//						+ " [npc.she] [npc.verb(feel)] [npc.her] female reproductive organs finishing their transformation."
+//					+ "<br/>"
+//					+ "#IF(npc.isShortStature())"
+//						+ "[npc.Name] now [npc.has] an [style.boldImp(impish, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+//					+ "#ELSE"
+//						+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic, egg-laying vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+//					+"#ENDIF",
+//			"[npc.she] [npc.has] #IF(npc.isPiercedVagina())a pierced,#ELSEa#ENDIF demonic, egg-laying pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.",
+//			Util.newArrayListOfValues(
+//				OrificeModifier.MUSCLE_CONTROL)) {
+//		@Override
+//		public String getTransformName() {
+//			return "demonic (egg-laying)";
+//		}
+//	};
 
 	public static AbstractVaginaType DOG_MORPH = new AbstractVaginaType(BodyCoveringType.VAGINA,
 			FluidType.GIRL_CUM_DOG_MORPH,
@@ -540,8 +540,11 @@ public class VaginaType {
 	}
 	
 	public static AbstractVaginaType getVaginaTypeFromId(String id) {
-		if(id.equals("IMP")) {
+		if(id.equals("IMP") || id.equals("DEMON_EGGS")) {
 			return VaginaType.DEMON_COMMON;
+		}
+		if(id.equals("NoStepOnSnek_snake_vagina_e")) {
+			id = "NoStepOnSnek_snake_vagina";
 		}
 		id = Util.getClosestStringMatch(id, idToVaginaMap.keySet());
 		return idToVaginaMap.get(id);

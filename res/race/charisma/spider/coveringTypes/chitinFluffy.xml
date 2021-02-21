@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>MAIN_FUR</category>
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[furry chitin]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[furry chitin]]></namePlural> 
+	<naturalCoveringModifiers>
+		<modifier>FLUFFY</modifier>
+		<modifier>SHORT</modifier>
+	</naturalCoveringModifiers>
+	<extraCoveringModifiers/>
+	<naturalPatterns>
+		<pattern weighting="5">NONE</pattern>
+		<pattern weighting="5">MARKED</pattern>
+		<pattern weighting="5">STRIPED</pattern>
+	</naturalPatterns>
+	<extraPatterns/>
+	<naturalColoursPrimary>
+		<colour>COVERING_WHITE</colour>
+		<colour>COVERING_GREY</colour>
+		<colour>COVERING_DARK_GREY</colour>
+		<colour>COVERING_BROWN</colour>
+		<colour>COVERING_BROWN_DARK</colour>
+	</naturalColoursPrimary> 
+	<extraColoursPrimary values="allCoveringColours"/>
+	<naturalColoursSecondary>
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_SCARLET</colour>
+		<colour>COVERING_RED</colour>
+		<colour>COVERING_ORANGE</colour>
+		<colour>COVERING_YELLOW</colour>
+		<colour>COVERING_AMBER</colour>
+		<colour>COVERING_BLUE</colour>
+	</naturalColoursSecondary>
+	<extraColoursSecondary values="allCoveringColours"/>
+</coveringType>

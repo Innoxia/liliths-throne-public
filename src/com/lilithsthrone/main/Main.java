@@ -79,7 +79,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.15";
+	public static final String VERSION_NUMBER = "0.3.17";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -100,17 +100,7 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "For this preview, I've mainly been working on the remake of Nyan's romance quest, which includes a new warehouse map and a new character."
-			+ " Nyan's post-quest dating content is half-finished, but will be completed for the next release."
-			+ " I've also got several other things fixed and added for this version."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "There have been also been a lot of contributions added, including a few new races by NoStepOnSnek, updates to Enforcer items and races by DSG, and numerous fixes by Stadler76 and AceXP."
-		+ "</p>"
-		
-		+ "<p>"
-			+ "I'll have the full version of 0.4 out in a week or two!"
+			+ ""//TODO
 		+ "</p>"
 		
 		+ "<br/>"
@@ -782,6 +772,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("A(woo)CE", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("BL4Z3ST0RM", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("~Chai~", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Scarecrowlust", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

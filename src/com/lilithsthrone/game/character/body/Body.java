@@ -478,6 +478,7 @@ public class Body implements XMLSaving {
 							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
 							&& this.coverings.get(bct).getPrimaryColour()!=PresetColour.COVERING_NONE)
 					|| bct == BodyCoveringType.EYE_PUPILS
+					|| bct.getCategory()==BodyCoveringCategory.FLUID
 					|| bct == getBodyHairCoveringType(this.getRace())) {
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
@@ -774,6 +775,7 @@ public class Body implements XMLSaving {
 				XMLUtil.addAttribute(doc, clitModifiers, pm.toString(), "true");
 			}
 			XMLUtil.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
+			XMLUtil.addAttribute(doc, bodyVagina, "eggLayer", String.valueOf(this.vagina.eggLayer));
 			
 			XMLUtil.addAttribute(doc, bodyVagina, "wetness", String.valueOf(this.vagina.orificeVagina.wetness));
 			XMLUtil.addAttribute(doc, bodyVagina, "depth", String.valueOf(this.vagina.orificeVagina.depth));
@@ -1549,6 +1551,13 @@ public class Body implements XMLSaving {
 		}
 		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
+		
+		if(vagina.hasAttribute("eggLayer")) {
+			importedVagina.eggLayer = (Boolean.valueOf(vagina.getAttribute("eggLayer")));
+		} else if(vagina.getAttribute("type").equals("DEMON_EGGS") || vagina.getAttribute("type").equals("NoStepOnSnek_snake_vagina_e")){ // Removed egg-laying vagina variants in 0.4
+			importedVagina.eggLayer = true;
+		}
+		
 		importedVagina.orificeVagina.stretchedCapacity = handleCapacityLoading(Float.valueOf(vagina.getAttribute("stretchedCapacity")));
 		try {
 			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
@@ -3027,7 +3036,7 @@ public class Body implements XMLSaving {
 				}
 			}
 			
-			if(owner.getTailType().isSuitableForPenetration()) {
+			if(owner.isTailSuitableForPenetration()) {
 				sb.append(" When used to penetrate an orifice, a maximum of [npc.tailPenetrationLength(true)] can be inserted.");
 			} else {
 				sb.append(" It is not suitable for penetrating orifices.");
@@ -4794,10 +4803,10 @@ public class Body implements XMLSaving {
 		
 		descriptionSB.append(viewedVagina.getType().getBodyDescription(owner));
 		
-		if(viewedVagina.getType().isEggLayer()) {
-			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] lays eggs instead of giving birth to live young.");
+		if(owner.isVaginaEggLayer()) {
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] [style.colourEgg([npc.verb(lay)] eggs instead of giving birth to live young)].");
 		} else {
-			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] gives birth to live young.");
+			descriptionSB.append(" Due to the configuration of [npc.her] reproductive organs, [npc.she] [style.colourSex([npc.verb(give)] birth to live young)].");
 		}
 		
 		if(owner.isFeral()) {
@@ -6055,12 +6064,13 @@ public class Body implements XMLSaving {
 	 * @param feralAttributes Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		FeralAttributes attributes = subspecies.getFeralAttributes();
+		this.feral = subspecies!=null;
+		
+		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes();
 		if(attributes==null) {
 			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(subspecies)+"' does not support FeralAttributes!");
 			return;
 		}
-		this.feral = subspecies!=null;
 		
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(

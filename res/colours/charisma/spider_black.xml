@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	<name><![CDATA[weaver black]]></name>
+	<colour>202020</colour>
+	<lightColour>202020</lightColour>
+	<formattingNames>
+		<name><![CDATA[weaver]]></name>
+		<name><![CDATA[weaverBlack]]></name>
+		<name><![CDATA[spiderWeaver]]></name>
+	</formattingNames>
+	<tags/>
+</colour>

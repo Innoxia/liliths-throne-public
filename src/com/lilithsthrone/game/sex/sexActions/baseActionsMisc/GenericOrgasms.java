@@ -46,6 +46,7 @@ import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
+import com.lilithsthrone.game.sex.managers.OrgasmEncourageBehaviour;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
@@ -2424,7 +2425,19 @@ public class GenericOrgasms {
 				}
 			}
 			if(!pluggedVagina) {
-				genericOrgasmSB.append(" [npc.NamePos] [npc.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
+				SexAreaPenetration analPenetrator = Main.sex.getFirstOngoingSexAreaPenetration(characterOrgasming, SexAreaOrifice.ANUS);
+				if(characterOrgasming.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()
+						&& analPenetrator!=null
+						&& analPenetrator.isTakesVirginity()) {
+					GameCharacter characterPenetratingAss = Main.sex.getOngoingCharactersUsingAreas(characterOrgasming, SexAreaOrifice.ANUS, analPenetrator).iterator().next();
+					genericOrgasmSB.append(UtilText.parse(characterOrgasming, characterPenetratingAss,
+							" [npc.NamePos] [npc.pussy+] clenches down hard, and despite the fact that it's not being penetrated,"
+									+ " [npc.namePos] pleasure isn't in any way lessened due to the fact that [npc.sheIs] "
+									+(Main.sex.getSexPace(characterOrgasming)==SexPace.SUB_RESISTING?"focusing primarily on":"loving")
+									+" the feeling of [npc2namePos] "+analPenetrator.getName(characterPenetrating)+" in [npc.her] ass."));
+				} else {
+					genericOrgasmSB.append(" [npc.NamePos] [npc.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
+				}
 			}
 		}
 		
@@ -3303,7 +3316,7 @@ public class GenericOrgasms {
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
 					|| !Main.sex.getCharacterPerformingAction().hasVagina()
-					|| !Main.sex.getCharacterPerformingAction().getVaginaType().isEggLayer()
+					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
 			}
@@ -3411,7 +3424,7 @@ public class GenericOrgasms {
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
 					|| !Main.sex.getCharacterPerformingAction().hasVagina()
-					|| !Main.sex.getCharacterPerformingAction().getVaginaType().isEggLayer()
+					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
 			}
@@ -3741,7 +3754,7 @@ public class GenericOrgasms {
 			if(Main.sex.getCharacterPerformingAction().getVaginaClitorisSize()==ClitorisSize.ZERO_AVERAGE
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
 					|| !Main.sex.getCharacterPerformingAction().hasVagina()
-					|| !Main.sex.getCharacterPerformingAction().getVaginaType().isEggLayer()
+					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
 			}
@@ -3849,7 +3862,7 @@ public class GenericOrgasms {
 			if(Main.sex.getCharacterPerformingAction().getVaginaClitorisSize()==ClitorisSize.ZERO_AVERAGE
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
 					|| !Main.sex.getCharacterPerformingAction().hasVagina()
-					|| !Main.sex.getCharacterPerformingAction().getVaginaType().isEggLayer()
+					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
 			}
@@ -4086,33 +4099,24 @@ public class GenericOrgasms {
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()) {
 				return false;
 			}
-			
 			if(Main.sex.getCharacterPerformingAction().getPenisCumStorage()==CumProduction.ZERO_NONE) {
 				return false;
 			}
-			
 			Map<GameCharacter, SexSlot> suitableSecondaryCharacters = getSuitableSecondaryCreampieTargets(Main.sex.getCharacterTargetedForSexAction(this));
-			
 			if(suitableSecondaryCharacters.isEmpty()) {
 				return false;
 			}
-			
 			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
-			
 			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-			
 			if(areaContacted.isPenetration()) {
 				return false;
 			}
-
 			GameCharacter secondaryTarget = getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), (SexAreaOrifice) areaContacted);
-			
 			if(secondaryTarget==null) {
 				return false;
 			}
-			
 			if(areaContacted.isOrifice()) {
 				switch((SexAreaOrifice)areaContacted) {
 					case ASS:
@@ -5590,7 +5594,7 @@ public class GenericOrgasms {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !isTakingCock(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this));
@@ -5599,7 +5603,6 @@ public class GenericOrgasms {
 		public SexActionPriority getPriority() {
 			return SexActionPriority.LOW;
 		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Prepare";
@@ -5650,6 +5653,9 @@ public class GenericOrgasms {
 	private static boolean isSpecialCreampieLockConditionMet(SexAction sexAction, GameCharacter characterProvidingCreampie, GameCharacter characterReceivingCreampie, SexAreaInterface areaFucked) {
 		//Do not allow if sex manager has special pull out conditions:
 		if(Main.sex.getInitialSexManager().getCharacterOrgasmBehaviour(characterProvidingCreampie)==OrgasmBehaviour.PULL_OUT) {
+			return false;
+		}
+		if(!Main.sex.getInitialSexManager().isForceCreampieAllowed(characterProvidingCreampie, characterReceivingCreampie)) {
 			return false;
 		}
 		if(Main.sex.isCharacterImmobilised(characterReceivingCreampie)) {
@@ -7466,14 +7472,33 @@ public class GenericOrgasms {
 		}
 
 		@Override
+		public SexActionPriority getPriority() {
+			OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
+			switch(behaviour) {
+				case CREAMPIE:
+					return SexActionPriority.UNIQUE_MAX;
+				case DEFAULT:
+					break;
+				case NO_ENCOURAGE:
+				case PULL_OUT:
+					return SexActionPriority.LOW;
+			}
+			return super.getPriority();
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
-			return getCharacterBeingFucked()!=null
+			if(getCharacterBeingFucked()!=null
 					&& !Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterPerformingAction())
 					&& !isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& !Collections.disjoint(
 							Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT),
 							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
-					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING)) {
+				OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
+				return behaviour != OrgasmEncourageBehaviour.NO_ENCOURAGE;
+			}
+			return false;
 		}
 
 		@Override
@@ -7715,15 +7740,34 @@ public class GenericOrgasms {
 		}
 
 		@Override
+		public SexActionPriority getPriority() {
+			OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
+			switch(behaviour) {
+				case DEFAULT:
+					break;
+				case NO_ENCOURAGE:
+				case CREAMPIE:
+					return SexActionPriority.LOW;
+				case PULL_OUT:
+					return SexActionPriority.UNIQUE_MAX;
+			}
+			return super.getPriority();
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
-			return getCharacterBeingFucked()!=null
+			if(getCharacterBeingFucked()!=null
 					&& !Main.sex.getInitialSexManager().isHidden(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getCreampieLockedBy()==null
 					&& !isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& !Collections.disjoint(
 							Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT),
 							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
-					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING)) {
+				OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
+				return behaviour != OrgasmEncourageBehaviour.NO_ENCOURAGE;
+			}
+			return false;
 		}
 
 //		@Override

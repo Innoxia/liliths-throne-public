@@ -1,8 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
@@ -11,10 +14,25 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.dominion.nyan.SMNyanSex;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -35,8 +53,8 @@ public class ClothingEmporium {
 	
 	public static final String NYAN_HIDING_DAY_ID = "nyanHidingDay";
 	
-	public static String incrementAffection(float increment, float minimumLimit, float maximumLimit) {
-		float currentAffection = getNyan().getAffection(Main.game.getPlayer());
+	public static String incrementAffection(GameCharacter character, float increment, float minimumLimit, float maximumLimit) {
+		float currentAffection = character.getAffection(Main.game.getPlayer());
 		
 		
 		if(increment>=0) {
@@ -47,25 +65,28 @@ public class ClothingEmporium {
 		
 		if(increment==0 || (increment>0 && currentAffection>=maximumLimit)) {
 			return "<p style='text-align:center'>"
-						+ "[style.italicsDisabled(Nyan doesn't gain any additional affection towards you from this action...)]"
+						+ UtilText.parse(character, "[style.italicsDisabled([npc.Name] doesn't gain any additional affection towards you from this action...)]")
 						+ "<br/>"
-						+ AffectionLevel.getDescription(getNyan(), Main.game.getPlayer(), getNyan().getAffectionLevel(Main.game.getPlayer()), true)
+						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), character.getAffectionLevel(Main.game.getPlayer()), true)
 					+ "</p>";
 		}
 		if(increment<0 && currentAffection<=minimumLimit) {
 			return "<p style='text-align:center'>"
-						+ "[style.italicsDisabled(Nyan doesn't lose any affection towards you from this action...)]"
+						+ UtilText.parse(character, "[style.italicsDisabled([npc.Name] doesn't lose any affection towards you from this action...)]")
 						+ "<br/>"
-						+ AffectionLevel.getDescription(getNyan(), Main.game.getPlayer(), getNyan().getAffectionLevel(Main.game.getPlayer()), true)
+						+ AffectionLevel.getDescription(character, Main.game.getPlayer(), character.getAffectionLevel(Main.game.getPlayer()), true)
 					+ "</p>";
 		}
 		
-		return getNyan().incrementAffection(Main.game.getPlayer(), increment);
+		return character.incrementAffection(Main.game.getPlayer(), increment);
 	}
 	
-	private static void applyPregnancyReactionUpdates() {
+	private static void applyRepeatMeetingReactionUpdates() {
 		if(getNyan().isVisiblyPregnant()) {
 			getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateCompleted) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumInterviewPassed)) {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanApologised, true);
 		}
 	}
 	
@@ -271,10 +292,10 @@ public class ClothingEmporium {
 									
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_TALK_FINAL"));
 									
-									Main.game.getTextEndStringBuilder().append(incrementAffection(2, 30, 50));
+									Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 2, 30, 50));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTalkedTo, true);
 								
-									applyPregnancyReactionUpdates();
+									applyRepeatMeetingReactionUpdates();
 								}
 							};
 						}
@@ -293,9 +314,9 @@ public class ClothingEmporium {
 							return new Response("Compliment", "Compliment Nyan's appearance and abilities.", ROMANCE_COMPLIMENT) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(incrementAffection(2, 30, 50));
+									Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 2, 30, 50));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanComplimented, true);
-									applyPregnancyReactionUpdates();
+									applyRepeatMeetingReactionUpdates();
 								}
 							};
 						}
@@ -323,9 +344,9 @@ public class ClothingEmporium {
 							return new Response("Flirt", "Flirt with Nyan a little.", ROMANCE_FLIRT) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(incrementAffection(3, 30, 50));
+									Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 3, 30, 50));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanFlirtedWith, true);
-									applyPregnancyReactionUpdates();
+									applyRepeatMeetingReactionUpdates();
 								}
 							};
 						}
@@ -346,8 +367,8 @@ public class ClothingEmporium {
 							return new Response("Walk", "Ask Nyan if she'd like to go for a walk with you.", ROMANCE_WALK) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(incrementAffection(2, 50, 60));
-									applyPregnancyReactionUpdates();
+									Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 2, 50, 60));
+									applyRepeatMeetingReactionUpdates();
 								}
 							};
 						}
@@ -363,9 +384,9 @@ public class ClothingEmporium {
 								return new Response("Head pat", "Pat Nyan on the head and tell her she's a good girl.", ROMANCE_HEAD_PAT) {
 									@Override
 									public void effects() {
-										Main.game.getTextEndStringBuilder().append(incrementAffection(2, 50, 60));
+										Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 2, 50, 60));
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanHeadPatted, true);
-										applyPregnancyReactionUpdates();
+										applyRepeatMeetingReactionUpdates();
 									}
 								};
 							}
@@ -378,50 +399,63 @@ public class ClothingEmporium {
 								return new Response("Kiss", "You can tell from the way Nyan is looking at you that she wants to be kissed again. Lean forwards and give her what she wants.", ROMANCE_KISS) {
 									@Override
 									public void effects() {
-										Main.game.getTextEndStringBuilder().append(incrementAffection(5, 50, 60));
+										Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanKissed, true);
-										applyPregnancyReactionUpdates();
+										applyRepeatMeetingReactionUpdates();
 									}
 								};
 							}
 						}
 
 						if(index==7) {
-							return new Response(
-									"Restaurant date",
-									"[style.italicsMinorBad(This will be added in the next update!)]",
-									null);
-//							int requiredAffection = 60;
-//							if(currentAffection<requiredAffection) {
-//								return new Response(
-//										"Restaurant date",
-//										"Considering Nyan's nervousness, you need to be sure that she'll be able to handle the prospect of going out on a public date with you..."
-//											+ "<br/>[style.italicsMinorBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+currentAffection+".)]",
-//										null);
-//								
-//							} else if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateRequested)) {
-//								if(Main.game.getDayOfWeek()==DayOfWeek.SATURDAY || Main.game.getDayOfWeek()==DayOfWeek.SUNDAY) {
-//									return new Response("Restaurant date",
-//											"Ask Nyan if she'd like to go out with you on a date to the restaurant, 'The Oaken Glade'."
-//												+ "<br/>[style.italicsMinorBad(This action can only be performed on a week day!)]",
-//											null);
-//									
-//								} else {
-//									return new Response("Restaurant date",
-//											"Ask Nyan if she'd like to go out with you on a date to the restaurant, 'The Oaken Glade'.",
-//											ROMANCE_DATE_REQUESTED) {
-//										@Override
-//										public void effects() {
-//											applyPregnancyReactionUpdates();
-//										}
-//									};
-//								}
-//							}
+							int requiredAffection = 60;
+							if(currentAffection<requiredAffection) {
+								return new Response(
+										"Restaurant date",
+										"Considering Nyan's nervousness, you need to be sure that she'll be able to handle the prospect of going out on a public date with you..."
+											+ "<br/>[style.italicsMinorBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+currentAffection+".)]",
+										null);
+								
+							} else if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateRequested)) {
+								if(Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY) {
+									return new Response("Restaurant date",
+											"Ask Nyan if she'd like to go out with you on a date to the restaurant, 'The Oaken Glade'."
+												+ "<br/>[style.italicsMinorBad(This action can only be performed on a week day!)]",
+											null);
+									
+								} else {
+									return new Response("Restaurant date",
+											"Ask Nyan if she'd like to go out with you on a date to the restaurant, 'The Oaken Glade'.",
+											ROMANCE_DATE_REQUESTED) {
+										@Override
+										public void effects() {
+											applyRepeatMeetingReactionUpdates();
+										}
+									};
+								}
+							}
+							if(getNyan().isVisiblyPregnant()) {
+								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTummyRubbed)) {
+									return new Response("Rub tummy", "You've already spent time rubbing Nyan's tummy today. You can repeat this action tomorrow.", null);
+									
+								} else {
+									return new Response("Rub tummy",
+											"Rub Nyan's pregnant tummy and ask her how she's handling her pregnancy.",
+											ROMANCE_RUB_TUMMY) {
+										@Override
+										public void effects() {
+											Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
+											Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTummyRubbed, true);
+											applyRepeatMeetingReactionUpdates();
+										}
+									};
+								}
+							}
 						}
 					}
 					
-					// Requires affection of over 60, which can only be achieved after first date:
-					if(currentAffection>60) {
+					// Requires affection of over 60, which can only be achieved after first date (added flag check just to be sure):
+					if(currentAffection>60 || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateCompleted)) {
 						if(index==7) {
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanMakeOut)) {
 								return new Response("Make Out", "You've already made out with Nyan today. You can repeat this action tomorrow.", null);
@@ -430,56 +464,15 @@ public class ClothingEmporium {
 								return new Response("Make Out", "You can tell that Nyan is desperate for some intense physical contact with you. Lean forwards and passionately start making out with her.", ROMANCE_MAKE_OUT) {
 									@Override
 									public void effects() {
-										Main.game.getTextEndStringBuilder().append(incrementAffection(5, 60, 80));
+										Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 60, 100));
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanMakeOut, true);
-										applyPregnancyReactionUpdates();
+										applyRepeatMeetingReactionUpdates();
 									}
 								};
 							}
 						}
 					}
-//					 if(index==8) {
-//						int requiredAffection = AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
-//						
-//						if(currentAffection<requiredAffection) {
-//							return new Response(
-//									"Sex",
-//									"You can tell that propositioning Nyan for sex would end in disaster."
-//										+ " You should work on getting to know her a little better first."
-//										+ " ([style.italicsBad(Requires Nyan's affection to be at least "+requiredAffection+", and is currently "+currentAffection+".)])",
-//									null);
-//							
-//						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanSex)) {
-//							return new Response("Sex", "You've already had sex with Nyan today. You can repeat this action tomorrow.", null);
-//							
-//						} else {
-//							return new ResponseSex("Sex",
-//									"Have sex with Nyan.",
-//									null, null, null, null, null, null,
-//									true, true,
-//									!Main.game.getPlayer().isTaur()
-//										?new SMLyingDown(
-//											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
-//											Util.newHashMapOfValues(new Value<>(getNyan(), SexSlotLyingDown.LYING_DOWN)))
-//										:new SMGeneric(
-//												Util.newArrayListOfValues(Main.game.getPlayer()),
-//												Util.newArrayListOfValues(getNyan()),
-//												null,
-//												null),
-//									null,
-//									null,
-//									END_SEX,
-//									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
-//								@Override
-//								public void effects() {
-//									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanSex, true);
-//									if(getNyan().isVisiblyPregnant()) {
-//										getNyan().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-//									}
-//								}
-//							};
-//						}
-//					}  
+					
 					if(index==10) {
 						int requiredAffection = 40;
 						if(currentAffection<requiredAffection) {
@@ -499,7 +492,7 @@ public class ClothingEmporium {
 								}
 								@Override
 								public void effects() {
-									applyPregnancyReactionUpdates();
+									applyRepeatMeetingReactionUpdates();
 								}
 							};
 						}
@@ -512,7 +505,7 @@ public class ClothingEmporium {
 						public void effects() {
 							Main.game.setResponseTab(0);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
-							applyPregnancyReactionUpdates();
+							applyRepeatMeetingReactionUpdates();
 						}
 					};
 				}
@@ -969,6 +962,29 @@ public class ClothingEmporium {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
 		}
 	};
+
+	public static final DialogueNode ROMANCE_RUB_TUMMY = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_RUB_TUMMY"));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode ROMANCE_WALK = new DialogueNode("", "", true) {
 		@Override
@@ -1034,7 +1050,7 @@ public class ClothingEmporium {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_WALK_END_HOLD_HANDS"));
-								Main.game.getTextEndStringBuilder().append(incrementAffection(2, 50, 60));
+								Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 2, 50, 60));
 							}
 						};
 					}
@@ -1048,7 +1064,7 @@ public class ClothingEmporium {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_WALK_END_KISS"));
-								Main.game.getTextEndStringBuilder().append(incrementAffection(5, 50, 60));
+								Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
 							}
 						};
 					}
@@ -1109,7 +1125,7 @@ public class ClothingEmporium {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_WALK_INITIAL_END_KISS"));
-							Main.game.getTextEndStringBuilder().append(incrementAffection(5, 50, 60));
+							Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanFirstKissed, true);
 						}
 					};
@@ -1196,6 +1212,250 @@ public class ClothingEmporium {
 			return UtilText.nodeContentSB.toString();
 		}
 		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Bring an end to your makeout session.", POST_MAKEOUT);
+				
+			} else if(index==2) {
+				return new ResponseSex("Cunnilingus", "Suggest to the horny cat-girl that you could eat her out right here in the storeroom.",
+						true, true,
+						new SMNyanSex(
+								SexPosition.AGAINST_WALL,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAgainstWall.PERFORMING_ORAL_WALL)),
+								Util.newHashMapOfValues(new Value<>(getNyan(), SexSlotAgainstWall.BACK_TO_WALL))) {
+							@Override
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								if(character.isPlayer()) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+								} else {
+									return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+								}
+							}
+//							@Override
+//							public Map<Boolean, Map<GameCharacter, Map<CoverableArea, List<InventorySlot>>>> exposeAtStartOfSexMapExtendedInformation() {
+//								Map<Boolean, Map<GameCharacter, Map<CoverableArea, List<InventorySlot>>>> defaultMap = super.exposeAtStartOfSexMapExtendedInformation();
+//								
+//								defaultMap.get(true).putIfAbsent(getNyan(), new HashMap<>());
+//								defaultMap.get(true).get(getNyan()).put(CoverableArea.VAGINA, new ArrayList<>());
+//								
+//								return defaultMap;
+//							}
+							@Override
+							public boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+								return false;
+							}
+						},
+						null,
+						null,
+						POST_ORAL,
+						UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_MAKE_OUT_CUNNILINGUS")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), TongueVagina.CUNNILINGUS_START, false, true));
+					}
+				};
+				
+			} else if(index==3) {
+				return new ResponseSex("Fingering", "Pull up Nyan's miniskirt and start fingering her while continuing to kiss her.",
+						true, true,
+						new SMNyanSex(
+								SexPosition.AGAINST_WALL,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAgainstWall.STANDING_WALL)),
+								Util.newHashMapOfValues(new Value<>(getNyan(), SexSlotAgainstWall.BACK_TO_WALL))) {
+							@Override
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								if(character.isPlayer()) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
+								} else {
+									return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER);
+								}
+							}
+							@Override
+							public boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+								return false;
+							}
+						},
+						null,
+						null,
+						POST_ORAL,
+						UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_MAKE_OUT_FINGERING")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), TongueMouth.KISS_START, false, true),
+								new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), FingerVagina.FINGERING_START, false, true));
+					}
+				};
+			}
+			List<Response> receiveOralResponses = new ArrayList<>();
+			
+			boolean penisAccess = Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
+			boolean vaginaAccess = Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+			
+			if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
+				if(!penisAccess) {
+					receiveOralResponses.add(new Response("Receive blowjob", "As you are unable to access your penis, you cannot get Nyan to suck your cock!", null)); 
+				} else {
+					receiveOralResponses.add(
+							new ResponseSex("Receive blowjob", "Get Nyan to kneel down and suck your cock right here in the storeroom.",
+									true, true,
+									new SMNyanSex(
+											Main.game.getPlayer().isTaur()
+												?SexPosition.STANDING
+												:SexPosition.AGAINST_WALL,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Main.game.getPlayer().isTaur()?SexSlotStanding.STANDING_DOMINANT:SexSlotAgainstWall.BACK_TO_WALL)),
+											Util.newHashMapOfValues(new Value<>(getNyan(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL:SexSlotAgainstWall.PERFORMING_ORAL_WALL))) {
+										@Override
+										public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+											if(character.isPlayer()) {
+												return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+											} else {
+												return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+											}
+										}
+										@Override
+										public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+											return Util.newHashMapOfValues(
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)));
+										}
+										@Override
+										public boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+											return false;
+										}
+									},
+									null,
+									null,
+									POST_ORAL,
+									UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_MAKE_OUT_RECEIVE_BLOWJOB")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									return Util.newArrayListOfValues(
+											new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), PenisMouth.BLOWJOB_START, false, true));
+								}
+							});
+				}
+			}
+			if(Main.game.getPlayer().hasVagina()) {
+				if(!vaginaAccess) {
+					receiveOralResponses.add(new Response("Receive cunnilingus", "As you are unable to access your vagina, you cannot get Nyan to perform cunnilingus on you!", null)); 
+				} else {
+					receiveOralResponses.add(
+							new ResponseSex("Receive cunnilingus", "Get Nyan to kneel down and eat you out right here in the storeroom.",
+									true, true,
+									new SMNyanSex(
+											Main.game.getPlayer().isTaur()
+												?SexPosition.STANDING
+												:SexPosition.AGAINST_WALL,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Main.game.getPlayer().isTaur()?SexSlotStanding.STANDING_DOMINANT:SexSlotAgainstWall.BACK_TO_WALL)),
+											Util.newHashMapOfValues(new Value<>(getNyan(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL_BEHIND:SexSlotAgainstWall.PERFORMING_ORAL_WALL))) {
+										@Override
+										public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+											if(character.isPlayer()) {
+												return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+											} else {
+												return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+											}
+										}
+										@Override
+										public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+											return Util.newHashMapOfValues(
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+										}
+										@Override
+										public boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+											return false;
+										}
+									},
+									null,
+									null,
+									POST_ORAL,
+									UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_MAKE_OUT_RECEIVE_CUNNILINGUS")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									return Util.newArrayListOfValues(
+											new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+								}
+							});
+				}
+			}
+			if(Main.game.isAnalContentEnabled() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumDateCompleted)) {
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanAnalTalk)) {
+					receiveOralResponses.add(new Response("Ask about anal", "Ask Nyan if she'd be comfortable doing anal stuff with you.", ANAL_TALK));
+					
+				} else {
+					receiveOralResponses.add(
+							new ResponseSex("Perform anilingus",
+								"Get the horny cat-girl to present you with her ass and start rimming her.",
+								true, true,
+								new SMNyanSex(
+										SexPosition.AGAINST_WALL,
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getPlayer(), SexSlotAgainstWall.STANDING_WALL)),
+										Util.newHashMapOfValues(
+												new Value<>(getNyan(), SexSlotAgainstWall.FACE_TO_WALL))) {
+									@Override
+									public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+										if(character.isPlayer()) {
+											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
+										} else {
+											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE);
+										}
+									}
+									@Override
+									public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+										return Util.newHashMapOfValues(
+												new Value<>(getNyan(), Util.newArrayListOfValues(CoverableArea.ANUS)));
+									}
+									@Override
+									public boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+										return false;
+									}
+								},
+								null,
+								null,
+								POST_ORAL,
+								UtilText.parseFromXMLFile("characters/dominion/nyan", "ROMANCE_MAKE_OUT_PERFORM_ANILINGUS")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								return Util.newArrayListOfValues(
+										new InitialSexActionInformation(Main.game.getPlayer(), getNyan(), TongueAnus.ANILINGUS_START, false, true));
+							}
+						});
+				}
+			}
+			if(index>0 && index-4<receiveOralResponses.size()) {
+				return receiveOralResponses.get(index-4);
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode ANAL_TALK = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanAnalTalk, true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("characters/dominion/nyan", "ANAL_TALK");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROMANCE_MAKE_OUT.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode POST_MAKEOUT = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("characters/dominion/nyan", "POST_MAKEOUT");
+		}
+		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
@@ -1205,22 +1465,21 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNode END_SEX = new DialogueNode("Finished", "Nyan has had enough for now...", true) {
-
+	public static final DialogueNode POST_ORAL = new DialogueNode("Finished", "Nyan has had enough for now...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getNyan().cleanAllDirtySlots(true);
+			getNyan().cleanAllClothing(false, false);
+			Main.game.setResponseTab(1);
+		}
 		@Override
 		public String getContent() {
-			if(Main.sex.getNumberOfOrgasms(getNyan())==0) {
-				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX_NO_ORGASM");
-			} else {
-				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX");
-			}
+			return UtilText.parseFromXMLFile("characters/dominion/nyan", "POST_ORAL");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return SHOP_CLOTHING_REPEAT.getResponseTabTitle(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return SHOP_CLOTHING_REPEAT.getResponse(responseTab, index);

@@ -417,7 +417,8 @@ public class DialogueFlags implements XMLSaving {
 		try {
 			return (NPC) Main.game.getNPCById(managementCompanion);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", managementCompanion);
+			Util.logGetNpcByIdError("getManagementCompanion()", managementCompanion);
+			//e.printStackTrace();
 			return null;
 		}
 	}

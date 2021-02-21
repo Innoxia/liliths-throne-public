@@ -686,14 +686,14 @@ public class Response {
 		if(perksRequired==null) {
 			return false;
 		}
-		for (AbstractPerk p : perksRequired) {
+		for(AbstractPerk p : perksRequired) {
 			if(p.isEquippableTrait()
-					?!Main.game.getPlayer().hasTrait(p, true)
-					:!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
-				return true;
+					?Main.game.getPlayer().hasTrait(p, true)
+					:Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public boolean isFemininityInRange() {

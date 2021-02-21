@@ -59,7 +59,6 @@ public abstract class AbstractSubspecies {
 	
 	private int baseSlaveValue;
 	private int subspeciesOverridePriority;
-	private static AbstractSubspecies fleshSubspecies = null;
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
@@ -724,7 +723,6 @@ public abstract class AbstractSubspecies {
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
 	public void applySpeciesChanges(Body body) {
-		fleshSubspecies = null;
 		if(this.isFromExternalFile() && Main.game.isStarted()) {
 			UtilText.setBodyForParsing("targetedBody", body);
 			UtilText.parse(applySubspeciesChanges);
@@ -752,15 +750,13 @@ public abstract class AbstractSubspecies {
 		return backup;
 	}
 	
-	/**
-	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
-	 */
-	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
-		if (fleshSubspecies == null) {
-			fleshSubspecies = getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
-		}
-		return fleshSubspecies;
-	}
+//	/**
+//	 * @return The race of this body if it were made from flesh. (i.e. The body's race ignoring slime/elemental modifiers.)
+//	 */
+//	public static AbstractSubspecies getFleshSubspecies(GameCharacter character) {
+//		return character.getFleshSubspecies();
+////		return getSubspeciesFromBody(character.getBody(), character.getBody().getRaceFromPartWeighting());
+//	}
 	
 	/**
 	 * @param body The body being checked.
@@ -1356,7 +1352,11 @@ public abstract class AbstractSubspecies {
 	public String getPathName() {
 		return pathName;
 	}
-
+	
+	public int getIconSize() {
+		return iconSize;
+	}
+	
 	public String getBackgroundPathName() {
 		return backgroundPathName;
 	}
@@ -1451,8 +1451,8 @@ public abstract class AbstractSubspecies {
 						sb.append(line);
 					}
 					SVGStringUncoloured = sb.toString();
-					float iconResizeBorder = (100-iconSize)/2f;
-					SVGStringUncoloured = "<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
+					float iconResizeBorder = (100-getIconSize())/2f;
+					SVGStringUncoloured = "<div style='width:"+getIconSize()+"%;height:"+getIconSize()+"%;position:absolute;left:"+iconResizeBorder+"%;bottom:"+iconResizeBorder+"%;'>"+SVGStringUncoloured+"</div>";
 					
 				} else {
 					InputStream is = this.getClass().getResourceAsStream(getPathName() + ".svg");

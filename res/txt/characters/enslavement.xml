@@ -144,4 +144,101 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- SET_SLAVE_FREE_SCARLETT -->
+	
+	<htmlContent tag="SET_SLAVE_FREE_SCARLETT"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.namePos] old attitude makes a sudden return, and she storms pasts you and flings opens the door. No longer afraid to express her true feelings, [npc.she] turns back and angrily snarls, [npc.speech(Fuck you for keeping me as a slave, [pc.name]! I'm going to be far better off back at Helena's nest!)]
+	</p>
+	<p>
+		With that, [npc.name] sprints off down the corridor, and as you hear the distant sound of the front door slamming shut behind [npc.herHim], you realise that if you want to see [npc.herHim] again, you're going to have to head back to the Harpy Nests...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SET_SLAVE_FREE -->
+
+	<htmlContent tag="SET_SLAVE_FREE_DISLIKE"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] storms pasts you and flings opens the door. No longer afraid to express her true feelings, [npc.she] turns back and angrily snarls, [npc.speech(Fuck you, [pc.name]. I never want to see your fucking face ever again!)]
+	</p>
+	<p>
+		With that, [npc.name] sprints off down the corridor, and as you hear the distant sound of the front door slamming shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_NO_GUEST"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] lets out a long sigh and [npc.walks] over to the door. Before [npc.she] leaves, however, [npc.she] turns back and gives you a slight smile, before saying, [npc.speech(I guess you weren't the worst owner to have, [pc.name]. I hope you treat your other slaves well...)]
+	</p>
+	<p>
+		With that, [npc.name] sets off down the corridor, and as you hear the distant sound of the front door closing shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_GUEST_CHOICE"><![CDATA[
+	<p>
+		Deciding that it's time to set [npc.name] free, you write [npc.her] name on your Freedom Certification and give it your signature, before holding it up to your now-ex slave and letting [npc.herHim] see what it is that you've just done. Not quite believing what it is [npc.sheIs] seeing, [npc.she] reaches up to take the piece of paper from your [pc.hands] and carefully reads over it several times. With a suspicious glare in [npc.her] [npc.eyes+], [npc.she] finally asks, [npc.speech(This isn't a trick, is it? I'm... I'm actually free?)]
+	</p>
+	<p>
+		As soon as you've confirmed that [npc.sheIs] now a free [npc.race], [npc.name] lets out a long sigh and [npc.walks] over to the door. Before [npc.she] leaves, you realise that you have this one chance to prevent [npc.herHim] from leaving your life forever. By offering [npc.herHim] the use of one of the mansion's guest rooms, you could potentially build a real relationship with [npc.name]. Then again, if you simply wanted [npc.herHim] to leave, you could just say goodbye...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_GOODBYE"><![CDATA[
+	<p>
+		Not interested in having [npc.name] stay on as a guest in the mansion, you say goodbye to [npc.herHim]. Turning back in the doorway and giving you a slight smile, [npc.she] says, [npc.speech(I guess you weren't the worst owner to have, [pc.name]. I hope you treat your other slaves well...)]
+	</p>
+	<p>
+		With that, [npc.name] sets off down the corridor, and as you hear the distant sound of the front door closing shut behind [npc.herHim], you realise that you're never going to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SET_SLAVE_FREE_THROWN_OUT"><![CDATA[
+	<p>
+		Definitely not interested in having [npc.name] stay on as a guest in the mansion, you decide to speed [npc.her] departure along by [pc.stepping] over to the room's bell pull and tugging on it. Within seconds, Rose appears at the door, and you tell the cat-girl maid that [npc.name] is trespassing and needs to be thrown out. Immediately grabbing your ex-slave by the [npc.arm], Rose gives [npc.herHim] no time in which to say anything more to you and forcefully pulls [npc.herHim] out of the room.
+	</p>
+	<p>
+		Soon afterwards, you hear the distant sound of the front door closing shut behind [npc.name], you realise that you're never going to have to see [npc.herHim] again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SET_SLAVE_FREE_GUEST_ROOM -->
+
+	<htmlContent tag="SET_SLAVE_FREE_GUEST_ROOM"><![CDATA[
+	<p>
+		Moving forwards, you stop [npc.name] from leaving by telling [npc.herHim] that you're not kicking [npc.herHim] out, and that if [npc.she]'d like, [npc.she] can continue to live here in the mansion as your guest. 
+	</p>
+	<p>
+		[npc.NamePos] [npc.eyes+] light up as you say this, and with more than a hint of excitement in [npc.her] voice, [npc.she] asks, [npc.speech(Really? You mean... I can continue to live here with you?)] 
+	</p>
+	<p>
+		After you've confirmed that that's what you mean, [npc.name] exclaims, [npc.speech(Thank you, [pc.name]! You've always treated me well, even though I was just a slave...)]
+	</p>
+	<p>
+		Smiling at your ex-slave, you ask [npc.herHim] to accompany you to [npc.her] new room. Happily tagging along, [npc.name] [npc.walks] by your side as you lead [npc.herHim] to the guest room which [npc.she]'ll be staying in from now on. Turning to face you with tears of happiness in [npc.her] [npc.eyes+], [npc.name] exclaims, [npc.speech(Thank you, [pc.name]! I just... I can't thank you enough; I was so scared of being kicked back out into the streets! Thank you!)]
+	</p>
+	<p>
+		Telling [npc.name] that [npc.she]'ll be safe here as your guest, you head over to the door of [npc.her] new room. Telling [npc.herHim] to take some time in which to get settled, you make your exit and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

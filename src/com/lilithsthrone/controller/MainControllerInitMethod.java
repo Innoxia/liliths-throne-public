@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
 
@@ -73,6 +72,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -146,6 +146,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
@@ -170,6 +171,7 @@ import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -3042,6 +3044,26 @@ public class MainControllerInitMethod {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
+
+				// Vagina egg-layer:
+				id = "VAGINA_EGG_LAYER_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if(!BodyChanging.getTarget().isPregnant()) {
+							BodyChanging.getTarget().setVaginaEggLayer(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					}, false);
+				}
+				id = "VAGINA_EGG_LAYER_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if(!BodyChanging.getTarget().isPregnant()) {
+							BodyChanging.getTarget().setVaginaEggLayer(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					}, false);
+				}
 				
 				// Vagina wetness:
 				for(Wetness wetness: Wetness.values()) {
@@ -3121,15 +3143,15 @@ public class MainControllerInitMethod {
 				}
 				
 				// Clit size:
-//				for(ClitorisSize cs: ClitorisSize.values()) {
-//					id = "CLITORIS_SIZE_"+cs;
-//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-//						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-//							BodyChanging.getTarget().setVaginaClitorisSize(cs.getMedianValue());
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}, false);
-//					}
-//				}
+				for(ClitorisSize cs: ClitorisSize.values()) {
+					id = "CLITORIS_SIZE_"+cs;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaClitorisSize(cs.getMedianValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
 
 				id = "CLITORIS_SIZE_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -4724,10 +4746,8 @@ public class MainControllerInitMethod {
 											
 											BodyChanging.getTarget().setSkinCovering(new Covering(CharacterModificationUtils.getCoveringsToBeApplied().get(bct)), false);
 											
-											if(noCost) {
-												if(bct == BodyCoveringType.HUMAN) {
-													BodyChanging.getTarget().getBody().updateCoverings(false, false, false, true);
-												}
+											if(BodyChanging.getTarget().isPlayer() && bct == BodyCoveringType.HUMAN) { // Start of game should reset skin colourings for all parts
+												BodyChanging.getTarget().getBody().updateCoverings(false, false, false, true);
 											}
 										}
 									}
@@ -4853,6 +4873,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
+										System.out.println(":3");
 										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
 										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryColour(colour);
 										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing((colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()));
@@ -5845,7 +5866,8 @@ public class MainControllerInitMethod {
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 											
-										} else if(javaSucks.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(javaSucks, e)) {
+										} else if((javaSucks.getPerkPoints()>=1 || javaSucks.getAdditionalPerkCategoryPoints(e.getCategory())>javaSucks.getPerksInCategory(e.getCategory())-PerkManager.getInitialPerkCount(javaSucks, e.getCategory()))
+												&& PerkManager.MANAGER.isPerkAvailable(javaSucks, e)) {
 											if(javaSucks.addPerk(e.getRow(), e.getEntry())) {
 												if(e.getEntry().isEquippableTrait() && javaSucks.getTraits().size()<GameCharacter.MAX_TRAITS) {
 													javaSucks.addTrait(e.getEntry());
@@ -7260,6 +7282,46 @@ public class MainControllerInitMethod {
 								UtilText.parse(npc, "You don't have a slaver license, so you're unable to big on any slaves!"));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
+				}
+			}
+		}
+		
+		// Lodger import:
+		if (Main.game.getCurrentDialogueNode() == CityHall.LODGER_IMPORT) {
+			for (File f : Main.getSlavesForImport()) {
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
+				
+				if (((EventTarget) MainController.document.getElementById("import_lodger_" + fileIdentifier )) != null) {
+					((EventTarget) MainController.document.getElementById("import_lodger_" + fileIdentifier )).addEventListener("click", e -> {
+						try {
+							Game.importCharacterAsLodger(fileName);
+							MainController.updateUI();
+							Main.game.flashMessage(PresetColour.GENERIC_GOOD, "Imported Character!");
+						
+						} catch(Exception ex) {
+							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Import Failed!");
+						}
+					}, false);
+				}
+			}
+		}
+		if (Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_WAITING_AREA_LODGER_LIST) {
+			for (NPC npc : Main.game.getCharactersPresent()) {
+				id = npc.getId()+"_LODGER";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						CityHall.setupLodger(npc);
+						Main.game.setContent(new Response("", "", CityHall.CITY_HALL_APPROACH_LODGER));
+					}, false);
+					
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+							UtilText.parse(npc, "Find [npc.name]"),
+							UtilText.parse(npc, "Look around the waiting area and see if you can find [npc.name]..."));
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
 		}

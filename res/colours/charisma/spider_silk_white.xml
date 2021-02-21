@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	<name><![CDATA[silk white]]></name>
+	<colour>ffffff</colour>
+	<lightColour>ffffff</lightColour>
+	<formattingNames>
+		<name><![CDATA[silk]]></name>
+		<name><![CDATA[silkWhite]]></name>
+		<name><![CDATA[spider]]></name>
+	</formattingNames>
+	<tags/>
+</colour>
