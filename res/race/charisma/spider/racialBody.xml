@@ -108,6 +108,7 @@
 	<cumProduction>80</cumProduction>
 	<tailTypes>
 		<type>charisma_spider_tail</type>
+		<type>charisma_spider_tailFluffy</type>
 	</tailTypes>
 	<tentacleType>NONE</tentacleType>
 	<torsoType>charisma_spider_torso</torsoType>
