@@ -51,11 +51,8 @@
 	The character's body that's being changed can be accessed via using 'targetedBody'.
 	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
 	<applySubspeciesChanges><![CDATA[
-		#IF(targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceCoatl)
+		#IF(!targetedBody.isFaceHuman() && targetedBody.getFaceType()!=FACE_TYPE_dsg_dragon_faceCoatl)
 			[#targetedBody.setFaceType(FACE_TYPE_dsg_dragon_faceCoatl)]
-		#ENDIF
-		#IF(targetedBody.getTongueType()!=TONGUE_TYPE_dsg_dragon_tongueForked)
-			[#targetedBody.setTongueType(TONGUE_TYPE_dsg_dragon_tongueForked)]
 		#ENDIF
 		#IF(!targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED))
 			[#targetedBody.addTongueModifier(TONGUE_MODIFIER_BIFURCATED)]

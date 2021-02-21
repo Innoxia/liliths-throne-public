@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
@@ -41,6 +42,7 @@ import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
@@ -3452,6 +3454,10 @@ public class Body implements XMLSaving {
 		return vagina;
 	}
 
+	public AbstractVaginaType getVaginaType() {
+		return vagina.getType();
+	}
+
 	public Wing getWing() {
 		return wing;
 	}
@@ -3604,6 +3610,14 @@ public class Body implements XMLSaving {
 		this.vagina = vagina;
 	}
 
+	public String setVaginaType(AbstractVaginaType type) {
+		return this.vagina.setType(null, type);
+	}
+
+	public String setVaginaType(GameCharacter owner, AbstractVaginaType type) {
+		return this.vagina.setType(owner, type);
+	}
+
 	public void setWing(Wing wing) {
 		this.wing = wing;
 	}
@@ -3624,6 +3638,11 @@ public class Body implements XMLSaving {
 		return this.wing.setType(owner, type);
 	}
 
+	public void applyLegConfigurationTransformation(AbstractLegType legType, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		this.setLegType(legType);
+		this.leg.getType().applyLegConfigurationTransformation(this, legConfiguration, applyFullEffects);
+	}
+
 	public Boolean hasTongueModifier(TongueModifier modifier) {
 		return face.getTongue().hasTongueModifier(modifier);
 	}
@@ -3638,6 +3657,14 @@ public class Body implements XMLSaving {
 
 	public void resetTongueModifiers() {
 		face.getTongue().resetTongueModifiers();
+	}
+
+	public boolean hasWings() {
+		return getWingType() != WingType.NONE;
+	}
+
+	public boolean isFaceHuman() {
+		return face.getType().getRace() == Race.HUMAN;
 	}
 
 	// Descriptions:
@@ -6368,12 +6395,7 @@ public class Body implements XMLSaving {
 	}
 
 	public boolean isAbleToFlyFromExtraParts() {
-		for(BodyPartInterface bpi : getAllBodyParts()) {
-			if(bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT)) {
-				return true;
-			}
-		}
-		return false;
+		return getAllBodyParts().stream().anyMatch(bpi -> bpi.getType().getTags().contains(BodyPartTag.ALLOWS_FLIGHT));
 	}
 
 	/**
@@ -6396,4 +6418,13 @@ public class Body implements XMLSaving {
 		this.takesAfterMother = takesAfterMother;
 	}
 
+	/**
+	 * Returns a randomly chosen BodyPart-type from the list of types (e. g. multiple WingTypes)
+	 * provided as parameters. To give one or more types more weight these types can be repeated.
+	 * @param values List of BodyPartTypes to choose from randomly
+	 * @return The randomly chosen type of the corresponding BodyPart
+	 */
+	public BodyPartTypeInterface randomTypeFrom(BodyPartTypeInterface... values) {
+		return Util.randomItemFrom(Util.newArrayListOfValues(values));
+	}
 }

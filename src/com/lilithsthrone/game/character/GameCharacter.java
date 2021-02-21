@@ -28661,7 +28661,7 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Wings: ------------------------------ //
 
 	public boolean hasWings() {
-		return getWingType() != WingType.NONE;
+		return body.hasWings();
 	}
 	// Type:
 	public AbstractWingType getWingType() {
