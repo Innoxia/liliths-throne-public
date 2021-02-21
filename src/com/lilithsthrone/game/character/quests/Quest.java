@@ -522,7 +522,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After getting to know one of the residents of Dominion's alleyways, you'd like to offer them a real home. Lilaya's mansion is full of empty rooms, so you should ask her if you could use one to house your new friend.";
+			return "Lilaya's mansion is full of empty rooms which could be put to use as guest accommodation. You should ask her if you could use them to house your friends and family.";
 		}
 
 		@Override

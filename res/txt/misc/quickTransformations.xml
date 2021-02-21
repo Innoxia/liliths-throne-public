@@ -32,7 +32,7 @@
 		#IF(npc.hasPenis())
 			 transform his cock...
 		#ELSE
-			 grow him a cock...
+			 grow a cock...
 		#ENDIF
 	</p>
 	]]>
@@ -54,7 +54,7 @@
 		#IF(npc.hasPenis())
 			 transform his cock...
 		#ELSE
-			 grow him a cock...
+			 grow a cock...
 		#ENDIF
 	</p>
 	]]>
@@ -93,7 +93,7 @@
 				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
-				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become feminine, and within just a moment, you find yourself smiling at her girly body and pretty face. You wonder if you should now get [npc.herHim] to
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become feminine, and within just a moment, you find yourself smiling at her girly body and pretty face. You wonder if you should now get her to
 		#ENDIF
 		#IF(npc.hasPenis())
 			 transform her cock...
@@ -115,7 +115,7 @@
 				[npc.speech(Really?)] [npc.name] mumbles, before realising that [npc.sheHasFull] no say in the matter, [npc.speech(Fine...)]
 			</p>
 			<p>
-				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as feminine as [npc.she] can manage, and within just a moment, you find yourself smiling at her extremely womanly body and beautiful face. You wonder if you should now get [npc.herHim] to
+				With that, [npc.she] focuses [npc.her] energy on transforming [npc.her] body to become as feminine as [npc.she] can manage, and within just a moment, you find yourself smiling at her extremely womanly body and beautiful face. You wonder if you should now get her to
 		#ENDIF
 		#IF(npc.hasPenis())
 			 transform her cock...

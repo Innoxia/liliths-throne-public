@@ -454,6 +454,16 @@ public enum PerkManager {
 		return getStartingPerks(character).size();
 	}
 
+	public static int getInitialPerkCount(GameCharacter character, PerkCategory category) {
+		int count = 0;
+		for(TreeEntry<PerkCategory, AbstractPerk> entry : getStartingPerks(character)) {
+			if(entry.getCategory()==category) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
 	public static void initialiseSpecialPerksUponCreation(GameCharacter character) {
 		Random rnd = new Random((character.getId()).hashCode());
 
@@ -677,7 +687,19 @@ public enum PerkManager {
 		
 		treeSB.append("<div class='container-full-width' style='text-align:center;'>");
 		if(includePointsRemaining) {
-			treeSB.append("<h6 style='text-align:center;'>Perk Points Available: "+character.getPerkPoints()+"</h6>");
+			treeSB.append("<h6 style='text-align:center;'>Perk Points Available: ");
+			treeSB.append(character.getPerkPoints());
+			StringBuilder extraPerkPoints = new StringBuilder();
+			for(PerkCategory category : PerkCategory.values()) {
+				int points = character.getAdditionalPerkCategoryPoints(category)-(character.getPerksInCategory(category)-PerkManager.getInitialPerkCount(character, category));
+				if(points>0) {
+					extraPerkPoints.append(" <span style='color:"+category.getColour().toWebHexString()+";'>"+points+"</span>");
+				}
+			}
+			if(extraPerkPoints.length()>0) {
+				treeSB.append("<br/>Category-specific points: "+extraPerkPoints.toString());
+			}
+			treeSB.append("</h6>");
 		}
 		
 		if(character.getSpecialPerks().size()>0) {

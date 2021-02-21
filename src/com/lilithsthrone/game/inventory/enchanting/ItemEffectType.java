@@ -2119,7 +2119,7 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			AbstractSubspecies sub = AbstractSubspecies.getFleshSubspecies(target);
+			AbstractSubspecies sub = target.getFleshSubspecies();
 			if(sub.getRace()!=Race.DEMON) {
 				target.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(target, target.getGender(), sub, true), false);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_DEMON.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
@@ -2158,15 +2158,17 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
 				List<TFModifier> mods =  Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
 				if(targetItem instanceof AbstractClothing) {
-					 //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
+					 //If this clothing is a 'sex toy' or groin clothing, then allow vibration and orgasm denial enchantments:
 					if(((AbstractClothing)targetItem).getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP) || ((AbstractClothing)targetItem).getSlotEquippedTo()==InventorySlot.GROIN) {
 						mods.add(TFModifier.CLOTHING_VIBRATION);
+						mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
 						
 					} else {
 						for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
 							List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
 							if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) {
 								mods.add(TFModifier.CLOTHING_VIBRATION);
+								mods.add(TFModifier.CLOTHING_ORGASM_PREVENTION);
 								break;
 							}
 						}
@@ -2191,17 +2193,17 @@ public class ItemEffectType {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION
-					|| secondaryModifier == TFModifier.REMOVAL
-					|| secondaryModifier == TFModifier.TF_TYPE_1) {
+						|| secondaryModifier == TFModifier.REMOVAL
+						|| secondaryModifier == TFModifier.TF_TYPE_1) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
-				|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
-				|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
-				|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
-				|| primaryModifier == TFModifier.CLOTHING_CONDOM
-				|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
-			return TFPotency.getAllPotencies();
+						|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
+						|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+						|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+						|| primaryModifier == TFModifier.CLOTHING_CONDOM
+						|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
+				return TFPotency.getAllPotencies();
 				
 			} else {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
@@ -2236,6 +2238,9 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
 				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
+				
+			} else if(secondaryModifier == TFModifier.CLOTHING_ORGASM_PREVENTION) {
+				effectsList.add("[style.boldCrimson(Prevents wearer from orgasming)]");
 				
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {

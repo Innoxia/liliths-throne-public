@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
@@ -487,12 +488,46 @@ public class Kate extends NPC {
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		if(user.isPlayer() && !target.isPlayer()) {
 			if(item.isTypeOneOf("innoxia_pills_fertility", "innoxia_pills_broodmother")) {
-				itemOwner.useItem(item, target, false);
+				String useDesc = itemOwner.useItem(item, target, false, true);
 				return new Value<>(true,
 						"<p>"
 							+ "Producing a "+item.getName(false, false)+" from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
 							+ " She giggles as she happily swallows the little "+item.getColour(0).getName()+" pill, knowing that it's going to make her womb far more fertile."
-						+ "</p>");
+						+ "</p>"
+						+ useDesc);
+				
+			} else if(item.getItemType()==ItemType.PREGNANCY_TEST) {
+				String useDesc = itemOwner.useItem(item, target, false, true);
+				if(this.isPregnant()) {
+					this.setCharacterReactedToPregnancy(user, true);
+					String litterCount = Util.intToString(this.getPregnantLitter().getTotalLitterCount());
+					return new Value<>(true,
+							"<p>"
+								+ "Producing "+item.getName(true, false)+" from your inventory, you pass it over Kate's tummy and take a look at the results..."
+							+ "</p>"
+							+ useDesc
+							+"<p>"
+								+ (this.isVisiblyPregnant()
+									?"[kate.speechNoEffects(What were you expecting?)] Kate laughs, before rubbing her pregnant belly and winking at you. [kate.speech(You can already see I'm knocked up, can't you?)]"
+									:"[kate.speechNoEffects(~Ooh!~ I'm pregnant!)]"
+											+ (this.getPregnantLitter().getTotalLitterCount()>2
+													?" Kate exclaims, before rubbing her belly and biting her lip. [kate.speechNoEffects(I've got "+litterCount+" kids in here? ~Mmm!~ My tummy's gonna be so big...)]"
+													:" Kate moans, before rubbing her belly and winking at you. [kate.speech(I'm gonna have a big, round tummy soon!)]"))
+							+ "</p>");
+					
+				} else {
+					return new Value<>(true,
+							"<p>"
+									+ "Producing "+item.getName(true, false)+" from your inventory, you pass it over Kate's tummy and take a look at the results..."
+							+ "</p>"
+							+ useDesc
+							+"<p>"
+								+ (this.hasStatusEffect(StatusEffect.PREGNANT_0)
+									?"[kate.speechNoEffects(~Aww!~ I'm not pregnant!)] Kate whines, before rubbing her belly and pouting at you. [kate.speech(Come on, [pc.name], there's plenty of time for you to change that!)]"
+									:"[kate.speechNoEffects(What were you expecting? Of course I'm not going to be pregnant!)] Kate laughs, before rubbing her belly and biting her lip. [kate.speech(Although there's plenty of time for you to change that...)]")
+							+ "</p>");
+				}
+				
 			} else {
 				return new Value<>(false,
 						"<p>"

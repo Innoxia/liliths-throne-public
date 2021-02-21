@@ -196,7 +196,7 @@ public class FingerAnus {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
 									+ " before gently bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand] as [npc2.name] [npc2.verb(help)]"
-									+ " to [npc2.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+].",
+									+ " to [npc2.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
@@ -215,7 +215,7 @@ public class FingerAnus {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
-									+ " before violently bucking [npc2.her] [npc2.assCloaca] back against [npc.her] [npc.hand] and roughly forcing [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+].",
+									+ " before violently bucking [npc2.her] [npc2.assCloaca] back against [npc.her] [npc.hand] and roughly forcing [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
@@ -229,7 +229,7 @@ public class FingerAnus {
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+]."));
+									+ " desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

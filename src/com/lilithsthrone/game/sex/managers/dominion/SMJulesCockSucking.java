@@ -40,7 +40,7 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(Main.game.getNpc(Jules.class))>=Main.game.getNpc(Jules.class).getOrgasmsBeforeSatisfied();
+		return Main.sex.isSatisfiedFromOrgasms(Main.game.getNpc(Jules.class), true);
 	}
 	
 	@Override

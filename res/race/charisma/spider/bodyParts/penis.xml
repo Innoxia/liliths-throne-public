@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<coveringType>PENIS</coveringType>
+	<pubicHairAllowed>false</pubicHairAllowed>
+	<testicleType>charisma_spider_testicle</testicleType>
+	<additionalTransformationEffect/>
+	<namesMasculine>
+		<name><![CDATA[spider-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[spider-]]></name>
+	</namesPluralMasculine>
+	<namesFeminine>
+		<name><![CDATA[spider-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[spider-]]></name>
+	</namesPluralFeminine>
+	<descriptors/>
+	<defaultPenetrationModifiers>
+		<modifier>SHEATHED</modifier>
+		<modifier>TAPERED</modifier>
+	</defaultPenetrationModifiers>
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft as it recedes into [npc.her] body. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form.
+		<br/>[npc.She] now [npc.has] a [style.boldSpider(spider-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldSpider([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldSpider(spider cum)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] spider cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

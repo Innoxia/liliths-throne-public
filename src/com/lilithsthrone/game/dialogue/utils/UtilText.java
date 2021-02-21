@@ -1020,6 +1020,17 @@ public class UtilText {
 								
 								sb.setLength(0);
 								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
+								for(int j=i+1;j<input.length();j++) {
+									if(!Character.isWhitespace(input.charAt(j))) {
+										usingConditionalBrackets = input.charAt(j)=='(';
+										break;
+									}
+								}
+								
+								sb.setLength(0);
+								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
 								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
 								
@@ -1034,6 +1045,7 @@ public class UtilText {
 								
 							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
 									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I')
 									&& openBrackets-1==closeBrackets
 									&& conditionalStatement!=null) {
 								conditionalElseFound = true;
@@ -1055,6 +1067,7 @@ public class UtilText {
 							}
 							
 						} else {
+//							System.out.println("noConditionalBrackets");
 							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
 								// If last conditional was brackets, remove the THEN
 								if(lastConditionalUsedBrackets) {
@@ -1068,6 +1081,18 @@ public class UtilText {
 									conditionalStatement = conditionalStatement.trim();
 									sb.setLength(0);
 								}
+								
+							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets) {
+								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
+
+								for(int j=i+1;j<input.length();j++) {
+									if(!Character.isWhitespace(input.charAt(j))) {
+										usingConditionalBrackets = input.charAt(j)=='(';
+										break;
+									}
+								}
+								
+								sb.setLength(0);
 								
 							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets) {
 								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
@@ -1083,6 +1108,7 @@ public class UtilText {
 								
 							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
 									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I')
 									&& openBrackets-1==closeBrackets) {
 								conditionalElseFound = true;
 	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
@@ -5531,7 +5557,7 @@ public class UtilText {
 
 
 		
-		// Hips: TODO rough
+		// Hips:
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -5540,8 +5566,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ASS){//TODO
+				"Returns the name of the covering of this character's hips (which is based on torso type).",
+				BodyPartType.ASS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return getSkinName(character.getTorsoType(), character);
@@ -5555,8 +5581,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ASS){//TODO
+				"Returns the name of the covering of this character's hips (which is based on torso type), plus a descriptor appended before it.",
+				BodyPartType.ASS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return getSkinNameWithDescriptor(character.getTorsoType(), character.getCovering(character.getTorsoType().getBodyCoveringType(character)), character);
@@ -5570,8 +5596,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ASS){//TODO
+				"Returns the name of this character's hips.",
+				BodyPartType.ASS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return "hips";
@@ -5587,8 +5613,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ASS){//TODO
+				"Returns the name of this character's hips, plus a size descriptor appened before it.",
+				BodyPartType.ASS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return applyDescriptor(character.getHipSize().getDescriptor(), "hips");
@@ -5602,8 +5628,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.ASS){//TODO
+				"Returns a descriptor of this character's hip size.",
+				BodyPartType.ASS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getHipSize().getDescriptor();
@@ -5611,6 +5637,21 @@ public class UtilText {
 		});
 		
 		// Breasts:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"paizuri",
+						"naizuri"),
+				true,
+				true,
+				"",
+				"Returns 'paizuri' if the character's breasts are large enough to give a proper tit-job, or 'naizuri' if they are too small.",
+				BodyPartType.BREAST){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.isBreastFuckablePaizuri()?"paizuri":"naizuri";
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -5623,8 +5664,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.BREAST){//TODO
+				"Returns a descriptor of the character's breast size.",
+				BodyPartType.BREAST){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getBreastSize().getDescriptor();
@@ -5642,8 +5683,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.BREAST){//TODO
+				"Returns the name of the shape of this character's breasts.",
+				BodyPartType.BREAST){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getBreastShape().getDescriptor();
@@ -5657,8 +5698,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.BREAST){//TODO
+				"Returns the name of the size of this character's nipples.",
+				BodyPartType.BREAST){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getNippleSize().getName();
@@ -5672,8 +5713,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.BREAST){//TODO
+				"Returns the name of the size of this character's areolae.",
+				BodyPartType.BREAST){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getAreolaeSize().getName();

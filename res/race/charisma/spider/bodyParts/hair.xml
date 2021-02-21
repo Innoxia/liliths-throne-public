@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hair>
+	<race>charisma_spider</race>
+	<transformationName><![CDATA[spider]]></transformationName>
+	<coveringType>charisma_spider_hair</coveringType>
+	<tags>
+		<tag>HAIR_HANDLES_IN_SEX</tag>
+	</tags>
+	<determiner><![CDATA[a head of]]></determiner>
+	<name><![CDATA[hair]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[hairs]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>damp</descriptor>
+		<descriptor>human</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>damp</descriptor>
+		<descriptor>human</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, human-like hair.
+		<br/>[npc.Name] now [npc.has] [npc.hairColour] [style.boldSpider(spider-morph hair)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.hairDeterminer] [npc.hairLength], [npc.hairColour(true)], silky human-like hair.
+	]]></bodyDescription>
+</hair>

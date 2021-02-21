@@ -44,7 +44,7 @@
 	<baseDamage><![CDATA[
 		[##var hits = 0]
 		#IF(npc.getEssenceCount() < 7)
-			[##hits = (RND.nextInt(getEssenceCount())+2)]
+			[##hits = (RND.nextInt(npc.getEssenceCount())+2)]
 		#ELSE
 			[##hits = (RND.nextInt(6)+2)]			
 		#ENDIF

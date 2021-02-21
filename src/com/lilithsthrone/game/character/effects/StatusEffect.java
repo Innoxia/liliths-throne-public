@@ -2744,6 +2744,25 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect GYM_FATIGUE = new AbstractStatusEffect(80,
+			"post-workout fatigue",
+			"gym_fatigue",
+			PresetColour.ATTRIBUTE_HEALTH,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.HEALTH_MAXIMUM, -15f),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "Having recently worked out, [npc.nameIsFull] feeling very fatigued, and will be unable to do any more gym work until [npc.sheHas] recovered.");
+			} else {
+				return "";
+			}
+		}
+	};
+	
 	// Utility status effect to display text of companions leaving:
 	public static AbstractStatusEffect COMPANIONS_LEAVING = new AbstractStatusEffect(80,
 			"Companions Leaving",
@@ -6588,7 +6607,7 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
+			return UtilText.parse(target, "[npc.Name] [npc.has]n't had any sexual relief for over a day now, and [npc.is] feeling extremely pent-up...");
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -6611,7 +6630,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("[style.colourSex(Increasing in intensity...)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {//TODO if one key-holder, mention them
-			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
+			return UtilText.parse(target, "[npc.Name] [npc.has] been locked in chastity, and will sooner or later start to feel frustrated at not being able to have a proper orgasm...");
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -6619,12 +6638,15 @@ public class StatusEffect {
 				if(target.hasStatusEffect(CHASTITY_REMOVED_2)) {
 					target.addStatusEffect(CHASTITY_2, 60*60*24*2); // 2 instead of 5
 					target.removeStatusEffect(CHASTITY_REMOVED_2);
+					
 				} else if(target.hasStatusEffect(CHASTITY_REMOVED_3)) {
 					target.addStatusEffect(CHASTITY_3, 60*60*24*3); // 3 instead of 7
 					target.removeStatusEffect(CHASTITY_REMOVED_3);
+					
 				} else if(target.hasStatusEffect(CHASTITY_REMOVED_4)) {
 					target.addStatusEffect(CHASTITY_4, -1);
 					target.removeStatusEffect(CHASTITY_REMOVED_4);
+					
 				} else {
 					target.addStatusEffect(CHASTITY_2, 60*60*24*5); // 5 days
 				}
@@ -6668,7 +6690,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("[style.colourSex(Increasing in intensity...)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
+			return UtilText.parse(target, "[npc.Name] [npc.has] been locked in chastity for over two days now, and [npc.is] already starting to feel frustrated at not being able to have a proper orgasm...");
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -6692,7 +6714,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("[style.colourSex(Increasing in intensity...)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
+			return UtilText.parse(target, "[npc.Name] [npc.has] been locked in chastity for over a week now, and [npc.is] feeling very frustrated and pent-up at not being able to have a proper orgasm...");
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -6712,11 +6734,11 @@ public class StatusEffect {
 			"chastity4",
 			PresetColour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -50f)),
 			Util.newArrayListOfValues("[style.colourSex(Maximum intensity)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.Name] hasn't had any sexual relief for over a day now, and is feeling extremely pent-up...");
+			return UtilText.parse(target, "[npc.Name] [npc.has] been locked in chastity for over two weeks now, and [npc.is] feeling extremely frustrated and pent-up at not being able to have a proper orgasm...");
 		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
@@ -6757,10 +6779,15 @@ public class StatusEffect {
 			return UtilText.parse(target, sb.toString());
 		}
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(CHASTITY_2);
+			return "";
+		}
+		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(totalSecondsPassed==0) {
-				target.removeStatusEffect(CHASTITY_2);
-			}
+//			if(totalSecondsPassed==0) {
+//				target.removeStatusEffect(CHASTITY_2);
+//			}
 			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
 				target.removeStatusEffect(CHASTITY_REMOVED_2); // Remove this effect if orgasmed within the last day (the duration of this effect)
 			}
@@ -6803,10 +6830,15 @@ public class StatusEffect {
 			return UtilText.parse(target, sb.toString());
 		}
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(CHASTITY_3);
+			return "";
+		}
+		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(totalSecondsPassed==0) {
-				target.removeStatusEffect(CHASTITY_3);
-			}
+//			if(totalSecondsPassed==0) {
+//				target.removeStatusEffect(CHASTITY_3);
+//			}
 			if(target.getLastTimeOrgasmedSeconds()>=Main.game.getSecondsPassed()-(60*60*24)) {
 				target.removeStatusEffect(CHASTITY_REMOVED_3); // Remove this effect if orgasmed within the last day (the duration of this effect)
 			}
@@ -6836,7 +6868,7 @@ public class StatusEffect {
 			PresetColour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_LUST, -25f),
+					new Value<>(Attribute.RESISTANCE_LUST, -50f),
 					new Value<>(Attribute.RESTING_LUST, 15f)),
 			Util.newArrayListOfValues(
 					"[style.colourSex(Orgasming)] will remove this effect!")) {
@@ -8166,6 +8198,8 @@ public class StatusEffect {
 	public static AbstractStatusEffect DESPERATE_FOR_SEX = new AbstractStatusEffect(70,
 			"desperate for sex",
 			"desperateForSex",
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.ATTRIBUTE_MANA,
 			PresetColour.ATTRIBUTE_LUST,
 			false,
 			null,
@@ -8256,6 +8290,56 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target, "[npc.NameIsFull] feeling particularly vulnerable, and [npc.she] [npc.is]n't able to defend [npc.herself] to the best of [npc.her] ability.");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect POISONED = new AbstractStatusEffect(10,
+			"poisoned",
+			"combat_poisoned",
+			PresetColour.ATTRIBUTE_HEALTH,
+			false,
+			null,
+			Util.newArrayListOfValues("<b>15</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 15);
+
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!")+damageValue.getKey();
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "The poison within [npc.namePos] body is taking its toll, and [npc.sheIs] steadily losing [npc.her] strength!");
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect POISONED_LUST = new AbstractStatusEffect(10,
+			"lust-poisoned",
+			"combat_poisoned",
+			PresetColour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues(
+					"<b>5</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
+					"<b>10</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>")) {
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 5);
+			Value<String, Integer> lustDamageValue = DamageType.LUST.damageTarget(null, target, 10);
+
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!")+damageValue.getKey()
+					 + UtilText.parse(target, "<br/>[npc.Name] additionally [npc.verb(take)] <b>" + lustDamageValue.getValue() + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!")+lustDamageValue.getKey();
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "The lust poison within [npc.namePos] body is taking its toll, and [npc.sheIs] not only steadily losing [npc.her] strength, but also getting uncontrollably turned on in the process!");
 		}
 		@Override
 		public boolean isCombatEffect() {
@@ -9357,8 +9441,6 @@ public class StatusEffect {
 		}
 	};
 	
-	
-
 	public static AbstractStatusEffect POISON_VAPOURS = new AbstractStatusEffect(10,
 			"Poison Vapours",
 			null,

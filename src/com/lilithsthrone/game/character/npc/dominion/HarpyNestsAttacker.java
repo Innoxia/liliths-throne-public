@@ -71,14 +71,14 @@ public class HarpyNestsAttacker extends NPC {
 			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
 			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
 				if(entry.getKey().getRace()==Race.HARPY && Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).containsKey(entry.getKey())) {
-					AbstractSubspecies.addToSubspeciesMap((int) (100*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
+					AbstractSubspecies.addToSubspeciesMap((int) (1000*Subspecies.getWorldSpecies(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false).get(entry.getKey()).getChanceMultiplier()), gender, entry.getKey(), subspeciesMap);
 				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, subspeciesMap, true, false);
 
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), AbstractSubspecies.getFleshSubspecies(this), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, this.getGender(), this.getFleshSubspecies(), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
