@@ -434,23 +434,6 @@ public class ClothingEmporium {
 									};
 								}
 							}
-							if(getNyan().isVisiblyPregnant()) {
-								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTummyRubbed)) {
-									return new Response("Rub tummy", "You've already spent time rubbing Nyan's tummy today. You can repeat this action tomorrow.", null);
-									
-								} else {
-									return new Response("Rub tummy",
-											"Rub Nyan's pregnant tummy and ask her how she's handling her pregnancy.",
-											ROMANCE_RUB_TUMMY) {
-										@Override
-										public void effects() {
-											Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
-											Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTummyRubbed, true);
-											applyRepeatMeetingReactionUpdates();
-										}
-									};
-								}
-							}
 						}
 					}
 					
@@ -466,6 +449,26 @@ public class ClothingEmporium {
 									public void effects() {
 										Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 60, 100));
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanMakeOut, true);
+										applyRepeatMeetingReactionUpdates();
+									}
+								};
+							}
+						}
+					}
+					
+					if(index==8) {
+						if(getNyan().isVisiblyPregnant()) {
+							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTummyRubbed)) {
+								return new Response("Rub tummy", "You've already spent time rubbing Nyan's tummy today. You can repeat this action tomorrow.", null);
+								
+							} else {
+								return new Response("Rub tummy",
+										"Rub Nyan's pregnant tummy and ask her how she's handling her pregnancy.",
+										ROMANCE_RUB_TUMMY) {
+									@Override
+									public void effects() {
+										Main.game.getTextEndStringBuilder().append(incrementAffection(getNyan(), 5, 50, 60));
+										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTummyRubbed, true);
 										applyRepeatMeetingReactionUpdates();
 									}
 								};
