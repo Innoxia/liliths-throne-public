@@ -43,7 +43,7 @@ public enum AffectionLevel {
 	POSITIVE_FOUR_LOVE("love", "loves", 70, 90, PresetColour.AFFECTION_POSITIVE_FOUR),
 
 	/** 90 to 100*/
-	POSITIVE_FIVE_WORSHIP("worshipping", "worships", 90, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
+	POSITIVE_FIVE_WORSHIP("adoring", "adores", 90, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;
@@ -136,9 +136,9 @@ public enum AffectionLevel {
 				break;
 			case POSITIVE_FIVE_WORSHIP:
 				if(withColour) {
-					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(worship)]</span> [npc2.name]."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(adore)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(worship)] [npc2.name]."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(adore)] [npc2.name]."));
 				}
 				break;
 		}

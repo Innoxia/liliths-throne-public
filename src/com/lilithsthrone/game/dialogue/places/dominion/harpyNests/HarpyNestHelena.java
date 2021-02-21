@@ -102,8 +102,7 @@ public class HarpyNestHelena {
 				if(partner.getWorldLocation()==WorldType.HARPY_NEST) { // If this is a scene in the nest, Scarlett stops after cumming.
 					return super.isPartnerWantingToStopSex(partner);
 				}
-				return (Main.sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1)
-						|| Main.sex.getNumberOfOrgasms(partner)>=3;
+				return Main.sex.isSatisfiedFromOrgasms(partner, true) && (Main.sex.isOrgasmCountMet(Main.game.getPlayer(), 1, true) || Main.sex.getNumberOfOrgasms(partner)>=3);
 			}
 			@Override
 			public SexControl getSexControl(GameCharacter character) {

@@ -49,6 +49,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -234,8 +235,7 @@ public class ScarlettsShop {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettSleepoverSex)) { // If this is the morning oral scene, Scarlett stops after cumming.
 					return super.isPartnerWantingToStopSex(partner);
 				}
-				return (Main.sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1)
-						|| Main.sex.getNumberOfOrgasms(partner)>=3;
+				return Main.sex.isSatisfiedFromOrgasms(partner, true) && (Main.sex.isOrgasmCountMet(Main.game.getPlayer(), 1, true) || Main.sex.getNumberOfOrgasms(partner)>=3);
 			}
 			@Override
 			public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
@@ -374,6 +374,8 @@ public class ScarlettsShop {
 		Main.game.getNpc(Helena.class).addSlave(slave);
 		
 		BodyChanging.setTarget(slave);
+		
+		SuccubisSecrets.initCoveringsMap(slave);
 	}
 	
 	
@@ -3333,17 +3335,17 @@ public class ScarlettsShop {
 			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP"));
 
 			sb.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on a person's hands.", true, true)
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on a person's hands.", true, true)
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on person's feet.", true, true));
+							false, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on person's feet.", true, true));
 					
 			return sb.toString();
 		}

@@ -2622,7 +2622,7 @@ public class RatWarrensDialogue {
 					}
 					if(Main.game.getPlayer().hasTraitActivated(Perk.CHUUNI)
 							|| Main.game.getPlayer().getRace()==Race.DEMON
-							|| Main.game.getPlayer().getLevel()>=Main.game.getNpc(Vengar.class).getLevel()*2) {
+							|| Main.game.getPlayer().getLevel()>=35) {
 						return new Response("Threaten",
 								"Threaten Vengar, which will cause him to directly fight you without relying on his bodyguards."
 										+ "<br/>[style.italicsMinorGood(Unlocked "
@@ -2630,7 +2630,7 @@ public class RatWarrensDialogue {
 													?"due to acting like chuuni"
 													:(Main.game.getPlayer().getRace()==Race.DEMON
 														?"due to being a demon"
-														:"due to being at least twice Vengar's level"))
+														:"due to being at least level 35"))
 											+".)]",
 								VENGARS_HALL_APPROACH_THREATEN) {
 							@Override

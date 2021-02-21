@@ -10,6 +10,7 @@ public enum PropertyValue {
 	debugMode(false),
 	mapReveal(false),
 	concealedSlotsReveal(false),
+	allStickersUnlocked(false),
 	
 	enchantmentLimits(true),
 	levelDrain(true),
