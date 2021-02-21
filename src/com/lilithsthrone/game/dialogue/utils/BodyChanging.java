@@ -986,18 +986,11 @@ public class BodyChanging {
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getHairRace(),
 								BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(), "Hair colour",
-								UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair."), true, true));
+								(isDemonTFMenu()
+								?UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair.")
+								:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness [npc.her] innate powers to change the colour of [npc.her] hair."))
+						, true, true));
 
-//TODO
-/*
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(), "Hair colour",
-							(isDemonTFMenu())?(BodyChanging.getTarget().isPlayer()
-										?"You can harness the power of your demonic form to change the colour of your hair."
-										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair."))
-										:(BodyChanging.getTarget().isPlayer()?"You can harness your innate powers to change the colour of your hair."
-										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness [npc.her] innate powers to change the colour of [npc.her] hair.")), true, true));
-
-*/
 			// Slime:
 			} else {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -1184,7 +1177,7 @@ public class BodyChanging {
 										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] tongue.")),
 								true, true));
 
-			} else if(isDemonTFMenu()) {
+			} else if(isDemonTFMenu()||isSelfTFMenu()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 						+ (BodyChanging.getTarget().isPlayer()
 								?"<i>Focus your "+getPowers()+" aspects of your head and face.</i>"
@@ -1213,25 +1206,16 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
 							(getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
-						+"</div>"
-						
-						+"<div style='clear:left;'>"
+							+"</div>"
+
+							+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAntennaCountDiv()
 							+ CharacterModificationUtils.getSelfTransformAntennaePerRowCountDiv()
-						+"</div>"
-						
-						+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
-								?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getHornRace(), BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(),
-										"Horn Colour",
-									(BodyChanging.getTarget().isPlayer()
-										?"The colour of your horns."
-										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] horns.")),
-									true, true)
-								:"")
 							+"</div>"
 
 							+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
-							?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(), "Horn Colour",
+							?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getHornRace(), BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornCovering()).getType(),
+							"Horn Colour",
 							(BodyChanging.getTarget().isPlayer()
 									?"The colour of your horns."
 									:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.namePos] horns.")),
